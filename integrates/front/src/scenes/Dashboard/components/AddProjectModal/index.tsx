@@ -438,14 +438,10 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                           )}
                           <br />
                           <ButtonToolbar className={"pull-right"}>
-                            <Button
-                              bsStyle={"success"}
-                              onClick={closeNewProjectModal}
-                            >
+                            <Button onClick={closeNewProjectModal}>
                               {translate.t("confirmmodal.cancel")}
                             </Button>
                             <Button
-                              bsStyle={"success"}
                               disabled={pristine || submitting}
                               type={"submit"}
                             >

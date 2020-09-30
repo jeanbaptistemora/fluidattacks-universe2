@@ -161,7 +161,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                         validate={[alphaNumeric]}
                       />
                       <InputGroup.Button>
-                        <Button className={style.searchButton} type={"submit"}>
+                        <Button className={"bg-sb b--sb"} type={"submit"}>
                           <FluidIcon icon={"search"} />
                         </Button>
                       </InputGroup.Button>

@@ -53,7 +53,7 @@ export const EnvironmentFields: React.FC<WrappedFieldArrayProps> = (
                 // Classname used to override default bootstrap styles.
                 // eslint-disable-next-line react/forbid-component-props
                 <Col className={style.mt} md={2}>
-                  <Button bsStyle={"primary"} onClick={removeItem}>
+                  <Button onClick={removeItem}>
                     <Glyphicon glyph={"trash"} />
                   </Button>
                 </Col>

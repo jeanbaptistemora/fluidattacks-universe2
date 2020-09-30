@@ -226,7 +226,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
             <Can do="backend_api_resolvers_organization__do_update_organization_policies">
               {pristine || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar className="pull-right">
-                  <Button bsStyle="success" onClick={handleSubmit}>
+                  <Button onClick={handleSubmit}>
                     {translate.t("organization.tabs.policies.save")}
                   </Button>
                 </ButtonToolbar>

@@ -99,7 +99,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                     message={translate.t("search_findings.tab_resources.modal_trash_btn.tooltip")}
                     placement="top"
                   >
-                    <Button bsStyle="primary" onClick={removeItem}>
+                    <Button onClick={removeItem}>
                       <Glyphicon glyph="trash" />
                     </Button>
                   </TooltipWrapper>

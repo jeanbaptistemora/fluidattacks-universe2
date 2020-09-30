@@ -154,14 +154,10 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
             </Col>
           </Row>
           <ButtonToolbar className={"pull-right"}>
-            <Button bsStyle={"success"} onClick={onClose}>
+            <Button onClick={onClose}>
               {translate.t("confirmmodal.cancel")}
             </Button>
-            <Button
-              bsStyle={"success"}
-              disabled={loading || submitting}
-              type={"submit"}
-            >
+            <Button disabled={loading || submitting} type={"submit"}>
               {translate.t("confirmmodal.proceed")}
             </Button>
           </ButtonToolbar>

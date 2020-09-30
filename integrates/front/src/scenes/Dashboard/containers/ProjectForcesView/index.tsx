@@ -336,7 +336,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               >
                 <Execution {...currentRow} />
                 <ButtonToolbar className="pull-right">
-                  <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
+                  <Button onClick={closeSeeExecutionDetailsModal}>
                     {translate.t("group.forces.execution_details_modal.close")}
                   </Button>
                 </ButtonToolbar>

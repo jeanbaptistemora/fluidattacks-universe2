@@ -133,7 +133,7 @@ const RepositoryFields: React.FC<WrappedFieldArrayProps> = (
                       )}
                       placement={"top"}
                     >
-                      <Button bsStyle={"primary"} onClick={removeItem}>
+                      <Button onClick={removeItem}>
                         <Glyphicon glyph={"trash"} />
                       </Button>
                     </TooltipWrapper>

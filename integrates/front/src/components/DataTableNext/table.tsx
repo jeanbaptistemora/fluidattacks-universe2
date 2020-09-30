@@ -91,10 +91,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   <TooltipWrapper
                     message={translate.t("dataTableNext.tooltip")}
                   >
-                    <Button
-                      active={!isFilterEnabled}
-                      onClick={handleUpdateEnableFilter}
-                    >
+                    <Button onClick={handleUpdateEnableFilter}>
                       {isFilterEnabled ? (
                         <Glyphicon glyph={"minus"} />
                       ) : (

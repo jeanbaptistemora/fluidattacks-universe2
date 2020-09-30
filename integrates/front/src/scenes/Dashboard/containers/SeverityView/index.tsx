@@ -110,7 +110,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                   <Can do="backend_api_resolvers_finding__do_update_severity">
                     <Row>
                       <Col md={2} mdOffset={10}>
-                        <Button block={true} onClick={handleEditClick}>
+                        <Button onClick={handleEditClick}>
                           <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
                         </Button>
                       </Col>
@@ -163,7 +163,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                 <React.Fragment>
                                   <Row>
                                     <Col md={2} mdOffset={10}>
-                                      <Button type="submit" block={true} disabled={pristine || mutationRes.loading}>
+                                      <Button type="submit" disabled={pristine || mutationRes.loading}>
                                         <FluidIcon icon="loading" />
                                         {translate.t("search_findings.tab_severity.update")}
                                       </Button>

@@ -247,10 +247,10 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                               </Row>
                               <br />
                               <ButtonToolbar className="pull-right">
-                                <Button bsStyle="success" onClick={closeNewDraftModal}>
+                                <Button onClick={closeNewDraftModal}>
                                   {translate.t("confirmmodal.cancel")}
                                 </Button>
-                                <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
+                                <Button type="submit" disabled={pristine || submitting}>
                                   {translate.t("confirmmodal.proceed")}
                                 </Button>
                               </ButtonToolbar>

@@ -97,11 +97,7 @@ export const WelcomeView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col md={12}>
-                <Button
-                  block={true}
-                  bsStyle={"primary"}
-                  onClick={loadDashboard}
-                >
+                <Button onClick={loadDashboard}>
                   {translate.t("registration.continue_as_btn")} {userEmail}
                 </Button>
               </Col>
@@ -114,11 +110,7 @@ export const WelcomeView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col md={12}>
-                <Button
-                  block={true}
-                  bsStyle={"primary"}
-                  onClick={loadDashboard}
-                >
+                <Button onClick={loadDashboard}>
                   {translate.t("registration.continue_btn")}
                 </Button>
               </Col>

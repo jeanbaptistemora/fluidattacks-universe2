@@ -294,7 +294,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 */}
               {pristine || loadingGroupData || submittingGroupData ? undefined : (
                 <ButtonToolbar className="pull-right">
-                  <Button bsStyle="success" onClick={handleTblButtonClick}>
+                  <Button onClick={handleTblButtonClick}>
                     {translate.t("search_findings.services_table.modal.continue")}
                   </Button>
                 </ButtonToolbar>

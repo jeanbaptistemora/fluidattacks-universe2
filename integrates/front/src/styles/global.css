@@ -320,6 +320,10 @@ label {
   stroke: #FFFFFF !important;
 }
 
+:global .b--orgred {
+  border-color: #FF3435;
+}
+
 :global .b--sb,
 :global .b--sb:active,
 :global .b--sb:focus,
@@ -372,6 +376,10 @@ label {
 :global .o-bd[disabled],
 :global .o-bd[disabled]:hover {
   opacity: 1;
+}
+
+:global .orgred {
+  color: #FF3435;
 }
 
 :global .pv2-5 {

@@ -161,7 +161,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
           <Can do="backend_api_resolvers_finding__do_update_evidence">
-            <Button block={true} onClick={handleEditClick}>
+            <Button onClick={handleEditClick}>
               <FluidIcon icon="edit" />&nbsp;{translate.t("group.findings.evidence.edit")}
             </Button>
           </Can>
@@ -182,7 +182,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                 {isEditing ? (
                   <Row>
                     <Col md={2} mdOffset={10}>
-                      <Button block={true} type="submit" disabled={pristine}>
+                      <Button type="submit" disabled={pristine}>
                         <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
                       </Button>
                     </Col>

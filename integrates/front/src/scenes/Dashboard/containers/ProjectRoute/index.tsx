@@ -145,10 +145,10 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
             </Row>
             <br />
             <ButtonToolbar className="pull-right">
-              <Button bsStyle="default" onClick={closeRejectProjectModal}>
+              <Button onClick={closeRejectProjectModal}>
                 {translate.t("update_access_token.close")}
               </Button>
-              <Button bsStyle="success" disabled={submitting} onClick={handleSubmit}>
+              <Button disabled={submitting} onClick={handleSubmit}>
                 {translate.t("search_findings.tab_indicators.cancelDeletion")}
               </Button>
             </ButtonToolbar>

@@ -563,7 +563,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     <Row>
                       <Col mdOffset={5} md={4}>
                         <Button
-                          bsStyle="warning"
                           onClick={handleOpenVulnSetClick}
                           disabled={!(arraySelectedRows.length > 0)}
                         >
@@ -604,9 +603,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       <Col mdOffset={5} md={4}>
                         <Button
                           id="request_verification_vulns"
-                          bsStyle="success"
                           onClick={handleClick}
                           disabled={!(arraySelectedRows.length > 0)}
+                          type={"button"}
                         >
                           <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify.text")}
                         </Button>
@@ -631,7 +630,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     <Row>
                       <Col mdOffset={5} md={4}>
                         <Button
-                          bsStyle="success"
                           onClick={handleClick}
                           disabled={!(arraySelectedRows.length > 0)}
                         >

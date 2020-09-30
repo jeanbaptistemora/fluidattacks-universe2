@@ -47,7 +47,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
           />
         : <p>{props.description}</p>}
       {props.isRemovable === true
-        ? <Button bsStyle="success" block={true} onClick={onDelete}>
+        ? <Button onClick={onDelete}>
           <FluidIcon icon="delete" />
           &nbsp;{translate.t("search_findings.tab_evidence.remove")}
         </Button>

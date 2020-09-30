@@ -89,7 +89,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
               <Can do="backend_api_resolvers_finding__do_update_evidence">
                 <Row>
                   <Col md={2} mdOffset={10} xs={12} sm={12}>
-                    <Button block={true} onClick={handleEditClick}>
+                    <Button onClick={handleEditClick}>
                       <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_evidence.editable")}
                     </Button>
                   </Col>
@@ -127,7 +127,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                                 </FormGroup>
                               </Col>
                               <Col md={2}>
-                                <Button type="submit" block={true} disabled={pristine || updateRes.loading}>
+                                <Button type="submit" disabled={pristine || updateRes.loading}>
                                   <Glyphicon glyph="cloud-upload" />
                                   &nbsp;{translate.t("search_findings.tab_evidence.update")}
                                 </Button>
@@ -156,7 +156,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                     return (
                       <Row>
                         <Col md={2} mdOffset={10}>
-                          <Button onClick={handleRemoveClick} block={true} disabled={removeRes.loading}>
+                          <Button onClick={handleRemoveClick} disabled={removeRes.loading}>
                             <FluidIcon icon="delete" />
                             &nbsp;{translate.t("search_findings.tab_evidence.remove")}
                           </Button>

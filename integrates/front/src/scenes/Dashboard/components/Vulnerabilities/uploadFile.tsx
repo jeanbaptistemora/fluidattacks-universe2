@@ -184,7 +184,6 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
               <Row>
                 <Col md={4} sm={12}>
                   <Button
-                    bsStyle="default"
                     onClick={handleDownloadVulnerability}
                     disabled={mutationResult.loading}
                   >
@@ -205,7 +204,6 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
                 </Col>
                 <Col md={3} sm={12}>
                   <Button
-                    bsStyle={"primary"}
                     onClick={submitForm}
                     disabled={mutationResult.loading}
                   >

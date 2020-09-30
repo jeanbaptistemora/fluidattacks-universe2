@@ -132,14 +132,18 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                 <div className={styles.toolbarWrapper}>
                   <div className={styles.toolbarCentered}>
                     <ButtonToolbar block={true} justified={true}>
-                      <Button
-                        bsSize="large"
+                      <a
                         download={`charts-${entity}-${subject}.png`}
                         href={downloadPngUrl.toString()}
                       >
-                        <Glyphicon glyph="save" /> {translate.t("analytics.sections.extras.download")}
-                        <Badge>pro</Badge>
-                      </Button>
+                        <Button
+                          className={"pv3"}
+                        >
+                          <Glyphicon glyph="save" />
+                            {translate.t("analytics.sections.extras.download")}
+                          <Badge>pro</Badge>
+                        </Button>
+                      </a>
                       <DropdownButton
                         bsSize="large"
                         id="subscribe-dropdown"

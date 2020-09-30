@@ -542,10 +542,10 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 </Col>
                               </Row>
                               <ButtonToolbar className="pull-right">
-                                <Button bsStyle="success" onClick={closeNewEventModal}>
+                                <Button onClick={closeNewEventModal}>
                                   {translate.t("confirmmodal.cancel")}
                                 </Button>
-                                <Button bsStyle="success" type="submit" disabled={pristine || mtResult.loading}>
+                                <Button type="submit" disabled={pristine || mtResult.loading}>
                                   {translate.t("confirmmodal.proceed")}
                                 </Button>
                               </ButtonToolbar>

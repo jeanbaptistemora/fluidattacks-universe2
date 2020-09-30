@@ -137,7 +137,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     rows={"7"}
                     type={"text"}
                   />
-                  <Button bsStyle={"default"} onClick={handleCopy}>
+                  <Button onClick={handleCopy}>
                     {translate.t("update_access_token.copy.copy")}
                   </Button>
                 </Col>
@@ -159,21 +159,17 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
             <ButtonToolbar className={"pull-left"}>
               <br />
               {!submitSucceeded && hasAPIToken && (
-                <Button bsStyle={"default"} onClick={handleInvalidateAPIToken}>
+                <Button onClick={handleInvalidateAPIToken}>
                   {translate.t("update_access_token.invalidate")}
                 </Button>
               )}
             </ButtonToolbar>
             <ButtonToolbar className={"pull-right"}>
               <br />
-              <Button bsStyle={"default"} onClick={onClose}>
+              <Button onClick={onClose}>
                 {translate.t("update_access_token.close")}
               </Button>
-              <Button
-                bsStyle={"primary"}
-                disabled={hasAPIToken}
-                type={"submit"}
-              >
+              <Button disabled={hasAPIToken} type={"submit"}>
                 {translate.t("confirmmodal.proceed")}
               </Button>
             </ButtonToolbar>

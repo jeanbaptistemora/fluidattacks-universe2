@@ -133,10 +133,10 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                               </Col>
                             </Row>
                             <ButtonToolbar className="pull-right">
-                              <Button bsStyle="success" onClick={closeSolvingModal}>
+                              <Button onClick={closeSolvingModal}>
                                 {translate.t("confirmmodal.cancel")}
                               </Button>
-                              <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
+                              <Button type="submit" disabled={pristine || submitting}>
                                 {translate.t("confirmmodal.proceed")}
                               </Button>
                             </ButtonToolbar>

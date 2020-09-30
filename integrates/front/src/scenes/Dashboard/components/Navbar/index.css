@@ -75,22 +75,6 @@
   outline: none;
 }
 
-:local .searchButton,
-.searchButton:active,
-.searchButton:focus,
-.searchButton:hover {
-  outline: none !important;
-  background: transparent !important;
-}
-
-:local .searchButton:active {
-  box-shadow: none;
-}
-
-:local .searchButton {
-  border: none;
-}
-
 @media (min-width: 768px) {
   .container {
     margin-left: 210px;

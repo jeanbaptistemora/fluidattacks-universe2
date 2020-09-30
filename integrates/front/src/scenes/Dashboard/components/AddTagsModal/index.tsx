@@ -42,7 +42,7 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
           </Col>
           {index > 0 ? (
             <Col md={2} className={style.removeBtn}>
-              <Button bsStyle="primary" onClick={removeItem}>
+              <Button onClick={removeItem}>
                 <Glyphicon glyph="trash" />
               </Button>
             </Col>

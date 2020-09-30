@@ -39,14 +39,14 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (props: IFileOptionsM
             <br />
             {props.canRemove ? (
               <Col md={4} mdOffset={2} sm={6}>
-                <Button block={true} onClick={onDelete}>
+                <Button onClick={onDelete}>
                   <Glyphicon glyph="minus" />&nbsp;
                     {translate.t("search_findings.tab_resources.remove_repository")}
                 </Button>
               </Col>
             ) : undefined}
             <Col md={4} sm={6}>
-              <Button block={true} onClick={onDownload}>
+              <Button onClick={onDownload}>
                 <Glyphicon glyph="download-alt" />&nbsp;
                   {translate.t("search_findings.tab_resources.download")}
               </Button>
