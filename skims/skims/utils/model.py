@@ -264,7 +264,7 @@ class FindingEnum(Enum):
             "confidentialityImpact": 0.0,
             "exploitability": 0.91,
             "integrityImpact": 0.22,
-            "privilegesRequired": 0.85,
+            "privilegesRequired": 0.62,
             "remediationLevel": 1.0,
             "reportConfidence": 1.0,
             "severityScope": 0.0,
