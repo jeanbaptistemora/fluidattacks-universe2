@@ -320,7 +320,7 @@ those are who drive humanity to a superior level.
 Why not take the risk using functional Python then?
 We actually took the risk with functional Python
 and the result was one of our most awesome and acclaimed products:
-[button]#link:https://fluidattacks.com/asserts/[Asserts]#.
+[button]#link:https://fluidattacks.com/products/asserts/[Asserts]#.
 
 == Conclusions
 

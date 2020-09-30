@@ -150,7 +150,7 @@ container technology, and hyperconverged infrastructure,
 are all technologies that we often use at `Fluid Attacks`.
 We are dabbling in [inner]#link:../categories/machine-learning/[artificial intelligence]#
 in a cybersecurity approach for vulnerabilities [inner]#link:../triage-hacker/[classification]#,
-and we already [inner]#link:../../asserts/[automate]#
+and we already [inner]#link:../../products/asserts/[automate]#
 the vulnerabilities closures
 on our customers' pipelines (`CI/CD`)
 with our [inner]#link:../../services/continuous-hacking/[continuous hacking service]#.

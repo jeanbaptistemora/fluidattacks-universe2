@@ -263,7 +263,7 @@ now, with a single command
 and a few seconds we can check the variable types.
 
 We already use mypy in our product
-[button]#link:https://fluidattacks.com/asserts/[Asserts]#
+[button]#link:https://fluidattacks.com/products/asserts/[Asserts]#
 and the benefits have been questionless.
 We have even found that mypy helps directly to the documentation task,
 thanks to the fact that it is no longer necessary to write

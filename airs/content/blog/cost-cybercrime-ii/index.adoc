@@ -171,7 +171,7 @@ Our distinctiveness lies in the approaches we offer to organizations,
 comprised of [inner]#link:../../services/continuous-hacking/[continuous hacking]# and [inner]#link:../../services/one-shot-hacking/[one-shot hacking]#.
 We detect weaknesses faster, featuring a rich characterization,
 and we also make it easier for clients
-to fix those defects through [inner]#link:../../products/integrates/[Integrates]# and [inner]#link:../../asserts/[Asserts]#.
+to fix those defects through [inner]#link:../../products/integrates/[Integrates]# and [inner]#link:../../products/asserts/[Asserts]#.
 
 Did you enjoy reading this post?
 We love to hear from our readers and customers.

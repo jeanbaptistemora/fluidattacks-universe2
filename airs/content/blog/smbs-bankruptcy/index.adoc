@@ -176,7 +176,7 @@ enterprise-level systems. We can detect small changes
 that could pose risks to your business.
 We combine automated tools with the best-trained cybersecurity professionals.
 - We automate almost everything we know and do.
-Our product [inner]#link:../../asserts/[Asserts]#
+Our product [inner]#link:../../products/asserts/[Asserts]#
 allow us to evaluate the state of your systems quickly.
 - We store, describe, and track almost everything in
 #link:../../products/integrates/[Integrates]#,

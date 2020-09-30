@@ -408,9 +408,9 @@ your proprietary rights to that code.
 
 *Does Fluid Attacks have a tool that enables*::
 *automatic remediation and closing of previously confirmed vulnerabilities?*::
- Yes. link:../../asserts/[Asserts] is `Fluid Attacks'` automated engine,
+ Yes. link:../../products/asserts/[Asserts] is `Fluid Attacks'` automated engine,
  checking remediation of previously confirmed vulnerabilities.
- link:../../asserts/[Asserts] operates in the `JOB` of continuous integration.
+ link:../../products/asserts/[Asserts] operates in the `JOB` of continuous integration.
  It can break the build sent by the programmer in the event
  of a breach of security requirements.
  We have recently released link:https://gitlab.com/fluidattacks/asserts[`Asserts`]

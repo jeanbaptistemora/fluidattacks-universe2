@@ -158,7 +158,7 @@ this type of tool has during the process of vulnerability disclosure.
 It is also important to evaluate the possibility
 of integrating them
 into continuous software development
-via [inner]#link:../../asserts/[continuous integrations]#
+via [inner]#link:../../products/asserts/[continuous integrations]#
 to detect vulnerabilities in
 [inner]#link:../../services/continuous-hacking/[early stages]#
 and avoid the spread of known security issues

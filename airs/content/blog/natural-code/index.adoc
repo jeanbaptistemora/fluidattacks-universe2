@@ -152,7 +152,7 @@ If a person's writing style can be learned by _n_-gram analysis,
 the same can be true of a particular coder's style,
 or even a whole software project.
 Take for example our very own
-[inner]#link:../../asserts/[Asserts]# closure checker engine.
+[inner]#link:../../products/asserts/[Asserts]# closure checker engine.
 Not only do we stick to the `Python` guidelines when
 naming variables and methods, and separating words by underscores,
 we also have a particular way of naming functions.

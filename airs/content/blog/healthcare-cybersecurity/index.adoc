@@ -158,7 +158,7 @@ and information assets [inner]#link:../../services/one-shot-hacking/[in one shot
 Again, we rely on _"smart"_ checklists.
 
 * We automate almost everything we already know.
-[inner]#link:../../asserts/[Asserts]# is the product we have to assess
+[inner]#link:../../products/asserts/[Asserts]# is the product we have to assess
 how customers' systems are, quickly.
 It is like using a smart checklist,
 fed by all of our knowledge and experience.

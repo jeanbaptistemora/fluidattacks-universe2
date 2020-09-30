@@ -157,7 +157,7 @@ All this on a clean and understandable code
 even for the freshmen in the deep waters of coding.
 Don't you believe us?
 Check it out for yourself in one of our flagship products:
-[button]#link:https://fluidattacks.com/asserts/[Asserts]#.
+[button]#link:https://fluidattacks.com/products/asserts/[Asserts]#.
 
 == Functional in non-functionals
 
