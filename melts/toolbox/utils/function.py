@@ -48,6 +48,7 @@ def shield(
         BaseException,
         RetryAndFinallyReturn,
     ),
+    on_retry: Callable = None,
     retries: int = 1,
     sleep_between_retries: int = 0
 ) -> Callable[[TFun], TFun]:
@@ -79,7 +80,8 @@ def shield(
 
                     log('info', 'retry #%s: %s', number, function_id)
                     sleep(sleep_between_retries)
-
+                    if number == 1 and on_retry:
+                        on_retry()
         return cast(TFun, wrapper)
 
     return decorator
