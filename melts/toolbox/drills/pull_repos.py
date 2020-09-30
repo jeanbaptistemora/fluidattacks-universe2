@@ -53,10 +53,11 @@ def delete_out_of_scope_files(group: str) -> bool:
 
     for path in non_matching_files_iterator:
         path = os.path.join(path_to_fusion, path)
-        if os.path.isfile(path):
-            os.unlink(path)
-        elif os.path.isdir(path):
-            os.removedirs(path)
+        if '.git' not in path:
+            if os.path.isfile(path):
+                os.unlink(path)
+            elif os.path.isdir(path):
+                os.removedirs(path)
 
     return notify_out_of_scope(include_regexps, exclude_regexps)
 
