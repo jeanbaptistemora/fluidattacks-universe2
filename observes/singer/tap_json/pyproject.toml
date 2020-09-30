@@ -19,6 +19,7 @@ packages = [{ include = "tap_json", from = "." }]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+dateutils = "0.6.11"
 
 [tool.poetry.dev-dependencies]
 

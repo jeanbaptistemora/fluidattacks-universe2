@@ -19,7 +19,7 @@ from aioextensions import in_thread
 from aiomultiprocess import Pool
 
 # Local imports
-from .logs import LOGGER
+from streamer_dynamodb.logs import LOGGER
 
 # Constants
 CLIENT_CONFIG = botocore.config.Config(max_pool_connections=50)
@@ -114,17 +114,13 @@ def deserialize(object_: Any) -> Any:
     if isinstance(object_, Decimal):
         object_ = float(object_)
     elif isinstance(object_, dict):
-        for key, value in object_.items():
-            object_[key] = deserialize(value)
+        object_ = {key: deserialize(value) for key, value in object_.items()}
     elif isinstance(object_, (list)):
-        for value in object_:
-            value = deserialize(value)
+        object_ = [deserialize(value) for value in object_]
     elif isinstance(object_, set):
-        object_ = list(object_)
-        object_ = deserialize(object_)
+        object_ = [deserialize(value) for value in object_]
     elif isinstance(object_, tuple):
-        object_ = list(object_)
-        object_ = deserialize(object_)
+        object_ = [deserialize(value) for value in object_]
     else:
         return object_
     return object_

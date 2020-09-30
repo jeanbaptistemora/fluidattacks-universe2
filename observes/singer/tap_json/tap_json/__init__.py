@@ -4,7 +4,6 @@ import io
 import re
 import os
 import sys
-import datetime
 import argparse
 import threading
 import contextlib
@@ -21,6 +20,9 @@ from typing import (
     Any,
     Optional,
 )
+
+from dateutil.parser import parse as date_parser
+from dateutil.parser._parser import ParserError
 
 # type aliases that improve clarity
 JSON = Any
@@ -96,20 +98,12 @@ def clean_str(stru: str) -> str:
 def to_date(date_time: Any) -> Any:
     """Manipulate a date to provide a RFC339 compatible date."""
     if ENABLE_TIMESTAMPS and is_timestamp(date_time):
-        with contextlib.suppress(ValueError):
-            date_stru = datetime.datetime.utcfromtimestamp(date_time)
-            date_time = date_stru.strftime("%Y-%m-%dT%H:%M:%SZ")
-            return date_time
+        with contextlib.suppress(ParserError):
+            return date_parser(str(date_time)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     if is_str(date_time):
-        date_time = re.sub(r"\s+", r" ", date_time)
-        date_time = date_time.strip(" ")
-
-        for date_format in DATE_FORMATS:
-            with contextlib.suppress(ValueError):
-                date_stru = datetime.datetime.strptime(date_time, date_format)
-                date_time = date_stru.strftime("%Y-%m-%dT%H:%M:%SZ")
-                return date_time
+        with contextlib.suppress(ParserError):
+            return date_parser(date_time).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     return False
 
