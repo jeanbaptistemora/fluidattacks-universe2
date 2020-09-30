@@ -1,0 +1,16 @@
+:slug: products/rules/findings/120/
+:description: This finding presents information about vulnerabilities arising from improperly constraining dependency versions.
+:keywords: Dependency, Version, Pinning, Explicit, Library, Application, Finding
+:findings: yes
+:type: hygiene
+
+= F120. Improper dependency pinning
+
+== Description
+
+The application does not make explicit the version of the libraries on which
+it depends.
+
+== Rules
+
+. [[r1]] [inner]#link:/products/rules/list/302/[R302. Declare dependencies explicitly]#

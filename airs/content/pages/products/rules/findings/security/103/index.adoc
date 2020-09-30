@@ -1,0 +1,22 @@
+:slug: products/rules/findings/103/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not properly verifying data authenticity, recommendations to avoid them and related security requirements.
+:keywords: Data, Information, Insufficient, Validation, Authenticity, Verification
+:findings: yes
+:type: security
+
+= F103. Insufficient data authenticity validation
+
+== Description
+
+The system does not properly verify the origin or authenticity of the data it
+receives, thus it accepts invalid data.
+
+== Rules
+
+. [[r1]] [inner]#link:/products/rules/list/122/[R122. Validate email ownership]#
+
+. [[r2]] [inner]#link:/products/rules/list/173/[R173. Discard unsafe inputs]#
+
+. [[r3]] [inner]#link:/products/rules/list/178/[R178. Use digital signatures]#
+
+. [[r4]] [inner]#link:/products/rules/list/320/[R320. Avoid client-side control enforcement]#

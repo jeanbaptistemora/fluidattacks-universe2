@@ -1,0 +1,19 @@
+:slug: products/rules/findings/028/
+:description: This finding presents information about vulnerabilities arising from storing credentials in temporary files or cache memory.
+:keywords: Administrative, Credential, Cache, Memory, Obtain, System
+:findings: yes
+:type: security
+
+= F028. Insecure temporary files
+
+== Description
+
+The system uses temporary files to store sensitive information.
+Alternatively, the system deploys sensitive temporary files to the production
+environment.
+
+== Rules
+
+. [[r1]] [inner]#link:/products/rules/list/036/[R036. Do not deploy temporary files]#
+
+. [[r2]] [inner]#link:/products/rules/list/177/[R177. Avoid caching and temporary files]#

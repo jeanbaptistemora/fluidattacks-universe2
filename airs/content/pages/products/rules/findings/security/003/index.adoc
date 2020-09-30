@@ -1,0 +1,20 @@
+:slug: products/rules/findings/003/
+:description: This finding presents information about symmetric denial-of-service attacks.
+:keywords: Symmetric, DoS, Denial of Service, Server, Response Time, Resource Consumption
+:findings: yes
+:type: security
+
+= F003. Symmetric denial of service
+
+== Description
+
+The server is rendered unresponsive by successively repeating a request which
+consumes a lot of resources or takes too long to be processed.
+
+== Rules
+
+. [[r1]] [inner]#link:/products/rules/list/072/[R072. Set maximum response time]#
+
+. [[r2]] [inner]#link:/products/rules/list/237/[R237. Ascertain human interaction]#
+
+. [[r3]] [inner]#link:/products/rules/list/327/[R327. Set rate limit]#

@@ -56,6 +56,18 @@
           </li>
           {% if page.findingsindex %}
           <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/products/">
+              Products
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/products/rules/">Rules</a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
             <a class="white hover-white no-underline"
                 href=".">Findings</a>
           </li>
@@ -159,7 +171,7 @@
         <ul class="pl4">
            <li>
              <a class="f4"
-                href="../{{ fin.slug }}">
+                href="{{ SITEURL }}/{{ fin.slug }}">
                 {{ fin.title }}
              </a><br>
            </li>
