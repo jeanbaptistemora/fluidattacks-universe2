@@ -1,0 +1,12 @@
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --option restrict-eval false
+#!   nix-shell --option sandbox false
+#!   nix-shell --show-trace
+#!   nix-shell observes.nix
+#  shellcheck shell=bash
+
+export PYTHONPATH="${pyPkgTargetRedshift}/site-packages/:${PYTHONPATH}"
+export PATH="${pyPkgTargetRedshift}/site-packages/bin/:${PATH}"
+
+"${pyPkgTargetRedshift}/site-packages/bin/target-redshift" "$@"

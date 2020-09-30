@@ -7,7 +7,6 @@
 #  shellcheck shell=bash
 
 export PYTHONPATH="${pyPkgTapJson}/site-packages/:${PYTHONPATH}"
-export PYTHONPATH="${pyPkgTargetRedshift}/site-packages/:${PYTHONPATH}"
-
 export PATH="${pyPkgTapJson}/site-packages/bin/:${PATH}"
-export PATH="${pyPkgTargetRedshift}/site-packages/bin/:${PATH}"
+
+"${pyPkgTapJson}/site-packages/bin/tap-json" "$@"
