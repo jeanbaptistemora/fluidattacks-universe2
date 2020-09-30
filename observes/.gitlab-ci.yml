@@ -191,6 +191,15 @@ observes_code_compute_bills:
   tags: [autoscaling]
   interruptible: false
 
+observes_batch_stability:
+  <<: *with_nix_serial
+  only:
+    refs: [schedules]
+    variables: [$observes_batch_stability]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
 observes_timedoctor_refresh_token:
   <<: *with_nix
   stage: analytics

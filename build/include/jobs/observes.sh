@@ -146,6 +146,12 @@ function job_observes_code_upload_group {
 
 }
 
+function job_observes_batch_stability {
+      env_prepare_python_packages \
+  &&  helper_observes_aws_login prod \
+  &&  python3 observes/batch/stability.py
+}
+
 function job_observes_code_upload_group_on_aws {
   local group="${1}"
   local vcpus='1'
