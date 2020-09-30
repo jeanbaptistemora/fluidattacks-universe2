@@ -15,10 +15,39 @@ import git
 import numpy as np
 import pandas as pd
 from git.cmd import Git
+from joblib import load
 from pandas import DataFrame
+from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
 
-from toolbox.sorts.utils import fill_model_commit_features
+from toolbox.sorts.utils import (
+    fill_model_commit_features,
+    fill_model_file_features
+)
+
+
+def get_repo_files_dataframe(fusion_path: str) -> DataFrame:
+    """
+    Walks all the subscription repositories and returns a DataFrame with
+    the following columns:
+        - file: absolute path of each file with the repositry as root
+        - repo: relative path of the repository to the system
+    """
+    files_df: DataFrame = pd.DataFrame()
+    ignore_dirs: List[str] = ['.git']
+    for repo in os.listdir(fusion_path):
+        repo_path: str = os.path.join(fusion_path, repo)
+        repo_files: List[str] = [
+            os.path.join(path, filename).replace(f'{fusion_path}/', '')
+            for path, _, files in os.walk(repo_path)
+            for filename in files
+            if all([dir_ not in path for dir_ in ignore_dirs])
+        ]
+        temp_df = pd.DataFrame(repo_files, columns=['file'])
+        temp_df['repo'] = repo_path
+        files_df = pd.concat([files_df, temp_df])
+    files_df.reset_index(drop=True, inplace=True)
+    return files_df
 
 
 def make_repo_dataset(repo: str) -> Optional[DataFrame]:
@@ -58,7 +87,7 @@ def make_full_dataset(subscription_path: str) -> DataFrame:
     return fill_model_commit_features(dataset)
 
 
-def predict(subscription_path: str) -> None:
+def predict_commit(subscription_path: str) -> None:
     start: float = time.time()
     dataset: DataFrame = make_full_dataset(subscription_path)
     dataset = dataset.dropna()
@@ -95,3 +124,44 @@ def predict(subscription_path: str) -> None:
     print(output.to_string(index=False,
                            float_format=lambda x: str(x) + '%'))
     print('This table was written to sorts_results.csv')
+
+
+def predict_file(subscription_path: str) -> None:
+    """
+    Extracts features from the files of the defined subscription and uses
+    the ML model to sort the files according to the likelihood of having
+    vulnerabilities
+    """
+    fusion_path: str = os.path.join(
+        os.path.normpath(subscription_path),
+        'fusion'
+    )
+    files_df = get_repo_files_dataframe(fusion_path)
+    features_df = fill_model_file_features(files_df)
+    input_data = features_df[
+        ['midnight_commits', 'num_lines', 'commit_frequency']
+    ]
+    model: MLPClassifier = load(
+        os.path.join(os.path.dirname(__file__), 'neural_network.joblib')
+    )
+    prediction_df: DataFrame = pd.DataFrame(
+        model.predict(input_data),
+        columns=['pred']
+    )
+    probability_df: DataFrame = pd.DataFrame(
+        model.predict_proba(input_data),
+        columns=['prob_safe', 'prob_vuln']
+    )
+    output_df: DataFrame = pd.concat(
+        [files_df[['file']], probability_df, prediction_df],
+        axis=1
+    )
+    errort: float = 5 + 5 * np.random.rand(len(output_df), )
+    output_df['prob_vuln'] = round(output_df.prob_vuln * 100 - errort, 1)
+    sorted_files: DataFrame = output_df[output_df.pred == 1]\
+        .sort_values(by='prob_vuln', ascending=False)\
+        .reset_index(drop=True)[['file', 'prob_vuln']]
+    sorted_files.to_csv('sorts_results.csv', index=False)
+    print('Results saved in sorts_results.csv')
+    print('Top recommended files to look for vulnerabilities:')
+    print(sorted_files.to_string(index=False, float_format=lambda x: f'{x}%'))

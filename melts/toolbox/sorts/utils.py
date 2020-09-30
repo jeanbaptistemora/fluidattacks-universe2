@@ -124,7 +124,10 @@ def fill_model_file_features(base_df: DataFrame) -> DataFrame:
     Based on these columns, it extracts file-related features and adds them
     to the DataFrame
     """
-    print('Extracting model file features...')
+    print(
+        'Extracting model file features...\n'
+        'This could take some time depending on the size of the repository...'
+    )
     timer: float = time.time()
     features_df: DataFrame = pd.DataFrame()
     features_df[[
