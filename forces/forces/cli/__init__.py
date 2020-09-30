@@ -148,7 +148,6 @@ def main(token: str,  # pylint: disable=too-many-arguments
             repo_name=repo_name,
         ))
 
-    blocking_log('info', 'Success: %s', result == 0)
     sys.exit(result)
 
 

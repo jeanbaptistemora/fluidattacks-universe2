@@ -59,7 +59,8 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         if report['summary']['open']['total'] > 0:
             exit_code = 1
     execution_id = str(uuid.uuid4()).replace('-', '')
-    await upload_report(
+    await log('info', 'Success execution: %s', exit_code == 0)
+    success_upload = await upload_report(
         project=group,
         execution_id=execution_id,
         exit_code=str(exit_code),
@@ -69,4 +70,5 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         git_metadata=metadata,
         kind=kwargs.get('kind', 'all'),
     )
+    await log('info', 'Success upload metadata execution: %s', success_upload)
     return exit_code
