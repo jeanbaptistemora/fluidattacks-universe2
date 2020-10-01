@@ -1,22 +1,21 @@
 # Standard
-from typing import Dict
+from typing import cast
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz, util
+from backend import authz
 from backend.exceptions import InvalidParameter
 from backend.typing import Me
 
 
 async def resolve(
-    _parent: Me,
-    info: GraphQLResolveInfo,
+    parent: Me,
+    _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> str:
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
-    user_email: str = user_data['user_email']
+    user_email: str = cast(str, parent['user_email'])
 
     entity: str = kwargs['entity']
     identifier: str = kwargs.get('identifier', '')

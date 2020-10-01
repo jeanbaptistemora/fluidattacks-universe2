@@ -1,13 +1,13 @@
 # Standard
 import logging
 from logging import Logger
-from typing import Dict, Set
+from typing import cast, Set
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz, util
+from backend import authz
 from backend.exceptions import InvalidParameter
 from backend.typing import Me
 from fluidintegrates.settings import LOGGING
@@ -44,12 +44,11 @@ async def _get_permissions(
 
 
 async def resolve(
-    _parent: Me,
-    info: GraphQLResolveInfo,
+    parent: Me,
+    _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Set[str]:
-    user_info: Dict[str, str] = await util.get_jwt_content(info.context)
-    user_email: str = user_info['user_email']
+    user_email: str = cast(str, parent['user_email'])
 
     entity: str = kwargs['entity']
     identifier: str = kwargs.get('identifier', '')

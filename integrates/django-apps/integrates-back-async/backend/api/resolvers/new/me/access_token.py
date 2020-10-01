@@ -6,18 +6,16 @@ from typing import cast, Dict, Optional
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.domain import user as user_domain
 from backend.typing import Me
 
 
 async def resolve(
-    _parent: Me,
-    info: GraphQLResolveInfo,
+    parent: Me,
+    _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> str:
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
-    user_email: str = user_data['user_email']
+    user_email: str = cast(str, parent['user_email'])
     access_token: Optional[Dict[str, str]] = cast(
         Optional[Dict[str, str]],
         await user_domain.get_data(

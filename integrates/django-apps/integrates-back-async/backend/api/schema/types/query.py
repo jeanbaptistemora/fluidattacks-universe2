@@ -10,7 +10,6 @@ from backend.api.resolvers import (
     finding,
     forces,
     internal_names,
-    me,
     project,
     report,
     resource,
@@ -20,6 +19,7 @@ from backend.api.resolvers import (
 )
 from backend.api.resolvers.new.query import (
     groups,
+    me,
     organization,
     organization_id,
 )
@@ -31,7 +31,7 @@ QUERY = QueryType()
 QUERY.set_field('internalNames', internal_names.resolve_project_name)
 QUERY.set_field('event', event.resolve_event)
 QUERY.set_field('events', event.resolve_events)
-QUERY.set_field('me', me.resolve_me)
+QUERY.set_field('me', me.resolve)
 QUERY.set_field('resources', resource.resolve_resources)
 QUERY.set_field('stakeholder', user.resolve_user)
 QUERY.set_field('forcesExecution', forces.resolve_forces_execution)

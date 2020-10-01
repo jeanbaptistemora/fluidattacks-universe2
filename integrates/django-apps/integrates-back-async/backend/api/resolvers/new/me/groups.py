@@ -6,7 +6,6 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.api.resolvers import project as old_resolver
 from backend.domain import user as user_domain
 from backend.typing import Me, Project as Group
@@ -14,12 +13,11 @@ from backend.utils import aio
 
 
 async def resolve(
-    _parent: Me,
+    parent: Me,
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Group]:
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
-    user_email: str = user_data['user_email']
+    user_email: str = cast(str, parent['user_email'])
     user_groups: List[str] = await user_domain.get_projects(user_email)
 
     group_loader: DataLoader = info.context.loaders['group']
