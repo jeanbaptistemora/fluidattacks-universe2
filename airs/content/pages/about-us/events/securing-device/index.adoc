@@ -10,16 +10,15 @@
 == 1. Objective
 
 This talk was designed to show the risks
-related with the information stored on your Smartphone.
+related to the information stored on your Smartphone.
 
 == 2. Content
 
-During the speech,
-we will address a set of information risks
+We address a set of information risks
 related to the use of smartphones
-in a way that each assistant can understand them,
-realize their implications
-and know the necessary controls to mitigate the risks.
+in a way that allows each participant to understand them,
+realize their implications and know the necessary controls
+to mitigate the risks.
 
 == 3. Experience
 
@@ -34,27 +33,26 @@ link:http://www.tuya.com.co/[Tuya] and link:http://www.celsia.com/[Celsia].
 The presentation can be hosted
 at your company's facilities or an external venue.
 
-The talk can be scheduled in Medellín, for a minimum audience of `10` assistants
-For other cities of Colombia, Central America, Ecuador and Perú,
-the minimum audience is `20` assistants.
+The talk can be scheduled in Medellín, for a minimum audience of `10` people.
+For other cities in Colombia and Latin America
+the minimum audience is `20` participants.
 
 == 5. Duration
 
-The conference has a duration of `2` hours.
-(Duration may vary between 1½ hours and 2½ hours)
+The conference has a duration of approximately `2` hours.
+(Duration may vary between 1½ and 2½ hours.)
 
 == 6. When?
 
 [button]#link:../#when[When]#
 
-== 7. Public
+== 7. Audience
 
 The conference is suitable for people
 with basic or low technical knowledge, ideally smartphone users.
-The maximum number of assistants is `30`.
+The maximum number of participants is `30`.
 
 == 8. Speaker
 
-Licenciate in Education, with `15` years of experience.
-`Fluid Attacks` Co-founder.
-Information Security Systems Auditor.
+Licensed in Education, with `15` years of experience.
+`Fluid Attacks` Co-founder. Information Security Systems Auditor.

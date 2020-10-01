@@ -25,8 +25,8 @@ Let's explore what we can do together.
 == When?
 
 You choose `3` possible dates
-for your event that will work the best for you.
-We will then select `1` of those dates
+for your event that would work best for you.
+We then select `1` of those dates
 and confirm that date with you.
 
 == Details
@@ -35,13 +35,14 @@ and confirm that date with you.
 and the registration fees for conference attendees.
 `Fluid Attacks` will cover all other conference-related expenses.
 However, we do require approximately `20` registered attendees
-for a conference to proceed.
+for a conference to take place.
 If you are unable to provide at least `20` attendees,
-then call us immediately.
-We can obtain up to 4 additional conference attendees for you,
-but you will be billed to cover their registration fees.
+then please call us immediately.
+We can secure up to 4 conference attendees for you
+in order to help you reach the minimum requirement,
+but you will need to cover their registration fees.
 
-. *Event Materials:* Conference attendees
-who complete the customer satisfaction survey
-within `1` day after the conference ends
+. *Event materials:* Attendees who complete
+the customer satisfaction survey
+within `1` day after the event
 will be sent all conference materials.
