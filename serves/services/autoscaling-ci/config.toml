@@ -51,7 +51,7 @@ check_interval = 20
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
       "amazonec2-security-group=AutoscalingCISG",
-      "amazonec2-ami=ami-075b5fce6712726ed",
+      "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=t2.medium",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=65"
@@ -112,7 +112,7 @@ check_interval = 20
       "amazonec2-use-private-address=true",
       "amazonec2-use-ebs-optimized-instance=true",
       "amazonec2-security-group=AutoscalingCISG",
-      "amazonec2-ami=ami-075b5fce6712726ed",
+      "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=m5a.large",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=60"
@@ -172,7 +172,7 @@ check_interval = 20
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
       "amazonec2-security-group=AutoscalingCISG",
-      "amazonec2-ami=ami-075b5fce6712726ed",
+      "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=t2.medium",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=100"
@@ -225,13 +225,13 @@ check_interval = 20
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
       "amazonec2-security-group=AutoscalingCISG",
-      "amazonec2-ami=ami-075b5fce6712726ed",
+      "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=t2.medium",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=60"
     ]
     OffPeakPeriods = [
-      "* * 0-6,18-23 * * mon-fri *",
+      "* * 0-6,20-23 * * mon-fri *",
       "* * * * * sat,sun *"
     ]
     OffPeakTimezone = "America/Bogota"
