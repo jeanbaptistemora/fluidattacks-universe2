@@ -1,0 +1,32 @@
+[build-system]
+requires = [
+  "poetry==1.1.0"
+]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+authors = [
+  "Product Team <development@fluidattacks.com>",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+  "Topic :: Security",
+]
+description = "Tool that prioritizes files of a git repository according to the likelihood of them having a vulnerability"
+license = "MPL-2.0"
+name = "sorts"
+readme = "./README.md"
+repository = "https://gitlab.com/fluidattacks/product/-/tree/master/sorts"
+version = "1.0.0"
+
+[tool.poetry.dependencies]
+GitPython = "3.1.9"
+joblib = "0.16.0"
+mypy_extensions = "0.4.3"
+numpy = "1.19.2"
+pandas = "1.1.2"
+PyDriller = "1.15.2"
+pytz = "2020.1"
+scikit-learn = "0.23.2"
