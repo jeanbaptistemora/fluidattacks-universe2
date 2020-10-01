@@ -7,6 +7,7 @@ import sys
 from toolbox.drills import (
     take_group_snapshot,
 )
+from toolbox.utils.function import shield
 
 UNIQ = "----"
 UNIQ_L = len(UNIQ)
@@ -99,6 +100,7 @@ def alter_state__aux(row, state, cache, writer):
     return state, cache
 
 
+@shield(on_error_return=False)
 def main(subs: str):
     init_dir: str = os.getcwd()
 

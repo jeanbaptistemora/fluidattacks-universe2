@@ -5,8 +5,10 @@ from datetime import datetime
 
 # Local libraries
 from toolbox.drills import generic as drills_generic
+from toolbox.utils.function import shield
 
 
+@shield(on_error_return=False)
 def main():
     '''
     Print all repositories that:

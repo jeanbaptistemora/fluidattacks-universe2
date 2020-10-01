@@ -5,6 +5,7 @@ from textwrap import dedent
 
 # Local libraries
 from toolbox import logger
+from toolbox.utils.function import shield
 
 
 class Objective:
@@ -86,6 +87,7 @@ def get_scope(lines: Objective, inputs: Objective) -> str:
     return scope
 
 
+@shield(on_error_return=False)
 def main(subs: str) -> bool:
     lines: Objective = process_lines_csv(subs)
     inputs: Objective = process_inputs_csv(subs)

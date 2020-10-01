@@ -6,6 +6,7 @@ from typing import List
 # Local libraries
 from toolbox import logger
 from toolbox.utils import generic
+from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 
 def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
@@ -147,6 +148,7 @@ def s3_sync_fusion_to_s3(
     return True
 
 
+@shield(retries=1)
 def main(
         subs: str,
         bucket: str = 'continuous-repositories',
@@ -180,4 +182,8 @@ def main(
     else:
         logger.error('Either the subs or the fusion folder does not exist')
         passed = False
+
+    if not passed:
+        raise RetryAndFinallyReturn(passed)
+
     return passed

@@ -5,8 +5,10 @@ from toolbox.utils import generic
 
 # Local libraries
 from toolbox import logger
+from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 
+@shield(retries=1)
 def main(subs: str) -> bool:
     """Use subs vpn"""
     success: bool = True
@@ -41,4 +43,7 @@ def main(subs: str) -> bool:
                 f'./{config_file}.sh',
                 shell=True
             )
+
+    if not success:
+        raise RetryAndFinallyReturn()
     return success

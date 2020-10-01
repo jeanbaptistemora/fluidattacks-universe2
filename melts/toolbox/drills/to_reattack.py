@@ -8,7 +8,7 @@ from dateutil.relativedelta import relativedelta
 # Local libraries
 from toolbox import api
 from toolbox.constants import API_TOKEN
-
+from toolbox.utils.function import shield
 
 BASE_URL: str = 'https://integrates.fluidattacks.com/dashboard#!/project'
 
@@ -224,6 +224,7 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
     return projects_info
 
 
+@shield(on_error_return=False)
 def main(with_exp: bool, group: str = 'all'):
     """
     Print all non-verified findings and their exploits

@@ -13,8 +13,6 @@ from toolbox import (
     utils,
 )
 
-SHIELD = shield(retries=1)
-
 
 def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
     logger.info('Please remember the scope:')
@@ -135,7 +133,7 @@ def pull_repos_s3_to_fusion(subs: str,
     return True
 
 
-@SHIELD
+@shield(retries=1)
 def main(subs: str, repository_name: str = 'all') -> bool:
     '''
     Clone all repos for a group
