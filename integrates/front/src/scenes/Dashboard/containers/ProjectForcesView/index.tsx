@@ -295,7 +295,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                       vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
                   };
               const status: string = translate.t(
-                foundVulnerabilities.total === 0
+                ("open" in foundVulnerabilities
+                  ? foundVulnerabilities.open === 0
+                  : foundVulnerabilities.exploitable === 0)
                   ? "group.forces.status.secure"
                   : "group.forces.status.vulnerable");
 
