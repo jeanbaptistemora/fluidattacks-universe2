@@ -74,72 +74,17 @@ function helper_serves_terraform_output {
   || return 1
 }
 
-function helper_serves_infra_dns_get_load_balancer {
-  export TF_VAR_elbDns
-  export TF_VAR_elbZone
-  local elbs_info
-  local elbs_names
-  local tags
-  local jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")'
-
-      elbs_info="$(mktemp)" \
-  &&  aws elb --region 'us-east-1' describe-load-balancers \
-        > "${elbs_info}" \
-  &&  elbs_names=$( \
-        jq -r '.LoadBalancerDescriptions[].LoadBalancerName' "${elbs_info}") \
-  &&  {
-        for name in ${elbs_names}; do
-              tags="$(mktemp)" \
-          &&  aws elb --region 'us-east-1' describe-tags \
-                --load-balancer-names "${name}" > "${tags}" \
-          &&  if jq -e "${jq_query}" "${tags}"; then
-                    TF_VAR_elbDns=$( \
-                      jq -r ".LoadBalancerDescriptions[] \
-                        | select(.LoadBalancerName == \"${name}\") \
-                          | .DNSName" "${elbs_info}") \
-                &&  TF_VAR_elbZone=$( \
-                      jq -r ".LoadBalancerDescriptions[] \
-                        | select(.LoadBalancerName == \"${name}\") \
-                          | .CanonicalHostedZoneNameID" "${elbs_info}")
-              fi
-        done || (
-          echo "[ERROR] No nginx production load balancer was found"
-          return 1
-        )
-      }
-}
-
 function helper_serves_infra_monolith {
-  local helm_home
   local first_argument="${1}"
 
       helper_serves_aws_login development \
-  &&  pushd infrastructure/ || return 1 \
+  &&  pushd infrastructure/ \
     &&  helper_common_terraform_plan . \
     &&  if [ "${first_argument}" == "deploy" ]; then
               helper_serves_aws_login production \
-          &&  aws eks update-kubeconfig \
-                --name 'FluidServes' --region 'us-east-1' \
-          &&  kubectl config \
-                set-context "$(kubectl config current-context)" --namespace 'serves' \
-          &&  helper_common_terraform_apply . \
-          &&  helper_common_sops_env ../secret-management/production.yaml default \
-                FLUIDATTACKS_TLS_CERT \
-                FLUID_TLS_KEY \
-                HELM_CA \
-                HELM_CERT \
-                HELM_KEY \
-                NRIA_LICENSE_KEY \
-                TILLER_CERT \
-                TILLER_KEY \
-          &&  helm_home="$(helm home)" \
-          &&  mkdir -p "${helm_home}" \
-          &&  base64 -d > "${helm_home}/key.pem"  <<< "${HELM_KEY}" \
-          &&  base64 -d > "${helm_home}/cert.pem" <<< "${HELM_CERT}" \
-          &&  base64 -d > "${helm_home}/ca.pem"   <<< "${HELM_CA}" \
-          &&  eks/manifests/deploy.sh
+          &&  helper_common_terraform_apply .
         fi \
-  &&  popd || return 1 \
+  &&  popd \
   || return 1
 }
 

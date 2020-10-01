@@ -23,7 +23,6 @@ function job_serves_test_infra_dns {
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_cloudflare_login development \
-    &&  helper_serves_infra_dns_get_load_balancer \
     &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
@@ -34,11 +33,9 @@ function job_serves_apply_infra_dns {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login production \
-  &&  helper_serves_cloudflare_login production \
-  &&  helper_serves_infra_dns_get_load_balancer \
-  &&  helper_common_terraform_apply \
-        "${target}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_cloudflare_login production \
+    &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   ||  return 1
 }
