@@ -58,7 +58,7 @@ function decide_and_call_provisioner {
 check_nix_version
 if decide_and_call_provisioner "${@}"
 then
-  decide_and_call_provisioner common_bugsnag_report "passed" "${@}" &>/dev/null
+  decide_and_call_provisioner common_bugsnag_report "passed" "${@}" &>/dev/null || true
 else
   decide_and_call_provisioner common_bugsnag_report "failed" "${@}" &>/dev/null
 fi
