@@ -1,4 +1,4 @@
-resource "aws_route53_record" "web-ephemeral-alias" {
+resource "aws_route53_record" "fluidattacks_com" {
   zone_id = data.aws_route53_zone.fluidattacks.id
   name    = "fluidattacks.com"
   type    = "A"
