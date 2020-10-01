@@ -2,14 +2,13 @@ import asyncio
 import json
 import logging
 import sys
-from typing import Dict, List, Set, Any, cast, Union
+from typing import Dict, List, Any, cast
 
 from aioextensions import (
     in_thread,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
-    convert_camel_case_to_snake
 )
 from django.conf import settings
 from jose import jwt
@@ -24,14 +23,11 @@ from backend.api.resolvers import (
 )
 from backend.decorators import require_login
 from backend.domain import (
-    organization as org_domain,
     subscriptions as subscriptions_domain,
-    tag as tag_domain,
     user as user_domain,
 )
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
-    Me as MeType,
     Project as ProjectType,
     SignInPayload as SignInPayloadType,
     SimplePayload as SimplePayloadType,
@@ -97,163 +93,6 @@ async def _get_access_token(_: GraphQLResolveInfo, user_email: str) -> str:
         else ''
     }
     return json.dumps(access_token_dict)
-
-
-async def _get_remember(_: GraphQLResolveInfo, user_email: str) -> bool:
-    """Get remember preference."""
-    remember = await user_domain.get_data(
-        user_email, 'legal_remember'
-    )
-    return bool(remember)
-
-
-async def _get_subscriptions_to_entity_report(
-    _: GraphQLResolveInfo,
-    user_email: str,
-) -> List[Dict[str, str]]:
-    return await subscriptions_domain.get_user_subscriptions_to_entity_report(
-        user_email=user_email,
-    )
-
-
-async def _get_permissions(
-        _: GraphQLResolveInfo,
-        user_email: str,
-        entity: str = 'USER',
-        identifier: str = '',
-        project_name: str = '',
-        with_cache: bool = True) -> Set[str]:
-    """Get the actions the user is allowed to perform."""
-    if project_name or (entity == 'PROJECT' and identifier):
-        group_name = project_name or identifier
-        permissions = await authz.get_group_level_actions(
-            user_email, group_name, with_cache
-        )
-    elif entity == 'ORGANIZATION' and identifier:
-        organization_id = identifier
-        permissions = await authz.get_organization_level_actions(
-            user_email, organization_id, with_cache
-        )
-    else:
-        permissions = await authz.get_user_level_actions(
-            user_email, with_cache
-        )
-
-    if not permissions:
-        await authz.revoke_cached_subject_policies(user_email)
-        if with_cache:
-            LOGGER.error(
-                'Empty permissions on _get_permissions with cache',
-                extra=dict(extra=locals())
-            )
-            return await _get_permissions(
-                _, user_email, entity, identifier,
-                project_name, with_cache=False
-            )
-        LOGGER.error(
-            'Empty permissions on _get_permissions without cache',
-            extra=dict(extra=locals())
-        )
-
-    return permissions
-
-
-async def _get_tags(
-    _: GraphQLResolveInfo,
-    user_email: str,
-    organization_id: str
-) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
-    """Get tags."""
-    org_name = await org_domain.get_name_by_id(organization_id)
-    org_tags = await tag_domain.get_tags(org_name, ['projects', 'tag'])
-    user_groups = await user_domain.get_projects(
-        user_email, organization_id=organization_id
-    )
-    tag_info: List[Dict[str, Union[str, List[Dict[str, str]]]]] = [
-        {
-            'name': str(tag['tag']),
-            'projects': [
-                {'name': str(group)}
-                for group in cast(List[str], tag['projects'])
-            ]
-        }
-        for tag in org_tags
-        if any([
-            group in user_groups
-            for group in cast(List[str], tag['projects'])
-        ])
-    ]
-    return tag_info
-
-
-async def _get_caller_origin(
-        info: GraphQLResolveInfo,
-        **_: Dict[Any, Any]) -> str:
-    """Get caller_origin."""
-    if hasattr(info.context, 'caller_origin'):
-        origin = info.context.caller_origin
-    else:
-        origin = 'API'
-    return cast(str, origin)
-
-
-async def _resolve_fields(info: GraphQLResolveInfo) -> MeType:
-    """Async resolve fields."""
-    result: MeType = dict()
-
-    for requested_field in info.field_nodes[0].selection_set.selections:
-        if util.is_skippable(info, requested_field):
-            continue
-        jwt_content = await util.get_jwt_content(info.context)
-        params = {
-            'user_email': jwt_content.get('user_email')
-        }
-        field_params = util.get_field_parameters(
-            requested_field, info.variable_values
-        )
-        if field_params:
-            params.update(field_params)
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        migrated = {
-            'access_token',
-            'permissions',
-            'projects',
-            'organizations',
-            'remember',
-            'role',
-            'subscriptions_to_entity_report',
-            'tags'
-        }
-        if requested_field.startswith('_') or requested_field in migrated:
-            continue
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(info, **params)
-    return result
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@require_login
-async def resolve_me(
-        _: Any,
-        info: GraphQLResolveInfo,
-        caller_origin: str = '') -> MeType:
-    """Resolve Me query."""
-    jwt_content = await util.get_jwt_content(info.context)
-    user_email = jwt_content.get('user_email')
-
-    info.context.caller_origin = origin = caller_origin or 'API'
-
-    util.cloudwatch_log(
-        info.context,
-        f'Security: User {user_email} is accessing '
-        f'Integrates using {origin}'  # pragma: no cover
-    )
-    return await _resolve_fields(info)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -456,11 +295,3 @@ async def _do_add_push_token(
     success = await user_domain.add_push_token(user_email, token)
 
     return SimplePayloadType(success=success)
-
-
-async def _get_session_expiration(
-    info: GraphQLResolveInfo,
-    **_: Dict[Any, Any]
-) -> str:
-    user_data = await util.get_jwt_content(info.context)
-    return str(user_data['exp'])
