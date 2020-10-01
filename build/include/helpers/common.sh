@@ -429,8 +429,20 @@ function helper_common_run_on_aws {
   local timeout="${4}"
   local jobname="${5}"
   local command=('./build.sh' "${@:6}")
+  local maxmemory
 
-      echo "[INFO] Running on AWS:" \
+      maxmemory=$(( "${vcpus}" * 4 * 900 )) \
+  &&  if test "${memory}" -gt "${maxmemory}"
+      then
+            echo "[ERROR] Memory must be at most ${maxmemory} given ${vcpus} vcpus" \
+        &&  return 1
+      fi \
+  &&  if test "${vcpus}" -gt '2'
+      then
+            echo "[ERROR] Decrease VCPUs consumption" \
+        &&  return 1
+      fi \
+  &&  echo "[INFO] Running on AWS:" \
   &&  for arg in "${command[@]}"; do echo "       ${arg}"; done \
   &&  echo "[INFO] Memory: ${memory} MB" \
   &&  echo "[INFO] VCPU: ${vcpus} units" \

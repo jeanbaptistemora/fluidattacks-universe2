@@ -100,7 +100,7 @@ resource "aws_batch_compute_environment" "default" {
     allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
     instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
     instance_type = [
-      "optimal",
+      "m5a",
     ]
     max_vcpus = 32
     min_vcpus = 0
