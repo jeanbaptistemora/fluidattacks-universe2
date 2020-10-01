@@ -27,8 +27,8 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::web.fluidattacks.com",
-      "arn:aws:s3:::web.fluidattacks.com/resources/doc/skims/*",
+      "arn:aws:s3:::fluidattacks.com",
+      "arn:aws:s3:::fluidattacks.com/resources/doc/skims/*",
     ]
   }
 

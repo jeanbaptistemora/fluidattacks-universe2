@@ -7,8 +7,6 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     resources = [
       "arn:aws:s3:::fluidattacks.com/*",
       "arn:aws:s3:::fluidattacks.com",
-      "arn:aws:s3:::web.fluidattacks.com/*",
-      "arn:aws:s3:::web.fluidattacks.com",
       "arn:aws:s3:::web.eph.fluidattacks.com/*",
       "arn:aws:s3:::web.eph.fluidattacks.com",
     ]
