@@ -23,31 +23,10 @@ function job_observes_dynamodb_forces {
   ||  return 1
 }
 
-function job_observes_dynamo {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  helper_observes_dynamo \
-  ||  return 1
-}
-
 function job_observes_services_toe {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_services_toe \
-  ||  return 1
-}
-
-function job_observes_intercom {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  helper_observes_intercom \
-  ||  return 1
-}
-
-function job_observes_mandrill {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  helper_observes_mandrill \
   ||  return 1
 }
 
@@ -346,14 +325,6 @@ function job_observes_timedoctor_manually_create_token {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_manually_create_token \
-  ||  return 1
-}
-
-function job_observes_services_repositories_cache {
-  # Please don't add pristine workdir
-
-      env_prepare_python_packages \
-  &&  helper_observes_services_repositories_cache \
   ||  return 1
 }
 

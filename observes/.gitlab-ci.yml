@@ -89,24 +89,6 @@ observes_services_toe:
     variables: [$observes_services_toe]
   interruptible: false
 
-observes_intercom:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_intercom]
-  interruptible: false
-
-observes_mandrill:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_mandrill]
-  interruptible: false
-
 observes_gitlab_on_aws:
   <<: *with_nix
   tags: [autoscaling]
@@ -224,13 +206,4 @@ observes_timedoctor_backup:
   only:
     refs: [schedules]
     variables: [$observes_timedoctor_backup]
-  interruptible: false
-
-observes_services_repositories_cache:
-  <<: *with_nix
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_services_repositories_cache]
   interruptible: false

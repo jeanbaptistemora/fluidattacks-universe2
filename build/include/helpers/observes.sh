@@ -135,56 +135,6 @@ function helper_observes_services_toe {
   && popd || return 1
 }
 
-function helper_observes_intercom {
-      helper_observes_aws_login prod \
-  &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        analytics_auth_intercom \
-        analytics_auth_redshift \
-  &&  echo '[INFO] Generating secret files' \
-  &&  echo "${analytics_auth_intercom}" > "${TEMP_FILE1}" \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  echo '[INFO] Running streamer' \
-  &&  streamer-intercom \
-        --auth "${TEMP_FILE1}" \
-        > .jsonstream \
-  &&  echo '[INFO] Running tap' \
-  &&  tap-json \
-        --enable-timestamps \
-        > .singer \
-        < .jsonstream \
-  &&  echo '[INFO] Running target' \
-  &&  target-redshift \
-        --auth "${TEMP_FILE2}" \
-        --drop-schema \
-        --schema-name 'intercom' \
-        < .singer
-}
-
-function helper_observes_mandrill {
-      helper_observes_aws_login prod \
-  &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        analytics_auth_mandrill \
-        analytics_auth_redshift \
-  &&  echo '[INFO] Generating secret files' \
-  &&  echo "${analytics_auth_mandrill}" > "${TEMP_FILE1}" \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  echo '[INFO] Running streamer' \
-  &&  streamer-mandrill \
-        --auth "${TEMP_FILE1}" \
-        > .jsonstream \
-  &&  echo '[INFO] Running tap' \
-  &&  tap-json  \
-        --date-formats '%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f' \
-        > .singer \
-        < .jsonstream \
-  &&  echo '[INFO] Running target' \
-  &&  target-redshift \
-        --auth "${TEMP_FILE2}" \
-        --drop-schema \
-        --schema-name 'mandrill' \
-        < .singer
-}
-
 function helper_observes_gitlab {
   export GITLAB_API_TOKEN
   helper_get_projects
@@ -395,35 +345,6 @@ function helper_observes_timedoctor_manually_create_token {
   &&  echo '[INFO] Executing creator, follow the steps' \
   &&  ./observes/auth_helper.py --timedoctor-start \
   &&  echo '[INFO] Done! Token created at GitLab/production env vars'
-}
-
-function helper_observes_services_repositories_cache {
-  # Please if you ever modify this function test it!
-  #
-  # Every line is there for something, don't modify them until absolutely sure
-
-  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  export DEBUG="True"
-  helper_get_projects
-
-      helper_observes_aws_login prod \
-  &&  echo '[INFO] Cloning our own repositories' \
-  &&  python3 observes/git/clone_us.py "${PROJECTS[@]}" \
-  &&  echo '[INFO] Cloning customer repositories' \
-  &&  \
-      CI=true \
-      CI_COMMIT_REF_NAME='master' \
-      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
-      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-      python3 observes/git/clone_them.py \
-  &&  echo '[INFO] Generating stats before filling with S3' \
-  &&  python3 observes/git/generate_stats.py \
-  &&  echo '[INFO] filling unclonable subscriptions with S3' \
-  &&  helper_observes_move_services_fusion_to_master_git \
-  &&  echo '[INFO] Generating stats' \
-  &&  python3 observes/git/generate_stats.py \
-
 }
 
 function helper_observes_lint_code_python {
