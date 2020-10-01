@@ -1,8 +1,0 @@
-:slug: about-us/people/acuberos/
-:category: about-us
-:description: Fluid Attacks is a company focused on ethical hacking and pentesting in applications with over 18 year of experience providing our services to the Colombian market. The purpose of this page is to present a small overview about the experience, education and achievements of Andrés Cuberos.
-:keywords: Fluid Attacks, Team, People, Members, Andrés, Cuberos
-
-= Andrés Cuberos
-
-Under Construction.
