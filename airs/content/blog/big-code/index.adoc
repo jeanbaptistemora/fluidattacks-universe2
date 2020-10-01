@@ -213,7 +213,7 @@ Now for a more realistic test,
 let's try running `DeepCode` on some of our own repos, namely,
 [inner]#link:../../products/integrates[Integrates]#,
 our platform for vulnerability centralization and management and
-[inner]#link:../../asserts[Asserts]#,
+[inner]#link:../../products/asserts/[Asserts]#,
 our vulnerability automation framework.
 Both are
 link:https://gitlab.com/fluidattacks[open-source],

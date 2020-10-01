@@ -529,7 +529,7 @@ your proprietary rights to that code.
  and has access to the internet.
 
 *Is there documentation for Asserts?*::
-Yes, it is available on the link:https://fluidattacks.com/asserts/[Asserts page].
+Yes, it is available on the link:https://fluidattacks.com/products/asserts/[Asserts page].
 
 *Is it possible to group multiple applications into one subscription?*::
 *How would I recognize the vulnerabilities within each application?*::
