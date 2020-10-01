@@ -37,14 +37,14 @@ spec:
           readinessProbe:
             exec:
               command: [bash, deploy/ephemeral/integrates-probes.sh, run_readiness_probe]
-            initialDelaySeconds: 60
+            initialDelaySeconds: 180
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 20
           livenessProbe:
             exec:
               command: [bash, deploy/ephemeral/integrates-probes.sh, run_liveness_probe]
-            initialDelaySeconds: 60
+            initialDelaySeconds: 180
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 20
