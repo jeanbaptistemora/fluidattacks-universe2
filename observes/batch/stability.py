@@ -31,14 +31,18 @@ class BatchFailedJob(Exception):
 
 
 def report_msg(
+    container: str,
     identifier: str,
     name: str,
+    reason: str,
     success: bool,
 ) -> None:
     arguments = dict(
         exception=(BatchSucceededJob if success else BatchFailedJob)(name),
         extra=dict(
+            container=container,
             identifier=identifier,
+            reason=reason,
         ),
         grouping_hash=name,
     )
@@ -69,8 +73,10 @@ def main() -> None:
 
             if created_at > NOW - 24 * HOUR:
                 report_msg(
+                    container=str(job.get('container')),
                     identifier=job['jobId'],
                     name=job['jobName'],
+                    reason=job['statusReason'],
                     success=job['status'] == 'SUCCEEDED',
                 )
 
