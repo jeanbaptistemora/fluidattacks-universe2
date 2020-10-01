@@ -25,9 +25,9 @@ def get_now() -> datetime:
 
 
 def get_plus_delta(
-        date: datetime, days: int = 0, seconds: int = 0,
-        microseconds: int = 0, milliseconds: int = 0, minutes: int = 0,
-        hours: int = 0, weeks: int = 0) -> datetime:
+        date: datetime, days: float = 0, seconds: float = 0,
+        microseconds: float = 0, milliseconds: float = 0, minutes: float = 0,
+        hours: float = 0, weeks: float = 0) -> datetime:
     date_plus_delta = date + timedelta(
         days=days, seconds=seconds, microseconds=microseconds,
         milliseconds=milliseconds, minutes=minutes, hours=hours, weeks=weeks
@@ -36,9 +36,9 @@ def get_plus_delta(
 
 
 def get_now_plus_delta(
-        days: int = 0, seconds: int = 0, microseconds: int = 0,
-        milliseconds: int = 0, minutes: int = 0, hours: int = 0,
-        weeks: int = 0) -> datetime:
+        days: float = 0, seconds: float = 0, microseconds: float = 0,
+        milliseconds: float = 0, minutes: float = 0, hours: float = 0,
+        weeks: float = 0) -> datetime:
     now = get_now()
     now_plus_delta = get_plus_delta(
         now, days=days, seconds=seconds, microseconds=microseconds,
@@ -48,9 +48,9 @@ def get_now_plus_delta(
 
 
 def get_minus_delta(
-        date: datetime, days: int = 0, seconds: int = 0,
-        microseconds: int = 0, milliseconds: int = 0, minutes: int = 0,
-        hours: int = 0, weeks: int = 0) -> datetime:
+        date: datetime, days: float = 0, seconds: float = 0,
+        microseconds: float = 0, milliseconds: float = 0, minutes: float = 0,
+        hours: float = 0, weeks: float = 0) -> datetime:
     date_minus_delta = date - timedelta(
         days=days, seconds=seconds, microseconds=microseconds,
         milliseconds=milliseconds, minutes=minutes, hours=hours, weeks=weeks
@@ -59,9 +59,9 @@ def get_minus_delta(
 
 
 def get_now_minus_delta(
-        days: int = 0, seconds: int = 0, microseconds: int = 0,
-        milliseconds: int = 0, minutes: int = 0, hours: int = 0,
-        weeks: int = 0) -> datetime:
+        days: float = 0, seconds: float = 0, microseconds: float = 0,
+        milliseconds: float = 0, minutes: float = 0, hours: float = 0,
+        weeks: float = 0) -> datetime:
     now = get_now()
     now_minus_delta = get_minus_delta(
         now, days=days, seconds=seconds, microseconds=microseconds,

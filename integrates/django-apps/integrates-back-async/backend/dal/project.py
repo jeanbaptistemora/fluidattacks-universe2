@@ -1,7 +1,6 @@
 """DAL functions for projects."""
 
 import logging
-from datetime import datetime
 from typing import (
     cast,
     Dict,
@@ -12,9 +11,7 @@ from typing import (
 
 import aioboto3
 from botocore.exceptions import ClientError
-import pytz
 from boto3.dynamodb.conditions import Attr, Key
-from django.conf import settings
 
 from backend import authz, util
 from backend.dal.event import TABLE_NAME as EVENTS_TABLE_NAME
@@ -30,7 +27,10 @@ from backend.dal.finding import (
     TABLE_NAME as FINDINGS_TABLE_NAME
 )
 from backend.dal.user import get_attributes as get_user_attributes
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -144,8 +144,9 @@ async def list_drafts(
         table: aioboto3.session.Session.client,
         should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     filter_exp = Attr('releaseDate').not_exists() \
         | Attr('releaseDate').gt(today)
     query_attrs = {
@@ -175,8 +176,9 @@ async def list_findings(
         table: aioboto3.session.Session.client,
         should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     filter_exp = (
         Attr('releaseDate').exists() &
         Attr('releaseDate').lte(today)

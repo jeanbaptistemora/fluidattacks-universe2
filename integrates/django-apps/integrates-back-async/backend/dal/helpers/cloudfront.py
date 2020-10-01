@@ -1,11 +1,13 @@
 
 import base64
-from datetime import datetime, timedelta
 import urllib.parse
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 from cryptography.hazmat.backends import default_backend
 from botocore import signers
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 from __init__ import (
     FI_CLOUDFRONT_ACCESS_KEY,
     FI_CLOUDFRONT_PRIVATE_KEY
@@ -16,8 +18,9 @@ def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
     filename = urllib.parse.quote_plus(str(file_name))
     url = domain + '/' + filename
     key_id = FI_CLOUDFRONT_ACCESS_KEY
-    now_time = datetime.utcnow()
-    expire_date = now_time + timedelta(minutes=expire_mins)
+    expire_date = datetime_utils.get_now_plus_delta(
+        minutes=expire_mins
+    )
     cloudfront_signer = signers.CloudFrontSigner(key_id, rsa_signer)
     signed_url = cloudfront_signer.generate_presigned_url(
         url, date_less_than=expire_date)

@@ -18,6 +18,9 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from backend.dal.helpers import dynamodb, s3
+from backend.utils import (
+    datetime as datetime_utils,
+)
 from fluidintegrates.settings import LOGGING
 from __init__ import (
     FI_AWS_S3_FORCES_BUCKET,
@@ -165,9 +168,10 @@ async def create_execution(project_name: str,
     """Create an execution of forces."""
     success = False
     try:
-        execution_attributes['date'] = datetime.strftime(
-            execution_attributes['date'], '%Y-%m-%dT%H:%M:%S.%f%z')
-
+        execution_attributes['date'] = datetime_utils.get_as_str(
+            execution_attributes['date'],
+            date_format='%Y-%m-%dT%H:%M:%S.%f%z'
+        )
         execution_attributes['subscription'] = project_name
         execution_attributes = dynamodb.serialize(execution_attributes)
         success = await dynamodb.async_put_item(TABLE_NAME_NEW_FORCES,
