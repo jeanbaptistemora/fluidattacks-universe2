@@ -23,15 +23,11 @@ As a security company,
   especially regarding their data:
   [inner]#link:../products/rules/list/315/[how we use it, and what we do to protect it]#.
 
-These concerns,
-conceived since the early days of the company,
+These principles, conceived since the early days of the company,
 have allowed us to implement
-a large number of measures
-throughout the years.
-On this page, we will mention
-those that provide the highest
-value to our customers in
-terms of security.
+a large number of measures throughout the years.
+On this page, we will mention those that provide
+the highest value to our customers in terms of security.
 
 == 1. Transparency
 
@@ -45,39 +41,34 @@ The source code of all our applications
 is available to the entire Internet.
 There are no backdoors or sensitive data exposed.
 The code is transparent and can be reviewed by anyone.
-All our source code can be found
-link:https://gitlab.com/fluidattacks[here].
+All our source code can be found link:https://gitlab.com/fluidattacks[here].
 
-Besides, here is the commit history of our public repository:
+Additionally, here is the commit history of our public repository:
 
 - link:https://gitlab.com/fluidattacks/product/-/commits/master[Product]
 
 === 1.2 Public incidents
 
-All incidents are reported in our
+All incidents are reported on our
 link:https://community.fluidattacks.com/tag/transparency/[Community Site]
 with details like *_what happened_*, *_what we've done_*,
 *_what's the impact_*, and *_what we're doing to help_*.
 
 === 1.3 Data leakage policy
 
-In case that `Fluid Attacks` detects a breach,
-emails notifying the involved parties will be sent.
-Emails will contain information on what data was leaked or compromised,
-when, and for how long (to the extent this information is available).
+In cases where `Fluid Attacks` detects a breach,
+emails are sent to notify the involved parties.
+These emails contain information on what data was leaked or compromised,
+when, and for how long (to the extent that this information is available).
 For a breach that exposes private data of a large number of users,
 the public will also be informed via email.
 
 === 1.4 Status page
 
-We continuously monitor
-[inner]#link:../products/integrates[Integrates]#,
-its [inner]#link:../../integrates/api[API]#,
-and [inner]#link:../[our website]#.
-Monitoring checks run
-in North America and Europe servers
-every minute
-for all applications.
+We continuously monitor link:../products/integrates[Integrates],
+its link:../../integrates/api[API], and link:../[our website].
+Monitoring checks run on North American and European servers
+every minute for all applications.
 They send HTTP GET requests,
 and this information is real-time and available on our
 link:http://status.fluidattacks.com/[Status Site].
@@ -86,16 +77,15 @@ link:http://status.fluidattacks.com/[Status Site].
 == 2. Confidentiality
 
 This section provides details on what we do
-to keep confidential information always protected.
+to keep confidential information continuously protected.
 
 === 2.1 Encryption at rest
 
-All our applications and services have
-industry-standard
-[inner]#link:../products/rules/list/224/[encryption at rest]#.
+All our applications and services
+have industry-standard link:../products/rules/list/224/[encryption at rest].
 
 - All the sensitive data provided by our clients
-  (Repository access keys, VPN credentials, etc.)
+  (repository access keys, VPN credentials, etc.)
   is encrypted using the symmetric algorithm
   of our key management system (KMS).
   This algorithm is based on Advanced Encryption Standard (AES)
@@ -123,11 +113,10 @@ industry-standard
 - Most of our encrypted-at-rest secrets
   are only decrypted in memory,
   meaning that they are never stored
-  in a hard drive when decrypted.
+  on a hard drive when decrypted.
   This highly reduces the possibility of
-  data leakage by leaving unprotected
-  files with decrypted secrets stored
-  in hard drives.
+  data leakage caused by leaving unprotected
+  files with decrypted secrets stored on hard drives.
 - All our products use our KMS
   for both development and production secrets.
 - All our Windows laptops
@@ -161,17 +150,15 @@ industry-standard
   allowing us to isolate all unwanted traffic. This is especially useful
   for running secure dynamic application hacking.
 - For the rest of our clients, we use fully encrypted VPNs.
-- <<EPH, Ephemeral environments>>
-  always bring a digital certificate,
-  validated with ACME protocol,
-  and [inner]#link:../products/rules/list/092/[not self-signed]#.
+- <<EPH, Ephemeral environments>> always include a digital certificate,
+  validated with ACME protocol, and link:../products/rules/list/092/[not self-signed].
 
 === 2.3 Continuous hacking to our technology
 
 We have projects focused on hacking our software.
 For us, it is essential to set an example of secure software,
-that is why today our entire technology stack
-goes through a process of comprehensive [inner]#link:../services/continuous-hacking/[Continuous Hacking]#.
+which is why today our entire technology stack
+goes through a process of comprehensive link:../services/continuous-hacking/[Continuous Hacking].
 
 All our development projects run
 <<CI, Continuous Integration>>
@@ -207,9 +194,8 @@ and the information does not accumulate in local storage.
 
 Authentication refers to the process
 of validating your identity within a service or platform.
-In this context,
-we talk about our services
-and third-party services we use.
+In this section, we cover how this is handled both for our services
+and the third-party services we use.
 
 === 3.1 For clients
 
@@ -221,33 +207,27 @@ link:https://oauth.net/2/[Oauth2] protocol is used.
 Such protocol only accepts login attempts from trusted URLs
 and has industry-standard 2048 bytes access tokens.
 We do not store any account passwords.
-The only personal information we store of our clients is
+The only personal information we store of our clients is:
 
-- full name (provided by Google or Microsoft);
-- company and cellphone (only if shared, user can decide).
+- Full name (provided by Google or Microsoft)
+- Company and cellphone (only if shared, user can decide)
 
-It is also worth noting that once users lose their
-corporate email,
-[inner]#link:../products/rules/list/114/[they also lose access]#
-to their
-[inner]#link:../products/integrates[Integrates]#
-account. Clients can
-[inner]#link:../products/rules/list/034/[easily manage]#
-who has and who does not have access to
-their projects.
+It is also worth noting that if users lose their corporate email,
+link:../products/rules/list/114/[they also lose access] to their
+link:../products/integrates[Integrates] account.
+Clients can link:../products/rules/list/034/[easily manage]
+who has and who does not have access to their projects.
 
 === 3.2 Internal
 
 ==== 3.2.1 Centralized authentication
 
 We use a centralized authentication platform (IAM)
-to manage all the applications
-we internally use from just one place. Our employees do
-not know any of the passwords of the managed applications;
+to manage all the applications we internally use.
+Our employees do not know any of the passwords of the managed applications;
 they only know their own IAM passphrase.
 Once they log in to IAM,
-they can access applications
-[inner]#link:../products/rules/list/096/[assigned to them]#.
+they can access applications link:../products/rules/list/096/[assigned to them].
 
 Some of our IAM specifications and requirements are listed below:
 
@@ -299,22 +279,17 @@ to do what they should not.
 
 === 4.1 For clients
 
-[inner]#link:../products/integrates[Integrates]#
-has a set of
-[inner]#link:../products/rules/list/096/[roles]#
+link:../products/integrates[Integrates] has a set of link:../products/rules/list/096/[roles]
 that are necessary for every hacking project.
-Once the client decides
-which members of her team
+Once the client decides which members of their team
 should be *_project managers_*,
 `Fluid Attacks` assigns the roles to them,
-providing them with the
-[inner]#link:../products/rules/list/035/[ability to assign]#
-the
-[inner]#link:../products/rules/list/186/[minimum required permissions]#
+providing them with the link:../products/rules/list/035/[ability to assign]
+the link:../products/rules/list/186/[minimum required permissions]
 to other members of their team.
 Some of the available roles are
 _hacker_, _admin_, _releaser_, _escaper_,
-_user_, _project manager_, etc.
+_user_ and _project manager_.
 
 === 4.2 Internal
 
@@ -350,19 +325,19 @@ Some examples are as follows:
 
 === 4.3 Secret rotation
 
-[inner]#link:../products/rules/list/130/[Key rotation]#
-is essential when dealing with
-sensitive data. The best way to prevent a key leakage is by
-changing the keys regularly. We continuously rotate
+link:../products/rules/list/130/[Key rotation] is essential
+when dealing with sensitive data.
+The best way to prevent a key leakage is by
+changing the keys regularly. Our rotation cycles are as follows:
 
 - *KMS keys:*
-  They rotate every year or before in case it is needed;
+  every year or before in case it is needed.
 - *JWT Tokens:*
-  They rotate daily;
+  daily.
 - *Digital Certificates:*
-  They rotate [inner]#link:../products/rules/list/089/[every three months]#;
+  link:../products/rules/list/089/[every three months].
 - *IAM passphrases:*
-  They rotate every three months.
+  every three months.
 
 Rotations are done in these two different ways:
 
@@ -378,15 +353,15 @@ Rotations are done in these two different ways:
   in git repositories using AES256 symmetric keys.
   They are treated as code,
   meaning that to be rotated
-  a <<PR, manual approval>> needs to be done.
-  These secrets include KMS keys and
-  other application credentials.
+  a <<PR, manual approval>> needs to be obtained.
+  These secrets include KMS keys
+  and other application credentials.
 
 === 4.4 Access revocation
 
 When employees go on vacation or leave the company,
 it is essential to revoke their access
-to the systems and information that were accessible to them.
+to the systems and information that are accessible to them.
 At `Fluid Attacks`, we have a two-step process for
 access revocation:
 
@@ -419,7 +394,7 @@ are common targets for malicious hackers.
 == 5. Privacy
 
 This section talks about our efforts to protect
-both `Fluid Attacks's` and clients' privacy.
+both `Fluid Attacks's` and the clients' privacy.
 
 === 5.1 Project pseudonymization
 
@@ -485,8 +460,8 @@ other than
 To be respectful to users
 regarding what information they want to receive,
 for all commercial and informative emails,
-receptors can stop getting them
-by clicking on the *_unsubscribe from this list_* link.
+recipients can stop getting them
+by clicking on the *"unsubscribe from this list"* link.
 By doing so, their emails are placed on a list
 of unsubscribed emails,
 and no new emails will be sent to them.
@@ -500,9 +475,8 @@ link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR]
 module that
 
 - informs the user about
-  every cookie the site creates;
-- lets users specify
-  which ones to allow,
+  every cookie the site creates; and
+- lets users specify which ones to allow,
   thus giving them full control
   over what information we are creating
   and manipulating within their browser.
@@ -530,15 +504,14 @@ over the provided information.
 ==== 5.5.2 Data retention policy
 
 All the data related to a project
-can be deleted from
-[inner]#link:../products/integrates[Integrates]#
+can be deleted from link:../products/integrates[Integrates]
 by a user with a *_project manager_* role.
 Once this action is performed,
-a 30 days [inner]#link:../products/rules/list/317/[deletion window]# begins.
+a 30-day link:../products/rules/list/317/[deletion window] begins.
 Any *_project manager_* can undo the deletion action.
-After the 30 days waiting period, the project source code,
-secrets, metadata, and other project-related
-[inner]#link:../products/rules/list/183/[data are completely removed]#
+After the 30-day waiting period, the project source code,
+secrets, metadata and other project-related
+link:../products/rules/list/183/[data are completely removed]
 from all our systems.
 
 === 5.6 OTR Messaging
@@ -555,19 +528,18 @@ as an extra measure to avoid leaks.
 === 5.7 Employee time tracking software
 
 We use a time tracking system that periodically takes
-screenshots from laptop screens
-when employees are working. Only managers have access to such
-screenshots in case an incident happens. Employees
-have control over the software, which means that
-no screenshots are taken once they stop working.
+screenshots of laptop screens while employees are working.
+Only managers have access to these screenshots
+in case an incident happens.
+Employees have control over the software,
+which means that no screenshots are taken once they stop working.
 
 === 5.8 Polygraph tests
 
 We regularly run polygraph tests on all
 employees with access to sensitive information.
-Tests fully focus on identifying
-whether an employee disclosed confidential information
-to a third party.
+Tests fully focus on identifying whether an employee
+has disclosed confidential information to a third party.
 Personal questions are never asked.
 
 == 6. Non-repudiation
@@ -592,7 +564,7 @@ comprehensive logs of
 
 - what exactly was changed;
 - who changed it;
-- when it was changed;
+- when it was changed; and
 - who approved a change.
 
 Currently, we keep the following systems as code:
@@ -626,7 +598,7 @@ Currently, we store logs for:
   new errors and hacking attempts.
   These logs never expire.
 - *Redundant data centers:*
-  They store comprehensive logs
+  These store comprehensive logs
   of all our infrastructure components.
   Logs here never expire.
 - *Forces executions:*
@@ -634,7 +606,7 @@ Currently, we store logs for:
   logs containing information like who ran it,
   vulnerability status, and other relevant data
   are uploaded to our data centers,
-  allowing us always to know the current status
+  allowing us to always know the current status
   of our client's Forces service.
   These logs never expire.
 - *IAM authentication:*
@@ -685,15 +657,14 @@ As all our backups are stored in decentralized data centers,
 problems like hard drive lifespans
 are not a concern.
 The backups exist seamlessly
-for as long as we want to,
+for as long as we want,
 giving us full traceability
 and recoverability.
 
 === 7.3 Everything is backed up
 
 As data is likely our most valuable asset,
-we have strong backup policies for everything;
-for example
+we have strong backup policies for everything, for example:
 
 - Our redundant data centers are fully versioned,
   meaning that any file can be recovered
@@ -709,17 +680,15 @@ for example
   database has point-in-time
   recovery with the ability to recover
   the database to the state it was
-  at a specific date and time (hours, minutes, and seconds)
+  in at a specific date and time (hours, minutes and seconds)
   during the last 35 days.
 - All Forces's exploits are versioned.
 
 == 8. Resilience
 
-By resilience,
-we refer to the organization's ability
+By resilience, we refer to the organization's ability
 to adapt to unexpected circumstances
-that would affect the way our team
-usually works.
+that affect the way our team usually works.
 
 === 8.1 Redundant roles
 
@@ -736,15 +705,15 @@ All our infrastructure is decentralized,
 meaning that we have independent data centers
 spread across multiple regions.
 No hardware maintenance is needed
-as a third party does it.
+as it is done by a third party.
 No local networks are used.
 We only use Wifi connections with
 [inner]#link:../products/rules/list/253/[strong random generated passwords]#
-with the sole purpose of accessing the Internet.
+and with the sole purpose of accessing the Internet.
 Connections are always encrypted
 [inner]#link:../products/rules/list/252/[using WPA2-AES]#.
 
-=== 8.3 Own equipment and ready for telecommuting
+=== 8.3 Own equipment and possibility of telecommuting
 
 link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD] is not allowed.
 Every employee receives a computer with a password-secured BIOS,
@@ -758,15 +727,14 @@ everyone can still do their job seamlessly.
 
 == 9. Integrity
 
-Integrity refers to the ability
-to
+Integrity refers to the ability to
 
 - avoid data loss or corruption;
 - have clear definitions
   of all technological components
   within the organization
   and make sure
-  such definitions are followed;
+  such definitions are followed; and
 - have a clear development cycle
   that ensures applications are
   secure and true to their source code.
@@ -808,10 +776,9 @@ has DKIM, and SPF protocols enabled.
 Additionally, it has the DMARCv1 protocol
 enabled in verbose mode
 for running advanced diagnostics.
-These protocols help email receptors
-to verify if an email comes from a trusted source,
-thus helping them to avoid
-phishing and fake emails.
+These protocols help email recipients
+verify if an email comes from a trusted source,
+thus helping them avoid phishing and fake emails.
 
 === 9.4 Developing for integrity
 
@@ -871,10 +838,10 @@ Regenerating our infrastructure every day
 brings the following advantages:
 
 - Any injected trojans or malicious scripts are removed.
-- Having fresh new servers every 24 hours let us avoid
+- Having fresh new servers every 24 hours lets us avoid
   availability and performance issues generated by
   memory leaks and not released resources.
-- To have the capability of deploying our infrastructure
+- Having the capability of deploying our infrastructure
   from zero (0) to production in an automated process.
 
 ==== 9.4.5 Immutable infrastructure
@@ -950,8 +917,7 @@ We call them ephemeral environments,
 as they only exist in pipeline time.
 These environments are created on demand
 when a developer triggers a CI pipeline.
-They are also written as code,
-regenerable, and immutable,
+They are also written as code, regenerable and immutable,
 allowing us to certify
 that a new version of an application
 is stable and secure
@@ -971,7 +937,7 @@ what code is running in the production environments.
 ==== 9.4.11 Micro-changes
 
 Merge requests made by developers
-can not be bigger than 200 deltas of code.
+cannot be bigger than 200 deltas of code.
 A delta consists of
 either a removed or an added line of code.
 The following are some advantages of working with micro-changes:
@@ -985,8 +951,8 @@ The following are some advantages of working with micro-changes:
   within those 200 deltas is
   easier.
 - Developers go to production
-  multiple times in a day,
-  and no code goes stale.
+  multiple times a day,
+  so no code goes stale.
 - Users of the application
   see it evolve on a daily basis.
 
@@ -1007,7 +973,7 @@ and their short-term branch is deleted.
 Some of our dependencies
 do not require OS libraries like libc.
 Instead, they are completely built from scratch,
-thus guarantying total reproducibility.
+thus guaranteeing total reproducibility.
 
 Additionally,
 these dependencies do not require any administrative privileges like sudo.
@@ -1017,8 +983,8 @@ considerably reducing the possibility of compromising OS core files.
 ==== 9.4.14 No dependency auto-update
 
 All external dependencies are pinned to a specific version
-(this is highly related to the immutability property).
-Meaning that to update a dependency,
+(this is highly related to the immutability property),
+meaning that to update a dependency,
 a developer must do the following:
 
 . Change the version in the source code.
