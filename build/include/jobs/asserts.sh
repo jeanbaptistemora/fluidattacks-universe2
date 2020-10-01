@@ -675,7 +675,7 @@ function job_asserts_release_docker_hub {
 }
 
 function job_asserts_documentation {
-  local bucket_path='s3://web.fluidattacks.com/resources/doc/asserts/'
+  local bucket_path='s3://fluidattacks.com/resources/doc/asserts/'
 
       helper_use_pristine_workdir \
   &&  pushd asserts \
