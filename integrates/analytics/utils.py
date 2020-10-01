@@ -38,6 +38,8 @@ PortfoliosGroups = NamedTuple('PortfoliosGroups', [
     ('groups', List[str]),
 ])
 
+TICK_ROTATION = -45  # display group name at that rotation
+
 
 async def get_all_time_forces_executions(
     group: str,
