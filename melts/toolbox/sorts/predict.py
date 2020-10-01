@@ -139,7 +139,7 @@ def predict_file(subscription_path: str) -> None:
     )
     if os.path.exists(fusion_path):
         files_df = get_repo_files_dataframe(fusion_path)
-        features_df = fill_model_file_features(files_df)
+        features_df = fill_model_file_features(files_df, fusion_path)
         input_data = features_df[
             ['midnight_commits', 'num_lines', 'commit_frequency']
         ]

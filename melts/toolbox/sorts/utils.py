@@ -22,7 +22,14 @@ class FileFeatures(NamedTuple):
     file_age: int
     midnight_commits: int
     risky_commits: int
-    seldom_contributors: int
+
+
+class RepoAuthorContribution(NamedTuple):
+    author_contribution: Dict[str, float]
+    mean_contribution: float
+
+
+SubscribtionAuthorContribution = Dict[str, RepoAuthorContribution]
 
 
 def count_loc(file_path: str) -> int:
@@ -45,6 +52,23 @@ def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
     repo: str = row['repo']
     commit: str = row['commit']
     return get_deltas(repo, commit)
+
+
+def df_get_seldom_author_contribution(
+    row: Series,
+    subscription_authors_contribution: SubscribtionAuthorContribution
+) -> int:
+    """
+    Get feature that tells how many authors that contributed to a certain
+    file didn't contribue to the repository regularly
+    """
+    repo: str = row['repo']
+    file: str = row['file']
+    return get_seldom_author_contribution(
+        repo,
+        file,
+        subscription_authors_contribution
+    )
 
 
 def df_get_file_features(row: Series) -> FileFeatures:
@@ -117,7 +141,10 @@ def fill_model_commit_features(base_df: DataFrame) -> DataFrame:
     return pd.concat([base_df, features_df], axis=1)
 
 
-def fill_model_file_features(base_df: DataFrame) -> DataFrame:
+def fill_model_file_features(
+    base_df: DataFrame,
+    fusion_path: str
+) -> DataFrame:
     """
     Takes a base DataFrame that has at least the following columns:
     [file, repo]
@@ -135,13 +162,22 @@ def fill_model_file_features(base_df: DataFrame) -> DataFrame:
         'num_unique_authors',
         'file_age',
         'midnight_commits',
-        'risky_commits',
-        'seldom_contributors'
+        'risky_commits'
     ]] = base_df.apply(
         df_get_file_features,
         axis=1,
         result_type='expand'
     )
+
+    subs_authors_contribution = get_subscription_author_contributions(
+        fusion_path
+    )
+    features_df['seldom_contributors'] = base_df.apply(
+        df_get_seldom_author_contribution,
+        args=(subs_authors_contribution,),
+        axis=1
+    )
+
     features_df['num_lines'] = base_df.apply(df_get_file_loc, axis=1)
     features_df['commit_frequency'] = features_df.apply(
         lambda x: round(float(x['num_commits']) / float(x['file_age']), 3)
@@ -196,14 +232,11 @@ def get_file_features(repo: str, file_: str) -> FileFeatures:
     file_age: int = 0
     midnight_commits: int = 0
     risky_commits: int = 0
-    seldom_contributors: Set[str] = set()
     today = datetime.now(tz=pytz.timezone('America/Bogota'))
 
     try:
         git_repo: Git = git.Git(repo)
         file_relative_path = os.path.sep.join(file_.split(os.path.sep)[1:])
-        authors_contribution, mean_contribution = \
-            get_repo_author_contributions(git_repo)
 
         # History is retrieved in the following format from git:
         #     commit_hash, commit_author, commit_date_iso_format\n
@@ -246,9 +279,6 @@ def get_file_features(repo: str, file_: str) -> FileFeatures:
                 lines_removed = int(record_as_list[5].strip().split(' ')[0])
                 if lines_added + lines_removed > 200:
                     risky_commits += 1
-
-                if authors_contribution[record_as_list[1]] < mean_contribution:
-                    seldom_contributors.add(record_as_list[1])
     except GitCommandError:
         print('Error extracting the commits/authors that modified a file')
     return FileFeatures(
@@ -256,8 +286,7 @@ def get_file_features(repo: str, file_: str) -> FileFeatures:
         num_unique_authors=num_unique_authors,
         file_age=file_age,
         midnight_commits=midnight_commits,
-        risky_commits=risky_commits,
-        seldom_contributors=len(seldom_contributors)
+        risky_commits=risky_commits
     )
 
 
@@ -303,25 +332,78 @@ def get_hunks(repo: str, commit: str) -> float:
     return hunks
 
 
-def get_repo_author_contributions(repo: Git) -> Tuple[Dict[str, float], float]:
+def get_seldom_author_contribution(
+    repo: str,
+    file: str,
+    subscription_authors_contribution: SubscribtionAuthorContribution
+) -> int:
     """
-    Analyzes a git repository's history and returns a tuple containing:
-        - A dictionary with the repo's authors and the percentage of commits
-          they contributed.
-        - The mean contribution value taken from all the authors.
+    Analyzes a file's commit history and checks if the authors of those
+    commits contributed less than the average amount for that repository.
     """
-    authors_commit_contribution: Dict[str, int] = {}
-    repo_history: List[str] = repo.log('--pretty=%ae').split('\n')
-    total_commits: int = len(repo_history)
-    for author_email in repo_history:
-        if author_email in authors_commit_contribution:
-            authors_commit_contribution[author_email] += 1
-        else:
-            authors_commit_contribution[author_email] = 1
-    authors_percentage_contribution: Dict[str, float] = {
-        author: round(commit * 100 / total_commits, 3)
-        for author, commit in authors_commit_contribution.items()
-    }
-    percentages: List[float] = list(authors_percentage_contribution.values())
-    mean_contribution: float = round(sum(percentages) / len(percentages), 3)
-    return authors_percentage_contribution, mean_contribution
+    seldom_contributors: Set[str] = set()
+    try:
+        git_repo: Git = git.Git(repo)
+        file_relative_path: str = os.path.sep.join(file.split(os.path.sep)[1:])
+        file_history = git_repo.log(
+            '--follow',
+            '--pretty=%ae',
+            file_relative_path
+        ).split('\n')
+
+        # Filter empty commits
+        file_history = list(filter(None, file_history))
+
+        if file_history:
+            for author in file_history:
+                repo_mean_contribution: float = (
+                    subscription_authors_contribution[os.path.basename(repo)]
+                    .mean_contribution
+                )
+                author_contribution: float = (
+                    subscription_authors_contribution[os.path.basename(repo)]
+                    .author_contribution[author]
+                )
+                if author_contribution < repo_mean_contribution:
+                    seldom_contributors.add(author)
+    except GitCommandError:
+        print(
+            f'Error extracting seldom contributors for file {file} in repo '
+            f'{repo}'
+        )
+    return len(seldom_contributors)
+
+
+def get_subscription_author_contributions(
+    fusion_path: str
+) -> SubscribtionAuthorContribution:
+    """
+    Analyzes a subscription and returns a list of dictionaries
+    containing the distribution of authors commits and the mean
+    contribution per repository
+    """
+    subs_author_contribution: SubscribtionAuthorContribution = {}
+    for repo in os.listdir(fusion_path):
+        authors_commit_contribution: Dict[str, int] = {}
+        git_repo: Git = git.Git(os.path.join(fusion_path, repo))
+        repo_history: List[str] = git_repo.log('--pretty=%ae').split('\n')
+        total_commits: int = len(repo_history)
+        for author_email in repo_history:
+            if author_email in authors_commit_contribution:
+                authors_commit_contribution[author_email] += 1
+            else:
+                authors_commit_contribution[author_email] = 1
+        authors_percentage_contribution: Dict[str, float] = {
+            author: round(commit * 100 / total_commits, 3)
+            for author, commit in authors_commit_contribution.items()
+        }
+        percentages: List[float] = list(
+            authors_percentage_contribution.values()
+        )
+        subs_author_contribution.update({
+            repo: RepoAuthorContribution(
+                author_contribution=authors_percentage_contribution,
+                mean_contribution=round(sum(percentages) / len(percentages), 3)
+            )
+        })
+    return subs_author_contribution

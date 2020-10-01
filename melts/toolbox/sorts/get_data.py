@@ -45,11 +45,17 @@ ResponseType = TypedDict('ResponseType', {
 })
 
 
-def build_vulnerabilities_df(subscription_path: str, scope: str) -> DataFrame:
+def build_vulnerabilities_df(
+    group: str,
+    fusion_path: str,
+    scope: str
+) -> DataFrame:
+    """
+    Creates a DataFrame with vulnerable and safe files/commits extracted
+    from the Integrates API and the subscription repositories
+    """
     print('Building vulnerabilities DataFrame...')
     timer: float = time.time()
-    group: str = os.path.basename(os.path.normpath(subscription_path))
-    fusion_path: str = os.path.join(subscription_path, 'fusion')
     vuln_files, _, vuln_repos = get_unique_vuln_files(group)
     vuln_files, vuln_repos = filter_vuln_files(
         vuln_files, vuln_repos, fusion_path
@@ -340,7 +346,8 @@ def get_project_commit_data(subscription_path: str) -> None:
     Export DataFrame to CSV file.
     """
     group: str = subscription_path.split(PATH_DELIMITER)[-1]
-    vulns_df = build_vulnerabilities_df(subscription_path, 'commit')
+    fusion_path: str = os.path.join(subscription_path, 'fusion')
+    vulns_df = build_vulnerabilities_df(group, fusion_path, 'commit')
     complete_df = fill_model_commit_features(vulns_df)
     complete_df.to_csv(f'{group}_commits_df.csv', index=False)
 
@@ -352,9 +359,10 @@ def get_project_file_data(subscription_path: str) -> None:
     Export DataFrame to CSV file.
     """
     group: str = os.path.basename(os.path.normpath(subscription_path))
-    vulns_df = build_vulnerabilities_df(subscription_path, 'file')
+    fusion_path: str = os.path.join(subscription_path, 'fusion')
+    vulns_df = build_vulnerabilities_df(group, fusion_path, 'file')
     if not vulns_df.empty:
-        complete_df = fill_model_file_features(vulns_df)
+        complete_df = fill_model_file_features(vulns_df, fusion_path)
         complete_df.to_csv(f'{group}_files_metadata.csv', index=False)
     else:
         print(f'Group {group} has an empty vulnerabilities DataFrame')
