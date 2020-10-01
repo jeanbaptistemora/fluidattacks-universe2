@@ -189,6 +189,10 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/swift.swift, line 5
         [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/swift.swift, line 6
         [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/swift.swift, line 7
+        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 20
+        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 3
+        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 41
+        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 44
         [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.java, line 44
         [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.java, line 92
         [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/javascript.js, line 3
@@ -499,6 +503,10 @@ async def test_correct_assert(
             ('test/data/lib_path/f061/swift.swift', '7'),
         )),
         ('F073', 'SUBMITTED', (
+            ('test/data/lib_path/f073/Test.cs', '20'),
+            ('test/data/lib_path/f073/Test.cs', '3'),
+            ('test/data/lib_path/f073/Test.cs', '41'),
+            ('test/data/lib_path/f073/Test.cs', '44'),
             ('test/data/lib_path/f073/Test.java', '44'),
             ('test/data/lib_path/f073/Test.java', '92'),
             ('test/data/lib_path/f073/javascript.js', '3'),

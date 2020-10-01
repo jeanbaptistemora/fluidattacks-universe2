@@ -23,6 +23,7 @@ from parse_babel import (
     parse as parse_babel,
 )
 from lib_path.common import (
+    EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
@@ -45,6 +46,62 @@ from utils.model import (
 from zone import (
     t,
 )
+
+
+def _csharp_switch_no_default(
+    content: str,
+    model: Dict[str, Any],
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+
+    def iterator() -> Iterator[Tuple[int, int]]:
+        for switch in yield_nodes(
+            value=model,
+            key_predicates=(
+                'SwitchStatement'.__eq__,
+            ),
+            pre_extraction=(),
+            post_extraction=(),
+        ):
+            defaults_count: int = sum(
+                1
+                for statement in switch[5:-1]
+                for section in statement['Switch_section']
+                if 'Switch_label' in section
+                and section['Switch_label'][0]['text'] == 'default'
+            )
+
+            if defaults_count == 0:
+                yield switch[0]['l'], switch[0]['c']
+
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f073.switch_no_default',
+            path=path,
+        ),
+        finding=FindingEnum.F073,
+        iterator=iterator(),
+        path=path,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def csharp_switch_no_default(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _csharp_switch_no_default,
+        content=content,
+        model=await parse_antlr(
+            'CSharp',
+            content=content.encode(),
+            path=path,
+        ),
+        path=path,
+    )
 
 
 def _java_switch_no_default(
@@ -176,7 +233,12 @@ async def analyze(
 ) -> None:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if file_extension in EXTENSIONS_JAVA:
+    if file_extension in EXTENSIONS_CSHARP:
+        coroutines.append(csharp_switch_no_default(
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_switch_no_default(
             content=await content_generator(),
             path=path,
