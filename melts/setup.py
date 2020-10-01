@@ -23,20 +23,6 @@ def get_version():
     return datetime.utcnow().strftime(f'%Y.%m.{get_minor_version()}')
 
 
-def get_extras_require():
-    extras_require = {
-        'with_asserts': [
-            'fluidasserts',
-        ],
-    }
-    extras_require['with_everything'] = [
-        extra_requirement
-        for extra_requirements in extras_require.values()
-        for extra_requirement in extra_requirements
-    ]
-    return extras_require
-
-
 def get_install_requires():
     with open('requirements.txt') as requirements_handle:
         return requirements_handle.readlines()
@@ -61,7 +47,6 @@ distutils.core.setup(
         'toolbox.reports'
     ],
     install_requires=get_install_requires(),
-    extras_require=get_extras_require(),
     entry_points={
         'console_scripts': [
             'melts=toolbox.cli:main'
