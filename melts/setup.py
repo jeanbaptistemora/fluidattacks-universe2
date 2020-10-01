@@ -36,7 +36,6 @@ distutils.core.setup(
     author_email='engineering@fluidattacks.com',
     packages=[
         'toolbox',
-        'toolbox.analytics',
         'toolbox.api',
         'toolbox.cli',
         'toolbox.drills',

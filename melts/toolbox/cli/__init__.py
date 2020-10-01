@@ -14,7 +14,6 @@ from toolbox import (
 )
 
 from .misc import misc_management
-from .analytics import analytics_management
 from .integrates import integrates_management
 from .sorts import sorts_management
 from .resources import resources_management
@@ -33,7 +32,6 @@ def entrypoint():
 
 
 entrypoint.add_command(resources_management)
-entrypoint.add_command(analytics_management)
 entrypoint.add_command(forces_management)
 entrypoint.add_command(integrates_management)
 entrypoint.add_command(utils.cli.utils_management)
