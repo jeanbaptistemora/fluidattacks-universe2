@@ -101,25 +101,28 @@ function job_observes_code_upload_group {
   &&  helper_use_services \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group}" \
-    &&  CI=true \
-        CI_COMMIT_REF_NAME='master' \
-        INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
-        PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-        PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-        melts drills --pull-repos "${group}" \
-    &&  echo "[INFO] Apending mailmaps" \
-    &&  shopt -s nullglob \
-    &&  for repo in "groups/${group}/fusion/"*
-        do
-              cp -f '.groups-mailmap' "${repo}/.mailmap" \
-          ||  return 1
-        done \
-    &&  echo "[INFO] Executing ${group}" \
-    &&  python3 "${STARTDIR}/observes/code/upload.py" \
-          --namespace "${group}" \
-          "groups/${group}/fusion/"* \
-    &&  shopt -u nullglob \
-    &&  rm -rf "groups/${group}/fusion/" \
+    &&  if  CI=true \
+            CI_COMMIT_REF_NAME='master' \
+            INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+            PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+            PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+            melts drills --pull-repos "${group}"
+        then
+              echo "[INFO] Apending mailmaps" \
+          &&  shopt -s nullglob \
+          &&  for repo in "groups/${group}/fusion/"*
+              do
+                    cp -f '.groups-mailmap' "${repo}/.mailmap" \
+                ||  return 1
+              done \
+          &&  echo "[INFO] Executing ${group}" \
+          &&  python3 "${STARTDIR}/observes/code/upload.py" \
+                --namespace "${group}" \
+                "groups/${group}/fusion/"* \
+          &&  shopt -u nullglob \
+          &&  rm -rf "groups/${group}/fusion/" \
+
+        fi \
   &&  popd \
   ||  return 1
 
