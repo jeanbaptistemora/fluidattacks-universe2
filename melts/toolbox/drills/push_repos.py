@@ -115,6 +115,28 @@ def s3_sync_fusion_to_s3(
         fusion_dir, f's3://{bucket}/{s3_subs_active_repos_path}',
     ]
 
+    # Allow upload empty folders to keep .git structure
+    # and avoid errors
+    fill_empty_git_folders_command: List[str] = [
+        'find', fusion_dir,
+        '-type', 'd',
+        '-empty', '-execdir', 'touch',
+        '{}/.keep', ';'
+    ]
+
+    fill_status, fill_stdout, fill_stderr = generic.run_command(
+        cmd=fill_empty_git_folders_command,
+        cwd='.',
+        env={},
+        **kwargs,
+    )
+
+    if fill_status:
+        logger.error('No any repository found:')
+        logger.info(fill_stdout)
+        logger.info(fill_stderr)
+        return False
+
     if not generic.is_env_ci():
         git_status, git_stdout, git_stderr = generic.run_command(
             cmd=git_optimize_all_command,
