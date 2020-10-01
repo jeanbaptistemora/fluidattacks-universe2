@@ -5,7 +5,7 @@
 :eventspage: yes
 :banner: events-bg
 
-= Securing your Mobile Device
+= Securing Your Mobile Device
 
 == 1. Objective
 
@@ -54,5 +54,4 @@ The maximum number of participants is `30`.
 
 == 8. Speaker
 
-Licensed in Education, with `15` years of experience.
-`Fluid Attacks` Co-founder. Information Security Systems Auditor.
+David Cardona

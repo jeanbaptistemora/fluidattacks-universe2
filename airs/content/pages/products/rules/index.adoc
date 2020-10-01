@@ -20,7 +20,7 @@ based on tested and untested requirements.
 The security requirements are independent of the type of technology being used
 and are written as specific and understandable objectives.
 They are the security demands that you agree to follow and comply with.
-In our hacking services, we determine if these are met or not.
+Through our hacking services, we determine if these are met or not.
 
 |====
 [role="tc"]
@@ -83,7 +83,7 @@ mechanisms.
 . [inner]#link:../../products/rules/list#authorization[Authorization]#: Rules regarding access control mechanisms and account
 management.
 
-. [inner]#link:../../products/rules/list#session[Session]#: Rules regarding the management of session and session information.
+. [inner]#link:../../products/rules/list#session[Session]#: Rules regarding the management of sessions and session information.
 
 . [inner]#link:../../products/rules/list#legal[Legal]#: Rules regarding the compliance with legal requirements.
 
@@ -106,13 +106,13 @@ code.
 services.
 
 . [inner]#link:../../products/rules/list#services[Services]#: Rules regarding the management of corporate services and the
-usage of third-party services.
+use of third-party services.
 
 . [inner]#link:../../products/rules/list#certificates[Certificates]#: Rules regarding the management and content of digital
 certificates.
 
 . [inner]#link:../../products/rules/list#cryptography[Cryptography]#: Rules regarding the management of cryptographic keys and the
-usage of cryptographic algorithms and protocols.
+use of cryptographic algorithms and protocols.
 
 . [inner]#link:../../products/rules/list#architecture[Architecture]#: Rules regarding configurations and mechanisms for system
 architecture hardening.
@@ -126,8 +126,8 @@ environments.
 . [inner]#link:../../products/rules/list#devices[Devices]#: Rules regarding the configuration and protection of mobile and *IoT* devices
 and applications.
 
-. [inner]#link:../../products/rules/list#social[Social]#: Rules regarding the usage of social networks and publicly
-accessible websites.
+. [inner]#link:../../products/rules/list#social[Social]#: Rules regarding the use of social networks
+and publicly accessible websites.
 
 Want to know more about our products?
-Do not hesitate to [inner]#link:../../contact-us/[contact us]#.
+Do not hesitate to link:../../contact-us/[contact us].
