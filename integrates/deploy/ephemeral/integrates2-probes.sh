@@ -11,7 +11,7 @@ function test_aws_credentials {
 }
 
 function test_curl_localhost {
-  if curl -sS http://localhost:8080/new | grep -q '{"hello":"world"}'
+  if curl -sS http://localhost:8080/new/ | grep -q '{"hello":"world"}'
   then
     echo '[INFO] Passed: test_curl_localhost'
   else
@@ -21,7 +21,7 @@ function test_curl_localhost {
 }
 
 function test_curl_ephemeral {
-  if curl -sS "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com/new" | grep -q '{"hello":"world"}'
+  if curl -sS "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com/new/" | grep -q '{"hello":"world"}'
   then
     echo '[INFO] Passed: test_curl_ephemeral'
   else
