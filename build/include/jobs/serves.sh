@@ -1,21 +1,5 @@
 # shellcheck shell=bash
 
-function job_serves_test_infra_monolith {
-      helper_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_infra_monolith 'test' \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_apply_infra_monolith {
-      helper_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_infra_monolith 'deploy' \
-  &&  popd \
-  ||  return 1
-}
-
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
 

@@ -74,20 +74,6 @@ function helper_serves_terraform_output {
   || return 1
 }
 
-function helper_serves_infra_monolith {
-  local first_argument="${1}"
-
-      helper_serves_aws_login development \
-  &&  pushd infrastructure/ \
-    &&  helper_common_terraform_plan . \
-    &&  if [ "${first_argument}" == "deploy" ]; then
-              helper_serves_aws_login production \
-          &&  helper_common_terraform_apply .
-        fi \
-  &&  popd \
-  || return 1
-}
-
 function helper_serves_get_resource_to_taint_number {
 
   # Made specifically for nightly rotations.

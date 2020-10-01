@@ -43,11 +43,6 @@ serves_test_lint_code:
   <<: *serves_in_dev_branch
   stage: lint-code
 
-serves_test_infra_monolith:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves_test_infra_autoscaling_ci:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -147,12 +142,6 @@ serves_test_user_provision_observes:
   <<: *with_nix
   <<: *serves_in_dev_branch
   stage: test-infra
-
-serves_apply_infra_monolith:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
 serves_apply_infra_autoscaling_ci:
   <<: *with_nix
   <<: *serves_in_master_branch
