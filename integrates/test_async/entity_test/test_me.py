@@ -4,11 +4,7 @@ from datetime import datetime, timedelta
 
 from ariadne import graphql
 from django.test import TestCase
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
-from jose import jwt
-from backend import util
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 from backend.dal.user import get_projects
@@ -45,6 +41,7 @@ class MeTests(TestCase):
         user_email = 'integratesuser@gmail.com'
         request = await create_dummy_session(user_email)
         request.loaders = {
+            'group': GroupLoader(),
             'project': ProjectLoader(),
         }
         _, result = await graphql(SCHEMA, data, context_value=request)

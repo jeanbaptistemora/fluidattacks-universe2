@@ -8,11 +8,11 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.domain import organization as org_domain, user as user_domain
-from backend.typing import Organization
+from backend.typing import Me, Organization
 
 
 async def resolve(
-    _parent: Dict[str, str],
+    _parent: Me,
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Organization]:
