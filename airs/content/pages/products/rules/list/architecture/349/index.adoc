@@ -48,56 +48,61 @@ The web application then procedes to use the values parameters without properly
 validation them first and generates the HTML code that will be executed by the
 victim's browser.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+. [[r4]] link:http://capec.mitre.org/data/definitions/161.html[CAPEC-161: Infrastructure Manipulation].
+An attacker exploits characteristics of the infrastructure of a network entity
+in order to perpetrate attacks or information gathering on network objects or
+effect a change in the ordinary information flow between network objects.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/173.html[CWE-173: Improper Handling of Alternate Encoding].
+. [[r6]] link:https://cwe.mitre.org/data/definitions/173.html[CWE-173: Improper Handling of Alternate Encoding].
 The software does not properly handle when an input uses an alternate encoding
 that is valid for the control sphere to which the input is being sent.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information]
+. [[r7]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information]
 The software transmits sensitive or security-critical data in clear text in a
 communication channel that can be sniffed by unauthorized actors.
 
-. [[r7]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
+. [[r8]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
 The web application does not, or can not, sufficiently verify whether a
 well-formed, valid, consistent request was intentionally provided by the user
 who submitted the request.
 
-. [[r8]] link:https://cwe.mitre.org/data/definitions/451.html[CWE-451: User Interface (UI) Misrepresentation of Critical Information].
+. [[r9]] link:https://cwe.mitre.org/data/definitions/451.html[CWE-451: User Interface (UI) Misrepresentation of Critical Information].
 The user interface (*UI*) does not properly represent critical information to
 the user,
 allowing the information - or its source - to be obscured or spoofed.
 This is often a component in phishing attacks.
 
-. [[r9]] link:https://cwe.mitre.org/data/definitions/523.html[CWE-523: Unprotected Transport of Credentials].
+. [[r10]] link:https://cwe.mitre.org/data/definitions/523.html[CWE-523: Unprotected Transport of Credentials].
 Login pages do not use adequate measures to protect the user name and password
 while they are in transit from the client to the server.
 
-. [[r10]] link:https://cwe.mitre.org/data/definitions/525.html[CWE-525: Use of Web Browser Cache Containing Sensitive Information]
+. [[r11]] link:https://cwe.mitre.org/data/definitions/525.html[CWE-525: Use of Web Browser Cache Containing Sensitive Information]
 The web application does not use an appropriate caching policy that specifies
 the extent to which each web page and associated form fields should be cached.
 
-. [[11]] link:https://cwe.mitre.org/data/definitions/644.html[CWE-644: Improper Neutralization of HTTP Headers for Scripting Syntax].
+. [[r12]] link:https://cwe.mitre.org/data/definitions/644.html[CWE-644: Improper Neutralization of HTTP Headers for Scripting Syntax].
 The application does not neutralize or incorrectly neutralizes web scripting
 syntax in *HTTP* headers that can be used by web browser components that can
 process raw headers, such as *Flash*.
 
-. [[r12]] link:https://cwe.mitre.org/data/definitions/1021.html[CWE-1021: Improper Restriction of Rendered UI Layers or Frames].
+. [[r13]] link:https://cwe.mitre.org/data/definitions/1021.html[CWE-1021: Improper Restriction of Rendered UI Layers or Frames].
 The web application does not restrict or incorrectly restricts frame objects or
 *UI* layers that belong to another application or domain,
 which can lead to user confusion about which interface the user is interacting
 with.
 
-. [[r13]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+. [[r14]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
 The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r14]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r15]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -106,7 +111,7 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r15]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+. [[r16]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
 Security misconfiguration is the most commonly seen issue.
 This is commonly a result of insecure default configurations,
 incomplete or ad hoc configurations, open cloud storage,
@@ -115,7 +120,7 @@ and verbose error messages containing sensitive information.
 Not only must all operating systems, frameworks, libraries, and applications be
 securely configured, but they must be patched/upgraded in a timely fashion.
 
-. [[r16]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
+. [[r17]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
 *XSS* flaws occur whenever an application includes untrusted data in a new web
 page without proper validation or escaping,
 or updates an existing web page with user-supplied data using a browser *API*
@@ -124,19 +129,19 @@ that can create *HTML* or **JavaScript**.
 hijack user sessions, deface web sites, or redirect the user to malicious
 sites.
 
-. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.2)]
 Verify that the application or framework enforces a strong anti-**CSRF**
 mechanism to protect authenticated functionality,
 and effective anti-automation or anti-**CSRF** protects unauthenticated
 functionality.
 
-. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.2 Client-side Data Protection.(8.2.1)]
 Verify the application sets sufficient anti-caching headers so that sensitive
 data is not cached in modern browsers.
 
-. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.4)]
 Verify that the application protects against reflective file download (*RFD*)
 by validating or ignoring user-submitted filenames in a *JSON*, *JSONP*,
@@ -144,61 +149,61 @@ or *URL* parameter,
 the response **Content-Type** header should be set to **text/plain**,
 and the **Content-Disposition** header should have a fixed filename.
 
-. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.3)]
 Verify that *RESTful* web services that utilize cookies are protected from
 Cross-Site Request Forgery via the use of at least one or more of the
 following: triple or double submit cookie pattern, *CSRF* nonces, or *ORIGIN*
 request header checks.
 
-. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.1)]
 Verify that every *HTTP* response contains a content type header specifying a
 safe character set (e.g., *UTF-8*, **ISO 8859-1**).
 
-. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.2)]
 Verify that all *API* responses contain
 **Content-Disposition: attachment; filename="api.json"**
 (or other appropriate filename for the content type).
 
-. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.3)]
 Verify that a content security policy (*CSPv2*) is in place that helps mitigate
 impact for *XSS* attacks like *HTML*, *DOM*, *JSON*, and *JavaScript* injection
 vulnerabilities.
 
-. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.4)]
 Verify that all responses contain **X-Content-Type-Options: nosniff**.
 
-. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.5)]
 Verify that **HTTP Strict Transport Security** headers are included on all
 responses and for all subdomains,
 such as **Strict-Transport-Security: max-age=15724800; includeSubdomains**.
 
-. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.6)]
 Verify that a suitable "**Referrer-Policy**" header is included,
 such as "**no-referrer**" or "**same-origin**".
 
-. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.7)]
 Verify that a suitable *X-Frame-Options* or
 **Content-Security-Policy: frame-ancestors** header is in use for sites where
 content should not be embedded in a third-party site.
 
-. [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r29]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.3)]
 Verify that the cross-domain resource sharing (*CORS*)
 *Access-Control-Allow-Origin* header uses a strict white-list of trusted
 domains to match against and does not support the "**null**" origin.
 
-. [[r29]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+. [[r30]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
 Address common coding vulnerabilities in software-development processes such as
 cross-site scripting (*XSS*).
 
-. [[r30]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
+. [[r31]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
 Address common coding vulnerabilities in software-development processes such as
 cross-site request forgery (*CSRF*).
