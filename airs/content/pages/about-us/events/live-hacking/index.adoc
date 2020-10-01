@@ -9,58 +9,56 @@
 
 == 1. Objective
 
-Have you ever wondered how safe are the applications you use everyday?
+Have you ever wondered how safe the applications you use everyday are?
 Those that have access to your personal
 and, in some cases, financial information?
 Are these applications so safe that the only ones
-that may be able to compromise them
-are those `hackers` that we have seen on T.V and movies,
-who sit in front of a black screen with green letters,
-use the keyboard at lighting speed,
+that might be able to compromise them
+are the kind of `hackers` that you see on TV and in movies,
+those who sit in front of a black screen with green letters,
+use the keyboard at lightning speed,
 and probably speak binary as their second language?
 
 We are sorry to burst your bubble, but the truth is far from that,
-and maybe there is no need for such an extraordinary person
+and it probably takes a much less extraordinary person
 to compromise your information.
 This is usually because the most common vulnerabilities
 found in applications are of the type
-`_XSS (Cross Site Scripting)_`, `_SQLi (SQL Injections)_`
-`_CSRF (Cross-Site Request Forgery)_` , _Insecure Session Management_
-and _Insecure Configurations_, among others;
-these vulnerabilities are widely documented,
+`_XSS (Cross Site Scripting)_`, `_SQLi (SQL Injections)_`,
+`_CSRF (Cross-Site Request Forgery)_`, _Insecure Session Management_
+and _Insecure Configurations_, among others.
+These vulnerabilities are widely documented,
 and their exploitation can be, in some cases, extremely simple,
 even without requiring an in-depth knowledge
 of computation or programming.
 
-Let's take a look at how our `ethical hackers`
-exploit those vulnerabilities to obtain sensitive information,
+We give you a look at how our `ethical hackers`
+exploit these vulnerabilities to obtain sensitive information,
 hijack a session, or even gain root access
 over the server running the application.
 
 == 2. Content
 
-In this conference we will use an application named
+In this conference, we will use an application named
 link:http://www.itsecgames.com/[bWAPP],
-which has the particularity of being vulnerable by design (`vbd`),
-in such a way that `ethical hackers` and security enthusiasts
-can practice their skills and keep improving,
-and those who are just starting in this world
-can learn how to find and exploit vulnerabilities.
+which has the particularity of being vulnerable by design (`vbd`).
+This allows `ethical hackers` and security enthusiasts
+to practice their skills and keep improving,
+while those who are just starting in this world
+can also learn how to find and exploit vulnerabilities.
 
 The application will be attacked from different levels:
 the web interface and the different services
 running inside the server.
-Starting from an identification phase
-and following with the exploitation
-and privilege scalation.
+We start with an identification phase,
+followed by the exploitation and privilege escalation.
 
 We will also show the programming issues
 that cause these vulnerabilities,
 always keeping it simple,
-so all the assistants, no matter their profession,
+so all participants, no matter their profession,
 can keep up and understand the importance of information security
-in a world where applications and devices
-are increasing exponentially.
+in a world where applications and devices are multiplying exponentially.
 
 == 3. Experience
 
@@ -72,18 +70,18 @@ carried out by link:https://www.tigo.com.co/[`TigoUne`].
 The presentation can be hosted
 at your company's facilities or an external venue.
 
-The talk can be given in Medellín, with a minimum audience of `10` assistants.
-For other cities in Colombia, Central America, Ecuador and Perú
-the minimum audience are `20` assistants.
+The talk can be given in Medellín with a minimum audience of `10`.
+For other cities in Colombia and Latin America,
+the minimum is `20` participants.
 
 == 5. Duration
 
 The event duration is `1` hour.
 
-== 6. Public
+== 6. Audience
 
 This conference is suitable for people with basic or low technical knowledge.
-The audience limit are `30` assistants.
+The audience limit is `30` participants.
 
 == 7. Speakers
 
