@@ -378,7 +378,7 @@ async def update_resource(
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(
-                    today.strftime('%Y-%m-%d %H:%M:%S')
+                    datetime_utils.get_as_str(today)
                 ),
                 'state': 'INACTIVE'
             }

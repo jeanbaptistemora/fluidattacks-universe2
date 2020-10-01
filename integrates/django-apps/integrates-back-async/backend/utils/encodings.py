@@ -5,6 +5,10 @@ from typing import (
     Dict,
 )
 
+from backend.utils import (
+    datetime as datetime_utils,
+)
+
 
 def safe_encode(string: str) -> str:
     """Turn a utf-8 string into a string of [a-z0-9] characters."""
@@ -54,7 +58,10 @@ def jwt_payload_encode(payload: dict) -> str:
         # special cases where json encoder does not handle the object type
         # or a special format is needed
         if isinstance(obj, datetime):
-            return obj.strftime('%Y-%m-%dT%H:%M:%S.%f')
+            return datetime_utils.get_as_str(
+                obj,
+                date_format='%Y-%m-%dT%H:%M:%S.%f'
+            )
         # let JSONEncoder handle unsupported object types
         return json.JSONEncoder().default(obj)
     encoder = json.JSONEncoder(default=hook)

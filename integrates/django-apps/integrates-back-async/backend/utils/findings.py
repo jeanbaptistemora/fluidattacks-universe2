@@ -10,13 +10,10 @@ from typing import Dict, List, Union, cast, Tuple, Optional
 from aioextensions import (
     in_process,
 )
-import pytz
 from backports import csv
-from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from magic import Magic
-from pytz.tzinfo import DstTzInfo
 
 from backend import mailer, util
 from backend.dal import (
@@ -43,6 +40,7 @@ from backend.typing import (
 from backend.utils import (
     aio,
     cvss,
+    datetime as datetime_utils,
     forms as forms_utils
 )
 from fluidintegrates.settings import LOGGING
@@ -656,8 +654,9 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
     valid: bool = True
     if values['treatment'] == 'ACCEPTED':
         if values.get("acceptance_date"):
-            tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+            today = datetime_utils.get_as_str(
+                datetime_utils.get_now()
+            )
             values['acceptance_date'] = (
                 f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
             )
@@ -682,12 +681,10 @@ async def validate_acceptance_days(
         values
     )
     if values.get('treatment') == 'ACCEPTED' and is_valid_acceptance_date:
-        tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn)
-        acceptance_date = datetime.strptime(
-            values['acceptance_date'],
-            '%Y-%m-%d %H:%M:%S'
-        ).replace(tzinfo=tzn)
+        today = datetime_utils.get_now()
+        acceptance_date = datetime_utils.get_from_str(
+            values['acceptance_date']
+        )
         acceptance_days = Decimal((acceptance_date - today).days)
         max_acceptance_days = await org_domain.get_max_acceptance_days(
             organization
@@ -748,21 +745,19 @@ async def validate_number_acceptations(
             Optional[Decimal],
             current_max_number_acceptations_info.get('max_number_acceptations')
         )
-        max_acceptations_date = datetime.strptime(
+        max_acceptations_date = datetime_utils.get_from_str(
             cast(
                 str,
                 current_max_number_acceptations_info.get(
                     'date', '0001-01-01 00:00:00'
                 )
-            ),
-            '%Y-%m-%d %H:%M:%S'
+            )
         )
         current_acceptations: int = sum(
             1 for item in historic_treatment
             if item['treatment'] == 'ACCEPTED'
-            and datetime.strptime(
-                item.get('date', '0001-01-01 00:00:00'),
-                '%Y-%m-%d %H:%M:%S'
+            and datetime_utils.get_from_str(
+                item.get('date', '0001-01-01 00:00:00')
             ) > max_acceptations_date
         )
         if max_acceptations and current_acceptations + 1 > max_acceptations:

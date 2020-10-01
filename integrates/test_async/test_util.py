@@ -37,7 +37,8 @@ from backend.util import (
 )
 from backend.utils import (
     encodings,
-    decodings
+    datetime as datetime_utils,
+    decodings,
 )
 from backend.dal.finding import get_finding
 from test_async.utils import create_dummy_simple_session
@@ -101,8 +102,9 @@ class UtilTests(TestCase):
     async def test_payload_encode_decode(self):
         payload = {
             'user_email': 'unittest',
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'exp': datetime_utils.get_now_plus_delta(
+                seconds=settings.SESSION_COOKIE_AGE
+            ),
             'sub': 'django_session',
             'jti': calculate_hash_token()['jti'],
         }
@@ -113,8 +115,9 @@ class UtilTests(TestCase):
     async def test_payload_encrypt_decrypt(self):
         payload = {
             'user_email': 'unittest',
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'exp': datetime_utils.get_now_plus_delta(
+                seconds=settings.SESSION_COOKIE_AGE
+            ),
             'sub': 'django_session',
             'jti': calculate_hash_token()['jti'],
         }

@@ -36,8 +36,9 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
 
     if 'releaseDate' not in draft_data:
         if status == 'SUBMITTED':
-            today = datetime_utils.get_now()
-            rejection_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
+            rejection_date = datetime_utils.get_as_str(
+                datetime_utils.get_now()
+            )
             history.append({
                 'date': rejection_date,
                 'analyst': reviewer_email,
@@ -76,8 +77,9 @@ async def approve_draft(
         ]
         if has_vulns:
             if 'reportDate' in draft_data:
-                today = datetime_utils.get_now()
-                release_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
+                release_date = datetime_utils.get_as_str(
+                    datetime_utils.get_now()
+                )
                 history = cast(
                     List[Dict[str, str]],
                     draft_data.get('historicState', [{}])
@@ -111,8 +113,9 @@ async def create_draft(
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     project_name = project_name.lower()
-    today = datetime_utils.get_now()
-    creation_date = today.strftime('%Y-%m-%d %H:%M:%S')
+    creation_date = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     user_data = cast(UserType, await util.get_jwt_content(info.context))
     analyst_email = str(user_data.get('user_email', ''))
     submission_history = {

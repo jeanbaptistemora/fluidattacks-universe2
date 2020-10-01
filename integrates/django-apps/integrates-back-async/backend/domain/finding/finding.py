@@ -429,8 +429,9 @@ async def delete_finding(
     success = False
 
     if submission_history[-1].get('state') != 'DELETED':
-        today = datetime_utils.get_now()
-        delete_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
+        delete_date = datetime_utils.get_as_str(
+            datetime_utils.get_now()
+        )
         user_info = await util.get_jwt_content(context)
         submission_history.append({
             'state': 'DELETED',
