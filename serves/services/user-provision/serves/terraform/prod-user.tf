@@ -3,6 +3,7 @@ resource "aws_iam_user" "prod" {
   path = "/user-provision/"
 
   tags = {
+    "Name"               = "serves-prod"
     "management:type"    = "production"
     "management:product" = "serves"
   }

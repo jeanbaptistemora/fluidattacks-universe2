@@ -109,6 +109,7 @@ resource "aws_kms_key" "key-serves-development" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "serves-development"
     "management:type"    = "production"
     "management:product" = "serves"
   }

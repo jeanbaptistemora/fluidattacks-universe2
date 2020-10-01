@@ -4,6 +4,7 @@ resource "aws_cloudwatch_event_rule" "every-hour" {
   schedule_expression = "rate(1 hour)"
 
   tags = {
+    "Name"               = "every--hour"
     "management:type"    = "production"
     "management:product" = "serves"
   }

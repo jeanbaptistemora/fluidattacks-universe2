@@ -17,6 +17,7 @@ resource "aws_iam_user" "okta-access-user" {
   path = "/"
 
   tags = {
+    "Name"               = "okta-access-user"
     "management:type"    = "production"
     "management:product" = "serves"
   }

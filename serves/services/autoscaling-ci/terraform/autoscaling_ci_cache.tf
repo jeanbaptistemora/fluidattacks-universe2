@@ -17,6 +17,7 @@ resource "aws_s3_bucket" "autoscaling_ci_cache" {
   }
 
   tags = {
+    "Name"               = "autoscaling-ci-cache"
     "management:type"    = "production"
     "management:product" = "serves"
   }

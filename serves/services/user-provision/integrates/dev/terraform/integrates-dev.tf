@@ -3,6 +3,7 @@ resource "aws_iam_user" "integrates-dev" {
   path = "/user-provision/"
 
   tags = {
+    "Name"               = "integrates-dev"
     "management:type"    = "production"
     "management:product" = "serves"
   }

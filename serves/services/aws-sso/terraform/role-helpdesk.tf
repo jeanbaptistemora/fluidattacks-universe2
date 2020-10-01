@@ -29,6 +29,7 @@ resource "aws_iam_role" "helpdesk-role" {
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
+    "Name"               = "helpdesk"
     "management:type"    = "production"
     "management:product" = "serves"
   }

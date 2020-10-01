@@ -7,6 +7,7 @@ resource "aws_acm_certificate" "production" {
   }
 
   tags = {
+    "Name"               = "production"
     "management:type"    = "production"
     "management:product" = "serves"
   }
@@ -42,6 +43,7 @@ resource "aws_acm_certificate" "root" {
   }
 
   tags = {
+    "Name"               = "root"
     "management:type"    = "production"
     "management:product" = "serves"
   }

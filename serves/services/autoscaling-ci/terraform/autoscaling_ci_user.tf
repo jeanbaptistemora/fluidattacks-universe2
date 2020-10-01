@@ -39,6 +39,7 @@ resource "aws_iam_user" "autoscaling_ci_user" {
   path     = "/autoscaling-ci/"
 
   tags = {
+    "Name"               = "autoscaling-ci"
     "management:type"    = "production"
     "management:product" = "serves"
   }

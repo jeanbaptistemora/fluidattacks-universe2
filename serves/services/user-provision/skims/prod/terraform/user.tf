@@ -3,6 +3,7 @@ resource "aws_iam_user" "skims_prod" {
   path = "/user_provision/"
 
   tags = {
+    "Name"               = "skims_prod"
     "management:type"    = "production"
     "management:product" = "serves"
   }

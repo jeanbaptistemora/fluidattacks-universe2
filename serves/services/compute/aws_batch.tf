@@ -5,6 +5,7 @@ resource "aws_subnet" "default" {
   vpc_id = var.batch_vpc_id
 
   tags = {
+    "Name"               = "batch"
     "management:type"    = "production"
     "management:product" = "common"
   }
@@ -24,6 +25,7 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
   name = "aws_ecs_instance_role"
 
   tags = {
+    "Name"               = "aws_ecs_instance_role"
     "management:type"    = "production"
     "management:product" = "common"
   }
@@ -53,6 +55,7 @@ resource "aws_iam_role" "aws_batch_service_role" {
   name = "aws_batch_service_role"
 
   tags = {
+    "Name"               = "aws_batch_service_role"
     "management:type"    = "production"
     "management:product" = "common"
   }
@@ -84,6 +87,7 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
   }
 
   tags = {
+    "Name"               = "aws_batch_compute_environment_security_group"
     "management:type"    = "production"
     "management:product" = "common"
   }
@@ -112,6 +116,7 @@ resource "aws_batch_compute_environment" "default" {
     ]
     type = "SPOT"
     tags = {
+      "Name"               = "default"
       "management:type"    = "production"
       "management:product" = "common"
     }

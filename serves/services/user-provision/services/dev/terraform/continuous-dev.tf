@@ -3,6 +3,7 @@ resource "aws_iam_user" "continuous-dev" {
   path = "/user-provision/"
 
   tags = {
+    "Name"               = "continuous-dev"
     "management:type"    = "production"
     "management:product" = "serves"
   }

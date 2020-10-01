@@ -13,6 +13,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   }
 
   tags = {
+    "Name"               = "terraform_state_lock"
     "management:type"    = "production"
     "management:product" = "serves"
   }

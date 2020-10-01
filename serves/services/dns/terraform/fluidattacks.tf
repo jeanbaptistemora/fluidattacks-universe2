@@ -3,6 +3,7 @@ resource "aws_route53_zone" "fs_maindomain" {
   comment = "Dominio principal de FLUID"
 
   tags = {
+    "Name"               = "fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "serves"
   }

@@ -25,6 +25,7 @@ resource "aws_iam_role" "finance-role" {
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
+    "Name"               = "finance"
     "management:type"    = "production"
     "management:product" = "serves"
   }
