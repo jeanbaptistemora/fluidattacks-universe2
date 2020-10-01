@@ -153,7 +153,7 @@ async def resolve_forces_executions(
         to_date: Union[datetime, None] = None) -> ForcesExecutionsType:
     """Resolve forces_executions query."""
     project_name = project_name.lower()
-    from_date = from_date or util.get_current_time_minus_delta(weeks=1)
+    from_date = from_date or datetime_utils.get_now_minus_delta(weeks=1)
     to_date = to_date or datetime_utils.get_now()
     return await _resolve_fields(info, project_name, from_date, to_date)
 
@@ -172,7 +172,7 @@ async def resolve_forces_executions_new(
         to_date: Union[datetime, None] = None) -> ForcesExecutionsType:
     """Resolve forces_executions query."""
     project_name = project_name.lower()
-    from_date = from_date or util.get_current_time_minus_delta(weeks=1)
+    from_date = from_date or datetime_utils.get_now_minus_delta(weeks=1)
     to_date = to_date or datetime_utils.get_now()
     request_ast = util.get_requested_fields_ast(info)
 

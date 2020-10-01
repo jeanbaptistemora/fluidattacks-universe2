@@ -58,7 +58,7 @@ from backend.utils import (
     findings as finding_utils,
     validations
 )
-from backend import authz, mailer, util
+from backend import authz, mailer
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -169,7 +169,9 @@ async def create_project(  # pylint: disable=too-many-arguments
                 'project_name': project_name,
                 'description': description,
                 'historic_configuration': [{
-                    'date': util.get_current_time_as_iso_str(),
+                    'date': datetime_utils.get_as_str(
+                        datetime_utils.get_now()
+                    ),
                     'has_drills': has_drills,
                     'has_forces': has_forces,
                     'requester': user_email,
@@ -263,7 +265,9 @@ async def edit(
                     item['historic_configuration']
                 ) + [{
                     'comments': comments,
-                    'date': util.get_current_time_as_iso_str(),
+                    'date': datetime_utils.get_as_str(
+                        datetime_utils.get_now()
+                    ),
                     'has_drills': has_drills,
                     'has_forces': has_forces,
                     'reason': reason,

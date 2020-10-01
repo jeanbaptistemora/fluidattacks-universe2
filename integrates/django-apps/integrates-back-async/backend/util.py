@@ -3,7 +3,7 @@
 
 import asyncio
 import collections
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, date
 import binascii
 import functools
 import logging
@@ -18,7 +18,6 @@ from typing import (
     Union,
 )
 import httpx
-import pytz
 
 from aioextensions import (
     collect,
@@ -66,6 +65,7 @@ from backend.typing import (
 )
 from backend.utils import (
     apm,
+    datetime as datetime_utils,
     function,
     encodings,
     decodings
@@ -118,18 +118,6 @@ def ord_asc_by_criticality(
     return data
 
 
-def get_current_time_minus_delta(*, weeks: int) -> datetime:
-    """ Return a customized no-naive date n weeks back to the past """
-    now = datetime.utcnow()
-    now_minus_delta = now - timedelta(weeks=weeks)
-    now_minus_delta = now_minus_delta.replace(tzinfo=timezone.utc)
-    return now_minus_delta
-
-
-def get_current_time_as_iso_str() -> str:
-    return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
-
-
 def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
     mime = Magic(mime=True)
     mime_type = mime.from_file(filename)
@@ -162,23 +150,20 @@ def has_release(finding: Dict[str, str]) -> bool:
     return "releaseDate" in finding
 
 
-def get_last_vuln(finding: Dict[str, str]) -> datetime:
+def get_last_vuln(finding: Dict[str, str]) -> date:
     """Gets last release of a finding"""
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    finding_last_vuln = datetime.strptime(
+    finding_last_vuln_date = datetime_utils.get_from_str(
         finding["releaseDate"].split(" ")[0],
-        '%Y-%m-%d'
-    )
-    finding_last_vuln_date = finding_last_vuln.replace(tzinfo=tzn).date()
-    return cast(datetime, finding_last_vuln_date)
+        date_format='%Y-%m-%d'
+    ).date()
+    return finding_last_vuln_date
 
 
 def validate_release_date(finding: Dict[str, str]) -> bool:
     """Validate if a finding has a valid relese date."""
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today_day = datetime.now(tz=tzn).date()
+        today_day = datetime_utils.get_now().date()
         result = last_vuln <= today_day
     else:
         result = False
@@ -402,17 +387,21 @@ def format_cache_keys_pattern(attrs_to_clean: Dict[str, str]) -> List[str]:
 
 
 def format_comment_date(date_string: str) -> str:
-    date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
-    formatted_date = date.strftime('%Y/%m/%d %H:%M:%S')
+    comment_date = datetime_utils.get_from_str(date_string)
+    formatted_date = datetime_utils.get_as_str(
+        comment_date,
+        date_format='%Y/%m/%d %H:%M:%S'
+    )
 
     return formatted_date
 
 
-def calculate_datediff_since(start_date: datetime) -> timedelta:
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-    start_date = datetime.strptime(str(start_date).split(' ')[0], '%Y-%m-%d')
-    start_date = cast(datetime, start_date.replace(tzinfo=tzn).date())
-    final_date = (datetime.now(tz=tzn).date() - start_date)
+def calculate_datediff_since(start_datetime: datetime) -> timedelta:
+    start_date = datetime_utils.get_from_str(
+        str(start_datetime).split(' ')[0],
+        date_format='%Y-%m-%d'
+    ).date()
+    final_date = (datetime_utils.get_now().date() - start_date)
     return final_date
 
 
@@ -474,9 +463,9 @@ def is_api_token(user_data: UserType) -> bool:
     )
 
 
-def is_valid_format(date: str) -> bool:
+def is_valid_format(date_str: str) -> bool:
     try:
-        datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        datetime_utils.get_from_str(date_str)
         resp = True
     except ValueError:
         resp = False
@@ -520,22 +509,18 @@ def forces_trigger_deployment(project_name: str) -> bool:
 
 
 def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn)
     if updated_values['treatment'] == 'NEW':
         updated_values['acceptance_date'] = ''
     elif updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
         updated_values['acceptance_status'] = 'SUBMITTED'
         days = [
-            today + timedelta(x + 1)
-            for x in range(
-                (today + timedelta(days=5) - today).days
-            )
+            datetime_utils.get_now_plus_delta(days=x + 1)
+            for x in range(5)
         ]
         weekend_days = sum(1 for day in days if day.weekday() >= 5)
-        updated_values['acceptance_date'] = (
-            today + timedelta(days=5 + weekend_days)
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        updated_values['acceptance_date'] = datetime_utils.get_as_str(
+            datetime_utils.get_now_plus_delta(days=5 + weekend_days)
+        )
     return updated_values
 
 
