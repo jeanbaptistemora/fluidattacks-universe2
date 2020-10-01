@@ -10,32 +10,31 @@
 
 == 1. Objective
 
-The term `SecDevOps` has grown in popularity in recent years;
-however, every Webinar that addresses the topic
-only focuses on its benefits, or possibles use cases,
-ignoring the people’s main reason to assist in this kind of events.
+The term `SecDevOps` has grown in popularity in recent years.
+However, Webinars addressing this topic
+tend to only focus on its benefits, or possible use cases,
+ignoring people’s main motivation to attend this kind of event.
 
-It can be deduced that people want to know at least
-*how does this work?* and *where to start?*.
-The speaker may show us how to perform tests
+It is fairly safe to assume that people want to also find out
+*how this works* and *where to start*.
+Many speakers demonstrate how to perform tests
 over an extremely simple environment,
 completely unrelatable to our everyday tasks,
-and in this case, new questions emerge, such as
-*does this work?* Alternatively, *how can I apply it to my company?*
+and in this case, new questions emerge, such as:
+*Does this work?* Or, *how can I apply this to my company?*
 
-Based on the above,
-in this talk, we seek to answer the posed questions,
-through the socialization of our methodologies and work practices
-or *habits* that allow us to implement a `SecDevOps` culture
+Based on the above, in this talk,
+we seek to answer the posed questions
+by sharing the methodologies and work practices, or *habits*,
+that allow us to implement a `SecDevOps` culture
 in the execution of our projects;
-from the infrastructure management
-to the development of our orchestration platform
-for vulnerabilities remediation: link:../../../products/integrates/[Integrates].
+from the infrastructure management to the development of our orchestration platform
+for vulnerability remediation: link:../../../products/integrates/[Integrates].
 
 These habits allow us not only to increase our productivity,
-and daily generate value to our customers,
-but to increase the security of our production deployments.
-Thereby, we could reach, in the last six months, an average of:
+and generate value for our customers on a daily basis,
+but also to increase the security of our production deployments.
+Thereby, we have been able to reach the following average rates:
 
 [role="tb-alt"]
 [frame="none",cols=2,caption=""]
@@ -51,23 +50,22 @@ image::max-average.png[The highest average in a system]
 == 2. Content
 
 This *seminar/workshop* aims to implement
-the concepts and techniques saw in
-[button]#link:../burn-the-datacenter/[Burn the Datacenter]#.
+the concepts and techniques
+covered in link:../burn-the-datacenter/[Burn the Datacenter].
 Everything is performed *live*
 over real infrastructure and applications,
-taking a look into the backstage of the process:
-The tools used,
-the logs that allow us to identify issues,
+giving the audience a look into the backstage of the process:
+The tools used, the logs that allow us to identify issues,
 and even the source code that defines each step
 for the correct deployment of our applications,
 always focusing on how our infrastructure and products
 are updated in *real time*.
 
-To understand how everything happens
+To help understand how everything happens
 and demonstrate how to take the first step to reach this configuration,
 we also explain all the work habits
 that have allowed us to reach this point and keep improving daily.
-These habits address topics such as:
+These include topics such as:
 
 * Source code management inside repositories,
 following a *monorepo* structure
@@ -86,39 +84,35 @@ through a *micro changes* methodology
 turning it into *immutable infrastructure*
 (avoiding management consoles and unauthorized changes).
 
-* Define  Continuous Integration environments as source code,
-`*pipeline as code*`,
-in a way that can easily be configured
-and modified for all kind of tests
-(avoiding graphical interface limitations
-for pipeline configurations).
+* Define Continuous Integration environments as source code,
+`*pipeline as code*`, in a way that can easily be configured
+and modified for all kinds of tests
+(avoiding graphical interface limitations for pipeline configurations).
 
-* Avoid servers at any cost,
-migrating to cloud services
+* Avoid servers at any cost, migrating to cloud services
 and reaching a *serverless* infrastructure.
 
-* Safe password management when deploying an application
+* Safe password management when deploying an application,
 avoiding sensitive information disclosure in source code
 and *keeping the secrets protected*.
 
-* Deploy *ephemeral environments*
-that allow testing all the developed features
-before passing to production
+* Deploy *ephemeral environments* that allow testing
+all the developed features before passing to production
 (reducing project complexity by avoiding development environments,
-testing, `QA`, and others)
+testing, `QA`, and others).
 
 * *Breaking the build* even before making a `commit` to the repository
-using `*pre-commit*` for checking the source code.
+using `*pre-commit*` to check the source code.
 
 * Perform tests over the source code and over the deployment
-that *break the build* as a result for the smallest error
-(not only notify and allow the error to keep evolving/growing):
+that *break the build* as a result of the smallest error
+(instead of only notifying and allowing the error to keep evolving/growing):
 
-** Multiplatform integration.
-** Unit testing.
-** Coverage.
-** Strict `Linters`.
-** `Security Gates (SAST y DAST)`.
+** Multiplatform integration
+** Unit testing
+** Coverage
+** Strict `Linters`
+** `Security Gates (SAST y DAST)`
 
 * Extreme reduction of `build` times
 by using the *cache* correctly.
@@ -126,25 +120,25 @@ by using the *cache* correctly.
 *  Take advantage of the features presented
 in the version control client `Git`:
 
-** `Peer Review`.
-** `Squashing`.
-** `Rebasing`.
+** `Peer Review`
+** `Squashing`
+** `Rebasing`
 ** `Rollback`
-** `Trigger builds`.
+** `Trigger builds`
 
 * *Telemetry* accessible to developers
-(not logs, only available for infrastructure area)
+(not logs, only available for infrastructure area).
 
-Each point previously described is explained
-while accessing `Fluid Attacks` systems
+Each above-mentioned point is explained
+while accessing `Fluid Attacks'` systems
 to look at its implementation and operation.
-According to the needs or interest of the assistants,
+According to the needs or interest of the participants,
 it is possible to focus on the topics they deem most important.
 
 == 3. Experience
 
 This *workshop* has been presented to professionals
-in technology and auditing areas, for companies such as:
+in technology and auditing areas for companies such as:
 link:https://www.accenture.com/co-es/new-applied-now[`Accenture`],
 link:https://www.arus.com.co/[`Arus`],
 link:https://www.ath.com.co/wps/themes/html/ath/index.html[`ATH`],
@@ -183,40 +177,37 @@ The *workshop* has a duration of *6 hours*
 It comprises a live demonstration of our practices,
 a morning break, and a lunch break.
 
-== 6. When
+== 6. When?
 
 The *workshop* is designed to be performed from *9 A.M.* to *3 P.M.*,
-with a *30 minutes* break at *12 m*
-The event date must be scheduled by agreement
-between the attendants and `Fluid Attacks`.
+with a *30-minute* break at *12 P.M.*
+The event date must be scheduled in agreement
+between the participants and `Fluid Attacks`.
 
 == 7. Details
 
 . *Investment*: The space and food for this workshop
 are completely covered by `Fluid Attacks`.
-The attendance must commit themselves with their time
-and their transportation expenses
+The attendees must commit their time
+and cover their transportation expenses
 including vehicles parking costs
 in case the facility exceeds its capacity.
 
-. *Material*: As well as the other events
-offered by `Fluid Attacks`
-the event material is sent to the attendance
-once *all* the assistants have completed the
-[button]#link:https://fluidattacks.formstack.com/forms/talk[online satisfaction survey]#
-*before leaving* the auditorium.
+. *Material*: As with all events offered by `Fluid Attacks`,
+the event material is sent to the attendees
+once they complete the link:https://fluidattacks.formstack.com/forms/talk[online satisfaction survey].
 
-== 8. Public
+== 8. Audience
 
 The *workshop* is suitable for both technical and managerial personnel,
 and the satisfaction rate for both profiles is equally high.
 However, if you wish to promote new changes
-and experimentation inside your company,
-considering people that can make decisions is important.
+and experimentation within your company,
+it is important to include people with decision-making power.
 
 The *workshop* is designed for an audience
-between *12 and 14* persons on the customer side,
-besides `4` additional assistants on `Fluid Attacks` side.
+of between *12 and 14* people on the customer side,
+plus `4` additional participants on `Fluid Attacks'` side.
 
 == 9. Speakers
 
