@@ -218,11 +218,13 @@ async def _resolve_fields(info: GraphQLResolveInfo) -> MeType:
         )
         migrated = {
             'access_token',
+            'permissions',
             'projects',
             'organizations',
             'remember',
             'role',
-            'subscriptions_to_entity_report'
+            'subscriptions_to_entity_report',
+            'tags'
         }
         if requested_field.startswith('_') or requested_field in migrated:
             continue
