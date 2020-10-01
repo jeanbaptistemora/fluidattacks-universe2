@@ -340,6 +340,14 @@ label {
   background-color: #FF3435;
 }
 
+:global .bg-ns {
+  background-color: #525A5C !important;
+}
+
+:global .bg-ne {
+  background-color: #FF3435 !important;
+}
+
 :global .bg-sb,
 :global .bg-sb:active,
 :global .bg-sb:focus,
@@ -370,7 +378,7 @@ label {
 }
 
 :global .montserrat {
-  font-family: Montserrat, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 :global .o-bd[disabled],
@@ -385,6 +393,10 @@ label {
 :global .pv2-5 {
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
+}
+
+:global .sans-pro {
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 :global .svg-box svg {

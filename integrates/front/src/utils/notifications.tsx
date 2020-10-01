@@ -1,6 +1,5 @@
 import { Notification } from "components/Notification";
 import React from "react";
-import style from "components/Notification/index.css";
 import { Slide, toast } from "react-toastify";
 
 const msgSuccess: (text: string, title: string) => void = (
@@ -8,7 +7,7 @@ const msgSuccess: (text: string, title: string) => void = (
   title: string
 ): void => {
   toast.success(<Notification text={text} title={title} />, {
-    className: style.success,
+    className: "bg-ns",
     transition: Slide,
   });
 };
@@ -19,7 +18,7 @@ const msgError: (text: string, title?: string) => void = (
 ): void => {
   if (!toast.isActive(text)) {
     toast.error(<Notification text={text} title={title} />, {
-      className: style.error,
+      className: "bg-ne",
       toastId: text,
       transition: Slide,
     });
@@ -32,7 +31,7 @@ const msgErrorStick: (text: string, title?: string) => void = (
 ): void => {
   toast.error(<Notification text={text} title={title} />, {
     autoClose: false,
-    className: style.error,
+    className: "bg-ne",
     draggable: false,
     transition: Slide,
   });
