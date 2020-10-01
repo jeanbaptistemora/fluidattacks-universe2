@@ -1,8 +1,6 @@
-import asyncio
-import json
 import logging
 import sys
-from typing import Dict, List, Any, cast
+from typing import Dict, Any
 
 from aioextensions import (
     in_thread,
@@ -18,9 +16,6 @@ from social_django.utils import load_strategy
 from social_django.utils import load_backend
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend.api.resolvers import (
-    project as project_resolver,
-)
 from backend.decorators import require_login
 from backend.domain import (
     subscriptions as subscriptions_domain,
@@ -28,7 +23,6 @@ from backend.domain import (
 )
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
-    Project as ProjectType,
     SignInPayload as SignInPayloadType,
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
@@ -37,62 +31,12 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from backend import util
-from backend import authz
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _get_role(
-        _: GraphQLResolveInfo,
-        user_email: str,
-        entity: str = 'USER',
-        identifier: str = '',
-        project_name: str = '') -> str:
-    """Get role."""
-    if project_name or (entity == 'PROJECT' and identifier):
-        group_name = project_name or identifier
-        role = await authz.get_group_level_role(
-            user_email, group_name
-        )
-    elif entity == 'ORGANIZATION' and identifier:
-        organization_id = identifier
-        role = await authz.get_organization_level_role(
-            user_email, organization_id
-        )
-    else:
-        role = await authz.get_user_level_role(user_email)
-    return cast(str, role)
-
-
-async def _get_projects(
-        info: GraphQLResolveInfo,
-        user_email: str) -> List[ProjectType]:
-    """Get projects."""
-    project_names = await user_domain.get_projects(user_email)
-    projects = await asyncio.gather(*[
-        asyncio.create_task(
-            project_resolver.resolve(info, project_name, as_field=True)
-        )
-        for project_name in project_names
-    ])
-    return projects
-
-
-async def _get_access_token(_: GraphQLResolveInfo, user_email: str) -> str:
-    """Get access token."""
-    access_token = await user_domain.get_data(
-        user_email, 'access_token')
-    access_token_dict = {
-        'hasAccessToken': bool(access_token),
-        'issuedAt': str(access_token.get('iat', ''))
-        if isinstance(access_token, dict)
-        else ''
-    }
-    return json.dumps(access_token_dict)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
