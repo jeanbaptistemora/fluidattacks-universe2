@@ -340,6 +340,22 @@ label {
   background-color: #FF3435;
 }
 
+:global .bg-lbl-gray {
+  background-color: #707070;
+}
+
+:global .bg-lbl-green {
+  background-color: #259800;
+}
+
+:global .bg-lbl-red {
+  background-color: #FF2222;
+}
+
+:global .bg-lbl-yellow {
+  background-color: #FFBF00;
+}
+
 :global .bg-ns {
   background-color: #525A5C !important;
 }
