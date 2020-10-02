@@ -1,7 +1,7 @@
 :slug: products/rules/list/080/
 :category: logs
 :description: This requirement establishes the importance of preventing log modifications or alterations in order to keep permanent records of all system activity.
-:keywords: Logs, Events, Modification, Alteration, ASVS, CWE, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Logs, Events, Modification, Alteration, ASVS, CAPEC, CWE, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R080. Prevent log modification
@@ -21,7 +21,12 @@ since this could prevent a vulnerability or a breach from being noticed timely.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
+. [[r1]] link:http://capec.mitre.org/data/definitions/161.html[CAPEC-161: Infrastructure Manipulation].
+An attacker exploits characteristics of the infrastructure of a network entity
+in order to perpetrate attacks or information gathering on network objects or
+effect a change in the ordinary information flow between network objects.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
 The product exposes sensitive information to an actor that is not explicitly
 authorized to have access to that information.
 

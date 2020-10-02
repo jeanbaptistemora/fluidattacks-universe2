@@ -32,36 +32,42 @@ Buffer attacks are distinguished in that it is the buffer space itself that is
 the target of the attack rather than any code responsible for interpreting the
 content of the buffer.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+. [[r2]] link:http://capec.mitre.org/data/definitions/153.html[CAPEC-153: Input Data Manipulation].
+An attacker exploits a weakness in input validation by controlling the format,
+structure, and composition of data to an input-processing interface.
+By supplying input of a non-standard or unexpected form an attacker can
+adversely impact the security of the target.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
 The program copies an input buffer to an output buffer without verifying that
 the size of the input buffer is less than the size of the output buffer,
 leading to a buffer overflow.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/134.html[CWE-134: Use of Externally-Controlled Format String].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/134.html[CWE-134: Use of Externally-Controlled Format String].
 The software uses a function that accepts a format string as an argument,
 but the format string originates from an external source.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/190.html[CWE-190: Integer Overflow or Wraparound].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/190.html[CWE-190: Integer Overflow or Wraparound].
 The software performs a calculation that can produce an integer overflow or
 wraparound,
 when the logic assumes that the resulting value will always be larger than the
 original value.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.1)]
 Verify that the application uses memory-safe string, safer memory copy and
 pointer arithmetic to detect or prevent *stack*, *buffer*, or *heap* overflows.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.2)]
 Verify that format strings do not take potentially hostile input,
 and are constant.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.3)]
 Verify that sign, range, and input validation techniques are used to prevent
 integer overflows.
 
-. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
 Address common coding vulnerabilities in software-development processes such as
 buffer overflows.
