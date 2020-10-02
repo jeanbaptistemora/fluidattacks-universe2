@@ -101,13 +101,13 @@ integrates_analytics_make_documents_dev:
   <<: *analytics_template
   <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_dev"
-  parallel: 3
+  parallel: 4
 
 integrates_analytics_make_documents_prod:
   <<: *analytics_template
   <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_prod"
-  parallel: 6
+  parallel: 8
 
 integrates_analytics_make_documents_prod_schedule:
   <<: *analytics_template
@@ -116,7 +116,7 @@ integrates_analytics_make_documents_prod_schedule:
   only:
     refs: [schedules]
     variables: [$integrates_analytics_make_documents_prod_schedule]
-  parallel: 6
+  parallel: 8
 
 integrates_analytics_make_snapshots_prod_schedule:
   <<: *analytics_template
