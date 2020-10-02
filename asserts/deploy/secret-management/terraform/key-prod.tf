@@ -109,6 +109,7 @@ resource "aws_kms_key" "asserts-prod-key" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "asserts-production"
     "management:type"    = "production"
     "management:product" = "asserts"
   }

@@ -115,6 +115,7 @@ resource "aws_kms_key" "asserts-dev-key" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "asserts-development"
     "management:type"    = "development"
     "management:product" = "asserts"
   }
