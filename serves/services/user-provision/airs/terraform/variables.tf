@@ -9,7 +9,3 @@ data "aws_route53_zone" "fluidattacks" {
 variable "region" {
   default = "us-east-1"
 }
-
-variable "user-name" {
-  default = "web-dev"
-}

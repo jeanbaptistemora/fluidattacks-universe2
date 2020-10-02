@@ -152,12 +152,12 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
 }
 resource "aws_iam_policy" "web-dev-policy" {
   description = "web-dev policy"
-  name        = "${var.user-name}-policy"
+  name        = "web-dev-policy"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.web-dev-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "web-dev-attach-policy" {
-  user       = var.user-name
+  user       = "web-dev"
   policy_arn = aws_iam_policy.web-dev-policy.arn
 }

@@ -152,12 +152,12 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
 
 resource "aws_iam_policy" "web-prod-policy" {
   description = "web-prod policy"
-  name        = "${var.user-name}-policy"
+  name        = "web-prod-policy"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.web-prod-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "web-prod-attach-policy" {
-  user       = var.user-name
+  user       = "web-prod"
   policy_arn = aws_iam_policy.web-prod-policy.arn
 }
