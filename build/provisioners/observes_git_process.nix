@@ -17,12 +17,7 @@ in
             pkgs.python37
           ];
 
-          # Do not remove, please!
-          pyPkgFluidCLI = builders.pythonPackage {
-            requirement = "fluidattacks";
-          };
-          LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
-
+          pyPkgMelts = import ../../melts pkgs;
           pyPkgTapgit = builders.pythonPackageLocal { path = ../../observes/singer/tap_git; };
           pyPkgTracers = builders.pythonPackage { requirement = "tracers==20.7.1645"; };
         })
