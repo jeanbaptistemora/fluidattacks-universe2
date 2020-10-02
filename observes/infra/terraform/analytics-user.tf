@@ -58,6 +58,7 @@ resource "aws_iam_user" "analytics_user" {
   path     = "/analytics/"
 
   tags = {
+    "Name"               = "analytics"
     "management:type"    = "production"
     "management:product" = "observes"
   }

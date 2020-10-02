@@ -103,6 +103,7 @@ resource "aws_kms_key" "key-prod" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "observes-production"
     "management:type"    = "production"
     "management:product" = "observes"
   }
