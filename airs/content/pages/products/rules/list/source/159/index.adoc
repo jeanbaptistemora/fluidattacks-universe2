@@ -1,7 +1,7 @@
 :slug: products/rules/list/159/
 :category: source
 :description: This requirement establishes the importance of obfuscating the application source code in production environments.
-:keywords: Requirement, Security, Source Code, Obfuscation, Protection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Source Code, Obfuscation, Protection, ASVS, CAPEC, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R159. Obfuscate code
@@ -16,18 +16,23 @@ The source code must be obfuscated in production environments.
 
 == References
 
-. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 Use code protection].
+. [[r1]] link:http://capec.mitre.org/data/definitions/188.html[CAPEC-188: Reverse Engineering].
+An adversary discovers the structure, function, and composition of an object,
+resource, or system by using a variety of analysis techniques to effectively
+determine how the analyzed entity was constructed or operates.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
+. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 Use code protection].
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
 The product released to market is released in pre-production or manufacturing
 configuration.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.18)]
 Verify security controls are in place to hinder firmware reverse engineering
 (e.g., removal of verbose debugging symbols).
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.34)]
 Verify that micro controllers are configured with code protection
 (if applicable).
