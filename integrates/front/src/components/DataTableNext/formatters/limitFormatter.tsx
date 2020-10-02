@@ -3,9 +3,7 @@
   We need className to override default styles from react-bootstrap.
 */
 import React from "react";
-import style from "components/DataTableNext/index.css";
 import { translate } from "utils/translations/translate";
-import { Col, Row } from "react-bootstrap";
 
 export const limitFormatter: (value: string) => JSX.Element = (
   value: string
@@ -17,15 +15,11 @@ export const limitFormatter: (value: string) => JSX.Element = (
   const newValue: string = valueArray.slice(0, linesLimit).join(", ");
 
   return (
-    <Row className={style.limitFormatter}>
-      <Col className={style.limitFormatter} sm={12}>
-        <p className={style.limitFormatter}>{newValue}</p>
-      </Col>
+    <div>
+      <p>{newValue}</p>
       {valueArray.length > linesLimit && (
-        <Col className={style.limitFormatter} sm={12}>
-          {translate.t("dataTableNext.more")}
-        </Col>
+        <p>{translate.t("dataTableNext.more")}</p>
       )}
-    </Row>
+    </div>
   );
 };
