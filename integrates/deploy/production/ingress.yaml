@@ -25,7 +25,7 @@ spec:
               servicePort: use-annotation
           - path: /new/*
             backend:
-              serviceName: integrates2-__DEPLOYMENT_NAME__
+              serviceName: integrates2-master
               servicePort: 80
           - path: /*
             backend:

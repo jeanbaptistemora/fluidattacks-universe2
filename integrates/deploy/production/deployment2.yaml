@@ -1,50 +1,60 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: integrates2-__DEPLOYMENT_NAME__
-  namespace: ephemeral
+  name: integrates-master
+  namespace: production
+  annotations:
+    kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
-      app: integrates2-__DEPLOYMENT_NAME__
+      app: integrates-master
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 2
   template:
     metadata:
       labels:
-        app: integrates2-__DEPLOYMENT_NAME__
+        app: integrates-master
     spec:
       nodeSelector:
-        worker_group: large
+        worker_group: xlarge
       containers:
-        - name: integrates2
-          image: registry.gitlab.com/fluidattacks/product/app2:__DEPLOYMENT_NAME__
-          imagePullPolicy: Always
-          resources:
-            requests:
-              cpu: 250m
-              memory: 512Mi
-            limits:
-              cpu: 250m
-              memory: 512Mi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
-          envFrom:
-            - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
-          ports:
-            - containerPort: 8080
-          readinessProbe:
-            exec:
-              command: [bash, deploy/production/integrates2-probes.sh, run_readiness_probe]
-            initialDelaySeconds: 180
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 20
-          livenessProbe:
-            exec:
-              command: [bash, deploy/production/integrates2-probes.sh, run_liveness_probe]
-            initialDelaySeconds: 180
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 20
+      - name: integrates2
+        image: registry.gitlab.com/fluidattacks/product/app2:master
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "__DATE__"
+          - name: INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        envFrom:
+          - secretRef:
+              name: integrates-master
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          exec:
+            command: [bash, deploy/production/integrates2-probes.sh, run_readiness_probe]
+          initialDelaySeconds: 180
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 20
+        livenessProbe:
+          exec:
+            command: [bash, deploy/production/integrates2-probes.sh, run_liveness_probe]
+          initialDelaySeconds: 180
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 20
