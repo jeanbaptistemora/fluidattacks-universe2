@@ -1,7 +1,16 @@
 import { Badge } from "components/Badge";
 import { Column } from "react-bootstrap-table-next";
-import style from "components/DataTableNext/index.css";
 import React, { ReactElement } from "react";
+import styled, { StyledComponent } from "styled-components";
+
+const BadgeContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex items-center justify-center relative",
+})``;
 
 export const proFormatter: (
   column: Column,
@@ -13,12 +22,12 @@ export const proFormatter: (
   { sortElement }: Record<string, ReactElement>
 ): JSX.Element => {
   return (
-    <div className={style.plusFormatter}>
-      <div>
+    <BadgeContainer>
+      <BadgeContainer>
         {column.text}
         <Badge>{"pro"}</Badge>
-      </div>
+      </BadgeContainer>
       {sortElement}
-    </div>
+    </BadgeContainer>
   );
 };
