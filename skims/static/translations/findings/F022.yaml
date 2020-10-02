@@ -1,0 +1,32 @@
+utils.model.finding.enum.F022.description:
+  en: >
+    The system transmits information through a channel without encryption.
+  es: >
+    La información de los clientes es transmitida por un canal que no usa cifrado.
+utils.model.finding.enum.F022.impact:
+  en: |
+    - Capture confidential information and credentials in plain text.
+    - Perform a man-in-the-middle.
+    - Intercept the communication and steal/tamper requests and responses.
+  es: >
+    - Capturar información confidencial y credenciales en texto plano.
+    - Realizar un ataque de hombre en el medio.
+    - Interceptar la comunicación y robar o falsificar peticiones y respuestas.
+utils.model.finding.enum.F022.recommendation:
+  en: >
+    Deploy the application over an encrypted communication channel,
+    for instance: HTTPS with TLS.
+  es: >
+    Desplegar la aplicación sobre un canal de comunicación cifrado,
+    por ejemplo: HTTPS utilizando TLS.
+utils.model.finding.enum.F022.requirements:
+  en: REQ.181. Transmit data using secure protocols
+  es: >
+    REQ.0181. La transmisión de información sensible o la ejecución de
+    funciones sensibles debe hacerse a través de protocolos seguros.
+utils.model.finding.enum.F022.threat:
+  en: Anonymous attacker on adjacent network performing a man-in-the-middle.
+  es: Atacante anónimo en red adyacente ejecutando un ataque de hombre en el medio.
+utils.model.finding.enum.F022.title:
+  en: FIN.S.022. Use of an insecure channel
+  es: FIN.S.022. Uso de canal inseguro
