@@ -109,6 +109,7 @@ resource "aws_kms_key" "key-web-prod" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "web-production"
     "management:type"    = "production"
     "management:product" = "airs"
   }

@@ -44,6 +44,7 @@ resource "aws_lambda_function" "subfolder_to_index" {
   runtime = "nodejs12.x"
 
   tags = {
+    "Name"               = "web-production-subfolder-to-index"
     "management:type"    = "production"
     "management:product" = "airs"
   }

@@ -22,6 +22,7 @@ resource "aws_iam_role" "web-ephemeral-lambda" {
   assume_role_policy = data.aws_iam_policy_document.lambda-assume-role-policy.json
 
   tags = {
+    "Name"               = "web-ephemeral-lambda"
     "management:type"    = "development"
     "management:product" = "airs"
   }

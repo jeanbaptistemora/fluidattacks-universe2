@@ -4,6 +4,7 @@ resource "aws_iam_role" "web-admin" {
   max_session_duration = "32400"
 
   tags = {
+    "Name"               = "web-admin"
     "management:type"    = "production"
     "management:product" = "airs"
   }

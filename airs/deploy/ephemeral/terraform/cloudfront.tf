@@ -59,6 +59,7 @@ resource "aws_cloudfront_distribution" "web-ephemeral-distribution" {
   }
 
   tags = {
+    "Name"               = "web-ephemeral-distribution"
     "management:type"    = "development"
     "management:product" = "airs"
   }

@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "bucket" {
   }
 
   tags = {
-    Pry                  = "General"
+    "Name"               = "fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "airs"
   }

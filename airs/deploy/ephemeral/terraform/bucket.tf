@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
    }
 
   tags = {
-    Pry                  = "General"
+    "Name"               = "web.eph.fluidattacks.com"
     "management:type"    = "development"
     "management:product" = "airs"
   }
@@ -23,6 +23,7 @@ resource "aws_s3_bucket_object" "home-index" {
   content_type = "text/html"
 
   tags = {
+    "Name"               = "index.html"
     "management:type"    = "development"
     "management:product" = "airs"
   }
@@ -36,6 +37,7 @@ resource "aws_s3_bucket_object" "error-index" {
   content_type = "text/html"
 
   tags = {
+    "Name"               = "error-index.html"
     "management:type"    = "development"
     "management:product" = "airs"
   }
@@ -50,6 +52,7 @@ resource "aws_s3_bucket_object" "img" {
   content_type = "image/png"
 
   tags = {
+    "Name"               = each.value
     "management:type"    = "development"
     "management:product" = "airs"
   }
@@ -64,6 +67,7 @@ resource "aws_s3_bucket_object" "css" {
   content_type = "text/css"
 
   tags = {
+    "Name"               = each.value
     "management:type"    = "development"
     "management:product" = "airs"
   }

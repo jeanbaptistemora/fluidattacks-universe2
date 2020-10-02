@@ -111,6 +111,7 @@ resource "aws_kms_key" "key-web-dev" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "web-development"
     "management:type"    = "development"
     "management:product" = "airs"
   }

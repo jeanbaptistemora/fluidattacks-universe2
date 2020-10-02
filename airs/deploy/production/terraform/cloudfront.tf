@@ -59,6 +59,7 @@ resource "aws_cloudfront_distribution" "production" {
   }
 
   tags = {
+    "Name"               = "web-production-distribution"
     "management:type"    = "production"
     "management:product" = "airs"
   }

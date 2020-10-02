@@ -44,6 +44,7 @@ resource "aws_lambda_function" "web-ephemeral-subfolder-to-index" {
   runtime = "nodejs12.x"
 
   tags = {
+    "Name"               = "web-ephemeral-subfolder-to-index"
     "management:type"    = "development"
     "management:product" = "airs"
   }

@@ -7,6 +7,7 @@ lifecycle {
   }
 
   tags = {
+    "Name"               = "web-ephemeral-certificate"
     "management:type"    = "development"
     "management:product" = "airs"
   }

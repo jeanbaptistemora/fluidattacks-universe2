@@ -22,6 +22,7 @@ resource "aws_iam_role" "lambda_role" {
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
 
   tags = {
+    "Name"               = "web-production-lambda"
     "management:type"    = "production"
     "management:product" = "airs"
   }
