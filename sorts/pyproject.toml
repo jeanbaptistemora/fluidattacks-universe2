@@ -22,6 +22,10 @@ license = "MPL-2.0"
 name = "sorts"
 packages = [
   { include = "cli", from = "sorts" },
+  { include = "integrates", from = "sorts" },
+  { include = "predict", from = "sorts" },
+  { include = "training", from = "sorts" },
+  { include = "utils", from = "sorts" },
 ]
 readme = "./README.md"
 repository = "https://gitlab.com/fluidattacks/product/-/tree/master/sorts"
