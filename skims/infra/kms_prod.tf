@@ -71,6 +71,7 @@ resource "aws_kms_key" "key_skims_prod" {
   is_enabled = true
 
   tags = {
+    "Name"               = "skims-production"
     "management:type"    = "production"
     "management:product" = "skims"
   }

@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "skims_data" {
   bucket = "skims.data"
   region = var.region
   tags = {
-    Product = "Skims"
+    "Name"               = "skims.data"
     "management:type"    = "production"
     "management:product" = "skims"
   }

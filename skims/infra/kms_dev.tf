@@ -73,6 +73,7 @@ resource "aws_kms_key" "key_skims_dev" {
   is_enabled = true
 
   tags = {
+    "Name"               = "skims-development"
     "management:type"    = "development"
     "management:product" = "skims"
   }
