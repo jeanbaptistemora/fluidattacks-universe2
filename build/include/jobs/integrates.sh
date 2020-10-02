@@ -1394,7 +1394,9 @@ function job_integrates_deploy_back_production {
   local timeout='10m'
   local files=(
     deploy/production/deployment.yaml
+    deploy/production/deployment2.yaml
     deploy/production/service.yaml
+    deploy/production/service2.yaml
     deploy/production/ingress.yaml
     deploy/production/variables.yaml
   )
@@ -1443,8 +1445,14 @@ function job_integrates_deploy_back_production {
       done \
   &&  if ! kubectl rollout status -n "${namespace}" --timeout="${timeout}" 'deploy/integrates-master'
       then
-            echo '[INFO] Undoing deployment' \
+            echo '[INFO] Undoing integrates deployment' \
         &&  kubectl rollout undo 'deploy/integrates-master' \
+        &&  return 1
+      fi \
+  &&  if ! kubectl rollout status -n "${namespace}" --timeout="${timeout}" 'deploy/integrates2-master'
+      then
+            echo '[INFO] Undoing integrates2 deployment' \
+        &&  kubectl rollout undo 'deploy/integrates2-master' \
         &&  return 1
       fi \
   &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
