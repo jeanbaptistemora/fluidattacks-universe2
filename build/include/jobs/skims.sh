@@ -89,7 +89,7 @@ function job_skims_process_all_groups {
 function job_skims_process_group_on_aws {
   local vcpus='2'
   local memory='7200'
-  local attempts='1'
+  local attempts='10'
   local timeout='18000'
   local group="${1}"
   local jobname="skims_process_group__${group}"
