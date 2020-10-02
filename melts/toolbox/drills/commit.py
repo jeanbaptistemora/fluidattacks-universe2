@@ -13,6 +13,7 @@ from typing import (
 from toolbox import (
     logger,
 )
+from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 VALID__SCOPES_DESC: Tuple[Tuple[str, str], ...] = (
     ('enum', 'Enumeration of ToE without testing'),
@@ -45,6 +46,7 @@ VALID_REASONS: Tuple[str, ...] = \
     )))
 
 
+@shield(on_error_return=False)
 def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
     summary: str,
     body: str = str(),
@@ -141,6 +143,9 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
         for scope, desc in VALID__SCOPES_DESC:
             logger.info(f'  - {scope}: {desc}')
         is_valid = False
+
+    if not is_valid:
+        raise RetryAndFinallyReturn(is_valid)
 
     return is_valid
 

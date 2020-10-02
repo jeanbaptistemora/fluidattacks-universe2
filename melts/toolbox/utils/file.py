@@ -13,6 +13,7 @@ from typing import (
     Pattern,
     Tuple,
 )
+from toolbox.utils.function import shield
 
 
 @functools.lru_cache(maxsize=None, typed=True)
@@ -73,6 +74,7 @@ def is_covered(
         and is_included_in_any_rule
 
 
+@shield(on_error_return=False)
 def iter_non_matching_files(
     *,
     path: str,

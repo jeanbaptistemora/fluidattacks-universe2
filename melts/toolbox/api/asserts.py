@@ -14,6 +14,9 @@ from itertools import repeat
 # Third parties libraries
 import ruamel.yaml as yaml
 
+# Local imports
+from toolbox.utils.function import shield
+
 # Constants
 NODE = Dict[str, Any]
 
@@ -207,6 +210,7 @@ def _get_node_iast_results(node: NODE) -> Iterator[Tuple[str, str, str]]:
                     vulnerability.get('specific', '')))
 
 
+@shield()
 def iterate_open_results_from_content(
         asserts_output: str,
         default_repo: str = '.') -> Iterator[Tuple[str, str, str]]:
@@ -220,6 +224,7 @@ def iterate_open_results_from_content(
             )
 
 
+@shield()
 def iterate_vulnerabilities_from_content(
         asserts_output: str,
         default_repo: str = '.',
@@ -274,6 +279,7 @@ def iterate_vulnerabilities_from_content(
                 )
 
 
+@shield()
 def iterate_open_results_from_file(
         asserts_output_path: str,
         default_repo: str = '.') -> Iterator[Tuple[str, str, str]]:
@@ -283,6 +289,7 @@ def iterate_open_results_from_file(
             iterate_open_results_from_content(handle.read(), default_repo)
 
 
+@shield()
 def iterate_vulnerabilities_from_file(
     asserts_output_path: str,
     default_repo: str = '.',
@@ -293,6 +300,7 @@ def iterate_vulnerabilities_from_file(
             iterate_vulnerabilities_from_content(handle.read(), default_repo)
 
 
+@shield()
 def get_exp_result_summary(asserts_output: str):
     """Return the summary of a exploit result."""
     asserts_result = tuple(yaml.safe_load_all(asserts_output))
@@ -302,6 +310,7 @@ def get_exp_result_summary(asserts_output: str):
     return asserts_result[-1].get('summary', {})
 
 
+@shield()
 def get_exp_error_message(asserts_output: str) -> str:
     """Return one of the error messages from a exploit, or null str."""
     bare_nodes: Tuple[NODE, ...] = tuple(yaml.safe_load_all(asserts_output))

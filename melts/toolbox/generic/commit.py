@@ -14,6 +14,7 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.utils.function import shield
 
 
 VALID__SCOPES_DESC: Tuple[Tuple[str, str], ...] = (
@@ -42,6 +43,7 @@ VALID_TYPES: Tuple[str, ...] = \
     tuple(map(operator.itemgetter(0), VALID__TYPES_DESC))
 
 
+@shield()
 def has_short_line_length(summary: str, body: str) -> bool:
     """Verify that summary and body are below max chars threshold."""
     success: bool = True
@@ -57,6 +59,7 @@ def has_short_line_length(summary: str, body: str) -> bool:
     return success
 
 
+@shield()
 def is_under_100_deltas(ref: str = 'HEAD') -> bool:
     """Return True if the HEAD commit is under 100 deltas."""
     skip_check: bool = \
@@ -74,6 +77,7 @@ def is_under_100_deltas(ref: str = 'HEAD') -> bool:
     return True
 
 
+@shield()
 def is_valid_summary(summary: str) -> bool:
     """Plugable validator for forces commits."""
     is_valid: bool = True

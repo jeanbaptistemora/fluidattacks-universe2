@@ -10,8 +10,10 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.utils.function import shield
 
 
+@shield()
 def encrypt(subs: str) -> bool:
     """Encrypt a secrets.yml file for a group."""
     # pylint: disable=import-outside-toplevel
@@ -43,6 +45,7 @@ def encrypt(subs: str) -> bool:
     return True
 
 
+@shield()
 def decrypt(subs: str) -> bool:
     """Decrypt a secrets.yml file for a group."""
     # pylint: disable=import-outside-toplevel

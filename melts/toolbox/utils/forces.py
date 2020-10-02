@@ -12,8 +12,10 @@ import ruamel.yaml as yaml
 from toolbox import (
     logger,
 )
+from toolbox.utils.function import shield
 
 
+@shield()
 def get_config(subs: str) -> dict:
     """Scans the group configuration file and returns a dict."""
     config_path: str = f'groups/{subs}/config/config.yml'

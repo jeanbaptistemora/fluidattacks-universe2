@@ -14,6 +14,7 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.utils.function import shield
 
 # Constants
 INCLUDES_BY_SUBS: dict = {
@@ -113,6 +114,7 @@ def insert_data(group, lines, tested_lines, fields, tested_fields):
     return success
 
 
+@shield(on_error_return=False)
 def main(target_group: str):
     """main function"""
     success: bool = True

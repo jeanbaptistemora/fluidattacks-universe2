@@ -15,7 +15,7 @@ import yaml
 from toolbox import (
     logger,
 )
-
+from toolbox.utils.function import shield
 
 VALID__TYPES_DESC: Tuple[Tuple[str, str], ...] = (
     ('rever', 'Revert to a previous commit in history'),
@@ -31,6 +31,7 @@ VALID_TYPES: Tuple[str, ...] = \
     tuple(map(operator.itemgetter(0), VALID__TYPES_DESC))
 
 
+@shield()
 def is_valid_summary(summary: str) -> bool:
     """Plugable validator for forces commits."""
     is_valid: bool = True
@@ -122,11 +123,13 @@ def is_valid_summary(summary: str) -> bool:
     return is_valid
 
 
+@shield()
 def is_exploits_commit(summary: str) -> bool:
     """Return True if this is a forces commit."""
     return '(exp)' in summary
 
 
+@shield()
 def is_valid_forces_content(subs: str):
     """Check if there can be content of forces in the group."""
     success = True

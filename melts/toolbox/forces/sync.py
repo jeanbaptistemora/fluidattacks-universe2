@@ -21,6 +21,7 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.utils.function import shield
 
 
 def _get_asserts_msg(
@@ -420,6 +421,7 @@ def _validate_one_dynamic_exploit(
     )]
 
 
+@shield()
 def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
     """Check if exploits results are the same as on Integrates."""
     logger.info()
@@ -463,6 +465,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
     return results
 
 
+@shield()
 def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
     """Check if exploits results are the same as on Integrates."""
     logger.info()
@@ -523,6 +526,7 @@ def print_nomenclature():
     logger.info('  (E) has no (e), and #(o) on (I) equals #(o) on (E)')
 
 
+@shield()
 def are_exploits_synced(subs: str, exp_name: str) -> bool:
     """Check if exploits results are the same as on Integrates."""
     utils.generic.aws_login(f'continuous-{subs}')

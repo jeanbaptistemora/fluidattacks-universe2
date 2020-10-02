@@ -12,6 +12,7 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.utils.function import shield
 
 #
 # Given a finding on Integrates may have many exploits
@@ -60,6 +61,7 @@ def _get_exploits_bundles(group: str) -> Dict[str, str]:
     return data
 
 
+@shield()
 def from_repo_to_integrates(group: str) -> bool:
     """Bundle related exploits and upload them to the corresponding finding."""
     success: bool = True

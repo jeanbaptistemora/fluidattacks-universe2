@@ -5,8 +5,10 @@ from functools import lru_cache
 
 # Local libraries
 from toolbox.utils import generic
+from toolbox.utils.function import shield
 
 
+@shield()
 @lru_cache(maxsize=None, typed=True)
 def main() -> str:
     """Return the group name from the last commmit msg."""

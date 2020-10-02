@@ -12,6 +12,7 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.utils.function import shield
 
 
 def _one_exploit_by_path_with_mypy(exploit_path: str) -> bool:
@@ -104,6 +105,7 @@ def _one_exploit_by_path_for_reason(exploit_path: str) -> bool:
     return success
 
 
+@shield()
 def one_exploit_by_path(exploit_path: str) -> bool:
     """Run all linters available over one exploit."""
     if '.reason' in exploit_path:
@@ -114,6 +116,7 @@ def one_exploit_by_path(exploit_path: str) -> bool:
         and _one_exploit_by_path_for_deprecated_methods(exploit_path)
 
 
+@shield()
 def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     """Run all linters available over many exploits."""
     filter_str = filter_str or ''
@@ -126,6 +129,7 @@ def many_exploits_by_subs_and_filter(subs: str, filter_str: str) -> bool:
     )
 
 
+@shield()
 def many_exploits_by_change_request(ref: str = 'HEAD') -> bool:
     """Run all linters available over the current change request."""
     changed_exploits = \
@@ -137,6 +141,7 @@ def many_exploits_by_change_request(ref: str = 'HEAD') -> bool:
     )
 
 
+@shield()
 def check_folder_content():
     """Verify that drills do not contain forces code."""
     path_patterns = (r'\w+\/forces\/\w+\/((.mailmap)|(toe)|(config)'
