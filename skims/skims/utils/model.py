@@ -137,7 +137,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F031_AWS: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='250',
         description='utils.model.finding.enum.F031_AWS.description',
         impact='utils.model.finding.enum.F031_AWS.impact',
@@ -281,7 +281,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F073: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='478',
         description='utils.model.finding.enum.F073.description',
         impact='utils.model.finding.enum.F073.impact',

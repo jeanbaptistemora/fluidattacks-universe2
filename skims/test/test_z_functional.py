@@ -407,7 +407,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203]', '6'),
             ('test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874]', '6'),
         )),
-        ('F031_AWS', 'SUBMITTED', (
+        ('F031_AWS', 'APPROVED', (
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '13'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '17'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '21'),
@@ -502,7 +502,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f061/swift.swift', '6'),
             ('test/data/lib_path/f061/swift.swift', '7'),
         )),
-        ('F073', 'SUBMITTED', (
+        ('F073', 'APPROVED', (
             ('test/data/lib_path/f073/Test.cs', '20'),
             ('test/data/lib_path/f073/Test.cs', '3'),
             ('test/data/lib_path/f073/Test.cs', '41'),
@@ -550,12 +550,12 @@ async def test_correct_nothing_to_do_assert(
         ('F001_JPA', 'APPROVED', ()),
         ('F009', 'APPROVED', ()),
         ('F011', 'APPROVED', ()),
-        ('F031_AWS', 'SUBMITTED', ()),
+        ('F031_AWS', 'APPROVED', ()),
         ('F031_CWE378', 'APPROVED', ()),
         ('F052', 'APPROVED', ()),
         ('F060', 'APPROVED', ()),
         ('F061', 'APPROVED', ()),
-        ('F073', 'SUBMITTED', ()),
+        ('F073', 'APPROVED', ()),
         ('F085', 'APPROVED', ()),
         ('F117', 'APPROVED', ()),
     }
