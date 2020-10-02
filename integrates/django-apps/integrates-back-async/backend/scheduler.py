@@ -5,7 +5,7 @@ import asyncio
 import logging
 import logging.config
 from collections import OrderedDict, defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime
 from decimal import Decimal
 from typing import Callable, Dict, List, Tuple, Union, cast
 import bugsnag
@@ -34,7 +34,10 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType
 )
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 from fluidintegrates.settings import (
     LOGGING,
     NOEXTRA
@@ -174,9 +177,12 @@ def get_status_vulns_by_time_range(
 
 def create_weekly_date(first_date: str) -> str:
     """Create format weekly date"""
-    first_date_ = datetime.strptime(first_date, '%Y-%m-%d %H:%M:%S')
-    begin = first_date_ - timedelta(days=(first_date_.isoweekday() - 1) % 7)
-    end = begin + timedelta(days=6)
+    first_date_ = datetime_utils.get_from_str(first_date)
+    begin = datetime_utils.get_minus_delta(
+        first_date_,
+        days=(first_date_.isoweekday() - 1) % 7
+    )
+    end = datetime_utils.get_plus_delta(begin, days=6)
     if begin.year != end.year:
         date = '{0:%b} {0.day}, {0.year} - {1:%b} {1.day}, {1.year}'
     elif begin.month != end.month:
@@ -261,13 +267,17 @@ async def create_register_by_week(
                     'assumed_closed': accepted + closed,
                     'opened': found - closed - accepted,
                 }
-            first_day = str(
-                datetime.strptime(first_day, '%Y-%m-%d %H:%M:%S') +
-                timedelta(days=7)
+            first_day = datetime_utils.get_as_str(
+                datetime_utils.get_plus_delta(
+                    datetime_utils.get_from_str(first_day),
+                    days=7
+                )
             )
-            last_day = str(
-                datetime.strptime(last_day, '%Y-%m-%d %H:%M:%S') +
-                timedelta(days=7)
+            last_day = datetime_utils.get_as_str(
+                datetime_utils.get_plus_delta(
+                    datetime_utils.get_from_str(last_day),
+                    days=7
+                )
             )
     return create_data_format_chart(all_registers)
 
@@ -295,40 +305,43 @@ def get_first_week_dates(
         vulns: List[Dict[str, FindingType]]) -> Tuple[str, str]:
     """Get first week vulnerabilities"""
     first_date = min([
-        datetime.strptime(
+        datetime_utils.get_from_str(
             cast(
                 List[Dict[str, str]],
                 vuln['historic_state']
-            )[0]['date'],
-            '%Y-%m-%d %H:%M:%S'
+            )[0]['date']
         )
         for vuln in vulns
     ])
     day_week = first_date.weekday()
-    first_day_delta = first_date - timedelta(days=day_week)
+    first_day_delta = datetime_utils.get_minus_delta(first_date, days=day_week)
     first_day = datetime.combine(first_day_delta, datetime.min.time())
-    last_day_delta = first_day + timedelta(days=6)
+    last_day_delta = datetime_utils.get_plus_delta(first_day, days=6)
     last_day = datetime.combine(
         last_day_delta,
         datetime.max.time().replace(microsecond=0)
     )
-    return str(first_day), str(last_day)
+    return (
+        datetime_utils.get_as_str(first_day),
+        datetime_utils.get_as_str(last_day)
+    )
 
 
 def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
     """Get date of the last vulnerabilities"""
     last_date = max([
-        datetime.strptime(
+        datetime_utils.get_from_str(
             cast(
                 List[Dict[str, str]],
                 vuln['historic_state']
-            )[-1]['date'],
-            '%Y-%m-%d %H:%M:%S'
+            )[-1]['date']
         )
         for vuln in vulns
     ])
     day_week = last_date.weekday()
-    first_day = str(last_date - timedelta(days=day_week))
+    first_day = datetime_utils.get_as_str(
+        datetime_utils.get_minus_delta(last_date, days=day_week)
+    )
     return first_day
 
 
@@ -448,8 +461,9 @@ async def calculate_vulnerabilities(
                 continue
             break
     if len(all_tracking) > 1:
-        if ((datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
-                (datetime.now() - timedelta(days=8))):
+        if (datetime_utils.get_from_str(
+                str(all_tracking[-1]['date']), date_format="%Y-%m-%d") >
+                datetime_utils.get_now_minus_delta(days=8)):
             open_2 = cast(int, all_tracking[-1]['open'])
             open_1 = cast(int, all_tracking[-2]['open'])
             closed_2 = cast(int, all_tracking[-1]['closed'])
@@ -458,8 +472,9 @@ async def calculate_vulnerabilities(
             delta_closed = abs(closed_2 - closed_1)
             delta_total = delta_open - delta_closed
     elif (len(all_tracking) == 1 and
-            (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
-            (datetime.now() - timedelta(days=8))):
+            datetime_utils.get_from_str(
+                str(all_tracking[-1]['date']), date_format="%Y-%m-%d") >
+            datetime_utils.get_now_minus_delta(days=8)):
         delta_open = cast(int, all_tracking[-1]['open'])
         delta_closed = cast(int, all_tracking[-1]['closed'])
         delta_total = delta_open - delta_closed
@@ -836,12 +851,14 @@ async def reset_group_expired_accepted_findings(
                 'ACCEPTED_UNDEFINED') and
             (historic_treatment[-1].get('acceptance_status') ==
                 'SUBMITTED') and
-            (
-                datetime.strptime(
-                    historic_treatment[-1].get('date', '0001-01-01 00:00:00'),
-                    "%Y-%m-%d %H:%M:%S"
-                ) + timedelta(days=5)
-            ) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S")
+            datetime_utils.get_plus_delta(
+                datetime_utils.get_from_str(
+                    historic_treatment[-1].get(
+                        'date', '0001-01-01 00:00:00'
+                    )
+                ),
+                days=5
+            ) <= datetime_utils.get_from_str(today)
         )
         if is_accepted_expired or is_undefined_accepted_expired:
             updated_values = {'treatment': 'NEW'}
@@ -855,7 +872,9 @@ async def reset_expired_accepted_findings() -> None:
     """ Update treatment if acceptance date expires """
     msg = '[scheduler]: reset_expired_accepted_findings is running'
     LOGGER.warning(msg, **NOEXTRA)
-    today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     groups = await project_domain.get_active_projects()
     # number of groups that can be updated at a time
     groups_chunks = chunked(groups, 40)
@@ -872,7 +891,7 @@ async def delete_pending_projects() -> None:
     """ Delete pending to delete projects """
     msg = '[scheduler]: delete_pending_projects is running'
     LOGGER.warning(msg, **NOEXTRA)
-    today = datetime.now()
+    today = datetime_utils.get_now()
     projects = await project_domain.get_pending_to_delete()
     remove_project_tasks = []
     project_names = [
@@ -890,9 +909,7 @@ async def delete_pending_projects() -> None:
         last_state_date: str = last_state.get(
             'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S')
         )
-        deletion_date: datetime = datetime.strptime(
-            last_state_date, '%Y-%m-%d %H:%M:%S'
-        )
+        deletion_date: datetime = datetime_utils.get_from_str(last_state_date)
         if deletion_date < today:
             msg = f'- project: {project.get("project_name")} will be deleted'
             LOGGER.info(msg, extra=dict(extra=project))

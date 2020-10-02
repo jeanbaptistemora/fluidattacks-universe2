@@ -13,7 +13,7 @@ iso_format: str = '%Y-%m-%d %H:%M:%S'
 def get_from_str(
         date_str: str, date_format: str = iso_format) -> datetime:
     unaware_datetime = datetime.strptime(date_str, date_format)
-    return make_aware(unaware_datetime, TZN)
+    return make_aware(unaware_datetime, TZN, is_dst=False)
 
 
 def get_as_str(date: datetime, date_format: str = iso_format) -> str:
