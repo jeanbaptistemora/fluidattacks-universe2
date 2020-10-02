@@ -90,6 +90,16 @@ public class Parse {
         vocabulary = parserJava9.getVocabulary();
         tree = parserJava9.compilationUnit();
         break;
+      case "Scala":
+        ScalaLexer lexerScala = new ScalaLexer(charStream);
+        ScalaParser parserScala = new ScalaParser(new CommonTokenStream(lexerScala));
+        lexerScala.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parserScala.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parserScala.setTrimParseTree(true);
+        parserScala.setErrorHandler(new BailErrorStrategy());
+        vocabulary = parserScala.getVocabulary();
+        tree = parserScala.compilationUnit();
+        break;
       default:
         throw new ArrayIndexOutOfBoundsException("Invalid parser selected");
       }

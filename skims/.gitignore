@@ -21,6 +21,7 @@
 /static/parsers/antlr/gradlew
 /static/parsers/antlr/src/main/java/parse/CSharp*
 /static/parsers/antlr/src/main/java/parse/Java9*
+/static/parsers/antlr/src/main/java/parse/Scala*
 /static/parsers/babel/node_modules/
 /static/parsers/babel/package-lock.json
 /test/**/*.yaml.json

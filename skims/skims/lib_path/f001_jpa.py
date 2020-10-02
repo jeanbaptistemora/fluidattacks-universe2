@@ -20,7 +20,7 @@ from aioextensions import (
 
 # Local libraries
 from parse_antlr import (
-    parse,
+    parse as parse_antlr,
 )
 from lib_path.common import (
     EXTENSIONS_JAVA,
@@ -37,6 +37,7 @@ from utils.graph import (
 )
 from utils.model import (
     FindingEnum,
+    Grammar,
     SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -164,7 +165,11 @@ async def java_jpa_like(
     if not content:
         return ()
 
-    model = await parse('Java9', content=content.encode(), path=path)
+    model = await parse_antlr(
+        Grammar.JAVA9,
+        content=content.encode(),
+        path=path,
+    )
     results = await in_process(_java_jpa_like, model)
 
     return tuple([

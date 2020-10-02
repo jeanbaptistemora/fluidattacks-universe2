@@ -10,13 +10,16 @@ from parse_antlr import (
 from utils.fs import (
     get_file_raw_content,
 )
+from utils.model import (
+    Grammar,
+)
 
 
 @run_decorator
 async def test_parse_csharp_success() -> None:
     path = 'test/data/lib_path/f073/Test.cs'
     data = await parse(
-        'CSharp',
+        Grammar.CSHARP,
         content=await get_file_raw_content(path),
         path=path,
     )
@@ -48,7 +51,7 @@ async def test_parse_csharp_success() -> None:
 async def test_parse_java9_success() -> None:
     path = 'test/data/lib_path/f031_cwe378/Test.java'
     data = await parse(
-        'Java9',
+        Grammar.JAVA9,
         content=await get_file_raw_content(path),
         path=path,
     )
@@ -75,11 +78,40 @@ async def test_parse_java9_success() -> None:
 
 
 @run_decorator
+async def test_parse_scala_success() -> None:
+    path = 'test/data/lib_path/f073/Test.scala'
+    data = await parse(
+        Grammar.SCALA,
+        content=await get_file_raw_content(path),
+        path=path,
+    )
+
+    assert 'CompilationUnit' in data
+    data = data['CompilationUnit'][0]
+
+    assert 'TopStatSeq' in data
+    data = data['TopStatSeq'][0]
+
+    assert 'TopStat' in data
+    data = data['TopStat'][0]
+
+    assert 'TmplDef' in data
+    data = data['TmplDef'][0]
+
+    assert data == {
+        'c': 0,
+        'l': 1,
+        'text': 'object',
+        'type': None,
+    }
+
+
+@run_decorator
 async def test_parse_fail() -> None:
     path = 'test/data/lib_path/f011/yarn.lock'
-    for grammar in ('CSharp', 'Java9'):
+    for grammar in Grammar:
         data = await parse(
-            grammar,  # type: ignore
+            grammar,
             content=await get_file_raw_content(path),
             path=path,
         )

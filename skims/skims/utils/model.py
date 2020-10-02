@@ -10,6 +10,12 @@ from typing import (
 )
 
 
+class Grammar(Enum):
+    CSHARP: str = 'CSharp'
+    JAVA9: str = 'Java9'
+    SCALA: str = 'Scala'
+
+
 class LocalesEnum(Enum):
     EN: str = 'EN'
     ES: str = 'ES'

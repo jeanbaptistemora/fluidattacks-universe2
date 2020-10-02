@@ -4,8 +4,6 @@ import json
 from typing import (
     Any,
     Dict,
-    Union,
-    Literal,
 )
 
 # Third party libraries
@@ -27,6 +25,9 @@ from utils.hardware import (
 from utils.logs import (
     log_exception,
 )
+from utils.model import (
+    Grammar,
+)
 from utils.system import (
     read,
 )
@@ -39,10 +40,7 @@ PARSER: str = get_artifact(
 
 @cache_decorator()
 async def parse(
-    grammar: Union[
-        Literal['CSharp'],
-        Literal['Java9'],
-    ],
+    grammar: Grammar,
     *,
     content: bytes,
     path: str,
@@ -61,10 +59,7 @@ async def parse(
 
 
 async def _parse(
-    grammar: Union[
-        Literal['CSharp'],
-        Literal['Java9'],
-    ],
+    grammar: Grammar,
     *,
     content: bytes,
     memory: int,
@@ -72,7 +67,7 @@ async def _parse(
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
         PARSER,
-        grammar,
+        grammar.value,
         env=dict(
             # Limit heap size
             JAVA_OPTS=f'-Xmx{memory}g',
@@ -99,5 +94,5 @@ async def _parse(
 
         raise IOError('No stdout in process')
     except (IOError, json.JSONDecodeError) as exc:
-        await log_exception('error', exc, grammar=grammar, path=path)
+        await log_exception('error', exc, grammar=grammar.value, path=path)
         return {}

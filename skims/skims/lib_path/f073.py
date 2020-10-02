@@ -41,6 +41,7 @@ from utils.graph import (
 )
 from utils.model import (
     FindingEnum,
+    Grammar,
     Vulnerability,
 )
 from zone import (
@@ -96,7 +97,7 @@ async def csharp_switch_no_default(
         _csharp_switch_no_default,
         content=content,
         model=await parse_antlr(
-            'CSharp',
+            Grammar.CSHARP,
             content=content.encode(),
             path=path,
         ),
@@ -157,7 +158,7 @@ async def java_switch_no_default(
         _java_switch_no_default,
         content=content,
         model=await parse_antlr(
-            'Java9',
+            Grammar.JAVA9,
             content=content.encode(),
             path=path,
         ),

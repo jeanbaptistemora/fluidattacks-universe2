@@ -16,11 +16,11 @@ symbolic evaluation, tokens lookup, code-as-data and execution flow, etc.
 | 8638   | C#               | yes         |
 | 3072   | JavaScript       | yes         |
 | 2100   | TypeScript       | yes         |
-| 1152   | YAML,AWS CFN     | yes         |
-| 453    | JSON,NPM FILE    | yes         |
+| 1152   | YAML, AWS CFN    | yes         |
+| 453    | JSON, NPM FILE   | yes         |
 | 415    | Java.properties  | yes         |
 | 397    | Python           | yes         |
-| 271    | Scala            |             |
+| 271    | Scala            | yes         |
 | 259    | HTML             |             |
 | 254    | XML              |             |
 | 317    | Jasper           |             |
