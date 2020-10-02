@@ -3,8 +3,8 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { MutationFunction, QueryResult } from "@apollo/react-common";
-import { Mutation, Query } from "@apollo/react-components";
+import { QueryResult } from "@apollo/react-common";
+import { Query } from "@apollo/react-components";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
@@ -12,13 +12,12 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
 
 import { Button } from "components/Button";
-import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
-import { approveFormatter, deleteFormatter, statusFormatter } from "components/DataTableNext/formatters";
+import { deleteFormatter, statusFormatter } from "components/DataTableNext/formatters";
 import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
