@@ -1,9 +1,14 @@
 # Standard libraries
+import sys
+import time
 
 # Third party libraries
 import click
+from aioextensions import run
 
 # Local libraries
+from sorts.utils.decorators import shield
+from sorts.utils.logs import blocking_log
 
 
 @click.command(
@@ -39,7 +44,31 @@ def dispatch(
     get_file_data: bool,
     predict_commit: bool
 ) -> None:
+    start_time: float = time.time()
+    success: bool = run(
+        main(
+            subscription=subscription,
+            get_commit_data=get_commit_data,
+            get_file_data=get_file_data,
+            predict_commit=predict_commit
+        )
+    )
+    blocking_log(
+        'info',
+        'Success: %s\nProcess finished after %s seconds.',
+        success,
+        str(round(time.time() - start_time, 3))
+    )
+    sys.exit(0 if success else 1)
 
+
+@shield(on_error_return=False)
+async def main(
+    subscription: str,
+    get_commit_data: bool,
+    get_file_data: bool,
+    predict_commit: bool
+) -> bool:
     if get_commit_data:
         pass
     elif get_file_data:
@@ -48,3 +77,4 @@ def dispatch(
         pass
     else:
         print(subscription)
+    return True
