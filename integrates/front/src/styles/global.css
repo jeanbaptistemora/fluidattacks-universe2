@@ -403,3 +403,8 @@ label {
   width: 16px !important;
   height: 16px !important;
 }
+
+:global .svg-box20 svg {
+  width: 20px !important;
+  height: 20px !important;
+}

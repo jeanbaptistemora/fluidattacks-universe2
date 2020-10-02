@@ -1,7 +1,16 @@
 import { FluidIcon } from "components/FluidIcon";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
-import style from "components/DataTableNext/index.css";
+import styled, { StyledComponent } from "styled-components";
+
+const DeleteFormatter: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs<{
+  className: string;
+}>({
+  className: "b--sb bg-sb svg-box20",
+})``;
 
 export const deleteFormatter: (
   value: string,
@@ -21,12 +30,8 @@ export const deleteFormatter: (
   }
 
   return (
-    <button
-      className={style.buttonFormatter}
-      onClick={handleDeleteFormatter}
-      type={"button"}
-    >
-      <FluidIcon height={"20px"} icon={"delete"} width={"20px"} />
-    </button>
+    <DeleteFormatter onClick={handleDeleteFormatter} type={"button"}>
+      <FluidIcon icon={"delete"} />
+    </DeleteFormatter>
   );
 };

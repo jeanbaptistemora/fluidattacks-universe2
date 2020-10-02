@@ -71,11 +71,6 @@
   margin-bottom: 5px;
 }
 
-:local .buttonFormatter {
-  border: none;
-  background: transparent;
-}
-
 :local .plusFormatter,
 .plusFormatter > div {
   display: flex;
