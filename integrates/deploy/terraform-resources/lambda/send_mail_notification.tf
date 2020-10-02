@@ -11,6 +11,7 @@ resource "aws_lambda_function" "integrates-send-mail-notification" {
   runtime = "python3.7"
 
   tags = {
+    "Name"               = "integrates-send-mail-notification"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

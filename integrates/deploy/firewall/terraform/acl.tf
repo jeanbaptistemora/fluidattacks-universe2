@@ -14,6 +14,7 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
   }
 
   tags = {
+    "Name"               = "integrates-firewall"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

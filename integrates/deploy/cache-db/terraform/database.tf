@@ -21,6 +21,7 @@ resource "aws_elasticache_replication_group" "cache_db" {
   }
 
   tags = {
+    "Name"               = "integrates-cache"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

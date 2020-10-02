@@ -7,6 +7,7 @@ resource "aws_acm_certificate" "ephemeral" {
   }
 
   tags = {
+    "Name"               = "integrates-ephemeral"
     "management:type"    = "development"
     "management:product" = "integrates"
   }

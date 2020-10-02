@@ -43,6 +43,7 @@ resource "aws_dynamodb_table" "integrates" {
   }
 
   tags = {
+    "Name"               = "integrates"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -76,6 +77,7 @@ resource "aws_dynamodb_table" "fi_roots" {
   }
 
   tags = {
+    "Name"               = "fi_roots"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "fi_analytics_bucket" {
   request_payer = "BucketOwner"
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fluidintegrates.analytics"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

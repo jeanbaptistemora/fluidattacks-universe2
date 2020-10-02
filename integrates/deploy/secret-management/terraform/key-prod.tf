@@ -108,6 +108,7 @@ resource "aws_kms_key" "integrates-prod-key" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "integrates-prod"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

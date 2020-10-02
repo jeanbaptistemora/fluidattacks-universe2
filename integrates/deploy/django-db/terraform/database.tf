@@ -19,6 +19,7 @@ resource "aws_db_instance" "django-db" {
   publicly_accessible       = true
 
   tags = {
+    "Name"               = "django"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

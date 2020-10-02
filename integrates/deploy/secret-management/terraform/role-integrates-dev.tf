@@ -4,6 +4,7 @@ resource "aws_iam_role" "integrates-dev" {
   max_session_duration = "32400"
 
   tags = {
+    "Name"               = "integrates-dev"
     "management:type"    = "development"
     "management:product" = "integrates"
   }

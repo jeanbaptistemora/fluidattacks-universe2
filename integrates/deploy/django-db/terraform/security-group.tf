@@ -21,6 +21,7 @@ resource "aws_security_group" "django-db" {
   }
 
   tags = {
+    "Name"               = "django-db"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

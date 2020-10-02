@@ -9,7 +9,7 @@ resource "aws_sqs_queue" "integrates-queue" {
   visibility_timeout_seconds = 3600
 
   tags = {
-    Pry = "Integrates"
+    "Name"               = "integrates-queue.fifo"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

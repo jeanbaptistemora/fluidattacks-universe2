@@ -112,6 +112,7 @@ resource "aws_kms_key" "integrates-dev-key" {
   is_enabled              = true
 
   tags = {
+    "Name"               = "integrates-dev"
     "management:type"    = "development"
     "management:product" = "integrates"
   }

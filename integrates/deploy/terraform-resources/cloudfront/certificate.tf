@@ -11,6 +11,7 @@ resource "aws_acm_certificate" "files-certificate" {
   }
 
   tags = {
+    "Name"               = "files.fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

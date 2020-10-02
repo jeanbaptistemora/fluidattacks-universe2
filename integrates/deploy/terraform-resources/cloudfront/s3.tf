@@ -17,7 +17,7 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   }
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fluidintegrates.resources"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -40,7 +40,7 @@ resource "aws_s3_bucket" "fi_evidences_bucket" {
   }
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fluidintegrates.evidences"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -72,7 +72,7 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
   }
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fluidintegrates.reports"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -95,7 +95,7 @@ resource "aws_s3_bucket" "fi_build_bucket" {
   }
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fluidintegrates.build"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -118,7 +118,7 @@ resource "aws_s3_bucket" "fi_forces_bucket" {
   }
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fluidintegrates.forces"
     "management:type"    = "production"
     "management:product" = "integrates"
   }

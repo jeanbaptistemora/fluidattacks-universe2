@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
   wait_for_deployment = true
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fi_resources_cloudfront"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   wait_for_deployment = true
 
   tags = {
-    Pry                  = "Integrates"
+    "Name"               = "fi_reports_cloudfront"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
