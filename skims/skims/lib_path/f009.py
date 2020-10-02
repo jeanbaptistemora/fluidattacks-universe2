@@ -28,6 +28,7 @@ from aioextensions import (
 from lib_path.common import (
     BACKTICK_QUOTED_STRING,
     blocking_get_vulnerabilities,
+    blocking_get_vulnerabilities_from_iterator,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_JAVASCRIPT,
@@ -52,7 +53,6 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from utils.string import (
-    blocking_to_snippet,
     to_snippet,
 )
 from zone import (
@@ -240,38 +240,27 @@ def _java_properties_sensitive_info(
         'ws.aws.password',
     }
 
-    def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
-        data = load_java_properties(content, include_comments=True)
-        for line_no, (key, val) in data.items():
+    def iterator() -> Iterator[Tuple[int, int]]:
+        data = load_java_properties(
+            content,
+            include_comments=True,
+            exclude_protected_values=True,
+        )
+        for line_no, (key, _) in data.items():
             key = key.lower()
             for sensible_key_smell in sensible_key_smells:
-                if sensible_key_smell in key and val and not (
-                    val.startswith('${')  # env var
-                    or val.startswith('ENC(')  # encrypted with Jasypt
-                    or val.startswith('#{')  # encrypted with unknown tool
-                ):
+                if sensible_key_smell in key:
                     yield line_no, 0
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F009,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f009.java_properties_sensitive_info',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for line_no, column in _iterate_vulnerabilities()
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f009.java_properties_sensitive_info',
+            path=path,
+        ),
+        finding=FindingEnum.F009,
+        iterator=iterator(),
+        path=path,
     )
 
 

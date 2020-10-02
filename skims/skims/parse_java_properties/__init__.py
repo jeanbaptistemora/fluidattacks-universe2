@@ -9,6 +9,7 @@ from typing import (
 def load(
     content: str,
     include_comments: bool = False,
+    exclude_protected_values: bool = False,
 ) -> Dict[int, Tuple[str, str]]:
     mapping: Dict[int, Tuple[str, str]] = {}
 
@@ -21,6 +22,15 @@ def load(
         with contextlib.suppress(ValueError):
             key, val = line.strip().split('=', maxsplit=1)
             key, val = key.strip(), val.strip()
-            mapping[line_no] = (key, val)
+
+            if exclude_protected_values and val and (
+                val.startswith('${')  # env var
+                or val.startswith('ENC(')  # encrypted with Jasypt
+                or val.startswith('#{')  # encrypted with unknown tool
+            ):
+                # We should not include this line because it's protected
+                pass
+            else:
+                mapping[line_no] = (key, val)
 
     return mapping

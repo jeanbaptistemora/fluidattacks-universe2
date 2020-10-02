@@ -232,6 +232,8 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744], line 6
         [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203], line 6
         [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874], line 6
+        [INFO] FIN.S.022. Use of an insecure channel: test/data/lib_path/f022/java.properties, line 1
+        [INFO] FIN.S.022. Use of an insecure channel: test/data/lib_path/f022/java.properties, line 4
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 13
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 17
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 21
@@ -407,6 +409,10 @@ async def test_correct_assert(
             ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203]', '6'),
             ('test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874]', '6'),
         )),
+        ('F022', 'SUBMITTED', (
+            ('test/data/lib_path/f022/java.properties', '1'),
+            ('test/data/lib_path/f022/java.properties', '4'),
+        )),
         ('F031_AWS', 'APPROVED', (
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '13'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '17'),
@@ -550,6 +556,7 @@ async def test_correct_nothing_to_do_assert(
         ('F001_JPA', 'APPROVED', ()),
         ('F009', 'APPROVED', ()),
         ('F011', 'APPROVED', ()),
+        ('F022', 'SUBMITTED', ()),
         ('F031_AWS', 'APPROVED', ()),
         ('F031_CWE378', 'APPROVED', ()),
         ('F052', 'APPROVED', ()),
