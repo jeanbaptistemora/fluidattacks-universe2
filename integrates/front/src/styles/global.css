@@ -355,6 +355,10 @@ label {
   background: transparent !important;
 }
 
+:global .bottom-15 {
+  bottom: 15rem;
+}
+
 :global .cna-bd[disabled],
 :global .cna-bd[disabled]:hover {
   cursor: not-allowed;
@@ -375,6 +379,15 @@ label {
 
 :global .f2-5 {
   font-size: 1.75rem;
+}
+
+:global .img-box {
+  height: 100px;
+  width: 100px;
+}
+
+:global .left-5 {
+  left: 5rem;
 }
 
 :global .montserrat {
