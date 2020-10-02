@@ -40,6 +40,9 @@ source "${srcIncludeHelpersSkimsProcess}"
 source "${srcIncludeHelpersSkims}"
 source "${srcIncludeSkimsJobs}"
 
+source "${srcIncludeHelpersSorts}"
+source "${srcIncludeSortsJobs}"
+
 function cli {
   local function_to_call
   local arguments_1

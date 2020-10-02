@@ -373,7 +373,7 @@ function helper_common_update_kubeconfig {
 
 function helper_common_poetry_install_deps {
   local path="${1}"
-  export PYTHONPATH="${PWD}/skims/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"
+  export PYTHONPATH="${PWD}/${path}/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"
 
       pushd "${path}" \
     &&  { test -e poetry.lock || poetry install; } \

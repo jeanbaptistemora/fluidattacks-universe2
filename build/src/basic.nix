@@ -54,4 +54,8 @@ rec {
   srcIncludeHelpersSkimsProcess = ../include/helpers/skims.process.sh;
   srcIncludeHelpersSkims = ../include/helpers/skims.sh;
   srcIncludeSkimsJobs = ../include/jobs/skims.sh;
+
+  # Sorts
+  srcIncludeHelpersSorts = ../include/helpers/sorts.sh;
+  srcIncludeSortsJobs = ../include/jobs/sorts.sh;
 }

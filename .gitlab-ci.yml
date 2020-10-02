@@ -8,6 +8,7 @@ include:
   - local: reviews/.gitlab-ci.yml
   - local: serves/.gitlab-ci.yml
   - local: skims/.gitlab-ci.yml
+  - local: sorts/.gitlab-ci.yml
 
 stages:
   - rotation

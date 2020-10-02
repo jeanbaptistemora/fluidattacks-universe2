@@ -9,7 +9,7 @@ authors = [
   "Product Team <development@fluidattacks.com>",
 ]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
+  "Development Status :: 4 - Beta",
   "Environment :: Console",
   "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
   "Topic :: Security",
@@ -28,5 +28,13 @@ mypy_extensions = "0.4.3"
 numpy = "1.19.2"
 pandas = "1.1.2"
 PyDriller = "1.15.2"
+python = "^3.8"
 pytz = "2020.1"
 scikit-learn = "0.23.2"
+
+[tool.poetry.dev-dependencies]
+mypy = "0.782"
+prospector = "1.3.0"
+pydeps = "1.9.4"
+pytest = "5.4.3"
+pytest-cov = "2.10.0"
