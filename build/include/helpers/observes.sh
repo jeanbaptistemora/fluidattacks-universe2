@@ -347,6 +347,22 @@ function helper_observes_timedoctor_manually_create_token {
   &&  echo '[INFO] Done! Token created at GitLab/production env vars'
 }
 
+
+function helper_observes_test_singer_packages {
+      pushd singer \
+  &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d ! -name ".*" \
+        | grep -E 'tap_gitlab' \
+        | while read -r path
+          do
+                echo "[INFO] Testing python package: ${path}" \
+            &&  pushd "${path}" \
+            &&  pytest \
+            &&  popd \
+            ||  return 1
+          done \
+  &&  popd || return 1
+}
+
 function helper_observes_lint_code_python {
       find . -type f -name '*.py' \
         | (grep -vP './singer' || cat) \
@@ -362,7 +378,7 @@ function helper_observes_lint_code_python {
             || return 1
           done \
   &&  pushd singer || return 1 \
-  &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d \
+  &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d ! -name ".*" \
         | while read -r path
           do
                 echo "[INFO] linting python package: ${path}" \

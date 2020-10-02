@@ -361,3 +361,12 @@ function job_observes_lint_code {
   &&  popd \
   ||  return 1
 }
+
+function job_observes_test_code {
+
+      pushd observes \
+  &&  env_prepare_python_packages \
+  &&  helper_observes_test_singer_packages \
+  &&  popd \
+  ||  return 1
+}
