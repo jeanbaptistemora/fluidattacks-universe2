@@ -12,6 +12,8 @@ iso_format: str = '%Y-%m-%d %H:%M:%S'
 
 def get_from_str(
         date_str: str, date_format: str = iso_format) -> datetime:
+    if date_str == '0001-01-01 00:00:00':
+        date_str = '1970-01-01 00:00:00'
     unaware_datetime = datetime.strptime(date_str, date_format)
     return make_aware(unaware_datetime, TZN, is_dst=False)
 
