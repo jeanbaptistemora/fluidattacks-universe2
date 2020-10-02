@@ -1,5 +1,5 @@
 resource "aws_iam_user" "asserts-dev" {
-  name = var.user-name
+  name = "asserts-dev"
   path = "/user-provision/"
 
   tags = {
@@ -10,9 +10,9 @@ resource "aws_iam_user" "asserts-dev" {
 }
 
 resource "aws_iam_access_key" "asserts-dev-key-1" {
-  user = var.user-name
+  user = "asserts-dev"
 }
 
 resource "aws_iam_access_key" "asserts-dev-key-2" {
-  user = var.user-name
+  user = "asserts-dev"
 }

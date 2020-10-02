@@ -73,12 +73,12 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
 
 resource "aws_iam_policy" "asserts-dev-policy" {
   description = "asserts-dev policy"
-  name        = "${var.user-name}-policy"
+  name        = "asserts-dev-policy"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.asserts-dev-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "asserts-dev-attach-policy" {
-  user       = var.user-name
+  user       = "asserts-dev"
   policy_arn = aws_iam_policy.asserts-dev-policy.arn
 }

@@ -10,7 +10,7 @@ terraform {
 
   backend "s3" {
     bucket  = "fluidattacks-terraform-states-prod"
-    key     = "user-provision-asserts-dev.tfstate"
+    key     = "user-provision-asserts.tfstate"
     region  = "us-east-1"
     encrypt = true
     dynamodb_table = "terraform_state_lock"
