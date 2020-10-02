@@ -32,18 +32,22 @@ The files are poisoned with a malicious payload
 by the adversary and may be passed through standard channels such as via email,
 and standard web content like PDF and multimedia files.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/509.html[CWE-509: Replicating Malicious Code (Virus or Worm)].
+. [[r3]] link:http://capec.mitre.org/data/definitions/165.html[CAPEC-165: File Manipulation].
+An attacker modifies file contents or attributes (such as extensions or names)
+of files in a manner to cause incorrect processing by an application.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/509.html[CWE-509: Replicating Malicious Code (Virus or Worm)].
 Replicating malicious code, including viruses and worms, will attempt to attack
 other systems once it has successfully compromised the target system or
 software.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/749.html[CWE-749: Exposed Dangerous Method or Function].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/749.html[CWE-749: Exposed Dangerous Method or Function].
 The software provides an Applications Programming Interface (*API*) or similar
 interface for interaction with external actors,
 but the interface includes a dangerous method or function that is not properly
 restricted.
 
-. [[r5]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
+. [[r6]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
 Each Responsible Entity shall implement,
 except under CIP Exceptional Circumstances,
 one or more plan(s) to achieve the objective of mitigating the risk of the
@@ -51,17 +55,17 @@ introduction of malicious code to low impact BES Cyber Systems.
 The plan(s) shall include antivirus software,
 or other method(s) to mitigate the introduction of malicious code.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.1 Code Integrity Controls.(10.1.1)]
 Verify that a code analysis tool is in use that can detect potentially
 malicious code, such as time functions, unsafe file operations and network
 connections.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
 
-. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1.1]
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1.1]
 Ensure that anti-virus programs are capable of detecting, removing, and
 protecting against all known types of malicious software.
