@@ -100,6 +100,7 @@ resource "aws_launch_template" "batch_instance" {
     "management:type"    = "production"
     "management:product" = "common"
   }
+  user_data = filebase64("${path.module}/aws_batch_user_data.sh")
 
   block_device_mappings {
     device_name = "/dev/xvda"
@@ -131,7 +132,7 @@ resource "aws_batch_compute_environment" "default" {
     instance_type = [
       "m5a",
     ]
-    max_vcpus = 16
+    max_vcpus = 8
     min_vcpus = 0
     security_group_ids = [
       aws_security_group.aws_batch_compute_environment_security_group.id,
