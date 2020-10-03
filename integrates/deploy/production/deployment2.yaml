@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: integrates-master
+  name: integrates2-master
   namespace: production
   annotations:
     kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
-      app: integrates-master
+      app: integrates2-master
   strategy:
     rollingUpdate:
       maxSurge: 2
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        app: integrates-master
+        app: integrates2-master
     spec:
       nodeSelector:
         worker_group: xlarge
