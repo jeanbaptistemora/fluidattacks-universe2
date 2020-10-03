@@ -8,6 +8,7 @@ from typing import (
     Awaitable,
     Callable,
     Dict,
+    Iterator,
     List,
     Tuple,
 )
@@ -23,6 +24,7 @@ from parse_antlr import (
     parse as parse_antlr,
 )
 from lib_path.common import (
+    blocking_get_vulnerabilities_from_iterator,
     EXTENSIONS_JAVA,
     SHIELD,
 )
@@ -38,13 +40,7 @@ from utils.graph import (
 from utils.model import (
     FindingEnum,
     Grammar,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
-)
-from utils.string import (
-    to_snippet,
 )
 from zone import (
     t,
@@ -107,7 +103,11 @@ def _java_jpa_like_single_element_annotation(
     ))
 
 
-def _java_jpa_like(model: Dict[str, Any]) -> Tuple[Tuple[int, int], ...]:
+def _java_jpa_like(
+    content: str,
+    model: Dict[str, Any],
+    path: str,
+) -> Tuple[Vulnerability, ...]:
 
     def _has_like_injection(statement: str) -> bool:
         roots = (
@@ -146,13 +146,23 @@ def _java_jpa_like(model: Dict[str, Any]) -> Tuple[Tuple[int, int], ...]:
 
         return False, 0, 0
 
-    return tuple(
-        (line_no, column_no)
+    def iterator() -> Iterator[Tuple[int, int]]:
         for vulnerable, line_no, column_no in map(_check_like_injection, chain(
             _java_jpa_like_normal_annotation(model),
             _java_jpa_like_single_element_annotation(model),
-        ))
-        if vulnerable
+        )):
+            if vulnerable:
+                yield line_no, column_no
+
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f001_jpa.java_like.description',
+            path=path,
+        ),
+        finding=FindingEnum.F001_JPA,
+        iterator=iterator(),
+        path=path,
     )
 
 
@@ -165,34 +175,16 @@ async def java_jpa_like(
     if not content:
         return ()
 
-    model = await parse_antlr(
-        Grammar.JAVA9,
-        content=content.encode(),
+    return await in_process(
+        _java_jpa_like,
+        content=content,
+        model=await parse_antlr(
+            Grammar.JAVA9,
+            content=content.encode(),
+            path=path,
+        ),
         path=path,
     )
-    results = await in_process(_java_jpa_like, model)
-
-    return tuple([
-        Vulnerability(
-            finding=FindingEnum.F001_JPA,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f001_jpa.java_like.description',
-                    path=path,
-                ),
-                snippet=await to_snippet(
-                    column=column,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for line_no, column in results
-    ])
 
 
 async def analyze(
