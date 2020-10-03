@@ -47,13 +47,7 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
-)
-from utils.string import (
-    to_snippet,
 )
 from zone import (
     t,
@@ -147,7 +141,10 @@ def _crypto_js_credentials(
     )
 
 
-def _dockerfile_env_secrets(content: str) -> Tuple[Tuple[int, int], ...]:
+def _dockerfile_env_secrets(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
     secret_smells: Set[str] = {
         'api_key',
         'jboss_pass',
@@ -156,20 +153,29 @@ def _dockerfile_env_secrets(content: str) -> Tuple[Tuple[int, int], ...]:
         'secret',
     }
 
-    secrets: List[Tuple[int, int]] = []
-    for line_no, line in enumerate(content.splitlines(), start=1):
-        if match := DOCKERFILE_ENV.match(line):
-            secret: str = match.group('key').lower()
-            value: str = match.group('value').strip('"').strip("'")
-            if (
-                value
-                and not value.startswith('#{') and not value.endswith('}#')
-                and any(smell in secret for smell in secret_smells)
-            ):
-                column: int = match.start('value')
-                secrets.append((line_no, column))
+    def iterator() -> Iterator[Tuple[int, int]]:
+        for line_no, line in enumerate(content.splitlines(), start=1):
+            if match := DOCKERFILE_ENV.match(line):
+                secret: str = match.group('key').lower()
+                value: str = match.group('value').strip('"').strip("'")
+                if (
+                    value
+                    and not value.startswith('#{') and not value.endswith('}#')
+                    and any(smell in secret for smell in secret_smells)
+                ):
+                    column: int = match.start('value')
+                    yield line_no, column
 
-    return tuple(secrets)
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f009.dockerfile_env_secrets.description',
+            path=path,
+        ),
+        finding=FindingEnum.F009,
+        iterator=iterator(),
+        path=path,
+    )
 
 
 @cache_decorator()
@@ -178,29 +184,11 @@ async def dockerfile_env_secrets(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return tuple([
-        Vulnerability(
-            finding=FindingEnum.F009,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f009.dockerfile_env_secrets.description',
-                    path=path,
-                ),
-                snippet=await to_snippet(
-                    column=column,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for line_no, column in await in_process(
-            _dockerfile_env_secrets, content,
-        )
-    ])
+    return await in_process(
+        _dockerfile_env_secrets,
+        content=content,
+        path=path,
+    )
 
 
 def _java_properties_sensitive_info(
