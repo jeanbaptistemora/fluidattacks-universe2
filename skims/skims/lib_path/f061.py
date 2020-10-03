@@ -24,6 +24,7 @@ from pyparsing import (
 # Local libraries
 from lib_path.common import (
     blocking_get_vulnerabilities,
+    blocking_get_vulnerabilities_from_iterator,
     C_STYLE_COMMENT,
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
@@ -46,13 +47,7 @@ from utils.ast import (
 )
 from utils.model import (
     FindingEnum,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
-)
-from utils.string import (
-    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -205,27 +200,18 @@ def _python_swallows_exceptions(
         ),
     )
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F061,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{node.lineno}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f061.swallows_exceptions.description',
-                    lang='Python',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=node.col_offset,
-                    content=content,
-                    line=node.lineno,
-                )
-            )
-        )
-        for node in vulnerable_nodes
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f061.swallows_exceptions.description',
+            lang='Python',
+            path=path,
+        ),
+        finding=FindingEnum.F061,
+        iterator=(
+            (node.lineno, node.col_offset) for node in vulnerable_nodes
+        ),
+        path=path,
     )
 
 

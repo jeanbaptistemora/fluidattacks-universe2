@@ -10,11 +10,11 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    in_process,
 )
 
 # Local libraries
 from lib_path.common import (
+    blocking_get_vulnerabilities_from_iterator,
     SHIELD,
 )
 from state.cache import (
@@ -25,13 +25,7 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
-)
-from utils.string import (
-    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -53,31 +47,15 @@ async def unverifiable_files(
     if (file_name, file_extension) in ALLOWED:
         return ()
 
-    skims_metadata = SkimsVulnerabilityMetadata(
+    return blocking_get_vulnerabilities_from_iterator(
+        content=raw_content.decode(encoding='utf-8', errors='replace'),
         description=t(
             key='src.lib_path.f117.unverifiable_files.description',
             path=path,
         ),
-        snippet=blocking_to_snippet(
-            column=0,
-            content=await in_process(
-                raw_content.decode,
-                encoding='utf-8',
-                errors='replace',
-            ),
-            line=1,
-        )
-    )
-
-    return (
-        Vulnerability(
-            finding=FindingEnum.F117,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where='1',
-            skims_metadata=skims_metadata,
-        ),
+        finding=FindingEnum.F117,
+        iterator=iter([(1, 0)]),
+        path=path,
     )
 
 
