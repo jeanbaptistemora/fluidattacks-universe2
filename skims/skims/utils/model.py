@@ -10,6 +10,11 @@ from typing import (
 )
 
 
+class Platform(Enum):
+    NPM: str = 'NPM'
+    MAVEN: str = 'MAVEN'
+
+
 class Grammar(Enum):
     CSHARP: str = 'CSharp'
     JAVA9: str = 'Java9'

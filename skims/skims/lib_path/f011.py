@@ -1,12 +1,10 @@
 # Standard library
 import re
 from typing import (
-    Any,
     Awaitable,
     Callable,
     Iterator,
     List,
-    Literal,
     Pattern,
     Tuple,
 )
@@ -33,7 +31,7 @@ from nvd.local import (
     query,
 )
 from parse_json import (
-    loads as json_loads,
+    blocking_loads as blocking_json_loads,
 )
 from state.cache import (
     cache_decorator,
@@ -43,13 +41,14 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
+    Platform,
     SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
 )
 from utils.string import (
-    to_snippet,
+    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -89,33 +88,40 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 # | yarn.lock         | 47     | yes
 
 
-def _get_build_gradle_dependencies(
+def _build_gradle(
     content: str,
-) -> Tuple[DependencyType, ...]:
-    dependencies: List[DependencyType] = []
+    path: str,
+    platform: Platform,
+) -> Tuple[Vulnerability, ...]:
 
-    for line_no, line in enumerate(content.splitlines(), start=1):
-        if match := RE_MAVEN_A.match(line):
-            column: int = match.start('group')
-            product: str = match.group('group') + ':' + match.group('name')
-            version: str = match.group('version') or '*'
-        elif match := RE_MAVEN_B.match(line):
-            column = match.start('statement')
-            statement = match.group('statement')
-            product, version = (
-                statement.rsplit(':', maxsplit=1)
-                if statement.count(':') >= 2
-                else (statement, '*')
+    def resolve_dependencies() -> Iterator[DependencyType]:
+        for line_no, line in enumerate(content.splitlines(), start=1):
+            if match := RE_MAVEN_A.match(line):
+                column: int = match.start('group')
+                product: str = match.group('group') + ':' + match.group('name')
+                version: str = match.group('version') or '*'
+            elif match := RE_MAVEN_B.match(line):
+                column = match.start('statement')
+                statement = match.group('statement')
+                product, version = (
+                    statement.rsplit(':', maxsplit=1)
+                    if statement.count(':') >= 2
+                    else (statement, '*')
+                )
+            else:
+                continue
+
+            yield (
+                {'column': column, 'line': line_no, 'item': product},
+                {'column': column, 'line': line_no, 'item': version},
             )
-        else:
-            continue
 
-        dependencies.append((
-            {'column': column, 'line': line_no, 'item': product},
-            {'column': column, 'line': line_no, 'item': version},
-        ))
-
-    return tuple(dependencies)
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(),
+        path=path,
+        platform=platform,
+    )
 
 
 @cache_decorator()
@@ -124,30 +130,34 @@ async def build_gradle(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await in_process(
-        _get_build_gradle_dependencies,
+    return await in_process(
+        _build_gradle,
         content=content,
-    )
-
-    return await translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=dependencies,
         path=path,
-        platform='MAVEN',
+        platform=Platform.MAVEN,
     )
 
 
-def _get_npm_package_json_dependencies(
-    content_json: Any,
-) -> Tuple[DependencyType, ...]:
-    dependencies: Tuple[DependencyType, ...] = tuple(
+def _npm_package_json(
+    content: str,
+    path: str,
+    platform: Platform,
+) -> Tuple[Vulnerability, ...]:
+    content_json = blocking_json_loads(content, default={})
+
+    dependencies: Iterator[DependencyType] = (
         (product, version)
         for key in content_json
         if key['item'] == 'dependencies'
         for product, version in content_json[key].items()
     )
 
-    return dependencies
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=dependencies,
+        path=path,
+        platform=platform,
+    )
 
 
 @cache_decorator()
@@ -156,42 +166,37 @@ async def npm_package_json(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await in_process(
-        _get_npm_package_json_dependencies,
-        content_json=await json_loads(content, default={}),
-    )
-
-    return await translate_dependencies_to_vulnerabilities(
+    return await in_process(
+        _npm_package_json,
         content=content,
-        dependencies=dependencies,
         path=path,
-        platform='NPM',
+        platform=Platform.NPM,
     )
 
 
-def _get_npm_package_lock_json_dependencies(
-    content_json: Any,
-) -> Tuple[DependencyType, ...]:
+def _npm_package_lock_json(
+    content: str,
+    path: str,
+    platform: Platform,
+) -> Tuple[Vulnerability, ...]:
 
-    def resolve_dependencies(
-        obj: frozendict,
-        current: List[DependencyType],
-    ) -> List[DependencyType]:
+    def resolve_dependencies(obj: frozendict) -> Iterator[DependencyType]:
         for key in obj:
             if key['item'] in ('dependencies', 'devDependencies'):
                 for product, spec in obj[key].items():
                     for spec_key, spec_val in spec.items():
                         if spec_key['item'] == 'version':
-                            current.append((product, spec_val))
-                            current = resolve_dependencies(spec, current)
+                            yield product, spec_val
+                            yield from resolve_dependencies(spec)
 
-        return current
-
-    dependencies: Tuple[DependencyType, ...] = tuple(resolve_dependencies(
-        content_json, [],
-    ))
-
-    return dependencies
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(
+            obj=blocking_json_loads(content, default={}),
+        ),
+        path=path,
+        platform=platform,
+    )
 
 
 @cache_decorator()
@@ -200,22 +205,19 @@ async def npm_package_lock_json(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await in_process(
-        _get_npm_package_lock_json_dependencies,
-        content_json=await json_loads(content, default={}),
-    )
-
-    return await translate_dependencies_to_vulnerabilities(
+    return await in_process(
+        _npm_package_lock_json,
         content=content,
-        dependencies=dependencies,
         path=path,
-        platform='NPM',
+        platform=Platform.NPM,
     )
 
 
-def _get_yarn_lock_dependencies(
+def _yarn_lock(
     content: str,
-) -> Tuple[DependencyType, ...]:
+    path: str,
+    platform: Platform,
+) -> Tuple[Vulnerability, ...]:
 
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
@@ -248,9 +250,12 @@ def _get_yarn_lock_dependencies(
                     {'column': 0, 'line': version_line, 'item': version},
                 )
 
-    dependencies: Tuple[DependencyType, ...] = tuple(resolve_dependencies())
-
-    return dependencies
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(),
+        path=path,
+        platform=platform,
+    )
 
 
 @cache_decorator()
@@ -259,27 +264,22 @@ async def yarn_lock(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await in_process(
-        _get_yarn_lock_dependencies,
+    return await in_process(
+        _yarn_lock,
         content=content,
-    )
-
-    return await translate_dependencies_to_vulnerabilities(
-        content=content,
-        dependencies=dependencies,
         path=path,
-        platform='NPM',
+        platform=Platform.NPM,
     )
 
 
-async def translate_dependencies_to_vulnerabilities(
+def translate_dependencies_to_vulnerabilities(
     *,
     content: str,
-    dependencies: Tuple[DependencyType, ...],
+    dependencies: Iterator[DependencyType],
     path: str,
-    platform: Literal['NPM', 'MAVEN'],
+    platform: Platform,
 ) -> Tuple[Vulnerability, ...]:
-    results: Tuple[Vulnerability, ...] = tuple([
+    results: Tuple[Vulnerability, ...] = tuple(
         Vulnerability(
             finding=FindingEnum.F011,
             kind=VulnerabilityKindEnum.LINES,
@@ -298,7 +298,7 @@ async def translate_dependencies_to_vulnerabilities(
                     version=version['item'],
                     cve=cve,
                 ),
-                snippet=await to_snippet(
+                snippet=blocking_to_snippet(
                     column=product['column'],
                     content=content,
                     line=product['line'],
@@ -307,7 +307,7 @@ async def translate_dependencies_to_vulnerabilities(
         )
         for product, version in dependencies
         for cve in query(platform, product['item'], version['item'])
-    ])
+    )
 
     return results
 

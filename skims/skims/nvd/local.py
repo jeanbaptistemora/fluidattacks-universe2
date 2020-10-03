@@ -9,7 +9,6 @@ from sys import (
 from typing import (
     Dict,
     List,
-    Literal,
 )
 
 # Third party libraries
@@ -20,6 +19,9 @@ from semver import (
 # Local libraries
 from utils.ctx import (
     read_artifact,
+)
+from utils.model import (
+    Platform,
 )
 
 # Constants
@@ -68,14 +70,14 @@ def remove_constraints(version: str) -> str:
 
 
 def query(
-    platform: Literal['NPM', 'MAVEN'],
+    platform: Platform,
     product: str,
     version: str,
 ) -> List[str]:
     """Search a product and a version in the database and return a list of CVE.
     """
     version = normalize(remove_constraints(version.strip().lower()))
-    database = getattr(modules[__name__], f'DATABASE_{platform}')
+    database = getattr(modules[__name__], f'DATABASE_{platform.value}')
 
     references: List[str] = [
         ref
