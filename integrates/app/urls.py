@@ -83,6 +83,11 @@ urlpatterns = [
         r'(?P<fileid>[\w\.-]+)?$',
         views.get_evidence
     ),
+    # Confirm access to group
+    url(
+        r'^confirm_access/(?P<urltoken>[A-Za-z0-9\._-]+)?$',
+        views.confirm_access
+    ),
     # Let the front router handle them
     url(r'', views.app),
 ]

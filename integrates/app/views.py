@@ -33,6 +33,7 @@ from magic import Magic
 
 # Local libraries
 from backend import authz, util
+from backend.api.resolvers import user as user_resolver
 from backend.dal.helpers.s3 import (
     download_file,
     list_files,
@@ -393,3 +394,18 @@ def retrieve_image(request: HttpRequest, img_file: str) -> HttpResponse:
 async def list_s3_evidences(prefix: str) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
     return list(await list_files(BUCKET_S3, prefix))
+
+
+@async_to_sync  # type: ignore
+async def confirm_access(
+    request: HttpRequest,
+    urltoken: str,
+) -> HttpResponse:
+    token_exists = await util.token_exists(f'fi_urltoken:{urltoken}')
+
+    if token_exists:
+        await user_resolver.complete_user_register(urltoken)
+    else:
+        return redirect('/error401')
+
+    return redirect('/')

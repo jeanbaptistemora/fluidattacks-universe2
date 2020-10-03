@@ -9,6 +9,7 @@ import functools
 import logging
 import re
 import secrets
+import json
 from typing import (
     Any,
     cast,
@@ -52,6 +53,9 @@ from jose import jwt, JWTError
 from magic import Magic
 
 from backend.dal import session as session_dal
+from backend.dal.helpers.redis import (
+    AREDIS_CLIENT,
+)
 from backend.exceptions import (
     ConcurrentSession,
     ExpiredToken,
@@ -296,6 +300,30 @@ async def get_jwt_content(context) -> Dict[str, str]:
     else:
         context.store[context_store_key] = content
         return content
+
+
+async def create_confirm_access_token(
+    email: str,
+    group: str,
+    responsibility: str
+) -> str:
+    token_lifetime = timedelta(hours=8)
+
+    urltoken = secrets.token_urlsafe(64)
+
+    token = dict(
+        user_email=email,
+        responsibility=responsibility,
+        group=group,
+    )
+
+    await save_token(
+        f'fi_urltoken:{urltoken}',
+        json.dumps(token),
+        int(token_lifetime.total_seconds())
+    )
+
+    return urltoken
 
 
 def iterate_s3_keys(client, bucket: str, prefix: str) -> Iterator[str]:
@@ -672,6 +700,10 @@ async def save_token(key: str, token: str, time: int):
 
 async def remove_token(key: str):
     await session_dal.remove_element(key)
+
+
+async def get_token(key: str) -> str:
+    return await AREDIS_CLIENT.get(key)
 
 
 async def token_exists(key: str) -> bool:
