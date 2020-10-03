@@ -28,6 +28,7 @@ from aws.iam.utils import (
     match_pattern,
 )
 from lib_path.common import (
+    blocking_get_vulnerabilities_from_iterator,
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     SHIELD,
@@ -53,13 +54,7 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
-)
-from utils.string import (
-    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -74,31 +69,22 @@ def _create_vulns(
     content: str,
     description_key: str,
     path: str,
-    statements_iterator: Iterator[Union[AWSIamManagedPolicyArns,
-                                        AWSIamPolicyStatement]],
+    statements_iterator: Iterator[Union[
+        AWSIamManagedPolicyArns,
+        AWSIamPolicyStatement,
+    ]],
 ) -> Tuple[Vulnerability, ...]:
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F031_AWS,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key=description_key,
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column_no,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for stmt in statements_iterator
-        for column_no in [stmt.column]
-        for line_no in [stmt.line]
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key=description_key,
+            path=path,
+        ),
+        finding=FindingEnum.F031_AWS,
+        iterator=(
+            (stmt.line, stmt.column) for stmt in statements_iterator
+        ),
+        path=path,
     )
 
 
@@ -275,7 +261,10 @@ def _cfn_admin_policy_attached(
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=cnf_iterate_managed_policy_arns(
-                template=template)))
+                template=template,
+            ),
+        ),
+    )
 
 
 @cache_decorator()

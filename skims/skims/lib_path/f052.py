@@ -22,6 +22,7 @@ from pyparsing import (
 # Local libraries
 from lib_path.common import (
     blocking_get_vulnerabilities,
+    blocking_get_vulnerabilities_from_iterator,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
@@ -43,17 +44,11 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
 )
 from utils.crypto import (
     is_open_ssl_cipher_suite_vulnerable,
     is_iana_cipher_suite_vulnerable,
-)
-from utils.string import (
-    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -454,26 +449,15 @@ def _java_properties_missing_ssl(
             if key == missing_ssl_key and val in missing_ssl_values:
                 yield line_no, 0
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F052,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f052.java_properties_missing_ssl',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for line_no, column in _iterate_vulnerabilities()
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.java_properties_missing_ssl',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        iterator=_iterate_vulnerabilities(),
+        path=path,
     )
 
 
@@ -504,26 +488,15 @@ def _java_properties_weak_cipher_suite(
             ):
                 yield line_no, 0
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F052,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f052.java_properties_weak_cipher_suite',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for line_no, column in _iterate_vulnerabilities()
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.java_properties_weak_cipher_suite',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        iterator=_iterate_vulnerabilities(),
+        path=path,
     )
 
 
