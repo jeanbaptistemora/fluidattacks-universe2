@@ -31,13 +31,11 @@ function test_curl_production {
 }
 
 function run_readiness_probe {
-      test_aws_credentials \
-  &&  test_curl_localhost
+  test_aws_credentials
 }
 
 function run_liveness_probe {
       test_aws_credentials \
-  &&  test_curl_localhost \
   &&  test_curl_production
 }
 

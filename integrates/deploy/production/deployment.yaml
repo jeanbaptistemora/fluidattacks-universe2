@@ -47,14 +47,14 @@ spec:
         readinessProbe:
           exec:
             command: [bash, deploy/production/integrates-probes.sh, run_readiness_probe]
-          initialDelaySeconds: 180
+          initialDelaySeconds: 60
           periodSeconds: 30
           successThreshold: 1
-          failureThreshold: 20
+          failureThreshold: 40
         livenessProbe:
           exec:
             command: [bash, deploy/production/integrates-probes.sh, run_liveness_probe]
-          initialDelaySeconds: 180
+          initialDelaySeconds: 60
           periodSeconds: 30
           successThreshold: 1
-          failureThreshold: 20
+          failureThreshold: 40
