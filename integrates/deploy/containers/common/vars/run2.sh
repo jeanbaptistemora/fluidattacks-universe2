@@ -52,6 +52,7 @@ sleep 10
 # Current number of CPUs defined at deploy/production/deployment.yaml
 gunicorn backend_new.app:APP \
   --bind=0.0.0.0:8080 \
+  --forwarded-allow-ips="*" \
   --workers=5 \
   --worker-class=uvicorn.workers.UvicornWorker \
   --timeout=120
