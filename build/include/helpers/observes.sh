@@ -347,20 +347,29 @@ function helper_observes_timedoctor_manually_create_token {
   &&  echo '[INFO] Done! Token created at GitLab/production env vars'
 }
 
+function helper_observes_lint_generic_package {
+  local path="${1}"
 
-function helper_observes_test_singer_packages {
-      pushd singer \
-  &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d ! -name ".*" \
-        | grep -E 'streamer_gitlab' \
-        | while read -r path
-          do
-                echo "[INFO] Testing python package: ${path}" \
-            &&  pushd "${path}" \
-            &&  pytest \
-            &&  popd \
-            ||  return 1
-          done \
-  &&  popd || return 1
+  find "${path}" -type f -name '*.py' | while read -r file
+  do
+        echo "[INFO] linting python file: ${file}" \
+    &&  mypy \
+          --ignore-missing-imports \
+          --no-incremental \
+          --allow-any-generics \
+          --pretty \
+          "${file}" \
+    || return 1
+  done
+}
+
+function helper_observes_test_generic_package {
+  local path="${1}"
+
+      echo "[INFO] Testing python package: ${path}" \
+  &&  pushd "${path}" \
+    &&  pytest "tests" \
+  &&  popd
 }
 
 function helper_observes_lint_code_python {

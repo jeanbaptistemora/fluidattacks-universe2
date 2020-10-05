@@ -362,11 +362,20 @@ function job_observes_lint_code {
   ||  return 1
 }
 
-function job_observes_test_code {
+function job_observes_gitlab_lint {
 
       pushd observes \
-  &&  env_prepare_python_packages \
-  &&  helper_observes_test_singer_packages \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./singer/streamer_gitlab/streamer_gitlab" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_gitlab_test {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_test_generic_package "./singer/streamer_gitlab" \
   &&  popd \
   ||  return 1
 }

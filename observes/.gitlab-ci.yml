@@ -41,11 +41,6 @@ observes_lint_code:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes_test_code:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: test-code
-
 observes_test_infra:
   <<: *with_nix
   <<: *observes_in_dev_branch
@@ -102,6 +97,16 @@ observes_gitlab_on_aws:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
   interruptible: false
+
+observes_gitlab_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes_gitlab_test:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-code
 
 observes_timedoctor:
   <<: *with_nix

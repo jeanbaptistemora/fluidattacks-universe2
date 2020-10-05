@@ -15,10 +15,16 @@ in
             pkgs.python38
           ];
 
+          pyPkgMypy = builders.pythonPackage {
+            requirement = "mypy==0.782";
+            python = pkgs.python38;
+          };
+
           pyPkgPytest = builders.pythonPackage {
             requirement = "pytest==6.1.0";
             python = pkgs.python38;
           };
+
           pyPkgTapGitlab = builders.pythonPackageLocal {
             path = ../../observes/singer/streamer_gitlab;
             python = pkgs.python38;
