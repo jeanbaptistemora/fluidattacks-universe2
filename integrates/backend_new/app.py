@@ -7,7 +7,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 # Local libraries
-import backend_new.settings as settings
+from backend_new import settings
 
 TEMPLATES_DIR = 'backend_new/templates'
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)

@@ -2,10 +2,11 @@ from datetime import datetime, timedelta
 import pytz
 import pytest
 
-from django.conf import settings
 from django.test import TestCase
 from backend.domain import user as user_domain
 from backend.exceptions import InvalidPushToken
+
+from backend_new import settings
 
 
 class UserTests(TestCase):

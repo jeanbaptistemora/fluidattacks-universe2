@@ -5,7 +5,6 @@ from datetime import datetime
 from aioextensions import (
     collect,
 )
-from django.conf import settings
 from django.test import TestCase
 from pytz import timezone
 from freezegun import freeze_time
@@ -35,6 +34,8 @@ from backend.dal import (
     vulnerability as vuln_dal,
     available_name as available_name_dal
 )
+
+from backend_new import settings
 
 pytestmark = [
     pytest.mark.asyncio,

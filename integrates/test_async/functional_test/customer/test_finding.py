@@ -4,13 +4,13 @@ from datetime import datetime
 
 from test_async.functional_test.customer.utils import get_result
 
-from fluidintegrates.settings import TIME_ZONE
+from backend_new import settings
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_finding():
-    tzn = pytz.timezone(TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
     finding_id = '463558592'
     expected_output =  {

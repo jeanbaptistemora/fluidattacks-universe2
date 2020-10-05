@@ -1,12 +1,13 @@
 import pytz
 from datetime import datetime, timedelta
 
-from django.conf import settings
 from freezegun import freeze_time
 
 from backend.utils import (
     datetime as datetime_utils
 )
+
+from backend_new import settings
 
 tzn = pytz.timezone(settings.TIME_ZONE)
 

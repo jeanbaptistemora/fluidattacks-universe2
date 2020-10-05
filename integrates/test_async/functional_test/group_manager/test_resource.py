@@ -7,14 +7,14 @@ from datetime import datetime
 from django.core.files.uploadedfile import SimpleUploadedFile
 from urllib.parse import quote
 
-from fluidintegrates.settings import TIME_ZONE
+from backend_new import settings
 from test_async.functional_test.group_manager.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_resource():
-    tzn = pytz.timezone(TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
     state_today = datetime.now(tz=tzn).strftime('%Y/%m/%d')
     group_name = 'unittesting'

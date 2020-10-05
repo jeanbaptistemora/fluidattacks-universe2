@@ -5,7 +5,6 @@ import random
 from datetime import datetime
 
 import pytz
-from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from magic import Magic
 
@@ -40,6 +39,8 @@ from backend.utils import (
     events as event_utils,
     validations
 )
+
+from backend_new import settings
 
 from __init__ import (
     BASE_URL,

@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 
 from asgiref.sync import async_to_sync
 from collections import namedtuple
-from django.conf import settings
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from graphql.type import GraphQLResolveInfo
@@ -32,6 +31,8 @@ from backend.exceptions import (
 from backend.utils import (
     datetime as datetime_utils,
 )
+
+from backend_new import settings
 
 from test_async.utils import create_dummy_session
 
