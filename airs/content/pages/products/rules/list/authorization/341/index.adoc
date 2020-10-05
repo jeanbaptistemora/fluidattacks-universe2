@@ -30,57 +30,61 @@ non-privileged accounts.
 Access to sensitive information and functionality must be controlled to ensure
 that only authorized users are able to access these resources.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
+. [[r2]] link:http://capec.mitre.org/data/definitions/233.html[CAPEC-233: Privilege Escalation].
+An adversary exploits a weakness enabling them to elevate their privilege and
+perform an action that they are not supposed to be authorized to perform.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
 The product, upon installation, sets incorrect permissions for an object that
 exposes it to an unintended actor.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/732.html[CWE-732: Incorrect Permission Assignment for Critical Resource].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/732.html[CWE-732: Incorrect Permission Assignment for Critical Resource].
 The product specifies permissions for a security-critical resource in a way
 that allows that resource to be read or modified by unintended actors.
 
-. [[r4]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.3]
+. [[r5]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.3]
 Require inbound and outbound access permissions,
 including the reason for granting access,
 and deny all other access by default.
 
-. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users' accounts, view sensitive files,
 modify other users' data, change access rights, etc.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
 new features until access is explicitly assigned.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.2)]
 Verify that the application does not ask for unnecessary or excessive
 permissions to privacy related features or sensors, such as contacts, cameras,
 microphones, or location.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.6)]
 Verify that the attack surface is reduced by sandboxing or encapsulating third
 party libraries to expose only the required behavior into the application.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.1)]
 Verify that the application server only accepts the *HTTP* methods in use by
 the application or *API*, including pre-flight *OPTIONS*.
 
-. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
 Address common coding vulnerabilities in software-development processes
 including improper access control
 (such as insecure direct object references, failure to restrict URL access,
 directory traversal, and failure to restrict user access to functions).
 
-. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.2]
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.2]
 Restrict access to privileged user IDs to least privileges necessary to perform
 job responsibilities.
 
-. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
 This access control system(s) must include a default "deny-all" setting.

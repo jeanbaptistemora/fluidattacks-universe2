@@ -1,14 +1,14 @@
 :slug: products/rules/list/023/
 :category: session
 :description: This requirement establishes the importance of closing inactive user sessions after a certain period of inactivity to avoid security breaches.
-:keywords: Session, Inactive, Close, ASVS, CWE, NIST, OWASP, PCI DSS, Breaches, Rules, Ethical Hacking, Pentesting
+:keywords: Session, Inactive, Close, ASVS, CAPEC, CWE, NIST, OWASP, PCI DSS, Breaches, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R023. Close inactive users sessions
+= R023. Terminate inactive users sessions
 
 == Requirement
 
-The system must close a session if there is a period of inactivity
+The system must terminate a session if there is a period of inactivity
 on the user side greater than or equal to *5* minutes.
 
 == Description
@@ -62,58 +62,63 @@ objects.
 . [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSIMM9 SM2.6:]
 Require security sign-off.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-404: Improper Resource Shutdown or Release]
+. [[r2]] link:http://capec.mitre.org/data/definitions/227.html[CAPEC-227: Sustained Client Engagement].
+An adversary attempts to deny legitimate users access to a resource by
+continually engaging a specific resource in an attempt to keep the resource
+tied up as long as possible.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-404: Improper Resource Shutdown or Release]
 According to WASC, "Insufficient Session Expiration is when a web site permits
 an attacker to reuse old session credentials or session IDs for authorization."
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
 Insufficient Session Expiration is when a web site permits
 an attacker to reuse old session credentials or session IDs for authorization.
 
-. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iii):]
+. [[r5]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iii):]
 Automatic Logoff: Implement electronic procedures
 that terminate an electronic session after a predetermined time of inactivity.
 
-. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[NIST 800-53 AC-12]
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[NIST 800-53 AC-12]
 Session termination: The information system automatically terminates
 a user session after organization-defined conditions
 or trigger events requiring session disconnect.
 
-. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (2)]
+. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (2)]
 The organization requires that users log out when
 [Assignment: organization-defined time-period of expected inactivity
 or description of when to log out].
 
-. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.3 Session Logout and Timeout Requirements.(3.3.2)]
 If authenticators permit users to remain logged in,
 verify that re-authentication occurs periodically both when actively used or
 after an idle period.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.6 Re-authentication from a Federation or Assertion.(3.6.1)]
 Verify that relying parties specify the maximum authentication time to **CSP**s
 and that **CSP**s re-authenticate the subscriber if they haven't used a session
 within that period.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.6 Re-authentication from a Federation or Assertion.(3.6.2)]
 Verify that **CSP**s inform relying parties of the last authentication event,
 to allow **RP**s to determine if they need to re-authenticate the user.
 
-. [[r11]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r12]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
 
-. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
 Address common coding vulnerabilities in software-development processes such as
 broken authentication and session management.
 
-. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.8]
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.8]
 If a session has been idle for more than 15 minutes,
 require the user to re-authenticate to re-activate the terminal or session.
