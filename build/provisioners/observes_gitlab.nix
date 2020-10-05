@@ -16,13 +16,8 @@ in
             pkgs.jq
           ];
 
-          pyPkgAioextensions = builders.pythonPackage {
-            requirement = "aioextensions==20.8.1478538";
-          };
-          pyPkgAiohttp = builders.pythonPackage {
-            requirement = "aiohttp==3.6.2";
-          };
           pyPkgTapjson = builders.pythonPackageLocal { path = ../../observes/singer/tap_json; };
           pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../observes/singer/target_redshift; };
+          pyPkgStreamerGitlab = builders.pythonPackageLocal { path = ../../observes/singer/streamer_gitlab; };
         })
   )

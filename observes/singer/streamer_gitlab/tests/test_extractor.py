@@ -34,14 +34,13 @@ def test_gitlab_data_emitter_no_missing_data():
         queue = Queue(maxsize=1024)
         total_items = 10
         server = MockServer(total_items)
-        data_emitter = \
-            await extractor.gitlab_data_emitter(
-                get_request=server.mock_get_request,
-                project='project66',
-                resource='merge_requests',
-                params={'scope': 'all'},
-                api_token='mock_api_token'
-            )
+        data_emitter = extractor.gitlab_data_emitter(
+            get_request=server.mock_get_request,
+            project='project66',
+            resource='merge_requests',
+            params={'scope': 'all'},
+            api_token='mock_api_token'
+        )
         emitter_task = create_task(data_emitter(queue))
         await emitter_task
         assert queue.qsize() == total_items

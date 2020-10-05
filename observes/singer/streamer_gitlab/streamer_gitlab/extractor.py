@@ -1,12 +1,29 @@
-# Local libraries
+# Std libraries
+import sys
+import json
+
 from typing import (
-    Dict, Callable, Awaitable, Any
+    Any,
+    Awaitable,
+    Callable,
+    cast,
+    Dict,
+    List,
 )
-from asyncio import Queue
+from asyncio import (
+    create_task,
+    Queue
+)
+
 
 # Third party libraries
+import urllib.parse
 import aiohttp
-from aioextensions import rate_limited
+from aioextensions import (
+    collect,
+    in_process,
+    rate_limited,
+)
 
 # Local libraries
 from streamer_gitlab.log import log
@@ -23,13 +40,13 @@ async def get_json(
 ) -> Dict[str, Any]:
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
-        log('info', f'[{response.status}] {endpoint}')
+        log('info', f'[{response.status}] {endpoint}, {kargs["params"]}')
         response.raise_for_status()
 
         return await response.json()
 
 
-async def gitlab_data_emitter(
+def gitlab_data_emitter(
     get_request: Callable[..., Awaitable[Any]],
     project: str,
     resource: str,
@@ -73,3 +90,47 @@ async def gitlab_data_emitter(
                     errors, page = 0, page + 1
                     await queue.put(result)
     return data_emitter
+
+
+def emit(stream: str, records: Any) -> None:
+    """Emit as special format so tap-json can consume it from stdin."""
+    for record in records:
+        msg = json.dumps({'stream': stream, 'record': record})
+        print(msg, file=sys.stdout, flush=True)
+
+
+async def emitter(queue: Queue) -> None:
+    """Watch the queue and emit messages put into it.
+
+    `None` is a sentinel value drained from the Queue that marks the end.
+    """
+    while True:
+        item = await queue.get()
+        if item is None:
+            break
+        if queue.full():
+            log('warning', 'Queue is full and performance may be impacted!')
+
+        stream, records = item
+        await in_process(emit, stream, records)
+
+
+async def main(projects: List[str], api_token: str) -> None:
+    queue: Queue = Queue(maxsize=1024)
+    emitter_task = create_task(emitter(queue))
+    await collect([
+        gitlab_data_emitter(
+            get_json,
+            urllib.parse.quote(project, safe=''),
+            resource,
+            cast(Dict[str, str], params),
+            api_token
+        )(queue)
+        for project in projects
+        for resource, params in [
+            ('jobs', {}),
+            ('merge_requests', {'scope': 'all'}),
+        ]
+    ])
+    await queue.put(None)
+    await emitter_task
