@@ -239,7 +239,6 @@ function job_observes_code_mirror_all_groups_to_s3_on_aws {
 function job_observes_code_mirror_group_to_s3 {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local group="${1}"
-  local ssh_config=~/.ssh/config
 
       if test -z "${group}"
       then
@@ -248,12 +247,6 @@ function job_observes_code_mirror_group_to_s3 {
       fi \
   &&  helper_observes_aws_login prod \
   &&  helper_use_services \
-    &&  echo '[INFO] Configuring SSH' \
-    &&  touch "${ssh_config}" \
-    &&  chmod 600 "${ssh_config}" \
-    &&  echo 'Host *' > "${ssh_config}" \
-    &&  echo '    StrictHostKeyChecking no' >> "${ssh_config}" \
-    &&  chmod 400 "${ssh_config}" \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group} from source Git repository" \
     &&  CI='true' \
@@ -262,7 +255,7 @@ function job_observes_code_mirror_group_to_s3 {
         PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
         PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
         melts resources --clone-from-customer-git "${group}" \
-    &&  if find fusion/* -type d
+    &&  if find "groups/${group}/fusion/"* -maxdepth 0 -type d
         then
               echo '[INFO] Pushing repositories to S3' \
           &&  CI='true' \

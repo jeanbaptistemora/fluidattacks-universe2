@@ -17,7 +17,7 @@ def main() -> None:
                 WHERE (
                     seen_at < '2020-01-01'
                     AND authored_at >= '2020-01-01'
-                    AND authored_at < '2020-08-01'
+                    AND authored_at <= '2020-08-31'
                 )
             """
         )
