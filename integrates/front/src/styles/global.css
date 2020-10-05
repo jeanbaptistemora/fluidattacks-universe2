@@ -371,6 +371,10 @@ label {
   background: transparent !important;
 }
 
+:global .bottom-9 {
+  bottom: 9rem;  
+}
+
 :global .bottom-15 {
   bottom: 15rem;
 }
@@ -424,8 +428,36 @@ label {
   padding-bottom: 0.7rem;
 }
 
+:global .right3 {
+  right: 3rem;
+}
+
 :global .sans-pro {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+:global .su-c::before {
+  content: '\e682';
+}
+
+:global .su-dib::before {
+  display: inline-block;
+}
+
+:global .su-icon::before {
+  font-family: 'Pe-icon-7-stroke', sans-serif;
+}
+
+:global .su-icon:hover {
+  opacity: 0.8;
+}
+
+:global .su-icon-f::before {
+  font-size: 4rem;
+}
+
+:global .su-v-mid::before {
+  vertical-align: mid;
 }
 
 :global .svg-box svg {

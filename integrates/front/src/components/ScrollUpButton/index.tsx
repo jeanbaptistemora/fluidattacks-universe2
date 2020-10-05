@@ -6,7 +6,18 @@ import React from "react";
  */
 // @ts-expect-error: Explanation above
 import ScrollUp from "react-scroll-up";
-import style from "components/ScrollUpButton/index.css";
+import styled, { StyledComponent } from "styled-components";
+
+const StyledScrollUp: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs<{
+  className: string;
+}>({
+  className:
+    "bg-black bottom-9 br3 fixed o-60 ph2 pv0 right3 su-c su-dib " +
+    "su-icon su-icon-f su-v-mid white",
+})``;
 
 interface IScrollUPButtonProps {
   visibleAt: number;
@@ -19,7 +30,7 @@ export const ScrollUpButton: React.FC<IScrollUPButtonProps> = (
 
   return (
     <ScrollUp duration={400} showUnder={visibleAt}>
-      <span className={style.container} id={"scroll-up"} />
+      <StyledScrollUp id={"scroll-up"} />
     </ScrollUp>
   );
 };
