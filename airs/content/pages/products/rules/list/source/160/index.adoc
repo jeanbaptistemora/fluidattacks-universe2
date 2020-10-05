@@ -72,20 +72,24 @@ An adversary exploits weaknesses in input validation by manipulating resource
 identifiers enabling the unintended modification or specification of a
 resource.
 
-. [[r8]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+. [[r8]] link:http://capec.mitre.org/data/definitions/242.html[CAPEC-242: Code Injection].
+An adversary exploits a weakness in input validation on the target to inject
+new code into that which is currently executing.
+
+. [[r9]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r9]] link:https://cwe.mitre.org/data/definitions/79.html[CWE-79: Cross-site Scripting].
+. [[r10]] link:https://cwe.mitre.org/data/definitions/79.html[CWE-79: Cross-site Scripting].
 The software does not neutralize or incorrectly neutralizes user-controllable
 input before it is placed in output that is used as a web page that is served
 to other users.
 
-. [[r10]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+. [[r11]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r11]] link:https://cwe.mitre.org/data/definitions/117.html[CWE-117: Improper Output Neutralization for Logs].
+. [[r12]] link:https://cwe.mitre.org/data/definitions/117.html[CWE-117: Improper Output Neutralization for Logs].
 The software does not neutralize or incorrectly neutralizes output that is
 written to logs.
 
