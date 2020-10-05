@@ -20,28 +20,40 @@ exports.handler = (event, context, callback) => {
     // Check if the URI has an anchor
     if (oldPath.base.includes("#")) {
       newUri = path.join(oldPath.dir, oldPath.base.replace("#", "/index.html#"));
+        // Replace the received URI with the URI that includes the index page
+      request.uri = newUri;
+      const response = {
+        status: '301',
+        statusDescription: 'Found',
+        headers: {
+          location: [{
+            key: 'Location', value: newUri,
+          }],
+        }
+      };
+      console.log("Response: ", JSON.stringify(response));
+      callback(null, request, response);
     } else {
       newUri = path.join(oldPath.dir, oldPath.base, "index.html");
+      request.uri = newUri;
+      const response = {
+        status: '301',
+        statusDescription: 'Found',
+        headers: {
+          location: [{
+            key: 'Location', value: newUri,
+          }],
+        }
+      };
+      console.log("Response: ", JSON.stringify(response));
+      callback(null, request, response);
     }
   } else {
     newUri = plainUri;
+    request.uri = newUri;
+    callback(null, request);
   }
-
-  const response = {
-    status: '301',
-    statusDescription: 'Found',
-    headers: {
-      location: [{
-        key: 'Location', value: newUri,
-      }],
-    }
-  }
-  // Replace the received URI with the URI that includes the index page
-  request.uri = newUri;
 
   console.log("New Request: ", JSON.stringify(request));
-  console.log("New Response: ", JSON.stringify(response));
-
-  return callback(null, request, response);
 };
 
