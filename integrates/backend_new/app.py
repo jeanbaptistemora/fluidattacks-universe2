@@ -27,6 +27,13 @@ def error401(request: Request) -> HTMLResponse:
     )
 
 
+def login(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='login.html',
+        context={'request': request, 'debug': settings.DEBUG}
+    )
+
+
 async def app(request: Request) -> JSONResponse:
     return JSONResponse({'hello': 'world'})
 
@@ -35,11 +42,12 @@ APP = Starlette(
     debug=settings.DEBUG,
     routes=[
         Route('/new/', app),
+        Route('/new/login/', login),
         Route('/error401', error401),
         Route('/error500', error500),
         Mount(
             '/static',
-            StaticFiles(directory=f'{TEMPLATES_DIR}/static/imgs'),
+            StaticFiles(directory=f'{TEMPLATES_DIR}/static'),
             name='static'
         )
     ],
