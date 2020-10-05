@@ -41,19 +41,19 @@ def test_forces_3(relocate, cli_runner):
     result = cli_runner(f'forces --lint-exps all {GROUP}'.split())
     assert result.exit_code == 0, result.output
 
-@pytest.mark.skip(reason="Pending to fix")
+
 def test_forces_4(relocate, cli_runner):
     result = cli_runner(f'forces --run-exps --static all {GROUP}'.split())
     assert result.exit_code == 0
     assert '975673437.exp' in result.output
 
-@pytest.mark.skip(reason="Pending to fix")
+
 def test_forces_5(relocate, cli_runner):
     result = cli_runner(f'forces --run-exps --dynamic all {GROUP}'.split())
     assert result.exit_code == 0
     assert '720412598.exp' in result.output
 
-@pytest.mark.skip(reason="Pending to fix")
+
 def test_forces_6(relocate, cli_runner):
     plain_text = f'groups/{GROUP}/forces/dynamic/resources/plaintext.yml'
 

@@ -37,7 +37,6 @@ def test_has_short_line_length():
     assert not has_short_line_length('s', 'b' * 73 + '\n' + 'b' * 72)
     assert not has_short_line_length('s', 'b' * 72 + '\n' + 'b' * 73)
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_is_under_100_deltas():
     assert is_under_100_deltas('e2035b8')
     assert not is_under_100_deltas('ff5e8c1')
