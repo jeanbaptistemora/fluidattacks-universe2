@@ -14,6 +14,7 @@ from aioextensions import (
     resolve,
     in_process,
 )
+from metaloaders.model import Node
 
 # Local libraries
 from aws.iam.structure import (
@@ -33,10 +34,10 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
-from parse_cfn.loader import (
+from parse_cfn.loader_new import (
     load as load_cfn,
 )
-from parse_cfn.structure import (
+from parse_cfn.structure_new import (
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
 )
@@ -72,6 +73,7 @@ def _create_vulns(
     statements_iterator: Iterator[Union[
         AWSIamManagedPolicyArns,
         AWSIamPolicyStatement,
+        Node,
     ]],
 ) -> Tuple[Vulnerability, ...]:
     return blocking_get_vulnerabilities_from_iterator(
@@ -81,55 +83,60 @@ def _create_vulns(
             path=path,
         ),
         finding=FindingEnum.F031_AWS,
-        iterator=(
-            (stmt.line, stmt.column) for stmt in statements_iterator
-        ),
+        iterator=((
+            stmt.start_line if isinstance(stmt, Node) else stmt.line,
+            stmt.start_column if isinstance(stmt, Node) else stmt.column,
+        ) for stmt in statements_iterator),
         path=path,
     )
 
 
 def _negative_statement_iterate_vulnerabilities(
-    statements_iterator: Iterator[AWSIamPolicyStatement]
-) -> Iterator[AWSIamPolicyStatement]:
+    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        if stmt.data['Effect'] != 'Allow':
+        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+
+        if stmt_raw['Effect'] != 'Allow':
             continue
 
-        if 'NotAction' in stmt.data:
-            if not any(map(is_action_permissive, stmt.data['NotAction'])):
+        if 'NotAction' in stmt_raw:
+            if not any(map(is_action_permissive, stmt_raw['NotAction'])):
                 yield stmt
 
-        if 'NotResource' in stmt.data:
-            if not any(map(is_resource_permissive, stmt.data['NotResource'])):
+        if 'NotResource' in stmt_raw:
+            if not any(map(is_resource_permissive, stmt_raw['NotResource'])):
                 yield stmt
 
 
 def _permissive_policy_iterate_vulnerabilities(
-    statements_iterator: Iterator[AWSIamPolicyStatement]
-) -> Iterator[AWSIamPolicyStatement]:
+    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        if (
-            stmt.data['Effect'] == 'Allow'
-            and 'Principal' not in stmt.data
-            and 'Condition' not in stmt.data
-        ):
-            actions = stmt.data.get('Action', [])
-            resources = stmt.data.get('Resource', [])
+        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
 
+        actions = stmt_raw.get('Action', [])
+
+        if (stmt_raw['Effect'] == 'Allow' and 'Principal' not in stmt_raw
+                and 'Condition' not in stmt_raw):
+
+            actions = stmt_raw.get('Action', [])
+            resources = stmt_raw.get('Resource', [])
             if all((
-                any(map(is_action_permissive, actions)),
-                any(map(is_resource_permissive, resources)),
+                    any(map(is_action_permissive, actions)),
+                    any(map(is_resource_permissive, resources)),
             )):
                 yield stmt
 
 
 def _open_passrole_iterate_vulnerabilities(
-    statements_iterator: Iterator[AWSIamPolicyStatement]
-) -> Iterator[AWSIamPolicyStatement]:
+    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        if stmt.data['Effect'] == 'Allow':
-            actions = stmt.data.get('Action', [])
-            resources = stmt.data.get('Resource', [])
+        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        if stmt_raw['Effect'] == 'Allow':
+            actions = stmt_raw.get('Action', [])
+            resources = stmt_raw.get('Resource', [])
 
             if all((
                 any(map(_is_iam_passrole, actions)),
@@ -139,16 +146,18 @@ def _open_passrole_iterate_vulnerabilities(
 
 
 def _admin_policies_attached_iterate_vulnerabilities(
-    managed_policies_iterator: Iterator[AWSIamManagedPolicyArns],
-) -> Iterator[AWSIamManagedPolicyArns]:
+    managed_policies_iterator: Iterator[Node],
+) -> Iterator[Union[Node, AWSIamManagedPolicyArns]]:
     elevated_policies = {
         'arn:aws:iam::aws:policy/PowerUserAccess',
         'arn:aws:iam::aws:policy/IAMFullAccess',
         'arn:aws:iam::aws:policy/AdministratorAccess',
     }
     for policies in managed_policies_iterator:
+        policies_raw = policies.raw if isinstance(
+            policies, Node) else policies.data or list()
         if any(policy in elevated_policies
-               for policy in policies.data or list()):
+               for policy in policies_raw):
             yield policies
 
 

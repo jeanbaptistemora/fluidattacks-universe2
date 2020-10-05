@@ -152,6 +152,7 @@ def test_bad_integrates_api_token(test_group: str) -> None:
 
 def test_correct_run_no_group(test_group: str) -> None:
     code, stdout, stderr = skims('test/data/config/correct.yaml')
+
     assert code == 0
     assert '[INFO] Startup working dir is:' in stdout
     assert '[INFO] Files to be tested:' in stdout
@@ -238,20 +239,20 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 17
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 21
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 36
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 14
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 19
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 24
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 49
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml, line 5
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 13
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 18
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 23
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 48
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml, line 6
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml.json, line 6
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 16
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 7
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 24
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 9
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 23
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 8
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 33
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 9
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 12
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 55
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 11
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 54
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_negative_statement.tf, line 33
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_negative_statement.tf, line 5
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_open_passrole.tf, line 5
@@ -418,20 +419,20 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '17'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '21'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '36'),
-            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '14'),
-            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '19'),
-            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '24'),
-            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '49'),
-            ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml', '5'),
+            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '13'),
+            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '18'),
+            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '23'),
+            ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '48'),
+            ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml', '6'),
             ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml.json','6'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '16'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '7'),
-            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '24'),
-            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '9'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '23'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '8'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '33'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '9'),
-            ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '12'),
-            ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '55'),
+            ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '11'),
+            ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '54'),
             ('test/data/lib_path/f031_aws/hcl2_negative_statement.tf', '33'),
             ('test/data/lib_path/f031_aws/hcl2_negative_statement.tf', '5'),
             ('test/data/lib_path/f031_aws/hcl2_open_passrole.tf', '5'),
