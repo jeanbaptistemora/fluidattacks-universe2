@@ -7,6 +7,7 @@ from dateutil.parser import parse
 from pyexcelerate import (
     Alignment,
     Color,
+    Format,
     Style,
     Workbook,
     Worksheet as WorksheetType
@@ -114,11 +115,22 @@ class ITReport():
         header.style.alignment.vertical = 'center'
         header.style.alignment.wrap_text = True
 
-        for column, col_width in enumerate(GroupVulnsReportHeader.widths()):
+        for column, col_width in enumerate(
+                GroupVulnsReportHeader.widths(), start=1):
             self.current_sheet.set_col_style(
-                column + 1,
+                column,
                 Style(size=col_width, alignment=Alignment(wrap_text=True)),
             )
+
+        # this makes that the column for severity get the rigth format
+        self.current_sheet.set_col_style(
+            9,
+            Style(
+                size=13,
+                alignment=Alignment(wrap_text=True),
+                format=Format('0.0'),
+            )
+        )
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
