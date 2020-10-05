@@ -99,12 +99,12 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
 
 resource "aws_iam_policy" "skims_dev_policy" {
   description = "skims_dev policy"
-  name        = "${var.user_name}_policy"
+  name        = "skims_dev_policy"
   path        = "/user_provision/"
   policy      = data.aws_iam_policy_document.skims_dev_policy_data.json
 }
 
 resource "aws_iam_user_policy_attachment" "skims_dev_attach_policy" {
-  user       = var.user_name
+  user       = "skims_dev"
   policy_arn = aws_iam_policy.skims_dev_policy.arn
 }

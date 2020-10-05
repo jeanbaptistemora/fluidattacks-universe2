@@ -6,10 +6,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "user_name" {
-  default = "skims_dev"
-}
-
 variable "terraform_state_lock_arn" {
   default = "arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"
 }
