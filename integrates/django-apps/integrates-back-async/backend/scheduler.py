@@ -854,7 +854,7 @@ async def reset_group_expired_accepted_findings(
             datetime_utils.get_plus_delta(
                 datetime_utils.get_from_str(
                     historic_treatment[-1].get(
-                        'date', '0001-01-01 00:00:00'
+                        'date', datetime_utils.DEFAULT_STR
                     )
                 ),
                 days=5

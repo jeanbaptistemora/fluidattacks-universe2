@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.timezone import make_aware
 
 
+DEFAULT_STR = '2000-01-01 00:00:00'
 TZN = pytz.timezone(settings.TIME_ZONE)
 iso_format: str = '%Y-%m-%d %H:%M:%S'
 
