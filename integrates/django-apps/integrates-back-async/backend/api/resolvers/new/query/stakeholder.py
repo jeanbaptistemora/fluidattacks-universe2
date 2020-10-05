@@ -6,16 +6,29 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz, util
-from backend.decorators import require_login
+from backend import authz
+from backend.decorators import (
+    enforce_group_level_auth_async,
+    enforce_organization_level_auth_async,
+    require_login
+)
 from backend.domain import project as group_domain, user as stakeholder_domain
-from backend.exceptions import StakeholderNotFound
+from backend.exceptions import InvalidParameter, StakeholderNotFound
 from backend.typing import Stakeholder
 
 
-async def _resolve_for_organization(org_id: str, email: str) -> Stakeholder:
+@enforce_organization_level_auth_async
+async def _resolve_for_organization(
+    _parent: None,
+    _info: GraphQLResolveInfo,
+    email: str,
+    organization_id: str,
+) -> Stakeholder:
     stakeholder: Stakeholder = await stakeholder_domain.get_by_email(email)
-    org_role: str = await authz.get_organization_level_role(email, org_id)
+    org_role: str = await authz.get_organization_level_role(
+        email,
+        organization_id
+    )
 
     if org_role:
         return {
@@ -27,7 +40,13 @@ async def _resolve_for_organization(org_id: str, email: str) -> Stakeholder:
     raise StakeholderNotFound()
 
 
-async def _resolve_for_group(group_name: str, email: str) -> Stakeholder:
+@enforce_group_level_auth_async
+async def _resolve_for_group(
+    _parent: None,
+    _info: GraphQLResolveInfo,
+    email: str,
+    group_name: str,
+) -> Stakeholder:
     stakeholder: Stakeholder = await stakeholder_domain.get_by_email(email)
     group_role: str = await authz.get_group_level_role(email, group_name)
 
@@ -49,26 +68,31 @@ async def _resolve_for_group(group_name: str, email: str) -> Stakeholder:
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
-    _parent: None,
+    parent: None,
     info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Stakeholder:
     entity: str = kwargs['entity']
     email: str = kwargs['user_email']
 
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
-    user_email: str = user_data['user_email']
-
     if entity == 'ORGANIZATION' and 'organization_id' in kwargs:
-        org_id: str = kwargs['organization_id'].lower()
+        org_id: str = kwargs['organization_id']
 
-        if await authz.get_organization_level_role(user_email, org_id):
-            return await _resolve_for_organization(org_id, email)
+        return await _resolve_for_organization(
+            parent,
+            info,
+            email,
+            organization_id=org_id,
+        )
 
     if entity == 'PROJECT' and 'project_name' in kwargs:
         group_name: str = kwargs['project_name'].lower()
 
-        if await authz.get_group_level_role(user_email, group_name):
-            return await _resolve_for_group(group_name, email)
+        return await _resolve_for_group(
+            parent,
+            info,
+            email,
+            group_name=group_name,
+        )
 
-    raise StakeholderNotFound()
+    raise InvalidParameter()

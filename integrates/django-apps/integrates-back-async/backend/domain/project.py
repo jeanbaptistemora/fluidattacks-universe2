@@ -1166,3 +1166,29 @@ async def get_user_access(email: str, group_name: str) -> Dict[str, str]:
         await project_dal.get_user_access(email, group_name)
 
     return cast(Dict[str, str], access[0]) if access else {}
+
+
+def is_fluid_user(email: str) -> bool:
+    return email.endswith('@fluidattacks.com')
+
+
+async def is_manager(email: str, group_name: str) -> bool:
+    role: str = await authz.get_group_level_role(email, group_name)
+
+    return role == 'group_manager'
+
+
+async def filter_stakeholders(
+    emails: List[str],
+    group_name: str,
+    user_email: str,
+) -> List[str]:
+    if is_fluid_user(user_email):
+        return emails
+
+    return [
+        email
+        for email in emails
+        if not is_fluid_user(email)
+        or await is_manager(email, group_name)
+    ]

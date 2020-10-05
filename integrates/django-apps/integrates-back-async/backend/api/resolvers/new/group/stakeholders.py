@@ -5,7 +5,7 @@ from typing import cast, Dict, List
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz
+from backend import authz, util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -37,19 +37,24 @@ async def _get_stakeholder(email: str, group_name: str) -> Stakeholder:
 )
 async def resolve(
     parent: Group,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Stakeholder]:
     group_name: str = cast(str, parent['name'])
 
-    group_stakeholders: List[str] = await group_domain.get_users(group_name)
+    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_email: str = user_data['user_email']
 
-    stakeholders: List[Stakeholder] = cast(
+    group_stakeholders: List[str] = await group_domain.filter_stakeholders(
+        await group_domain.get_users(group_name),
+        group_name,
+        user_email
+    )
+
+    return cast(
         List[Stakeholder],
         await aio.materialize(
             _get_stakeholder(email, group_name)
             for email in group_stakeholders
         )
     )
-
-    return stakeholders
