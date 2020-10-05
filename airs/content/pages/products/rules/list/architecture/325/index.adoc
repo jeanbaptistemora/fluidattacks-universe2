@@ -33,7 +33,11 @@ purpose of gathering intelligence about the target,
 or by sending data that is syntactically invalid or non-standard in an attempt
 to produce a response that contains the desired data.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/651.html[CWE-651: Exposure of WSDL File Containing Sensitive Information]
+. [[r2]] link:http://capec.mitre.org/data/definitions/224.html[CAPEC-224: Fingerprinting].
+An adversary compares output from a target system to known indicators that
+uniquely identify specific details about the target.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/651.html[CWE-651: Exposure of WSDL File Containing Sensitive Information]
 The Web services architecture may require exposing a Web Service Definition
 Language (WSDL) file that contains information on the publicly accessible
 services and how callers of these services should interact with them
