@@ -149,7 +149,7 @@ function job_skims_deploy_to_pypi {
   &&  helper_skims_install_dependencies \
   &&  env_prepare_node_modules \
   &&  pushd skims \
-    &&  version=$(helper_skims_compute_version) \
+    &&  version=$(helper_common_poetry_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
     &&  bugsnag-build-reporter \
           --api-key 'f990c9a571de4cb44c96050ff0d50ddb' \

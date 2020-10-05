@@ -1,0 +1,13 @@
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --option restrict-eval false
+#!   nix-shell --option sandbox false
+#!   nix-shell --show-trace
+#!   nix-shell sorts.nix
+#  shellcheck shell=bash
+
+export PYTHONPATH="${pyPkgSorts}/site-packages/:${PYTHONPATH}"
+
+export PATH="${pyPkgSorts}/site-packages/bin/:${PATH}"
+
+"${pyPkgSorts}/site-packages/bin/sorts" "$@"

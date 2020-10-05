@@ -23,19 +23,6 @@ function helper_skims_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
-function helper_skims_compute_version {
-  poetry run python -c 'if True:
-    import time
-    now=time.gmtime()
-    minutes_month=(
-      (now.tm_mday - 1) * 1440
-      + now.tm_hour * 60
-      + now.tm_min
-    )
-    print(time.strftime(f"%y.%m.{minutes_month}"))
-  '
-}
-
 function helper_skims_compile_parsers {
   export CLASSPATH
   export srcExternalANTLR4

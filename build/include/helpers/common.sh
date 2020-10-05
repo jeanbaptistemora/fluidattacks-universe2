@@ -371,6 +371,19 @@ function helper_common_update_kubeconfig {
   aws eks update-kubeconfig --name "${cluster_name}" --region "${region}"
 }
 
+function helper_common_poetry_compute_version {
+  poetry run python -c 'if True:
+    import time
+    now=time.gmtime()
+    minutes_month=(
+      (now.tm_mday - 1) * 1440
+      + now.tm_hour * 60
+      + now.tm_min
+    )
+    print(time.strftime(f"%y.%m.{minutes_month}"))
+  '
+}
+
 function helper_common_poetry_install_deps {
   local path="${1}"
   export PYTHONPATH="${PWD}/${path}/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"

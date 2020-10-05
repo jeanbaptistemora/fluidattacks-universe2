@@ -38,5 +38,14 @@ then
 fi
 
 echo
+echo '[INFO] Checking sorts is not installed with pip'
+if command -v sorts | grep -v nix
+then
+  echo
+  echo '[ERROR] Please uninstall sorts with pip'
+  exit
+fi
+
+echo
 echo '[INFO] Installing products'
 nix-env -i product -f default.nix

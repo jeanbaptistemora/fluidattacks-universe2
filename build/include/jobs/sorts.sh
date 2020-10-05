@@ -1,5 +1,30 @@
 # shellcheck shell=bash
 
+function job_sorts_deploy_to_pypi {
+  # Propagated from Gitlab env vars
+  export PYPI_TOKEN
+  local version
+
+  function restore_version {
+    sed --in-place 's|^version.*$|version = "1.0.0"|g' "sorts/pyproject.toml"
+  }
+
+      helper_sorts_install_dependencies \
+  &&  pushd sorts \
+    &&  version=$(helper_common_poetry_compute_version) \
+    &&  echo "[INFO] Sorts: ${version}" \
+    &&  trap 'restore_version' EXIT \
+    &&  sed --in-place \
+          "s|^version = .*$|version = \"${version}\"|g" \
+          'pyproject.toml' \
+    &&  poetry publish \
+          --build \
+          --password "${PYPI_TOKEN}" \
+          --username '__token__' \
+  &&  popd \
+  ||  return 1
+}
+
 function job_sorts_lint {
   local args_mypy=(
     --config-file 'settings.cfg'

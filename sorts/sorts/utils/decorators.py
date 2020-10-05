@@ -14,7 +14,7 @@ from typing import (
 from more_itertools import mark_ends
 
 # Local libraries
-from sorts.utils.logs import log
+from utils.logs import log
 
 
 # Constants

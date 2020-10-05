@@ -7,8 +7,8 @@ import click
 from aioextensions import run
 
 # Local libraries
-from sorts.utils.decorators import shield
-from sorts.utils.logs import blocking_log
+from utils.decorators import shield
+from utils.logs import blocking_log
 
 
 @click.command(

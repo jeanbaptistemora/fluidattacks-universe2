@@ -5,4 +5,5 @@
 
 /**/*.egg-info
 /**/.venv
+/dist/*
 /poetry.lock

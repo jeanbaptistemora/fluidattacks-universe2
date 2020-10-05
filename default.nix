@@ -9,6 +9,7 @@ stdenv.mkDerivation {
   repoMelts = ./melts;
   repoObserves = ./observes;
   repoSkims = ./skims;
+  repoSorts = ./sorts;
   repoReviews = ./reviews;
 
   src = ./bin;
@@ -24,6 +25,7 @@ stdenv.mkDerivation {
     cp -r "$repoMelts" "$out/melts"
     cp -r "$repoObserves" "$out/observes"
     cp -r "$repoSkims" "$out/skims"
+    cp -r "$repoSorts" "$out/sorts"
     cp -r "$repoReviews" "$out/reviews"
   '';
 }
