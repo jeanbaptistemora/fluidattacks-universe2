@@ -28,7 +28,7 @@ const checkUri = (plainUri) => {
   if (oldPath.ext === "") {
     // Check if the URI has an anchor
     if (oldPath.base.includes("#")) {
-      newUri = path.join(oldPath.dir, oldPath.base.replace("#", "index.html#"));
+      newUri = path.join(oldPath.dir, oldPath.base.replace("#", "/index.html#"));
 
     } else {
       newUri = path.join(oldPath.dir, oldPath.base, "index.html");
