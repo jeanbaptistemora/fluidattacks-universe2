@@ -1,5 +1,5 @@
 import { Button } from "components/Button";
-import { ButtonToolbar } from "react-bootstrap";
+import { ButtonToolbar } from "styles/styledComponents";
 import { EnvironmentFields } from "scenes/Dashboard/components/AddEnvironmentsModal/environmentFields";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { IEnvironmentsAttr } from "scenes/Dashboard/containers/ProjectSettingsView/types";
@@ -33,7 +33,7 @@ const AddEnvironmentsModal: React.FC<IAddEnvironmentsModalProps> = (
         {({ pristine }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
             <FieldArray component={EnvironmentFields} name={"resources"} />
-            <ButtonToolbar bsClass={"btn-toolbar pull-right"}>
+            <ButtonToolbar>
               <Button onClick={onClose}>
                 {translate.t("confirmmodal.cancel")}
               </Button>

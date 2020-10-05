@@ -1,9 +1,9 @@
 import { Button } from "components/Button";
+import { ButtonToolbar } from "styles/styledComponents";
 import { Modal } from "components/Modal";
 import React from "react";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";
-import styled, { StyledComponent } from "styled-components";
 
 interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
@@ -14,13 +14,6 @@ interface IConfirmDialogProps {
   title: string;
   children: (confirm: IConfirmFn) => React.ReactNode;
 }
-
-const StyledToolbar: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "fr",
-})``;
 
 const ConfirmDialog: React.FC<IConfirmDialogProps> = (
   props: Readonly<IConfirmDialogProps>
@@ -66,14 +59,14 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
     <React.Fragment>
       <Modal
         footer={
-          <StyledToolbar>
+          <ButtonToolbar>
             <Button onClick={handleClose}>
               {translate.t("confirmmodal.cancel")}
             </Button>
             <Button onClick={handleProceed}>
               {translate.t("confirmmodal.proceed")}
             </Button>
-          </StyledToolbar>
+          </ButtonToolbar>
         }
         headerTitle={title}
         open={isOpen}

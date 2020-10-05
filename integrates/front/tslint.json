@@ -10,6 +10,7 @@
       "src/graphics/**",
       "src/utils/**",
       "src/components/**",
+      "src/styles/**",
       "src/scenes/Login/**",
       "src/scenes/Dashboard/**/utils.ts",
       "src/scenes/Dashboard/**/hooks.ts",

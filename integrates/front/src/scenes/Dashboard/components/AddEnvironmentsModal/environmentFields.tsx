@@ -5,26 +5,12 @@ import React from "react";
 import { TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { Field, WrappedFieldArrayProps } from "redux-form";
+import { RequiredField, Row } from "styles/styledComponents";
 import { maxLength, required, validField } from "utils/validations";
 import styled, { StyledComponent } from "styled-components";
 
 const maxCharCount: number = 400;
 const maxEnvUrlLength: ConfigurableValidator = maxLength(maxCharCount);
-
-const Required: StyledComponent<
-  "span",
-  Record<string, unknown>
-> = styled.span.attrs<{
-  className: string;
-}>({
-  className: "orgred",
-})``;
-
-const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "mh--15 flex",
-})``;
 
 const TextFieldCol: StyledComponent<
   "div",
@@ -70,7 +56,7 @@ export const EnvironmentFields: React.FC<WrappedFieldArrayProps> = (
             <Row key={fieldName}>
               <TextFieldCol>
                 <label>
-                  <Required>{"* "}</Required>
+                  <RequiredField>{"* "}</RequiredField>
                   {translate.t(
                     "search_findings.tab_resources.environment.text"
                   )}
