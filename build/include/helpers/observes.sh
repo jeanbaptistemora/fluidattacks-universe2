@@ -350,17 +350,19 @@ function helper_observes_timedoctor_manually_create_token {
 function helper_observes_lint_generic_package {
   local path="${1}"
 
-  find "${path}" -type f -name '*.py' | while read -r file
-  do
-        echo "[INFO] linting python file: ${file}" \
-    &&  mypy \
-          --ignore-missing-imports \
-          --no-incremental \
-          --allow-any-generics \
-          --pretty \
-          "${file}" \
-    || return 1
-  done
+      find "${path}" -type f -name '*.py' | while read -r file
+      do
+            echo "[INFO] running mypy over file: ${file}" \
+        &&  mypy \
+              --ignore-missing-imports \
+              --no-incremental \
+              --allow-any-generics \
+              --pretty \
+              "${file}" \
+        || return 1
+      done \
+  &&  echo "[INFO] linting python file: ${path}" \
+  &&  prospector --full-pep8 --strictness veryhigh "${path}"
 }
 
 function helper_observes_test_generic_package {
