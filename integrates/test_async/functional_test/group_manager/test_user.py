@@ -1,5 +1,6 @@
 import pytest
 
+from backend.exceptions import StakeholderNotFound
 from test_async.functional_test.group_manager.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -58,7 +59,7 @@ async def test_user():
     assert  result['data']['stakeholder']['responsibility'] == responsibility
     assert  result['data']['stakeholder']['phoneNumber'] == phone_number
     assert  result['data']['stakeholder']['firstLogin'] == ''
-    assert  result['data']['stakeholder']['lastLogin'] == '[-1, -1]'
+    assert  result['data']['stakeholder']['lastLogin'] == ''
     assert  result['data']['stakeholder']['projects'] == [{'name': group_name}]
     phone_number = '17364735'
     responsibility = 'edited'
@@ -106,7 +107,7 @@ async def test_user():
     assert  result['data']['stakeholder']['responsibility'] == responsibility
     assert  result['data']['stakeholder']['phoneNumber'] == phone_number
     assert  result['data']['stakeholder']['firstLogin'] == ''
-    assert  result['data']['stakeholder']['lastLogin'] == '[-1, -1]'
+    assert  result['data']['stakeholder']['lastLogin'] == ''
     assert  result['data']['stakeholder']['projects'] == [{'name': group_name}]
     role = 'ANALYST'
     query = f'''
@@ -249,11 +250,5 @@ async def test_user():
     '''
     data = {'query': query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert  result['data']['stakeholder']['email'] == stakeholder
-    assert  result['data']['stakeholder']['role'] == ''
-    assert  result['data']['stakeholder']['responsibility'] == '-'
-    assert  result['data']['stakeholder']['phoneNumber'] == phone_number
-    assert  result['data']['stakeholder']['firstLogin'] == ''
-    assert  result['data']['stakeholder']['lastLogin'] == '[-1, -1]'
-    assert  result['data']['stakeholder']['projects'] == []
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == str(StakeholderNotFound())

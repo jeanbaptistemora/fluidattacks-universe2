@@ -64,8 +64,8 @@ async def test_organization():
     assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
     query = f'''
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: ORGANIZATION,
+                    organizationId: "{org_id}",
                     userEmail: "{stakeholder}") {{
                 email
                 projects{{

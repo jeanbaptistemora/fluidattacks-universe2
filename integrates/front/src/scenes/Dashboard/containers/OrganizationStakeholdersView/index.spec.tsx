@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
 
+import moment from "moment";
 import { addUserModal } from "scenes/Dashboard/components/AddUserModal/index";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
@@ -54,14 +55,16 @@ describe("Organization users view", () => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  lastLogin: "[10, 35207]",
+                  lastLogin: moment()
+                    .subtract(9, "days")
+                    .format("YYYY-MM-DD hh:mm:ss"),
                   phoneNumber: "3100000000",
                   role: "group_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
-                  lastLogin: "[-1, -1]",
+                  lastLogin: "-",
                   phoneNumber: "3140000000",
                   role: "customeradmin",
                 },
@@ -166,7 +169,7 @@ describe("Organization users view", () => {
       user2Cells
         .at(4)
         .text())
-      .toBe("-");
+      .toBe("2020-08-01");
     expect(
       user2Cells
         .at(5)

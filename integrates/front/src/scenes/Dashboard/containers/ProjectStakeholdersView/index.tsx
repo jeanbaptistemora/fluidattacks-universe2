@@ -15,6 +15,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
+import { timeFromNow } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -35,7 +36,6 @@ import {
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { formatLastLogin, formatUserlist } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { sortLastLogin } from "utils/sortHelpers";
@@ -73,7 +73,7 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "lastLogin",
-    formatter: formatLastLogin,
+    formatter: timeFromNow,
     header: translate.t("search_findings.users_table.lastlogin"),
     sortFunc: sortLastLogin,
     width: "13%",
@@ -244,7 +244,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
     return <React.Fragment />;
   }
 
-  const userList: IStakeholderAttr["project"]["stakeholders"] = formatUserlist(data.project.stakeholders);
+  const userList: IStakeholderAttr["project"]["stakeholders"] = data.project.stakeholders;
 
   return (
     <React.StrictMode>

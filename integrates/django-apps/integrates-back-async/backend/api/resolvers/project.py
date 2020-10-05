@@ -767,14 +767,16 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        if requested_field.startswith('_'):
+        migrated = {'stakeholders'}
+        if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
         result[requested_field] = resolver_func(info, **params)
-    return dict(zip(result, await collect(result.values())))
+    collected = dict(zip(result, await collect(result.values())))
+    return {'name': project_name, **collected}
 
 
 @convert_kwargs_to_snake_case  # type: ignore

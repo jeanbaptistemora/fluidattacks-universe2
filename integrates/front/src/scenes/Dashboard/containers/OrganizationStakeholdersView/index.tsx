@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
+import { timeFromNow } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -26,7 +27,6 @@ import {
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import { formatLastLogin, formatUserlist } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { sortLastLogin } from "utils/sortHelpers";
@@ -59,7 +59,7 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "lastLogin",
-    formatter: formatLastLogin,
+    formatter: timeFromNow,
     header: translate.t("search_findings.users_table.lastlogin"),
     sortFunc: sortLastLogin,
     width: "15%",
@@ -203,7 +203,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   // Render Elements
   const stakeholdersList: IStakeholderAttrs[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
-    : formatUserlist(data.organization.stakeholders);
+    : data.organization.stakeholders;
 
   return (
     <React.StrictMode>

@@ -55,11 +55,16 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
   const [getUser, { data }] = useLazyQuery<IStakeholderDataAttr>(GET_USER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
-        Logger.warning(
-          "An error occurred getting user information for autofill",
-          error,
-        );
+        switch (error.message) {
+          case "Access denied or stakeholder not found":
+            break;
+          default:
+            msgError(translate.t("group_alerts.error_textsad"));
+            Logger.warning(
+              "An error occurred getting user information for autofill",
+              error,
+            );
+        }
       });
     },
   });

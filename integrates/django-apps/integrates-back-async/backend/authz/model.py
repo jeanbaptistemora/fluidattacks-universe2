@@ -51,7 +51,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__get_drafts',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
-            'backend_api_resolvers_project__get_stakeholders',
+            'backend_api_resolvers_new_group_stakeholders_resolve',
             'backend_api_resolvers_project_resolve_project',
             'backend_api_resolvers_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
@@ -67,7 +67,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_grant_stakeholder_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
             'backend_api_resolvers_forces_update_forces_access_token',
-            'backend_api_resolvers_user_resolve_for_group',
+            'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
             ('backend_api_resolvers_vulnerability__do_'
@@ -258,7 +258,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__get_consulting',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
-            'backend_api_resolvers_project__get_stakeholders',
+            'backend_api_resolvers_new_group_stakeholders_resolve',
             'backend_api_resolvers_project_resolve_project',
             'backend_api_resolvers_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
@@ -273,7 +273,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_edit_stakeholder',
             'backend_api_resolvers_user__do_grant_stakeholder_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
-            'backend_api_resolvers_user_resolve_for_group',
+            'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_resolvers_vulnerability__do_delete_tags',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
@@ -356,7 +356,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__get_drafts',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
-            'backend_api_resolvers_project__get_stakeholders',
+            'backend_api_resolvers_new_group_stakeholders_resolve',
             'backend_api_resolvers_project_resolve_project',
             'backend_api_resolvers_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
@@ -372,7 +372,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_grant_stakeholder_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
             'backend_api_resolvers_forces_update_forces_access_token',
-            'backend_api_resolvers_user_resolve_for_group',
+            'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_resolvers_vulnerability__do_delete_tags',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
@@ -452,11 +452,11 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__get_drafts',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
-            'backend_api_resolvers_project__get_stakeholders',
+            'backend_api_resolvers_new_group_stakeholders_resolve',
             'backend_api_resolvers_project_resolve_project',
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_resource_resolve_resources',
-            'backend_api_resolvers_user_resolve_for_group',
+            'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',
@@ -502,6 +502,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'update_organization_policies'),
             'backend_api_resolvers_new_organization_analytics_resolve',
             'backend_api_resolvers_new_organization_stakeholders_resolve',
+            (
+                'backend_api_resolvers_new_query_stakeholder_'
+                '_resolve_for_organization'
+            ),
             'backend_api_resolvers_project__do_create_project',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
@@ -527,6 +531,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'update_organization_policies'),
             'backend_api_resolvers_new_organization_analytics_resolve',
             'backend_api_resolvers_new_organization_stakeholders_resolve',
+            (
+                'backend_api_resolvers_new_query_stakeholder_'
+                '_resolve_for_organization'
+            ),
             'backend_api_resolvers_project__do_create_project',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
@@ -543,6 +551,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'do_remove_stakeholder_organization_access'),
             'backend_api_resolvers_new_organization_analytics_resolve',
             'backend_api_resolvers_new_organization_stakeholders_resolve',
+            (
+                'backend_api_resolvers_new_query_stakeholder_'
+                '_resolve_for_organization'
+            ),
             'backend_api_resolvers_project__do_create_project',
         },
         tags=set()
