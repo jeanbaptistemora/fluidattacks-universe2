@@ -1,172 +1,165 @@
-# Standard library
-from datetime import datetime
+# Third libraries
+from metaloaders.model import Type
 
 # Local libraries
-from aws.model import (
-    AWSIamPolicyStatement,
-)
-from parse_cfn.loader import (
-    load_as_json,
-    load_as_yaml,
-)
-from parse_cfn.structure import (
-    iterate_iam_policy_documents,
-)
+from parse_cfn.loader_new import load
+from parse_cfn.structure_new import iterate_iam_policy_documents
+
+EXPECTED = ({
+    'Effect': 'Allow',
+    'Action': ['s3:ListBucket', 's3:GetBucketLocation'],
+    'Resource': [{
+        'Fn::Sub': 'arn:aws:s3:::${pS3RestoreBucket}'
+    }]
+}, {
+    'Effect':
+    'Allow',
+    'Action': [
+        's3:GetObjectMetaData', 's3:GetObject', 's3:PutObject',
+        's3:ListMultipartUploadParts', 's3:AbortMultipartUpload'
+    ],
+    'Resource': ['*']
+}, {
+    'Action':
+    ['logs:CreateLogStream', 'logs:CreateLogGroup', 'logs:PutLogEvents'],
+    'Effect':
+    'Allow',
+    'Resource': ['arn:aws:logs:*:*:*']
+}, {
+    'Action': ['comprehend:Detect*', 'comprehend:BatchDetect*'],
+    'Effect': 'Allow',
+    'Resource': ['*']
+}, {
+    'Effect': 'Allow',
+    'Action': ['s3:ListBucket', 's3:GetBucketLocation'],
+    'Resource': ['*']
+}, {
+    'Effect': 'Deny',
+    'Condition': {
+        'StringNotEquals': {
+            'aws:RequestedRegion': 'us-east-1'
+        }
+    },
+    'Action': ['*'],
+    'Resource': ['*']
+}, {
+    'Effect': 'Allow',
+    'Action': ['sts:AssumeRole'],
+    'Resource': ['arn:aws:iam::*:role/cloud-lambda']
+})
 
 
-def test_iterate_iam_policy_documents_as_yml() -> None:
-    expected = (
-        AWSIamPolicyStatement(column=12, line=18, data={
-            'Action': [
-                's3:ListBucket',
-                's3:GetBucketLocation',
-            ],
-            'Effect': 'Allow',
-            'Resource': [{
-                'Fn::Sub': 'arn:aws:s3:::${pS3RestoreBucket}',
-                '__column__': 14,
-                '__line__': 23,
-            }],
-        }),
-        AWSIamPolicyStatement(column=12, line=24, data={
-            'Action': [
-                's3:GetObjectMetaData',
-                's3:GetObject',
-                's3:PutObject',
-                's3:ListMultipartUploadParts',
-                's3:AbortMultipartUpload',
-            ],
-            'Effect': 'Allow',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=16, line=39, data={
-            'Action': [
-                'logs:CreateLogStream',
-                'logs:CreateLogGroup',
-                'logs:PutLogEvents',
-            ],
-            'Effect': 'Allow',
-            'Resource': [
-                'arn:aws:logs:*:*:*',
-            ],
-        }),
-        AWSIamPolicyStatement(column=16, line=49, data={
-            'Action': [
-                'comprehend:Detect*',
-                'comprehend:BatchDetect*',
-            ],
-            'Effect': 'Allow',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=12, line=62, data={
-            'Action': [
-                's3:ListBucket',
-                's3:GetBucketLocation',
-            ],
-            'Effect': 'Allow',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=16, line=75, data={
-            'Action': ['*'],
-            'Condition': {
-                'StringNotEquals': {
-                    '__column__': 20,
-                    '__line__': 80,
-                    'aws:RequestedRegion': 'us-east-1',
-                },
-                '__column__': 18,
-                '__line__': 79,
-            },
-            'Effect': 'Deny',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=14, line=84, data={
-            'Action': ['sts:AssumeRole'],
-            'Effect': 'Allow',
-            'Resource': ['arn:aws:iam::*:role/cloud-lambda'],
-        }),
-    )
-
+async def test_iterate_iam_policy_documents_as_yml() -> None:
     with open('test/data/parse_cfn/full.yaml') as file:
-        template = load_as_yaml(file.read())
+        template = await load(file.read(), 'yaml')
+    result = tuple(iterate_iam_policy_documents(template))
 
-    assert tuple(iterate_iam_policy_documents(template)) == expected
+    assert tuple(item.raw for item in result) == EXPECTED
+
+    assert len(result) == 7
+
+    assert result[0].start_line == 18
+    assert result[0].start_column == 12
+    assert result[1].start_line == 24
+    assert result[1].start_column == 12
+    assert result[2].start_line == 39
+    assert result[2].start_column == 16
+    assert result[3].start_line == 49
+    assert result[3].start_column == 16
+    assert result[4].start_line == 62
+    assert result[4].start_column == 12
+    assert result[5].start_line == 75
+    assert result[5].start_column == 16
+    assert result[6].start_line == 84
+    assert result[6].start_column == 14
+
+    assert result[0].inner['Effect'].inner == 'Allow'
+    assert result[0].inner['Effect'].start_line == 18
+    assert result[0].inner['Effect'].start_column == 20
+    assert result[0].inner['Effect'].data_type == Type.STRING
+
+    assert result[0].inner['Action'].start_line == 20
+    assert result[0].inner['Action'].start_column == 14
+    assert result[0].inner['Action'].data_type == Type.ARRAY
+    assert result[0].inner['Action'].inner[0] == 's3:ListBucket'
+
+    assert result[0].inner['Resource'].start_line == 23
+    assert result[0].inner['Resource'].start_column == 14
+    assert result[0].inner['Resource'].data_type == Type.ARRAY
+
+    assert result[0].inner['Action'].data[1].inner == 's3:GetBucketLocation'
+    assert result[0].inner['Action'].data[1].start_line == 21
+
+    assert result[3].inner['Action'].start_line == 50
+    assert result[3].inner['Action'].data_type == Type.ARRAY
+    assert result[3].inner['Resource'].inner[0] == '*'
+    assert result[3].inner['Resource'].start_line == 53
+    assert result[3].inner['Resource'].start_column == 26
+
+    assert result[6].start_line == 84
+    assert result[6].data_type == Type.OBJECT
+    assert result[6].inner['Effect'].data == 'Allow'
+    assert result[6].inner['Effect'].start_line == 84
+    assert result[6].inner['Effect'].start_column == 22
+
+    assert result[6].inner['Action'].data_type == Type.ARRAY
+    assert result[6].inner['Action'].inner[0] == 'sts:AssumeRole'
+    assert result[6].inner['Resource'][0][0].start_line == 86
 
 
-def test_iterate_iam_policy_documents_as_json() -> None:
-    expected = (
-        AWSIamPolicyStatement(column=15, line=18, data={
-            'Action': [
-                's3:ListBucket',
-                's3:GetBucketLocation',
-            ],
-            'Effect': 'Allow',
-            'Resource': [{
-                'Fn::Sub': 'arn:aws:s3:::${pS3RestoreBucket}',
-                '__column__': 17,
-                '__line__': 24,
-            }],
-        }),
-        AWSIamPolicyStatement(column=15, line=28, data={
-            'Action': [
-                's3:GetObjectMetaData',
-                's3:GetObject',
-                's3:PutObject',
-                's3:ListMultipartUploadParts',
-                's3:AbortMultipartUpload',
-            ],
-            'Effect': 'Allow',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=19, line=50, data={
-            'Action': [
-                'logs:CreateLogStream',
-                'logs:CreateLogGroup',
-                'logs:PutLogEvents',
-            ],
-            'Effect': 'Allow',
-            'Resource': [
-                'arn:aws:logs:*:*:*',
-            ],
-        }),
-        AWSIamPolicyStatement(column=19, line=68, data={
-            'Action': [
-                'comprehend:Detect*',
-                'comprehend:BatchDetect*',
-            ],
-            'Effect': 'Allow',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=15, line=89, data={
-            'Action': [
-                's3:ListBucket',
-                's3:GetBucketLocation',
-            ],
-            'Effect': 'Allow',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=19, line=109, data={
-            'Action': ['*'],
-            'Condition': {
-                'StringNotEquals': {
-                    '__column__': 23,
-                    '__line__': 114,
-                    'aws:RequestedRegion': 'us-east-1',
-                },
-                '__column__': 21,
-                '__line__': 113,
-            },
-            'Effect': 'Deny',
-            'Resource': ['*'],
-        }),
-        AWSIamPolicyStatement(column=17, line=125, data={
-            'Action': ['sts:AssumeRole'],
-            'Effect': 'Allow',
-            'Resource': ['arn:aws:iam::*:role/cloud-lambda'],
-        }),
-    )
-
+async def test_iterate_iam_policy_documents_as_json() -> None:
     with open('test/data/parse_cfn/full.yaml.json') as file:
-        template = load_as_json(file.read())
+        template = await load(file.read(), 'json')
 
-    assert tuple(iterate_iam_policy_documents(template)) == expected
+    result = tuple(iterate_iam_policy_documents(template))
+
+    assert tuple(item.raw for item in result) == EXPECTED
+
+    assert len(result) == 7
+
+    assert result[0].start_line == 19
+    assert result[0].start_column == 12
+    assert result[1].start_line == 29
+    assert result[1].start_column == 12
+    assert result[2].start_line == 51
+    assert result[2].start_column == 16
+    assert result[3].start_line == 69
+    assert result[3].start_column == 16
+    assert result[4].start_line == 90
+    assert result[4].start_column == 12
+    assert result[5].start_line == 110
+    assert result[5].start_column == 16
+    assert result[6].start_line == 126
+    assert result[6].start_column == 27
+
+    assert result[0].inner['Effect'].inner == 'Allow'
+    assert result[0].inner['Effect'].start_line == 20
+    assert result[0].inner['Effect'].start_column == 24
+    assert result[0].inner['Effect'].data_type == Type.STRING
+
+    assert result[0].inner['Action'].start_line == 21
+    assert result[0].inner['Action'].start_column == 24
+    assert result[0].inner['Action'].data_type == Type.ARRAY
+    assert result[0].inner['Action'].inner[0] == 's3:ListBucket'
+
+    assert result[0].inner['Resource'].start_line == 25
+    assert result[0].inner['Resource'].start_column == 26
+    assert result[0].inner['Resource'].data_type == Type.ARRAY
+
+    assert result[0].inner['Action'].data[1].inner == 's3:GetBucketLocation'
+    assert result[0].inner['Action'].data[1].start_line == 23
+
+    assert result[3].inner['Action'].start_line == 70
+    assert result[3].inner['Action'].data_type == Type.ARRAY
+    assert result[3].inner['Resource'].inner[0] == '*'
+    assert result[3].inner['Resource'].start_line == 75
+    assert result[3].inner['Resource'].start_column == 30
+
+    assert result[6].data_type == Type.OBJECT
+    assert result[6].inner['Effect'].data == 'Allow'
+    assert result[6].inner['Effect'].start_line == 127
+    assert result[6].inner['Effect'].start_column == 26
+
+    assert result[6].inner['Action'].data_type == Type.ARRAY
+    assert result[6].inner['Action'].inner[0] == 'sts:AssumeRole'
+    assert result[6].inner['Resource'][0][0].start_line == 129
