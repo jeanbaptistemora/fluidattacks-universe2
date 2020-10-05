@@ -125,7 +125,7 @@ class FindingEnum(Enum):
         recommendation='utils.model.finding.enum.F022.recommendation',
         requirements='utils.model.finding.enum.F022.requirements',
         severity={
-            'attackComplexity': 0.77,
+            'attackComplexity': 0.44,
             'attackVector': 0.62,
             'availabilityImpact': 0.0,
             'confidentialityImpact': 0.22,

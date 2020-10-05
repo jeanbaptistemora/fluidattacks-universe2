@@ -9,11 +9,9 @@ utils.model.finding.enum.F022.description:
 utils.model.finding.enum.F022.impact:
   en: |
     - Capture confidential information and credentials in plain text.
-    - Perform a man-in-the-middle.
     - Intercept the communication and steal/tamper requests and responses.
   es: >
     - Capturar información confidencial y credenciales en texto plano.
-    - Realizar un ataque de hombre en el medio.
     - Interceptar la comunicación y robar o falsificar peticiones y respuestas.
 utils.model.finding.enum.F022.recommendation:
   en: >
