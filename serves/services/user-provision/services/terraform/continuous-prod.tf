@@ -1,5 +1,5 @@
 resource "aws_iam_user" "continuous-prod" {
-  name = var.user-name
+  name = "continuous-prod"
   path = "/user-provision/"
 
   tags = {
@@ -10,9 +10,9 @@ resource "aws_iam_user" "continuous-prod" {
 }
 
 resource "aws_iam_access_key" "continuous-prod-key-1" {
-  user = var.user-name
+  user = "continuous-prod"
 }
 
 resource "aws_iam_access_key" "continuous-prod-key-2" {
-  user = var.user-name
+  user = "continuous-prod"
 }

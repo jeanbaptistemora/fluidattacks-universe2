@@ -160,12 +160,12 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
 
 resource "aws_iam_policy" "continuous-prod-policy" {
   description = "continuous-prod policy"
-  name        = "${var.user-name}-policy"
+  name        = "continuous-prod-policy"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.continuous-prod-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "continuous-prod-attach-policy" {
-  user       = var.user-name
+  user       = "continuous-prod"
   policy_arn = aws_iam_policy.continuous-prod-policy.arn
 }

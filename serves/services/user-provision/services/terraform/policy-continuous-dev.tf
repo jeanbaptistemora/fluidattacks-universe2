@@ -156,12 +156,12 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
 
 resource "aws_iam_policy" "continuous-dev-policy" {
   description = "continuous-dev policy"
-  name        = "${var.user-name}-policy"
+  name        = "continuous-dev-policy"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.continuous-dev-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "continuous-dev-attach-policy" {
-  user       = var.user-name
+  user       = "continuous-dev"
   policy_arn = aws_iam_policy.continuous-dev-policy.arn
 }
