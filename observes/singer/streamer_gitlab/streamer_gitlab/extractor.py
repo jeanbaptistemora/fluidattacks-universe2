@@ -9,7 +9,7 @@ import aiohttp
 from aioextensions import rate_limited
 
 # Local libraries
-from tap_gitlab.log import log
+from streamer_gitlab.log import log
 
 
 @rate_limited(

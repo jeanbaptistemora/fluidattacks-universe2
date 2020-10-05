@@ -1,6 +1,6 @@
 import json
 import pytest
-from tap_gitlab import cli
+from streamer_gitlab import cli
 
 def mock_data():
     return {

@@ -351,7 +351,7 @@ function helper_observes_timedoctor_manually_create_token {
 function helper_observes_test_singer_packages {
       pushd singer \
   &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d ! -name ".*" \
-        | grep -E 'tap_gitlab' \
+        | grep -E 'streamer_gitlab' \
         | while read -r path
           do
                 echo "[INFO] Testing python package: ${path}" \

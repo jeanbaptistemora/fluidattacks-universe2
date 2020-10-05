@@ -5,7 +5,7 @@ from asyncio import (
     Queue,
 )
 from asgiref.sync import async_to_sync
-from tap_gitlab import extractor
+from streamer_gitlab import extractor
 import aiohttp
 
 

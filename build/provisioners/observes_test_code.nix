@@ -20,7 +20,7 @@ in
             python = pkgs.python38;
           };
           pyPkgTapGitlab = builders.pythonPackageLocal {
-            path = ../../observes/singer/tap_gitlab;
+            path = ../../observes/singer/streamer_gitlab;
             python = pkgs.python38;
           };
         })
