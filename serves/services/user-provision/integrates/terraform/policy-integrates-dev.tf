@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "integrates-prod-policy-data" {
+data "aws_iam_policy_document" "integrates-dev-policy-data" {
 
   # S3
   statement {
@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions = ["s3:*"]
     resources = [
       "arn:aws:s3:::fluidintegrates*/*",
-      "arn:aws:s3:::fluidintegrates*"
+      "arn:aws:s3:::fluidintegrates*",
     ]
   }
   statement {
@@ -19,20 +19,19 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     resources = [
       "arn:aws:s3:::servestf/integrates.tfstate",
       "arn:aws:s3:::servestf",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
+      "arn:aws:s3:::fluidattacks-terraform-states-dev",
+      "arn:aws:s3:::fluidattacks-terraform-states-dev/*"
     ]
   }
-
-  # RDS
   statement {
-    effect  = "Allow"
-    actions = ["rds:*"]
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
     resources = [
-      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:db:django-db",
-      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:og:django-db",
-      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:pg:django-db",
-      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:subgrp:django-db"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
     ]
   }
 
@@ -41,8 +40,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect = "Allow"
     actions = [
       "iam:List*",
-      "iam:Get*",
-      "iam:Create*",
+      "iam:Get*"
     ]
     resources = ["*"]
   }
@@ -51,9 +49,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions = ["iam:*"]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*"
     ]
   }
   statement {
@@ -69,21 +65,6 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect = "Allow"
     actions = [
       "ec2:Describe*",
-      "ec2:DeleteSubnet",
-      "ec2:DeleteNetworkInterface",
-      "ec2:ModifySubnetAttribute",
-      "ec2:CreateSubnet",
-      "ec2:CreateTags",
-      "ec2:DeleteTags",
-      "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
-      "ec2:AuthorizeSecurityGroupEgress",
-      "ec2:AuthorizeSecurityGroupIngress",
-      "ec2:CreateSecurityGroup",
-      "ec2:DeleteSecurityGroup",
-      "ec2:RevokeSecurityGroupEgress",
-      "ec2:RevokeSecurityGroupIngress",
-      "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
-      "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
     ]
     resources = ["*"]
   }
@@ -93,22 +74,9 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect = "Allow"
     actions = [
       "elasticache:Describe*",
-      "elasticache:List*",
-      "elasticache:CreateReplicationGroup",
-      "elasticache:CreateCacheSecurityGroup",
-      "elasticache:CreateCacheSubnetGroup",
+      "elasticache:List*"
     ]
     resources = ["*"]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticache:*",
-    ]
-    resources = [
-      "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:integrates-*",
-      "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:replicationgroup:integrates-*",
-    ]
   }
 
   # Lambda
@@ -157,7 +125,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect  = "Allow"
     actions = ["kms:*"]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/integrates-prod-*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/integrates-dev-*"
     ]
   }
 
@@ -171,7 +139,17 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "application-autoscaling:DescribeScalingActivities",
       "application-autoscaling:DescribeScalableTargets",
       "application-autoscaling:DeregisterScalableTarget",
-      "application-autoscaling:DeleteScalingPolicy"
+      "application-autoscaling:DeleteScalingPolicy",
+    ]
+    resources = ["*"]
+  }
+
+  # Autoscaling read
+  statement {
+    effect = "Allow"
+    actions = [
+      "autoscaling:DescribeLaunchConfigurations",
+      "autoscaling:DescribeAutoScalingGroups"
     ]
     resources = ["*"]
   }
@@ -194,6 +172,33 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions   = ["cloudfront:*"]
     resources = ["*"]
   }
+  statement {
+    effect  = "Allow"
+    actions = [
+      "devicefarm:ListProjects",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect  = "Allow"
+    actions = [
+      "devicefarm:CreateDevicePool",
+      "devicefarm:CreateUpload",
+      "devicefarm:GetProject",
+      "devicefarm:GetRun",
+      "devicefarm:GetUpload",
+      "devicefarm:ListArtifacts",
+      "devicefarm:ListJobs",
+      "devicefarm:ScheduleRun",
+    ]
+    resources = [
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:devicepool:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:job:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:project:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:run:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:upload:*",
+    ]
+  }
 
   # ACM create and read certificate
   statement {
@@ -202,7 +207,6 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "acm:RequestCertificate",
       "acm:DescribeCertificate",
       "acm:ListTagsForCertificate",
-      "acm:AddTagsToCertificate",
     ]
     resources = [
       "*",
@@ -227,7 +231,6 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect  = "Allow"
     actions = [
       "route53:ListTagsForResource",
-      "route53:ChangeResourceRecordSets",
       "route53:ListResourceRecordSets"
     ]
     resources = [
@@ -262,46 +265,17 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
-  # EKS full permissions over owned resources
+  # EKS read permissions
   statement {
     effect = "Allow"
     actions = [
       "eks:Describe*",
       "eks:List*",
-      "eks:Create*",
     ]
     resources = ["*"]
   }
-  statement {
-    effect = "Allow"
-    actions = [
-      "eks:*"
-    ]
-    resources = ["arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/integrates-*"]
-  }
 
-  # Autoscaling read/write permissions over owned resources
-  statement {
-    effect = "Allow"
-    actions = [
-      "autoscaling:Create*",
-      "autoscaling:Describe*",
-      "autoscaling:Get*",
-    ]
-    resources = ["*"]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "autoscaling:*"
-    ]
-    resources = [
-      "arn:aws:autoscaling:${var.region}:${data.aws_caller_identity.current.account_id}:launchConfiguration:*:launchConfigurationName/integrates-*",
-      "arn:aws:autoscaling:${var.region}:${data.aws_caller_identity.current.account_id}:autoScalingGroup:*:autoScalingGroupName/integrates-*",
-    ]
-  }
-
-  # WAF read/write permissions over owned resources
+  # WAF read permissions
   statement {
     effect = "Allow"
     actions = [
@@ -309,30 +283,19 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "wafv2:List*",
       "wafv2:Get*",
       "wafv2:Check*",
-      "wafv2:CreateWebACL",
     ]
     resources = ["*"]
   }
-  statement {
-    effect = "Allow"
-    actions = [
-      "wafv2:*",
-    ]
-    resources = [
-      "arn:aws:wafv2:${var.region}:${data.aws_caller_identity.current.account_id}:regional/webacl/integrates-*",
-      "arn:aws:wafv2:${var.region}:${data.aws_caller_identity.current.account_id}:regional/managedruleset/*",
-    ]
-  }
 }
 
-resource "aws_iam_policy" "integrates-prod-policy" {
-  description = "integrates-prod policy"
-  name        = "${var.user-name}-policy"
+resource "aws_iam_policy" "integrates-dev-policy" {
+  description = "integrates-dev policy"
+  name        = "integrates-dev-policy"
   path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.integrates-prod-policy-data.json
+  policy      = data.aws_iam_policy_document.integrates-dev-policy-data.json
 }
 
-resource "aws_iam_user_policy_attachment" "integrates-prod-attach-policy" {
-  user       = var.user-name
-  policy_arn = aws_iam_policy.integrates-prod-policy.arn
+resource "aws_iam_user_policy_attachment" "integrates-dev-attach-policy" {
+  user       = "integrates-dev"
+  policy_arn = aws_iam_policy.integrates-dev-policy.arn
 }

@@ -227,8 +227,8 @@ function job_serves_apply_user_provision_services_prod {
   ||  return 1
 }
 
-function job_serves_test_user_provision_integrates_dev {
-  local target='services/user-provision/integrates/dev/terraform'
+function job_serves_test_user_provision_integrates {
+  local target='services/user-provision/integrates/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd serves \
@@ -238,37 +238,13 @@ function job_serves_test_user_provision_integrates_dev {
   ||  return 1
 }
 
-function job_serves_apply_user_provision_integrates_dev {
-  local target='services/user-provision/integrates/dev/terraform'
+function job_serves_apply_user_provision_integrates {
+  local target='services/user-provision/integrates/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login production \
-  &&  helper_common_terraform_apply \
-        "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_test_user_provision_integrates_prod {
-  local target='services/user-provision/integrates/prod/terraform'
-
-      helper_use_pristine_workdir \
-  &&  pushd serves \
-    &&  helper_serves_aws_login development \
-    &&  helper_serves_terraform_plan "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_apply_user_provision_integrates_prod {
-  local target='services/user-provision/integrates/prod/terraform'
-
-      helper_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_aws_login production \
-  &&  helper_common_terraform_apply \
-        "${target}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -510,58 +486,52 @@ function job_serves_rotate_keys_user_provision_services_prod {
   ||  return 1
 }
 
-function job_serves_rotate_keys_user_provision_integrates_dev {
+function job_serves_rotate_keys_user_provision_integrates {
   local terraform_dir='services/user-provision/integrates/dev/terraform'
-  local resource_to_taint='aws_iam_access_key.integrates-dev-key'
-  local output_key_id_name='integrates-dev-secret-key-id'
-  local output_secret_key_name='integrates-dev-secret-key'
   local gitlab_repo_id='20741933'
-  local gitlab_key_id_name='INTEGRATES_DEV_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY'
-  local gitlab_masked='true'
-  local gitlab_protected='false'
+
+  # Dev
+  local dev_resource_to_taint='aws_iam_access_key.integrates-dev-key'
+  local dev_output_key_id_name='integrates-dev-secret-key-id'
+  local dev_output_secret_key_name='integrates-dev-secret-key'
+  local dev_gitlab_key_id_name='INTEGRATES_DEV_AWS_ACCESS_KEY_ID'
+  local dev_gitlab_secret_key_name='INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY'
+  local dev_gitlab_masked='true'
+  local dev_gitlab_protected='false'
+
+  # Prod
+  local prod_resource_to_taint='aws_iam_access_key.integrates-prod-key'
+  local prod_output_key_id_name='integrates-prod-secret-key-id'
+  local prod_output_secret_key_name='integrates-prod-secret-key'
+  local prod_gitlab_key_id_name='INTEGRATES_PROD_AWS_ACCESS_KEY_ID'
+  local prod_gitlab_secret_key_name='INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY'
+  local prod_gitlab_masked='true'
+  local prod_gitlab_protected='true'
 
       pushd serves \
   &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${resource_to_taint}" \
-        "${output_key_id_name}" \
-        "${output_secret_key_name}" \
+        "${dev_resource_to_taint}" \
+        "${dev_output_key_id_name}" \
+        "${dev_output_secret_key_name}" \
         "${gitlab_repo_id}" \
-        "${gitlab_key_id_name}" \
-        "${gitlab_secret_key_name}" \
-        "${gitlab_masked}" \
-        "${gitlab_protected}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_serves_rotate_keys_user_provision_integrates_prod {
-  local terraform_dir='services/user-provision/integrates/prod/terraform'
-  local resource_to_taint='aws_iam_access_key.integrates-prod-key'
-  local output_key_id_name='integrates-prod-secret-key-id'
-  local output_secret_key_name='integrates-prod-secret-key'
-  local gitlab_repo_id='20741933'
-  local gitlab_key_id_name='INTEGRATES_PROD_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY'
-  local gitlab_masked='true'
-  local gitlab_protected='true'
-
-      pushd serves \
+        "${dev_gitlab_key_id_name}" \
+        "${dev_gitlab_secret_key_name}" \
+        "${dev_gitlab_masked}" \
+        "${dev_gitlab_protected}" \
   &&  helper_serves_check_last_job_succeeded \
         "${gitlab_repo_id}" \
         'integrates_deploy_back_production' \
   &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${resource_to_taint}" \
-        "${output_key_id_name}" \
-        "${output_secret_key_name}" \
+        "${prod_resource_to_taint}" \
+        "${prod_output_key_id_name}" \
+        "${prod_output_secret_key_name}" \
         "${gitlab_repo_id}" \
-        "${gitlab_key_id_name}" \
-        "${gitlab_secret_key_name}" \
-        "${gitlab_masked}" \
-        "${gitlab_protected}" \
-  &&  helper_serves_deploy_integrates \
+        "${prod_gitlab_key_id_name}" \
+        "${prod_gitlab_secret_key_name}" \
+        "${prod_gitlab_masked}" \
+        "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
