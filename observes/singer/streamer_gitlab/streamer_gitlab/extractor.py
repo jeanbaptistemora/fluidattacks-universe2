@@ -1,5 +1,4 @@
 # Std libraries
-import sys
 import json
 
 from typing import (
@@ -21,7 +20,7 @@ import urllib.parse
 import aiohttp
 from aioextensions import (
     collect,
-    in_process,
+    in_thread,
     rate_limited,
 )
 
@@ -46,12 +45,13 @@ async def get_json(
         return await response.json()
 
 
-def gitlab_data_emitter(
+def gitlab_data_emitter(  # pylint: disable=too-many-arguments
     get_request: Callable[..., Awaitable[Any]],
     project: str,
     resource: str,
     params: dict,
-    api_token: str
+    api_token: str,
+    max_pags: int
 ) -> Callable[[Queue], Awaitable[None]]:
     """
     Returns Callable that iterates a gitlab resource for project
@@ -78,7 +78,7 @@ def gitlab_data_emitter(
                     log('error', f'# {errors}: {type(exc).__name__}: {exc}')
                     errors += 1
                 else:
-                    if not records:
+                    if not records or page > max_pags:
                         break
                     result = {
                         'type': 'gitlab_page_data',
@@ -96,7 +96,7 @@ def emit(stream: str, records: Any) -> None:
     """Emit as special format so tap-json can consume it from stdin."""
     for record in records:
         msg = json.dumps({'stream': stream, 'record': record})
-        print(msg, file=sys.stdout, flush=True)
+        print(msg, flush=True)
 
 
 async def emitter(queue: Queue) -> None:
@@ -111,11 +111,13 @@ async def emitter(queue: Queue) -> None:
         if queue.full():
             log('warning', 'Queue is full and performance may be impacted!')
 
-        stream, records = item
-        await in_process(emit, stream, records)
+        stream = item['resource']
+        records = item['records']
+
+        await in_thread(emit, stream, records)
 
 
-async def main(projects: List[str], api_token: str) -> None:
+async def main(projects: List[str], api_token: str, max_pags: int) -> None:
     queue: Queue = Queue(maxsize=1024)
     emitter_task = create_task(emitter(queue))
     await collect([
@@ -124,7 +126,8 @@ async def main(projects: List[str], api_token: str) -> None:
             urllib.parse.quote(project, safe=''),
             resource,
             cast(Dict[str, str], params),
-            api_token
+            api_token,
+            max_pags
         )(queue)
         for project in projects
         for resource, params in [

@@ -39,7 +39,8 @@ def test_gitlab_data_emitter_no_missing_data():
             project='project66',
             resource='merge_requests',
             params={'scope': 'all'},
-            api_token='mock_api_token'
+            api_token='mock_api_token',
+            max_pags=100
         )
         emitter_task = create_task(data_emitter(queue))
         await emitter_task

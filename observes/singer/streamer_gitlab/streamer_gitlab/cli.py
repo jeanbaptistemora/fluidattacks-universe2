@@ -4,6 +4,7 @@ import argparse
 from os import (
     environ,
 )
+from typing import List
 
 # external libs
 from aioextensions import (
@@ -18,21 +19,26 @@ from streamer_gitlab.log import log
 def parser_builder():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-p',
         '--projects',
         required=True,
-        help='JSON of projects set',
+        help='Projects for analisis',
         nargs='*'
+    )
+    parser.add_argument(
+        '--max-pages',
+        type=int,
+        help='Number of max pages',
+        default=10000
     )
     return parser
 
 
-def parse_args():
+def parse_args(args: List[str] = None):
     try:
         api_token = environ['GITLAB_API_TOKEN']
     except KeyError:
         log('critical', 'Export GITLAB_API_TOKEN as environment variable')
         sys.exit(1)
     else:
-        args = parser_builder().parse_args()
-        run(main(args.projects, api_token))
+        parsed_args = parser_builder().parse_args(args)
+        run(main(parsed_args.projects, api_token, parsed_args.max_pages))
