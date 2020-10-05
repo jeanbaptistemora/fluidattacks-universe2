@@ -1,15 +1,48 @@
 import { Button } from "components/Button";
 import { ConfigurableValidator } from "revalidate";
+import { Glyphicon } from "react-bootstrap";
 import React from "react";
 import { TextArea } from "utils/forms/fields";
-import style from "scenes/Dashboard/components/AddEnvironmentsModal/index.css";
 import { translate } from "utils/translations/translate";
-import { Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, WrappedFieldArrayProps } from "redux-form";
 import { maxLength, required, validField } from "utils/validations";
+import styled, { StyledComponent } from "styled-components";
 
 const maxCharCount: number = 400;
 const maxEnvUrlLength: ConfigurableValidator = maxLength(maxCharCount);
+
+const Required: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs<{
+  className: string;
+}>({
+  className: "orgred",
+})``;
+
+const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "mh--15 flex",
+})``;
+
+const TextFieldCol: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "fl ph2 relative w-80",
+})``;
+
+const RemoveBtnCol: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "fl w-20 mt5 relative ph2",
+})``;
 
 export const EnvironmentFields: React.FC<WrappedFieldArrayProps> = (
   props: WrappedFieldArrayProps
@@ -35,9 +68,9 @@ export const EnvironmentFields: React.FC<WrappedFieldArrayProps> = (
 
           return (
             <Row key={fieldName}>
-              <Col md={10}>
+              <TextFieldCol>
                 <label>
-                  <span className={style.red}>{"* "}</span>
+                  <Required>{"* "}</Required>
                   {translate.t(
                     "search_findings.tab_resources.environment.text"
                   )}
@@ -48,15 +81,15 @@ export const EnvironmentFields: React.FC<WrappedFieldArrayProps> = (
                   type={"text"}
                   validate={[required, validField, maxEnvUrlLength]}
                 />
-              </Col>
+              </TextFieldCol>
               {index > 0 && (
                 // Classname used to override default bootstrap styles.
                 // eslint-disable-next-line react/forbid-component-props
-                <Col className={style.mt} md={2}>
+                <RemoveBtnCol>
                   <Button onClick={removeItem}>
                     <Glyphicon glyph={"trash"} />
                   </Button>
-                </Col>
+                </RemoveBtnCol>
               )}
             </Row>
           );

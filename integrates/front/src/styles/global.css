@@ -410,6 +410,11 @@ label {
   left: 5rem;
 }
 
+:global .mh--5 {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+
 :global .montserrat {
   font-family: 'Montserrat', sans-serif;
 }
