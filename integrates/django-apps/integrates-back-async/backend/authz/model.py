@@ -578,7 +578,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_report__get_url_all_users',
             'backend_api_resolvers_report__get_url_all_vulns',
             'backend_api_resolvers_user__do_add_stakeholder',
-            'backend_api_resolvers_user_resolve_user_list_projects',
+            'backend_api_resolvers_new_query_user_list_groups_resolve',
             'grant_user_level_role:admin',
             'grant_user_level_role:customer',
             'grant_user_level_role:internal_manager',
@@ -606,7 +606,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_internal_names_resolve_project_name',
             'backend_api_resolvers_project__do_create_project',
-            'backend_api_resolvers_user_resolve_user_list_projects',
+            'backend_api_resolvers_new_query_user_list_groups_resolve',
         },
         tags={
             'drills',

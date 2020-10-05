@@ -16,16 +16,9 @@ from aioextensions import (
     collect,
 )
 from ariadne import convert_kwargs_to_snake_case
-from asgiref.sync import sync_to_async
 
 from graphql.type.definition import GraphQLResolveInfo
-from graphql.language.ast import (
-    FieldNode,
-    SelectionSetNode,
-    ObjectFieldNode
-)
 
-from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
     concurrent_decorators,
     require_integrates,
@@ -44,7 +37,6 @@ from backend.typing import (
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
     MailContent as MailContentType,
-    Project as ProjectType
 )
 from backend import authz, mailer
 from backend.utils import (
@@ -188,43 +180,6 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
                  f'to project {group} without validation')  # pragma: no cover
             )
     return success_granted and success_access_given
-
-
-@sync_to_async  # type: ignore
-def _get_email(_: GraphQLResolveInfo, email: str, *__: str) -> str:
-    """Get email."""
-    return email.lower()
-
-
-async def _get_projects(
-    info: GraphQLResolveInfo,
-    email: str,
-    requested_fields: Union[List[FieldNode], None] = None,
-    project_as_field: bool = False,
-    **__: Any
-) -> List[ProjectType]:
-    """Get list projects."""
-    active_task = asyncio.create_task(user_domain.get_projects(email))
-    inactive_task = asyncio.create_task(
-        user_domain.get_projects(email, active=False)
-    )
-    active, inactive = tuple(await asyncio.gather(active_task, inactive_task))
-    user_projects = active + inactive
-
-    if requested_fields:
-        req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
-        selection_set = SelectionSetNode()
-        selection_set.selections = requested_fields
-        req_fields.extend(
-            util.get_requested_fields('projects', selection_set)
-        )
-        selection_set.selections = req_fields
-        info.field_nodes[0].selection_set.selections = req_fields
-    list_projects = await aio.materialize(
-        project_resolver.resolve(info, project, as_field=project_as_field)
-        for project in user_projects
-    )
-    return list_projects
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -543,18 +498,3 @@ async def modify_user_information(
         return False
 
     return all(await aio.materialize(coroutines))
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_user_level_auth_async,
-)
-async def resolve_user_list_projects(
-        _: Any,
-        info: GraphQLResolveInfo,
-        user_email: str) -> List[ProjectType]:
-    """Resolve user_list_projects query."""
-    email: str = await _get_email(info, user_email)
-
-    return await _get_projects(info, email, project_as_field=False)
