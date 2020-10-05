@@ -32,7 +32,6 @@ def test_forces_1(relocate, cli_runner):
     result = cli_runner(f'forces --run -d all bad-repo'.split())
     assert 'the group bad-repo does not exist' in result.output
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_forces_2(relocate, cli_runner):
     result = cli_runner(f'forces --check-sync all {GROUP}'.split())
     assert result.exit_code == 0, result.output
