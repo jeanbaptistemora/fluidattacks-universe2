@@ -145,7 +145,7 @@ function helper_observes_gitlab {
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running streamer' \
-  &&  streamer-gitlab "${PROJECTS[@]}" > .jsonstream \
+  &&  streamer-gitlab --projects "${PROJECTS[@]}" > .jsonstream \
   &&  echo '[INFO] Running tap' \
   &&  tap-json  \
         > .singer \
