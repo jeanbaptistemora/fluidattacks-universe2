@@ -8,7 +8,6 @@ from aioextensions import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-from django.conf import settings
 from jose import jwt
 from mixpanel import Mixpanel
 from social_core.exceptions import AuthException
@@ -31,7 +30,9 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from backend import util
-from backend_new import settings as settings_new
+
+from backend_new import settings
+
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -128,7 +129,7 @@ async def _do_sign_in(
                 'sub': 'session_token',
             },
             algorithm='HS512',
-            key=settings_new.JWT_SECRET,
+            key=settings.JWT_SECRET,
         )
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
         await in_thread(

@@ -7,7 +7,6 @@ from aioextensions import (
     in_thread,
 )
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-from django.conf import settings
 from mixpanel import Mixpanel
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -27,6 +26,9 @@ from backend.typing import (
 from backend.exceptions import InvalidProject
 from backend.utils import virus_scan
 from backend import util
+
+from backend_new import settings
+
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
