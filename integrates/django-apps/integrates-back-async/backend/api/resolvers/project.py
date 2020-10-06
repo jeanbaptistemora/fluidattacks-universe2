@@ -27,7 +27,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from backend import authz
 from backend.api.resolvers import (
-    analytics as analytics_loader,
     finding as finding_loader,
 )
 from backend.decorators import (
@@ -69,30 +68,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _get_analytics(
-    info: GraphQLResolveInfo,
-    document_name: str,
-    document_type: str,
-    project_name: str,
-    **__: Any
-) -> Dict[str, object]:
-    """Get analytics document."""
-    return cast(
-        Dict[str, object],
-        await analytics_loader.resolve(
-            info,
-            document_name=document_name,
-            document_type=document_type,
-            entity='group',
-            subject=project_name
-        )
-    )
 
 
 async def _get_name(
@@ -711,7 +686,7 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        migrated = {'stakeholders'}
+        migrated = {'analytics', 'stakeholders'}
         if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
