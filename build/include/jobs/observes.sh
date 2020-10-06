@@ -23,6 +23,25 @@ function job_observes_dynamodb_forces {
   ||  return 1
 }
 
+function job_observes_dynamodb_forces_on_aws {
+  local vcpus='2'
+  local memory='7200'
+  local attempts='10'
+  local timeout='18000'
+  local jobname="observes_dynamodb_forces"
+  local jobqueue='default'
+
+      helper_observes_aws_login prod \
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        "${jobname}" \
+        "${jobqueue}" \
+        'observes_dynamodb_forces'
+}
+
 function job_observes_services_toe {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
