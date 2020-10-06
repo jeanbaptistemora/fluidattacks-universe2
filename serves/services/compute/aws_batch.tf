@@ -130,9 +130,10 @@ resource "aws_batch_compute_environment" "default" {
     image_id = "ami-059628695ae4c249b"
     instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
     instance_type = [
-      "m5a",
+      "m5a.large",
+      "m5a.xlarge",
     ]
-    max_vcpus = 8
+    max_vcpus = 16
     min_vcpus = 0
     security_group_ids = [
       aws_security_group.aws_batch_compute_environment_security_group.id,
@@ -175,7 +176,8 @@ resource "aws_batch_compute_environment" "uninterruptible" {
     image_id = "ami-059628695ae4c249b"
     instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
     instance_type = [
-      "m5a",
+      "m5a.large",
+      "m5a.xlarge",
     ]
     max_vcpus = 2
     min_vcpus = 0
