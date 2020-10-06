@@ -1,5 +1,4 @@
 # Standard libraries
-import os
 import json
 from typing import List
 
@@ -42,49 +41,6 @@ def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
         logger.error('Looks like response was not parseable')
         logger.error(json_decode_error)
     return []
-
-
-def s3_mv_active_to_inactive(
-        subs: str,
-        bucket: str = 'continuous-repositories',
-        endpoint_url: str = None) -> bool:
-    fusion_dir: str = f'groups/{subs}/fusion'
-    s3_subs_active_repos_path: str = f'{subs}/active/'
-    s3_subs_active_repos: List[str] = \
-        s3_ls(bucket, s3_subs_active_repos_path, endpoint_url)
-    local_repos: List[str] = os.listdir(fusion_dir)
-    kwargs = dict() if generic.is_env_ci() else dict(
-        stdout=None,
-        stderr=None,
-    )
-
-    for s3_active_repo in s3_subs_active_repos:
-        s3_active_repo_name: str = s3_active_repo.split('/')[-2]
-        if s3_active_repo_name not in local_repos:
-            logger.info(f'Move: {s3_active_repo_name} to inactive')
-            command: List[str] = [
-                'aws',
-                's3',
-                'mv',
-                f's3://{bucket}/{subs}/active/{s3_active_repo_name}',
-                f's3://{bucket}/{subs}/inactive/{s3_active_repo_name}',
-                '--recursive',
-            ]
-            if endpoint_url:
-                command.append('--endpoint')
-                command.append(endpoint_url)
-            status, stdout, stderr = generic.run_command(
-                cmd=command,
-                cwd='.',
-                env={},
-                **kwargs,
-            )
-            if status:
-                logger.error('Move from bucket has failed:')
-                logger.info(stdout)
-                logger.info(stderr)
-                return False
-    return True
 
 
 def s3_sync_fusion_to_s3(
@@ -193,10 +149,6 @@ def main(
     if generic.does_subs_exist(subs) and generic.does_fusion_exist(subs):
         if aws_login:
             generic.aws_login(aws_profile)
-
-        logger.info('Checking inactive repositories')
-        passed = passed \
-            and s3_mv_active_to_inactive(subs, bucket, endpoint_url)
 
         logger.info('Syncing active repositories')
         passed = passed \
