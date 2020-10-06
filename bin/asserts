@@ -7,6 +7,7 @@
 #  shellcheck shell=bash
 
 export PYTHONPATH="${pyPkgAsserts}/site-packages/:${PYTHONPATH}"
+export PYTHONPATH="${pyPkgUtilities}/site-packages/:${PYTHONPATH}"
 
 export PATH="${pyPkgAsserts}/site-packages/bin/:${PATH}"
 
