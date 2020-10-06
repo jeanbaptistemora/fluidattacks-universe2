@@ -1,5 +1,5 @@
 :slug: products/forces/
-:description: Forces makes use of human skills for the creation of exploits to break your build and force remediation of vulnerabilities performing DAST - SAST tests.
+:description: Forces allows you to have DevSecOps in your company and breaks the build every time it is necessary to force the remediation of unaccepted vulnerabilities.
 :keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security
 :template: products/forces
 
@@ -9,8 +9,8 @@
 
 Through Forces, you can interrupt your deployment processes
 — aka break the build — in cases where the detected vulnerabilities
-(without false positives) that you do not accept in your systems
-are still open, in other words, have not yet been remediated.
+in your systems that you do not accept are still open,
+in other words, have not yet been remediated.
 
 === Easy Integration With Any CI System
 
@@ -19,9 +19,10 @@ Continuous Integration/Continuous Deployment (CI/CD) system
 to act as a security gate, allowing everything that goes into production
 to be free of the vulnerabilities you decide to remediate.
 
-=== SAST, DAST and DXST
+=== Force Vulnerability Remediation Processes
 
-Forces can perform Dynamic and Static Application Security Testing
-(DAST - SAST), as well as dynamic testing of many protocols (DXST),
-directly in your CI environment,
-all this without increasing the integration times in your systems.
+The activity of Forces in your pipelines
+lives up to its name by leading you to promptly remedy the vulnerabilities
+you decide not to have in your IT systems.
+We have demonstrated that this significantly increases
+your remediation effectiveness rates.
