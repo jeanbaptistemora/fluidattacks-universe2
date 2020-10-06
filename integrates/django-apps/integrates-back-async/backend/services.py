@@ -8,7 +8,6 @@ from backend.domain import (
 )
 
 from backend import authz, util
-from backend.dal import project as project_dal
 
 
 async def has_access_to_project(email: str, group: str) -> bool:
@@ -44,21 +43,3 @@ async def has_valid_access_token(
         # authorization header not present or user without access_token
         pass
     return resp
-
-
-async def has_responsibility(project: str, email: str) -> str:
-    """Verify if a user has responsibility."""
-    project_data = await project_dal.get_user_access(email, project)
-    user_resp = "-"
-    for data in project_data:
-        if 'responsibility' in data:
-            user_resp = cast(str, data["responsibility"])
-            break
-        user_resp = "-"
-    return user_resp
-
-
-async def has_phone_number(email: str) -> str:
-    user_info = str(await user_domain.get_data(email, 'phone'))
-    user_phone = user_info if user_info else '-'
-    return user_phone

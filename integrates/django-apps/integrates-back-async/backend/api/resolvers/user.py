@@ -49,7 +49,6 @@ from backend.typing import (
 from backend import authz, mailer
 from backend.utils import (
     aio,
-    datetime as datetime_utils,
 )
 from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
@@ -195,41 +194,6 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
 def _get_email(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get email."""
     return email.lower()
-
-
-async def _get_role(
-        _: GraphQLResolveInfo,
-        email: str,
-        entity: str,
-        identifier: str) -> str:
-    """Get role."""
-    if entity == 'PROJECT' and identifier:
-        project_name = identifier
-        role = await authz.get_group_level_role(email, project_name)
-    elif entity == 'ORGANIZATION' and identifier:
-        organization_id = identifier
-        role = await authz.get_organization_level_role(email, organization_id)
-    else:
-        role = await authz.get_user_level_role(email)
-
-    return cast(str, role)
-
-
-async def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
-    """Get last_login."""
-    last_login_response = cast(
-        str, await user_domain.get_data(email, 'last_login')
-    )
-    if last_login_response == '1111-1-1 11:11:11' or not last_login_response:
-        last_login = [-1, -1]
-    else:
-        dates_difference = (
-            datetime_utils.get_now() -
-            datetime_utils.get_from_str(last_login_response)
-        )
-        diff_last_login = [dates_difference.days, dates_difference.seconds]
-        last_login = diff_last_login
-    return str(last_login)
 
 
 async def _get_projects(
