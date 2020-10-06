@@ -227,7 +227,7 @@ resource "aws_batch_job_queue" "default-uninterruptible" {
   # may be delayed by days
   # Just send here jobs that really need to run for many hours, it's more expensive
   compute_environments = [
-    aws_batch_compute_environment.default.arn,
+    aws_batch_compute_environment.uninterruptible.arn,
   ]
   name = "default-uninterruptible"
   priority = 1
@@ -238,7 +238,7 @@ resource "aws_batch_job_queue" "asap-uninterruptible" {
   # Send here short-running jobs that need to execute as soon as possible
   # Just send here jobs that really need to run for many hours, it's more expensive
   compute_environments = [
-    aws_batch_compute_environment.default.arn,
+    aws_batch_compute_environment.uninterruptible.arn,
   ]
   name = "asap-uninterruptible"
   priority = 10
