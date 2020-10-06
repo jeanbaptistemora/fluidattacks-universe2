@@ -43,7 +43,6 @@ from backend.domain import (
     user as user_domain,
 )
 from backend.typing import (
-    Comment as CommentType,
     Event as EventType,
     Finding as FindingType,
     Project as ProjectType,
@@ -521,22 +520,6 @@ async def _get_description(
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    get_entity_cache_async,
-    require_integrates,
-)
-async def _get_consulting(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> List[CommentType]:
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-
-    consultings = await project_domain.list_comments(project_name, user_email)
-    return consultings
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
     require_integrates,
 )
 async def _get_drafts(
@@ -663,7 +646,7 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        migrated = {'analytics', 'bill', 'stakeholders'}
+        migrated = {'analytics', 'bill', 'consulting', 'stakeholders'}
         if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(

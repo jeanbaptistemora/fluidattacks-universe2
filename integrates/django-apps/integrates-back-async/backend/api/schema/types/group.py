@@ -8,6 +8,7 @@ from ariadne import ObjectType
 from backend.api.resolvers.new.group import (
     analytics,
     bill,
+    consulting,
     stakeholders,
 )
 
@@ -16,4 +17,5 @@ GROUP: ObjectType = ObjectType('Project')
 
 GROUP.set_field('analytics', analytics.resolve)
 GROUP.set_field('bill', bill.resolve)
+GROUP.set_field('consulting', consulting.resolve)
 GROUP.set_field('stakeholders', stakeholders.resolve)

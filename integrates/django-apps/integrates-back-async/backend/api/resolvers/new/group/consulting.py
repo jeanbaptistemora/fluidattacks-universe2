@@ -9,6 +9,7 @@ from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
+    get_entity_cache_async,
     require_integrates
 )
 from backend.domain import project as project_domain
@@ -17,8 +18,9 @@ from backend.typing import Comment, Project as Group
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    require_integrates,
+    require_integrates
 )
+@get_entity_cache_async
 async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
