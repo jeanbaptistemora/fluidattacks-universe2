@@ -15,4 +15,7 @@ in
       path = ../sorts;
       python = pkgs.python38;
     };
+
+    # Constants for dynamic linked binaries
+    LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
   }

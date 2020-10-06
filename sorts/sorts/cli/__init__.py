@@ -1,5 +1,4 @@
 # Standard libraries
-import os
 import sys
 import time
 from typing import Optional
@@ -9,8 +8,8 @@ import click
 from aioextensions import run
 
 # Local libraries
-from integrates.domain import get_vulnerable_lines
 from integrates.graphql import create_session
+from training.file import get_project_data
 from utils.decorators import shield
 from utils.logs import (
     blocking_log,
@@ -85,6 +84,7 @@ async def main(
     predict_commit: bool,
     token: Optional[str]
 ) -> bool:
+    success: bool = False
     if get_commit_data:
         pass
     elif get_file_data:
@@ -94,7 +94,11 @@ async def main(
     else:
         if token:
             create_session(token)
-            group: str = os.path.basename(os.path.normpath(subscription))
-            vulnerabilities = await get_vulnerable_lines(group)
-            await log('info', 'Query result: %s', vulnerabilities)
-    return True
+            success = await get_project_data(subscription)
+        else:
+            await log(
+                'info',
+                'Set the Integrates API token either using the option --token '
+                'or the environmental variable INTEGRATES_API_TOKEN'
+            )
+    return success
