@@ -155,11 +155,23 @@ resource "aws_batch_compute_environment" "default" {
 }
 
 resource "aws_batch_job_queue" "default" {
+  # Send here short-running jobs that can execute at any point in time
+  # may be delayed by days
   compute_environments = [
     aws_batch_compute_environment.default.arn,
   ]
   name = "default"
   priority = 1
+  state = "ENABLED"
+}
+
+resource "aws_batch_job_queue" "asap" {
+  # Send here short-running jobs that need to execute as soon as possible
+  compute_environments = [
+    aws_batch_compute_environment.default.arn,
+  ]
+  name = "asap"
+  priority = 10
   state = "ENABLED"
 }
 
