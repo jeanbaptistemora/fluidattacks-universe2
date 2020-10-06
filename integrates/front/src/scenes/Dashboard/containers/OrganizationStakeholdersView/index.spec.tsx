@@ -57,7 +57,7 @@ describe("Organization users view", () => {
                   firstLogin: "2020-06-01",
                   lastLogin: moment()
                     .subtract(9, "days")
-                    .format("YYYY-MM-DD hh:mm:ss"),
+                    .format("YYYY-MM-DD"),
                   phoneNumber: "3100000000",
                   role: "group_manager",
                 },
@@ -870,27 +870,36 @@ describe("Organization users view", () => {
       .at(1)
       .simulate("click");
 
-    wrapper
-      .find("button#editUser")
-      .first()
-      .simulate("click");
-
-    expect(
+    const openModal: (() => void) = (): void => {
       wrapper
-        .find(addUserModal)
-        .prop("open"))
-      .toBe(true);
+        .find("button#editUser")
+        .first()
+        .simulate("click");
+    };
 
-    const form: ReactWrapper = wrapper
+    const getForm: (() => ReactWrapper) = (): ReactWrapper => wrapper
       .find(addUserModal)
       .find("genericForm");
-    const roleField: ReactWrapper = wrapper
+    const getRoleField: (() => ReactWrapper) = (): ReactWrapper => wrapper
       .find(addUserModal)
       .find({ name: "role" })
       .find("select");
+    const submit: (() => void) = (): void => {
+      openModal();
 
-    roleField.simulate("change", { target: { value: "CUSTOMERADMIN" } });
-    form.simulate("submit");
+      expect(
+        wrapper
+          .find(addUserModal)
+          .prop("open"))
+        .toBe(true);
+
+      getRoleField()
+        .simulate("change", { target: { value: "CUSTOMERADMIN" } });
+      getForm()
+        .simulate("submit");
+    };
+
+    submit();
 
     await act(async () => {
       await waitForExpect(() => {
@@ -901,7 +910,7 @@ describe("Organization users view", () => {
       });
     });
 
-    form.simulate("submit");
+    submit();
 
     await act(async () => {
       await waitForExpect(() => {
@@ -912,7 +921,7 @@ describe("Organization users view", () => {
       });
     });
 
-    form.simulate("submit");
+    submit();
 
     await act(async () => {
       await waitForExpect(() => {
@@ -923,7 +932,7 @@ describe("Organization users view", () => {
       });
     });
 
-    form.simulate("submit");
+    submit();
 
     await act(async () => {
       await waitForExpect(() => {
@@ -934,7 +943,7 @@ describe("Organization users view", () => {
       });
     });
 
-    form.simulate("submit");
+    submit();
 
     await act(async () => {
       await waitForExpect(() => {
@@ -945,7 +954,7 @@ describe("Organization users view", () => {
       });
     });
 
-    form.simulate("submit");
+    submit();
 
     await act(async () => {
       await waitForExpect(() => {
