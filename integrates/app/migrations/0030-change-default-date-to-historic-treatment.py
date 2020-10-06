@@ -1,6 +1,8 @@
 """
 This migration changes dafault date to those finding historic_treatments that
 have 0001-01-01 00:00:00 as dafault date.
+Execution Time:    2020-10-05 15:26:48 UTC-5
+Finalization Time: 2020-10-05 16:08:42 UTC-5
 """
 
 from asyncio import run
