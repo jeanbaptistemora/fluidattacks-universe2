@@ -1,7 +1,7 @@
 :slug: products/rules/list/155/
 :category: source
 :description: This requirement establishes the importance of having an application free of malicious code mainly developed by third parties.
-:keywords: Source Code, Functional Requirements, ASVS, CWE, ISO, NERC, Different, Backdoors, Rules, Ethical Hacking, Pentesting
+:keywords: Source Code, Functional Requirements, ASVS, CAPEC, CWE, ISO, NERC, Different, Backdoors, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R155. Application free of malicious code
@@ -21,6 +21,11 @@ Therefore, the source code should be audited to guarantee it does not have any
 backdoors, rootkits, time bombs, logic bombs, etc.
 
 == References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/438.html[CAPEC-438: Modification During Manufacture].
+An attacker modifies a technology, product, or component during a stage in its
+manufacture for the purpose of carrying out an attack against some entity
+involved in the supply chain lifecycle.
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/507.html[CWE-507: Trojan Horse].
 The software appears to contain benign or useful functionality,

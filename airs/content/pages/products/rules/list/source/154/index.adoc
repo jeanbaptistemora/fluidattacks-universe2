@@ -37,6 +37,11 @@ authentication mechanism.
 The attacker is therefore able to access protected data without authentication
 ever having taken place.
 
+. [[r3]] link:http://capec.mitre.org/data/definitions/438.html[CAPEC-438: Modification During Manufacture].
+An attacker modifies a technology, product, or component during a stage in its
+manufacture for the purpose of carrying out an attack against some entity
+involved in the supply chain lifecycle.
+
 . [[r3]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
 A trapdoor is a hidden piece of code that responds to a special input,
 allowing its user access to resources without passing through the normal

@@ -28,6 +28,17 @@ must count with an unalterable security suite
 An adversary engages in probing and exploration activities to identify
 constituents and properties of the target.
 
+. [[r2]] link:http://capec.mitre.org/data/definitions/442.html[CAPEC-442: Infected Software].
+An adversary adds malicious logic, often in the form of a computer virus,
+to otherwise benign software.
+Many times, the malicious logic is inserted into empty space between legitimate
+code,
+and is then called when the software is executed.
+
+. [[r3]] link:http://capec.mitre.org/data/definitions/549.html[CAPEC-549: Local Execution of Code].
+An adversary installs and executes malicious code on the target system in an
+effort to achieve a negative technical impact.
+
 . [[r2]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints]
 The software establishes a communication channel to (or from) an endpoint for
 privileged or protected operations,
