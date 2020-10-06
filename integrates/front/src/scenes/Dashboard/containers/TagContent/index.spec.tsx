@@ -2,6 +2,7 @@ import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
+import { Route } from "react-router";
 import { MemoryRouter, RouteComponentProps } from "react-router-dom";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/TagInfo/queries";
@@ -72,10 +73,10 @@ describe("TagContent", () => {
 
   it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/portfolios/TEST-PROJECTS/indicators"]}>
+      <MemoryRouter initialEntries={["/orgs/testorg/portfolios/test-projects/indicators"]}>
         <Provider store={store}>
           <MockedProvider mocks={[mocks]} addTypename={false}>
-            <TagContent {...mockProps} />
+            <Route path="/orgs/:organizationName/portfolios/:tagName/indicators" component={TagContent} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,

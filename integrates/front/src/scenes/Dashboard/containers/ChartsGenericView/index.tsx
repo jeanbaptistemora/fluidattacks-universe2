@@ -266,6 +266,222 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
           </React.Fragment>
         ) : undefined}
       </Grid>
+      {doesEntityMatch("portfolio") ? (
+        <React.Fragment>
+          <Grid fluid={true}>
+            <Row>
+              <Col md={12}>
+                <Graphic
+                  bsHeight={320}
+                  documentName="remediatedGroup"
+                  documentType="stackedBarChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.remediated_vuln")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Graphic
+                  bsHeight={320}
+                  documentName="remediatedAcceptedGroup"
+                  documentType="stackedBarChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.remediated_accepted_vuln")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Graphic
+                  bsHeight={320}
+                  documentName="findings"
+                  documentType="barChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.findings_group")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Graphic
+                  bsHeight={320}
+                  documentName="openFindings"
+                  documentType="barChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.open_findings_group")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="status"
+                  documentType="pieChart"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.pieChart.status.footer.intro")}</p>
+                  }
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.pieChart.status.title")}
+                />
+              </Col>
+              <Col md={6}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="treatment"
+                  documentType="pieChart"
+                  entity={entity}
+                  footer={
+                    <React.Fragment>
+                      <p>{translate.t("analytics.pieChart.treatment.footer.intro")}</p>
+                      <ul>
+                        <li>{translate.t("analytics.pieChart.treatment.footer.notDefined")}</li>
+                        <li>{translate.t("analytics.pieChart.treatment.footer.inProgress")}</li>
+                        <li>{translate.t("analytics.pieChart.treatment.footer.accepted")}</li>
+                        <li>{translate.t("analytics.pieChart.treatment.footer.eternally")}</li>
+                      </ul>
+                    </React.Fragment>
+                  }
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.pieChart.treatment.title")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="totalVulnerabilitiesStatus"
+                  documentType="pieChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.vulns_groups")}
+                />
+              </Col>
+              <Col md={6}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="openVulnerabilitiesStatus"
+                  documentType="pieChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.open_vulns_groups")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="meanTimeToRemediate"
+                  documentType="barChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.mean_remediate")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="vulnsWithUndefinedTreatment"
+                  documentType="pieChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.undefined_title")}
+                />
+              </Col>
+              <Col md={6}>
+                <Graphic
+                  bsHeight={160}
+                  documentName="severity"
+                  documentType="gauge"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.gauge.severity.footer")}</p>
+                  }
+                  generatorName="generic"
+                  generatorType="c3"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.gauge.severity.title")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={3}>
+                <Graphic
+                  bsHeight={80}
+                  documentName="daysSinceLastRemediation"
+                  documentType="textBox"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.textBox.daysSinceLastRemediation.footer")}</p>
+                  }
+                  generatorName="raw"
+                  generatorType="textBox"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
+                />
+              </Col>
+              <Col md={3}>
+                <Graphic
+                  bsHeight={80}
+                  documentName="meanTimeToRemediate"
+                  documentType="textBox"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.textBox.meanTimeToRemediate.footer")}</p>
+                  }
+                  generatorName="raw"
+                  generatorType="textBox"
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
+                />
+              </Col>
+            </Row>
+          </Grid>
+        </React.Fragment>
+      ) : undefined}
       {doesEntityMatch("group") ? (
         <React.Fragment>
           <hr />
@@ -411,9 +627,9 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
           </Grid>
         </React.Fragment>
       ) : undefined}
-      {reportMode ? undefined : (
-        <ChartsGenericViewExtras {...props} />
-      )}
+      {reportMode ? undefined :
+        doesEntityMatch("group", "organization") ? (<ChartsGenericViewExtras {...props} />) : undefined
+      }
     </React.StrictMode>
   );
 };

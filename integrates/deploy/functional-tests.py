@@ -514,12 +514,11 @@ class ViewTestCase(unittest.TestCase):
     def test_18_tag_indicators(self):
         selenium = self.selenium
 
-
         selenium.get(
             self.url + f'/orgs/okada/portfolios/test-projects/indicators')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Max open severity')]")))
+                (By.XPATH, "//*[contains(text(), 'Severity')]")))
         selenium.save_screenshot(SCR_PATH + '18-01-tag_indicators.png')
 
         selenium.execute_script('window.scrollTo(0, 380);')
@@ -559,7 +558,7 @@ class ViewTestCase(unittest.TestCase):
         assert total_tables == 1
 
         selenium.get(
-            self.url + f'/orgs/okada/portfolios/doesnotexists/indicators')
+            self.url + f'/orgs/okada/portfolios/doesnotexists/groups')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]")))

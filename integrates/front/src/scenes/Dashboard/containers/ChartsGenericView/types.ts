@@ -1,4 +1,4 @@
-export declare type EntityType = "group" | "organization";
+export declare type EntityType = "group" | "organization" | "portfolio";
 export declare type FrequencyType = "hourly" | "daily" | "weekly" | "monthly" | "never";
 
 export interface IChartsGenericViewProps {
