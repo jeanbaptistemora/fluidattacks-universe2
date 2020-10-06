@@ -21,7 +21,6 @@ from aioextensions import (
 )
 import bugsnag
 from asgiref.sync import async_to_sync
-from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
@@ -55,6 +54,9 @@ from backend.services import (
     has_access_to_finding,
     has_access_to_event
 )
+
+from backend_new import settings
+
 from __init__ import (
     FI_AWS_S3_BUCKET,
 )

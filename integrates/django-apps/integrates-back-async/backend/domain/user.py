@@ -5,7 +5,6 @@ from typing import Any, List, Union, cast
 
 # Third libraries
 import aioboto3
-from django.conf import settings
 from jose import jwt
 
 # Local libraries
@@ -36,6 +35,8 @@ from backend.utils import (
 )
 from backend import authz
 from backend import util
+
+from backend_new import settings
 
 
 async def add_phone_to_user(email: str, phone: str) -> bool:

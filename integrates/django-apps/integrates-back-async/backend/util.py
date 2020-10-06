@@ -31,7 +31,6 @@ from jwcrypto.jwk import JWK
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from django.conf import settings
 from django.core.cache import cache
 from django.core.files.uploadedfile import (
     InMemoryUploadedFile,
@@ -74,6 +73,9 @@ from backend.utils import (
     encodings,
     decodings
 )
+
+from backend_new import settings
+
 from fluidintegrates.settings import (
     LOGGING,
     NOEXTRA

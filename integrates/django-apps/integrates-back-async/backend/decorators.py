@@ -10,9 +10,7 @@ import logging
 from typing import Any, Callable, Dict, cast, TypeVar
 
 # Third party libraries
-from django.conf import settings
 from django.core.cache import cache
-from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
@@ -39,12 +37,14 @@ from backend.utils import (
     aio,
     function,
 )
+
+from backend_new import settings
+
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
-CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 LOGGER = logging.getLogger(__name__)
 TVar = TypeVar('TVar')
 TFun = TypeVar('TFun', bound=Callable[..., Any])
@@ -494,7 +494,7 @@ def cache_content(func: TVar) -> TVar:
             if ret:
                 return ret
             ret = _func(*args, **kwargs)
-            cache.set(key_name, ret, timeout=CACHE_TTL)
+            cache.set(key_name, ret, timeout=settings.CACHE_TTL)
             return ret
         except RedisClusterException as ex:
             LOGGER.exception(ex, extra=dict(extra=locals()))
@@ -539,7 +539,7 @@ def get_entity_cache_async(func: TVar) -> TVar:
                 ret = await _func(*args, **kwargs)
 
                 await aio.ensure_io_bound(
-                    cache.set, key_name, ret, timeout=CACHE_TTL,
+                    cache.set, key_name, ret, timeout=settings.CACHE_TTL,
                 )
             return ret
         except RedisClusterException as ex:

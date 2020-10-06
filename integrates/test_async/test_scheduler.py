@@ -4,7 +4,6 @@ from collections import OrderedDict
 from decimal import Decimal
 
 from asgiref.sync import async_to_sync
-from django.conf import settings
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -24,6 +23,8 @@ from backend.scheduler import (
     create_msj_finding_pending, format_vulnerabilities,
     get_project_indicators
 )
+
+from backend_new import settings
 
 pytestmark = [
     pytest.mark.asyncio,

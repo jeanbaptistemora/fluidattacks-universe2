@@ -1,12 +1,12 @@
 from collections import defaultdict
 from datetime import datetime, timedelta
-from django.conf import settings
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http.response import HttpResponseBase
 from django.test.client import RequestFactory
 from jose import jwt
 from backend import util
 from backend.api.view import append_context_value
+from backend_new import settings
 
 
 def create_dummy_simple_session(

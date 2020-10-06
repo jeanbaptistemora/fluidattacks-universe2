@@ -17,7 +17,6 @@ from graphql.language.ast import (
 from django.http import JsonResponse
 from django.test import TestCase
 from django.test import RequestFactory
-from django.conf import settings
 from django.contrib.sessions.middleware import SessionMiddleware
 from jose import jwt
 from __init__ import (
@@ -41,6 +40,7 @@ from backend.utils import (
     decodings,
 )
 from backend.dal.finding import get_finding
+from backend_new import settings
 from test_async.utils import create_dummy_simple_session
 
 pytestmark = [

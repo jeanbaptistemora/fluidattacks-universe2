@@ -31,6 +31,7 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from backend import util
+from backend_new import settings as settings_new
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -127,7 +128,7 @@ async def _do_sign_in(
                 'sub': 'session_token',
             },
             algorithm='HS512',
-            key=settings.JWT_SECRET,
+            key=settings_new.JWT_SECRET,
         )
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
         await in_thread(
