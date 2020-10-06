@@ -41,6 +41,10 @@ their malicious goals.
 An adversary exploits a weakness on the target to force arbitrary code to be
 retrieved locally or from a remote location and executed.
 
+. [[r4]] link:http://capec.mitre.org/data/definitions/242.html[CAPEC-242: Code Injection].
+An adversary exploits a weakness in input validation on the target to inject
+new code into that which is currently executing.
+
 . [[r4]] link:https://cwe.mitre.org/data/definitions/829.html[CWE-829: Inclusion of Functionality from Untrusted Control Sphere].
 The software imports, requires, or includes executable functionality
 (such as a library) from a source that is outside of the intended control

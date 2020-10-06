@@ -76,9 +76,10 @@ resource.
 An adversary exploits a weakness in input validation on the target to inject
 new code into that which is currently executing.
 
-. [[r9]] link:http://capec.mitre.org/data/definitions/242.html[CAPEC-242: Code Injection].
-An adversary exploits a weakness in input validation on the target to inject
-new code into that which is currently executing.
+. [[r9]] link:http://capec.mitre.org/data/definitions/248.html[CAPEC-248: Command Injection].
+An adversary looking to execute a command of their choosing,
+injects new items into an existing command thus modifying interpretation away
+from what was intended.
 
 . [[r10]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect

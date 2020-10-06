@@ -25,6 +25,11 @@ Injection.
 Blind *SQL* Injection is a form of *SQL* Injection that overcomes the lack of
 error messages.
 
+. [[r2]] link:http://capec.mitre.org/data/definitions/248.html[CAPEC-248: Command Injection].
+An adversary looking to execute a command of their choosing,
+injects new items into an existing command thus modifying interpretation away
+from what was intended.
+
 . [[r2]] link:https://cwe.mitre.org/data/definitions/89.html[CWE-89: SQL Injection].
 The software constructs all or part of an SQL command using
 externally-influenced input from an upstream component,

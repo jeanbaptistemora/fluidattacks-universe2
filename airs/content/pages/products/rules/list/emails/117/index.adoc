@@ -1,7 +1,7 @@
 :slug: products/rules/list/117/
 :category: emails
 :description: This requirement establishes the importance of avoiding the interpretation and execution of HTML code in business emails.
-:keywords: HTML, Email, Business, Security, Requirement, Code injection, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: HTML, Email, Business, Security, Requirement, Code injection, CAPEC, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R117. Do not interpret HTML code
@@ -16,6 +16,10 @@ must not display *HTML* code by default.
 * [inner]#link:/products/rules/findings/114/[F114. Phishing]#
 
 == References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/242.html[CAPEC-242: Code Injection].
+An adversary exploits a weakness in input validation on the target to inject
+new code into that which is currently executing.
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/80.html[CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page].
 The software receives input from an upstream component,

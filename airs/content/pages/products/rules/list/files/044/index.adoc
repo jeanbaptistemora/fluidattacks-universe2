@@ -13,6 +13,10 @@ must have a explicitly defined character set (*charset*).
 
 == References
 
+. [[r1]] link:http://capec.mitre.org/data/definitions/242.html[CAPEC-242: Code Injection].
+An adversary exploits a weakness in input validation on the target to inject
+new code into that which is currently executing.
+
 . [[r1]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.

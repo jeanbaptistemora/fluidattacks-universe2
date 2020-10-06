@@ -31,6 +31,15 @@ execute.
 The adversary must have the ability to inject their script into a script that
 is likely to be executed.
 
+. [[r8]] link:http://capec.mitre.org/data/definitions/242.html[CAPEC-242: Code Injection].
+An adversary exploits a weakness in input validation on the target to inject
+new code into that which is currently executing.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/248.html[CAPEC-248: Command Injection].
+An adversary looking to execute a command of their choosing,
+injects new items into an existing command thus modifying interpretation away
+from what was intended.
+
 . [[r2]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
