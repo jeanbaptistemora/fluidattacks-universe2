@@ -100,13 +100,25 @@ def _negative_statement_iterate_vulnerabilities(
         if stmt_raw['Effect'] != 'Allow':
             continue
 
-        if 'NotAction' in stmt_raw:
-            if not any(map(is_action_permissive, stmt_raw['NotAction'])):
-                yield stmt
+        if isinstance(stmt, Node):
+            if 'NotAction' in stmt_raw:
+                yield from (action
+                            for action in stmt.inner.get('NotAction').data
+                            if not is_action_permissive(action.raw))
 
-        if 'NotResource' in stmt_raw:
-            if not any(map(is_resource_permissive, stmt_raw['NotResource'])):
-                yield stmt
+            if 'NotResource' in stmt_raw:
+                yield from (resource
+                            for resource in stmt.inner.get('NotResource').data
+                            if not is_resource_permissive(resource.raw))
+        else:
+            if 'NotAction' in stmt_raw:
+                if not any(map(is_action_permissive, stmt_raw['NotAction'])):
+                    yield stmt
+
+            if 'NotResource' in stmt_raw:
+                if not any(map(is_resource_permissive,
+                               stmt_raw['NotResource'])):
+                    yield stmt
 
 
 def _permissive_policy_iterate_vulnerabilities(
@@ -114,19 +126,24 @@ def _permissive_policy_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
         stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        if not (stmt_raw['Effect'] == 'Allow' and 'Principal' not in stmt_raw
+                and 'Condition' not in stmt_raw):
+            continue
 
         actions = stmt_raw.get('Action', [])
+        resources = stmt_raw.get('Resource', [])
+        has_permissive_resources = any(map(is_resource_permissive, resources))
+        has_permissive_actions = any(map(is_action_permissive, actions))
+        if (isinstance(stmt, Node) and has_permissive_resources
+                and has_permissive_actions):
+            yield from (resource
+                        for resource in stmt.inner.get('Resource').data
+                        if is_resource_permissive(resource.raw))
+            yield from (action for action in stmt.inner.get('Action').data
+                        if is_action_permissive(action.raw))
 
-        if (stmt_raw['Effect'] == 'Allow' and 'Principal' not in stmt_raw
-                and 'Condition' not in stmt_raw):
-
-            actions = stmt_raw.get('Action', [])
-            resources = stmt_raw.get('Resource', [])
-            if all((
-                    any(map(is_action_permissive, actions)),
-                    any(map(is_resource_permissive, resources)),
-            )):
-                yield stmt
+        elif has_permissive_resources and has_permissive_actions:
+            yield stmt
 
 
 def _open_passrole_iterate_vulnerabilities(
