@@ -83,7 +83,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     />
                   </Can>
                   <Have I="has_drills_white">
-                    <Can do="backend_api_resolvers_project__get_bill">
+                    <Can do="backend_api_resolvers_new_group_bill_resolve">
                       <ContentTab
                         icon="icon pe-7s-users"
                         id="authorsTab"

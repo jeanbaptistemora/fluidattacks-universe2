@@ -4,7 +4,6 @@ import asyncio
 import logging
 import sys
 import time
-from datetime import datetime
 from typing import Dict, List, Set, Any, cast, Union
 
 # Third party libraries
@@ -35,12 +34,10 @@ from backend.decorators import (
     get_entity_cache_async,
     require_login,
     turn_args_into_kwargs,
-    require_drills_white,
     require_integrates,
     enforce_user_level_auth_async
 )
 from backend.domain import (
-    bill as bill_domain,
     organization as org_domain,
     project as project_domain,
     user as user_domain,
@@ -53,7 +50,6 @@ from backend.typing import (
     AddConsultPayload as AddConsultPayloadType,
     SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
-    Historic as HistoricType
 )
 from backend import util
 from backend.utils import (
@@ -541,25 +537,6 @@ async def _get_consulting(
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    require_drills_white,
-)
-async def _get_bill(
-        _: GraphQLResolveInfo,
-        project_name: str,
-        date: Union[datetime, None] = None,
-        **__: Any) -> Dict[str, HistoricType]:
-    date = date or datetime_utils.get_now()
-
-    return {
-        'developers': await bill_domain.get_authors_data(
-            date=date,
-            group=project_name,
-        ),
-    }
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
     require_integrates,
 )
 async def _get_drafts(
@@ -686,7 +663,7 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        migrated = {'analytics', 'stakeholders'}
+        migrated = {'analytics', 'bill', 'stakeholders'}
         if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
