@@ -441,7 +441,8 @@ function helper_common_run_on_aws {
   local attempts="${3}"
   local timeout="${4}"
   local jobname="${5}"
-  local command=('./build.sh' "${@:6}")
+  local jobqueue="${6}"
+  local command=('./build.sh' "${@:7}")
   local maxmemory
 
       maxmemory=$(( "${vcpus}" * 4 * 900 )) \
@@ -471,7 +472,7 @@ function helper_common_run_on_aws {
   &&  aws batch submit-job \
         --container-overrides "${job_definition}" \
         --job-name "${jobname}" \
-        --job-queue 'default' \
+        --job-queue "${jobqueue}" \
         --job-definition 'default' \
         --retry-strategy "attempts=${attempts}" \
         --timeout "attemptDurationSeconds=${timeout}" \

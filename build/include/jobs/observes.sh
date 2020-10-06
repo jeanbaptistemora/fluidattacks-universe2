@@ -43,6 +43,7 @@ function job_observes_gitlab_on_aws {
   local attempts='10'
   local timeout='18000'
   local jobname="observes_gitlab"
+  local jobqueue='default-uninterruptible'
 
       helper_observes_aws_login prod \
   &&  helper_common_run_on_aws \
@@ -51,6 +52,7 @@ function job_observes_gitlab_on_aws {
         "${attempts}" \
         "${timeout}" \
         "${jobname}" \
+        "${jobqueue}" \
         'observes_gitlab'
 }
 
@@ -141,6 +143,7 @@ function job_observes_code_upload_group_on_aws {
   local attempts='10'
   local timeout='7200'
   local jobname="observes_code_upload_group__${group}"
+  local jobqueue='default'
 
       if test -z "${group}"
       then
@@ -154,6 +157,7 @@ function job_observes_code_upload_group_on_aws {
         "${attempts}" \
         "${timeout}" \
         "${jobname}" \
+        "${jobqueue}" \
         'observes_code_upload_group' "${group}"
 }
 
@@ -182,6 +186,7 @@ function job_observes_code_amend_authors_on_aws {
   local attempts='10'
   local timeout='18000'
   local jobname='observes_code_amend_authors'
+  local jobqueue='default'
 
       helper_observes_aws_login prod \
   &&  helper_common_run_on_aws \
@@ -190,6 +195,7 @@ function job_observes_code_amend_authors_on_aws {
         "${attempts}" \
         "${timeout}" \
         "${jobname}" \
+        "${jobqueue}" \
         'observes_code_amend_authors'
 }
 
@@ -280,6 +286,7 @@ function job_observes_code_mirror_group_to_s3_on_aws {
   local attempts='10'
   local timeout='3600'
   local jobname="observes_code_mirror_group_to_s3__${group}"
+  local jobqueue='default'
 
       if test -z "${group}"
       then
@@ -293,6 +300,7 @@ function job_observes_code_mirror_group_to_s3_on_aws {
         "${attempts}" \
         "${timeout}" \
         "${jobname}" \
+        "${jobqueue}" \
         'observes_code_mirror_group_to_s3' "${group}"
 }
 

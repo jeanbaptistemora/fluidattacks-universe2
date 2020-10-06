@@ -93,6 +93,7 @@ function job_skims_process_group_on_aws {
   local timeout='18000'
   local group="${1}"
   local jobname="skims_process_group__${group}"
+  local jobqueue='default'
 
       if test -z "${group}"
       then
@@ -106,6 +107,7 @@ function job_skims_process_group_on_aws {
         "${attempts}" \
         "${timeout}" \
         "${jobname}" \
+        "${jobqueue}" \
         'skims_process_group' "${group}"
 }
 
