@@ -1,8 +1,8 @@
 let
   src = import ./src/fetch-src.nix {
     repo = "https://github.com/NixOS/nixpkgs";
-    commit = "90c3fa478b0ffd0222f081a05ce502e42b6adf0f";
-    digest = "1xvxyzkv5b3jvrx11wkia2rvdqx1hc7ksc1b9rnnn2cxfyf22ai7";
+    commit = "f99908924015bb83df8186b2c473919be35b43f0";
+    digest = "1230z7wwsvrxfwfsdzz825mchdn3n043cz4ky2rgzb93rlihf4r2";
   };
 in
   import src { }
