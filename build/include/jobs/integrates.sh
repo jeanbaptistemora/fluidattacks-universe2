@@ -1357,9 +1357,8 @@ function job_integrates_deploy_back_ephemeral_stop {
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Deleting deployment' \
   &&  kubectl delete deployment -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete secret -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
   &&  kubectl delete deployment -n "${namespace}" "integrates2-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete secret -n "${namespace}" "integrates2-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete secret -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
   &&  popd \
   ||  return 1
 }
