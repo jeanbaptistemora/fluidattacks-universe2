@@ -27,7 +27,6 @@ LOCALSTACK_ENDPOINT: str = \
 ENDPOINT_URL: str = f'http://{LOCALSTACK_ENDPOINT}:4566'
 
 EXPECTED_REPOS: List[str] = [
-    f'{SUBS}/inactive/repo1/',
     f'{SUBS}/active/repo2/',
     f'{SUBS}/active/repo3/'
 ]
@@ -64,7 +63,6 @@ def test_drills_push_repos(relocate, prepare_s3_continuous_repositories):
         set_up_repos()
         push_repos.main(SUBS, BUCKET, AWS_LOGIN, '', ENDPOINT_URL)
         repos: List[str] = push_repos.s3_ls(BUCKET, f'{SUBS}/active/', ENDPOINT_URL)
-        repos += push_repos.s3_ls(BUCKET, f'{SUBS}/inactive/', ENDPOINT_URL)
         assert sorted(repos) == sorted(EXPECTED_REPOS)
     finally:
         rmtree(SUBS_PATH)
