@@ -1,16 +1,11 @@
 import { RouteComponentProps } from "react-router";
 
-export interface ILastLogin {
-  label: string;
-  value: number[];
-}
-
 export interface IStakeholderAttr {
   project: {
     stakeholders: Array<{
       email: string;
       firstLogin: string;
-      lastLogin: ILastLogin;
+      lastLogin: string;
       organization: string;
       phoneNumber: string;
       responsibility: string;

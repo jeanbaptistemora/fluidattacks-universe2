@@ -1,73 +1,4 @@
-import _ from "lodash";
 import { translate } from "utils/translations/translate";
-import {
-  ILastLogin,
-  IStakeholderAttr,
-  IStakeholderDataAttr,
-} from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
-
-type User = IStakeholderAttr["project"]["stakeholders"][0];
-
-const formatUserlist: (userList: IStakeholderDataAttr[]) => User[] = (
-  userList: IStakeholderDataAttr[]
-): User[] =>
-  userList.map(
-    (user: IStakeholderDataAttr): User => {
-      const missing: number = -1;
-      const lastLoginDate: number[] = JSON.parse(user.lastLogin);
-      const daysInMonth: number = 30;
-
-      const firstLogin: string = ((): string => {
-        if (lastLoginDate[0] === missing) {
-          return "-";
-        }
-        if (!_.isUndefined(user.firstLogin)) {
-          return user.firstLogin.split(" ")[0];
-        }
-
-        return "";
-      })();
-
-      const lastLogin: ILastLogin = {
-        label: ((): string => {
-          if (lastLoginDate[0] >= daysInMonth) {
-            return translate.t("search_findings.tab_users.months_ago", {
-              count: Math.round(lastLoginDate[0] / daysInMonth),
-            });
-          }
-          if (lastLoginDate[0] > 0) {
-            return translate.t("search_findings.tab_users.days_ago", {
-              count: lastLoginDate[0],
-            });
-          }
-          if (lastLoginDate[0] === missing) {
-            return "-";
-          }
-          const secsInMin: number = 60;
-          const secsInHour: number = 3600;
-          const roundedMinutes: number = Math.round(
-            lastLoginDate[1] / secsInMin
-          );
-          const roundedHour: number = Math.round(lastLoginDate[1] / secsInHour);
-
-          return roundedHour >= 1 && roundedMinutes >= secsInMin
-            ? translate.t("search_findings.tab_users.hours_ago", {
-                count: roundedHour,
-              })
-            : translate.t("search_findings.tab_users.minutes_ago", {
-                count: roundedMinutes,
-              });
-        })(),
-        value: lastLoginDate,
-      };
-
-      return { ...user, firstLogin, lastLogin };
-    }
-  );
-
-const formatLastLogin: (value: ILastLogin) => string = (
-  value: ILastLogin
-): string => value.label;
 
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
@@ -176,11 +107,4 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
   return treatmentRes;
 };
 
-export {
-  formatUserlist,
-  formatLastLogin,
-  castEventType,
-  castEventStatus,
-  formatDropdownField,
-  formatTreatment,
-};
+export { castEventType, castEventStatus, formatDropdownField, formatTreatment };

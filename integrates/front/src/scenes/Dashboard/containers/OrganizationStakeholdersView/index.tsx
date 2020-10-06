@@ -29,7 +29,6 @@ import {
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { sortLastLogin } from "utils/sortHelpers";
 import { translate } from "utils/translations/translate";
 
 const tableHeaders: IHeaderConfig[] = [
@@ -61,7 +60,6 @@ const tableHeaders: IHeaderConfig[] = [
     dataField: "lastLogin",
     formatter: timeFromNow,
     header: translate.t("search_findings.users_table.lastlogin"),
-    sortFunc: sortLastLogin,
     width: "15%",
   },
 ];

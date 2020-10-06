@@ -390,29 +390,6 @@ async def resolve_for_organization(  # pylint: disable=too-many-arguments
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-async def resolve_user(
-    _: Any,
-    info: GraphQLResolveInfo,
-    entity: str,
-    user_email: str,
-    **parameters: Any
-) -> UserType:
-    """Resolve user query."""
-    if entity == 'PROJECT':
-        project_name = cast(str, parameters.get('project_name'))
-        result = await resolve_for_group(
-            info, entity, user_email, project_name=project_name
-        )
-    elif entity == 'ORGANIZATION':
-        organization_id = cast(str, parameters.get('organization_id'))
-        result = await resolve_for_organization(
-            info, entity, user_email, organization_id=organization_id
-        )
-    return result
-
-
-@convert_kwargs_to_snake_case  # type: ignore
 async def resolve_user_mutation(
     obj: Any,
     info: GraphQLResolveInfo,
