@@ -146,7 +146,7 @@ def _open_passrole_iterate_vulnerabilities(
 
 
 def _admin_policies_attached_iterate_vulnerabilities(
-    managed_policies_iterator: Iterator[Node],
+    managed_policies_iterator: Iterator[Union[Node, AWSIamManagedPolicyArns]],
 ) -> Iterator[Union[Node, AWSIamManagedPolicyArns]]:
     elevated_policies = {
         'arn:aws:iam::aws:policy/PowerUserAccess',
@@ -154,10 +154,11 @@ def _admin_policies_attached_iterate_vulnerabilities(
         'arn:aws:iam::aws:policy/AdministratorAccess',
     }
     for policies in managed_policies_iterator:
-        policies_raw = policies.raw if isinstance(
-            policies, Node) else policies.data or list()
-        if any(policy in elevated_policies
-               for policy in policies_raw):
+        if isinstance(policies, Node):
+            yield from (policy for policy in policies.data
+                        if policy.raw in elevated_policies)
+        elif any(policy in elevated_policies
+                 for policy in policies.data or list()):
             yield policies
 
 

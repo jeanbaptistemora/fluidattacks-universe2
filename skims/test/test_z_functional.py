@@ -235,6 +235,12 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874], line 6
         [INFO] FIN.S.022. Use of an insecure channel: test/data/lib_path/f022/java.properties, line 1
         [INFO] FIN.S.022. Use of an insecure channel: test/data/lib_path/f022/java.properties, line 4
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml, line 10
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml, line 6
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml, line 8
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json, line 11
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json, line 7
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json, line 9
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 13
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 17
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 21
@@ -243,8 +249,6 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 18
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 23
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 48
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml, line 6
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml.json, line 6
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 16
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 7
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 23
@@ -415,6 +419,12 @@ async def test_correct_assert(
             ('test/data/lib_path/f022/java.properties', '4'),
         )),
         ('F031_AWS', 'APPROVED', (
+            ('test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml', '10'),
+            ('test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml', '6'),
+            ('test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml', '8'),
+            ('test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json', '11'),
+            ('test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json', '7'),
+            ('test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json', '9'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '13'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '17'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml', '21'),
@@ -423,8 +433,6 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '18'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '23'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '48'),
-            ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml', '6'),
-            ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml.json','6'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '16'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '7'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '23'),
