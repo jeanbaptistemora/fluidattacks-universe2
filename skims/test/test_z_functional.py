@@ -249,10 +249,14 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 18
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 23
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 48
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 16
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 7
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 23
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 8
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 17
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 18
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 8
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 9
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 10
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 11
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 25
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 26
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 33
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 9
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 11
@@ -433,10 +437,14 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '18'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '23'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '48'),
-            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '16'),
-            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '7'),
-            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '23'),
-            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '8'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '17'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '18'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '8'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '9'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '10'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '11'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '25'),
+            ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '26'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '33'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '9'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '11'),

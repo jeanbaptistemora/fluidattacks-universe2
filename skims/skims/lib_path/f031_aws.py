@@ -137,12 +137,24 @@ def _open_passrole_iterate_vulnerabilities(
         if stmt_raw['Effect'] == 'Allow':
             actions = stmt_raw.get('Action', [])
             resources = stmt_raw.get('Resource', [])
+            if isinstance(stmt, Node) and actions and resources:
+                actions = stmt.inner.get('Action')
+                resources = stmt.inner.get('Resource')
+                has_permissive_resources = any(
+                    map(is_resource_permissive, resources.raw))
+                is_iam_passrole = any(map(_is_iam_passrole, actions.raw))
 
-            if all((
-                any(map(_is_iam_passrole, actions)),
-                any(map(is_resource_permissive, resources)),
-            )):
-                yield stmt
+                if has_permissive_resources and is_iam_passrole:
+                    yield from (resource for resource in resources.data
+                                if is_resource_permissive(resource.raw))
+                    yield from (action for action in actions.data
+                                if _is_iam_passrole(action.raw))
+            else:
+                if all((
+                    any(map(_is_iam_passrole, actions)),
+                    any(map(is_resource_permissive, resources)),
+                )):
+                    yield stmt
 
 
 def _admin_policies_attached_iterate_vulnerabilities(
