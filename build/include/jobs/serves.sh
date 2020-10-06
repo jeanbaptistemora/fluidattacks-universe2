@@ -387,7 +387,7 @@ function job_serves_rotate_keys_user_provision_asserts {
 }
 
 function job_serves_rotate_keys_user_provision_services {
-  local terraform_dir='services/user-provision/services/dev/terraform'
+  local terraform_dir='services/user-provision/services/terraform'
   local gitlab_repo_id='4603023'
   local gitlab_repo_id_2='20741933'
 
@@ -445,7 +445,7 @@ function job_serves_rotate_keys_user_provision_services {
 }
 
 function job_serves_rotate_keys_user_provision_integrates {
-  local terraform_dir='services/user-provision/integrates/dev/terraform'
+  local terraform_dir='services/user-provision/integrates/terraform'
   local gitlab_repo_id='20741933'
 
   # Dev
