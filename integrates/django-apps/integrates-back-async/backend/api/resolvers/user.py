@@ -15,7 +15,7 @@ from typing import (
 from aioextensions import (
     collect,
 )
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+from ariadne import convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
 
 from graphql.type.definition import GraphQLResolveInfo
@@ -30,7 +30,6 @@ from backend.decorators import (
     concurrent_decorators,
     require_integrates,
     require_login,
-    require_organization_access,
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
 )
@@ -39,21 +38,13 @@ from backend.domain import (
     project as project_domain,
     user as user_domain
 )
-from backend.exceptions import (
-    UserNotFound,
-)
 from backend.typing import (
-    User as UserType,
     AddStakeholderPayload as AddStakeholderPayloadType,
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
     MailContent as MailContentType,
     Project as ProjectType
-)
-from backend.services import (
-    has_responsibility, has_phone_number,
-    has_access_to_project
 )
 from backend import authz, mailer
 from backend.utils import (
@@ -224,30 +215,6 @@ async def _get_role(
     return cast(str, role)
 
 
-async def _get_phone_number(
-        _: GraphQLResolveInfo, email: str, *__: str) -> str:
-    """Get phone number."""
-    return await has_phone_number(email)
-
-
-async def _get_responsibility(
-        _: GraphQLResolveInfo,
-        email: str,
-        entity: str,
-        identifier: str) -> str:
-    """Get responsibility."""
-    result = ''
-    if entity == 'PROJECT':
-        project_name = identifier
-        result = await has_responsibility(project_name, email)
-    return result
-
-
-async def _get_first_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
-    """Get first login."""
-    return cast(str, await user_domain.get_data(email, 'date_joined'))
-
-
 async def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get last_login."""
     last_login_response = cast(
@@ -294,99 +261,6 @@ async def _get_projects(
         for project in user_projects
     )
     return list_projects
-
-
-async def resolve(  # pylint: disable=too-many-arguments
-    info: GraphQLResolveInfo,
-    entity: str,
-    email: str,
-    identifier: str,
-    as_field: bool,
-    selection_set: object,
-    field_name: str = 'users'
-) -> UserType:
-    """Async resolve of fields."""
-    result = dict()
-    requested_fields = (
-        util.get_requested_fields(field_name, selection_set)
-        if as_field
-        else info.field_nodes[0].selection_set.selections
-    )
-
-    for requested_field in requested_fields:
-        if util.is_skippable(info, requested_field):
-            continue
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        params = {
-            'email': email,
-            'entity': entity,
-            'identifier': identifier
-        }
-        if requested_field == 'projects':
-            del params['entity']
-            del params['identifier']
-            params['requested_fields'] = requested_fields
-        if requested_field.startswith('_'):
-            continue
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(
-            info, *params.values()
-        )
-    return result
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def resolve_for_group(  # pylint: disable=too-many-arguments
-    info: GraphQLResolveInfo,
-    entity: str,
-    user_email: str,
-    project_name: str = '',
-    as_field: bool = False,
-    selection_set: object = None,
-    field_name: str = 'users'
-) -> UserType:
-    email = user_email.lower()
-    role = await _get_role(info, email, entity, project_name)
-
-    if project_name and role:
-        if (not await user_domain.get_data(email, 'email') or
-                not await has_access_to_project(email, project_name)):
-            raise UserNotFound()
-
-    return await resolve(
-        info, entity, email, project_name, as_field, selection_set, field_name
-    )
-
-
-@require_organization_access
-async def resolve_for_organization(  # pylint: disable=too-many-arguments
-    info: GraphQLResolveInfo,
-    entity: str,
-    user_email: str,
-    organization_id: str = '',
-    as_field: bool = False,
-    selection_set: object = None,
-    field_name: str = 'users'
-) -> UserType:
-    email = user_email.lower()
-    result = await resolve(
-        info,
-        entity,
-        email,
-        organization_id,
-        as_field,
-        selection_set,
-        field_name
-    )
-    return dict(zip(result, await collect(result.values())))
 
 
 @convert_kwargs_to_snake_case  # type: ignore
