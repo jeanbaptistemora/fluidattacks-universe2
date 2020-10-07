@@ -42,21 +42,21 @@ An attacker modifies a technology, product, or component during a stage in its
 manufacture for the purpose of carrying out an attack against some entity
 involved in the supply chain lifecycle.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
 A trapdoor is a hidden piece of code that responds to a special input,
 allowing its user access to resources without passing through the normal
 security enforcement mechanism.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
 The product released to market is released in pre-production or manufacturing
 configuration.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.13)]
 Verify all code including third-party binaries, libraries, frameworks are
 reviewed for hardcoded credentials (*backdoors*).
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.3)]
 Verify that the application source code and third party libraries do not contain
 backdoors,
@@ -66,10 +66,10 @@ or anti-debugging, insecure debugging features,
 or otherwise out of date, insecure, or hidden functionality that could be used
 maliciously if discovered.
 
-. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3.1]
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3.1]
 Remove development, test and/or custom application accounts, user IDs,
 and passwords before applications become active or are released to customers.
 
-. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.4]
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.4]
 Processes must include removal of test data and accounts from system components
 before the system becomes active / goes into production.

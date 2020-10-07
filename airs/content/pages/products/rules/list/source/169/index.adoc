@@ -30,26 +30,26 @@ An adversary looking to execute a command of their choosing,
 injects new items into an existing command thus modifying interpretation away
 from what was intended.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/89.html[CWE-89: SQL Injection].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/89.html[CWE-89: SQL Injection].
 The software constructs all or part of an SQL command using
 externally-influenced input from an upstream component,
 but it does not neutralize or incorrectly neutralizes special elements that
 could modify the intended SQL command.
 
-. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
 The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
 Verify that data selection or database queries
 (e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
 entity frameworks, or are otherwise protected from database injection attacks.
 
-. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
 Address common coding vulnerabilities in software-development processes such as
 injection flaws, particularly *SQL* injection.
 Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
