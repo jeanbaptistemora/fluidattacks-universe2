@@ -47,12 +47,12 @@ def set_level(level: int) -> None:
     _LOGGER_HANDLER.setLevel(level)
 
 
-def blocking_log(level: str, msg: str, *args: Any) -> None:
-    getattr(_LOGGER, level)(msg, *args)
+def blocking_log(level: str, msg: str, *args: Any, **kwargs: Any) -> None:
+    getattr(_LOGGER, level)(msg, *args, **kwargs)
 
 
-async def log(level: str, msg: str, *args: Any) -> None:
-    await in_thread(blocking_log, level, msg, *args)
+async def log(level: str, msg: str, *args: Any, **kwargs: Any) -> None:
+    await in_thread(blocking_log, level, msg, *args, **kwargs)
 
 
 async def log_exception(

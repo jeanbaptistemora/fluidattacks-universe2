@@ -87,7 +87,6 @@ function helper_skims_get_group_config_as_json {
       )" \
     '{
       chdir: $chdir,
-      console_snippets: false,
       language: $language,
       path: {
         include: [

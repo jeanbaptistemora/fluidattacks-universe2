@@ -1,0 +1,164 @@
+cwe,title,what,where
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,8
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,11
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,7
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,9
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml,18
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml,22
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml,23
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml,38
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,16
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,20
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,25
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,26
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,51
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml,17
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml,8
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml,9
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,10
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,11
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,25
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,26
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,10
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,35
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,61
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,23
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,33
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,38
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_negative_statement.tf,5
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5
+250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,2
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,1
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,11
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,12
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,13
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,14
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,15
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,17
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,18
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,19
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,20
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,21
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,22
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,23
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,24
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,25
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,26
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,27
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,30
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,33
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,35
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,4
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,5
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,6
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,8
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,9
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,2
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,3
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,4
+310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,6
+319,FIN.S.022. Use of an insecure channel,test/data/lib_path/f022/java.properties,1
+319,FIN.S.022. Use of an insecure channel,test/data/lib_path/f022/java.properties,4
+377,FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.class,1
+377,FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.jar,1
+378,FIN.S.031. Excessive privileges - Temporary files,test/data/lib_path/f031_cwe378/Test.java,6
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f031_cwe378/Test.java,7
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/csharp.cs,2
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/java.java,2
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/javascript.js,3
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/javascript.js,4
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/javascript.js,5
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/python.py,21
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/swift.swift,5
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/swift.swift,6
+390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/swift.swift,7
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f031_cwe378/Test.java,7
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/csharp.cs,2
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/csharp.cs,3
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/csharp.cs,4
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/csharp.cs,5
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/java.java,2
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/java.java,3
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/java.java,4
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/java.java,5
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/python.py,2
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/python.py,4
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/python.py,5
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/swift.swift,5
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/swift.swift,6
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/swift.swift,7
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f061/swift.swift,5
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f061/swift.swift,6
+396,FIN.H.060. Insecure exceptions,test/data/lib_path/f061/swift.swift,7
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,20
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,3
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,41
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,44
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.java,44
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.java,92
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/javascript.js,3
+478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/javascript.tsx,4
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/Dockerfile,1
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/Dockerfile,2
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,1
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,2
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,2
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,4
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,4
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,8
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,3
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,4
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,5
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,6
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,7
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,8
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/secrets.yaml,1
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/secrets.yaml.json,1
+89,FIN.S.001. SQL injection - Java Persistence API,test/data/lib_path/f001_jpa/java.java,23
+89,FIN.S.001. SQL injection - Java Persistence API,test/data/lib_path/f001_jpa/java.java,26
+89,FIN.S.001. SQL injection - Java Persistence API,test/data/lib_path/f001_jpa/java.java,36
+89,FIN.S.001. SQL injection - Java Persistence API,test/data/lib_path/f001_jpa/java.java,39
+89,FIN.S.001. SQL injection - Java Persistence API,test/data/lib_path/f001_jpa/java.java,42
+89,FIN.S.001. SQL injection - Java Persistence API,test/data/lib_path/f001_jpa/java.java,45
+922,FIN.S.085. Sensitive data stored in the client-side storage,test/data/lib_path/f085/react.jsx,1
+922,FIN.S.085. Sensitive data stored in the client-side storage,test/data/lib_path/f085/react.jsx,4
+922,FIN.S.085. Sensitive data stored in the client-side storage,test/data/lib_path/f085/react.jsx,5
+922,FIN.S.085. Sensitive data stored in the client-side storage,test/data/lib_path/f085/react.jsx,6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728],6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728],5
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969],7
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2015-9251],7
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2017-16012],7
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-11358],7
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2020-7656],7
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-16487],6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-3721],6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-1010266],6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744],6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203],6
+937,FIN.S.011. Use of software with known vulnerabilities,test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874],6

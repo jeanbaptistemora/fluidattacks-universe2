@@ -6,6 +6,7 @@ from asyncio import (
     Task,
     wait_for,
 )
+import csv
 import logging
 from os import (
     chdir,
@@ -49,7 +50,6 @@ from utils.logs import (
 from utils.model import (
     FindingEnum,
     SkimsConfig,
-    VulnerabilityKindEnum,
 )
 from zone import (
     set_locale,
@@ -109,7 +109,10 @@ async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:
         config.timeout,
     )
 
-    await notify_findings(config, stores)
+    if config.output:
+        await notify_findings_as_csv(stores, config.output)
+    else:
+        await notify_findings_as_snippets(stores)
 
     if config.group and token:
         msg = 'Results will be synced to group: %s'
@@ -130,42 +133,45 @@ async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:
     return success
 
 
-async def notify_findings(
-    config: SkimsConfig,
+async def notify_findings_as_snippets(
     stores: Dict[FindingEnum, EphemeralStore],
 ) -> None:
-    """Print user-friendly messages about the results found.
-
-    :param config: Skims configuration object
-    :type config: SkimsConfig
-    :param stores: Results to be shown
-    :type stores: Dict[FindingEnum, EphemeralStore]
-    """
-
-    async def dump(
-        kind: VulnerabilityKindEnum,
-        snippet: str,
-        title: str,
-        what: str,
-        where: str,
-    ) -> None:
-        where = t(f'words.{kind.value[:-1]}') + ' ' + where
-
-        if config.console_snippets:
-            await log('info', '%s: %s\n\n%s\n', title, what, snippet)
-        else:
-            await log('info', '%s: %s, %s', title, what, where)
-
+    """Print user-friendly messages about the results found."""
     for store in stores.values():
         async for result in store.iterate():
             if result.skims_metadata:
-                await dump(
-                    kind=result.kind,
-                    snippet=result.skims_metadata.snippet,
+                await log(
+                    'info',
+                    '%(title)s: %(what)s\n\n%(snippet)s\n',
                     title=t(result.finding.value.title),
                     what=result.what,
-                    where=result.where,
+                    snippet=result.skims_metadata.snippet,
                 )
+
+
+async def notify_findings_as_csv(
+    stores: Dict[FindingEnum, EphemeralStore],
+    output: str,
+) -> None:
+    headers = ('cwe', 'title', 'what', 'where')
+    rows = [
+        {
+            'cwe': ' + '.join(result.finding.value.cwe),
+            'title': t(result.finding.value.title),
+            'what': result.what,
+            'where': result.where,
+        }
+        for store in stores.values()
+        async for result in store.iterate()
+        if result.skims_metadata
+    ]
+
+    with open(output, 'w') as file:
+        writer = csv.DictWriter(file, headers, quoting=csv.QUOTE_MINIMAL)
+        writer.writeheader()
+        writer.writerows(sorted(rows, key=str))
+
+    await log('info', 'An output file has been written at: %s', output)
 
 
 async def main(

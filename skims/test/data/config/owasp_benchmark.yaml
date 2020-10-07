@@ -1,6 +1,6 @@
 chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
-console_snippets: false
 language: EN
+output: results.csv
 path:
   include:
     - glob(*)

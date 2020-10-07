@@ -1,5 +1,5 @@
-console_snippets: false
 language: EN
+output: results.csv
 path:
   include:
     - glob(test/data/lib_path/*)

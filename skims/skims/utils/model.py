@@ -486,8 +486,8 @@ class SkimsPathConfig(NamedTuple):
 
 class SkimsConfig(NamedTuple):
     chdir: Optional[str]
-    console_snippets: bool
     group: Optional[str]
+    output: Optional[str]
     path: Optional[SkimsPathConfig]
     timeout: Optional[float]
     language: LocalesEnum

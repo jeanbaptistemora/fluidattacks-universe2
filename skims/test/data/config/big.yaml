@@ -1,6 +1,6 @@
 chdir: ../../
-console_snippets: false
 language: EN
+output: results.csv
 path:
   include:
     - product/

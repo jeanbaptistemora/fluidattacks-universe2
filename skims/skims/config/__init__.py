@@ -30,8 +30,8 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
     config = template.get(
         confuse.Template({
             'chdir': confuse.String(),
-            'console_snippets': confuse.Choice((True, False)),
             'language': confuse.Choice(LocalesEnum),
+            'output': confuse.String(),
             'path': confuse.Template({
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
@@ -45,9 +45,9 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
 
         skims_config: SkimsConfig = SkimsConfig(
             chdir=config.pop('chdir', None),
-            console_snippets=config.pop('console_snippets', True),
             group=group,
             language=LocalesEnum(config.pop('language')),
+            output=config.pop('output', None),
             path=SkimsPathConfig(
                 exclude=config_path.pop('exclude'),
                 include=config_path.pop('include'),

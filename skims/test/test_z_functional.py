@@ -4,10 +4,9 @@ from contextlib import (
     redirect_stdout,
 )
 import io
-from textwrap import (
-    dedent,
-)
 from typing import (
+    Any,
+    Callable,
     Dict,
     List,
     Set,
@@ -19,6 +18,7 @@ from aioextensions import (
     collect,
     run_decorator,
 )
+import pytest
 
 # Local libraries
 from cli import (
@@ -67,6 +67,12 @@ def skims(*args: str) -> Tuple[int, str, str]:
     finally:
         del out_buffer
         del err_buffer
+
+
+def do_csv_results_match(caller: Callable[..., Any]) -> bool:
+    with open('results.csv') as results:
+        with open(f'test/data/{caller.__name__}.csv') as expected:
+            return sorted(results.readlines()) == sorted(expected.readlines())
 
 
 async def get_group_data(group: str) -> Set[
@@ -150,183 +156,17 @@ def test_bad_integrates_api_token(test_group: str) -> None:
     assert not stderr, stderr
 
 
+@pytest.mark.flaky(reruns=0)  # type: ignore
 def test_correct_run_no_group(test_group: str) -> None:
     code, stdout, stderr = skims('test/data/config/correct.yaml')
 
     assert code == 0
     assert '[INFO] Startup working dir is:' in stdout
+    assert '[INFO] An output file has been written at: results.csv' in stdout
     assert '[INFO] Files to be tested:' in stdout
     assert '[INFO] Success: True' in stdout
-    assert '\n'.join(tuple(sorted(
-        line
-        for line in stdout.splitlines()
-        if line.startswith('[INFO] FIN')
-    ))) == dedent("""
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f031_cwe378/Test.java, line 7
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/csharp.cs, line 2
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/csharp.cs, line 3
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/csharp.cs, line 4
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/csharp.cs, line 5
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/java.java, line 2
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/java.java, line 3
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/java.java, line 4
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/java.java, line 5
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/python.py, line 2
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/python.py, line 4
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/python.py, line 5
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/swift.swift, line 5
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/swift.swift, line 6
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f060/swift.swift, line 7
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f061/swift.swift, line 5
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f061/swift.swift, line 6
-        [INFO] FIN.H.060. Insecure exceptions: test/data/lib_path/f061/swift.swift, line 7
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f031_cwe378/Test.java, line 7
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/csharp.cs, line 2
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/java.java, line 2
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/javascript.js, line 3
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/javascript.js, line 4
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/javascript.js, line 5
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/python.py, line 21
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/swift.swift, line 5
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/swift.swift, line 6
-        [INFO] FIN.H.061. Errors without traceability: test/data/lib_path/f061/swift.swift, line 7
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 20
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 3
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 41
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.cs, line 44
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.java, line 44
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/Test.java, line 92
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/javascript.js, line 3
-        [INFO] FIN.H.073. Conditional statement without a default option: test/data/lib_path/f073/javascript.tsx, line 4
-        [INFO] FIN.S.001. SQL injection - Java Persistence API: test/data/lib_path/f001_jpa/java.java, line 23
-        [INFO] FIN.S.001. SQL injection - Java Persistence API: test/data/lib_path/f001_jpa/java.java, line 26
-        [INFO] FIN.S.001. SQL injection - Java Persistence API: test/data/lib_path/f001_jpa/java.java, line 36
-        [INFO] FIN.S.001. SQL injection - Java Persistence API: test/data/lib_path/f001_jpa/java.java, line 39
-        [INFO] FIN.S.001. SQL injection - Java Persistence API: test/data/lib_path/f001_jpa/java.java, line 42
-        [INFO] FIN.S.001. SQL injection - Java Persistence API: test/data/lib_path/f001_jpa/java.java, line 45
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/Dockerfile, line 1
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/Dockerfile, line 2
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/java.properties, line 1
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/java.properties, line 2
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/java.properties, line 2
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/java.properties, line 4
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/java.properties, line 4
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/java.properties, line 8
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/javascript.js, line 3
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/javascript.js, line 4
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/javascript.js, line 5
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/javascript.js, line 6
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/javascript.js, line 7
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/javascript.js, line 8
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/secrets.yaml, line 1
-        [INFO] FIN.S.009. Sensitive information in source code: test/data/lib_path/f009/secrets.yaml.json, line 1
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728], line 6
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728], line 5
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969], line 7
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2015-9251], line 7
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2017-16012], line 7
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-11358], line 7
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2020-7656], line 7
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-16487], line 6
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-3721], line 6
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-1010266], line 6
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744], line 6
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203], line 6
-        [INFO] FIN.S.011. Use of software with known vulnerabilities: test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874], line 6
-        [INFO] FIN.S.022. Use of an insecure channel: test/data/lib_path/f022/java.properties, line 1
-        [INFO] FIN.S.022. Use of an insecure channel: test/data/lib_path/f022/java.properties, line 4
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml, line 10
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml, line 6
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml, line 8
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json, line 11
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json, line 7
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json, line 9
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 15
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 18
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 22
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 23
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 37
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml, line 38
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 16
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 20
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 25
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 26
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 50
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, line 51
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 17
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 18
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 8
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml, line 9
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 10
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 11
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 25
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json, line 26
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 10
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 11
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 12
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 13
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 35
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 36
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 37
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml, line 38
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 13
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 14
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 15
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 17
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 57
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 58
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 59
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 61
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf, line 23
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf, line 33
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf, line 38
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_negative_statement.tf, line 33
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_negative_statement.tf, line 5
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_open_passrole.tf, line 5
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_permissive_policy.tf, line 37
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_permissive_policy.tf, line 5
-        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_permissive_policy.tf, line 73
-        [INFO] FIN.S.031. Excessive privileges - Temporary files: test/data/lib_path/f031_cwe378/Test.java, line 6
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/csharp.cs, line 2
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/csharp.cs, line 3
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/csharp.cs, line 5
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 1
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 11
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 12
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 13
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 14
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 15
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 17
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 18
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 19
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 20
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 21
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 22
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 23
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 24
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 25
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 26
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 27
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 30
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 33
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 35
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 4
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 5
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 6
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 8
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.java, line 9
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.properties, line 2
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.properties, line 3
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.properties, line 4
-        [INFO] FIN.S.052. Insecure encryption algorithm: test/data/lib_path/f052/java.properties, line 6
-        [INFO] FIN.S.085. Sensitive data stored in the client-side storage: test/data/lib_path/f085/react.jsx, line 1
-        [INFO] FIN.S.085. Sensitive data stored in the client-side storage: test/data/lib_path/f085/react.jsx, line 4
-        [INFO] FIN.S.085. Sensitive data stored in the client-side storage: test/data/lib_path/f085/react.jsx, line 5
-        [INFO] FIN.S.085. Sensitive data stored in the client-side storage: test/data/lib_path/f085/react.jsx, line 6
-        [INFO] FIN.S.117. Unverifiable files: test/data/lib_path/f117/MyJar.class, line 1
-        [INFO] FIN.S.117. Unverifiable files: test/data/lib_path/f117/MyJar.jar, line 1
-    """)[1:-1]
     assert not stderr, stderr
+    assert do_csv_results_match(test_correct_run_no_group)
 
 
 @run_decorator
