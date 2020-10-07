@@ -84,14 +84,6 @@ async def upload_evidences(
     evidence_ids: Tuple[
         Tuple[FindingEvidenceIDEnum, FindingEvidenceDescriptionIDEnum], ...
     ] = (
-        (FindingEvidenceIDEnum.EVIDENCE1,
-         FindingEvidenceDescriptionIDEnum.EVIDENCE1),
-        (FindingEvidenceIDEnum.EVIDENCE2,
-         FindingEvidenceDescriptionIDEnum.EVIDENCE2),
-        (FindingEvidenceIDEnum.EVIDENCE3,
-         FindingEvidenceDescriptionIDEnum.EVIDENCE3),
-        (FindingEvidenceIDEnum.EVIDENCE4,
-         FindingEvidenceDescriptionIDEnum.EVIDENCE4),
         (FindingEvidenceIDEnum.EVIDENCE5,
          FindingEvidenceDescriptionIDEnum.EVIDENCE5),
     )

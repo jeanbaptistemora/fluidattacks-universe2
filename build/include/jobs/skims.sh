@@ -68,7 +68,8 @@ function job_skims_benchmark_owasp {
   &&  pushd skims \
     &&  echo '[INFO] Computing score...' \
     &&  poetry run skims test/data/config/owasp_benchmark.yaml \
-          | poetry run python3 skims/benchmark/__init__.py \
+          | tee "${TEMP_FILE1}" \
+    &&  poetry run python3 skims/benchmark/__init__.py < "${TEMP_FILE1}"\
   &&  popd \
   ||  return 1
 }
