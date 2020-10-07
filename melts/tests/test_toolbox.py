@@ -19,7 +19,7 @@ SUCCESS: int = 0
 FAILURE: int = 1
 FINDING: str = '720412598'
 
-@pytest.mark.skip(reason="Pending to fix")
+
 def test_toolbox_statefull_functions(relocate_to_cloned_repo):
     """Test functions that modify files."""
     # This tests need to be run in a pristine environment
