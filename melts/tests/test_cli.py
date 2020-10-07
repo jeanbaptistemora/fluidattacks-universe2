@@ -36,7 +36,6 @@ def test_forces_2(relocate, cli_runner):
     result = cli_runner(f'forces --check-sync all {GROUP}'.split())
     assert result.exit_code == 0, result.output
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_forces_3(relocate, cli_runner):
     result = cli_runner(f'forces --lint-exps all {GROUP}'.split())
     assert result.exit_code == 0, result.output

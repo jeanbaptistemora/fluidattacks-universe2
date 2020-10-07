@@ -16,6 +16,8 @@ cp -r --no-preserve=mode,ownership \
     "${requirements}/site-packages/"* 'root/python/site-packages'
 cp -r --no-preserve=mode,ownership \
     "${overridenPandas}/lib/python3.7/site-packages/"* 'root/python/site-packages'
+cp -r --no-preserve=mode,ownership \
+    "${pyPkgUtilities}/site-packages/"* 'root/python/site-packages'
 
 pip3 install \
     --cache-dir root/python/cache-dir \
