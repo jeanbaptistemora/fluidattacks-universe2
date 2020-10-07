@@ -30,7 +30,7 @@ in
             python = pkgs.python38;
           };
 
-          pyPkgTapGitlab = builders.pythonPackageLocal {
+          pyPkgCode = builders.pythonPackageLocal {
             path = ../../observes/code;
             python = pkgs.python38;
           };

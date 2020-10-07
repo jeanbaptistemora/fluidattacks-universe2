@@ -57,8 +57,8 @@ function job_observes_gitlab {
 }
 
 function job_observes_gitlab_on_aws {
-  local vcpus='1'
-  local memory='900'
+  local vcpus='2'
+  local memory='7200'
   local attempts='10'
   local timeout='18000'
   local jobname="observes_gitlab"
