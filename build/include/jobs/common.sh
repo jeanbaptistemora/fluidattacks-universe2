@@ -42,6 +42,32 @@ function job_common_send_new_release_email {
   &&  python3 "${TEMP_FILE1}"
 }
 
+function job_common_compute_stream_log {
+  local log_stream="${1}"
+  local awslogs_options=(
+    get
+    --no-group
+    --no-stream
+    --timestamp
+    --start 1w
+    --watch
+    /aws/batch/job
+    "${log_stream}"
+  )
+
+      if test -z "${log_stream}"
+      then
+            echo '[ERROR] Please pass the log stream as the first argument' \
+        &&  return 1
+      fi \
+  &&  helper_serves_aws_login production \
+  &&  env_prepare_python_packages \
+  &&  while echo '[INFO] Connecting...' && sleep 1
+      do
+        awslogs "${awslogs_options[@]}"
+      done
+}
+
 function job_common_lint_commit_msg {
   local commit_diff
   local commit_hashes
