@@ -260,6 +260,15 @@ async def graphics_for_organization(request: HttpRequest) -> HttpResponse:
     return await _graphics_for_entity('organization', request)
 
 
+@never_cache  # type: ignore
+@csrf_exempt  # type: ignore
+@require_http_methods(['GET'])  # type: ignore
+@async_to_sync  # type: ignore
+@require_login  # type: ignore
+async def graphics_for_portfolio(request: HttpRequest) -> HttpResponse:
+    return await _graphics_for_entity('portfolio', request)
+
+
 async def _graphics_for_entity(
     entity: str,
     request: HttpRequest,

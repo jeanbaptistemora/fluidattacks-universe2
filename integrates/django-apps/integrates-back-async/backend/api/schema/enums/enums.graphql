@@ -193,6 +193,7 @@ enum StakeholderRole {
 enum SubscriptionReportEntity {
   GROUP
   ORGANIZATION
+  PORTFOLIO
 }
 
 enum SubscriptionType {

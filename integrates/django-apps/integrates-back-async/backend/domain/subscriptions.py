@@ -26,6 +26,7 @@ from backend.dal.subscriptions import (
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain,
+    tag as portfolio_domain,
 )
 from backend.utils import (
     reports,
@@ -185,6 +186,11 @@ async def can_subscribe_user_to_entity_report(
             email=user_email,
             organization_id=report_subject,
         )
+    elif report_entity.lower() == 'portfolio':
+        success = await portfolio_domain.has_user_access(
+            email=user_email,
+            subject=report_subject,
+        )
     else:
         raise ValueError('Invalid report_entity')
 
@@ -323,11 +329,13 @@ async def send_user_to_entity_report(
             })
     else:
         report_entity = report_entity.lower()
-        report_subject = (
-            await org_domain.get_name_by_id(report_subject)
-            if report_entity.lower() == 'organization'
-            else report_subject
-        )
+        if report_entity == 'organization':
+            report_subject = await org_domain.get_name_by_id(report_subject)
+        elif report_entity == 'portfolio':
+            report_subject = report_subject.split('PORTFOLIO#')[-1]
+
+        report_subject = report_subject.lower()
+
         LOGGER_CONSOLE.info('- sending email', **NOEXTRA)
 
         await mailer.send_mail_analytics(

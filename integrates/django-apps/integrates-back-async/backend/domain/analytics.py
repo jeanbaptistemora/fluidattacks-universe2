@@ -41,6 +41,7 @@ from backend.decorators import (
 )
 from backend.domain import (
     organization as organization_domain,
+    tag as portfolio_domain,
 )
 from backend.exceptions import DocumentNotFound
 from backend.services import (
@@ -89,6 +90,7 @@ ReportParameters = NamedTuple(
 # Constants
 LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
+ENTITIES = {'group', 'organization', 'portfolio'}
 IMAGE_PATH: str = 'reports/resources/themes/logo.png'
 TRANSPARENCY_RATIO: float = 0.40
 
@@ -152,10 +154,7 @@ async def handle_authz_claims(
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'portfolio':
-        if not await organization_domain.has_user_access(
-            email=email,
-            organization_id=params.subject.split('PORTFOLIO#')[0],
-        ):
+        if not await portfolio_domain.has_user_access(email, params.subject):
             raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
@@ -205,9 +204,10 @@ def handle_graphics_for_entity_request_parameters(
     entity: str,
     request: HttpRequest,
 ) -> GraphicsForEntityParameters:
-    if entity not in ['group', 'organization']:
+    if entity not in ENTITIES:
         raise ValueError(
-            'Invalid entity, only "group" and "organization" are valid',
+            'Invalid entity, only "group", "organization"'
+            ' and "portfolio" are valid',
         )
 
     subject: str = request.GET[entity]
@@ -233,9 +233,10 @@ def handle_graphics_report_request_parameters(
 ) -> ReportParameters:
     entity: str = request.GET['entity']
 
-    if entity not in ['group', 'organization']:
+    if entity not in ENTITIES:
         raise ValueError(
-            'Invalid entity, only "group" and "organization" are valid',
+            'Invalid entity, only "group", "organization"'
+            ' and "portfolio" are valid',
         )
 
     subject: str = request.GET[entity]

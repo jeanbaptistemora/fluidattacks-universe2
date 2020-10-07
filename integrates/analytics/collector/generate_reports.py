@@ -126,13 +126,17 @@ def take_snapshot(
     ),
     retry_times=5,
 )
-async def insert_cookies(entity: str, session: aiohttp.ClientSession) -> None:
+async def insert_cookies(
+    entity: str,
+    session: aiohttp.ClientSession,
+    subject: str = '*'
+) -> None:
     await session.get(
         headers={
             'Authorization': f'Bearer {INTEGRATES_API_TOKEN}'
         },
         proxy=PROXY,
-        url=f'{TARGET_URL}/graphics-for-{entity}?{entity}=*',
+        url=f'{TARGET_URL}/graphics-for-{entity}?{entity}={subject}',
     )
 
 
@@ -166,6 +170,30 @@ async def main():
                 session=session,
                 url=f'{base}&group={percent_encode(group)}',
             )
+
+        # Portfolio reports
+        base = f'{TARGET_URL}/graphics-for-portfolio?reportMode=true'
+        separator = 'PORTFOLIO#'
+        async for org_id, org_name, _ in (
+            utils.iterate_organizations_and_groups()
+        ):
+            for portfolio, _ in await utils.get_portfolios_groups(org_name):
+                subject = percent_encode(org_id + separator + portfolio)
+                await insert_cookies('portfolio', session, subject)
+                await take_snapshot(
+                    driver=driver,
+                    save_as=utils.get_result_path(
+                        name='portfolio:' +
+                        safe_encode(
+                            org_id.lower() +
+                            separator.lower() +
+                            portfolio.lower()
+                        ) +
+                        '.png',
+                    ),
+                    session=session,
+                    url=f'{base}&portfolio={subject}'
+                )
 
 
 if __name__ == '__main__':
