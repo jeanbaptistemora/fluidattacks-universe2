@@ -21,7 +21,7 @@ when these are for internal applications.
 . [[r1]] link:https://cwe.mitre.org/data/definitions/295.html[CWE-295: Improper Certificate Validation].
 The software does not validate, or incorrectly validates, a certificate.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.1)]
 Verify that connections to and from the server use trusted *TLS* certificates.
 Where internally generated or self-signed certificates are used,
