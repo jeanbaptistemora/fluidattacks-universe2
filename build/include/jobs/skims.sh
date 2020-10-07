@@ -55,6 +55,24 @@ function job_skims_dependencies_unpack {
   helper_skims_dependencies_unpack
 }
 
+function job_skims_benchmark_owasp {
+  local benchmark_remote_repo='https://github.com/OWASP/Benchmark.git'
+  local benchmark_local_repo="${STARTDIR}/../owasp_benchmark"
+  export EXPECTED_RESULTS_CSV="${benchmark_local_repo}/expectedresults-1.2.csv"
+
+      echo '[INFO] Setting up OWASP Benchmark repository' \
+  &&  helper_use_repo "${benchmark_remote_repo}" "${benchmark_local_repo}" \
+  &&  popd \
+  &&  helper_skims_compile_parsers \
+  &&  helper_skims_install_dependencies \
+  &&  pushd skims \
+    &&  echo '[INFO] Computing score...' \
+    &&  poetry run skims test/data/config/owasp_benchmark.yaml \
+          | poetry run python3 skims/benchmark/__init__.py \
+  &&  popd \
+  ||  return 1
+}
+
 function job_skims_process_group {
   local group="${1}"
 

@@ -59,6 +59,26 @@ function helper_use_regular_workdir {
   ||  return 1
 }
 
+function helper_use_repo {
+  local source="${1}"
+  local target="${2}"
+
+  if test -e "${target}"
+  then
+        echo "[INFO] Updating local repository copy at: ${target}" \
+    &&  pushd "${target}" \
+      &&  git remote set-url origin "${source}" \
+      &&  git fetch \
+      &&  git reset --hard HEAD \
+    ||  return 1
+  else
+        echo "[INFO] Creating local repository copy at: ${target}" \
+    &&  git clone --depth 1 --single-branch "${source}" "${target}" \
+    &&  pushd "${target}" \
+    ||  return 1
+  fi
+}
+
 function helper_use_services {
   export STARTDIR
   export GITLAB_API_TOKEN
@@ -66,20 +86,7 @@ function helper_use_services {
   local source="https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git"
   local target="${STARTDIR}/../services"
 
-  if test -e "${target}"
-  then
-        echo "[INFO] Updating local services copy at: ${target}" \
-    &&  pushd "${target}" \
-      &&  git remote set-url origin "${source}" \
-      &&  git fetch \
-      &&  git reset --hard HEAD \
-    ||  return 1
-  else
-        echo "[INFO] Creating local services copy at: ${target}" \
-    &&  git clone --depth 1 --single-branch "${source}" "${target}" \
-    &&  pushd "${target}" \
-    ||  return 1
-  fi
+  helper_use_repo "${source}" "${target}"
 }
 
 function helper_list_services_groups {
