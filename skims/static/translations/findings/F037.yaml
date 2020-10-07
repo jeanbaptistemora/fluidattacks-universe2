@@ -1,0 +1,30 @@
+utils.model.finding.enum.f037.description:
+  en: >
+    The system exposes technical information about the system to users who are
+    not explicitly authorized to access that information.
+  es: >
+    El sistema expone información técnica del sistema a usuarios que no están
+    explícitamente autorizados para tener acceso a esa información.
+utils.model.finding.enum.f037.impact:
+  en: Present technical information of the system.
+  es: Exponer información técnica del sistema.
+utils.model.finding.enum.f037.recommendation:
+  en: >
+    The application must safely report all possible events that may occur,
+    it must not provide technical or sensitive information to unauthorized
+    users, as they could take advantage of it to expand knowledge of the
+    attack surface.
+  es: >
+    La aplicación debe informar de forma segura todos los posibles eventos que
+    puedan ocurrir, no debe proporcionar información técnica ni sensible a
+    usuarios no autorizados, ya que podrían aprovecharla para ampliar el
+    conocimiento de la superficie de ataque.
+utils.model.finding.enum.f037.requirements:
+  en: R077. Avoid disclosing technical information.
+  es: R223. Evite revelar información técnica.
+utils.model.finding.enum.f037.threat:
+  en: Autenticated attacker from the Internet.
+  es: Atacante autenticado desde Internet.
+utils.model.finding.enum.f037.title:
+  en: FIN.H.037. Technical information leak
+  es: FIN.H.037. Fuga de información técnica
