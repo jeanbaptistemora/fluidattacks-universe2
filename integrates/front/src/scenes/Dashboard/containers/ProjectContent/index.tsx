@@ -13,6 +13,7 @@ import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView
 import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView/index";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
 import { default as globalStyle } from "styles/global.css";
+import { StickyContainer, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 import { translate } from "utils/translations/translate";
@@ -26,8 +27,8 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              <div className={globalStyle.stickyContainer}>
-                <ul className={globalStyle.tabsContainer}>
+              <StickyContainer>
+                <TabsContainer>
                   <ContentTab
                     icon="icon pe-7s-graph3"
                     id="analyticsTab"
@@ -100,8 +101,8 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     title={translate.t("group.tabs.resources.text")}
                     tooltip={translate.t("group.tabs.resources.tooltip")}
                   />
-                </ul>
-              </div>
+                </TabsContainer>
+              </StickyContainer>
 
               <div className={globalStyle.tabContent}>
                 <Switch>

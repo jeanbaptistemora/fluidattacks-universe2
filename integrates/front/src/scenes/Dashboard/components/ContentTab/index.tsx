@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Badge, IBadgeProps } from "components/Badge";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
+import { Tab } from "styles/styledComponents";
 
 interface IContentTabProps {
   icon: string;
@@ -25,7 +26,7 @@ const contentTab: React.FC<IContentTabProps> = (
 
   return (
     <TooltipWrapper message={tooltip}>
-      <li id={id} className={style.tab}>
+      <Tab id={id}>
         <NavLink activeClassName={style.active} to={props.link}>
           <i className={icon} />
           &nbsp;{title}
@@ -33,7 +34,7 @@ const contentTab: React.FC<IContentTabProps> = (
             <Badge {...plus.config}>pro</Badge>
           ) : undefined}
         </NavLink>
-      </li>
+      </Tab>
     </TooltipWrapper>
   );
 };

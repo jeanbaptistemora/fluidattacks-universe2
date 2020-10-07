@@ -36,6 +36,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "scenes/Dashboard/conta
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
+import { StickyContainerFinding, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
@@ -227,14 +228,14 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                 </Col>
               </Row>
               <hr />
-              <div className={style.stickyContainer}>
+              <StickyContainerFinding>
                 <FindingHeader
                   openVulns={headerData.finding.openVulns}
                   reportDate={hasTracking ? headerData.finding.tracking[0].date.split(" ")[0] : "-"}
                   severity={headerData.finding.severityScore}
                   status={headerData.finding.state}
                 />
-                <ul className={style.tabsContainer}>
+                <TabsContainer>
                   <ContentTab
                     icon="icon pe-7s-note"
                     id="infoItem"
@@ -297,8 +298,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       tooltip={translate.t("search_findings.tab_observations.tooltip")}
                     />
                   </Can>
-                </ul>
-              </div>
+                </TabsContainer>
+              </StickyContainerFinding>
               <div className={style.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/description`} component={DescriptionView} exact={true} />

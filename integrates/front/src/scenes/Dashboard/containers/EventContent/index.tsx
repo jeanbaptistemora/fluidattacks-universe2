@@ -18,6 +18,7 @@ import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
+import { Tab, TabsContainer } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -48,26 +49,26 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
                 return <EventHeader {...data.event} />;
               }}
             </Query>
-            <ul className={style.tabsContainer}>
-              <li id="resourcesTab" className={style.tab}>
+            <TabsContainer>
+              <Tab id="resourcesTab">
                 <NavLink activeClassName={style.active} to={`${props.match.url}/description`}>
                   <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.description")}
                 </NavLink>
-              </li>
-              <li id="evidenceTab" className={style.tab}>
+              </Tab>
+              <Tab id="evidenceTab">
                 <NavLink activeClassName={style.active} to={`${props.match.url}/evidence`}>
                   <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.evidence")}
                 </NavLink>
-              </li>
-              <li id="commentsTab" className={style.tab}>
+              </Tab>
+              <Tab id="commentsTab">
                 <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
                   <i className="icon pe-7s-comment" />
                   &nbsp;{translate.t("search_findings.tab_events.comments")}
                 </NavLink>
-              </li>
-            </ul>
+              </Tab>
+            </TabsContainer>
             <div className={style.tabContent}>
               <Switch>
                 <Route path={`${props.match.path}/description`} component={EventDescriptionView} exact={true} />

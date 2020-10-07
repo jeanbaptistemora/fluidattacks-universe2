@@ -16,6 +16,7 @@ import { OrganizationPortfolios } from "scenes/Dashboard/containers/Organization
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
 import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
 import { default as globalStyle } from "styles/global.css";
+import { StickyContainerOrg, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -96,8 +97,8 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
       <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
-            <div className={globalStyle.stickyContainer}>
-              <ul className={globalStyle.tabsContainer}>
+            <StickyContainerOrg>
+              <TabsContainer>
                 <ContentTab
                   icon="icon pe-7s-graph3"
                   id="analyticsTab"
@@ -142,8 +143,8 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
-              </ul>
-            </div>
+              </TabsContainer>
+            </StickyContainerOrg>
             <div className={globalStyle.tabContent}>
               <Switch>
                 <Route path={`${path}/analytics`} exact={true}>
