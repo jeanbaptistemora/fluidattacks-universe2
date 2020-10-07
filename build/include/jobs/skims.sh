@@ -2,6 +2,7 @@
 
 declare -Arx SKIMS_GLOBAL_PKGS=(
   [aws]=skims/aws
+  [benchmark]=skims/benchmark
   [cli]=skims/cli
   [config]=skims/config
   [core]=skims/core
