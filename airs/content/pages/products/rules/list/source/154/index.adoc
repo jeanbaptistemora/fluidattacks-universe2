@@ -42,6 +42,10 @@ An attacker modifies a technology, product, or component during a stage in its
 manufacture for the purpose of carrying out an attack against some entity
 involved in the supply chain lifecycle.
 
+. [[r4]] link:http://capec.mitre.org/data/definitions/554.html[CAPEC-554: Functionality Bypass].
+An adversary attacks a system by bypassing some or all functionality intended
+to protect it.
+
 . [[r4]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
 A trapdoor is a hidden piece of code that responds to a special input,
 allowing its user access to resources without passing through the normal

@@ -42,6 +42,11 @@ Alternatively, an adversary may intercept a message from a legitimate sender
 and attempt to make it look like the message comes from them without changing
 its content.
 
+. [[r3]] link:http://capec.mitre.org/data/definitions/560.html[CAPEC-560: Use of Known Domain Credentials].
+An adversary guesses or obtains (i.e. steals or purchases) legitimate
+credentials (e.g. userID/password) to achieve authentication and to perform
+authorized actions under the guise of an authenticated user or service.
+
 . [[r3]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.

@@ -107,6 +107,11 @@ An adversary modifies content to make it contain something other than what the
 original content producer intended while keeping the apparent source of the
 content unchanged.
 
+. [[r6]] link:http://capec.mitre.org/data/definitions/594.html[CAPEC-594: Traffic Injection].
+An adversary injects traffic into the target's network connection.
+The adversary is therefore able to degrade or disrupt the connection,
+and potentially modify the content.
+
 . [[r6]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
 The product exposes sensitive information to an actor that is not explicitly
 authorized to have access to that information.

@@ -47,6 +47,10 @@ An adversary looking to execute a command of their choosing,
 injects new items into an existing command thus modifying interpretation away
 from what was intended.
 
+. [[r4]] link:http://capec.mitre.org/data/definitions/586.html[CAPEC-586: Object Injection].
+An adversary attempts to exploit an application by injecting additional,
+malicious content during its processing of serialized objects.
+
 . [[r4]] link:https://cwe.mitre.org/data/definitions/94.html[CWE-94: Code Injection].
 The software constructs all or part of a code segment using
 externally-influenced input from an upstream component,

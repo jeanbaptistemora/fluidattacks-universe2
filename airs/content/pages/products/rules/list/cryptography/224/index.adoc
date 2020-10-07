@@ -71,6 +71,11 @@ This type of attack targets invalid assumptions that may be inherent in
 implementers of the protocol, incorrect implementations of the protocol,
 or vulnerabilities in the protocol itself.
 
+. [[r6]] link:http://capec.mitre.org/data/definitions/594.html[CAPEC-594: Traffic Injection].
+An adversary injects traffic into the target's network connection.
+The adversary is therefore able to degrade or disrupt the connection,
+and potentially modify the content.
+
 . [[r6]] link:https://cwe.mitre.org/data/definitions/327.html[CWE-327: Use of a Broken or Risky Cryptographic Algorithm]
 The use of a broken or risky cryptographic algorithm is an unnecessary risk
 that may result in the exposure of sensitive information.
