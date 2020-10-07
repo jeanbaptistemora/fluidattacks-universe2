@@ -467,29 +467,30 @@ function job_serves_rotate_keys_user_provision_integrates {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_check_last_job_succeeded \
-        "${gitlab_repo_id}" \
-        'integrates_deploy_back_production' \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_check_last_job_succeeded \
+          "${gitlab_repo_id}" \
+          'integrates_deploy_back_production' \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
+    &&  helper_serves_deploy_integrates \
   &&  popd \
   ||  return 1
 }
