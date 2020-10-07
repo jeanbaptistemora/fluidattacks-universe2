@@ -3,10 +3,8 @@ import pytest
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 
+from backend.utils import datetime as datetime_utils
 from test_async.functional_test.analyst.utils import get_result
-from backend.utils import (
-    datetime as datetime_utils,
-)
 
 pytestmark = pytest.mark.asyncio
 

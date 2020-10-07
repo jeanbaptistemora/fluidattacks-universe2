@@ -1,17 +1,16 @@
 import pytest
-import pytz
-from datetime import datetime
 
+from backend.utils import datetime as datetime_utils
 from test_async.functional_test.customer.utils import get_result
-
-from backend_new import settings
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_finding():
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now(),
+        date_format='%Y-%m-%d'
+    )
     finding_id = '463558592'
     expected_output =  {
         'id': finding_id,
@@ -277,6 +276,7 @@ async def test_finding():
     assert result['data']['finding']['inputsVulns'] == expected_output.get('inputs_vulns')
     assert result['data']['finding']['linesVulns'] == expected_output.get('lines_vulns')
     assert result['data']['finding']['pendingVulns'] == expected_output.get('pending_vulns')
+
     consult_content = "This is a comenting test"
     query = f'''
         mutation {{
@@ -296,6 +296,7 @@ async def test_finding():
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
+
     query = f'''
         mutation {{
             updateClientDescription (
@@ -314,6 +315,7 @@ async def test_finding():
     assert 'errors' not in result
     assert 'success' in result['data']['updateClientDescription']
     assert result['data']['updateClientDescription']['success']
+
     expected_output =  {
         'consulting': {
             'content': consult_content

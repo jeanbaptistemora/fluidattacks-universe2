@@ -20,6 +20,7 @@ async def test_forces():
     assert 'errors' not in result
     assert result['data']['updateForcesAccessToken']['success']
     assert 'sessionJwt' in result['data']['updateForcesAccessToken']
+
     query = f"""
         query {{
             forcesExecutions(
@@ -148,6 +149,7 @@ async def test_forces():
         "numOfVulnerabilitiesInIntegratesExploits": 0,
         "numOfVulnerabilitiesInAcceptedExploits": 5
     }
+
     query = f"""
         query {{
             forcesExecutionsNew(
@@ -171,6 +173,7 @@ async def test_forces():
     assert result['data']['forcesExecutionsNew']['fromDate'] == '2020-02-01 00:00:00+00:00'
     assert result['data']['forcesExecutionsNew']['toDate'] == '2020-02-28 23:59:59+00:00'
     assert result['data']['forcesExecutionsNew']['executions'] == []
+
     execution_id = '08c1e735a73243f2ab1ee0757041f80e'
     query = f"""
         query {{

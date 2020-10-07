@@ -33,6 +33,7 @@ async def test_user():
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
     assert  result['data']['grantStakeholderAccess']['grantedStakeholder'] == {'email': stakeholder}
+
     query = f'''
         query {{
             stakeholder(entity: PROJECT,
@@ -61,6 +62,7 @@ async def test_user():
     assert  result['data']['stakeholder']['firstLogin'] == ''
     assert  result['data']['stakeholder']['lastLogin'] == ''
     assert  result['data']['stakeholder']['projects'] == [{'name': group_name}]
+
     phone_number = '17364735'
     responsibility = 'edited'
     role = 'CUSTOMERADMIN'
@@ -81,6 +83,7 @@ async def test_user():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['editStakeholder']
+
     query = f'''
         query {{
             stakeholder(entity: PROJECT,
@@ -109,6 +112,7 @@ async def test_user():
     assert  result['data']['stakeholder']['firstLogin'] == ''
     assert  result['data']['stakeholder']['lastLogin'] == ''
     assert  result['data']['stakeholder']['projects'] == [{'name': group_name}]
+
     query = f'''
         mutation {{
             removeStakeholderAccess (
@@ -126,6 +130,7 @@ async def test_user():
     assert 'errors' not in result
     assert result['data']['removeStakeholderAccess']
     assert result['data']['removeStakeholderAccess']['removedEmail'] == stakeholder
+
     query = f'''
         query {{
             stakeholder(entity: PROJECT,

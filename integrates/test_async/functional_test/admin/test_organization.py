@@ -35,6 +35,7 @@ async def test_organization():
     exe = InvalidOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
     stakeholder = 'org_testuser@gmail.com'
     stakeholder_role = 'CUSTOMER'
     query = f'''
@@ -64,6 +65,7 @@ async def test_organization():
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
     query = f'''
         mutation {{
             editStakeholderOrganization(
@@ -85,6 +87,7 @@ async def test_organization():
     assert 'errors' not in result
     assert result['data']['editStakeholderOrganization']['success']
     assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
+
     query = f'''
         query {{
             organizationId(organizationName: "{org_name}") {{
@@ -98,7 +101,8 @@ async def test_organization():
     assert result['data']['organizationId']['id'] == org_id
     result = await get_result(data, stakeholder=stakeholder)
     assert 'errors' not in result
-    assert result['data']['organizationId']['id'] == org_id    
+    assert result['data']['organizationId']['id'] == org_id
+
     query = f'''
         mutation {{
             updateOrganizationPolicies(
@@ -129,6 +133,7 @@ async def test_organization():
         'integratesmanager@gmail.com',
         stakeholder,
     ]
+
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{
@@ -173,6 +178,7 @@ async def test_organization():
     result = await get_result(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
     query = f'''
         mutation {{
             removeStakeholderOrganizationAccess(
@@ -187,6 +193,7 @@ async def test_organization():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['removeStakeholderOrganizationAccess']['success']
+
     query = f'''
         query {{
             organizationId(organizationName: "{org_name}") {{
@@ -199,6 +206,7 @@ async def test_organization():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
     result['data']['organizationId'] == None
+
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{

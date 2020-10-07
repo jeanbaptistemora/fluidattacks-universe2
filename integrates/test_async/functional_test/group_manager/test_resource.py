@@ -1,22 +1,25 @@
 import json
 import os
 import pytest
-import pytz
-from datetime import datetime
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from urllib.parse import quote
 
-from backend_new import settings
+from backend.utils import datetime as datetime_utils
 from test_async.functional_test.group_manager.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_resource():
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
-    state_today = datetime.now(tz=tzn).strftime('%Y/%m/%d')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now(),
+        date_format='%Y-%m-%d'
+    )
+    state_today = datetime_utils.get_as_str(
+        datetime_utils.get_now(),
+        date_format='%Y/%m/%d'
+    )
     group_name = 'unittesting'
     url_env = 'https://url.env3.com'
     query = f'''mutation {{
@@ -31,6 +34,7 @@ async def test_resource():
     assert 'errors' not in result
     assert 'success' in result['data']['addEnvironments']
     assert result['data']['addEnvironments']['success']
+
     url_repo = 'https://gitlab.com/fluidattacks/url_repo3.git'
     query = f'''mutation {{
         addRepositories(projectName: "{group_name}", repos: [
@@ -48,6 +52,7 @@ async def test_resource():
     assert 'errors' not in result
     assert 'success' in result['data']['addRepositories']
     assert result['data']['addRepositories']['success']
+
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
@@ -81,6 +86,7 @@ async def test_resource():
     assert 'errors' not in result
     assert 'success' in result['data']['addFiles']
     assert result['data']['addFiles']['success']
+
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
@@ -108,6 +114,7 @@ async def test_resource():
     file = [file for file in files if file['uploadDate'][:-6] == today][0]
     assert file['uploader'] == 'unittest2@fluidattacks.com'
     file_name = file['fileName']
+
     query = f'''
         mutation {{
             downloadFile (
@@ -124,6 +131,7 @@ async def test_resource():
     assert 'success' in result['data']['downloadFile']
     assert result['data']['downloadFile']['success']
     assert 'url' in result['data']['downloadFile']
+
     query = f'''mutation {{
         updateEnvironment(projectName: "{group_name}", state: INACTIVE, env: {{
             urlEnv: "{url_env}"
@@ -136,6 +144,7 @@ async def test_resource():
     assert 'errors' not in result
     assert 'success' in result['data']['updateEnvironment']
     assert result['data']['updateEnvironment']['success']
+
     query = f'''mutation {{
         updateRepository(projectName: "{group_name}", state: INACTIVE, repo: {{
             urlRepo: "{url_repo}",
@@ -149,6 +158,7 @@ async def test_resource():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['updateRepository']
+
     query = '''
         mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
@@ -170,6 +180,7 @@ async def test_resource():
     assert 'errors' not in result
     assert 'success' in result['data']['removeFiles']
     assert result['data']['removeFiles']['success']
+
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName

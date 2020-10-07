@@ -1,7 +1,6 @@
 import json
 import pytest
 
-from backend.domain.available_name import get_name
 from backend.exceptions import NotPendingDeletion
 from test_async.functional_test.admin.utils import get_result
 
@@ -9,8 +8,19 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_project():
+    query = '''{
+        internalNames(entity: GROUP){
+            name
+            __typename
+        }
+    }'''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'internalNames' in result['data']
+    group_name = result['data']['internalNames']['name']
+
     org_name = 'okada'
-    group_name = await get_name('group')
     query = f'''
         mutation {{
             createProject(
@@ -30,6 +40,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
+
     role = 'ADMIN'
     query = f'''
         mutation {{
@@ -48,6 +59,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['editStakeholder']
+
     query = f'''
         mutation {{
             addProjectConsult(
@@ -65,6 +77,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
+
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
@@ -83,6 +96,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -153,6 +167,7 @@ async def test_project():
     assert result['data']['project']['drafts'] == []
     assert result['data']['project']['events'] == []
     assert result['data']['project']['stakeholders'] == [{'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'}]
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -166,6 +181,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['project']['findings'] == []
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -179,6 +195,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['project']['findings'] == []
+
     query = f'''
         query {{
             projects
@@ -188,6 +205,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert group_name in result['data']['projects']
+
     query = f'''
         mutation {{
             rejectRemoveProject(projectName: "{group_name}") {{
@@ -199,6 +217,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' in result
     assert result['errors'][0]['message'] == str(NotPendingDeletion())
+
     query = f'''
         mutation {{
             removeTag (
@@ -214,6 +233,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -225,6 +245,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
+
     query = f"""
         mutation {{
             editGroup(
@@ -245,6 +266,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['editGroup']
     assert result['data']['editGroup']['success']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{

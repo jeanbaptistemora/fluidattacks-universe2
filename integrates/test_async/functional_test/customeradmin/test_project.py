@@ -30,12 +30,13 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
+
     role = 'CUSTOMERADMIN'
     query = f'''
         mutation {{
             grantStakeholderAccess (
                 email: "integratesuser@gmail.com",
-                phoneNumber: "-"
+                phoneNumber: "-",
                 projectName: "{group_name}",
                 responsibility: "Customer Admin",
                 role: {role}
@@ -51,6 +52,7 @@ async def test_project():
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
+
     query = f'''
         mutation {{
             addProjectConsult(
@@ -68,6 +70,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
+
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
@@ -86,6 +89,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -180,6 +184,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' in result
     assert result['errors'][0]['message'] == str(NotPendingDeletion())
+
     query = f'''
         mutation {{
             removeTag (
@@ -195,6 +200,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -206,6 +212,7 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
+
     query = f"""
         mutation {{
             editGroup(
@@ -226,6 +233,7 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['editGroup']
     assert result['data']['editGroup']['success']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{

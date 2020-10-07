@@ -40,6 +40,7 @@ async def test_organization():
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
     phone_number = '9999999999'
     query = f'''
         mutation {{
@@ -62,6 +63,7 @@ async def test_organization():
     assert 'errors' not in result
     assert result['data']['editStakeholderOrganization']['success']
     assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
+
     query = f'''
         query {{
             stakeholder(entity: ORGANIZATION,
@@ -81,6 +83,7 @@ async def test_organization():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['stakeholder']['phoneNumber'] == phone_number
+
     query = f'''
         mutation {{
             updateOrganizationPolicies(
@@ -100,6 +103,7 @@ async def test_organization():
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{
@@ -135,6 +139,7 @@ async def test_organization():
     result = await get_result(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
+
     query = f'''
         mutation {{
             removeStakeholderOrganizationAccess(
@@ -149,6 +154,7 @@ async def test_organization():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['removeStakeholderOrganizationAccess']['success']
+
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{

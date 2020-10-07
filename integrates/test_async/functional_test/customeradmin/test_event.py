@@ -62,6 +62,7 @@ async def test_event():
     ]
     assert result['data']['event']['projectName'] == group_name
     assert result['data']['event']['subscription'] == 'CONTINUOUS'
+
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -76,6 +77,7 @@ async def test_event():
     event = [event for event in events if event['id'] == event_id][0]
     assert event['projectName'] == group_name
     assert len(event['detail']) >= 1
+
     query = f'''
         mutation {{
             addEventConsult(eventId: "{event_id}",
@@ -92,6 +94,7 @@ async def test_event():
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
     assert 'commentId' in result['data']['addEventConsult']
+
     query = f'''
         mutation {{
             downloadEventFile(
@@ -109,6 +112,7 @@ async def test_event():
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
     assert 'url' in result['data']['downloadEventFile']
+
     query = f'''{{
         event(identifier: "{event_id}"){{
             consulting {{

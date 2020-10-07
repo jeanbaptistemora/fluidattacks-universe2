@@ -1,16 +1,16 @@
 import pytest
-import pytz
-from datetime import datetime
 
+from backend.utils import datetime as datetime_utils
 from test_async.functional_test.group_manager.utils import get_result
-from backend_new import settings
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_event():
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now(),
+        date_format='%Y-%m-%d'
+    )
     group_name = 'unittesting'
     event_detail = 'group_manager create new event'
     event_date = '2020-01-31 19:00:00'
@@ -36,6 +36,7 @@ async def test_event():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['createEvent']
+
     query = f'''
         query {{
             project(projectName: "{group_name}"){{
@@ -54,6 +55,7 @@ async def test_event():
     events = result['data']['project']['events']
     event = [event for event in events if event['detail'] == event_detail][0]
     event_id = event['id']
+
     counsult_content = 'Test content of new event'
     query = f'''
         mutation {{
@@ -70,6 +72,7 @@ async def test_event():
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
+
     query = f'''{{
         event(identifier: "{event_id}"){{
             client
@@ -128,6 +131,7 @@ async def test_event():
 
     assert result['data']['event']['projectName'] == group_name
     assert result['data']['event']['subscription'] == 'CONTINUOUS'
+
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
@@ -157,6 +161,7 @@ async def test_event():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['solveEvent']
+
     query = f'''
         mutation {{
             downloadEventFile(
@@ -174,6 +179,7 @@ async def test_event():
     assert 'success' in result['data']['downloadEventFile']
     assert result['data']['downloadEventFile']
     assert 'url' in result['data']['downloadEventFile']
+
     query = f'''{{
         event(identifier: "{event_id}"){{
             eventStatus
@@ -184,6 +190,7 @@ async def test_event():
     assert 'errors' not in result
     assert 'event' in result['data']
     assert result['data']['event']['eventStatus'] == 'SOLVED'
+
     query = f'''{{
         events(projectName: "{group_name}"){{
             id
