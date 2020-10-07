@@ -1739,7 +1739,7 @@ export const enTranslations: ResourceKey = {
         text: "Remove",
         tooltip: "Remove an user from the group, first select one",
       },
-      success: " now has access to this group.",
+      success: ", an email will be sent to confirm the registration.",
       success_admin: "Stakeholder information updated.",
       success_delete: " was removed from this group.",
       textbox:

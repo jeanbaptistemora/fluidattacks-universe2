@@ -2,7 +2,6 @@
 import asyncio
 import logging
 import sys
-import json
 from typing import (
     cast,
     Awaitable,
@@ -57,33 +56,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def complete_user_register(urltoken: str) -> bool:
-    info_json = await util.get_token(f'fi_urltoken:{urltoken}')
-    info = json.loads(info_json)
-
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.append(
-        project_domain.add_access(
-            info.get('email'),
-            info.get('group'),
-            'responsibility',
-            info.get('responsibility')
-        )
-    )
-
-    coroutines.append(
-        user_domain.update_project_access(
-            info.get('email'),
-            info.get('group'),
-            True
-        )
-    )
-
-    await util.remove_token(f'fi_urltoken:{urltoken}')
-
-    return all(await aio.materialize(coroutines))
-
-
 async def _give_user_access(
         email: str,
         group: str,
@@ -91,26 +63,20 @@ async def _give_user_access(
         phone_number: str) -> bool:
     success = False
     coroutines: List[Awaitable[bool]] = []
-    coroutines.append(
-        project_domain.add_access(
-            email, group, 'responsibility', responsibility
-        )
-    )
 
     if phone_number and phone_number[1:].isdigit():
         coroutines.append(
             user_domain.add_phone_to_user(email, phone_number)
         )
 
-    coroutines.append(
-        user_domain.update_project_access(email, group, True)
-    )
-
     if group and all(await aio.materialize(coroutines)):
+        urltoken = await util.create_confirm_access_token(
+            email, group, responsibility
+        )
         description = await project_domain.get_description(
             group.lower()
         )
-        project_url = f'{BASE_URL}/groups/{group.lower()}/indicators'
+        project_url = f'{BASE_URL}/confirm_access/{urltoken}'
         mail_to = [email]
         context: MailContentType = {
             'admin': email,

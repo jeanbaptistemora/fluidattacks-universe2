@@ -1,9 +1,10 @@
 # Standard Libraries
 import re
 from datetime import datetime
-from typing import Any, List, Union, cast
+from typing import Any, List, Union, cast, Awaitable
 
 # Third libraries
+import json
 import aioboto3
 from jose import jwt
 
@@ -276,3 +277,30 @@ async def get_by_email(email: str) -> UserType:
 
 async def get_organizations(email: str) -> List[str]:
     return await org_dal.get_ids_for_user(email)
+
+
+async def complete_user_register(urltoken: str) -> bool:
+    info_json = await util.get_token(f'fi_urltoken:{urltoken}')
+    info = json.loads(info_json)
+
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.append(
+        project_dal.update_access(
+            info.get('user_email'),
+            info.get('group'),
+            'responsibility',
+            info.get('responsibility')
+        )
+    )
+
+    coroutines.append(
+        update_project_access(
+            info.get('user_email'),
+            info.get('group'),
+            True
+        )
+    )
+
+    await util.remove_token(f'fi_urltoken:{urltoken}')
+
+    return all(await aio.materialize(coroutines))

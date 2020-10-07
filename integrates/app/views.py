@@ -32,14 +32,14 @@ from magic import Magic
 
 # Local libraries
 from backend import authz, util
-from backend.api.resolvers import user as user_resolver
 from backend.dal.helpers.s3 import (
     download_file,
     list_files,
 )
 from backend.domain import (
     analytics as analytics_domain,
-    organization as org_domain
+    organization as org_domain,
+    user as user_domain,
 )
 from backend.decorators import (
     authenticate,
@@ -406,7 +406,7 @@ async def confirm_access(
     token_exists = await util.token_exists(f'fi_urltoken:{urltoken}')
 
     if token_exists:
-        await user_resolver.complete_user_register(urltoken)
+        await user_domain.complete_user_register(urltoken)
     else:
         return redirect('/error401')
 

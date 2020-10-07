@@ -9,7 +9,15 @@ from backend.api.dataloaders.single_vulnerability import (
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
+from backend.dal.helpers.redis import AREDIS_CLIENT
+from backend.domain import user as user_domain
 from test_async.utils import create_dummy_session
+
+
+async def complete_all_user_access():
+    prefix = 'fi_urltoken:'
+    for urltoken in await AREDIS_CLIENT.keys(pattern=f'{prefix}*'):
+        await user_domain.complete_user_register(urltoken[len(prefix):])
 
 
 async def get_graphql_result(data, stakeholder):
@@ -24,4 +32,5 @@ async def get_graphql_result(data, stakeholder):
         'vulnerability': VulnerabilityLoader()
     }
     _, result = await graphql(SCHEMA, data, context_value=request)
+    await complete_all_user_access()
     return result
