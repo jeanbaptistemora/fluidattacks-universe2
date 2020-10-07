@@ -314,8 +314,8 @@ class ProjectTest(TestCase):
             'unittest@fluidattacks.com',
             'unittest2@fluidattacks.com',
             'integratescustomer@gmail.com',
-            'integratesanalyst@gmail.com',
             'integratesuser@gmail.com',
+            'integratesanalyst@fluidattacks.com',
             'continuoushacking@gmail.com',
             'continuoushack2@gmail.com'
         ]
@@ -328,7 +328,7 @@ class ProjectTest(TestCase):
         assert expected_output == projects
 
     async def test_get_closers(self):
-        await get_closers('oneshottest') == 'integratesanalyst@gmail.com'
+        await get_closers('oneshottest') == 'integratesanalyst@fluidattacks.com'
 
     @freeze_time("2020-04-12")
     async def test_get_mean_remediate_severity(self):

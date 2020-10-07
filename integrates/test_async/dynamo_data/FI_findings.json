@@ -1009,7 +1009,7 @@
                     "S": "VERIFIED"
                   },
                   "user": {
-                    "S": "integratesanalyst@gmail.com"
+                    "S": "integratesanalyst@fluidattacks.com"
                   },
                   "comment": {
                     "N": "1558048727111"
@@ -1807,7 +1807,7 @@
                     "S": "2018-12-17"
                   },
                   "analyst": {
-                    "S": "integratesanalyst@gmail.com"
+                    "S": "integratesanalyst@fluidattacks.com"
                   },
                   "state": {
                     "S": "APPROVED"

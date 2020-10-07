@@ -369,7 +369,7 @@ async def test_finding():
     assert result['data']['finding']['currentState'] == 'APPROVED'
     assert result['data']['finding']['newRemediated'] == False
     assert result['data']['finding']['verified'] == True
-    assert result['data']['finding']['analyst'] == 'integratesanalyst@gmail.com'
+    assert result['data']['finding']['analyst'] == 'integratesanalyst@fluidattacks.com'
     assert result['data']['finding']['observations'] == []
     historic_state = result['data']['finding']['historicState']
     for index in range(len(historic_state)):
@@ -378,17 +378,17 @@ async def test_finding():
         )
     assert historic_state == [
         {
-            'analyst': 'integratesanalyst@gmail.com',
+            'analyst': 'integratesanalyst@fluidattacks.com',
             'date': today,
             'state': 'CREATED'
         },
         {
-            'analyst': 'integratesanalyst@gmail.com',
+            'analyst': 'integratesanalyst@fluidattacks.com',
             'date': today,
             'state': 'SUBMITTED'
         },
         {
-            'analyst': 'integratesanalyst@gmail.com',
+            'analyst': 'integratesanalyst@fluidattacks.com',
             'date': today,
             'state': 'REJECTED'
         },
@@ -547,7 +547,7 @@ async def test_finding():
     assert result['data']['finding']['observations'] == [
         {
             'content': observation_content,
-            'email': 'integratesanalyst@gmail.com'
+            'email': 'integratesanalyst@fluidattacks.com'
         }
     ]
     assert result['data']['finding']['consulting'] == [{'content': consult_content}]

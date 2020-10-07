@@ -36,7 +36,7 @@ async def test_get_cached_group_service_attributes_policies():
 
 async def test_get_group_level_role():
     assert await get_group_level_role('continuoushacking@gmail.com', 'unittesting') == 'customeradmin'
-    assert await get_group_level_role('integratesanalyst@gmail.com', 'unittesting') == 'analyst'
+    assert await get_group_level_role('integratesanalyst@fluidattacks.com', 'unittesting') == 'analyst'
     assert await get_group_level_role('integratesuser@gmail.com', 'unittesting') == 'customeradmin'
     assert await get_group_level_role('unittest@fluidattacks.com', 'any-group') == 'admin'
     assert not await get_group_level_role('asdfasdfasdfasdf@gmail.com', 'unittesting')
@@ -44,7 +44,7 @@ async def test_get_group_level_role():
 
 async def test_get_user_level_role():
     assert await get_user_level_role('continuoushacking@gmail.com') == 'internal_manager'
-    assert await get_user_level_role('integratesanalyst@gmail.com') == 'analyst'
+    assert await get_user_level_role('integratesanalyst@fluidattacks.com') == 'analyst'
     assert await get_user_level_role('integratesuser@gmail.com') == 'customeradmin'
     assert await get_user_level_role('unittest@fluidattacks.com') == 'admin'
     assert not await get_user_level_role('asdfasdfasdfasdf@gmail.com')

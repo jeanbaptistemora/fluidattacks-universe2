@@ -54,7 +54,7 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "user"},
-          "subject": {"S": "integratesanalyst@gmail.com"},
+          "subject": {"S": "integratesanalyst@fluidattacks.com"},
           "object": {"S": "self"},
           "role": {"S": "analyst"}
         }
@@ -144,7 +144,7 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "group"},
-          "subject": {"S": "integratesanalyst@gmail.com"},
+          "subject": {"S": "integratesanalyst@fluidattacks.com"},
           "object": {"S": "unittesting"},
           "role": {"S": "analyst"}
         }
@@ -154,7 +154,7 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "group"},
-          "subject": {"S": "integratesanalyst@gmail.com"},
+          "subject": {"S": "integratesanalyst@fluidattacks.com"},
           "object": {"S": "oneshottest"},
           "role": {"S": "closer"}
         }

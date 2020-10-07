@@ -144,12 +144,12 @@ async def test_event():
     )
     assert result['data']['event']['historicState'] == [
         {
-            'analyst': 'integratesanalyst@gmail.com',
+            'analyst': 'integratesanalyst@fluidattacks.com',
             'date': event_date,
             'state': 'OPEN'
         },
         {
-            'analyst': 'integratesanalyst@gmail.com',
+            'analyst': 'integratesanalyst@fluidattacks.com',
             'date': today,
             'state': 'CREATED'
         }

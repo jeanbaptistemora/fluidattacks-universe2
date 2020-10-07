@@ -190,7 +190,7 @@
                "BOOL": true
              },
              "user_email": {
-               "S": "integratesanalyst@gmail.com"
+               "S": "integratesanalyst@fluidattacks.com"
              }
            }
          }
@@ -226,7 +226,7 @@
               "BOOL": true
             },
             "user_email": {
-              "S": "integratesanalyst@gmail.com"
+              "S": "integratesanalyst@fluidattacks.com"
             }
           }
         }
@@ -244,7 +244,7 @@
                   "S" : "Continuous Testing user"
                },
                "user_email" : {
-                  "S" : "integratesanalyst@gmail.com"
+                  "S" : "integratesanalyst@fluidattacks.com"
                }
             }
          }
