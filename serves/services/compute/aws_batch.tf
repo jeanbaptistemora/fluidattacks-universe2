@@ -237,7 +237,7 @@ resource "aws_batch_job_queue" "default-uninterruptible" {
 }
 
 resource "aws_batch_job_queue" "asap-uninterruptible" {
-  # Send here short-running jobs that need to execute as soon as possible
+  # Send here long-running jobs that need to execute as soon as possible
   # Just send here jobs that really need to run for many hours, it's more expensive
   compute_environments = [
     aws_batch_compute_environment.uninterruptible.arn,

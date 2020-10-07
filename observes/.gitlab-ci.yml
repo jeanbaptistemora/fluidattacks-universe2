@@ -108,6 +108,16 @@ observes_gitlab_test:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes_code_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes_code_test:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 observes_timedoctor:
   <<: *with_nix
   tags: [autoscaling-analytics]

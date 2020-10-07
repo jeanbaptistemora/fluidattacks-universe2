@@ -389,6 +389,24 @@ function job_observes_lint_code {
   ||  return 1
 }
 
+function job_observes_code_lint {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./code/code" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_code_test {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_test_generic_package "./code" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_observes_gitlab_lint {
 
       pushd observes \
