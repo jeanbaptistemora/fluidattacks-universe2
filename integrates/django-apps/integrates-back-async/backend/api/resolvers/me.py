@@ -11,8 +11,14 @@ from ariadne import (
 from jose import jwt
 from mixpanel import Mixpanel
 from social_core.exceptions import AuthException
-from social_django.utils import load_strategy
-from social_django.utils import load_backend
+from django.core.exceptions import ImproperlyConfigured
+
+try:
+    from social_django.utils import load_strategy
+    from social_django.utils import load_backend
+except ImproperlyConfigured:
+    pass
+
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import require_login
