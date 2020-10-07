@@ -1,59 +1,42 @@
 'use strict';
-const path = require("path");
+
+const pointsToFile = uri => /\/[^/]+\.[^/]+$/.test(uri);
+const hasTrailingSlash = uri => uri.endsWith('/');
+const needsTrailingSlash = uri => !pointsToFile(uri) && !hasTrailingSlash(uri);
+
 exports.handler = (event, context, callback) => {
+    // Extract the request from the CloudFront event that is sent to Lambda@Edge
+    var request = event.Records[0].cf.request;
 
-  // Extract the request from the CloudFront event that is sent to Lambda@Edge
-  const { request } = event.Records[0].cf;
+    // Extract the URI and query string from the request
+    const olduri = request.uri;
+    const qs = request.querystring;
 
-  let plainUri = request.uri;
-
-  console.log("Request URI: ", plainUri);
-  // Extract the URI from the request,
-  // verify if the URI has an etension or an anchor and set the index.html
-  const oldPath = path.parse(plainUri);
-  let newUri;
-
-  console.log('Parsed Path: ', oldPath);
-
-  // Check if the path dict has an extension
-  if (oldPath.ext === "") {
-    // Check if the URI has an anchor
-    if (oldPath.base.includes("#")) {
-      newUri = path.join(oldPath.dir, oldPath.base.replace("#", "/index.html#"));
-        // Replace the received URI with the URI that includes the index page
-      request.uri = newUri;
-      const response = {
-        status: '301',
-        statusDescription: 'Found',
-        headers: {
-          location: [{
-            key: 'Location', value: newUri,
-          }],
-        }
-      };
-      console.log("Response: ", JSON.stringify(response));
-      callback(null, request, response);
-    } else {
-      newUri = path.join(oldPath.dir, oldPath.base, "index.html");
-      request.uri = newUri;
-      const response = {
-        status: '301',
-        statusDescription: 'Found',
-        headers: {
-          location: [{
-            key: 'Location', value: newUri,
-          }],
-        }
-      };
-      console.log("Response: ", JSON.stringify(response));
-      callback(null, request, response);
+    // If needed, redirect to the same URI with trailing slash, keeping query string
+    if (needsTrailingSlash(olduri)) {
+        return callback(null, {
+            body: '',
+            status: '301',
+            statusDescription: 'Moved Permanently',
+            headers: {
+            location: [{
+                key: 'Location',
+                value: qs ? `${olduri}/?${qs}` : `${olduri}/`,
+            }],
+            }
+        });
     }
-  } else {
-    newUri = plainUri;
-    request.uri = newUri;
-    callback(null, request);
-  }
 
-  console.log("New Request: ", JSON.stringify(request));
+    // Match any '/' that occurs at the end of a URI, replace it with a default index
+    const newuri = olduri.replace(/\/$/, '\/index.html');
+
+    // Useful for test runs
+    // console.log("Old URI: " + olduri);
+    // console.log("New URI: " + newuri);
+
+    // Replace the received URI with the URI that includes the index page
+    request.uri = newuri;
+
+    // Return to CloudFront
+    return callback(null, request);
 };
-
