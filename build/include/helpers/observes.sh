@@ -98,9 +98,9 @@ function helper_observes_dynamodb {
         --conf "${conf}" > .stream \
  &&  echo '[INFO] Running tap' \
       && tap-json \
-      --out ".singer" \
       --date-formats '%Y-%m-%d %H:%M:%S' \
       < .stream \
+      > .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \

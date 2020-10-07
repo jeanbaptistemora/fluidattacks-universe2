@@ -5,11 +5,7 @@ import re
 import os
 import sys
 import argparse
-import threading
 import contextlib
-from io import TextIOWrapper
-from multiprocessing import cpu_count
-from concurrent.futures import ThreadPoolExecutor
 
 from json import load, loads, dumps
 from json.decoder import JSONDecodeError
@@ -18,7 +14,6 @@ from typing import (
     Callable,
     List,
     Any,
-    Optional,
 )
 
 from dateutil.parser import parse as date_parser
@@ -40,7 +35,10 @@ DATE_FORMATS: List[str] = [
     "%Y-%m-%dT%H:%M:%S.%f%z",
     "%Y-%m-%dT%H:%M:%S%z",
 ]
-LOCK = threading.Lock()
+
+
+def emit(msg: str) -> None:
+    print(msg)
 
 
 def is_str(stru: STRU) -> bool:
@@ -131,6 +129,7 @@ def pt2st(ptype: str) -> JSON:
         return {"type": "string"}
     if ptype == "datetime":
         return {"type": "string", "format": "date-time"}
+
     raise Exception(f"pt2st(ptype): ptype={ptype} not matched")
 
 
@@ -266,23 +265,9 @@ def catalog() -> None:
         write(SCHEMAS_DIR, table_name, schema, dumps)
 
 
-def dump_schema(table: str, file: Optional[TextIOWrapper] = None) -> None:
-    def dump_record(precord: Any) -> None:
-        record = dumps({
-            "type": "RECORD",
-            "stream": table,
-            "record":
-            {f"{f}_{stru_type(v)}": stru_cast(v)
-             for f, v in precord.items()}
-        })
-        with LOCK:
-            if file:
-                file.write("{}\r".format(record))
-            else:
-                print(record)
-
+def dump_schema(table: str) -> None:
     pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
-    schema = dumps({
+    emit(dumps({
         "type": "SCHEMA",
         "stream": table,
         "schema": {
@@ -292,15 +277,17 @@ def dump_schema(table: str, file: Optional[TextIOWrapper] = None) -> None:
             }
         },
         "key_properties": []
-    })
-    schema = "{}\r".format(schema)
-    with LOCK:
-        if file:
-            file.write("{}".format(schema))
-        else:
-            print(schema)
-    with ThreadPoolExecutor(max_workers=cpu_count() * 4) as worker:
-        worker.map(dump_record, read(RECORDS_DIR, table, loads))
+    }))
+
+    for precord in read(RECORDS_DIR, table, loads):
+        emit(dumps({
+            "type": "RECORD",
+            "stream": table,
+            "record": {
+                f"{f}_{stru_type(v)}": stru_cast(v)
+                for f, v in precord.items()
+            },
+        }))
 
 
 def main() -> None:
@@ -318,12 +305,6 @@ def main() -> None:
         help="A string of formats separated by comma, extends RFC3339",
         default="",
         dest="date_formats")
-    parser.add_argument(
-        "--out",
-        help="Dump out to file",
-        type=argparse.FileType('a+'),
-        required=False,
-        dest="out")
     args = parser.parse_args()
 
     # some dates may come in the form of a timestamp
@@ -340,20 +321,16 @@ def main() -> None:
     # Do the heavy lifting (structura)
     prepare_env()
 
-    def structure(stream: str) -> None:
+    for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         with contextlib.suppress(JSONDecodeError):
             stream_stru = loads(stream)
             linearize(stream_stru["stream"], stream_stru["record"])
-
-    with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
-        worker.map(structure,
-                   io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"))
 
     catalog()
 
     # Parse everything to singer
     for schema in os.listdir(SCHEMAS_DIR):
-        dump_schema(schema, args.out)
+        dump_schema(schema)
 
     release_env()
 
