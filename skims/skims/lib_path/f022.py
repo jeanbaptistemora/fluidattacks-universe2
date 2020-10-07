@@ -50,6 +50,10 @@ def _java_properties_unencrypted_channel(
             if key and (
                 val.startswith('http://')
                 or val.startswith('ftp://')
+            ) and not (
+                'localhost' in val
+                or '127.0.0.1' in val
+                or '0.0.0.0' in val
             ):
                 yield line_no, 0
 
