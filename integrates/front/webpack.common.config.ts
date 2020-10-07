@@ -7,6 +7,7 @@ export const commonConfig: webpack.Configuration = {
     app: "./src/app.tsx",
     graphicsForGroup: "./src/graphics/views/group.tsx",
     graphicsForOrganization: "./src/graphics/views/organization.tsx",
+    graphicsForPortfolio: "./src/graphics/views/portfolio.tsx",
   },
   module: {
     rules: [

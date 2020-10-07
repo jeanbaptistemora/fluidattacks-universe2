@@ -7,14 +7,14 @@ import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView
 const chartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
   props: IChartsForPortfolioViewProps,
 ): JSX.Element => {
-  const params: { tagName: string } = useParams();
+  const { tagName } = useParams<{ tagName: string }>();
   const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
 
   const subjectFromSearchParams: string | null = searchParams.get("portfolio");
 
   const organizationId: string = _.isUndefined(props.organizationId) ? "" : props.organizationId;
   const subject: string = _.isNull(subjectFromSearchParams)
-  ? `${organizationId}PORTFOLIO#${params.tagName}` : subjectFromSearchParams;
+  ? `${organizationId}PORTFOLIO#${tagName}` : subjectFromSearchParams;
 
   return (
     <React.StrictMode>

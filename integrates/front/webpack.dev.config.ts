@@ -20,6 +20,11 @@ const devConfig: webpack.Configuration = {
       "webpack/hot/only-dev-server",
       "./src/graphics/views/organization.tsx",
     ],
+    graphicsForPortfolio: [
+      "webpack-dev-server/client?https://localhost:3000",
+      "webpack/hot/only-dev-server",
+      "./src/graphics/views/portfolio.tsx",
+    ],
   },
   mode: "development",
   module: {
