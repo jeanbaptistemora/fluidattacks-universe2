@@ -325,7 +325,7 @@ async def do_create_draft(
         operation='SkimsDoCreateDraft',
         variables=dict(
             affected_systems=affected_systems,
-            cwe=finding.value.cwe,
+            cwe=finding.value.cwe[0],
             description=t(finding.value.description),
             impact=t(finding.value.impact),
             group=group,
