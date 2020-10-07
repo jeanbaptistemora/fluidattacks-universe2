@@ -68,6 +68,32 @@ function job_common_compute_stream_log {
       done
 }
 
+function job_common_compute_describe_job {
+  local job_id="${1}"
+  local log_stream
+  local data
+
+      if test -z "${job_id}"
+      then
+            echo '[ERROR] Please pass the job id as the first argument' \
+        &&  return 1
+      fi \
+  &&  helper_serves_aws_login production \
+  &&  env_prepare_python_packages \
+  &&  data=$(aws batch describe-jobs --job "${job_id}") \
+  &&  log_stream=$(echo "${data}" | jq -er '.jobs[0].container.logStreamName') \
+  &&  echo '[INFO] logStreamName for base execution:' \
+  &&  echo "       $ ./build.sh common_compute_stream_log ${log_stream}" \
+  &&  echo '[INFO] logStreamName for attempts executions (if any):' \
+  &&  echo "${data}" | jq -er '.jobs[0].attempts[] | .container.logStreamName' \
+        > "${TEMP_FILE1}" \
+  &&  while read -r log_stream
+      do
+        echo "       $ ./build.sh common_compute_stream_log ${log_stream}"
+      done < "${TEMP_FILE1}" \
+
+}
+
 function job_common_lint_commit_msg {
   local commit_diff
   local commit_hashes
