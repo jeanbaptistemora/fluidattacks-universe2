@@ -38,7 +38,6 @@ from backend.decorators import (
     enforce_user_level_auth_async
 )
 from backend.domain import (
-    organization as org_domain,
     project as project_domain,
     user as user_domain,
 )
@@ -71,17 +70,6 @@ async def _get_name(
         **__: Any) -> str:
     """Get name."""
     return project_name
-
-
-async def _get_organization(
-        _: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> str:
-    """
-    Get organization settings
-    """
-    org_id: str = await org_domain.get_id_for_group(project_name)
-    return await org_domain.get_name_by_id(org_id)
 
 
 @get_entity_cache_async
@@ -575,26 +563,6 @@ async def _get_events(
     return cast(List[EventType], events)
 
 
-@enforce_group_level_auth_async
-async def _get_service_attributes(
-        _: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> Set[str]:
-    return await authz.get_group_service_attributes(project_name)
-
-
-async def _get_user_role(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> str:
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    return cast(
-        str,
-        await authz.get_group_level_role(user_email, project_name)
-    )
-
-
 def _get_requested_fields(
         info: GraphQLResolveInfo,
         as_field: bool,
@@ -646,7 +614,15 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        migrated = {'analytics', 'bill', 'consulting', 'stakeholders'}
+        migrated = {
+            'analytics',
+            'bill',
+            'consulting',
+            'organization',
+            'service_attributes',
+            'stakeholders',
+            'user_role'
+        }
         if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
