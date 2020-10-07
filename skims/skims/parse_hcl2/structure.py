@@ -16,6 +16,7 @@ from lark import (
 # Local libraries
 from aws.model import (
     AWSIamPolicyStatement,
+    AWSIamManagedPolicyArns
 )
 from aws.iam.utils import (
     yield_statements_from_policy_document,
@@ -164,3 +165,20 @@ def _yield_statements_from_policy_document_attribute(
                 data=stmt,
                 line=data.line,
             )
+
+
+def iterate_managed_policy_arns(model: Any, ) -> Iterator[Any]:
+    for resource in chain(
+            iterate_resources(model, 'resource',
+                              'aws_iam_group_policy_attachment'),
+            iterate_resources(model, 'resource', 'aws_iam_policy_attachment'),
+            iterate_resources(model, 'resource',
+                              'aws_iam_role_policy_attachment'),
+            iterate_resources(model, 'resource',
+                              'aws_iam_user_policy_attachment')):
+        for block in resource.body:
+            if block.key != 'policy_arn':
+                continue
+            yield AWSIamManagedPolicyArns(line=block.line,
+                                          column=block.column,
+                                          data=[block.val])

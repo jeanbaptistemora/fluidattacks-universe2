@@ -46,6 +46,7 @@ from parse_hcl2.loader import (
 )
 from parse_hcl2.structure import (
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
+    iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
 )
 from state.cache import (
     cache_decorator,
@@ -457,6 +458,38 @@ async def terraform_permissive_policy(
     )
 
 
+def _terraform_admin_policy_attached(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    return _create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.permissive_policy',
+        path=path,
+        statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
+            managed_policies_iterator=terraform_iterate_managed_policy_arns(
+                model=model,
+            ),
+        ),
+    )
+
+
+@SHIELD
+async def terraform_admin_policy_attached(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag W43 IAM role should not have AdministratorAccess policy
+    return await in_process(
+        _terraform_admin_policy_attached,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -502,6 +535,11 @@ async def analyze(
             model=model,
         ))
         coroutines.append(terraform_permissive_policy(
+            content=content,
+            path=path,
+            model=model,
+        ))
+        coroutines.append(terraform_admin_policy_attached(
             content=content,
             path=path,
             model=model,

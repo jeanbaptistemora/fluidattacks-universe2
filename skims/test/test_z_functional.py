@@ -277,6 +277,9 @@ def test_correct_run_no_group(test_group: str) -> None:
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 58
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 59
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json, line 61
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf, line 23
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf, line 33
+        [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf, line 38
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_negative_statement.tf, line 33
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_negative_statement.tf, line 5
         [INFO] FIN.S.031. Excessive privileges - AWS: test/data/lib_path/f031_aws/hcl2_open_passrole.tf, line 5
@@ -481,6 +484,9 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '58'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '59'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '61'),
+            ('test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf', '23'),
+            ('test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf', '33'),
+            ('test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf', '38'),
             ('test/data/lib_path/f031_aws/hcl2_negative_statement.tf','33'),
             ('test/data/lib_path/f031_aws/hcl2_negative_statement.tf','5'),
             ('test/data/lib_path/f031_aws/hcl2_open_passrole.tf', '5'),
