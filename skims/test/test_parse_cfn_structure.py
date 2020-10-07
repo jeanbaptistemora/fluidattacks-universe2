@@ -1,4 +1,7 @@
 # Third libraries
+from aioextensions import (
+     run_decorator,
+)
 from metaloaders.model import Type
 
 # Local libraries
@@ -49,6 +52,7 @@ EXPECTED = ({
 })
 
 
+@run_decorator
 async def test_iterate_iam_policy_documents_as_yml() -> None:
     with open('test/data/parse_cfn/full.yaml') as file:
         template = await load(file.read(), 'yaml')
@@ -107,6 +111,7 @@ async def test_iterate_iam_policy_documents_as_yml() -> None:
     assert result[6].inner['Resource'][0][0].start_line == 86
 
 
+@run_decorator
 async def test_iterate_iam_policy_documents_as_json() -> None:
     with open('test/data/parse_cfn/full.yaml.json') as file:
         template = await load(file.read(), 'json')
@@ -117,49 +122,49 @@ async def test_iterate_iam_policy_documents_as_json() -> None:
 
     assert len(result) == 7
 
-    assert result[0].start_line == 19
+    assert result[0].start_line == 17
     assert result[0].start_column == 12
-    assert result[1].start_line == 29
+    assert result[1].start_line == 27
     assert result[1].start_column == 12
-    assert result[2].start_line == 51
+    assert result[2].start_line == 49
     assert result[2].start_column == 16
-    assert result[3].start_line == 69
+    assert result[3].start_line == 67
     assert result[3].start_column == 16
-    assert result[4].start_line == 90
+    assert result[4].start_line == 88
     assert result[4].start_column == 12
-    assert result[5].start_line == 110
+    assert result[5].start_line == 108
     assert result[5].start_column == 16
-    assert result[6].start_line == 126
+    assert result[6].start_line == 124
     assert result[6].start_column == 27
 
     assert result[0].inner['Effect'].inner == 'Allow'
-    assert result[0].inner['Effect'].start_line == 20
+    assert result[0].inner['Effect'].start_line == 18
     assert result[0].inner['Effect'].start_column == 24
     assert result[0].inner['Effect'].data_type == Type.STRING
 
-    assert result[0].inner['Action'].start_line == 21
+    assert result[0].inner['Action'].start_line == 19
     assert result[0].inner['Action'].start_column == 24
     assert result[0].inner['Action'].data_type == Type.ARRAY
     assert result[0].inner['Action'].inner[0] == 's3:ListBucket'
 
-    assert result[0].inner['Resource'].start_line == 25
+    assert result[0].inner['Resource'].start_line == 23
     assert result[0].inner['Resource'].start_column == 26
     assert result[0].inner['Resource'].data_type == Type.ARRAY
 
     assert result[0].inner['Action'].data[1].inner == 's3:GetBucketLocation'
-    assert result[0].inner['Action'].data[1].start_line == 23
+    assert result[0].inner['Action'].data[1].start_line == 21
 
-    assert result[3].inner['Action'].start_line == 70
+    assert result[3].inner['Action'].start_line == 68
     assert result[3].inner['Action'].data_type == Type.ARRAY
     assert result[3].inner['Resource'].inner[0] == '*'
-    assert result[3].inner['Resource'].start_line == 75
+    assert result[3].inner['Resource'].start_line == 73
     assert result[3].inner['Resource'].start_column == 30
 
     assert result[6].data_type == Type.OBJECT
     assert result[6].inner['Effect'].data == 'Allow'
-    assert result[6].inner['Effect'].start_line == 127
+    assert result[6].inner['Effect'].start_line == 125
     assert result[6].inner['Effect'].start_column == 26
 
     assert result[6].inner['Action'].data_type == Type.ARRAY
     assert result[6].inner['Action'].inner[0] == 'sts:AssumeRole'
-    assert result[6].inner['Resource'][0][0].start_line == 129
+    assert result[6].inner['Resource'][0][0].start_line == 127
