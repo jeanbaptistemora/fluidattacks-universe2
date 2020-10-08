@@ -108,7 +108,6 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                         {translate.t("update_access_token.expiration_time")}
                       </b>
                     </ControlLabel>
-                    <br />
                     <Field
                       component={DateField}
                       name={"expirationTime"}
@@ -126,7 +125,6 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     <b>{translate.t("update_access_token.message")}</b>
                   </ControlLabel>
                   <ControlLabel>
-                    <br />
                     <b>{translate.t("update_access_token.access_token")}</b>
                   </ControlLabel>
                   <Field
@@ -157,7 +155,6 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               )}
             </Row>
             <ButtonToolbar className={"pull-left"}>
-              <br />
               {!submitSucceeded && hasAPIToken && (
                 <Button onClick={handleInvalidateAPIToken}>
                   {translate.t("update_access_token.invalidate")}
@@ -165,7 +162,6 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               )}
             </ButtonToolbar>
             <ButtonToolbar className={"pull-right"}>
-              <br />
               <Button onClick={onClose}>
                 {translate.t("update_access_token.close")}
               </Button>

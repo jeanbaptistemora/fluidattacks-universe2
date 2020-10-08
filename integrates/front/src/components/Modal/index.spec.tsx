@@ -2,15 +2,15 @@
   --------
   Disable for testing purposes
 */
+import { Button } from "react-bootstrap";
 import { Modal } from "components/Modal";
 import React from "react";
 import {
-  Button,
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
-} from "react-bootstrap";
+} from "styles/styledComponents";
 import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Generic modal", (): void => {
@@ -33,15 +33,8 @@ describe("Generic modal", (): void => {
 
     expect(
       wrapper.contains(
-        <ModalHeader
-          bsClass={"modal-header"}
-          className={"header"}
-          closeButton={false}
-          closeLabel={"Close"}
-        >
-          <ModalTitle className={"title"} componentClass={"h4"}>
-            {"Unit test title"}
-          </ModalTitle>
+        <ModalHeader>
+          <ModalTitle>{"Unit test title"}</ModalTitle>
         </ModalHeader>
       )
     ).toBe(true);
@@ -63,7 +56,7 @@ describe("Generic modal", (): void => {
 
     expect(
       wrapper.contains(
-        <ModalBody componentClass={"div"}>
+        <ModalBody>
           <p>{"Unit modal content"}</p>
         </ModalBody>
       )
@@ -86,7 +79,7 @@ describe("Generic modal", (): void => {
 
     expect(
       wrapper.contains(
-        <ModalFooter componentClass={"div"}>
+        <ModalFooter>
           <Button
             active={false}
             block={false}

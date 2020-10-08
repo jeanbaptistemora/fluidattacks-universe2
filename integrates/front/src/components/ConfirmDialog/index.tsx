@@ -57,25 +57,20 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
 
   return (
     <React.Fragment>
-      <Modal
-        footer={
-          <ButtonToolbar>
-            <Button onClick={handleClose}>
-              {translate.t("confirmmodal.cancel")}
-            </Button>
-            <Button onClick={handleProceed}>
-              {translate.t("confirmmodal.proceed")}
-            </Button>
-          </ButtonToolbar>
-        }
-        headerTitle={title}
-        open={isOpen}
-      >
+      <Modal footer={<div />} headerTitle={title} open={isOpen}>
         {messageLines.map(
           (line: string): JSX.Element => (
             <p key={line}>{line}</p>
           )
         )}
+        <ButtonToolbar>
+          <Button onClick={handleClose}>
+            {translate.t("confirmmodal.cancel")}
+          </Button>
+          <Button onClick={handleProceed}>
+            {translate.t("confirmmodal.proceed")}
+          </Button>
+        </ButtonToolbar>
       </Modal>
       {children(confirm)}
     </React.Fragment>

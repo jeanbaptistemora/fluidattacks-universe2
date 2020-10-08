@@ -449,6 +449,18 @@ label {
   margin-right: -0.5rem;
 }
 
+:global .modalh-bb {
+  border-bottom: 1px solid #E5E5E5;
+}
+
+:global .modalf-bt {
+  border-top: 1px solid #E5E5E5;
+}
+
+:global .modalf-pa {
+  padding: 1.5rem;
+}
+
 :global .montserrat {
   font-family: 'Montserrat', sans-serif;
 }

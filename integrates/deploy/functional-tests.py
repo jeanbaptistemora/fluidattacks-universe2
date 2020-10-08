@@ -232,7 +232,7 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '05-05-finding.png')
 
         modal_btn = selenium.find_element_by_xpath(
-            '//*[@class="modal-body"]/form/div[2]/button[1]')
+            '//*/button[text()[contains(., "Cancel")]]')
         self.__click(modal_btn)
         time.sleep(1)
         selenium.execute_script('window.scrollTo(0, 0);')

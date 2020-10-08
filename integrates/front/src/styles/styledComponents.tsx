@@ -7,6 +7,34 @@ const ButtonToolbar: StyledComponent<
   className: "fr",
 })``;
 
+const ModalBody: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "relative pa4",
+})``;
+
+const ModalFooter: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "modalf-bt modalf-pa tr",
+})``;
+
+const ModalHeader: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "bg-ne modalh-bb pv4 ph3 white",
+})``;
+
+const ModalTitle: StyledComponent<
+  "h4",
+  Record<string, unknown>
+> = styled.h4.attrs({
+  className: "color-inherit fw3 f2 lh-solid ma0 montserrat tc",
+})``;
+
 const RequiredField: StyledComponent<
   "span",
   Record<string, unknown>
@@ -66,6 +94,10 @@ const TabsContainer: StyledComponent<
 
 export {
   ButtonToolbar,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
   RequiredField,
   Row,
   StickyContainer,

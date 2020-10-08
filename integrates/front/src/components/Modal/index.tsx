@@ -5,6 +5,12 @@
 import React from "react";
 import style from "components/Modal/index.css";
 import { Modal, Sizes } from "react-bootstrap";
+import {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "styles/styledComponents";
 
 interface IModalProps {
   bsSize?: Sizes;
@@ -50,11 +56,11 @@ const modal: React.FC<IModalProps> = (
       onShow={handleModalOpen}
       show={open}
     >
-      <Modal.Header className={style.header}>
-        <Modal.Title className={style.title}>{headerTitle}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>{children}</Modal.Body>
-      <Modal.Footer>{footer}</Modal.Footer>
+      <ModalHeader>
+        <ModalTitle>{headerTitle}</ModalTitle>
+      </ModalHeader>
+      <ModalBody>{children}</ModalBody>
+      <ModalFooter>{footer}</ModalFooter>
     </Modal>
   );
 };
