@@ -169,6 +169,8 @@ def _java_logging_exceptions(
     )
 
 
+@cache_decorator()
+@SHIELD
 async def java_logging_exceptions(
     content: str,
     path: str,

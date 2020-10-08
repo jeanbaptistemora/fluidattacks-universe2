@@ -56,38 +56,38 @@ cwe,title,what,where
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,2
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,1
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,11
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,12
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,13
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,14
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,15
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,17
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,18
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,19
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,20
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,21
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,22
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,23
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,24
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,25
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,26
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,27
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,30
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,33
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,35
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,4
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,5
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,6
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,8
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,9
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,2
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,3
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,4
-310,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,6
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,2
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,1
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,11
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,12
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,13
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,14
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,15
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,17
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,18
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,19
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,20
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,21
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,22
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,23
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,24
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,25
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,26
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,27
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,30
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,33
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,35
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,4
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,5
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,6
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,8
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,9
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,2
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,3
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,4
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.properties,6
 319,FIN.S.022. Use of an insecure channel,test/data/lib_path/f022/java.properties,1
 319,FIN.S.022. Use of an insecure channel,test/data/lib_path/f022/java.properties,4
 377,FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.class,1

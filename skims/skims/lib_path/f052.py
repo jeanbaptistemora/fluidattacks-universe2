@@ -84,7 +84,7 @@ def _csharp_insecure_cipher(
 
     return blocking_get_vulnerabilities(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.insecure_cipher.description',
             path=path,
@@ -133,7 +133,7 @@ def _csharp_insecure_hash(
 
     return blocking_get_vulnerabilities(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.insecure_hash.description',
             path=path,
@@ -204,7 +204,7 @@ def _java_insecure_cipher(
 
     return blocking_get_vulnerabilities(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.insecure_cipher.description',
             path=path,
@@ -282,7 +282,7 @@ def _java_insecure_hash(
 
     return blocking_get_vulnerabilities(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.insecure_hash.description',
             path=path,
@@ -374,7 +374,7 @@ def _java_insecure_key(
 
     return blocking_get_vulnerabilities(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.insecure_key.description',
             path=path,
@@ -419,7 +419,7 @@ def _java_insecure_pass(
 
     return blocking_get_vulnerabilities(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.insecure_pass.description',
             path=path,
@@ -457,7 +457,7 @@ def _java_properties_missing_ssl(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.java_properties_missing_ssl',
             path=path,
@@ -497,7 +497,7 @@ def _java_properties_weak_cipher_suite(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
-        cwe={'310'},
+        cwe={'310', '327'},
         description=t(
             key='src.lib_path.f052.java_properties_weak_cipher_suite',
             path=path,
