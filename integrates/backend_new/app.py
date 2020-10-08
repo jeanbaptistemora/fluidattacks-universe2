@@ -3,7 +3,7 @@ from ariadne.asgi import GraphQL
 
 from starlette.applications import Starlette
 from starlette.requests import Request
-from starlette.responses import JSONResponse, HTMLResponse
+from starlette.responses import HTMLResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -34,20 +34,20 @@ def error401(request: Request) -> HTMLResponse:
 def login(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='login.html',
-        context={'request': request, 'debug': settings.DEBUG}
+        context={
+            'request': request,
+            'debug': settings.DEBUG,
+            'js': f'{settings.STATIC_URL}/app-bundle.min.js',
+            'css': f'{settings.STATIC_URL}/app-style.min.css'
+        }
     )
-
-
-async def app(request: Request) -> JSONResponse:
-    return JSONResponse({'hello': 'world'})
 
 
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
-        Route('/new/', app),
+        Route('/new/', login),
         Route('/new/api/', GraphQL(SCHEMA, debug=settings.DEBUG)),
-        Route('/new/login/', login),
         Route('/error401', error401),
         Route('/error500', error500),
         Mount(

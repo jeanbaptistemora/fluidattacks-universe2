@@ -1,3 +1,4 @@
+import os
 from __init__ import (
     FI_DEBUG,
     FI_JWT_SECRET,
@@ -6,6 +7,7 @@ from __init__ import (
 )
 
 DEBUG = FI_DEBUG == 'True'
+CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
 
 TIME_ZONE = 'America/Bogota'
 
@@ -24,3 +26,9 @@ MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
 
 # Cache
 CACHE_TTL = 60 * 60 * 8
+
+# Static files
+STATIC_BUCKET_NAME = 'fluidintegrates-static'
+AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
+AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/integrates/static/dashboard'
