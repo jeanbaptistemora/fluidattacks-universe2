@@ -668,9 +668,9 @@ async def get_filtered_elements(elements, filters) -> List[ProjectType]:
 
     async def satisfies_filter(element) -> bool:
         hits = 0
-        for filter_ in filters:
-            result = await element[camelcase_to_snakecase(filter_.name.value)]
-            if str(result) == str(filter_.value.value):
+        for attribute, value in filters.items():
+            result = element.get(camelcase_to_snakecase(attribute))
+            if str(result) == str(value):
                 hits += 1
         return hits == len(filters)
 

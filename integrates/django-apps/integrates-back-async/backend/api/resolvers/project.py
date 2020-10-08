@@ -1,6 +1,5 @@
 # Standard library  # pylint:disable=cyclic-import
 # pylint:disable=too-many-lines
-import asyncio
 import logging
 import sys
 import time
@@ -42,7 +41,6 @@ from backend.domain import (
     user as user_domain,
 )
 from backend.typing import (
-    Event as EventType,
     Finding as FindingType,
     Project as ProjectType,
     AddConsultPayload as AddConsultPayloadType,
@@ -111,55 +109,6 @@ async def _get_has_integrates(
     return cast(
         bool,
         project_attrs['attrs']['project_status'] == 'ACTIVE'
-    )
-
-
-@require_integrates
-async def _get_findings(
-    info: GraphQLResolveInfo,
-    project_name: str,
-    requested_fields: List[FieldNode],
-    filters: Union[None, List[Union[None, ObjectFieldNode]]] = None
-) -> List[Dict[str, FindingType]]:
-    """Resolve findings attribute."""
-
-    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-    req_fields.extend(util.get_requested_fields('findings', selection_set))
-    if filters:
-        req_fields.extend(filters)
-    selection_set.selections = req_fields
-    util.cloudwatch_log(
-        info.context,
-        f'Security: Access to {project_name} findings'  # pragma: no cover
-    )
-    project_findings = await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    findings = await info.context.loaders['finding'].load_many(
-        project_findings
-    )
-    findings = [
-        finding for finding in findings
-        if 'current_state' in finding and finding['current_state'] != 'DELETED'
-    ]
-    findings = await asyncio.gather(*[
-        asyncio.create_task(
-            finding_loader.resolve(
-                info,
-                finding['id'],
-                as_field=True,
-                selection_set=selection_set
-            )
-        )
-        for finding in findings
-    ])
-    return cast(
-        List[Dict[str, FindingType]],
-        (
-            await util.get_filtered_elements(findings, filters)
-            if filters else findings
-        )
     )
 
 
@@ -240,37 +189,6 @@ async def _get_last_closing_vuln_finding(
         as_field=True,
         selection_set=selection_set
     )
-
-    return cast(Dict[str, FindingType], await aio.materialize(finding))
-
-
-@require_integrates
-@get_entity_cache_async
-async def _get_max_severity_finding(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        requested_fields: List[FieldNode]) -> Dict[str, FindingType]:
-    """Resolve finding attribute."""
-    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-    req_fields.extend(
-        util.get_requested_fields('maxSeverityFinding', selection_set))
-    selection_set.selections = req_fields
-    project_findings = await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    findings = await info.context.loaders['finding'].load_many(
-        project_findings
-    )
-    _, max_severity_finding = max([
-        (finding['severity_score'], finding['id'])
-        for finding in findings
-        if 'current_state' in finding and
-        finding['current_state'] != 'DELETED'
-    ]) if findings else (0, '')
-    finding = await finding_loader.resolve(
-        info, max_severity_finding,
-        as_field=True, selection_set=selection_set)
 
     return cast(Dict[str, FindingType], await aio.materialize(finding))
 
@@ -503,23 +421,6 @@ async def _get_drafts(
     )
 
 
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _get_events(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> List[EventType]:
-    """Get events."""
-    util.cloudwatch_log(
-        info.context,
-        f'Security: Access to {project_name} events')  # pragma: no cover
-    event_ids = await project_domain.list_events(project_name)
-    events = await info.context.loaders['event'].load_many(event_ids)
-    return cast(List[EventType], events)
-
-
 def _get_requested_fields(
         info: GraphQLResolveInfo,
         as_field: bool,
@@ -575,7 +476,10 @@ async def resolve(
             'analytics',
             'bill',
             'consulting',
+            'events',
+            'findings',
             'max_severity',
+            'max_severity_finding',
             'organization',
             'service_attributes',
             'stakeholders',

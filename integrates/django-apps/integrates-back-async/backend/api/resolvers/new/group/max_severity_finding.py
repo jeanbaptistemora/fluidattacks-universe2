@@ -3,11 +3,14 @@ from typing import cast, List
 
 # Third party
 from aiodataloader import DataLoader
+from graphql.language.ast import SelectionSetNode
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.api.resolvers import finding as old_resolver
 from backend.decorators import get_entity_cache_async, require_integrates
 from backend.typing import Finding, Project as Group
+from backend.utils import aio
 
 
 @require_integrates
@@ -19,8 +22,11 @@ async def resolve(
 ) -> Finding:
     group_name: str = cast(str, parent['name'])
 
-    group_loader: DataLoader = info.context.loaders['project']
-    finding_ids: List[str] = (await group_loader.load(group_name))['findings']
+    group_findings_loader: DataLoader = info.context.loaders['group_findings']
+    finding_ids: List[str] = [
+        finding['id']
+        for finding in await group_findings_loader.load(group_name)
+    ]
 
     finding_loader: DataLoader = info.context.loaders['finding']
     findings = await finding_loader.load_many(finding_ids)
@@ -30,6 +36,14 @@ async def resolve(
         for finding in findings
     ]) if findings else (0, '')
 
-    finding: Finding = await finding_loader.load(max_severity_finding_id)
-
-    return finding
+    # Temporary while migrating finding resolvers
+    finding = await old_resolver.resolve(
+        info,
+        max_severity_finding_id,
+        as_field=True,
+        selection_set=cast(
+            SelectionSetNode,
+            info.field_nodes[0].selection_set
+        )
+    )
+    return cast(Finding, await aio.materialize(finding))
