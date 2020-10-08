@@ -48,7 +48,7 @@ def s3_sync_fusion_to_s3(
         bucket: str = 'continuous-repositories',
         endpoint_url: str = None) -> bool:
     fusion_dir: str = f'groups/{subs}/fusion'
-    s3_subs_active_repos_path: str = f'{subs}/active/'
+    s3_subs_repos_path: str = f'{subs}/'
     kwargs = dict() if generic.is_env_ci() else dict(
         stdout=None,
         stderr=None,
@@ -68,7 +68,7 @@ def s3_sync_fusion_to_s3(
         '--sse', 'AES256',
         '--exclude', "*",
         '--include', "*/.git/*",
-        fusion_dir, f's3://{bucket}/{s3_subs_active_repos_path}',
+        fusion_dir, f's3://{bucket}/{s3_subs_repos_path}',
     ]
 
     # Allow upload empty folders to keep .git structure
@@ -134,10 +134,9 @@ def main(
         aws_profile: str = 'continuous-admin',
         endpoint_url: str = None) -> bool:
     """
-    This function does two main things:
+    This function does:
 
-    1. Move repos that were not found in fusion from active to inactive
-    2. Upload all repos from fusion to s3/active
+    1. Upload all repos from fusion to s3
 
     param: subs: group to work with
     param: bucket: Bucket to work with
@@ -150,7 +149,7 @@ def main(
         if aws_login:
             generic.aws_login(aws_profile)
 
-        logger.info('Syncing active repositories')
+        logger.info('Syncing repositories')
         passed = passed \
             and s3_sync_fusion_to_s3(subs, bucket, endpoint_url)
     else:

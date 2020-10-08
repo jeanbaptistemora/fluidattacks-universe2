@@ -7,7 +7,7 @@ from toolbox.drills import pull_repos
 EXISTING_REPO: str = 'continuoustest'
 EXISTING_REPO_NO_PERMISSIONS: str = 'daimon'
 NON_EXISTING_REPO: str = 'sodjfoisajfdoiasjfdoia'
-LOCAL_PATH = 'continuoustest2'
+LOCAL_PATH = 'continuoustest'
 
 
 def test_drills_pull_repos():

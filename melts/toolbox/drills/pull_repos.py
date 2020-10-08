@@ -76,7 +76,7 @@ def pull_repos_s3_to_fusion(subs: str,
         repository_name = ''
 
     bucket_path: str = f's3://continuous-repositories/' \
-        f'{subs}/active/{repository_name}'
+        f'{subs}/{repository_name}'
 
     os.makedirs(local_path, exist_ok=True)
 
