@@ -8,6 +8,9 @@ from typing import (
     List,
     Tuple,
 )
+from contextlib import (
+    suppress,
+)
 
 # Third party library
 from aioextensions import (
@@ -55,16 +58,18 @@ def _yield_javascript_console_logs(model: Any) -> Iterator[Any]:
         'error',
     )
     for node in yield_dicts(model):
-        if (node.get('type') == 'CallExpression'
-                and node['callee']['object']['name'] == 'console'
-                and node['callee']['property']['name'] in functions):
-            yield node
+        with suppress(KeyError):
+            if (node.get('type') == 'CallExpression'
+                    and node['callee']['object']['name'] == 'console'
+                    and node['callee']['property']['name'] in functions):
+                yield node
 
 
 def _yield_javascript_var_usage(var_name: str, model: Any) -> Iterator[Any]:
     for node in yield_dicts(model):
-        if node.get('type') == 'Identifier' and node.get('name') == var_name:
-            yield node
+        with suppress(KeyError):
+            if node['type'] == 'Identifier' and node['name'] == var_name:
+                yield node
 
 
 def _javascript_use_console_log(
@@ -79,8 +84,8 @@ def _javascript_use_console_log(
             #   param?: Pattern;
             #   body: BlockStatement;
             # }
-            if node.get('type') == 'CatchClause':
-                if not node.get('param'):
+            if node.get('type', None) == 'CatchClause':
+                if not node.get('param', None):
                     # If the exception is not caught in a variable, there
                     # is no way it will be displayed in a console.log
                     # catch {
@@ -90,7 +95,7 @@ def _javascript_use_console_log(
                 exception_name = node['param']['name']
 
                 for console in _yield_javascript_console_logs(node):
-                    for arg in console.get('arguments'):
+                    for arg in console.get('arguments', list()):
                         # The exception should not be used as an argument to
                         # the console.log
                         # catch (err) {
@@ -148,13 +153,14 @@ def _java_logging_exceptions(
                     pre_extraction=(),
                     post_extraction=(),
             ):
-                object_identifier = call[0]['TypeName'][0]['Identifier'][0]
+                with suppress(KeyError):
+                    object_identifier = call[0]['TypeName'][0]['Identifier'][0]
 
-                if object_identifier['text'] != var_identifier['text']:
-                    continue
-                method_identifier = call[2]['Identifier'][0]
-                if method_identifier['text'] == 'printStackTrace':
-                    yield (method_identifier['l'], method_identifier['c'])
+                    if object_identifier['text'] != var_identifier['text']:
+                        continue
+                    method_identifier = call[2]['Identifier'][0]
+                    if method_identifier['text'] == 'printStackTrace':
+                        yield (method_identifier['l'], method_identifier['c'])
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
