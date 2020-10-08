@@ -1,6 +1,7 @@
 import os
 from __init__ import (
     FI_DEBUG,
+    FI_ENVIRONMENT,
     FI_JWT_SECRET,
     FI_JWT_SECRET_API,
     FI_MIXPANEL_API_TOKEN
@@ -31,4 +32,11 @@ CACHE_TTL = 60 * 60 * 8
 STATIC_BUCKET_NAME = 'fluidintegrates-static'
 AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
 AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/integrates/static/dashboard'
+AWS_S3_SUBPATH = '/integrates/static/dashboard'
+if FI_ENVIRONMENT == 'production':
+    AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}{AWS_S3_SUBPATH}'
+else:
+    STATIC_URL = (
+        f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com{AWS_S3_SUBPATH}'
+    )
