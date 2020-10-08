@@ -30,6 +30,11 @@ in
             python = pkgs.python38;
           };
 
+          pyPkgPytestAsync = builders.pythonPackage {
+            requirement = "pytest-asyncio==0.14.0";
+            python = pkgs.python38;
+          };
+
           pyPkgCode = builders.pythonPackageLocal {
             path = ../../observes/code;
             python = pkgs.python38;
