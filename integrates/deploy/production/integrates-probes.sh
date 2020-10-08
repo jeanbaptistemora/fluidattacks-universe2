@@ -11,7 +11,7 @@ function test_aws_credentials {
 }
 
 function test_curl_localhost {
-  if curl -sS http://localhost:8080 | grep -q 'FluidIntegrates'
+  if curl -sSiL http://localhost:8080 | grep -q 'FluidIntegrates'
   then
     echo '[INFO] Passed: test_curl_localhost'
   else
@@ -21,7 +21,7 @@ function test_curl_localhost {
 }
 
 function test_curl_production {
-  if curl -sS "https://integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
+  if curl -sSiL "https://integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
   then
     echo '[INFO] Passed: test_curl_production'
   else

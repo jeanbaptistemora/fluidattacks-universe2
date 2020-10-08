@@ -10,6 +10,7 @@ from django.conf.urls import (
 )
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import RedirectView
 
 from backend.api.schema import SCHEMA
 from backend.api.view import APIView
@@ -44,8 +45,8 @@ def api_dispatcher(request: HttpRequest) -> HttpResponse:
 
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^new/?$', views.index, name='index'),
+    url(r'^$', RedirectView.as_view(pattern_name='new')),
+    url(r'^new/?$', views.index, name='new'),
     # Principal process.
     url(r'^graphic/?$', views.graphic, name='graphic'),
     url(
@@ -69,6 +70,7 @@ urlpatterns = [
     url(r'^mobile/?$', views.mobile, name='mobile'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^new/oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/?\.*$', api_dispatcher),
     # Evidences
     url(

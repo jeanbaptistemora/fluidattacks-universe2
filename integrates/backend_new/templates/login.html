@@ -22,7 +22,7 @@
     {% if '127.0.0.1' in request.client.host and debug %}
       <link rel="stylesheet" href="https://localhost:3000/dashboard/app-style.min.css" type="text/css">
     {% else %}
-      <script src="{{ css }}" type="text/css"></script>
+      <link rel="stylesheet" src="{{ css }}" type="text/css">
     {% endif %}
     <style> body { background-color: #272727; }</style>
   </head>

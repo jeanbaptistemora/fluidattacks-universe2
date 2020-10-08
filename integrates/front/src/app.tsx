@@ -28,14 +28,17 @@ const App: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <BugsnagErrorBoundary>
-        <BrowserRouter
-          basename={location.pathname.startsWith("/new") ? "/new" : "/"}
-        >
+        <BrowserRouter basename={"/"}>
           <ApolloProvider>
             <ReduxProvider store={store}>
               <authzPermissionsContext.Provider value={userLevelPermissions}>
                 <secureStoreContext.Provider value={secureStore}>
                   <Switch>
+                    <Route
+                      component={Login}
+                      exact={true}
+                      path={location.pathname.startsWith("/new") ? "/new" : "/"}
+                    />
                     <Route component={Login} exact={true} path={"/"} />
                     <Route component={Registration} path={"/registration"} />
                     <Route component={Dashboard} path={"/"} />
