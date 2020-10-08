@@ -60,7 +60,7 @@ function job_observes_gitlab_on_aws {
   local vcpus='2'
   local memory='7200'
   local attempts='10'
-  local timeout='18000'
+  local timeout='43200'
   local jobname="observes_gitlab"
   local jobqueue='default-uninterruptible'
 
