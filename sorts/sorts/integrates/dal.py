@@ -17,7 +17,7 @@ from gql.transport.exceptions import TransportQueryError
 # Local libraries
 from integrates.graphql import client as graphql_client
 from utils.logs import (
-    blocking_log,
+    log,
     log_exception,
 )
 
@@ -54,8 +54,8 @@ def _execute(
             response = client.execute(gql(query), variables)
         except TransportQueryError as exc:
             log_exception('error', exc)
-            blocking_log('debug', 'query %s: %s', operation, query)
-            blocking_log('debug', 'variables: %s', variables)
+            log('debug', 'query %s: %s', operation, query)
+            log('debug', 'variables: %s', variables)
     return response
 
 

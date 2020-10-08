@@ -1,6 +1,6 @@
 # Standard libraries
 import functools
-from asyncio import sleep
+import time
 from typing import (
     Any,
     Callable,
@@ -51,17 +51,17 @@ def shield(
     def decorator(function: TFun) -> TFun:
 
         @functools.wraps(function)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             function_id = f'{function.__module__}.{function.__name__}'
 
             for _, is_last, number in mark_ends(range(retries)):
                 try:
-                    return await function(*args, **kwargs)
+                    return function(*args, **kwargs)
                 except on_exceptions as exc:
                     msg: str = 'Function: %s, %s: %s'
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
-                    await log('warning', msg, function_id, exc_type, exc_msg)
+                    log('warning', msg, function_id, exc_type, exc_msg)
 
                     if is_last or isinstance(exc, StopRetrying):
                         if isinstance(exc, RetryAndFinallyReturn):
@@ -70,8 +70,8 @@ def shield(
                             raise exc
                         return on_error_return
 
-                    await log('info', 'retry #%s: %s', number, function_id)
-                    await sleep(sleep_between_retries)
+                    log('info', 'retry #%s: %s', number, function_id)
+                    time.sleep(sleep_between_retries)
 
         return cast(TFun, wrapper)
 

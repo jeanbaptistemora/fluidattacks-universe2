@@ -5,16 +5,12 @@ from typing import Optional
 
 # Third party libraries
 import click
-from aioextensions import run
 
 # Local libraries
 from integrates.graphql import create_session
 from training.file import get_project_data
 from utils.decorators import shield
-from utils.logs import (
-    blocking_log,
-    log,
-)
+from utils.logs import log
 
 
 @click.command(
@@ -50,7 +46,8 @@ from utils.logs import (
     help='Integrates API token.',
     show_envvar=True,
 )
-def dispatch(
+@shield(on_error_return=False)
+def execute_sorts(
     subscription: str,
     get_commit_data: bool,
     get_file_data: bool,
@@ -58,32 +55,6 @@ def dispatch(
     token: Optional[str]
 ) -> None:
     start_time: float = time.time()
-    success: bool = run(
-        main(
-            subscription=subscription,
-            get_commit_data=get_commit_data,
-            get_file_data=get_file_data,
-            predict_commit=predict_commit,
-            token=token
-        )
-    )
-    blocking_log(
-        'info',
-        'Success: %s\nProcess finished after %s seconds.',
-        success,
-        str(round(time.time() - start_time, 3))
-    )
-    sys.exit(0 if success else 1)
-
-
-@shield(on_error_return=False)
-async def main(
-    subscription: str,
-    get_commit_data: bool,
-    get_file_data: bool,
-    predict_commit: bool,
-    token: Optional[str]
-) -> bool:
     success: bool = False
     if get_commit_data:
         pass
@@ -94,11 +65,17 @@ async def main(
     else:
         if token:
             create_session(token)
-            success = await get_project_data(subscription)
+            success = get_project_data(subscription)
         else:
-            await log(
-                'info',
+            log(
+                'error',
                 'Set the Integrates API token either using the option --token '
                 'or the environmental variable INTEGRATES_API_TOKEN'
             )
-    return success
+    log(
+        'info',
+        'Success: %s\nProcess finished after %.2f seconds.',
+        success,
+        time.time() - start_time
+    )
+    sys.exit(0 if success else 1)

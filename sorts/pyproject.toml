@@ -32,7 +32,6 @@ repository = "https://gitlab.com/fluidattacks/product/-/tree/master/sorts"
 version = "1.0.0"
 
 [tool.poetry.dependencies]
-aioextensions = "20.9.2315218"
 click = "7.1.2"
 GitPython = "3.1.9"
 gql = "3.0.0a2"
@@ -54,4 +53,4 @@ pytest = "5.4.3"
 pytest-cov = "2.10.0"
 
 [tool.poetry.scripts]
-sorts = 'cli:dispatch'
+sorts = 'cli:execute_sorts'

@@ -4,18 +4,15 @@ from typing import List
 
 # Third-party libraries
 import git
-from aioextensions import collect
 from git.cmd import Git
 from git.exc import GitCommandError
 
 
-async def get_bad_repos(fusion_path: str, repos: List[str]) -> List[str]:
+def get_bad_repos(fusion_path: str, repos: List[str]) -> List[str]:
     """
     Filter a list of repos, returning the bad ones
     """
-    are_repos_ok = await collect([
-        test_repo(fusion_path, repo) for repo in repos
-    ])
+    are_repos_ok = [test_repo(fusion_path, repo) for repo in repos]
     return [
         repo
         for idx, repo in enumerate(repos)
@@ -23,7 +20,7 @@ async def get_bad_repos(fusion_path: str, repos: List[str]) -> List[str]:
     ]
 
 
-async def test_repo(fusion_path: str, repo: str) -> bool:
+def test_repo(fusion_path: str, repo: str) -> bool:
     """
     Test if a repository is ok by executing a single `git log` on it.
     """

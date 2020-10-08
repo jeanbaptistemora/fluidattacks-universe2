@@ -5,11 +5,6 @@ from typing import (
     Any,
 )
 
-# Third party libraries
-from aioextensions import (
-    in_thread,
-)
-
 # Private constants
 _FORMAT: str = '[%(levelname)s] %(message)s'
 
@@ -33,12 +28,8 @@ def set_level(level: int) -> None:
     _LOGGER_HANDLER.setLevel(level)
 
 
-def blocking_log(level: str, msg: str, *args: Any) -> None:
+def log(level: str, msg: str, *args: Any) -> None:
     getattr(_LOGGER, level)(msg, *args)
-
-
-async def log(level: str, msg: str, *args: Any) -> None:
-    await in_thread(blocking_log, level, msg, *args)
 
 
 def log_exception(
@@ -48,7 +39,7 @@ def log_exception(
 ) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
-    blocking_log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
+    log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
 
 
 # Side effects
