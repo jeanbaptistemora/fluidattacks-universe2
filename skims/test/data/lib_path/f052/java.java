@@ -33,3 +33,5 @@ RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
 RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
 ECGenParameterSpec("secp521r1")
 ECGenParameterSpec("c2pnb208w1")
+javax.crypto.KeyGenerator.getInstance("DES").generateKey();
+javax.crypto.KeyGenerator.getInstance("HmacSHA256").generateKey();

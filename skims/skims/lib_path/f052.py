@@ -179,7 +179,10 @@ def _java_insecure_cipher(
 ) -> Tuple[Vulnerability, ...]:
     grammar = MatchFirst([
         (
-            Keyword('Cipher') + '.' +
+            MatchFirst([
+                Keyword('Cipher'),
+                Keyword('KeyGenerator'),
+            ]) + '.' +
             Keyword('getInstance') + '(' +
             DOUBLE_QUOTED_STRING.copy().addCondition(
                 lambda tokens: _vuln_cipher_get_instance(tokens[0].lower())

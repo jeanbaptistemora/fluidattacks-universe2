@@ -108,3 +108,11 @@ def cache_decorator(
         return cast(TFunc, wrapper)
 
     return decorator
+
+
+# Constants
+CACHED_ETERNALLY: Callable[[TFunc], TFunc] = cache_decorator(ttl=None)
+CACHED_1MONTH: Callable[[TFunc], TFunc] = cache_decorator(ttl=2419200)
+CACHED_1WEEK: Callable[[TFunc], TFunc] = cache_decorator(ttl=604800)
+CACHED_1DAY: Callable[[TFunc], TFunc] = cache_decorator(ttl=86400)
+CACHED_1SEC: Callable[[TFunc], TFunc] = cache_decorator(ttl=1)

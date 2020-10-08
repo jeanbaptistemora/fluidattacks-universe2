@@ -370,6 +370,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/java.java', '30'),
             ('test/data/lib_path/f052/java.java', '33'),
             ('test/data/lib_path/f052/java.java', '35'),
+            ('test/data/lib_path/f052/java.java', '36'),
             ('test/data/lib_path/f052/java.java', '4'),
             ('test/data/lib_path/f052/java.java', '5'),
             ('test/data/lib_path/f052/java.java', '6'),

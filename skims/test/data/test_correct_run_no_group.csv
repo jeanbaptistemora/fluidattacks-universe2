@@ -1,10 +1,10 @@
 cwe,title,what,where
-209 + 200,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,7
-209 + 200,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,20
-209 + 200,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,28
-209 + 200,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,36
-209 + 200,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,45
-209 + 200,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,6
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,7
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,20
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,28
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,36
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,45
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,6
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,8
@@ -79,6 +79,7 @@ cwe,title,what,where
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,30
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,33
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,35
+310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,36
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,4
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,5
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,6
