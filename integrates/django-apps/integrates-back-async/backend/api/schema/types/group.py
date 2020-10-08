@@ -9,9 +9,11 @@ from backend.api.resolvers.new.group import (
     analytics,
     bill,
     consulting,
+    max_severity,
     organization,
     service_attributes,
     stakeholders,
+    total_findings,
     user_role
 )
 
@@ -21,7 +23,9 @@ GROUP: ObjectType = ObjectType('Project')
 GROUP.set_field('analytics', analytics.resolve)
 GROUP.set_field('bill', bill.resolve)
 GROUP.set_field('consulting', consulting.resolve)
+GROUP.set_field('maxSeverity', max_severity.resolve)
 GROUP.set_field('organization', organization.resolve)
 GROUP.set_field('serviceAttributes', service_attributes.resolve)
 GROUP.set_field('stakeholders', stakeholders.resolve)
+GROUP.set_field('totalFindings', total_findings.resolve)
 GROUP.set_field('userRole', user_role.resolve)

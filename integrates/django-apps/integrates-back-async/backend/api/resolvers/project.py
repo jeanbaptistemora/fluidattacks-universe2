@@ -246,28 +246,6 @@ async def _get_last_closing_vuln_finding(
 
 @require_integrates
 @get_entity_cache_async
-async def _get_max_severity(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> float:
-    """Get max_severity."""
-    project_findings = await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    findings = await info.context.loaders['finding'].load_many(
-        project_findings
-    )
-
-    max_severity = max([
-        finding['severity_score']
-        for finding in findings
-        if ('current_state' in finding and
-            finding['current_state'] != 'DELETED')
-    ]) if findings else 0
-    return cast(float, max_severity)
-
-
-@require_integrates
-@get_entity_cache_async
 async def _get_max_severity_finding(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -396,27 +374,6 @@ async def _get_mean_remediate_critical_severity(
     project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     return cast(int, project_attrs.get('mean_remediate_critical_severity', 0))
-
-
-@require_integrates
-@get_entity_cache_async
-async def _get_total_findings(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> int:
-    """Get total_findings."""
-    project_findings = await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    findings = await info.context.loaders['finding'].load_many(
-        project_findings
-    )
-
-    total_findings = sum(
-        1 for finding in findings
-        if ('current_state' in finding and
-            finding['current_state'] != 'DELETED')
-    )
-    return total_findings
 
 
 @require_integrates
@@ -618,9 +575,11 @@ async def resolve(
             'analytics',
             'bill',
             'consulting',
+            'max_severity',
             'organization',
             'service_attributes',
             'stakeholders',
+            'total_findings',
             'user_role'
         }
         if requested_field.startswith('_') or requested_field in migrated:

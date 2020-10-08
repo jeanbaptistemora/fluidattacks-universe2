@@ -19,8 +19,11 @@ async def resolve(
 ) -> float:
     group_name: str = cast(str, parent['name'])
 
-    group_loader: DataLoader = info.context.loaders['project']
-    finding_ids: List[str] = (await group_loader.load(group_name))['findings']
+    group_findings_loader: DataLoader = info.context.loaders['group_findings']
+    finding_ids: List[str] = [
+        finding['id']
+        for finding in await group_findings_loader.load(group_name)
+    ]
 
     finding_loader: DataLoader = info.context.loaders['finding']
     findings = await finding_loader.load_many(finding_ids)

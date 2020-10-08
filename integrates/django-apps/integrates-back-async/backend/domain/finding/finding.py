@@ -680,3 +680,26 @@ async def mask_finding(finding_id: str) -> bool:
     util.queue_cache_invalidation(finding_id)
 
     return success
+
+
+def _format_finding(finding: Dict[str, Any]) -> FindingType:
+    """Returns the data in the format expected by default resolvers"""
+
+    return cast(FindingType, {
+        'id': finding.get('finding_id', ''),
+        'project_name': finding.get('project_name', ''),
+        'release_date': finding.get('release_date', ''),
+        'title': finding.get('finding', ''),
+        'historic_state': finding.get('historic_state', []),
+        'historic_treatment': finding.get('historic_treatment', []),
+    })
+
+
+async def get_findings_by_group(group_name: str) -> List[FindingType]:
+    findings = await finding_dal.get_findings_by_group(group_name)
+
+    return [
+        _format_finding(finding)
+        for finding in findings
+        if finding.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+    ]
