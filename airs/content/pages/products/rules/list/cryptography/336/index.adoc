@@ -51,34 +51,40 @@ as to achieve a negative technical impact.
 The system functionality is not altered or modified but used in a way that was
 not intended.
 
-. [[r4]] link:http://capec.mitre.org/data/definitions/272.html[CAPEC-272: Protocol Manipulation].
+. [[r4]] link:http://capec.mitre.org/data/definitions/216.html[CAPEC-216: Communication Channel Manipulation].
+An adversary manipulates a setting or parameter on communications channel in
+order to compromise its security.
+This can result in information exposure, insertion/removal of information from
+the communications stream, and/or potentially system compromise.
+
+. [[r5]] link:http://capec.mitre.org/data/definitions/272.html[CAPEC-272: Protocol Manipulation].
 An adversary subverts a communications protocol to perform an attack.
 This type of attack targets invalid assumptions that may be inherent in
 implementers of the protocol, incorrect implementations of the protocol,
 or vulnerabilities in the protocol itself.
 
-. [[r5]] link:http://capec.mitre.org/data/definitions/594.html[CAPEC-594: Traffic Injection].
+. [[r6]] link:http://capec.mitre.org/data/definitions/594.html[CAPEC-594: Traffic Injection].
 An adversary injects traffic into the target's network connection.
 The adversary is therefore able to degrade or disrupt the connection,
 and potentially modify the content.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information].
+. [[r7]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information].
 The software transmits sensitive or security-critical data in cleartext in a
 communication channel that can be sniffed by unauthorized actors.
 
-. [[r7]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
+. [[r8]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
 The software stores or transmits sensitive data using an encryption scheme that
 is theoretically sound,
 but is not strong enough for the level of protection required.
 
-. [[r8]] link:https://cwe.mitre.org/data/definitions/757.html[Algorithm Downgrade].
+. [[r9]] link:https://cwe.mitre.org/data/definitions/757.html[Algorithm Downgrade].
 A protocol or its implementation supports interaction between multiple actors
 and allows those actors to negotiate which algorithm should be used as a
 protection mechanism such as encryption or authentication,
 but it does not select the strongest algorithm that is available to both
 parties.
 
-. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -87,30 +93,30 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.22)]
 Verify that the device cannot be downgraded to old versions (anti-rollback) of
 valid firmware.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.1)]
 Verify that secured TLS is used for all client connectivity,
 and does not fall back to insecure or unencrypted protocols.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.2)]
 Verify using online or up to date *TLS* testing tools that only strong
 algorithms, ciphers, and protocols are enabled,
 with the strongest algorithms and ciphers set as preferred.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.3)]
 Verify that old versions of *SSL* and *TLS* protocols, algorithms, ciphers, and
 configuration are disabled,
 such as *SSLv2*, *SSLv3*, or *TLS* 1.0 and *TLS* 1.1.
 The latest version of *TLS* should be the preferred cipher suite.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.2)]
 Verify that encrypted communications such as *TLS* is used for all inbound and
 outbound connections,
@@ -119,20 +125,20 @@ or web service calls, database, cloud, serverless, mainframe, external,
 and partner connections.
 The server must not fall back to insecure or unencrypted protocols.
 
-. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.2]
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.2]
 Enable only necessary services, protocols, daemons, etc.,
 as required for the function of the system.
 
-. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
 Use strong cryptography and security protocols to safeguard sensitive
 cardholder data during transmission over open, public networks.
 The protocol in use only supports secure versions or configurations.
 
-. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.4]
+. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.4]
 Address common coding vulnerabilities in software-development processes such as
 insecure communications.
 
-. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A2 A2.1]
+. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A2 A2.1]
 Where **POS POI** terminals use *SSL* and/or early *TLS*,
 the entity must confirm the devices are not susceptible to any known exploits
 for those protocols.

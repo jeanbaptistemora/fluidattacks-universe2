@@ -53,10 +53,13 @@ An attacker exploits characteristics of the infrastructure of a network entity
 in order to perpetrate attacks or information gathering on network objects or
 effect a change in the ordinary information flow between network objects.
 
-. [[r5]] link:http://capec.mitre.org/data/definitions/161.html[CAPEC-161: Infrastructure Manipulation].
-An attacker exploits characteristics of the infrastructure of a network entity
-in order to perpetrate attacks or information gathering on network objects or
-effect a change in the ordinary information flow between network objects.
+. [[r5]] link:http://capec.mitre.org/data/definitions/173.html[CAPEC-173: Action Spoofing].
+An adversary is able to disguise one action for another and therefore trick a
+user into initiating one type of action when they intend to initiate a
+different action.
+For example, a user might be led to believe that clicking a button will submit
+a query,
+but in fact it downloads software.
 
 . [[r6]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
