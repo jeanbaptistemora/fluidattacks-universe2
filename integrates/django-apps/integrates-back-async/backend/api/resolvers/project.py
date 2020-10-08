@@ -476,6 +476,7 @@ async def resolve(
             'analytics',
             'bill',
             'consulting',
+            'drafts',
             'events',
             'findings',
             'max_severity',

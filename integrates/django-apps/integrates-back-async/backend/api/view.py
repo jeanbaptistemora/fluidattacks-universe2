@@ -15,6 +15,7 @@ from asgiref.sync import async_to_sync
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.group import GroupLoader
+from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.single_vulnerability import (
@@ -30,6 +31,7 @@ def append_context_value(context):
         'event': EventLoader(),
         'finding': FindingLoader(),
         'group': GroupLoader(),
+        'group_drafts': GroupDraftsLoader(),
         'group_findings': GroupFindingsLoader(),
         'project': ProjectLoader(),
         'single_vulnerability': SingleVulnerabilityLoader(),

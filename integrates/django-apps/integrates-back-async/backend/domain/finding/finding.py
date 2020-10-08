@@ -703,3 +703,13 @@ async def get_findings_by_group(group_name: str) -> List[FindingType]:
         for finding in findings
         if finding.get('historic_state', [{}])[-1].get('state') != 'DELETED'
     ]
+
+
+async def get_drafts_by_group(group_name: str) -> List[FindingType]:
+    drafts = await finding_dal.get_drafts_by_group(group_name)
+
+    return [
+        _format_finding(draft)
+        for draft in drafts
+        if draft.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+    ]

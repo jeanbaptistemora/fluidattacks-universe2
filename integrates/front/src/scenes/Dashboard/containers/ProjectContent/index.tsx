@@ -43,7 +43,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
                   />
-                  <Can do="backend_api_resolvers_project__get_drafts">
+                  <Can do="backend_api_resolvers_new_group_drafts_resolve">
                     <ContentTab
                       icon="icon pe-7s-stopwatch"
                       id="draftsTab"

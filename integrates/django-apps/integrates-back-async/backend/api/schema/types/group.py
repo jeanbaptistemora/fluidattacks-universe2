@@ -9,6 +9,7 @@ from backend.api.resolvers.new.group import (
     analytics,
     bill,
     consulting,
+    drafts,
     events,
     findings,
     max_severity_finding,
@@ -26,6 +27,7 @@ GROUP: ObjectType = ObjectType('Project')
 GROUP.set_field('analytics', analytics.resolve)
 GROUP.set_field('bill', bill.resolve)
 GROUP.set_field('consulting', consulting.resolve)
+GROUP.set_field('drafts', drafts.resolve)
 GROUP.set_field('events', events.resolve)
 GROUP.set_field('findings', findings.resolve)
 GROUP.set_field('maxSeverityFinding', max_severity_finding.resolve)

@@ -3,6 +3,7 @@ from ariadne import graphql
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.group import GroupLoader
+from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.single_vulnerability import (
     SingleVulnerabilityLoader
@@ -28,6 +29,7 @@ async def get_graphql_result(data, stakeholder):
         'event': EventLoader(),
         'finding': FindingLoader(),
         'group': GroupLoader(),
+        'group_drafts': GroupDraftsLoader(),
         'group_findings': GroupFindingsLoader(),
         'project': ProjectLoader(),
         'single_vulnerability': SingleVulnerabilityLoader(),

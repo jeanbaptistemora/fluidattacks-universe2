@@ -3,7 +3,7 @@ import logging
 from typing import Any, cast, Dict, List
 
 import aioboto3
-from boto3.dynamodb.conditions import And, Attr, Equals, Key
+from boto3.dynamodb.conditions import And, Attr, Equals, Key, Or
 from botocore.exceptions import ClientError
 
 from backend.dal.helpers import s3, dynamodb
@@ -174,6 +174,24 @@ async def get_findings_by_group(group_name: str) -> List[Dict[str, Any]]:
     filter_exp: And = (
         Attr('releaseDate').exists() &
         Attr('releaseDate').lte(today)
+    )
+
+    return await dynamodb.async_query(
+        TABLE_NAME,
+        {
+            'FilterExpression': filter_exp,
+            'IndexName': 'project_findings',
+            'KeyConditionExpression': key_exp
+        }
+    )
+
+
+async def get_drafts_by_group(group_name: str) -> List[Dict[str, Any]]:
+    key_exp: Equals = Key('project_name').eq(group_name)
+    today: str = datetime_utils.get_as_str(datetime_utils.get_now())
+    filter_exp: Or = (
+        Attr('releaseDate').not_exists() |
+        Attr('releaseDate').gt(today)
     )
 
     return await dynamodb.async_query(
