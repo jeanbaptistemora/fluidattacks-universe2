@@ -6,6 +6,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+aioextensions = "20.9.2315218"
 
 [tool.poetry.dev-dependencies]
 

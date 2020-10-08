@@ -4,7 +4,9 @@
 import re
 from typing import (
     Dict,
+    List,
     Match,
+    NamedTuple,
     Optional,
     Pattern,
     Tuple,
@@ -13,9 +15,32 @@ from typing import (
 # Third party libraries
 
 # Local libraries
+from code.utils import log
 
 # Constants
 MailmapMapping = Dict[Tuple[str, str], Tuple[str, str]]
+UPDATE_QUERY: str = """
+    UPDATE code.commits
+    SET
+        author_email = %(author_email)s,
+        author_name = %(author_name)s,
+        committer_email = %(committer_email)s,
+        committer_name = %(committer_name)s
+    WHERE
+        hash = %(hash)s
+        and namespace = %(namespace)s
+        and repository = %(repository)s
+"""
+
+
+class Item(NamedTuple):
+    hash: str
+    namespace: str
+    repository: str
+    author_email: str
+    author_name: str
+    committer_email: str
+    committer_name: str
 
 
 def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
@@ -41,3 +66,38 @@ def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
                     mailmap_dict[mailmap_from] = mailmap_to
 
     return mailmap_dict
+
+
+async def get_items_to_change(
+    items: List[Item],
+    mailmap_dict: MailmapMapping,
+) -> List[Item]:
+    items_to_change = []
+    for item in items:
+        item_data = item._asdict()
+        author = (item.author_name, item.author_email)
+        author_fixed = mailmap_dict.get(author)
+
+        if author_fixed:
+            await log(
+                'warning', 'Update author from: %s, to: %s',
+                author, author_fixed,
+            )
+            item_data['author_name'] = author_fixed[0]
+            item_data['author_email'] = author_fixed[1]
+
+        committer = (item.committer_name, item.committer_email)
+        committer_fixed = mailmap_dict.get(committer)
+
+        if committer_fixed:
+            await log(
+                'warning', 'Update committer from: %s, to: %s',
+                committer, committer_fixed,
+            )
+            item_data['committer_name'] = committer_fixed[0]
+            item_data['committer_email'] = committer_fixed[1]
+
+        if author_fixed or committer_fixed:
+            items_to_change.append(Item(**item_data))
+
+    return items_to_change
