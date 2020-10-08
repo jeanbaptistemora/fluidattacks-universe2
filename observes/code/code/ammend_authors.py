@@ -1,6 +1,9 @@
 """Walks all data in Redshift and edit those authors accordingly to mailmap."""
 
 # Standard library
+from asyncio import (
+    Queue,
+)
 import re
 from typing import (
     Dict,
@@ -12,10 +15,18 @@ from typing import (
     Tuple,
 )
 
-# Third party libraries
-
 # Local libraries
-from code.utils import log
+from code.utils import (
+    db_cursor,
+    log,
+)
+
+# Third party libraries
+from aioextensions import (
+    generate_in_thread,
+    in_thread,
+)
+
 
 # Constants
 MailmapMapping = Dict[Tuple[str, str], Tuple[str, str]]
@@ -101,3 +112,37 @@ async def get_items_to_change(
             items_to_change.append(Item(**item_data))
 
     return items_to_change
+
+
+async def item_emitter(queue: Queue) -> None:
+    # Iterate all rows in the DB and put them on a queue
+    with db_cursor() as cursor:
+        cursor.itersize = 100
+        await in_thread(
+            cursor.execute,
+            """ SELECT
+                    hash, namespace, repository,
+                    author_email, author_name,
+                    committer_email, committer_name
+                FROM code.commits
+                ORDER BY namespace
+            """
+        )
+        async for (
+            commit_hash,
+            namespace,
+            repository,
+            author_email,
+            author_name,
+            committer_email,
+            committer_name,
+        ) in generate_in_thread(lambda: cursor):
+            await queue.put(Item(
+                hash=commit_hash,
+                namespace=namespace,
+                repository=repository,
+                author_email=author_email,
+                author_name=author_name,
+                committer_email=committer_email,
+                committer_name=committer_name,
+            ))

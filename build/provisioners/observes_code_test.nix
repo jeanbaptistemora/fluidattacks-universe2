@@ -13,6 +13,7 @@ in
           buildInputs = [
             pkgs.git
             pkgs.python38
+            pkgs.python38Packages.psycopg2
           ];
 
           pyPkgMypy = builders.pythonPackage {
