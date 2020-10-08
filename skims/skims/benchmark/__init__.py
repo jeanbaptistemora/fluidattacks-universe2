@@ -1,16 +1,28 @@
 # Standard library
 import os
 import csv
-import sys
 from typing import (
     Dict,
+    List,
     NamedTuple,
+    Optional,
+    Tuple,
 )
 
 # Local libraries
 from utils.logs import (
     blocking_log,
 )
+
+
+class Result(NamedTuple):
+    cwe: Tuple[str, ...]
+    is_vulnerable: bool
+
+    category: Optional[str] = None
+
+    def shares_cwe_with(self, other: 'Result') -> bool:
+        return bool(set(self.cwe).intersection(set(other.cwe)))
 
 
 class Score(NamedTuple):
@@ -33,18 +45,34 @@ def cast_to_boolean(boolean: str) -> bool:
     raise NotImplementedError(boolean)
 
 
-def load_benchmark_results() -> Dict[str, bool]:
-    """Return a mapping from test to boolean indicating vulnerability state.
-
-    Example:
-
-        >>> { "BenchmarkTest02735": True }  # The test 02735 is vulnerable
-    """
+def load_benchmark_expected_results() -> Dict[str, Result]:
     with open(os.environ['EXPECTED_RESULTS_CSV']) as file:
-        mapping: Dict[str, bool] = {
-            row['# test name']: cast_to_boolean(row[' real vulnerability'])
+        mapping: Dict[str, Result] = {
+            row['# test name'] + '.java': Result(
+                category=row[' category'],
+                cwe=(
+                    row[' cwe'],
+                ),
+                is_vulnerable=is_vulnerable
+            )
             for row in csv.DictReader(file)
+            for is_vulnerable in [cast_to_boolean(row[' real vulnerability'])]
         }
+
+    return mapping
+
+
+def load_benchmark_skims_results() -> Dict[str, List[Result]]:
+    with open(os.environ['PRODUCED_RESULTS_CSV']) as file:
+        mapping: Dict[str, List[Result]] = {}
+        for row in csv.DictReader(file):
+            what = row['what']
+            mapping.setdefault(what, [])
+            mapping[what].append(Result(
+                category=None,
+                cwe=tuple(row['cwe'].split(' + ')),
+                is_vulnerable=True,
+            ))
 
     return mapping
 
@@ -55,23 +83,43 @@ def load_skims_results() -> Score:
     true_negatives: int = 0
     true_positives: int = 0
 
-    skims_stdout: str = sys.stdin.read()
+    skims_findings = load_benchmark_skims_results()
+    for test, result in load_benchmark_expected_results().items():
+        success: bool = False
+        skims_results = skims_findings.get(test, [])
 
-    for test, is_vulnerable in load_benchmark_results().items():
-        is_safe: bool = not is_vulnerable
-        skims_said_is_vulnerable: bool = test in skims_stdout
-        skims_said_is_safe: bool = not skims_said_is_vulnerable
-
-        if skims_said_is_safe and is_safe:
-            true_negatives += 1
-        elif skims_said_is_safe and not is_safe:
-            false_negatives += 1
-        elif skims_said_is_vulnerable and is_vulnerable:
-            true_positives += 1
-        elif skims_said_is_vulnerable and not is_vulnerable:
-            false_positives += 1
+        # We must check skims had said vulnerable against the expected
+        # type of vulnerability.
+        # It does not make sense to compare different CWE, for instance
+        # in some files skims reports F060 Insecure Exceptions, but the
+        # expected vulnerability is a buffer overflow.
+        # this CWE comparison brings that into the table, so the
+        # results are as realistic as possible
+        if any(
+            skims_result.is_vulnerable
+            and skims_result.shares_cwe_with(result)
+            for skims_result in skims_results
+        ):
+            if result.is_vulnerable:
+                success = True
+                true_positives += 1
+            else:
+                false_positives += 1
         else:
-            raise NotImplementedError()
+            if result.is_vulnerable:
+                false_negatives += 1
+            else:
+                success = True
+                true_negatives += 1
+
+        if not success:
+            blocking_log(
+                'error',
+                'test: %s\nskims: %s\nreal: %s\n',
+                test,
+                skims_results,
+                result,
+            )
 
     true_positives_rate: float = true_positives / (
         true_positives + false_negatives

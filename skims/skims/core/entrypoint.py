@@ -171,7 +171,7 @@ async def notify_findings_as_csv(
         writer.writeheader()
         writer.writerows(sorted(rows, key=str))
 
-    await log('info', 'An output file has been written at: %s', output)
+    await log('info', 'An output file has been written: %s', abspath(output))
 
 
 async def main(

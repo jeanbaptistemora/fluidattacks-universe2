@@ -162,7 +162,7 @@ def test_correct_run_no_group(test_group: str) -> None:
 
     assert code == 0
     assert '[INFO] Startup working dir is:' in stdout
-    assert '[INFO] An output file has been written at: results.csv' in stdout
+    assert '[INFO] An output file has been written:' in stdout
     assert '[INFO] Files to be tested:' in stdout
     assert '[INFO] Success: True' in stdout
     assert not stderr, stderr
