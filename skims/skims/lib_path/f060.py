@@ -99,6 +99,7 @@ def _csharp_insecure_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'396'},
         description=t(
             key='src.lib_path.f060.insecure_exceptions.description',
             lang='C#',
@@ -168,6 +169,7 @@ def _java_insecure_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'396'},
         description=t(
             key='src.lib_path.f060.insecure_exceptions.description',
             lang='Java',
@@ -220,6 +222,7 @@ def _python_insecure_exceptions(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'396'},
         description=t(
             key='src.lib_path.f060.insecure_exceptions.description',
             lang='Python',
@@ -262,6 +265,7 @@ def _swift_insecure_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'396'},
         description=t(
             key='src.lib_path.f060.insecure_exceptions.description',
             lang='Swift',

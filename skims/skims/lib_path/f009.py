@@ -69,6 +69,7 @@ def _aws_credentials(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'798'},
         description=t(
             key='src.lib_path.f009.aws_credentials.description',
             path=path,
@@ -131,6 +132,7 @@ def _crypto_js_credentials(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'798'},
         description=t(
             key='src.lib_path.f009.crypto_js_credentials.description',
             path=path,
@@ -168,6 +170,7 @@ def _dockerfile_env_secrets(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'798'},
         description=t(
             key='src.lib_path.f009.dockerfile_env_secrets.description',
             path=path,
@@ -242,6 +245,7 @@ def _java_properties_sensitive_info(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'798'},
         description=t(
             key='src.lib_path.f009.java_properties_sensitive_info',
             path=path,

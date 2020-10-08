@@ -65,6 +65,7 @@ def _csharp_insecure_randoms(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'330'},
         description=t(
             key='src.lib_path.f034.csharp_insecure_randoms.description',
             path=path,
@@ -110,6 +111,7 @@ def _java_use_of_lang_math_random(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'330'},
         description=t(
             key='src.lib_path.f034.java_use_of_lang_math_random.description',
             path=path,
@@ -155,6 +157,7 @@ def _java_use_of_util_random(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'330'},
         description=t(
             key='src.lib_path.f034.java_use_of_util_random.description',
             path=path,
@@ -189,6 +192,7 @@ def _javascript_insecure_randoms(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'330'},
         description=t(
             key='src.lib_path.f034.javascript_insecure_randoms.description',
             path=path,

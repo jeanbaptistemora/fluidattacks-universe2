@@ -33,7 +33,7 @@ class FindingTypeEnum(Enum):
 
 class FindingMetadata(NamedTuple):
     auto_approve: bool
-    cwe: Tuple[str, ...]
+    cwe: str
     description: str
     impact: str
     recommendation: str
@@ -47,9 +47,7 @@ class FindingMetadata(NamedTuple):
 class FindingEnum(Enum):
     F001_JPA: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '89',
-        ),
+        cwe='89',
         description='utils.model.finding.enum.F001_JPA.description',
         impact='utils.model.finding.enum.F001_JPA.impact',
         recommendation='utils.model.finding.enum.F001_JPA.recommendation',
@@ -73,9 +71,7 @@ class FindingEnum(Enum):
     )
     F009: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '798',
-        ),
+        cwe='798',
         description='utils.model.finding.enum.f009.description',
         impact='utils.model.finding.enum.f009.impact',
         recommendation='utils.model.finding.enum.f009.recommendation',
@@ -99,9 +95,7 @@ class FindingEnum(Enum):
     )
     F011: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '937',
-        ),
+        cwe='937',
         description='utils.model.finding.enum.f011.description',
         impact='utils.model.finding.enum.f011.impact',
         recommendation='utils.model.finding.enum.f011.recommendation',
@@ -125,9 +119,7 @@ class FindingEnum(Enum):
     )
     F022: FindingMetadata = FindingMetadata(
         auto_approve=False,
-        cwe=(
-            '319',
-        ),
+        cwe='319',
         description='utils.model.finding.enum.F022.description',
         impact='utils.model.finding.enum.F022.impact',
         recommendation='utils.model.finding.enum.F022.recommendation',
@@ -151,9 +143,7 @@ class FindingEnum(Enum):
     )
     F031_AWS: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '250',
-        ),
+        cwe='250',
         description='utils.model.finding.enum.F031_AWS.description',
         impact='utils.model.finding.enum.F031_AWS.impact',
         recommendation='utils.model.finding.enum.F031_AWS.recommendation',
@@ -177,9 +167,7 @@ class FindingEnum(Enum):
     )
     F031_CWE378: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '378',
-        ),
+        cwe='378',
         description='utils.model.finding.enum.F031_CWE378.description',
         impact='utils.model.finding.enum.F031_CWE378.impact',
         recommendation='utils.model.finding.enum.F031_CWE378.recommendation',
@@ -203,9 +191,7 @@ class FindingEnum(Enum):
     )
     F034: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '330',
-        ),
+        cwe='330',
         description='utils.model.finding.enum.f034.description',
         impact='utils.model.finding.enum.f034.impact',
         recommendation='utils.model.finding.enum.f034.recommendation',
@@ -229,9 +215,7 @@ class FindingEnum(Enum):
     )
     F037: FindingMetadata = FindingMetadata(
         auto_approve=False,
-        cwe=(
-            '200',
-        ),
+        cwe='200',
         description='utils.model.finding.enum.f037.description',
         impact='utils.model.finding.enum.f037.impact',
         recommendation='utils.model.finding.enum.f037.recommendation',
@@ -255,9 +239,7 @@ class FindingEnum(Enum):
     )
     F052: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '310',
-        ),
+        cwe='310',
         description='utils.model.finding.enum.F052.description',
         impact='utils.model.finding.enum.F052.impact',
         recommendation='utils.model.finding.enum.F052.recommendation',
@@ -281,9 +263,7 @@ class FindingEnum(Enum):
     )
     F060: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '396',
-        ),
+        cwe='396',
         description='utils.model.finding.enum.f060.description',
         impact='utils.model.finding.enum.f060.impact',
         recommendation='utils.model.finding.enum.f060.recommendation',
@@ -307,9 +287,7 @@ class FindingEnum(Enum):
     )
     F061: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '390',
-        ),
+        cwe='390',
         description='utils.model.finding.enum.f061.description',
         impact='utils.model.finding.enum.f061.impact',
         recommendation='utils.model.finding.enum.f061.recommendation',
@@ -333,9 +311,7 @@ class FindingEnum(Enum):
     )
     F073: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '478',
-        ),
+        cwe='478',
         description='utils.model.finding.enum.F073.description',
         impact='utils.model.finding.enum.F073.impact',
         recommendation='utils.model.finding.enum.F073.recommendation',
@@ -359,9 +335,7 @@ class FindingEnum(Enum):
     )
     F085: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '922',
-        ),
+        cwe='922',
         description='utils.model.finding.enum.f085.description',
         impact='utils.model.finding.enum.f085.impact',
         recommendation='utils.model.finding.enum.f085.recommendation',
@@ -385,9 +359,7 @@ class FindingEnum(Enum):
     )
     F117: FindingMetadata = FindingMetadata(
         auto_approve=True,
-        cwe=(
-            '377',
-        ),
+        cwe='377',
         description='utils.model.finding.enum.f117.description',
         impact='utils.model.finding.enum.f117.impact',
         recommendation='utils.model.finding.enum.f117.recommendation',
@@ -494,6 +466,7 @@ class SkimsConfig(NamedTuple):
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
+    cwe: Tuple[str, ...]
     description: str
     snippet: str
 

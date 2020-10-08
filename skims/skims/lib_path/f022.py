@@ -59,6 +59,7 @@ def _java_properties_unencrypted_channel(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'319'},
         description=t(
             key='src.lib_path.f022.unencrypted_channel',
             path=path,

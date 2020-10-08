@@ -102,6 +102,7 @@ def _javascript_use_console_log(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'200'},
         description=t(
             key='src.lib_path.f037.javascript_use_console_log',
             path=path,

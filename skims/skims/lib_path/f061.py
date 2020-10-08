@@ -72,6 +72,7 @@ def _csharp_swallows_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'390'},
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
             lang='C#',
@@ -120,6 +121,7 @@ def _javascript_swallows_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'390'},
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
             lang='Javascript',
@@ -161,6 +163,7 @@ def _java_swallows_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'390'},
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
             lang='Java',
@@ -202,6 +205,7 @@ def _python_swallows_exceptions(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'390'},
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
             lang='Python',
@@ -244,6 +248,7 @@ def _swift_insecure_exceptions(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'390'},
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
             lang='Swift',

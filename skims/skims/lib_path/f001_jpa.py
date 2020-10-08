@@ -156,6 +156,7 @@ def _java_jpa_like(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'89'},
         description=t(
             key='src.lib_path.f001_jpa.java_like.description',
             path=path,

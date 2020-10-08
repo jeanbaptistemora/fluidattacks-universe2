@@ -105,6 +105,7 @@ def _javascript_client_storage(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'922'},
         description=t(
             key='src.lib_path.f085.client_storage.description',
             path=path,

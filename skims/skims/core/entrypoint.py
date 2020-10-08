@@ -156,7 +156,7 @@ async def notify_findings_as_csv(
     headers = ('cwe', 'title', 'what', 'where')
     rows = [
         {
-            'cwe': ' + '.join(result.finding.value.cwe),
+            'cwe': ' + '.join(result.skims_metadata.cwe),
             'title': t(result.finding.value.title),
             'what': result.what,
             'where': result.where,

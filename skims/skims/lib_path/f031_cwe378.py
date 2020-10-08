@@ -54,6 +54,7 @@ def _java_file_create_temp_file(
 
     return blocking_get_vulnerabilities(
         content=content,
+        cwe={'378'},
         description=t(key=translation_key, path=path),
         finding=FindingEnum.F031_CWE378,
         grammar=grammar,

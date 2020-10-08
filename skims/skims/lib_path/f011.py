@@ -291,6 +291,7 @@ def translate_dependencies_to_vulnerabilities(
             )),
             where=f'{product["line"]}',
             skims_metadata=SkimsVulnerabilityMetadata(
+                cwe=('937',),
                 description=t(
                     key='src.lib_path.f011.npm_package_json.description',
                     path=path,

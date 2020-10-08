@@ -67,6 +67,9 @@ VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, '.', True)
 
 SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
 
+# Lint config
+# pylint: disable=too-many-arguments
+
 
 def blocking_get_matching_lines(
     content: str,
@@ -88,8 +91,9 @@ def blocking_get_matching_lines(
     return matches
 
 
-def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
+def blocking_get_vulnerabilities(
     content: str,
+    cwe: Set[str],
     description: str,
     finding: FindingEnum,
     grammar: ParserElement,
@@ -103,6 +107,7 @@ def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
             what=path,
             where=f'{match.start_line}',
             skims_metadata=SkimsVulnerabilityMetadata(
+                cwe=tuple(cwe),
                 description=description,
                 snippet=blocking_to_snippet(
                     column=match.start_column,
@@ -122,6 +127,7 @@ def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
 
 def blocking_get_vulnerabilities_from_iterator(
     content: str,
+    cwe: Set[str],
     description: str,
     finding: FindingEnum,
     iterator: Iterator[Tuple[int, int]],
@@ -135,6 +141,7 @@ def blocking_get_vulnerabilities_from_iterator(
             what=path,
             where=f'{line_no}',
             skims_metadata=SkimsVulnerabilityMetadata(
+                cwe=tuple(cwe),
                 description=description,
                 snippet=blocking_to_snippet(
                     column=column_no,

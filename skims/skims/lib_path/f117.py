@@ -49,6 +49,7 @@ async def unverifiable_files(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=raw_content.decode(encoding='utf-8', errors='replace'),
+        cwe={'377'},
         description=t(
             key='src.lib_path.f117.unverifiable_files.description',
             path=path,

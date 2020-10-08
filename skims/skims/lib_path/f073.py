@@ -77,6 +77,7 @@ def _csharp_switch_no_default(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'478'},
         description=t(
             key='src.lib_path.f073.switch_no_default',
             path=path,
@@ -138,6 +139,7 @@ def _java_switch_no_default(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'478'},
         description=t(
             key='src.lib_path.f073.switch_no_default',
             path=path,
@@ -199,6 +201,7 @@ def _javascript_switch_no_default(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'478'},
         description=t(
             key='src.lib_path.f073.switch_no_default',
             path=path,

@@ -79,6 +79,7 @@ def _create_vulns(
 ) -> Tuple[Vulnerability, ...]:
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
+        cwe={'250'},
         description=t(
             key=description_key,
             path=path,
