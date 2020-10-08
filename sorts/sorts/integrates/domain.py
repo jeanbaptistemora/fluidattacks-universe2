@@ -9,10 +9,10 @@ from integrates.dal import (
 )
 
 
-def get_vulnerable_lines(group: str) -> List[Vulnerability]:
+def get_vulnerable_lines(group: str) -> List[str]:
     vulnerabilities: List[Vulnerability] = get_vulnerabilities(group)
     return [
-        vuln
+        vuln.where
         for vuln in vulnerabilities
         if vuln.kind == VulnerabilityKindEnum.LINES
     ]

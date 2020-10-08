@@ -161,8 +161,7 @@ def get_unique_vuln_files(group: str) -> Tuple[List[str], List[str]]:
     """
     Filter unique values of vulnerable files and their respective repositories
     """
-    vulnerabilities = get_vulnerable_lines(group)
-    unique_vuln_files: Set[str] = {vuln.where for vuln in vulnerabilities}
+    unique_vuln_files: Set[str] = set(get_vulnerable_lines(group))
     unique_vuln_repos: Set[str] = {
         where.split('/')[0] for where in unique_vuln_files
     }

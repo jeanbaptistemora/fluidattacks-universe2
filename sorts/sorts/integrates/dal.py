@@ -2,12 +2,9 @@
 from enum import Enum
 from typing import (
     Any,
-    Callable,
     Dict,
     List,
     NamedTuple,
-    Tuple,
-    TypeVar,
 )
 
 # Third-party libraries
@@ -20,15 +17,6 @@ from utils.logs import (
     log,
     log_exception,
 )
-
-
-# Constants
-TFun = TypeVar('TFun', bound=Callable[..., Any])
-
-
-class ErrorMapping(NamedTuple):
-    exception: Exception
-    messages: Tuple[str, ...]
 
 
 class VulnerabilityKindEnum(Enum):
