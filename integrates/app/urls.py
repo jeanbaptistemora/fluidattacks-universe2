@@ -45,6 +45,7 @@ def api_dispatcher(request: HttpRequest) -> HttpResponse:
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^new/?$', views.index, name='index'),
     # Principal process.
     url(r'^graphic/?$', views.graphic, name='graphic'),
     url(

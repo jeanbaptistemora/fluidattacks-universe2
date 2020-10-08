@@ -148,7 +148,7 @@ describe("Organization users view", () => {
       user1Cells
         .at(5)
         .text())
-      .toBe("10 days ago");
+      .toBe("9 days ago");
 
     expect(
       user2Cells
