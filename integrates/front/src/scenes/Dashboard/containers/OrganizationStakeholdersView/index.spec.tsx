@@ -55,9 +55,7 @@ describe("Organization users view", () => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  lastLogin: moment()
-                    .subtract(9, "days")
-                    .format("YYYY-MM-DD"),
+                  lastLogin: "2020-09-01",
                   phoneNumber: "3100000000",
                   role: "group_manager",
                 },
@@ -148,7 +146,10 @@ describe("Organization users view", () => {
       user1Cells
         .at(5)
         .text())
-      .toBe("9 days ago");
+      .toBe(
+        moment("2020-09-01", "YYYY-MM-DD hh:mm:ss")
+        .fromNow(),
+      );
 
     expect(
       user2Cells
