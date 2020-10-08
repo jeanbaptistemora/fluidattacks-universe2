@@ -20,6 +20,7 @@ from backend.api.resolvers.new.group import (
     service_attributes,
     stakeholders,
     total_findings,
+    total_treatment,
     user_role
 )
 
@@ -40,4 +41,5 @@ GROUP.set_field('organization', organization.resolve)
 GROUP.set_field('serviceAttributes', service_attributes.resolve)
 GROUP.set_field('stakeholders', stakeholders.resolve)
 GROUP.set_field('totalFindings', total_findings.resolve)
+GROUP.set_field('totalTreatment', total_treatment.resolve)
 GROUP.set_field('userRole', user_role.resolve)

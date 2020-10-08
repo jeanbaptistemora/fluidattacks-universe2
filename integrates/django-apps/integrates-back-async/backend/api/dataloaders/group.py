@@ -2,7 +2,6 @@
 from typing import cast, Dict, List, Set
 
 # Third party
-import simplejson as json
 from aiodataloader import DataLoader
 
 # Local
@@ -62,10 +61,7 @@ def format_group(group: Group) -> Group:
         'open_vulnerabilities': group.get('open_vulnerabilities', 0),
         'subscription': historic_configuration[-1]['type'],
         'tags': group.get('tag', []),
-        'total_treatment': json.dumps(
-            group.get('total_treatment', {}),
-            use_decimal=True
-        ),
+        'total_treatment': group.get('total_treatment', {}),
         'user_deletion': (
             historic_deletion[-1].get('user', '')
             if 'historic_deletion' in group else ''
