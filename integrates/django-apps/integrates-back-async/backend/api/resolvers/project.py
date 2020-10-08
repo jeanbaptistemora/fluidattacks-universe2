@@ -3,7 +3,7 @@
 import logging
 import sys
 import time
-from typing import Dict, List, Set, Any, cast, Union
+from typing import List, Set, Any, cast, Union
 
 # Third party libraries
 from aioextensions import (
@@ -13,7 +13,6 @@ from ariadne import (
     convert_camel_case_to_snake,
     convert_kwargs_to_snake_case,
 )
-from graphql import GraphQLError
 from graphql.language.ast import (
     FieldNode,
     SelectionSetNode,
@@ -23,13 +22,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import authz
-from backend.api.resolvers import (
-    finding as finding_loader,
-)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    get_entity_cache_async,
     require_login,
     turn_args_into_kwargs,
     require_integrates,
@@ -40,7 +35,6 @@ from backend.domain import (
     user as user_domain,
 )
 from backend.typing import (
-    Finding as FindingType,
     Project as ProjectType,
     AddConsultPayload as AddConsultPayloadType,
     SimplePayload as SimplePayloadType,
@@ -58,86 +52,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-# Intentionally not @require_integrates
-@get_entity_cache_async
-async def _get_user_deletion(
-        _: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> str:
-    """Get user_deletion."""
-    user_deletion = ''
-    historic_deletion = await project_domain.get_historic_deletion(
-        project_name
-    )
-    if historic_deletion and historic_deletion[-1].get('deletion_date'):
-        user_deletion = historic_deletion[-1].get('user', '')
-    return user_deletion
-
-
-@require_integrates
-@get_entity_cache_async
-async def _get_tags(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> Set[str]:
-    """Get tags."""
-    project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    return cast(Set[str], project_attrs.get('tag', []))
-
-
-# Intentionally not @require_integrates
-@get_entity_cache_async
-async def _get_description(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> str:
-    """Get description."""
-    project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attr = project_attrs['attrs']
-    return cast(str, project_attr.get('description', ''))
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _get_drafts(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        requested_fields: List[FieldNode],
-        **__: Any) -> List[Dict[str, FindingType]]:
-    """Get drafts."""
-    util.cloudwatch_log(
-        info.context,
-        f'Security: Access to {project_name} drafts')  # pragma: no cover
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-    selection_set.selections = util.get_requested_fields(
-        'drafts', selection_set
-    )
-
-    project_drafts = await info.context.loaders['project'].load(project_name)
-    project_drafts = project_drafts['drafts']
-    findings = await info.context.loaders['finding'].load_many(project_drafts)
-
-    drafts = [
-        draft for draft in findings
-        if ('current_state' in draft and
-            draft['current_state'] != 'DELETED')
-    ]
-
-    return await collect(
-        finding_loader.resolve(
-            info,
-            draft['id'],
-            as_field=True,
-            selection_set=selection_set
-        )
-        for draft in drafts
-    )
 
 
 def _get_requested_fields(
@@ -215,22 +129,6 @@ async def resolve(
         result[requested_field] = resolver_func(info, **params)
     collected = dict(zip(result, await collect(result.values())))
     return {'name': project_name, **collected}
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-)
-async def resolve_project(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str) -> ProjectType:
-    """Resolve project query."""
-    project = await info.context.loaders['project'].load(project_name.lower())
-    if not project['attrs'] or project['attrs'].get('deletion_date'):
-        raise GraphQLError('Access denied')
-    return await resolve(info, project_name)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
