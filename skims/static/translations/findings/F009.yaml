@@ -1,4 +1,4 @@
-src.lib_path.f009.java_properties_sensitive_info:
+src.lib_path.f009.java_properties_sensitive_data:
   en: Sensitive information in {path}
   es: Información sensible en {path}
 src.lib_path.f009.aws_credentials.description:

@@ -34,7 +34,7 @@ from zone import (
 )
 
 
-def _java_properties_unencrypted_channel(
+def _java_properties_unencrypted_transport(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -71,12 +71,12 @@ def _java_properties_unencrypted_channel(
 
 
 @SHIELD
-async def java_properties_unencrypted_channel(
+async def java_properties_unencrypted_transport(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        _java_properties_unencrypted_channel,
+        _java_properties_unencrypted_transport,
         content=content,
         path=path,
     )
@@ -91,7 +91,7 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        coroutines.append(java_properties_unencrypted_channel(
+        coroutines.append(java_properties_unencrypted_transport(
             content=await content_generator(),
             path=path,
         ))

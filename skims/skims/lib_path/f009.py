@@ -194,7 +194,7 @@ async def dockerfile_env_secrets(
     )
 
 
-def _java_properties_sensitive_info(
+def _java_properties_sensitive_data(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -237,17 +237,17 @@ def _java_properties_sensitive_info(
             include_comments=True,
             exclude_protected_values=True,
         )
-        for line_no, (key, _) in data.items():
+        for line_no, (key, val) in data.items():
             key = key.lower()
             for sensible_key_smell in sensible_key_smells:
-                if sensible_key_smell in key:
+                if sensible_key_smell in key and val:
                     yield line_no, 0
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
         cwe={'798'},
         description=t(
-            key='src.lib_path.f009.java_properties_sensitive_info',
+            key='src.lib_path.f009.java_properties_sensitive_data',
             path=path,
         ),
         finding=FindingEnum.F009,
@@ -257,12 +257,12 @@ def _java_properties_sensitive_info(
 
 
 @SHIELD
-async def java_properties_sensitive_info(
+async def java_properties_sensitive_data(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        _java_properties_sensitive_info,
+        _java_properties_sensitive_data,
         content=content,
         path=path,
     )
@@ -307,7 +307,7 @@ async def analyze(  # pylint: disable=too-many-arguments
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        coroutines.append(java_properties_sensitive_info(
+        coroutines.append(java_properties_sensitive_data(
             content=await content_generator(),
             path=path,
         ))
