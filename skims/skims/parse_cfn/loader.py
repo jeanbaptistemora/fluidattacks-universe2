@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Any,
+    AsyncIterator,
 )
 
 # Third party libraries
@@ -14,6 +15,13 @@ from cfn_tools.yaml_loader import (
 )
 from frozendict import (
     frozendict,
+)
+from metaloaders.model import (
+    Node,
+    Type,
+)
+from metaloaders.cloudformation import (
+    load as load_cfn,
 )
 import yaml
 
@@ -160,6 +168,17 @@ def load_as_json(content: str) -> Any:
         last_l=1,
         obj=blocking_loads(content, default={}),
     )
+
+
+async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
+    templates = await in_process(
+        load_cfn,
+        stream=content,
+        fmt=fmt,
+    )
+    for template in templates.data if (templates.data_type
+                                       == Type.ARRAY) else [templates]:
+        yield template
 
 
 async def load(content: str, fmt: str) -> Any:

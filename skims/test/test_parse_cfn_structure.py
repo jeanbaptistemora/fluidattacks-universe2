@@ -1,11 +1,10 @@
 # Third libraries
-from aioextensions import (
-     run_decorator,
-)
 from metaloaders.model import Type
+from metaloaders.cloudformation import (
+    load,
+)
 
 # Local libraries
-from parse_cfn.loader_new import load
 from parse_cfn.structure_new import iterate_iam_policy_documents
 
 EXPECTED = ({
@@ -52,10 +51,9 @@ EXPECTED = ({
 })
 
 
-@run_decorator
-async def test_iterate_iam_policy_documents_as_yml() -> None:
+def test_iterate_iam_policy_documents_as_yml() -> None:
     with open('test/data/parse_cfn/full.yaml') as file:
-        template = await load(file.read(), 'yaml')
+        template = load(stream=file.read(), fmt='yaml')
     result = tuple(iterate_iam_policy_documents(template))
 
     assert tuple(item.raw for item in result) == EXPECTED
@@ -111,10 +109,9 @@ async def test_iterate_iam_policy_documents_as_yml() -> None:
     assert result[6].inner['Resource'][0][0].start_line == 86
 
 
-@run_decorator
-async def test_iterate_iam_policy_documents_as_json() -> None:
+def test_iterate_iam_policy_documents_as_json() -> None:
     with open('test/data/parse_cfn/full.yaml.json') as file:
-        template = await load(file.read(), 'json')
+        template = load(stream=file.read(), fmt='json')
 
     result = tuple(iterate_iam_policy_documents(template))
 

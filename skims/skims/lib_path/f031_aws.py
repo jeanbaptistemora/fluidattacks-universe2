@@ -14,7 +14,9 @@ from aioextensions import (
     resolve,
     in_process,
 )
-from metaloaders.model import Node
+from metaloaders.model import (
+    Node,
+)
 
 # Local libraries
 from aws.iam.structure import (
@@ -34,12 +36,12 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
-from parse_cfn.loader_new import (
-    load as load_cfn,
-)
 from parse_cfn.structure_new import (
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
+)
+from parse_cfn.loader import (
+    load_templates,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -501,27 +503,28 @@ async def analyze(
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()
-        template = await load_cfn(content=content, fmt=file_extension)
-        coroutines.append(cfn_negative_statement(
-            content=content,
-            path=path,
-            template=template,
-        ))
-        coroutines.append(cfn_open_passrole(
-            content=content,
-            path=path,
-            template=template,
-        ))
-        coroutines.append(cfn_permissive_policy(
-            content=content,
-            path=path,
-            template=template,
-        ))
-        coroutines.append(cfn_admin_policy_attached(
-            content=content,
-            path=path,
-            template=template,
-        ))
+        async for template in load_templates(content=content,
+                                             fmt=file_extension):
+            coroutines.append(cfn_negative_statement(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_open_passrole(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_permissive_policy(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_admin_policy_attached(
+                content=content,
+                path=path,
+                template=template,
+            ))
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
