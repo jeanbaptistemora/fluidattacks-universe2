@@ -1,6 +1,9 @@
 src.lib_path.f037.javascript_use_console_log:
   en: Using logging to show JavaScript exceptions in {path}
   es: Uso de logging para mostrar excepciones JavasScript en {path}
+src.lib_path.f037.java_logging_exceptions:
+  en: Using logging to show Java exceptions in {path}
+  es: Uso de logging para mostrar excepciones Javas en {path}
 utils.model.finding.enum.f037.description:
   en: >
     The system exposes technical information about the system to users who are
