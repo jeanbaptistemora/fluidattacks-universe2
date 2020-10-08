@@ -47,6 +47,11 @@ sorts_lint:
   <<: *sorts_in_dev_branch
   stage: lint-code
 
+sorts_test:
+  <<: *with_nix
+  <<: *sorts_in_dev_branch
+  stage: test-code
+
 sorts_deploy_to_pypi:
   <<: *with_nix
   <<: *sorts_in_master_branch
