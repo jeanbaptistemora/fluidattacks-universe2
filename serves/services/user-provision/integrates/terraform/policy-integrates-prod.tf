@@ -17,10 +17,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::servestf/integrates.tfstate",
-      "arn:aws:s3:::servestf",
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/*",
     ]
   }
 

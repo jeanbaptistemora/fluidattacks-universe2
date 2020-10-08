@@ -12,20 +12,6 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:PutObject",
-      "s3:ListBucket",
-      "s3:GetObject"
-    ]
-    resources = [
-      "arn:aws:s3:::servestf/integrates.tfstate",
-      "arn:aws:s3:::servestf",
-      "arn:aws:s3:::fluidattacks-terraform-states-dev",
-      "arn:aws:s3:::fluidattacks-terraform-states-dev/*"
-    ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
       "s3:ListBucket",
       "s3:GetObject"
     ]
