@@ -1,3 +1,6 @@
+src.lib_path.f037.javascript_use_console_log:
+  en: Using logging to show JavaScript exceptions in {path}
+  es: Uso de logging para mostrar excepciones JavasScript en {path}
 utils.model.finding.enum.f037.description:
   en: >
     The system exposes technical information about the system to users who are
@@ -20,8 +23,8 @@ utils.model.finding.enum.f037.recommendation:
     usuarios no autorizados, ya que podrían aprovecharla para ampliar el
     conocimiento de la superficie de ataque.
 utils.model.finding.enum.f037.requirements:
-  en: R077. Avoid disclosing technical information.
-  es: R223. Evite revelar información técnica.
+  en: REQ.077 Avoid disclosing technical information.
+  es: REQ.077 Evite revelar información técnica.
 utils.model.finding.enum.f037.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

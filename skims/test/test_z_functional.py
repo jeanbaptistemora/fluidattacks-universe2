@@ -72,6 +72,7 @@ def skims(*args: str) -> Tuple[int, str, str]:
 def do_csv_results_match(caller: Callable[..., Any]) -> bool:
     with open('results.csv') as results:
         with open(f'test/data/{caller.__name__}.csv') as expected:
+            assert sorted(results.readlines()) == sorted(expected.readlines())
             return sorted(results.readlines()) == sorted(expected.readlines())
 
 
@@ -337,6 +338,13 @@ async def test_correct_assert(
         ('F031_CWE378', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '6'),
         )),
+        ('F037', 'SUBMITTED', (
+            ('test/data/lib_path/f037/javascript.js', '20'),
+            ('test/data/lib_path/f037/javascript.js', '28'),
+            ('test/data/lib_path/f037/javascript.js', '36'),
+            ('test/data/lib_path/f037/javascript.js', '45'),
+            ('test/data/lib_path/f037/javascript.js', '6'),
+        )),
         ('F052', 'APPROVED', (
             ('test/data/lib_path/f052/csharp.cs', '2'),
             ('test/data/lib_path/f052/csharp.cs', '3'),
@@ -454,6 +462,7 @@ async def test_correct_nothing_to_do_assert(
         ('F022', 'SUBMITTED', ()),
         ('F031_AWS', 'APPROVED', ()),
         ('F031_CWE378', 'APPROVED', ()),
+        ('F037','SUBMITTED', ()),
         ('F052', 'APPROVED', ()),
         ('F060', 'APPROVED', ()),
         ('F061', 'APPROVED', ()),
