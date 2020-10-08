@@ -10,8 +10,8 @@ import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
-import { TagsInfo } from "scenes/Dashboard/containers/TagContent/TagInfo";
 import { default as globalStyle } from "styles/global.css";
+import { StickyContainer, TabsContainer } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -37,14 +37,12 @@ const tagContent: React.FC = (): JSX.Element => {
   }
 
   return (
-  <React.StrictMode>
-    <React.Fragment>
+    <React.StrictMode>
       <React.Fragment>
         <Row>
           <Col md={12} sm={12}>
-            <React.Fragment>
-              <div className={globalStyle.stickyContainer}>
-                <ul className={globalStyle.tabsContainer}>
+            <StickyContainer>
+              <TabsContainer>
                   <ContentTab
                     icon="icon pe-7s-graph3"
                     id="tagIndicatorsTab"
@@ -59,8 +57,8 @@ const tagContent: React.FC = (): JSX.Element => {
                     title={translate.t("organization.tabs.portfolios.tabs.group.text")}
                     tooltip={translate.t("organization.tabs.portfolios.tabs.group.tooltip")}
                   />
-                </ul>
-              </div>
+                </TabsContainer>
+              </StickyContainer>
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${path}/analytics`} exact={true} >
@@ -70,13 +68,11 @@ const tagContent: React.FC = (): JSX.Element => {
                   <Redirect to={`${path}/analytics`} />
                 </Switch>
               </div>
-            </React.Fragment>
           </Col>
         </Row>
       </React.Fragment>
-    </React.Fragment>
-  </React.StrictMode>
-);
+    </React.StrictMode>
+  );
 };
 
 export { tagContent as TagContent };

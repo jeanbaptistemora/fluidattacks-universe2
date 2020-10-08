@@ -3,35 +3,12 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import { Route } from "react-router";
-import { MemoryRouter, RouteComponentProps } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/TagInfo/queries";
 import store from "store";
 
 describe("TagContent", () => {
-
-  const mockProps: RouteComponentProps<{ tagName: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { tagName: "TEST-PROJECTS" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: MockedResponse = {
     request: {

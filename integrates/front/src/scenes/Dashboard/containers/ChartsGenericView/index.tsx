@@ -628,7 +628,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
         </React.Fragment>
       ) : undefined}
       {reportMode ? undefined :
-        doesEntityMatch("group", "organization") ? (<ChartsGenericViewExtras {...props} />) : undefined
+        <ChartsGenericViewExtras {...props} />
       }
     </React.StrictMode>
   );
