@@ -32,7 +32,7 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -76,7 +76,7 @@ def _csharp_insecure_randoms(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def csharp_insecure_randoms(
     content: str,
@@ -122,7 +122,7 @@ def _java_use_of_lang_math_random(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_use_of_lang_math_random(
     content: str,
@@ -168,7 +168,7 @@ def _java_use_of_util_random(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_use_of_util_random(
     content: str,
@@ -203,7 +203,7 @@ def _javascript_insecure_randoms(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def javascript_insecure_randoms(
     content: str,

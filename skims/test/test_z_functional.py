@@ -351,7 +351,6 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/csharp.cs', '3'),
             ('test/data/lib_path/f052/csharp.cs', '5'),
             ('test/data/lib_path/f052/java.java', '1'),
-            ('test/data/lib_path/f052/java.java', '11'),
             ('test/data/lib_path/f052/java.java', '12'),
             ('test/data/lib_path/f052/java.java', '13'),
             ('test/data/lib_path/f052/java.java', '14'),

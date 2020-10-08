@@ -36,7 +36,7 @@ from lib_path.common import (
     VAR_ATTR_JAVA,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -111,7 +111,7 @@ def _csharp_insecure_exceptions(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def csharp_insecure_exceptions(
     content: str,
@@ -181,7 +181,7 @@ def _java_insecure_exceptions(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_insecure_exceptions(
     content: str,
@@ -236,7 +236,7 @@ def _python_insecure_exceptions(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def python_insecure_exceptions(
     content: str,
@@ -277,7 +277,7 @@ def _swift_insecure_exceptions(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def swift_insecure_exceptions(
     content: str,

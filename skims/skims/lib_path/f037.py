@@ -23,7 +23,7 @@ from lib_path.common import (
     SHIELD,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -169,7 +169,7 @@ def _java_logging_exceptions(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_logging_exceptions(
     content: str,
@@ -187,7 +187,7 @@ async def java_logging_exceptions(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def javascript_use_console_log(
     content: str,

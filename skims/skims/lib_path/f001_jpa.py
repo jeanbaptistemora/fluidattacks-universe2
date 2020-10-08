@@ -29,7 +29,7 @@ from lib_path.common import (
     SHIELD,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -167,7 +167,7 @@ def _java_jpa_like(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_jpa_like(
     content: str,

@@ -35,3 +35,4 @@ ECGenParameterSpec("secp521r1")
 ECGenParameterSpec("c2pnb208w1")
 javax.crypto.KeyGenerator.getInstance("DES").generateKey();
 javax.crypto.KeyGenerator.getInstance("HmacSHA256").generateKey();
+javax.crypto.KeyGenerator.getInstance("AES").generateKey();

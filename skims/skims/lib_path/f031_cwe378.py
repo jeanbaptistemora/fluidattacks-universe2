@@ -25,7 +25,7 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -62,7 +62,7 @@ def _java_file_create_temp_file(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_file_create_temp_file(
     content: str,

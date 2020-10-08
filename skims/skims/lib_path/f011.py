@@ -34,7 +34,7 @@ from parse_json import (
     blocking_loads as blocking_json_loads,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -124,7 +124,7 @@ def _build_gradle(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def build_gradle(
     content: str,
@@ -160,7 +160,7 @@ def _npm_package_json(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def npm_package_json(
     content: str,
@@ -199,7 +199,7 @@ def _npm_package_lock_json(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def npm_package_lock_json(
     content: str,
@@ -258,7 +258,7 @@ def _yarn_lock(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def yarn_lock(
     content: str,

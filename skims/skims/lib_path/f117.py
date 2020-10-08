@@ -18,7 +18,7 @@ from lib_path.common import (
     SHIELD,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -36,7 +36,7 @@ ALLOWED: Set[Tuple[str, str]] = {
 }
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def unverifiable_files(
     file_name: str,

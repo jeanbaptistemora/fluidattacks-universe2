@@ -13,7 +13,7 @@ from aioextensions import (
 
 # Local libraries
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from utils.ctx import (
     get_artifact,
@@ -33,7 +33,7 @@ from utils.system import (
 PARSER: str = get_artifact('static/parsers/babel')
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 async def parse(
     *,
     content: bytes,

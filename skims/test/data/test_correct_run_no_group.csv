@@ -60,7 +60,6 @@ cwe,title,what,where
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,1
-310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,11
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,12
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,13
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/java.java,14

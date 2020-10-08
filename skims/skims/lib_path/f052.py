@@ -37,7 +37,7 @@ from parse_java_properties import (
     load as load_java_properties,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -95,7 +95,7 @@ def _csharp_insecure_cipher(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def csharp_insecure_cipher(
     content: str,
@@ -144,7 +144,7 @@ def _csharp_insecure_hash(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def csharp_insecure_hash(
     content: str,
@@ -161,7 +161,6 @@ def _vuln_cipher_get_instance(transformation: str) -> bool:
     alg, mode, pad, *_ = (transformation + '///').split('/', 3)
 
     return any((
-        alg == 'aes' and not mode,
         alg == 'aes' and mode == 'ecb',
         alg == 'aes' and mode == 'cbc' and pad and pad != 'nopadding',
         alg == 'blowfish',
@@ -218,7 +217,7 @@ def _java_insecure_cipher(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_insecure_cipher(
     content: str,
@@ -296,7 +295,7 @@ def _java_insecure_hash(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_insecure_hash(
     content: str,
@@ -388,7 +387,7 @@ def _java_insecure_key(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_insecure_key(
     content: str,
@@ -433,7 +432,7 @@ def _java_insecure_pass(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_insecure_pass(
     content: str,
@@ -471,7 +470,7 @@ def _java_properties_missing_ssl(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_properties_missing_ssl(
     content: str,
@@ -511,7 +510,7 @@ def _java_properties_weak_cipher_suite(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_properties_weak_cipher_suite(
     content: str,

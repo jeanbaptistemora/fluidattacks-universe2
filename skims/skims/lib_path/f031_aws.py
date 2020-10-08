@@ -49,7 +49,7 @@ from parse_hcl2.structure import (
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -210,7 +210,7 @@ def _cfn_negative_statement(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def cfn_negative_statement(
     content: str,
@@ -250,7 +250,7 @@ def _cfn_permissive_policy(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def cfn_permissive_policy(
     content: str,
@@ -308,7 +308,7 @@ def _cfn_admin_policy_attached(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def cfn_open_passrole(
     content: str,
@@ -328,7 +328,7 @@ async def cfn_open_passrole(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def cfn_admin_policy_attached(
     content: str,

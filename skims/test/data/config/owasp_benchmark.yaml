@@ -3,5 +3,15 @@ language: EN
 output: results.csv
 path:
   include:
-    - glob(*)
+    # Crypto category
+    - BenchmarkTest00005.java
+    - BenchmarkTest00019.java
+    - BenchmarkTest00020.java
+    - BenchmarkTest00035.java
+    - BenchmarkTest00050.java # 5
+    - BenchmarkTest00053.java
+    - BenchmarkTest00054.java
+    - BenchmarkTest00055.java
+    - BenchmarkTest00056.java
+    - BenchmarkTest00057.java # 10
   exclude: []

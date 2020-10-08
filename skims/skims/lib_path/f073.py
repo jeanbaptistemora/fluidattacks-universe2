@@ -30,7 +30,7 @@ from lib_path.common import (
     blocking_get_vulnerabilities_from_iterator,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -88,7 +88,7 @@ def _csharp_switch_no_default(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def csharp_switch_no_default(
     content: str,
@@ -150,7 +150,7 @@ def _java_switch_no_default(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def java_switch_no_default(
     content: str,
@@ -212,7 +212,7 @@ def _javascript_switch_no_default(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def javascript_switch_no_default(
     content: str,

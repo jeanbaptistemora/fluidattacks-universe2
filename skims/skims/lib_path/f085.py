@@ -34,7 +34,7 @@ from lib_path.common import (
     VAR_ATTR_JAVA,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -116,7 +116,7 @@ def _javascript_client_storage(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def javascript_client_storage(
     content: str,

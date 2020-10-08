@@ -40,7 +40,7 @@ from parse_java_properties import (
     load as load_java_properties,
 )
 from state.cache import (
-    cache_decorator,
+    CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -80,7 +80,7 @@ def _aws_credentials(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def aws_credentials(
     content: str,
@@ -93,7 +93,7 @@ async def aws_credentials(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def crypto_js_credentials(
     content: str,
@@ -181,7 +181,7 @@ def _dockerfile_env_secrets(
     )
 
 
-@cache_decorator()
+@CACHE_ETERNALLY
 @SHIELD
 async def dockerfile_env_secrets(
     content: str,
