@@ -3,45 +3,28 @@ from contextvars import (
     ContextVar,
     Token,
 )
-from contextlib import (
-    asynccontextmanager,
-)
-from typing import (
-    AsyncIterator,
-)
+from contextlib import contextmanager
+from typing import Iterator
 
 # Third party libraries
-import aiohttp
-from aiogqlc import (
-    GraphQLClient,
-)
+from gql.client import Client as GraphQLClient
+from gql.transport.requests import RequestsHTTPTransport
+from gql.transport.transport import Transport
+
 
 # State
 API_TOKEN: ContextVar[str] = ContextVar('API_TOKEN', default='')
 
 
-@asynccontextmanager
-async def client() -> AsyncIterator[GraphQLClient]:
+@contextmanager
+def client() -> Iterator[GraphQLClient]:
     if API_TOKEN.get():
-        async with aiohttp.ClientSession(
-            connector=aiohttp.TCPConnector(
-                verify_ssl=False,
-            ),
-            headers={
-                'authorization': f'Bearer {API_TOKEN.get()}'
-            },
-            timeout=aiohttp.ClientTimeout(
-                total=60,
-                connect=None,
-                sock_read=None,
-                sock_connect=None,
-            ),
-            trust_env=True,
-        ) as session:
-            yield GraphQLClient(
-                endpoint='https://integrates.fluidattacks.com/api',
-                session=session
-            )
+        transport: Transport = RequestsHTTPTransport(
+            headers={'Authorization': f'Bearer {API_TOKEN.get()}'},
+            timeout=5,
+            url='https://integrates.fluidattacks.com/api'
+        )
+        yield GraphQLClient(transport=transport)
     else:
         raise RuntimeError('create_session() must be called first')
 

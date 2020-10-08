@@ -33,10 +33,9 @@ version = "1.0.0"
 
 [tool.poetry.dependencies]
 aioextensions = "20.9.2315218"
-aiogqlc = "2.0.0b1"
-aiohttp = "3.6.2"
 click = "7.1.2"
 GitPython = "3.1.9"
+gql = "3.0.0a2"
 joblib = "0.16.0"
 more_itertools = "8.5.0"
 mypy_extensions = "0.4.3"

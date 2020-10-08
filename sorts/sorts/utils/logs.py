@@ -41,14 +41,14 @@ async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(blocking_log, level, msg, *args)
 
 
-async def log_exception(
+def log_exception(
     level: str,
     exception: BaseException,
     **meta_data: str,
 ) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
-    await log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
+    blocking_log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
 
 
 # Side effects

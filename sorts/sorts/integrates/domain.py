@@ -9,8 +9,8 @@ from integrates.dal import (
 )
 
 
-async def get_vulnerable_lines(group: str) -> List[Vulnerability]:
-    vulnerabilities: List[Vulnerability] = await get_vulnerabilities(group)
+def get_vulnerable_lines(group: str) -> List[Vulnerability]:
+    vulnerabilities: List[Vulnerability] = get_vulnerabilities(group)
     return [
         vuln
         for vuln in vulnerabilities
