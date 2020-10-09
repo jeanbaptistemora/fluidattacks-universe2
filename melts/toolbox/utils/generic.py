@@ -19,12 +19,14 @@ from typing import (
 )
 
 # Third party libraries
+import boto3
 import requests
 import dateutil.parser
 from click import BadParameter
 from ruamel.yaml import YAML, safe_load
 from pykwalify.core import Core
 from pykwalify.errors import SchemaError
+from botocore.exceptions import ClientError
 
 # Local libraries
 from toolbox import logger
@@ -81,6 +83,19 @@ def is_branch_master() -> bool:
     Return False if branch is dev.
     """
     return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
+
+
+def is_credential_valid(aws_access_key_id,
+                        aws_secret_access_key,
+                        aws_session_token):
+    try:
+        client = boto3.client('sts', aws_access_key_id=aws_access_key_id,
+                              aws_secret_access_key=aws_secret_access_key,
+                              aws_session_token=aws_session_token)
+        client.get_caller_identity()
+    except ClientError:
+        return False
+    return True
 
 
 def go_back_to_services():
@@ -468,7 +483,11 @@ def okta_aws_login(profile: str = 'default') -> bool:
                                              "%Y-%m-%dT%H:%M:%SZ")
         expired = now > expire
 
-    if not key_info or expired:
+    is_aws_account_valid = is_credential_valid(key_info['AccessKeyId'],
+                                               key_info['SecretAccessKey'],
+                                               key_info['SessionToken'])
+
+    if not key_info or expired or not is_aws_account_valid:
         key_info = _get_okta_aws_credentials(profile)
 
     _write_aws_credentials(profile, key_info)
