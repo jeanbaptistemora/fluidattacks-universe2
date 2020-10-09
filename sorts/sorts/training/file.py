@@ -105,10 +105,11 @@ def get_subscription_data(subscription_path: str) -> bool:
             group
         )
     else:
-        extract_features(training_df)
-        csv_name: str = f'{group}_files_features.csv'
-        training_df.to_csv(csv_name, index=False)
-        log('info', 'Features extracted succesfully to %s', csv_name)
+        success = extract_features(training_df)
+        if success:
+            csv_name: str = f'{group}_files_features.csv'
+            training_df.to_csv(csv_name, index=False)
+            log('info', 'Features extracted succesfully to %s', csv_name)
     return success
 
 
