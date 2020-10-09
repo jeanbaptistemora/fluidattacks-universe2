@@ -1,23 +1,20 @@
 from datetime import datetime
 from time import time
 import sys
-from typing import List, Any, Union, cast
+from typing import Any, Union, cast
 
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+from ariadne import convert_kwargs_to_snake_case
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from graphql.type.definition import GraphQLResolveInfo
-from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
     concurrent_decorators,
-    get_entity_cache_async, require_login, rename_kwargs,
+    require_login,
     require_integrates,
     enforce_group_level_auth_async
 )
 from backend.domain import event as event_domain
-from backend.domain import project as project_domain
 from backend.typing import (
-    Event as EventType,
     SimplePayload as SimplePayloadType,
     AddConsultPayload as AddConsultPayloadType,
     DownloadFilePayload as DownloadFilePayloadType,
@@ -42,79 +39,6 @@ async def resolve_event_mutation(
         ],
         await resolver_func(obj, info, **parameters)
     )
-
-
-async def resolve(
-        info: GraphQLResolveInfo,
-        identifier: str = '',
-        as_field: bool = False) -> EventType:
-    """Async resolve fields."""
-    result: EventType = dict()
-    requested_fields = util.get_requested_fields(
-        'findings',
-        info.field_nodes[0].selection_set
-    ) if as_field else info.field_nodes[0].selection_set.selections
-
-    for requested_field in requested_fields:
-        if util.is_skippable(info, requested_field):
-            continue
-        params = {
-            'identifier': identifier
-        }
-        field_params = util.get_field_parameters(requested_field)
-        if field_params:
-            params.update(field_params)
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        if requested_field.startswith('_'):
-            continue
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(info, **params)
-    return result
-
-
-@rename_kwargs({'identifier': 'event_id'})
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@rename_kwargs({'event_id': 'identifier'})
-async def resolve_event(
-        _: Any,
-        info: GraphQLResolveInfo,
-        identifier: str = '') -> EventType:
-    """Resolve event query."""
-    return await resolve(info, identifier)
-
-
-@get_entity_cache_async
-async def _resolve_events_async(event_ids: List[str]) -> List[EventType]:
-    """Async resolve events function."""
-    return cast(List[EventType], await EventLoader().load_many(event_ids))
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def resolve_events(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str) -> List[EventType]:
-    """Resolve events query."""
-    util.cloudwatch_log(
-        info.context,
-        f'Security: Access to {project_name} events'  # pragma: no cover
-    )
-    event_ids = await project_domain.list_events(project_name)
-    return cast(List[EventType], await _resolve_events_async(event_ids))
 
 
 @concurrent_decorators(
