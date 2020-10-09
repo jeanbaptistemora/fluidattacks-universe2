@@ -155,7 +155,7 @@ def error500(request: HttpRequest) -> HttpResponse:
     return render(request, 'HTTP500.html', parameters)
 
 
-def error401(request: HttpRequest, _: Any) -> HttpResponse:
+def error401(request: HttpRequest) -> HttpResponse:
     """Unauthorized error view"""
     parameters: Dict[str, Any] = {}
     return render(request, 'HTTP401.html', parameters)
