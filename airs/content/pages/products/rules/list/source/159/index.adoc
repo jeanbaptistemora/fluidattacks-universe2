@@ -16,12 +16,13 @@ The source code must be obfuscated in production environments.
 
 == References
 
-. [[r1]] link:http://capec.mitre.org/data/definitions/188.html[CAPEC-188: Reverse Engineering].
+. [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2: 13. Use code protection].
+To protect intellectual property and make exploit development harder, the organization erects barriers to reverse engineering its software
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/188.html[CAPEC-188: Reverse Engineering].
 An adversary discovers the structure, function, and composition of an object,
 resource, or system by using a variety of analysis techniques to effectively
 determine how the analyzed entity was constructed or operates.
-
-. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 Use code protection].
 
 . [[r3]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
 The product released to market is released in pre-production or manufacturing
