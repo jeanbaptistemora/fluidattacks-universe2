@@ -94,7 +94,13 @@ def shield(
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
                     await log('warning', msg, function_id, exc_type, exc_msg)
-                    await log_to_remote(exc)
+                    await log_to_remote(
+                        exception=exc,
+                        message=msg,
+                        function_id=function_id,
+                        exception_message=exc_msg,
+                        exception_type=exc_type,
+                    )
 
                     if is_last or isinstance(exc, StopRetrying):
                         if isinstance(exc, RetryAndFinallyReturn):
