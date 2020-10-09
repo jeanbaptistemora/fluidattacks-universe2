@@ -24,28 +24,32 @@ must count with an unalterable security suite
 
 == References
 
-. [[r1]] link:http://capec.mitre.org/data/definitions/169.html[CAPEC-169: Footprinting].
+. [[r1]] link:https://www.bsimm.com/framework/software-security-development-lifecycle/code-review.html[BSIMM9 CR3.4: 2. Automate malicious code detection].
+Automated code review is used to identify dangerous code written by malicious
+in-house developers or outsource providers.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/169.html[CAPEC-169: Footprinting].
 An adversary engages in probing and exploration activities to identify
 constituents and properties of the target.
 
-. [[r2]] link:http://capec.mitre.org/data/definitions/442.html[CAPEC-442: Infected Software].
+. [[r3]] link:http://capec.mitre.org/data/definitions/442.html[CAPEC-442: Infected Software].
 An adversary adds malicious logic, often in the form of a computer virus,
 to otherwise benign software.
 Many times, the malicious logic is inserted into empty space between legitimate
 code,
 and is then called when the software is executed.
 
-. [[r3]] link:http://capec.mitre.org/data/definitions/549.html[CAPEC-549: Local Execution of Code].
+. [[r4]] link:http://capec.mitre.org/data/definitions/549.html[CAPEC-549: Local Execution of Code].
 An adversary installs and executes malicious code on the target system in an
 effort to achieve a negative technical impact.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints]
 The software establishes a communication channel to (or from) an endpoint for
 privileged or protected operations,
 but it does not properly ensure that it is communicating with the correct
 endpoint.
 
-. [[r5]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
+. [[r6]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
 Each Responsible Entity shall implement,
 except under CIP Exceptional Circumstances,
 one or more plan(s) to achieve the objective of mitigating the risk of the
@@ -53,22 +57,22 @@ introduction of malicious code to low impact BES Cyber Systems.
 The plan(s) shall include antivirus software,
 or other method(s) to mitigate the introduction of malicious code.
 
-. [[r6]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.5]
+. [[r7]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.5]
 Have one or more methods for detecting known or suspected malicious
 communications for both inbound and outbound communications.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.1)]
 Verify the application does not use unsupported, insecure, or deprecated
 client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
 *ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
 
-. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
 Deploy anti-virus software on all systems commonly affected by malicious
 software
 (particularly personal computers and servers).
