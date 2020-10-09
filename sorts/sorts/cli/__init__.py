@@ -8,7 +8,7 @@ import click
 
 # Local libraries
 from integrates.graphql import create_session
-from training.file import get_project_data
+from training.file import get_subscription_data
 from utils.decorators import shield
 from utils.logs import log
 
@@ -65,7 +65,7 @@ def execute_sorts(
     else:
         if token:
             create_session(token)
-            success = get_project_data(subscription)
+            success = get_subscription_data(subscription)
         else:
             log(
                 'error',

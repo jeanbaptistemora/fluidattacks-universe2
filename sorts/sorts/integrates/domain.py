@@ -10,6 +10,7 @@ from integrates.dal import (
 
 
 def get_vulnerable_lines(group: str) -> List[str]:
+    """Fetches the vulnerable files from a group"""
     vulnerabilities: List[Vulnerability] = get_vulnerabilities(group)
     return [
         vuln.where

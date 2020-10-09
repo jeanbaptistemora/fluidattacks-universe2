@@ -36,6 +36,7 @@ def _execute(
     operation: str,
     variables: Dict[str, Any],
 ) -> Dict[str, Any]:
+    """Sends query to the backend"""
     response: Dict[str, Any] = {}
     with graphql_client() as client:
         try:
@@ -48,6 +49,7 @@ def _execute(
 
 
 def get_vulnerabilities(group: str) -> List[Vulnerability]:
+    """Fetches all the vulnerabilities reported in a group"""
     vulnerabilities: List[Vulnerability] = []
     result = _execute(
         query="""

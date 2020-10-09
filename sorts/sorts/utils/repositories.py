@@ -8,27 +8,33 @@ from git.cmd import Git
 from git.exc import GitCommandError
 
 
-def get_bad_repos(fusion_path: str, repos: List[str]) -> List[str]:
-    """
-    Filter a list of repos, returning the bad ones
-    """
-    are_repos_ok = [test_repo(fusion_path, repo) for repo in repos]
+def get_bad_repos(fusion_path: str) -> List[str]:
+    """Filters repositories which have issues running git commands"""
     return [
         repo
-        for idx, repo in enumerate(repos)
-        if are_repos_ok[idx] is False
+        for repo in os.listdir(fusion_path)
+        if not test_repo(os.path.join(fusion_path, repo))
     ]
 
 
-def test_repo(fusion_path: str, repo: str) -> bool:
-    """
-    Test if a repository is ok by executing a single `git log` on it.
-    """
-    repo_path: str = os.path.join(fusion_path, repo)
+def get_repository_files(repo_path: str) -> List[str]:
+    """Lists all the files inside a repository relative to the repository"""
+    return [
+        os.path.join(path, filename).replace(
+            f'{os.path.dirname(repo_path)}/',
+            ''
+        )
+        for path, _, files in os.walk(repo_path)
+        for filename in files
+    ]
+
+
+def test_repo(repo_path: str) -> bool:
+    """Checks correct configuration of a repository by running `git log`"""
     git_repo: Git = git.Git(repo_path)
-    repo_ok: bool = True
+    is_repo_ok: bool = True
     try:
         git_repo.log()
     except GitCommandError:
-        repo_ok = False
-    return repo_ok
+        is_repo_ok = False
+    return is_repo_ok
