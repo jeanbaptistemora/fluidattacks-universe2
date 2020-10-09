@@ -157,6 +157,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-card3 { background-image: url('../../images/resources/card3.png'); height: 200px;}
 .bg-card8 { background-image: url('../../images/resources/card8.png'); height: 200px;}
 .bg-card9 { background-image: url('../../images/resources/card9.png'); height: 200px;}
+.bg-faq { background-image: url('../../images/faq/cover-faq.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -1099,4 +1100,32 @@ video {
   .sect2 {
     min-height: 470px !important;
   }
+}
+
+.faq-list {
+  .accordion-item:last-child {
+    border-bottom-width: 1px !important;
+  }
+  .accordion-item {
+    border-style: solid;
+    border-width: 1px;
+    border-bottom-width: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    h3, p, ol {
+      margin: 0;
+    }
+    p {
+      padding-bottom: 1rem;
+    }
+
+  }
+  accordion-item:active h3 .accordion-arrow {
+    transform: rotate(180deg);
+  }
+}
+
+.accordion-item h3:not(:active) ~ .accordion-content {
+  display: none;
 }

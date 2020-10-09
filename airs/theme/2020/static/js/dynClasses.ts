@@ -26,6 +26,8 @@ const dynClasses: (() => void) = (): void => {
 
     addClasses(".product-features > .sect2", "w-benefit dib-l");
 
+    addClasses(".faq-list > .sect2 > div", "accordion-content b--black-20 pl3-l");
+
     if ($("div")
         .hasClass("contact-page")) {
       $(".footer-component")
