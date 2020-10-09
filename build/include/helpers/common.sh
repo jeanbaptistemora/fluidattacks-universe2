@@ -145,6 +145,7 @@ function helper_docker_build_and_push {
     --build-arg "${build_arg_9_key}=${build_arg_9_val}"
     --build-arg "${build_arg_10_key}=${build_arg_10_val}"
   )
+  export DOCKER_BUILDKIT='1'
 
       echo "[INFO] Logging into: ${CI_REGISTRY}" \
   &&  docker login \

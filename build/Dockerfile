@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:experimental
+
 FROM nixos/nix:2.3
 
 RUN apk add --no-cache \
@@ -6,7 +8,6 @@ RUN apk add --no-cache \
 
 ARG PROVISIONER
 
-COPY . /code/
-
-RUN   nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
+RUN   --mount=type=bind,src=.,target=/code \
+      nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
   &&  nix-store --optimise
