@@ -5,6 +5,9 @@
 from ariadne import ObjectType
 
 # Local
-# None
+from backend.api.resolvers.new.event import consulting
+
 
 EVENT = ObjectType('Event')
+
+EVENT.set_field('consulting', consulting.resolve)
