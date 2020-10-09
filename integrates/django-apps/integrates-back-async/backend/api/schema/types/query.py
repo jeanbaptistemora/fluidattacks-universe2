@@ -8,7 +8,6 @@ from ariadne import QueryType
 from backend.api.resolvers import (
     finding,
     forces,
-    internal_names,
     report,
     resource,
     vulnerability
@@ -18,6 +17,7 @@ from backend.api.resolvers.new.query import (
     events,
     group,
     groups,
+    internal_names,
     me,
     organization,
     organization_id,
@@ -36,7 +36,7 @@ QUERY.set_field('finding', finding.resolve_finding)
 QUERY.set_field('forcesExecution', forces.resolve_forces_execution)
 QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
 QUERY.set_field('forcesExecutionsNew', forces.resolve_forces_executions_new)
-QUERY.set_field('internalNames', internal_names.resolve_project_name)
+QUERY.set_field('internalNames', internal_names.resolve)
 QUERY.set_field('me', me.resolve)
 QUERY.set_field('organization', organization.resolve)
 QUERY.set_field('organizationId', organization_id.resolve)
