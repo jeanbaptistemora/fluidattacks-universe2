@@ -1,7 +1,3 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need className to override default styles from react-boostrap.
-*/
 import { Button } from "components/Button";
 import { ConfigurableValidator } from "revalidate";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -9,9 +5,8 @@ import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/t
 import { Modal } from "components/Modal";
 import React from "react";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
-import style from "scenes/Dashboard/components/AddFilesModal/index.css";
 import { translate } from "utils/translations/translate";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { ButtonToolbar, RequiredField } from "styles/styledComponents";
 import { Field, InjectedFormProps, Validator } from "redux-form";
 import { FileInput, TextArea } from "utils/forms/fields";
 import {
@@ -46,10 +41,10 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
         <GenericForm name={"addFiles"} onSubmit={onSubmit}>
           {({ pristine }: InjectedFormProps): React.ReactNode => (
             <React.Fragment>
-              <Row>
-                <Col md={12}>
+              <div>
+                <div>
                   <label>
-                    <label className={style.lbl}>{"*"} </label>
+                    <RequiredField>{"*"} </RequiredField>
                     {translate.t("validations.file_size", { count: 100 })}
                   </label>
                   <Field
@@ -58,10 +53,10 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                     name={"file"}
                     validate={[required, isValidFileName, maxFileSize]}
                   />
-                </Col>
-                <Col md={12}>
+                </div>
+                <div>
                   <label>
-                    <label className={style.lbl}>{"*"} </label>
+                    <RequiredField>{"*"} </RequiredField>
                     {translate.t("search_findings.tab_resources.description")}
                   </label>
                   <Field
@@ -75,11 +70,11 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                       validTextField,
                     ]}
                   />
-                </Col>
-              </Row>
+                </div>
+              </div>
               {isUploading ? renderUploadBar(props) : undefined}
               <br />
-              <ButtonToolbar className={"pull-right"}>
+              <ButtonToolbar>
                 <Button disabled={isUploading} onClick={onClose}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
