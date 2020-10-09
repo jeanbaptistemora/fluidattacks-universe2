@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 
 import { Badge, IBadgeProps } from "components/Badge";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
 import { Tab } from "styles/styledComponents";
 
 interface IContentTabProps {
@@ -27,7 +26,7 @@ const contentTab: React.FC<IContentTabProps> = (
   return (
     <TooltipWrapper message={tooltip}>
       <Tab id={id}>
-        <NavLink activeClassName={style.active} to={props.link}>
+        <NavLink activeClassName={"nav-active-bg"} to={props.link}>
           <i className={icon} />
           &nbsp;{title}
           {!_.isUndefined(plus) && plus.visible ? (

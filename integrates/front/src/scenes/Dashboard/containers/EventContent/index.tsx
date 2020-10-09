@@ -9,16 +9,20 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
-import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
-import { Tab, TabsContainer } from "styles/styledComponents";
+import {
+  Col1,
+  Row,
+  Tab,
+  TabContent,
+  TabsContainer,
+} from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -41,7 +45,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
     <React.StrictMode>
       <React.Fragment>
         <Row>
-          <Col md={12} sm={12}>
+          <Col1>
             <Query query={GET_EVENT_HEADER} variables={{ eventId }} onError={handleErrors}>
               {({ data }: QueryResult): JSX.Element => {
                 if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
@@ -51,33 +55,33 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
             </Query>
             <TabsContainer>
               <Tab id="resourcesTab">
-                <NavLink activeClassName={style.active} to={`${props.match.url}/description`}>
+                <NavLink activeClassName={"nav-active-bg"} to={`${props.match.url}/description`}>
                   <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.description")}
                 </NavLink>
               </Tab>
               <Tab id="evidenceTab">
-                <NavLink activeClassName={style.active} to={`${props.match.url}/evidence`}>
+                <NavLink activeClassName={"nav-active-bg"} to={`${props.match.url}/evidence`}>
                   <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.evidence")}
                 </NavLink>
               </Tab>
               <Tab id="commentsTab">
-                <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
+                <NavLink activeClassName={"nav-active-bg"} to={`${props.match.url}/comments`}>
                   <i className="icon pe-7s-comment" />
                   &nbsp;{translate.t("search_findings.tab_events.comments")}
                 </NavLink>
               </Tab>
             </TabsContainer>
-            <div className={style.tabContent}>
+            <TabContent>
               <Switch>
                 <Route path={`${props.match.path}/description`} component={EventDescriptionView} exact={true} />
                 <Route path={`${props.match.path}/evidence`} component={EventEvidenceView} exact={true} />
                 <Route path={`${props.match.path}/comments`} component={EventCommentsView} exact={true} />
                 <Redirect to={`${props.match.path}/description`} />
               </Switch>
-            </div>
-          </Col>
+            </TabContent>
+          </Col1>
         </Row>
       </React.Fragment>
     </React.StrictMode >

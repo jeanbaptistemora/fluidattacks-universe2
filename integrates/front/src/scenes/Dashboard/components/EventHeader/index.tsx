@@ -1,6 +1,11 @@
 import React from "react";
-import { Col, Label, Row } from "react-bootstrap";
-import { default as style } from "scenes/Dashboard/components/EventHeader/index.css";
+import {
+  Col1,
+  EventHeaderGrid,
+  EventHeaderLabel,
+  Label,
+  Row,
+} from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
@@ -20,36 +25,28 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
       <React.Fragment>
       <div id="events" className="tab-pane cont active">
         <Row>
-          <Col md={8} sm={12} xs={12}>
+          <Col1>
              <h2>{eventType}</h2>
-          </Col>
-          <Col md={12} sm={12} xs={12}>
              <hr/>
-          </Col>
+          </Col1>
         </Row>
-        <Row className={style.row}>
-          <Col md={12} sm={12} xs={12}>
-            <Row>
-              <Col md={2} sm={6} xs={6} className="text-right">
+        <Row>
+          <Col1>
+            <EventHeaderGrid>
+              <EventHeaderLabel>
                 {translate.t("search_findings.tab_events.id")}
-              </Col>
-              <Col md={2} sm={6} xs={6}>
                 <Label> {props.id} </Label>
-              </Col>
-              <Col md={2} sm={6} xs={6} className="text-right">
+              </EventHeaderLabel>
+              <EventHeaderLabel>
                 {translate.t("search_findings.tab_events.date")}
-              </Col>
-              <Col md={2} sm={6} xs={6}>
                 <Label> {props.eventDate} </Label>
-              </Col>
-              <Col md={2} sm={6} xs={6} className="text-right">
+              </EventHeaderLabel>
+              <EventHeaderLabel>
                 {translate.t("search_findings.tab_events.status")}
-              </Col>
-              <Col md={2} sm={6} xs={6}>
                 <Label> {eventStatus} </Label>
-              </Col>
-            </Row>
-          </Col>
+              </EventHeaderLabel>
+            </EventHeaderGrid>
+          </Col1>
         </Row>
       </div>
     </React.Fragment>

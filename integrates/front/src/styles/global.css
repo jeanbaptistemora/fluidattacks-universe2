@@ -465,6 +465,10 @@ label {
   font-family: 'Montserrat', sans-serif;
 }
 
+:global .nav-active-bg {
+  background-color: #EEEEEE !important;
+}
+
 :global .o-bd[disabled],
 :global .o-bd[disabled]:hover {
   opacity: 1;
@@ -472,6 +476,11 @@ label {
 
 :global .orgred {
   color: #FF3435;
+}
+
+:global .ph1-5 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 :global .pv2-5 {

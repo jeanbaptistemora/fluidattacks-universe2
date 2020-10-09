@@ -7,6 +7,33 @@ const ButtonToolbar: StyledComponent<
   className: "fr",
 })``;
 
+const Col1: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-100",
+})``;
+
+const EventHeaderGrid: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "grid ma4 menu-grid",
+})``;
+
+const EventHeaderLabel: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "ph3 tc",
+})``;
+
+const Label: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: "bg-lbl-gray br2 f4 fw7 ml3 nowrap pv1 ph2 tc white",
+})``;
+
 const ModalBody: StyledComponent<
   "div",
   Record<string, unknown>
@@ -83,6 +110,15 @@ const Tab: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "a-bg-white a-db a-gray a-pv a-relative tc",
 })``;
 
+const TabContent: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "bg-white pa4 mb5",
+})``;
+
 const TabsContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -94,6 +130,10 @@ const TabsContainer: StyledComponent<
 
 export {
   ButtonToolbar,
+  Col1,
+  EventHeaderGrid,
+  EventHeaderLabel,
+  Label,
   ModalBody,
   ModalFooter,
   ModalHeader,
@@ -104,5 +144,6 @@ export {
   StickyContainerFinding,
   StickyContainerOrg,
   Tab,
+  TabContent,
   TabsContainer,
 };
