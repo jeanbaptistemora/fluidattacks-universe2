@@ -23,7 +23,7 @@ Therefore, systems should use data structures and mechanisms that help reduce
 the chances that an overflow will arise,
 such as memory-safe strings, and safe memory copy and pointer arithmetic.
 
-== Rereferences
+== References
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/123.html[CAPEC-123: Buffer Manipulation].
 An adversary manipulates an application's interaction with a buffer in an

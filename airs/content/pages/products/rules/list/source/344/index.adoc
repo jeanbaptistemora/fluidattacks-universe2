@@ -20,7 +20,7 @@ Therefore, if it is not possible to avoid dynamic code execution,
 any untrusted input being included (e.g. the one provided by the users) should
 be properly sanitized.
 
-== Rereferences
+== References
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/19.html[CAPEC-19: Embedding Scripts within Scripts].
 An attack of this type exploits a programs' vulnerabilities that are brought on

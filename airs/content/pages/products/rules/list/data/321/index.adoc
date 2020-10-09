@@ -25,7 +25,7 @@ it can lead to deserialization attacks such as object injection.
 
 * [inner]#link:/products/rules/findings/096/[F096. Insecure deserialization]#
 
-== Rereferences
+== References
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/130.html[CAPEC-130: Excessive Allocation].
 An adversary causes the target to allocate excessive resources to servicing the

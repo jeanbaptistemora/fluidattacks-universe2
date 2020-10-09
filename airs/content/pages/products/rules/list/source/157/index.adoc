@@ -11,7 +11,7 @@
 The organization should set its parsers, linters, compilers, and interpreters
 to run in strict mode.
 
-== Rereferences
+== References
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/123.html[CAPEC-123: Buffer Manipulation].
 An adversary manipulates an application's interaction with a buffer in an

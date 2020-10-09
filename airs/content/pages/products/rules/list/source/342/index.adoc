@@ -24,7 +24,7 @@ and provides countermeasures to protect against unsafe parameter assignment.
 
 * [inner]#link:/products/rules/findings/063/[F063. Lack of data validation]#
 
-== Rereferences
+== References
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/6.html[CAPEC-6: Argument Injection].
 An attacker changes the behavior or state of a targeted application through
