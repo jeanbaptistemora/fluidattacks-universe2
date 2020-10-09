@@ -146,11 +146,8 @@ def set_session_cookie_in_response(
 @never_cache  # type: ignore
 def index(request: HttpRequest) -> HttpResponse:
     """Login view for unauthenticated users"""
-    if 'localhost' in request.build_absolute_uri(reverse('new')):
-        parameters = {'debug': settings.DEBUG}
-        return render(request, 'index.html', parameters)
-
-    return HttpResponseRedirect('new/')
+    parameters = {'debug': settings.DEBUG}
+    return render(request, 'index.html', parameters)
 
 
 def error500(request: HttpRequest) -> HttpResponse:
