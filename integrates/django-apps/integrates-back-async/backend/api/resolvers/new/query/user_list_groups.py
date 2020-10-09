@@ -1,6 +1,6 @@
 # Standard
 import asyncio
-from typing import cast, Dict, List
+from typing import List
 
 # Third party
 from aiodataloader import DataLoader
@@ -8,7 +8,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.api.resolvers import project as old_resolver
 from backend.decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
@@ -16,7 +15,6 @@ from backend.decorators import (
 )
 from backend.domain import user as user_domain
 from backend.typing import Project as Group
-from backend.utils import aio
 
 
 @convert_kwargs_to_snake_case
@@ -41,15 +39,4 @@ async def resolve(
     group_loader: DataLoader = info.context.loaders['group']
     groups: List[Group] = await group_loader.load_many(user_groups)
 
-    # Temporary while migrating group resolvers
-    return cast(
-        List[Group],
-        await aio.materialize(
-            old_resolver.resolve(
-                info,
-                cast(Dict[str, str], group)['name'],
-                selection_set=info.field_nodes[0].selection_set
-            )
-            for group in groups
-        )
-    )
+    return groups

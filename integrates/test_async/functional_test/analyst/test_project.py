@@ -148,11 +148,11 @@ async def test_project():
     assert result['data']['project']['openVulnerabilities'] == 0
     assert result['data']['project']['closedVulnerabilities'] == 0
     assert result['data']['project']['lastClosingVuln'] == 0
-    assert result['data']['project']['lastClosingVulnFinding'] == {'id': ''}
+    assert result['data']['project']['lastClosingVulnFinding'] == None
     assert result['data']['project']['maxOpenSeverity'] == 0.0
-    assert result['data']['project']['maxOpenSeverityFinding'] == {'id': ''}
+    assert result['data']['project']['maxOpenSeverityFinding'] == None
     assert result['data']['project']['maxSeverity'] == 0.0
-    assert result['data']['project']['maxSeverityFinding'] == {'id': ''}
+    assert result['data']['project']['maxSeverityFinding'] == None
     assert result['data']['project']['meanRemediate'] == 0
     assert result['data']['project']['meanRemediateCriticalSeverity'] == 0
     assert result['data']['project']['meanRemediateHighSeverity'] == 0

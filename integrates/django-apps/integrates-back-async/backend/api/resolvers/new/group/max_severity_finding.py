@@ -1,5 +1,5 @@
 # Standard
-from typing import cast, List
+from typing import cast, List, Optional
 
 # Third party
 from aiodataloader import DataLoader
@@ -19,7 +19,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None
-) -> Finding:
+) -> Optional[Finding]:
     group_name: str = cast(str, parent['name'])
 
     group_findings_loader: DataLoader = info.context.loaders['group_findings']
@@ -37,13 +37,16 @@ async def resolve(
     ]) if findings else (0, '')
 
     # Temporary while migrating finding resolvers
-    finding = await old_resolver.resolve(
-        info,
-        max_severity_finding_id,
-        as_field=True,
-        selection_set=cast(
-            SelectionSetNode,
-            info.field_nodes[0].selection_set
+    if max_severity_finding_id:
+        finding = await old_resolver.resolve(
+            info,
+            max_severity_finding_id,
+            as_field=True,
+            selection_set=cast(
+                SelectionSetNode,
+                info.field_nodes[0].selection_set
+            )
         )
-    )
-    return cast(Finding, await aio.materialize(finding))
+        return cast(Finding, await aio.materialize(finding))
+
+    return None

@@ -14,6 +14,7 @@ from jose import jwt
 from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.project import ProjectLoader
@@ -35,6 +36,7 @@ class ProjectTests(TestCase):
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
+            'group': GroupLoader(),
             'group_drafts': GroupDraftsLoader(),
             'group_findings': GroupFindingsLoader(),
             'project': ProjectLoader(),
