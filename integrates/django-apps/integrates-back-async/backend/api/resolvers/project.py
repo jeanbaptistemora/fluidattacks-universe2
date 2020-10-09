@@ -3,20 +3,11 @@
 import logging
 import sys
 import time
-from typing import List, Set, Any, cast, Union
+from typing import List, Set, Any, cast
 
 # Third party libraries
-from aioextensions import (
-    collect,
-)
 from ariadne import (
-    convert_camel_case_to_snake,
     convert_kwargs_to_snake_case,
-)
-from graphql.language.ast import (
-    FieldNode,
-    SelectionSetNode,
-    ObjectFieldNode
 )
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -52,83 +43,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-def _get_requested_fields(
-        info: GraphQLResolveInfo,
-        as_field: bool,
-        as_list: bool) -> List[FieldNode]:
-    if as_field and as_list:
-        to_extend = util.get_requested_fields(
-            'projects',
-            info.field_nodes[0].selection_set
-        )
-    elif as_field:
-        to_extend = util.get_requested_fields(
-            'project',
-            info.field_nodes[0].selection_set
-        )
-    else:
-        to_extend = info.field_nodes[0].selection_set.selections
-    return to_extend
-
-
-async def resolve(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        as_field: bool = False,
-        as_list: bool = True,
-        selection_set: Union[SelectionSetNode, None] = None) -> ProjectType:
-    """Async resolve fields."""
-    project_name = project_name.lower()
-    result: ProjectType = dict()
-    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
-
-    req_fields.extend(_get_requested_fields(info, as_field, as_list))
-
-    if selection_set:
-        req_fields.extend(selection_set.selections)
-
-    for requested_field in req_fields:
-        if util.is_skippable(info, requested_field):
-            continue
-        params = {
-            'project_name': project_name,
-            'requested_fields': req_fields
-        }
-        field_params = util.get_field_parameters(
-            requested_field, info.variable_values
-        )
-
-        if field_params:
-            params.update(field_params)
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        migrated = {
-            'analytics',
-            'bill',
-            'consulting',
-            'drafts',
-            'events',
-            'findings',
-            'max_severity',
-            'max_severity_finding',
-            'organization',
-            'service_attributes',
-            'stakeholders',
-            'total_findings',
-            'user_role'
-        }
-        if requested_field.startswith('_') or requested_field in migrated:
-            continue
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(info, **params)
-    collected = dict(zip(result, await collect(result.values())))
-    return {'name': project_name, **collected}
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -361,15 +275,13 @@ async def _do_add_tags(
     """Resolve add_tags mutation."""
     success = False
     project_name = project_name.lower()
+    group_loader = info.context.loaders['group']
     if await project_domain.is_alive(project_name):
         if await project_domain.validate_tags(
                 project_name,
                 tags):
-            project_loader = info.context.loaders['project']
-            project_attrs = await project_loader.load(project_name)
-            project_attrs = project_attrs['attrs']
-            project_tags = cast(ProjectType, project_attrs.get('tag', {}))
-            project_tags = {'tag': project_tags}
+            project_attrs = await group_loader.load(project_name)
+            project_tags = {'tag': project_attrs['tags']}
             success = await _update_tags(
                 project_name, project_tags, tags
             )
@@ -387,12 +299,13 @@ async def _do_add_tags(
         )
     if success:
         util.queue_cache_invalidation(f'tags*{project_name}')
+        group_loader.clear(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added tag to '
              f'{project_name} project successfully')
         )
-    project = await resolve(info, project_name, True, False)
+    project = await group_loader.load(project_name)
     return SimpleProjectPayloadType(success=success, project=project)
 
 
@@ -409,12 +322,10 @@ async def _do_remove_tag(
     """Resolve remove_tag mutation."""
     success = False
     project_name = project_name.lower()
+    group_loader = info.context.loaders['group']
     if await project_domain.is_alive(project_name):
-        project_loader = info.context.loaders['project']
-        project_attrs = await project_loader.load(project_name)
-        project_attrs = project_attrs['attrs']
-        project_tags = cast(ProjectType, project_attrs.get('tag', {}))
-        project_tags = {'tag': project_tags}
+        project_attrs = await group_loader.load(project_name)
+        project_tags = {'tag': project_attrs['tags']}
         cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None
@@ -427,6 +338,7 @@ async def _do_remove_tag(
             LOGGER.error('Couldn\'t remove a tag', extra={'extra': locals()})
     if success:
         util.queue_cache_invalidation(f'tags*{project_name}')
+        group_loader.clear(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Removed tag from '
@@ -438,15 +350,5 @@ async def _do_remove_tag(
             ('Security: Attempted to remove '
              f'tag in {project_name} project')  # pragma: no cover
         )
-    project = await resolve(info, project_name, True, False)
+    project = await group_loader.load(project_name)
     return SimpleProjectPayloadType(success=success, project=project)
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_user_level_auth_async,
-)
-async def resolve_projects(*_: Any) -> List[str]:
-    """Resolve for ACTIVE and SUSPENDED projects."""
-    return await project_domain.get_alive_projects()
