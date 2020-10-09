@@ -11,7 +11,7 @@ function test_aws_credentials {
 }
 
 function test_curl_localhost {
-  if curl -sSiL http://localhost:8080 | grep -q 'Please contact your administrator'
+  if curl -sSiL http://localhost:8080 | grep -q 'FluidIntegrates'
   then
     echo '[INFO] Passed: test_curl_localhost'
   else

@@ -27,6 +27,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.urls import reverse
 from jose import jwt
 from magic import Magic
 
@@ -145,6 +146,10 @@ def set_session_cookie_in_response(
 @never_cache  # type: ignore
 def index(request: HttpRequest) -> HttpResponse:
     """Login view for unauthenticated users"""
+    if 'localhost' in request.build_absolute_uri(reverse('new')):
+        parameters = {'debug': settings.DEBUG}
+        return render(request, 'index.html', parameters)
+
     return HttpResponseRedirect('new/')
 
 
