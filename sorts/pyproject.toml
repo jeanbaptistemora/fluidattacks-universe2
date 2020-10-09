@@ -22,6 +22,7 @@ license = "MPL-2.0"
 name = "sorts"
 packages = [
   { include = "cli", from = "sorts" },
+  { include = "features", from = "sorts" },
   { include = "integrates", from = "sorts" },
   { include = "predict", from = "sorts" },
   { include = "training", from = "sorts" },

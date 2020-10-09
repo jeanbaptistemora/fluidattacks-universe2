@@ -12,5 +12,8 @@ in
         sortsDependencies.build
         sortsDependencies.runtime
       ];
+
+      # Constants for dynamic linked binaries
+      LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
     })
   )

@@ -7,11 +7,7 @@ from typing import (
 
 
 def read_allowed_names() -> Tuple[List[str], ...]:
-    """
-    Returns a Tuple containing:
-        - A list of allowed extensions to filter repository files
-        - A list of allowed configuration files to filter repository files
-    """
+    """Reads static lists containing allowed names and extensions"""
     allowed_names: List[List[str]] = []
     for name in ['extensions.lst', 'composites.lst']:
         with open(f'{os.path.dirname(__file__)}/../static/{name}') as file:

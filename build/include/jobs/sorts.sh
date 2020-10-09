@@ -2,6 +2,7 @@
 
 declare -Arx SORTS_GLOBAL_PKGS=(
   [cli]=sorts/cli
+  [features]=sorts/features
   [integrates]=sorts/integrates
   [predict]=sorts/predict
   [training]=sorts/training

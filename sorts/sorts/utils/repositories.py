@@ -17,6 +17,17 @@ def get_bad_repos(fusion_path: str) -> List[str]:
     ]
 
 
+def get_file_commit_history(git_repo: Git, file: str) -> List[str]:
+    """Returns a list with the hashes of the commits that touched a file"""
+    file_history: str = git_repo.log(
+        '--no-merges',
+        '--follow',
+        '--pretty=%H',
+        file
+    )
+    return file_history.split('\n')
+
+
 def get_repository_files(repo_path: str) -> List[str]:
     """Lists all the files inside a repository relative to the repository"""
     return [

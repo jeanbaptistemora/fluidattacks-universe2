@@ -1,0 +1,6 @@
+file
+requests/requests/api.py
+requests/requests/auth.py
+requests/requests/exceptions.py
+requests/requests/sessions.py
+requests/requests/utils.py
