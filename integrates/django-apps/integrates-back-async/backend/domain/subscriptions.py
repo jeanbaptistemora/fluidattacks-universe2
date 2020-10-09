@@ -29,6 +29,7 @@ from backend.domain import (
     tag as portfolio_domain,
 )
 from backend.utils import (
+    datetime as datetime_utils,
     reports,
 )
 from backend.services import (
@@ -225,7 +226,6 @@ async def subscribe_user_to_entity_report(
         if success:
             await send_user_to_entity_report(
                 event_frequency=event_frequency,
-                event_period=event_period,
                 report_entity=report_entity,
                 report_subject=report_subject,
                 user_email=user_email,
@@ -280,7 +280,6 @@ async def trigger_user_to_entity_report() -> None:
                 LOGGER_CONSOLE.info('- processing event', **NOEXTRA)
                 await send_user_to_entity_report(
                     event_frequency=event_frequency,
-                    event_period=event_period,
                     report_entity=report_entity,
                     report_subject=report_subject,
                     user_email=user_email,
@@ -303,7 +302,6 @@ async def trigger_user_to_entity_report() -> None:
 async def send_user_to_entity_report(
     *,
     event_frequency: str,
-    event_period: NumericType,
     report_entity: str,
     report_subject: str,
     user_email: str,
@@ -315,7 +313,7 @@ async def send_user_to_entity_report(
                 subject=report_subject,
             ),
             ext='png',
-            ttl=float(event_period),
+            ttl=604800,  # seven days
         )
     except botocore.exceptions.ClientError as ex:
         LOGGER_CONSOLE.exception('%s', ex, **NOEXTRA)
@@ -340,11 +338,15 @@ async def send_user_to_entity_report(
 
         await mailer.send_mail_analytics(
             user_email,
+            date=datetime_utils.get_as_str(
+                datetime_utils.get_now(), '%Y/%m/%d'
+            ),
             frequency_title=event_frequency.title(),
             frequency_lower=event_frequency.lower(),
             image_src=image_url,
             report_entity=report_entity,
             report_subject=report_subject,
+            report_subject_title=report_subject.title(),
             report_entity_percent=quote_plus(report_entity),
             report_subject_percent=quote_plus(report_subject),
         )
