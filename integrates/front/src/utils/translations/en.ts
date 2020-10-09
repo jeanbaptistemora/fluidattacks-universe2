@@ -180,7 +180,7 @@ export const enTranslations: ResourceKey = {
             "into the production environment.",
           intro:
             "By enabling Forces you get access to a Docker container built to specifically verify the status " +
-            "of security findings found in your system. " +
+            "of security findings in your system. " +
             "You can embed this container in your Continuous Integration system to test " +
             "for changes in security vulnerabilities:",
           smart:
