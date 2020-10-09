@@ -14,155 +14,15 @@ from backend.decorators import (
     require_integrates,
     enforce_group_level_auth_async
 )
-from backend.domain import comment as comment_domain
 from backend.domain import event as event_domain
 from backend.domain import project as project_domain
 from backend.typing import (
     Event as EventType,
-    Historic as HistoricType,
-    Comment as CommentType,
     SimplePayload as SimplePayloadType,
     AddConsultPayload as AddConsultPayloadType,
     DownloadFilePayload as DownloadFilePayloadType,
 )
 from backend import util
-
-
-@get_entity_cache_async
-async def _get_id(_: GraphQLResolveInfo, identifier: str) -> str:
-    """Get bts_url."""
-    return identifier
-
-
-@get_entity_cache_async
-async def _get_analyst(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get analyst."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['analyst'])
-
-
-@get_entity_cache_async
-async def _get_client(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get client."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['client'])
-
-
-@get_entity_cache_async
-async def _get_evidence(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get evidence."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['evidence'])
-
-
-@get_entity_cache_async
-async def _get_project_name(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get project_name."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['project_name'])
-
-
-@get_entity_cache_async
-async def _get_event_type(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get event_type."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['event_type'])
-
-
-@get_entity_cache_async
-async def _get_detail(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get detail."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['detail'])
-
-
-@get_entity_cache_async
-async def _get_event_date(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get event_date."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['event_date'])
-
-
-@get_entity_cache_async
-async def _get_event_status(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get event_status."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['event_status'])
-
-
-@get_entity_cache_async
-async def _get_historic_state(
-        info: GraphQLResolveInfo,
-        identifier: str) -> HistoricType:
-    """Get historic_state."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(HistoricType, event['historic_state'])
-
-
-@get_entity_cache_async
-async def _get_affectation(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get affectation."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['affectation'])
-
-
-@get_entity_cache_async
-async def _get_accessibility(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get accessibility."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['accessibility'])
-
-
-@get_entity_cache_async
-async def _get_affected_components(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get affected_components."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['affected_components'])
-
-
-@get_entity_cache_async
-async def _get_context(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get context."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['context'])
-
-
-@get_entity_cache_async
-async def _get_subscription(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get subscription."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['subscription'])
-
-
-@get_entity_cache_async
-async def _get_evidence_file(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get evidence_file."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['evidence_file'])
-
-
-@get_entity_cache_async
-async def _get_closing_date(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get closing_date."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['closing_date'])
-
-
-@get_entity_cache_async
-async def _get_consulting(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[CommentType]:
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    event = await info.context.loaders['event'].load(identifier)
-    project_name = event['project_name']
-
-    consulting = await comment_domain.get_event_comments(
-        project_name, identifier, user_email
-    )
-    return consulting
 
 
 @convert_kwargs_to_snake_case  # type: ignore
