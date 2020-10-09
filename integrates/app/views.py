@@ -22,7 +22,7 @@ from aioextensions import (
 import bugsnag
 from asgiref.sync import async_to_sync
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
@@ -145,8 +145,7 @@ def set_session_cookie_in_response(
 @never_cache  # type: ignore
 def index(request: HttpRequest) -> HttpResponse:
     """Login view for unauthenticated users"""
-    parameters = {'debug': settings.DEBUG}
-    return render(request, 'index.html', parameters)
+    return HttpResponseRedirect('new/')
 
 
 def error500(request: HttpRequest) -> HttpResponse:

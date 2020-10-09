@@ -1286,10 +1286,10 @@ function job_integrates_deploy_back_ephemeral {
   local namespace='ephemeral'
   local timeout='5m'
   local files=(
-    deploy/ephemeral/deployment.yaml
     deploy/ephemeral/deployment2.yaml
-    deploy/ephemeral/service.yaml
     deploy/ephemeral/service2.yaml
+    deploy/ephemeral/deployment.yaml
+    deploy/ephemeral/service.yaml
     deploy/ephemeral/ingress.yaml
     deploy/ephemeral/variables.yaml
   )
@@ -1334,11 +1334,11 @@ function job_integrates_deploy_back_ephemeral {
           ||  return 1
       done \
   &&  kubectl rollout status \
-        "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
+        "deploy/integrates2-${CI_COMMIT_REF_SLUG}" \
         -n "${namespace}" \
         --timeout="${timeout}" \
   &&  kubectl rollout status \
-        "deploy/integrates2-${CI_COMMIT_REF_SLUG}" \
+        "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
         -n "${namespace}" \
         --timeout="${timeout}" \
   &&  popd \
