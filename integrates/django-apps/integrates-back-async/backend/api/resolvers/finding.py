@@ -6,7 +6,6 @@ from typing import Dict, List, Any, Union, cast
 
 # Third party libraries
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
-from asgiref.sync import sync_to_async
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.language.ast import (
     SelectionSetNode,
@@ -149,8 +148,8 @@ async def _get_pending_vulns(
     return cast(List[VulnerabilityType], vuln_filtered)
 
 
-@sync_to_async  # type: ignore
-def _get_id(_: GraphQLResolveInfo, identifier: str) -> str:
+@get_entity_cache_async
+async def _get_id(_: GraphQLResolveInfo, identifier: str) -> str:
     """Get id."""
     return identifier
 
