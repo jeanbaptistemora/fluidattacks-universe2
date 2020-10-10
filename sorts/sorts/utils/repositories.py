@@ -76,6 +76,7 @@ def get_file_stat_history(git_repo: Git, file: str) -> List[str]:
 
 def get_repository_files(repo_path: str) -> List[str]:
     """Lists all the files inside a repository relative to the repository"""
+    ignore_dirs: List[str] = ['.git']
     return [
         os.path.join(path, filename).replace(
             f'{os.path.dirname(repo_path)}/',
@@ -83,6 +84,7 @@ def get_repository_files(repo_path: str) -> List[str]:
         )
         for path, _, files in os.walk(repo_path)
         for filename in files
+        if all([dir_ not in path for dir_ in ignore_dirs])
     ]
 
 

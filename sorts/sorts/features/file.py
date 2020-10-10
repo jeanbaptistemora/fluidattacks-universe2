@@ -2,6 +2,7 @@
 import time
 import os
 from datetime import datetime
+from functools import partial
 from typing import (
     List,
     NamedTuple,
@@ -37,6 +38,7 @@ FILE_FEATURES = [
     'file_age',
     'midnight_commits',
     'num_commits',
+    'num_lines',
     'num_unique_authors',
     'risky_commits',
     'seldom_contributors'
@@ -49,17 +51,20 @@ class FileFeatures(NamedTuple):
     file_age: int
     midnight_commits: int
     num_commits: int
+    num_lines: int
     num_unique_authors: int
     risky_commits: int
     seldom_contributors: int
 
 
 def get_features(row: Series) -> FileFeatures:
-    file_age: int = 0
-    midnight_commits: int = 0
-    num_commits: int = 0
-    risky_commits: int = 0
-    seldom_contributors: int = 0
+    # Use -1 as default value to avoid ZeroDivisionError
+    file_age: int = -1
+    midnight_commits: int = -1
+    num_commits: int = -1
+    num_lines: int = -1
+    risky_commits: int = -1
+    seldom_contributors: int = -1
     unique_authors: Set[str] = set()
     try:
         repo_path: str = row['repo']
@@ -67,20 +72,26 @@ def get_features(row: Series) -> FileFeatures:
         git_repo: Git = git.Git(repo_path)
         file_relative: str = row['file'].replace(f'{repo_name}/', '', 1)
         file_age = get_file_age(git_repo, file_relative)
-        num_commits = get_num_commits(git_repo, file_relative)
-        unique_authors = get_unique_authors(git_repo, file_relative)
         midnight_commits = get_midnight_commits(git_repo, file_relative)
+        num_commits = get_num_commits(git_repo, file_relative)
+        num_lines = get_num_lines(
+            os.path.join(git_repo.working_dir, file_relative)
+        )
         risky_commits = get_risky_commits(git_repo, file_relative)
         seldom_contributors = get_seldom_contributors(git_repo, file_relative)
-    except KeyError as exc:
-        log_exception('error', exc, row=row)
-        raise KeyError
+        unique_authors = get_unique_authors(git_repo, file_relative)
+    except (
+        KeyError,
+        ValueError
+    ) as exc:
+        log_exception('info', exc, row=row)
     return FileFeatures(
         busy_file=1 if len(unique_authors) > 9 else 0,
         commit_frequency=round(num_commits / file_age, 4),
         file_age=file_age,
         midnight_commits=midnight_commits,
         num_commits=num_commits,
+        num_lines=num_lines,
         num_unique_authors=len(unique_authors),
         risky_commits=risky_commits,
         seldom_contributors=seldom_contributors
@@ -99,6 +110,20 @@ def get_num_commits(git_repo: Git, file: str) -> int:
     """Gets the number of commits that have modified a file"""
     commit_history: List[str] = get_file_commit_history(git_repo, file)
     return len(commit_history)
+
+
+def get_num_lines(file_path: str) -> int:
+    """Gets the numberr of lines that a file has"""
+    result: int = 0
+    try:
+        file = open(file_path, 'rb')
+        bufgen = iter(
+            partial(file.raw.read, 1024 * 1024), b''  # type: ignore
+        )
+        result = sum(buf.count(b'\n') for buf in bufgen)
+    except FileNotFoundError:
+        print(f'File {file_path} not found. ')
+    return result
 
 
 def get_midnight_commits(git_repo: Git, file: str) -> int:

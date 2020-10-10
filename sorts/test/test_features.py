@@ -53,6 +53,7 @@ def test_extract_features(test_clone_repo: str) -> None:
             file_ages[0],
             25,
             137,
+            161,
             55,
             0,
             49
@@ -63,6 +64,7 @@ def test_extract_features(test_clone_repo: str) -> None:
             file_ages[1],
             12,
             116,
+            305,
             49,
             0,
             38
@@ -73,6 +75,7 @@ def test_extract_features(test_clone_repo: str) -> None:
             file_ages[2],
             7,
             46,
+            123,
             21,
             0,
             16
@@ -83,6 +86,7 @@ def test_extract_features(test_clone_repo: str) -> None:
             file_ages[3],
             46,
             323,
+            769,
             105,
             0,
             98
@@ -93,6 +97,7 @@ def test_extract_features(test_clone_repo: str) -> None:
             file_ages[4],
             44,
             251,
+            982,
             95,
             0,
             77
