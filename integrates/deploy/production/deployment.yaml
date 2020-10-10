@@ -28,10 +28,10 @@ spec:
         resources:
           requests:
             cpu: 1500m
-            memory: 6Gi
+            memory: 5Gi
           limits:
             cpu: 2000m
-            memory: 6Gi
+            memory: 5Gi
         env:
           - name: DEPLOYMENT_DATE
             value: "__DATE__"
