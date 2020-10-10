@@ -11,6 +11,14 @@ resource "aws_route53_zone" "fs_maindomain" {
 
 # CNAME records
 
+resource "aws_route53_record" "zoho_desk" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "help2.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["desk.cs.zohohost.com"]
+}
+
 resource "aws_route53_record" "checkly" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "status.${aws_route53_zone.fs_maindomain.name}"
