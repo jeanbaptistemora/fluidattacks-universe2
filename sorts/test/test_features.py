@@ -1,6 +1,7 @@
 # Standard libraries
 import os
 from datetime import datetime
+from typing import List
 
 # Third-party libraries
 import pandas as pd
@@ -27,6 +28,13 @@ def test_bad_dataframe(caplog: LogCaptureFixture,test_clone_repo: str) -> None:
 
 
 def test_extract_features(test_clone_repo: str) -> None:
+    creation_dates: List[str] = [
+        '2011-05-14T14:21:42-04:00',
+        '2011-10-23T10:56:04-04:00',
+        '2011-05-20T18:20:17+02:00',
+        '2011-08-15T16:01:26-04:00',
+        '2011-08-17T01:23:49-04:00'
+    ]
     training_df: DataFrame = pd.read_csv(
         os.path.join(DATA_PATH, 'test_repo_files.csv')
     )
@@ -34,50 +42,59 @@ def test_extract_features(test_clone_repo: str) -> None:
         lambda x: f'{test_clone_repo}/requests'
     )
     extract_features(training_df)
+    file_ages: List[int] = [
+        (datetime.now(pytz.utc) - datetime.fromisoformat(date)).days
+        for date in creation_dates
+    ]
     assert training_df[FILE_FEATURES].values.tolist() == [
         [
-            (
-                datetime.now(pytz.utc) -
-                datetime.fromisoformat('2011-05-14T14:21:42-04:00')
-            ).days,
+            1,
+            round(137/file_ages[0], 4),
+            file_ages[0],
+            25,
             137,
             55,
-            25
+            0,
+            49
         ],
         [
-            (
-                datetime.now(pytz.utc) -
-                datetime.fromisoformat('2011-10-23T10:56:04-04:00')
-            ).days,
+            1,
+            round(116/file_ages[1], 4),
+            file_ages[1],
+            12,
             116,
             49,
-            12
+            0,
+            38
         ],
         [
-            (
-                datetime.now(pytz.utc) -
-                datetime.fromisoformat('2011-05-20T18:20:17+02:00')
-            ).days,
+            1,
+            round(46/file_ages[2], 4),
+            file_ages[2],
+            7,
             46,
             21,
-            7
+            0,
+            16
         ],
         [
-            (
-                datetime.now(pytz.utc) -
-                datetime.fromisoformat('2011-08-15T16:01:26-04:00')
-            ).days,
+            1,
+            round(323/file_ages[3], 4),
+            file_ages[3],
+            46,
             323,
             105,
-            46
+            0,
+            98
         ],
         [
-            (
-                datetime.now(pytz.utc) -
-                datetime.fromisoformat('2011-08-17T01:23:49-04:00')
-            ).days,
+            1,
+            round(251/file_ages[4], 4),
+            file_ages[4],
+            44,
             251,
             95,
-            44
+            0,
+            77
         ]
     ]

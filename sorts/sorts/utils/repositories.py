@@ -1,11 +1,23 @@
 # Standard libraries
 import os
-from typing import List
+import re
+from typing import (
+    Dict,
+    List,
+    Tuple,
+)
 
 # Third-party libraries
 import git
 from git.cmd import Git
 from git.exc import GitCommandError
+
+
+STAT_REGEX = re.compile(
+    r'([0-9]+ files? changed)?'
+    r'(, (?P<insertions>[0-9]+) insertions\(\+\))?'
+    r'(, (?P<deletions>[0-9]+) deletions\(\-\))?'
+)
 
 
 def get_bad_repos(fusion_path: str) -> List[str]:
@@ -19,35 +31,47 @@ def get_bad_repos(fusion_path: str) -> List[str]:
 
 def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the author of every commit that modified a file"""
-    file_history: str = git_repo.log(
+    author_history: str = git_repo.log(
         '--no-merges',
         '--follow',
         '--pretty=%ae',
         file
     )
-    return file_history.split('\n')
+    return author_history.split('\n')
 
 
 def get_file_commit_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the hashes of the commits that touched a file"""
-    file_history: str = git_repo.log(
+    commit_history: str = git_repo.log(
         '--no-merges',
         '--follow',
         '--pretty=%H',
         file
     )
-    return file_history.split('\n')
+    return commit_history.split('\n')
 
 
 def get_file_date_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with dates in ISO format of every commit the file has"""
-    file_history: str = git_repo.log(
+    date_history: str = git_repo.log(
         '--no-merges',
         '--follow',
         '--pretty=%aI',
         file
     )
-    return file_history.split('\n')
+    return date_history.split('\n')
+
+
+def get_file_stat_history(git_repo: Git, file: str) -> List[str]:
+    """Returns a list with the amount of changed lines each commit has"""
+    stat_history: str = git_repo.log(
+        '--no-merges',
+        '--follow',
+        '--shortstat',
+        '--pretty=',
+        file
+    )
+    return stat_history.split('\n')
 
 
 def get_repository_files(repo_path: str) -> List[str]:
@@ -60,6 +84,19 @@ def get_repository_files(repo_path: str) -> List[str]:
         for path, _, files in os.walk(repo_path)
         for filename in files
     ]
+
+
+def parse_git_shortstat(stat: str) -> Tuple[int, int]:
+    insertions: int = 0
+    deletions: int = 0
+    match = re.match(STAT_REGEX, stat.strip())
+    if match:
+        groups: Dict[str, str] = match.groupdict()
+        if groups['insertions']:
+            insertions = int(groups['insertions'])
+        if groups['deletions']:
+            insertions = int(groups['deletions'])
+    return insertions, deletions
 
 
 def test_repo(repo_path: str) -> bool:
