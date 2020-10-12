@@ -8,7 +8,6 @@ from typing import (
 )
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-from asgiref.sync import sync_to_async
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -37,8 +36,7 @@ from backend.exceptions import InvalidExpirationTime
 from backend import util
 
 
-@sync_to_async  # type: ignore
-def _get_project_name(
+async def _get_project_name(
         _: GraphQLResolveInfo,
         project_name: str,
         **__: datetime) -> str:
@@ -46,8 +44,7 @@ def _get_project_name(
     return project_name
 
 
-@sync_to_async  # type: ignore
-def _get_from_date(
+async def _get_from_date(
         _: GraphQLResolveInfo,
         from_date: datetime,
         **__: Union[datetime, str]) -> datetime:
@@ -55,8 +52,7 @@ def _get_from_date(
     return from_date
 
 
-@sync_to_async  # type: ignore
-def _get_to_date(
+async def _get_to_date(
         _: GraphQLResolveInfo,
         to_date: datetime,
         **__: Union[datetime, str]) -> datetime:

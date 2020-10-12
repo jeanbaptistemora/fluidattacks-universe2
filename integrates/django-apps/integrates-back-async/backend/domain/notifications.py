@@ -5,6 +5,7 @@ import html
 # Third party imports
 from aioextensions import (
     collect,
+    in_thread,
 )
 from exponent_server_sdk import DeviceNotRegisteredError
 
@@ -17,7 +18,6 @@ from backend.domain import (
     user as user_domain
 )
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 
@@ -40,7 +40,7 @@ async def new_group(
 
     return cast(
         bool,
-        await aio.ensure_io_bound(
+        await in_thread(
             notifications_dal.create_ticket,
             subject=f'[Integrates] Group created: {group_name}',
             description=f"""
@@ -85,7 +85,7 @@ async def edit_group(
 
     return cast(
         bool,
-        await aio.ensure_io_bound(
+        await in_thread(
             notifications_dal.create_ticket,
             subject=f'[Integrates] Group edited: {group_name}',
             description=f"""

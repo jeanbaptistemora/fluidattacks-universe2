@@ -9,6 +9,7 @@ from typing import Dict, List, Union, cast, Tuple, Optional
 
 from aioextensions import (
     in_process,
+    in_thread,
 )
 from backports import csv
 from django.core.files.base import ContentFile
@@ -38,7 +39,6 @@ from backend.typing import (
     Historic as HistoricType
 )
 from backend.utils import (
-    aio,
     cvss,
     datetime as datetime_utils,
     forms as forms_utils
@@ -676,7 +676,7 @@ async def validate_acceptance_days(
     complies with organization settings
     """
     valid: bool = True
-    is_valid_acceptance_date = await aio.ensure_io_bound(
+    is_valid_acceptance_date = await in_thread(
         validate_acceptance_date,
         values
     )

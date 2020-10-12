@@ -3,7 +3,6 @@ from time import time
 import pytest
 from aniso8601 import parse_datetime
 
-from asgiref.sync import async_to_sync, sync_to_async
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from backend.domain import event as event_domain

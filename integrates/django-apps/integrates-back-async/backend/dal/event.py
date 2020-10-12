@@ -2,11 +2,12 @@
 import logging
 from typing import List
 
+from aioextensions import in_thread
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
+
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Event as EventType
-from backend.utils import aio
 from fluidintegrates.settings import LOGGING
 
 from __init__ import (
@@ -97,7 +98,7 @@ async def remove_evidence(file_name: str) -> bool:
 
 
 async def sign_url(file_url: str) -> str:
-    return await aio.ensure_cpu_bound(
+    return await in_thread(
         cloudfront.sign_url,
         FI_CLOUDFRONT_RESOURCES_DOMAIN,
         file_url,

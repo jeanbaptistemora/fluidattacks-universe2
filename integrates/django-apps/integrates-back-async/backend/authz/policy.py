@@ -10,6 +10,10 @@ from typing import (
 import logging
 
 # Third party library
+from aioextensions import (
+    collect,
+    in_thread,
+)
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
 
@@ -19,7 +23,6 @@ from backend.dal import (
     user as user_dal,
 )
 from backend.utils import (
-    aio,
     function,
 )
 from backend.utils.encodings import (
@@ -54,7 +57,7 @@ async def get_cached_group_service_attributes_policies(
 
     try:
         # Attempt to retrieve data from the cache
-        ret = await aio.ensure_io_bound(cache.get, cache_key)
+        ret = await in_thread(cache.get, cache_key)
     except RedisClusterException:
         ret = None
 
@@ -67,7 +70,7 @@ async def get_cached_group_service_attributes_policies(
         )
         try:
             # Put the data in the cache
-            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=86400)
+            await in_thread(cache.set, cache_key, ret, timeout=86400)
         except RedisClusterException as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
 
@@ -96,7 +99,7 @@ async def get_cached_subject_policies(
 
         try:
             # Attempt to retrieve data from the cache
-            ret = await aio.ensure_io_bound(cache.get, cache_key)
+            ret = await in_thread(cache.get, cache_key)
         except RedisClusterException:
             ret = None
 
@@ -109,7 +112,7 @@ async def get_cached_subject_policies(
             )
             try:
                 # Put the data in the cache
-                await aio.ensure_io_bound(
+                await in_thread(
                     cache.set,
                     cache_key,
                     ret,
@@ -201,7 +204,7 @@ async def grant_group_level_role(email: str, group: str, role: str) -> bool:
             role if role in USER_LEVEL_ROLES else 'customer'
         coroutines.append(grant_user_level_role(email, user_level_role))
 
-    success = await aio.materialize(coroutines)
+    success = await collect(coroutines)
 
     return success and await revoke_cached_subject_policies(email)
 
@@ -234,7 +237,7 @@ async def grant_organization_level_role(
         )
         coroutines.append(grant_user_level_role(email, user_level_role))
 
-    success = await aio.materialize(coroutines)
+    success = await collect(coroutines)
 
     return success and await revoke_cached_subject_policies(email)
 
@@ -259,7 +262,7 @@ async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     cache_key: str = get_group_cache_key(group)
 
     # Delete the cache key from the cache
-    await aio.ensure_io_bound(cache.delete_pattern, f'*{cache_key}*')
+    await in_thread(cache.delete_pattern, f'*{cache_key}*')
 
     # Refresh the cache key as the user is probably going to use it soon :)
     await get_cached_group_service_attributes_policies(group)
@@ -272,7 +275,7 @@ async def revoke_cached_subject_policies(subject: str) -> bool:
     cache_key: str = get_subject_cache_key(subject)
 
     # Delete the cache key from the cache
-    await aio.ensure_io_bound(cache.delete_pattern, f'*{cache_key}*')
+    await in_thread(cache.delete_pattern, f'*{cache_key}*')
 
     # Refresh the cache key as the user is probably going to use it soon :)
     await get_cached_subject_policies(subject)

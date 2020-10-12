@@ -1,11 +1,12 @@
 
 import base64
 import urllib.parse
+
+from aioextensions import in_thread
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 from cryptography.hazmat.backends import default_backend
 from botocore import signers
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 from __init__ import (
@@ -47,4 +48,4 @@ async def download_file(
         expire_mins: float) -> str:
     project_name = project_name.lower()
     file_url = project_name + '/' + file_info
-    return await aio.ensure_cpu_bound(sign_url, domain, file_url, expire_mins)
+    return await in_thread(sign_url, domain, file_url, expire_mins)

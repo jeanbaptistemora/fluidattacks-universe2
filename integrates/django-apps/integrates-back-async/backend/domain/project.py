@@ -571,11 +571,8 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
         vulnerabilities = await vuln_domain.list_vulnerabilities_async(
             [finding_id]
         )
-        last_approved_status = await aio.ensure_many_cpu_bound([
-            aio.PyCallable(
-                instance=vuln_domain.get_last_approved_status,
-                args=(vuln,),
-            )
+        last_approved_status = await collect([
+            in_process(vuln_domain.get_last_approved_status, vuln)
             for vuln in vulnerabilities
         ])
         for current_state in last_approved_status:
@@ -646,23 +643,17 @@ async def get_last_closing_vuln_info(
     vulns = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in validated_findings]
     )
-    are_vuln_closed = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=is_vulnerability_closed,
-            args=(vuln,),
-        )
+    are_vuln_closed = await collect([
+        in_process(is_vulnerability_closed, vuln)
         for vuln in vulns
     ])
     closed_vulns = [
         vuln
-        for vuln in vulns
-        if are_vuln_closed.pop(0)
+        for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
+        if is_vuln_closed
     ]
-    closing_vuln_dates = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=get_last_closing_date,
-            args=(vuln,),
-        )
+    closing_vuln_dates = await collect([
+        in_process(get_last_closing_date, vuln)
         for vuln in closed_vulns
     ])
     if closing_vuln_dates:
@@ -824,23 +815,18 @@ async def get_mean_remediate_severity(
             max_severity
         )
     ])
-    open_vuln_dates = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=get_open_vulnerability_date,
-            args=(vuln,),
-        )
+    open_vuln_dates = await collect([
+        in_process(get_open_vulnerability_date, vuln)
         for vuln in vulns
     ])
     filtered_open_vuln_dates = [
         vuln for vuln in open_vuln_dates
         if vuln
     ]
-    closed_vuln_dates = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=get_last_closing_date,
-            args=(vuln,),
-        )
-        for vuln in vulns if open_vuln_dates.pop(0)
+    closed_vuln_dates = await collect([
+        in_process(get_last_closing_date, vuln)
+        for vuln, open_vuln_date in zip(vulns, open_vuln_dates)
+        if open_vuln_date
     ])
     for index, closed_vuln_date in enumerate(closed_vuln_dates):
         if closed_vuln_date:
@@ -1063,11 +1049,8 @@ async def get_managers(project_name: str) -> List[str]:
 async def get_open_vulnerabilities(project_name: str) -> int:
     findings = await list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
-    last_approved_status = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=vuln_domain.get_last_approved_status,
-            args=(vuln,),
-        )
+    last_approved_status = await collect([
+        in_process(vuln_domain.get_last_approved_status, vuln)
         for vuln in vulns
     ])
     open_vulnerabilities = 0
@@ -1080,11 +1063,8 @@ async def get_open_vulnerabilities(project_name: str) -> int:
 async def get_closed_vulnerabilities(project_name: str) -> int:
     findings = await list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
-    last_approved_status = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=vuln_domain.get_last_approved_status,
-            args=(vuln,),
-        )
+    last_approved_status = await collect([
+        in_process(vuln_domain.get_last_approved_status, vuln)
         for vuln in vulns
     ])
     closed_vulnerabilities = 0

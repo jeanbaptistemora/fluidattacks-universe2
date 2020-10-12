@@ -2,7 +2,6 @@
 from asyncio import (
     create_task,
     Future,
-    gather,
     get_running_loop,
 )
 import collections.abc
@@ -11,14 +10,12 @@ from concurrent.futures import (
     ThreadPoolExecutor,
 )
 import functools
-from multiprocessing import cpu_count
 from typing import (
     Any,
     Awaitable,
     cast,
     Coroutine,
     Callable,
-    List,
     NamedTuple,
     TypeVar,
     Union,
@@ -48,25 +45,6 @@ TypeT = TypeVar('TypeT')
 
 
 @apm.trace()
-async def ensure_many_cpu_bound(py_callables: List[PyCallable]) -> Coroutine:
-    return await _ensure_many(ProcessPoolExecutor, py_callables)
-
-
-@apm.trace()
-async def ensure_many_io_bound(py_callables: List[PyCallable]) -> Coroutine:
-    return await _ensure_many(ThreadPoolExecutor, py_callables)
-
-
-@apm.trace()
-async def ensure_cpu_bound(function: Callable, *args, **kwargs) -> Coroutine:
-    return await _ensure_one(ProcessPoolExecutor, PyCallable(
-        instance=function,
-        args=tuple(args),
-        kwargs=frozendict(kwargs),
-    ))
-
-
-@apm.trace()
 async def ensure_io_bound(function: Callable, *args, **kwargs) -> Coroutine:
     return await _ensure_one(ThreadPoolExecutor, PyCallable(
         instance=function,
@@ -91,28 +69,6 @@ async def _ensure_one(
                 **py_callable.kwargs,
             ),
         )
-
-
-@apm.trace()
-async def _ensure_many(
-    executor_class: Union[ProcessPoolExecutor, ThreadPoolExecutor],
-    py_callables: List[PyCallable],
-) -> Future:
-    # Leave one worker to the main event loop, be gently with it
-    with executor_class(max_workers=cpu_count() - 1) as pool:  # type: ignore
-        loop = get_running_loop()
-
-        return await gather(*[
-            loop.run_in_executor(
-                pool,
-                functools.partial(
-                    py_callable.instance,
-                    *py_callable.args,
-                    **py_callable.kwargs,
-                )
-            )
-            for py_callable in py_callables
-        ])
 
 
 @apm.trace()

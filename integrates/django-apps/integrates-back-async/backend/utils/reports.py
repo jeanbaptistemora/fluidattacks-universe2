@@ -5,15 +5,13 @@ from typing import Dict
 from uuid import uuid4 as uuid
 
 # Third party libraries
+from aioextensions import in_thread
 from django.core.files.base import ContentFile
 
 # Local libraries
 from backend.dal.helpers import (
     cloudfront,
     s3,
-)
-from backend.utils import (
-    aio,
 )
 from backend.exceptions import ErrorUploadingFileS3
 from __init__ import (
@@ -26,13 +24,13 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def sign_url(path: str, minutes: float = 60.0) -> str:
-    return await aio.ensure_io_bound(
+    return await in_thread(
         cloudfront.sign_url, FI_CLOUDFRONT_REPORTS_DOMAIN, path, minutes
     )
 
 
 async def sign(path: str, ttl: float) -> str:
-    return await aio.ensure_io_bound(
+    return await in_thread(
         cloudfront.sign_url,
         FI_CLOUDFRONT_REPORTS_DOMAIN,
         path,
