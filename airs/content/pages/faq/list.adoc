@@ -66,8 +66,8 @@ The following environments are not supported:
 
 === 7. What type of hacking is included in Continuous Hacking?
 Continuous Hacking includes source code analysis,
-application hacking (<<q5,see question 5>>),
-and infrastructure hacking (<<q5,see question 5>>).
+application hacking (see question 5),
+and infrastructure hacking (see question 5).
 
 === 8. What is a vulnerability?
 A vulnerability is anything that represents a security risk
@@ -305,10 +305,10 @@ There are two possible options available:
 
 . A Health Check can be performed testing all existing code.
 Then, Continuous Hacking is executed as usual
-within the defined scope (<<q11,see question 11>>).
+within the defined scope (see question 11).
 This option is better suited for applications under development.
 
-. Start with the standard limits (<<q10,see question 10>>),
+. Start with the standard limits (see question 10),
 increasing the coverage on a monthly basis until `100%` is reached.
 This option is better suited for applications no longer in development.
 
@@ -535,7 +535,7 @@ we ask the client for a special environment
 within which to carry out the test.
 
 === 67. What happens if I want to review different environments of the same application?
-The service includes the environment of the reviewed code (<<q52, see question 52>>).
+The service includes the environment of the reviewed code (see question 52).
 It is possible to include different environments for an additional fee.
 
 === 68. If I ask a question in the comment system, how long does it take to get an answer?

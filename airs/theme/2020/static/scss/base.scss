@@ -1103,15 +1103,21 @@ video {
 }
 
 .faq-list {
-  .accordion-item:last-child {
-    border-bottom-width: 1px !important;
+  .accordion-item:first-child {
+    border-top-width: 1px !important;
   }
   .accordion-item {
     border-style: solid;
     border-width: 1px;
-    border-bottom-width: 0;
+    border-top-width: 0;
+    border-color: #ccc;
+    display: none;
     padding-left: 2rem;
     padding-right: 2rem;
+
+    .accordion-item-title {
+      display: flex;
+    }
 
     h3, p, ol {
       margin: 0;

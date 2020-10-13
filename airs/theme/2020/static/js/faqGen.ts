@@ -34,7 +34,7 @@ const addArrow: (() => void) = (): void => {
   $(() => {
     $("h3")
       .append("<img src='../theme/images/faq/arrow-down.svg'\
-      class='accordion-arrow w1 fr' alt='Arrow down icon'>"); // Insert content after matched selection
+      class='accordion-arrow w1 v-mid mr0 ml-auto' alt='Arrow down icon'>");
   });
 };
 
@@ -43,4 +43,52 @@ const genFaq: (() => void) = (): void => {
   addArrow();
 };
 
+const loadMore: (() => void) = (): void => {
+  $(() => {
+    $(".accordion-item")
+      .slice(0, 10)
+      .show();
+
+    $("#showMore")
+    // tslint:disable-next-line:deprecation
+      .on("click", (event: Event) => {
+      event.preventDefault();
+      $(".accordion-item:hidden")
+        .slice(0, 10)
+        .slideDown();
+      if ($(".accordion-item:hidden").length === 0) {
+        $("#showLess")
+          .fadeIn("slow");
+        $("#showMore")
+          .hide();
+      }
+      $("html,body")
+        .animate({
+          scrollTop: ($(event.currentTarget as HTMLElement)
+                      .offset() as JQuery.PlainObject).bottom,
+        },       500);
+
+    });
+    $("#showLess")
+    // tslint:disable-next-line:deprecation
+      .on("click", (event: Event) => {
+      event.preventDefault();
+      $(".accordion-item:not(:lt(10))")
+        .fadeOut();
+      $("#showMore")
+        .fadeIn("slow");
+      $("#showLess")
+        .hide();
+
+      $("html,body")
+        .animate({
+          scrollTop: ($(event.currentTarget as HTMLElement)
+                      .offset() as JQuery.PlainObject).top,
+        },       500);
+    });
+
+  });
+};
+
 genFaq();
+loadMore();

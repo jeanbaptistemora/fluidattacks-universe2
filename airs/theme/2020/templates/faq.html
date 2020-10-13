@@ -69,7 +69,7 @@
   <div
     class="{{page.banner}} coverm cover-s banner-height justify-center items-center flex bg-center mw-1366 ml-auto mr-auto">
     <div class="w-100 center">
-      <h1 class="white fw7 f1 neue tc f-5-l ma0">
+      <h1 class="white fw7 f1 neue tc ma0">
         {{ page.phrase }}
       </h1>
     </div>
@@ -85,6 +85,14 @@
       {{ faqpage.content }}
     </div>
     {% endfor %}
+    <div class="tc pv4">
+      <a id="showMore" href="#" class="bg-light-gray pointer c-fluid-bk pv3 ph5 fw7 f5 bt-trans br2 no-underline">
+        Show More
+      </a>
+      <a id="showLess" href="#" class="dn bg-light-gray pointer c-fluid-bk pv3 ph5 fw7 f5 bt-trans br2 no-underline">
+        Show Less
+      </a>
+    </div>
   </div>
 </div>
 {% assets output="static/js/faqGen.min.js", "js/tmp/faqGen.min.js" %}
