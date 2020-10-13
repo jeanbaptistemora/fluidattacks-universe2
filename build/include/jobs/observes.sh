@@ -424,3 +424,21 @@ function job_observes_gitlab_test {
   &&  popd \
   ||  return 1
 }
+
+function job_observes_gitlab_etl_lint {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./etl/dif_gitlab_etl/dif_gitlab_etl" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_gitlab_etl_test {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_test_generic_package "./etl/dif_gitlab_etl" \
+  &&  popd \
+  ||  return 1
+}
