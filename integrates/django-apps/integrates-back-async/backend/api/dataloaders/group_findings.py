@@ -3,11 +3,11 @@ from typing import cast, List
 
 # Third party
 from aiodataloader import DataLoader
+from aioextensions import collect
 
 # Local
 from backend.domain.project import finding_domain
 from backend.typing import Finding
-from backend.utils import aio
 
 
 class GroupFindingsLoader(DataLoader):  # type: ignore
@@ -19,7 +19,7 @@ class GroupFindingsLoader(DataLoader):  # type: ignore
     ) -> List[List[Finding]]:
         return cast(
             List[List[Finding]],
-            await aio.materialize(
+            await collect(
                 finding_domain.get_findings_by_group(group_name)
                 for group_name in group_names
             )

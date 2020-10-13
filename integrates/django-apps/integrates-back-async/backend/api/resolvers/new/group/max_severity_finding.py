@@ -3,6 +3,7 @@ from typing import cast, List, Optional
 
 # Third party
 from aiodataloader import DataLoader
+from aioextensions import collect
 from graphql.language.ast import SelectionSetNode
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -10,7 +11,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend.api.resolvers import finding as old_resolver
 from backend.decorators import get_entity_cache_async, require_integrates
 from backend.typing import Finding, Project as Group
-from backend.utils import aio
 
 
 @require_integrates
@@ -47,6 +47,8 @@ async def resolve(
                 info.field_nodes[0].selection_set
             )
         )
-        return cast(Finding, await aio.materialize(finding))
+        return cast(
+            Finding, dict(zip(finding, await collect(finding.values())))
+        )
 
     return None

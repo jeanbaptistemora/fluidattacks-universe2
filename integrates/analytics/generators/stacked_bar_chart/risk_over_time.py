@@ -7,11 +7,9 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import collect
 from async_lru import alru_cache
 from backend.api.dataloaders.project import ProjectLoader
-from backend.utils import (
-    aio,
-)
 
 # Local libraries
 from analytics import (
@@ -115,7 +113,7 @@ async def get_group_document(group: str) -> Dict[str, Dict[str, float]]:
 async def get_many_groups_document(
     groups: str,
 ) -> Dict[str, Dict[str, float]]:
-    group_documents = await aio.materialize(map(get_group_document, groups))
+    group_documents = await collect(map(get_group_document, groups))
 
     all_dates: List[datetime] = sorted(set(
         date

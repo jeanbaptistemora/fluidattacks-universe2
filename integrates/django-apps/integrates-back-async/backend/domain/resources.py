@@ -5,6 +5,8 @@ import logging
 from collections import namedtuple
 from typing import Dict, List, NamedTuple, cast
 from urllib.parse import quote, unquote
+
+from aioextensions import collect
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from backend import mailer
@@ -23,7 +25,6 @@ from backend.exceptions import (
     InvalidResource
 )
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
     validations,
 )
@@ -143,7 +144,7 @@ async def create_file(
         pass
     if validations.validate_file_name(uploaded_file):
         project_files.extend(json_data)
-        success = all(await aio.materialize([
+        success = all(await collect([
             resources_dal.save_file(uploaded_file, file_id),
             project_dal.update(project_name, {'files': project_files})
         ]))
@@ -169,7 +170,7 @@ async def remove_file(file_name: str, project_name: str) -> bool:
         cont += 1
     if index >= 0:
         file_url = f'{project_name.lower()}/{file_name}'
-        success = all(await aio.materialize([
+        success = all(await collect([
             resources_dal.remove_file(file_url),
             resources_dal.remove(project_name, 'files', index)
         ]))
@@ -415,7 +416,7 @@ async def mask(project_name: str) -> NamedTuple:
          'environments_result repositories_result')
     )
     list_resources_files = await resources_dal.search_file(f'{project_name}/')
-    are_files_removed = all(await aio.materialize([
+    are_files_removed = all(await collect([
         resources_dal.remove_file(file_name)
         for file_name in list_resources_files
     ]))

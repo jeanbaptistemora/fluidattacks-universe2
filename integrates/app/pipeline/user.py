@@ -1,9 +1,9 @@
 import asyncio
 from typing import Dict, Sequence, Any, Union
 from asgiref.sync import async_to_sync
+from aioextensions import collect
 from backend import authz, mailer
 from backend.domain import user as user_domain
-from backend.utils import aio
 from social_core.strategy import BaseStrategy
 from social_core.backends.oauth import OAuthAuth
 from django.contrib.auth.models import User
@@ -55,7 +55,7 @@ async def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
 
         # Add the user into the community projects
         for group in FI_COMMUNITY_PROJECTS.split(','):
-            was_granted_access = all(await aio.materialize([
+            was_granted_access = all(await collect([
                 user_domain.update_project_access(email, group, access=True),
                 authz.grant_group_level_role(
                     email, group, new_user_group_level_role
@@ -128,7 +128,7 @@ async def check_registered(
     del kwargs
     del backend
     email = details['email'].lower()
-    is_registered, last_login, role = await aio.materialize([
+    is_registered, last_login, role = await collect([
         user_domain.is_registered(email),
         user_domain.get_data(email, 'last_login'),
         authz.get_user_level_role(email)

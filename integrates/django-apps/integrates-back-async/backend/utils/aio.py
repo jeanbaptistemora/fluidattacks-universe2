@@ -1,10 +1,8 @@
 # Standard library
 from asyncio import (
-    create_task,
     Future,
     get_running_loop,
 )
-import collections.abc
 from concurrent.futures import (
     ProcessPoolExecutor,
     ThreadPoolExecutor,
@@ -23,7 +21,6 @@ from typing import (
 
 # Third party libraries
 from frozendict import frozendict
-from more_itertools import chunked
 
 # Local libraries
 from backend.utils import (
@@ -69,50 +66,6 @@ async def _ensure_one(
                 **py_callable.kwargs,
             ),
         )
-
-
-@apm.trace()
-async def materialize(obj: Any, batch_size: int = 128) -> Any:
-    """
-    Turn any awaitable and possibly nested-object into a real object.
-
-    It takes care of doing so concurrently, event for nested objects.
-
-    This function is particularly useful to cache values,
-    because non-materialized futures, coroutines or tasks cannot be sent
-    to redis.
-    """
-    materialized_obj: Any
-
-    # Please use abstract base classes:
-    #   https://docs.python.org/3/glossary.html#term-abstract-base-class
-    #
-    # Pick them up here according to the needed interface:
-    #   https://docs.python.org/3/library/collections.abc.html
-    #
-
-    if isinstance(obj, collections.abc.Mapping):
-        materialized_obj = dict(zip(
-            obj,
-            await materialize(obj.values()),
-        ))
-    elif isinstance(obj, collections.abc.Iterable):
-        materialized_obj = [
-            await awaitable
-            for awaitables in chunked(obj, batch_size)
-            for awaitable in [
-                (
-                    elem
-                    if isinstance(elem, Future)
-                    else create_task(elem)
-                )
-                for elem in awaitables
-            ]
-        ]
-    else:
-        raise ValueError(f'Not implemented for type: {type(obj)}')
-
-    return materialized_obj
 
 
 def to_async(

@@ -10,6 +10,7 @@ import logging
 from typing import Any, Callable, Dict, cast, TypeVar
 
 # Third party libraries
+from aioextensions import collect
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.shortcuts import render
@@ -392,7 +393,7 @@ def require_organization_access(func: TVar) -> TVar:
             else await org_domain.get_id_by_name(organization_identifier)
         )
 
-        role, has_access = await aio.materialize([
+        role, has_access = await collect([
             authz.get_organization_level_role(user_email, organization_id),
             org_domain.has_user_access(organization_id, user_email)
         ])

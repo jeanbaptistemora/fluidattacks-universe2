@@ -6,6 +6,7 @@ from typing import Any, List, Union, cast, Awaitable
 # Third libraries
 import json
 import aioboto3
+from aioextensions import collect
 from jose import jwt
 
 # Local libraries
@@ -30,7 +31,6 @@ from backend.utils.validations import (
     validate_phone_field,
 )
 from backend.utils import (
-    aio,
     apm,
     datetime as datetime_utils,
 )
@@ -72,7 +72,7 @@ async def get_projects(
 
     async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
         dynamo_table = await resource.Table(project_dal.TABLE_NAME)
-        can_access_list = await aio.materialize(
+        can_access_list = await collect(
             project_dal.can_user_access_pending_deletion(
                 project, role, access_pending_projects, dynamo_table)
             for role, project in zip(group_level_roles.values(), projects)
@@ -203,7 +203,7 @@ async def create_without_project(
         if phone_number:
             new_user_data['phone'] = phone_number
 
-        success = all(await aio.materialize([
+        success = all(await collect([
             authz.grant_user_level_role(email, role),
             create(email, new_user_data)
         ]))
@@ -303,4 +303,4 @@ async def complete_user_register(urltoken: str) -> bool:
 
     await util.remove_token(f'fi_urltoken:{urltoken}')
 
-    return all(await aio.materialize(coroutines))
+    return all(await collect(coroutines))

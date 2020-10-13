@@ -275,3 +275,7 @@ async def get_platform_users() -> List[Dict[str, UserType]]:
     }
 
     return await dynamodb.async_scan(ACCESS_TABLE_NAME, scan_attrs)
+
+
+async def get_user_name(mail: str) -> Dict[str, UserType]:
+    return {mail: await get_attributes(mail, ['last_name', 'first_name'])}

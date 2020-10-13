@@ -11,6 +11,7 @@ from typing import (
     Union,
 )
 
+from aioextensions import collect
 from graphql import GraphQLError
 
 from backend import (
@@ -33,7 +34,6 @@ from backend.exceptions import (
 )
 from backend.typing import Organization as OrganizationType
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 from fluidintegrates.settings import LOGGING
@@ -50,19 +50,19 @@ async def add_group(organization_id: str, group: str) -> bool:
     success = await org_dal.add_group(organization_id, group)
     if success:
         users = await get_users(organization_id)
-        users_roles = await aio.materialize(
+        users_roles = await collect(
             authz.get_organization_level_role(user, organization_id)
             for user in users
         )
         success = (
             success and
             all(
-                await aio.materialize(
+                await collect(
                     project_domain.add_user_access(
                         user, group, 'group_manager'
                     )
-                    for user in users
-                    if users_roles.pop(0) == 'group_manager'
+                    for user, user_role in zip(users, users_roles)
+                    if user_role == 'group_manager'
                 )
             )
         )
@@ -83,7 +83,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
         success = (
             success and
             all(
-                await aio.materialize(
+                await collect(
                     project_domain.add_user_access(email, group, role)
                     for group in groups
                 )
@@ -106,7 +106,7 @@ async def create_organization(name: str, email: str) -> OrganizationType:
 
 async def delete_organization(organization_id: str) -> bool:
     users = await get_users(organization_id)
-    users_removed = await aio.materialize(
+    users_removed = await collect(
         remove_user(organization_id, user)
         for user in users
     )
@@ -252,7 +252,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
 
     org_groups = await get_groups(organization_id)
     groups_removed = all(
-        await aio.materialize(
+        await collect(
             project_domain.remove_user_access(
                 group,
                 email,

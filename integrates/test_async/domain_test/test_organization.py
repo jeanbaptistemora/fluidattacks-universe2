@@ -1,6 +1,7 @@
 import pytest
 from decimal import Decimal
 
+from aioextensions import collect
 from graphql import GraphQLError
 
 from backend import authz
@@ -16,7 +17,6 @@ from backend.exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
-from backend.utils import aio
 
 # Run async tests
 pytestmark = [
@@ -51,7 +51,7 @@ async def test_add_user():
     ) == 'group_manager'
 
     groups = await org_domain.get_groups(org_id)
-    groups_users = await aio.materialize(
+    groups_users = await collect(
         project_domain.get_users(group) for group in groups
     )
     assert all([user in group_users for group_users in groups_users])

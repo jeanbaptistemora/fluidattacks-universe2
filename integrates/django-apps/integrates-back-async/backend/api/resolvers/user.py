@@ -38,9 +38,6 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from backend import authz, mailer
-from backend.utils import (
-    aio,
-)
 from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_email_address, validate_alphanumeric_field, validate_phone_field
@@ -69,7 +66,7 @@ async def _give_user_access(
             user_domain.add_phone_to_user(email, phone_number)
         )
 
-    if group and all(await aio.materialize(coroutines)):
+    if group and all(await collect(coroutines)):
         urltoken = await util.create_confirm_access_token(
             email, group, responsibility
         )
@@ -463,4 +460,4 @@ async def modify_user_information(
         )
         return False
 
-    return all(await aio.materialize(coroutines))
+    return all(await collect(coroutines))

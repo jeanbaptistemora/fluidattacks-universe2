@@ -10,6 +10,7 @@ from typing import (
 )
 
 import aioboto3
+from aioextensions import collect
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Attr, Key
 
@@ -26,9 +27,8 @@ from backend.dal.finding import (
     get_finding,
     TABLE_NAME as FINDINGS_TABLE_NAME
 )
-from backend.dal.user import get_attributes as get_user_attributes
+from backend.dal.user import get_user_name
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 from fluidintegrates.settings import LOGGING
@@ -282,12 +282,12 @@ async def exists(
 
 
 async def list_project_managers(group: str) -> List[str]:
-    users_active, users_inactive = await aio.materialize([
+    users_active, users_inactive = await collect([
         get_users(group, True),
         get_users(group, False)
     ])
     all_users = users_active + users_inactive
-    users_roles = await aio.materialize([
+    users_roles = await collect([
         authz.get_group_level_role(user, group)
         for user in all_users
     ])
@@ -453,7 +453,7 @@ async def get_released_findings(
         query_attrs['ProjectionExpression'] = 'finding_id'
     response = await dynamodb.async_query(FINDINGS_TABLE_NAME, query_attrs)
 
-    findings = await aio.materialize([
+    findings = await collect([
         get_finding(finding.get('finding_id'))
         for finding in response
     ])
@@ -475,15 +475,13 @@ async def get_comments(project_name: str) -> List[Dict[str, str]]:
         'KeyConditionExpression': key_expression
     }
     items = await dynamodb.async_query(TABLE_GROUP_COMMENTS, query_attrs)
-    comment_name_data = await aio.materialize({
-        mail: get_user_attributes(
-            mail, ['last_name', 'first_name']
-        )
+    comment_name_data = await collect([
+        get_user_name(mail)
         for mail in set(item['email'] for item in items)
-    })
+    ])
     comment_fullnames = {
         mail: list(fullnames.values())
-        for mail, fullnames in comment_name_data.items()
+        for data in comment_name_data for mail, fullnames in data.items()
     }
 
     for item in items:

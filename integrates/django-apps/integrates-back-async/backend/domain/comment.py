@@ -1,6 +1,7 @@
 
 from typing import Dict, List, Tuple, Union, cast
 
+from aioextensions import collect
 from backend import authz, util
 from backend.dal import (
     comment as comment_dal,
@@ -12,7 +13,6 @@ from backend.typing import (
     User as UserType
 )
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 
@@ -22,7 +22,7 @@ async def _get_comments(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    comments = await aio.materialize([
+    comments = await collect([
         fill_comment_data(
             project_name,
             user_email,
@@ -33,7 +33,7 @@ async def _get_comments(
             int(finding_id)
         )
     ])
-    return comments
+    return list(comments)
 
 
 async def get_comments(

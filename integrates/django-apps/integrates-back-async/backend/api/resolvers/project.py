@@ -49,7 +49,6 @@ from backend.typing import (
 )
 from backend import util
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 from backend.api.resolvers.user import _create_new_user
@@ -190,7 +189,10 @@ async def _get_last_closing_vuln_finding(
         selection_set=selection_set
     )
 
-    return cast(Dict[str, FindingType], await aio.materialize(finding))
+    return cast(
+        Dict[str, FindingType],
+        dict(zip(finding, await collect(finding.values())))
+    )
 
 
 @require_integrates
@@ -231,7 +233,10 @@ async def _get_max_open_severity_finding(
         selection_set=selection_set
     )
 
-    return cast(Dict[str, FindingType], await aio.materialize(finding))
+    return cast(
+        Dict[str, FindingType],
+        dict(zip(finding, await collect(finding.values())))
+    )
 
 
 @require_integrates

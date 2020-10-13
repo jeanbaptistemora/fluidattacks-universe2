@@ -53,7 +53,6 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
     findings as finding_utils,
     validations
@@ -435,7 +434,7 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
 async def mask(group_name: str) -> bool:
     today = datetime_utils.get_now()
     comments = await project_dal.get_comments(group_name)
-    comments_result = all(await aio.materialize([
+    comments_result = all(await collect([
         project_dal.delete_comment(comment['project_name'], comment['user_id'])
         for comment in comments
     ]))
@@ -501,12 +500,12 @@ async def remove_project(project_name: str) -> NamedTuple:
 
 async def remove_all_users_access(project: str) -> bool:
     """Remove user access to project."""
-    user_active, user_suspended = await aio.materialize([
+    user_active, user_suspended = await collect([
         get_users(project, True),
         get_users(project, False)
     ])
     all_users = user_active + user_suspended
-    are_users_removed = all(await aio.materialize([
+    are_users_removed = all(await collect([
         remove_user_access(project, user)
         for user in all_users
     ]))
@@ -520,7 +519,7 @@ async def remove_user_access(
         check_org_access: bool = True) -> bool:
     """Remove user access to project."""
     success: bool = all(
-        await aio.materialize([
+        await collect([
             authz.revoke_group_level_role(email, group),
             remove_access(email, group)
         ])
@@ -590,7 +589,7 @@ async def get_pending_verification_findings(
         project_name: str) -> List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
     findings_ids = await list_findings([project_name])
-    are_pending_verifications = await aio.materialize(
+    are_pending_verifications = await collect(
         map(finding_domain.is_pending_verification, findings_ids[0])
     )
     pending_to_verify_ids = [
@@ -601,7 +600,7 @@ async def get_pending_verification_findings(
         )
         if are_pending_verification
     ]
-    pending_to_verify = await aio.materialize(
+    pending_to_verify = await collect(
         finding_utils.get_attributes(
             finding_id,
             ['finding', 'finding_id', 'project_name']
@@ -941,7 +940,7 @@ async def list_drafts(
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(finding_dal.TABLE_NAME)
-        drafts = await aio.materialize(
+        drafts = await collect(
             project_dal.list_drafts(group_name, table, should_list_deleted)
             for group_name in groups_name
         )
@@ -951,7 +950,7 @@ async def list_drafts(
 async def list_comments(
         project_name: str,
         user_email: str) -> List[CommentType]:
-    comments = await aio.materialize([
+    comments = await collect([
         comment_domain.fill_comment_data(project_name, user_email, comment)
         for comment in await project_dal.get_comments(project_name)
     ])
@@ -978,7 +977,7 @@ async def list_findings(
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(finding_dal.TABLE_NAME)
-        findings = await aio.materialize(
+        findings = await collect(
             project_dal.list_findings(group_name, table, should_list_deleted)
             for group_name in groups_name
         )
@@ -1009,7 +1008,7 @@ async def get_many_groups(
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(project_dal.TABLE_NAME)
-        groups = await aio.materialize(
+        groups = await collect(
             project_dal.get_group(group_name, table)
             for group_name in groups_name
         )
@@ -1035,7 +1034,7 @@ async def get_users_to_notify(
 
 async def get_managers(project_name: str) -> List[str]:
     users = await get_users(project_name, active=True)
-    users_roles = await aio.materialize([
+    users_roles = await collect([
         authz.get_group_level_role(user, project_name)
         for user in users
     ])

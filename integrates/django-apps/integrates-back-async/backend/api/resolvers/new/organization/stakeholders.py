@@ -2,6 +2,7 @@
 from typing import cast, List
 
 # Third party
+from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -12,7 +13,6 @@ from backend.domain import (
     user as stakeholder_domain
 )
 from backend.typing import Organization, Stakeholder
-from backend.utils import aio
 
 
 async def _get_stakeholder(email: str, org_id: str) -> Stakeholder:
@@ -34,7 +34,7 @@ async def resolve(
 
     return cast(
         List[Stakeholder],
-        await aio.materialize(
+        await collect(
             _get_stakeholder(email, org_id)
             for email in org_stakeholders
         )

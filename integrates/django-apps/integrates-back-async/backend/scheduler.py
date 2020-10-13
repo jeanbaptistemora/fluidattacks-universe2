@@ -35,7 +35,6 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 from fluidintegrates.settings import (
@@ -407,7 +406,7 @@ async def get_new_vulnerabilities() -> None:
     msg = '[scheduler]: get_new_vulnerabilities is running'
     LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
-    await aio.materialize(map(get_group_new_vulnerabilities, groups))
+    await collect(map(get_group_new_vulnerabilities, groups))
 
 
 def calculate_tag_indicators(
@@ -749,7 +748,7 @@ async def update_organization_indicators(
         'last_closing_date'
     ]
     tags_dict: Dict[str, List[ProjectType]] = defaultdict(list)
-    groups_attrs = await aio.materialize(
+    groups_attrs = await collect(
         project_domain.get_attributes(
             group,
             indicator_list + ['tag']
@@ -757,7 +756,7 @@ async def update_organization_indicators(
         for group in groups
     )
     groups_findings = await project_domain.list_findings(groups)
-    groups_findings_attrs = await aio.materialize(
+    groups_findings_attrs = await collect(
         finding_domain.get_findings_async(group_findings)
         for group_findings in groups_findings
     )
@@ -794,7 +793,7 @@ async def update_portfolios() -> None:
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
         org_tags = await tag_domain.get_tags(org_name, ['tag'])
-        org_groups_attrs = await aio.materialize(
+        org_groups_attrs = await collect(
             project_domain.get_attributes(
                 group, ['project_name', 'project_status', 'tag']
             )
@@ -814,7 +813,7 @@ async def update_portfolios() -> None:
                 for tag in org_tags
                 if tag['tag'] not in updated_tags
             ]
-            await aio.materialize(
+            await collect(
                 tag_domain.delete(org_name, str(tag)) for tag in deleted_tags
             )
         else:

@@ -10,6 +10,7 @@ Finalization Time: 2020-07-16 10:53:00 UTC-5
 import asyncio
 import os
 
+from aioextensions import collect
 import bugsnag
 from boto3.dynamodb.conditions import Attr
 from more_itertools import chunked
@@ -48,7 +49,7 @@ async def main() -> None:
             print(f'Group {group["project_name"]} will be updated')
     else:
         for group_chunk in chunked(groups, 40):
-            await aio.materialize(
+            await collect(
                 aio.ensure_io_bound(
                     group_dal.update,
                     group['project_name'],
@@ -58,7 +59,7 @@ async def main() -> None:
         )
 
         for user_chunk in chunked(users, 40):
-            await aio.materialize(
+            await collect(
                 aio.ensure_io_bound(
                     user_dal.update,
                     user['email'],

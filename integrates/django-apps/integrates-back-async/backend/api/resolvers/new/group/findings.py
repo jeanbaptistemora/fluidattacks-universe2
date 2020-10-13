@@ -3,6 +3,7 @@ from typing import Any, cast, Dict, List, Optional
 
 # Third party
 from aiodataloader import DataLoader
+from aioextensions import collect
 from graphql.language.ast import SelectionSetNode
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -11,7 +12,6 @@ from backend import util
 from backend.api.resolvers import finding as old_resolver
 from backend.decorators import require_integrates
 from backend.typing import Finding, Project as Group
-from backend.utils import aio
 
 
 @require_integrates
@@ -40,7 +40,7 @@ async def resolve(
 
     return cast(
         List[Finding],
-        await aio.materialize(
+        await collect(
             old_resolver.resolve(
                 info,
                 cast(Dict[str, str], finding)['id'],
