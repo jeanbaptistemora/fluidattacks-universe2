@@ -34,6 +34,12 @@ const Label: StyledComponent<
   className: "bg-lbl-gray br2 f4 fw7 ml3 nowrap pv1 ph2 tc white",
 })``;
 
+const Meter: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
+  {
+    className: "bg-light-gray br3 h2 meter-shadow relative",
+  }
+)``;
+
 const ModalBody: StyledComponent<
   "div",
   Record<string, unknown>
@@ -61,6 +67,16 @@ const ModalTitle: StyledComponent<
 > = styled.h4.attrs({
   className: "color-inherit fw3 f2 lh-solid ma0 montserrat tc",
 })``;
+
+const ProgressBar: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className:
+    "br3 db f3 h-100 bg-red bg-size4 overflow-hidden pb-animation pb-bi pb-transition relative tc white",
+})`
+  width: ${(props: { theme: { width: string } }): string => props.theme.width};
+`;
 
 const RequiredField: StyledComponent<
   "span",
@@ -134,10 +150,12 @@ export {
   EventHeaderGrid,
   EventHeaderLabel,
   Label,
+  Meter,
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
+  ProgressBar,
   RequiredField,
   Row,
   StickyContainer,

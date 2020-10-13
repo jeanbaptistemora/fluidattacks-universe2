@@ -43,7 +43,7 @@ describe("Add Files modal", (): void => {
       </Provider>
     );
 
-    expect(wrapper.find("ProgressBar")).toHaveLength(1);
+    expect(wrapper.text()).toMatch("Uploading file...");
   });
 
   it("should close on cancel", (): void => {

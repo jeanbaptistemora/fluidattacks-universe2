@@ -397,6 +397,10 @@ label {
   background: transparent !important;
 }
 
+:global .bg-size4 {
+  background-size: 4rem 4rem;
+}
+
 :global .bottom-9 {
   bottom: 9rem;  
 }
@@ -444,6 +448,10 @@ label {
   grid-template-columns: repeat( auto-fit, minmax(12rem, 1fr) );
 }
 
+:global .meter-shadow {
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
 :global .mh--5 {
   margin-left: -0.5rem;
   margin-right: -0.5rem;
@@ -478,9 +486,31 @@ label {
   color: #FF3435;
 }
 
+:global .pb-animation {
+  animation: progress-bar-stripes 2s linear infinite
+}
+
+:global .pb-bi {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255,255,255,.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255,255,255,.15) 50%,
+    rgba(255,255,255,.15) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+
 :global .ph1-5 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+:global .pb-transition {
+  -webkit-transition: width .6s ease;
+  transition: width .6s ease;
 }
 
 :global .pv2-5 {
