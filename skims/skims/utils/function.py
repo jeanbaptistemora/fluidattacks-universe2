@@ -96,7 +96,6 @@ def shield(
                     await log('warning', msg, function_id, exc_type, exc_msg)
                     await log_to_remote(
                         exception=exc,
-                        message=msg,
                         function_id=function_id,
                         exception_message=exc_msg,
                         exception_type=exc_type,

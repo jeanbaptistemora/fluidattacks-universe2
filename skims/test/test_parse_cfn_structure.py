@@ -5,7 +5,7 @@ from metaloaders.cloudformation import (
 )
 
 # Local libraries
-from parse_cfn.structure_new import iterate_iam_policy_documents
+from parse_cfn.structure import iterate_iam_policy_documents
 
 EXPECTED = ({
     'Effect': 'Allow',

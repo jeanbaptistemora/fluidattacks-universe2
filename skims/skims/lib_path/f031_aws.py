@@ -36,7 +36,7 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
-from parse_cfn.structure_new import (
+from parse_cfn.structure import (
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
 )
