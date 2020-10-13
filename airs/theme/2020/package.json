@@ -13,11 +13,14 @@
   },
   "dependencies": {
     "sass": "1.26.3",
+    "@bugsnag/core": "7.3.5",
+    "@bugsnag/js": "7.4.0",
     "@types/grecaptcha": "3.0.1",
     "@types/intl-tel-input": "14.0.1",
     "@types/jquery": "3.3.30",
     "@types/terser-webpack-plugin": "2.2.0",
     "@types/webpack": "4.41.3",
+    "@types/webpack-bugsnag-plugins": "1.4.0",
     "iframe-resizer": "4.2.11",
     "intl-tel-input": "14.0.10",
     "jquery": "3.5.1",
@@ -28,6 +31,7 @@
     "typescript": "3.7.5",
     "uglify-js": "3.10.0",
     "webpack": "4.41.4",
+    "webpack-bugsnag-plugins": "1.4.3",
     "webpack-cli": "3.3.10"
   },
   "scripts": {
