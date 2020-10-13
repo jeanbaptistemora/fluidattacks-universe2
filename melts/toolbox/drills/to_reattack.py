@@ -66,7 +66,7 @@ def get_exploits_paths(subs_name: str, finding_id: str) -> List:
     return exploits_paths
 
 
-def to_reattack(with_exp: bool, group: str = 'all') -> list:
+def to_reattack(with_exp: bool, group: str = 'all') -> dict:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
@@ -92,21 +92,8 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
         lambda info: info['findings'],
         projects_info
     ))
-    # cleaning findings without vulnerabilities
-    for project_info in projects_info:
-        project_info['findings'] = list(filter(
-            lambda finding:
-                finding['vulnerabilities'],
-            project_info['findings']
-        ))
 
-    total_findings = 0
-    total_vulnerabilities = 0
-    oldest_finding = {
-        'group': '',
-        'date_dif': relativedelta()
-    }
-
+    # Filter vulnerabilities and order by date
     for project_info in projects_info:
         for finding in project_info['findings']:
             # Filter requested vulnerabilities
@@ -121,7 +108,6 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
                                  ['status'] == 'REQUESTED',
                 finding['vulnerabilities']
             )
-
             # Order vulnerabilities by date
             finding['vulnerabilities'] = list(sorted(
                 finding['vulnerabilities'],
@@ -129,6 +115,21 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
                                [-1]
                                ['date']
             ))
+        # cleaning findings without vulnerabilities
+        project_info['findings'] = list(filter(
+            lambda finding:
+                finding['vulnerabilities'],
+            project_info['findings']
+        ))
+
+    total_findings = 0
+    total_vulnerabilities = 0
+    oldest_finding = {
+        'group': '',
+        'date_dif': relativedelta()
+    }
+    for project_info in projects_info:
+        for finding in project_info['findings']:
             oldest_vulnerability = finding['vulnerabilities'][0]
             oldest_vuln_dif = relativedelta(
                 dt.now(),
@@ -140,7 +141,6 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
                 )
             )
             finding['vulnerability_counter'] = len(finding['vulnerabilities'])
-            finding['oldest_vulnerability'] = oldest_vulnerability
             finding['oldest_vuln_dif'] = oldest_vuln_dif
             finding['exploit_paths'] = get_exploits_paths(
                 project_info['name'],
@@ -182,6 +182,13 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
 
         total_findings += len(project_info['findings'])
 
+    # cleaning findings without vulnerabilities
+    for project_info in projects_info:
+        project_info['findings'] = list(filter(
+            lambda finding:
+                finding['vulnerabilities'],
+            project_info['findings']
+        ))
     # clean trash
     projects_info = list(filter(
         lambda project_info:
@@ -189,7 +196,26 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
         projects_info
     ))
 
-    # Printing all
+    summary_info = {'total_findings': total_findings,
+                    'total_vulnerabilities': total_vulnerabilities,
+                    'oldest_finding': oldest_finding
+                    }
+
+    return {'projects_info': projects_info, 'summary_info': summary_info}
+
+
+@shield()
+def main(with_exp: bool, group: str = 'all'):
+    """
+    Print all non-verified findings and their exploits
+
+    param: with_exp: Show findings with or without exploits
+    """
+    to_reattack_search = to_reattack(with_exp, group)
+
+    projects_info = to_reattack_search['projects_info']
+    summary_info = to_reattack_search['summary_info']
+
     for project_info in projects_info:
         if project_info['findings']:
             # Head
@@ -213,24 +239,11 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
 
     # summary
     summary = (
-        f"TO-DO: FIN: {total_findings}; "  # type: ignore
-        f"Vulns: {total_vulnerabilities}; "
-        f"Days since oldest request: {oldest_finding['date_dif'].days}; "
-        f"Group: {oldest_finding['group']};"
+        f"TO-DO: FIN: {summary_info['total_findings']}; "  # type: ignore
+        f"Vulns: {summary_info['total_vulnerabilities']}; "
+        "Days since oldest request: "
+        f"{summary_info['oldest_finding']['date_dif'].days}; "
+        f"Group: {summary_info['oldest_finding']['group']};"
     )
 
     print(summary)
-
-    return projects_info
-
-
-@shield(on_error_return=False)
-def main(with_exp: bool, group: str = 'all'):
-    """
-    Print all non-verified findings and their exploits
-
-    param: with_exp: Show findings with or without exploits
-    """
-    to_reattack(with_exp, group)
-
-    return True

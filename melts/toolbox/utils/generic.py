@@ -475,6 +475,7 @@ def okta_aws_login(profile: str = 'default') -> bool:
 
     success: int = 0
     expired: bool = False
+    is_aws_account_valid: bool = False
     key_info: Dict = _get_aws_credentials(profile)
 
     if key_info:
@@ -483,9 +484,9 @@ def okta_aws_login(profile: str = 'default') -> bool:
                                              "%Y-%m-%dT%H:%M:%SZ")
         expired = now > expire
 
-    is_aws_account_valid = is_credential_valid(key_info['AccessKeyId'],
-                                               key_info['SecretAccessKey'],
-                                               key_info['SessionToken'])
+        is_aws_account_valid = is_credential_valid(key_info['AccessKeyId'],
+                                                   key_info['SecretAccessKey'],
+                                                   key_info['SessionToken'])
 
     if not key_info or expired or not is_aws_account_valid:
         key_info = _get_okta_aws_credentials(profile)
