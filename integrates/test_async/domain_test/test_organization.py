@@ -231,11 +231,12 @@ async def test_get_user_organizations():
 async def test_get_uers():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_domain.get_users(org_id)
-    assert len(users) == 7
+    assert len(users) == 8
     assert sorted(users) == [
         'continuoushack2@gmail.com',
         'continuoushacking@gmail.com',
         'integratesanalyst@fluidattacks.com',
+        'integratescloser@gmail.com',
         'integratescustomer@gmail.com',
         'integratesmanager@gmail.com',
         'integratesuser@gmail.com',

@@ -356,6 +356,24 @@
             }
           }
         }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "Test"
+            },
+            "project_name": {
+              "S": "unittesting"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "integratescloser@gmail.com"
+            }
+          }
+        }
       }
    ]
 }
