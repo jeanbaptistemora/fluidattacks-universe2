@@ -1,5 +1,8 @@
 cwe,title,what,where
-200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,10
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,16
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,22
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,29
+200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,35
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,20
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,28
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,36
