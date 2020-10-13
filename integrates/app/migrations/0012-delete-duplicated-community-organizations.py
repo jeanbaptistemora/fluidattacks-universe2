@@ -16,12 +16,12 @@ from typing import (
 )
 
 import aioboto3
+from aioextensions import in_thread
 import bugsnag
 from boto3.dynamodb.conditions import Attr, Key
 
 from backend.dal.helpers import dynamodb
 from backend.dal.user import update as update_user
-from backend.utils import aio
 
 
 INTEGRATES_TABLE = 'integrates'
@@ -103,7 +103,7 @@ async def get_users_by_organizations(org_ids: List[str]) -> OrgsUsersType:
 async def log(msg: str) -> None:
     print(msg)
     if STAGE != 'test':
-        await aio.ensure_io_bound(bugsnag.notify, Exception(msg), 'info')
+        await in_thread(bugsnag.notify, Exception(msg), 'info')
 
 
 async def main() -> None:
@@ -132,7 +132,7 @@ async def migrate_organization_users(
     else:
         results = await asyncio.gather(*[
             asyncio.create_task(
-                aio.ensure_io_bound(
+                in_thread(
                     update_user, email=user, data={'organization': new_org_id}
                 )
             )

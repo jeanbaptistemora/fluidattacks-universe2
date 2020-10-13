@@ -12,10 +12,8 @@ from urllib.parse import (
 )
 
 # Third party libraries
+from aioextensions import in_thread
 import aiohttp
-from backend.utils import (
-    aio,
-)
 from backend.utils.encodings import (
     safe_encode,
 )
@@ -62,7 +60,7 @@ async def selenium_web_driver() -> Iterator[webdriver.Firefox]:
 
         return driver
 
-    yield await aio.ensure_io_bound(create)
+    yield await in_thread(create)
 
 
 @contextlib.asynccontextmanager
@@ -88,7 +86,6 @@ async def http_session() -> Iterator[aiohttp.ClientSession]:
         yield session
 
 
-@aio.to_async
 @utils.retry_on_exceptions(
     default_value=None,
     exceptions=(
@@ -149,7 +146,8 @@ async def main():
         base = f'{TARGET_URL}/graphics-for-organization?reportMode=true'
         async for org_id, _, _ in utils.iterate_organizations_and_groups():
             await insert_cookies('organization', session)
-            await take_snapshot(
+            await in_thread(
+                take_snapshot,
                 driver=driver,
                 save_as=utils.get_result_path(
                     name=f'organization:{safe_encode(org_id.lower())}.png',
@@ -162,7 +160,8 @@ async def main():
         base = f'{TARGET_URL}/graphics-for-group?reportMode=true'
         async for group in utils.iterate_groups():
             await insert_cookies('group', session)
-            await take_snapshot(
+            await in_thread(
+                take_snapshot,
                 driver=driver,
                 save_as=utils.get_result_path(
                     name=f'group:{safe_encode(group.lower())}.png',
@@ -180,7 +179,8 @@ async def main():
             for portfolio, _ in await utils.get_portfolios_groups(org_name):
                 subject = percent_encode(org_id + separator + portfolio)
                 await insert_cookies('portfolio', session, subject)
-                await take_snapshot(
+                await in_thread(
+                    take_snapshot,
                     driver=driver,
                     save_as=utils.get_result_path(
                         name='portfolio:' +

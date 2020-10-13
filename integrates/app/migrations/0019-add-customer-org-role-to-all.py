@@ -16,13 +16,13 @@ from typing import (
 )
 
 import aioboto3
+from aioextensions import in_thread
 from boto3.dynamodb.conditions import Attr
 
 from backend import authz
 from backend.dal.helpers import dynamodb
 from backend.domain import organization as org_domain
 from backend.typing import Organization as OrganizationType
-from backend.utils import aio
 
 
 RESOURCE_OPTIONS = dynamodb.RESOURCE_OPTIONS
@@ -75,7 +75,7 @@ async def main() -> None:
                 f'organization {organization_name}'
             )
         else:
-            await aio.ensure_io_bound(
+            await in_thread(
                 authz.grant_organization_level_role,
                 user_email,
                 organization_id,

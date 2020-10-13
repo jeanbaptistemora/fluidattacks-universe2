@@ -14,6 +14,7 @@ from typing import (
     List
 )
 
+from aioextensions import in_thread
 import bugsnag
 from backend.dal import organization as org_dal
 from backend.domain import (
@@ -21,7 +22,6 @@ from backend.domain import (
     project as group_domain,
     user as user_domain
 )
-from backend.utils import aio
 from __init__ import FI_COMMUNITY_PROJECTS, FI_TEST_PROJECTS
 
 
@@ -31,25 +31,25 @@ STAGE: str = os.environ['STAGE']
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await aio.ensure_io_bound(bugsnag.notify, Exception(message), 'info')
+        await in_thread(bugsnag.notify, Exception(message), 'info')
 
 
 async def main() -> None:
     await log('Starting migration 0018')
     users_already_added: Dict[str, List[str]] = {}
-    for group in await aio.ensure_io_bound(group_domain.get_alive_projects):
+    for group in await in_thread(group_domain.get_alive_projects):
         if group not in FI_COMMUNITY_PROJECTS + FI_TEST_PROJECTS:
-            group_org_id = await aio.ensure_io_bound(
+            group_org_id = await in_thread(
                 group_domain.get_attributes,
                 group,
                 ['organization']
             )
             group_org_id = group_org_id['organization']
             group_org_name = await org_domain.get_name_by_id(group_org_id)
-            group_users = await aio.ensure_io_bound(group_domain.get_users, group)
+            group_users = await in_thread(group_domain.get_users, group)
             user_orgs = await asyncio.gather(*[
                 asyncio.create_task(
-                    aio.ensure_io_bound(
+                    in_thread(
                         user_domain.get_attributes,
                         user,
                         ['organization']

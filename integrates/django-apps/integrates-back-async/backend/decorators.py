@@ -10,7 +10,10 @@ import logging
 from typing import Any, Callable, Dict, cast, TypeVar
 
 # Third party libraries
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    in_thread,
+)
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.shortcuts import render
@@ -35,7 +38,6 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.utils import (
-    aio,
     function,
 )
 
@@ -534,12 +536,12 @@ def get_entity_cache_async(func: TVar) -> TVar:
         )
         key_name = key_name.lower()
         try:
-            ret = await aio.ensure_io_bound(cache.get, key_name)
+            ret = await in_thread(cache.get, key_name)
 
             if ret is None:
                 ret = await _func(*args, **kwargs)
 
-                await aio.ensure_io_bound(
+                await in_thread(
                     cache.set, key_name, ret, timeout=settings.CACHE_TTL,
                 )
             return ret
@@ -592,12 +594,12 @@ def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
             cache_key = f'{cache_key_from_func}:{cache_key_from_args}'
 
             try:
-                ret = await aio.ensure_io_bound(cache.get, cache_key)
+                ret = await in_thread(cache.get, cache_key)
 
                 if ret is None:
                     ret = await _func(*args, **kwargs)
 
-                    await aio.ensure_io_bound(
+                    await in_thread(
                         cache.set, cache_key, ret, timeout=ttl,
                     )
                 return ret

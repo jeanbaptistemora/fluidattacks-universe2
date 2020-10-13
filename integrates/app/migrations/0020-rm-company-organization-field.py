@@ -10,7 +10,10 @@ Finalization Time: 2020-07-16 10:53:00 UTC-5
 import asyncio
 import os
 
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    in_thread,
+)
 import bugsnag
 from boto3.dynamodb.conditions import Attr
 from more_itertools import chunked
@@ -19,7 +22,6 @@ from backend.dal import (
     project as group_dal,
     user as user_dal
 )
-from backend.utils import aio
 
 
 STAGE: str = os.environ['STAGE']
@@ -30,14 +32,14 @@ async def main() -> None:
         Attr('organization').exists() |
         Attr('companies').exists()
     )
-    groups = await aio.ensure_io_bound(
+    groups = await in_thread(
         group_dal.get_all, group_filter, 'project_name'
     )
     user_filter: Attr = (
         Attr('organization').exists() |
         Attr('company').exists()
     )
-    users = await aio.ensure_io_bound(user_dal.get_all, user_filter, 'email')
+    users = await in_thread(user_dal.get_all, user_filter, 'email')
 
 
     if STAGE == 'test':
@@ -50,7 +52,7 @@ async def main() -> None:
     else:
         for group_chunk in chunked(groups, 40):
             await collect(
-                aio.ensure_io_bound(
+                in_thread(
                     group_dal.update,
                     group['project_name'],
                     {'companies': None, 'organization': None}
@@ -60,7 +62,7 @@ async def main() -> None:
 
         for user_chunk in chunked(users, 40):
             await collect(
-                aio.ensure_io_bound(
+                in_thread(
                     user_dal.update,
                     user['email'],
                     {'company': None, 'organization': None}
@@ -72,7 +74,7 @@ async def main() -> None:
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await aio.ensure_io_bound(
+        await in_thread(
             bugsnag.notify,
             Exception(message),
             severity='info'
