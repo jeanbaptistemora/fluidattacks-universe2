@@ -5,6 +5,7 @@
 #!   nix-shell --show-trace
 #!   nix-shell melts.nix
 #  shellcheck shell=bash
+export PYTHONWARNINGS="ignore"
 
 export PYTHONPATH="${pyPkgMelts}/site-packages/:${PYTHONPATH}"
 
