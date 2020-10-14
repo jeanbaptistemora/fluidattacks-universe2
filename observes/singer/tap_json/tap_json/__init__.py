@@ -101,7 +101,10 @@ def to_date(date_time: Any) -> Any:
 
     if is_str(date_time):
         with contextlib.suppress(OverflowError, ParserError, TypeError):
-            return date_parser(date_time).strftime("%Y-%m-%dT%H:%M:%SZ")
+            try:
+                float(date_time)
+            except ValueError:
+                return date_parser(date_time).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     return False
 
