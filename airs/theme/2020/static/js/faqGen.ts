@@ -1,6 +1,9 @@
 import { default as $ } from "jquery";
 
-// Generates an accordion list
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
+
 const accordionItem: HTMLCollection = document.getElementsByClassName("sect2");
 const accordionItemTitle: HTMLCollection = document.getElementsByTagName("h3");
 
@@ -42,6 +45,12 @@ const genFaq: (() => void) = (): void => {
   faqGen();
   addArrow();
 };
+
+try {
+  genFaq();
+} catch (error) {
+  logger.error("Error executing genFaq() function", error);
+}
 
 const loadMore: (() => void) = (): void => {
   $(() => {
@@ -90,5 +99,8 @@ const loadMore: (() => void) = (): void => {
   });
 };
 
-genFaq();
-loadMore();
+try {
+  loadMore();
+} catch (error) {
+  logger.error("Error executing loadMore() function", error);
+}

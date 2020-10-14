@@ -1,3 +1,6 @@
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
 
 const navbar: (() => void) = (): void => {
   let prevScrollpos: number = window.pageYOffset;
@@ -14,4 +17,8 @@ const navbar: (() => void) = (): void => {
   };
 };
 
-navbar();
+try {
+  navbar();
+} catch (error) {
+  logger.error("Error executing navbar() function", error);
+}

@@ -1,5 +1,9 @@
 import { default as $ } from "jquery";
 
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
+
 const setAnchors: (() => void) = (): void => {
   $(() => {
     let hTag: number;
@@ -21,7 +25,11 @@ const setAnchors: (() => void) = (): void => {
   });
 };
 
-setAnchors();
+try {
+  setAnchors();
+} catch (error) {
+  logger.error("Error executing setAnchors() function", error);
+}
 
 // Fix issues with anchors in Chrome
 const fixAnchors: (() => void) = (): void => {
@@ -38,4 +46,8 @@ const fixAnchors: (() => void) = (): void => {
   });
 };
 
-fixAnchors();
+try {
+  fixAnchors();
+} catch (error) {
+  logger.error("Error executing fixAnchors() function", error);
+}

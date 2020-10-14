@@ -1,3 +1,7 @@
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
+
 const mySidenavXl: HTMLElement = document.getElementById("mySidenavXl") as HTMLElement;
 const openbtn: HTMLElement = document.getElementById("openbtn") as HTMLElement;
 const closebtn: HTMLElement = document.getElementById("closebtn") as HTMLElement;
@@ -31,4 +35,8 @@ const menu: (() => void) = (): void => {
   });
 };
 
-menu();
+try {
+  menu();
+} catch (error) {
+  logger.error("Error executing menu() function", error);
+}

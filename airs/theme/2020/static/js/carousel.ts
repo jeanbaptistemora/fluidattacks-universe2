@@ -1,3 +1,7 @@
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
+
 const carousel: (() => void) = (): void => {
   const slider: HTMLElement = document.querySelector(".carousel") as HTMLElement;
   let isDown: boolean; isDown = false;
@@ -28,4 +32,8 @@ const carousel: (() => void) = (): void => {
   });
 };
 
-carousel();
+try {
+  carousel();
+} catch (error) {
+  logger.error("Error executing carousel() function", error);
+}

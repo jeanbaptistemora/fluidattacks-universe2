@@ -1,6 +1,9 @@
 import { default as $ } from "jquery";
 
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
 import { addClasses } from "./jqueryFunctions";
+
+startBugsnag();
 
 const dynClasses: (() => void) = (): void => {
   $(() => {
@@ -44,4 +47,8 @@ const dynClasses: (() => void) = (): void => {
   });
 };
 
-dynClasses();
+try {
+  dynClasses();
+} catch (error) {
+  logger.error("Error executing dynClasses() function", error);
+}

@@ -4,7 +4,7 @@ import { Error } from "@bugsnag/core/types/event";
 import Bugsnag from "@bugsnag/js";
 import _ from "lodash";
 
-import { getEnvironment } from "./getEnvironent";
+import { getEnvironment } from "./getEnvironment";
 
 const { userEmail, userName } = window as typeof window & IDictionary<string>;
 

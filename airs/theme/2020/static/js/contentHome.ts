@@ -1,6 +1,9 @@
 import { default as $ } from "jquery";
 
-import { animationById, toggleClasses } from "./jqueryFunctions";
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+import { animationById } from "./jqueryFunctions";
+
+startBugsnag();
 
 const contentHome: (() => void) = (): void => {
   $(() => {
@@ -77,4 +80,8 @@ const contentHome: (() => void) = (): void => {
   });
 };
 
-contentHome();
+try {
+  contentHome();
+} catch (error) {
+  logger.error("Error executing contentHome() function", error);
+}

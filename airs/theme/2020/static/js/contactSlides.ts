@@ -1,3 +1,6 @@
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
 
 let slideIndex: number; slideIndex = 1;
 let myTimer: NodeJS.Timeout;
@@ -58,4 +61,8 @@ const contactSlider: (() => void) = (): void => {
 
 };
 
-contactSlider();
+try {
+  contactSlider();
+} catch (error) {
+  logger.error("Error executing contactSlider() function", error);
+}
