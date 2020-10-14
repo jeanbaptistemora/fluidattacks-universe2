@@ -37,7 +37,7 @@ async def test_get_one():
 async def test_get_all():
     all_groups = await available_name_dal.get_all('group')
     assert isinstance(all_groups, list)
-    assert len(all_groups) == 5
+    assert len(all_groups) == 11
 
 async def test_exists():
     existing_group = await available_name_dal.exists('praga', 'group')

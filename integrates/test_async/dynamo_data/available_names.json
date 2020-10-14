@@ -94,6 +94,114 @@
             "PutRequest": {
                 "Item": {
                     "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "LONDRES"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "00a5faca-0e53-11eb-adc1-0242ac120002"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "COLONIA"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "a93a4224-12e5-4a03-b5c3-b56573db4d78"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "BUSAN"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "40fc6776-e0b2-4322-9ca0-a7ef27a44336"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "VIENA"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "204a463c-eb21-4510-91af-78851179b0d6"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "LIMA"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "302ba769-680c-43a4-8d40-978af5ef9e98"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "LISBOA"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "ff148182-b88a-4b3d-bfc6-0d7f64724e2a"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
                         "S": "AVAILABLE_ORGANIZATION"
                     },
                     "sk": {
