@@ -359,3 +359,144 @@ async def test_finding():
         }
     ]
     assert result['data']['finding']['pendingVulns'] == []
+
+    actor = 'ANYONE_INTERNET'
+    affected_systems = 'Server bWAPP'
+    attack_vector_desc = 'This is an updated attack vector'
+    records = 'Clave plana'
+    records_number = 12
+    cwe = '200'
+    description = 'I just have updated the description'
+    recommendation = 'Updated recommendation'
+    requirements = 'REQ.0132. Passwords (phrase type) must be at least 3 words long.'
+    scenario = 'UNAUTHORIZED_USER_EXTRANET'
+    threat = 'Updated threat'
+    title = 'FIN.S.0051. Weak passwords reversed'
+    finding_type = 'SECURITY'
+    query = f'''
+        mutation {{
+            updateDescription(
+                actor: "{actor}",
+                affectedSystems: "{affected_systems}",
+                attackVectorDesc: "{attack_vector_desc}",
+                cwe: "{cwe}",
+                description: "{description}",
+                findingId: "{finding_id}",
+                records: "{records}",
+                recommendation: "{recommendation}",
+                recordsNumber: {records_number},
+                requirements: "{requirements}",
+                scenario: "{scenario}",
+                threat: "{threat}",
+                title: "{title}",
+                findingType: "{finding_type}"
+            ) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateDescription']
+    assert result['data']['updateDescription']['success']
+
+    query = f'''
+        mutation {{
+            removeEvidence(evidenceId: EVIDENCE2, findingId: "{finding_id}") {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query, 'variables': variables}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert result['data']['removeEvidence']['success']
+
+    consult_content = "This is a comenting test"
+    query = f'''
+        mutation {{
+            addFindingConsult(
+                content: "{consult_content}",
+                findingId: "{finding_id}",
+                type: CONSULT,
+                parent: "0"
+            ) {{
+                success
+                commentId
+            }}
+        }}
+        '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['addFindingConsult']
+    assert result['data']['addFindingConsult']['success']
+
+    query = f'''{{
+        finding(identifier: "{finding_id}"){{
+            records
+            evidence
+            title
+            scenario
+            actor
+            description
+            requirements
+            attackVectorDesc
+            threat
+            recommendation
+            affectedSystems
+            compromisedAttributes
+            compromisedRecords
+            cweUrl
+            btsUrl
+            risk
+            type
+            consulting{{
+                content
+                email
+            }}
+            __typename
+        }}
+    }}'''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert len(result['data']['finding']['evidence']) == 7
+    assert result['data']['finding']['evidence']['evidence2']['description'] == ''
+    assert result['data']['finding']['evidence']['evidence2']['url'] == ''
+    assert f'unittesting-{finding_id}' in result['data']['finding']['evidence']['animation']['url']
+    assert result['data']['finding']['title'] == title
+    assert result['data']['finding']['scenario'] == scenario
+    assert result['data']['finding']['actor'] == actor
+    assert result['data']['finding']['description'] == description
+    assert result['data']['finding']['requirements'] == requirements
+    assert result['data']['finding']['attackVectorDesc'] == attack_vector_desc
+    assert result['data']['finding']['threat'] == threat
+    assert result['data']['finding']['recommendation'] == recommendation
+    assert result['data']['finding']['affectedSystems'] == affected_systems
+    assert result['data']['finding']['compromisedAttributes'] == records
+    assert result['data']['finding']['compromisedRecords'] == records_number
+    assert result['data']['finding']['cweUrl'] == cwe
+    assert result['data']['finding']['btsUrl'] == ''
+    assert result['data']['finding']['risk'] == risk
+    assert result['data']['finding']['type'] == finding_type
+    assert result['data']['finding']['consulting'] == [
+        {
+            'content': consult_content,
+            'email': 'integratescloser@gmail.com'
+        }
+    ]
+
+    query = f'''
+        mutation {{
+            deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    assert 'errors' not in result
+    assert 'success' in result['data']['deleteFinding']
+    assert result['data']['deleteFinding']['success']
