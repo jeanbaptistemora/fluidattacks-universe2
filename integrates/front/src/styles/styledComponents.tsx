@@ -13,6 +13,13 @@ const Col1: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "ph1-5 w-100",
 })``;
 
+const ControlLabel: StyledComponent<
+  "label",
+  Record<string, unknown>
+> = styled.label.attrs({
+  className: "dib fw4 mb2",
+})``;
+
 const EventHeaderGrid: StyledComponent<
   "div",
   Record<string, unknown>
@@ -25,6 +32,13 @@ const EventHeaderLabel: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: "ph3 tc",
+})``;
+
+const FormGroup: StyledComponent<
+  "form",
+  Record<string, unknown>
+> = styled.form.attrs({
+  className: "mb4 w-100",
 })``;
 
 const Label: StyledComponent<
@@ -90,7 +104,7 @@ const RequiredField: StyledComponent<
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "mh--15 flex",
+  className: "mh--5 flex",
 })``;
 
 const StickyContainer: StyledComponent<
@@ -147,8 +161,10 @@ const TabsContainer: StyledComponent<
 export {
   ButtonToolbar,
   Col1,
+  ControlLabel,
   EventHeaderGrid,
   EventHeaderLabel,
+  FormGroup,
   Label,
   Meter,
   ModalBody,

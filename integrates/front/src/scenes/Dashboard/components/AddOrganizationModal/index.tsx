@@ -1,7 +1,3 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need className to override default styles from react-boostrap.
-*/
 import { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { Field } from "redux-form";
@@ -18,11 +14,10 @@ import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
 import {
   ButtonToolbar,
-  Col,
   ControlLabel,
   FormGroup,
   Row,
-} from "react-bootstrap";
+} from "styles/styledComponents";
 import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
@@ -132,28 +127,26 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
           onSubmit={handleSubmit}
         >
           <Row>
-            <Col md={12} sm={12}>
-              <FormGroup>
-                <ControlLabel>
-                  {translate.t("sidebar.newOrganization.modal.name")}
-                </ControlLabel>
-                <TooltipWrapper
-                  message={translate.t(
-                    "sidebar.newOrganization.modal.nameTooltip"
-                  )}
-                  placement={"top"}
-                >
-                  <Field
-                    component={Text}
-                    disabled={true}
-                    name={"name"}
-                    type={"text"}
-                  />
-                </TooltipWrapper>
-              </FormGroup>
-            </Col>
+            <FormGroup>
+              <ControlLabel>
+                {translate.t("sidebar.newOrganization.modal.name")}
+              </ControlLabel>
+              <TooltipWrapper
+                message={translate.t(
+                  "sidebar.newOrganization.modal.nameTooltip"
+                )}
+                placement={"top"}
+              >
+                <Field
+                  component={Text}
+                  disabled={true}
+                  name={"name"}
+                  type={"text"}
+                />
+              </TooltipWrapper>
+            </FormGroup>
           </Row>
-          <ButtonToolbar className={"pull-right"}>
+          <ButtonToolbar>
             <Button onClick={onClose}>
               {translate.t("confirmmodal.cancel")}
             </Button>
