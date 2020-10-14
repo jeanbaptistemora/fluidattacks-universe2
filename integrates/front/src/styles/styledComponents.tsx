@@ -7,10 +7,22 @@ const ButtonToolbar: StyledComponent<
   className: "fr",
 })``;
 
-const Col1: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+const Col100: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
   className: string;
 }>({
   className: "ph1-5 w-100",
+})``;
+
+const Col40: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-40",
 })``;
 
 const ControlLabel: StyledComponent<
@@ -104,7 +116,7 @@ const RequiredField: StyledComponent<
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "mh--5 flex",
+  className: "mh--15 flex",
 })``;
 
 const StickyContainer: StyledComponent<
@@ -160,7 +172,8 @@ const TabsContainer: StyledComponent<
 
 export {
   ButtonToolbar,
-  Col1,
+  Col100,
+  Col40,
   ControlLabel,
   EventHeaderGrid,
   EventHeaderLabel,

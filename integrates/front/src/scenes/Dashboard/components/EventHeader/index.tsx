@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Col1,
+  Col100,
   EventHeaderGrid,
   EventHeaderLabel,
   Label,
@@ -25,13 +25,13 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
       <React.Fragment>
       <div id="events" className="tab-pane cont active">
         <Row>
-          <Col1>
+          <Col100>
              <h2>{eventType}</h2>
              <hr/>
-          </Col1>
+          </Col100>
         </Row>
         <Row>
-          <Col1>
+          <Col100>
             <EventHeaderGrid>
               <EventHeaderLabel>
                 {translate.t("search_findings.tab_events.id")}
@@ -46,7 +46,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
                 <Label> {eventStatus} </Label>
               </EventHeaderLabel>
             </EventHeaderGrid>
-          </Col1>
+          </Col100>
         </Row>
       </div>
     </React.Fragment>

@@ -17,7 +17,7 @@ import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queri
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
 import {
-  Col1,
+  Col100,
   Row,
   Tab,
   TabContent,
@@ -45,7 +45,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
     <React.StrictMode>
       <React.Fragment>
         <Row>
-          <Col1>
+          <Col100>
             <Query query={GET_EVENT_HEADER} variables={{ eventId }} onError={handleErrors}>
               {({ data }: QueryResult): JSX.Element => {
                 if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
@@ -81,7 +81,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
                 <Redirect to={`${props.match.path}/description`} />
               </Switch>
             </TabContent>
-          </Col1>
+          </Col100>
         </Row>
       </React.Fragment>
     </React.StrictMode >

@@ -16,11 +16,12 @@ import _ from "lodash";
 import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
-  Col,
+  Col100,
+  Col40,
   ControlLabel,
   FormGroup,
   Row,
-} from "react-bootstrap";
+} from "styles/styledComponents";
 import {
   CREATE_PROJECT_MUTATION,
   PROJECTS_NAME_QUERY,
@@ -224,7 +225,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                       {({ pristine }: InjectedFormProps): JSX.Element => (
                         <React.Fragment>
                           <Row>
-                            <Col md={12} sm={12}>
+                            <Col100>
                               <FormGroup>
                                 <ControlLabel>
                                   {translate.t(
@@ -329,10 +330,10 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   </FormGroup>
                                 </TooltipWrapper>
                               </FormGroup>
-                            </Col>
+                            </Col100>
                           </Row>
                           <Row>
-                            <Col md={5} sm={5}>
+                            <Col40>
                               <TooltipWrapper
                                 message={translate.t(
                                   "organization.tabs.groups.newGroup.integrates.tooltip"
@@ -362,10 +363,10 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   />
                                 </FormGroup>
                               </TooltipWrapper>
-                            </Col>
+                            </Col40>
                           </Row>
                           <Row>
-                            <Col md={5} sm={5}>
+                            <Col40>
                               <TooltipWrapper
                                 message={translate.t(
                                   "organization.tabs.groups.newGroup.drills.tooltip"
@@ -395,11 +396,11 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   />
                                 </FormGroup>
                               </TooltipWrapper>
-                            </Col>
+                            </Col40>
                           </Row>
                           {canHaveForces ? (
                             <Row>
-                              <Col md={5} sm={5}>
+                              <Col40>
                                 <TooltipWrapper
                                   message={translate.t(
                                     "organization.tabs.groups.newGroup.forces.tooltip"
@@ -429,7 +430,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                     />
                                   </FormGroup>
                                 </TooltipWrapper>
-                              </Col>
+                              </Col40>
                             </Row>
                           ) : undefined}
                           {" *"}
@@ -437,7 +438,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                             "organization.tabs.groups.newGroup.extra_charges_may_apply"
                           )}
                           <br />
-                          <ButtonToolbar className={"pull-right"}>
+                          <ButtonToolbar>
                             <Button onClick={closeNewProjectModal}>
                               {translate.t("confirmmodal.cancel")}
                             </Button>
