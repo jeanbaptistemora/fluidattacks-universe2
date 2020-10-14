@@ -207,7 +207,7 @@ async def test_get_users():
         'continuoushack2@gmail.com',
         'continuoushacking@gmail.com',
         'integratesanalyst@fluidattacks.com',
-        'integratescloser@gmail.com',
+        'integratescloser@fluidattacks.com',
         'integratescustomer@gmail.com',
         'integratesmanager@gmail.com',
         'integratesuser@gmail.com',

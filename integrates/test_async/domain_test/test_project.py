@@ -310,10 +310,10 @@ class ProjectTest(TestCase):
     async def test_get_users(self):
         project_name = 'unittesting'
         expected_output = [
+            'integratescloser@fluidattacks.com',
             'integratesmanager@gmail.com',
             'unittest@fluidattacks.com',
             'unittest2@fluidattacks.com',
-            'integratescloser@gmail.com',
             'integratescustomer@gmail.com',
             'integratesuser@gmail.com',
             'integratesanalyst@fluidattacks.com',

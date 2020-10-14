@@ -131,7 +131,7 @@ async def test_event():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'event' in result['data']
-    assert result['data']['event']['analyst'] == 'integratescloser@gmail.com'
+    assert result['data']['event']['analyst'] == 'integratescloser@fluidattacks.com'
     assert result['data']['event']['accessibility'] == 'Ambiente'
     assert result['data']['event']['affectation'] == ''
     assert result['data']['event']['affectedComponents'] == ''
@@ -149,12 +149,12 @@ async def test_event():
     )
     assert result['data']['event']['historicState'] == [
         {
-            'analyst': 'integratescloser@gmail.com',
+            'analyst': 'integratescloser@fluidattacks.com',
             'date': event_date,
             'state': 'OPEN'
         },
         {
-            'analyst': 'integratescloser@gmail.com',
+            'analyst': 'integratescloser@fluidattacks.com',
             'date': today,
             'state': 'CREATED'
         }

@@ -484,7 +484,7 @@ async def test_finding():
     assert result['data']['finding']['consulting'] == [
         {
             'content': consult_content,
-            'email': 'integratescloser@gmail.com'
+            'email': 'integratescloser@fluidattacks.com'
         }
     ]
 
