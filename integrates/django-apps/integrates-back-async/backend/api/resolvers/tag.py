@@ -1,6 +1,5 @@
-import asyncio
 import sys
-from typing import List, Any, cast
+from typing import List, Any
 
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -9,9 +8,7 @@ from ariadne import (
 from graphql import GraphQLError
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend.api.resolvers import project as project_loader
 from backend.decorators import (
-    get_entity_cache_async,
     require_login
 )
 from backend.domain import (
@@ -20,7 +17,6 @@ from backend.domain import (
     user as user_domain
 )
 from backend.typing import (
-    Project as ProjectType,
     Tag as TagType
 )
 from backend import util
@@ -88,147 +84,6 @@ async def get_list_projects(
                 project_attrs.get('project_status') == 'ACTIVE'):
             projects.append(project.lower())
     return projects
-
-
-async def _get_organization(
-        _: GraphQLResolveInfo,
-        organization: str,
-        **__: Any) -> str:
-    return organization
-
-
-async def _get_projects(
-        info: GraphQLResolveInfo,
-        projects: List[str],
-        **__: str) -> List[ProjectType]:
-    """Async resolve fields."""
-    return await asyncio.gather(*[
-        asyncio.create_task(
-            project_loader.resolve(info, project, as_field=True)
-        )
-        for project in projects
-    ])
-
-
-async def _get_name(_: GraphQLResolveInfo, tag: str, **__: str) -> str:
-    """Get tag name."""
-    return tag
-
-
-@get_entity_cache_async
-async def _get_last_closing_vuln(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag last_closing_vuln."""
-    last_closing_vuln_attr = await tag_domain.get_attributes(
-        organization, tag, ['last_closing_date']
-    )
-    last_closing_vuln = last_closing_vuln_attr.get('last_closing_date', 0)
-    return cast(float, last_closing_vuln)
-
-
-@get_entity_cache_async
-async def _get_max_severity(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag max_severity."""
-    max_severity_attr = await tag_domain.get_attributes(
-        organization, tag, ['max_severity']
-    )
-    max_severity = max_severity_attr.get('max_severity', 0)
-    return cast(float, max_severity)
-
-
-@get_entity_cache_async
-async def _get_max_open_severity(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Resolve tag maximum severity"""
-    max_open_severity = await tag_domain.get_attributes(
-        organization, tag, ['max_open_severity']
-    )
-    return cast(float, max_open_severity.get('max_open_severity', 0))
-
-
-@get_entity_cache_async
-async def _get_mean_remediate(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag mean_remediate."""
-    mean_remediate_attr = await tag_domain.get_attributes(
-        organization, tag, ['mean_remediate']
-    )
-    mean_remediate = mean_remediate_attr.get('mean_remediate', 0)
-    return cast(float, mean_remediate)
-
-
-@get_entity_cache_async
-async def _get_mean_remediate_low_severity(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag mean_remediate_low_severity."""
-    mean_remediate_low_severity_attr = await tag_domain.get_attributes(
-        organization, tag, ['mean_remediate_low_severity'])
-    mean_remediate_low_severity = mean_remediate_low_severity_attr.get(
-        'mean_remediate_low_severity', 0
-    )
-    return cast(float, mean_remediate_low_severity)
-
-
-@get_entity_cache_async
-async def _get_mean_remediate_medium_severity(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag mean_remediate_medium_severity."""
-    mean_remediate_medium_severity_attr = await tag_domain.get_attributes(
-        organization, tag, ['mean_remediate_medium_severity'])
-    mean_remediate_medium_severity = mean_remediate_medium_severity_attr.get(
-        'mean_remediate_medium_severity', 0
-    )
-    return cast(float, mean_remediate_medium_severity)
-
-
-@get_entity_cache_async
-async def _get_mean_remediate_high_severity(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag mean_remediate_high_severity."""
-    mean_remediate_high_severity_attr = await tag_domain.get_attributes(
-        organization, tag, ['mean_remediate_high_severity'])
-    mean_remediate_high_severity = mean_remediate_high_severity_attr.get(
-        'mean_remediate_high_severity', 0
-    )
-    return cast(float, mean_remediate_high_severity)
-
-
-@get_entity_cache_async
-async def _get_mean_remediate_critical_severity(
-        _: GraphQLResolveInfo,
-        tag: str,
-        organization: str,
-        **__: str) -> float:
-    """Get tag mean_remediate_critical_severity."""
-    mean_critical_remediate_attr = await tag_domain.get_attributes(
-        organization, tag, ['mean_remediate_critical_severity']
-    )
-    mean_critical_remediate = mean_critical_remediate_attr.get(
-        'mean_remediate_critical_severity', 0
-    )
-    return cast(float, mean_critical_remediate)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
