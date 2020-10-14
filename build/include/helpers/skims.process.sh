@@ -104,7 +104,14 @@ function helper_skims_get_group_config_as_json {
           "glob(**/cryptojs/components/core.js)",
           "glob(**/modernizr.js)",
           "glob(**/UI/AutocompleteGenerico)",
-          "glob(**/UI/Tabs)"
+          "glob(**/UI/Tabs)",
+          "glob(**/.vscode)",
+          "glob(**/.idea)",
+          "glog(**/*.pydevproject)",
+          "glog(**/*.swp)",
+          "glog(**/*.launch)",
+          "glog(**/.cproject)",
+          "glog(**/.buildpath)"
         ]
       },
       timeout: 14400
