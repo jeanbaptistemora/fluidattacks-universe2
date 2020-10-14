@@ -314,6 +314,11 @@ integrates_deploy_permissions_matrix:
       - integrates/deploy/permissions-matrix/user_level.html
     when: on_success
 
+integrates_build_container_app_new:
+  <<: *with_nix
+  <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
+  stage: build
+
 integrates_build_container_app:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates

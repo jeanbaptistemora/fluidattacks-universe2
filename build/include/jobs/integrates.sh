@@ -193,6 +193,18 @@ function job_integrates_coverage_report {
   || return 1
 }
 
+function job_integrates_build_container_app_new {
+  local context='.'
+  local dockerfile='integrates/deploy/containers/app-new/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}_new"
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}" \
+    'VERSION' "${FI_VERSION}"
+}
+
 function job_integrates_build_container_app {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'

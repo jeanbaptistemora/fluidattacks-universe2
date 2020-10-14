@@ -145,7 +145,6 @@ function helper_docker_build_and_push {
     --build-arg "${build_arg_9_key}=${build_arg_9_val}"
     --build-arg "${build_arg_10_key}=${build_arg_10_val}"
   )
-  export DOCKER_BUILDKIT='1'
 
       echo "[INFO] Logging into: ${CI_REGISTRY}" \
   &&  docker login \
@@ -158,7 +157,7 @@ function helper_docker_build_and_push {
         build_args+=( --cache-from "${tag}" )
       fi \
   &&  echo "[INFO] Building: ${tag}" \
-  &&  docker build "${build_args[@]}" "${context}" \
+  &&  DOCKER_BUILDKIT='1' docker build "${build_args[@]}" "${context}" \
   &&  echo "[INFO] Pushing: ${tag}" \
   &&  docker push "${tag}" \
   &&  echo "[INFO] Deleting local copy of: ${tag}" \
