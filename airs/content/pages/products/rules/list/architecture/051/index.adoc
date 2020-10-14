@@ -16,7 +16,7 @@ The organization must store the source code in a central repository.
 Restrict access to application source code.
 
 . [[r2]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 14.2.2]
-Control system changes during the software development life cycle using formal
+Control system changes during the software development lifecycle using formal
 change tracking mechanisms.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1

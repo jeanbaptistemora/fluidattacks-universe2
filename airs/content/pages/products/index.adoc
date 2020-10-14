@@ -11,7 +11,7 @@ image::product-integrates.png[link="../products/integrates/"]
 == Integrates
 
 *Integrates* is constituted as a platform to control all the remediation
-processes in any stage of the software development life cycle.
+processes in any stage of the software development lifecycle.
 This is a red team management tool for reporting all project findings in the
 different phases and in real time.
 [role="tc mt3 mb-products f5"]
@@ -23,7 +23,7 @@ image::product-drills.png[link="../products/drills/"]
 == Drills
 
 All vulnerabilities and security issues are continuously detected and reported
-at high speed during the entire software development life cycle.
+at high speed during the entire software development lifecycle.
 *Drills* performs ethical hacking of applications and infrastructure,
 along with source code analysis.
 [role="tc mt3 mb-products f5"]

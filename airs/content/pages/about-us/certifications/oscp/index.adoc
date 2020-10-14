@@ -11,4 +11,4 @@
 `Offensive Security`. It is the first fully hands-on offensive information
 security certification in the world. It requires the professionals to prove
 that they have a clear understanding of the penetration testing process and
-life cycle through an arduous 24-hour exam.
+lifecycle through an arduous 24-hour exam.

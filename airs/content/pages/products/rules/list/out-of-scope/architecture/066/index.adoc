@@ -15,7 +15,7 @@ must be defined.
 == Description
 
 There must exist a list of system components to be tested
-during the different stages of the development life cycle.
+during the different stages of the development lifecycle.
 
 == Implementation
 

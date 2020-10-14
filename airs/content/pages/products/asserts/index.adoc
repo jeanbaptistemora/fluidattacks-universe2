@@ -33,10 +33,10 @@ and ensure safe-transport and storage of critical information.
 
 *Asserts* will allow you to
 
-- perform generic security tests during the software life cycle;
-- perform custom security tests during the software life cycle;
+- perform generic security tests during the software lifecycle;
+- perform custom security tests during the software lifecycle;
 - encapsulate organization security policies as code,
-and enforce them across your software life cycle;
+and enforce them across your software lifecycle;
 - identify the status of deterministic vulnerabilities on your system;
 - recognize the exact moment a vulnerability appeared
 (for every vulnerability check, *Asserts* prints the `ToE` fingerprint);

@@ -132,7 +132,7 @@ at different universities in Medellin,
 covering topics such as:
 
 * Information Security
-* Secure Development Life Cycle
+* Secure Development Lifecycle
 * Programming
 * Networks
 * Operating Systems
