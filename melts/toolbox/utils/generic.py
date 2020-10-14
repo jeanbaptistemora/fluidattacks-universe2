@@ -98,9 +98,15 @@ def is_credential_valid(aws_access_key_id,
     return True
 
 
-def go_back_to_services():
+def is_inside_services():
     starting_dir: str = os.getcwd()
     if 'services' not in starting_dir:
+        return False
+    return True
+
+
+def go_back_to_services():
+    if not is_inside_services():
         logger.error('Please run the toolbox inside the services repo')
         sys.exit(78)
 
@@ -119,7 +125,8 @@ def get_current_group() -> str:
 
 def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
     actual_path: str = os.getcwd()
-    if 'groups' not in actual_path \
+    if is_inside_services() \
+            and 'groups' not in actual_path \
             and subs not in os.listdir('groups') \
             and subs not in ('admin', 'all', 'unspecified-subs'):
         msg = f'the group {subs} does not exist'
