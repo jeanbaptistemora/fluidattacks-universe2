@@ -26,6 +26,7 @@ from backend.dal.subscriptions import (
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain,
+    project as group_domain,
     tag as portfolio_domain,
 )
 from backend.utils import (
@@ -299,6 +300,17 @@ async def trigger_user_to_entity_report() -> None:
             )
 
 
+async def should_not_send_report(
+    *,
+    report_entity: str,
+    report_subject: str,
+) -> bool:
+    if report_entity.lower() == 'group':
+        return not await group_domain.is_alive(report_subject.lower())
+
+    return False
+
+
 async def send_user_to_entity_report(
     *,
     event_frequency: str,
@@ -307,6 +319,12 @@ async def send_user_to_entity_report(
     user_email: str,
 ) -> None:
     try:
+        if await should_not_send_report(
+            report_entity=report_entity,
+            report_subject=report_subject
+        ):
+            return
+
         image_url: str = await reports.expose_bytes_as_url(
             content=await analytics_domain.get_graphics_report(
                 entity=report_entity.lower(),
