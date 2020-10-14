@@ -78,17 +78,19 @@ async def update(
 
 
 async def get_attributes(
-        organization: str,
-        tag: str,
-        attributes: List[str]) -> Dict[str, Union[List[str], str]]:
+    organization: str,
+    tag: str,
+    attributes: Optional[List[str]] = None
+) -> Dict[str, Union[List[str], str]]:
     response = {}
     item_attrs: DynamoQueryType = {
         'KeyConditionExpression': (
             Key('organization').eq(organization.lower()) &
             Key('tag').eq(tag.lower())
         ),
-        'ProjectionExpression': ','.join(attributes)
     }
+    if attributes:
+        item_attrs['ProjectionExpression'] = ','.join(attributes)
     response_items = await dynamodb.async_query(TABLE_NAME, item_attrs)
     if response_items:
         response = response_items[0]

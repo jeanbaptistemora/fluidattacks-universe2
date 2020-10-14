@@ -282,6 +282,7 @@ const errorLink: (history: History) => ApolloLink = (
                 location.assign("/logout");
                 break;
               case "Access denied":
+              case "Access denied or tag not found":
               case "Exception - Event not found":
               case "Exception - Organization name is invalid":
               case "Exception - Project does not exist":

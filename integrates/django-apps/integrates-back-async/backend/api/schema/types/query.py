@@ -12,7 +12,6 @@ from backend.api.resolvers import (
     internal_names,
     report,
     resource,
-    tag,
     vulnerability
 )
 from backend.api.resolvers.new.query import (
@@ -22,6 +21,7 @@ from backend.api.resolvers.new.query import (
     organization,
     organization_id,
     stakeholder,
+    tag,
     user_list_groups
 )
 
@@ -45,5 +45,5 @@ QUERY.set_field('organizationId', organization_id.resolve)
 QUERY.set_field('project', group.resolve)
 QUERY.set_field('projects', groups.resolve)
 QUERY.set_field('userListProjects', user_list_groups.resolve)
-QUERY.set_field('tag', tag.resolve_tag)
+QUERY.set_field('tag', tag.resolve)
 QUERY.set_field('report', report.resolve_report)

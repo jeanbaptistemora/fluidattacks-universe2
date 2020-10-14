@@ -6,6 +6,7 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.decorators import require_organization_access
 from backend.domain import (
     organization as org_domain,
     tag as tag_domain,
@@ -15,6 +16,7 @@ from backend.typing import Me, Tag
 
 
 @convert_kwargs_to_snake_case
+@require_organization_access
 async def resolve(
     parent: Me,
     _info: GraphQLResolveInfo,
@@ -25,18 +27,17 @@ async def resolve(
     organization_id: str = kwargs['organization_id']
 
     org_name = await org_domain.get_name_by_id(organization_id)
-    org_tags = await tag_domain.get_tags(org_name, ['projects', 'tag'])
+    org_tags = await tag_domain.get_tags(org_name)
     user_groups = await user_domain.get_projects(
-        user_email, organization_id=organization_id
+        user_email,
+        organization_id=organization_id
     )
-    tag_info = [
+
+    return [
         {
-            'name': str(tag['tag']),
-            # Temporary while migrating tag resolvers
-            'projects': [
-                {'name': str(group)}
-                for group in cast(List[str], tag['projects'])
-            ]
+            'name': tag['tag'],
+            'last_closing_vuln': tag['last_closing_date'],
+            **tag
         }
         for tag in org_tags
         if any([
@@ -44,5 +45,3 @@ async def resolve(
             for group in cast(List[str], tag['projects'])
         ])
     ]
-
-    return cast(List[Tag], tag_info)

@@ -18,9 +18,10 @@ async def delete(organization: str, tag: str) -> bool:
 
 
 async def get_attributes(
-        organization: str,
-        tag: str,
-        attributes: List[str]) -> Dict[str, Union[List[str], str]]:
+    organization: str,
+    tag: str,
+    attributes: Optional[List[str]] = None
+) -> Dict[str, Union[List[str], str]]:
     return await tag_dal.get_attributes(organization, tag, attributes)
 
 

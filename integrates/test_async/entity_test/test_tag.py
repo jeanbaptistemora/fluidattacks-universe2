@@ -11,6 +11,7 @@ from jose import jwt
 from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
@@ -49,6 +50,7 @@ class TagTests(TestCase):
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
+            'group': GroupLoader(),
             'project': ProjectLoader(),
             'vulnerability': VulnerabilityLoader()
         }
@@ -90,4 +92,4 @@ class TagTests(TestCase):
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
-        assert result['errors'][0]['message'] == 'Access denied'
+        assert result['errors'][0]['message'] == 'Access denied or tag not found'

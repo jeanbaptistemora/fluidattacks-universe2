@@ -612,3 +612,12 @@ class GroupNotFound(Exception):
         """ Constructor """
         msg = 'Access denied or group not found'
         super(GroupNotFound, self).__init__(msg)
+
+
+class TagNotFound(Exception):
+    """Exception to control tag availability"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Access denied or tag not found'
+        super(TagNotFound, self).__init__(msg)

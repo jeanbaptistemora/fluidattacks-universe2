@@ -5,6 +5,8 @@
 from ariadne import ObjectType
 
 # Local
-# None
+from backend.api.resolvers.new.tag import groups
 
 TAG = ObjectType('Tag')
+
+TAG.set_field('projects', groups.resolve)
