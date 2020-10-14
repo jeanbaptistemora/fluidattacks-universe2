@@ -8,7 +8,9 @@ import {
 
 import { commonConfig } from "./webpack.common.config";
 
-let appVersion: string; appVersion = "1.0.0";
+const appVersion: string = _.isString(process.env.FI_VERSION)
+? process.env.FI_VERSION
+: "";
 const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
   ? process.env.CI_COMMIT_SHA
   : "";
@@ -27,12 +29,13 @@ branchName === "master"
 let sourceMapPath: string;
 
 branchName === "master"
-  ? sourceMapPath = `https://${bucketName}.s3.amazonaws.com/theme/static/js/`
-  : sourceMapPath = `https://${bucketName}.s3.amazonaws.com/${branchName}theme/static/js/`;
+  ? sourceMapPath = `https://${bucketName}.s3.amazonaws.com/theme/js/tmp/`
+  : sourceMapPath = `https://${bucketName}.s3.amazonaws.com/${branchName}/theme/js/tmp/`;
 
 const prodConfig: webpack.Configuration = {
   ...commonConfig,
   bail: true,
+  devtool: "source-map",
   mode: "production",
   optimization: {
     minimize: true,

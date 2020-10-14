@@ -4,14 +4,15 @@ import webpack from "webpack";
 export const commonConfig: webpack.Configuration = {
   entry: {
     anchor: "./static/js/anchor.ts",
+    bugsnagErrorBoundary: "./static/js/bugsnagErrorBoundary.ts",
     cardHover: "./static/js/cardHover.ts",
     carousel: "./static/js/carousel.ts",
     contactSlides: "./static/js/contactSlides.ts",
     contentHome: "./static/js/contentHome.ts",
     defends: "./static/js/defends.ts",
     dynClasses: "./static/js/dynClasses.ts",
-    form: "./static/js/form.ts",
     faqGen: "./static/js/faqGen.ts",
+    form: "./static/js/form.ts",
     menu: "./static/js/menu.ts",
     navbar: "./static/js/navbar.ts",
     progressBar: "./static/js/progressBar.ts",
