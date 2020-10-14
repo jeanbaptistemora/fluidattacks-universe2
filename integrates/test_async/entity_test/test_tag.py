@@ -1,21 +1,13 @@
-from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql
 from django.test import TestCase
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
-from graphql.type import GraphQLResolveInfo
-from jose import jwt
-from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
-from backend.api.resolvers import tag
 from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
