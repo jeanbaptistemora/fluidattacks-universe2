@@ -9,8 +9,8 @@ metadata:
     alb.ingress.kubernetes.io/tags: management:product=integrates,management:type=production
     alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=180
     alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=false
-    alb.ingress.kubernetes.io/healthcheck-path: /new
-    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthcheck-path: /new/
+    alb.ingress.kubernetes.io/success-codes: 200,302
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '6'
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
