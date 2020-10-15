@@ -1,4 +1,9 @@
 import { default as $ } from "jquery";
+
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
+
 /* This script creates a dropdown menu in rules index
  similar to Defends */
 
@@ -17,7 +22,12 @@ let i: number;
 for (i = 0; i < rulescat.length; i += 1) {
   rulescat[i].addEventListener("click", (event: Event) => {
     let categ: HTMLElement; categ = event.currentTarget as HTMLElement;
-    togglecat(categ);
+
+    try {
+      togglecat(categ);
+    } catch (error) {
+      logger.error("Error executing togglecat() function", error);
+    }
   });
 }
 
@@ -42,7 +52,11 @@ expander.addEventListener("click", (event: Event) => {
 
   let count: number;
   for (count = 0; count < collapsed.length; count += 1) {
+    try {
       togglecat(collapsed[count]);
+    } catch (error) {
+      logger.error("Error executing togglecat() function", error);
+    }
   }
 });
 
@@ -55,23 +69,35 @@ collapser.addEventListener("click", (event: Event) => {
 
   let count: number;
   for (count = 0; count < expanded.length; count += 1) {
+    try {
       togglecat(expanded[count]);
+    } catch (error) {
+      logger.error("Error executing togglecat() function", error);
+    }
   }
 });
 
 // Activate the list when the category is referenced through the url
 
-$(() => {
-  let anchor: string; anchor = window.location.hash;
-  if (anchor !== "") {
-    let span: HTMLElement;
-    span = document.getElementById(anchor.replace("#", "")) as HTMLElement;
-    let category: HTMLElement;
-    category = span.parentNode as HTMLElement;
-    const img: HTMLElement = category.nextElementSibling as HTMLElement;
-    img.classList.toggle("rotate-90");
-    let div: HTMLElement = category.parentNode as HTMLElement;
-    div = div.nextElementSibling as HTMLElement;
-    div.classList.toggle("dn");
-  }
-});
+const activatePanel: (() => void) = (): void => {
+  $(() => {
+    let anchor: string; anchor = window.location.hash;
+    if (anchor !== "") {
+      let span: HTMLElement;
+      span = document.getElementById(anchor.replace("#", "")) as HTMLElement;
+      let category: HTMLElement;
+      category = span.parentNode as HTMLElement;
+      const img: HTMLElement = category.nextElementSibling as HTMLElement;
+      img.classList.toggle("rotate-90");
+      let div: HTMLElement = category.parentNode as HTMLElement;
+      div = div.nextElementSibling as HTMLElement;
+      div.classList.toggle("dn");
+    }
+  });
+};
+
+try {
+  activatePanel();
+} catch (error) {
+  logger.error("Error executing activatePanel() function", error);
+}

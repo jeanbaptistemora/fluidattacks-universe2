@@ -1,3 +1,7 @@
+import { logger, startBugsnag } from "./bugsnagErrorBoundary";
+
+startBugsnag();
+
 export const progressBar: (() => void) = (): void => {
   const carouselWidth: HTMLElement = document.getElementById("carousel") as HTMLElement;
   const winScroll: number = carouselWidth.scrollLeft;
@@ -10,4 +14,10 @@ export const progressBar: (() => void) = (): void => {
 };
 
 const carouselDiv: HTMLElement = document.getElementById("carousel") as HTMLElement;
-carouselDiv.onscroll = (): void => { progressBar(); };
+carouselDiv.onscroll = (): void => {
+  try {
+    progressBar();
+  } catch (error) {
+    logger.error("Error executing progressBar() function", error);
+  }
+};
