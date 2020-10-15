@@ -13,8 +13,8 @@ CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
 TIME_ZONE = 'America/Bogota'
 
 # JWT
-JWT_COOKIE_NAME = "integrates_session"
-JWT_COOKIE_SAMESITE = "Lax"
+JWT_COOKIE_NAME = 'integrates_session'
+JWT_COOKIE_SAMESITE = 'Lax'
 JWT_SECRET = FI_JWT_SECRET
 JWT_SECRET_API = FI_JWT_SECRET_API
 
@@ -32,7 +32,7 @@ CACHE_TTL = 60 * 60 * 8
 STATIC_BUCKET_NAME = 'fluidintegrates-static'
 AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
 AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
-AWS_S3_SUBPATH = '/integrates/static/dashboard'
+AWS_S3_SUBPATH = '/integrates/static'
 if FI_ENVIRONMENT == 'production':
     AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}{AWS_S3_SUBPATH}'
@@ -40,3 +40,8 @@ else:
     STATIC_URL = (
         f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com{AWS_S3_SUBPATH}'
     )
+
+# Auth
+GOOGLE_CONF_URL = (
+    'https://accounts.google.com/.well-known/openid-configuration'
+)

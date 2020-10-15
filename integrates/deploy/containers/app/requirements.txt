@@ -1,3 +1,4 @@
+Authlib==0.15.1
 Automat==20.2.0
 Django==3.0.7
 Jinja2==2.11.2
@@ -71,6 +72,7 @@ hyperlink==19.0.0
 idna==2.9
 incremental==17.5.0
 jmespath==0.10.0
+itsdangerous==1.1.0
 jwcrypto==0.8
 kiwisolver==1.2.0
 lxml==4.5.2

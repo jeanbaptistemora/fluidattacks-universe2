@@ -415,6 +415,7 @@ function helper_integrates_sops_vars {
     REDIS_SERVER \
     REDIS_SERVER_2 \
     SQS_QUEUE_URL \
+    STARLETTE_TEST_KEY \
     TEST_PROJECTS \
     ZENDESK_EMAIL \
     ZENDESK_SUBDOMAIN \
