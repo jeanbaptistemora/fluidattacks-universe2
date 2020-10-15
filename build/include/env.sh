@@ -116,17 +116,19 @@ function env_prepare_minio_local {
   export PYTHONPATH
   export FI_MINIO_LOCAL_ENABLED
   # MinIO credentials are only for local test development enviroment
-  export MINIO_ACCESS_KEY="test_access_key"
-  export MINIO_SECRET_KEY="test_secret_key"
+  export MINIO_ACCESS_KEY='test_access_key'
+  export MINIO_SECRET_KEY='test_secret_key'
   export MINIO_REGION_NAME
   export USER_MINIO_ACCESS_KEY
   export USER_MINIO_SECRET_KEY
   export minio
   export mc
+
       echo '[INFO] Preparing MinIO local' \
-  &&  mkdir -p './.MinIO' \
+  &&  mkdir -p './.MinIO/temp' \
+  &&  mkdir -p './.MinIO/data' \
   &&  env_prepare_python_packages \
-  &&  PYTHONPATH="${PYTHONPATH}:${STARTDIR}/integrates" \
+  &&  PYTHONPATH="${PYTHONPATH}:${PWD}" \
   &&  FI_MINIO_LOCAL_ENABLED='True' \
   &&  helper_integrates_set_dev_secrets \
   &&  MINIO_REGION_NAME="${AWS_DEFAULT_REGION}" \
@@ -136,10 +138,6 @@ function env_prepare_minio_local {
   &&  mc="${srcExternalMinIOCli}" \
   &&  chmod +x "${minio}" \
   &&  chmod +x "${mc}" \
-  &&  pushd './.MinIO' \
-    &&  mkdir -p './temp' \
-    &&  mkdir -p './data' \
-  && popd \
   ||  return 1
 }
 

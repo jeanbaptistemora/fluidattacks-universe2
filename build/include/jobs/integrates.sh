@@ -657,11 +657,13 @@ function job_integrates_serve_local {
       echo "[INFO] Killing PID: ${process}"
       kill -15 "${process}" || true
     done
+    sleep 5
   }
 
-  trap kill_processes EXIT
+  trap kill_processes SIGINT
 
-      pushd integrates \
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back_new \
           'dev' \
