@@ -649,6 +649,30 @@ function job_integrates_serve_minio_local {
   ||  return 1
 }
 
+function job_integrates_serve_local {
+
+  function kill_processes {
+    for process in $(jobs -p)
+    do
+      echo "[INFO] Killing PID: ${process}"
+      kill -15 "${process}" || true
+    done
+  }
+
+  trap kill_processes EXIT
+
+      pushd integrates \
+    &&  helper_integrates_serve_dynamo \
+    &&  helper_integrates_serve_back_new \
+          'dev' \
+          'fluidintegrates.asgi:APP' \
+    &&  helper_integrates_serve_front \
+    &&  helper_integrates_serve_redis \
+    &&  wait \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_serve_front {
       pushd "${STARTDIR}/integrates/front" \
     &&  npm install \

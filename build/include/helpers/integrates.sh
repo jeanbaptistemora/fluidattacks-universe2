@@ -89,6 +89,66 @@ function helper_invoke_py {
         "${module}"
 }
 
+function helper_integrates_serve_front {
+      pushd front \
+        &&  npm install \
+        &&  { npm start & } \
+  &&  popd \
+  ||  return 1
+}
+
+function helper_integrates_serve_redis {
+  local port='6379'
+
+      echo '[INFO] Launching Redis' \
+  &&  { redis-server --port "${port}" & }
+}
+
+function helper_integrates_serve_dynamo {
+  local port='8022'
+
+      echo '[INFO] Launching DynamoDB local' \
+  &&  env_prepare_dynamodb_local \
+  &&  { java \
+        -Djava.library.path='.DynamoDB/DynamoDBLocal_lib' \
+        -jar '.DynamoDB/DynamoDBLocal.jar' \
+        -inMemory \
+        -port "${port}" \
+        -sharedDb \
+        & } \
+  &&  sleep 5 \
+  &&  echo '[INFO] Populating DynamoDB local' \
+  &&  { bash ./deploy/containers/common/vars/provision_local_db.sh & }
+}
+
+function helper_integrates_serve_back_new {
+  local environment="${1}"
+  local app="${2}"
+  local host='0.0.0.0'
+  local https_port='8080'
+  local workers='5'
+  local worker_class='fluidintegrates.asgi.IntegratesWorker'
+  local common_args=(
+    --timeout "3600"
+    --workers "${workers}"
+    --worker-class "${worker_class}"
+  )
+  export processes_to_kill
+
+      env_prepare_python_packages \
+  &&  env_prepare_ruby_modules \
+  &&  env_prepare_node_modules \
+  &&  "helper_integrates_set_${environment}_secrets" \
+  &&  echo "[INFO] Serving HTTPS on port ${https_port}" \
+  &&  { gunicorn \
+        "${common_args[@]}" \
+        --bind="${host}:${https_port}" \
+        --certfile="${srcDerivationsCerts}/fluidla.crt" \
+        --keyfile="${srcDerivationsCerts}/fluidla.key" \
+        "${app}" \
+        & }
+}
+
 function helper_set_local_dynamo_and_redis {
   local processes_to_kill=()
   local port_dynamo='8022'
