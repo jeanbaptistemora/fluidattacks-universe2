@@ -107,7 +107,7 @@ describe("SeverityView", () => {
     expect(wrapper)
       .toHaveLength(1);
     expect(wrapper.text())
-      .toContain("1 | High: Exploit is not required or it can be automated");
+      .toContain("1.00 | High: Exploit is not required or it can be automated");
   });
 
   it("should render an error in component", async () => {

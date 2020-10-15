@@ -80,8 +80,8 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
 
               const handleEditClick: (() => void) = (): void => {
                 setEditing(!isEditing);
-                const severityScore: string = calcCVSSv3(data.finding.severity)
-                  .toFixed(1);
+                const severityScore: string = Number(calcCVSSv3(data.finding.severity))
+                  .toFixed(2);
                 client.writeData({ data: { finding: { id: findingId, severityScore, __typename: "Finding" } } });
               };
 
@@ -141,8 +141,8 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                       const handleFormChange: ((values: ISeverityAttr["finding"]["severity"]) => void) = (
                         values: ISeverityAttr["finding"]["severity"],
                       ): void => {
-                        const severityScore: string = calcCVSSv3(values)
-                          .toFixed(1);
+                        const severityScore: string = Number(calcCVSSv3(values))
+                          .toFixed(2);
                         client.writeData({
                           data: {
                             finding: { id: findingId, severityScore, __typename: "Finding" },
@@ -197,10 +197,12 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                   return (
                                     <Row className={style.row} key={index}>
                                       <EditableField
+                                        style={"background-color: 000;" as React.CSSProperties}
                                         alignField="horizontal"
                                         component={Dropdown}
                                         currentValue={
-                                          `${field.currentValue} | ${translate.t(currentOption)}`}
+                                          `${Number(field.currentValue)
+                                            .toFixed(2)} | ${translate.t(currentOption)}`}
                                         label={field.title}
                                         name={field.name}
                                         renderAsEditable={isEditing}
