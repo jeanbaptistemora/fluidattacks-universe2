@@ -190,6 +190,9 @@
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PCDDL8T');</script>
     <!-- End Google Tag Manager -->
+    <!-- Bugsnag CDN for script tags -->
+    <script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
+    <script>Bugsnag.start("6d0d7e66955855de59cfff659e6edf31")</script>
   </head>
   <body class="bg-graylight ma0 lh-copy overflow-x-hidden">
     {% assets filters="uglifyjs", output="static/js/plugins.min.js", "../node_modules/jquery/dist/jquery.js", "js/assets/tipuesearch/tipuesearch.min.js", "../node_modules/iframe-resizer/js/iframeResizer.js", "js/assets/tipuesearch/tipuesearch_set.js" %}
