@@ -237,6 +237,30 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f037.title',
         type=FindingTypeEnum.HYGIENE,
     )
+    F047_AWS: FindingMetadata = FindingMetadata(
+        auto_approve=False,
+        cwe='275',
+        description='utils.model.finding.enum.f047.description',
+        impact='utils.model.finding.enum.f047.impact',
+        recommendation='utils.model.finding.enum.f047.recommendation',
+        requirements='utils.model.finding.enum.f047.requirements',
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.62,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.22,
+            'exploitability': 0.94,
+            'integrityImpact': 0.0,
+            'privilegesRequired': 0.85,
+            'remediationLevel': 1.0,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.85,
+        },
+        threat='utils.model.finding.enum.f047.threat',
+        title='utils.model.finding.enum.f047.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F052: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='310',

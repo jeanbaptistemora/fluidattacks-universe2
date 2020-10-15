@@ -1,0 +1,28 @@
+utils.model.finding.enum.f047.description:
+  en: >
+    The system exposes resources that are not necessary for the operation of
+    the application.
+  es: >
+    El sistema expone recursos que no son necesarios para el funcionamiento de
+    la aplicación.
+utils.model.finding.enum.f047.impact:
+  en: Expose system resources that can be enumerated.
+  es: Exponer recursos del sistema que pueden ser enumerados.
+utils.model.finding.enum.f047.recommendation:
+  en: >
+    The application must not expose resources that are not explicitly necessary
+    for the operation of the application, the exposure of unnecessary resources
+    could expand the attack surface.
+  es: >
+    La aplicación no debe exponer recursos que no sean explícitamente
+    necesarios para el funcionamiento de la aplicación, la exposición de
+    recursos innecesarios podría ampliar la superficie de ataque.
+utils.model.finding.enum.f047.requirements:
+  en: R266. Disable insecure functionalities
+  es: R266. Deshabilitar funcionalidades inseguras
+utils.model.finding.enum.f047.threat:
+  en: Anonymous attacker from the internet
+  es: Atacante anónimo desde internet.
+utils.model.finding.enum.f047.title:
+  en: FIN.H.047. Automatic information enumeration - AWS
+  es: FIN.H.047. Enumeración automática de información - AWS
