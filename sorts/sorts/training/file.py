@@ -14,17 +14,17 @@ from pandas import DataFrame
 
 # Local libraries
 from features.file import extract_features
-from integrates.domain import get_vulnerable_lines
 from utils.logs import log
 from utils.repositories import (
     get_bad_repos,
     get_repository_files,
 )
 from utils.static import read_allowed_names
+from utils.training import get_vulnerable_files
 
 
-# Consstants
-MAX_RETRIES: int = 15
+# Constants
+FILE_MAX_RETRIES: int = 15
 
 
 def build_training_df(group: str, fusion_path: str) -> DataFrame:
@@ -52,46 +52,7 @@ def build_training_df(group: str, fusion_path: str) -> DataFrame:
     return training_df
 
 
-def get_vulnerable_files(
-    group: str,
-    ignore_repos: List[str]
-) -> List[str]:
-    """Gets vulnerable files to fill the training DataFrame"""
-    timer: float = time.time()
-    unique_vuln_files: List[str] = get_unique_vuln_files(group)
-    allowed_vuln_files: List[str] = filter_allowed_files(
-        unique_vuln_files, ignore_repos
-    )
-    log(
-        'info',
-        'Vulnerable files extracted after %.2f seconds',
-        time.time() - timer
-    )
-    return allowed_vuln_files
-
-
-def filter_allowed_files(
-    vuln_files: List[str],
-    ignore_repos: List[str]
-) -> List[str]:
-    """Leave files with allowed names and filter out from ignored repos"""
-    allowed_vuln_files: List[str] = []
-    extensions, composites = read_allowed_names()
-    for vuln_file in vuln_files:
-        vuln_repo: str = vuln_file.split(os.path.sep)[0]
-        if vuln_repo not in ignore_repos:
-            vuln_file_name: str = os.path.basename(vuln_file)
-            vuln_file_extension: str = os.path.splitext(vuln_file_name)[1]\
-                .strip('.')
-            if (
-                vuln_file_extension in extensions or
-                vuln_file_name in composites
-            ):
-                allowed_vuln_files.append(vuln_file)
-    return allowed_vuln_files
-
-
-def get_subscription_data(subscription_path: str) -> bool:
+def get_subscription_file_metadata(subscription_path: str) -> bool:
     """Creates a CSV with the file features from the subscription"""
     success: bool = True
     group: str = os.path.basename(os.path.normpath(subscription_path))
@@ -131,10 +92,11 @@ def get_safe_files(
         if repo not in ignore_repos
     ]
     while len(safe_files) < len(vuln_files):
-        if retries > MAX_RETRIES:
+        if retries > FILE_MAX_RETRIES:
             log(
                 'info',
-                'Could not find enough safe files to balance the DataFrame'
+                'Could not find enough safe files to balance the vulnerable '
+                'ones'
             )
             break
 
@@ -155,9 +117,3 @@ def get_safe_files(
         retries += 1
     log('info', 'Safe files extracted after %.2f secods', time.time() - timer)
     return sorted(safe_files)
-
-
-def get_unique_vuln_files(group: str) -> List[str]:
-    """Removes repeated files from group vulnerabilities"""
-    unique_vuln_files: Set[str] = set(get_vulnerable_lines(group))
-    return sorted(unique_vuln_files)

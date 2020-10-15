@@ -9,7 +9,8 @@ import click
 # Local libraries
 from integrates.graphql import create_session
 from predict.file import prioritize as prioritize_files
-from training.file import get_subscription_data
+from training.commit import get_subscription_commit_metadata
+from training.file import get_subscription_file_metadata
 from utils.decorators import shield
 from utils.logs import log
 
@@ -58,11 +59,19 @@ def execute_sorts(
     start_time: float = time.time()
     success: bool = False
     if get_commit_data:
-        pass
+        if token:
+            create_session(token)
+            success = get_subscription_commit_metadata(subscription)
+        else:
+            log(
+                'error',
+                'Set the Integrates API token either using the option --token '
+                'or the environmental variable INTEGRATES_API_TOKEN'
+            )
     elif get_file_data:
         if token:
             create_session(token)
-            success = get_subscription_data(subscription)
+            success = get_subscription_file_metadata(subscription)
         else:
             log(
                 'error',
