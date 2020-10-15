@@ -35,7 +35,7 @@ FINDING_BAD: str = '000000000'
 FINDING_DRAFT: str = '878487977'
 FINDING_ACCEPTED: str = '720412598'
 FINDING_OPEN: str = FINDING_ACCEPTED
-FINDING_CLOSED: str = FINDING
+FINDING_CLOSED: str = '559373251' 
 
 
 def test_does_finding_exist():
@@ -81,7 +81,6 @@ def test_get_finding_description():
     """Test utils.get_finding_description."""
     assert get_finding_description(FINDING) == '.'
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_get_finding_static_data():
     assert get_finding_static_data(FINDING_OPEN) == {
         'Test': [
@@ -103,33 +102,19 @@ def test_get_finding_static_data():
     }
 
     assert get_finding_static_data(FINDING_CLOSED) == {
-        'NoRepo': [
+        'repo': [
             {
-                'full_path': 'NoRepo/',
-                'relative_path': '',
-                'specific': '1',
-                'status': 'CLOSED',
-            },
-        ],
-        'Test': [
-            {
-                'full_path': 'Test/2020-04-17 15:21:34.006546',
-                'relative_path': '2020-04-17 15:21:34.006546',
+                'full_path': 'repo/folder/file_2',
+                'relative_path': 'folder/file_2',
                 'specific': '1',
                 'status': 'CLOSED',
             },
             {
-                'full_path': 'Test/',
-                'relative_path': '',
+                'full_path': 'repo/folder/file_1',
+                'relative_path': 'folder/file_1',
                 'specific': '1',
                 'status': 'CLOSED',
-            },
-            {
-                'full_path': 'Test/2020-04-17 15:19:43.176526',
-                'relative_path': '2020-04-17 15:19:43.176526',
-                'specific': '1',
-                'status': 'CLOSED',
-            },
+            }
         ],
     }
 
