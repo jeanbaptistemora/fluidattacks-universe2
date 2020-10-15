@@ -6,7 +6,7 @@ platform = 'gitlab'
   [tests.all_pipelines_successful]
     fail = true
     close_mr = true
-    passed_first_pipeline_before_mr = true
+    passed_first_pipeline_before_mr = false
     job_name = 'reviews'
 
   [tests.mr_message_syntax]
