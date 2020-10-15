@@ -357,7 +357,7 @@ async def send_user_to_entity_report(
         await mailer.send_mail_analytics(
             user_email,
             date=datetime_utils.get_as_str(
-                datetime_utils.get_now(), '%Y/%m/%d'
+                datetime_utils.get_now(), '%Y-%m-%d'
             ),
             frequency_title=event_frequency.title(),
             frequency_lower=event_frequency.lower(),
@@ -365,8 +365,18 @@ async def send_user_to_entity_report(
             report_entity=report_entity,
             report_subject=report_subject,
             report_subject_title=report_subject.title(),
-            report_entity_percent=quote_plus(report_entity),
+            report_entity_percent=quote_plus(translate_entity(report_entity)),
             report_subject_percent=quote_plus(report_subject),
         )
 
         LOGGER_CONSOLE.info('- email sent', **NOEXTRA)
+
+
+def translate_entity(entity: str) -> str:
+    translation = {
+        'organization': 'org',
+    }
+    if entity in translation:
+        return translation[entity]
+
+    return entity
