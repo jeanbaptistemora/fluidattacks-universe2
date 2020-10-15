@@ -4,15 +4,24 @@
  */
 
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button/index";
 import { Modal } from "components/Modal/index";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { default as style } from "scenes/Dashboard/components/AddRepositoriesModal/index.css";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  ButtonToolbar,
+  Col25,
+  Col45,
+  Col60,
+  ControlLabel,
+  RemoveItem,
+  RequiredField,
+  Row,
+} from "styles/styledComponents";
 import { Dropdown, Text } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { maxLength, required, validField } from "utils/validations";
@@ -39,31 +48,31 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
           <React.Fragment key={index}>
             {index > 0 ? <React.Fragment><br /><hr /></React.Fragment> : undefined}
             <Row>
-              <Col md={3}>
+              <Col25>
                 <TooltipWrapper
                   message={translate.t("search_findings.tab_resources.protocol.tooltip")}
                   placement="top"
                 >
-                  <label>
-                    <label className={style.lbl}>* </label>
+                  <ControlLabel>
+                    <RequiredField>{"* "}</RequiredField>
                     {translate.t("search_findings.tab_resources.protocol.label")}
-                  </label>
+                  </ControlLabel>
                 </TooltipWrapper>
                 <Field name={`${fieldName}.protocol`} component={Dropdown} validate={[required]} >
                   <option value="" selected={true} />
                   <option value="HTTPS">{translate.t("search_findings.tab_resources.https")}</option>
                   <option value="SSH">{translate.t("search_findings.tab_resources.ssh")}</option>
                 </Field>
-              </Col>
-              <Col md={7}>
+              </Col25>
+              <Col60>
                 <TooltipWrapper
                   message={translate.t("search_findings.tab_resources.repository.tooltip")}
                   placement="top"
                 >
-                  <label>
-                    <label className={style.lbl}>* </label>
+                  <ControlLabel>
+                    <RequiredField>{"* "}</RequiredField>
                     {translate.t("search_findings.tab_resources.repository.label")}
-                  </label>
+                  </ControlLabel>
                 </TooltipWrapper>
                 <Field
                   name={`${fieldName}.urlRepo`}
@@ -72,18 +81,18 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   type="text"
                   validate={[required, validField, maxRepoUrlLength]}
                 />
-              </Col>
+              </Col60>
             </Row>
             <Row>
-              <Col md={5}>
+              <Col45>
                 <TooltipWrapper
                   message={translate.t("search_findings.tab_resources.branch.tooltip")}
                   placement="top"
                 >
-                  <label>
-                    <label className={style.lbl}>* </label>
+                  <ControlLabel>
+                    <RequiredField>{"* "}</RequiredField>
                     {translate.t("search_findings.tab_resources.branch.label")}
-                  </label>
+                  </ControlLabel>
                 </TooltipWrapper>
                 <Field
                   name={`${fieldName}.branch`}
@@ -92,9 +101,9 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   type="text"
                   validate={[required, validField, maxRepoBranchLength]}
                 />
-              </Col>
+              </Col45>
               {index > 0 ? (
-                <Col mdOffset={5} md={2} className={style.removeBtn}>
+                <RemoveItem>
                   <TooltipWrapper
                     message={translate.t("search_findings.tab_resources.modal_trash_btn.tooltip")}
                     placement="top"
@@ -103,7 +112,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                       <Glyphicon glyph="trash" />
                     </Button>
                   </TooltipWrapper>
-                </Col>
+                </RemoveItem>
               ) : undefined}
             </Row>
           </React.Fragment>
@@ -140,7 +149,7 @@ const addRepositoriesModal: React.FC<IAddRepositoriesModalProps> = (props: IAddR
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <FieldArray name="resources" component={renderReposFields} />
-              <ButtonToolbar className="pull-right">
+              <ButtonToolbar>
                 <Button onClick={onClose}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>

@@ -357,6 +357,14 @@ label {
   border: none !important;
 }
 
+:global .b--switch {
+  border-color: #D9534F;
+}
+
+:global .b--switch:hover {
+  border-color: #AC2925;
+}
+
 :global .bg-bd[disabled],
 :global .bg-bd[disabled]:hover {
   background-color: #FAFAFA;
@@ -405,6 +413,14 @@ label {
   background-size: 4rem 4rem;
 }
 
+:global .bg-switch {
+  background-color: #D9534F;
+}
+
+:global .bg-switch:hover {
+  background-color: #C9302C;
+}
+
 :global .bottom-9 {
   bottom: 9rem;  
 }
@@ -444,6 +460,14 @@ label {
   width: 100px;
 }
 
+:global .l-50 {
+  left: 50%;
+}
+
+:global .left--100{
+  left: -100%;
+}
+
 :global .left-5 {
   left: 5rem;
 }
@@ -459,6 +483,10 @@ label {
 :global .mh--15 {
   margin-left: -1.5rem;
   margin-right: -1.5rem;
+}
+
+:global .ml40 {
+  margin-left: 40%;
 }
 
 :global .modalh-bb {
@@ -522,6 +550,10 @@ label {
   padding-bottom: 0.7rem;
 }
 
+:global .r-50 {
+  right:50%;
+}
+
 :global .right3 {
   right: 3rem;
 }
@@ -564,6 +596,15 @@ label {
   height: 20px !important;
 }
 
+:global .switch-mh {
+  min-height: calc(1.5em + .75rem + 2px);
+}
+
+:global .switch-transition {
+  transition: left 0.35s;
+  -webkit-transition: left 0.35s;
+}
+
 :global .tc-bb {
   border-bottom: 1px #EEEEEE solid
 }
@@ -580,11 +621,18 @@ label {
   width: 200%;
 }
 
+:global .w-45 {
+  width: 45%;
+}
+
 /* Custom media */
 
 @media(min-width: 768px){
   :global .sticky {
     position: sticky;
+  }
+  :global .w-45-ns {
+    width: 45%;
   }
 }
 
@@ -604,41 +652,4 @@ label {
   :global .top5-5-find {
     top: 5.5rem !important;
   }
-}
-
-:global .switch-mh {
-  min-height: calc(1.5em + .75rem + 2px);
-}
-
-:global .switch-transition {
-  transition: left 0.35s;
-  -webkit-transition: left 0.35s;
-}
-
-:global .r-50 {
-  right:50%;
-}
-
-:global .l-50 {
-  left:50%;
-}
-
-:global .bg-switch {
-  background-color: #D9534F;
-}
-
-:global .b--switch {
-  border-color: #D9534F;
-}
-
-:global .bg-switch:hover {
-  background-color: #C9302C;
-}
-
-:global .b--switch:hover {
-  border-color: #AC2925;
-}
-
-:global .left--100{
-  left: -100%;
 }

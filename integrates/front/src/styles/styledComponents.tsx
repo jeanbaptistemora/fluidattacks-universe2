@@ -16,20 +16,47 @@ const Col100: StyledComponent<
   className: "ph1-5 w-100",
 })``;
 
+const Col25: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-25-ns",
+})``;
+
 const Col40: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 w-40",
+  className: "ph1-5 w-40-ns",
+})``;
+
+const Col45: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-45-ns",
+})``;
+
+const Col60: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-60-ns",
 })``;
 
 const ControlLabel: StyledComponent<
   "label",
   Record<string, unknown>
 > = styled.label.attrs({
-  className: "dib fw4 mb2",
+  className: "dib fw4 mb2 nowrap",
 })``;
 
 const EventHeaderGrid: StyledComponent<
@@ -104,6 +131,15 @@ const ProgressBar: StyledComponent<
   width: ${(props: { theme: { width: string } }): string => props.theme.width};
 `;
 
+const RemoveItem: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "mt5 ml40",
+})``;
+
 const RequiredField: StyledComponent<
   "span",
   Record<string, unknown>
@@ -116,7 +152,7 @@ const RequiredField: StyledComponent<
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "mh--15 flex",
+  className: "mh--15 flex flex-wrap",
 })``;
 
 const StickyContainer: StyledComponent<
@@ -218,7 +254,10 @@ const TabsContainer: StyledComponent<
 export {
   ButtonToolbar,
   Col100,
+  Col25,
   Col40,
+  Col45,
+  Col60,
   ControlLabel,
   EventHeaderGrid,
   EventHeaderLabel,
@@ -230,6 +269,7 @@ export {
   ModalHeader,
   ModalTitle,
   ProgressBar,
+  RemoveItem,
   RequiredField,
   Row,
   StickyContainer,
