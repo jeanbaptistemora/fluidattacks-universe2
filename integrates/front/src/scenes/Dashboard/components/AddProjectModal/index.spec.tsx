@@ -80,9 +80,7 @@ describe("AddProjectModal component", (): void => {
       .find({ name: "type" })
       .find("select");
 
-    const switchButtons: ReactWrapper = wrapper
-      .find({ checked: true })
-      .find(".switch-group");
+    const switchButtons: ReactWrapper = wrapper.find({ checked: true });
 
     const submitButton: ReactWrapper = wrapper
       .findWhere((element: ReactWrapper): boolean =>
@@ -119,9 +117,7 @@ describe("AddProjectModal component", (): void => {
       .find("select")
       .simulate("change", { target: { value: "ONESHOT" } });
 
-    expect(wrapper.find({ checked: true }).find(".switch-group")).toHaveLength(
-      2
-    );
+    expect(wrapper.find({ checked: true })).toHaveLength(2);
   });
 
   it("should remove Forces Service switch", (): void => {
@@ -139,15 +135,10 @@ describe("AddProjectModal component", (): void => {
       </Provider>
     );
 
-    const drillsSwitch: ReactWrapper = wrapper
-      .find({ checked: true })
-      .find(".switch-group")
-      .at(1);
+    const drillsSwitch: ReactWrapper = wrapper.find({ checked: true }).at(1);
 
     drillsSwitch.simulate("click");
 
-    expect(wrapper.find({ checked: true }).find(".switch-group")).toHaveLength(
-      1
-    );
+    expect(wrapper.find({ checked: true })).toHaveLength(1);
   });
 });

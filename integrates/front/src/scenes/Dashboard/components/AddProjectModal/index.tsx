@@ -1,9 +1,4 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need className to override default styles from react-boostrap.
-*/
 import { ApolloError } from "apollo-client";
-import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import { Button } from "components/Button";
 import { ConfigurableValidator } from "revalidate";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -11,6 +6,7 @@ import { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal/index";
 import React from "react";
+import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";
@@ -347,7 +343,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                     )}
                                     {" *"}
                                   </ControlLabel>
-                                  <BootstrapSwitchButton
+                                  <SwitchButton
                                     checked={true}
                                     disabled={true}
                                     offlabel={translate.t(
@@ -356,10 +352,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                     onlabel={translate.t(
                                       "organization.tabs.groups.newGroup.switch.yes"
                                     )}
-                                    onstyle={"danger"}
-                                    //Allow style on bootstrap component
-                                    //eslint-disable-next-line react/style-prop-object
-                                    style={"btn-block"}
                                   />
                                 </FormGroup>
                               </TooltipWrapper>
@@ -380,7 +372,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                     )}
                                     {" *"}
                                   </ControlLabel>
-                                  <BootstrapSwitchButton
+                                  <SwitchButton
                                     checked={hasDrills}
                                     offlabel={translate.t(
                                       "organization.tabs.groups.newGroup.switch.no"
@@ -389,10 +381,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                     onlabel={translate.t(
                                       "organization.tabs.groups.newGroup.switch.yes"
                                     )}
-                                    onstyle={"danger"}
-                                    //Allow style on bootstrap component
-                                    //eslint-disable-next-line react/style-prop-object
-                                    style={"btn-block"}
                                   />
                                 </FormGroup>
                               </TooltipWrapper>
@@ -414,7 +402,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                       )}
                                       {" *"}
                                     </ControlLabel>
-                                    <BootstrapSwitchButton
+                                    <SwitchButton
                                       checked={hasForces}
                                       offlabel={translate.t(
                                         "organization.tabs.groups.newGroup.switch.no"
@@ -423,10 +411,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                       onlabel={translate.t(
                                         "organization.tabs.groups.newGroup.switch.yes"
                                       )}
-                                      onstyle={"danger"}
-                                      //Allow style on bootstrap component
-                                      //eslint-disable-next-line react/style-prop-object
-                                      style={"btn-block"}
                                     />
                                   </FormGroup>
                                 </TooltipWrapper>

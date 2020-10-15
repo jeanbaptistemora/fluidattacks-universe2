@@ -390,6 +390,10 @@ label {
   background-color: #FF3435 !important;
 }
 
+:global .bg-orgred {
+  background-color: #FF3435;
+}
+
 :global .bg-sb,
 :global .bg-sb:active,
 :global .bg-sb:focus,
@@ -572,6 +576,10 @@ label {
   top: 9.9rem;
 }
 
+:global .w-200 {
+  width: 200%;
+}
+
 /* Custom media */
 
 @media(min-width: 768px){
@@ -596,4 +604,41 @@ label {
   :global .top5-5-find {
     top: 5.5rem !important;
   }
+}
+
+:global .switch-mh {
+  min-height: calc(1.5em + .75rem + 2px);
+}
+
+:global .switch-transition {
+  transition: left 0.35s;
+  -webkit-transition: left 0.35s;
+}
+
+:global .r-50 {
+  right:50%;
+}
+
+:global .l-50 {
+  left:50%;
+}
+
+:global .bg-switch {
+  background-color: #D9534F;
+}
+
+:global .b--switch {
+  border-color: #D9534F;
+}
+
+:global .bg-switch:hover {
+  background-color: #C9302C;
+}
+
+:global .b--switch:hover {
+  border-color: #AC2925;
+}
+
+:global .left--100{
+  left: -100%;
 }

@@ -146,6 +146,51 @@ const StickyContainerOrg: StyledComponent<
   className: "bg-white sticky top5-5 z-4",
 })``;
 
+const Switch: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs((props: { theme: { on: boolean } }): {
+  className: string;
+} => ({
+  className:
+    "ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 " +
+    (props.theme.on ? "bg-switch b--switch" : "bg-white b--moon-gray"),
+}))``;
+
+const SwitchHandle: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: "bg-white br0 dib h-100 ma0 relative ph1-5",
+})``;
+
+const SwitchGroup: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs((props: { theme: { on: boolean } }): {
+  className: string;
+} => ({
+  className:
+    "absolute bottom-0 top-0 right-0 switch-transition tc w-200 " +
+    (props.theme.on ? "left-0 " : "left--100"),
+}))``;
+
+const SwitchOff: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className:
+    "absolute bg-white bottom-0 br0 dib l-50 ma0 mid-gray ph3 pv2 right-0 top-0",
+})``;
+
+const SwitchOn: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className:
+    "absolute bg-switch bottom-0 br0 left-0 ma0 ph3 pv2 r-50 top-0 white",
+})``;
+
 const Tab: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
@@ -190,6 +235,11 @@ export {
   StickyContainer,
   StickyContainerFinding,
   StickyContainerOrg,
+  Switch,
+  SwitchHandle,
+  SwitchGroup,
+  SwitchOff,
+  SwitchOn,
   Tab,
   TabContent,
   TabsContainer,
