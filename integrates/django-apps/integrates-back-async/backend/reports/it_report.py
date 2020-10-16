@@ -128,7 +128,7 @@ class ITReport():
             Style(
                 size=13,
                 alignment=Alignment(wrap_text=True),
-                format=Format('0.0'),
+                format=Format(0.0),
             )
         )
 
