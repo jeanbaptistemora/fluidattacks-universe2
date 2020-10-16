@@ -117,6 +117,16 @@ def get_file_stat_history(git_repo: Git, file: str) -> List[str]:
     return stat_history.split('\n')
 
 
+def get_latest_commits(git_repo: Git, since: str) -> List[str]:
+    """Gets the list of commits made to a repository since the defined date"""
+    latest_commits: str = git_repo.log(
+        '--no-merges',
+        '--pretty=%H',
+        f'--since="{since}"'
+    )
+    return latest_commits.split('\n')
+
+
 def get_repository_commit_history(git_repo: Git) -> List[str]:
     """Gets the complete commit history of a git repository"""
     commit_history: str = git_repo.log('--no-merges', '--pretty=%H')

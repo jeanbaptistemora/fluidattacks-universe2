@@ -8,6 +8,7 @@ import click
 
 # Local libraries
 from integrates.graphql import create_session
+from predict.commit import prioritize as prioritize_commits
 from predict.file import prioritize as prioritize_files
 from training.commit import get_subscription_commit_metadata
 from training.file import get_subscription_file_metadata
@@ -79,7 +80,7 @@ def execute_sorts(
                 'or the environmental variable INTEGRATES_API_TOKEN'
             )
     elif predict_commit:
-        pass
+        success = prioritize_commits(subscription)
     else:
         success = prioritize_files(subscription)
     log(

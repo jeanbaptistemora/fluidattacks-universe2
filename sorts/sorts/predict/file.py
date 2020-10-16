@@ -3,17 +3,14 @@ import os
 from typing import List
 
 # Third-party libraries
-import numpy as np
 import pandas as pd
-from numpy import ndarray
 from pandas import DataFrame
-from sklearn.neural_network import MLPClassifier
 
 # Local libraries
 from features.file import extract_features
 from utils.logs import log
+from utils.predict import predict_vuln_prob
 from utils.repositories import get_repository_files
-from utils.static import load_neural_network
 
 
 FILE_PREDICT_FEATURES = ['midnight_commits', 'num_lines', 'commit_frequency']
@@ -31,35 +28,6 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
     return files_df
 
 
-def predict_vuln_likelihood(predict_df: DataFrame, group: str) -> None:
-    input_data: DataFrame = predict_df[FILE_PREDICT_FEATURES]
-    model: MLPClassifier = load_neural_network()
-    class_prediction: ndarray = model.predict(input_data)
-    probability_prediction: ndarray = model.predict_proba(input_data)
-    merged_predictions: ndarray = np.column_stack([
-        class_prediction,
-        probability_prediction
-    ])
-    result_df: DataFrame = pd.concat(
-        [
-            predict_df[['file']],
-            pd.DataFrame(
-                merged_predictions,
-                columns=['pred', 'prob_safe', 'prob_vuln']
-            )
-        ],
-        axis=1
-    )
-    errort: float = 5 + 5 * np.random.rand(len(result_df), )
-    result_df['prob_vuln'] = round(result_df.prob_vuln * 100 - errort, 1)
-    sorted_files: DataFrame = result_df[result_df.pred == 1]\
-        .sort_values(by='prob_vuln', ascending=False)\
-        .reset_index(drop=True)[['file', 'prob_vuln']]
-    csv_name: str = f'{group}_sorts_results.csv'
-    sorted_files.to_csv(csv_name, index=False)
-    log('info', 'Results saved to file %s', csv_name)
-
-
 def prioritize(subscription_path: str) -> bool:
     """Prioritizes files according to the chance of finding a vulnerability"""
     success: bool = False
@@ -74,7 +42,7 @@ def prioritize(subscription_path: str) -> bool:
                 inplace=True
             )
             predict_df.reset_index(inplace=True, drop=True)
-            predict_vuln_likelihood(predict_df, group)
+            predict_vuln_prob(predict_df, FILE_PREDICT_FEATURES, group, 'file')
     else:
         log(
             'error',
