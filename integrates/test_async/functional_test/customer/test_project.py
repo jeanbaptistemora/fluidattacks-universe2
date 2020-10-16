@@ -35,7 +35,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
