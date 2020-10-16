@@ -1,0 +1,52 @@
+Resources:
+  securityGroup1:
+    Properties:
+      GroupDescription: groupDescription1
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 8888
+          IpProtocol: "-1"
+          ToPort: 8888
+    Type: AWS::EC2::SecurityGroup
+  securityGroup2:
+    Properties:
+      GroupDescription: groupDescription2
+    Type: AWS::EC2::SecurityGroup
+  securityGroup3:
+    Properties:
+      GroupDescription: groupDescription1
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 22
+          IpProtocol: "-1"
+          ToPort: 22
+    Type: AWS::EC2::SecurityGroup
+  securityGroupIngress1:
+    Properties:
+      CidrIpv6: ::/0
+      FromPort: 27017
+      GroupId:
+        Ref: securityGroup2
+      GroupName: securityGroup2
+      IpProtocol:
+        Ref: IpInsecureProtocol
+      ToPort: 27017
+    Type: AWS::EC2::SecurityGroupIngress
+  securityGroupIngress2:
+    Properties:
+      CidrIp:
+        Ref: IpSecurityGroup
+      FromPort: 3306
+      GroupName: securityGroup2
+      IpProtocol: "-1"
+      ToPort: 3306
+    Type: AWS::EC2::SecurityGroupIngress
+  securityGroupIngress3:
+    Properties:
+      CidrIp:
+        Ref: IpSecurityGroup
+      FromPort: 1433
+      GroupName: securityGroup2
+      IpProtocol: "-1"
+      ToPort: 1433
+    Type: AWS::EC2::SecurityGroupIngress

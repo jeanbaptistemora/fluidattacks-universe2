@@ -1,3 +1,10 @@
+src.lib_path.f047_aws.allows_anyone_to_admin_ports:
+  en: >
+    The ingress rules of the SecurityGroups allow access to administrative
+    ports to everyone.
+  es: >
+    Las reglas ingress de los SecurityGroups permiten el acceso a puertos
+    administrativos a todo el mundo.
 src.lib_path.f047_aws.unrestricted_cidrs:
   en: The ingress/egress rules of the SecurityGroup use cidrs open to everyone.
   es: >

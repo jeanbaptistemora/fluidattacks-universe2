@@ -102,6 +102,58 @@ def _cidr_iter_vulnerabilities(
                 yield rule.inner['CidrIpv6']
 
 
+def _cfn_iter_vulnerable_admin_ports(
+    rules_iterator: Iterator[Node],
+) -> Iterator[Node]:
+    admin_ports = {
+        22,     # SSH
+        1521,   # Oracle
+        1433,   # MSSQL
+        1434,   # MSSQL
+        2438,   # Oracle
+        3306,   # MySQL
+        3389,   # RDP
+        5432,   # Postgres
+        6379,   # Redis
+        7199,   # Cassandra
+        8111,   # DAX
+        8888,   # Cassandra
+        9160,   # Cassandra
+        11211,  # Memcached
+        27017,  # MongoDB
+        445,    # CIFS
+    }
+    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = IPv6Network('::/0')
+
+    for rule in rules_iterator:
+        unrestricted_ip = False
+        rule_raw = rule.raw
+        try:
+            port_range = set(
+                range(
+                    int(rule_raw['FromPort']),
+                    int(rule_raw['ToPort']) + 1,
+                ))
+        except (KeyError, ValueError):
+            continue
+
+        with suppress(AddressValueError, KeyError):
+            unrestricted_ip = IPv6Network(
+                rule_raw['CidrIpv6'],
+                strict=False,
+            ) == unrestricted_ipv6
+        with suppress(AddressValueError, KeyError):
+            unrestricted_ip = IPv4Network(
+                rule_raw['CidrIp'],
+                strict=False,
+            ) == unrestricted_ipv4 or unrestricted_ip
+
+        if unrestricted_ip and admin_ports.intersection(port_range):
+            yield rule.inner['FromPort']
+            yield rule.inner['ToPort']
+
+
 def _cnf_unrestricted_ports(
     content: str,
     path: str,
@@ -134,6 +186,37 @@ def _cnf_unrestricted_cidrs(
                 ingress=True,
                 egress=True,
             )))
+
+
+def _cfn_allows_anyone_to_admin_ports(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return _create_vulns(
+        content=content,
+        description_key='src.lib_path.f047_aws.allows_anyone_to_admin_ports',
+        path=path,
+        ports_iterator=_cfn_iter_vulnerable_admin_ports(
+            rules_iterator=iter_ec2_ingress_egress(
+                template=template,
+                ingress=True,
+            )))
+
+
+@CACHE_ETERNALLY
+@SHIELD
+async def cfn_allows_anyone_to_admin_ports(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _cfn_allows_anyone_to_admin_ports,
+        content=content,
+        path=path,
+        template=template,
+    )
 
 
 @CACHE_ETERNALLY
@@ -191,6 +274,11 @@ async def analyze(
                 template=template,
             ))
             coroutines.append(cnf_unrestricted_cidrs(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_allows_anyone_to_admin_ports(
                 content=content,
                 path=path,
                 template=template,
