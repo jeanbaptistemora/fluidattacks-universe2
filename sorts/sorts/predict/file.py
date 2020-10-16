@@ -16,7 +16,7 @@ from utils.repositories import get_repository_files
 from utils.static import load_neural_network
 
 
-PREDICT_FEATURES = ['commit_frequency', 'midnight_commits', 'num_lines']
+FILE_PREDICT_FEATURES = ['midnight_commits', 'num_lines', 'commit_frequency']
 
 
 def get_subscription_files_df(fusion_path: str) -> DataFrame:
@@ -32,7 +32,7 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
 
 
 def predict_vuln_likelihood(predict_df: DataFrame, group: str) -> None:
-    input_data: DataFrame = predict_df[PREDICT_FEATURES]
+    input_data: DataFrame = predict_df[FILE_PREDICT_FEATURES]
     model: MLPClassifier = load_neural_network()
     class_prediction: ndarray = model.predict(input_data)
     probability_prediction: ndarray = model.predict_proba(input_data)

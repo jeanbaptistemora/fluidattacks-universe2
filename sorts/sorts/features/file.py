@@ -33,28 +33,39 @@ from utils.repositories import (
 
 
 FILE_FEATURES = [
-    'busy_file',
-    'commit_frequency',
+    'num_commits',
+    'num_unique_authors',
     'file_age',
     'midnight_commits',
-    'num_commits',
-    'num_lines',
-    'num_unique_authors',
     'risky_commits',
     'seldom_contributors'
+    'busy_file',
+    'commit_frequency',
+    'num_lines',
+]
+FILE_FEATURES = [
+    'num_commits',
+    'num_unique_authors',
+    'file_age',
+    'midnight_commits',
+    'risky_commits',
+    'seldom_contributors',
+    'num_lines',
+    'commit_frequency',
+    'busy_file'
 ]
 
 
 class FileFeatures(NamedTuple):
-    busy_file: int
-    commit_frequency: float
+    num_commits: int
+    num_unique_authors: int
     file_age: int
     midnight_commits: int
-    num_commits: int
-    num_lines: int
-    num_unique_authors: int
     risky_commits: int
     seldom_contributors: int
+    num_lines: int
+    commit_frequency: float
+    busy_file: int
 
 
 def get_features(row: Series) -> FileFeatures:
@@ -86,15 +97,15 @@ def get_features(row: Series) -> FileFeatures:
     ) as exc:
         log_exception('info', exc, row=row)
     return FileFeatures(
-        busy_file=1 if len(unique_authors) > 9 else 0,
-        commit_frequency=round(num_commits / file_age, 4),
+        num_commits=num_commits,
+        num_unique_authors=len(unique_authors),
         file_age=file_age,
         midnight_commits=midnight_commits,
-        num_commits=num_commits,
-        num_lines=num_lines,
-        num_unique_authors=len(unique_authors),
         risky_commits=risky_commits,
-        seldom_contributors=seldom_contributors
+        seldom_contributors=seldom_contributors,
+        num_lines=num_lines,
+        commit_frequency=round(num_commits / file_age, 4),
+        busy_file=1 if len(unique_authors) > 9 else 0
     )
 
 
