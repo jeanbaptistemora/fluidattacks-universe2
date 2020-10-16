@@ -4,13 +4,20 @@
  */
 
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { default as style } from "scenes/Dashboard/components/AddTagsModal/index.css";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  ButtonToolbar,
+  Col80,
+  ControlLabel,
+  RemoveTag,
+  RequiredField,
+  Row,
+} from "styles/styledComponents";
 import { Text } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { required, validTag } from "utils/validations";
@@ -32,22 +39,25 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
         const removeItem: (() => void) = (): void => { props.fields.remove(index); };
 
         return (
-        <Row key={index}>
-          <Col md={10}>
-            <label>
-              <label className={style.lbl}>* </label>
-              Tag
-            </label>
-            <Field name={fieldName} component={Text} type="text" validate={[required, validTag]} />
-          </Col>
-          {index > 0 ? (
-            <Col md={2} className={style.removeBtn}>
-              <Button onClick={removeItem}>
-                <Glyphicon glyph="trash" />
-              </Button>
-            </Col>
-          ) : undefined}
-        </Row>
+        <React.Fragment key={index}>
+          {index > 0 ? <React.Fragment><br /><hr /></React.Fragment> : undefined}
+          <Row>
+            <Col80>
+              <ControlLabel>
+                <RequiredField>{"* "}</RequiredField>
+                Tag
+              </ControlLabel>
+              <Field name={fieldName} component={Text} type="text" validate={[required, validTag]} />
+            </Col80>
+            {index > 0 ? (
+              <RemoveTag>
+                <Button onClick={removeItem}>
+                  <Glyphicon glyph="trash" />
+                </Button>
+              </RemoveTag>
+            ) : undefined}
+          </Row>
+        </React.Fragment>
       );
     })}
       <br />
@@ -72,7 +82,7 @@ const addTagsModal: React.FC<IAddTagsModalProps> = (props: IAddTagsModalProps): 
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <FieldArray name="tags" component={renderTagsFields} />
-              <ButtonToolbar className="pull-right">
+              <ButtonToolbar>
                 <Button onClick={onClose}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>

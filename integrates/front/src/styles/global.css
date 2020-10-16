@@ -505,6 +505,10 @@ label {
   font-family: 'Montserrat', sans-serif;
 }
 
+:global .mt-3-25 {
+  margin-top: 3.25rem;
+}
+
 :global .nav-active-bg {
   background-color: #EEEEEE !important;
 }
@@ -633,6 +637,9 @@ label {
   }
   :global .w-45-ns {
     width: 45%;
+  }
+  :global .w-85-ns {
+    width: 85%;
   }
 }
 

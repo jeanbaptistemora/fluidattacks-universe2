@@ -52,6 +52,15 @@ const Col60: StyledComponent<
   className: "ph1-5 w-60-ns",
 })``;
 
+const Col80: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-80",
+})``;
+
 const ControlLabel: StyledComponent<
   "label",
   Record<string, unknown>
@@ -138,6 +147,15 @@ const RemoveItem: StyledComponent<
   className: string;
 }>({
   className: "mt5 ml40",
+})``;
+
+const RemoveTag: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex justify-center mt-3-25 w-20",
 })``;
 
 const RequiredField: StyledComponent<
@@ -258,6 +276,7 @@ export {
   Col40,
   Col45,
   Col60,
+  Col80,
   ControlLabel,
   EventHeaderGrid,
   EventHeaderLabel,
@@ -270,6 +289,7 @@ export {
   ModalTitle,
   ProgressBar,
   RemoveItem,
+  RemoveTag,
   RequiredField,
   Row,
   StickyContainer,
