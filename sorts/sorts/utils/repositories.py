@@ -1,6 +1,7 @@
 # Standard libraries
 import os
 import re
+from datetime import datetime
 from typing import (
     Dict,
     List,
@@ -28,6 +29,26 @@ def get_bad_repos(fusion_path: str) -> List[str]:
         for repo in os.listdir(fusion_path)
         if not test_repo(os.path.join(fusion_path, repo))
     ]
+
+
+def get_commit_date(git_repo: Git, commit: str) -> datetime:
+    """Gets the date when a commit was made"""
+    commit_date: str = git_repo.show(
+        '-s',
+        '--pretty=%aI',
+        commit
+    )
+    return datetime.fromisoformat(commit_date)
+
+
+def get_commit_files(git_repo: Git, commit: str) -> List[str]:
+    """Gets a list of files modified in a certain commit"""
+    files: str = git_repo.show(
+        '--name-only',
+        '--pretty=format:',
+        commit
+    )
+    return files.split('\n')
 
 
 def get_commit_hunks(repo_path: str, commit: str) -> int:
