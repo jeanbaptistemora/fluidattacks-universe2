@@ -21,6 +21,8 @@ def iterate_resources(
 ) -> Iterator[Tuple[Node, Node, Node]]:
     if not isinstance(template, Node):
         return
+    if template.data_type != Type.OBJECT:
+        return
 
     if template_resources := template.inner.get('Resources', None):
         for resource_name, resource_config in template_resources.data.items():
@@ -68,9 +70,7 @@ def iter_ec2_ingress_egress(
 ) -> Iterator[Node]:
     for _, kind, props in iterate_resources(
             template,
-            'AWS::EC2::SecurityGroup',
-            'AWS::EC2::SecurityGroupIngress',
-            'AWS::EC2::SecurityGroupEgress',
+            'AWS::EC2::SecurityGroup'
     ):
         if kind.raw == 'AWS::EC2::SecurityGroup':
             if ingress:

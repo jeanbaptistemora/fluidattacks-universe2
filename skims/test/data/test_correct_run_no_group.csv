@@ -59,6 +59,18 @@ cwe,title,what,where
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,19
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,24
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,31
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,40
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,49
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,6
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,28
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,36
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,47
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,59
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,71
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,8
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,32
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,36
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,50

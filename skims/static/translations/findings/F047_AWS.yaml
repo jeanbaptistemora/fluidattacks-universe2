@@ -1,5 +1,10 @@
+src.lib_path.f047_aws.unrestricted_cidrs:
+  en: The ingress/egress rules of the SecurityGroup use cidrs open to everyone.
+  es: >
+      Las reglas ingress/egress de los SecurityGroup usan cidrs abiertos a todo
+      el mundo.
 src.lib_path.f047_aws.unrestricted_ports:
-  en: SecurityGroup ingress/egress rules with port ranges.
+  en: The ingress/egress rules of the SecurityGroup use port ranges.
   es: Las reglas ingress/egress de los SecurityGroup usan rangos de puertos.
 utils.model.finding.enum.f047.description:
   en: >
