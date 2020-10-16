@@ -22,6 +22,12 @@ class GitlabResourcePage(NamedTuple):
     per_page: int
 
 
+class GResourcePageRange(NamedTuple):
+    g_resource: GitlabResource
+    page_range: range
+    per_page: int
+
+
 async def get_resource(
     session: ClientSession, resource: GitlabResourcePage
 ) -> List[Any]:
