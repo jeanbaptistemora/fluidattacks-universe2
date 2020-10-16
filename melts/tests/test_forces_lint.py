@@ -10,7 +10,6 @@ from toolbox.forces.lint import (
 # Constants
 SUBS: str = 'continuoustest'
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_many_exploits_by_change_request(relocate):
     assert many_exploits_by_change_request('09f574ed')
 
