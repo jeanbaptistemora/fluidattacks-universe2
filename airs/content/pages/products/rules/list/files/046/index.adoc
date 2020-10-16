@@ -55,27 +55,32 @@ their malicious goals.
 An attacker manipulates files or settings external to a target application
 which affect the behavior of that application.
 
-. [[r7]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
+. [[r7]] link:https://www.cisecurity.org/controls/[CIS Controls. 5.3 Securely Store Master Images].
+Store the master images and templates on securely configured servers,
+validated with integrity monitoring tools,
+to ensure that only authorized changes to the images are possible.
+
+. [[r8]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
 When a security-critical event occurs,
 the software either does not record the event or omits important details about
 the event when logging it.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.5)]
 Verify that authorized administrators can verify the integrity of all
 security-relevant configurations to detect tampering.
 
-. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
 Implement automated audit trails for all system components to reconstruct all
 actions taken by any individual with root or administrative privileges.
 
-. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
 Implement automated audit trails for all system components to reconstruct
 creation and deletion of system-level objects.
 
-. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
 Time data is protected.
 
-. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.5]
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.5]
 Use file-integrity monitoring or change-detection software on logs to ensure
 that existing log data cannot be changed without generating alerts.
