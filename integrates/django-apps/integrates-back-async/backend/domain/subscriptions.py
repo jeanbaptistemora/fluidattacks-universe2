@@ -357,7 +357,7 @@ async def send_user_to_entity_report(
         await mailer.send_mail_analytics(
             user_email,
             date=datetime_utils.get_as_str(
-                datetime_utils.get_now(), '%Y-%m-%d'
+                datetime_utils.get_now(), '%Y/%m/%d'
             ),
             frequency_title=event_frequency.title(),
             frequency_lower=event_frequency.lower(),
