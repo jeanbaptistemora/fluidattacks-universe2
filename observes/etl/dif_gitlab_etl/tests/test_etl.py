@@ -22,10 +22,13 @@ def mock_extract_data(resource: GitlabResourcePage) -> Union[PageData, None]:
         resource='foo'
     )
     if resource.g_resource == case_01:
+        min_id = {'5': 401, '6': 351, '7': 270,}
         if resource.page > 7:
             return None
         return PageData(
-            id=resource.page, path=f'case_01/page_{resource.page}'
+            id=resource.page,
+            path=f'case_01/page_{resource.page}',
+            minor_item_id=min_id[str(resource.page)],
         )
     return None
 
@@ -39,19 +42,13 @@ def mock_extract_data_less_than(
         resource='foo'
     )
     if resource.g_resource == case_01:
+        min_id = {'5': 401, '6': 351, '7': 270,}
         return PageData(
-            id=resource.page, path=f'case_01/page_{resource.page}_less_than_{target_id}'
+            id=resource.page,
+            path=f'case_01/page_{resource.page}_less_than_{target_id}',
+            minor_item_id=min_id[str(resource.page)],
         )
     return None
-
-
-def mock_get_minor_id(p_data: PageData) -> int:
-    mapper = {
-        'case_01/page_5': 401,
-        'case_01/page_6_less_than_401': 351,
-        'case_01/page_7_less_than_351': 270,
-    }
-    return mapper[p_data.path]
 
 
 def test_extract_between():
@@ -66,12 +63,11 @@ def test_extract_between():
         ),
         extract_data=mock_extract_data,
         extract_data_less_than=mock_extract_data_less_than,
-        get_minor_id=mock_get_minor_id
     )
     expected: List[PageData] = [
-        PageData(id=5, path='case_01/page_5'),
-        PageData(id=6, path='case_01/page_6_less_than_401'),
-        PageData(id=7, path='case_01/page_7_less_than_351'),
+        PageData(id=5, path='case_01/page_5', minor_item_id=401),
+        PageData(id=6, path='case_01/page_6_less_than_401', minor_item_id=351),
+        PageData(id=7, path='case_01/page_7_less_than_351', minor_item_id=270),
     ]
     assert extract_status.data_pages == expected
     assert extract_status.last_minor_id == 270
@@ -83,14 +79,20 @@ def mock_extract_range(
     last_page = 3
     last_page_reached = False
     pages: List[PageData] = []
+    minor_ids = [201, 101, 1]
+
     for page in resource_range.page_range:
         if page > last_page:
             last_page_reached = True
             break
         pages.append(
-            PageData(id=page, path=f'case_02/processed_page_{page}')
+            PageData(
+                id=page,
+                path=f'case_02/processed_page_{page}',
+                minor_item_id=minor_ids[page - 1]
+            )
         )
-    minor_ids = [201, 101, 1]
+
     last_page_in_rage = resource_range.page_range.stop - 1
     if  last_page_in_rage > last_page:
         last_minor_id = minor_ids[-1]
@@ -115,8 +117,8 @@ def test_extract_until_found():
         extract_range=mock_extract_range
     )
     expected: List[PageData] = [
-        PageData(id=1, path='case_02/processed_page_1'),
-        PageData(id=2, path='case_02/processed_page_2'),
+        PageData(id=1, path='case_02/processed_page_1', minor_item_id=201),
+        PageData(id=2, path='case_02/processed_page_2', minor_item_id=101),
     ]
     assert extract_status.data_pages == expected
     assert extract_status.last_minor_id == 101
@@ -136,9 +138,9 @@ def test_extract_until_found_last_page():
         extract_range=mock_extract_range
     )
     expected: List[PageData] = [
-        PageData(id=1, path='case_02/processed_page_1'),
-        PageData(id=2, path='case_02/processed_page_2'),
-        PageData(id=3, path='case_02/processed_page_3'),
+        PageData(id=1, path='case_02/processed_page_1', minor_item_id=201),
+        PageData(id=2, path='case_02/processed_page_2', minor_item_id=101),
+        PageData(id=3, path='case_02/processed_page_3', minor_item_id=1),
     ]
     assert extract_status.data_pages == expected
     assert extract_status.empty_responce == True

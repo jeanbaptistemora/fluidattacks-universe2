@@ -30,13 +30,14 @@ class ExtractState(NamedTuple):
 
 def extract_between(
     resource_range: GResourcePageRange,
-    extract_data: Callable[[GitlabResourcePage], PageData],
-    extract_data_less_than: Callable[[int, GitlabResourcePage], PageData],
-    get_minor_id: Callable[[PageData], int],
+    extract_data: Callable[[GitlabResourcePage], Optional[PageData]],
+    extract_data_less_than: Callable[
+        [int, GitlabResourcePage], Optional[PageData]
+    ],
     init_last_minor_id: Optional[int] = None
 ) -> ExtractState:
     """
-    Calls extract procedure and its filtered version over work_pages
+    Calls extract procedure and its filtered version over resource_range
     taking into account the dynamic offset of the data.
     """
     work_pages = resource_range.page_range
@@ -45,7 +46,7 @@ def extract_between(
 
     pages: List[PageData] = []
     last_minor_id: Optional[int] = init_last_minor_id
-    p_data: PageData
+    p_data: Optional[PageData]
     log('info', 'Notation <page_id>:<per_page>')
     for page_id in work_pages:
         log('info', f'Extracting {page_id}:{per_page}')
@@ -68,8 +69,9 @@ def extract_between(
             )
         if p_data is None:
             error(f'Unexpected empty data at {page_id}:{per_page}')
-        last_minor_id = get_minor_id(p_data)
-        pages.append(p_data)
+        else:
+            last_minor_id = p_data.minor_item_id
+            pages.append(p_data)
     return ExtractState(
         data_pages=pages,
         last_minor_id=cast(int, last_minor_id),
@@ -84,7 +86,8 @@ def extract_until_found(
 ) -> ExtractState:
     """
     Executes extract_range over dynamic range until target_id is found
-    or the last page is reached
+    or the last page is reached.
+    extract_range is expected to handle the dynamic offset of the data.
     """
     start_page: int = start_resource_page.page
     per_page: int = start_resource_page.per_page
