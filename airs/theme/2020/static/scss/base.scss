@@ -256,7 +256,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .bg-ebook { background-image: url('../../images/bg-ebook-l.png'); }
   .asap-bg { background-image: url('../../images/team-l.png'); }
   .fheader { font-size: 9vw; }
-  .show-l { display: block !important; }
 }
 
 @media screen and (min-width: 1200px) {
@@ -278,25 +277,21 @@ $codeyellow: rgba(230, 219, 116, 1);
 @media screen and (min-width: 1366px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-xl.png'); }
   .asap-bg { background-image: url('../../images/team-xl.png'); }
-  .show-xl { display: block !important; }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1365px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-ml.png'); }
   .asap-bg { background-image: url('../../images/team-ml.png'); }
-  .show-ml { display: block !important; }
 }
 
 @media screen and (min-width: 480px) and (max-width: 959px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-m.png'); }
   .asap-bg { background-image: url('../../images/team-m.png'); }
-  .show-m { display: block !important; }
 }
 
 @media screen and (max-width: 479px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-s.png'); }
   .asap-bg { background-image: url('../../images/team-s.png'); }
-  .show-s { display: block !important; }
 }
 
 // Small screens
