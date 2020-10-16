@@ -59,6 +59,22 @@ cwe,title,what,where
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,32
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,36
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,50
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,56
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,7
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,71
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,74
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,9
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,101
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,104
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,11
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,48
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,53
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,72
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,80
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,9
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,2
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5

@@ -1,3 +1,6 @@
+src.lib_path.f047_aws.unrestricted_ports:
+  en: SecurityGroup ingress/egress rules with port ranges.
+  es: Las reglas ingress/egress de los SecurityGroup usan rangos de puertos.
 utils.model.finding.enum.f047.description:
   en: >
     The system exposes resources that are not necessary for the operation of
