@@ -110,6 +110,7 @@ def get_safe_files(
             file_extension: str = os.path.splitext(file)[1].strip('.')
             if (
                 file not in vuln_files and
+                file not in safe_files and
                 (file in composites or file_extension in extensions)
             ):
                 safe_files.add(file)

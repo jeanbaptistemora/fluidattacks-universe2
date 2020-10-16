@@ -11,6 +11,7 @@ from typing import (
 import git
 from git.cmd import Git
 from git.exc import GitCommandError
+from pydriller.metrics.process.hunks_count import HunksCount
 
 
 STAT_REGEX = re.compile(
@@ -27,6 +28,17 @@ def get_bad_repos(fusion_path: str) -> List[str]:
         for repo in os.listdir(fusion_path)
         if not test_repo(os.path.join(fusion_path, repo))
     ]
+
+
+def get_commit_hunks(repo_path: str, commit: str) -> int:
+    metric = HunksCount(
+        path_to_repo=repo_path,
+        from_commit=commit,
+        to_commit=commit
+    )
+    files = metric.count()
+    hunks = sum(files.values())
+    return hunks
 
 
 def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
@@ -72,6 +84,12 @@ def get_file_stat_history(git_repo: Git, file: str) -> List[str]:
         file
     )
     return stat_history.split('\n')
+
+
+def get_repository_commit_history(git_repo: Git) -> List[str]:
+    """Gets the complete commit history of a git repository"""
+    commit_history: str = git_repo.log('--no-merges', '--pretty=%H')
+    return commit_history.split('\n')
 
 
 def get_repository_files(repo_path: str) -> List[str]:
