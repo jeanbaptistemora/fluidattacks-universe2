@@ -41,6 +41,16 @@ def get_commit_hunks(repo_path: str, commit: str) -> int:
     return hunks
 
 
+def get_commit_stats(git_repo: Git, commit: str) -> str:
+    """Returns the amount of changed lines a commit has"""
+    stats: str = git_repo.show(
+        '--shortstat',
+        '--pretty=format:',
+        commit
+    )
+    return stats
+
+
 def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the author of every commit that modified a file"""
     author_history: str = git_repo.log(
@@ -115,7 +125,7 @@ def parse_git_shortstat(stat: str) -> Tuple[int, int]:
         if groups['insertions']:
             insertions = int(groups['insertions'])
         if groups['deletions']:
-            insertions = int(groups['deletions'])
+            deletions = int(groups['deletions'])
     return insertions, deletions
 
 

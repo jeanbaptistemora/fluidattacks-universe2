@@ -10,9 +10,13 @@ from pandas import DataFrame
 from _pytest.logging import LogCaptureFixture
 
 # Local libraries
+from features.commit import (
+    COMMIT_FEATURES,
+    extract_features as extract_commit_features,
+)
 from features.file import (
     FILE_FEATURES,
-    extract_features,
+    extract_features as extract_file_features,
 )
 
 
@@ -23,11 +27,56 @@ def test_bad_dataframe(caplog: LogCaptureFixture,test_clone_repo: str) -> None:
     training_df: DataFrame = pd.read_csv(
         os.path.join(DATA_PATH, 'test_repo_files.csv')
     )
-    extract_features(training_df)
+    extract_file_features(training_df)
     assert 'Exception: KeyError' in caplog.text
 
 
-def test_extract_features(test_clone_repo: str) -> None:
+def test_extract_commit_features(test_clone_repo: str) -> None:
+    training_df: DataFrame = pd.read_csv(
+        os.path.join(DATA_PATH, 'test_repo_commits.csv')
+    )
+    training_df['repo'] = f'requests'
+    extract_commit_features(training_df, test_clone_repo)
+    assert training_df[COMMIT_FEATURES].values.tolist() == [
+        [
+            3,
+            5,
+            4,
+            1,
+            9
+        ],
+        [
+            1,
+            5,
+            2,
+            3,
+            7
+        ],
+        [
+            4,
+            12,
+            3,
+            9,
+            15
+        ],
+        [
+            4,
+            3,
+            4,
+            -1,
+            7
+        ],
+        [
+            19,
+            63,
+            14,
+            49,
+            77
+        ]
+    ]
+
+
+def test_extract_file_features(test_clone_repo: str) -> None:
     creation_dates: List[str] = [
         '2011-05-14T14:21:42-04:00',
         '2011-10-23T10:56:04-04:00',
@@ -41,7 +90,7 @@ def test_extract_features(test_clone_repo: str) -> None:
     training_df['repo'] = training_df['file'].apply(
         lambda x: f'{test_clone_repo}/requests'
     )
-    extract_features(training_df)
+    extract_file_features(training_df)
     file_ages: List[int] = [
         (datetime.now(pytz.utc) - datetime.fromisoformat(date)).days
         for date in creation_dates
