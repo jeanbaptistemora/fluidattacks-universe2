@@ -56,6 +56,9 @@ def test__get_static_dictionary():
         ],
         "continuous": [
             "2019-09-23 16:24:01.619957"
+        ],
+        "services": [
+            "build.sh"
         ]
     }
 

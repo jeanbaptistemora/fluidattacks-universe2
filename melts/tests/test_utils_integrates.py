@@ -56,7 +56,6 @@ def test_is_finding_released():
     assert is_finding_released(FINDING_ACCEPTED)
     assert not is_finding_released(FINDING_DRAFT)
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_is_finding_open():
     """Test utils.is_finding_open."""
     assert is_finding_open(FINDING_OPEN, SAST)
@@ -88,7 +87,7 @@ def test_get_finding_static_data():
                 'full_path': 'Test/2019-09-23 16:24:01.619957',
                 'relative_path': '2019-09-23 16:24:01.619957',
                 'specific': '1',
-                'status': 'OPEN',
+                'status': 'OPEN'
             },
         ],
         'continuous': [
@@ -96,9 +95,17 @@ def test_get_finding_static_data():
                 'full_path': 'continuous/2019-09-23 16:24:01.619957',
                 'relative_path': '2019-09-23 16:24:01.619957',
                 'specific': '1',
-                'status': 'OPEN',
+                'status': 'OPEN'
             }
         ],
+        'services': [
+            {
+                'full_path': 'services/build.sh',
+                'relative_path': 'build.sh',
+                'specific': '1',
+                'status': 'OPEN'
+            }
+        ]
     }
 
     assert get_finding_static_data(FINDING_CLOSED) == {
@@ -121,8 +128,9 @@ def test_get_finding_static_data():
 
 def test_get_finding_static_states():
     assert get_finding_static_states(FINDING_OPEN) == (
+        ('services', 'build.sh', '1', True),
         ('Test', '2019-09-23 16:24:01.619957', '1', True),
-        ('continuous', '2019-09-23 16:24:01.619957', '1', True),
+        ('continuous', '2019-09-23 16:24:01.619957', '1', True)
     )
 
 
@@ -140,12 +148,10 @@ def test_get_finding_dynamic_states_open():
         ('192.168.1.102', '4444', False),
     )
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_get_finding_static_repos_states_closed():
     result = get_finding_static_repos_states(FINDING_CLOSED)
     expected = {
-        'NoRepo': False,
-        'Test': False,
+        'repo': False,
     }
 
     assert sorted(result.keys()) == sorted(expected.keys())
@@ -159,6 +165,7 @@ def test_get_finding_static_repos_states_open():
     expected = {
         'Test': True,
         'continuous': True,
+        'services': True
     }
 
     assert sorted(result.keys()) == sorted(expected.keys())
@@ -166,17 +173,12 @@ def test_get_finding_static_repos_states_open():
     for repo in result:
         assert result[repo] == expected[repo], repo
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_get_finding_static_repos_vulns_closed():
     result = get_finding_static_repos_vulns(FINDING_CLOSED)
     expected = {
-        'NoRepo': {
+        'repo': {
             'open': 0,
-            'closed': 1,
-        },
-        'Test': {
-            'open': 0,
-            'closed': 3,
+            'closed': 2,
         },
     }
 
@@ -194,6 +196,10 @@ def test_get_finding_static_repos_vulns_open():
             'closed': 0,
         },
         'continuous': {
+            'open': 1,
+            'closed': 0,
+        },
+        'services': {
             'open': 1,
             'closed': 0,
         },
