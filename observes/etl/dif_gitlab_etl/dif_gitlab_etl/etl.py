@@ -118,3 +118,47 @@ def extract_until_found(
         last_minor_id=cast(int, last_minor_id),
         empty_responce=last_data_reached
     )
+
+
+def extract_pages_data(
+    resource_range: GResourcePageRange,
+    last_greatest_uploaded_id: int,
+    extract_range: Callable[[GResourcePageRange, Optional[int]], ExtractState]
+) -> List[PageData]:
+    """
+    ETL procedure from page `work_pages.start` to `work_pages.stop`
+    or further until `last_greatest_uploaded_id` is found.
+    """
+
+    work_pages = resource_range.page_range
+    resource = resource_range.g_resource
+    per_page = resource_range.per_page
+
+    pages: List[PageData] = []
+
+    log('info', 'Planned pagination started.')
+    extraction_status = extract_range(resource_range, None)
+    log('info', 'Planned pagination finished.')
+
+    if extraction_status.empty_responce:
+        error('Planned pagination expected non empty responce')
+    pages.extend(extraction_status.data_pages)
+
+    if extraction_status.last_minor_id > last_greatest_uploaded_id:
+        msg = (
+            f'Target item id ({last_greatest_uploaded_id}) was not found.'
+            ' Unplanned pagination started.'
+        )
+        log('info', msg)
+        extraction_status = extract_until_found(
+            last_greatest_uploaded_id,
+            GitlabResourcePage(
+                g_resource=resource,
+                page=work_pages.stop,
+                per_page=per_page,
+            ),
+            extract_range
+        )
+        pages.extend(extraction_status.data_pages)
+
+    return pages
