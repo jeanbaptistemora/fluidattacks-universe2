@@ -59,3 +59,29 @@ def iterate_managed_policy_arns(
     for _, _, props in iterate_resources(template, 'AWS::IAM'):
         if policies := props.inner.get('ManagedPolicyArns', None):
             yield policies
+
+
+def iter_ec2_ingress_egress(
+    template: Node,
+    ingress: bool = False,
+    egress: bool = False,
+) -> Iterator[Node]:
+    for _, kind, props in iterate_resources(
+            template,
+            'AWS::EC2::SecurityGroup',
+            'AWS::EC2::SecurityGroupIngress',
+            'AWS::EC2::SecurityGroupEgress',
+    ):
+        if kind.raw == 'AWS::EC2::SecurityGroup':
+            if ingress:
+                yield from (ingress for ingress in getattr(
+                    props.inner.get('SecurityGroupIngress', object), 'data',
+                    list()))
+            if egress:
+                yield from (ingress for ingress in getattr(
+                    props.inner.get('SecurityGroupEgress', object), 'data',
+                    list()))
+        elif ingress and kind.raw == 'AWS::EC2::SecurityGroupIngress':
+            yield props
+        elif egress and kind.raw == 'AWS::EC2::SecurityGroupEgress':
+            yield props
