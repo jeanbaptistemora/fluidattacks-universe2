@@ -666,7 +666,10 @@ async def mask_finding(finding_id: str) -> bool:
     ]
     mask_finding_tasks.extend(comments_task)
 
-    list_vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    list_vulns = await vuln_domain.list_vulnerabilities_async(
+        [finding_id],
+        True
+    )
     mask_vulns_task = [
         asyncio.create_task(
             vuln_utils.mask_vuln(
