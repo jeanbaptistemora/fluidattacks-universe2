@@ -82,6 +82,15 @@ def _range_port_iter_vulnerabilities(
                 yield rule.inner['ToPort']
 
 
+def _protocol_iter_vulnerabilities(
+        rules_iterator: Iterator[Node]) -> Iterator[Node]:
+    for rule in rules_iterator:
+        rule_raw = rule.raw
+        with suppress(ValueError, KeyError):
+            if rule_raw['IpProtocol'] == "-1":
+                yield rule.inner['IpProtocol']
+
+
 def _cidr_iter_vulnerabilities(
         rules_iterator: Iterator[Node]) -> Iterator[Node]:
     unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
@@ -164,6 +173,23 @@ def _cnf_unrestricted_ports(
         description_key='src.lib_path.f047_aws.unrestricted_ports',
         path=path,
         ports_iterator=_range_port_iter_vulnerabilities(
+            rules_iterator=iter_ec2_ingress_egress(
+                template=template,
+                ingress=True,
+                egress=True,
+            )))
+
+
+def _cfn_unrestricted_ip_protocols(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return _create_vulns(
+        content=content,
+        description_key='src.lib_path.f047_aws.unrestricted_protocols',
+        path=path,
+        ports_iterator=_protocol_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
                 template=template,
                 ingress=True,
@@ -256,6 +282,23 @@ async def cnf_unrestricted_ports(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+async def cfn_unrestricted_ip_protocols(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag W40 Security Groups egress with an IpProtocol of -1 found
+    # cfn_nag W42 Security Groups ingress with an ipProtocol of -1 found
+    return await in_process(
+        _cfn_unrestricted_ip_protocols,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -279,6 +322,11 @@ async def analyze(
                 template=template,
             ))
             coroutines.append(cfn_allows_anyone_to_admin_ports(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_unrestricted_ip_protocols(
                 content=content,
                 path=path,
                 template=template,

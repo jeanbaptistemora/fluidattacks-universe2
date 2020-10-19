@@ -4,9 +4,9 @@ Resources:
       GroupDescription: groupDescription1
       SecurityGroupIngress:
         - CidrIp: 34.229.161.227/16
-          FromPort: 1
-          IpProtocol: tcp
-          ToPort: 65535
+          FromPort: 443
+          IpProtocol: "-1"
+          ToPort: 443
     Type: AWS::EC2::SecurityGroup
   securityGroup2:
     Properties:
@@ -18,42 +18,42 @@ Resources:
       SecurityGroupIngress:
         - CidrIp: 34.229.161.227/16
           FromPort: 22
-          IpProtocol: tcp
+          IpProtocol: "-1"
           ToPort: 22
       SecurityGroupEgress:
         - CidrIp: 34.229.161.227/16
           FromPort: 8080
-          IpProtocol: tcp
+          IpProtocol: "-1"
           ToPort: 8080
     Type: AWS::EC2::SecurityGroup
   securityGroupEgress1:
     Properties:
-      CidrIp: 34.229.161.227/16
-      FromPort: 22
+      CidrIpv6: 2002::1234:abcd:ffff:c0a8:101/64
+      FromPort: 1434
       GroupId:
         Ref: securityGroup2
-      IpProtocol: tcp
-      ToPort: 8080
+      IpProtocol: "-1"
+      ToPort: 1434
     Type: AWS::EC2::SecurityGroupEgress
   securityGroupEgress2:
     Properties:
-      CidrIp: 34.229.161.227/16
+      CidrIpv6: 2002::1234:abcd:ffff:c0a8:101/64
       FromPort: 8022
       GroupId:
         Ref: securityGroup2
-      IpProtocol: tcp
+      IpProtocol: "-1"
       ToPort: 8022
     Type: AWS::EC2::SecurityGroupEgress
   securityGroupIngress1:
     Properties:
-      CidrIp: 110.229.161.227/16
+      CidrIpv6: 2002::1234:abcd:ffff:c0a8:101/64
       FromPort: 22
       GroupId:
         Ref: securityGroup2
       GroupName: securityGroup2
       IpProtocol:
         Ref: IpInsecureProtocol
-      ToPort: 8080
+      ToPort: 22
     Type: AWS::EC2::SecurityGroupIngress
   securityGroupIngress2:
     Properties:
@@ -61,15 +61,15 @@ Resources:
         Ref: IpSecurityGroup
       FromPort: 8080
       GroupName: securityGroup2
-      IpProtocol: tcp
+      IpProtocol: "-1"
       ToPort: 8080
     Type: AWS::EC2::SecurityGroupIngress
   securityGroupIngress3:
     Properties:
       CidrIp:
         Ref: IpSecurityGroup
-      FromPort: 22
+      FromPort: 8080
       GroupName: securityGroup2
-      IpProtocol: tcp
+      IpProtocol: "-1"
       ToPort: 8080
     Type: AWS::EC2::SecurityGroupIngress

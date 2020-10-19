@@ -1,3 +1,10 @@
+src.lib_path.f047_aws.unrestricted_protocols:
+  en: >
+    The ingress/egress rules of the SecurityGroup allow the use of all ip
+    protocols.
+  es: >
+    Las reglas ingress/egress de los SecurityGroup permiten el uso de todos los
+    protocolos ip.
 src.lib_path.f047_aws.allows_anyone_to_admin_ports:
   en: >
     The ingress rules of the SecurityGroups allow access to administrative
