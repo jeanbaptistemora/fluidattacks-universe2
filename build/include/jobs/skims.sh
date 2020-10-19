@@ -62,7 +62,7 @@ function job_skims_benchmark_owasp {
   export EXPECTED_RESULTS_CSV="${benchmark_local_repo}/expectedresults-1.2.csv"
 
       echo '[INFO] Setting up OWASP Benchmark repository' \
-  &&  helper_use_repo "${benchmark_remote_repo}" "${benchmark_local_repo}" \
+  &&  helper_common_use_repo "${benchmark_remote_repo}" "${benchmark_local_repo}" \
   &&  popd \
   &&  helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
@@ -93,7 +93,7 @@ function job_skims_process_all_groups {
   local success='true'
 
       echo '[INFO] Computing groups list' \
-  &&  helper_list_services_groups "${groups_file}" \
+  &&  helper_common_list_services_groups "${groups_file}" \
   &&  groups_count=$(wc -l < "${groups_file}") \
   &&  echo "[INFO] ${groups_count} groups found" \
   &&  while read -r group
@@ -136,7 +136,7 @@ function job_skims_process_all_groups_on_aws {
   local groups_count
 
       echo '[INFO] Computing groups list' \
-  &&  helper_list_services_groups "${groups_file}" \
+  &&  helper_common_list_services_groups "${groups_file}" \
   &&  groups_count=$(wc -l < "${groups_file}") \
   &&  echo "[INFO] ${groups_count} groups found" \
   &&  while read -r group
@@ -150,7 +150,7 @@ function job_skims_process_all_groups_on_aws {
 function job_skims_deploy_infra {
   local target='infra'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd skims \
     &&  helper_skims_aws_login prod \
     &&  helper_common_terraform_apply "${target}" \
@@ -298,7 +298,7 @@ function job_skims_test_infra {
   local target='infra'
 
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd skims \
     &&  helper_skims_aws_login dev \
     &&  helper_skims_terraform_plan "${target}" \

@@ -137,7 +137,7 @@ function helper_observes_services_toe {
 
 function helper_observes_gitlab {
   export GITLAB_API_TOKEN
-  helper_get_projects
+  helper_common_get_projects
 
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
@@ -167,7 +167,7 @@ function helper_observes_timedoctor {
         analytics_auth_redshift \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
-        helper_get_gitlab_var \
+        helper_common_get_gitlab_var \
           'analytics_auth_timedoctor' \
           "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Generating secret files' \
@@ -242,7 +242,7 @@ function helper_observes_git_process {
   local artifacts="${PWD}/artifacts"
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local num_threads='4'
-  helper_get_projects
+  helper_common_get_projects
   export DEBUG="True"
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
@@ -293,7 +293,7 @@ function helper_observes_timedoctor_refresh_token {
 
       helper_observes_aws_login prod \
   &&  analytics_auth_timedoctor=$( \
-        helper_get_gitlab_var \
+        helper_common_get_gitlab_var \
           'analytics_auth_timedoctor' \
           "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Updating token...' \
@@ -309,7 +309,7 @@ function helper_observes_timedoctor_backup {
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
-        helper_get_gitlab_var \
+        helper_common_get_gitlab_var \
           'analytics_auth_timedoctor' \
           "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Generating secret files' \

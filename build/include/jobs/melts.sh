@@ -22,9 +22,9 @@ function job_melts_test {
   &&  helper_melts_aws_login dev \
   &&  if [ "${IS_LOCAL_BUILD}" = 'true' ]
       then
-          helper_start_localstack
+          helper_common_start_localstack
       fi \
-  &&  helper_use_pristine_workdir \
+  &&  helper_common_use_pristine_workdir \
   &&  echo '[INFO] Cloning test repository' \
   &&  helper_clone_test_repo \
   &&  mv melts services \
@@ -62,7 +62,7 @@ function job_melts_deploy {
   export PROD_AWS_ACCESS_KEY_ID="${MELTS_PROD_AWS_ACCESS_KEY_ID}"
   export PROD="${MELTS_PROD_AWS_SECRET_ACCESS_KEY}"
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_melts_aws_login prod \
   &&  TWINE_PASSWORD=${PYPI_TOKEN} \

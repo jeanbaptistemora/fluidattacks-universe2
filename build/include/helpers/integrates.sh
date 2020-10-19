@@ -56,7 +56,7 @@ function app_version {
 
   local minutes
 
-      minutes=$(minutes_of_month) \
+      minutes=$(helper_common_minutes_of_month) \
   &&  echo "$(date +%y.%m.)${minutes}"
 }
 

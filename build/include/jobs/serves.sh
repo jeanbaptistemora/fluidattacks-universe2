@@ -3,7 +3,7 @@
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_cloudflare_login development \
@@ -15,7 +15,7 @@ function job_serves_test_infra_dns {
 function job_serves_apply_infra_dns {
   local target='services/dns/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login production \
     &&  helper_serves_cloudflare_login production \
@@ -27,7 +27,7 @@ function job_serves_apply_infra_dns {
 function job_serves_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -38,7 +38,7 @@ function job_serves_test_infra_autoscaling_ci {
 function job_serves_apply_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -50,7 +50,7 @@ function job_serves_apply_infra_autoscaling_ci {
 function job_serves_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -61,7 +61,7 @@ function job_serves_test_infra_aws_sso {
 function job_serves_apply_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -73,7 +73,7 @@ function job_serves_apply_infra_aws_sso {
 function job_serves_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -84,7 +84,7 @@ function job_serves_test_infra_fluid_vpc {
 function job_serves_apply_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -96,7 +96,7 @@ function job_serves_apply_infra_fluid_vpc {
 function job_serves_test_infra_secret_management {
   local target='secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -107,7 +107,7 @@ function job_serves_test_infra_secret_management {
 function job_serves_apply_infra_secret_management {
   local target='secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -119,7 +119,7 @@ function job_serves_apply_infra_secret_management {
 function job_serves_test_infra_certificates {
   local target='services/certificates/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -130,7 +130,7 @@ function job_serves_test_infra_certificates {
 function job_serves_apply_infra_certificates {
   local target='services/certificates/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -162,7 +162,7 @@ function job_serves_apply_infra_compute {
 function job_serves_test_user_provision_asserts {
   local target='services/user-provision/asserts/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -173,7 +173,7 @@ function job_serves_test_user_provision_asserts {
 function job_serves_apply_user_provision_asserts {
   local target='services/user-provision/asserts/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login production \
     &&  helper_common_terraform_apply "${target}" \
@@ -184,7 +184,7 @@ function job_serves_apply_user_provision_asserts {
 function job_serves_test_user_provision_services {
   local target='services/user-provision/services/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -195,7 +195,7 @@ function job_serves_test_user_provision_services {
 function job_serves_apply_user_provision_services {
   local target='services/user-provision/services/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login production \
     &&  helper_common_terraform_apply "${target}" \
@@ -206,7 +206,7 @@ function job_serves_apply_user_provision_services {
 function job_serves_test_user_provision_integrates {
   local target='services/user-provision/integrates/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -217,7 +217,7 @@ function job_serves_test_user_provision_integrates {
 function job_serves_apply_user_provision_integrates {
   local target='services/user-provision/integrates/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login production \
     &&  helper_common_terraform_apply "${target}" \
@@ -228,7 +228,7 @@ function job_serves_apply_user_provision_integrates {
 function job_serves_test_user_provision_skims {
   local target='services/user-provision/skims/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -239,7 +239,7 @@ function job_serves_test_user_provision_skims {
 function job_serves_apply_user_provision_skims {
   local target='services/user-provision/skims/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login production \
     &&  helper_common_terraform_apply "${target}" \
@@ -250,7 +250,7 @@ function job_serves_apply_user_provision_skims {
 function job_serves_test_user_provision_airs {
   local target='services/user-provision/airs/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -261,7 +261,7 @@ function job_serves_test_user_provision_airs {
 function job_serves_apply_user_provision_airs {
   local target='services/user-provision/airs/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -273,7 +273,7 @@ function job_serves_apply_user_provision_airs {
 function job_serves_test_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -284,7 +284,7 @@ function job_serves_test_user_provision_serves {
 function job_serves_apply_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -296,7 +296,7 @@ function job_serves_apply_user_provision_serves {
 function job_serves_test_user_provision_melts {
   local target='services/user-provision/melts/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves\
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -307,7 +307,7 @@ function job_serves_test_user_provision_melts {
 function job_serves_apply_user_provision_melts {
   local target='services/user-provision/melts/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -319,7 +319,7 @@ function job_serves_apply_user_provision_melts {
 function job_serves_test_user_provision_observes {
   local target='services/user-provision/observes/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_terraform_plan "${target}" \
@@ -330,7 +330,7 @@ function job_serves_test_user_provision_observes {
 function job_serves_apply_user_provision_observes {
   local target='services/user-provision/observes/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
@@ -711,7 +711,7 @@ function job_serves_rotate_keys_user_provision_observes {
 
 function job_serves_test_lint_code {
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_test_lint_code_shell . \
   &&  popd \

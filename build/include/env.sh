@@ -59,7 +59,7 @@ function env_prepare_node_modules {
 
   echo '[INFO] Preparing node modules'
 
-  helper_list_vars_with_regex 'nodeJsModule[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+  helper_common_list_vars_with_regex 'nodeJsModule[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
   while read -r module
   do
@@ -76,7 +76,7 @@ function env_prepare_python_packages {
 
   echo '[INFO] Preparing python packages'
 
-  helper_list_vars_with_regex 'pyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+  helper_common_list_vars_with_regex 'pyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
   while read -r pkg
   do
@@ -93,7 +93,7 @@ function env_prepare_ruby_modules {
 
   echo '[INFO] Preparing ruby gems'
 
-  helper_list_vars_with_regex 'rubyGem[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+  helper_common_list_vars_with_regex 'rubyGem[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
   while read -r gem
   do

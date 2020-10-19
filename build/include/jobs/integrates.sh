@@ -35,7 +35,7 @@ function job_integrates_build_mobile_android {
   "
   export GRADLE_DAEMON_DISABLED="1"
 
-      if  helper_have_any_file_changed \
+      if  helper_common_has_any_file_changed \
         'integrates/mobile/app.json' \
         'integrates/mobile/assets/icon.png' \
         'integrates/mobile/assets/splash.png'
@@ -198,7 +198,7 @@ function job_integrates_build_container_app_new {
   local dockerfile='integrates/deploy/containers/app-new/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}_new"
 
-  helper_docker_build_and_push \
+  helper_common_docker_build_and_push \
     "${tag}" \
     "${context}" \
     "${dockerfile}" \
@@ -222,7 +222,7 @@ function job_integrates_build_container_app {
         SSL_CERT \
   &&  cp ../build/include/helpers/common.sh . \
   &&  cp ../build/include/helpers/integrates.sh . \
-  &&  helper_docker_build_and_push \
+  &&  helper_common_docker_build_and_push \
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
@@ -257,7 +257,7 @@ function job_integrates_build_container_app2 {
         SSL_CERT \
   &&  cp ../build/include/helpers/common.sh . \
   &&  cp ../build/include/helpers/integrates.sh . \
-  &&  helper_docker_build_and_push \
+  &&  helper_common_docker_build_and_push \
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
@@ -334,7 +334,7 @@ function job_integrates_deploy_mobile_ota {
 function job_integrates_deploy_mobile_playstore {
   export LANG=en_US.UTF-8
 
-      if  helper_have_any_file_changed \
+      if  helper_common_has_any_file_changed \
         'integrates/mobile/app.json'
       then
             pushd "${STARTDIR}/integrates" \
@@ -651,24 +651,31 @@ function job_integrates_serve_minio_local {
 
 function job_integrates_serve_local {
 
-  function kill_processes {
-    for process in $(jobs -p)
-    do
-      echo "[INFO] Killing PID: ${process}"
-      kill -15 "${process}" || true
-    done
-    sleep 5
-  }
+  trap 'helper_common_kill_attached_processes 5' SIGINT
 
-  trap kill_processes SIGINT
-
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back_new \
           'dev' \
           'fluidintegrates.asgi:APP' \
     &&  helper_integrates_serve_front \
+    &&  helper_integrates_serve_redis \
+    &&  wait \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_serve_ephemeral {
+
+  trap 'helper_common_kill_attached_processes 5' SIGINT
+
+      helper_common_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_serve_dynamo \
+    &&  helper_integrates_serve_back_new \
+          'dev' \
+          'fluidintegrates.asgi:APP' \
     &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \
@@ -824,7 +831,7 @@ function _job_integrates_analytics_make_documents {
   local remote_bucket='fluidintegrates.analytics'
 
       find 'analytics/generators' -wholename '*.py' | LC_ALL=C sort > "${TEMP_FILE1}" \
-  &&  helper_execute_chunk_parallel \
+  &&  helper_common_execute_chunk_parallel \
         "_execute_analytics_generator" \
         "${TEMP_FILE1}" \
   &&  echo '[INFO] Uploading documents' \
@@ -968,7 +975,7 @@ function job_integrates_infra_backup_deploy {
 function job_integrates_infra_backup_test {
   local target='deploy/backup/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_terraform_plan "${target}" \
@@ -999,7 +1006,7 @@ function job_integrates_infra_database_deploy {
 function job_integrates_infra_database_test {
   local target='deploy/database/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_terraform_plan "${target}" \
@@ -1022,7 +1029,7 @@ function job_integrates_infra_cache_db_deploy {
 function job_integrates_infra_cache_db_test {
   local target='deploy/cache-db/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_terraform_plan "${target}" \
@@ -1055,7 +1062,7 @@ function job_integrates_infra_django_db_test {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
@@ -1083,7 +1090,7 @@ function job_integrates_infra_devicefarm_deploy {
 function job_integrates_infra_devicefarm_test {
   local target='deploy/devicefarm/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_terraform_plan "${target}" \
@@ -1106,7 +1113,7 @@ function job_integrates_infra_resources_deploy {
 function job_integrates_infra_resources_test {
   local target='deploy/terraform-resources'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_terraform_plan "${target}" \
@@ -1129,7 +1136,7 @@ function job_integrates_infra_secret_management_deploy {
 function job_integrates_infra_secret_management_test {
   local target='deploy/secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_terraform_plan "${target}" \
@@ -1142,7 +1149,7 @@ function job_integrates_infra_cluster_deploy {
   local cluster='integrates-cluster'
   local region='us-east-1'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
@@ -1160,7 +1167,7 @@ function job_integrates_infra_cluster_test {
   local cluster='integrates-cluster'
   local region='us-east-1'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
@@ -1175,7 +1182,7 @@ function job_integrates_infra_cluster_test {
 function job_integrates_infra_ephemeral_deploy {
   local target='deploy/ephemeral/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
@@ -1187,7 +1194,7 @@ function job_integrates_infra_ephemeral_deploy {
 function job_integrates_infra_ephemeral_test {
   local target='deploy/ephemeral/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
     &&  helper_integrates_aws_login development \
@@ -1199,7 +1206,7 @@ function job_integrates_infra_ephemeral_test {
 function job_integrates_infra_firewall_deploy {
   local target='deploy/firewall/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
@@ -1211,7 +1218,7 @@ function job_integrates_infra_firewall_deploy {
 function job_integrates_infra_firewall_test {
   local target='deploy/firewall/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
     &&  helper_integrates_aws_login development \
@@ -1342,7 +1349,7 @@ function job_integrates_deploy_back_ephemeral {
   )
 
   # shellcheck disable=SC2034
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  helper_integrates_aws_login 'development' \
   &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
@@ -1388,7 +1395,7 @@ function job_integrates_deploy_back_ephemeral_stop {
   local namespace='ephemeral'
   local region='us-east-1'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  helper_integrates_aws_login 'development' \
@@ -1406,7 +1413,7 @@ function job_integrates_deploy_back_ephemeral_clean {
   local namespace='ephemeral'
   local region='us-east-1'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  helper_integrates_aws_login 'development' \
@@ -1447,7 +1454,7 @@ function job_integrates_deploy_back_production {
   )
 
   # shellcheck disable=SC2034
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
   &&  helper_common_sops_env 'secrets-production.yaml' 'default' \

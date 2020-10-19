@@ -3,7 +3,7 @@
 function job_airs_infra_ephemeral_test {
   local target='deploy/ephemeral/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
     &&  helper_airs_aws_login development \
     &&  helper_airs_terraform_plan "${target}" \
@@ -14,7 +14,7 @@ function job_airs_infra_ephemeral_test {
 function job_airs_infra_production_test {
   local target='deploy/production/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
     &&  helper_airs_aws_login development \
     &&  helper_airs_terraform_plan "${target}" \
@@ -25,7 +25,7 @@ function job_airs_infra_production_test {
 function job_airs_infra_secret_management_test {
   local target='deploy/secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
     &&  helper_airs_aws_login development \
     &&  helper_airs_terraform_plan "${target}" \
@@ -36,7 +36,7 @@ function job_airs_infra_secret_management_test {
 function job_airs_infra_ephemeral_apply {
   local dir='deploy/ephemeral/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_aws_login production \
   &&  helper_common_terraform_apply "${dir}" \
@@ -47,7 +47,7 @@ function job_airs_infra_ephemeral_apply {
 function job_airs_infra_production_apply {
   local dir='deploy/production/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_aws_login production \
   &&  helper_common_terraform_apply "${dir}" \
@@ -58,7 +58,7 @@ function job_airs_infra_production_apply {
 function job_airs_infra_secret_management_apply {
   local dir='deploy/secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_aws_login production \
   &&  helper_common_terraform_apply "${dir}" \
@@ -67,7 +67,7 @@ function job_airs_infra_secret_management_apply {
 }
 
 function job_airs_test_lint_code {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  env_prepare_python_packages \
   &&  helper_airs_list_touched_files | xargs pre-commit run -v --files \
@@ -202,7 +202,7 @@ function job_airs_test_defends {
 }
 
 function job_airs_deploy_local {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_compile 'http://localhost:8000' \
@@ -212,7 +212,7 @@ function job_airs_deploy_local {
 }
 
 function job_airs_deploy_ephemeral {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login development \
@@ -231,7 +231,7 @@ function job_airs_deploy_ephemeral {
 }
 
 function job_airs_deploy_stop_ephemeral {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_aws_login development \
   &&  aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive \
@@ -240,7 +240,7 @@ function job_airs_deploy_stop_ephemeral {
 }
 
 function job_airs_deploy_production {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login production \

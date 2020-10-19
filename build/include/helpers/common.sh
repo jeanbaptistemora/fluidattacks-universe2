@@ -32,7 +32,7 @@ function helper_common_sops_env {
       done
 }
 
-function helper_use_pristine_workdir {
+function helper_common_use_pristine_workdir {
   export WORKDIR
   export STARTDIR
 
@@ -51,15 +51,7 @@ function helper_use_pristine_workdir {
   ||  return 1
 }
 
-function helper_use_regular_workdir {
-  export STARTDIR
-
-      echo '[INFO] Entering the workdir' \
-  &&  pushd "${STARTDIR}" \
-  ||  return 1
-}
-
-function helper_use_repo {
+function helper_common_use_repo {
   local source="${1}"
   local target="${2}"
 
@@ -79,26 +71,26 @@ function helper_use_repo {
   fi
 }
 
-function helper_use_services {
+function helper_common_use_services {
   export STARTDIR
   export GITLAB_API_TOKEN
   export GITLAB_API_USER
   local source="https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git"
   local target="${STARTDIR}/../services"
 
-  helper_use_repo "${source}" "${target}"
+  helper_common_use_repo "${source}" "${target}"
 }
 
-function helper_list_services_groups {
+function helper_common_list_services_groups {
   local store="${1}"
 
-      helper_use_services \
+      helper_common_use_services \
     &&  ls -1 groups/ > "${store}" \
   &&  popd \
   ||  return 1
 }
 
-function helper_get_projects {
+function helper_common_get_projects {
   export PROJECTS=(
     'autonomicmind/default'
     'autonomicmind/challenges'
@@ -107,7 +99,7 @@ function helper_get_projects {
   )
 }
 
-function helper_docker_build_and_push {
+function helper_common_docker_build_and_push {
   local tag="${1}"
   local context="${2}"
   local dockerfile="${3}"
@@ -164,7 +156,7 @@ function helper_docker_build_and_push {
   &&  docker image remove "${tag}"
 }
 
-function helper_execute_chunk_parallel {
+function helper_common_execute_chunk_parallel {
   local function_to_call
   local todo_list
 
@@ -181,7 +173,7 @@ function helper_execute_chunk_parallel {
           done
 }
 
-function helper_get_gitlab_var {
+function helper_common_get_gitlab_var {
   local gitlab_var_name="${1}"
       echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \
   &&  curl \
@@ -191,14 +183,7 @@ function helper_get_gitlab_var {
       | jq -r '.value'
 }
 
-function helper_get_gitlab_registry_id {
-  local registry_name="${1}"
-
-  wget -O - "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/registry/repositories" \
-    | jq ".[] | select (.name == \"${registry_name}\") | .id"
-}
-
-function helper_get_touched_files_in_last_commit {
+function helper_common_get_touched_files_in_last_commit {
   git diff --name-only "${CI_COMMIT_BEFORE_SHA}" "${CI_COMMIT_SHA}" \
     | while read -r path
       do
@@ -206,13 +191,13 @@ function helper_get_touched_files_in_last_commit {
       done
 }
 
-function helper_have_any_file_changed {
+function helper_common_has_any_file_changed {
   local file
   local files=( "$@" )
   local canon_file_a
   local canon_file_b
 
-      helper_get_touched_files_in_last_commit > "${TEMP_FD}" \
+      helper_common_get_touched_files_in_last_commit > "${TEMP_FD}" \
   &&  while read -r touched_file
       do
         for file in "${files[@]}"
@@ -244,11 +229,11 @@ function helper_common_list_touched_files {
   done
 }
 
-function helper_is_today_first_day_of_month {
+function helper_common_is_today_first_day_of_month {
   test "$(date +%d)" == '01'
 }
 
-function helper_list_declared_jobs {
+function helper_common_list_declared_jobs {
   local product="${1:-}"
 
   declare -F \
@@ -259,14 +244,14 @@ function helper_list_declared_jobs {
     | sort
 }
 
-function helper_list_vars_with_regex {
+function helper_common_list_vars_with_regex {
   local regex="${1}"
   printenv | grep -oP "${regex}" | sort
 }
 
-function reg_registry_id {
+function helper_common_registry_id {
   # Get the id of a gitlab registry
-  # e.g reg_registry_id deps-base
+  # e.g helper_common_registry_id deps-base
 
   local registry_name="$1"
   local integrates_id='20741933'
@@ -276,21 +261,21 @@ function reg_registry_id {
   &&  wget -O - "${check_url}" 2> /dev/null | jq ".[] | select (.name == \"${registry_name}\") | .id"
 }
 
-function reg_registry_delete {
+function helper_common_registry_delete {
   # Delete registry
-  # e.g: reg_registry_delete deps-production TOKEN
+  # e.g: helper_common_registry_delete deps-production TOKEN
 
   local registry_name="$1"
   local token="$2"
   local registry_id
   local delete_url
 
-      registry_id=$(reg_registry_id "${registry_name}") \
+      registry_id=$(helper_common_registry_id "${registry_name}") \
   &&  delete_url="https://gitlab.com/api/v4/projects/20741933/registry/repositories/${registry_id}" \
   &&  curl --request DELETE --header "PRIVATE-TOKEN: ${token}" "${delete_url}"
 }
 
-function minutes_of_month {
+function helper_common_minutes_of_month {
   # Returns minutes that have passed during the current month
 
   local minutes_of_passed_days
@@ -411,7 +396,7 @@ function helper_common_poetry_install {
   ||  return 1
 }
 
-function helper_start_localstack {
+function helper_common_start_localstack {
   local time='0'
   local timeout='60'
   local services='s3'
@@ -482,6 +467,16 @@ function helper_common_run_on_aws {
         --job-queue "${jobqueue}" \
         --job-definition 'default' \
         --retry-strategy "attempts=${attempts}" \
-        --timeout "attemptDurationSeconds=${timeout}" \
+        --timeout "attemptDurationSeconds=${timeout}"
+}
 
+function helper_common_kill_attached_processes {
+  local sleep_time="${1}"
+
+  for process in $(jobs -p)
+  do
+    echo "[INFO] Killing PID: ${process}"
+    kill -15 "${process}" || true
+  done
+  sleep "${sleep_time}"
 }

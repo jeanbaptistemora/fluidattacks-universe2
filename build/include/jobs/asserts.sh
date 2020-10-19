@@ -3,7 +3,7 @@
 function job_asserts_lint_code {
   local config_file='.pylintrc'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_config_precommit \
@@ -21,7 +21,7 @@ function job_asserts_lint_code {
 }
 
 function job_asserts_lint_code_bandit {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  bandit \
@@ -36,7 +36,7 @@ function job_asserts_lint_code_bandit {
 function job_asserts_lint_tests {
   local config_file='.pylintrc'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  prospector \
@@ -54,7 +54,7 @@ function job_asserts_lint_tests {
 function job_asserts_infra_secret_management_test {
   local target='deploy/secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
     &&  helper_asserts_aws_login dev \
     &&  helper_asserts_terraform_plan "${target}" \
@@ -65,7 +65,7 @@ function job_asserts_infra_secret_management_test {
 function job_asserts_infra_secret_management_deploy {
   local dir='deploy/secret-management/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  helper_asserts_aws_login prod \
   &&  helper_common_terraform_apply "${dir}" \
@@ -78,7 +78,7 @@ function job_asserts_test_api_cloud_aws_api {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -91,7 +91,7 @@ function job_asserts_test_api_cloud_aws_new {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -104,7 +104,7 @@ function job_asserts_test_api_cloud_aws_cloudformation {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -117,7 +117,7 @@ function job_asserts_test_api_cloud_aws_terraform {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -130,7 +130,7 @@ function job_asserts_test_api_cloud_azure {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -143,7 +143,7 @@ function job_asserts_test_api_cloud_gcp {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -156,7 +156,7 @@ function job_asserts_test_api_cloud_kubernetes {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -169,7 +169,7 @@ function job_asserts_test_api_db_mssql {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -182,7 +182,7 @@ function job_asserts_test_api_db_mysql {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -195,7 +195,7 @@ function job_asserts_test_api_db_postgres {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -208,7 +208,7 @@ function job_asserts_test_api_format {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -221,7 +221,7 @@ function job_asserts_test_api_helper {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -234,7 +234,7 @@ function job_asserts_test_api_iot {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -247,7 +247,7 @@ function job_asserts_test_api_lang_core {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -260,7 +260,7 @@ function job_asserts_test_api_lang_csharp {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -273,7 +273,7 @@ function job_asserts_test_api_lang_docker {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -286,7 +286,7 @@ function job_asserts_test_api_lang_dotnetconfig {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -299,7 +299,7 @@ function job_asserts_test_api_lang_html {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -312,7 +312,7 @@ function job_asserts_test_api_lang_java {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -325,7 +325,7 @@ function job_asserts_test_api_lang_javascript {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -338,7 +338,7 @@ function job_asserts_test_api_lang_php {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -351,7 +351,7 @@ function job_asserts_test_api_lang_python {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -364,7 +364,7 @@ function job_asserts_test_api_lang_rpgle {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -377,7 +377,7 @@ function job_asserts_test_api_lang_times {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -390,7 +390,7 @@ function job_asserts_test_api_ot {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -403,7 +403,7 @@ function job_asserts_test_api_proto_dns {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -416,7 +416,7 @@ function job_asserts_test_api_proto_ftp {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -429,7 +429,7 @@ function job_asserts_test_api_proto_git {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -442,7 +442,7 @@ function job_asserts_test_api_proto_graphql {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -455,7 +455,7 @@ function job_asserts_test_api_proto_http {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -468,7 +468,7 @@ function job_asserts_test_api_proto_ldap {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -481,7 +481,7 @@ function job_asserts_test_api_proto_rest {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -494,7 +494,7 @@ function job_asserts_test_api_proto_smb {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -507,7 +507,7 @@ function job_asserts_test_api_proto_smtp {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -520,7 +520,7 @@ function job_asserts_test_api_proto_ssh {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -533,7 +533,7 @@ function job_asserts_test_api_proto_ssl {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -546,7 +546,7 @@ function job_asserts_test_api_proto_tcp {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -559,7 +559,7 @@ function job_asserts_test_api_sca {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -572,7 +572,7 @@ function job_asserts_test_api_syst {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -585,7 +585,7 @@ function job_asserts_test_api_utils {
 
   trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_test_fluidasserts "${marker_name}" \
@@ -597,7 +597,7 @@ function job_asserts_test_output {
   export FA_NOTRACK='true'
   export FA_STRICT='false'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  asserts \
@@ -611,7 +611,7 @@ function job_asserts_test_output {
 }
 
 function job_asserts_build {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  helper_build_asserts \
   &&  cp -a asserts-release "${STARTDIR}/asserts" \
@@ -622,7 +622,7 @@ function job_asserts_build {
 function job_asserts_release_pypi {
   local release_folder='asserts-release'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_with_production_secrets \
@@ -647,7 +647,7 @@ function job_asserts_release_docker_hub {
     &&  docker push "${image_name}"
   }
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  helper_with_production_secrets \
   &&  docker login "${DOCKER_HUB_URL}" \
@@ -677,7 +677,7 @@ function job_asserts_release_docker_hub {
 function job_asserts_documentation {
   local bucket_path='s3://fluidattacks.com/resources/doc/asserts/'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_asserts_aws_login prod \

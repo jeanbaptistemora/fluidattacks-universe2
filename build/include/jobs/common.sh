@@ -7,7 +7,7 @@ function _job_common_build_nix_caches {
 
       provisioner=$(basename "${1:-}") \
   &&  provisioner="${provisioner%.*}" \
-  &&  helper_docker_build_and_push \
+  &&  helper_common_docker_build_and_push \
         "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
         "${context}" \
         "${dockerfile}" \
@@ -18,10 +18,10 @@ function job_common_build_nix_caches {
   export TEMP_FILE1
   local provisioners
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  provisioners=(./build/provisioners/*) \
   &&  printf "%s\n" "${provisioners[@]}" | LC_ALL=C sort > "${TEMP_FILE1}" \
-  &&  helper_execute_chunk_parallel \
+  &&  helper_common_execute_chunk_parallel \
         "_job_common_build_nix_caches" \
         "${TEMP_FILE1}"
 }
@@ -98,7 +98,7 @@ function job_common_lint_commit_msg {
   local commit_diff
   local commit_hashes
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_node_modules \
   &&  git fetch --prune > /dev/null \
   &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
@@ -181,7 +181,7 @@ function job_common_deploy_container_image {
   local tag="${CI_REGISTRY_IMAGE}/bin:latest"
 
       echo '[INFO] Building' \
-  &&  helper_docker_build_and_push \
+  &&  helper_common_docker_build_and_push \
         "${tag}" \
         "${context}" \
         "${dockerfile}" \

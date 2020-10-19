@@ -1,21 +1,21 @@
 # shellcheck shell=bash
 
 function job_observes_formstack {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_formstack \
   ||  return 1
 }
 
 function job_observes_dynamodb {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_dynamodb "./observes/conf/awsdynamodb.json" "dynamodb" \
   ||  return 1
 }
 
 function job_observes_dynamodb_forces {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_dynamodb \
       "./observes/conf/awsdynamodb_forces.json" \
@@ -43,14 +43,14 @@ function job_observes_dynamodb_forces_on_aws {
 }
 
 function job_observes_services_toe {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_services_toe \
   ||  return 1
 }
 
 function job_observes_gitlab {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_gitlab \
   ||  return 1
@@ -76,14 +76,14 @@ function job_observes_gitlab_on_aws {
 }
 
 function job_observes_timedoctor {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor \
   ||  return 1
 }
 
 function job_observes_zoho {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_zoho \
   ||  return 1
@@ -92,7 +92,7 @@ function job_observes_zoho {
 function job_observes_code_upload_all_groups_on_aws {
   local groups_file="${TEMP_FILE1}"
 
-      helper_list_services_groups "${groups_file}" \
+      helper_common_list_services_groups "${groups_file}" \
   &&  while read -r group
       do
             echo "[INFO] Submitting: ${group}" \
@@ -119,7 +119,7 @@ function job_observes_code_upload_group {
         'REDSHIFT_PASSWORD' \
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
-  &&  helper_use_services \
+  &&  helper_common_use_services \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group}" \
     &&  if  CI=true \
@@ -192,7 +192,7 @@ function job_observes_code_amend_authors {
         'REDSHIFT_PASSWORD' \
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
-  &&  helper_use_services \
+  &&  helper_common_use_services \
     &&  python3 "${STARTDIR}/observes/code/ammend_authors.py" \
           --mailmap '.groups-mailmap' \
   &&  popd \
@@ -252,7 +252,7 @@ function job_observes_code_compute_bills {
 function job_observes_code_mirror_all_groups_to_s3_on_aws {
   local groups_file="${TEMP_FILE1}"
 
-      helper_list_services_groups "${groups_file}" \
+      helper_common_list_services_groups "${groups_file}" \
   &&  while read -r group
       do
             echo "[INFO] Submitting: ${group}" \
@@ -271,7 +271,7 @@ function job_observes_code_mirror_group_to_s3 {
         &&  return 1
       fi \
   &&  helper_observes_aws_login prod \
-  &&  helper_use_services \
+  &&  helper_common_use_services \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group} from source Git repository" \
     &&  CI='true' \
@@ -338,21 +338,21 @@ function job_observes_git_upload {
 }
 
 function job_observes_timedoctor_refresh_token {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_refresh_token \
   ||  return 1
 }
 
 function job_observes_timedoctor_backup {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_backup \
   ||  return 1
 }
 
 function job_observes_timedoctor_manually_create_token {
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_manually_create_token \
   ||  return 1
@@ -361,7 +361,7 @@ function job_observes_timedoctor_manually_create_token {
 function job_observes_test_infra {
   local target='infra/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd observes \
     &&  helper_observes_aws_login dev \
     &&  helper_observes_terraform_plan "${target}" \
@@ -372,7 +372,7 @@ function job_observes_test_infra {
 function job_observes_apply_infra {
   local target='infra/terraform'
 
-      helper_use_pristine_workdir \
+      helper_common_use_pristine_workdir \
   &&  pushd observes \
     &&  helper_observes_aws_login prod \
     &&  helper_common_terraform_apply "${target}" \

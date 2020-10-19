@@ -24,33 +24,10 @@ function helper_asserts_aws_login {
   &&  aws configure set region 'us-east-1'
 }
 
-function helper_minutes_of_month {
-  local minutes_of_passed_days
-  local minutes_of_passed_hours
-  local minutes_of_current_hour
-  local minutes_of_month
-
-      minutes_of_passed_days=$((
-        ($(TZ=GMT date +%d | sed 's/^0//') -1) * 1440
-      )) \
-  &&  minutes_of_passed_hours=$((
-        $(TZ=GMT date +%H | sed 's/^0//') * 60
-      )) \
-  &&  minutes_of_current_hour=$((
-        $(TZ=GMT date +%M | sed 's/^0//')
-      )) \
-  &&  minutes_of_month=$((
-        minutes_of_passed_days +
-        minutes_of_passed_hours +
-        minutes_of_current_hour
-      )) \
-  &&  echo "${minutes_of_month}"
-}
-
 function helper_asserts_version {
   local minutes
 
-      minutes=$(helper_minutes_of_month) \
+      minutes=$(helper_common_minutes_of_month) \
   &&  echo "$(TZ=GMT date +%y.%m.)${minutes}"
 }
 

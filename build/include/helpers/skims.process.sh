@@ -12,7 +12,7 @@ function helper_skims_process_group {
   export SKIMS_PROD_AWS_ACCESS_KEY_ID
   export SKIMS_PROD_AWS_SECRET_ACCESS_KEY
 
-      helper_use_services \
+      helper_common_use_services \
   &&  helper_skims_aws_login prod \
   &&  echo '[INFO] Cloning repositories' \
   &&  { helper_skims_pull_repositories "${group}" ||  true; } \
