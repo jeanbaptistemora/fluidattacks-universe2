@@ -25,6 +25,17 @@ def encrypt(subs: str) -> bool:
         plaintext: str = f'{resources}/plaintext.yml'
         secrets: str = f'{resources}/secrets.yml'
 
+        if not os.path.exists(secrets) or \
+                not os.path.exists(plaintext):
+            logger.info(f'Initializing {plaintext} because it did not exist')
+            with open(plaintext, 'w') as plaintext_handle:
+                plaintext_handle.write(yaml.safe_dump({  # type: ignore
+                    'secrets': {
+                        'test_user': 'Einstein',
+                        'test_password': 'E=m*C^2',
+                    },
+                }))
+
         logger.info(f'Moving secrets from {plaintext} to {secrets}')
 
         with open(plaintext) as plaintext_handle, \

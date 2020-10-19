@@ -7,7 +7,7 @@
 #  shellcheck shell=bash
 export PYTHONWARNINGS="ignore"
 
-export PYTHONPATH="${pyPkgMelts}/site-packages/:${PYTHONPATH}"
+export PYTHONPATH="${pyPkgMelts}/site-packages/:${pyPkgAsserts}/site-packages/:${PYTHONPATH}"
 
 export PATH="${pyPkgMelts}/site-packages/bin/:${PATH}"
 
