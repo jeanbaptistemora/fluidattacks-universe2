@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block meta %}
 <meta name="description"
-      content="Our Continuous Hacking detects and reports
-      all the vulnerabilities and security issues
-      during the whole software development lifecycle.">
+      content="Our One-Shot Hacking service
+      reports security vulnerabilities
+      in specific versions of your applications.">
 <meta name="keywords"
-      content="Fluid Attacks, Services, Continuous Hacking,
-      Ethical Hacking, Security, Software Development Lifecycle">
+      content="Fluid Attacks, Services, Ethical Hacking, Security,
+      Application, Vulnerabilities, One-Shot Hacking">
 {% endblock meta %}
 
 {% block title %}
@@ -28,7 +28,7 @@
 {% endblock title %}
 
 {% block breadcrumb%}
-<!-- navcontent-container -->
+  <!-- navcontent-container -->
 <div class="pv0 mt-body">
   <!-- navcontent-info -->
   <div class="df ma-auto bg-fluid-black">
@@ -43,7 +43,7 @@
         </li>
         <li class="dib mt0">
           <a class="c-fluid-gray hover-white no-underline"
-             href="{{ SITEURL }}/services/continuous-hacking/">
+             href=".">
             Services
           </a>
           <span class="c-fluid-gray v-mid b"> / </span>
@@ -51,7 +51,7 @@
         <li class="dib mt0">
           <a class="white hover-white no-underline"
              href=".">
-            Continuous Hacking
+            {{ page.title }}
           </a>
         </li>
       </ul>
@@ -75,114 +75,47 @@
 {% endblock header %}
 
 {% block content %}
-<div class="tc pt5-l pt4">
-  <nav>
-    <a
-      class="c-lightblack f6 roboto fw4 pointer no-underline bb mr3"
-      href="{{ SITEURL }}/services/continuous-hacking/">
-      Continuous Hacking
+<div class="tc pt3 flex nowrap items-center justify-center overflow-x-auto">
+  <ul class="pl0">
+    <li class="dib ph2 bb bc-hover-red bw2">
+      <a href="."
+         class="c-lightblack f4 roboto fw7 no-underline">
+        Continuous Hacking
+      </a>
+    </li>
+    <li class="dib ph2">
+      <a href="{{ SITEURL }}/services/one-shot-hacking/"
+      class="c-fluid-gray f4 roboto fw7 no-underline hv-fluid-bk">
+        One-shot Hacking
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="mw-1366 ph-body center roboto">
+  <div class="mw7 center roboto f3-l f4 fw3 lh-2 pv4">
+    {{ page.definition }}
+  </div>
+  <div class="center tc">
+    <a class="no-underline tc f3 menu-txt-trans roboto hv-fluid-rd "
+    href="{{ SITEURL }}/contact-us/">
+      <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv3 ph4 roboto fw7 f4 dib bt-trans br2 bc-fluid-red ba">
+        Make an inquiry
+      </button>
     </a>
-    <a
-      class="c-fluid-gray f6 roboto no-underline fw4 hv-fluid-bk pointer link"
-      href="{{ SITEURL }}/services/one-shot-hacking/">
-      One-Shot Hacking
-    </a>
-  </nav>
+  </div>
 </div>
 <div class="w-100 tc pv4 mv4">
   <img
     class="h5"
-    src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-continuous.png"
+    src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-one-shot.png"
     alt="Young hacker smiling">
 </div>
-<div class="services tc roboto w-100 center c-lightblack">
-  {{ page.content }}
-</div>
-<div class="mw-1366 ph-body center pb5">
-  <div class="carousel overflow-y-hidden overflow-x-auto w-auto pa2 nowrap pv5"
-       id="carousel">
-    <div class="item-carousel mh6 pr3 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/hacking-tech/">
-        <img
-          class="pt5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-1.png"
-          alt="Young hacker smiling">
-      </a>
+<div class="mw-1366 ph-body center roboto">
+  <div class="w-100 pv4">
+    <h2 class="c-fluid-bk fw7 f1 tc">Key Features</h2>
+    <div class="internal solution-benefits services-features justify-center items-center flex flex-wrap">
+      {{ page.content }}
     </div>
-    <div class="item-carousel mh6 pr3 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/healthcheck/">
-        <img
-          class="pb5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-2.png"
-          alt="Young hacker smiling">
-      </a>
-    </div>
-    <div class="item-carousel mh6 pr3 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/environments/">
-        <img
-          class="pt5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-3.png"
-          alt="Young hacker smiling">
-      </a>
-    </div>
-    <div class="item-carousel mh6 pr3 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/vuln-manage/">
-        <img
-          class="pb5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-4.png"
-          alt="Young hacker smiling">
-      </a>
-    </div>
-    <div class="item-carousel mh6 pr3 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/break-build/">
-        <img
-          class="pt5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-5.png"
-          alt="Young hacker smiling">
-      </a>
-    </div>
-    <div class="item-carousel mh6 pr3 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/remediation/">
-        <img
-          class="pb5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-6.png"
-          alt="Young hacker smiling">
-      </a>
-    </div>
-    <div class="item-carousel ml6 pa0 dib">
-      <a href="{{ SITEURL }}/services/continuous-hacking/critical-info/">
-        <img
-          class="pt5"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/continuous/continuous-7.png"
-          alt="Young hacker smiling">
-      </a>
-    </div>
-  </div>
-  <div class="w5 h-cont-bar bg-fluid-lightgray center mw5 br4 ba bc-lightergray">
-    <div class="h-bar w1 bg-dk-red mw5 br4" id="progress-bar"></div>
   </div>
 </div>
-<div class="pb5 db-ns dn">
-  <div>
-    <h2 class="f2-l fw1 tc-ns tl f3 w6-ns center roboto w-90">
-      Contact us now
-    </h2>
-  </div>
-  <div class="tc">
-    <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
-       href="{{ SITEURL }}/contact-us/">
-      <span class="br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
-          Make an inquiry
-      </span>
-    </a>
-  </div>
-</div>
-{% assets output="static/js/progressBar.min.js", "js/tmp/progressBar.min.js" %}
-<script type="text/javascript"
-        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-{% endassets %}
-{% assets output="static/js/carousel.min.js", "js/tmp/carousel.min.js" %}
-<script type="text/javascript"
-        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-{% endassets %}
 {% endblock content %}
