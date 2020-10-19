@@ -154,10 +154,10 @@ async def create_project(  # pylint: disable=too-many-arguments
             has_forces,
             has_integrates=True)
 
-        is_group_avail, group_exists = await asyncio.gather(
+        is_group_avail, group_exists = await collect([
             available_name_domain.exists(project_name, 'group'),
             project_dal.exists(project_name)
-        )
+        ])
 
         org_id = await org_domain.get_id_by_name(organization)
         if not await org_domain.has_user_access(org_id, user_email):
@@ -181,10 +181,10 @@ async def create_project(  # pylint: disable=too-many-arguments
 
             success = await project_dal.create(project)
             if success:
-                await asyncio.gather(
+                await collect((
                     org_domain.add_group(org_id, project_name),
                     available_name_domain.remove(project_name, 'group')
-                )
+                ))
                 # Admins are not granted access to the project
                 # they are omnipresent
                 if not is_user_admin:
@@ -1019,12 +1019,10 @@ async def get_users_to_notify(
         project_name: str,
         active: bool = True) -> List[str]:
     users = await get_users(project_name, active)
-    user_roles = await asyncio.gather(*[
-        asyncio.create_task(
-            get_group_level_role(user, project_name)
-        )
+    user_roles = await collect(
+        get_group_level_role(user, project_name)
         for user in users
-    ])
+    )
     return [
         str(user)
         for user in users

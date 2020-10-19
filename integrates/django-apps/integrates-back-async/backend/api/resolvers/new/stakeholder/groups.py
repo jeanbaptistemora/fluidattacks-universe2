@@ -1,9 +1,9 @@
 # Standard
-import asyncio
 from typing import cast, List
 
 # Third party
 from aiodataloader import DataLoader
+from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -18,11 +18,10 @@ async def resolve(
 ) -> List[Group]:
     email: str = cast(str, parent['email'])
 
-    active_task = asyncio.create_task(user_domain.get_projects(email))
-    inactive_task = asyncio.create_task(
+    active, inactive = await collect([
+        user_domain.get_projects(email),
         user_domain.get_projects(email, active=False)
-    )
-    active, inactive = tuple(await asyncio.gather(active_task, inactive_task))
+    ])
     user_groups: List[str] = active + inactive
 
     group_loader: DataLoader = info.context.loaders['group']

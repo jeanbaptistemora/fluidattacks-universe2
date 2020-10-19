@@ -1,9 +1,9 @@
 # Standard
-import asyncio
 from typing import List
 
 # Third party
 from aiodataloader import DataLoader
+from aioextensions import collect
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -29,11 +29,10 @@ async def resolve(
 ) -> List[Group]:
     user_email: str = kwargs['user_email']
 
-    active_task = asyncio.create_task(user_domain.get_projects(user_email))
-    inactive_task = asyncio.create_task(
+    active, inactive = await collect([
+        user_domain.get_projects(user_email),
         user_domain.get_projects(user_email, active=False)
-    )
-    active, inactive = tuple(await asyncio.gather(active_task, inactive_task))
+    ])
     user_groups = active + inactive
 
     group_loader: DataLoader = info.context.loaders['group']

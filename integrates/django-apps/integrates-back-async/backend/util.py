@@ -396,16 +396,16 @@ async def invalidate_cache(*keys_pattern: str) -> int:
 
     This is a very expensive operation so do not use directly.
     """
-    entries_deleted: int = sum(await collect([
+    entries_deleted: int = sum(await collect(
         in_thread(cache.delete_pattern, f'*{key_pattern.lower()}*')
         for key_pattern in keys_pattern
-    ]))
+    ))
 
     return entries_deleted
 
 
 def queue_cache_invalidation(*keys_pattern: str) -> None:
-    asyncio.create_task(invalidate_cache(*keys_pattern))
+    schedule(invalidate_cache(*keys_pattern))
 
 
 def format_cache_keys_pattern(attrs_to_clean: Dict[str, str]) -> List[str]:

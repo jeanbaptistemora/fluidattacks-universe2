@@ -416,10 +416,10 @@ async def mask(project_name: str) -> NamedTuple:
          'environments_result repositories_result')
     )
     list_resources_files = await resources_dal.search_file(f'{project_name}/')
-    are_files_removed = all(await collect([
+    are_files_removed = all(await collect(
         resources_dal.remove_file(file_name)
         for file_name in list_resources_files
-    ]))
+    ))
 
     files_result = await project_dal.update(project_name, {
         'files': [

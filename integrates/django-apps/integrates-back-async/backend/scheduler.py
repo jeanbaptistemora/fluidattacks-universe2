@@ -10,7 +10,6 @@ from decimal import Decimal
 from typing import Callable, Dict, List, Tuple, Union, cast
 import bugsnag
 
-from more_itertools import chunked
 from botocore.exceptions import ClientError
 from aioextensions import collect
 
@@ -82,14 +81,10 @@ def is_a_unsolved_event(event: EventType) -> bool:
 
 async def get_unsolved_events(project: str) -> List[EventType]:
     events = await project_domain.list_events(project)
-    event_list = await asyncio.gather(*[
-        asyncio.create_task(
-            event_domain.get_event(
-                event
-            )
-        )
+    event_list = await collect(
+        event_domain.get_event(event)
         for event in events
-    ])
+    )
     unsolved_events = list(filter(is_a_unsolved_event, event_list))
     return unsolved_events
 
@@ -527,14 +522,10 @@ async def get_remediated_findings() -> None:
     LOGGER.warning(msg, extra=dict(extra=None))
     active_projects = await project_domain.get_active_projects()
     findings = []
-    pending_verification_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            project_domain.get_pending_verification_findings(
-                project
-            )
-        )
+    pending_verification_findings = await collect(
+        project_domain.get_pending_verification_findings(project)
         for project in active_projects
-    ])
+    )
     for project_findings in pending_verification_findings:
         findings += project_findings
 
@@ -584,18 +575,13 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         if project not in test_projects
     ]
     list_drafts = await project_domain.list_drafts(projects)
-    project_drafts = await asyncio.gather(*[
-        asyncio.create_task(
-            finding_domain.get_findings_async(
-                drafts
-            )
-        )
+    project_drafts = await collect(
+        finding_domain.get_findings_async(drafts)
         for drafts in list_drafts
-    ])
-    for project in projects:
+    )
+    for project, finding_requests in zip(projects, project_drafts):
         if project not in test_projects:
             try:
-                finding_requests = project_drafts.pop(0)
                 for finding in finding_requests:
                     if 'releaseDate' not in finding:
                         submission = finding.get('historicState')
@@ -647,12 +633,10 @@ async def send_unsolved_to_all() -> None:
     msg = '[scheduler]: send_unsolved_to_all is running'
     LOGGER.warning(msg, extra=dict(extra=None))
     projects = await project_domain.get_active_projects()
-    await asyncio.gather(*[
-        asyncio.create_task(
-            send_unsolved_events_email(project)
-        )
+    await collect(
+        send_unsolved_events_email(project)
         for project in projects
-    ])
+    )
 
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
@@ -875,15 +859,11 @@ async def reset_expired_accepted_findings() -> None:
         datetime_utils.get_now()
     )
     groups = await project_domain.get_active_projects()
-    # number of groups that can be updated at a time
-    groups_chunks = chunked(groups, 40)
-    for grps_chunk in groups_chunks:
-        await asyncio.gather(*[
-            asyncio.create_task(
-                reset_group_expired_accepted_findings(group_name, today)
-            )
-            for group_name in grps_chunk
-        ])
+    await collect(
+        [reset_group_expired_accepted_findings(group_name, today)
+         for group_name in groups],
+        workers=40
+    )
 
 
 async def delete_pending_projects() -> None:
@@ -892,7 +872,7 @@ async def delete_pending_projects() -> None:
     LOGGER.warning(msg, **NOEXTRA)
     today = datetime_utils.get_now()
     projects = await project_domain.get_pending_to_delete()
-    remove_project_tasks = []
+    remove_project_coroutines = []
     project_names = [
         project.get('project_name', '')
         for project in projects
@@ -912,14 +892,13 @@ async def delete_pending_projects() -> None:
         if deletion_date < today:
             msg = f'- project: {project.get("project_name")} will be deleted'
             LOGGER.info(msg, extra=dict(extra=project))
-            task = asyncio.create_task(
+            remove_project_coroutines.append(
                 project_domain.remove_project(
                     str(project.get('project_name'))
                 )
             )
-            remove_project_tasks.append(task)
             util.queue_cache_invalidation(str(project.get('project_name')))
-    await asyncio.gather(*remove_project_tasks)
+    await collect(remove_project_coroutines)
 
 
 def scheduler_send_mail(
