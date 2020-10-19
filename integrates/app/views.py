@@ -30,6 +30,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from jose import jwt
 from magic import Magic
+from starlette.requests import Request as StarletteRequest
 
 # Local libraries
 from backend import authz, util
@@ -311,7 +312,10 @@ async def graphics_report(request: HttpRequest) -> HttpResponse:
 async def logout(request: HttpRequest) -> HttpResponse:
     """Close a user's active session"""
     try:
-        jwt_cookie = request.COOKIES.get(settings.JWT_COOKIE_NAME)
+        if isinstance(request, StarletteRequest):
+            jwt_cookie = request.cookies.get(settings.JWT_COOKIE_NAME)
+        else:
+            jwt_cookie = request.COOKIES.get(settings.JWT_COOKIE_NAME)
         if jwt_cookie:
             cookie_content = jwt.decode(
                 token=jwt_cookie,
