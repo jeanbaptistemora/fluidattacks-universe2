@@ -73,7 +73,7 @@ class ITReport():
         'RL': 'remediationLevel',
         'RC': 'reportConfidence',
     }
-    row_values: List[Union[str, int, datetime]] = [
+    row_values: List[Union[str, int, float, datetime]] = [
         EMPTY
         for _ in range(len(vulnerability) + 1)
     ]
@@ -122,16 +122,6 @@ class ITReport():
                 Style(size=col_width, alignment=Alignment(wrap_text=True)),
             )
 
-        # this makes that the column for severity get the rigth format
-        self.current_sheet.set_col_style(
-            9,
-            Style(
-                size=13,
-                alignment=Alignment(wrap_text=True),
-                format=Format(0.0),
-            )
-        )
-
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
             list(self.vulnerability.keys())
@@ -157,6 +147,17 @@ class ITReport():
             self.row, Style(
                 size=ROW_HEIGHT,
                 alignment=Alignment(wrap_text=True)
+            )
+        )
+
+        # this makes that the cells for severity get the rigth format
+        self.current_sheet.set_cell_style(
+            self.row,
+            9,
+            Style(
+                size=ROW_HEIGHT,
+                alignment=Alignment(wrap_text=True),
+                format=Format(0.0)
             )
         )
 
@@ -301,7 +302,7 @@ class ITReport():
                 len(compromised_attributes.split('\n'))
             )
         external_bts = finding.get('externalBts', EMPTY)
-        severity = cast(int, finding.get('severityCvss', 0))
+        severity = cast(float, finding.get('severityCvss', 0))
 
         finding_data = {
             'Description': str(finding.get('vulnerability', EMPTY)),
@@ -335,7 +336,7 @@ class ITReport():
             )
         vuln_age_days = int((limit_date - vuln_date).days)
 
-        vuln_temporal_data: Dict[str, Union[str, int, datetime]] = {
+        vuln_temporal_data: Dict[str, Union[str, int, float, datetime]] = {
             'Report Moment': vuln_date,
             'Age in days': vuln_age_days,
             'Close Moment': vuln_close_date
@@ -388,7 +389,7 @@ class ITReport():
                     str(first_treatment_exp_date)
                 )
 
-        current_treatment_data: Dict[str, Union[str, int, datetime]] = {
+        current_treatment_data: Dict[str, Union[str, int, float, datetime]] = {
             'Current Treatment': format_treatment(
                 str(vuln.get('treatment', 'NEW'))
             ),
@@ -400,7 +401,7 @@ class ITReport():
                 vuln.get('treatment_manager', EMPTY)
             ),
         }
-        first_treatment_data: Dict[str, Union[str, int, datetime]] = {
+        first_treatment_data: Dict[str, Union[str, int, float, datetime]] = {
             'First Treatment': str(
                 format_treatment(first_treatment_state.get('treatment', 'NEW'))
             ),
