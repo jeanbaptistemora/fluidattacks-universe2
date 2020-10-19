@@ -1,5 +1,11 @@
 # Standard libraries
-from typing import Any, Awaitable, Callable, Dict, List
+from typing import (
+    Any,
+    Awaitable,
+    Callable,
+    Dict,
+    List,
+)
 # Third party libraries
 import aiohttp
 # Local libraries
@@ -55,32 +61,48 @@ def calculate_interval(last_page_id: int, max_pages: int) -> range:
 # integrated functions
 
 
-async def get_lgu_id(resource: GitlabResource):
-    # temporal function definition
-    if resource:
-        return 0
-    return 0
+async def get_lgu_id(
+    resource: GitlabResource,
+    exe_query: Callable[[str], Any]
+) -> int:
+    return exe_query(
+        "SELECT lgu_id FROM \"gitlab-ci\".upload_state "
+        f"WHERE project='{resource.project}', resource='{resource.resource}'"
+    )
 
 
-async def get_lgu_last_seen_page_id(resource: GitlabResource):
-    # temporal function definition
-    if resource:
-        return 6200
-    return 6200
+async def get_lgu_last_seen_page_id(
+    resource: GitlabResource,
+    exe_query: Callable[[str], Any]
+) -> Dict[str, int]:
+    return exe_query(
+        "SELECT last_seen_page,per_page FROM \"gitlab-ci\".upload_state "
+        f"WHERE project='{resource.project}', resource='{resource.resource}'"
+    )
 
 
 async def get_work_interval(
-    resource: GitlabResource, max_pages: int = 10
+    resource: GitlabResource,
+    exe_query: Callable[[str], Any],
+    max_pages: int = 10
 ) -> range:
-    return calculate_interval(await search_lgu_page(resource), max_pages)
+    return calculate_interval(
+        await search_lgu_page(resource, exe_query),
+        max_pages
+    )
 
 
-async def search_lgu_page(resource: GitlabResource) -> int:
+async def search_lgu_page(
+    resource: GitlabResource,
+    exe_query: Callable[[str], Any]
+) -> int:
     """
     Returns de id of a page where item_id is present
     """
-    target_id: int = await get_lgu_id(resource)
-    last_seen: Dict[str, int] = await get_lgu_last_seen_page_id(resource)
+    target_id: int = await get_lgu_id(resource, exe_query)
+    last_seen: Dict[str, int] = await get_lgu_last_seen_page_id(
+        resource, exe_query
+    )
     log('info', 'Search lgu page started')
     async with aiohttp.ClientSession() as session:
 

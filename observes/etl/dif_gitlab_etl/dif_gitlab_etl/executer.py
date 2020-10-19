@@ -4,11 +4,14 @@ Supports the interface used by cli.
 """
 # Standard libraries
 from typing import (
-    Callable, List,
+    Any, Callable,
+    Dict,
+    List,
     Optional,
 )
 # Third party libraries
 # Local libraries
+from dif_gitlab_etl import db_client
 from dif_gitlab_etl import etl
 from dif_gitlab_etl import page_data
 from dif_gitlab_etl import planner
@@ -16,6 +19,7 @@ from dif_gitlab_etl.api_client import (
     GitlabResource,
     GResourcePageRange,
 )
+from dif_gitlab_etl.db_client import DbState
 from dif_gitlab_etl.etl import ExtractState
 
 
@@ -48,12 +52,22 @@ def extract_range_function() -> Callable[
     return extract_range
 
 
-def start_etl(project):
+def get_statement_executer_function(db_state: DbState) -> Callable[[str], Any]:
+    def statement_exe(statement: str):
+        db_client.execute(db_state, statement)
+    return statement_exe
+
+
+async def start_etl(project, auth: Dict[str, str]):
+    db_state = db_client.make_access_point(auth)
+    stm_executer = get_statement_executer_function(db_state)
     resources: List[GitlabResource] = specific_resources(project)
     for resource in resources:
-        interval: range = planner.get_work_interval(resource)
-        lgu_id: int = planner.get_lgu_id(resource)
-        extract_status: ExtractState = etl.extract_pages_data(
+        interval: range = await planner.get_work_interval(
+            resource, stm_executer
+        )
+        lgu_id: int = await planner.get_lgu_id(resource, stm_executer)
+        etl.extract_pages_data(
             resource_range=GResourcePageRange(
                 g_resource=resource,
                 page_range=interval,
@@ -62,4 +76,4 @@ def start_etl(project):
             last_greatest_uploaded_id=lgu_id,
             extract_range=extract_range_function()
         )
-        etl.upload_data(extract_status.data_pages)
+        # etl.upload_data(data_pages)
