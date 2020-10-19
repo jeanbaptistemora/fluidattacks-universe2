@@ -106,7 +106,7 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
 
   return (
     <React.StrictMode>
-      <Modal open={props.open} headerTitle={title} footer={<div />}>
+      <Modal open={props.open} headerTitle={title}>
         <GenericForm
           name="addUser"
           initialValues={{...initialValues, ...userData }}

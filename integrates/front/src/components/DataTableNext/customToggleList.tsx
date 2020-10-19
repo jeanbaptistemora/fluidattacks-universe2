@@ -38,15 +38,6 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         </Button>
       </TooltipWrapper>
       <Modal
-        footer={
-          // We need className to override default styles from react-bootstrap
-          // eslint-disable-next-line react/forbid-component-props
-          <ButtonToolbar className={"pull-right"}>
-            <Button onClick={handleCloseTableSetClick}>
-              {translate.t("group.findings.report.modal_close")}
-            </Button>
-          </ButtonToolbar>
-        }
         headerTitle={translate.t("group.findings.tableSet.modal_title")}
         open={hidden}
       >
@@ -86,6 +77,15 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
               )}
           </div>
         </Col>
+        <ButtonToolbar
+          // We need className to override default styles from react-bootstrap
+          // eslint-disable-next-line react/forbid-component-props
+          className={"pull-right"}
+        >
+          <Button onClick={handleCloseTableSetClick}>
+            {translate.t("group.findings.report.modal_close")}
+          </Button>
+        </ButtonToolbar>
       </Modal>
     </div>
   );

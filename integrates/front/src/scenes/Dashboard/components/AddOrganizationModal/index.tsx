@@ -117,7 +117,6 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        footer={<div />}
         headerTitle={translate.t("sidebar.newOrganization.modal.title")}
         open={open}
       >

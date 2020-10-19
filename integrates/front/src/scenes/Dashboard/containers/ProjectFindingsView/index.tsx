@@ -374,7 +374,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             />
               <Modal
                 open={isReportsModalOpen}
-                footer={<div />}
                 headerTitle={translate.t("group.findings.report.modal_title")}
               >
                 <Row className={style.modalContainer}>

@@ -197,19 +197,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                 return (
                   <Modal
                     open={true}
-                    footer={
-                      <ButtonToolbar className="pull-right">
-                        <Button onClick={handleClose}>
-                          {translate.t("group.findings.report.modal_close")}
-                        </Button>
-                        <Button
-                          disabled={updateResult.loading || tagsResult.loading}
-                          onClick={handleEditTreatment}
-                        >
-                          {translate.t("confirmmodal.proceed")}
-                        </Button>
-                      </ButtonToolbar>
-                    }
                     headerTitle={translate.t("search_findings.tab_description.editVuln")}
                   >
                   <GenericForm
@@ -300,6 +287,17 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                         </Col>
                       </Row>
                   </GenericForm>
+                  <ButtonToolbar className="pull-right">
+                    <Button onClick={handleClose}>
+                      {translate.t("group.findings.report.modal_close")}
+                    </Button>
+                    <Button
+                      disabled={updateResult.loading || tagsResult.loading}
+                      onClick={handleEditTreatment}
+                    >
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
                   </Modal>
                 );
               }}

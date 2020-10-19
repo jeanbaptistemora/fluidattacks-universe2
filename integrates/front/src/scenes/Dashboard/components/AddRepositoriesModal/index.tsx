@@ -139,7 +139,6 @@ const addRepositoriesModal: React.FC<IAddRepositoriesModalProps> = (props: IAddR
       <Modal
         open={props.isOpen}
         headerTitle={translate.t("search_findings.tab_resources.modal_repo_title")}
-        footer={<div />}
       >
         <GenericForm
           name="addRepos"

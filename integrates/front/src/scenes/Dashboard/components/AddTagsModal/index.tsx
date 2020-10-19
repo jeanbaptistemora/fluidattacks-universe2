@@ -76,7 +76,6 @@ const addTagsModal: React.FC<IAddTagsModalProps> = (props: IAddTagsModalProps): 
       <Modal
         open={props.isOpen}
         headerTitle={translate.t("search_findings.tab_indicators.tags.modal_title")}
-        footer={<div />}
       >
         <GenericForm name="addTags" initialValues={{ tags: [""] }} onSubmit={onSubmit}>
           {({ pristine }: InjectedFormProps): JSX.Element => (

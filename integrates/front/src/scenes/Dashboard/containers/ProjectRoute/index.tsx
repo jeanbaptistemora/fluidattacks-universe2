@@ -128,7 +128,6 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
             <p>{translate.t("route.pendingToDelete")}</p>
           </div>
           <Modal
-            footer={<div />}
             headerTitle={translate.t("search_findings.tab_indicators.cancelGroupDeletion")}
             open={true}
           >

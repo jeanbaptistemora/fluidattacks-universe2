@@ -240,7 +240,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   </Col>
                 </Row>
                 <Modal
-                  footer={<div />}
                   headerTitle={translate.t("group.events.new")}
                   open={isEventModalOpen}
                 >

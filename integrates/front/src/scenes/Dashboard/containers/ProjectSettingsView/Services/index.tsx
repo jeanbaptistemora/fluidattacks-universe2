@@ -302,18 +302,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
               <Modal
                 headerTitle={translate.t("search_findings.services_table.modal.title")}
                 open={isModalOpen}
-                footer={
-                  <ButtonToolbar className="pull-right">
-                    <Button onClick={handleClose}>{translate.t("confirmmodal.cancel")}</Button>
-                    <Button
-                      disabled={!valid}
-                      onClick={handleSubmit}
-                      type="submit"
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ButtonToolbar>
-                }
               >
                 <ControlLabel>{translate.t("search_findings.services_table.modal.changes_to_apply")}</ControlLabel>
                 <Well>
@@ -367,6 +355,16 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 <Alert bsStyle="warning">
                   * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
                 </Alert>
+                <ButtonToolbar className="pull-right">
+                  <Button onClick={handleClose}>{translate.t("confirmmodal.cancel")}</Button>
+                  <Button
+                    disabled={!valid}
+                    onClick={handleSubmit}
+                    type="submit"
+                  >
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
               </Modal>
             </React.Fragment>
           )}

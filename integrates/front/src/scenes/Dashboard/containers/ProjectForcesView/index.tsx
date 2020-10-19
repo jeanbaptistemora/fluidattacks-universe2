@@ -331,7 +331,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                 />
               <Modal
                   bsSize="large"
-                  footer={<div />}
                   headerTitle={translate.t("group.forces.execution_details_modal.title")}
                   open={isExecutionDetailsModalOpen}
                   onClose={closeSeeExecutionDetailsModal}

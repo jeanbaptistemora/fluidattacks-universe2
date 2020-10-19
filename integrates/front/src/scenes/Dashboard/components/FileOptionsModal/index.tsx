@@ -26,7 +26,6 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (props: IFileOptionsM
       <Modal
         open={props.isOpen}
         headerTitle={translate.t("search_findings.tab_resources.modal_options_title")}
-        footer={<div />}
       >
         <Row>
           <Col md={12}>

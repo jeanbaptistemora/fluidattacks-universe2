@@ -212,7 +212,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   </Col>
                 </Row>
                 <Modal
-                  footer={<div />}
                   headerTitle={translate.t("group.drafts.new")}
                   open={isDraftModalOpen}
                 >

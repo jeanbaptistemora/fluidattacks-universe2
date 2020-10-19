@@ -322,7 +322,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       </React.Fragment>
       <Modal
         open={isDeleteModalOpen}
-        footer={<div />}
         headerTitle={translate.t("search_findings.delete.title")}
       >
         <GenericForm name="deleteFinding" onSubmit={handleDelete}>

@@ -103,7 +103,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        footer={<div />}
         headerTitle={translate.t("organization.tabs.groups.newGroup.new.group")}
         onClose={closeNewProjectModal}
         open={isOpen}

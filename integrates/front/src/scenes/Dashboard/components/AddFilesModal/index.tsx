@@ -32,7 +32,6 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        footer={<div />}
         headerTitle={translate.t(
           "search_findings.tab_resources.modal_file_title"
         )}

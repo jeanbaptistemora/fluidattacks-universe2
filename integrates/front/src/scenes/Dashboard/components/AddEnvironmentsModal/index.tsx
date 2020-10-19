@@ -21,7 +21,6 @@ const AddEnvironmentsModal: React.FC<IAddEnvironmentsModalProps> = (
 
   return (
     <Modal
-      footer={<div />}
       headerTitle={translate.t("search_findings.tab_resources.modal_env_title")}
       open={isOpen}
     >

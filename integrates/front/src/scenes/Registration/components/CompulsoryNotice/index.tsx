@@ -23,11 +23,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
   }
 
   return (
-    <Modal
-      footer={<div />}
-      headerTitle={translate.t("legalNotice.title")}
-      open={open}
-    >
+    <Modal headerTitle={translate.t("legalNotice.title")} open={open}>
       <GenericForm
         initialValues={{ remember: false }}
         name={"acceptLegal"}

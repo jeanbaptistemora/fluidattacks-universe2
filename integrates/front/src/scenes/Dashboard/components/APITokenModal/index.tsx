@@ -91,11 +91,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
   }
 
   return (
-    <Modal
-      footer={<div />}
-      headerTitle={translate.t("update_access_token.title")}
-      open={open}
-    >
+    <Modal headerTitle={translate.t("update_access_token.title")} open={open}>
       <GenericForm name={"updateAccessToken"} onSubmit={handleUpdateAPIToken}>
         {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
           <React.Fragment>

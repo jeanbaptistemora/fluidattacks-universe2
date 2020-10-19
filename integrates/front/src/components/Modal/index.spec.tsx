@@ -23,12 +23,7 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal
-        footer={<div />}
-        headerTitle={"Unit test title"}
-        onClose={jest.fn()}
-        open={true}
-      />
+      <Modal headerTitle={"Unit test title"} onClose={jest.fn()} open={true} />
     );
 
     expect(
@@ -44,12 +39,7 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal
-        footer={<div />}
-        headerTitle={"Unit test title"}
-        onClose={jest.fn()}
-        open={true}
-      >
+      <Modal headerTitle={"Unit test title"} onClose={jest.fn()} open={true}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );

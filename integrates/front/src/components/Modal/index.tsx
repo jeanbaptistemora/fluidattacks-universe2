@@ -15,7 +15,7 @@ import {
 interface IModalProps {
   bsSize?: Sizes;
   children?: React.ReactNode;
-  footer: React.ReactNode;
+  footer?: React.ReactNode;
   headerTitle: string;
   open: boolean;
   onClose?: () => void;
@@ -30,7 +30,7 @@ const modal: React.FC<IModalProps> = (
     open,
     headerTitle,
     children,
-    footer,
+    footer = <div />,
     onClose,
     onOpen,
   } = props;

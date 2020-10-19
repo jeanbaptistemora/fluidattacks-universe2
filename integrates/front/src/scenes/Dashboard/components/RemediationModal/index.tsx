@@ -37,7 +37,6 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
       <Modal
         open={props.isOpen}
         headerTitle={props.title}
-        footer={<div />}
       >
         <GenericForm name="updateRemediation" onSubmit={onSubmit}>
           {({ pristine }: InjectedFormProps): JSX.Element => (

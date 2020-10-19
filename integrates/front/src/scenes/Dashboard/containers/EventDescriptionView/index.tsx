@@ -87,7 +87,6 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
           return (
             <React.Fragment>
               <Modal
-                footer={<div />}
                 headerTitle={translate.t("search_findings.tab_severity.solve")}
                 open={isSolvingModalOpen}
               >
