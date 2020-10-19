@@ -1,6 +1,6 @@
 :slug: techniques/sast/
-:description: Fluid Attack's website is a place where you can share your IT opinions. If you want to contribute to our blog, look at our topics of interest here.
-:keywords: Fluid Attacks, Website, Topics, Blog, Opinion, Security, Ethical Hacking, Pentesting
+:description: Here at Fluid Attacks, we perform Static Application Security Testing (SAST) to identify security vulnerabilities in non-running software as soon as possible.
+:keywords: Fluid Attacks, Techniques, SAST, Static, Application, Security, Testing, Ethical Hacking
 :category: techniques
 :banner: sast-bg
 :template: techniques
