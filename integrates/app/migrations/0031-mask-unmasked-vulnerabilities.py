@@ -1,15 +1,13 @@
 """
 This migration mask the unmasked vulns reported on chartio.
-Execution Time:    2020-10-19 15:26:48 UTC-5
-Finalization Time: 2020-10-19 16:08:42 UTC-5
+Execution Time:    2020-10-19 13:20:56 UTC-5
+Finalization Time: 2020-10-19 13:21:24 UTC-5
 """
 
 from asyncio import run
 import os
-from collections import namedtuple
 from typing import (
     List,
-    NamedTuple,
     cast,
 )
 
@@ -25,6 +23,7 @@ STAGE: str = os.environ['STAGE']
 ENVIRONMENT: str = os.environ['ENVIRONMENT']
 
 async def main() -> None:
+    print(f'[INFO] starting migration 0031')
     findings: List[str] = []
     if ENVIRONMENT == 'development':
         findings = ['560175507']  # Mock data on JSON for test
@@ -33,7 +32,8 @@ async def main() -> None:
         vulns = unmask.read().split("\n")
         unmask.close()
         findings = list(set(map(lambda x: x.split(",")[1], vulns[1:-1])))
-        print(findings)
+        for finding in findings:
+            print(f'[INFO] finding {finding} will be masked')
     if STAGE == 'test':
         for finding_id in findings:
             list_vulns = await vuln_domain.list_vulnerabilities_async(
@@ -50,7 +50,7 @@ async def main() -> None:
             for finding_id in findings
         ))
         if are_findings_masked:
-            print(f'[INFO] Migration succesful')
+            print(f'[INFO] Migration successful')
         else:
             print(f'[ERROR] Migration fails')
 
