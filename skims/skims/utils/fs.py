@@ -96,7 +96,10 @@ async def rmdir(name: str) -> None:
 
 
 async def recurse_dir(path: str) -> Tuple[str, ...]:
-    scanner = tuple(os.scandir(path))
+    try:
+        scanner = tuple(os.scandir(path))
+    except FileNotFoundError:
+        scanner = tuple()
 
     dirs = map(attrgetter('path'), filter(methodcaller('is_dir'), scanner))
     files = map(attrgetter('path'), filter(methodcaller('is_file'), scanner))
