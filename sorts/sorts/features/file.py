@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from functools import partial
 from typing import (
+    Dict,
     List,
     NamedTuple,
     Set,
@@ -13,6 +14,7 @@ from typing import (
 import git
 import pytz
 from git.cmd import Git
+from git.exc import GitCommandError
 from pandas import (
     DataFrame,
     Series,
@@ -24,10 +26,7 @@ from utils.logs import (
     log_exception,
 )
 from utils.repositories import (
-    get_file_authors_history,
-    get_file_commit_history,
-    get_file_date_history,
-    get_file_stat_history,
+    get_git_log_metrics,
     parse_git_shortstat,
 )
 
@@ -82,18 +81,24 @@ def get_features(row: Series) -> FileFeatures:
         repo_name: str = os.path.basename(repo_path)
         git_repo: Git = git.Git(repo_path)
         file_relative: str = row['file'].replace(f'{repo_name}/', '', 1)
-        file_age = get_file_age(git_repo, file_relative)
-        midnight_commits = get_midnight_commits(git_repo, file_relative)
-        num_commits = get_num_commits(git_repo, file_relative)
+        git_metrics: Dict[str, List[str]] = get_git_log_metrics(
+            git_repo,
+            file_relative,
+            ['commit_hash', 'author_email', 'date_iso_format', 'stats']
+        )
+        file_age = get_file_age(git_metrics)
+        midnight_commits = get_midnight_commits(git_metrics)
+        num_commits = get_num_commits(git_metrics)
         num_lines = get_num_lines(
             os.path.join(git_repo.working_dir, file_relative)
         )
-        risky_commits = get_risky_commits(git_repo, file_relative)
-        seldom_contributors = get_seldom_contributors(git_repo, file_relative)
-        unique_authors = get_unique_authors(git_repo, file_relative)
+        risky_commits = get_risky_commits(git_metrics)
+        seldom_contributors = get_seldom_contributors(git_metrics)
+        unique_authors = get_unique_authors(git_metrics)
     except (
+        GitCommandError,
         KeyError,
-        ValueError
+        IndexError,
     ) as exc:
         log_exception('info', exc, row=row)
     return FileFeatures(
@@ -109,17 +114,17 @@ def get_features(row: Series) -> FileFeatures:
     )
 
 
-def get_file_age(git_repo: Git, file: str) -> int:
+def get_file_age(git_metrics: Dict[str, List[str]]) -> int:
     """Gets the number of days since the file was created"""
     today: datetime = datetime.now(pytz.utc)
-    commit_date_history: List[str] = get_file_date_history(git_repo, file)
+    commit_date_history: List[str] = git_metrics['date_iso_format']
     file_creation_date: str = commit_date_history[-1]
     return (today - datetime.fromisoformat(file_creation_date)).days
 
 
-def get_num_commits(git_repo: Git, file: str) -> int:
+def get_num_commits(git_metrics: Dict[str, List[str]]) -> int:
     """Gets the number of commits that have modified a file"""
-    commit_history: List[str] = get_file_commit_history(git_repo, file)
+    commit_history: List[str] = git_metrics['commit_hash']
     return len(commit_history)
 
 
@@ -137,30 +142,30 @@ def get_num_lines(file_path: str) -> int:
     return result
 
 
-def get_midnight_commits(git_repo: Git, file: str) -> int:
+def get_midnight_commits(git_metrics: Dict[str, List[str]]) -> int:
     """Gets the number of times a file was modified between 0 AM -6 AM"""
-    commit_date_history: List[str] = get_file_date_history(git_repo, file)
+    commit_date_history: List[str] = git_metrics['date_iso_format']
     commit_hour_history: List[int] = [
         datetime.fromisoformat(date).hour for date in commit_date_history
     ]
     return sum([1 for hour in commit_hour_history if 0 <= hour < 6])
 
 
-def get_risky_commits(git_repo: Git, file: str) -> int:
+def get_risky_commits(git_metrics: Dict[str, List[str]]) -> int:
     """Gets the number of commits which had more than 200 deltas"""
     risky_commits: int = 0
-    commit_stat_history: List[str] = get_file_stat_history(git_repo, file)
+    commit_stat_history: List[str] = git_metrics['stats']
     for stat in commit_stat_history:
-        insertions, deletions = parse_git_shortstat(stat)
+        insertions, deletions = parse_git_shortstat(stat.replace('--', ', '))
         if insertions + deletions > 200:
             risky_commits += 1
     return risky_commits
 
 
-def get_seldom_contributors(git_repo: Git, file: str) -> int:
+def get_seldom_contributors(git_metrics: Dict[str, List[str]]) -> int:
     """Gets the number of authors that contributed below the average"""
     seldom_contributors: int = 0
-    authors_history: List[str] = get_file_authors_history(git_repo, file)
+    authors_history: List[str] = git_metrics['author_email']
     unique_authors: Set[str] = set(authors_history)
     avg_commit_per_author: float = round(
         len(authors_history) / len(unique_authors),
@@ -174,9 +179,9 @@ def get_seldom_contributors(git_repo: Git, file: str) -> int:
 
 
 # TODO: use mailmaps to filter possible noise due to bad git management
-def get_unique_authors(git_repo: Git, file: str) -> Set[str]:
+def get_unique_authors(git_metrics: Dict[str, List[str]]) -> Set[str]:
     """Gets the number of unique authors that modified a file"""
-    authors_history: List[str] = get_file_authors_history(git_repo, file)
+    authors_history: List[str] = git_metrics['author_email']
     return set(authors_history)
 
 

@@ -72,6 +72,37 @@ def get_commit_stats(git_repo: Git, commit: str) -> str:
     return stats
 
 
+def get_git_log_metrics(
+    git_repo: Git,
+    file: str,
+    metrics: List[str]
+) -> Dict[str, List[str]]:
+    """Fetches multiple metrics in one git log command"""
+    git_metrics: Dict[str, List[str]] = {}
+    metrics_git_format: str = translate_metrics_to_git_format(metrics)
+    if 'stats' in metrics:
+        git_log = git_repo.log(
+            '--no-merges',
+            '--follow',
+            '--shortstat',
+            f'--pretty={metrics_git_format}',
+            file
+        ).replace('\n\n ', ',').replace(', ', '--').split('\n')
+    else:
+        git_log = git_repo.log(
+            '--no-merges',
+            '--follow',
+            f'--pretty={metrics_git_format}',
+            file
+        ).split('\n')
+    for idx, metric in enumerate(metrics):
+        metric_log: List[str] = []
+        for record in git_log:
+            metric_log.append(record.split(',')[idx])
+        git_metrics.update({metric: metric_log})
+    return git_metrics
+
+
 def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the author of every commit that modified a file"""
     author_history: str = git_repo.log(
@@ -169,3 +200,18 @@ def test_repo(repo_path: str) -> bool:
     except GitCommandError:
         is_repo_ok = False
     return is_repo_ok
+
+
+def translate_metrics_to_git_format(metrics: List[str]) -> str:
+    """Translates metrics to the format used by git pretty print"""
+    metrics_dict: Dict[str, str] = {
+        'commit_hash': '%H',
+        'author_email': '%ae',
+        'date_iso_format': '%aI'
+    }
+    metric_git_format: str = ','.join([
+        metrics_dict[metric]
+        for metric in metrics
+        if metrics_dict.get(metric)
+    ])
+    return metric_git_format
