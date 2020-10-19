@@ -10,7 +10,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Optional,
     Union,
 )
 import tempfile
@@ -25,6 +24,7 @@ from backend.dal import (
     forces as forces_dal,
 )
 from backend.typing import (
+    ExecutionVulnerabilities,
     ForcesExecution as ForcesExecutionType,
 )
 
@@ -87,7 +87,6 @@ async def get_executions_new(
     from_date: datetime,
     group_name: str,
     to_date: datetime,
-    requested_fields: Optional[Dict[str, Any]] = None,
 ) -> List[ForcesExecutionType]:
     result = []
     async for execution in forces_dal.yield_executions_new(
@@ -95,18 +94,6 @@ async def get_executions_new(
             from_date=from_date,
             to_date=to_date,
     ):
-        requested_fields = requested_fields or {}
-        execution_id = execution['execution_id']
-        # if the request requires data of the vulnerabilities,
-        # it is obtained from s3
-        if {'open', 'closed', 'accepted'}.intersection(
-                requested_fields.get('vulnerabilities', {}).keys()):
-            execution.get('vulnerabilities', {}).update(
-                await forces_dal.get_vulns_execution(group_name, execution_id))
-        # if the request requires the log, it is obtained from s3
-        if 'log' in requested_fields:
-            execution['log'] = await forces_dal.get_log_execution(
-                group_name, execution_id)
         result.append(format_execution(execution))
 
     return result
@@ -116,23 +103,11 @@ async def get_execution(
     *,
     group_name: str,
     execution_id: str,
-    requested_fields: Optional[Dict[str, Any]] = None,
 ) -> ForcesExecutionType:
-    requested_fields = requested_fields or dict()
     execution = await forces_dal.get_execution(
         group_name,
         execution_id,
     )
-    # if the request requires data of the vulnerabilities,
-    # it is obtained from s3
-    if {'open', 'closed', 'accepted'}.intersection(
-            requested_fields.get('vulnerabilities', {}).keys()):
-        execution.get('vulnerabilities', {}).update(
-            await forces_dal.get_vulns_execution(group_name, execution_id))
-    # if the request requires the log, it is obtained from s3
-    if 'log' in requested_fields:
-        execution['log'] = await forces_dal.get_log_execution(
-            group_name, execution_id)
 
     return format_execution(execution)
 
@@ -165,3 +140,17 @@ async def add_forces_execution(*,
             success = await forces_dal.create_execution(
                 project_name=project_name, **execution_attributes)
     return success
+
+
+async def get_vulns_execution(
+    group_name: str,
+    execution_id: str
+) -> ExecutionVulnerabilities:
+    return cast(
+        ExecutionVulnerabilities,
+        await forces_dal.get_vulns_execution(group_name, execution_id)
+    )
+
+
+async def get_log_execution(group_name: str, execution_id: str) -> str:
+    return await forces_dal.get_log_execution(group_name, execution_id)

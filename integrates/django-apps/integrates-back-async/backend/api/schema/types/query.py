@@ -15,6 +15,7 @@ from backend.api.resolvers import (
 from backend.api.resolvers.new.query import (
     event,
     events,
+    forces_execution,
     group,
     groups,
     internal_names,
@@ -33,7 +34,7 @@ QUERY = QueryType()
 QUERY.set_field('event', event.resolve)
 QUERY.set_field('events', events.resolve)
 QUERY.set_field('finding', finding.resolve_finding)
-QUERY.set_field('forcesExecution', forces.resolve_forces_execution)
+QUERY.set_field('forcesExecution', forces_execution.resolve)
 QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
 QUERY.set_field('forcesExecutionsNew', forces.resolve_forces_executions_new)
 QUERY.set_field('internalNames', internal_names.resolve)
