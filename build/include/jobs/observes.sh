@@ -158,11 +158,11 @@ function job_observes_batch_stability {
 function job_observes_code_upload_group_on_aws {
   local group="${1}"
   local vcpus='1'
-  local memory='1800'
+  local memory='3600'
   local attempts='10'
   local timeout='7200'
   local jobname="observes_code_upload_group__${group}"
-  local jobqueue='default'
+  local jobqueue='code_upload'
 
       if test -z "${group}"
       then
@@ -301,11 +301,11 @@ function job_observes_code_mirror_group_to_s3 {
 function job_observes_code_mirror_group_to_s3_on_aws {
   local group="${1}"
   local vcpus='1'
-  local memory='1800'
+  local memory='3600'
   local attempts='10'
   local timeout='3600'
   local jobname="observes_code_mirror_group_to_s3__${group}"
-  local jobqueue='default'
+  local jobqueue='mirror_s3'
 
       if test -z "${group}"
       then
