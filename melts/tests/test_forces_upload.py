@@ -28,14 +28,17 @@ def test__get_exploits_for_finding_1(relocate):
 def test__get_exploits_for_finding_2(relocate):
     assert _get_exploits_for_finding(GROUP, FINDING_BAD) == {}
 
-@pytest.mark.skip(reason="Pending to fix")
 def test__get_exploits_bundles(relocate):
     result = _get_exploits_bundles(GROUP)
 
-    assert sorted(result.keys()) == [
-        '508273958',
+    assert sorted(result.keys()) == ['508273958',
+        '559373251',
+        '568808174',
         '710340580',
         '720412598',
-        '975673437',
+        '731524379',
+        '732607792',
+        '975673437'
     ]
+
     assert all(len(result[exp]) > 0 for exp in result)

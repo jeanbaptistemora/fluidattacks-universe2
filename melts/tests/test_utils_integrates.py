@@ -139,6 +139,8 @@ def test_get_finding_dynamic_states_open():
         ('192.168.1.102', '9999', False),
         ('192.168.1.104', '2222', False),
         ('https://bb.com', 'f', True),
+        ('https://fluidattacks.com', 'HTTP\\Response\\Header\\HSTS', True),
+        ('https://fluidattacks.com', 'HTTP/Response/Header/Server', True),
         ('192.168.1.103', '3333', True),
         ('192.168.1.102', '5555', False),
         ('https://dd.com', 'phonee', False),

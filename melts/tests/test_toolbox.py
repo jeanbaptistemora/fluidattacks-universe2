@@ -36,7 +36,6 @@ def test_toolbox_statefull_functions(relocate_to_cloned_repo):
     finally:
         os.system('git reset --hard HEAD')
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_toolbox_reporting_cycle(relocate):
     """Test reporting cycle."""
     assert forces.sync.are_exploits_synced(SUBS, exp_name=None)
