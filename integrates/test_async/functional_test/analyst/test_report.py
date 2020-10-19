@@ -54,14 +54,14 @@ async def test_report():
 
     query = f'''
         query {{
-            report(reportType: ALL_VULNS) {{
+            report(reportType: ALL_VULNS, projectName: "{group_name}") {{
                 url
             }}
         }}
     '''
     data = {'query': query}
     result = await get_result(data)
-    assert 'url' in result['data']['report']
+    assert result['data']['report'] is None
     assert result['errors'][0]['message'] == 'Access denied'
 
     query = f'''
@@ -73,7 +73,7 @@ async def test_report():
     '''
     data = {'query': query}
     result = await get_result(data)
-    assert 'url' in result['data']['report']
+    assert result['data']['report'] is None
     assert result['errors'][0]['message'] == 'Access denied'
 
     query = f'''

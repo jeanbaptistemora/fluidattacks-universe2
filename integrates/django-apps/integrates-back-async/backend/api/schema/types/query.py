@@ -7,7 +7,6 @@ from ariadne import QueryType
 # Local
 from backend.api.resolvers import (
     finding,
-    report,
     resource,
     vulnerability
 )
@@ -23,6 +22,7 @@ from backend.api.resolvers.new.query import (
     me,
     organization,
     organization_id,
+    report,
     stakeholder,
     tag,
     user_list_groups
@@ -44,7 +44,7 @@ QUERY.set_field('organization', organization.resolve)
 QUERY.set_field('organizationId', organization_id.resolve)
 QUERY.set_field('project', group.resolve)
 QUERY.set_field('projects', groups.resolve)
-QUERY.set_field('report', report.resolve_report)
+QUERY.set_field('report', report.resolve)
 QUERY.set_field('resources', resource.resolve_resources)
 QUERY.set_field('stakeholder', stakeholder.resolve)
 QUERY.set_field('tag', tag.resolve)
