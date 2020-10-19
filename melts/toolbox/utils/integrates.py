@@ -276,15 +276,6 @@ def get_project_findings(project: str) -> Tuple[Tuple[str, str], ...]:
     return result
 
 
-def delete_pending_vulns(finding_id: str) -> bool:
-    """Delete all pending vulnerabilities for a finding."""
-    response = api.integrates.Mutations.approve_vulns(
-        api_token=API_TOKEN,
-        finding_id=finding_id,
-        approval_status=False)
-    return response.data['approveVulnerability']['success']
-
-
 def get_project_repos(project: str) -> List:
     """Return the repositories for a project."""
     repositories: List[str] = []

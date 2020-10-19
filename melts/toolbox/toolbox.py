@@ -426,30 +426,6 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     return True
 
 
-def delete_pending_vulnerabilities(subs: str,
-                                   exp: str = '',
-                                   run_kind: str = 'all'):
-    """Delete pending vulnerabilities for a group."""
-    for _, vulns_path in utils.generic.iter_vulns_path(subs, exp, run_kind):
-        _, finding_id = utils.forces.scan_exploit_for_kind_and_id(vulns_path)
-
-        result = False
-        exp_kind = vulns_path.split('/')[3]
-        if not exp_kind == run_kind and run_kind != 'all':
-            continue
-
-        logger.info(
-            f'deleting: {vulns_path}')
-
-        result = utils.integrates.delete_pending_vulns(
-            finding_id=finding_id)
-
-        if result:
-            logger.info('   ', 'Success')
-        else:
-            logger.info('   ', 'Failed')
-
-
 def report_vulnerabilities(subs: str, vulns_name: str,
                            run_kind: str = 'all') -> bool:
     """Automatically report exploit vulnerabilities to integrates."""

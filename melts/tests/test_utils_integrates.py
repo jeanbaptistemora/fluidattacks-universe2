@@ -6,7 +6,6 @@ from typing import Tuple
 
 # Local imports
 from toolbox.utils.integrates import (
-    delete_pending_vulns,
     does_finding_exist,
     get_finding_attack_vector,
     get_finding_cvss_score,
@@ -239,11 +238,6 @@ def test_get_finding_type():
     """Test utils.get_finding_type."""
     assert get_finding_type(FINDING) == (True, True)
     assert get_finding_type(FINDING_ACCEPTED) == (True, True)
-
-@pytest.mark.skip(reason="Pending to fix")
-def test_delete_pending_vulns():
-    """Test utils.delete_pending_vulns."""
-    assert delete_pending_vulns(FINDING)
 
 
 def test_get_finding_repos():

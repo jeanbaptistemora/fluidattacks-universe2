@@ -67,15 +67,6 @@ def test_integrates_queries_resources():
         project_name=PROJECT)
     assert response.ok
 
-@pytest.mark.skip(reason="Pending to fix")
-def test_integrates_mutations_approve_vulnerability():
-    """Test integrates mutations."""
-    uuid = str(uuid4())
-    response = integrates.Mutations.approve_vulns(
-        API_TOKEN, FINDING, uuid, approval_status=False)
-    assert response.ok
-    assert not response.data['approveVulnerability']['success']
-
 
 def test_integrates_mutations_upload_file():
     """Test integrates mutations."""

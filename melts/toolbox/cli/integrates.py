@@ -32,19 +32,14 @@ def _convert_exploit(ctx, param, value):  # pylint: disable=unused-argument
     callback=utils.generic.is_valid_group)
 @option('--check-token', is_flag=True)
 @option(
-    '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
-@option(
     '--get-static-dict',
     metavar='[<find_id> | all | local]',
     help='execute in group path')
 @option('--report-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
 def integrates_management(kind, group, check_token,
-                          delete_pending_vulns, get_static_dict, report_vulns):
+                          get_static_dict, report_vulns):
     """Perform operations with the Integrates API."""
-    if delete_pending_vulns is not None:
-        sys.exit(0 if toolbox.delete_pending_vulnerabilities(
-            group, delete_pending_vulns, kind) else 1)
-    elif report_vulns:
+    if report_vulns:
         sys.exit(0 if toolbox.report_vulnerabilities(
             group, report_vulns, kind) else 1)
     elif get_static_dict:

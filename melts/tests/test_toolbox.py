@@ -46,8 +46,6 @@ def test_toolbox_reporting_cycle(relocate):
     assert toolbox.get_exps_fragments(SUBS, exp_name=None)
     assert toolbox.report_vulnerabilities(SUBS, vulns_name=None)
 
-    # remove the reported vulnerabilities
-    assert utils.integrates.delete_pending_vulns(FINDING)
 
 def test__get_static_dictionary():
     assert toolbox._get_static_dictionary(FINDING) == {

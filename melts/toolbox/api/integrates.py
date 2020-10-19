@@ -359,35 +359,6 @@ class Mutations:
 
             return request(api_token, body, params)
 
-    @staticmethod
-    def approve_vulns(api_token: str,
-                      finding_id: str,
-                      uuid: str = '',
-                      approval_status: bool = False) -> Response:
-        """ApproveVulnMutation."""
-        logger.debug(f'Mutations.approve_vulns('
-                     f'uuid={uuid}, '
-                     f'finding_id={finding_id}, '
-                     f'approval_status={approval_status})')
-        assert isinstance(uuid, str)
-        assert isinstance(finding_id, str)
-        body: str = """
-            mutation ApproveVulnerability($uuid: String!, $findingId: String!,
-                                          $approvalStatus: Boolean!) {
-                approveVulnerability(uuid: $uuid,
-                                     findingId: $findingId,
-                                     approvalStatus: $approvalStatus) {
-                    success
-                }
-            }
-            """
-        params: dict = {
-            'uuid': uuid,
-            'findingId': finding_id,
-            'approvalStatus': approval_status,
-        }
-        return request(api_token, body, params)
-
 
 # Metadata
 __all__: List[str] = [
