@@ -19,7 +19,6 @@ from backend.typing import Stakeholder
 
 @enforce_organization_level_auth_async
 async def _resolve_for_organization(
-    _parent: None,
     _info: GraphQLResolveInfo,
     email: str,
     organization_id: str,
@@ -42,7 +41,6 @@ async def _resolve_for_organization(
 
 @enforce_group_level_auth_async
 async def _resolve_for_group(
-    _parent: None,
     _info: GraphQLResolveInfo,
     email: str,
     group_name: str,
@@ -68,7 +66,7 @@ async def _resolve_for_group(
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
-    parent: None,
+    _parent: None,
     info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Stakeholder:
@@ -79,7 +77,6 @@ async def resolve(
         org_id: str = kwargs['organization_id']
 
         return await _resolve_for_organization(
-            parent,
             info,
             email,
             organization_id=org_id,
@@ -89,7 +86,6 @@ async def resolve(
         group_name: str = kwargs['project_name'].lower()
 
         return await _resolve_for_group(
-            parent,
             info,
             email,
             group_name=group_name,
