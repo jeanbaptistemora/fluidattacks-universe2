@@ -13,7 +13,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
 from backend import util
-from backend.api.dataloaders.project import ProjectLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
@@ -42,7 +42,7 @@ class ResourceTests(TestCase):
         data = {'query': query}
         request = await create_dummy_session('integratesmanager@gmail.com')
         request.loaders = {
-            'project': ProjectLoader(),
+            'group': GroupLoader(),
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result

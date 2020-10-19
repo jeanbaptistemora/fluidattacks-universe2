@@ -6,7 +6,7 @@ from typing import Any, Dict, List, cast, Union
 from aioextensions import (
     in_thread,
 )
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+from ariadne import convert_kwargs_to_snake_case
 from mixpanel import Mixpanel
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -14,16 +14,14 @@ from backend.decorators import (
     concurrent_decorators,
     require_login,
     require_integrates,
-    enforce_group_level_auth_async, get_entity_cache_async
+    enforce_group_level_auth_async
 )
 from backend.domain import resources
 from backend.typing import (
     Resource as ResourceType,
-    Resources as ResourcesType,
     DownloadFilePayload as DownloadFilePayloadType,
     SimplePayload as SimplePayloadType,
 )
-from backend.exceptions import InvalidProject
 from backend.utils import virus_scan
 from backend import util
 
@@ -49,98 +47,6 @@ def _clean_resources_cache(project_name: str) -> None:
         f'tags*{project_name}',
         f'subscription*{project_name}',
     )
-
-
-@get_entity_cache_async
-async def _get_project_name(_: GraphQLResolveInfo, project_name: str) -> str:
-    """Get project_name."""
-    return project_name
-
-
-@get_entity_cache_async
-async def _get_repositories(
-        info: GraphQLResolveInfo,
-        project_name: str) -> List[ResourceType]:
-    """Get repositories."""
-    project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    project_info = cast(Dict[str, List[ResourceType]], project_attrs)
-    return project_info.get('repositories', [])
-
-
-@get_entity_cache_async
-async def _get_environments(
-        info: GraphQLResolveInfo,
-        project_name: str) -> List[ResourceType]:
-    """Get environments."""
-    project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    project_info = cast(Dict[str, List[ResourceType]], project_attrs)
-    return project_info.get('environments', [])
-
-
-@get_entity_cache_async
-async def _get_files(
-        info: GraphQLResolveInfo,
-        project_name: str) -> List[ResourceType]:
-    """Get files."""
-    project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    project_info = cast(Dict[str, List[ResourceType]], project_attrs)
-    return project_info.get('files', [])
-
-
-async def _resolve_fields(
-        info: GraphQLResolveInfo,
-        project_name: str) -> ResourcesType:
-    """Async resolve fields."""
-    result: ResourcesType = dict(
-        repositories=list(),
-        environments=list(),
-        files=list()
-    )
-    project_name = project_name.lower()
-
-    project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-
-    project_exist = project_attrs.get('project_name', '')
-    if not project_exist:
-        raise InvalidProject
-    for requested_field in info.field_nodes[0].selection_set.selections:
-        if util.is_skippable(info, requested_field):
-            continue
-        params = {
-            'project_name': project_name
-        }
-        field_params = util.get_field_parameters(requested_field)
-        if field_params:
-            params.update(field_params)
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        if requested_field.startswith('_'):
-            continue
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(info, **params)
-    return result
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def resolve_resources(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str) -> ResourcesType:
-    """Resolve resources query."""
-    return await _resolve_fields(info, project_name)
 
 
 @convert_kwargs_to_snake_case  # type: ignore

@@ -28,6 +28,8 @@ def format_group(group: Group) -> Group:
             if 'historic_deletion' in group else ''
         ),
         'description': group.get('description', ''),
+        'environments': group.get('environments', []),
+        'files': group.get('files', []),
         'has_drills': historic_configuration[-1]['has_drills'],
         'has_forces': historic_configuration[-1]['has_forces'],
         'has_integrates': group['project_status'] == 'ACTIVE',
@@ -59,6 +61,7 @@ def format_group(group: Group) -> Group:
         'name': group['project_name'],
         'open_findings': group.get('open_findings', 0),
         'open_vulnerabilities': group.get('open_vulnerabilities', 0),
+        'repositories': group.get('repositories', []),
         'subscription': historic_configuration[-1]['type'],
         'tags': group.get('tag', []),
         'total_treatment': group.get('total_treatment', {}),
