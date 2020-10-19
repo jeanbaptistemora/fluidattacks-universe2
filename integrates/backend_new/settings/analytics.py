@@ -1,0 +1,6 @@
+from __init__ import (
+    FI_MIXPANEL_API_TOKEN
+)
+
+
+MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
