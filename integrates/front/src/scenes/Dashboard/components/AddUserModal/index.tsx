@@ -8,15 +8,21 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Field } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { Modal } from "components/Modal/index";
-import { default as style } from "scenes/Dashboard/components/AddUserModal/index.css";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { IAddStakeholderModalProps, IStakeholderDataAttr } from "scenes/Dashboard/components/AddUserModal/types";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  ButtonToolbar,
+  Col100,
+  ControlLabel,
+  FormGroup,
+  RequiredField,
+  Row,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Dropdown, PhoneNumber, Text } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -24,7 +30,6 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { required, validEmail, validTextField } from "utils/validations";
 
-const requiredIndicator: JSX.Element = <label className={style.lbl}>* </label>;
 const userLevelRoles: string[] = [
   "admin",
   "customer",
@@ -113,9 +118,12 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
           onSubmit={onSubmit}
         >
           <Row>
-            <Col md={12} sm={12}>
+            <Col100>
               <FormGroup>
-                <ControlLabel>{requiredIndicator}{translate.t("userModal.emailText")}</ControlLabel>
+                <ControlLabel>
+                  <RequiredField>{"* "}</RequiredField>
+                  {translate.t("userModal.emailText")}
+                </ControlLabel>
                 <Field
                   name="email"
                   component={Text}
@@ -127,7 +135,10 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
                 />
               </FormGroup>
               <FormGroup>
-                <ControlLabel>{requiredIndicator}{translate.t("userModal.role")}</ControlLabel>
+                <ControlLabel>
+                  <RequiredField>{"* "}</RequiredField>
+                  {translate.t("userModal.role")}
+                </ControlLabel>
                 <Field name="role" component={Dropdown} validate={[required]}>
                   <option value="" />
                   {(groupModal ? groupLevelRoles : []).map((role: string) => (
@@ -154,7 +165,7 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
               {props.projectName !== undefined ? (
                 <FormGroup>
                   <ControlLabel>
-                    {requiredIndicator}
+                    <RequiredField>{"* "}</RequiredField>
                     {translate.t("userModal.responsibility")}
                   </ControlLabel>
                   <Field
@@ -170,13 +181,13 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
                 <ControlLabel>{translate.t("userModal.phoneNumber")}</ControlLabel>
                 <Field name="phoneNumber" component={PhoneNumber} type="text" />
               </FormGroup>
-            </Col>
-            <Col md={12} sm={12}>
+            </Col100>
+            <Col100>
               <ButtonToolbar className="pull-right">
                 <Button onClick={onClose}>{translate.t("confirmmodal.cancel")}</Button>
                 <Button type="submit">{translate.t("confirmmodal.proceed")}</Button>
               </ButtonToolbar>
-            </Col>
+            </Col100>
           </Row>
         </GenericForm>
       </Modal>
