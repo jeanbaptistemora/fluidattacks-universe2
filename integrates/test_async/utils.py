@@ -25,7 +25,8 @@ def create_dummy_simple_session(
 
 
 async def create_dummy_session(
-    username: str = 'unittest'
+    username: str = 'unittest',
+    session_jwt=None
 ) -> HttpResponseBase:
     request = create_dummy_simple_session(username)
     payload = {
@@ -42,6 +43,9 @@ async def create_dummy_session(
         algorithm='HS512',
         key=settings.JWT_SECRET,
     )
-    request.COOKIES[settings.JWT_COOKIE_NAME] = token
-    await util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    if session_jwt:
+        request.META['HTTP_AUTHORIZATION'] = f'Bearer {session_jwt}'
+    else: 
+        request.COOKIES[settings.JWT_COOKIE_NAME] = token
+        await util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     return request

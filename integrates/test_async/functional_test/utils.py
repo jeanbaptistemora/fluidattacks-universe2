@@ -22,9 +22,9 @@ async def complete_all_user_access():
         await user_domain.complete_user_register(urltoken[len(prefix):])
 
 
-async def get_graphql_result(data, stakeholder):
+async def get_graphql_result(data, stakeholder, session_jwt=None):
     """Get graphql result."""
-    request = await create_dummy_session(stakeholder)
+    request = await create_dummy_session(stakeholder, session_jwt)
     request.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),
