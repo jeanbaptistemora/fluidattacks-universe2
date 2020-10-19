@@ -26,9 +26,9 @@ module "eks" {
     {
       name                 = "large"
       instance_type        = "m5a.large"
-      asg_min_size         = 7
-      asg_desired_capacity = 7
-      asg_max_size         = 7
+      asg_min_size         = 8
+      asg_desired_capacity = 8
+      asg_max_size         = 8
       root_volume_type     = "gp2"
       root_volume_size     = "50"
       kubelet_extra_args   = "--node-labels=worker_group=large"
