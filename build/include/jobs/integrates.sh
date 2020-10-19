@@ -649,6 +649,22 @@ function job_integrates_serve_minio_local {
   ||  return 1
 }
 
+function job_integrates_probes_local {
+      helper_integrates_probe_aws_credentials \
+  &&  helper_integrates_probe_curl_localhost
+}
+
+function job_integrates_probes_ephemeral_readiness {
+      helper_integrates_probe_aws_credentials \
+  &&  helper_integrates_probe_curl_localhost
+}
+
+function job_integrates_probes_ephemeral_liveness {
+        helper_integrates_probe_aws_credentials \
+  &&  helper_integrates_probe_curl_localhost \
+  &&  helper_integrates_probe_curl_ephemeral
+}
+
 function job_integrates_serve_local {
 
   trap 'helper_common_kill_attached_processes 5' SIGINT
@@ -659,6 +675,7 @@ function job_integrates_serve_local {
     &&  helper_integrates_serve_back_new \
           'dev' \
           'fluidintegrates.asgi:APP' \
+          'fluidintegrates.asgi.IntegratesWorker' \
     &&  helper_integrates_serve_front \
     &&  helper_integrates_serve_redis \
     &&  wait \
@@ -676,6 +693,7 @@ function job_integrates_serve_ephemeral {
     &&  helper_integrates_serve_back_new \
           'dev' \
           'fluidintegrates.asgi:APP' \
+          'fluidintegrates.asgi.IntegratesWorker' \
     &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \

@@ -11,4 +11,4 @@ COPY . .
 RUN     nix-shell --run ':' "${PROVISIONER}" \
     &&  nix-store --optimise
 
-ENV FI_VERSION ${VERSION}
+ENV FI_VERSION="${VERSION}"

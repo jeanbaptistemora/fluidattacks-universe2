@@ -23,7 +23,8 @@ function helper_integrates_aws_login {
   &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
   &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set region 'us-east-1'
 }
 
 function helper_integrates_set_dev_secrets {
@@ -124,10 +125,10 @@ function helper_integrates_serve_dynamo {
 function helper_integrates_serve_back_new {
   local environment="${1}"
   local app="${2}"
+  local worker_class="${3}"
   local host='0.0.0.0'
   local https_port='8080'
   local workers='5'
-  local worker_class='fluidintegrates.asgi.IntegratesWorker'
   local common_args=(
     --timeout "3600"
     --workers "${workers}"
@@ -181,6 +182,36 @@ function helper_integrates_serve_minio {
   &&  aws s3 sync "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
         "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!"
+}
+
+function helper_integrates_probe_aws_credentials {
+  if aws sts get-caller-identity | grep -q 'integrates-dev'
+  then
+    echo '[INFO] Passed: test_aws_credentials'
+  else
+        echo '[ERROR] AWS credentials could not be validated.' \
+    &&  return 1
+  fi
+}
+
+function helper_integrates_probe_curl_localhost {
+  if curl -sSiLk https://localhost:8080 | grep -q 'FluidIntegrates'
+  then
+    echo '[INFO] Passed: test_curl_localhost'
+  else
+        echo '[ERROR] Localhost curl failed.' \
+    &&  return 1
+  fi
+}
+
+function helper_integrates_probe_curl_ephemeral {
+  if curl -sSiL "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
+  then
+    echo '[INFO] Passed: test_curl_ephemeral'
+  else
+        echo '[ERROR] Ephemeral curl failed.' \
+    &&  return 1
+  fi
 }
 
 function helper_set_local_dynamo_and_redis {
