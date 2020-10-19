@@ -435,10 +435,10 @@ function job_observes_gitlab_etl_lint {
 }
 
 function job_observes_gitlab_etl_test {
-
+  local python="${EtlGitlab}"/bin/python
       pushd observes \
     &&  env_prepare_python_packages \
-    &&  helper_observes_test_generic_package "./etl/dif_gitlab_etl" \
+    &&  helper_observes_test_generic_package "./etl/dif_gitlab_etl" "${python} -m" \
   &&  popd \
   ||  return 1
 }

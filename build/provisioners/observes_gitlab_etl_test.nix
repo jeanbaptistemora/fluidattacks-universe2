@@ -12,7 +12,7 @@ in
 
           buildInputs = [
             pkgs.git
-            pkgs.python38Packages.poetry
+            pkgs.python38
           ];
 
           pyPkgMypy = builders.pythonPackage {
@@ -23,24 +23,9 @@ in
             requirement = "prospector==1.3.0";
           };
 
-          pyPkgPytest = builders.pythonPackage {
-            requirement = "pytest==6.1.0";
-          };
-
-          pyPkgEtlGitlab = builders.pythonPackageLocal {
-            path = ../../observes/etl/dif_gitlab_etl;
-          };
-
-          pyPkgStreamerGitlab = builders.pythonPackageLocal {
-            path = ../../observes/singer/streamer_gitlab;
-          };
-
-          pyPkgTapJson = builders.pythonPackageLocal {
-            path = ../../observes/singer/tap_json;
-          };
-
-          pyPkgTargetRedshift = builders.pythonPackageLocal {
-            path = ../../observes/singer/target_redshift;
+          EtlGitlab = pkgs.poetry2nix.mkPoetryEnv {
+            projectDir = ../../observes/etl/dif_gitlab_etl;
+            python = pkgs.python38;
           };
 
         })

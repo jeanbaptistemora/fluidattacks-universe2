@@ -367,10 +367,11 @@ function helper_observes_lint_generic_package {
 
 function helper_observes_test_generic_package {
   local path="${1}"
+  local python_i="${2:-}"
 
       echo "[INFO] Testing python package: ${path}" \
   &&  pushd "${path}" \
-    &&  pytest "tests" \
+    &&  $python_i pytest "tests" \
   &&  popd
 }
 
