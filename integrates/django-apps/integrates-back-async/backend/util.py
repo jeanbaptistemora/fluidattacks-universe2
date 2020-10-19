@@ -47,7 +47,6 @@ from graphql.language.ast import (
     StringValueNode,
     VariableNode
 )
-from graphql.type.definition import GraphQLResolveInfo
 from jose import jwt, JWTError
 from magic import Magic
 
@@ -568,23 +567,6 @@ def get_requested_fields(field_name: str, selection_set: SelectionSetNode) -> \
     except IndexError:
         selections = []
     return selections
-
-
-def get_requested_fields_ast(
-        info: Union[GraphQLResolveInfo,
-                    FieldNode]) -> Dict[str, Any]:
-    """Get an AST from requested fields."""
-    ast: Dict[str, Any] = dict()
-    if isinstance(info, GraphQLResolveInfo):
-        for field in info.field_nodes:
-            ast[field.name.value] = get_requested_fields_ast(field)
-    elif isinstance(info, FieldNode):
-        try:
-            for field in info.selection_set.selections:
-                ast[field.name.value] = get_requested_fields_ast(field)
-        except AttributeError:
-            return {}
-    return ast
 
 
 @apm.trace()

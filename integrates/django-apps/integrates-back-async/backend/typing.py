@@ -79,6 +79,7 @@ ForcesExecution = Dict[str, Union[
 ForcesExecutions = Dict[str, Union[
     str,
     List[ForcesExecution],
+    datetime,
     None
 ]]
 Me = Dict[str, Union[

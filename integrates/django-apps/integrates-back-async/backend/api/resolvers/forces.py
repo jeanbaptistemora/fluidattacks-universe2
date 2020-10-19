@@ -14,7 +14,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    get_entity_cache_async,
     require_forces,
     require_integrates,
     require_login,
@@ -152,58 +151,6 @@ async def resolve_forces_executions(
     from_date = from_date or datetime_utils.get_now_minus_delta(weeks=1)
     to_date = to_date or datetime_utils.get_now()
     return await _resolve_fields(info, project_name, from_date, to_date)
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def resolve_forces_executions_new(
-        _: Any,
-        _info: GraphQLResolveInfo,
-        project_name: str,
-        from_date: Union[datetime, None] = None,
-        to_date: Union[datetime, None] = None) -> ForcesExecutionsType:
-    """Resolve forces_executions query."""
-    project_name = project_name.lower()
-    from_date = from_date or datetime_utils.get_now_minus_delta(weeks=1)
-    to_date = to_date or datetime_utils.get_now()
-
-    result = await forces_domain.get_executions_new(
-        from_date=from_date,
-        to_date=to_date,
-        group_name=project_name,
-    )
-    return cast(
-        ForcesExecutionsType, {
-            'project_name': project_name,
-            'from_date': from_date,
-            'to_date': to_date,
-            'executions': result
-        })
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@get_entity_cache_async
-async def resolve_forces_execution(
-    _: Any,
-    _info: GraphQLResolveInfo,
-    project_name: str,
-    execution_id: str,
-) -> ForcesExecutionType:
-    """Resolve forces_executions query."""
-    project_name = project_name.lower()
-    return await forces_domain.get_execution(
-        execution_id=execution_id,
-        group_name=project_name,
-    )
 
 
 @convert_kwargs_to_snake_case
