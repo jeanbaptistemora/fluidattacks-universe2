@@ -41,7 +41,6 @@ distutils.core.setup(
         'toolbox.drills',
         'toolbox.forces',
         'toolbox.generic',
-        'toolbox.sorts',
         'toolbox.utils',
         'toolbox.reports'
     ],

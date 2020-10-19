@@ -1,10 +1,10 @@
 # Standard libraries
 from typing import Dict, Any, List
 from datetime import datetime
-from pytz import UTC
 
 # Third party libraries
 import boto3
+from pytz import UTC
 
 
 def calculate_days_ago(date: datetime) -> int:

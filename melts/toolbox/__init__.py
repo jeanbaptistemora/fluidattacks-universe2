@@ -9,7 +9,6 @@ from toolbox import (
     logger,
     reports,
     toolbox,
-    sorts,
     drills,
 )
 
@@ -20,7 +19,6 @@ assert constants
 assert logger
 assert reports
 assert toolbox
-assert sorts
 assert drills
 
 if not sys.warnoptions:

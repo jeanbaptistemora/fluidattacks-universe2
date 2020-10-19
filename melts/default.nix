@@ -12,11 +12,9 @@ in
       pkgs.python37
       pkgs.openvpn
       pkgs.python37Packages.pip
-      overridenPandas
     ];
 
     requirements = builders.pythonRequirements ./requirements.txt;
-    overridenPandas = pkgs.python3Packages.pandas;
 
     pyPkgUtilities = builders.pythonPackageLocal {
         path = ../melts/extra-packages/utilities;
