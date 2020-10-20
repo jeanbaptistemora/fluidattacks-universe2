@@ -453,6 +453,10 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/java.properties', '4'),
             ('test/data/lib_path/f052/java.properties', '6'),
         )),
+        ('F055_AWS', 'SUBMITTED',(
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml', '6'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json', '6')
+        )),
         ('F060', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),
             ('test/data/lib_path/f060/csharp.cs', '2'),
@@ -539,6 +543,7 @@ async def test_correct_nothing_to_do_assert(
         ('F037', 'SUBMITTED', ()),
         ('F047_AWS', 'SUBMITTED', ()),
         ('F052', 'APPROVED', ()),
+        ('F055_AWS', 'SUBMITTED', ()),
         ('F060', 'APPROVED', ()),
         ('F061', 'APPROVED', ()),
         ('F073', 'APPROVED', ()),

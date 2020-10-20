@@ -1,0 +1,16 @@
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: SKIMS-EXAMPLE-BUCKET
+  EncryptedS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+              KMSMasterKeyID: KMS-KEY-ARN
+    DeletionPolicy: Delete

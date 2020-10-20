@@ -1,3 +1,6 @@
+utils.model.finding.enum.F055_AWS.unencrypted_buckets:
+  en: S3 buckets do not use server-side encryption.
+  es: Los buckets S3 no usan cifrado del lado del servidor.
 utils.model.finding.enum.F055_AWS.description:
   en: >
     The service uses insecure configurations that could compromise the data and
@@ -28,5 +31,5 @@ utils.model.finding.enum.F055_AWS.threat:
   en: Internal attacker with access to the configuration.
   es: Atacante intnterno con acceso a la configuración.
 utils.model.finding.enum.F055_AWS.title:
-  en: FIN.H.055. Insecure service configuration - AWS
-  es: FIN.H.055. Configuración insegura del servicio - AWS
+  en: FIN.S.055. Insecure service configuration - AWS
+  es: FIN.S.055. Configuración insegura del servicio - AWS

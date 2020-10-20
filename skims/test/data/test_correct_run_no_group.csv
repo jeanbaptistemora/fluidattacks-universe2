@@ -1,4 +1,6 @@
 cwe,title,what,where
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,16
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,22
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,29

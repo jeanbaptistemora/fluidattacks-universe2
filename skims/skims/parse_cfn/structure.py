@@ -85,3 +85,10 @@ def iter_ec2_ingress_egress(
             yield props
         elif egress and kind.raw == 'AWS::EC2::SecurityGroupEgress':
             yield props
+
+
+def iter_s3_buckets(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, kind, props in iterate_resources(template, 'AWS::S3::Bucket')
+        if kind.raw == 'AWS::S3::Bucket')
