@@ -314,6 +314,7 @@ class ProjectTest(TestCase):
             'integratesmanager@gmail.com',
             'unittest@fluidattacks.com',
             'unittest2@fluidattacks.com',
+            'integratesexecutive@gmail.com',
             'integratescustomer@gmail.com',
             'integratesuser@gmail.com',
             'integratesanalyst@fluidattacks.com',
