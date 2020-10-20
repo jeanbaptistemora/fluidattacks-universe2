@@ -1,5 +1,4 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { CircularProgressbar } from "react-circular-progressbar";
 /* tslint:disable-next-line: no-submodule-imports
  * Necessary because react-circular-progressbar doesn't export its props indexed
@@ -11,6 +10,14 @@ import { default as failIcon } from "resources/fail.svg";
 import { default as okIcon } from "resources/ok.svg";
 import { default as vulnerabilitiesIcon } from "resources/vulnerabilities.svg";
 import { default as style } from "scenes/Dashboard/components/FindingHeader/index.css";
+import {
+  Col100,
+  FindingHeaderDetail,
+  FindingHeaderGrid,
+  FindingHeaderIndicator,
+  FindingHeaderLabel,
+  Row,
+} from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
@@ -53,58 +60,60 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
 
   return (
     <React.StrictMode>
-      <Row className={style.container}>
-        <Col md={12}>
-          <Col md={3}>
-            <Row>
-              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+      <Row>
+        <Col100>
+          <FindingHeaderGrid>
+            <div>
+              <FindingHeaderDetail>
                 <CircularProgressbar
                   value={props.severity / 10 * 100}
                   text={`${props.severity}`}
                   styles={{ text: { fill: severityColor }, path: { stroke: severityColor } }}
                   classes={severityStyles}
                 />
-              </Col>
-              <Col md={9} sm={6} xs={6}>
-                <p>{translate.t("search_findings.severityLabel")}</p>
-                <p className={style.highlightedIndicator}><b>{severityText}</b></p>
-              </Col>
-            </Row>
-          </Col>
-          <Col md={3}>
-            <Row>
-              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+              </FindingHeaderDetail>
+              <FindingHeaderDetail>
+                <FindingHeaderLabel>
+                  {translate.t("search_findings.severityLabel")}
+                </FindingHeaderLabel>
+                <FindingHeaderIndicator><b>{severityText}</b></FindingHeaderIndicator>
+              </FindingHeaderDetail>
+            </div>
+            <div>
+              <FindingHeaderDetail>
                 <img src={statusIcon} width={45} height={45} />
-              </Col>
-              <Col md={9} sm={6} xs={6}>
-                <p>{translate.t("search_findings.statusLabel")}</p>
-                <p className={style.highlightedIndicator}><b>{statusText}</b></p>
-              </Col>
-            </Row>
-          </Col>
-          <Col md={3}>
-            <Row>
-              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+              </FindingHeaderDetail>
+              <FindingHeaderDetail>
+                <FindingHeaderLabel>
+                  {translate.t("search_findings.statusLabel")}
+                </FindingHeaderLabel>
+                <FindingHeaderIndicator><b>{statusText}</b></FindingHeaderIndicator>
+              </FindingHeaderDetail>
+            </div>
+            <div>
+              <FindingHeaderDetail>
                 <img src={vulnerabilitiesIcon} width={45} height={45} />
-              </Col>
-              <Col md={9} sm={6} xs={6}>
-                <p>{translate.t("search_findings.openVulnsLabel")}</p>
-                <p className={style.highlightedIndicator}>{props.openVulns}</p>
-              </Col>
-            </Row>
-          </Col>
-          <Col md={3}>
-            <Row>
-              <Col md={3} sm={6} xs={6} className={style.headerIcon}>
+              </FindingHeaderDetail>
+              <FindingHeaderDetail>
+                <FindingHeaderLabel>
+                  {translate.t("search_findings.openVulnsLabel")}
+                </FindingHeaderLabel>
+                <FindingHeaderIndicator>{props.openVulns}</FindingHeaderIndicator>
+              </FindingHeaderDetail>
+            </div>
+            <div>
+              <FindingHeaderDetail>
                 <img src={calendarIcon} width={40} height={40} />
-              </Col>
-              <Col md={9} sm={6} xs={6}>
-                <p>{translate.t("search_findings.reportDateLabel")}</p>
-                <p className={style.highlightedIndicator}>{props.reportDate}</p>
-              </Col>
-            </Row>
-          </Col>
-        </Col>
+              </FindingHeaderDetail>
+              <FindingHeaderDetail>
+                <FindingHeaderLabel>
+                  {translate.t("search_findings.reportDateLabel")}
+                </FindingHeaderLabel>
+                <FindingHeaderIndicator>{props.reportDate}</FindingHeaderIndicator>
+              </FindingHeaderDetail>
+            </div>
+          </FindingHeaderGrid>
+        </Col100>
       </Row>
     </React.StrictMode>
   );

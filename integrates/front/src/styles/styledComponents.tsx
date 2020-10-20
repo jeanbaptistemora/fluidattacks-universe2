@@ -89,6 +89,34 @@ const EventHeaderLabel: StyledComponent<
   className: "ph3 tc",
 })``;
 
+const FindingHeaderDetail: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "ph1-5 tc",
+})``;
+
+const FindingHeaderGrid: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "grid ph4 menu-grid",
+})``;
+
+const FindingHeaderIndicator: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: "f2",
+})``;
+
+const FindingHeaderLabel: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: "mb0",
+})``;
+
 const FormGroup: StyledComponent<
   "form",
   Record<string, unknown>
@@ -288,6 +316,10 @@ export {
   ControlLabel,
   EventHeaderGrid,
   EventHeaderLabel,
+  FindingHeaderDetail,
+  FindingHeaderGrid,
+  FindingHeaderIndicator,
+  FindingHeaderLabel,
   FormGroup,
   Label,
   Meter,
