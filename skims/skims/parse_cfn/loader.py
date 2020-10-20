@@ -7,7 +7,6 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     in_process,
-    in_thread,
 )
 from cfn_tools.yaml_loader import (
     construct_mapping,
@@ -184,7 +183,7 @@ async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
                                            == Type.ARRAY) else [templates]:
             yield template
     except MetaloaderError as exc:
-        in_thread(log_exception, 'error', exc)
+        await log_exception('error', exc)
         return
 
 
