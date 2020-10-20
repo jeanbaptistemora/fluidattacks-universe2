@@ -47,13 +47,23 @@ effort to achieve a negative technical impact.
 Utilize centrally managed anti-malware software to continuously monitor and
 defend each of the organization’s workstations and servers.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints]
+. [[r6]] link:https://www.cisecurity.org/controls/[CIS Controls. 9.4 Apply Host-Based Firewalls or Port-Filtering].
+Apply host-based firewalls or port-filtering tools on end systems,
+with a default-deny rule that drops all traffic except those services and ports
+that are explicitly allowed.
+
+. [[r7]] link:https://www.cisecurity.org/controls/[CIS Controls. 9.5 Implement Application Firewalls].
+Place application firewalls in front of any critical servers to verify and
+validate the traffic going to the server.
+Any unauthorized traffic should be blocked and logged.
+
+. [[r8]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints]
 The software establishes a communication channel to (or from) an endpoint for
 privileged or protected operations,
 but it does not properly ensure that it is communicating with the correct
 endpoint.
 
-. [[r7]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
+. [[r9]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
 Each Responsible Entity shall implement,
 except under CIP Exceptional Circumstances,
 one or more plan(s) to achieve the objective of mitigating the risk of the
@@ -61,22 +71,22 @@ introduction of malicious code to low impact BES Cyber Systems.
 The plan(s) shall include antivirus software,
 or other method(s) to mitigate the introduction of malicious code.
 
-. [[r8]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.5]
+. [[r10]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.5]
 Have one or more methods for detecting known or suspected malicious
 communications for both inbound and outbound communications.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.1)]
 Verify the application does not use unsupported, insecure, or deprecated
 client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
 *ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
 
-. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
 Deploy anti-virus software on all systems commonly affected by malicious
 software
 (particularly personal computers and servers).
