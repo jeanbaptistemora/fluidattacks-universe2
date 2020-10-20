@@ -693,6 +693,27 @@ function job_integrates_serve_local {
   ||  return 1
 }
 
+function job_integrates2_serve_local {
+
+  trap 'helper_common_kill_attached_processes 5' SIGINT
+
+      helper_common_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_serve_front \
+    &&  helper_integrates_serve_back_new \
+          'https' \
+          'dev' \
+          'backend_new.app:APP' \
+          'uvicorn.workers.UvicornWorker' \
+          '5' \
+          '0.0.0.0' \
+          '8080' \
+    &&  wait \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_serve_ephemeral {
 
   trap 'helper_common_kill_attached_processes 5' SIGINT
@@ -710,6 +731,26 @@ function job_integrates_serve_ephemeral {
           '0.0.0.0' \
           '8000' \
     &&  helper_integrates_serve_redis \
+    &&  wait \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates2_serve_ephemeral {
+
+  trap 'helper_common_kill_attached_processes 5' SIGINT
+
+      helper_common_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_serve_back_new \
+          'http' \
+          'dev' \
+          'backend_new.app:APP' \
+          'uvicorn.workers.UvicornWorker' \
+          '5' \
+          '0.0.0.0' \
+          '8000' \
     &&  wait \
   &&  popd \
   ||  return 1
