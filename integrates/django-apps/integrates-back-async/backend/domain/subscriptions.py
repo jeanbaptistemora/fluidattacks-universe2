@@ -18,6 +18,7 @@ from backend import (
     mailer,
 )
 from backend.dal import (
+    project as group_dal,
     subscriptions as subscriptions_dal,
 )
 from backend.dal.subscriptions import (
@@ -26,7 +27,6 @@ from backend.dal.subscriptions import (
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain,
-    project as group_domain,
     tag as portfolio_domain,
 )
 from backend.utils import (
@@ -304,9 +304,27 @@ async def should_not_send_report(
     *,
     report_entity: str,
     report_subject: str,
+    user_email: str,
 ) -> bool:
     if report_entity.lower() == 'group':
-        return not await group_domain.is_alive(report_subject.lower())
+        group_data = await group_dal.get_attributes(
+            report_subject.lower(),
+            [
+                'deletion_date',
+                'historic_deletion',
+                'project_name',
+                'project_status',
+            ]
+        )
+        if not await group_dal.is_alive(report_subject.lower(), group_data):
+            if group_data.get('project_status') == 'FINISHED':
+                await unsubscribe_user_to_entity_report(
+                    report_entity=report_entity,
+                    report_subject=report_subject,
+                    user_email=user_email,
+                )
+
+            return True
 
     return False
 
@@ -321,7 +339,8 @@ async def send_user_to_entity_report(
     try:
         if await should_not_send_report(
             report_entity=report_entity,
-            report_subject=report_subject
+            report_subject=report_subject,
+            user_email=user_email,
         ):
             return
 
