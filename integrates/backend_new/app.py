@@ -1,5 +1,8 @@
 # Standard library
+import base64
+import json
 from typing import Any
+from jose import jwt
 
 # Third party libraries
 from ariadne.asgi import GraphQL
@@ -86,10 +89,24 @@ async def authz(request: Request) -> HTMLResponse:
             'delighted': f'{settings.STATIC_URL}/app/delighted.js'
         }
     )
+
+    # convert SH256 google jwt to HS512 so we can handle it in our backend
+    jwt_payload = token['id_token'].split('.')[1]
+    payload = json.loads(
+        base64.b64decode(
+            jwt_payload + '=' * (-len(jwt_payload) % 4)
+        ).decode('utf-8')
+    )
+    jwt_token = jwt.encode(
+        payload,
+        key=settings.JWT_SECRET,
+        algorithm='HS512'
+    )
+
     response.set_cookie(
         key=settings.JWT_COOKIE_NAME,
         samesite=settings.JWT_COOKIE_SAMESITE,
-        value=token['access_token'],
+        value=jwt_token,
         secure=True,
         httponly=True,
         max_age=settings.SESSION_COOKIE_AGE
