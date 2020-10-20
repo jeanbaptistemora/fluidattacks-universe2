@@ -1,14 +1,22 @@
 FROM nixos/nix:2.3
 
+# Base dependencies
 RUN apk add --no-cache \
       bash=5.0.0-r0 \
       git=2.22.4-r0
 
-WORKDIR /usr/src/app
+# Timezone
+RUN     apk add tzdata=2020c-r0 \
+    &&  cp /usr/share/zoneinfo/America/Bogota /etc/localtime \
+    &&  echo "America/Bogota" > /etc/timezone \
+    &&  apk del tzdata
 
-ARG PROVISIONER='build/provisioners/integrates_serve_back_dev.nix'
+WORKDIR /product
+
+# Cache integrates dependencies
 COPY . .
-RUN     nix-shell --run ':' "${PROVISIONER}" \
+RUN     nix-shell --run ':' 'build/provisioners/integrates_serve_back_dev.nix' \
     &&  nix-store --optimise
 
+# Set version
 ENV FI_VERSION="${VERSION}"
