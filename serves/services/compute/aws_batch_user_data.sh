@@ -1,4 +1,9 @@
-#! /bin/bash
+#!/bin/bash
+#cloud-boothook
+
+cloud-init-per once docker_options \
+echo 'OPTIONS="${OPTIONS} --storage-opt dm.basesize=20G"' \
+>> /etc/sysconfig/docker
 
 {
   echo ECS_CONTAINER_START_TIMEOUT=60m

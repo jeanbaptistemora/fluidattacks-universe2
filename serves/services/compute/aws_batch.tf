@@ -214,6 +214,26 @@ resource "aws_batch_job_queue" "default" {
   state = "ENABLED"
 }
 
+resource "aws_batch_job_queue" "code_upload" {
+  # Send here observes code_upload jobs
+  compute_environments = [
+    aws_batch_compute_environment.default.arn,
+  ]
+  name = "code_upload"
+  priority = 2
+  state = "ENABLED"
+}
+
+resource "aws_batch_job_queue" "mirror_s3" {
+  # Send here observes mirror_s3 jobs
+  compute_environments = [
+    aws_batch_compute_environment.default.arn,
+  ]
+  name = "mirror_s3"
+  priority = 3
+  state = "ENABLED"
+}
+
 resource "aws_batch_job_queue" "asap" {
   # Send here short-running jobs that need to execute as soon as possible
   compute_environments = [
