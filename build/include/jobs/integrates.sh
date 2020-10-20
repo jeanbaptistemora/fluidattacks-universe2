@@ -678,6 +678,8 @@ function job_integrates_serve_local {
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_serve_dynamo \
+    &&  helper_integrates_serve_front \
+    &&  helper_integrates_serve_redis \
     &&  helper_integrates_serve_back_new \
           'https' \
           'dev' \
@@ -686,8 +688,6 @@ function job_integrates_serve_local {
           '5' \
           '0.0.0.0' \
           '8080' \
-    &&  helper_integrates_serve_front \
-    &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \
   ||  return 1
