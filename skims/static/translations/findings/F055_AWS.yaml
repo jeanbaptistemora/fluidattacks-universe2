@@ -1,0 +1,32 @@
+utils.model.finding.enum.F055_AWS.description:
+  en: >
+    The service uses insecure configurations that could compromise the data and
+    its operation.
+  es: >
+    El servicio usa configuraciones inseguras que podrían comprometer los datos
+    y el funcionamiento de este.
+utils.model.finding.enum.F055_AWS.impact:
+  en: >
+    Expose resources, processes and sensitive information that could be
+    compromised.
+  es: >
+    Exponer recursos, procesos e información sensible que podrían ser
+    comprometidos.
+utils.model.finding.enum.F055_AWS.recommendation:
+  en: >
+    The security recommendations for the configuration of the service must be
+    followed, to prevent the data and processes stored in the service from
+    being compromised
+  es: >
+    Se deben seguir las recomendaciones de seguridad para la configuración del
+    servicio, para evitar que los datos y los procesos almacenados en el
+    servicio puedan ser vulnerados.
+utils.model.finding.enum.F055_AWS.requirements:
+  en: R266. Disable insecure functionalities.
+  es: R266. Deshabilitar funcionalidades inseguras.
+utils.model.finding.enum.F055_AWS.threat:
+  en: Internal attacker with access to the configuration.
+  es: Atacante intnterno con acceso a la configuración.
+utils.model.finding.enum.F055_AWS.title:
+  en: FIN.H.055. Insecure service configuration - AWS
+  es: FIN.H.055. Configuración insegura del servicio - AWS
