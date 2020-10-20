@@ -1,5 +1,4 @@
 # standard imports
-import asyncio
 import logging
 import uuid
 from typing import (
@@ -11,6 +10,7 @@ from typing import (
 )
 
 # third-party imports
+from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
@@ -289,12 +289,10 @@ async def get_many_by_id(
     """
     Use the organization ID to fetch general information about it
     """
-    return await asyncio.gather(*[
-        asyncio.create_task(
-            get_by_id(org_id, attributes)
-        )
+    return await collect(
+        get_by_id(org_id, attributes)
         for org_id in organization_ids
-    ])
+    )
 
 
 async def get_id_for_group(group_name: str) -> str:

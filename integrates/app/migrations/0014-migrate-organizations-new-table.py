@@ -18,8 +18,8 @@ from typing import (
 )
 
 import aioboto3
+from aioextensions import in_thread
 import bugsnag
-from asgiref.sync import sync_to_async
 from boto3.dynamodb.conditions import Attr, Not
 from botocore.exceptions import ClientError
 
@@ -94,7 +94,8 @@ async def get_organiation_users(org_id: str) -> List[str]:
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await sync_to_async(bugsnag.notify)(
+        await in_thread(
+            bugsnag.notify,
             Exception(message),
             severity='info'
         )

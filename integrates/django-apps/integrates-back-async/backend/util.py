@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
 
-import asyncio
 import collections
 from datetime import datetime, timedelta, date
 import binascii
@@ -193,7 +192,7 @@ def cloudwatch_log_sync(request, msg: str) -> None:
 
 
 def cloudwatch_log(request, msg: str) -> None:
-    asyncio.create_task(cloudwatch_log_async(request, msg))
+    schedule(cloudwatch_log_async(request, msg))
 
 
 async def cloudwatch_log_async(request, msg: str) -> None:
@@ -504,7 +503,7 @@ def is_valid_format(date_str: str) -> bool:
 
 def forces_trigger_deployment(project_name: str) -> bool:
     def callback(client: httpx.AsyncClient, _):
-        asyncio.create_task(client.aclose())
+        schedule(client.aclose())
 
     success = False
 
@@ -527,7 +526,7 @@ def forces_trigger_deployment(project_name: str) -> bool:
                     for param, value in parameters.items()
                 }
             )
-            task = asyncio.create_task(req_coro)
+            task = schedule(req_coro)
             task.add_done_callback(functools.partial(callback, client))
 
     except httpx.HTTPError as ex:

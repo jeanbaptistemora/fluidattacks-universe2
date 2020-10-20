@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 import os
 import json
 import logging
@@ -14,6 +13,7 @@ from typing import (
 
 # Third party libraries
 import aioboto3
+from aioextensions import schedule
 import botocore
 import mandrill
 
@@ -314,7 +314,7 @@ async def send_comment_mail(
     if await authz.get_group_level_role(
             user_mail, project_name) not in ['customer', 'customeradmin']:
         email_context_customers['user_email'] = f'Hacker at FluidIntegrates'
-    asyncio.create_task(
+    schedule(
         send_mail_comment(
             [recipients_not_customers, recipients_customers],
             [email_context, email_context_customers]

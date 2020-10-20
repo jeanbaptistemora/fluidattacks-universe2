@@ -1,7 +1,6 @@
 # pylint:disable=cyclic-import,too-many-lines
 """Domain functions for projects."""
 
-import asyncio
 import logging
 import re
 from collections import namedtuple, defaultdict
@@ -14,6 +13,7 @@ import simplejson as json
 from aioextensions import (
     collect,
     in_process,
+    schedule,
 )
 
 from backend.authz.policy import get_group_level_role
@@ -89,7 +89,7 @@ def send_comment_mail(
     comment_data: CommentType,
     project_name: str
 ) -> None:
-    asyncio.create_task(
+    schedule(
         mailer.send_comment_mail(
             comment_data,
             'project',
@@ -194,7 +194,7 @@ async def create_project(  # pylint: disable=too-many-arguments
                         # Other roles are turned into customeradmins
                     }.get(user_role, 'customeradmin')
 
-                    success = success and all(await asyncio.gather(
+                    success = success and all(await collect((
                         user_domain.update_project_access(
                             user_email,
                             project_name,
@@ -203,7 +203,7 @@ async def create_project(  # pylint: disable=too-many-arguments
                         authz.grant_group_level_role(
                             user_email, project_name,
                             user_role
-                        ))
+                        )))
                     )
 
         else:
@@ -628,16 +628,13 @@ async def get_last_closing_vuln_info(
         Tuple[Decimal, VulnerabilityType]:
     """Get day since last vulnerability closing."""
 
-    validate_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            finding_domain.validate_finding(
-                str(finding['finding_id']))
-        )
+    validate_findings = await collect(
+        finding_domain.validate_finding(str(finding['finding_id']))
         for finding in findings
-    ])
+    )
     validated_findings = [
-        finding for finding in findings
-        if validate_findings.pop(0)
+        finding for finding, is_valid in zip(findings, validate_findings)
+        if is_valid
     ]
     vulns = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in validated_findings]
@@ -695,16 +692,14 @@ async def get_max_open_severity(
         findings: List[Dict[str, FindingType]]) -> \
         Tuple[Decimal, Dict[str, FindingType]]:
     """Get maximum severity of project with open vulnerabilities."""
-    total_vulns = await asyncio.gather(*[
-        asyncio.create_task(
-            total_vulnerabilities(str(fin.get('finding_id', '')))
-        )
+    total_vulns = await collect(
+        total_vulnerabilities(str(fin.get('finding_id', '')))
         for fin in findings
-    ])
+    )
     opened_findings = [
         finding
-        for finding in findings
-        if int(total_vulns.pop(0).get('openVulnerabilities', '')) > 0
+        for finding, total_vuln in zip(findings, total_vulns)
+        if int(total_vuln.get('openVulnerabilities', '')) > 0
     ]
     total_severity: List[float] = cast(
         List[float],
@@ -749,17 +744,14 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
-    validate_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            finding_domain.validate_finding(
-                str(finding['finding_id']))
-        )
+    validate_findings = await collect(
+        finding_domain.validate_finding(str(finding['finding_id']))
         for finding in findings
-    ])
+    )
     validated_findings = [
         finding
-        for finding in findings
-        if validate_findings.pop(0)
+        for finding, validate_finding in zip(findings, validate_findings)
+        if validate_finding
     ]
     vulns = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in validated_findings]
@@ -854,31 +846,25 @@ async def get_total_treatment(
     indefinitely_accepted_vuln: int = 0
     in_progress_vuln: int = 0
     undefined_treatment: int = 0
-    validate_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            finding_domain.validate_finding(
-                str(finding['finding_id'])
-            )
-        )
+    validate_findings = await collect(
+        finding_domain.validate_finding(str(finding['finding_id']))
         for finding in findings
-    ])
+    )
     validated_findings = [
         finding
-        for finding in findings
-        if validate_findings.pop(0)
+        for finding, validate_finding in zip(findings, validate_findings)
+        if validate_finding
     ]
-    total_vulns = await asyncio.gather(*[
-        asyncio.create_task(
-            total_vulnerabilities(str(finding['finding_id']))
-        )
+    total_vulns = await collect(
+        total_vulnerabilities(str(finding['finding_id']))
         for finding in validated_findings
-    ])
-    for finding in validated_findings:
+    )
+    for finding, total_vuln in zip(validated_findings, total_vulns):
         fin_treatment = cast(
             List[Dict[str, str]],
             finding.get('historic_treatment', [{}])
         )[-1].get('treatment')
-        open_vulns = int(total_vulns.pop(0).get('openVulnerabilities', ''))
+        open_vulns = int(total_vuln.get('openVulnerabilities', ''))
         if fin_treatment == 'ACCEPTED':
             accepted_vuln += open_vulns
         elif fin_treatment == 'ACCEPTED_UNDEFINED':

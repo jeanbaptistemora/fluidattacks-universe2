@@ -15,8 +15,8 @@ from typing import (
 )
 
 import aioboto3
+from aioextensions import in_thread
 import bugsnag
-from asgiref.sync import sync_to_async
 from boto3.dynamodb.conditions import Attr, Not
 
 from backend.dal.helpers import dynamodb
@@ -87,7 +87,7 @@ async def get_users_without_organization() -> List[str]:
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await sync_to_async(bugsnag.notify)(Exception(message), 'info')
+        await in_thread(bugsnag.notify, Exception(message), 'info')
 
 
 async def main() -> None:
@@ -108,7 +108,7 @@ async def main() -> None:
                 f'cannot be associated to any organization'
             )
             continue
-        org_info: Dict[str, str] = await sync_to_async(get_project_attributes)(
+        org_info: Dict[str, str] = await get_project_attributes(
             projects.pop(0),
             ['organization']
         )
@@ -122,7 +122,7 @@ async def main() -> None:
                 f'{org_name.get("name")} with ID {org_id}'
             )
         else:
-            await sync_to_async(update_user)(
+            await update_user(
                 email=user,
                 data={'organization': org_id}
             )

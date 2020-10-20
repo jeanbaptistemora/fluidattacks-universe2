@@ -2,7 +2,6 @@
 """ Decorators for FluidIntegrates. """
 
 # Standard library
-import asyncio
 from datetime import datetime
 import functools
 import inspect
@@ -13,6 +12,7 @@ from typing import Any, Callable, Dict, cast, TypeVar
 from aioextensions import (
     collect,
     in_thread,
+    schedule,
 )
 from django.core.cache import cache
 from django.http import HttpRequest
@@ -664,13 +664,14 @@ def concurrent_decorators(
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             success = []
-            tasks = iter(list(map(asyncio.create_task, [
+            tasks = iter(list(map(schedule, [
                 dec(dummy)(*args, **kwargs) for dec in decorators
             ])))
 
             try:
                 for task in tasks:
-                    success.append(await task)  # may rise
+                    task_result = await task
+                    success.append(task_result.result())  # may rise
             finally:
                 # If two or more decorators raised exceptions let's propagate
                 # only the first to arrive and cancel the remaining ones

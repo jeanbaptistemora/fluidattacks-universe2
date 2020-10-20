@@ -1,7 +1,9 @@
-import asyncio
 from typing import Dict, Sequence, Any, Union
 from asgiref.sync import async_to_sync
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    schedule,
+)
 from backend import authz, mailer
 from backend.domain import user as user_domain
 from social_core.strategy import BaseStrategy
@@ -109,7 +111,7 @@ async def create_user(
             'name_user': name,
             'mail_user': email,
         }
-        asyncio.create_task(
+        schedule(
             mailer.send_mail_new_user(mail_to, context)
         )
         await user_domain.update_multiple_user_attributes(

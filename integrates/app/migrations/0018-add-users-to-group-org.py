@@ -14,7 +14,10 @@ from typing import (
     List
 )
 
-from aioextensions import in_thread
+from aioextensions import (
+    collect,
+    in_thread,
+)
 import bugsnag
 from backend.dal import organization as org_dal
 from backend.domain import (
@@ -47,41 +50,34 @@ async def main() -> None:
             group_org_id = group_org_id['organization']
             group_org_name = await org_domain.get_name_by_id(group_org_id)
             group_users = await in_thread(group_domain.get_users, group)
-            user_orgs = await asyncio.gather(*[
-                asyncio.create_task(
-                    in_thread(
-                        user_domain.get_attributes,
-                        user,
-                        ['organization']
-                    )
+            user_orgs = await collect(
+                user_domain.get_attributes(
+                    user,
+                    ['organization']
                 )
                 for user in group_users
-            ])
+            )
             user_orgs = [user['organization'] for user in user_orgs]
             await log(
                 f'-----\nUsers from group {group} will be updated as follows:'
             )
             if STAGE == 'test':
-                await asyncio.gather(*[
-                    asyncio.create_task(
-                        log(
-                            f'User {user} will be added to organization '
-                            f'{group_org_name}'
-                        )
+                await collect(
+                    log(
+                        f'User {user} will be added to organization '
+                        f'{group_org_name}'
                     )
-                    for user in group_users
-                    if user_orgs.pop(0) != group_org_id and
+                    for user, user_org in zip(group_users, user_orgs)
+                    if user_org != group_org_id and
                         group_org_id not in users_already_added.get(user, [])
-                ])
+                )
             else:
-                await asyncio.gather(*[
-                    asyncio.create_task(
-                        org_dal.add_user(group_org_id, user)
-                    )
-                    for user in group_users
-                    if user_orgs.pop(0) != group_org_id and
+                await collect(
+                    org_dal.add_user(group_org_id, user)
+                    for user, user_org in zip(group_users, user_orgs)
+                    if user_org != group_org_id and
                         group_org_id not in users_already_added.get(user, [])
-                ])
+                )
             for user in group_users:
                 if user in users_already_added:
                     if group_org_id not in users_already_added[user]:
