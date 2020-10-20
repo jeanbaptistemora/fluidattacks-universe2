@@ -4,6 +4,7 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
+    // (import ../src/minio-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (import ../src/dynamodb-local.nix pkgs)
     // (rec {

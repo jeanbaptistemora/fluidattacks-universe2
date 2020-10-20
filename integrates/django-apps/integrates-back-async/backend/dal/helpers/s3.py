@@ -38,7 +38,10 @@ OPTIONS = dict(
     service_name='s3',
 )
 
-if FI_ENVIRONMENT == 'development' and FI_MINIO_LOCAL_ENABLED == 'True':
+MINIO_OFF = False  # turn off MinIO until S3 is cleaned
+
+if FI_ENVIRONMENT == 'development' and FI_MINIO_LOCAL_ENABLED == 'true' \
+        and MINIO_OFF:
     OPTIONS.pop('aws_session_token', None)
     OPTIONS['endpoint_url'] = 'http://localhost:9000'
 

@@ -129,7 +129,7 @@ function env_prepare_minio_local {
   &&  mkdir -p './.MinIO/data' \
   &&  env_prepare_python_packages \
   &&  PYTHONPATH="${PYTHONPATH}:${PWD}" \
-  &&  FI_MINIO_LOCAL_ENABLED='True' \
+  &&  FI_MINIO_LOCAL_ENABLED='true' \
   &&  helper_integrates_set_dev_secrets \
   &&  MINIO_REGION_NAME="${AWS_DEFAULT_REGION}" \
   &&  USER_MINIO_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \

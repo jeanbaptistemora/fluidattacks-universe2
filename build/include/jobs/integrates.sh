@@ -618,36 +618,8 @@ function job_integrates_serve_dynamodb_local {
 }
 
 function job_integrates_serve_minio_local {
-  local port=9000
-  local data_path="${STARTDIR}/integrates/.MinIO/data"
       pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_minio_local \
-  &&  echo '[INFO] Launching MinIO local' \
-  &&  {
-        "${minio}" server "${STARTDIR}/integrates/.MinIO/data" --address ":${port}" &
-      } \
-  &&  echo '[INFO] Waiting 5 seconds to leave MinIO start' \
-  &&  sleep 5 \
-  &&  echo '[INFO] Configuring local user' \
-  &&  "${mc}" alias set local_minio "http://localhost:${port}" "${MINIO_ACCESS_KEY}" "${MINIO_SECRET_KEY}" \
-  &&  "${mc}" admin user add local_minio "${USER_MINIO_ACCESS_KEY}" "${USER_MINIO_SECRET_KEY}" \
-  &&  "${mc}" admin policy set local_minio readwrite user="${USER_MINIO_ACCESS_KEY}" \
-  &&  echo '[INFO] Setting buckets' \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.evidences \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.analytics \
-  &&  echo '[INFO] Populating MinIO local' \
-  &&  readarray -d , -t projects <<< "${TEST_PROJECTS}" \
-  &&  {
-        for project in "${projects[@]}"
-        do
-          aws s3 sync "s3://fluidintegrates.evidences/${project}" \
-            "${data_path}/fluidintegrates.evidences/${project}" \
-          ||  return 1
-        done
-      } \
-  && aws s3 sync "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
-      "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
-  &&  echo "[INFO] MinIO is ready and listening on port ${port}!" \
+  &&  helper_integrates_serve_minio \
   &&  echo "[INFO] Hit Ctrl+C to exit" \
   &&  fg %1 \
   &&  popd \

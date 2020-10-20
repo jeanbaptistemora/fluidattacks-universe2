@@ -182,12 +182,14 @@ function helper_integrates_serve_minio {
   &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.analytics \
   &&  echo '[INFO] Populating MinIO local' \
   &&  readarray -d , -t projects <<< "${TEST_PROJECTS}" \
-  &&  for project in "${projects[@]}"
+  &&  {
+        for project in "${projects[@]}"
         do
-              aws s3 sync "s3://fluidintegrates.evidences/${project}" \
-                "${data_path}/fluidintegrates.evidences/${project}" \
+          aws s3 sync "s3://fluidintegrates.evidences/${project}" \
+            "${data_path}/fluidintegrates.evidences/${project}" \
           ||  return 1
-      done \
+        done
+      } \
   &&  aws s3 sync "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
         "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!"
