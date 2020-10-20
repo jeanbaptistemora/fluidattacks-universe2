@@ -124,18 +124,22 @@ def get_subscription_commit_metadata(subscription_path: str) -> bool:
     success: bool = True
     group: str = os.path.basename(os.path.normpath(subscription_path))
     fusion_path: str = os.path.join(subscription_path, 'fusion')
-    training_df: DataFrame = build_training_df(group, fusion_path)
-    if training_df.empty:
-        success = False
-        log(
-            'info',
-            'Group %s does not have any vulnerabilities of type "lines"',
-            group
-        )
+    if os.path.exists(fusion_path):
+        training_df: DataFrame = build_training_df(group, fusion_path)
+        if training_df.empty:
+            success = False
+            log(
+                'info',
+                'Group %s does not have any vulnerabilities of type "lines"',
+                group
+            )
+        else:
+            success = extract_features(training_df, fusion_path)
+            if success:
+                csv_name: str = f'{group}_commit_features.csv'
+                training_df.to_csv(csv_name, index=False)
+                log('info', 'Features extracted succesfully to %s', csv_name)
     else:
-        success = extract_features(training_df, fusion_path)
-        if success:
-            csv_name: str = f'{group}_commit_features.csv'
-            training_df.to_csv(csv_name, index=False)
-            log('info', 'Features extracted succesfully to %s', csv_name)
+        success = False
+        log('info', 'Fusion folder for group %s does not exist', group)
     return success

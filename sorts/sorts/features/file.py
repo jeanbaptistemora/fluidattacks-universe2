@@ -14,7 +14,6 @@ from typing import (
 import git
 import pytz
 from git.cmd import Git
-from git.exc import GitCommandError
 from pandas import (
     DataFrame,
     Series,
@@ -86,21 +85,21 @@ def get_features(row: Series) -> FileFeatures:
             file_relative,
             ['commit_hash', 'author_email', 'date_iso_format', 'stats']
         )
-        file_age = get_file_age(git_metrics)
-        midnight_commits = get_midnight_commits(git_metrics)
-        num_commits = get_num_commits(git_metrics)
-        num_lines = get_num_lines(
-            os.path.join(git_repo.working_dir, file_relative)
-        )
-        risky_commits = get_risky_commits(git_metrics)
-        seldom_contributors = get_seldom_contributors(git_metrics)
-        unique_authors = get_unique_authors(git_metrics)
+        if git_metrics:
+            file_age = get_file_age(git_metrics)
+            midnight_commits = get_midnight_commits(git_metrics)
+            num_commits = get_num_commits(git_metrics)
+            num_lines = get_num_lines(
+                os.path.join(git_repo.working_dir, file_relative)
+            )
+            risky_commits = get_risky_commits(git_metrics)
+            seldom_contributors = get_seldom_contributors(git_metrics)
+            unique_authors = get_unique_authors(git_metrics)
     except (
-        GitCommandError,
         KeyError,
         IndexError,
     ) as exc:
-        log_exception('info', exc, row=row)
+        log_exception('info', exc, locals=str(locals()))
     return FileFeatures(
         num_commits=num_commits,
         num_unique_authors=len(unique_authors),

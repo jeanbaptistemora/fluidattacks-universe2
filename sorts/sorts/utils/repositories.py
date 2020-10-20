@@ -11,7 +11,10 @@ from typing import (
 # Third-party libraries
 import git
 from git.cmd import Git
-from git.exc import GitCommandError
+from git.exc import (
+    GitCommandError,
+    GitCommandNotFound,
+)
 from pydriller.metrics.process.hunks_count import HunksCount
 
 
@@ -80,26 +83,34 @@ def get_git_log_metrics(
     """Fetches multiple metrics in one git log command"""
     git_metrics: Dict[str, List[str]] = {}
     metrics_git_format: str = translate_metrics_to_git_format(metrics)
-    if 'stats' in metrics:
-        git_log = git_repo.log(
-            '--no-merges',
-            '--follow',
-            '--shortstat',
-            f'--pretty={metrics_git_format}',
-            file
-        ).replace('\n\n ', ',').replace(', ', '--').split('\n')
-    else:
-        git_log = git_repo.log(
-            '--no-merges',
-            '--follow',
-            f'--pretty={metrics_git_format}',
-            file
-        ).split('\n')
-    for idx, metric in enumerate(metrics):
-        metric_log: List[str] = []
-        for record in git_log:
-            metric_log.append(record.split(',')[idx])
-        git_metrics.update({metric: metric_log})
+    try:
+        if 'stats' in metrics:
+            git_log = git_repo.log(
+                '--no-merges',
+                '--follow',
+                '--shortstat',
+                f'--pretty={metrics_git_format}',
+                file
+            ).replace('\n\n ', ',').replace(', ', '--').split('\n')
+        else:
+            git_log = git_repo.log(
+                '--no-merges',
+                '--follow',
+                f'--pretty={metrics_git_format}',
+                file
+            ).split('\n')
+        for idx, metric in enumerate(metrics):
+            metric_log: List[str] = []
+            for record in git_log:
+                metric_log.append(record.split(',')[idx])
+            git_metrics.update({metric: metric_log})
+    except (
+        GitCommandError,
+        GitCommandNotFound,
+    ):
+        # Triggered when searching for a file that does not exist in the
+        # version current
+        pass
     return git_metrics
 
 

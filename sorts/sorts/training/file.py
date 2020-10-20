@@ -57,20 +57,24 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
     success: bool = True
     group: str = os.path.basename(os.path.normpath(subscription_path))
     fusion_path: str = os.path.join(subscription_path, 'fusion')
-    training_df: DataFrame = build_training_df(group, fusion_path)
-    if training_df.empty:
-        success = False
-        log(
-            'info',
-            'Group %s does not have any vulnerabilities of type "lines"',
-            group
-        )
+    if os.path.exists(fusion_path):
+        training_df: DataFrame = build_training_df(group, fusion_path)
+        if training_df.empty:
+            success = False
+            log(
+                'info',
+                'Group %s does not have any vulnerabilities of type "lines"',
+                group
+            )
+        else:
+            success = extract_features(training_df)
+            if success:
+                csv_name: str = f'{group}_files_features.csv'
+                training_df.to_csv(csv_name, index=False)
+                log('info', 'Features extracted succesfully to %s', csv_name)
     else:
-        success = extract_features(training_df)
-        if success:
-            csv_name: str = f'{group}_files_features.csv'
-            training_df.to_csv(csv_name, index=False)
-            log('info', 'Features extracted succesfully to %s', csv_name)
+        success = False
+        log('info', 'Fusion folder for group %s does not exist', group)
     return success
 
 
@@ -91,30 +95,35 @@ def get_safe_files(
         for repo in os.listdir(fusion_path)
         if repo not in ignore_repos
     ]
-    while len(safe_files) < len(vuln_files):
-        if retries > FILE_MAX_RETRIES:
-            log(
-                'info',
-                'Could not find enough safe files to balance the vulnerable '
-                'ones'
-            )
-            break
+    if allowed_repos:
+        while len(safe_files) < len(vuln_files):
+            if retries > FILE_MAX_RETRIES:
+                log(
+                    'info',
+                    'Could not find enough safe files to balance the '
+                    'vulnerable ones'
+                )
+                break
 
-        repo: str = random.choice(allowed_repos)
-        if repo not in repo_files.keys():
-            repo_files[repo] = get_repository_files(
-                os.path.join(fusion_path, repo)
-            )
-        file: str = random.choice(repo_files.get(repo, ['']))
-        if file:
-            file_extension: str = os.path.splitext(file)[1].strip('.')
-            if (
-                file not in vuln_files and
-                file not in safe_files and
-                (file in composites or file_extension in extensions)
-            ):
-                safe_files.add(file)
-            retries = 0
-        retries += 1
-    log('info', 'Safe files extracted after %.2f secods', time.time() - timer)
+            repo: str = random.choice(allowed_repos)
+            if repo not in repo_files.keys():
+                repo_files[repo] = get_repository_files(
+                    os.path.join(fusion_path, repo)
+                )
+            if repo_files[repo]:
+                file: str = random.choice(repo_files[repo])
+                file_extension: str = os.path.splitext(file)[1].strip('.')
+                if (
+                    file not in vuln_files and
+                    file not in safe_files and
+                    (file in composites or file_extension in extensions)
+                ):
+                    safe_files.add(file)
+                    retries = 0
+            retries += 1
+        log(
+            'info',
+            'Safe files extracted after %.2f secods',
+            time.time() - timer
+        )
     return sorted(safe_files)
