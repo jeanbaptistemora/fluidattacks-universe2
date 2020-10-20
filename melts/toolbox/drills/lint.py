@@ -7,7 +7,7 @@ from glob import glob
 from toolbox import (
     logger
 )
-from toolbox.utils.function import shield, RetryAndFinallyReturn
+from toolbox.utils.function import shield
 
 
 @shield(retries=1)
@@ -23,8 +23,5 @@ def check_folder_content():
         for exp in exploits:
             logger.info(f'    {exp}')
         success = False
-
-    if not success:
-        raise RetryAndFinallyReturn(success)
 
     return success

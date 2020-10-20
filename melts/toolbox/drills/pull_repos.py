@@ -7,7 +7,7 @@ import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox.drills import generic as drills_generic
-from toolbox.utils.function import shield, RetryAndFinallyReturn
+from toolbox.utils.function import shield
 from toolbox import (
     logger,
     utils,
@@ -165,8 +165,5 @@ def main(subs: str, repository_name: str = 'all') -> bool:
             and delete_out_of_scope_files(subs)
 
         logger.info(f'Data for {subs} was uploaded to S3 {days} days ago')
-
-    if not passed:
-        raise RetryAndFinallyReturn(passed)
 
     return passed

@@ -5,7 +5,7 @@ from typing import List
 # Local libraries
 from toolbox import logger
 from toolbox.utils import generic
-from toolbox.utils.function import shield, RetryAndFinallyReturn
+from toolbox.utils.function import shield
 
 
 def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
@@ -155,8 +155,5 @@ def main(
     else:
         logger.error('Either the subs or the fusion folder does not exist')
         passed = False
-
-    if not passed:
-        raise RetryAndFinallyReturn(passed)
 
     return passed
