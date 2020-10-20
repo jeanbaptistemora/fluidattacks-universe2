@@ -13,14 +13,12 @@ import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -36,7 +34,17 @@ import { IFindingContentProps, IHeaderQueryResult } from "scenes/Dashboard/conta
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
-import { StickyContainerFinding, TabsContainer } from "styles/styledComponents";
+import {
+  ButtonToolbar,
+  Col100,
+  Col80,
+  ControlLabel,
+  FormGroup,
+  Row,
+  StickyContainerFinding,
+  TabContent,
+  TabsContainer,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
@@ -208,13 +216,13 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     <React.StrictMode>
       <React.Fragment>
         <Row>
-          <Col md={12} sm={12}>
+          <Col100>
             <React.Fragment>
               <Row>
-                <Col md={8}>
+                <Col80>
                   <h2>{headerData.finding.title}</h2>
-                </Col>
-                <Col>
+                </Col80>
+                <div>
                   <FindingActions
                     isDraft={isDraft}
                     hasVulns={hasVulns}
@@ -225,7 +233,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     onReject={rejectDraft}
                     onSubmit={submitDraft}
                   />
-                </Col>
+                </div>
               </Row>
               <hr />
               <StickyContainerFinding>
@@ -300,7 +308,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   </Can>
                 </TabsContainer>
               </StickyContainerFinding>
-              <div className={style.tabContent}>
+              <TabContent>
                 <Switch>
                   <Route path={`${props.match.path}/description`} component={DescriptionView} exact={true} />
                   <Route path={`${props.match.path}/severity`} component={SeverityView} exact={true} />
@@ -315,9 +323,9 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   />
                   <Redirect to={`${props.match.path}/description`} />
                 </Switch>
-              </div>
+              </TabContent>
             </React.Fragment>
-          </Col>
+          </Col100>
         </Row>
       </React.Fragment>
       <Modal
@@ -334,7 +342,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               <option value="NOT_REQUIRED">{translate.t("search_findings.delete.justif.not_required")}</option>
             </Field>
           </FormGroup>
-          <ButtonToolbar className="pull-right">
+          <ButtonToolbar>
             <Button onClick={closeDeleteModal}>{translate.t("confirmmodal.cancel")}</Button>
             <Button type="submit">{translate.t("confirmmodal.proceed")}</Button>
           </ButtonToolbar>
