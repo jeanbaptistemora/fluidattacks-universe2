@@ -9,7 +9,7 @@
 == Requirement
 
 The system should regularly check *DNS* names and sub-domain names in use by
-the application for expiry of change.
+the application for expiry or change.
 This helps protect applications from the effects of sub-domain takeover
 attacks.
 

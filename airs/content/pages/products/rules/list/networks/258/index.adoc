@@ -10,4 +10,10 @@
 
 The organization must filter the content of websites
 accessed from a location belonging to the same entity
-(Output +Proxy+).
+(Output 'Proxy').
+
+== References
+
+. [[r1]] link:https://www.cisecurity.org/controls/[CIS Controls. 7.7 Use of DNS Filtering Services].
+Use Domain Name System (DNS) filtering services to help block access to known
+malicious domains.
