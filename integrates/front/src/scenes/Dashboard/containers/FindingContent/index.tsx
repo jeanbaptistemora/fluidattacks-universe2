@@ -297,7 +297,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     title={translate.t("search_findings.tab_comments.tab_title")}
                     tooltip={translate.t("search_findings.tab_comments.tooltip")}
                   />
-                  <Can do="backend_api_resolvers_finding__get_observations">
+                  <Can do="backend_api_resolvers_new_finding_observations_resolve">
                     <ContentTab
                       icon="icon pe-7s-note"
                       id="observationsItem"

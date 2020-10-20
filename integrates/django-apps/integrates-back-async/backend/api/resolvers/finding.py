@@ -21,14 +21,12 @@ from backend.decorators import (
     require_login, require_finding_access
 )
 from backend.domain import (
-    comment as comment_domain,
     finding as finding_domain,
     organization as org_domain,
     vulnerability as vuln_domain
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import (
-    Comment as CommentType,
     Finding as FindingType,
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
@@ -149,19 +147,6 @@ async def _get_pending_vulns(
 
 
 @get_entity_cache_async
-async def _get_id(_: GraphQLResolveInfo, identifier: str) -> str:
-    """Get id."""
-    return identifier
-
-
-@get_entity_cache_async
-async def _get_project_name(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get project_name."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['project_name'])
-
-
-@get_entity_cache_async
 async def _get_open_vulnerabilities(
         info: GraphQLResolveInfo,
         identifier: str) -> int:
@@ -276,44 +261,6 @@ async def _get_evidence(
     """Get evidence."""
     finding = await info.context.loaders['finding'].load(identifier)
     return cast(Dict[str, Dict[str, str]], finding['evidence'])
-
-
-@get_entity_cache_async
-async def _get_consulting(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[CommentType]:
-    finding = await info.context.loaders['finding'].load(identifier)
-    finding_id = finding['id']
-    project_name = finding.get('project_name')
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-
-    consultings = await comment_domain.get_comments(
-        project_name, finding_id, user_email
-    )
-    return consultings
-
-
-@rename_kwargs({'identifier': 'finding_id'})
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@rename_kwargs({'finding_id': 'identifier'})
-@get_entity_cache_async
-async def _get_observations(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[CommentType]:
-    """Get observations."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    finding_id = finding['id']
-    project_name = finding['project_name']
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    observations = await comment_domain.get_observations(
-        project_name, finding_id, user_email
-    )
-    return observations
 
 
 @get_entity_cache_async
@@ -600,14 +547,22 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        if requested_field.startswith('_'):
+        migrated = {'consulting', 'id', 'observations', 'project_name'}
+        if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
         result[requested_field] = resolver_func(info, **params)
-    return result
+
+    # Temporary while migrating finding resolvers
+    finding = await info.context.loaders['finding'].load(identifier)
+    return {
+        'id': identifier,
+        'project_name': finding['project_name'],
+        **result
+    }
 
 
 @convert_kwargs_to_snake_case  # type: ignore

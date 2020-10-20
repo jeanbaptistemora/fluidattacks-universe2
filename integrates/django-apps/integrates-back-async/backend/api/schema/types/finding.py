@@ -5,6 +5,13 @@
 from ariadne import ObjectType
 
 # Local
-# None
+from backend.api.resolvers.new.finding import (
+    consulting,
+    observations
+)
+
 
 FINDING = ObjectType('Finding')
+
+FINDING.set_field('consulting', consulting.resolve)
+FINDING.set_field('observations', observations.resolve)
