@@ -27,11 +27,13 @@ from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
 )
+from aws.utils import (
+    create_vulns,
+)
 from aws.iam.utils import (
     match_pattern,
 )
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_iterator,
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     SHIELD,
@@ -60,39 +62,10 @@ from utils.model import (
     FindingEnum,
     Vulnerability,
 )
-from zone import (
-    t,
-)
 
 
 def _is_iam_passrole(action: str) -> bool:
     return match_pattern(action, 'iam:PassRole')
-
-
-def _create_vulns(
-    content: str,
-    description_key: str,
-    path: str,
-    statements_iterator: Iterator[Union[
-        AWSIamManagedPolicyArns,
-        AWSIamPolicyStatement,
-        Node,
-    ]],
-) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_iterator(
-        content=content,
-        cwe={'250'},
-        description=t(
-            key=description_key,
-            path=path,
-        ),
-        finding=FindingEnum.F031_AWS,
-        iterator=((
-            stmt.start_line if isinstance(stmt, Node) else stmt.line,
-            stmt.start_column if isinstance(stmt, Node) else stmt.column,
-        ) for stmt in statements_iterator),
-        path=path,
-    )
 
 
 def _negative_statement_iterate_vulnerabilities(
@@ -200,9 +173,10 @@ def _cfn_negative_statement(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_negative_statement_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -240,9 +214,10 @@ def _cfn_permissive_policy(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_permissive_policy_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -281,9 +256,10 @@ def _cfn_open_passrole(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_open_passrole_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -298,9 +274,10 @@ def _cfn_admin_policy_attached(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=cnf_iterate_managed_policy_arns(
@@ -351,9 +328,10 @@ def _terraform_negative_statement(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_negative_statement_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -390,9 +368,10 @@ def _terraform_open_passrole(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_open_passrole_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -426,9 +405,10 @@ def _terraform_permissive_policy(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_permissive_policy_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -466,9 +446,10 @@ def _terraform_admin_policy_attached(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
+        finding=FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=terraform_iterate_managed_policy_arns(

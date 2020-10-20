@@ -24,8 +24,8 @@ from metaloaders.model import (
 )
 
 # Local libraries
+from aws.utils import create_vulns
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_iterator,
     EXTENSIONS_CLOUDFORMATION,
     SHIELD,
 )
@@ -45,31 +45,6 @@ from utils.model import (
     FindingEnum,
     Vulnerability,
 )
-from zone import (
-    t,
-)
-
-
-def _create_vulns(
-    content: str,
-    description_key: str,
-    path: str,
-    ports_iterator: Iterator[Node, ],
-) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_iterator(
-        content=content,
-        cwe={'275'},
-        description=t(
-            key=description_key,
-            path=path,
-        ),
-        finding=FindingEnum.F047_AWS,
-        iterator=((
-            stmt.start_line,
-            stmt.start_column,
-        ) for stmt in ports_iterator),
-        path=path,
-    )
 
 
 def _range_port_iter_vulnerabilities(
@@ -168,11 +143,12 @@ def _cnf_unrestricted_ports(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_ports',
+        finding=FindingEnum.F047_AWS,
         path=path,
-        ports_iterator=_range_port_iter_vulnerabilities(
+        statements_iterator=_range_port_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
                 template=template,
                 ingress=True,
@@ -185,11 +161,12 @@ def _cfn_unrestricted_ip_protocols(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_protocols',
+        finding=FindingEnum.F047_AWS,
         path=path,
-        ports_iterator=_protocol_iter_vulnerabilities(
+        statements_iterator=_protocol_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
                 template=template,
                 ingress=True,
@@ -202,11 +179,12 @@ def _cnf_unrestricted_cidrs(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_cidrs',
+        finding=FindingEnum.F047_AWS,
         path=path,
-        ports_iterator=_cidr_iter_vulnerabilities(
+        statements_iterator=_cidr_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
                 template=template,
                 ingress=True,
@@ -219,11 +197,12 @@ def _cfn_allows_anyone_to_admin_ports(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return _create_vulns(
+    return create_vulns(
         content=content,
         description_key='src.lib_path.f047_aws.allows_anyone_to_admin_ports',
+        finding=FindingEnum.F047_AWS,
         path=path,
-        ports_iterator=_cfn_iter_vulnerable_admin_ports(
+        statements_iterator=_cfn_iter_vulnerable_admin_ports(
             rules_iterator=iter_ec2_ingress_egress(
                 template=template,
                 ingress=True,
