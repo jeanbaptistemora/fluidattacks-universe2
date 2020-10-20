@@ -1,22 +1,18 @@
-/* eslint-disable react/forbid-component-props
-  --------
-  We need className to override default styles from react-bootstrap.
-*/
 import { Button } from "components/Button";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Modal } from "components/Modal";
 import { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
-import globalStyle from "styles/global.css";
 import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
-  Col,
+  ButtonToolbarLeft,
+  Col100,
   ControlLabel,
   FormGroup,
   Row,
-} from "react-bootstrap";
+} from "styles/styledComponents";
 import { Date as DateField, TextArea } from "utils/forms/fields";
 import { Field, InjectedFormProps } from "redux-form";
 import {
@@ -96,7 +92,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
         {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
             <Row>
-              <Col md={12}>
+              <Col100>
                 {!hasAPIToken && (
                   <FormGroup>
                     <ControlLabel>
@@ -112,11 +108,11 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     />
                   </FormGroup>
                 )}
-              </Col>
+              </Col100>
             </Row>
             {submitSucceeded && (
               <Row>
-                <Col md={12}>
+                <Col100>
                   <ControlLabel>
                     <b>{translate.t("update_access_token.message")}</b>
                   </ControlLabel>
@@ -124,7 +120,9 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     <b>{translate.t("update_access_token.access_token")}</b>
                   </ControlLabel>
                   <Field
-                    className={globalStyle.noResize}
+                    //Allow to block resizing the TextArea
+                    //eslint-disable-next-line react/forbid-component-props
+                    className={"noresize"}
                     component={TextArea}
                     disabled={true}
                     name={"sessionJwt"}
@@ -134,12 +132,12 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                   <Button onClick={handleCopy}>
                     {translate.t("update_access_token.copy.copy")}
                   </Button>
-                </Col>
+                </Col100>
               </Row>
             )}
             <Row>
               {!submitSucceeded && hasAPIToken && (
-                <Col md={12}>
+                <Col100>
                   <ControlLabel>
                     <b>{translate.t("update_access_token.token_created")}</b>
                     &nbsp;
@@ -147,17 +145,17 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                       .toISOString()
                       .substring(0, yyyymmdd)}
                   </ControlLabel>
-                </Col>
+                </Col100>
               )}
             </Row>
-            <ButtonToolbar className={"pull-left"}>
+            <ButtonToolbarLeft>
               {!submitSucceeded && hasAPIToken && (
                 <Button onClick={handleInvalidateAPIToken}>
                   {translate.t("update_access_token.invalidate")}
                 </Button>
               )}
-            </ButtonToolbar>
-            <ButtonToolbar className={"pull-right"}>
+            </ButtonToolbarLeft>
+            <ButtonToolbar>
               <Button onClick={onClose}>
                 {translate.t("update_access_token.close")}
               </Button>

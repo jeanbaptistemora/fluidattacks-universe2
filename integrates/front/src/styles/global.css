@@ -513,6 +513,10 @@ label {
   background-color: #EEEEEE !important;
 }
 
+:global .noresize {
+  resize: none;
+}
+
 :global .o-bd[disabled],
 :global .o-bd[disabled]:hover {
   opacity: 1;

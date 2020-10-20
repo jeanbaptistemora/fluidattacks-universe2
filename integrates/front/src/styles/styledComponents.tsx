@@ -7,6 +7,13 @@ const ButtonToolbar: StyledComponent<
   className: "fr",
 })``;
 
+const ButtonToolbarLeft: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "fl",
+})``;
+
 const Col100: StyledComponent<
   "div",
   Record<string, unknown>
@@ -65,7 +72,7 @@ const ControlLabel: StyledComponent<
   "label",
   Record<string, unknown>
 > = styled.label.attrs({
-  className: "dib fw4 mb2 nowrap",
+  className: "dib fw4 mb2",
 })``;
 
 const EventHeaderGrid: StyledComponent<
@@ -271,6 +278,7 @@ const TabsContainer: StyledComponent<
 
 export {
   ButtonToolbar,
+  ButtonToolbarLeft,
   Col100,
   Col25,
   Col40,
