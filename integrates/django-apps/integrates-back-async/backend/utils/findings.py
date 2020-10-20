@@ -8,6 +8,7 @@ from decimal import Decimal
 from typing import Dict, List, Union, cast, Tuple, Optional
 
 from aioextensions import (
+    collect,
     in_process,
     in_thread,
 )
@@ -709,15 +710,13 @@ async def validate_acceptance_severity(
     """
     valid: bool = True
     if values.get('treatment') == 'ACCEPTED':
-        current_limits: List[Decimal] = await asyncio.gather(*[
-            asyncio.create_task(
-                func(organization_id)
-            )
+        current_limits: List[Decimal] = await collect(
+            func(organization_id)
             for func in [
                 org_domain.get_min_acceptance_severity,
                 org_domain.get_max_acceptance_severity
             ]
-        ])
+        )
         if not (current_limits[0] <=
                 Decimal(severity).quantize(Decimal('0.1')) <=
                 current_limits[1]):
@@ -770,27 +769,24 @@ async def validate_treatment_change(
     organization: str,
     values: Dict[str, str],
 ) -> bool:
-    validate_acceptance_days_task = asyncio.create_task(
-        validate_acceptance_days(values, organization)
+    validate_acceptance_days_coroutine = validate_acceptance_days(
+        values, organization
     )
-    validate_acceptance_severity_task = asyncio.create_task(
-        validate_acceptance_severity(
-            values,
-            cast(float, info_to_check['severity']),
-            organization
-        )
+    validate_acceptance_severity_coroutine = validate_acceptance_severity(
+        values,
+        cast(float, info_to_check['severity']),
+        organization
     )
-    validate_number_acceptations_task = asyncio.create_task(
-        validate_number_acceptations(
-            values,
-            cast(HistoricType, info_to_check['historic_treatment']),
-            organization
-        )
+    validate_number_acceptations_coroutine = validate_number_acceptations(
+        values,
+        cast(HistoricType, info_to_check['historic_treatment']),
+        organization
     )
+
     return all(
-        await asyncio.gather(
-            validate_acceptance_days_task,
-            validate_acceptance_severity_task,
-            validate_number_acceptations_task
-        )
+        await collect([
+            validate_acceptance_days_coroutine,
+            validate_acceptance_severity_coroutine,
+            validate_number_acceptations_coroutine
+        ])
     )

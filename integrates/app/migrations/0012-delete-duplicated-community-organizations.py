@@ -7,7 +7,6 @@ created for the organization 'Integrates Community' while the method
 It leaves only one and changes the ID in all the users of duplicated
 organizations
 """
-import asyncio
 import os
 from typing import (
     Dict,
@@ -16,7 +15,11 @@ from typing import (
 )
 
 import aioboto3
-from aioextensions import in_thread
+from aioextensions import (
+    collect,
+    in_thread,
+    run,
+)
 import bugsnag
 from boto3.dynamodb.conditions import Attr, Key
 
@@ -79,18 +82,16 @@ async def get_organization_ids_by_name(org_name: str) -> List[str]:
 
 async def get_users_by_organizations(org_ids: List[str]) -> OrgsUsersType:
     orgs_users: OrgsUsersType = []
-    response_items = await asyncio.gather(*[
-        asyncio.create_task(
-            dynamo_async_scan(
-                USERS_TABLE,
-                {
-                    'FilterExpression': Attr('organization').eq(org_id),
-                    'ProjectionExpression': 'email'
-                }
-            )
+    response_items = await collect(
+        dynamo_async_scan(
+            USERS_TABLE,
+            {
+                'FilterExpression': Attr('organization').eq(org_id),
+                'ProjectionExpression': 'email'
+            }
         )
         for org_id in org_ids
-    ])
+    )
     for index, users in enumerate(response_items):
         orgs_users.append(
             {
@@ -130,14 +131,10 @@ async def migrate_organization_users(
         for user in users:
             await log(f'Organization will be updated for user {user}')
     else:
-        results = await asyncio.gather(*[
-            asyncio.create_task(
-                in_thread(
-                    update_user, email=user, data={'organization': new_org_id}
-                )
-            )
+        results = await collect(
+            update_user(email=user, data={'organization': new_org_id})
             for user in users
-        ])
+        )
 
         success = all(results)
         if success:
@@ -157,4 +154,4 @@ async def migrate_organization_users(
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

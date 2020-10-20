@@ -267,16 +267,14 @@ async def update_treatment_in_vuln(
             )
             break
 
-    update_treatment_result = await asyncio.gather(*[
-        asyncio.create_task(
-            vuln_dal.update(
-                finding_id,
-                str(vuln.get('UUID', '')),
-                new_values.copy()
-            )
+    update_treatment_result = await collect(
+        vuln_dal.update(
+            finding_id,
+            str(vuln.get('UUID', '')),
+            new_values.copy()
         )
         for vuln in vulns
-    ])
+    )
     resp = all(update_treatment_result)
     return resp
 
@@ -469,13 +467,10 @@ async def get_findings_async(
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(finding_dal.TABLE_NAME)
-        findings_tasks = [
-            asyncio.create_task(
-                get(finding_id, table)
-            )
+        findings = await collect(
+            get(finding_id, table)
             for finding_id in finding_ids
-        ]
-        findings = await asyncio.gather(*findings_tasks)
+        )
     return cast(List[Dict[str, FindingType]], findings)
 
 
@@ -607,79 +602,64 @@ async def mask_finding(finding_id: str) -> bool:
         'related_findings', 'risk', 'threat', 'treatment',
         'treatment_manager', 'vulnerability'
     ]
-    mask_finding_tasks = []
-    mask_finding_tasks.append(
-        asyncio.create_task(
-            finding_dal.update(finding_id, {
-                attr: 'Masked'
-                for attr in attrs_to_mask
-            })
-        )
+    mask_finding_coroutines = []
+    mask_finding_coroutines.append(
+        finding_dal.update(finding_id, {
+            attr: 'Masked'
+            for attr in attrs_to_mask
+        })
     )
 
-    mask_finding_tasks.append(
-        asyncio.create_task(
-            finding_utils.mask_treatment(finding_id, historic_treatment)
-        )
+    mask_finding_coroutines.append(
+        finding_utils.mask_treatment(finding_id, historic_treatment)
     )
 
-    mask_finding_tasks.append(
-        asyncio.create_task(
-            finding_utils.mask_verification(finding_id, historic_verification)
-        )
+    mask_finding_coroutines.append(
+        finding_utils.mask_verification(finding_id, historic_verification)
     )
 
     list_evidences_files = await finding_dal.search_evidence(
         f'{finding["projectName"]}/{finding_id}'
     )
-    evidence_s3_task = [
-        asyncio.create_task(
-            finding_dal.remove_evidence(file_name)
-        )
+    evidence_s3_coroutines = [
+        finding_dal.remove_evidence(file_name)
         for file_name in list_evidences_files
     ]
-    mask_finding_tasks.extend(evidence_s3_task)
+    mask_finding_coroutines.extend(evidence_s3_coroutines)
 
-    evidence_dynamodb_task = asyncio.create_task(
-        finding_dal.update(finding_id, {
-            'files': [
-                {
-                    'file_url': 'Masked',
-                    'name': 'Masked',
-                    'description': 'Masked'
-                }
-                for _ in cast(List[Dict[str, str]], finding['evidence'])
-            ]
-        })
-    )
-    mask_finding_tasks.append(evidence_dynamodb_task)
+    evidence_dynamodb_coroutine = finding_dal.update(finding_id, {
+        'files': [
+            {
+                'file_url': 'Masked',
+                'name': 'Masked',
+                'description': 'Masked'
+            }
+            for _ in cast(List[Dict[str, str]], finding['evidence'])
+        ]
+    })
+    mask_finding_coroutines.append(evidence_dynamodb_coroutine)
 
     comments_and_observations = (
         await comment_dal.get_comments('comment', int(finding_id)) +
         await comment_dal.get_comments('observation', int(finding_id))
     )
-    comments_task = [
-        asyncio.create_task(
-            comment_dal.delete(int(finding_id), cast(int, comment['user_id']))
-        )
+    comments_coroutines = [
+        comment_dal.delete(int(finding_id), cast(int, comment['user_id']))
         for comment in comments_and_observations
     ]
-    mask_finding_tasks.extend(comments_task)
+    mask_finding_coroutines.extend(comments_coroutines)
 
     list_vulns = await vuln_domain.list_vulnerabilities_async(
         [finding_id],
         True
     )
-    mask_vulns_task = [
-        asyncio.create_task(
-            vuln_utils.mask_vuln(
-                finding_id, str(vuln['UUID']))
-        )
+    mask_vulns_coroutines = [
+        vuln_utils.mask_vuln(finding_id, str(vuln['UUID']))
         for vuln in list_vulns
     ]
-    mask_finding_tasks.extend(mask_vulns_task)
+    mask_finding_coroutines.extend(mask_vulns_coroutines)
 
-    success = all(await asyncio.gather(*mask_finding_tasks))
+    success = all(await collect(mask_finding_coroutines))
     util.queue_cache_invalidation(finding_id)
 
     return success

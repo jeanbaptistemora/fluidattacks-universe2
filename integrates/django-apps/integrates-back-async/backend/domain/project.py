@@ -1025,8 +1025,8 @@ async def get_users_to_notify(
     )
     return [
         str(user)
-        for user in users
-        if user_roles.pop(0) != 'executive'
+        for user, user_role in zip(users, user_roles)
+        if user_role != 'executive'
     ]
 
 

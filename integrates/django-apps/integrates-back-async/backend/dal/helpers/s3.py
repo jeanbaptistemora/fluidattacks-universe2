@@ -1,13 +1,15 @@
 # disable MyPy due to error "boto module has no attribute client"
 #  type: ignore
 
-import asyncio
 import contextlib
 import logging
 import os
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 
-from aioextensions import in_thread
+from aioextensions import (
+    collect,
+    in_thread,
+)
 import aioboto3
 import boto3
 from botocore.exceptions import ClientError
@@ -90,10 +92,10 @@ async def _send_to_s3(
     success = False
     try:
         repeated_files = await list_files(bucket, file_name)
-        await asyncio.gather(*[
+        await collect(
             remove_file(bucket, name)
             for name in repeated_files
-        ])
+        )
         await in_thread(
             SYNC_CLIENT.upload_fileobj,
             file_object,
