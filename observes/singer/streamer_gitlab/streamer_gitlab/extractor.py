@@ -1,4 +1,4 @@
-# Std libraries
+# Standard libraries
 import json
 
 from typing import (
@@ -21,28 +21,11 @@ import aiohttp
 from aioextensions import (
     collect,
     in_thread,
-    rate_limited,
 )
 
 # Local libraries
+from streamer_gitlab import api_client
 from streamer_gitlab.log import log
-
-
-@rate_limited(
-    # Gitlab allows at most 10 per second, not bursted
-    max_calls=5,
-    max_calls_period=1,
-    min_seconds_between_calls=0.2,
-)
-async def get_json(
-    session: aiohttp.ClientSession, endpoint: str, **kargs
-) -> Dict[str, Any]:
-    """Get as JSON the result of a GET request to endpoint."""
-    async with session.get(endpoint, **kargs) as response:
-        log('info', f'[{response.status}] {endpoint}, {kargs["params"]}')
-        response.raise_for_status()
-
-        return await response.json()
 
 
 def gitlab_data_emitter(  # pylint: disable=too-many-arguments
@@ -122,7 +105,7 @@ async def main(projects: List[str], api_token: str, max_pags: int) -> None:
     emitter_task = create_task(emitter(queue))
     await collect([
         gitlab_data_emitter(
-            get_json,
+            api_client.get_json,
             urllib.parse.quote(project, safe=''),
             resource,
             cast(Dict[str, str], params),

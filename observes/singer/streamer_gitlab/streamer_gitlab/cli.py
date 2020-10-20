@@ -1,4 +1,4 @@
-# std libs
+# Standard libraries
 import sys
 import argparse
 from os import (
@@ -6,12 +6,12 @@ from os import (
 )
 from typing import List
 
-# external libs
+# Third party libraries
 from aioextensions import (
     run,
 )
 
-# local libs
+# Local libraries
 from streamer_gitlab.extractor import main
 from streamer_gitlab.log import log
 
