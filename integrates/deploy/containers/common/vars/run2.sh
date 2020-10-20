@@ -34,8 +34,7 @@ if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
   system_vars \
     AWS_ACCESS_KEY_ID \
     AWS_SECRET_ACCESS_KEY \
-    CI_COMMIT_REF_NAME \
-    JWT_TOKEN
+    CI_COMMIT_REF_NAME
 fi
 
 /etc/init.d/td-agent restart

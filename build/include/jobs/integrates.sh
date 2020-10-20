@@ -203,8 +203,7 @@ function job_integrates_build_container_app_new {
     "${tag}" \
     "${context}" \
     "${dockerfile}" \
-    "${use_cache}" \
-    'VERSION' "${FI_VERSION}"
+    "${use_cache}"
 }
 
 function job_integrates_build_container_app {
@@ -677,6 +676,7 @@ function job_integrates_serve_local {
 
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back_new \
           'https' \
@@ -1260,33 +1260,6 @@ function job_integrates_infra_firewall_test {
   || return 1
 }
 
-function job_integrates_rotate_jwt_token {
-  local integrates_repo_id='20741933'
-  local var_name='JWT_TOKEN'
-  local var_value
-  local bytes_of_entropy='32'
-  local set_as_masked='true'
-  local set_as_protected='false'
-
-      pushd "${STARTDIR}/integrates" \
-  &&  echo "[INFO] Extracting ${bytes_of_entropy} bytes of pseudo random entropy" \
-  &&  var_value=$(head -c "${bytes_of_entropy}" /dev/urandom | base64) \
-  &&  echo '[INFO] Extracting secrets' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        GITLAB_API_TOKEN \
-  &&  echo '[INFO] Updating var in GitLab' \
-  &&  helper_common_set_project_variable \
-        "${GITLAB_API_TOKEN}" \
-        "${integrates_repo_id}" \
-        "${var_name}" \
-        "${var_value}" \
-        "${set_as_protected}" \
-        "${set_as_masked}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_test_back {
   local common_args=(
     -n auto
@@ -1356,7 +1329,6 @@ function job_integrates_test_mobile {
 function job_integrates_deploy_back_ephemeral {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
-  local B64_JWT_TOKEN
   local DATE
   local DEPLOYMENT_NAME
   local cluster='integrates-cluster'
@@ -1378,7 +1350,6 @@ function job_integrates_deploy_back_ephemeral {
     FIREWALL_ACL_ARN
     B64_AWS_ACCESS_KEY_ID
     B64_AWS_SECRET_ACCESS_KEY
-    B64_JWT_TOKEN
     B64_CI_COMMIT_REF_NAME
   )
 
@@ -1393,7 +1364,6 @@ function job_integrates_deploy_back_ephemeral {
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
   &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
-  &&  B64_JWT_TOKEN=$(helper_integrates_to_b64 "${JWT_TOKEN}") \
   &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
   &&  DATE="$(date)" \
   &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
@@ -1465,7 +1435,6 @@ function job_integrates_deploy_back_ephemeral_clean {
 function job_integrates_deploy_back_production {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
-  local B64_JWT_TOKEN
   local DATE
   local cluster='integrates-cluster'
   local region='us-east-1'
@@ -1485,7 +1454,6 @@ function job_integrates_deploy_back_production {
     FIREWALL_ACL_ARN
     B64_AWS_ACCESS_KEY_ID
     B64_AWS_SECRET_ACCESS_KEY
-    B64_JWT_TOKEN
   )
 
   # shellcheck disable=SC2034
@@ -1503,7 +1471,6 @@ function job_integrates_deploy_back_production {
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
   &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
-  &&  B64_JWT_TOKEN=$(helper_integrates_to_b64 "${JWT_TOKEN}") \
   &&  DATE="$(date)" \
   &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
   &&  for file in "${files[@]}"

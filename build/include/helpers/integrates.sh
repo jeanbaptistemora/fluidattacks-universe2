@@ -28,7 +28,6 @@ function helper_integrates_aws_login {
 }
 
 function helper_integrates_set_dev_secrets {
-  export JWT_TOKEN
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export AWS_DEFAULT_REGION
@@ -39,7 +38,6 @@ function helper_integrates_set_dev_secrets {
 }
 
 function helper_integrates_set_prod_secrets {
-  export JWT_TOKEN
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export AWS_DEFAULT_REGION

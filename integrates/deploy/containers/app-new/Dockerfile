@@ -6,9 +6,9 @@ RUN apk add --no-cache \
       git=2.22.4-r0
 
 # Timezone
-RUN     apk add tzdata=2020c-r0 \
+RUN     apk add --no-cache tzdata=2020c-r0 \
     &&  cp /usr/share/zoneinfo/America/Bogota /etc/localtime \
-    &&  echo "America/Bogota" > /etc/timezone \
+    &&  echo 'America/Bogota' > /etc/timezone \
     &&  apk del tzdata
 
 WORKDIR /product
@@ -17,6 +17,3 @@ WORKDIR /product
 COPY . .
 RUN     nix-shell --run ':' 'build/provisioners/integrates_serve_back_dev.nix' \
     &&  nix-store --optimise
-
-# Set version
-ENV FI_VERSION="${VERSION}"
