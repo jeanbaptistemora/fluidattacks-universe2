@@ -7,6 +7,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     in_process,
+    in_thread,
 )
 from cfn_tools.yaml_loader import (
     construct_mapping,
@@ -23,6 +24,7 @@ from metaloaders.model import (
 from metaloaders.cloudformation import (
     load as load_cfn,
 )
+from metaloaders.exceptions import MetaloaderError
 import yaml
 
 # Local libraries
@@ -32,6 +34,7 @@ from parse_json import (
 from parse_common.types import (
     ListToken,
 )
+from utils.logs import log_exception
 
 
 class BasicLoader(  # pylint: disable=too-many-ancestors
@@ -171,14 +174,18 @@ def load_as_json(content: str) -> Any:
 
 
 async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
-    templates = await in_process(
-        load_cfn,
-        stream=content,
-        fmt=fmt,
-    )
-    for template in templates.data if (templates.data_type
-                                       == Type.ARRAY) else [templates]:
-        yield template
+    try:
+        templates = await in_process(
+            load_cfn,
+            stream=content,
+            fmt=fmt,
+        )
+        for template in templates.data if (templates.data_type
+                                           == Type.ARRAY) else [templates]:
+            yield template
+    except MetaloaderError as exc:
+        in_thread(log_exception, 'error', exc)
+        return
 
 
 async def load(content: str, fmt: str) -> Any:
