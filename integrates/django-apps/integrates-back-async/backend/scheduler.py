@@ -1,7 +1,6 @@
 """ Asynchronous task execution scheduler for FLUIDIntegrates """
 
 
-import asyncio
 import logging
 import logging.config
 from collections import OrderedDict, defaultdict
@@ -11,7 +10,10 @@ from typing import Callable, Dict, List, Tuple, Union, cast
 import bugsnag
 
 from botocore.exceptions import ClientError
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    schedule,
+)
 
 from backend import mailer, util
 from backend.dal import (
@@ -906,6 +908,6 @@ def scheduler_send_mail(
     mail_to: List[str],
     mail_context: MailContentType
 ) -> None:
-    asyncio.create_task(
+    schedule(
         send_mail_function(mail_to, mail_context)
     )

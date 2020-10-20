@@ -1,10 +1,12 @@
 """Domain functions for events."""  # pylint:disable=cyclic-import
 from typing import Dict, List, Tuple, Union, cast, Any
-import asyncio
 import random
 from datetime import datetime
 
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    schedule,
+)
 import pytz
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from magic import Magic
@@ -190,7 +192,7 @@ async def _send_new_event_mail(
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = f'Hacker at FluidIntegrates'
 
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_new_event(
             [recipients_not_customers, recipients_customers],
             [email_context, email_context_customers]
@@ -329,7 +331,7 @@ def send_comment_mail(
     comment_data: CommentType,
     event: EventType
 ) -> None:
-    asyncio.create_task(
+    schedule(
         mailer.send_comment_mail(
             comment_data,
             'event',

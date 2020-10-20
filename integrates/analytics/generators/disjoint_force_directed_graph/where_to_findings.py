@@ -1,7 +1,7 @@
 # Standard library
-import asyncio
 
 # Third party libraries
+from aioextensions import run
 from backend.domain import (
     finding as finding_domain,
     project as group_domain,
@@ -63,4 +63,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())

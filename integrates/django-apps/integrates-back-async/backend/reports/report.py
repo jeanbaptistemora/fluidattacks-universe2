@@ -1,10 +1,10 @@
 # Standard library
-import asyncio
 from typing import List, Any
 
 # Third party libraries
 from aioextensions import (
     in_process,
+    schedule,
 )
 
 # Local libraries
@@ -55,7 +55,7 @@ async def generate_group_report(
 
     patch_loop_exception_handler(user_email, project_name, report_type)
     if report_type == 'PDF':
-        asyncio.create_task(
+        schedule(
             technical_report.generate_pdf(
                 description=description,
                 findings_ord=findings_ord,
@@ -66,7 +66,7 @@ async def generate_group_report(
         )
         success = True
     elif report_type == 'XLS':
-        asyncio.create_task(
+        schedule(
             technical_report.generate_xls(
                 findings_ord=findings_ord,
                 group_name=project_name,
@@ -75,7 +75,7 @@ async def generate_group_report(
         )
         success = True
     elif report_type == 'DATA':
-        asyncio.create_task(
+        schedule(
             data_report.generate(
                 findings_ord=findings_ord,
                 group=project_name,

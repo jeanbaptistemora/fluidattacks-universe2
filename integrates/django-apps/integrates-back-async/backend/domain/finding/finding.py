@@ -1,5 +1,4 @@
 # pylint:disable=too-many-branches
-import asyncio
 import re
 from contextlib import AsyncExitStack
 from typing import (
@@ -14,7 +13,8 @@ from typing import (
 
 from aioextensions import (
     collect,
-    in_process
+    in_process,
+    schedule,
 )
 import aioboto3
 from graphql import GraphQLError
@@ -94,7 +94,7 @@ def send_comment_mail(
     comment_data: CommentType,
     finding
 ) -> None:
-    asyncio.create_task(
+    schedule(
         mailer.send_comment_mail(
             comment_data,
             'finding',
@@ -110,7 +110,7 @@ def send_finding_mail(
     finding_id: str,
     *mail_params: Union[str, Dict[str, str]]
 ) -> None:
-    asyncio.create_task(
+    schedule(
         send_email_function(
             finding_id,
             *mail_params

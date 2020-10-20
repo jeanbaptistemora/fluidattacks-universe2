@@ -1,5 +1,4 @@
 # pylint: disable=too-many-locals
-import asyncio
 import logging
 import sys
 from typing import (
@@ -13,6 +12,7 @@ from typing import (
 
 from aioextensions import (
     collect,
+    schedule,
 )
 from ariadne import convert_kwargs_to_snake_case
 
@@ -81,7 +81,7 @@ async def _give_user_access(
             'project_description': description,
             'project_url': project_url,
         }
-        asyncio.create_task(
+        schedule(
             mailer.send_mail_access_granted(
                 mail_to, context,
             )
@@ -203,7 +203,7 @@ async def _do_add_stakeholder(
             )
             mail_to = [email]
             context: MailContentType = {'admin': email}
-            asyncio.create_task(
+            schedule(
                 mailer.send_mail_access_granted(
                     mail_to, context,
                 )

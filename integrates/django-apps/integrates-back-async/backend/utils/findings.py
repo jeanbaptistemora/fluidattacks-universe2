@@ -1,4 +1,3 @@
-import asyncio
 import bisect
 import io
 import itertools
@@ -11,6 +10,7 @@ from aioextensions import (
     collect,
     in_process,
     in_thread,
+    schedule,
 )
 from backports import csv
 from django.core.files.base import ContentFile
@@ -468,7 +468,7 @@ async def send_finding_verified_email(
         recipient for recipient in recipients if recipient in all_recipients
     ]
 
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_verified_finding(
             recipients,
             {
@@ -512,7 +512,7 @@ async def send_finding_delete_mail(
         justification: str) -> None:
     recipients = FI_MAIL_REVIEWERS.split(',')
 
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_delete_finding(
             recipients,
             {
@@ -535,7 +535,7 @@ async def send_remediation_email(
     recipients = await project_domain.get_closers(
         project_name
     )
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_remediate_finding(
             recipients,
             {
@@ -568,7 +568,7 @@ async def send_accepted_email(
     treatment = 'Temporarily accepted'
     if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
         treatment = 'Eternally accepted'
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_accepted_finding(
             recipients,
             {
@@ -602,7 +602,7 @@ async def send_draft_reject_mail(
         'finding_name': finding_name,
         'project': project_name
     }
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_reject_draft(
             recipients, email_context
         )
@@ -627,7 +627,7 @@ async def send_new_draft_mail(
         ),
         'project': project_name
     }
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_new_draft(recipients, email_context)
     )
 

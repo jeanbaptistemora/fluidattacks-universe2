@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 from operator import attrgetter
 from typing import (
     List,
@@ -8,6 +7,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
+    run,
 )
 from async_lru import alru_cache
 from backend.domain import (
@@ -85,4 +85,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())

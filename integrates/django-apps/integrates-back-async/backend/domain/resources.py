@@ -1,12 +1,14 @@
 """Domain functions for resources."""
 
-import asyncio
 import logging
 from collections import namedtuple
 from typing import Dict, List, NamedTuple, cast
 from urllib.parse import quote, unquote
 
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    schedule,
+)
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from backend import mailer
@@ -82,7 +84,7 @@ async def send_mail(
         'resource_list': resource_description,
         'project_url': f'{BASE_URL}/groups/{project_name}/resources'
     }
-    asyncio.create_task(
+    schedule(
         mailer.send_mail_resources(
             list(recipients), context
         )

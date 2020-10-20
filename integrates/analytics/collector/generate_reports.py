@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 import contextlib
 import os
 import time
@@ -12,7 +11,10 @@ from urllib.parse import (
 )
 
 # Third party libraries
-from aioextensions import in_thread
+from aioextensions import (
+    in_thread,
+    run,
+)
 import aiohttp
 from backend.utils.encodings import (
     safe_encode,
@@ -197,4 +199,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())
