@@ -4,6 +4,7 @@ function _job_common_build_nix_caches {
   local provisioner
   local context='.'
   local dockerfile='build/Dockerfile'
+  local use_cache='false'
 
       provisioner=$(basename "${1:-}") \
   &&  provisioner="${provisioner%.*}" \
@@ -11,6 +12,7 @@ function _job_common_build_nix_caches {
         "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
         "${context}" \
         "${dockerfile}" \
+        "${use_cache}" \
         'PROVISIONER' "${provisioner}"
 }
 
@@ -179,11 +181,12 @@ function job_common_deploy_container_image {
   local context='.'
   local dockerfile='Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/bin:latest"
+  local use_cache='false'
 
       echo '[INFO] Building' \
   &&  helper_common_docker_build_and_push \
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
-
+        "${use_cache}"
 }

@@ -123,29 +123,40 @@ function helper_integrates_serve_dynamo {
 }
 
 function helper_integrates_serve_back_new {
-  local environment="${1}"
-  local app="${2}"
-  local worker_class="${3}"
-  local host='0.0.0.0'
-  local https_port='8080'
-  local workers='5'
+  local protocol="${1}"
+  local environment="${2}"
+  local app="${3}"
+  local worker_class="${4}"
+  local workers="${5}"
+  local host="${6}"
+  local port="${7}"
   local common_args=(
     --timeout "3600"
     --workers "${workers}"
     --worker-class "${worker_class}"
   )
-  export processes_to_kill
 
       env_prepare_python_packages \
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
   &&  "helper_integrates_set_${environment}_secrets" \
-  &&  echo "[INFO] Serving HTTPS on port ${https_port}" \
+  &&  echo "[INFO] Serving ${protocol} on ${host}:${port}" \
+  &&  if [ "${protocol}" == 'http' ]
+      then
+        :
+      elif [ "${protocol}" == 'https' ]
+      then
+        common_args+=(
+          --certfile="${srcDerivationsCerts}/fluidla.crt"
+          --keyfile="${srcDerivationsCerts}/fluidla.key"
+        )
+      else
+            echo "[ERROR] Only 'http' and 'https' allowed for protocol." \
+        &&  return 1
+      fi \
   &&  { gunicorn \
         "${common_args[@]}" \
-        --bind="${host}:${https_port}" \
-        --certfile="${srcDerivationsCerts}/fluidla.crt" \
-        --keyfile="${srcDerivationsCerts}/fluidla.key" \
+        --bind="${host}:${port}" \
         "${app}" \
         & }
 }
@@ -195,7 +206,9 @@ function helper_integrates_probe_aws_credentials {
 }
 
 function helper_integrates_probe_curl_localhost {
-  if curl -sSiLk https://localhost:8080 | grep -q 'FluidIntegrates'
+  local endpoint="${1}"
+
+  if curl -sSiLk "${endpoint}" | grep -q 'FluidIntegrates'
   then
     echo '[INFO] Passed: test_curl_localhost'
   else

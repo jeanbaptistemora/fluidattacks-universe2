@@ -197,11 +197,13 @@ function job_integrates_build_container_app_new {
   local context='.'
   local dockerfile='integrates/deploy/containers/app-new/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}_new"
+  local use_cache='false'
 
   helper_common_docker_build_and_push \
     "${tag}" \
     "${context}" \
     "${dockerfile}" \
+    "${use_cache}" \
     'VERSION' "${FI_VERSION}"
 }
 
@@ -209,6 +211,7 @@ function job_integrates_build_container_app {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
+  local use_cache='true'
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Remember that this job needs: build_lambdas' \
@@ -226,6 +229,7 @@ function job_integrates_build_container_app {
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
+        "${use_cache}" \
         'CI_API_V4_URL' "${CI_API_V4_URL}" \
         'CI_COMMIT_AUTHOR' "${CI_COMMIT_AUTHOR}" \
         'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
@@ -244,6 +248,7 @@ function job_integrates_build_container_app2 {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile2'
   local tag="${CI_REGISTRY_IMAGE}/app2:${CI_COMMIT_REF_NAME}"
+  local use_cache='true'
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Remember that this job needs: build_lambdas' \
@@ -261,6 +266,7 @@ function job_integrates_build_container_app2 {
         "${tag}" \
         "${context}" \
         "${dockerfile}" \
+        "${use_cache}" \
         'CI_API_V4_URL' "${CI_API_V4_URL}" \
         'CI_COMMIT_AUTHOR' "${CI_COMMIT_AUTHOR}" \
         'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
@@ -651,17 +657,17 @@ function job_integrates_serve_minio_local {
 
 function job_integrates_probes_local {
       helper_integrates_probe_aws_credentials \
-  &&  helper_integrates_probe_curl_localhost
+  &&  helper_integrates_probe_curl_localhost 'https://localhost:8080'
 }
 
 function job_integrates_probes_ephemeral_readiness {
       helper_integrates_probe_aws_credentials \
-  &&  helper_integrates_probe_curl_localhost
+  &&  helper_integrates_probe_curl_localhost 'http://localhost:8000'
 }
 
 function job_integrates_probes_ephemeral_liveness {
-        helper_integrates_probe_aws_credentials \
-  &&  helper_integrates_probe_curl_localhost \
+      helper_integrates_probe_aws_credentials \
+  &&  helper_integrates_probe_curl_localhost 'http://localhost:8000' \
   &&  helper_integrates_probe_curl_ephemeral
 }
 
@@ -673,9 +679,13 @@ function job_integrates_serve_local {
   &&  pushd integrates \
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back_new \
+          'https' \
           'dev' \
           'fluidintegrates.asgi:APP' \
           'fluidintegrates.asgi.IntegratesWorker' \
+          '5' \
+          '0.0.0.0' \
+          '8080' \
     &&  helper_integrates_serve_front \
     &&  helper_integrates_serve_redis \
     &&  wait \
@@ -689,11 +699,16 @@ function job_integrates_serve_ephemeral {
 
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back_new \
+          'http' \
           'dev' \
           'fluidintegrates.asgi:APP' \
           'fluidintegrates.asgi.IntegratesWorker' \
+          '5' \
+          '0.0.0.0' \
+          '8000' \
     &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \
@@ -1364,6 +1379,7 @@ function job_integrates_deploy_back_ephemeral {
     B64_AWS_ACCESS_KEY_ID
     B64_AWS_SECRET_ACCESS_KEY
     B64_JWT_TOKEN
+    B64_CI_COMMIT_REF_NAME
   )
 
   # shellcheck disable=SC2034
@@ -1378,6 +1394,7 @@ function job_integrates_deploy_back_ephemeral {
   &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
   &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
   &&  B64_JWT_TOKEN=$(helper_integrates_to_b64 "${JWT_TOKEN}") \
+  &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
   &&  DATE="$(date)" \
   &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
   &&  for file in "${files[@]}"

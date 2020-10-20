@@ -11,6 +11,7 @@ in
         pkgs.git
         pkgs.awscli
         pkgs.curl
+        pkgs.cacert
       ];
     })
   )
