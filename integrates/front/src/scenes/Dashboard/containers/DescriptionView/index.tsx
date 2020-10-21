@@ -12,7 +12,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Dispatch } from "redux";
@@ -40,6 +39,13 @@ import {
 import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
 } from "scenes/Dashboard/containers/DescriptionView/utils";
+import {
+  Col100,
+  Col45,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Dropdown, Text, TextArea } from "utils/forms/fields";
@@ -231,7 +237,7 @@ const descriptionView: React.FC = (): JSX.Element => {
         <React.Fragment>
           <React.Fragment>
             <Row>
-              <Col md={6}>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -249,22 +255,22 @@ const descriptionView: React.FC = (): JSX.Element => {
                     </EditableField>
                   )}
                 </Can>
-              </Col>
+              </Col45>
               <Can do="backend_api_resolvers_finding__get_analyst">
-                <Col md={6}>
+                <Col45>
                   <FormGroup>
                     <ControlLabel>
                       <b>{translate.t("search_findings.tab_description.analyst")}</b>
                     </ControlLabel>
                     <p>{dataset.analyst}</p>
                   </FormGroup>
-                </Col>
+                </Col45>
               </Can>
             </Row>
             <Can do="backend_api_resolvers_finding__do_update_description">
               {isEditing ? (
                 <Row>
-                  <Col md={12}>
+                  <Col100>
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_description.title.tooltip")}
                     >
@@ -281,12 +287,12 @@ const descriptionView: React.FC = (): JSX.Element => {
                         />
                       </FormGroup>
                     </TooltipWrapper>
-                  </Col>
+                  </Col100>
                 </Row>
               ) : undefined}
             </Can>
             <Row>
-              <Col md={12}>
+              <Col100>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -302,10 +308,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
+              </Col100>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col100>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -321,10 +327,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
+              </Col100>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col100>
                 <FormGroup>
                   <ControlLabel>
                     <b>{translate.t("search_findings.tab_description.where")}</b>
@@ -343,10 +349,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     verificationFn={openRemediationModal}
                   />
                 </FormGroup>
-              </Col>
+              </Col100>
             </Row>
             <Row>
-              <Col md={6}>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -362,8 +368,8 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
-              <Col md={6}>
+              </Col45>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -379,10 +385,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
+              </Col45>
             </Row>
             <Row>
-              <Col md={6}>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -398,8 +404,8 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
-              <Col md={6}>
+              </Col45>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -415,10 +421,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
+              </Col45>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col100>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -434,10 +440,10 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
+              </Col100>
             </Row>
             <Row>
-              <Col md={6}>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -453,8 +459,8 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
-              <Col md={6}>
+              </Col45>
+              <Col45>
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
@@ -470,7 +476,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col>
+              </Col45>
             </Row>
           </React.Fragment>
         </React.Fragment>
