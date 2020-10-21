@@ -5,12 +5,13 @@
 
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
 
@@ -53,77 +54,75 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     && props.lastTreatment.acceptanceStatus === "SUBMITTED";
 
   return (
-    <Row>
-      <ButtonToolbar className="pull-right">
-        <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
-          {shouldRenderVerifyBtn ? (
-            <TooltipWrapper
-              message={translate.t("search_findings.tab_description.mark_verified.tooltip")}
-              placement="top"
-            >
-              <Button onClick={onVerify}>
-                <FluidIcon icon="verified" />&nbsp;
-                {props.isVerifying
-                  ? translate.t("search_findings.tab_description.cancel_verified")
-                  : translate.t("search_findings.tab_description.mark_verified.text")}
-              </Button>
-            </TooltipWrapper>
-          ) : undefined}
-        </Can>
-        <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
-          <br />
-          {shouldRenderRequestVerifyBtn ? (
-            <TooltipWrapper message={translate.t("search_findings.tab_description.request_verify.tooltip")}>
-              <Button onClick={onRequestVerify} disabled={props.isRemediated}>
-                <FluidIcon icon="verified" />&nbsp;
-                {props.isRequestingVerify
-                  ? translate.t("search_findings.tab_description.cancel_verify")
-                  : translate.t("search_findings.tab_description.request_verify.text")}
-              </Button>
-            </TooltipWrapper>
-          ) : undefined}
-        </Can>
-        <Can do="backend_api_resolvers_finding__do_handle_acceptation">
-          {shouldRenderApprovalBtns ? (
-            <React.Fragment>
-              <Button onClick={onApproveAcceptation}>
-                <FluidIcon icon="verified" />&nbsp;
-              {translate.t("search_findings.acceptation_buttons.approve")}
-              </Button>
-              <Button onClick={onRejectAcceptation}>
-                {translate.t("search_findings.acceptation_buttons.reject")}
-              </Button>
-            </React.Fragment>
-          ) : undefined}
-        </Can>
-        {props.isEditing ? (
-          <TooltipWrapper message={translate.t("search_findings.tab_description.save.tooltip")}>
-            <Button onClick={onUpdate} disabled={props.isPristine}>
-              <FluidIcon icon="loading" />&nbsp;
-              {translate.t("search_findings.tab_description.save.text")}
+    <ButtonToolbarRow>
+      <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
+        {shouldRenderVerifyBtn ? (
+          <TooltipWrapper
+            message={translate.t("search_findings.tab_description.mark_verified.tooltip")}
+            placement="top"
+          >
+            <Button onClick={onVerify}>
+              <FluidIcon icon="verified" />&nbsp;
+              {props.isVerifying
+                ? translate.t("search_findings.tab_description.cancel_verified")
+                : translate.t("search_findings.tab_description.mark_verified.text")}
             </Button>
           </TooltipWrapper>
         ) : undefined}
-        <TooltipWrapper
-          message={props.isEditing
-            ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
-            : translate.t("search_findings.tab_description.editable.editable_tooltip")
-          }
-        >
-          <Button onClick={onEdit}>
-            {props.isEditing ? (
-              <React.Fragment>
-                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
-              </React.Fragment>
-            )}
+      </Can>
+      <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
+        <br />
+        {shouldRenderRequestVerifyBtn ? (
+          <TooltipWrapper message={translate.t("search_findings.tab_description.request_verify.tooltip")}>
+            <Button onClick={onRequestVerify} disabled={props.isRemediated}>
+              <FluidIcon icon="verified" />&nbsp;
+              {props.isRequestingVerify
+                ? translate.t("search_findings.tab_description.cancel_verify")
+                : translate.t("search_findings.tab_description.request_verify.text")}
+            </Button>
+          </TooltipWrapper>
+        ) : undefined}
+      </Can>
+      <Can do="backend_api_resolvers_finding__do_handle_acceptation">
+        {shouldRenderApprovalBtns ? (
+          <React.Fragment>
+            <Button onClick={onApproveAcceptation}>
+              <FluidIcon icon="verified" />&nbsp;
+            {translate.t("search_findings.acceptation_buttons.approve")}
+            </Button>
+            <Button onClick={onRejectAcceptation}>
+              {translate.t("search_findings.acceptation_buttons.reject")}
+            </Button>
+          </React.Fragment>
+        ) : undefined}
+      </Can>
+      {props.isEditing ? (
+        <TooltipWrapper message={translate.t("search_findings.tab_description.save.tooltip")}>
+          <Button onClick={onUpdate} disabled={props.isPristine}>
+            <FluidIcon icon="loading" />&nbsp;
+            {translate.t("search_findings.tab_description.save.text")}
           </Button>
         </TooltipWrapper>
-      </ButtonToolbar>
-    </Row>
+      ) : undefined}
+      <TooltipWrapper
+        message={props.isEditing
+          ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
+          : translate.t("search_findings.tab_description.editable.editable_tooltip")
+        }
+      >
+        <Button onClick={onEdit}>
+          {props.isEditing ? (
+            <React.Fragment>
+              <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
+            </React.Fragment>
+          )}
+        </Button>
+      </TooltipWrapper>
+    </ButtonToolbarRow>
   );
 };
 

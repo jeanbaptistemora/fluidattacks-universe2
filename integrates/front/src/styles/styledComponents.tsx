@@ -14,6 +14,13 @@ const ButtonToolbarLeft: StyledComponent<
   className: "fl",
 })``;
 
+const ButtonToolbarRow: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "flex flex-wrap justify-end",
+})``;
+
 const Col100: StyledComponent<
   "div",
   Record<string, unknown>
@@ -307,6 +314,7 @@ const TabsContainer: StyledComponent<
 export {
   ButtonToolbar,
   ButtonToolbarLeft,
+  ButtonToolbarRow,
   Col100,
   Col25,
   Col40,
