@@ -254,7 +254,7 @@ for mock_file in test_async/dynamo_data/*.json; do
     --request-items file://${mock_file}
 done
 
-iso_date_now=$(date +%Y-%m-%dT%H:%M:%S.000000%z)
+iso_date_now=$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)
 
 # This will insert two extra rows with current date-time
 # This rows are always visible in the front-end :)
