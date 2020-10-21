@@ -1,7 +1,5 @@
 # Standard library
-from datetime import datetime, timedelta
 from typing import Any
-from jose import jwt
 
 # Third party libraries
 from ariadne.asgi import GraphQL
@@ -18,9 +16,9 @@ from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
 from backend.api.schema import SCHEMA
-from backend import util
 
 from backend_new import settings
+import backend_new.app.utils as utils
 
 from __init__ import (
     FI_GOOGLE_OAUTH2_KEY,
@@ -28,7 +26,7 @@ from __init__ import (
     FI_STARLETTE_TEST_KEY
 )
 
-TEMPLATES_DIR = 'backend_new/templates'
+TEMPLATES_DIR = 'backend_new/app/templates'
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 OAUTH = OAuth()
 OAUTH.register(
@@ -90,30 +88,9 @@ async def authz(request: Request) -> HTMLResponse:
         }
     )
 
-    jwt_token = jwt.encode(
-        dict(
-            user_email=user['email'],
-            first_name=user['given_name'],
-            last_name=user['family_name'],
-            exp=(
-                datetime.utcnow() +
-                timedelta(seconds=settings.SESSION_COOKIE_AGE)
-            ),
-            sub='starlette_session',
-            jti=util.calculate_hash_token()['jti'],
-        ),
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    jwt_token = utils.create_session_token(user)
+    utils.set_token_in_response(response, jwt_token)
 
-    response.set_cookie(
-        key=settings.JWT_COOKIE_NAME,
-        samesite=settings.JWT_COOKIE_SAMESITE,
-        value=jwt_token,
-        secure=True,
-        httponly=True,
-        max_age=settings.SESSION_COOKIE_AGE
-    )
     return response
 
 
