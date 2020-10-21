@@ -76,12 +76,13 @@ async def authz(request: Request) -> HTMLResponse:
     token = await OAUTH.google.authorize_access_token(request)
     user = dict(await OAUTH.google.parse_id_token(request, token))
     request.session['username'] = user['email']
+    request.session['first_name'] = user['given_name']
+    request.session['last_name'] = user['family_name']
     response = TEMPLATING_ENGINE.TemplateResponse(
         name='app.html',
         context={
             'request': request,
             'debug': settings.DEBUG,
-            'username': request.session['username'],
             'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
             'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
             'delighted': f'{settings.STATIC_URL}/app/delighted.js'

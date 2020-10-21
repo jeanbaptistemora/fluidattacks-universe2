@@ -26,9 +26,9 @@
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
     <script>
-      var userName = "testUserName"
-      var fullName = "testFullName"
-      var userEmail = "testEmail"
+      var userName = "{{ request.session['first_name'] }}";
+      var fullName = "{{ request.session['first_name'] }} " + "{{ request.session['last_name'] }}";
+      var userEmail = "{{ request.session['username'] }}";
     </script>
     <!-- Start of Delighted survey script -->
     <script defer src="{{ delighted }}" type="text/javascript"></script>
