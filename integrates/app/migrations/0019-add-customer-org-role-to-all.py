@@ -7,7 +7,6 @@ of an organization
 Execution Time: 2020-07-08 16:00:00 UTC-5
 Finalization Time: 2020-07-08 17:00:00 UTC-5
 """
-import asyncio
 import os
 from typing import (
     Any,
@@ -16,7 +15,10 @@ from typing import (
 )
 
 import aioboto3
-from aioextensions import in_thread
+from aioextensions import (
+    in_thread,
+    run,
+)
 from boto3.dynamodb.conditions import Attr
 
 from backend import authz
@@ -88,4 +90,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

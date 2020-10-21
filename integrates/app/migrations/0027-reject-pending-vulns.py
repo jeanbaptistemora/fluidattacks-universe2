@@ -5,7 +5,6 @@ Executed: 2020-08-31 12:20:00-05:00
 """
 
 from time import time
-import asyncio
 import os
 from typing import (
     Dict,
@@ -14,6 +13,7 @@ from typing import (
 
 from aioextensions import (
     collect,
+    run,
 )
 import django
 
@@ -81,4 +81,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

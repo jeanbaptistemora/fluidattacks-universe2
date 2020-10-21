@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 from datetime import datetime, timedelta
 from itertools import chain
 from typing import (
@@ -8,6 +7,7 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import run
 from backend.api.dataloaders.project import (
     ProjectLoader as GroupLoader,
 )
@@ -130,4 +130,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())

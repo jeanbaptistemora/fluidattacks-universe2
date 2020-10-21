@@ -7,8 +7,9 @@ all organizations that do not have a group attached
 Execution Time: 2020-07-16 20:38:00 UTC-5
 Finalization Time: 2020-07-16 20:51:0 UTC-5
 """
-import asyncio
 import os
+
+from aioextensions import run
 
 from backend.domain import organization as org_domain
 
@@ -27,4 +28,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

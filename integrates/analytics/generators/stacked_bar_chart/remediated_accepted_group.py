@@ -1,12 +1,14 @@
 # Standard library
-import asyncio
 from typing import (
     List,
     NamedTuple,
 )
 
 # Third party libraries
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    run,
+)
 from async_lru import alru_cache
 from backend.domain import (
     project as group_domain,
@@ -134,4 +136,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())

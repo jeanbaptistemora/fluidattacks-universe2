@@ -6,7 +6,6 @@ company field or that auto-enrolled to the application.
 It will accomplish this by using the organization of the groups these users
 have access to.
 """
-import asyncio
 import os
 from typing import (
     Dict,
@@ -15,7 +14,10 @@ from typing import (
 )
 
 import aioboto3
-from aioextensions import in_thread
+from aioextensions import (
+    in_thread,
+    run,
+)
 import bugsnag
 from boto3.dynamodb.conditions import Attr, Not
 
@@ -133,4 +135,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

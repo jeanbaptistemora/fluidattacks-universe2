@@ -8,7 +8,6 @@ Execution Time: 2020-06-30 10:50 UTC-5
 Finalization Time: 2020-06-30 11:03 UTC-5
 """
 
-import asyncio
 import json
 import os
 from typing import (
@@ -18,7 +17,10 @@ from typing import (
 )
 
 import aioboto3
-from aioextensions import in_thread
+from aioextensions import (
+    in_thread,
+    run,
+)
 import bugsnag
 from boto3.dynamodb.conditions import Attr, Not
 from botocore.exceptions import ClientError
@@ -157,4 +159,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

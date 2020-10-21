@@ -7,7 +7,6 @@ the group belongs to
 Execution Time: 2020-07-08 15:03:00 UTC-5
 Finalization Time: 2020-07-08 15:15:00 UTC-5
 """
-import asyncio
 import os
 from typing import (
     Dict,
@@ -17,6 +16,7 @@ from typing import (
 from aioextensions import (
     collect,
     in_thread,
+    run,
 )
 import bugsnag
 from backend.dal import organization as org_dal
@@ -88,4 +88,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 from datetime import datetime
 from typing import (
     Dict,
@@ -7,7 +6,10 @@ from typing import (
 )
 
 # Third party libraries
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    run,
+)
 from async_lru import alru_cache
 from backend.api.dataloaders.project import ProjectLoader
 
@@ -230,4 +232,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())
