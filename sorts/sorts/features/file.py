@@ -94,6 +94,12 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
         risky_commits = get_risky_commits(git_metrics)
         seldom_contributors = get_seldom_contributors(git_metrics)
         unique_authors = get_unique_authors(git_metrics)
+    except FileNotFoundError as exc:
+        log_exception(
+            'info',
+            exc,
+            message=f'Log file for repo {repo_name} does not exist'
+        )
     except IndexError as exc:
         log_exception(
             'info',

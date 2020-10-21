@@ -19,6 +19,9 @@ from git.exc import (
 from numpy import ndarray
 from pydriller.metrics.process.hunks_count import HunksCount
 
+# Local libraries
+from utils.logs import log_exception
+
 
 STAT_REGEX = re.compile(
     r'([0-9]+ files? changed)?'
@@ -255,14 +258,17 @@ def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
     """Gets the complete log of the repositories and saves them to files"""
     for repo_path in repos_paths:
         repo: str = os.path.basename(repo_path)
-        git_repo: Git = git.Git(repo_path)
-        git_log: str = git_repo.log(
-            '--no-merges',
-            '--numstat',
-            '--pretty=%n%H,%ae,%aI%n'
-        ).replace('\n\n\n', '\n')
-        with open(os.path.join(dir_, f'{repo}.log'), 'w') as log_file:
-            log_file.write(git_log)
+        try:
+            git_repo: Git = git.Git(repo_path)
+            git_log: str = git_repo.log(
+                '--no-merges',
+                '--numstat',
+                '--pretty=%n%H,%ae,%aI%n'
+            ).replace('\n\n\n', '\n')
+            with open(os.path.join(dir_, f'{repo}.log'), 'w') as log_file:
+                log_file.write(git_log)
+        except GitCommandNotFound as exc:
+            log_exception('info', exc, message=f'Repo {repo} does not exist')
 
 
 def get_repository_files(repo_path: str) -> List[str]:
