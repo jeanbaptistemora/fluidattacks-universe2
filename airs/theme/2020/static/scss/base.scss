@@ -247,7 +247,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .ph-body { padding: 0 1.875rem; }
 .pl-body { padding-left: 1.875rem; }
 .fheader { font-size: 144px; }
-.w-footer-form { width: 18.75rem; }
+.w-footer-form { width: 19rem; }
 .sqr-card { min-height: 400px; width: 400px; }
 .w-benefit { width: 400px; }
 .services-features  { .sect2 { min-height: 720px !important; } }
@@ -369,7 +369,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .nt-menu-btn { margin-top: -1px; }
   .ph-body { padding: 0 3.75rem; }
   .pl-body { padding-left: 3.75rem; }
-  .w-footer-form { width: 30%; }
   .mw-20 { max-width: 20rem; }
   .w-benefit { width: 33%; }
 }
@@ -1136,4 +1135,8 @@ video {
 
 .accordion-item h3:not(:active) ~ .accordion-content {
   display: none;
+}
+
+.intl-tel-input {
+  width: 100%;
 }
