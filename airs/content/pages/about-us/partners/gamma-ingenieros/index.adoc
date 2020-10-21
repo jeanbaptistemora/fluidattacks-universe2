@@ -8,9 +8,7 @@
 = Gamma Ingenieros
 
 Gamma Ingenieros is a Colombian company
-focused on satisfying its customers' needs
-regarding `IT` services and solutions.
-It is a company that performs consulting and auditing
+which performs consulting and auditing services
 of construction and telecommunications works.
 It has a proven track record of fostering customer confidence
 and improving their experience.

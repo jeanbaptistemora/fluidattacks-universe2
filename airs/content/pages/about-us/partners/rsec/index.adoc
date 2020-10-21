@@ -8,9 +8,9 @@
 = RSec
 
 RSec is a leading-edge company focused on the design,
-deployment, and support of cybersecurity solutions.
+deployment and support of cybersecurity solutions.
 They provide a complete portfolio of services:
-assessment and protection of applications, networks and data;
-pentesting; endpoints, and cloud and email security.
-Besides, they have highly qualified consultants serving clients
-in Mexico, Colombia, Ecuador, Chile, and Peru.
+assessment and protection of applications, networks and data,
+pentesting, endpoints, and cloud and email security.
+Their highly qualified consultants serve clients
+in Mexico, Colombia, Ecuador, Chile and Peru.

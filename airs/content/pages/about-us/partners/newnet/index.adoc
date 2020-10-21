@@ -12,6 +12,6 @@ dedicated to providing `IT` services and solutions.
 It is a pioneer in information technology,
 with more than `20` years of experience.
 NewNet's objective is to plan, establish, implement, operate,
-review, maintain, and improve technology management.
-All this within the framework of security, service,
-and support according to each organization's needs.
+review, maintain and improve technology management.
+All this within the framework of security, service and support,
+according to each organization's needs.

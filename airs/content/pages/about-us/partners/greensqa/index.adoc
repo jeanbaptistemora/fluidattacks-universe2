@@ -7,6 +7,6 @@
 
 = GreenSQA
 
-GreenSQA ia a company with `15` years of experience in software testing,
+GreenSQA is a company with `15` years of experience in software testing,
 such as performance tests and tests on different mobile devices.
 It tests automation throughout the product development life-cycle.

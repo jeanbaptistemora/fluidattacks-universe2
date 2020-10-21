@@ -7,9 +7,9 @@
 
 = Choucair
 
-Choucair is a Colombian company, a pioneer in software testing.
-It was created in `1999`, with an international scope,
-offering services related to software testing to reduce operational risks.
+Choucair is a Colombian pioneer company in software testing.
+Created in `1999`, with an international scope,
+it offers services related to software testing to reduce operational risks.
 The success of its services is based on research
 and qualified human resources,
 supported by a certified and effective methodology.

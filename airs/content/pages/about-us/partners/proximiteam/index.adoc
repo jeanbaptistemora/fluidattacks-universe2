@@ -13,6 +13,6 @@ of high-quality software development services.
 Their teams of highly skilled software engineers and IT
 specialists create innovative systems and apps for every industry.
 Other services include systems integration,
-data analysis, testing, and support.
+data analysis, testing and support.
 Additionally, they have defined efficient service delivery models
 that focus on value and productivity.
