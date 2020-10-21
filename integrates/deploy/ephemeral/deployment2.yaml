@@ -17,8 +17,10 @@ spec:
         worker_group: large
       containers:
         - name: integrates2
-          image: registry.gitlab.com/fluidattacks/product/app2:__DEPLOYMENT_NAME__
+          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME___new
           imagePullPolicy: Always
+          command: ["bash"]
+          args: ["build.sh", "integrates2_serve_ephemeral"]
           resources:
             requests:
               cpu: 500m
@@ -33,17 +35,17 @@ spec:
             - secretRef:
                 name: integrates-__DEPLOYMENT_NAME__
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
           readinessProbe:
             exec:
-              command: [bash, deploy/ephemeral/integrates2-probes.sh, run_readiness_probe]
+              command: [./build.sh, integrates2_probes_ephemeral_readiness]
             initialDelaySeconds: 60
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
           livenessProbe:
             exec:
-              command: [bash, deploy/ephemeral/integrates2-probes.sh, run_liveness_probe]
+              command: [./build.sh, integrates2_probes_ephemeral_liveness]
             initialDelaySeconds: 60
             periodSeconds: 30
             successThreshold: 1

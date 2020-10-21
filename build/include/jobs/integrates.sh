@@ -627,19 +627,37 @@ function job_integrates_serve_minio_local {
 }
 
 function job_integrates_probes_local {
-      helper_integrates_probe_aws_credentials \
-  &&  helper_integrates_probe_curl_localhost 'https://localhost:8080'
+      helper_integrates_probe_aws_credentials 'integrates-dev' \
+  &&  helper_integrates_probe_curl 'https://localhost:8080'
 }
 
 function job_integrates_probes_ephemeral_readiness {
-      helper_integrates_probe_aws_credentials \
-  &&  helper_integrates_probe_curl_localhost 'http://localhost:8000'
+      helper_integrates_probe_aws_credentials 'integrates-dev' \
+  &&  helper_integrates_probe_curl 'http://localhost:8000'
 }
 
 function job_integrates_probes_ephemeral_liveness {
-      helper_integrates_probe_aws_credentials \
-  &&  helper_integrates_probe_curl_localhost 'http://localhost:8000' \
-  &&  helper_integrates_probe_curl_ephemeral
+      helper_integrates_probe_aws_credentials 'integrates-dev' \
+  &&  helper_integrates_probe_curl 'http://localhost:8000' \
+  &&  helper_integrates_probe_curl \
+        "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com"
+}
+
+function job_integrates2_probes_local {
+      helper_integrates_probe_aws_credentials 'integrates-dev' \
+  &&  helper_integrates_probe_curl 'https://localhost:8080/new/'
+}
+
+function job_integrates2_probes_ephemeral_readiness {
+      helper_integrates_probe_aws_credentials 'integrates-dev' \
+  &&  helper_integrates_probe_curl 'http://localhost:8000/new/'
+}
+
+function job_integrates2_probes_ephemeral_liveness {
+      helper_integrates_probe_aws_credentials 'integrates-dev' \
+  &&  helper_integrates_probe_curl 'http://localhost:8000/new/' \
+  &&  helper_integrates_probe_curl \
+        "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com/new/"
 }
 
 function job_integrates_serve_local {
@@ -1361,8 +1379,8 @@ function job_integrates_deploy_back_ephemeral {
     DATE
     EPHEMERAL_CERTIFICATE_ARN
     FIREWALL_ACL_ARN
-    B64_AWS_ACCESS_KEY_ID
-    B64_AWS_SECRET_ACCESS_KEY
+    B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID
+    B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
     B64_CI_COMMIT_REF_NAME
   )
 
@@ -1375,8 +1393,8 @@ function job_integrates_deploy_back_ephemeral {
       FIREWALL_ACL_ARN \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Computing environment variables' \
-  &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
-  &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
+  &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
+  &&  B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}") \
   &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
   &&  DATE="$(date)" \
   &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \

@@ -196,7 +196,9 @@ function helper_integrates_serve_minio {
 }
 
 function helper_integrates_probe_aws_credentials {
-  if aws sts get-caller-identity | grep -q 'integrates-dev'
+  local user="${1}"
+
+  if aws sts get-caller-identity | grep -q "${user}"
   then
     echo '[INFO] Passed: test_aws_credentials'
   else
@@ -205,24 +207,14 @@ function helper_integrates_probe_aws_credentials {
   fi
 }
 
-function helper_integrates_probe_curl_localhost {
+function helper_integrates_probe_curl {
   local endpoint="${1}"
 
   if curl -sSiLk "${endpoint}" | grep -q 'FluidIntegrates'
   then
-    echo '[INFO] Passed: test_curl_localhost'
+    echo "[INFO] Passed: helper_integrates_probe_curl on ${endpoint}"
   else
-        echo '[ERROR] Localhost curl failed.' \
-    &&  return 1
-  fi
-}
-
-function helper_integrates_probe_curl_ephemeral {
-  if curl -sSiL "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
-  then
-    echo '[INFO] Passed: test_curl_ephemeral'
-  else
-        echo '[ERROR] Ephemeral curl failed.' \
+        echo "[ERROR] helper_integrates_probe_curl failed on ${endpoint}" \
     &&  return 1
   fi
 }
