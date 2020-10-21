@@ -11,6 +11,7 @@ import click
 from toolbox import (
     drills,
     utils,
+    constants
 )
 
 from .misc import misc_management
@@ -21,11 +22,11 @@ from .reports import reports_management
 
 
 def _valid_integrates_token(ctx, param, value):
-    from toolbox import constants
     assert constants
 
 
 @click.group(name='entrypoint')
+@click.version_option(version=constants.VERSION)
 def entrypoint():
     """Main comand line group."""
 
@@ -46,7 +47,6 @@ def retry_debugging_on_failure(func):
         try:
             return func(*args, **kwargs)
         except Exception:  # noqa
-            from toolbox import constants
             from toolbox.api import integrates
             integrates.clear_cache()
             constants.LOGGER_DEBUG = True

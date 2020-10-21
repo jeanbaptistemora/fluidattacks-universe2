@@ -3,8 +3,13 @@ import os
 import re
 import sys
 from typing import Dict
+import pkg_resources
 
 # Constants
+CLI_NAME = "melts"
+BASE_DIR = os.path.dirname(__file__)
+VERSION = pkg_resources.get_distribution(CLI_NAME).version
+
 SAST: tuple = ('lines',)
 DAST: tuple = ('inputs', 'ports',)
 API_TOKEN: str = os.environ.get('INTEGRATES_API_TOKEN', '')
@@ -34,5 +39,3 @@ if not API_TOKEN:
 EXP_LABELS = ('product-ch', 'product-ch', 'product-fn',
               'service-logic', 'toe-location', 'toe-resource', 'toe-unreach')
 RE_EXPLOIT_REASON = re.compile(r'(?::\s*(?P<reason>[\w ]+))')
-
-BASE_DIR = os.path.dirname(__file__)

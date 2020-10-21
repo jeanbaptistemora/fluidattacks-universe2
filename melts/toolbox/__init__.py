@@ -1,6 +1,3 @@
-# Standard library
-import sys
-
 # Local imports
 from toolbox import (
     api,
@@ -21,6 +18,4 @@ assert reports
 assert toolbox
 assert drills
 
-if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter("ignore")
+__version__ = constants.VERSION

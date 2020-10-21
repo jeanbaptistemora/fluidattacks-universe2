@@ -1,12 +1,16 @@
 """Setup package."""
 
 # Standard imports
+import os
+from distutils import dist
 from datetime import datetime
 
 try:
     import distutils.core
 except ImportError:
     import distutils
+
+PKG_NAME = "melts"
 
 
 def get_minor_version() -> int:
@@ -20,6 +24,11 @@ def get_minor_version() -> int:
 
 def get_version():
     """Return the package version."""
+    metadata_file = "PKG-INFO"
+    if os.path.exists(metadata_file):
+        pkg_metadata = dist.DistributionMetadata(metadata_file)
+        return pkg_metadata.get_version()
+
     return datetime.utcnow().strftime(f'%Y.%m.{get_minor_version()}')
 
 
@@ -29,7 +38,7 @@ def get_install_requires():
 
 
 distutils.core.setup(
-    name='melts',
+    name=PKG_NAME,
     version=get_version(),
     description='Fluid Attacks Toolkit and SDK',
     author='Fluid Attacks',
