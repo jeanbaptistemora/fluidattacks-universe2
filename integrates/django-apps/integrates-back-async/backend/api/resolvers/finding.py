@@ -67,63 +67,6 @@ async def _get_vulnerabilities(
     return cast(List[VulnerabilityType], vuln_filtered)
 
 
-@get_entity_cache_async
-async def _get_ports_vulns(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[VulnerabilityType]:
-    """Get ports vulnerabilities."""
-    vuln_filtered = await info.context.loaders['vulnerability'].load(
-        identifier
-    )
-
-    vuln_filtered = [
-        vuln
-        for vuln in vuln_filtered
-        if (vuln['vuln_type'] == 'ports' and
-            (vuln['current_approval_status'] != 'PENDING' or
-             vuln['last_approved_status']))
-    ]
-    return cast(List[VulnerabilityType], vuln_filtered)
-
-
-@get_entity_cache_async
-async def _get_inputs_vulns(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[VulnerabilityType]:
-    """Get inputs vulnerabilities."""
-    vuln_filtered = await info.context.loaders['vulnerability'].load(
-        identifier
-    )
-
-    vuln_filtered = [
-        vuln
-        for vuln in vuln_filtered
-        if (vuln['vuln_type'] == 'inputs' and
-            (vuln['current_approval_status'] != 'PENDING' or
-             vuln['last_approved_status']))
-    ]
-    return cast(List[VulnerabilityType], vuln_filtered)
-
-
-@get_entity_cache_async
-async def _get_lines_vulns(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[VulnerabilityType]:
-    """Get lines vulnerabilities."""
-    vuln_filtered = await info.context.loaders['vulnerability'].load(
-        identifier
-    )
-
-    vuln_filtered = [
-        vuln
-        for vuln in vuln_filtered
-        if (vuln['vuln_type'] == 'lines' and
-            (vuln['current_approval_status'] != 'PENDING' or
-             vuln['last_approved_status']))
-    ]
-    return cast(List[VulnerabilityType], vuln_filtered)
-
-
 @rename_kwargs({'identifier': 'finding_id'})
 @concurrent_decorators(
     enforce_group_level_auth_async,
@@ -517,7 +460,10 @@ async def resolve(
             'consulting',
             'exploit',
             'id',
+            'inputs_vulns',
+            'lines_vulns',
             'observations',
+            'ports_vulns',
             'project_name'
         }
         if requested_field.startswith('_') or requested_field in migrated:
