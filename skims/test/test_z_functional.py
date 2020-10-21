@@ -455,7 +455,13 @@ async def test_correct_assert(
         )),
         ('F055_AWS', 'SUBMITTED',(
             ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml', '6'),
-            ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json', '6')
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json', '6'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml', '12'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml', '18'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml', '6'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json', '14'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json', '22'),
+            ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json', '7'),
         )),
         ('F060', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),

@@ -18,6 +18,7 @@ from aws.iam.utils import (
 def iterate_resources(
     template: Node,
     *expected_resource_kinds: str,
+    exact: bool = False,
 ) -> Iterator[Tuple[Node, Node, Node]]:
     if not isinstance(template, Node):
         return
@@ -33,7 +34,10 @@ def iterate_resources(
                 resource_kind = resource_config.inner['Type']
 
                 for expected_resource_kind in expected_resource_kinds:
-                    if resource_kind.inner.startswith(expected_resource_kind):
+                    if (not exact and resource_kind.inner.startswith(
+                            expected_resource_kind)) or (
+                                exact and resource_kind.inner
+                                == expected_resource_kind):
                         yield resource_name, resource_kind, resource_properties
 
 
@@ -88,7 +92,8 @@ def iter_ec2_ingress_egress(
 
 
 def iter_s3_buckets(template: Node) -> Iterator[Node]:
-    yield from (
-        props
-        for _, kind, props in iterate_resources(template, 'AWS::S3::Bucket')
-        if kind.raw == 'AWS::S3::Bucket')
+    yield from (props for _, _, props in iterate_resources(
+        template,
+        'AWS::S3::Bucket',
+        exact=True,
+    ))

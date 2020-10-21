@@ -1,0 +1,29 @@
+Resources:
+  NewVolume1:
+    Type: AWS::EC2::Volume
+    Properties:
+      Size: 100
+      Encrypted: false
+      AvailabilityZone: us-east-1
+    DeletionPolicy: Snapshot
+  NewVolume2:
+    Type: AWS::EC2::Volume
+    Properties:
+      Size: 100
+      AvailabilityZone: us-east-1
+    DeletionPolicy: Snapshot
+  NewVolume3:
+    Type: AWS::EC2::Volume
+    Properties:
+      Size: 100
+      Encrypted: true
+      AvailabilityZone: us-east-1
+    DeletionPolicy: Snapshot
+  NewVolume4:
+    Type: AWS::EC2::Volume
+    Properties:
+      Size: 100
+      Encrypted: true
+      KmsKeyId: arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias
+      AvailabilityZone: us-east-1
+    DeletionPolicy: Snapshot

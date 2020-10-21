@@ -1,3 +1,8 @@
+utils.model.finding.enum.F055_AWS.unencrypted_volumes:
+  en: EC2 volumes are not encrypted or do not use customer-managed keys.
+  es: >
+    Los volúmenes EC2 no están cifrados o no usan claves administradas por el
+    cliente.
 utils.model.finding.enum.F055_AWS.unencrypted_buckets:
   en: S3 buckets do not use server-side encryption.
   es: Los buckets S3 no usan cifrado del lado del servidor.
