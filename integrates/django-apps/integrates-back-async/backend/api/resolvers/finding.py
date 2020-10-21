@@ -23,7 +23,6 @@ from backend.decorators import (
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
-    vulnerability as vuln_domain
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import (
@@ -32,7 +31,6 @@ from backend.typing import (
     SimpleFindingPayload as SimpleFindingPayloadType,
     ApproveDraftPayload as ApproveDraftPayloadType,
     AddConsultPayload as AddConsultPayloadType,
-    Vulnerability as VulnerabilityType,
 )
 from backend.utils import (
     datetime as datetime_utils,
@@ -45,60 +43,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-@get_entity_cache_async
-async def _get_vulnerabilities(
-        info: GraphQLResolveInfo,
-        identifier: str,
-        state: str = '') -> List[VulnerabilityType]:
-    """Get vulnerabilities."""
-    vuln_filtered = await info.context.loaders['vulnerability'].load(
-        identifier
-    )
-    if state:
-        vuln_filtered = [
-            vuln
-            for vuln in vuln_filtered
-            if (vuln['current_state'] == state and
-                (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status']))
-        ]
-    return cast(List[VulnerabilityType], vuln_filtered)
-
-
-@rename_kwargs({'identifier': 'finding_id'})
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@rename_kwargs({'finding_id': 'identifier'})
-@get_entity_cache_async
-async def _get_pending_vulns(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[VulnerabilityType]:
-    """Get pending vulnerabilities."""
-    vuln_filtered = await info.context.loaders['vulnerability'].load(
-        identifier
-    )
-    vuln_filtered = [
-        vuln
-        for vuln in vuln_filtered
-        if vuln['current_approval_status'] == 'PENDING'
-    ]
-    return cast(List[VulnerabilityType], vuln_filtered)
-
-
-@get_entity_cache_async
-async def _get_open_vulnerabilities(
-        info: GraphQLResolveInfo,
-        identifier: str) -> int:
-    """Get open_vulnerabilities."""
-    vulns = await info.context.loaders['vulnerability'].load(identifier)
-
-    open_vulnerabilities = len(vuln_domain.filter_open_vulnerabilities(vulns))
-
-    return open_vulnerabilities
 
 
 @get_entity_cache_async
@@ -463,8 +407,11 @@ async def resolve(
             'inputs_vulns',
             'lines_vulns',
             'observations',
+            'open_vulnerabilities',
+            'pending_vulns',
             'ports_vulns',
-            'project_name'
+            'project_name',
+            'vulnerabilities'
         }
         if requested_field.startswith('_') or requested_field in migrated:
             continue

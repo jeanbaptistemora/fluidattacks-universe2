@@ -77,7 +77,7 @@ describe("FindingExploitView", (): void => {
 
   it("should render pending vulns", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_pending_vulns" },
+      { action: "backend_api_resolvers_new_finding_pending_vulns_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>

@@ -59,7 +59,7 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
             <React.Fragment>
               <Row>
                 <Col md={12}>
-                  <Can do="backend_api_resolvers_finding__get_pending_vulns">
+                  <Can do="backend_api_resolvers_new_finding_pending_vulns_resolve">
                     <Row>
                       <Col md={2} className={style.text_right}>
                         <label className={style.track_title}>
