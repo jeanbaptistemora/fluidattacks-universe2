@@ -7,12 +7,12 @@ and users, since now the organization table is used for those relations.
 Execution Time:    2020-07-16 10:40:00 UTC-5
 Finalization Time: 2020-07-16 10:53:00 UTC-5
 """
-import asyncio
 import os
 
 from aioextensions import (
     collect,
     in_thread,
+    run,
 )
 import bugsnag
 from boto3.dynamodb.conditions import Attr
@@ -82,4 +82,4 @@ async def log(message: str) -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

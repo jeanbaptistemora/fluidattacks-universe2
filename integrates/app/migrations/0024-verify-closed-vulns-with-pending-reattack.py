@@ -13,7 +13,6 @@ from collections import (
 )
 from datetime import datetime
 from time import time
-import asyncio
 import os
 from typing import (
     Awaitable,
@@ -25,6 +24,7 @@ from typing import (
 
 from aioextensions import (
     collect,
+    run,
 )
 import django
 from django.conf import settings
@@ -141,4 +141,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

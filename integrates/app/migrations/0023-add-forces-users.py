@@ -8,9 +8,8 @@ Finalization Time: 2020-00-13 13:47:00 UTC-5
 """
 # Standard library
 
-import asyncio
-
 # Third library
+from aioextensions import run
 from botocore.exceptions import ClientError
 
 # Local library
@@ -48,4 +47,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

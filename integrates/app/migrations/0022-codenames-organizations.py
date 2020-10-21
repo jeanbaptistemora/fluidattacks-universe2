@@ -6,7 +6,6 @@ This migration changes the plain name of the organizations for a codename.
 Execution Time: 2020-07-17 21:20:00 UTC-5
 Finalization Time: 2020-07-17 21:40:00 UTC-5
 """
-import asyncio
 import os
 from typing import (
     Any,
@@ -15,6 +14,7 @@ from typing import (
 )
 
 import aioboto3
+from aioextensions import run
 from boto3.dynamodb.conditions import Attr
 
 from backend.dal.helpers import dynamodb
@@ -110,4 +110,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

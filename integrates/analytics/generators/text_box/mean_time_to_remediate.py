@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 from decimal import (
     Decimal,
 )
@@ -13,6 +12,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
+    run,
 )
 from async_lru import (
     alru_cache,
@@ -87,4 +87,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())

@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 from typing import (
     Tuple,
 )
@@ -7,6 +6,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
+    run,
 )
 from async_lru import alru_cache
 from backend.api.dataloaders.project import (
@@ -76,4 +76,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())

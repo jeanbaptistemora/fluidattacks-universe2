@@ -5,6 +5,7 @@ import sys
 
 from aioextensions import (
     in_thread,
+    run,
 )
 
 
@@ -18,4 +19,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run(main())

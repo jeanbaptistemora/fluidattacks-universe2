@@ -1,5 +1,7 @@
 # Standard library
-import asyncio
+
+# Third party libraries
+from aioextensions import run
 
 # Local libraries
 from analytics import (
@@ -26,4 +28,4 @@ async def generate_all():
 
 
 if __name__ == '__main__':
-    asyncio.run(generate_all())
+    run(generate_all())
