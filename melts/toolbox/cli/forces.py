@@ -1,4 +1,4 @@
-# Local libraries
+# Standard libraries
 import sys
 import os
 
