@@ -1,23 +1,22 @@
 # Standard libraries
+import tempfile
 import time
 import os
 from datetime import datetime
 from functools import partial
 from typing import (
-    Dict,
     List,
     NamedTuple,
     Set,
 )
 
 # Third-party libraries
-import git
 import pytz
-from git.cmd import Git
 from pandas import (
     DataFrame,
     Series,
 )
+from tqdm import tqdm
 
 # Local libraries
 from utils.logs import (
@@ -25,7 +24,9 @@ from utils.logs import (
     log_exception,
 )
 from utils.repositories import (
-    get_git_log_metrics,
+    get_log_file_metrics,
+    get_repositories_log,
+    GitMetrics,
     parse_git_shortstat,
 )
 
@@ -66,7 +67,7 @@ class FileFeatures(NamedTuple):
     busy_file: int
 
 
-def get_features(row: Series) -> FileFeatures:
+def get_features(row: Series, logs_dir: str) -> FileFeatures:
     # Use -1 as default value to avoid ZeroDivisionError
     file_age: int = -1
     midnight_commits: int = -1
@@ -78,28 +79,30 @@ def get_features(row: Series) -> FileFeatures:
     try:
         repo_path: str = row['repo']
         repo_name: str = os.path.basename(repo_path)
-        git_repo: Git = git.Git(repo_path)
         file_relative: str = row['file'].replace(f'{repo_name}/', '', 1)
-        git_metrics: Dict[str, List[str]] = get_git_log_metrics(
-            git_repo,
-            file_relative,
-            ['commit_hash', 'author_email', 'date_iso_format', 'stats']
+        git_metrics: GitMetrics = get_log_file_metrics(
+            logs_dir,
+            repo_name,
+            file_relative
         )
-        if git_metrics:
-            file_age = get_file_age(git_metrics)
-            midnight_commits = get_midnight_commits(git_metrics)
-            num_commits = get_num_commits(git_metrics)
-            num_lines = get_num_lines(
-                os.path.join(git_repo.working_dir, file_relative)
+        file_age = get_file_age(git_metrics)
+        midnight_commits = get_midnight_commits(git_metrics)
+        num_commits = get_num_commits(git_metrics)
+        num_lines = get_num_lines(
+            os.path.join(repo_path, file_relative)
+        )
+        risky_commits = get_risky_commits(git_metrics)
+        seldom_contributors = get_seldom_contributors(git_metrics)
+        unique_authors = get_unique_authors(git_metrics)
+    except IndexError as exc:
+        log_exception(
+            'info',
+            exc,
+            message=(
+                f'File {os.path.join(repo_name, file_relative)} '
+                'has no git history'
             )
-            risky_commits = get_risky_commits(git_metrics)
-            seldom_contributors = get_seldom_contributors(git_metrics)
-            unique_authors = get_unique_authors(git_metrics)
-    except (
-        KeyError,
-        IndexError,
-    ) as exc:
-        log_exception('info', exc, locals=str(locals()))
+        )
     return FileFeatures(
         num_commits=num_commits,
         num_unique_authors=len(unique_authors),
@@ -113,7 +116,7 @@ def get_features(row: Series) -> FileFeatures:
     )
 
 
-def get_file_age(git_metrics: Dict[str, List[str]]) -> int:
+def get_file_age(git_metrics: GitMetrics) -> int:
     """Gets the number of days since the file was created"""
     today: datetime = datetime.now(pytz.utc)
     commit_date_history: List[str] = git_metrics['date_iso_format']
@@ -121,7 +124,7 @@ def get_file_age(git_metrics: Dict[str, List[str]]) -> int:
     return (today - datetime.fromisoformat(file_creation_date)).days
 
 
-def get_num_commits(git_metrics: Dict[str, List[str]]) -> int:
+def get_num_commits(git_metrics: GitMetrics) -> int:
     """Gets the number of commits that have modified a file"""
     commit_history: List[str] = git_metrics['commit_hash']
     return len(commit_history)
@@ -137,11 +140,11 @@ def get_num_lines(file_path: str) -> int:
         )
         result = sum(buf.count(b'\n') for buf in bufgen)
     except FileNotFoundError:
-        print(f'File {file_path} not found. ')
+        log('info', 'File %s not found', file_path)
     return result
 
 
-def get_midnight_commits(git_metrics: Dict[str, List[str]]) -> int:
+def get_midnight_commits(git_metrics: GitMetrics) -> int:
     """Gets the number of times a file was modified between 0 AM -6 AM"""
     commit_date_history: List[str] = git_metrics['date_iso_format']
     commit_hour_history: List[int] = [
@@ -150,7 +153,7 @@ def get_midnight_commits(git_metrics: Dict[str, List[str]]) -> int:
     return sum([1 for hour in commit_hour_history if 0 <= hour < 6])
 
 
-def get_risky_commits(git_metrics: Dict[str, List[str]]) -> int:
+def get_risky_commits(git_metrics: GitMetrics) -> int:
     """Gets the number of commits which had more than 200 deltas"""
     risky_commits: int = 0
     commit_stat_history: List[str] = git_metrics['stats']
@@ -161,7 +164,7 @@ def get_risky_commits(git_metrics: Dict[str, List[str]]) -> int:
     return risky_commits
 
 
-def get_seldom_contributors(git_metrics: Dict[str, List[str]]) -> int:
+def get_seldom_contributors(git_metrics: GitMetrics) -> int:
     """Gets the number of authors that contributed below the average"""
     seldom_contributors: int = 0
     authors_history: List[str] = git_metrics['author_email']
@@ -178,7 +181,7 @@ def get_seldom_contributors(git_metrics: Dict[str, List[str]]) -> int:
 
 
 # TODO: use mailmaps to filter possible noise due to bad git management
-def get_unique_authors(git_metrics: Dict[str, List[str]]) -> Set[str]:
+def get_unique_authors(git_metrics: GitMetrics) -> Set[str]:
     """Gets the number of unique authors that modified a file"""
     authors_history: List[str] = git_metrics['author_email']
     return set(authors_history)
@@ -189,16 +192,28 @@ def extract_features(training_df: DataFrame) -> bool:
     success: bool = True
     try:
         timer: float = time.time()
-        training_df[FILE_FEATURES] = training_df.apply(
-            get_features,
-            axis=1,
-            result_type='expand'
-        )
-        log(
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            get_repositories_log(tmp_dir, training_df['repo'].unique())
+            tqdm.pandas()
+            training_df[FILE_FEATURES] = training_df.progress_apply(
+                get_features,
+                args=(tmp_dir,),
+                axis=1,
+                result_type='expand'
+            )
+            log(
+                'info',
+                'Features extracted after %.2f seconds',
+                time.time() - timer
+            )
+    except KeyError as exc:
+        log_exception(
             'info',
-            'Features extracted after %.2f seconds',
-            time.time() - timer
+            exc,
+            message=(
+                "DataFrame does not have one of the required keys "
+                "'file'/'repo'"
+            )
         )
-    except KeyError:
         success = False
     return success

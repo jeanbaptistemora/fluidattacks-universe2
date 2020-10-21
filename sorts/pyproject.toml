@@ -45,6 +45,7 @@ PyDriller = "1.15.2"
 python = "^3.8"
 pytz = "2020.1"
 scikit-learn = "0.23.2"
+tqdm = "4.50.2"
 
 [tool.poetry.dev-dependencies]
 mypy = "0.782"

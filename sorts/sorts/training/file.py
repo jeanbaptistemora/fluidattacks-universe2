@@ -69,6 +69,11 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
         else:
             success = extract_features(training_df)
             if success:
+                training_df.drop(
+                    training_df[training_df['file_age'] == -1].index,
+                    inplace=True
+                )
+                training_df.reset_index(inplace=True, drop=True)
                 csv_name: str = f'{group}_files_features.csv'
                 training_df.to_csv(csv_name, index=False)
                 log('info', 'Features extracted succesfully to %s', csv_name)
