@@ -78,7 +78,8 @@ def alter_state__aux(row, state, cache, writer):
         else:
             state, cache = "wait", row
     elif state == "wait":
-        if row["filename"][-UNIQ_L:] == UNIQ:
+        if row["filename"][-UNIQ_L:] == UNIQ and \
+                row["filename"][:-UNIQ_L] == cache["filename"]:
             # merge new file (row) into old file (cache)
             if not cache["tested-date"]:
                 cache["tested-date"] = "2000-01-01"
