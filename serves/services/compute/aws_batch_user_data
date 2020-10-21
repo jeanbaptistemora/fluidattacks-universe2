@@ -1,10 +1,17 @@
-#!/bin/bash
+Content-Type: multipart/mixed; boundary="==BOUNDARY=="
+MIME-Version: 1.0
+
+--==BOUNDARY==
+Content-Type: text/cloud-boothook; charset="us-ascii"
 #cloud-boothook
+#!/bin/bash
+cloud-init-per once docker_options echo 'OPTIONS="${OPTIONS} --storage-opt dm.basesize=20G"' >> /etc/sysconfig/docker
 
-cloud-init-per once docker_options \
-echo 'OPTIONS="${OPTIONS} --storage-opt dm.basesize=20G"' \
->> /etc/sysconfig/docker
+--==BOUNDARY==
+Content-Type: text/x-shellscript; charset="us-ascii"
 
+#!/bin/bash
+# Set any ECS agent configuration options
 {
   echo ECS_CONTAINER_START_TIMEOUT=60m
   echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true
@@ -16,3 +23,4 @@ echo 'OPTIONS="${OPTIONS} --storage-opt dm.basesize=20G"' \
   echo ECS_NUM_IMAGES_DELETE_PER_CYCLE=100
   echo NON_ECS_IMAGE_MINIMUM_CLEANUP_AGE=1m
 }  >> /etc/ecs/ecs.config
+--==BOUNDARY==--

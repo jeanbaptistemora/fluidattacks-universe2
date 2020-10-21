@@ -100,7 +100,7 @@ resource "aws_launch_template" "batch_instance" {
     "management:type"    = "production"
     "management:product" = "common"
   }
-  user_data = filebase64("${path.module}/aws_batch_user_data.sh")
+  user_data = filebase64("${path.module}/aws_batch_user_data")
 
   block_device_mappings {
     device_name = "/dev/xvda"
