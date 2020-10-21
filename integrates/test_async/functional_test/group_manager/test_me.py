@@ -161,3 +161,74 @@ async def test_me():
         }
     ]
     assert result['data']['me']['__typename'] == 'Me'
+
+    query = f'''{{
+        me(callerOrigin: "API") {{
+            permissions(entity: PROJECT, identifier: "{group_name}")
+            role(entity: PROJECT, identifier: "{group_name}")
+        }}
+    }}'''
+    data = {'query': query}
+    result = await get_result(data, session_jwt=session_jwt)
+    assert 'errors' not in result
+    assert len(result['data']['me']['permissions']) == 61
+    assert result['data']['me']['role'] == 'group_manager'
+
+    query = f'''{{
+        me(callerOrigin: "API") {{
+            permissions(entity: ORGANIZATION, identifier: "{group_name}")
+            role(entity: ORGANIZATION, identifier: "{group_name}")
+        }}
+    }}'''
+    data = {'query': query}
+    result = await get_result(data, session_jwt=session_jwt)
+    assert 'errors' not in result
+    assert len(result['data']['me']['permissions']) == 0
+    assert result['data']['me']['role'] == 'group_manager'
+
+    query = '''
+        mutation {
+            invalidateAccessToken {
+                success
+            }
+        }
+    '''
+    data = {'query': query}
+    result = await get_result(data, session_jwt=session_jwt)
+    assert 'errors' not in result
+    assert result['data']['invalidateAccessToken']['success']
+
+    query = f'''{{
+        me(callerOrigin: "API") {{
+            accessToken
+            callerOrigin
+            organizations {{
+                name
+            }}
+            permissions(entity: USER)
+            projects {{
+                name
+                description
+            }}
+            remember
+            role(entity: USER)
+            sessionExpiration
+            subscriptionsToEntityReport{{
+                entity
+                frequency
+                subject
+
+            }}
+            tags(organizationId: "{org_id}") {{
+                name
+                projects {{
+                    name
+                }}
+            }}
+            __typename
+        }}
+    }}'''
+    data = {'query': query}
+    result = await get_result(data, session_jwt=session_jwt)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Login required'
