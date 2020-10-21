@@ -282,76 +282,6 @@ aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/FI_forces.json.now'
 
-if     test "${CI_JOB_NAME:-}" = 'integrates_serve_local' \
-   ||  test "${CI_JOB_NAME:-}" = 'integrates_serve_ephemeral'
-then
-  echo '[INFO] Adding mock users'
-  for index in $(seq 1 200)
-  do
-    echo "  [INFO] adding 6 users, batch ${index} out of 200"
-    index="${index}" jq -n '{
-      "FI_users": (
-        [range(6)] | map([{
-          "PutRequest": {
-            "Item" : {
-              "company": {"S": "unittest"},
-              "date_joined": {"S": "2018-02-28 11:54:12"},
-              "email": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
-              "legal_remember": {"BOOL": true},
-              "registered": {"BOOL": true},
-              "organization": {"S": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"}
-            }
-          }
-        }]) | flatten(2)
-      ),
-      "fi_authz": (
-        [range(6)] | map([{
-          "PutRequest": {
-            "Item": {
-              "level": {"S": "user"},
-              "subject": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
-              "object": {"S": "self"},
-              "role": {"S": "customer"}
-            }
-          }
-        },{
-          "PutRequest": {
-            "Item": {
-              "level": {"S": "group"},
-              "subject": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
-              "object": {"S": "oneshottest"},
-              "role": {"S": "customer"}
-            }
-          }
-        }]) | flatten(2)
-      ),
-      "FI_project_access": (
-        [range(6)] | map([{
-          "PutRequest": {
-            "Item": {
-              "responsibility": {
-                "S": "mock"
-              },
-              "project_name": {
-                "S": "oneshottest"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "user_email": {
-                "S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"
-              }
-            }
-          }
-        }]) | flatten(2)
-      )
-    }' > .tmp
-    aws dynamodb batch-write-item \
-      --endpoint-url 'http://localhost:8022' \
-      --request-items 'file://.tmp'
-  done
-fi
-
 if test "${CI_JOB_NAME:-}" != 'integrates_test_back'
 then
   number_findings=()
@@ -742,6 +672,76 @@ then
           }
         }]) | flatten(2)
       ),
+    }' > .tmp
+    aws dynamodb batch-write-item \
+      --endpoint-url 'http://localhost:8022' \
+      --request-items 'file://.tmp'
+  done
+fi
+
+if     test "${CI_JOB_NAME:-}" = 'integrates_serve_local' \
+   ||  test "${CI_JOB_NAME:-}" = 'integrates_serve_ephemeral'
+then
+  echo '[INFO] Adding mock users'
+  for index in $(seq 1 20)
+  do
+    echo "  [INFO] adding 6 users, batch ${index} out of 200"
+    index="${index}" jq -n '{
+      "FI_users": (
+        [range(6)] | map([{
+          "PutRequest": {
+            "Item" : {
+              "company": {"S": "unittest"},
+              "date_joined": {"S": "2018-02-28 11:54:12"},
+              "email": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
+              "legal_remember": {"BOOL": true},
+              "registered": {"BOOL": true},
+              "organization": {"S": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"}
+            }
+          }
+        }]) | flatten(2)
+      ),
+      "fi_authz": (
+        [range(6)] | map([{
+          "PutRequest": {
+            "Item": {
+              "level": {"S": "user"},
+              "subject": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
+              "object": {"S": "self"},
+              "role": {"S": "customer"}
+            }
+          }
+        },{
+          "PutRequest": {
+            "Item": {
+              "level": {"S": "group"},
+              "subject": {"S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"},
+              "object": {"S": "oneshottest"},
+              "role": {"S": "customer"}
+            }
+          }
+        }]) | flatten(2)
+      ),
+      "FI_project_access": (
+        [range(6)] | map([{
+          "PutRequest": {
+            "Item": {
+              "responsibility": {
+                "S": "mock"
+              },
+              "project_name": {
+                "S": "oneshottest"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "user_email": {
+                "S": "mock_user.index_\(env.index).batch_\(.)@gmail.com"
+              }
+            }
+          }
+        }]) | flatten(2)
+      )
     }' > .tmp
     aws dynamodb batch-write-item \
       --endpoint-url 'http://localhost:8022' \
