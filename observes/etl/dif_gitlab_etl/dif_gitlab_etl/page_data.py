@@ -1,35 +1,47 @@
 # Standard libraries
+from os import environ
+import tempfile
 from typing import (
     Optional,
-    NamedTuple,
 )
 # Third party libraries
 # Local libraries
+from streamer_gitlab import extractor
 from streamer_gitlab.api_client import GitlabResourcePage
+from streamer_gitlab.extractor import PageData
 
 
-class PageData(NamedTuple):
-    id: int
-    path: str
-    minor_item_id: int
-
-
-# temporal interface definition
 def extract_data(
-    resource: GitlabResourcePage  # pylint: disable=unused-argument
+    resource: GitlabResourcePage,
 ) -> Optional[PageData]:
     """
     Returns the PageData of the resource.
-    The PageData.path stores the retrieved data.
+    The PageData.file stores the retrieved data.
     """
+    api_token = environ['GITLAB_API_TOKEN']
+    file = tempfile.TemporaryFile()
+    return extractor.stream_resource_page(
+        resource=resource,
+        params={},
+        api_token=api_token,
+        out_file=file,
+    )
 
 
-# temporal interface definition
 def extract_data_less_than(
-    target_id: int,  # pylint: disable=unused-argument
-    resource: GitlabResourcePage  # pylint: disable=unused-argument
+    target_id: int,
+    resource: GitlabResourcePage,
 ) -> Optional[PageData]:
     """
     Returns the PageData of the resource.
-    The PageData.path stores the retrieved data.
+    The PageData.file stores the retrieved data.
     """
+    api_token = environ['GITLAB_API_TOKEN']
+    file = tempfile.TemporaryFile()
+    return extractor.stream_resource_page(
+        resource=resource,
+        params={},
+        api_token=api_token,
+        out_file=file,
+        items_less_than=target_id,
+    )

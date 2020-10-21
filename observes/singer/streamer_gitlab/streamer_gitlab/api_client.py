@@ -66,7 +66,7 @@ async def get_json_less_than(
 
 async def get_resource(
     session: ClientSession, resource: GitlabResourcePage
-) -> List[Any]:
+) -> List[Dict[str, Any]]:
     endpoint = (
         'https://gitlab.com/api/v4/projects/'
         f'{resource.g_resource.project}/{resource.g_resource.resource}'
@@ -75,9 +75,7 @@ async def get_resource(
         'page': resource.page,
         'per_page': resource.per_page
     }
-    async with session.get(endpoint, params=params) as response:
-        response.raise_for_status()
-        return await response.json()
+    return await get_json(session, endpoint, params=params)
 
 
 def elements_less_than(
@@ -88,6 +86,12 @@ def elements_less_than(
         if item['id'] < target_id:
             result.append(item)
     return result
+
+
+def get_minor_id(data: List[Dict[str, Any]]) -> Optional[int]:
+    if data:
+        return data[-1]['id']
+    return None
 
 
 def build_getter(
