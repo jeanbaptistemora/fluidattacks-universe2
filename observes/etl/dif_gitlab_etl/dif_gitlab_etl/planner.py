@@ -9,11 +9,11 @@ from typing import (
 # Third party libraries
 import aiohttp
 # Local libraries
-from dif_gitlab_etl.api_client import (
+from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )
-from dif_gitlab_etl import api_client
+from streamer_gitlab import api_client
 from dif_gitlab_etl.utils import log
 
 # lgu = last greater uploaded

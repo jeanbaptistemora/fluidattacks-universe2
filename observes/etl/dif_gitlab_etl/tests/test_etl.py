@@ -6,14 +6,14 @@ from typing import (
     Union,
 )
 # Local libraries
-from dif_gitlab_etl.api_client import (
+from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
 from dif_gitlab_etl import etl
 from dif_gitlab_etl.etl import ExtractState
-from dif_gitlab_etl.page_data import PageData
+from streamer_gitlab.extractor import PageData
 
 
 def mock_extract_data(resource: GitlabResourcePage) -> Union[PageData, None]:

@@ -5,7 +5,7 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from dif_gitlab_etl.api_client import GitlabResourcePage
+from streamer_gitlab.api_client import GitlabResourcePage
 
 
 class PageData(NamedTuple):

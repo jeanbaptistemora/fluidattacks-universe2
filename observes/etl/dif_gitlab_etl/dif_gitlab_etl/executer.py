@@ -15,12 +15,12 @@ from dif_gitlab_etl import db_client
 from dif_gitlab_etl import etl
 from dif_gitlab_etl import page_data
 from dif_gitlab_etl import planner
-from dif_gitlab_etl.api_client import (
+from dif_gitlab_etl.db_client import DbState
+from dif_gitlab_etl.etl import ExtractState
+from streamer_gitlab.api_client import (
     GitlabResource,
     GResourcePageRange,
 )
-from dif_gitlab_etl.db_client import DbState
-from dif_gitlab_etl.etl import ExtractState
 
 
 def specific_resources(project: str) -> List[GitlabResource]:

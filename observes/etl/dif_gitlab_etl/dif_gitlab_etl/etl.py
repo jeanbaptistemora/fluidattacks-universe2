@@ -8,12 +8,12 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from dif_gitlab_etl.api_client import (
+from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
-from dif_gitlab_etl.page_data import (
+from streamer_gitlab.extractor import (
     PageData,
 )
 from dif_gitlab_etl.utils import (

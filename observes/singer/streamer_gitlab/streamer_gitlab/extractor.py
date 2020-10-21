@@ -8,12 +8,12 @@ from typing import (
     cast,
     Dict,
     List,
+    NamedTuple,
 )
 from asyncio import (
     create_task,
     Queue
 )
-
 
 # Third party libraries
 import urllib.parse
@@ -26,6 +26,12 @@ from aioextensions import (
 # Local libraries
 from streamer_gitlab import api_client
 from streamer_gitlab.log import log
+
+
+class PageData(NamedTuple):
+    id: int
+    path: str
+    minor_item_id: int
 
 
 def gitlab_data_emitter(  # pylint: disable=too-many-arguments

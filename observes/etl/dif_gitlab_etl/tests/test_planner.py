@@ -2,7 +2,7 @@
 # Third party libraries
 import pytest
 # Local libraries
-from dif_gitlab_etl.api_client import (
+from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )

@@ -1,7 +1,11 @@
 # Standard libraries
 from typing import (
     Any,
+    Callable,
+    Coroutine,
+    cast,
     Dict,
+    Optional,
     List,
     NamedTuple,
 )
@@ -27,6 +31,12 @@ class GitlabResourcePage(NamedTuple):
     per_page: int
 
 
+class GResourcePageRange(NamedTuple):
+    g_resource: GitlabResource
+    page_range: range
+    per_page: int
+
+
 @rate_limited(
     # Gitlab allows at most 10 per second, not bursted
     max_calls=5,
@@ -35,7 +45,7 @@ class GitlabResourcePage(NamedTuple):
 )
 async def get_json(
     session: ClientSession, endpoint: str, **kargs
-) -> Dict[str, Any]:
+) -> List[Dict[str, Any]]:
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
         log('info', f'[{response.status}] {endpoint}, {kargs["params"]}')
@@ -50,11 +60,24 @@ async def get_json_less_than(
     endpoint: str, **kargs
 ) -> List[Dict[str, Any]]:
     """Get as JSON the result of a GET request to endpoint."""
-    async with session.get(endpoint, **kargs) as response:
-        log('info', f'[{response.status}] {endpoint}, {kargs["params"]}')
+    raw_data = await get_json(session, endpoint, **kargs)
+    return elements_less_than(target_id, raw_data)
+
+
+async def get_resource(
+    session: ClientSession, resource: GitlabResourcePage
+) -> List[Any]:
+    endpoint = (
+        'https://gitlab.com/api/v4/projects/'
+        f'{resource.g_resource.project}/{resource.g_resource.resource}'
+    )
+    params = {
+        'page': resource.page,
+        'per_page': resource.per_page
+    }
+    async with session.get(endpoint, params=params) as response:
         response.raise_for_status()
-        data = await response.json()
-        return elements_less_than(target_id, data)
+        return await response.json()
 
 
 def elements_less_than(
@@ -65,3 +88,25 @@ def elements_less_than(
         if item['id'] < target_id:
             result.append(item)
     return result
+
+
+def build_getter(
+    less_than: Optional[int]
+) -> Callable[..., Coroutine[Any, Any, List[Dict[str, Any]]]]:
+    if less_than is not None:
+
+        async def filtered_getter(
+            session: ClientSession, endpoint: str, **kargs
+        ) -> List[Dict[str, Any]]:
+            return await get_json_less_than(
+                cast(int, less_than), session, endpoint, **kargs
+            )
+
+        return filtered_getter
+
+    async def normal_getter(
+        session: ClientSession, endpoint: str, **kargs
+    ) -> List[Dict[str, Any]]:
+        return await get_json(session, endpoint, **kargs)
+
+    return normal_getter
