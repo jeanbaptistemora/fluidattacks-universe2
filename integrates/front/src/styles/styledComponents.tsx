@@ -39,6 +39,15 @@ const Col25: StyledComponent<
   className: "ph1-5 w-25-ns",
 })``;
 
+const Col33: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-33-ns",
+})``;
+
 const Col40: StyledComponent<
   "div",
   Record<string, unknown>
@@ -94,6 +103,13 @@ const EventHeaderLabel: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: "ph3 tc",
+})``;
+
+const ExpandableLabel: StyledComponent<
+  "label",
+  Record<string, unknown>
+> = styled.label.attrs({
+  className: "b pointer",
 })``;
 
 const FindingHeaderDetail: StyledComponent<
@@ -317,6 +333,7 @@ export {
   ButtonToolbarRow,
   Col100,
   Col25,
+  Col33,
   Col40,
   Col45,
   Col60,
@@ -324,6 +341,7 @@ export {
   ControlLabel,
   EventHeaderGrid,
   EventHeaderLabel,
+  ExpandableLabel,
   FindingHeaderDetail,
   FindingHeaderGrid,
   FindingHeaderIndicator,

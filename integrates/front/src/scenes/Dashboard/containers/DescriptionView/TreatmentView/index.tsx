@@ -9,7 +9,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
@@ -27,6 +26,15 @@ import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "scenes/Dashboa
 import { getPreviousTreatment } from "scenes/Dashboard/containers/DescriptionView/TreatmentView/utils";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { getLastTreatment } from "scenes/Dashboard/containers/DescriptionView/utils";
+import {
+  Col100,
+  Col33,
+  Col45,
+  ControlLabel,
+  ExpandableLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { formatDropdownField } from "utils/formatHelpers";
 import { Date, Dropdown, Text, TextArea } from "utils/forms/fields";
@@ -227,7 +235,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
               onSubmit={confirmUndefined}
             >
               <Row>
-                <Col md={12}>
+                <Col100>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
                       <EditableField
@@ -243,10 +251,10 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                       />
                     )}
                   </Can>
-                </Col>
+                </Col100>
               </Row>
               <Row>
-                <Col md={6}>
+                <Col45>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
                       <EditableField
@@ -272,20 +280,20 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                       </EditableField>
                     )}
                   </Can>
-                </Col>
+                </Col45>
                 {lastTreatment.acceptanceStatus === "APPROVED" ? (
-                  <Col md={6}>
+                  <Col45>
                     <FormGroup>
                       <ControlLabel>
                         <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
                       </ControlLabel>
                       <p>{lastTreatment.user}</p>
                     </FormGroup>
-                  </Col>
+                  </Col45>
                 ) : undefined}
               </Row>
               <Row>
-                <Col md={12}>
+                <Col100>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
                       <EditableField
@@ -300,11 +308,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                       />
                     )}
                   </Can>
-                </Col>
+                </Col100>
               </Row>
               {formValues.treatment === "ACCEPTED" ? (
                 <Row>
-                  <Col md={4}>
+                  <Col33>
                     <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                       {(canEdit: boolean): JSX.Element => (
                         <EditableField
@@ -319,18 +327,18 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                         />
                       )}
                     </Can>
-                  </Col>
+                  </Col33>
                 </Row>
               ) : undefined}
               {!_.isEmpty(historicTreatment) && !props.isEditing ? (
                 <Row>
-                  <Col md={12}>
+                  <Col100>
                     {isTreatmentExpanded ? (
                       <React.Fragment>
-                        <label className={style.historicTreatment} onClick={expandHistoricTreatment}>
+                        <ExpandableLabel onClick={expandHistoricTreatment}>
                           <FluidIcon icon="caretDown" />
                             &nbsp; {translate.t("search_findings.tab_description.treatment_historic")}
-                        </label>
+                        </ExpandableLabel>
                         <DataTableNext
                           id="historicTreatment"
                           bordered={false}
@@ -345,12 +353,12 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                       </React.Fragment>
                     ) :
                       <React.Fragment>
-                        <label className={style.historicTreatment} onClick={expandHistoricTreatment}>
+                        <ExpandableLabel onClick={expandHistoricTreatment}>
                           <FluidIcon icon="caretRight" />
                             &nbsp; {translate.t("search_findings.tab_description.treatment_historic")}
-                        </label>
+                        </ExpandableLabel>
                       </React.Fragment>}
-                  </Col>
+                  </Col100>
                 </Row>
               ) : undefined}
             </GenericForm>

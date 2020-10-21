@@ -94,6 +94,7 @@
 .formControl {
   display: block;
   width: 100% !important;
+  resize: none;
   height: 44px;
   padding: 10px 12px;
   font-size: 16px !important;
