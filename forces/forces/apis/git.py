@@ -4,7 +4,7 @@ from contextlib import suppress
 from typing import (Dict)
 
 # Third libraries
-from pytz.reference import LocalTimezone
+import pytz
 from git import (
     InvalidGitRepositoryError,
     Repo,
@@ -29,7 +29,6 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
     git_repo = DEFAULT_COLUMN_VALUE
     git_origin = DEFAULT_COLUMN_VALUE
 
-    localtimezone = LocalTimezone()
     with suppress(InvalidGitRepositoryError):
         repo = Repo(repo_path, search_parent_directories=True)
         head_commit: Commit = repo.head.commit
@@ -41,10 +40,8 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         git_commit = head_commit.hexsha
         git_commit_author = (f'{head_commit.author.name}'
                              f' <{head_commit.author.email}>')
-
-        commit_date = head_commit.authored_datetime
-        offset = localtimezone.utcoffset(commit_date)
-        git_commit_authored_date = (commit_date - offset).isoformat()
+        git_commit_authored_date = head_commit.authored_datetime.astimezone(
+            pytz.UTC).isoformat()
 
         git_repo = DEFAULT_COLUMN_VALUE
         origins = []
