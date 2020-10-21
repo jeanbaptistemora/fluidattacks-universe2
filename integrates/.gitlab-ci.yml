@@ -389,7 +389,7 @@ integrates_functional_tests_prod:
       - integrates/test/functional/screenshots/
     when: always
 
-integrates_functional_tests_mobile:
+.integrates_functional_tests_mobile:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   needs:
