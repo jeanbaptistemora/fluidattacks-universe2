@@ -5,6 +5,8 @@
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
+  variables:
+    GIT_DEPTH: 5
 
 .integrates_commit_pattern: &integrates_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|integrates)/'
 
@@ -246,7 +248,7 @@ integrates_deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates_build_container_app, integrates_build_container_app2]
+  needs: [integrates_build_container_app_new]
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
@@ -559,5 +561,4 @@ common_send_new_release_email:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: post-deploy
-  needs:
-    - integrates_deploy_back_production
+  needs: [integrates_deploy_back_production]
