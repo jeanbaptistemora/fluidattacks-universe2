@@ -1,6 +1,5 @@
 # Standard library
-import base64
-import json
+from datetime import datetime, timedelta
 from typing import Any
 from jose import jwt
 
@@ -19,6 +18,7 @@ from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
 from backend.api.schema import SCHEMA
+from backend import util
 
 from backend_new import settings
 
@@ -76,8 +76,8 @@ async def do_login(request: Request) -> Any:
 
 async def authz(request: Request) -> HTMLResponse:
     token = await OAUTH.google.authorize_access_token(request)
-    user = await OAUTH.google.parse_id_token(request, token)
-    request.session['username'] = dict(user)['email']
+    user = dict(await OAUTH.google.parse_id_token(request, token))
+    request.session['username'] = user['email']
     response = TEMPLATING_ENGINE.TemplateResponse(
         name='app.html',
         context={
@@ -90,17 +90,20 @@ async def authz(request: Request) -> HTMLResponse:
         }
     )
 
-    # convert SH256 google jwt to HS512 so we can handle it in our backend
-    jwt_payload = token['id_token'].split('.')[1]
-    payload = json.loads(
-        base64.b64decode(
-            jwt_payload + '=' * (-len(jwt_payload) % 4)
-        ).decode('utf-8')
-    )
     jwt_token = jwt.encode(
-        payload,
+        dict(
+            user_email=user['email'],
+            first_name=user['given_name'],
+            last_name=user['family_name'],
+            exp=(
+                datetime.utcnow() +
+                timedelta(seconds=settings.SESSION_COOKIE_AGE)
+            ),
+            sub='starlette_session',
+            jti=util.calculate_hash_token()['jti'],
+        ),
+        algorithm='HS512',
         key=settings.JWT_SECRET,
-        algorithm='HS512'
     )
 
     response.set_cookie(
