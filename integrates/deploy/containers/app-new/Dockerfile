@@ -15,5 +15,5 @@ WORKDIR /product
 
 # Cache integrates dependencies
 COPY . .
-RUN     nix-shell --run ':' 'build/provisioners/integrates_serve_back_dev.nix' \
+RUN     nix-shell --run ':' 'build/provisioners/integrates_serve_local.nix' \
     &&  nix-store --optimise

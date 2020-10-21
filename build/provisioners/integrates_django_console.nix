@@ -1,1 +1,1 @@
-import ./integrates_serve_back_dev.nix
+import ./integrates_serve_local.nix

@@ -591,41 +591,6 @@ function job_integrates_reset {
   ||  return 1
 }
 
-function job_integrates_serve_dynamodb_local {
-  local port=8022
-
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_dynamodb_local \
-  &&  echo '[INFO] Launching DynamoDB local' \
-  &&  {
-        java \
-          -Djava.library.path="${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal_lib" \
-          -jar "${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal.jar" \
-          -inMemory \
-          -port "${port}" \
-          -sharedDb \
-        &
-      } \
-  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
-  &&  sleep 5 \
-  &&  echo '[INFO] Populating DynamoDB local' \
-  &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
-  &&  echo "[INFO] DynamoDB is ready and listening on port ${port}!" \
-  &&  echo "[INFO] Hit Ctrl+C to exit" \
-  &&  fg %1 \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_minio_local {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_integrates_serve_minio \
-  &&  echo "[INFO] Hit Ctrl+C to exit" \
-  &&  fg %1 \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_probes_local {
       helper_integrates_probe_aws_credentials 'integrates-dev' \
   &&  helper_integrates_probe_curl 'https://localhost:8080'
@@ -746,14 +711,6 @@ function job_integrates2_serve_ephemeral {
   ||  return 1
 }
 
-function job_integrates_serve_front {
-      pushd "${STARTDIR}/integrates/front" \
-    &&  npm install \
-    &&  npm start \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_serve_mobile {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
@@ -779,30 +736,6 @@ function job_integrates_serve_mobile {
         --clear \
         --non-interactive \
   &&  popd \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_redis {
-  local port=6379
-
-      pushd "${STARTDIR}/integrates" \
-  &&  echo "[INFO] Serving redis on port ${port}" \
-  &&  redis-server --port "${port}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_back_dev {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_integrates_serve_back dev \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_back_dev2 {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_integrates_serve_back2 dev \
   &&  popd \
   ||  return 1
 }

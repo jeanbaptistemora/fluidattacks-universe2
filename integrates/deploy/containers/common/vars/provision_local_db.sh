@@ -282,8 +282,7 @@ aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/FI_forces.json.now'
 
-if     test "${CI_JOB_NAME:-}" = 'integrates_serve_dynamodb_local' \
-   ||  test "${CI_JOB_NAME:-}" = 'integrates_serve_local' \
+if     test "${CI_JOB_NAME:-}" = 'integrates_serve_local' \
    ||  test "${CI_JOB_NAME:-}" = 'integrates_serve_ephemeral'
 then
   echo '[INFO] Adding mock users'
