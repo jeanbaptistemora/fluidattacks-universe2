@@ -17,7 +17,7 @@ import newrelic.agent
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
-    require_forces, require_integrates,
+    require_integrates,
     require_login, require_finding_access
 )
 from backend.domain import (
@@ -159,23 +159,6 @@ async def _get_open_vulnerabilities(
 
 
 @get_entity_cache_async
-async def _get_closed_vulnerabilities(
-        info: GraphQLResolveInfo,
-        identifier: str) -> int:
-    """Get closed_vulnerabilities."""
-    vulns = await info.context.loaders['vulnerability'].load(identifier)
-
-    closed_vulnerabilities = len([
-        vuln
-        for vuln in vulns
-        if (vuln['current_state'] == 'closed' and
-            (vuln['current_approval_status'] != 'PENDING' or
-             vuln['last_approved_status']))
-    ])
-    return closed_vulnerabilities
-
-
-@get_entity_cache_async
 async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get release date."""
     allowed_roles = ['admin', 'analyst', 'group_manager', 'reviewer']
@@ -234,24 +217,6 @@ async def _get_cvss_version(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get cvss_version."""
     finding = await info.context.loaders['finding'].load(identifier)
     return cast(str, finding['cvss_version'])
-
-
-@rename_kwargs({'identifier': 'finding_id'})
-@require_forces
-@rename_kwargs({'finding_id': 'identifier'})
-@get_entity_cache_async
-async def _get_exploit(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get exploit."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    if finding['exploit']['url']:
-        exploit = await finding_utils.get_exploit_from_file(
-            finding['project_name'],
-            finding['id'],
-            finding['exploit']['url']
-        )
-    else:
-        exploit = ''
-    return exploit
 
 
 @get_entity_cache_async
@@ -547,7 +512,14 @@ async def resolve(
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        migrated = {'consulting', 'id', 'observations', 'project_name'}
+        migrated = {
+            'closed_vulnerabilities',
+            'consulting',
+            'exploit',
+            'id',
+            'observations',
+            'project_name'
+        }
         if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
@@ -624,6 +596,7 @@ async def _do_remove_evidence(
     if success:
         util.queue_cache_invalidation(
             f'evidence*{finding_id}',
+            f'exploit*{finding_id}',
             f'records*{finding_id}'
         )
         util.cloudwatch_log(
@@ -663,6 +636,7 @@ async def _do_update_evidence(
         await util.invalidate_cache(
             f'{user_email}*{finding_id}',
             f'evidence*{finding_id}',
+            f'exploit*{finding_id}',
             f'records*{finding_id}'
         )
         util.cloudwatch_log(

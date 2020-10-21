@@ -3,10 +3,11 @@
 
 # Standard library
 from datetime import datetime
+import asyncio
 import functools
 import inspect
 import logging
-from typing import Any, Callable, Dict, cast, TypeVar
+from typing import Any, Callable, cast, Dict, TypeVar
 
 # Third party libraries
 from aioextensions import (
@@ -515,6 +516,7 @@ def get_entity_cache_async(func: TVar) -> TVar:
     @functools.wraps(_func)
     async def decorated(*args: Any, **kwargs: Any) -> Any:
         """Get cached response from function if it exists."""
+        # Temporary while migrating remaining resolvers
         gql_ent = args[0]
 
         if isinstance(gql_ent, GraphQLResolveInfo):
@@ -522,21 +524,37 @@ def get_entity_cache_async(func: TVar) -> TVar:
                 key + '_' + str(gql_ent.variable_values[key])
                 for key in gql_ent.variable_values
             ])
+            params = '_'.join([
+                str(kwargs[key])
+                if not isinstance(kwargs[key], datetime) and
+                not isinstance(kwargs[key], list)
+                else str(kwargs[key])[:13]
+                for key in kwargs
+            ]) + '_'
+            complement = (params if kwargs else '') + uniq_id
+            key_name = (
+                f'{_func.__module__.replace(".", "_")}_'
+                f'{_func.__qualname__}_{complement}'
+            )
+            key_name = key_name.lower()
         else:
-            uniq_id = str(gql_ent)
-        params = '_'.join([
-            str(kwargs[key])
-            if not isinstance(kwargs[key], datetime) and
-            not isinstance(kwargs[key], list)
-            else str(kwargs[key])[:13]
-            for key in kwargs
-        ]) + '_'
-        complement = (params if kwargs else '') + uniq_id
-        key_name = (
-            f'{_func.__module__.replace(".", "_")}_'
-            f'{_func.__qualname__}_{complement}'
-        )
-        key_name = key_name.lower()
+            # Parent is none for root (query) resolvers
+            parent: Dict[str, Any] = args[0] if args[0] else {}
+            function_id: str = '_'.join([
+                _func.__module__,
+                _func.__qualname__
+            ])
+            params = '_'.join([
+                str(key)
+                for key in [*parent.values(), *kwargs.values()]
+                # Temporary while migrating remaining resolvers
+                if not asyncio.iscoroutine(key)
+            ])
+            key_name = '_'.join([
+                function_id,
+                params
+            ]).replace('.', '_').lower()
+
         try:
             ret = await in_thread(cache.get, key_name)
 
