@@ -453,7 +453,11 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/java.properties', '4'),
             ('test/data/lib_path/f052/java.properties', '6'),
         )),
-        ('F055_AWS', 'SUBMITTED',(
+        ('F055_AWS', 'SUBMITTED', (
+            ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml', '16'),
+            ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml', '6'),
+            ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json', '24'),
+            ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json', '7'),
             ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml', '6'),
             ('test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json', '6'),
             ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml', '12'),

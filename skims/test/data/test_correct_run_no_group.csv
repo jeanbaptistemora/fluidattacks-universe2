@@ -1,4 +1,8 @@
 cwe,title,what,where
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6

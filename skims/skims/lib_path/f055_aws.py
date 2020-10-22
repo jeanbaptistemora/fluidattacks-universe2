@@ -68,6 +68,33 @@ def _unencrypted_volume_iterate_vulnerabilities(
                 yield volume
 
 
+def _public_buckets_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Union[Any,
+                                     Node]], ) -> Iterator[Union[Any, Node]]:
+    for bucket in buckets_iterator:
+        if isinstance(bucket, Node):
+            if bucket.raw.get('AccessControl', 'Private') in (
+                    'PublicRead',
+                    'PublicReadWrite',
+            ):
+                yield bucket.inner['AccessControl']
+
+
+def _cfn_public_buckets(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return create_vulns(
+        content=content,
+        description_key='utils.model.finding.enum.F055_AWS.public_buckets',
+        finding=FindingEnum.F055_AWS,
+        path=path,
+        statements_iterator=_public_buckets_iterate_vulnerabilities(
+            buckets_iterator=iter_s3_buckets(template=template)),
+    )
+
+
 def _cfn_unencrypted_volumes(
     content: str,
     path: str,
@@ -100,6 +127,23 @@ def _cfn_unencrypted_buckets(
         path=path,
         statements_iterator=(bucket for bucket in iter_s3_buckets(template)
                              if not bucket.raw.get('BucketEncryption', None)),
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+async def cfn_public_buckets(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag F14 S3 Bucket should not have a public read-write acl
+    # cfn_nag W31 S3 Bucket likely should not have a public read acl
+    return await in_process(
+        _cfn_public_buckets,
+        content=content,
+        path=path,
+        template=template,
     )
 
 
@@ -154,6 +198,11 @@ async def analyze(
                 template=template,
             ))
             coroutines.append(cfn_unencrypted_volumes(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_public_buckets(
                 content=content,
                 path=path,
                 template=template,
