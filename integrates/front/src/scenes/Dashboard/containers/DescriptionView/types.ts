@@ -34,6 +34,7 @@ export interface IFinding {
   recommendation: string;
   requirements: string;
   scenario: string;
+  sorts: string;
   state: "open" | "closed";
   threat: string;
   title: string;
@@ -52,6 +53,7 @@ export interface IFindingDescriptionData {
 
 export interface IFindingDescriptionVars {
   canRetrieveAnalyst: boolean;
+  canRetrieveSorts: boolean;
   findingId: string;
   projectName: string;
 }

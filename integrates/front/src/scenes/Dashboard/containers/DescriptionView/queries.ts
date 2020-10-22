@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   query GetFindingDescription(
     $canRetrieveAnalyst: Boolean!,
+    $canRetrieveSorts: Boolean!,
     $findingId: String!,
     $projectName: String!
   ) {
@@ -24,6 +25,7 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       recommendation
       requirements
       scenario
+      sorts @include(if: $canRetrieveSorts)
       state
       threat
       title
@@ -61,6 +63,7 @@ export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $recommendation: String!,
     $requirements: String!,
     $scenario: String!,
+    $sorts: Sorts!,
     $threat: String!,
     $title: String!,
     $type: String
@@ -77,6 +80,7 @@ export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       recordsNumber: $compromisedRecords,
       requirements: $requirements,
       scenario: $scenario,
+      sorts: $sorts,
       threat: $threat,
       title: $title,
       findingType: $type

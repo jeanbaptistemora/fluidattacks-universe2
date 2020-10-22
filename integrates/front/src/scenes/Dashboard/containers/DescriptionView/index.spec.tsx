@@ -37,6 +37,7 @@ describe("Finding Description", () => {
     recommendation: "Use good security practices and standards",
     requirements: "REQ.0265. System must restrict access",
     scenario: "ANONYMOUS_INTERNET",
+    sorts: "No",
     state: "open",
     threat: "External attack",
     title: "FIN.S.0004. Remote command execution",
@@ -49,6 +50,7 @@ describe("Finding Description", () => {
   };
   const findingDescriptionVars: IFindingDescriptionVars = {
     canRetrieveAnalyst: false,
+    canRetrieveSorts: false,
     findingId: "413372600",
     projectName: "TEST",
   };

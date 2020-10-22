@@ -997,6 +997,11 @@ export const enTranslations: ResourceKey = {
         unauth_intra: "Unauthorized Intranet user",
       },
       severity: "Severity",
+      sorts: {
+        text: "Sorts",
+        tooltip:
+          "Did Sorts guide you to the file where you found the vulnerability?",
+      },
       state: "State",
       tab_title: "Description",
       tag: "Tags",

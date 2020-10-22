@@ -46,6 +46,7 @@ async def _batch_load_fn(
             requirements=finding.get('requirements', ''),
             risk=finding.get('risk', ''),
             scenario=finding.get('scenario', ''),
+            sorts=finding.get('sorts', None),
             severity=finding.get('severity', {}),  # type: ignore
             severity_score=finding.get('severityCvss', 0.0),
             threat=finding.get('threat', ''),

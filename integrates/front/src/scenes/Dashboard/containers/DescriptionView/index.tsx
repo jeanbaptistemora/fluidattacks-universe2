@@ -152,6 +152,7 @@ const descriptionView: React.FC = (): JSX.Element => {
     },
     variables: {
       canRetrieveAnalyst: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
+      canRetrieveSorts: permissions.can("backend_api_resolvers_new_finding_sorts_resolve"),
       findingId,
       projectName,
     },
@@ -478,6 +479,34 @@ const descriptionView: React.FC = (): JSX.Element => {
                 </Can>
               </Col45>
             </Row>
+            <Can do="backend_api_resolvers_finding__do_update_description">
+              {isEditing ? (
+                <Row>
+                  <Col45>
+                    <TooltipWrapper
+                      message={translate.t("search_findings.tab_description.sorts.tooltip")}
+                    >
+                      <FormGroup>
+                        <ControlLabel>
+                          <b>{translate.t("search_findings.tab_description.sorts.text")}</b>
+                        </ControlLabel>
+                        <br />
+                        <Field
+                          component={Dropdown}
+                          name="sorts"
+                          type="text"
+                          validate={[required]}
+                        >
+                          <option value="" />
+                          <option value="NO">{translate.t("group.findings.boolean.False")}</option>
+                          <option value="YES">{translate.t("group.findings.boolean.True")}</option>
+                        </Field>
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </Col45>
+                </Row>
+              ) : undefined}
+            </Can>
           </React.Fragment>
         </React.Fragment>
       </GenericForm>

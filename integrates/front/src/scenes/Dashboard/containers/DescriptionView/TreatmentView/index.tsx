@@ -281,7 +281,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                     )}
                   </Can>
                 </Col45>
-                {lastTreatment.acceptanceStatus === "APPROVED" ? (
+                {lastTreatment.acceptanceStatus === "APPROVED" && !props.isEditing ? (
                   <Col45>
                     <FormGroup>
                       <ControlLabel>

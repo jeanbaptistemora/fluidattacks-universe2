@@ -37,6 +37,7 @@ type Finding {
   requirements: String
   risk: String
   scenario: String
+  sorts: Sorts
   severity: GenericScalar
   severityScore: Float
   state: String

@@ -295,6 +295,7 @@ async def resolve(
             'ports_vulns',
             'project_name',
             'records',
+            'sorts',
             'state',
             'tracking',
             'verified',
