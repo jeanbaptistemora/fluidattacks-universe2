@@ -810,7 +810,7 @@ async def _do_update_client_description(
     }
     success = await finding_domain.update_client_description(
         finding_id,
-        parameters,
+        {**parameters},
         organization,
         finding_info_to_check,
         user_mail
