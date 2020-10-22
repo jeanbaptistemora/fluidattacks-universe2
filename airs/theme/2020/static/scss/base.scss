@@ -474,6 +474,37 @@ $codeyellow: rgba(230, 219, 116, 1);
   @include menu-font;
 }
 
+#gall:checked~.tag-all {
+  @include menu-font;
+}
+#g1:checked~.tag-banking {
+  @include menu-font;
+}
+#g2:checked~.tag-oil-energy {
+  @include menu-font;
+}
+#g3:checked~.tag-automotive {
+  @include menu-font;
+}
+#g4:checked~.tag-ppharmaceuticals {
+  @include menu-font;
+}
+#g5:checked~.tag-healthcare {
+  @include menu-font;
+}
+#g6:checked~.tag-airlines {
+  @include menu-font;
+}
+#g7:checked~.tag-telecommunications {
+  @include menu-font;
+}
+#g8:checked~.tag-human-resources {
+  @include menu-font;
+}
+#g9:checked~.tag-technology {
+  @include menu-font;
+}
+
 .carousel.active {
   cursor: grabbing;
 }

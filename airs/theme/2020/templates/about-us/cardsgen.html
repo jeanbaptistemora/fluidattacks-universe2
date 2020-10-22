@@ -160,9 +160,73 @@
     {% endif %}
 
     {% if page.clientsindex %}
+    <div class="w-100 overflow-x-auto nowrap carousel">
+      <ul class="list ph0-ns ph3 ma0 tc pv3">
+        <li class="pr2 di">
+          <input type="radio" id="gall" class="dn" name="menu-clients" checked />
+          <label class="tag-all c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="gall">
+            All
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g1" class="dn transparent" name="menu-clients"/>
+          <label class="tag-banking c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g1">
+            Banking/Financial Services
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g2" class="dn transparent" name="menu-clients"/>
+          <label class="tag-oil-energy c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g2">
+            Oil & Energy
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g3" class="dn transparent" name="menu-clients"/>
+          <label class="tag-automotive c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g3">
+            Automotive
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g4" class="dn transparent" name="menu-clients"/>
+          <label class="tag-pharmaceuticals c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g4">
+            Pharmaceuticals
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g5" class="dn transparent" name="menu-clients"/>
+          <label class="tag-healthcare c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g5">
+            Healthcare
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g6" class="dn transparent" name="menu-clients"/>
+          <label class="tag-airlines c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g6">
+            Airlines/Aviation
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g7" class="dn transparent" name="menu-clients"/>
+          <label class="tag-telecommunications c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g7">
+            Telecommunications
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g8" class="dn transparent" name="menu-clients"/>
+          <label class="tag-human-resources c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g8">
+            Human Resources
+          </label>
+        </li>
+        <li class="ph2 di">
+          <input type="radio" id="g9" class="dn transparent" name="menu-clients"/>
+          <label class="tag-technology c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="g9">
+            Technology
+          </label>
+        </li>
+      </ul>
+    </div>
     <div class="cardgrid flex-ns flex-wrap-ns justify-between-m">
       {% for clientspage in pages if clientspage.client %}
-      <div class="br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
+      <div class="{{clientspage.filter}} fadein br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
         <button class="accordion pointer pa3 w-100 bg-white outline-transparent bn t-all-5">
           <img src="{{ SITEURL }}/about-us/clients/{{clientspage.clientlogo}}.png" alt="{{clientspage.alt}}">
           <h4>
@@ -189,7 +253,7 @@
   </div>
 </div>
 
-{% assets output="static/js/cardHover.min.js", "js/tmp/cardHover.min.js" %}
+{% assets output="static/js/cardHover.min.js", "js/tmp/cardHover.min.js", "js/tmp/clientsFilter.min.js" %}
 <script type="text/javascript"
         src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
 {% endassets %}

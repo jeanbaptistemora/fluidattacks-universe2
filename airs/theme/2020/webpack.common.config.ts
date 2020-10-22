@@ -7,6 +7,7 @@ export const commonConfig: webpack.Configuration = {
     bugsnagErrorBoundary: "./static/js/bugsnagErrorBoundary.ts",
     cardHover: "./static/js/cardHover.ts",
     carousel: "./static/js/carousel.ts",
+    clientsFilter: "./static/js/clientsFilter.ts",
     contactSlides: "./static/js/contactSlides.ts",
     contentHome: "./static/js/contentHome.ts",
     defends: "./static/js/defends.ts",
