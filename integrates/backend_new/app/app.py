@@ -46,6 +46,7 @@ OAUTH.register(
     name='azure',
     client_id=FI_AZUREAD_OAUTH2_KEY,
     client_secret=FI_AZUREAD_OAUTH2_SECRET,
+    authorize_url=settings.AZURE_AUTHZ_URL,
     client_kwargs={
         'scope': 'openid email profile'
     }

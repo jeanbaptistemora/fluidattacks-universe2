@@ -2,6 +2,7 @@ from .analytics import (
     MIXPANEL_API_TOKEN
 )
 from .auth import (
+    AZURE_AUTHZ_URL,
     GOOGLE_CONF_URL
 )
 from .cache import (
@@ -27,6 +28,7 @@ from .various import (
 
 __all__ = [
     'MIXPANEL_API_TOKEN',
+    'AZURE_AUTHZ_URL',
     'GOOGLE_CONF_URL',
     'CACHE_TTL',
     'JWT_COOKIE_NAME',
