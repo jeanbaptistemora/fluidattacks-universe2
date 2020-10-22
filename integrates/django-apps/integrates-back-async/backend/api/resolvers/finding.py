@@ -77,20 +77,6 @@ async def _get_tracking(
 
 
 @get_entity_cache_async
-async def _get_records(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[Dict[object, object]]:
-    """Get records."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    if finding['records']['url']:
-        records = await finding_utils.get_records_from_file(
-            finding['project_name'], finding['id'], finding['records']['url'])
-    else:
-        records = []
-    return records
-
-
-@get_entity_cache_async
 async def _get_severity(
         info: GraphQLResolveInfo,
         identifier: str) -> Dict[str, str]:
@@ -345,22 +331,6 @@ async def _get_current_state(info: GraphQLResolveInfo, identifier: str) -> str:
 
 
 @get_entity_cache_async
-async def _get_new_remediated(
-        info: GraphQLResolveInfo,
-        identifier: str) -> bool:
-    """Get new_remediated."""
-    vulns = await info.context.loaders['vulnerability'].load(identifier)
-    open_vulns = [
-        vuln
-        for vuln in vulns
-        if vuln['last_approved_status'] == 'open'
-    ]
-    remediated_vulns = [vuln for vuln in vulns if vuln['remediated']]
-    new_remediated = len(remediated_vulns) == len(open_vulns)
-    return new_remediated
-
-
-@get_entity_cache_async
 async def _get_verified(info: GraphQLResolveInfo, identifier: str) -> bool:
     """Get verified."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
@@ -406,11 +376,13 @@ async def resolve(
             'id',
             'inputs_vulns',
             'lines_vulns',
+            'new_remediated',
             'observations',
             'open_vulnerabilities',
             'pending_vulns',
             'ports_vulns',
             'project_name',
+            'records',
             'vulnerabilities'
         }
         if requested_field.startswith('_') or requested_field in migrated:
