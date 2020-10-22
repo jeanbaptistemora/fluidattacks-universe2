@@ -7,6 +7,11 @@ Resources:
           FromPort: 443
           IpProtocol: tcp
           ToPort: 443
+      SecurityGroupEgress:
+        - CidrIp: 34.229.161.227/16
+          FromPort: 8080
+          IpProtocol: "tcp"
+          ToPort: 8080
     Type: AWS::EC2::SecurityGroup
   securityGroup2:
     Properties:

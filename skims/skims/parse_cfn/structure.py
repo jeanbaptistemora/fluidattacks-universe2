@@ -91,6 +91,14 @@ def iter_ec2_ingress_egress(
             yield props
 
 
+def iter_ec2_security_groups(template: Node) -> Iterator[Node]:
+    yield from (props for _, _, props in iterate_resources(
+        template,
+        'AWS::EC2::SecurityGroup',
+        exact=True,
+    ))
+
+
 def iter_s3_buckets(template: Node) -> Iterator[Node]:
     yield from (props for _, _, props in iterate_resources(
         template,

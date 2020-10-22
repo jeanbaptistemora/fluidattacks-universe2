@@ -31,6 +31,7 @@ from lib_path.common import (
 )
 from parse_cfn.structure import (
     iter_ec2_ingress_egress,
+    iter_ec2_security_groups,
 )
 from parse_cfn.loader import (
     load_templates,
@@ -45,6 +46,12 @@ from utils.model import (
     FindingEnum,
     Vulnerability,
 )
+
+
+def _groups_without_egress_iter_vulnerabilities(
+        groups_iterators: Iterator[Node]) -> Iterator[Node]:
+    yield from (group for group in groups_iterators
+                if not group.raw.get('SecurityGroupEgress', None))
 
 
 def _range_port_iter_vulnerabilities(
@@ -209,6 +216,21 @@ def _cfn_allows_anyone_to_admin_ports(
             )))
 
 
+def _cfn_groups_without_egress(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return create_vulns(
+        content=content,
+        description_key='src.lib_path.f047_aws.security_group_without_egress',
+        finding=FindingEnum.F047_AWS,
+        path=path,
+        statements_iterator=_groups_without_egress_iter_vulnerabilities(
+            groups_iterators=iter_ec2_security_groups(template=template)),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 async def cfn_allows_anyone_to_admin_ports(
@@ -218,6 +240,22 @@ async def cfn_allows_anyone_to_admin_ports(
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
         _cfn_allows_anyone_to_admin_ports,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+async def cfn_groups_without_egress(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag F1000 Missing egress rule means all traffic is allowed outbound
+    return await in_process(
+        _cfn_groups_without_egress,
         content=content,
         path=path,
         template=template,
@@ -306,6 +344,11 @@ async def analyze(
                 template=template,
             ))
             coroutines.append(cfn_unrestricted_ip_protocols(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_groups_without_egress(
                 content=content,
                 path=path,
                 template=template,
