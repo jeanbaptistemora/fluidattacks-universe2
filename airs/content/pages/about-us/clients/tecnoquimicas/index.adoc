@@ -1,0 +1,9 @@
+:clientlogo: logo-tecnoquimicas
+:alt: Logo Tecnoquimicas
+:client: yes
+:filter: pharmaceuticals
+
+= Tecnoquímicas
+
+*Tecnoquímicas* (TQ) is a leading Colombian business group in the pharmaceutical
+industry developing innovative health products.

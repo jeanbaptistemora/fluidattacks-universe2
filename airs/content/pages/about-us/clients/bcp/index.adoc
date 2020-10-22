@@ -1,0 +1,9 @@
+:clientlogo: logo-bcp
+:alt: Logo BCP
+:client: yes
+:filter: banking
+
+= BCP
+
+*BCP* is the largest bank in Peru, part of the financial conglomerate Credicorp,
+and offers a wide range of products and services.

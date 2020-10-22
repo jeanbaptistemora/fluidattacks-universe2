@@ -1,0 +1,9 @@
+:clientlogo: logo-bancolombia
+:alt: Logo Bancolombia
+:client: yes
+:filter: banking
+
+= Bancolombia
+
+*Bancolombia* is a multinational financial group with a wide range of products
+and services, mainly for Latin America.

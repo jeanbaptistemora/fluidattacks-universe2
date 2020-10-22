@@ -1,0 +1,9 @@
+:clientlogo: logo-mazda
+:alt: Logo Mazda
+:client: yes
+:filter: automotive
+
+= Mazda
+
+*Mazda* is a Japanese multinational automotive company and is among the world's
+leading automakers.

@@ -1,0 +1,9 @@
+:clientlogo: logo-itau
+:alt: Logo Itau
+:client: yes
+:filter: banking
+
+= Itaú
+
+*Itaú* is the largest Brazilian private bank with presence in Latin America, USA,
+Europe, and Asia.

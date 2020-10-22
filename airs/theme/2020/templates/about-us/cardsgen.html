@@ -97,7 +97,7 @@
 <!-- This block is for the content of the page -->
 {% block content %}
 <div class="bg-graylight">
-  <div class="roboto internal mw-1366 ph-body ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
+  <div class="roboto internal mw-1200 center roboto bg-graylight ph4-l ph3 pt5-l pt4 pb5">
     <div>
       {{ page.content }}
     </div>
@@ -150,7 +150,35 @@
           {{ certificationspage.content }}
         </div>
         <button class="readmore tc fw3 w-100 pointer bn bg-white outline-transparent dn">
-          Read More <br>
+          <br>
+          <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+               alt="Fluid Arrow">
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.clientsindex %}
+    <div class="cardgrid flex-ns flex-wrap-ns justify-between-m">
+      {% for clientspage in pages if clientspage.client %}
+      <div class="br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
+        <button class="accordion pointer pa3 w-100 bg-white outline-transparent bn t-all-5">
+          <img src="{{ SITEURL }}/about-us/clients/{{clientspage.clientlogo}}.png" alt="{{clientspage.alt}}">
+          <h4>
+            {{ clientspage.title }}
+          </h4>
+          <div class="fakebt fw3 fadein">
+            <br>
+            <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+                alt="Fluid Arrow">
+          </div>
+        </button>
+        <div class="panel pv0 ph2 bg-white t-all-5 overflow-hidden ph4">
+          {{ clientspage.content }}
+        </div>
+        <button class="readmore tc fw3 w-100 pointer bn bg-white outline-transparent dn">
+          <br>
           <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
                alt="Fluid Arrow">
         </button>

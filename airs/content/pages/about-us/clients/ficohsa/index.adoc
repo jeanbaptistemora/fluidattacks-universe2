@@ -1,0 +1,9 @@
+:clientlogo: logo-ficohsa
+:alt: Logo Ficohsa
+:client: yes
+:filter: banking
+
+= Ficohsa
+
+*Ficohsa* is a Honduran bank, defined as a financial group, which provides
+services in Honduras, Panama, Guatemala, and Nicaragua.

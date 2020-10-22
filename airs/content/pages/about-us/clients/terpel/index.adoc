@@ -1,0 +1,9 @@
+:clientlogo: logo-terpel
+:alt: Logo Terpel
+:client: yes
+:filter: oil-energy
+
+= Terpel
+
+*Terpel* is a Colombian oil and gas company with distribution in more than five
+Latin American countries.

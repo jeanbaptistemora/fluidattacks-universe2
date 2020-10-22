@@ -1,0 +1,9 @@
+:clientlogo: logo-banco-industrial
+:alt: Logo Banco Industrial
+:client: yes
+:filter: banking
+
+= Banco Industrial
+
+*Banco Industrial* is the leading financial organization in Guatemala and one of
+the largest in Central America.

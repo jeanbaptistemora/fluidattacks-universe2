@@ -1,0 +1,9 @@
+:clientlogo: logo-redeban
+:alt: Logo Redeban
+:client: yes
+:filter: banking
+
+= Redeban
+
+*Redeban* is a Colombian firm that facilitates processes in the electronic
+payment sector through innovative and secure solutions.

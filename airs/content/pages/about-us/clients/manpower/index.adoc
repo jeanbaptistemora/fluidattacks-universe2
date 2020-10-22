@@ -1,0 +1,9 @@
+:clientlogo: logo-manpower
+:alt: Logo Manpower
+:client: yes
+:filter: human-resources
+
+= Manpower
+
+*Manpower* is a brand of ManpowerGroup, a world leader in innovative human
+capital solutions.

@@ -1,0 +1,9 @@
+:clientlogo: logo-tigo
+:alt: Logo Tigo
+:client: yes
+:filter: telecommunications
+
+= Tigo
+
+*Tigo* is a trademark of Millicom International Cellular with a wide presence in
+Latin America as a telecommunications company.

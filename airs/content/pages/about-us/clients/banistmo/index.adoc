@@ -1,0 +1,9 @@
+:clientlogo: logo-banistmo
+:alt: Logo Banistmo
+:client: yes
+:filter: banking
+
+= Banistmo
+
+*Banistmo* is one of the leading banks in Panama and is part of the Bancolombia
+Group.

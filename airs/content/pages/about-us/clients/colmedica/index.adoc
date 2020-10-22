@@ -1,0 +1,9 @@
+:clientlogo: logo-colmedica
+:alt: Logo Colmedica Medicina Prepagada
+:client: yes
+:filter: healthcare
+
+= Colmedica Medicina Prepagada
+
+*Colmédica Medicina Prepagada* is one of the largest companies in Colombia's
+private health sector.

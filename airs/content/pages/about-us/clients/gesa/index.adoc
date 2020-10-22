@@ -1,0 +1,9 @@
+:clientlogo: logo-gesa
+:alt: Logo Gesa Credit Union
+:client: yes
+:filter: banking
+
+= Gesa Credit Union
+
+*Gesa Credit Union* is the largest financial cooperative in Southeastern
+Washington and supports diversity, equity, and inclusion.
