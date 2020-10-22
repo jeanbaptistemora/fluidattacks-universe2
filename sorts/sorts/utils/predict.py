@@ -9,6 +9,10 @@ import numpy as np
 import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
+from prettytable import (
+    from_csv,
+    PrettyTable,
+)
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
 
@@ -60,4 +64,14 @@ def predict_vuln_prob(
         .reset_index(drop=True)[[scope, 'prob_vuln']]
     csv_name: str = f'{group}_sorts_results_{scope}.csv'
     sorted_files.to_csv(csv_name, index=False)
-    log('info', 'Results saved to file %s', csv_name)
+    log(
+        'info',
+        'Results saved to file %s. Here are the top 20 files to check:',
+        csv_name
+    )
+    with open(csv_name, 'r') as csv_file:
+        table: PrettyTable = from_csv(csv_file)
+    table.align[scope] = 'l'
+    # pylint: disable=protected-access
+    table._max_width = {scope: 120, 'prob_vuln': 10}
+    print(table.get_string(start=1, end=20))
