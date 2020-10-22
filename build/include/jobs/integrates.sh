@@ -198,12 +198,14 @@ function job_integrates_build_container_app_new {
   local dockerfile='integrates/deploy/containers/app-new/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}_new"
   local use_cache='false'
+  local provisioner='build/provisioners/integrates_serve_ephemeral.nix'
 
   helper_common_docker_build_and_push \
     "${tag}" \
     "${context}" \
     "${dockerfile}" \
-    "${use_cache}"
+    "${use_cache}" \
+    'PROVISIONER' "${provisioner}"
 }
 
 function job_integrates_build_container_app {

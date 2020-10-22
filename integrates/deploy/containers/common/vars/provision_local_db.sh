@@ -685,7 +685,7 @@ then
   echo '[INFO] Adding mock users'
   for index in $(seq 1 20)
   do
-    echo "  [INFO] adding 6 users, batch ${index} out of 200"
+    echo "  [INFO] adding 6 users, batch ${index} out of 20"
     index="${index}" jq -n '{
       "FI_users": (
         [range(6)] | map([{

@@ -14,6 +14,7 @@ RUN     apk add --no-cache tzdata=2020c-r0 \
 WORKDIR /product
 
 # Cache integrates dependencies
+ARG PROVISIONER
 COPY . .
-RUN     nix-shell --run ':' 'build/provisioners/integrates_serve_local.nix' \
+RUN     nix-shell --run ':' "${PROVISIONER}" \
     &&  nix-store --optimise
