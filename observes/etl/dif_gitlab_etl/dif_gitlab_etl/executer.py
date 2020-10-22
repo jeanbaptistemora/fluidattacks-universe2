@@ -52,9 +52,12 @@ def extract_range_function() -> Callable[
     return extract_range
 
 
-def get_statement_executer_function(db_state: DbState) -> Callable[[str], Any]:
-    def statement_exe(statement: str):
+def get_statement_executer_function(
+    db_state: DbState
+) -> Callable[[str], List[Any]]:
+    def statement_exe(statement: str) -> List[Any]:
         db_client.execute(db_state, statement)
+        return db_state.cursor.fetchall()
     return statement_exe
 
 

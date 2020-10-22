@@ -1,10 +1,11 @@
 # Standard libraries
+from os import environ
 from typing import (
     Any,
     Awaitable,
     Callable,
     Dict,
-    List,
+    List, Optional,
 )
 # Third party libraries
 import aiohttp
@@ -14,7 +15,10 @@ from streamer_gitlab.api_client import (
     GitlabResourcePage,
 )
 from streamer_gitlab import api_client
-from dif_gitlab_etl.utils import log
+from dif_gitlab_etl.utils import (
+    log,
+    NotFoundException,
+)
 
 # lgu = last greater uploaded
 
@@ -25,7 +29,7 @@ async def search_page_with(
     last_seen: GitlabResourcePage
 ) -> int:
     found: bool = False
-    items: List[Any] = []
+    items: List[Dict[str, Any]] = []
     counter: int = 0
     while not found:
         items = await get_resource(
@@ -35,8 +39,9 @@ async def search_page_with(
                 per_page=last_seen.per_page,
             )
         )
-        if items:
-            if int(items[-1]['id']) > target_id:
+        minor_id: Optional[int] = api_client.get_minor_id(items)
+        if minor_id:
+            if minor_id > target_id:
                 counter = counter + 1
                 if counter % 100 == 0:
                     log('info', f'searching at offset {counter}*100')
@@ -65,20 +70,36 @@ async def get_lgu_id(
     resource: GitlabResource,
     exe_query: Callable[[str], Any]
 ) -> int:
-    return exe_query(
+    result = exe_query(
         "SELECT lgu_id FROM \"gitlab-ci\".upload_state "
-        f"WHERE project='{resource.project}', resource='{resource.resource}'"
+        f"WHERE project='{resource.project}' "
+        f"AND resource='{resource.resource}'"
     )
+    if not result:
+        raise NotFoundException(
+            'Unknown lgu id for '
+            f'{resource.project}/{resource.resource}'
+        )
+    log('debug', str(result))
+    return result[0][0]
 
 
 async def get_lgu_last_seen_page_id(
     resource: GitlabResource,
     exe_query: Callable[[str], Any]
 ) -> Dict[str, int]:
-    return exe_query(
+    result = exe_query(
         "SELECT last_seen_page,per_page FROM \"gitlab-ci\".upload_state "
-        f"WHERE project='{resource.project}', resource='{resource.resource}'"
+        f"WHERE project='{resource.project}' "
+        f"AND resource='{resource.resource}'"
     )
+    if not result:
+        raise NotFoundException(
+            'Unknown last seen page for '
+            f'{resource.project}/{resource.resource}'
+        )
+    log('debug', str(result))
+    return {'page': result[0][0], 'per_page': result[0][1]}
 
 
 async def get_work_interval(
@@ -107,8 +128,12 @@ async def search_lgu_page(
     async with aiohttp.ClientSession() as session:
 
         def build_get_resource(session):
-            def getter(*args):
-                api_client.get_resource(session, *args)
+            async def getter(resource):
+                api_token = environ['GITLAB_API_TOKEN']
+                headers = {'Private-Token': api_token}
+                return await api_client.get_resource(
+                    session, resource, headers=headers
+                )
             return getter
 
         return await search_page_with(

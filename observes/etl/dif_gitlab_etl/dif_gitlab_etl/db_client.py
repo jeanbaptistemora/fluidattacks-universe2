@@ -38,9 +38,8 @@ def drop_access_point(state: DbState) -> None:
     state.connection.close()
 
 
-def execute(state: DbState, statement: str, do_print: bool = False) -> None:
-    if do_print:
-        log('info', f"EXEC: {statement}.")
+def execute(state: DbState, statement: str) -> None:
+    log('debug', f"EXEC: {statement}.")
     try:
         state.cursor.execute(statement)
     except postgres.ProgrammingError as exc:

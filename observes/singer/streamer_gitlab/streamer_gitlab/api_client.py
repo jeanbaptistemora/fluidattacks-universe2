@@ -65,7 +65,7 @@ async def get_json_less_than(
 
 
 async def get_resource(
-    session: ClientSession, resource: GitlabResourcePage
+    session: ClientSession, resource: GitlabResourcePage, **kargs
 ) -> List[Dict[str, Any]]:
     endpoint = (
         'https://gitlab.com/api/v4/projects/'
@@ -75,7 +75,7 @@ async def get_resource(
         'page': resource.page,
         'per_page': resource.per_page
     }
-    return await get_json(session, endpoint, params=params)
+    return await get_json(session, endpoint, params=params, **kargs)
 
 
 def elements_less_than(
