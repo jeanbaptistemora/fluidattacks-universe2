@@ -645,6 +645,7 @@ function job_integrates_serve_local {
           '5' \
           '0.0.0.0' \
           '8080' \
+          '127.0.0.1' \
     &&  wait \
   &&  popd \
   ||  return 1
@@ -666,6 +667,7 @@ function job_integrates2_serve_local {
           '5' \
           '0.0.0.0' \
           '8080' \
+          '*' \
     &&  wait \
   &&  popd \
   ||  return 1
@@ -687,6 +689,7 @@ function job_integrates_serve_ephemeral {
           '5' \
           '0.0.0.0' \
           '8000' \
+          '127.0.0.1' \
     &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \
@@ -708,6 +711,7 @@ function job_integrates2_serve_ephemeral {
           '5' \
           '0.0.0.0' \
           '8000' \
+          '*' \
     &&  wait \
   &&  popd \
   ||  return 1

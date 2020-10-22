@@ -128,10 +128,12 @@ function helper_integrates_serve_back_new {
   local workers="${5}"
   local host="${6}"
   local port="${7}"
+  local forwarded_ips="${8}"
   local common_args=(
     --timeout "3600"
     --workers "${workers}"
     --worker-class "${worker_class}"
+    --forwarded-allow-ips="${forwarded_ips}" 
   )
 
       env_prepare_python_packages \
