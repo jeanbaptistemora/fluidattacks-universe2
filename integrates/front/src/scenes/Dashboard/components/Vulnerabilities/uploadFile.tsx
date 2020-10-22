@@ -141,7 +141,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         {
           query: GET_VULNERABILITIES,
           variables: {
-            analystField: permissions.can("backend_api_resolvers_finding__get_analyst"),
+            analystField: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
             identifier: props.findingId,
           },
         },
@@ -149,7 +149,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
           query: GET_FINDING_HEADER,
           variables: {
             canGetExploit: groupPermissions.can("has_forces"),
-            canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
+            canGetHistoricState: permissions.can("backend_api_resolvers_new_finding_historic_state_resolve"),
             findingId: props.findingId,
           },
         },

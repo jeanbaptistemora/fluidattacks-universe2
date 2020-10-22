@@ -50,7 +50,7 @@ export interface IUpdateVerificationModal {
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
-  const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_finding__get_analyst");
+  const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_new_finding_analyst_resolve");
   const canDisplayExploit: boolean = groupPermissions.can("has_forces");
 
   // State management

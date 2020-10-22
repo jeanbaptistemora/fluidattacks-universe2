@@ -130,21 +130,6 @@ async def _get_last_vulnerability(
     return last_vuln_date.days
 
 
-@rename_kwargs({'identifier': 'finding_id'})
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@rename_kwargs({'finding_id': 'identifier'})
-@get_entity_cache_async
-async def _get_historic_state(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[Dict[str, str]]:
-    """Get historic_state."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(List[Dict[str, str]], finding['historic_state'])
-
-
 @get_entity_cache_async
 async def _get_title(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get title."""
@@ -301,19 +286,6 @@ async def _get_report_date(info: GraphQLResolveInfo, identifier: str) -> str:
     return cast(str, finding['report_date'])
 
 
-@rename_kwargs({'identifier': 'finding_id'})
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@rename_kwargs({'finding_id': 'identifier'})
-@get_entity_cache_async
-async def _get_analyst(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get analyst."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['analyst'])
-
-
 @get_entity_cache_async
 async def _get_historic_treatment(
         info: GraphQLResolveInfo,
@@ -370,9 +342,11 @@ async def resolve(
             requested_field.name.value
         )
         migrated = {
+            'analyst',
             'closed_vulnerabilities',
             'consulting',
             'exploit',
+            'historic_state',
             'id',
             'inputs_vulns',
             'lines_vulns',

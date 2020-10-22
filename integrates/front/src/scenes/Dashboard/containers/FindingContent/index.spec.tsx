@@ -188,7 +188,7 @@ describe("FindingContent", () => {
 
   it("should render header", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },
@@ -213,7 +213,7 @@ describe("FindingContent", () => {
 
   it("should render header with Exploit tab", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },
@@ -239,7 +239,7 @@ describe("FindingContent", () => {
 
   it("should render header without Exploit tab", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
@@ -259,7 +259,7 @@ describe("FindingContent", () => {
 
   it("should render empty Exploit tab for analyst", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_update_evidence" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -286,7 +286,7 @@ describe("FindingContent", () => {
 
   it("should render unsubmitted draft actions", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -317,7 +317,7 @@ describe("FindingContent", () => {
 
   it("should prompt delete justification", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -378,7 +378,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -437,7 +437,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -486,7 +486,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -559,7 +559,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -618,7 +618,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -690,7 +690,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -750,7 +750,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
@@ -805,7 +805,7 @@ describe("FindingContent", () => {
     };
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__get_historic_state" },
+      { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([

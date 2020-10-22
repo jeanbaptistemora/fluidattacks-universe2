@@ -76,7 +76,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     },
     variables: {
       canGetExploit: groupPermissions.can("has_forces"),
-      canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
+      canGetHistoricState: permissions.can("backend_api_resolvers_new_finding_historic_state_resolve"),
       findingId,
     },
   });

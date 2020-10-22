@@ -151,7 +151,7 @@ const descriptionView: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      canRetrieveAnalyst: permissions.can("backend_api_resolvers_finding__get_analyst"),
+      canRetrieveAnalyst: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
       findingId,
       projectName,
     },
@@ -256,7 +256,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                   )}
                 </Can>
               </Col45>
-              <Can do="backend_api_resolvers_finding__get_analyst">
+              <Can do="backend_api_resolvers_new_finding_analyst_resolve">
                 <Col45>
                   <FormGroup>
                     <ControlLabel>
