@@ -67,6 +67,11 @@ urlpatterns = [
     url(r'^graphics-report/?$', views.graphics_report, name='graphics_report'),
     url(r'^error500/?$', views.error500, name='error500'),
     url(r'^error401/?$', views.error401, name='error401'),
+    url(
+        r'^invalid_invitation/?$',
+        views.invalid_invitation,
+        name='invalid_invitation'
+    ),
     url(r'^mobile/?$', views.mobile, name='mobile'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),

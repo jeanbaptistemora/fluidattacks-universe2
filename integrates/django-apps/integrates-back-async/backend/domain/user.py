@@ -1,10 +1,11 @@
 # Standard Libraries
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any, List, Union, cast, Awaitable
 
 # Third libraries
 import json
+import bugsnag
 import aioboto3
 from aioextensions import collect
 from jose import jwt
@@ -280,27 +281,42 @@ async def get_organizations(email: str) -> List[str]:
 
 
 async def complete_user_register(urltoken: str) -> bool:
+    success = True
     info_json = await util.get_token(f'fi_urltoken:{urltoken}')
     info = json.loads(info_json)
 
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.append(
-        project_dal.update_access(
-            info.get('user_email'),
-            info.get('group'),
-            'responsibility',
-            info.get('responsibility')
+    if info.get('is_used'):
+        bugsnag.notify(Exception("Token already used"), severity='warning')
+        success = False
+    else:
+        coroutines: List[Awaitable[bool]] = []
+        coroutines.append(
+            project_dal.update_access(
+                info.get('user_email'),
+                info.get('group'),
+                'responsibility',
+                info.get('responsibility')
+            )
         )
-    )
 
-    coroutines.append(
-        update_project_access(
-            info.get('user_email'),
-            info.get('group'),
-            True
+        coroutines.append(
+            update_project_access(
+                info.get('user_email'),
+                info.get('group'),
+                True
+            )
         )
-    )
 
-    await util.remove_token(f'fi_urltoken:{urltoken}')
+        token_lifetime = timedelta(hours=8)
 
-    return all(await collect(coroutines))
+        info['is_used'] = True
+
+        await util.save_token(
+            f'fi_urltoken:{urltoken}',
+            json.dumps(info),
+            int(token_lifetime.total_seconds())
+        )
+
+        success = all(await collect(coroutines))
+
+    return success

@@ -66,6 +66,13 @@ def error401(request: Request) -> HTMLResponse:
     )
 
 
+def invalid_invitation(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='invalid_invitation.html',
+        context={'request': request}
+    )
+
+
 def login(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='login.html',
@@ -132,6 +139,7 @@ APP = Starlette(
         Route('/new/api/', GraphQL(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', error401),
         Route('/error500', error500),
+        Route('/invalid_invitation', invalid_invitation),
         Mount(
             '/static',
             StaticFiles(directory=f'{TEMPLATES_DIR}/static'),

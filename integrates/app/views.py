@@ -166,6 +166,12 @@ def error401(request: HttpRequest) -> HttpResponse:
     return render(request, 'HTTP401.html', parameters)
 
 
+def invalid_invitation(request: HttpRequest) -> HttpResponse:
+    """Invalid invitation error view"""
+    parameters: Dict[str, Any] = {}
+    return render(request, 'invalid_invitation.html', parameters)
+
+
 def mobile(request: HttpRequest) -> HttpResponse:
     """Small devices view"""
     parameters: Dict[str, Any] = {}
@@ -420,11 +426,15 @@ async def confirm_access(
     request: HttpRequest,
     urltoken: str,
 ) -> HttpResponse:
+    redir = '/'
     token_exists = await util.token_exists(f'fi_urltoken:{urltoken}')
 
     if token_exists:
-        await user_domain.complete_user_register(urltoken)
+        token_unused = await user_domain.complete_user_register(urltoken)
+        if not token_unused:
+            redir = '/invalid_invitation'
     else:
-        return redirect('/error401')
+        bugsnag.notify(Exception("Invalid token"), severity='warning')
+        redir = '/invalid_invitation'
 
-    return redirect('/')
+    return redirect(redir)

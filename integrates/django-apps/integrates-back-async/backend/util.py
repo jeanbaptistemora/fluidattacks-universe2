@@ -307,7 +307,7 @@ async def create_confirm_access_token(
     group: str,
     responsibility: str
 ) -> str:
-    token_lifetime = timedelta(hours=8)
+    token_lifetime = timedelta(weeks=1)
 
     urltoken = secrets.token_urlsafe(64)
 
@@ -315,6 +315,7 @@ async def create_confirm_access_token(
         user_email=email,
         responsibility=responsibility,
         group=group,
+        is_used=False,
     )
 
     await save_token(
