@@ -32,9 +32,12 @@ async def resolve(
     group_name: str = kwargs['project_name'].lower()
     from_date: datetime = kwargs.get(
         'from_date',
-        datetime_utils.get_now_minus_delta(weeks=1)
+        datetime_utils.get_now_minus_delta(weeks=1, timezone='UTC'),
     )
-    to_date: datetime = kwargs.get('to_date', datetime_utils.get_now())
+    to_date: datetime = kwargs.get(
+        'to_date',
+        datetime_utils.get_now(timezone='UTC'),
+    )
 
     executions: List[ForcesExecution] = await forces_domain.get_executions(
         from_date=from_date,
