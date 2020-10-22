@@ -352,3 +352,174 @@ async def test_finding():
             'user': 'integratesanalyst@fluidattacks.com'
         }
     ]
+
+    actor = 'ANYONE_INTERNET'
+    affected_systems = 'Server bWAPP'
+    attack_vector_desc = 'This is an updated attack vector'
+    records = 'Clave plana'
+    records_number = 12
+    cwe = '200'
+    description = 'I just have updated the description'
+    recommendation = 'Updated recommendation'
+    requirements = 'REQ.0132. Passwords (phrase type) must be at least 3 words long.'
+    scenario = 'UNAUTHORIZED_USER_EXTRANET'
+    threat = 'Updated threat'
+    title = 'FIN.S.0051. Weak passwords reversed'
+    finding_type = 'SECURITY'
+    query = f'''
+        mutation {{
+            updateDescription(
+                actor: "{actor}",
+                affectedSystems: "{affected_systems}",
+                attackVectorDesc: "{attack_vector_desc}",
+                cwe: "{cwe}",
+                description: "{description}",
+                findingId: "{finding_id}",
+                records: "{records}",
+                recommendation: "{recommendation}",
+                recordsNumber: {records_number},
+                requirements: "{requirements}",
+                scenario: "{scenario}",
+                threat: "{threat}",
+                title: "{title}",
+                findingType: "{finding_type}"
+            ) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    query = f'''
+        mutation {{
+            removeEvidence(evidenceId: EVIDENCE2, findingId: "{finding_id}") {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query, 'variables': variables}
+    result = await get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    consult_content = "This is a comenting test"
+    query = f'''
+        mutation {{
+            addFindingConsult(
+                content: "{consult_content}",
+                findingId: "{finding_id}",
+                type: CONSULT,
+                parent: "0"
+            ) {{
+                success
+                commentId
+            }}
+        }}
+        '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['addFindingConsult']
+    assert result['data']['addFindingConsult']['success']
+
+    bts_url = 'http://test'
+    tomorrow_date = datetime_utils.get_now_plus_delta(days=1)
+    tomorrow = datetime_utils.get_as_str(
+        tomorrow_date
+    )
+    query = f'''
+        mutation {{
+            updateClientDescription (
+                btsUrl: "{bts_url}",
+                findingId: "{finding_id}",
+                treatment: ACCEPTED,
+                justification: "This is a treatment justification test",
+                acceptanceDate: "{tomorrow}"
+            ) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateClientDescription']
+    assert result['data']['updateClientDescription']['success']
+
+    tomorrow = datetime_utils.get_as_str(
+        tomorrow_date,
+        date_format='%Y-%m-%d'
+    )
+    query = f'''{{
+        finding(identifier: "{finding_id}"){{
+            btsUrl
+            consulting{{
+                content
+                email
+            }}
+            historicTreatment
+            __typename
+        }}
+    }}'''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert result['data']['finding']['btsUrl'] == bts_url
+    assert result['data']['finding']['consulting'] == [
+        {
+            'content': consult_content,
+            'email': 'integratesexecutive@gmail.com'
+        }
+    ]
+    historic_treatment = result['data']['finding']['historicTreatment']
+    for index in range(len(historic_treatment)):
+        historic_treatment[index]['date'] = (
+            historic_treatment[index]['date'][:-9]
+        )
+        if 'acceptance_date' in historic_treatment[index]:
+            historic_treatment[index]['acceptance_date'] = (
+                historic_treatment[index]['acceptance_date'][:-9]
+            )
+
+    assert historic_treatment == [
+        {
+            'date': today,
+            'treatment': 'NEW',
+            'user': 'integratesanalyst@fluidattacks.com'
+        },
+        {
+            'acceptance_date': tomorrow,
+            'date': today,
+            'justification': 'This is a treatment justification test',
+            'treatment': 'ACCEPTED',
+            'user': 'integratesexecutive@gmail.com'
+        }
+    ]
+
+    query = f'''
+        mutation {{
+            deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    query = f'''
+        mutation {{
+            deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    assert 'errors' not in result
+    assert 'success' in result['data']['deleteFinding']
+    assert result['data']['deleteFinding']['success']
