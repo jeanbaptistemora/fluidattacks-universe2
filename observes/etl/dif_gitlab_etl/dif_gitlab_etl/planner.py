@@ -1,14 +1,14 @@
 # Standard libraries
+import asyncio
 from os import environ
 from typing import (
     Any,
-    Awaitable,
     Callable,
     Dict,
     List, Optional,
 )
 # Third party libraries
-import aiohttp
+from aiohttp import ClientSession
 # Local libraries
 from streamer_gitlab.api_client import (
     GitlabResource,
@@ -23,8 +23,8 @@ from dif_gitlab_etl.utils import (
 # lgu = last greater uploaded
 
 
-async def search_page_with(
-    get_resource: Callable[[GitlabResourcePage], Awaitable],
+def search_page_with(
+    get_resource: Callable[[GitlabResourcePage], List[Dict[str, Any]]],
     target_id: int,
     last_seen: GitlabResourcePage
 ) -> int:
@@ -32,7 +32,7 @@ async def search_page_with(
     items: List[Dict[str, Any]] = []
     counter: int = 0
     while not found:
-        items = await get_resource(
+        items = get_resource(
             GitlabResourcePage(
                 g_resource=last_seen.g_resource,
                 page=last_seen.page + counter,
@@ -66,7 +66,7 @@ def calculate_interval(last_page_id: int, max_pages: int) -> range:
 # integrated functions
 
 
-async def get_lgu_id(
+def get_lgu_id(
     resource: GitlabResource,
     exe_query: Callable[[str], Any]
 ) -> int:
@@ -84,7 +84,7 @@ async def get_lgu_id(
     return result[0][0]
 
 
-async def get_lgu_last_seen_page_id(
+def get_lgu_last_seen_page_id(
     resource: GitlabResource,
     exe_query: Callable[[str], Any]
 ) -> Dict[str, int]:
@@ -102,13 +102,16 @@ async def get_lgu_last_seen_page_id(
     return {'page': result[0][0], 'per_page': result[0][1]}
 
 
-async def get_work_interval(
+def get_work_interval(
     resource: GitlabResource,
     exe_query: Callable[[str], Any],
     max_pages: int = 10
 ) -> range:
+    loop = asyncio.get_event_loop()
     return calculate_interval(
-        await search_lgu_page(resource, exe_query),
+        loop.run_until_complete(
+            search_lgu_page(resource, exe_query)
+        ),
         max_pages
     )
 
@@ -120,23 +123,28 @@ async def search_lgu_page(
     """
     Returns de id of a page where item_id is present
     """
-    target_id: int = await get_lgu_id(resource, exe_query)
-    last_seen: Dict[str, int] = await get_lgu_last_seen_page_id(
+    target_id: int = get_lgu_id(resource, exe_query)
+    last_seen: Dict[str, int] = get_lgu_last_seen_page_id(
         resource, exe_query
     )
     log('info', 'Search lgu page started')
-    async with aiohttp.ClientSession() as session:
 
-        def build_get_resource(session):
-            async def getter(resource):
+    async with ClientSession() as session:
+        def build_get_resource(
+            session: ClientSession
+        ) -> Callable[[GitlabResourcePage], List[Dict[str, Any]]]:
+            def getter(resource):
                 api_token = environ['GITLAB_API_TOKEN']
                 headers = {'Private-Token': api_token}
-                return await api_client.get_resource(
-                    session, resource, headers=headers
+                loop = asyncio.get_event_loop()
+                return loop.run_until_complete(
+                    api_client.get_resource(
+                        session, resource, headers=headers
+                    )
                 )
             return getter
 
-        return await search_page_with(
+        return search_page_with(
             build_get_resource(session),
             target_id,
             GitlabResourcePage(

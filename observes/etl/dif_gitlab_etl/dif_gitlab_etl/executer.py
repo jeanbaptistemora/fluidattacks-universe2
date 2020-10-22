@@ -61,15 +61,15 @@ def get_statement_executer_function(
     return statement_exe
 
 
-async def start_etl(project, auth: Dict[str, str]):
+def start_etl(project, auth: Dict[str, str]):
     db_state = db_client.make_access_point(auth)
     stm_executer = get_statement_executer_function(db_state)
     resources: List[GitlabResource] = specific_resources(project)
     for resource in resources:
-        interval: range = await planner.get_work_interval(
+        interval: range = planner.get_work_interval(
             resource, stm_executer
         )
-        lgu_id: int = await planner.get_lgu_id(resource, stm_executer)
+        lgu_id: int = planner.get_lgu_id(resource, stm_executer)
         etl.extract_pages_data(
             resource_range=GResourcePageRange(
                 g_resource=resource,

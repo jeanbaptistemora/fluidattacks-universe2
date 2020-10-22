@@ -1,6 +1,6 @@
 # Standard libraries
 from typing import (
-    Any,
+    Any, Awaitable,
     Callable,
     Coroutine,
     cast,
@@ -10,7 +10,9 @@ from typing import (
     NamedTuple,
 )
 # Third party libraries
+import urllib.parse
 from aiohttp import (
+    ClientError,
     ClientSession,
 )
 from aioextensions import (
@@ -49,6 +51,7 @@ async def get_json(
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
         log('info', f'[{response.status}] {endpoint}, {kargs["params"]}')
+        log('debug', f'Using headers: {kargs["headers"]}')
         response.raise_for_status()
 
         return await response.json()
@@ -59,28 +62,15 @@ async def get_json_less_than(
     session: ClientSession,
     endpoint: str, **kargs
 ) -> List[Dict[str, Any]]:
-    """Get as JSON the result of a GET request to endpoint."""
+    """Filter `get_json` result using `elements_less_than` filter"""
     raw_data = await get_json(session, endpoint, **kargs)
     return elements_less_than(target_id, raw_data)
-
-
-async def get_resource(
-    session: ClientSession, resource: GitlabResourcePage, **kargs
-) -> List[Dict[str, Any]]:
-    endpoint = (
-        'https://gitlab.com/api/v4/projects/'
-        f'{resource.g_resource.project}/{resource.g_resource.resource}'
-    )
-    params = {
-        'page': resource.page,
-        'per_page': resource.per_page
-    }
-    return await get_json(session, endpoint, params=params, **kargs)
 
 
 def elements_less_than(
     target_id: int, data: List[Dict[str, Any]]
 ) -> List[Dict[str, Any]]:
+    """Returns data where elements id are less than `target_id`"""
     result: List[Dict[str, Any]] = []
     for item in data:
         if item['id'] < target_id:
@@ -90,7 +80,8 @@ def elements_less_than(
 
 def get_minor_id(data: List[Dict[str, Any]]) -> Optional[int]:
     if data:
-        return data[-1]['id']
+        log('debug', f"minor id: {int(data[-1]['id'])}")
+        return int(data[-1]['id'])
     return None
 
 
@@ -102,7 +93,8 @@ def build_getter(
         async def filtered_getter(
             session: ClientSession, endpoint: str, **kargs
         ) -> List[Dict[str, Any]]:
-            return await get_json_less_than(
+            getter = insistent_endpoint_call(get_json_less_than)
+            return await getter(
                 cast(int, less_than), session, endpoint, **kargs
             )
 
@@ -111,6 +103,47 @@ def build_getter(
     async def normal_getter(
         session: ClientSession, endpoint: str, **kargs
     ) -> List[Dict[str, Any]]:
-        return await get_json(session, endpoint, **kargs)
+        getter = insistent_endpoint_call(get_json)
+        return await getter(session, endpoint, **kargs)
 
     return normal_getter
+
+
+def insistent_endpoint_call(
+    get_request: Callable[..., Awaitable],
+    max_errors: int = 10,
+) -> Callable[..., Awaitable]:
+    async def i_getter(*args, **kargs):
+        errors: int = 0
+        while errors <= max_errors:
+            try:
+                result = await get_request(*args, **kargs)
+                return result
+            except ClientError as exc:
+                log('error', f'# {errors}: {type(exc).__name__}: {exc}')
+                errors += 1
+        if errors >= max_errors:
+            raise Exception('Max retries reached with unsuccessful response')
+    return i_getter
+
+
+async def get_resource(
+    session: ClientSession,
+    resource: GitlabResourcePage,
+    less_than: Optional[int] = None,
+    **kargs
+) -> List[Dict[str, Any]]:
+    endpoint = (
+        'https://gitlab.com/api/v4/projects/' +
+        urllib.parse.quote(
+            f'{resource.g_resource.project}',
+            safe=''
+        ) +
+        f'/{resource.g_resource.resource}'
+    )
+    params = {
+        'page': resource.page,
+        'per_page': resource.per_page
+    }
+    get_data = build_getter(less_than)
+    return await get_data(session, endpoint, params=params, **kargs)
