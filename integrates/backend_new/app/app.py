@@ -1,3 +1,5 @@
+# Starlette views file
+
 # Standard library
 from typing import Any
 
@@ -21,6 +23,8 @@ from backend_new import settings
 import backend_new.app.utils as utils
 
 from __init__ import (
+    FI_AZUREAD_OAUTH2_KEY,
+    FI_AZUREAD_OAUTH2_SECRET,
     FI_GOOGLE_OAUTH2_KEY,
     FI_GOOGLE_OAUTH2_SECRET,
     FI_STARLETTE_TEST_KEY
@@ -34,6 +38,14 @@ OAUTH.register(
     client_id=FI_GOOGLE_OAUTH2_KEY,
     client_secret=FI_GOOGLE_OAUTH2_SECRET,
     server_metadata_url=settings.GOOGLE_CONF_URL,
+    client_kwargs={
+        'scope': 'openid email profile'
+    }
+)
+OAUTH.register(
+    name='azure',
+    client_id=FI_AZUREAD_OAUTH2_KEY,
+    client_secret=FI_AZUREAD_OAUTH2_SECRET,
     client_kwargs={
         'scope': 'openid email profile'
     }
@@ -66,15 +78,21 @@ def login(request: Request) -> HTMLResponse:
     )
 
 
-async def do_login(request: Request) -> Any:
-    redirect_uri = request.url_for('authz').replace(' ', '')
+async def do_google_login(request: Request) -> Any:
+    redirect_uri = request.url_for('authz_google').replace(' ', '')
     google = OAUTH.create_client('google')
     return await google.authorize_redirect(request, redirect_uri)
 
 
-async def authz(request: Request) -> HTMLResponse:
-    token = await OAUTH.google.authorize_access_token(request)
-    user = dict(await OAUTH.google.parse_id_token(request, token))
+async def do_azure_login(request: Request) -> Any:
+    redirect_uri = request.url_for('authz_azure').replace(' ', '')
+    azure = OAUTH.create_client('azure')
+    return await azure.authorize_redirect(request, redirect_uri)
+
+
+async def authz(request: Request, client: OAuth) -> HTMLResponse:
+    token = await client.authorize_access_token(request)
+    user = dict(await client.parse_id_token(request, token))
     request.session['username'] = user['email']
     request.session['first_name'] = user['given_name']
     request.session['last_name'] = user['family_name']
@@ -95,12 +113,22 @@ async def authz(request: Request) -> HTMLResponse:
     return response
 
 
+async def authz_google(request: Request) -> HTMLResponse:
+    return await authz(request, OAUTH.google)
+
+
+async def authz_azure(request: Request) -> HTMLResponse:
+    return await authz(request, OAUTH.azure)
+
+
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
         Route('/new/', login),
-        Route('/new/login', authz),
-        Route('/new/dlogin', do_login),
+        Route('/new/authz_google', authz_google),
+        Route('/new/authz_azure', authz_azure),
+        Route('/new/dglogin', do_google_login),
+        Route('/new/dalogin', do_azure_login),
         Route('/new/api/', GraphQL(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', error401),
         Route('/error500', error500),
