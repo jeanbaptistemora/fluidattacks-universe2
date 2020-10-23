@@ -84,7 +84,7 @@
 {% block header %}
 <div class="bg-graylight">
   <div
-    class="{{page.banner}} coverm cover-s banner-height justify-center items-center flex bg-center mw-1366 ml-auto mr-auto">
+    class="{{page.banner}} coverm cover-s banner-height justify-center items-center flex bg-center ml-auto mr-auto">
     <div class="w-100 center">
       <h1 class="white fw7 f1 neue tc f-5-l ma0">
         {{ page.title }}
@@ -160,8 +160,8 @@
     {% endif %}
 
     {% if page.clientsindex %}
-    <div class="w-100 overflow-x-auto nowrap carousel">
-      <ul class="list ph0-ns ph3 ma0 tc pv3">
+    <div id="scrollDiv" class="w-100">
+      <ul class="list ph0-ns ph3 ma0 tc dib overflow-x-auto nowrap w-100 relative carousel">
         <li class="pr2 di">
           <input type="radio" id="gall" class="dn" name="menu-clients" checked />
           <label class="tag-all c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="gall">
@@ -223,6 +223,7 @@
           </label>
         </li>
       </ul>
+      <i class="fas fa-angle-right right-arrow pointer w1 absolute pv2 ph2"></i>
     </div>
     <div class="cardgrid flex-ns flex-wrap-ns justify-between-m">
       {% for clientspage in pages if clientspage.client %}

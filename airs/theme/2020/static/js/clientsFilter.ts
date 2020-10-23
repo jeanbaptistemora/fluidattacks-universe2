@@ -112,3 +112,36 @@ try {
 } catch (error) {
   logger.error("Error executing clientsFilter() function", error);
 }
+
+const scrollDiv: HTMLElement = document.getElementById("scrollDiv") as HTMLElement;
+const rightArrow: HTMLElement = document.getElementById("right-arrow") as HTMLElement;
+const leftArrow: HTMLElement = document.getElementById("left-arrow") as HTMLElement;
+
+const menuScroll: ((menuOffset: number) => void) =
+  (menuOffset: number): void => {
+  scrollDiv.style.marginLeft = `${-menuOffset}+px`;
+};
+
+const scrollRight: (() => void) = (): void => {
+  rightArrow.addEventListener("click", () => {
+    menuScroll(100);
+  });
+};
+
+try {
+  scrollRight();
+} catch (error) {
+  logger.error("Error executing scrollRight() function", error);
+}
+
+const scrollLeft: (() => void) = (): void => {
+  leftArrow.addEventListener("click", () => {
+    menuScroll(0);
+  });
+};
+
+try {
+  scrollLeft();
+} catch (error) {
+  logger.error("Error executing scrollLeft() function", error);
+}
