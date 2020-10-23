@@ -13,8 +13,8 @@ roles, setting access permissions, and accessing other systems.
 
 == Description
 
-Systems should usually have a set of roles with different levels of
-privilege for accessing resources.
+Systems should have a set of roles with different levels
+of privilege to access resources.
 Users and applications should always have a role with the minimum level of
 privilege required to execute their functions.
 A violation of this may become a new vulnerability or leverage for causing a

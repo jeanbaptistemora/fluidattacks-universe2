@@ -78,7 +78,7 @@ image::comparison.png[Comparison of image vs code recognition]
 
 In order to avoid false positives, the next logical step
 is to use semantic information about the program,
-i.e. how data and control flows in it in order to expand
+i.e., how data and control flows in it in order to expand
 our knowledge about what happens before and after
 executing a particular line of code.
 And where does this information lie?
@@ -105,7 +105,7 @@ The approach chosen by the authors is to first
 give generic names to all the functions and variables
 (thus sort of _obfuscating_ it lightly),
 then perform a lexical analysis on it
-(i.e. breaking it up into symbols) and finally
+(i.e., breaking it up into symbols) and finally
 representing that strings as a bag of words,
 a procedure we have already referred to in past articles.
 A fixed length must be chosen and vectors that don't fit

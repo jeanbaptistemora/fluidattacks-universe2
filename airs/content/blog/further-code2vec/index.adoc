@@ -189,11 +189,8 @@ image::code2vec-demo.png[Online code2vec demo]
 
 However this is not what we're after,
 but rather the vector embeddings.
-One can export both the token embeddings,
-i.e. the features,
-and the method name vectors,
-i.e. the labels,
-like this:
+One can export both the token embeddings, i.e., the features,
+and the method name vectors, i.e., the labels, like this:
 
 [source,bash]
 ----

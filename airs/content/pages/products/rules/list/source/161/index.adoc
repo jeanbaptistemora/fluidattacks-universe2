@@ -71,7 +71,7 @@ oversized transaction.
 An attacker may try to feed overly long input strings to the program in an
 attempt to overwhelm the filter (by causing a buffer overflow) and hoping that
 the filter does not fail securely
-(i.e. the user input is let into the system unfiltered).
+(i.e., the user input is let into the system unfiltered).
 
 . [[r2]] link:http://capec.mitre.org/data/definitions/28.html[CAPEC-28: Fuzzing].
 In this attack pattern, the adversary leverages fuzzing to try to identify

@@ -151,7 +151,7 @@ The weights are adjusted in such a way that
 the measured error decreases.
 The nodes are arranged in layers and
 their functions are typically smooth versions of step functions
-(i.e. yes/no functions, but with no big jumps),
+(i.e., yes/no functions, but with no big jumps),
 and there are two special layers for input and output.
 After training, since the whole network is fixed,
 it's only a matter of giving it input and getting the output.

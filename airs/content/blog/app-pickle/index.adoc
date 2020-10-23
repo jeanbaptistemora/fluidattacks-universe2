@@ -187,7 +187,7 @@ $ command user_input; another_command arguments
 Let's see if that works with
 the simple command `ls -aR /`, which
 **l**i**s**ts **a**ll files **R**ecursively in **/**,
-i.e. all files in the server:
+i.e., all files in the server:
 
 .`UNIX` command injection in the same site
 image::scr-ls-injected.png["Same site, UNIX command injected"]

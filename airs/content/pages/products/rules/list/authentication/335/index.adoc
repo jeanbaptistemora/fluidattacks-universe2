@@ -4,11 +4,11 @@
 :keywords: Out-of-band, Token, Lifespan, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R335. Define out of band tokens lifespan
+= R335. Define out of band token lifespan
 
 == Requirement
 
-The system must expire out of band authentication requests, codes, or tokens
+The system must expire out of band authentication requests, codes or tokens
 after 10 minutes and should only allow them to be used once within this period.
 
 == Description

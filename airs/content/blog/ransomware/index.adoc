@@ -95,7 +95,7 @@ Now, let’s talk about the procedure of ransomware attacks,
 mainly oriented to a cryptor ransomware.
 
 There must be an *_infection_* at first,
-i.e. when the software runs on a computer after it has been downloaded.
+i.e., when the software runs on a computer after it has been downloaded.
 This can occur thanks to the spread of ransomware
 through different _vehicles of infection_
 —some of which rely on social engineering tactics

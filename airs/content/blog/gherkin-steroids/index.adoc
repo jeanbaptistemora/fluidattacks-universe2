@@ -24,7 +24,7 @@ For that, we need an effective means to communicate with all stakeholders.
 We have proposed [inner]#link:../app-pickle/[before]# using `Gherkin`.
 In that entry, we showed how to use `Gherkin`'s syntax
 in order to document attack vectors,
-i.e. how to find and exploit vulnerabilities in an app.
+i.e., how to find and exploit vulnerabilities in an app.
 We also showed the basics of the language,
 so if you haven't done so already,
 we recommend you to take a look a it.

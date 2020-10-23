@@ -318,7 +318,7 @@ Through this service `FOSS` projects can take advantage of
 as long as their repository is open on `GitHub`.
 
 The basic idea is simple enough:
-look for deserialization of untrusted (i.e. user-controlled) data.
+look for deserialization of untrusted (i.e., user-controlled) data.
 In this particular case,
 we're interested in the flow of data from
 a `ContentTypeHandler` which gets the input

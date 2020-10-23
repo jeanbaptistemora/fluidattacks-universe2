@@ -221,7 +221,7 @@ In future posts, we will try to bring more these behavior-related topics
 and we want to hear from you !
 
 * What human errors do you think are the most relevant
-to address in the workplace (i.e. more dangerous or pervasive)?
+to address in the workplace (i.e., more dangerous or pervasive)?
 
 * How could a company nudge users or even  `IT` guys
 to do what they should do?

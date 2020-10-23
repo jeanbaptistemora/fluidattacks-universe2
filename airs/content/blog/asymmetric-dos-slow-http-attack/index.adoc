@@ -57,7 +57,7 @@ because he is holding up the whole line.
 If you look at it in more detail,
 all this customer needed to do was to "not know what to order".
 His indecision basically caused a denial of service
-for every other person waiting behind him at the counter, i.e. A DoS.
+for every other person waiting behind him at the counter, i.e., A DoS.
 
 Now imagine the same line,
 but the customer at the counter knows what he wants to order,

@@ -15,11 +15,11 @@ account.
 
 Single-factor authentication mechanisms often offer poor security due to
 the weak, common or easy-to-guess passwords that users tend to set.
-Secondary authentication mechanisms,
-such as physical or logical security tokens, smart cards, and certificates,
+Secondary authentication mechanisms, such as physical
+or logical security tokens, smart cards and certificates,
 help guarantee the identity of actors trying to authenticate.
-However, their value highly decreases when they are shared by multiple
-accounts.
+However, their value highly decreases
+when they are shared by multiple accounts.
 
 == References
 

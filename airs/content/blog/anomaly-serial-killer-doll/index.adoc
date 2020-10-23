@@ -150,7 +150,7 @@ but not so much in its neighbors,
 while positive entries show the opposite:
 checks that are commonly performed by syntactically similar functions
 but are _missing_ in this particular function,
-i.e. the _missing checks_ that we sought from the beginning.
+i.e., the _missing checks_ that we sought from the beginning.
 An anomaly score can be given to each function
 as the maximum element in the vector,
 given that functions which are mostly similar to their neighbors,

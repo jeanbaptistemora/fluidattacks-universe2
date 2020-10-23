@@ -17,8 +17,9 @@ Single-factor authentication mechanisms often offer poor security due to
 the weak, common or easy-to-guess passwords that users tend to set.
 There also exist several applications and sets of data whose sole purpose
 is breaking into systems protected by single-factor authentication.
-Therefore, critical systems should not rely only on it but take advantage of
-the protection offered by multi-factor authentication (*MFA*).
+Therefore, critical systems should not rely only on this,
+but rather take advantage of the protection
+offered by multi-factor authentication (*MFA*).
 
 == Findings
 

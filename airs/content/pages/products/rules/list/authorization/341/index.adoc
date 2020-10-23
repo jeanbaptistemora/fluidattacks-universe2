@@ -14,8 +14,8 @@ explicitly granted.
 
 == Description
 
-Systems should usually have a set of roles with different levels of
-privilege for accessing resources.
+Systems should have a set of roles with different levels
+of privilege to access resources.
 The privileges of each role must be clearly defined and the role of each user
 should also be clearly stated.
 Furthermore, permissions and access should be granted using the principle of

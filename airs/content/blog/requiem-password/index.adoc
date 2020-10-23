@@ -250,7 +250,7 @@ Our concrete recommendation:
 a randomly-generated, 44-bit
 (the lowest setting in
 link:https://getapassphrase.com/generate/[getapassphrase.com],
-i.e. 4 or 5 words 3 to 8 letters in length)
+i.e., 4 or 5 words 3 to 8 letters in length)
 beats any complicated password policy
 and is easier to remember.
 Change it every three to six months

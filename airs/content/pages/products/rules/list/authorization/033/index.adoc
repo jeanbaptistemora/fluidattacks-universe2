@@ -14,14 +14,14 @@ it must only be accessible from administrative network segments.
 == Description
 
 Network access to modules or system management mechanisms
-must only be limited to the parties
+must be limited to the parties
 that require access to them (administrators).
 Personnel that does not have administrative needs, tasks or obligations
-must not have access to these mechanisms.
-Following this recommendation fulfills the objective
+should not have access to these mechanisms.
+Following this recommendation helps to fulfill the objective
 of reducing the attack surface of the above mentioned systems
-(since malicious third parties can not attempt
-to directly access the system administration settings)
+(since malicious third parties cannot attempt
+to directly access the system administration settings),
 and increases the level of confidentiality and availability of the system.
 
 == Implementation
@@ -29,29 +29,29 @@ and increases the level of confidentiality and availability of the system.
 . Principle of least privilege:
 For each system in the organization
 it must be guaranteed that each module
-(process, user or program) can access
-only to the information and resources required
+(process, user or program) can only access
+the information and resources required
 to accomplish its legitimate purpose.
 
 == Attacks
 
-. An anonymous attacker attempts to access to an exposed administrator
+. An anonymous attacker attempts to access an exposed administrator
 interface by brute force,
 which may cause a denial of service, account lockouts or an
 interface/system lockout.
 
 . An anonymous attacker and/or registered user
-exploits a known vulnerability in the management system
-which may allow the access to the system settings,
+exploits a known vulnerability in the management system,
+which may allow access to the system settings,
 a denial of service or privileges elevation for system users or processes.
 
-. An anonymous attacker obtains system technical information
+. An anonymous attacker obtains technical information of the system
 through data analysis of the administrator interface
 in order to perform deeper and more detailed attacks.
 
 == Attributes
 
-* Layer: Application Layer
+* Layer: Application layer
 * Asset: System management
 * Scope: Confidentiality
 * Phase: Operation

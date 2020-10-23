@@ -4,18 +4,18 @@
 :keywords: Session, Inactive, Close, ASVS, CAPEC, CWE, NIST, OWASP, PCI DSS, Breaches, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R023. Terminate inactive users sessions
+= R023. Terminate inactive user sessions
 
 == Requirement
 
 The system must terminate a session if there is a period of inactivity
-on the user side greater than or equal to *5* minutes.
+on the user side of *5* minutes or more.
 
 == Description
 
 A system can leave a session indefinitely active if it does not have an
-automatic termination mechanism based on timeout and the user does not close it
-manually.
+automatic termination mechanism based on timeout
+and the user does not close it manually.
 
 Failure to control timeouts may allow an attacker
 to take advantage of unattended sessions and execute actions
@@ -29,8 +29,8 @@ system, its users and the information it contains.
 
 Set a session timeout: Depending on the business needs and/or the
 company's session management policies,
-an timeout must be set for unattended or idle sessions
-(*5* minutes recommended).
+a timeout must be set
+for unattended or idle sessions (*5* minutes recommended).
 
 == Attacks
 
