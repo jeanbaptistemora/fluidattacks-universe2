@@ -286,15 +286,15 @@ if test "${CI_JOB_NAME:-}" != 'integrates_test_back'
 then
   number_findings=()
   number_vulns=()
-  for index in {0..45}
+  for index in {0..20}
   do
     number_findings+=($((RANDOM%5+1)))
     number_vulns+=($((RANDOM%3+1)))
   done
   echo '[INFO] Adding mock projects'
-  for index in $(seq 1 45)
+  for index in $(seq 1 20)
   do
-    echo "  [INFO] adding project, ${index} out of 45"
+    echo "  [INFO] adding project, ${index} out of 20"
     index="${index}" jq --argjson n_findings "${number_findings[index]}" \
       --argjson n_vulns "${number_vulns[index]}" -n '{
       "FI_projects": ([
