@@ -10,11 +10,12 @@ from typing import (
 # Third party libraries
 from aiohttp import ClientSession
 # Local libraries
+from streamer_gitlab import api_client
 from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )
-from streamer_gitlab import api_client
+from streamer_gitlab.extractor import PageData
 from dif_gitlab_etl.utils import (
     log,
     NotFoundException,
@@ -31,6 +32,7 @@ def search_page_with(
     found: bool = False
     items: List[Dict[str, Any]] = []
     counter: int = 0
+    log('info', f'lgu last seen page: {last_seen.page}')
     while not found:
         items = get_resource(
             GitlabResourcePage(
@@ -43,8 +45,7 @@ def search_page_with(
         if minor_id:
             if minor_id > target_id:
                 counter = counter + 1
-                if counter % 100 == 0:
-                    log('info', f'searching at offset {counter}*100')
+                log('info', f'searching at offset {counter}')
             else:
                 if counter == 0:
                     log('warning', 'page id could be incorrect')
@@ -100,6 +101,21 @@ def get_lgu_last_seen_page_id(
         )
     log('debug', str(result))
     return {'page': result[0][0], 'per_page': result[0][1]}
+
+
+def set_lgu_id(
+    dpage: PageData,
+    exe_query: Callable[[str], Any]
+):
+    result = exe_query(
+        "UPDATE \"gitlab-ci\".upload_state set "
+        f"lgu_id={dpage.minor_item_id}, "
+        f"last_seen_page={dpage.id.page}, "
+        f"per_page={dpage.id.per_page} "
+        f"WHERE project='{dpage.id.g_resource.project}' "
+        f"AND resource='{dpage.id.g_resource.resource}'"
+    )
+    log('debug', str(result))
 
 
 def get_work_interval(

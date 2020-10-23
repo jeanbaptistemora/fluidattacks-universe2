@@ -1,7 +1,12 @@
 # Standard libraries
+import json
+import subprocess
+from tempfile import NamedTemporaryFile
 from typing import (
+    Any,
     Callable,
     cast,
+    Dict,
     List,
     NamedTuple,
     Optional,
@@ -16,6 +21,7 @@ from streamer_gitlab.api_client import (
 from streamer_gitlab.extractor import (
     PageData,
 )
+from dif_gitlab_etl import planner
 from dif_gitlab_etl.utils import (
     error,
     log,
@@ -141,7 +147,10 @@ def extract_pages_data(
 
     pages: List[PageData] = []
 
-    log('info', 'Planned pagination started.')
+    log(
+        'info',
+        f'Planned pagination started. [{work_pages.start},{work_pages.stop})'
+    )
     extraction_status = extract_range(resource_range, None)
     log('info', 'Planned pagination finished.')
 
@@ -167,3 +176,42 @@ def extract_pages_data(
         pages.extend(extraction_status.data_pages)
     log('debug', str(pages))
     return pages
+
+
+def verify_ascending_order(data_pages: List[PageData]):
+    last_mid: int = 0
+    for dpage in data_pages:
+        assert dpage.minor_item_id > last_mid
+        last_mid = dpage.minor_item_id
+
+
+def upload_data(
+    data_pages: List[PageData],
+    auth: Dict[str, str],
+    exe_query: Callable[[str], Any]
+) -> None:
+    log('info', f'Checking upload order')
+    verify_ascending_order(data_pages)
+    auth_file = NamedTemporaryFile(mode='w+')
+    auth_file.write(json.dumps(auth))
+    auth_file.seek(0)
+    for dpage in data_pages:
+        log('info', f'Transforming page:{dpage.id.page}')
+        cmd = (
+            "echo '[INFO] Running tap' && "
+            f'tap-json > .singer < "{dpage.file.name}"'
+        )
+        result = subprocess.check_output(cmd, shell=True)
+        log('info', str(result))
+        log('info', f'Uploading page:{dpage.id.page}')
+        cmd = (
+            "echo '[INFO] Running target' && "
+            "target-redshift "
+            f'--auth "{auth_file.name}" '
+            "--schema-name 'gitlab-ci' "
+            "< .singer"
+        )
+        result = subprocess.check_output(cmd, shell=True)
+        log('debug', str(result))
+        log('info', f'Updating lgu: mid={dpage.minor_item_id}')
+        planner.set_lgu_id(dpage, exe_query)

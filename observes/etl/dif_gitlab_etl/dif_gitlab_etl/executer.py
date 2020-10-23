@@ -21,6 +21,9 @@ from streamer_gitlab.api_client import (
     GitlabResource,
     GResourcePageRange,
 )
+from streamer_gitlab.extractor import (
+    PageData,
+)
 
 
 def specific_resources(project: str) -> List[GitlabResource]:
@@ -53,25 +56,34 @@ def extract_range_function() -> Callable[
     return extract_range
 
 
-def get_statement_executer_function(
+def statement_executer_function(
+    db_state: DbState
+) -> Callable[[str], None]:
+    def statement_exe(statement: str) -> None:
+        db_client.execute(db_state, statement)
+    return statement_exe
+
+
+def exe_and_fetch_function(
     db_state: DbState
 ) -> Callable[[str], List[Any]]:
-    def statement_exe(statement: str) -> List[Any]:
-        db_client.execute(db_state, statement)
+    def exe_and_fetch(statement: str) -> List[Any]:
+        executer = statement_executer_function(db_state)
+        executer(statement)
         return db_state.cursor.fetchall()
-    return statement_exe
+    return exe_and_fetch
 
 
 def start_etl(project, auth: Dict[str, str]):
     db_state = db_client.make_access_point(auth)
-    stm_executer = get_statement_executer_function(db_state)
+    stm_executer = exe_and_fetch_function(db_state)
     resources: List[GitlabResource] = specific_resources(project)
     for resource in resources:
         interval: range = planner.get_work_interval(
             resource, stm_executer, 2
         )
         lgu_id: int = planner.get_lgu_id(resource, stm_executer)
-        etl.extract_pages_data(
+        data_pages: PageData = etl.extract_pages_data(
             resource_range=GResourcePageRange(
                 g_resource=resource,
                 page_range=interval,
@@ -80,4 +92,7 @@ def start_etl(project, auth: Dict[str, str]):
             last_greatest_uploaded_id=lgu_id,
             extract_range=extract_range_function()
         )
-        # etl.upload_data(data_pages)
+        etl.upload_data(
+            list(reversed(data_pages)), auth,
+            statement_executer_function(db_state)
+        )

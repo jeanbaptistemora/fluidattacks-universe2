@@ -34,7 +34,7 @@ from streamer_gitlab.log import log
 
 
 class PageData(NamedTuple):
-    id: int
+    id: GitlabResourcePage
     file: TextIO
     minor_item_id: int
 
@@ -161,16 +161,18 @@ async def stream_resource_page(
             1, per_page, init_page
         )(queue)
     ])
-    item = await queue.get()
-    m_id: Optional[int] = api_client.get_minor_id(item['records'])
-    if m_id is not None:
-        await queue.put(item)
-        await queue.put(None)
-        await create_task(emitter(queue))
-        return PageData(
-            resource.page,
-            file=out_file,
-            minor_item_id=m_id
-        )
+    m_id: Optional[int] = None
+    if queue.qsize() > 0:
+        item = await queue.get()
+        m_id = api_client.get_minor_id(item['records'])
+        if m_id is not None:
+            await queue.put(item)
+            await queue.put(None)
+            await create_task(emitter(queue))
+            return PageData(
+                resource,
+                file=out_file,
+                minor_item_id=m_id
+            )
     out_file.close()
     return None

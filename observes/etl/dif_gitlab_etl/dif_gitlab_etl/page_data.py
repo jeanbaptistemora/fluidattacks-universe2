@@ -20,7 +20,7 @@ def extract_data(
     The PageData.file stores the retrieved data.
     """
     api_token = environ['GITLAB_API_TOKEN']
-    file = tempfile.TemporaryFile(mode='w+')
+    file = tempfile.NamedTemporaryFile(mode='w+')
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     result = loop.run_until_complete(
@@ -43,7 +43,7 @@ def extract_data_less_than(
     The PageData.file stores the retrieved data.
     """
     api_token = environ['GITLAB_API_TOKEN']
-    file = tempfile.TemporaryFile(mode='w+')
+    file = tempfile.NamedTemporaryFile(mode='w+')
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     result = loop.run_until_complete(
