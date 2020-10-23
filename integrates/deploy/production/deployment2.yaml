@@ -47,6 +47,7 @@ spec:
           periodSeconds: 30
           successThreshold: 1
           failureThreshold: 40
+          timeoutSeconds: 30
         livenessProbe:
           exec:
             command: [bash, deploy/production/integrates2-probes.sh, run_liveness_probe]
@@ -54,3 +55,4 @@ spec:
           periodSeconds: 30
           successThreshold: 1
           failureThreshold: 40
+          timeoutSeconds: 30

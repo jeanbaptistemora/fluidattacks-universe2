@@ -43,6 +43,7 @@ spec:
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
+            timeoutSeconds: 30
           livenessProbe:
             exec:
               command: [./build.sh, integrates_probes_ephemeral_liveness]
@@ -50,3 +51,4 @@ spec:
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
+            timeoutSeconds: 30
