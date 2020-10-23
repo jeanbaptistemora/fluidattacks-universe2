@@ -87,21 +87,6 @@ async def _get_evidence(
 
 
 @get_entity_cache_async
-async def _get_last_vulnerability(
-        info: GraphQLResolveInfo,
-        identifier: str) -> int:
-    """Get last_vulnerability."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    last_vuln_date = util.calculate_datediff_since(
-        datetime_utils.get_from_str(
-            str(finding['last_vulnerability']).split(' ')[0],
-            date_format='%Y-%m-%d',
-        )
-    )
-    return last_vuln_date.days
-
-
-@get_entity_cache_async
 async def _get_title(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get title."""
     finding = await info.context.loaders['finding'].load(identifier)
@@ -226,18 +211,6 @@ async def _get_type(info: GraphQLResolveInfo, identifier: str) -> str:
 
 
 @get_entity_cache_async
-async def _get_age(info: GraphQLResolveInfo, identifier: str) -> int:
-    """Get age."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    vulns = await info.context.loaders['vulnerability'].load(identifier)
-
-    return finding_domain.get_age_finding(
-        vulns,
-        cast(str, finding['release_date'])
-    )
-
-
-@get_entity_cache_async
 async def _get_is_exploitable(
         info: GraphQLResolveInfo,
         identifier: str) -> bool:
@@ -305,6 +278,7 @@ async def resolve(
             requested_field.name.value
         )
         migrated = {
+            'age',
             'analyst',
             'closed_vulnerabilities',
             'consulting',
@@ -312,6 +286,7 @@ async def resolve(
             'historic_state',
             'id',
             'inputs_vulns',
+            'last_vulnerability',
             'lines_vulns',
             'new_remediated',
             'observations',
