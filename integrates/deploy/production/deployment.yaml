@@ -22,41 +22,43 @@ spec:
       nodeSelector:
         worker_group: xlarge
       containers:
-      - name: integrates
-        image: registry.gitlab.com/fluidattacks/product/app:master
-        imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: 1500m
-            memory: 5Gi
-          limits:
-            cpu: 2000m
-            memory: 5Gi
-        env:
-          - name: DEPLOYMENT_DATE
-            value: "__DATE__"
-          - name: INSTANA_AGENT_HOST
-            valueFrom:
-              fieldRef:
-                fieldPath: status.hostIP
-        envFrom:
-          - secretRef:
-              name: integrates-master
-        ports:
-          - containerPort: 8080
-        readinessProbe:
-          exec:
-            command: [bash, deploy/production/integrates-probes.sh, run_readiness_probe]
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 40
-          timeoutSeconds: 30
-        livenessProbe:
-          exec:
-            command: [bash, deploy/production/integrates-probes.sh, run_liveness_probe]
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 40
-          timeoutSeconds: 30
+        - name: integrates
+          image: registry.gitlab.com/fluidattacks/product/app:master_new
+          imagePullPolicy: Always
+          command: ["bash"]
+          args: ["build.sh", "integrates_serve_production"]
+          resources:
+            requests:
+              cpu: 1500m
+              memory: 5Gi
+            limits:
+              cpu: 2000m
+              memory: 5Gi
+          env:
+            - name: DEPLOYMENT_DATE
+              value: "__DATE__"
+            - name: INSTANA_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: integrates-master
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            exec:
+              command: [./build.sh, integrates_probes_production_readiness]
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 40
+            timeoutSeconds: 30
+          livenessProbe:
+            exec:
+              command: [./build.sh, integrates_probes_production_liveness]
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 40
+            timeoutSeconds: 30

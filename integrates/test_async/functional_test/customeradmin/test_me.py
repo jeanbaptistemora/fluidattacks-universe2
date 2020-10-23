@@ -129,7 +129,7 @@ async def test_me():
         {'name': 'makimachi'},
     ]
     assert len(result['data']['me']['permissions']) == 0
-    assert len(result['data']['me']['projects']) == 47
+    assert len(result['data']['me']['projects']) == 22
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'customeradmin'
     assert result['data']['me']['sessionExpiration'] == str(expiration_time)
@@ -157,7 +157,7 @@ async def test_me():
             'projects': [
                 {
                     'name': 'unittesting'
-                }, 
+                },
                 {
                     'name': 'oneshottest'
                 }
@@ -168,7 +168,7 @@ async def test_me():
             'projects': [
                 {
                     'name': 'unittesting'
-                }, 
+                },
                 {
                     'name': 'oneshottest'
                 }

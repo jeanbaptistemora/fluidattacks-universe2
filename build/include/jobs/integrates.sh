@@ -1361,8 +1361,6 @@ function job_integrates_test_mobile {
 }
 
 function job_integrates_deploy_back_ephemeral {
-  local B64_AWS_ACCESS_KEY_ID
-  local B64_AWS_SECRET_ACCESS_KEY
   local DATE
   local DEPLOYMENT_NAME
   local cluster='integrates-cluster'
@@ -1392,8 +1390,8 @@ function job_integrates_deploy_back_ephemeral {
   &&  pushd integrates \
   &&  helper_integrates_aws_login 'development' \
   &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-      EPHEMERAL_CERTIFICATE_ARN \
-      FIREWALL_ACL_ARN \
+        EPHEMERAL_CERTIFICATE_ARN \
+        FIREWALL_ACL_ARN \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
@@ -1467,8 +1465,6 @@ function job_integrates_deploy_back_ephemeral_clean {
 }
 
 function job_integrates_deploy_back_production {
-  local B64_AWS_ACCESS_KEY_ID
-  local B64_AWS_SECRET_ACCESS_KEY
   local DATE
   local cluster='integrates-cluster'
   local region='us-east-1'
@@ -1486,25 +1482,27 @@ function job_integrates_deploy_back_production {
     DATE
     PRODUCTION_CERTIFICATE_ARN
     FIREWALL_ACL_ARN
-    B64_AWS_ACCESS_KEY_ID
-    B64_AWS_SECRET_ACCESS_KEY
+    B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID
+    B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY
+    B64_CI_COMMIT_REF_NAME
   )
 
   # shellcheck disable=SC2034
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
-  &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
+  &&  helper_integrates_aws_login 'production' \
   &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-      PRODUCTION_CERTIFICATE_ARN \
-      FIREWALL_ACL_ARN \
-      CHECKLY_CHECK_ID \
-      CHECKLY_TRIGGER_ID \
-      NEW_RELIC_API_KEY \
-      NEW_RELIC_APP_ID \
+        PRODUCTION_CERTIFICATE_ARN \
+        FIREWALL_ACL_ARN \
+        CHECKLY_CHECK_ID \
+        CHECKLY_TRIGGER_ID \
+        NEW_RELIC_API_KEY \
+        NEW_RELIC_APP_ID \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Computing environment variables' \
-  &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
-  &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
+  &&  B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
+  &&  B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
+  &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
   &&  DATE="$(date)" \
   &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
   &&  for file in "${files[@]}"
