@@ -8,33 +8,33 @@
 
 == Requirement
 
-The system must allow users to request rectification of data belonging to them
-that it is managing.
+The system must allow its users to request rectification
+of the collected data belonging to them.
 
 == Description
 
-Systems usually request information from the users,
-obtain it from third parties or collect it based on their interactions with the
-application.
+Systems usually request information from their users,
+obtain it from third parties
+or collect it based on their interactions with the application.
 They should have a mechanism that allows users to find out about this
-information and request rectification if they consider it is necessary.
+information and request rectification if they consider it necessary.
 
 == Exceptions
 
 . If the system is able to demonstrate that it is not possible to individually
-identify the users based on the information collected from them,
+identify users based on the information collected from them,
 this requirement is not applicable.
 
-. The processing of the personal information might have scientific or
-historical research purposes or statistical purposes.
+. The processing of the personal information might have scientific,
+historical research or statistical purposes.
 If the system properly safeguards this information and if complying with this
-requirement seriously impairs those purposes,
+requirement seriously impairs these purposes,
 this requirement is not applicable.
 
 . The processing of the personal information might have archiving purposes
 in the public interest.
 If the system properly safeguards this information and if complying with this
-requirement seriously impairs those purposes,
+requirement seriously impairs these purposes,
 this requirement is not applicable.
 
 == Findings

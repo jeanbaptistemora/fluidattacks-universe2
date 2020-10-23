@@ -8,18 +8,17 @@
 
 == Requirement
 
-The system must inform the users whenever it can demonstrate its inability to
+The system must inform its users whenever it can demonstrate its inability to
 individually identify them using the information it has collected from them.
 
 == Description
 
-Systems usually request information from the users or collect it based
+Systems usually request information from their users or collect it based
 on their interactions with the application.
 Some regulations related to the collection of personal data are only applicable
-if the user can be identified using this data.
+if users can be identified using this data.
 Whenever the system is unable to individually identify its users with the data
-it collects from them,
-and it can demonstrate it,
+it collects from them, and it can demonstrate this,
 it must inform them of this situation.
 
 == Findings

@@ -8,15 +8,15 @@
 
 == Requirement
 
-The system must enable the users to revoke whatever consent they have granted.
+The system must enable its users to revoke whatever consent they have granted.
 
 == Description
 
-Systems usually request information from the users or collect it based
+Systems usually request information from their users or collect it based
 on their interactions with the application.
 Regulations demand that none of these collections occur without the user's
 consent and that this consent be demonstrable afterwards.
-Regulations also demand that the user be allowed to revoke,
+Regulations also demand that users be allowed to revoke,
 at any given time,
 whatever consent they may have granted regarding the collection and
 processing of their information.

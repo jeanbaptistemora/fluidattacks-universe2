@@ -14,18 +14,18 @@ and messages presented to the user.
 == Description
 
 Session **ID**s are sensitive information that may allow an attacker to steal,
-modify and/or destroy information once they get one.
+modify and/or destroy information once they obtain one.
 Information sent via URL parameters is:
 
 * stored in clear text in the browser history.
 * sent to external sites via the referrer *HTTP* header.
-* sent to external sites via the search bar if the browser interprets the
-*URL* as query.
+* sent to external sites via the search bar
+if the browser interprets the *URL* as a query.
 * visible to scripts running on the browser that may belong to
 third-parties.
 
-Therefore, session **ID**s should neither be sent via *URL* parameters,
-nor be displayed as messages presented to the user nor stored in logs.
+Therefore, session **ID**s should not be sent via *URL* parameters,
+nor be displayed as messages presented to the user, nor stored in logs.
 
 == Findings
 

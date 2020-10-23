@@ -13,7 +13,7 @@ storing and/or processing their personal data.
 
 == Description
 
-Systems usually request information from the users,
+Systems usually request information from their users,
 obtain it from third parties or collect it based on their interactions with the
 application.
 They should have a mechanism that allows users to request confirmation of

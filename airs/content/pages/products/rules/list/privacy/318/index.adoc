@@ -13,16 +13,16 @@ when it rectifies or erases shared personal information.
 
 == Description
 
-Systems usually request information from the users,
-obtain it from third parties or collect it based on their interactions with the
-application.
+Systems usually request information from their users,
+obtain it from third parties
+or collect it based on their interactions with the application.
 They sometimes share personal information with third parties after having
 requested consent from its owner.
-Whenever this information will be rectified or erased upon request from its
-owner,
-the system must notify said third parties so that they may do the same.
-This is also the case when the user requests that the system stop processing
-their data.
+Whenever this information is rectified
+or erased upon request from its owner,
+the system must notify said third parties so that they do the same.
+This is also the case when the user requests
+that the system stop processing their data.
 
 == Exceptions
 
@@ -32,7 +32,7 @@ involves disproportionate effort.
 . The processing of the personal information might have archiving purposes
 in the public interest.
 If the system properly safeguards this information and if complying with this
-requirement seriously impairs those purposes,
+requirement seriously impairs these purposes,
 this requirement is not applicable.
 
 == Findings

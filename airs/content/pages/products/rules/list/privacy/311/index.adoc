@@ -8,17 +8,17 @@
 
 == Requirement
 
-The system must establish a mechanism which allows demonstrating that users
-granted their consent to collection of their data.
+The system must establish a mechanism which can be used to demonstrate
+that users have granted their consent to collection of their data.
 
 == Description
 
-Systems usually request information from the users or collect it based
+Systems usually request information from their users or collect it based
 on their interactions with the application.
 Regulations demand that none of these collections occur without the user's
 consent and that this consent be demonstrable afterwards.
-Therefore, the system must have a mechanism that allows demonstrating the
-grant of the consent.
+Therefore, the system must have a mechanism
+that can be used to demonstrate the grant of the consent.
 
 == Findings
 

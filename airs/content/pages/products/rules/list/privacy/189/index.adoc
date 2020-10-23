@@ -16,11 +16,11 @@ and it must do so before requesting the user's consent for the collection.
 == Description
 
 Applications usually request or collect personal data from their users.
-Such collection must be properly justified according to the legal requirements
-of each nation.
-These reasons must be accessible for the user in a clear manner, in an easy
-to understand language and before requesting their consent for the collection
-and processing of data.
+Such collection must be properly justified
+according to the legal requirements of each nation.
+These reasons must be accessible for the user in a clear manner,
+using easily understandable language
+and before requesting their consent for the collection and processing of data.
 
 == Findings
 

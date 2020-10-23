@@ -14,35 +14,35 @@ used in the authentication process cannot be reused (**replay resistance**).
 == Description
 
 In a system, it is necessary to prevent transmitted information from
-being reused by an attacker to impersonate an authorized user
-or server responses.
-Thus, it is essential to verify the communications between the users and the
-system,
-avoiding in this way a replay of any request that could affect
+being reused by an attacker
+to impersonate an authorized user or server responses.
+Therefore, it is essential to verify
+the communications between the users and the system,
+thus avoiding a replay of any request that could affect
 the confidentiality, integrity and/or availability of the system.
 
 == Implementation
 
 In order to prevent this type of impersonation,
-there are several options to considerate
+there are several options to consider
 depending on the context and implementation method.
 Some good practices to avoid data reutilization
 are listed below:
 
 . **Cryptographic nonce**:
-It consists of numbers that expire after their first use or after a small lapse
-of time,
-with which the authenticity of a message can be verified.
+It consists of numbers that expire after their first use
+or after a small lapse of time,
+and through which the authenticity of a message can be verified.
 They are often randomized and used in authentication protocols
 to ensure that past communications cannot be reused.
 
 . *Timestamping*:
-In order to implement this method
+In order to implement this method,
 there must be a clock synchronization between the client and the server.
-The server will only accept messages with a date and an hour
-within a tolerance range.
+The server will only accept messages with a date and time
+within a defined tolerance range.
 Thus, it minimizes the risk of potential attacks
-by providing small time windows for exploitation.
+by significantly limiting the time windows for exploitation.
 
 . **Session Token**:
 In this method, the server sends a *token* code
@@ -63,7 +63,7 @@ the user surpasses a certain time limit without posting new requests.
 
 . Session hijacking
 . Identity impersonation
-. Man in the middle (*MitM*).
+. Man in the middle (*MitM*)
 . Replay attack
 
 == Attributes

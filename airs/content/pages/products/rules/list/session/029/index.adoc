@@ -31,16 +31,16 @@ In this manner, session theft is greatly mitigated.
 If the *HttpOnly* attribute
 is present in the *HTTP* response header,
 the *cookie* cannot be accessed using client side *scripts*.
-As a result and even if there exist a
+As a result, and even if there is a
 link:https://cwe.mitre.org/data/definitions/87.html[*cross-site scripting (XSS) vulnerability*]
 and a user accidentally accesses the link that exploits this vulnerability,
 the browser will not reveal the *cookie* to a third party.
 *
 If a browser does not support *HttpOnly*
 and the website tries to set the *HttpOnly* attribute,
-said attribute will be ignored by the browser
+said attribute will be ignored by the browser,
 thus creating a traditional *cookie* accessible by *scripts*.
-As a result, the *cookie* (usually a *session cookie*)
+Consequently, the *cookie* (usually a *session cookie*)
 becomes vulnerable to theft or modification by a *malicious script*.
 
 . Implement the *Secure* attribute:
@@ -57,14 +57,14 @@ due to the plain text transmission of the *cookie*.
 Web applications that use JavaScript for the majority of their operations
 may use an anti-Cross-Site-Request-Forgery(*CSRF*) technique
 that relies on same-origin policy.
-This technique consist of setting a cookie containing a random token.
+This technique consists of setting a cookie containing a random token.
 Client side JavaScript reads its value
 and copies it into a custom *HTTP CSRF* header sent with each request.
 The security of this technique
 is based on the assumption that only JavaScript
 running within the same origin will be able to access the cookie.
 JavaScript running from a rogue file or email
-will not be able to read it and copy into the custom header.
+will not be able to read and copy it into the custom header.
 Even though the *CSRF* cookie will be automatically sent with the rogue request,
 the server will be still expecting a valid *CSRF* header.
 In this implementation,

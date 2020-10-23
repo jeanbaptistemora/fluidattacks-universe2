@@ -8,14 +8,14 @@
 
 == Requirement
 
-The system must allow users to request erasure of data belonging to them
-that it is managing.
+The system must allow its users
+to request erasure of collected data belonging to them.
 
 == Description
 
-Systems usually request information from the users,
-obtain it from third parties or collect it based on their interactions with the
-application.
+Systems usually request information from their users,
+obtain it from third parties
+or collect it based on their interactions with the application.
 They should have a mechanism that allows users to request the erasure of this
 information and guarantees its complete deletion.
 Furthermore, the erasure should also occur if the user decides to revoke their

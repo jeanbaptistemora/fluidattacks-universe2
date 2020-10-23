@@ -13,9 +13,9 @@ header.
 
 == Description
 
-Systems usually request information from the users,
-obtain it from third parties or collect it based on their interactions with the
-application.
+Systems usually request information from their users,
+obtain it from third parties
+or collect it based on their interactions with the application.
 The *DNT* header holds information about a user's preference regarding being
 tracked by the websites they visit.
 Websites often ignore this header and proceed to track the user's activities,
