@@ -2,21 +2,18 @@
 import logging
 import sys
 from time import time
-from typing import Dict, List, Any, Union, cast
+from typing import Dict, Any, Union, cast
 
 # Third party libraries
-from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from graphql.language.ast import (
-    SelectionSetNode,
-)
 from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
 import newrelic.agent
 
 from backend.decorators import (
     concurrent_decorators,
-    enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
+    enforce_group_level_auth_async, get_entity_cache_async,
     require_integrates,
     require_login, require_finding_access
 )
@@ -26,7 +23,6 @@ from backend.domain import (
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import (
-    Finding as FindingType,
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
     ApproveDraftPayload as ApproveDraftPayloadType,
@@ -148,176 +144,6 @@ async def _get_recommendation(
     return cast(str, finding['recommendation'])
 
 
-@get_entity_cache_async
-async def _get_affected_systems(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get affected_systems."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['affected_systems'])
-
-
-@get_entity_cache_async
-async def _get_compromised_attributes(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get compromised_attributes."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['compromised_attributes'])
-
-
-@get_entity_cache_async
-async def _get_compromised_records(
-        info: GraphQLResolveInfo,
-        identifier: str) -> int:
-    """Get compromised_records."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(int, finding['compromised_records'])
-
-
-@get_entity_cache_async
-async def _get_cwe_url(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get cwe_url."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['cwe_url'])
-
-
-@get_entity_cache_async
-async def _get_bts_url(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get bts_url."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['bts_url'])
-
-
-@get_entity_cache_async
-async def _get_risk(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get risk."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['risk'])
-
-
-@get_entity_cache_async
-async def _get_remediated(info: GraphQLResolveInfo, identifier: str) -> bool:
-    """Get remediated."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(bool, finding['remediated'])
-
-
-@get_entity_cache_async
-async def _get_type(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get type."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['type'])
-
-
-@get_entity_cache_async
-async def _get_is_exploitable(
-        info: GraphQLResolveInfo,
-        identifier: str) -> bool:
-    """Get is_exploitable."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(bool, finding['is_exploitable'])
-
-
-@get_entity_cache_async
-async def _get_severity_score(
-        info: GraphQLResolveInfo,
-        identifier: str) -> float:
-    """Get severity_score."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(float, finding['severity_score'])
-
-
-@get_entity_cache_async
-async def _get_report_date(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get report_date."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['report_date'])
-
-
-@get_entity_cache_async
-async def _get_historic_treatment(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[Dict[str, str]]:
-    """Get historic_treatment."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(List[Dict[str, str]], finding['historic_treatment'])
-
-
-@get_entity_cache_async
-async def _get_current_state(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get current_state."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['current_state'])
-
-
-async def resolve(
-    info: GraphQLResolveInfo,
-    identifier: str,
-    as_field: bool = False,
-    selection_set: SelectionSetNode = SelectionSetNode()
-) -> Dict[str, FindingType]:
-    """Async resolve fields."""
-    result = dict()
-    requested_fields = (
-        selection_set.selections
-        if as_field
-        else info.field_nodes[0].selection_set.selections
-    )
-
-    for requested_field in requested_fields:
-        if util.is_skippable(info, requested_field):
-            continue
-        params = {
-            'identifier': identifier
-        }
-        field_params = util.get_field_parameters(requested_field)
-        if field_params:
-            params.update(field_params)
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        migrated = {
-            'age',
-            'analyst',
-            'closed_vulnerabilities',
-            'consulting',
-            'exploit',
-            'historic_state',
-            'id',
-            'inputs_vulns',
-            'last_vulnerability',
-            'lines_vulns',
-            'new_remediated',
-            'observations',
-            'open_vulnerabilities',
-            'pending_vulns',
-            'ports_vulns',
-            'project_name',
-            'records',
-            'sorts',
-            'state',
-            'tracking',
-            'verified',
-            'vulnerabilities'
-        }
-        if requested_field.startswith('_') or requested_field in migrated:
-            continue
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(info, **params)
-
-    # Temporary while migrating finding resolvers
-    finding = await info.context.loaders['finding'].load(identifier)
-    return {
-        'id': identifier,
-        'project_name': finding['project_name'],
-        **result
-    }
-
-
 @convert_kwargs_to_snake_case  # type: ignore
 def resolve_finding_mutation(
         obj: Any,
@@ -341,23 +167,6 @@ def resolve_finding_mutation(
         ],
         resolver_func(obj, info, **parameters)
     )
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@rename_kwargs({'identifier': 'finding_id'})
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-@rename_kwargs({'finding_id': 'identifier'})
-async def resolve_finding(
-        _: Any,
-        info: GraphQLResolveInfo,
-        identifier: str) -> Dict[str, FindingType]:
-    """Resolve finding query."""
-    return await resolve(info, identifier)
 
 
 @concurrent_decorators(
