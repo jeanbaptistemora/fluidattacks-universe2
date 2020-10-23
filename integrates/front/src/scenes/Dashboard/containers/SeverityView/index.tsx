@@ -12,10 +12,10 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Field, formValueSelector, InjectedFormProps } from "redux-form";
+import { formValueSelector, InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
@@ -169,24 +169,20 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                       </Button>
                                     </Col>
                                   </Row>
-                                  <Row className={style.row}>
-                                    <FormGroup>
-                                      <Col md={3} className={style.title}>
-                                        <ControlLabel>
-                                          <b>{translate.t("search_findings.tab_severity.cvss_version")}</b>
-                                        </ControlLabel>
-                                      </Col>
-                                      <Col md={9}>
-                                        <Field
-                                          component={Dropdown}
-                                          name="cvssVersion"
-                                          validate={required}
-                                        >
-                                          <option value="" />
-                                          <option value="3.1">3.1</option>
-                                        </Field>
-                                      </Col>
-                                    </FormGroup>
+                                  <Row>
+                                    <EditableField
+                                        style={"background-color: 000;" as React.CSSProperties}
+                                        alignField="horizontal"
+                                        component={Dropdown}
+                                        currentValue={"3.1"}
+                                        label={translate.t("search_findings.tab_severity.cvss_version")}
+                                        name={"cvssVersion"}
+                                        renderAsEditable={isEditing}
+                                        validate={required}
+                                      >
+                                        <option value="" />
+                                        <option value="3.1">3.1</option>
+                                      </EditableField>
                                   </Row>
                                 </React.Fragment>
                               ) : undefined}

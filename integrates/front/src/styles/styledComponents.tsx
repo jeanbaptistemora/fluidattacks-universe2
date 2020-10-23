@@ -66,6 +66,15 @@ const Col45: StyledComponent<
   className: "ph1-5 w-45-ns",
 })``;
 
+const Col50: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 w-50-ns",
+})``;
+
 const Col60: StyledComponent<
   "div",
   Record<string, unknown>
@@ -89,6 +98,34 @@ const ControlLabel: StyledComponent<
   Record<string, unknown>
 > = styled.label.attrs({
   className: "dib fw4 mb2",
+})``;
+
+const EditableFieldContent: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "w-auto",
+})``;
+
+const EditableFieldNotUrl: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: "f3 w-fit-content ws-pre-wrap ww-break-word",
+})``;
+
+const EditableFieldTitle25: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "ph1-5 tr w-25-ns",
+})``;
+
+const EditableFieldTitle50: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "ph1-5 tr w-50-ns",
 })``;
 
 const EventHeaderGrid: StyledComponent<
@@ -336,9 +373,14 @@ export {
   Col33,
   Col40,
   Col45,
+  Col50,
   Col60,
   Col80,
   ControlLabel,
+  EditableFieldContent,
+  EditableFieldNotUrl,
+  EditableFieldTitle25,
+  EditableFieldTitle50,
   EventHeaderGrid,
   EventHeaderLabel,
   ExpandableLabel,

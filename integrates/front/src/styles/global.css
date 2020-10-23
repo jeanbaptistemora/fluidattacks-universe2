@@ -633,6 +633,18 @@ label {
   width: 45%;
 }
 
+:global .w-fit-content {
+  width: fit-content;
+}
+
+:global .ws-pre-wrap {
+  white-space: pre-wrap;
+}
+
+:global .ww-break-word {
+  word-wrap: break-word;
+}
+
 /* Custom media */
 
 @media(min-width: 768px){

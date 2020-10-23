@@ -1,10 +1,19 @@
 import _ from "lodash";
 import React, { TextareaHTMLAttributes } from "react";
-import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { BaseFieldProps, Field } from "redux-form";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { default as style } from "scenes/Dashboard/components/EditableField/index.css";
+import {
+  Col50,
+  ControlLabel,
+  EditableFieldContent,
+  EditableFieldNotUrl,
+  EditableFieldTitle25,
+  EditableFieldTitle50,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
 
 type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaElement> & {
   alignField?: string;
@@ -22,7 +31,7 @@ const renderCurrentValue: ((value: string) => JSX.Element) = (value: string): JS
 
   return isUrl
     ? <a href={value} rel="noopener" target="_blank">{value}</a>
-    : <p className={style.currentValue}>{value}</p>;
+    : <EditableFieldNotUrl>{value}</EditableFieldNotUrl>;
 };
 
 const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
@@ -31,19 +40,21 @@ const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
 
     return (
       <FormGroup>
-        <Col md={3} xs={12} sm={12} className={style.title}>
-          <ControlLabel><b>{label}</b></ControlLabel>
-        </Col>
-        <Col md={9} xs={12} sm={12}>
-          {renderAsEditable
-            ? <Field {...fieldProps} />
-            : _.isUndefined(tooltip) || _.isEmpty(tooltip)
-              ? renderCurrentValue(currentValue)
-              : <TooltipWrapper message={tooltip} placement="right">
-                  {renderCurrentValue(currentValue)}
-                </TooltipWrapper>
-          }
-        </Col>
+        <Row>
+          <EditableFieldTitle25>
+            <ControlLabel><b>{label}</b></ControlLabel>
+          </EditableFieldTitle25>
+          <EditableFieldContent>
+            {renderAsEditable
+              ? <Field {...fieldProps} />
+              : _.isUndefined(tooltip) || _.isEmpty(tooltip)
+                ? renderCurrentValue(currentValue)
+                : <TooltipWrapper message={tooltip} placement="right">
+                    {renderCurrentValue(currentValue)}
+                  </TooltipWrapper>
+            }
+          </EditableFieldContent>
+        </Row>
       </FormGroup>
     );
   };
@@ -53,11 +64,11 @@ const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
     const { label, currentValue, renderAsEditable, ...fieldProps } = props;
 
     return (
-      <Row className={style.horizontalRow}>
-        <Col md={6} xs={12} sm={12} className={style.title}><ControlLabel><b>{label}</b></ControlLabel></Col>
-        <Col md={6} xs={12} sm={12}>
+      <Row>
+        <EditableFieldTitle50><ControlLabel><b>{label}</b></ControlLabel></EditableFieldTitle50>
+        <Col50>
           {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
-        </Col>
+        </Col50>
       </Row>
     );
   };
