@@ -56,15 +56,11 @@ can prove to be very difficult or impossible.
 
 == Attributes
 
-* Layer: Application Layer.
-
+* Layer: Application layer
 * Asset: Logs
-
-* Scope: Responsibility.
-
-* Phase: Operation.
-
-* Type of Control: Procedure.
+* Scope: Responsibility
+* Phase: Operation
+* Type of control: Procedure
 
 == Findings
 

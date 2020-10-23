@@ -15,7 +15,7 @@ not on the client's side.
 
 Systems must enforce access controls on trusted enforcement points such as
 access control gateways, severs and serverless functions.
-Client-side access control enforcement can not be trusted because it is prone
+Client-side access control enforcement cannot be trusted because it is prone
 to being bypassed and/or tampered with.
 
 == Findings

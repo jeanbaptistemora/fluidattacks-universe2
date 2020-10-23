@@ -42,11 +42,11 @@ because of the lack of space in the system.
 
 == Attributes
 
-* Layer: Application layer.
-* Asset: Files.
-* Scope: Availability.
-* Phase: Operation.
-* Type of Control: Recommendation.
+* Layer: Application layer
+* Asset: Files
+* Scope: Availability
+* Phase: Operation
+* Type of control: Recommendation
 
 == Findings
 

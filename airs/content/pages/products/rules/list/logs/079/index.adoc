@@ -32,11 +32,11 @@ due to the lack of detail in log records.
 
 == Attributes
 
-* Layer: Application Layer
+* Layer: Application layer
 * Asset: Logs
 * Scope: Responsibility
 * Phase: Operation
-* Type of Control: Procedure
+* Type of control: Procedure
 
 == References
 

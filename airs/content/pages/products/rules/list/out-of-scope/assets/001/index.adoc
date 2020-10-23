@@ -80,11 +80,11 @@ can come late or cause a greater impact to the organization.
 
 == Attributes
 
-. Layer: Resource Layer
-. Asset: Information Assets
+. Layer: Resource layer
+. Asset: Information assets
 . Scope: Adherence
 . Phase: Analysis
-. Type of Control: Procedure
+. Type of control: Procedure
 
 == References
 

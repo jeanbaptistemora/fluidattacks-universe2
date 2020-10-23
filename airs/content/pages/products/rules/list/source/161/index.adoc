@@ -49,11 +49,11 @@ and detect potential security issues.
 
 == Attributes
 
-* Layer: Application Layer
-* Asset: Source Code
+* Layer: Application layer
+* Asset: Source code
 * Scope: Maturity
 * Phase: Building
-* Type of Control: Recommendation
+* Type of control: Recommendation
 
 == Findings
 

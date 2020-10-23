@@ -58,11 +58,11 @@ present in the in-use version of the product.
 
 == Attributes
 
-. Layer: Application layer.
-. Asset: Services and functions.
-. Scope: Stability.
-. Phase: Operation.
-. Type of Control: Recommendation.
+. Layer: Application layer
+. Asset: Services and functions
+. Scope: Stability
+. Phase: Operation
+. Type of control: Recommendation
 
 == Findings
 

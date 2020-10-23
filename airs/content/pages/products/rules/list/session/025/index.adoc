@@ -16,11 +16,11 @@ must be informed or controlled.
 A system that uses authenticated access sessions
 associated with unique users
 may allow simultaneous access with the same credentials.
-This may pose a risk for the service,
+This can pose a risk for the service,
 the information and the system users,
 by allowing malicious users to interact
 simultaneously with the system using a valid user,
-leading to undetected identity thefts,
+thus leading to undetected identity thefts,
 unauthorized actions in name of the user (impersonation)
 and a loss of traceability of the impersonated user's actions <<r1, ^[1]^>> <<r2, ^[2]^>>.
 
@@ -42,11 +42,11 @@ without traceability nor authorization.
 
 == Attributes
 
-. Layer: Application Layer.
-. Asset: Session Management.
-. Scope: Integrity.
-. Phase: Operation.
-. Control Type: Procedure.
+. Layer: Application layer
+. Asset: Session management
+. Scope: Integrity
+. Phase: Operation
+. Type of control: Procedure
 
 == Findings
 

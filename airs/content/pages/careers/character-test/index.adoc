@@ -33,8 +33,7 @@ with a maximum of 20 seconds per question,
 we will be able to see your 4 main strengths.
 Here are some suggestions for the test:
 . Once you start the test
-it can not be paused
-nor repeated,
+it cannot be paused nor repeated,
 . Make sure no interruptions occur during the test,
 . Trust your instinct,
 . There are no wrong answers,

@@ -8,7 +8,7 @@
 
 == Requirement
 
-System must provide users the option to
+The system must provide users the option to
 manually lock their session
 from any resource protected by authentication.
 

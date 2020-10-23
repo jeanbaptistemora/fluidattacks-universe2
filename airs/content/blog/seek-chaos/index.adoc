@@ -101,7 +101,7 @@ Complete migration took eight years (read link:https://media.netflix.com/en/comp
 In the process, back in 2010,
 the company launched `Chaos Monkey`,
 a tool to cause their cloud servers to be offline by random.
-They can not afford, for instance, outages of their `IaaS` provider.
+They cannot afford, for instance, outages of their `IaaS` provider.
 
 .The Netflix Simian Army
 [quote]

@@ -9,7 +9,7 @@
 == Requirement
 
 The system must guarantee that objects (session id, cookies, etc.)
-used in the authentication process can not be reused (**replay resistance**).
+used in the authentication process cannot be reused (**replay resistance**).
 
 == Description
 
@@ -34,7 +34,7 @@ It consists of numbers that expire after their first use or after a small lapse
 of time,
 with which the authenticity of a message can be verified.
 They are often randomized and used in authentication protocols
-to ensure that past communications can not be reused.
+to ensure that past communications cannot be reused.
 
 . *Timestamping*:
 In order to implement this method
@@ -68,11 +68,11 @@ the user surpasses a certain time limit without posting new requests.
 
 == Attributes
 
-. Layer: Application Layer
+. Layer: Application layer
 . Asset: Session management
 . Scope: Authenticity
 . Phase: Construction
-. Type of Control: Recommendation
+. Type of control: Recommendation
 
 == Findings
 

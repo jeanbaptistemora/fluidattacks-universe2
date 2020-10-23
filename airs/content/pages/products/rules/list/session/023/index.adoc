@@ -43,15 +43,11 @@ objects.
 
 == Attributes
 
-* Layer: Resource Layer.
-
-* Asset: Session Management.
-
-* Scope: Adherence.
-
-* Phase: Operation.
-
-* Type of Control: Procedure.
+* Layer: Resource layer
+* Asset: Session management
+* Scope: Adherence
+* Phase: Operation
+* Type of control: Procedure
 
 == Findings
 

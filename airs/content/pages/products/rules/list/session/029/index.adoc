@@ -22,15 +22,15 @@ prevent the theft of the session *cookie*
 by denying the browser visibility and access to it
 (even when *Cross Site Scripting [XSS]* attacks are used)
 and allow the *cookie* to be sent
-only when the request is encrypted (using *HTTPS*),
-in this manner, session theft is greatly mitigated.
+only when the request is encrypted (using *HTTPS*).
+In this manner, session theft is greatly mitigated.
 
 == Implementation
 
 . Implement the *HttpOnly* attribute:
 If the *HttpOnly* attribute
 is present in the *HTTP* response header,
-the *cookie* can not be accessed using client side *scripts*.
+the *cookie* cannot be accessed using client side *scripts*.
 As a result and even if there exist a
 link:https://cwe.mitre.org/data/definitions/87.html[*cross-site scripting (XSS) vulnerability*]
 and a user accidentally accesses the link that exploits this vulnerability,
@@ -95,11 +95,11 @@ and extracting the session *cookie* used for session theft.
 
 == Attributes
 
-. Layer: Application layer.
-. Asset: Session management.
-. Scope: Confidentiality.
-. Phase: Construction.
-. Type of Control: Procedure.
+. Layer: Application layer
+. Asset: Session management
+. Scope: Confidentiality
+. Phase: Construction
+. Type of control: Procedure
 
 == Findings
 

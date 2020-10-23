@@ -33,8 +33,8 @@ and it is exploited in the production stage.
 
 == Attributes
 
-. Layer: Business.
-. Asset: Security architecture.
-. Scope: Adherence.
-. Phase: Testing.
-. Type of Control: Recommendation.
+. Layer: Business
+. Asset: Security architecture
+. Scope: Adherence
+. Phase: Testing
+. Type of control: Recommendation

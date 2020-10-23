@@ -52,11 +52,11 @@ the attacker may block the system access to all users.
 
 == Attributes
 
-* Layer: Application Layer
+* Layer: Application layer
 * Asset: Files
 * Scope: Confidentiality
 * Phase: Construction
-* Type of Control: Recommendation
+* Type of control: Recommendation
 
 == Findings
 

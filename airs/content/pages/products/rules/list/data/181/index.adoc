@@ -14,8 +14,8 @@ must be performed through secure protocols.
 
 == Description
 
-A system can send information through a non-encrypted channel
-using insecure protocols.
+A system can send information
+through a non-encrypted channel using insecure protocols.
 The use of these protocols makes it easier to perform a man-in-the-middle
 attack (*MitM*) to intercept and modify the information.
 Examples of such insecure protocols are *HTTP*, *FTP*, *POP3* and *Telnet*.
@@ -40,16 +40,16 @@ such as *SSH*, *FTPS*, *POP3S* and *TLS*.
 
 . An attacker with access to non-encrypted channels
 performs a man-in-the-middle (*MitM*) attack
-over the vulnerable assets in order to intercept, obtain and/or modify
-the transmitted information.
+over the vulnerable assets in order to intercept,
+obtain and/or modify the transmitted information.
 
 == Attributes
 
-* Layer: Resource Layer
-* Asset: Information Assets
+* Layer: Resource layer
+* Asset: Information assets
 * Scope: Confidentiality
 * Phase: Operation
-* Type of Control: Recommendation
+* Type of control: Recommendation
 
 == Findings
 

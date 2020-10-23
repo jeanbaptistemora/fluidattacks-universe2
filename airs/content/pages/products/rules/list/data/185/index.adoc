@@ -12,7 +12,7 @@ All stored sensitive information must be encrypted.
 
 == Description
 
-Systems usually store personal data, e.i. Personally Identifiable Information
+Systems usually store personal data, i.e., Personally Identifiable Information
 (*PII*), medical records, credentials and other types of sensitive information.
 All of these must be encrypted before being stored using safe cryptographic
 mechanisms.

@@ -39,12 +39,8 @@ mechanisms.
 
 == Attributes
 
-* Layer: Application Layer.
-
-* Asset: Critical Files.
-
-* Scope: Integrity.
-
-* Phase: Operation.
-
-* Type of Control: Recommendation.
+* Layer: Application layer
+* Asset: Critical files
+* Scope: Integrity
+* Phase: Operation
+* Type of control: Recommendation

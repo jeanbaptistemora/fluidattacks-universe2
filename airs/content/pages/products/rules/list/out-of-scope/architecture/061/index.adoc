@@ -44,11 +44,11 @@ users do not use the defined security controls.
 
 == Attributes
 
-* Layer: Business Layer.
-* Asset: Security Architecture
-* Scope: Maintainability.
-* Phase: Operation.
-* Type of Control: Recommendation.
+* Layer: Business layer
+* Asset: Security architecture
+* Scope: Maintainability
+* Phase: Operation
+* Type of control: Recommendation
 
 == References
 

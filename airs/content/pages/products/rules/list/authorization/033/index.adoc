@@ -55,7 +55,7 @@ in order to perform deeper and more detailed attacks.
 * Asset: System management
 * Scope: Confidentiality
 * Phase: Operation
-* Type of Control: Recommendation
+* Type of control: Recommendation
 
 == Findings
 

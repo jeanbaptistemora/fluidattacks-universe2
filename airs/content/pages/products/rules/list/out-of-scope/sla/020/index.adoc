@@ -37,11 +37,11 @@ because it is not defined at the contractual level.
 
 == Attributes
 
-* Layer: Resource Layer.
-* Asset: Information Assets.
-* Scope: Adherence.
-* Phase: Analysis.
-* Type of Control: Procedure.
+* Layer: Resource layer
+* Asset: Information assets
+* Scope: Adherence
+* Phase: Analysis
+* Type of control: Procedure
 
 == References
 

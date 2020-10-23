@@ -64,7 +64,7 @@ policies within a party.
 Federations must be established by organizations and then the participants of
 the federation must publish and exchange configuration information by which
 common services and the policies for accessing them can be identified.
-WS-Federation can not happen until an organization decides to establish a
+WS-Federation cannot happen until an organization decides to establish a
 federation. This is usually done based on business or legal need, not a
 technical one.
 
@@ -98,7 +98,7 @@ A federation message may not always be sufficient to identify common services.
 After an initial request to access a basic service is authenticated some
 organizations may request additional information in order to grant access to
 advanced functionalities. In some cases the advanced functionalities contain
-sensitive information which can not be known to everyone. If an attacker is
+sensitive information which cannot be known to everyone. If an attacker is
 familiar with the process flow and structure of other services, it will be a
 lot easier to maliciously gain access to the sensitive information. Attributes
 are additional information that is requested in order to authorize or deny

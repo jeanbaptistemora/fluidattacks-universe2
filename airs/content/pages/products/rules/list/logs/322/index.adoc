@@ -57,11 +57,11 @@ which eventually will compromise the system security.
 
 == Attributes
 
-* Layer: Application Layer
+* Layer: Application layer
 * Asset: Logs
 * Scope: Integrity
 * Phase: Operation
-* Type of Control: Procedure
+* Type of control: Procedure
 
 == References
 

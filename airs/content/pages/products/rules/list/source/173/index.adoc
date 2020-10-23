@@ -71,11 +71,11 @@ therefore this information must be validated.
 
 == Attributes
 
-* Layer: Application Layer
+* Layer: Application layer
 * Asset: Source code
 * Scope: Maturity
 * Phase: Building
-* Type of Control: Recommendation
+* Type of control: Recommendation
 
 == Findings
 
