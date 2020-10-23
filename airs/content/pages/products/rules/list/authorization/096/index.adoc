@@ -45,106 +45,110 @@ non-privileged accounts.
 Access to sensitive information and functionality must be controlled to ensure
 that only authorized users are able to access these resources.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250: Execution with Unnecessary Privileges]
+. [[r3]] link:https://www.cisecurity.org/controls/[CIS Controls. 14.6 Protect Information Through Access Control Lists].
+Protect all information stored on systems with file system, network share,
+claims, application, or database specific access control lists.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250: Execution with Unnecessary Privileges]
 The software performs an operation at a privilege level that is higher than the
 minimum level required,
 which creates new weaknesses or amplifies the consequences of other weaknesses.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
 The product, upon installation, sets incorrect permissions for an object that
 exposes it to an unintended actor.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
+. [[r6]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function].
+. [[r7]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function].
 The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.
 
-. [[r7]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(1):]
+. [[r8]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(1):]
 Access Control: Implement technical policies and procedures
 for electronic information systems
 that maintain electronic protected health information
 to allow access only to those persons or software programs
 that have been granted access rights as specified in link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
 
-. [[r8]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(d):]
+. [[r9]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(d):]
 Person or Entity Authentication:
 Implement procedures to verify that a person or entity
 seeking access to electronic protected health information
 is the one claimed.
 
-. [[r9]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.3]
+. [[r10]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.3]
 Require inbound and outbound access permissions,
 including the reason for granting access,
 and deny all other access by default.
 
-. [[r10]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (6)]
+. [[r11]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (6)]
 The information system implements the following
 dynamic privilege management capabilities:
 [Assignment: organization-defined list
 of dynamic privilege management capabilities].
 
-. [[r11]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) a]
+. [[r12]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) a]
 The organization establishes and administers privileged user accounts
 in accordance with a role-based access scheme
 that organizes allowed information system access and privileges into roles.
 
-. [[r12]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) b]
+. [[r13]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) b]
 The organization monitors privileged role assignments.
 
-. [[r13]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) c]
+. [[r14]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) c]
 The organization Takes [Assignment: organization-defined actions]
 when privileged role assignments are no longer appropriate.
 
-. [[r14]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r15]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users' accounts, view sensitive files,
 modify other users' data, change access rights, etc.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.1)]
 Verify the use of unique or special low-privilege operating system accounts for
 all application components, services, and servers.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
 new features until access is explicitly assigned.
 
-. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.1)]
 Verify that enabled **RESTful HTTP** methods are a valid choice for the user or
 action,
 such as preventing normal users using *DELETE* or *PUT* on protected *API* or
 resources.
 
-. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
 Address common coding vulnerabilities in software-development processes
 including improper access control
 (such as insecure direct object references, failure to restrict URL access,
 directory traversal, and failure to restrict user access to functions).
 
-. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.1]
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.1]
 Define access needs for each role,
 including level of privilege required (for example, user, administrator, etc.)
 for accessing resources.
 
-. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.3]
+. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.3]
 Assign access based on individual personnel's job classification and function.
 
-. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
+. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
 This access control system(s) must include assignment of privileges to
 individuals based on job classification and function.
 
-. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.1]
+. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.1]
 Limit viewing of audit trails to those with a job-related need.
 
-. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.1]
+. [[r24]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.1]
 Ensure that each entity only runs processes that have access to that entity's
 cardholder data environment.
