@@ -19,6 +19,9 @@ from backend.api.resolvers.new.finding import (
     pending_vulns,
     ports_vulns,
     records,
+    state,
+    tracking,
+    verified,
     vulnerabilities
 )
 
@@ -38,4 +41,7 @@ FINDING.set_field('openVulnerabilities', open_vulnerabilities.resolve)
 FINDING.set_field('pendingVulns', pending_vulns.resolve)
 FINDING.set_field('portsVulns', ports_vulns.resolve)
 FINDING.set_field('records', records.resolve)
+FINDING.set_field('state', state.resolve)
+FINDING.set_field('tracking', tracking.resolve)
+FINDING.set_field('verified', verified.resolve)
 FINDING.set_field('vulnerabilities', vulnerabilities.resolve)

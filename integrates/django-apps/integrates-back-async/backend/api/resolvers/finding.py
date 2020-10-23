@@ -62,21 +62,6 @@ async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
 
 
 @get_entity_cache_async
-async def _get_tracking(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[Dict[str, Union[str, int]]]:
-    """Get tracking."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    release_date = finding['release_date']
-    if release_date:
-        vulns = await info.context.loaders['vulnerability'].load(identifier)
-        tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
-    else:
-        tracking = []
-    return tracking
-
-
-@get_entity_cache_async
 async def _get_severity(
         info: GraphQLResolveInfo,
         identifier: str) -> Dict[str, str]:
@@ -99,23 +84,6 @@ async def _get_evidence(
     """Get evidence."""
     finding = await info.context.loaders['finding'].load(identifier)
     return cast(Dict[str, Dict[str, str]], finding['evidence'])
-
-
-@get_entity_cache_async
-async def _get_state(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get state."""
-    vulns = await info.context.loaders['vulnerability'].load(identifier)
-
-    state = (
-        'open'
-        if [
-            vuln
-            for vuln in vulns
-            if vuln['last_approved_status'] == 'open'
-        ]
-        else 'closed'
-    )
-    return state
 
 
 @get_entity_cache_async
@@ -302,19 +270,6 @@ async def _get_current_state(info: GraphQLResolveInfo, identifier: str) -> str:
     return cast(str, finding['current_state'])
 
 
-@get_entity_cache_async
-async def _get_verified(info: GraphQLResolveInfo, identifier: str) -> bool:
-    """Get verified."""
-    vulns = await info.context.loaders['vulnerability'].load(identifier)
-    remediated_vulns = [
-        vuln
-        for vuln in vulns
-        if vuln['last_approved_status'] == 'open' and vuln['remediated']
-    ]
-    verified = len(remediated_vulns) == 0
-    return verified
-
-
 async def resolve(
     info: GraphQLResolveInfo,
     identifier: str,
@@ -357,6 +312,9 @@ async def resolve(
             'ports_vulns',
             'project_name',
             'records',
+            'state',
+            'tracking',
+            'verified',
             'vulnerabilities'
         }
         if requested_field.startswith('_') or requested_field in migrated:
