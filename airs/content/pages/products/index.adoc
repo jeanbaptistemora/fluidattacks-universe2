@@ -18,6 +18,18 @@ different phases and in real time.
 [button]#link:./integrates/[View Product, role="button-white"]#
 
 [role="w-products center pt3"]
+image::product-skims.png[link="../products/skims/"]
+
+== Skims
+
+*Skims* is an automatic tool based on SAST and SCA techniques, which focuses on
+detecting superficial or peripheral vulnerabilities at high speed. At the same
+time, it can verify whether the vulnerabilities identified in a system have
+been successfully remediated.
+[role="tc mt3 mb-products f5"]
+[button]#link:./skims/[View Product, role="button-white"]#
+
+[role="w-products center pt3"]
 image::product-drills.png[link="../products/drills/"]
 
 == Drills
