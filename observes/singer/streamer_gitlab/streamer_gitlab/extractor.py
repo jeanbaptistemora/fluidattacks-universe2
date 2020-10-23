@@ -45,7 +45,9 @@ def gitlab_data_emitter(  # pylint: disable=too-many-arguments
     resource: str,
     params: dict,
     api_token: str,
-    max_pags: int
+    max_pags: int,
+    per_page: int = 100,
+    offset_page: int = 1
 ) -> Callable[[Queue], Awaitable[None]]:
     """
     Returns Callable that iterates a gitlab resource for project
@@ -54,11 +56,12 @@ def gitlab_data_emitter(  # pylint: disable=too-many-arguments
     async def data_emitter(queue: Queue) -> None:
         errors: int = 0
         page: int = 1
-        per_page: int = 100
         async with aiohttp.ClientSession() as session:
             while errors <= 10:
                 try:
-                    params.update({'page': page, 'per_page': per_page})
+                    params.update({
+                        'page': page + offset_page - 1, 'per_page': per_page
+                    })
                     records = await get_request(
                         session,
                         (
@@ -72,7 +75,7 @@ def gitlab_data_emitter(  # pylint: disable=too-many-arguments
                     log('error', f'# {errors}: {type(exc).__name__}: {exc}')
                     errors += 1
                 else:
-                    if not records or page > max_pags:
+                    if not records:
                         break
                     result = {
                         'type': 'gitlab_page_data',
@@ -83,6 +86,8 @@ def gitlab_data_emitter(  # pylint: disable=too-many-arguments
                     }
                     errors, page = 0, page + 1
                     await queue.put(result)
+                    if page > max_pags:
+                        break
     return data_emitter
 
 
@@ -143,7 +148,8 @@ async def stream_resource_page(
     sys.stdout = out_file
     project: str = resource.g_resource.project
     s_resource: str = resource.g_resource.resource
-
+    init_page: int = resource.page
+    per_page: int = resource.per_page
     queue: Queue = Queue(maxsize=1024)
     await collect([
         gitlab_data_emitter(
@@ -152,7 +158,7 @@ async def stream_resource_page(
             s_resource,
             cast(Dict[str, str], params),
             api_token,
-            1
+            1, per_page, init_page
         )(queue)
     ])
     item = await queue.get()

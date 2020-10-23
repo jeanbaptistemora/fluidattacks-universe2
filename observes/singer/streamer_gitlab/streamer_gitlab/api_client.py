@@ -25,6 +25,7 @@ from streamer_gitlab.log import log
 class GitlabResource(NamedTuple):
     project: str
     resource: str
+    params: dict = {}
 
 
 class GitlabResourcePage(NamedTuple):
@@ -50,8 +51,10 @@ async def get_json(
 ) -> List[Dict[str, Any]]:
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
-        log('info', f'[{response.status}] {endpoint}, {kargs["params"]}')
-        log('debug', f'Using headers: {kargs["headers"]}')
+        log('debug', f'[{response.status}]')
+        log('debug', f'\tEndpoint: {endpoint}')
+        log('debug', f'\tParams: {kargs["params"]}')
+        log('debug', f'\tHeaders: {kargs["headers"].keys()}')
         response.raise_for_status()
 
         return await response.json()
@@ -120,8 +123,8 @@ def insistent_endpoint_call(
                 result = await get_request(*args, **kargs)
                 return result
             except ClientError as exc:
-                log('error', f'# {errors}: {type(exc).__name__}: {exc}')
                 errors += 1
+                log('h_error', f'# {errors}: {type(exc).__name__}')
         if errors >= max_errors:
             raise Exception('Max retries reached with unsuccessful response')
     return i_getter

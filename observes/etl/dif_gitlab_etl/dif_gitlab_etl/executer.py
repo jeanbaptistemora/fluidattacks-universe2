@@ -32,6 +32,7 @@ def specific_resources(project: str) -> List[GitlabResource]:
         GitlabResource(
             project=project,
             resource='merge_requests',
+            params={'scope': 'all'}
         )
     ]
 
@@ -67,7 +68,7 @@ def start_etl(project, auth: Dict[str, str]):
     resources: List[GitlabResource] = specific_resources(project)
     for resource in resources:
         interval: range = planner.get_work_interval(
-            resource, stm_executer
+            resource, stm_executer, 2
         )
         lgu_id: int = planner.get_lgu_id(resource, stm_executer)
         etl.extract_pages_data(

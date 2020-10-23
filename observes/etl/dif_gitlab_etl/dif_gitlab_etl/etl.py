@@ -45,6 +45,7 @@ def extract_between(
     per_page = resource_range.per_page
 
     pages: List[PageData] = []
+    empty_responce: bool = False
     last_minor_id: Optional[int] = init_last_minor_id
     p_data: Optional[PageData]
     log('info', 'Notation <page_id>:<per_page>')
@@ -68,14 +69,15 @@ def extract_between(
                 )
             )
         if p_data is None:
-            error(f'Unexpected empty data at {page_id}:{per_page}')
+            log('info', f'Empty data returned at {page_id}:{per_page}')
+            empty_responce = True
         else:
             last_minor_id = p_data.minor_item_id
             pages.append(p_data)
     return ExtractState(
         data_pages=pages,
         last_minor_id=cast(int, last_minor_id),
-        empty_responce=False
+        empty_responce=empty_responce
     )
 
 
@@ -163,5 +165,5 @@ def extract_pages_data(
             extract_range
         )
         pages.extend(extraction_status.data_pages)
-
+    log('debug', str(pages))
     return pages
