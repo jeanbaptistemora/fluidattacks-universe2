@@ -23,7 +23,6 @@ async def _batch_load_fn(
         findings[finding_id] = dict(
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),
-            age=finding.get('age', 0),
             analyst=finding.get('analyst', ''),
             attack_vector_desc=finding.get('attackVectorDesc', ''),
             bts_url=finding.get('externalBts', ''),

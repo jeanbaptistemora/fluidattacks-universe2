@@ -1,4 +1,5 @@
 # pylint:disable=too-many-branches
+from datetime import datetime
 import re
 from contextlib import AsyncExitStack
 from typing import (
@@ -35,8 +36,9 @@ from backend.exceptions import (
 )
 from backend.utils import (
     cvss,
-    validations,
+    datetime as datetime_utils,
     findings as finding_utils,
+    validations,
     vulnerabilities as vuln_utils
 )
 
@@ -50,9 +52,7 @@ from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
     Historic as HistoricType,
-)
-from backend.utils import (
-    datetime as datetime_utils,
+    Vulnerability as VulnerabilityType,
 )
 
 
@@ -118,16 +118,35 @@ def send_finding_mail(
     )
 
 
-def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
-    """Get days since the vulnerabilities was release"""
-    today = datetime_utils.get_now()
-    release_date = str(act_finding['releaseDate']).split(' ')
-    age = abs(
+def get_age_finding(
+    vulnerabilities: List[VulnerabilityType],
+    release_date: str = '',
+) -> int:
+    age: int = 0
+    date_format: str = '%Y-%m-%d'
+    open_vulns_dates: List[datetime] = [
         datetime_utils.get_from_str(
-            release_date[0],
-            date_format='%Y-%m-%d'
-        ) - today
-    ).days
+            cast(
+                HistoricType, vuln.get('historic_state', [{}])
+            )[-1].get('date', '').split(' ')[0],
+            date_format
+        )
+        for vuln in vulnerabilities
+        if cast(
+            HistoricType, vuln.get('historic_state', [{}])
+        )[-1].get('state', '') == 'open'
+    ]
+
+    if open_vulns_dates:
+        return util.calculate_datediff_since(sorted(open_vulns_dates)[0]).days
+
+    if release_date:
+        return util.calculate_datediff_since(
+            datetime_utils.get_from_str(
+                release_date.split(' ')[0], date_format
+            )
+        ).days
+
     return age
 
 

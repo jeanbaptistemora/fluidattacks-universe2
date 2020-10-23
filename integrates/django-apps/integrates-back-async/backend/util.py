@@ -425,13 +425,10 @@ def format_comment_date(date_string: str) -> str:
     return formatted_date
 
 
-def calculate_datediff_since(start_datetime: datetime) -> timedelta:
-    start_date = datetime_utils.get_from_str(
-        str(start_datetime).split(' ')[0],
-        date_format='%Y-%m-%d'
-    ).date()
-    final_date = (datetime_utils.get_now().date() - start_date)
-    return final_date
+def calculate_datediff_since(start_date: datetime) -> timedelta:
+    final_date = (datetime_utils.get_now().date() - start_date.date())
+
+    return abs(final_date)
 
 
 def is_valid_expiration_time(expiration_time: float) -> bool:

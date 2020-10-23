@@ -100,7 +100,7 @@ class FindingsTests(TestCase):
             'modifiedAttackComplexity', 'severityScope',
             'cvssVersion', 'analyst', 'subscription', 'reportDate',
             'effectSolution', 'reportLevel', 'scenario',
-            'severityCvss', 'modifiedAvailabilityImpact', 'age', 'vulnerability',
+            'severityCvss', 'modifiedAvailabilityImpact', 'vulnerability',
             'findingId', 'threat', 'lastVulnerability', 'integrityImpact',
             'modifiedIntegrityImpact','relatedFindings',
             'exploitability']

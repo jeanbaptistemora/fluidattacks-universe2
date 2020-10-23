@@ -2,7 +2,6 @@ import bisect
 import io
 import itertools
 import logging
-from datetime import datetime
 from decimal import Decimal
 from typing import Dict, List, Union, cast, Tuple, Optional
 
@@ -326,12 +325,7 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
     is_draft = 'releaseDate' not in finding
     if is_draft:
-        finding['age'] = 0
         finding['cvssVersion'] = finding.get('cvssVersion', '2')
-    else:
-        finding['age'] = util.calculate_datediff_since(
-            cast(datetime, finding['releaseDate'])
-        ).days
 
     if 'cvssVersion' not in finding:
         finding['cvssVersion'] = '3.1'

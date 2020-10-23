@@ -93,7 +93,10 @@ async def _get_last_vulnerability(
     """Get last_vulnerability."""
     finding = await info.context.loaders['finding'].load(identifier)
     last_vuln_date = util.calculate_datediff_since(
-        finding['last_vulnerability']
+        datetime_utils.get_from_str(
+            str(finding['last_vulnerability']).split(' ')[0],
+            date_format='%Y-%m-%d',
+        )
     )
     return last_vuln_date.days
 
@@ -226,7 +229,12 @@ async def _get_type(info: GraphQLResolveInfo, identifier: str) -> str:
 async def _get_age(info: GraphQLResolveInfo, identifier: str) -> int:
     """Get age."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return cast(int, finding['age'])
+    vulns = await info.context.loaders['vulnerability'].load(identifier)
+
+    return finding_domain.get_age_finding(
+        vulns,
+        cast(str, finding['release_date'])
+    )
 
 
 @get_entity_cache_async
