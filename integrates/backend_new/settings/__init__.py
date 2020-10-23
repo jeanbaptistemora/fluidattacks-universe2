@@ -2,8 +2,8 @@ from .analytics import (
     MIXPANEL_API_TOKEN
 )
 from .auth import (
-    AZURE_AUTHZ_URL,
-    GOOGLE_CONF_URL
+    AZURE_ARGS,
+    GOOGLE_ARGS
 )
 from .cache import (
     CACHE_TTL
@@ -19,7 +19,8 @@ from .session import (
     SESSION_COOKIE_AGE
 )
 from .statics import (
-    STATIC_URL
+    STATIC_URL,
+    TEMPLATES_DIR
 )
 from .various import (
     DEBUG,
@@ -28,8 +29,8 @@ from .various import (
 
 __all__ = [
     'MIXPANEL_API_TOKEN',
-    'AZURE_AUTHZ_URL',
-    'GOOGLE_CONF_URL',
+    'AZURE_ARGS',
+    'GOOGLE_ARGS',
     'CACHE_TTL',
     'JWT_COOKIE_NAME',
     'JWT_COOKIE_SAMESITE',
@@ -38,6 +39,7 @@ __all__ = [
     'MOBILE_SESSION_AGE',
     'SESSION_COOKIE_AGE',
     'STATIC_URL',
+    'TEMPLATES_DIR',
     'DEBUG',
     'TIME_ZONE'
 ]

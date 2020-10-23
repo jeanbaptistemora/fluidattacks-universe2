@@ -23,34 +23,14 @@ from backend_new import settings
 import backend_new.app.utils as utils
 
 from __init__ import (
-    FI_AZUREAD_OAUTH2_KEY,
-    FI_AZUREAD_OAUTH2_SECRET,
-    FI_GOOGLE_OAUTH2_KEY,
-    FI_GOOGLE_OAUTH2_SECRET,
     FI_STARLETTE_TEST_KEY
 )
 
-TEMPLATES_DIR = 'backend_new/app/templates'
-TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
+TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
+
 OAUTH = OAuth()
-OAUTH.register(
-    name='google',
-    client_id=FI_GOOGLE_OAUTH2_KEY,
-    client_secret=FI_GOOGLE_OAUTH2_SECRET,
-    server_metadata_url=settings.GOOGLE_CONF_URL,
-    client_kwargs={
-        'scope': 'openid email profile'
-    }
-)
-OAUTH.register(
-    name='azure',
-    client_id=FI_AZUREAD_OAUTH2_KEY,
-    client_secret=FI_AZUREAD_OAUTH2_SECRET,
-    authorize_url=settings.AZURE_AUTHZ_URL,
-    client_kwargs={
-        'scope': 'openid email profile'
-    }
-)
+OAUTH.register(**settings.GOOGLE_ARGS)
+OAUTH.register(**settings.AZURE_ARGS)
 
 
 def error500(request: Request) -> HTMLResponse:
@@ -143,7 +123,7 @@ APP = Starlette(
         Route('/invalid_invitation', invalid_invitation),
         Mount(
             '/static',
-            StaticFiles(directory=f'{TEMPLATES_DIR}/static'),
+            StaticFiles(directory=f'{settings.TEMPLATES_DIR}/static'),
             name='static'
         )
     ],
