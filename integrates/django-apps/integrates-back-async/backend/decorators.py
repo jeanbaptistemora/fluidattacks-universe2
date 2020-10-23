@@ -148,7 +148,7 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
     data = await context.loaders['single_vulnerability'].load(identifier)
-    return await _resolve_from_finding_id(context, data.finding_id)
+    return await _resolve_from_finding_id(context, data['finding_id'])
 
 
 async def resolve_group_name(  # noqa: MC0001
@@ -167,6 +167,8 @@ async def resolve_group_name(  # noqa: MC0001
         name = args[0]['name']
     elif args and args[0] and 'project_name' in args[0]:
         name = args[0]['project_name']
+    elif args and args[0] and 'finding_id' in args[0]:
+        name = await _resolve_from_finding_id(context, args[0]['finding_id'])
     elif 'project_name' in kwargs:
         name = kwargs['project_name']
     elif 'group_name' in kwargs:

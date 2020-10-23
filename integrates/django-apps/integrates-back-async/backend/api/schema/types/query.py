@@ -5,9 +5,6 @@
 from ariadne import QueryType
 
 # Local
-from backend.api.resolvers import (
-    vulnerability
-)
 from backend.api.resolvers.new.query import (
     event,
     events,
@@ -25,7 +22,8 @@ from backend.api.resolvers.new.query import (
     resources,
     stakeholder,
     tag,
-    user_list_groups
+    user_list_groups,
+    vulnerability
 )
 
 
@@ -49,4 +47,4 @@ QUERY.set_field('resources', resources.resolve)
 QUERY.set_field('stakeholder', stakeholder.resolve)
 QUERY.set_field('tag', tag.resolve)
 QUERY.set_field('userListProjects', user_list_groups.resolve)
-QUERY.set_field('vulnerability', vulnerability.resolve_vulnerability)
+QUERY.set_field('vulnerability', vulnerability.resolve)
