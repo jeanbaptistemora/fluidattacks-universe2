@@ -125,7 +125,7 @@ async def test_me():
     assert result['data']['me']['callerOrigin'] == 'API'
     assert result['data']['me']['organizations'] == [{'name': org_name}]
     assert len(result['data']['me']['permissions']) == 0
-    assert len(result['data']['me']['projects']) == 4
+    assert len(result['data']['me']['projects']) == 5
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'group_manager'
     assert result['data']['me']['sessionExpiration'] == str(expiration_time)
