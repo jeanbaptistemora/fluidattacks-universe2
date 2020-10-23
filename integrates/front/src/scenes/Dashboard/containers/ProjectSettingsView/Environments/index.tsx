@@ -65,6 +65,9 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
           case "Exception - Invalid characters":
             msgError(translate.t("validations.invalid_char"));
             break;
+          case "Exception - Invalid field length in form":
+            msgError(translate.t("validations.invalidFieldLength"));
+            break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred adding environments", envsError);

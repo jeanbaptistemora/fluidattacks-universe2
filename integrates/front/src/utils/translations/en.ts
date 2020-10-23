@@ -1870,6 +1870,7 @@ export const enTranslations: ResourceKey = {
     infectedFile: "Our system detected that the uploaded file is infected",
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
+    invalidFieldLength: "The value inserted in one of the fields is too large",
     invalidPhoneNumberInField: "The phone number inserted is not valid",
     invalidTextBeginning:
       "Field cannot begin with the followng character: {{ chars }}",

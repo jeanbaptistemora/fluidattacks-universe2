@@ -9,7 +9,7 @@ import { RequiredField, Row } from "styles/styledComponents";
 import { maxLength, required, validField } from "utils/validations";
 import styled, { StyledComponent } from "styled-components";
 
-const maxCharCount: number = 400;
+const maxCharCount: number = 500;
 const maxEnvUrlLength: ConfigurableValidator = maxLength(maxCharCount);
 
 const TextFieldCol: StyledComponent<

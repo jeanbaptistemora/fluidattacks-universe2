@@ -325,7 +325,7 @@ async def create_environments(
     json_data: List[ResourceType] = []
     for res in res_data_enc:
         url_env = str(res.get('urlEnv', ''))
-        validations.validate_field_length(url_env, 400)
+        validations.validate_field_length(url_env, 500)
         res_object = {
             'urlEnv': url_env,
             'historic_state': [create_initial_state(user_email)],
