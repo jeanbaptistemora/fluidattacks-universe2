@@ -16,5 +16,6 @@ in
       pyPkgTwine = builders.pythonPackage {
           requirement = "twine==3.2.0";
       };
+      pyPkgMelts = ../../melts;
     })
   )

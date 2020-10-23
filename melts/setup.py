@@ -37,10 +37,19 @@ def get_install_requires():
         return requirements_handle.readlines()
 
 
+def get_long_description():
+    long_description = ""
+    with open('README.md', encoding='utf-8') as readme_file:
+        long_description = readme_file.read()
+    return long_description
+
+
 distutils.core.setup(
     name=PKG_NAME,
     version=get_version(),
     description='Fluid Attacks Toolkit and SDK',
+    long_description=get_long_description(),
+    long_description_content_type='text/markdown',
     author='Fluid Attacks',
     author_email='engineering@fluidattacks.com',
     packages=[

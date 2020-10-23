@@ -9,6 +9,7 @@ import pkg_resources
 CLI_NAME = "melts"
 BASE_DIR = os.path.dirname(__file__)
 VERSION = pkg_resources.get_distribution(CLI_NAME).version
+PACKAGE_MANAGER = 'nix' if 'nix' in BASE_DIR else 'pip'
 
 SAST: tuple = ('lines',)
 DAST: tuple = ('inputs', 'ports',)

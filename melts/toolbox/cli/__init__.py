@@ -8,10 +8,12 @@ import functools
 import click
 
 # Local libraries
+from toolbox.utils.version import check_new_version
 from toolbox import (
     drills,
     utils,
-    constants
+    constants,
+    logger
 )
 
 from .misc import misc_management
@@ -59,3 +61,7 @@ def main():
     """Usual entrypoint."""
     utils.bugs.configure_bugsnag(test="test")
     entrypoint()
+
+
+if check_new_version():
+    logger.info("There is a new version, please update melts")
