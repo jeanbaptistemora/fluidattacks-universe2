@@ -17,7 +17,7 @@ from starlette.templating import Jinja2Templates
 from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
-from backend.api.schema import SCHEMA
+from backend_new.api.schema import SCHEMA
 
 from backend_new import settings
 import backend_new.app.utils as utils
