@@ -133,13 +133,13 @@ function helper_integrates_serve_back_new {
     --timeout "3600"
     --workers "${workers}"
     --worker-class "${worker_class}"
-    --forwarded-allow-ips="${forwarded_ips}" 
+    --forwarded-allow-ips="${forwarded_ips}"
   )
 
       env_prepare_python_packages \
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
-  &&  "helper_integrates_set_${environment}_secrets" \
+  &&  helper_integrates_sops_vars "${environment}" \
   &&  echo "[INFO] Serving ${protocol} on ${host}:${port}" \
   &&  if [ "${protocol}" == 'http' ]
       then
