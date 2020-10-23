@@ -3,10 +3,17 @@
  */
 
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import {
+  ButtonToolbar,
+  ButtonToolbarCenter,
+  Col100,
+  Col33,
+  Row,
+} from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 export interface IFileOptionsModalProps {
@@ -28,31 +35,31 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (props: IFileOptionsM
         headerTitle={translate.t("search_findings.tab_resources.modal_options_title")}
       >
         <Row>
-          <Col md={12}>
+          <Col100>
             <label>
               {translate.t("search_findings.tab_resources.modal_options_content")}
               <b>{props.fileName}</b>?
             </label>
-          </Col>
-          <Col md={12}>
+          </Col100>
+          <ButtonToolbarCenter>
             <br />
             {props.canRemove ? (
-              <Col md={4} mdOffset={2} sm={6}>
+              <Col33>
                 <Button onClick={onDelete}>
                   <Glyphicon glyph="minus" />&nbsp;
                     {translate.t("search_findings.tab_resources.remove_repository")}
                 </Button>
-              </Col>
+              </Col33>
             ) : undefined}
-            <Col md={4} sm={6}>
+            <Col33>
               <Button onClick={onDownload}>
                 <Glyphicon glyph="download-alt" />&nbsp;
                   {translate.t("search_findings.tab_resources.download")}
               </Button>
-            </Col>
-          </Col>
+            </Col33>
+          </ButtonToolbarCenter>
         </Row>
-        <ButtonToolbar className="pull-right">
+        <ButtonToolbar>
           <Button onClick={onClose}>{translate.t("confirmmodal.cancel")}</Button>
         </ButtonToolbar>
       </Modal>

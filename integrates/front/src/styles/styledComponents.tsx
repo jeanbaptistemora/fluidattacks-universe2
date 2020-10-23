@@ -7,6 +7,13 @@ const ButtonToolbar: StyledComponent<
   className: "fr",
 })``;
 
+const ButtonToolbarCenter: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "flex flex-wrap justify-center pv3 w-100",
+})``;
+
 const ButtonToolbarLeft: StyledComponent<
   "div",
   Record<string, unknown>
@@ -366,6 +373,7 @@ const TabsContainer: StyledComponent<
 
 export {
   ButtonToolbar,
+  ButtonToolbarCenter,
   ButtonToolbarLeft,
   ButtonToolbarRow,
   Col100,
