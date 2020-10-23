@@ -31,6 +31,7 @@ TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 OAUTH = OAuth()
 OAUTH.register(**settings.GOOGLE_ARGS)
 OAUTH.register(**settings.AZURE_ARGS)
+OAUTH.register(**settings.BITBUCKET_ARGS)
 
 
 def error500(request: Request) -> HTMLResponse:
@@ -78,6 +79,12 @@ async def do_azure_login(request: Request) -> Any:
     return await azure.authorize_redirect(request, redirect_uri)
 
 
+async def do_bitbucket_login(request: Request) -> Any:
+    redirect_uri = request.url_for('authz_bitbucket').replace(' ', '')
+    bitbucket = OAUTH.create_client('bitbucket')
+    return await bitbucket.authorize_redirect(request, redirect_uri)
+
+
 async def authz(request: Request, client: OAuth) -> HTMLResponse:
     token = await client.authorize_access_token(request)
     user = dict(await client.parse_id_token(request, token))
@@ -109,14 +116,20 @@ async def authz_azure(request: Request) -> HTMLResponse:
     return await authz(request, OAUTH.azure)
 
 
+async def authz_bitbucket(request: Request) -> HTMLResponse:
+    return await authz(request, OAUTH.bitbucket)
+
+
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
         Route('/new/', login),
         Route('/new/authz_google', authz_google),
         Route('/new/authz_azure', authz_azure),
+        Route('/new/authz_bitbucket', authz_bitbucket),
         Route('/new/dglogin', do_google_login),
         Route('/new/dalogin', do_azure_login),
+        Route('/new/dblogin', do_bitbucket_login),
         Route('/new/api/', GraphQL(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', error401),
         Route('/error500', error500),

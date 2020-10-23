@@ -1,6 +1,8 @@
 from __init__ import (
     FI_AZUREAD_OAUTH2_KEY,
     FI_AZUREAD_OAUTH2_SECRET,
+    FI_BITBUCKET_OAUTH2_KEY,
+    FI_BITBUCKET_OAUTH2_SECRET,
     FI_GOOGLE_OAUTH2_KEY,
     FI_GOOGLE_OAUTH2_SECRET
 )
@@ -27,6 +29,17 @@ AZURE_ARGS = dict(
     client_id=FI_AZUREAD_OAUTH2_KEY,
     client_secret=FI_AZUREAD_OAUTH2_SECRET,
     authorize_url=AZURE_AUTHZ_URL,
+    client_kwargs={
+        'scope': 'openid email profile'
+    }
+)
+
+BITBUCKET_AUTZ_URL = 'https://bitbucket.org/site/oauth2/authorize'
+BITBUCKET_ARGS = dict(
+    name='bitbucket',
+    client_id=FI_BITBUCKET_OAUTH2_KEY,
+    client_secret=FI_BITBUCKET_OAUTH2_SECRET,
+    authorize_url=BITBUCKET_AUTZ_URL,
     client_kwargs={
         'scope': 'openid email profile'
     }
