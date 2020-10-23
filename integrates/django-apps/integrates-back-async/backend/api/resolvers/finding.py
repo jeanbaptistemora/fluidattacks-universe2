@@ -2,7 +2,7 @@
 import logging
 import sys
 from time import time
-from typing import Dict, Any, Union, cast
+from typing import Any, Union, cast
 
 # Third party libraries
 from ariadne import convert_kwargs_to_snake_case
@@ -13,7 +13,7 @@ import newrelic.agent
 
 from backend.decorators import (
     concurrent_decorators,
-    enforce_group_level_auth_async, get_entity_cache_async,
+    enforce_group_level_auth_async,
     require_integrates,
     require_login, require_finding_access
 )
@@ -32,116 +32,13 @@ from backend.utils import (
     datetime as datetime_utils,
     findings as finding_utils,
 )
-from backend import authz, util
+from backend import util
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-@get_entity_cache_async
-async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get release date."""
-    allowed_roles = ['admin', 'analyst', 'group_manager', 'reviewer']
-    finding = await info.context.loaders['finding'].load(identifier)
-    release_date = finding['release_date']
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    curr_user_role = await authz.get_group_level_role(
-        user_email, finding['project_name']
-    )
-    if not release_date and curr_user_role not in allowed_roles:
-        raise GraphQLError('Access denied')
-    return cast(str, release_date)
-
-
-@get_entity_cache_async
-async def _get_severity(
-        info: GraphQLResolveInfo,
-        identifier: str) -> Dict[str, str]:
-    """Get severity."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(Dict[str, str], finding['severity'])
-
-
-@get_entity_cache_async
-async def _get_cvss_version(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get cvss_version."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['cvss_version'])
-
-
-@get_entity_cache_async
-async def _get_evidence(
-        info: GraphQLResolveInfo,
-        identifier: str) -> Dict[str, Dict[str, str]]:
-    """Get evidence."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(Dict[str, Dict[str, str]], finding['evidence'])
-
-
-@get_entity_cache_async
-async def _get_title(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get title."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['title'])
-
-
-@get_entity_cache_async
-async def _get_scenario(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get scenario."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['scenario'])
-
-
-@get_entity_cache_async
-async def _get_actor(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get actor."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['actor'])
-
-
-@get_entity_cache_async
-async def _get_description(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get description."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['description'])
-
-
-@get_entity_cache_async
-async def _get_requirements(info: GraphQLResolveInfo, identifier: str) -> str:
-    """Get requirements."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['requirements'])
-
-
-@get_entity_cache_async
-async def _get_attack_vector_desc(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get attack_vector_desc."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['attack_vector_desc'])
-
-
-@get_entity_cache_async
-async def _get_threat(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get threat."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['threat'])
-
-
-@get_entity_cache_async
-async def _get_recommendation(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get recommendation."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    return cast(str, finding['recommendation'])
 
 
 @convert_kwargs_to_snake_case  # type: ignore
