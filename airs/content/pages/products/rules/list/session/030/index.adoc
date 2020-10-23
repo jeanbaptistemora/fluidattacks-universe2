@@ -47,7 +47,7 @@ by providing small time windows for exploitation.
 . **Session Token**:
 In this method, the server sends a *token* code
 which is used by the client to transform a key
-(e.g. applying hash functions to the key and token combination)
+(e.g., applying hash functions to the key and token combination)
 before sending it again to the server as part of the authentication process.
 The server then processes this value, compares it with the initial token,
 and rejects the request if they do not match.

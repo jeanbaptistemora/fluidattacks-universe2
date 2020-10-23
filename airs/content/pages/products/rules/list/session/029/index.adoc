@@ -9,8 +9,8 @@
 == Requirement
 
 The session *cookies* of web applications
-must have security attributes (*HttpOnly*, *Secure*, *SameSite*) and prefixes
-(e.g. **__Host-**).
+must have security attributes (*HttpOnly*, *Secure*, *SameSite*)
+and prefixes (e.g., **__Host-**).
 
 == Description
 

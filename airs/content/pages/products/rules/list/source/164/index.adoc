@@ -26,5 +26,5 @@ the control flow or data flow of a program.
 V5.1 Input Validation Requirements.(5.1.4)]
 Verify that structured data is strongly typed and validated against a defined
 schema including allowed characters, length and pattern
-(e.g. credit card numbers or telephone, or validating that two related fields
+(e.g., credit card numbers or telephone, or validating that two related fields
 are reasonable, such as checking that suburb and zip/postcode match).

@@ -67,7 +67,7 @@ and other serial variants are disabled or protected by a complex password.
 . [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.26)]
 Verify that only micro controllers that support disabling debugging interfaces
-(e.g. *JTAG*, *SWD*) are used.
+(e.g., *JTAG*, *SWD*) are used.
 
 . [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.4)]

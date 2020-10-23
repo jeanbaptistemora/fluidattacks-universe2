@@ -127,7 +127,7 @@ reviewed for hardcoded credentials (*backdoors*).
 . [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.26)]
 Verify that only micro controllers that support disabling debugging interfaces
-(e.g. *JTAG*, *SWD*) are used.
+(e.g., *JTAG*, *SWD*) are used.
 
 . [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.27)]

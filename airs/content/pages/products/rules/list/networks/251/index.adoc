@@ -15,7 +15,7 @@ Access points must not use the factory-set `IP` address.
 . [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.5 Credential Recovery Requirements.(2.5.4)]
 Verify shared or default accounts are not present
-(e.g. "root", "admin", or "sa").
+(e.g., "root", "admin", or "sa").
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.10 Service Authentication Requirements.(2.10.2)]

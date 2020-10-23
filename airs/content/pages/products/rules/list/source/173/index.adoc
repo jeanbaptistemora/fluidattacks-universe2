@@ -374,7 +374,7 @@ positive validation (*whitelisting*).
 V5.1 Input Validation Requirements.(5.1.4)]
 Verify that structured data is strongly typed and validated against a defined
 schema including allowed characters, length and pattern
-(e.g. credit card numbers or telephone, or validating that two related fields
+(e.g., credit card numbers or telephone, or validating that two related fields
 are reasonable, such as checking that suburb and zip/postcode match).
 
 . [[r43]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
@@ -428,7 +428,7 @@ such as Markdown, *CSS* or *XSL* stylesheets, *BBCode*, or similar.
 . [[r51]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
 Verify that data selection or database queries
-(e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
+(e.g., *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
 entity frameworks, or are otherwise protected from database injection attacks.
 
 . [[r52]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1

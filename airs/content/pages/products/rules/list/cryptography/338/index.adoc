@@ -32,7 +32,7 @@ gathering purposes.
 This attack may be undertaken to solely gather sensitive information or to
 support a further attack against the target.
 This attack pattern can involve sniffing network traffic as well as other types
-of data streams (e.g. radio).
+of data streams (e.g., radio).
 
 . [[r2]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
 The software stores or transmits sensitive data using an encryption scheme that

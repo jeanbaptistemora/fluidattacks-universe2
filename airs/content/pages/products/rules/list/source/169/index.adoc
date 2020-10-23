@@ -46,7 +46,7 @@ commands or accessing data without proper authorization.
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
 Verify that data selection or database queries
-(e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
+(e.g., *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
 entity frameworks, or are otherwise protected from database injection attacks.
 
 . [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]

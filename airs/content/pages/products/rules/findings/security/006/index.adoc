@@ -22,7 +22,7 @@ having an active session.
 
 . [[r4]] [inner]#link:/products/rules/list/231/[R231. Define a biometric verification component]#
 
-. [[r5]] [inner]#link:/products/rules/list/235/[R235. Define credentials interface]#
+. [[r5]] [inner]#link:/products/rules/list/235/[R235. Define credential interface]#
 
 . [[r6]] [inner]#link:/products/rules/list/264/[R264. Request authentication]#
 

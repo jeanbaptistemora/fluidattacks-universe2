@@ -116,10 +116,10 @@ If you enter '.', the field will be left blank.
 
 Country Name (2 letter code) [AU]:CO
 State or Province Name (full name) [Some-State]:Antioquia
-Locality Name (eg, city) []:Medellin
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:Fluid Attacks
+Locality Name (e.g., city) []:Medellin
+Organization Name (e.g., company) [Internet Widgits Pty Ltd]:Fluid Attacks
 Organizational Unit Name (eg, section) []:Fluid Attacks
-Common Name (e.g. server FQDN or YOUR name) []:Fluid Attacks
+Common Name (e.g., server FQDN or YOUR name) []:Fluid Attacks
 Email Address []:continuous@fluidattacks.com
 ----
 

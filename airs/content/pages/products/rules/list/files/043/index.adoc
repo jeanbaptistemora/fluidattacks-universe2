@@ -44,7 +44,7 @@ required.
 For example, use encoders specifically for *HTML* values, *HTML* attributes,
 JavaScript, URL Parameters, *HTTP* headers, *SMTP*, and others as the context
 requires, especially from untrusted inputs
-(e.g. names with Unicode or apostrophes, such as ねこ or O'Hara).
+(e.g., names with Unicode or apostrophes, such as ねこ or O'Hara).
 
 . [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.4)]
@@ -58,7 +58,7 @@ and the **Content-Disposition** header should have a fixed filename.
 V12.5 File Download Requirements.(12.5.1)]
 Verify that the web tier is configured to serve only files with specific file
 extensions to prevent unintentional information and source code leakage.
-For example, backup files (e.g. *.bak*), temporary working files (e.g. *.swp*),
+For example, backup files (e.g., *.bak*), temporary working files (e.g., *.swp*),
 compressed files (*.zip*, *.tar.gz*, etc.) and other extensions commonly used
 by editors should be blocked unless required.
 

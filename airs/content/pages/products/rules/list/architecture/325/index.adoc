@@ -41,4 +41,4 @@ uniquely identify specific details about the target.
 The Web services architecture may require exposing a Web Service Definition
 Language (WSDL) file that contains information on the publicly accessible
 services and how callers of these services should interact with them
-(e.g. what parameters they expect and what types they return).
+(e.g., what parameters they expect and what types they return).

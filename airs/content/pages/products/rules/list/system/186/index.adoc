@@ -59,7 +59,7 @@ files.
 When the executable loads the resource
 (such as an image file or configuration file)
 the attacker has modified the file to either execute malicious code directly or
-manipulate the target process (e.g. application server) to execute based on the
+manipulate the target process (e.g., application server) to execute based on the
 malicious configuration parameters.
 
 . [[r5]] link:http://capec.mitre.org/data/definitions/122.html[CAPEC-122: Privilege Abuse].

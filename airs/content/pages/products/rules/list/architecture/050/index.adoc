@@ -8,7 +8,7 @@
 
 == Requirement
 
-Interpreted code (e.g. *Javascript*, *CSS*) must be loaded from domains
+Interpreted code (e.g., *Javascript*, *CSS*) must be loaded from domains
 controlled by the organization.
 
 == Description

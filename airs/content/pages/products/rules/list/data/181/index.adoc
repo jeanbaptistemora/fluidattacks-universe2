@@ -100,7 +100,7 @@ gathering purposes.
 This attack may be undertaken to solely gather sensitive information or to
 support a further attack against the target.
 This attack pattern can involve sniffing network traffic as well as other types
-of data streams (e.g. radio).
+of data streams (e.g., radio).
 
 . [[r5]] link:http://capec.mitre.org/data/definitions/148.html[CAPEC-148: Content Spoofing].
 An adversary modifies content to make it contain something other than what the
@@ -211,7 +211,7 @@ Verify the presence of tamper resistance and/or tamper detection features.
 . [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.29)]
 Verify that inter-chip communication is encrypted
-(e.g. Main board to daughter board communication).
+(e.g., Main board to daughter board communication).
 
 . [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.9 Client-side Data Protection.(1.9.1)]

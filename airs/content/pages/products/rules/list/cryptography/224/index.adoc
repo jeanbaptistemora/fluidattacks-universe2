@@ -53,7 +53,7 @@ gathering purposes.
 This attack may be undertaken to solely gather sensitive information or to
 support a further attack against the target.
 This attack pattern can involve sniffing network traffic as well as other types
-of data streams (e.g. radio).
+of data streams (e.g., radio).
 
 . [[r4]] link:http://capec.mitre.org/data/definitions/151.html[CAPEC-151: Identity Spoofing].
 Identity Spoofing refers to the action of assuming (i.e., taking on) the

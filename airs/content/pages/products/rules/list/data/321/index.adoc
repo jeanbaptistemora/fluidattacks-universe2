@@ -60,7 +60,7 @@ could modify the syntax or behavior of the intended code segment.
 . [[r6]] link:https://cwe.mitre.org/data/definitions/95.html[CWE-95: Eval Injection].
 The software receives input from an upstream component,
 but it does not neutralize or incorrectly neutralizes code syntax before using
-the input in a dynamic evaluation call (e.g. "*eval*").
+the input in a dynamic evaluation call (e.g., "*eval*").
 
 . [[r7]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502: Deserialization of Untrusted Data]
 The application deserializes untrusted data without sufficiently verifying that

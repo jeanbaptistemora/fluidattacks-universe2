@@ -10,7 +10,7 @@
 
 Physical access to the network for users
 must be assigned based on organizational user credentials
-(e.g. **NAC 802.1x**).
+(e.g., **NAC 802.1x**).
 
 == References
 

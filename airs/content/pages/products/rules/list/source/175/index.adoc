@@ -19,7 +19,7 @@ than the ones they perceive,
 which may cause them to reveal confidential information.
 Web servers can protect pages they host to a great extent
 by including headers in their responses that prevent the pages from being
-embedded in malicious sites (e.g. "**X-Frame-Options**").
+embedded in malicious sites (e.g., "**X-Frame-Options**").
 
 == Findings
 

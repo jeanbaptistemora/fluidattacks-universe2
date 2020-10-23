@@ -9,7 +9,7 @@
 == Requirement
 
 The system must guarantee that user actions are performed by a human
-(e.g. registration, authentication and password recovery).
+(e.g., registration, authentication and password recovery).
 This can be achieved using *CAPTCHA*, incremental delays or mechanisms that
 prevent excessive crawling and indexing.
 

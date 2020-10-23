@@ -17,7 +17,7 @@ should be used carefully and generally avoided.
 These features often open the door for remote code execution (*RCE*) and
 cross-site scripting (*XSS*) attacks.
 Therefore, if it is not possible to avoid dynamic code execution,
-any untrusted input being included (e.g. the one provided by the users) should
+any untrusted input being included (e.g., the one provided by the users) should
 be properly sanitized.
 
 == References
@@ -53,7 +53,7 @@ could modify the syntax or behavior of the intended code segment.
 . [[r6]] link:https://cwe.mitre.org/data/definitions/95.html[CWE-95: Eval Injection].
 The software receives input from an upstream component,
 but it does not neutralize or incorrectly neutralizes code syntax before using
-the input in a dynamic evaluation call (e.g. "*eval*").
+the input in a dynamic evaluation call (e.g., "*eval*").
 
 . [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,

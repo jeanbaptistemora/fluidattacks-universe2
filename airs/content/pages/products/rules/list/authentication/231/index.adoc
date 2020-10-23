@@ -18,9 +18,9 @@ individual and serves as an additional security measure for identity assertion.
 Critical systems must have specially restrictive access controls.
 Therefore, they should include a biometric verification component to increase
 the security of the authentication process.
-This component, however, must not be the only identity assertion mechanism in
-place,
-it should only be a secondary factor.
+This component, however, should not be the only
+identity assertion mechanism in place,
+but rather only be a secondary factor.
 
 == Findings
 

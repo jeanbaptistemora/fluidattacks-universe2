@@ -32,7 +32,7 @@ required.
 For example, use encoders specifically for *HTML* values, *HTML* attributes,
 JavaScript, URL Parameters, *HTTP* headers, *SMTP*, and others as the context
 requires, especially from untrusted inputs
-(e.g. names with Unicode or apostrophes, such as ねこ or O'Hara).
+(e.g., names with Unicode or apostrophes, such as ねこ or O'Hara).
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.1)]

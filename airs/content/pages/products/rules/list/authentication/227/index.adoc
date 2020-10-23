@@ -8,18 +8,18 @@
 
 == Requirement
 
-The system must notify, under any access attempt,
-that access to the same system is only available for authorized users.
+The system must notify, upon any access attempt,
+that access to the system is only available for authorized users.
 
 == Description
 
-Sometimes systems have information and other resources that are not considered
-public.
+Sometimes systems have information
+and other resources that are not considered public.
 These resources should be protected by a secure authentication mechanism that
 prevents unauthorized actors from accessing them.
 Whenever a non-authenticated actor attempts to access those resources,
-the system must notify them that the resources are only available to authorized
-users.
+the system must notify them that
+the resources are only available to authorized users.
 
 == Findings
 

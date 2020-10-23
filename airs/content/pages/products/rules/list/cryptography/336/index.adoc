@@ -43,7 +43,7 @@ gathering purposes.
 This attack may be undertaken to solely gather sensitive information or to
 support a further attack against the target.
 This attack pattern can involve sniffing network traffic as well as other types
-of data streams (e.g. radio).
+of data streams (e.g., radio).
 
 . [[r3]] link:http://capec.mitre.org/data/definitions/212.html[CAPEC-212: Functionality Misuse].
 An adversary leverages a legitimate capability of an application in such a way

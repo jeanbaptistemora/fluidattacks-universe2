@@ -28,7 +28,7 @@ data and resources that are susceptible to being affected by third parties.
 
 . [[r1]] link:http://capec.mitre.org/data/definitions/21.html[CAPEC-21: Exploitation of Trusted Identifiers].
 An adversary guesses, obtains, or "rides" a trusted identifier
-(e.g. session ID, resource ID, cookie, etc.) to perform authorized actions
+(e.g., session ID, resource ID, cookie, etc.) to perform authorized actions
 under the guise of an authenticated user or service.
 Attacks on trusted identifiers take advantage of the fact that some software
 accepts user input without verifying its authenticity.
