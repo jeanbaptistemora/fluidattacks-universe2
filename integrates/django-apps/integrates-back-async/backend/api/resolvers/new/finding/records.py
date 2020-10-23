@@ -13,16 +13,13 @@ from backend.utils import findings as finding_utils
 @get_entity_cache_async
 async def resolve(
     parent: Finding,
-    info: GraphQLResolveInfo,
+    _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Dict[object, object]]:
     finding_id: str = cast(Dict[str, str], parent)['id']
     group_name: str = cast(Dict[str, str], parent)['project_name']
-
-    # Temporary while migrating finding resolvers
-    finding = await info.context.loaders['finding'].load(finding_id)
     records_url: Optional[str] = cast(
-        Dict[str, Dict[str, Optional[str]]], finding
+        Dict[str, Dict[str, Optional[str]]], parent
     )['records']['url']
 
     if records_url:

@@ -1,14 +1,11 @@
 # Standard
-from typing import cast, Dict, List
+from typing import cast, List
 
 # Third party
 from aiodataloader import DataLoader
-from aioextensions import collect
-from graphql.language.ast import SelectionSetNode
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.api.resolvers import finding as old_resolver
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -37,18 +34,4 @@ async def resolve(
     finding_loader: DataLoader = info.context.loaders['finding']
     drafts: List[Finding] = await finding_loader.load_many(draft_ids)
 
-    return cast(
-        List[Finding],
-        await collect(
-            old_resolver.resolve(
-                info,
-                cast(Dict[str, str], draft)['id'],
-                as_field=True,
-                selection_set=cast(
-                    SelectionSetNode,
-                    info.field_nodes[0].selection_set
-                )
-            )
-            for draft in drafts
-        )
-    )
+    return drafts

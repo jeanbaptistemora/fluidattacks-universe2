@@ -19,9 +19,7 @@ async def resolve(
     **_kwargs: None
 ) -> int:
     finding_id: str = cast(Dict[str, str], parent)['id']
-    # Temporary while migrating finding resolvers
-    finding = await info.context.loaders['finding'].load(finding_id)
-    release_date: datetime = finding['release_date']
+    release_date: datetime = cast(Dict[str, datetime], parent)['release_date']
 
     finding_vulns_loader: DataLoader = info.context.loaders['vulnerability']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)

@@ -21,13 +21,9 @@ from backend.typing import Finding
 @get_entity_cache_async
 async def resolve(
     parent: Finding,
-    info: GraphQLResolveInfo,
+    _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> str:
-    # Temporary while migrating finding resolvers
-    finding_id: str = cast(Dict[str, str], parent)['id']
-    finding = await info.context.loaders['finding'].load(finding_id)
-
-    analyst: str = cast(Dict[str, str], finding)['analyst']
+    analyst: str = cast(Dict[str, str], parent)['analyst']
 
     return analyst

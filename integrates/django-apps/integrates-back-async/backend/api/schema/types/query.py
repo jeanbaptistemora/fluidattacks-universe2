@@ -6,12 +6,12 @@ from ariadne import QueryType
 
 # Local
 from backend.api.resolvers import (
-    finding,
     vulnerability
 )
 from backend.api.resolvers.new.query import (
     event,
     events,
+    finding,
     forces_execution,
     forces_executions,
     forces_executions_new,
@@ -34,7 +34,7 @@ QUERY = QueryType()
 # Query resolvers
 QUERY.set_field('event', event.resolve)
 QUERY.set_field('events', events.resolve)
-QUERY.set_field('finding', finding.resolve_finding)
+QUERY.set_field('finding', finding.resolve)
 QUERY.set_field('forcesExecution', forces_execution.resolve)
 QUERY.set_field('forcesExecutions', forces_executions.resolve)
 QUERY.set_field('forcesExecutionsNew', forces_executions_new.resolve)
