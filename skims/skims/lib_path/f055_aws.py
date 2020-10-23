@@ -30,10 +30,9 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_ec2_instances,
+    iter_s3_buckets,
     iterate_resources,
-)
-from parse_cfn.structure import (
-    iter_s3_buckets
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -53,6 +52,15 @@ def _iter_ec2_volumes(template: Node) -> Iterator[Node]:
         'AWS::EC2::Volume',
         exact=True,
     ))
+
+
+def _instances_without_role_iter_vulns(
+    instaces_iterator: Iterator[Union[Any,
+                                      Node]]) -> Iterator[Union[Any, Node]]:
+    for instance in instaces_iterator:
+        if isinstance(instance, Node):
+            if not instance.raw.get('IamInstanceProfile', None):
+                yield instance
 
 
 def _unencrypted_volume_iterate_vulnerabilities(
@@ -78,6 +86,22 @@ def _public_buckets_iterate_vulnerabilities(
                     'PublicReadWrite',
             ):
                 yield bucket.inner['AccessControl']
+
+
+def _cfn_instances_without_profile(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return create_vulns(
+        content=content,
+        description_key=('utils.model.finding.enum.F055_AWS.'
+                         'instances_without_profile'),
+        finding=FindingEnum.F055_AWS,
+        path=path,
+        statements_iterator=_instances_without_role_iter_vulns(
+            instaces_iterator=iter_ec2_instances(template=template)),
+    )
 
 
 def _cfn_public_buckets(
@@ -149,6 +173,21 @@ async def cfn_public_buckets(
 
 @CACHE_ETERNALLY
 @SHIELD
+async def cfn_instances_without_profile(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _cfn_instances_without_profile,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
 async def cfn_unencrypted_buckets(
     content: str,
     path: str,
@@ -203,6 +242,11 @@ async def analyze(
                 template=template,
             ))
             coroutines.append(cfn_public_buckets(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cfn_instances_without_profile(
                 content=content,
                 path=path,
                 template=template,

@@ -105,3 +105,11 @@ def iter_s3_buckets(template: Node) -> Iterator[Node]:
         'AWS::S3::Bucket',
         exact=True,
     ))
+
+
+def iter_ec2_instances(template: Node) -> Iterator[Node]:
+    yield from (props for _, _, props in iterate_resources(
+        template,
+        'AWS::EC2::Instance',
+        exact=True,
+    ))

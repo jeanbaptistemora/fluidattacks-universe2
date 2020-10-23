@@ -466,6 +466,8 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/java.properties', '6'),
         )),
         ('F055_AWS', 'SUBMITTED', (
+            ('test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml', '5'),
+            ('test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json', '5'),
             ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml', '16'),
             ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml', '6'),
             ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json', '24'),

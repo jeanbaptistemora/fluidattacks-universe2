@@ -1,9 +1,13 @@
+utils.model.finding.enum.F055_AWS.instances_without_profile:
+  en: EC2 instances require credentials to access other AWS services
+  es: >
+    Las instancias EC2 requieren credenciales para acceder a otros servicios
+    AWS
 utils.model.finding.enum.F055_AWS.public_buckets:
   en: S3 buckets are publicly accessible for read or write operations.
   es: >
     Los buckets S3 son accesibles públicamente para operaciones de lectura o
     escritura.
-
 utils.model.finding.enum.F055_AWS.unencrypted_volumes:
   en: EC2 volumes are not encrypted or do not use customer-managed keys.
   es: >
