@@ -121,7 +121,13 @@ function job_skims_process_group_on_aws {
         &&  return 1
       fi \
   &&  helper_skims_aws_login prod \
-  &&  helper_common_run_on_aws \
+  &&  is_in_queue=$(aws batch list-jobs \
+                      --job-queue default \
+                      --job-status "RUNNABLE" \
+                      --query "jobSummaryList[*].jobName" | jq ".| contains([\"${jobname}\"])") \
+  &&  if [ "${is_in_queue}" == "false" ]
+      then
+        helper_common_run_on_aws \
         "${vcpus}" \
         "${memory}" \
         "${attempts}" \
@@ -129,6 +135,9 @@ function job_skims_process_group_on_aws {
         "${jobname}" \
         "${jobqueue}" \
         'skims_process_group' "${group}"
+      else
+        echo "[INFO] job ${jobname} is already in queue"
+      fi
 }
 
 function job_skims_process_all_groups_on_aws {
