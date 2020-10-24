@@ -23,7 +23,7 @@ spec:
         worker_group: xlarge
       containers:
         - name: integrates
-          image: registry.gitlab.com/fluidattacks/product/app:master_new
+          image: registry.gitlab.com/fluidattacks/product/app:master
           imagePullPolicy: Always
           command: ["bash"]
           args: ["build.sh", "integrates_serve_production"]

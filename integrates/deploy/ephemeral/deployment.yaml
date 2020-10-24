@@ -17,7 +17,7 @@ spec:
         worker_group: large
       containers:
         - name: integrates
-          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME___new
+          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
           command: ["bash"]
           args: ["build.sh", "integrates_serve_ephemeral"]

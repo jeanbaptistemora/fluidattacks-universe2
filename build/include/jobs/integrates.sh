@@ -193,12 +193,19 @@ function job_integrates_coverage_report {
   || return 1
 }
 
-function job_integrates_build_container_app_new {
+function job_integrates_build_container_app {
   local context='.'
-  local dockerfile='integrates/deploy/containers/app-new/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}_new"
+  local dockerfile='integrates/deploy/containers/app/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
   local use_cache='false'
-  local provisioner='build/provisioners/integrates_serve_ephemeral.nix'
+  local provisioner
+
+  if [ "${CI_COMMIT_REF_NAME}" == 'master' ]
+  then
+    provisioner='build/provisioners/integrates_serve_production.nix'
+  else
+    provisioner='build/provisioners/integrates_serve_ephemeral.nix'
+  fi
 
   helper_common_docker_build_and_push \
     "${tag}" \
@@ -206,80 +213,6 @@ function job_integrates_build_container_app_new {
     "${dockerfile}" \
     "${use_cache}" \
     'PROVISIONER' "${provisioner}"
-}
-
-function job_integrates_build_container_app {
-  local context='.'
-  local dockerfile='deploy/containers/app/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
-  local use_cache='true'
-
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Remember that this job needs: build_lambdas' \
-  &&  helper_build_django_apps \
-  &&  echo '[INFO] Computing Fluid Integrates version' \
-  &&  echo -n "${FI_VERSION}" > 'version.txt' \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        SSL_KEY \
-        SSL_CERT \
-  &&  cp ../build/include/helpers/common.sh . \
-  &&  cp ../build/include/helpers/integrates.sh . \
-  &&  helper_common_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${use_cache}" \
-        'CI_API_V4_URL' "${CI_API_V4_URL}" \
-        'CI_COMMIT_AUTHOR' "${CI_COMMIT_AUTHOR}" \
-        'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
-        'CI_COMMIT_SHA' "${CI_COMMIT_SHA}" \
-        'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
-        'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
-        'ENV_NAME' "${ENVIRONMENT_NAME}" \
-        'SSL_CERT' "${SSL_CERT}" \
-        'SSL_KEY' "${SSL_KEY}" \
-        'VERSION' "${FI_VERSION}" \
-  &&  popd \
-  || return 1
-}
-
-function job_integrates_build_container_app2 {
-  local context='.'
-  local dockerfile='deploy/containers/app/Dockerfile2'
-  local tag="${CI_REGISTRY_IMAGE}/app2:${CI_COMMIT_REF_NAME}"
-  local use_cache='true'
-
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Remember that this job needs: build_lambdas' \
-  &&  helper_build_django_apps \
-  &&  echo '[INFO] Computing Fluid Integrates version' \
-  &&  echo -n "${FI_VERSION}" > 'version.txt' \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        SSL_KEY \
-        SSL_CERT \
-  &&  cp ../build/include/helpers/common.sh . \
-  &&  cp ../build/include/helpers/integrates.sh . \
-  &&  helper_common_docker_build_and_push \
-        "${tag}" \
-        "${context}" \
-        "${dockerfile}" \
-        "${use_cache}" \
-        'CI_API_V4_URL' "${CI_API_V4_URL}" \
-        'CI_COMMIT_AUTHOR' "${CI_COMMIT_AUTHOR}" \
-        'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
-        'CI_COMMIT_SHA' "${CI_COMMIT_SHA}" \
-        'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
-        'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
-        'ENV_NAME' "${ENVIRONMENT_NAME}" \
-        'SSL_CERT' "${SSL_CERT}" \
-        'SSL_KEY' "${SSL_KEY}" \
-        'VERSION' "${FI_VERSION}" \
-  &&  popd \
-  || return 1
 }
 
 function job_integrates_deploy_front {
@@ -659,7 +592,7 @@ function job_integrates_serve_local {
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_front \
     &&  helper_integrates_serve_redis \
-    &&  helper_integrates_serve_back_new \
+    &&  helper_integrates_serve_back \
           'https' \
           'development' \
           'fluidintegrates.asgi:APP' \
@@ -681,7 +614,7 @@ function job_integrates2_serve_local {
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_serve_front \
-    &&  helper_integrates_serve_back_new \
+    &&  helper_integrates_serve_back \
           'https' \
           'development' \
           'backend_new.app:APP' \
@@ -703,7 +636,7 @@ function job_integrates_serve_ephemeral {
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_serve_dynamo \
-    &&  helper_integrates_serve_back_new \
+    &&  helper_integrates_serve_back \
           'http' \
           'development' \
           'fluidintegrates.asgi:APP' \
@@ -725,7 +658,7 @@ function job_integrates2_serve_ephemeral {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
-    &&  helper_integrates_serve_back_new \
+    &&  helper_integrates_serve_back \
           'http' \
           'development' \
           'backend_new.app:APP' \
@@ -746,7 +679,7 @@ function job_integrates_serve_production {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login production \
-    &&  helper_integrates_serve_back_new \
+    &&  helper_integrates_serve_back \
           'http' \
           'production' \
           'fluidintegrates.asgi:APP' \
@@ -767,7 +700,7 @@ function job_integrates2_serve_production {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login production \
-    &&  helper_integrates_serve_back_new \
+    &&  helper_integrates_serve_back \
           'http' \
           'production' \
           'backend_new.app:APP' \
@@ -830,13 +763,6 @@ function job_integrates_cron_run {
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
   &&  python3 manage.py crontab run "${cron_job}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_back_prod {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_integrates_serve_back prod \
   &&  popd \
   ||  return 1
 }

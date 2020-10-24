@@ -10,12 +10,6 @@ in
       buildInputs = [
         pkgs.git
         pkgs.docker
-        pkgs.awscli
-        pkgs.sops
-        pkgs.jq
-        (pkgs.python37.withPackages (ps: with ps; [
-          setuptools
-        ]))
       ];
     })
   )
