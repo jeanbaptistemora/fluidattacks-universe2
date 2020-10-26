@@ -483,8 +483,7 @@ GROUP_LEVEL_ACTIONS: Set[str] = {
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
-            ('backend_api_resolvers_organization__do_'
-                'edit_stakeholder_organization'),
+            'backend_api_mutations_edit_stakeholder_organization_mutate',
             ('backend_api_resolvers_organization__do_'
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'
@@ -512,8 +511,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customeradmin=dict(
         actions={
-            ('backend_api_resolvers_organization__do_'
-                'edit_stakeholder_organization'),
+            'backend_api_mutations_edit_stakeholder_organization_mutate',
             ('backend_api_resolvers_organization__do_'
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'
@@ -534,8 +532,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     group_manager=dict(
         actions={
-            ('backend_api_resolvers_organization__do_'
-                'edit_stakeholder_organization'),
+            'backend_api_mutations_edit_stakeholder_organization_mutate',
             ('backend_api_resolvers_organization__do_'
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'

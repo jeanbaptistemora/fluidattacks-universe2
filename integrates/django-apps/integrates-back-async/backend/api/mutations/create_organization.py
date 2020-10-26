@@ -1,6 +1,6 @@
 # Standard
 import logging
-from typing import Any, Dict
+from typing import Dict
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
@@ -17,8 +17,8 @@ TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger('transactional')
 
 
 @require_login
-async def create(
-    _: Any,
+async def mutate(
+    _parent: None,
     info: GraphQLResolveInfo,
     name: str
 ) -> CreateOrganizationPayload:

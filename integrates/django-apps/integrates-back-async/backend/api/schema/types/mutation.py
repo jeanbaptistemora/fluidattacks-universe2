@@ -6,7 +6,8 @@ from ariadne import MutationType
 
 # Local
 from backend.api.mutations import (
-    organization as org_mutations,
+    create_organization,
+    edit_stakeholder_organization,
     update_evidence
 )
 from backend.api.resolvers import (
@@ -26,7 +27,11 @@ from backend.api.resolvers import (
 MUTATION = MutationType()
 
 # Organization
-MUTATION.set_field('createOrganization', org_mutations.create)
+MUTATION.set_field('createOrganization', create_organization.mutate)
+MUTATION.set_field(
+    'editStakeholderOrganization',
+    edit_stakeholder_organization.mutate
+)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
 
 MUTATION.set_field('invalidateCache', cache.resolve_invalidate_cache)
@@ -55,9 +60,6 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
-MUTATION.set_field(
-    'editStakeholderOrganization', organization.resolve_organization_mutation
-)
 MUTATION.set_field(
     'grantStakeholderOrganizationAccess',
     organization.resolve_organization_mutation
