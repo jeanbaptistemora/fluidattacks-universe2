@@ -36,7 +36,7 @@ and generate value for our customers on a daily basis,
 but also to increase the security of our production deployments.
 Thereby, we have been able to reach the following average rates:
 
-[role="tb-alt"]
+[role="tb-alt center"]
 [frame="none",cols=2,caption=""]
 |====
 a|[caption=""]
