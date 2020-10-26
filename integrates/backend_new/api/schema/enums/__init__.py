@@ -233,6 +233,13 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'Sorts',
+        {
+            'NO': 'NO',
+            'YES': 'YES'
+        }
+    ),
+    EnumType(
         'StakeholderEntity',
         {
             'ORGANIZATION': 'ORGANIZATION',

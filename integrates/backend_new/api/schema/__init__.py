@@ -17,11 +17,7 @@ from backend.api.schema.scalars import SCALARS
 from backend.api.schema.types import TYPES
 
 
-SCHEMA_PATH: str = os.path.dirname(
-    os.path.abspath(__file__).replace(
-        'backend_new/', 'django-apps/integrates-back-async/backend/'
-    ).replace('schema.py', 'schema/__init__.py')
-)
+SCHEMA_PATH: str = os.path.dirname(os.path.abspath(__file__))
 SDL_CONTENT: str = load_schema_from_path(SCHEMA_PATH)
 
 SCHEMA: GraphQLSchema = make_executable_schema(

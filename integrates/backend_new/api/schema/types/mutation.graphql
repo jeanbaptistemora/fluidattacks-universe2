@@ -214,6 +214,7 @@ type Mutation {
         requirements: String!
         risk: String
         scenario: String!
+        sorts: Sorts
         threat: String!
         title: String!
         findingType: String

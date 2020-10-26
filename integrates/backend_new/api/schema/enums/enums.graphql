@@ -171,6 +171,11 @@ enum ResourceState {
   INACTIVE
 }
 
+enum Sorts {
+  NO
+  YES
+}
+
 enum StakeholderEntity {
   ORGANIZATION
   PROJECT
