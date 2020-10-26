@@ -3,6 +3,8 @@
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
+  variables:
+    GIT_DEPTH: 5
 
 .with_nix: &with_nix
   tags: [autoscaling]
@@ -11,6 +13,8 @@
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
+  variables:
+    GIT_DEPTH: 5
 
 .observes_commit_pattern: &observes_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|observes)/'
 
