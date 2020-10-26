@@ -87,10 +87,15 @@ async def do_bitbucket_login(request: Request) -> Any:
 
 async def authz(request: Request, client: OAuth) -> HTMLResponse:
     token = await client.authorize_access_token(request)
-    user = dict(await client.parse_id_token(request, token))
+
+    if 'id_token' in token:
+        user = await utils.get_jwt_userinfo(client, request, token)
+    else:
+        user = await utils.get_bitbucket_oauth_userinfo(client, token)
+
     request.session['username'] = user['email']
-    request.session['first_name'] = user['given_name']
-    request.session['last_name'] = user['family_name']
+    request.session['first_name'] = user.get('given_name', '')
+    request.session['last_name'] = user.get('family_name', '')
     response = TEMPLATING_ENGINE.TemplateResponse(
         name='app.html',
         context={
@@ -102,7 +107,7 @@ async def authz(request: Request, client: OAuth) -> HTMLResponse:
         }
     )
 
-    jwt_token = utils.create_session_token(user)
+    jwt_token = utils.create_session_token(request.session)
     utils.set_token_in_response(response, jwt_token)
 
     return response
