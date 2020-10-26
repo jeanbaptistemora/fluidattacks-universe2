@@ -16,7 +16,7 @@ import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities/index";
 import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-import { Can } from "utils/authz/Can";
+import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -60,28 +60,30 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
               <Row>
                 <Col md={12}>
                   <Row>
-                    <Col md={2} className={style.text_right}>
-                      <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>
-                    </Col>
-                    <Col md={10}>
+                    <Col100>
+                      <ControlLabel>
+                        <b>{translate.t("search_findings.tab_tracking.open")}</b>
+                      </ControlLabel>
+                      <br />
                       <VulnerabilitiesView
                         editMode={false}
                         findingId={findingId}
                         state="open"
                       />
-                    </Col>
+                    </Col100>
                   </Row>
                   <Row>
-                    <Col md={2} className={style.text_right}>
-                      <label className={style.track_title}>{translate.t("search_findings.tab_tracking.closed")}</label>
-                    </Col>
-                    <Col md={10}>
+                    <Col100>
+                      <ControlLabel>
+                        <b>{translate.t("search_findings.tab_tracking.closed")}</b>
+                      </ControlLabel>
+                      <br />
                       <VulnerabilitiesView
                         editMode={false}
                         findingId={findingId}
                         state="closed"
                       />
-                    </Col>
+                    </Col100>
                   </Row>
                 </Col>
               </Row>

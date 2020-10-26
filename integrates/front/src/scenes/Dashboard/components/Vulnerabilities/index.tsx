@@ -400,106 +400,95 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
             let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
 
-            if (props.state !== "PENDING") {
-              inputsHeader.push(
-                {
-                  align: "left",
-                  dataField: "verification",
-                  formatter: statusFormatter,
-                  header: translate.t("search_findings.tab_description.verification"),
-                  onSort: onSortInputs,
-                },
-                {
-                  align: "left",
-                  dataField: "tag",
-                  header: translate.t("search_findings.tab_description.tag"),
-                  headerFormatter: proFormatter,
-                  onSort: onSortInputs,
-                  visible: true,
-                },
-                {
-                  align: "left",
-                  dataField: "severity",
-                  header: translate.t("search_findings.tab_description.business_criticality"),
-                  headerFormatter: proFormatter,
-                  onSort: onSortInputs,
-                  visible: true,
-                },
-                {
-                  align: "left",
-                  dataField: "treatmentManager",
-                  header: translate.t("search_findings.tab_description.treatment_mgr"),
-                  onSort: onSortInputs,
-                  visible: true,
-                  width: "30%",
-                },
-              );
-              linesHeader.push(
-                {
-                  align: "left",
-                  dataField: "verification",
-                  formatter: statusFormatter,
-                  header: translate.t("search_findings.tab_description.verification"),
-                  onSort: onSortLines,
-                },
-                {
-                  align: "left",
-                  dataField: "tag",
-                  header: translate.t("search_findings.tab_description.tag"),
-                  headerFormatter: proFormatter,
-                  onSort: onSortLines,
-                  visible: true,
-                },
-                {
-                  align: "left",
-                  dataField: "severity",
-                  header: translate.t("search_findings.tab_description.business_criticality"),
-                  headerFormatter: proFormatter,
-                  onSort: onSortLines,
-                  visible: true,
-                },
-                {
-                  align: "left",
-                  dataField: "treatmentManager",
-                  header: translate.t("search_findings.tab_description.treatment_mgr"),
-                  onSort: onSortLines,
-                  visible: true,
-                },
-              );
-              portsHeader.push(
-                {
-                  align: "left",
-                  dataField: "verification",
-                  formatter: statusFormatter,
-                  header: translate.t("search_findings.tab_description.verification"),
-                  onSort: onSortPorts,
-                },
-                {
-                  align: "left",
-                  dataField: "tag",
-                  header: translate.t("search_findings.tab_description.tag"),
-                  headerFormatter: proFormatter,
-                  onSort: onSortPorts,
-                  visible: true,
-                  wrapped: true,
-                },
-                {
-                  align: "left",
-                  dataField: "severity",
-                  header: translate.t("search_findings.tab_description.business_criticality"),
-                  headerFormatter: proFormatter,
-                  onSort: onSortPorts,
-                  visible: true,
-                },
-                {
-                  align: "left",
-                  dataField: "treatmentManager",
-                  header: translate.t("search_findings.tab_description.treatment_mgr"),
-                  onSort: onSortPorts,
-                  visible: true,
-                },
-              );
-            }
+            inputsHeader.push(
+              {
+                align: "left",
+                dataField: "verification",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.verification"),
+                onSort: onSortInputs,
+              },
+              {
+                align: "left",
+                dataField: "tag",
+                header: translate.t("search_findings.tab_description.tag"),
+                headerFormatter: proFormatter,
+                onSort: onSortInputs,
+              },
+              {
+                align: "left",
+                dataField: "severity",
+                header: translate.t("search_findings.tab_description.business_criticality"),
+                headerFormatter: proFormatter,
+                onSort: onSortInputs,
+              },
+              {
+                align: "left",
+                dataField: "treatmentManager",
+                header: translate.t("search_findings.tab_description.treatment_mgr"),
+                onSort: onSortInputs,
+                width: "30%",
+              },
+            );
+            linesHeader.push(
+              {
+                align: "left",
+                dataField: "verification",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.verification"),
+                onSort: onSortLines,
+              },
+              {
+                align: "left",
+                dataField: "tag",
+                header: translate.t("search_findings.tab_description.tag"),
+                headerFormatter: proFormatter,
+                onSort: onSortLines,
+              },
+              {
+                align: "left",
+                dataField: "severity",
+                header: translate.t("search_findings.tab_description.business_criticality"),
+                headerFormatter: proFormatter,
+                onSort: onSortLines,
+              },
+              {
+                align: "left",
+                dataField: "treatmentManager",
+                header: translate.t("search_findings.tab_description.treatment_mgr"),
+                onSort: onSortLines,
+              },
+            );
+            portsHeader.push(
+              {
+                align: "left",
+                dataField: "verification",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.verification"),
+                onSort: onSortPorts,
+              },
+              {
+                align: "left",
+                dataField: "tag",
+                header: translate.t("search_findings.tab_description.tag"),
+                headerFormatter: proFormatter,
+                onSort: onSortPorts,
+                wrapped: true,
+              },
+              {
+                align: "left",
+                dataField: "severity",
+                header: translate.t("search_findings.tab_description.business_criticality"),
+                headerFormatter: proFormatter,
+                onSort: onSortPorts,
+              },
+              {
+                align: "left",
+                dataField: "treatmentManager",
+                header: translate.t("search_findings.tab_description.treatment_mgr"),
+                onSort: onSortPorts,
+              },
+            );
 
             if (props.editMode && permissions.can("backend_api_resolvers_vulnerability__do_delete_vulnerability")) {
               inputsHeader.push({

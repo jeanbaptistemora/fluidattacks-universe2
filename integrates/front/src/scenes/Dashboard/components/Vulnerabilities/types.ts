@@ -90,7 +90,7 @@ export interface IVulnerabilitiesViewProps {
   lastTreatment?: IHistoricTreatment;
   projectName?: string;
   separatedRow?: boolean;
-  state: string;
+  state: "open" | "closed";
   verificationFn?(vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void;
 }
 
