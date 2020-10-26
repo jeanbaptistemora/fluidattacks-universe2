@@ -31,7 +31,6 @@ describe("update verification component", () => {
           id: "",
           inputsVulns: [],
           linesVulns: [],
-          pendingVulns: [],
           portsVulns: [],
           releaseDate: "",
           success: true,

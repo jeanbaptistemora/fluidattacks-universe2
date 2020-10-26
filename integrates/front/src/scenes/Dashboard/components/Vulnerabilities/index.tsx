@@ -38,12 +38,6 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const filterApprovalStatus:
-  ((dataVuln: IVulnType, state: string) => IVulnType) =
-    (dataVuln: IVulnType, state: string): IVulnType =>
-
-      dataVuln.filter((vuln: IVulnType[0]) => vuln.currentApprovalStatus === state);
-
 const filterState:
   ((dataVuln: IVulnType, state: string) => IVulnType) =
     (dataVuln: IVulnType, state: string): IVulnType =>
@@ -290,9 +284,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               data.finding.linesVulns, props.state));
             const dataPorts: IVulnsAttr["finding"]["portsVulns"] = newVulnerabilities(filterState(
               data.finding.portsVulns, props.state));
-            const dataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = _.isEmpty(data.finding.pendingVulns)
-              ? []
-              : newVulnerabilities(filterApprovalStatus(data.finding.pendingVulns, props.state));
 
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {
@@ -408,7 +399,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
             let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
             let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
-            const formattedDataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = dataPendingVulns;
 
             if (props.state !== "PENDING") {
               inputsHeader.push(
@@ -662,43 +652,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   _.includes(rows.map((row: IVulnRow) => row.id), vuln.id) ? [...acc, indexReduce] : acc,
                 []));
 
-            const pendingsHeader: IHeaderConfig[] = [
-              {
-                align: "left",
-                dataField: "where",
-                header: "Where",
-                width: "50%",
-                wrapped: true,
-              },
-              {
-                align: "left",
-                dataField: "specific",
-                header: translate.t("search_findings.tab_description.field"),
-                width: "15%",
-              },
-              {
-                align: "left",
-                dataField: "currentState",
-                formatter: statusFormatter,
-                header: translate.t("search_findings.tab_description.state"),
-                width: "15%",
-                wrapped: true,
-              },
-              {
-                align: "left",
-                dataField: "isNew",
-                header: translate.t("search_findings.tab_description.is_new"),
-                width: "12%",
-                wrapped: true,
-              }];
-            if (canGetAnalyst) {
-              pendingsHeader.push({
-                align: "left",
-                dataField: "analyst",
-                header: translate.t("search_findings.tab_description.analyst"),
-                width: "38%",
-              });
-            }
             const calculateIndex: ((row: IVulnRow, vulns: IVulnRow[]) => number) =
               (row: IVulnRow, vulns: IVulnRow[]): number => (
                 vulns.reduce(
@@ -907,21 +860,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     </React.Fragment>
                   : undefined
                 }
-                { dataPendingVulns.length > 0 ?
-                <React.Fragment>
-                  <DataTableNext
-                    id="pendingVulns"
-                    bordered={false}
-                    dataset={formattedDataPendingVulns}
-                    exportCsv={false}
-                    headers={pendingsHeader}
-                    pageSize={10}
-                    search={false}
-                    tableBody={style.tableBody}
-                    tableHeader={style.tableHeader}
-                  />
-                </React.Fragment>
-                : undefined }
                 <DeleteVulnerabilityModal
                   findingId={props.findingId}
                   id={vulnerabilityId}
@@ -959,5 +897,4 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     );
   };
 
-// tslint:disable-next-line: max-file-line-count
 export { vulnsViewComponent as VulnerabilitiesView };

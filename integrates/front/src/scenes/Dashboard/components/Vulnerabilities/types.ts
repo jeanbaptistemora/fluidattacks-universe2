@@ -5,7 +5,6 @@ export interface IVulnsAttr {
     id: string;
     inputsVulns: IVulnRow[];
     linesVulns: IVulnRow[];
-    pendingVulns: IVulnRow[];
     portsVulns: IVulnRow[];
     releaseDate: string;
     success: string;
@@ -102,5 +101,5 @@ export interface IVerifyRequestVulnResult {
   verifyRequestVuln: { success: boolean };
 }
 
-export type IVulnType = (IVulnsAttr["finding"]["pendingVulns"] | IVulnsAttr["finding"]["inputsVulns"] |
-IVulnsAttr["finding"]["linesVulns"] | IVulnsAttr["finding"]["portsVulns"]);
+export type IVulnType = (IVulnsAttr["finding"]["inputsVulns"] | IVulnsAttr["finding"]["linesVulns"] |
+IVulnsAttr["finding"]["portsVulns"]);
