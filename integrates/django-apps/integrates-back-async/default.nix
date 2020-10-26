@@ -15,7 +15,7 @@ in
       ]))
     ];
 
-    requirements = builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
+    requirements = builders.pythonRequirements ../../deploy/dependencies/prod-requirements.txt;
 
     srcIncludeGenericShellOptions = ../../../build/include/generic/shell-options.sh;
     srcIncludeGenericDirStructure = ../../../build/include/generic/dir-structure.sh;

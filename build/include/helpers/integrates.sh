@@ -117,7 +117,7 @@ function helper_integrates_serve_dynamo {
         & } \
   &&  sleep 5 \
   &&  echo '[INFO] Populating DynamoDB local' \
-  &&  { bash ./deploy/containers/common/vars/provision_local_db.sh & }
+  &&  { bash ./deploy/database/provision_local_db.sh & }
 }
 
 function helper_integrates_serve_back {
@@ -257,7 +257,7 @@ function helper_set_local_dynamo_and_redis {
   &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
   &&  sleep 5 \
   &&  echo '[INFO] Populating DynamoDB local' \
-  &&  bash ./deploy/containers/common/vars/provision_local_db.sh
+  &&  bash ./deploy/database/provision_local_db.sh
 }
 
 function helper_build_django_apps {

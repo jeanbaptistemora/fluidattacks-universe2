@@ -16,7 +16,7 @@ in
       ];
 
       pyPkgReqsApp =
-        builders.pythonRequirements ../../integrates/deploy/containers/app/requirements.txt;
+        builders.pythonRequirements ../../integrates/deploy/dependencies/prod-requirements.txt;
       pyPkgReqs =
         builders.pythonRequirements ../../integrates/deploy/dependencies/dev-requirements.txt;
 
