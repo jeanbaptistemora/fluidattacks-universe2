@@ -144,7 +144,7 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
-    data = await context.loaders['single_vulnerability'].load(identifier)
+    data = await context.loaders['vulnerability'].load(identifier)
     return await _resolve_from_finding_id(context, data['finding_id'])
 
 
