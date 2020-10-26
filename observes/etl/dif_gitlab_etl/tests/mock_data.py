@@ -2,6 +2,7 @@
 from tempfile import NamedTemporaryFile
 from typing import (
     Callable,
+    cast,
     Dict,
     IO,
     List,
@@ -131,28 +132,36 @@ def mock_extract_between(
     )-> ExtractState:
         last_page_reached = False
         pages: List[PageData] = []
-
+        last_minor_id: Optional[int] = init_last_minor_id
         for page in resource_range.page_range:
-            if init_last_minor_id is None:
-                 pages.append(mock_extract_data(mock_data)(
+            if last_minor_id is None:
+                dpage = mock_extract_data(mock_data)(
                     GitlabResourcePage(
                         g_resource=resource_range.g_resource,
                         per_page=resource_range.per_page,
                         page=page,
                     )
-                 ))
+                )
             else:
-                pages.append(mock_extract_data_less_than(mock_data)(
-                    pages[-1].minor_item_id,
+                dpage = mock_extract_data_less_than(mock_data)(
+                    last_minor_id,
                     GitlabResourcePage(
                         g_resource=resource_range.g_resource,
                         per_page=resource_range.per_page,
                         page=page,
                     )
-                ))
+                )
+            if not dpage:
+                last_page_reached = True
+                break
+            pages.append(dpage)
+            candidate = pages[-1].minor_item_id
+            if not last_minor_id or candidate < last_minor_id:
+                last_minor_id = candidate
 
-        last_minor_id = pages[-1].minor_item_id
         return ExtractState(
-            pages, last_minor_id, last_page_reached
+            pages,
+            cast(int, last_minor_id),
+            last_page_reached,
         )
     return _mock_extract_between

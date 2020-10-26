@@ -9,7 +9,7 @@ from streamer_gitlab.api_client import (
 from dif_gitlab_etl import planner
 
 
-async def mock_get_resource(resource: GitlabResourcePage):
+def mock_get_resource(resource: GitlabResourcePage):
     if resource.page == 123:
         return [
             {'id': '245'}, {'id': '244'}, {'id': '243'}
@@ -25,9 +25,8 @@ async def mock_get_resource(resource: GitlabResourcePage):
     return None
 
 
-@pytest.mark.asyncio
-async def test_search_page_with():
-    page_id = await planner.search_page_with(
+def test_search_page_with():
+    page_id = planner.search_page_with(
         get_resource=mock_get_resource,
         target_id=243,
         last_seen=GitlabResourcePage(
@@ -42,9 +41,8 @@ async def test_search_page_with():
     assert page_id == 123
 
 
-@pytest.mark.asyncio
-async def test_search_page_last_page():
-    page_id = await planner.search_page_with(
+def test_search_page_last_page():
+    page_id = planner.search_page_with(
         get_resource=mock_get_resource,
         target_id=0,
         last_seen=GitlabResourcePage(
@@ -59,7 +57,7 @@ async def test_search_page_last_page():
     assert page_id == 130  # expected last page
 
 
-async def mock_fail_get_resource(resource: GitlabResourcePage):
+def mock_fail_get_resource(resource: GitlabResourcePage):
     if resource.page >= 111:
         return [
             {'id': '300'}
@@ -68,9 +66,8 @@ async def mock_fail_get_resource(resource: GitlabResourcePage):
         raise Exception('Should not get pages below last_seen')
 
 
-@pytest.mark.asyncio
-async def test_not_start_from_scratch():
-    await planner.search_page_with(
+def test_not_start_from_scratch():
+    planner.search_page_with(
         get_resource=mock_fail_get_resource,
         target_id=300,
         last_seen=GitlabResourcePage(
