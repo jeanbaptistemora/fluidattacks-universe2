@@ -25,7 +25,7 @@ from streamer_gitlab.log import log
 class GitlabResource(NamedTuple):
     project: str
     resource: str
-    params: dict = {}
+    params: frozenset = frozenset()
 
 
 class GitlabResourcePage(NamedTuple):

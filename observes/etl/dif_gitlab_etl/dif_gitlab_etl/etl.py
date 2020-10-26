@@ -190,7 +190,7 @@ def upload_data(
     auth: Dict[str, str],
     exe_query: Callable[[str], Any]
 ) -> None:
-    log('info', f'Checking upload order')
+    log('info', 'Checking upload order')
     verify_ascending_order(data_pages)
     auth_file = NamedTemporaryFile(mode='w+')
     auth_file.write(json.dumps(auth))
