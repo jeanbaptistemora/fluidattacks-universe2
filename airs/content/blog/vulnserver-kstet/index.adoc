@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by Ganapathy Kumar on Unsplash
 :description: This post will show how to exploit the Vulnserver KSTET command using a socket reuse method.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
+:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

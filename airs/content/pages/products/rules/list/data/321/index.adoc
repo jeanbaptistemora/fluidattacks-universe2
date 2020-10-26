@@ -17,8 +17,8 @@ Serialization is the process of transforming an object into a stream of bytes
 to store or transmit it.
 This allows saving its state,
 so that it can be recovered later using deserialization.
-If an object comes from an untrusted source and it is not properly validated
-before being deserialized,
+If an object comes from an untrusted source
+and is not properly validated before being deserialized,
 it can lead to deserialization attacks such as object injection.
 
 == Findings

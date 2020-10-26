@@ -129,7 +129,7 @@ What exactly would be the "hits" and the "misses"?
 Recall that we _update_ our knowledge of hits and misses
 by taking random (tough typically small) samples
 from an unknown, allegedly large population.
-Since we want to estimate the probability that a bussiness like our own
+Since we want to estimate the probability that a business like our own
 would suffer a major attack,
 then the population should be a list of companies similar to ours.
 Call that the top 10, 100, etc of your country/region/world.

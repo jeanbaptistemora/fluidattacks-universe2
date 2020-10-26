@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by Pierre Binet on Unsplash
 :description: This post will show how use reverse engineering techniques and tools to find vulnerabilities on Vulnserver.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
+:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

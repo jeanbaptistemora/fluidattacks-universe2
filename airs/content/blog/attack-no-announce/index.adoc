@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Executive leaking business information
 :description: We want to guide you about some management policies we suggest that you could take to answer with high precision how secure your information is.
-:keywords: Bussiness, Information, Security, Policy, Protection, Hacking, Best Practices,Ethical Hacking, Pentesting
+:keywords: Business, Information, Security, Policy, Protection, Hacking, Best Practices,Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

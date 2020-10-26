@@ -14,8 +14,8 @@ other than those specified in the functional requirements (backdoors).
 == Description
 
 Sometimes, functionalities other than the ones for which a system was designed
-are included, during development, to aid the development and testing processes.
-These functions often represent backdoors because they leave exposed ports
+are included during development to aid the development and testing processes.
+These functions often represent backdoors because they leave ports exposed
 or help in bypassing the authentication and/or authorization mechanisms.
 Therefore, they should not be part of the production environment,
 as they could become serious security vulnerabilities.

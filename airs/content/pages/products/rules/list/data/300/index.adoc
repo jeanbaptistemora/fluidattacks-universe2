@@ -8,15 +8,15 @@
 
 == Requirement
 
-Bussiness sensitive data
-(passwords, credit card numbers, *CVV*, etc) must be masked.
+Business sensitive data
+(passwords, credit card numbers, *CVV*, etc.) must be masked.
 
 == Description
 
-Applications usually handle personal information such as credit card numbers,
+Applications usually handle personal information, such as credit card numbers,
 *CVV*, personal identifications, social security numbers, etc.
 The exposure of this data could severely affect their owners and so it must
-be considered sensitive and specifically protected.
+be considered sensitive and be specifically protected.
 Masking is a mechanism that contributes to this protection.
 
 == Findings

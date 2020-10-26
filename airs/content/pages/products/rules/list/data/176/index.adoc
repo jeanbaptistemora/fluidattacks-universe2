@@ -10,18 +10,18 @@
 
 The system must restrict access to system objects
 that have sensitive content.
-It will only allow access to authorized users.
+It should only allow access to authorized users.
 
 == Description
 
-Applications usually handle personal and confidential information
+Applications usually handle personal and confidential information,
 such as personal identifications, social security numbers,
 credentials and health histories.
 This data should be protected as a fundamental right,
-therefore, it should be stored and transmitted using secure mechanisms that
+and therefore be stored and transmitted using secure mechanisms that
 prevent access to it by unauthorized actors.
-Furthermore, the access control model and role assignation policy must
-be implemented having these restrictions in consideration.
+Furthermore, the access control model and role assignment policy
+must be implemented taking these restrictions into consideration.
 
 == Findings
 

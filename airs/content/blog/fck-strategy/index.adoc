@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw
 :description: Companies should pay attention to how to handle mistakes and think about how to leverage from imperfection. Here, a F*CK statement provides a lesson.
-:keywords: Bussiness, Mistakes, Company, Image, Cibersecurity, Pratfall Effect, Ethical Hacking, Pentesting
+:keywords: Business, Mistakes, Company, Image, Cibersecurity, Pratfall Effect, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

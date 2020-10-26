@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by Syed Ali on Unsplash
 :description: This post will show how to create a complete, functional exploit creating a complex shellcode using ROP
-:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: People manipulation
 :description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them.
-:keywords: Information, Security, Protection, Hacking, Bussiness, Social Engineering, Ethical Hacking, Pentesting
+:keywords: Information, Security, Protection, Hacking, Business, Social Engineering, Ethical Hacking, Pentesting
 :author: Mateo Gutiérrez Gómez
 :writer: mgutierrez
 :name: Mateo Gutiérrez Gómez

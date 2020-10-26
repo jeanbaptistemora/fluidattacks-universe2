@@ -13,12 +13,12 @@ security settings are changed.
 
 == Description
 
-Most systems allow their users to modify relevant information such as
-access credentials and contact data.
-Users should be notified whenever any of these or other security settings are
-modified,
-as it could be a part of several types of attacks.
-E.g. account takeover attacks.
+Most systems allow their users to modify relevant information,
+such as access credentials and contact data.
+Users should be notified
+whenever any of these or other security settings are modified,
+as it could be a part of several types of attacks,
+e.g., account takeover attacks.
 
 == References
 

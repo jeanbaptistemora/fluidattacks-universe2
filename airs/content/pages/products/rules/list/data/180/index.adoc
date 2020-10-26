@@ -8,8 +8,8 @@
 
 == Requirement
 
-Environments other than production should use mock or automatically-generated
-data.
+Environments other than production should use mock
+or automatically generated data.
 
 == Description
 

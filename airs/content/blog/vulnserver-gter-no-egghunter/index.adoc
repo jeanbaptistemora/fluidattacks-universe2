@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by Florian Klauer on Unsplash
 :description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
+:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

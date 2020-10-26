@@ -9,4 +9,4 @@
 == Requirement
 
 All systems related to credit cards
-must use tokens instead of storing cards information.
+must use tokens instead of storing card information.

@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by NeONBRAND on unplash: https://unsplash.com/photos/dDvrIJbSCkg
 :description: Do companies go bankrupt by a cybersecurity breach? Some people assure there is no evidence about it. In this blog post, we tried to dig deeper.
-:keywords: Bussiness, Security, Company, Vulnerability, Mistake, Information, Ethical Hacking, Pentesting
+:keywords: Business, Security, Company, Vulnerability, Mistake, Information, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

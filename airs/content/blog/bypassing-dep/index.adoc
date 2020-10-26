@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by Michael Dziedzic on Unsplash
 :description: This post will show how bypass the Data Execution Prevention security mechanism using Return-Oriented Programming.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

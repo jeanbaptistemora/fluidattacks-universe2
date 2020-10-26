@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Foosball red vs blue. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/va-B5dBbpr4
 :description: Here we give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise and its benefits for customers.
-:keywords: Redteam, Red, Team, Pentesting, Attack, KillChain, Hacking, Bussiness, Ethical Hacking, Pentesting
+:keywords: Redteam, Red, Team, Pentesting, Attack, KillChain, Hacking, Business, Ethical Hacking, Pentesting
 :author: Anderson Taguada
 :writer: anders2d
 :name: Anderson Taguada

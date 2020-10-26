@@ -18,7 +18,7 @@ This data includes credentials, secrets, cryptographic keys, personal
 identification numbers and other personal information.
 Following secure programming practices, none of this information should be
 present in the source code,
-as it could lead a source code leak to putting critical systems in jeopardy.
+as a leak could put critical systems in jeopardy.
 
 == Findings
 
