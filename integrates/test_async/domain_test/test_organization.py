@@ -231,7 +231,7 @@ async def test_get_user_organizations():
 async def test_get_uers():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_domain.get_users(org_id)
-    assert len(users) == 9
+    assert len(users) == 10
     assert sorted(users) == [
         'continuoushack2@gmail.com',
         'continuoushacking@gmail.com',
@@ -240,6 +240,7 @@ async def test_get_uers():
         'integratescustomer@gmail.com',
         'integratesexecutive@gmail.com',
         'integratesmanager@gmail.com',
+        'integratesresourcer@gmail.com',
         'integratesuser@gmail.com',
         'unittest2@fluidattacks.com'
     ]

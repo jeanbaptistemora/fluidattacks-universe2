@@ -319,7 +319,8 @@ class ProjectTest(TestCase):
             'integratesuser@gmail.com',
             'integratesanalyst@fluidattacks.com',
             'continuoushacking@gmail.com',
-            'continuoushack2@gmail.com'
+            'continuoushack2@gmail.com',
+            'integratesresourcer@gmail.com'
         ]
         assert expected_output == await get_users(project_name)
 
