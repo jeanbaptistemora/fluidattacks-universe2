@@ -5,7 +5,9 @@ from itertools import (
 from typing import (
     Any,
     Iterator,
+    List,
     Optional,
+    Union,
 )
 
 # Third party libraries
@@ -16,7 +18,8 @@ from lark import (
 # Local libraries
 from aws.model import (
     AWSIamPolicyStatement,
-    AWSIamManagedPolicyArns
+    AWSIamManagedPolicyArns,
+    AWSS3Bucket,
 )
 from aws.iam.utils import (
     yield_statements_from_policy_document,
@@ -182,3 +185,37 @@ def iterate_managed_policy_arns(model: Any, ) -> Iterator[Any]:
             yield AWSIamManagedPolicyArns(line=block.line,
                                           column=block.column,
                                           data=[block.val])
+
+
+def get_argument(body: List[Union[Attribute, Block]],
+                 key: str,
+                 default: Any = None) -> Union[Any, Block]:
+    for item in body:
+        if isinstance(item, Attribute):
+            continue
+        if isinstance(item, Block):
+            if key in item.namespace:
+                return item
+    return default
+
+
+def get_attribute(body: List[Union[Attribute, Block]],
+                  key: str,
+                  default: Any = None) -> Union[Any, Block]:
+    for item in body:
+        if isinstance(item, Block):
+            continue
+        if isinstance(item, Attribute):
+            if item.key == key:
+                return item
+    return default
+
+
+def iter_s3_buckets(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, 'resource', 'aws_s3_bucket')
+    for bucket in iterator:
+        yield AWSS3Bucket(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
