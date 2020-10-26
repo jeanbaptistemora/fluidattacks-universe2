@@ -22,8 +22,21 @@ from metaloaders.model import (
 from aws.utils import (
     create_vulns,
 )
+from aws.model import (
+    AWSS3Bucket,
+    AWSS3Acl,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure import (
+    iter_s3_buckets as terraform_iter_s3_buckets,
+    get_argument,
+    get_attribute,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     SHIELD,
 )
 from parse_cfn.loader import (
@@ -77,15 +90,35 @@ def _unencrypted_volume_iterate_vulnerabilities(
 
 
 def _public_buckets_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[Any,
-                                     Node]], ) -> Iterator[Union[Any, Node]]:
+    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
+) -> Iterator[Union[AWSS3Acl, Node]]:
     for bucket in buckets_iterator:
         if isinstance(bucket, Node):
-            if bucket.raw.get('AccessControl', 'Private') in (
-                    'PublicRead',
-                    'PublicReadWrite',
-            ):
+            if bucket.raw.get('AccessControl', 'Private') == 'PublicReadWrite':
                 yield bucket.inner['AccessControl']
+        elif isinstance(bucket, AWSS3Bucket):
+            acl = get_attribute(body=bucket.data, key='acl')
+            if acl and acl.val == 'public-read-write':
+                yield AWSS3Acl(
+                    data=acl.val,
+                    column=acl.column,
+                    line=acl.line,
+                )
+
+
+def _unencrypted_buckets_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
+) -> Iterator[Union[AWSS3Bucket, Node]]:
+    for bucket in buckets_iterator:
+        if isinstance(bucket, Node):
+            if not bucket.raw.get('BucketEncryption', None):
+                yield bucket
+        elif isinstance(bucket, AWSS3Bucket):
+            if not get_argument(
+                    key='server_side_encryption_configuration',
+                    body=bucket.data,
+            ):
+                yield bucket
 
 
 def _cfn_instances_without_profile(
@@ -154,6 +187,38 @@ def _cfn_unencrypted_buckets(
     )
 
 
+def _terraform_unencrypted_buckets(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    return create_vulns(
+        content=content,
+        description_key=('utils.model.finding.enum.'
+                         'F055_AWS.unencrypted_buckets'),
+        finding=FindingEnum.F055_AWS,
+        path=path,
+        statements_iterator=_unencrypted_buckets_iterate_vulnerabilities(
+            buckets_iterator=terraform_iter_s3_buckets(model=model)
+        ),
+    )
+
+
+def _terraform_public_buckets(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    return create_vulns(
+        content=content,
+        description_key='utils.model.finding.enum.F055_AWS.public_buckets',
+        finding=FindingEnum.F055_AWS,
+        path=path,
+        statements_iterator=_public_buckets_iterate_vulnerabilities(
+            buckets_iterator=terraform_iter_s3_buckets(model=model)),
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 async def cfn_public_buckets(
@@ -219,6 +284,37 @@ async def cfn_unencrypted_volumes(
     )
 
 
+@SHIELD
+async def terraform_unencrypted_buckets(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag W41 S3 Bucket should have encryption option set
+    return await in_process(
+        _terraform_unencrypted_buckets,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@SHIELD
+async def terraform_public_buckets(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag F14 S3 Bucket should not have a public read-write acl
+    # cfn_nag W31 S3 Bucket likely should not have a public read acl
+    return await in_process(
+        _terraform_public_buckets,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -251,6 +347,19 @@ async def analyze(
                 path=path,
                 template=template,
             ))
+    elif file_extension in EXTENSIONS_TERRAFORM:
+        content = await content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(terraform_unencrypted_buckets(
+            content=content,
+            path=path,
+            model=model,
+        ))
+        coroutines.append(terraform_public_buckets(
+            content=content,
+            path=path,
+            model=model,
+        ))
 
     for results in resolve(coroutines, worker_greediness=1):
         for result in await results:

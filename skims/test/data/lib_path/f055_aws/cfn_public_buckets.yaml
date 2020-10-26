@@ -13,7 +13,7 @@ Resources:
   S3Bucket1:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
+      AccessControl: PublicReadWrite
       BucketName: SKIMS-PUBLIC-BUCKET-2
       BucketEncryption:
         ServerSideEncryptionConfiguration:

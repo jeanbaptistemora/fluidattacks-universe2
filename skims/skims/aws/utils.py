@@ -14,6 +14,8 @@ from metaloaders.model import (
 from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
+    AWSS3Acl,
+    AWSS3Bucket,
 )
 from lib_path.common import (
     blocking_get_vulnerabilities_from_iterator,
@@ -35,6 +37,8 @@ def create_vulns(
     statements_iterator: Iterator[Union[
         AWSIamManagedPolicyArns,
         AWSIamPolicyStatement,
+        AWSS3Acl,
+        AWSS3Bucket,
         Node,
     ]],
 ) -> Tuple[Vulnerability, ...]:

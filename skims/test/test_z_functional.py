@@ -480,6 +480,8 @@ async def test_correct_assert(
             ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json', '14'),
             ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json', '22'),
             ('test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json', '7'),
+            ('test/data/lib_path/f055_aws/hcl2_public_buckets.tf', '24'),
+            ('test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf', '1'),
         )),
         ('F060', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),
