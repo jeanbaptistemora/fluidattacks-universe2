@@ -27,6 +27,13 @@ def _valid_integrates_token(ctx, param, value):
     assert constants
 
 
+@click.command(name='upgrade', short_help='Get last CLI version')
+def upgrade():
+    click.echo("Updating..")
+    if utils.version.upgrade():
+        click.echo("Successful")
+
+
 @click.group(name='entrypoint')
 @click.version_option(version=constants.VERSION)
 def entrypoint():
@@ -40,6 +47,7 @@ entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
 entrypoint.add_command(reports_management)
+entrypoint.add_command(upgrade)
 
 
 def retry_debugging_on_failure(func):

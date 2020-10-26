@@ -7,7 +7,9 @@ from distutils.version import StrictVersion
 import requests
 
 # Local libraries
+from toolbox import logger
 from toolbox.constants import PACKAGE_MANAGER, VERSION, CLI_NAME
+from toolbox.utils.generic import run_command, go_back_to_services
 
 
 def get_pypi_info():
@@ -54,3 +56,20 @@ def check_new_version() -> bool:
 
     last_nix_hash = get_last_nix_hash()
     return not os.path.exists(f"/nix/store/{last_nix_hash}-{CLI_NAME}")
+
+
+def upgrade() -> bool:
+    if PACKAGE_MANAGER == 'pip':
+        command = "pip install --upgrade --force-reinstall melts"
+    else:
+        go_back_to_services()
+        command = "./install.sh"
+
+    status, stdout, stderr = run_command(command.split(), cwd='.', env={})
+    if status:
+        logger.error('Static checker has failed, output:')
+        logger.info(stdout)
+        logger.info(stderr)
+        logger.info()
+        return False
+    return True
