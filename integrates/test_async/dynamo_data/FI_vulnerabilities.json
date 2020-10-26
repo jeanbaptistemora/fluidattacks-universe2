@@ -1339,9 +1339,6 @@
                            "date" : {
                               "S" : "2019-09-13 09:58:38"
                            },
-                           "approval_status" : {
-                              "S" : "PENDING"
-                           },
                            "state" : {
                               "S" : "open"
                            }

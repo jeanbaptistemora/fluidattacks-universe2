@@ -151,9 +151,6 @@ class FindingTests(TestCase):
               linesVulns {
                   specific
               }
-              pendingVulns {
-                  specific
-              }
               __typename
           }
         }'''

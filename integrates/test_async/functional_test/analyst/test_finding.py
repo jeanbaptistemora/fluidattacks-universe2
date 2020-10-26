@@ -288,9 +288,6 @@ async def test_finding():
             linesVulns {{
                 specific
             }}
-            pendingVulns {{
-                specific
-            }}
             analyst
             observations{{
                 content
@@ -396,7 +393,6 @@ async def test_finding():
             'state': 'APPROVED'
         }
     ]
-    assert result['data']['finding']['pendingVulns'] == []
 
     actor = 'ANYONE_INTERNET'
     affected_systems = 'Server bWAPP'

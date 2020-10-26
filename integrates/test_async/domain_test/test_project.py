@@ -156,7 +156,7 @@ class ProjectTest(TestCase):
 
     async def test_get_open_vulnerabilities(self):
         project_name = 'unittesting'
-        expected_output = 32
+        expected_output = 33
         assert await get_open_vulnerabilities(project_name) == expected_output
 
     async def test_get_closed_vulnerabilities(self):

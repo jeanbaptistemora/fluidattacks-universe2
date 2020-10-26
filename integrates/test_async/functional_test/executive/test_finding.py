@@ -244,29 +244,6 @@ async def test_finding():
             linesVulns {{
                 specific
             }}
-            pendingVulns {{
-                analyst
-                currentApprovalStatus
-                currentState
-                findingId
-                historicState
-                historicVerification {{
-                    status
-                }}
-                id
-                lastAnalyst
-                lastApprovedStatus
-                remediated
-                severity
-                source
-                specific
-                tag
-                tags
-                treatmentManager
-                verification
-                vulnType
-                where
-            }}
             __typename
         }}
     }}'''
@@ -339,7 +316,6 @@ async def test_finding():
     assert result['data']['finding']['currentState'] == 'APPROVED'
     assert result['data']['finding']['newRemediated'] == False
     assert result['data']['finding']['verified'] == True
-    assert result['data']['finding']['pendingVulns'] == []
     historic_treatment = result['data']['finding']['historicTreatment']
     for index in range(len(historic_treatment)):
         historic_treatment[index]['date'] = (

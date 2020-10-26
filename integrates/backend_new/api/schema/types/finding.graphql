@@ -26,7 +26,6 @@ type Finding {
   newRemediated: Boolean
   observations: [Consult]
   openVulnerabilities: Int
-  pendingVulns: [Vulnerability]
   portsVulns: [Vulnerability]
   projectName: String
   recommendation: String

@@ -173,7 +173,6 @@ async def test_finding():
                 'specific': '123'
             }
         ],
-        'pending_vulns': [],
         '__typename': 'Finding'
     }
     query = f'''{{
@@ -227,9 +226,6 @@ async def test_finding():
             linesVulns {{
                 specific
             }}
-            pendingVulns {{
-                specific
-            }}
             __typename
         }}
     }}'''
@@ -275,7 +271,6 @@ async def test_finding():
     assert result['data']['finding']['portsVulns'] == expected_output.get('ports_vulns')
     assert result['data']['finding']['inputsVulns'] == expected_output.get('inputs_vulns')
     assert result['data']['finding']['linesVulns'] == expected_output.get('lines_vulns')
-    assert result['data']['finding']['pendingVulns'] == expected_output.get('pending_vulns')
 
     consult_content = "This is a comenting test"
     query = f'''
@@ -336,7 +331,6 @@ async def test_finding():
             }
 
         ],
-        'pending_vulns': [],
     }
     query = f'''{{
         finding(identifier: "{finding_id}"){{
@@ -344,9 +338,6 @@ async def test_finding():
                 content
             }}
             historicTreatment
-            pendingVulns {{
-                specific
-            }}
         }}
     }}'''
     data = {'query': query}
@@ -357,4 +348,3 @@ async def test_finding():
         result['data']['finding']['historicTreatment'][1]['date'][:-9]
     )
     assert result['data']['finding']['historicTreatment'] == expected_output.get('historic_treatment')
-    assert result['data']['finding']['pendingVulns'] == expected_output.get('pending_vulns')

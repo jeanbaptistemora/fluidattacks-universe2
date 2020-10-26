@@ -165,7 +165,6 @@ async def test_finding():
                 'specific': '123'
             }
         ],
-        'pending_vulns': [],
         'analyst': 'unittest@fluidattacks.com',
         'observations': [],
         '__typename': 'Finding'
@@ -221,9 +220,6 @@ async def test_finding():
             linesVulns {{
                 specific
             }}
-            pendingVulns {{
-                specific
-            }}
             analyst
             observations{{
                 content
@@ -273,9 +269,8 @@ async def test_finding():
     assert result['data']['finding']['portsVulns'] == expected_output.get('ports_vulns')
     assert result['data']['finding']['inputsVulns'] == expected_output.get('inputs_vulns')
     assert result['data']['finding']['linesVulns'] == expected_output.get('lines_vulns')
-    assert result['data']['finding']['pendingVulns'] == expected_output.get('pending_vulns')
     assert result['data']['finding']['analyst'] == expected_output.get('analyst')
-    assert result['data']['finding']['observations'] == expected_output.get('pending_vulns')
+    assert result['data']['finding']['observations'] == []
 
     consult_content = "This is a observation test"
     query = f'''
@@ -381,7 +376,6 @@ async def test_finding():
                 'user': 'unittest2@fluidattacks.com'
             },
         ],
-        'pending_vulns': [],
         'observations':  [
             {
                 'content': consult_content,
@@ -395,9 +389,6 @@ async def test_finding():
                 content
             }}
             historicTreatment
-            pendingVulns {{
-                specific
-            }}
             observations{{
                 content
                 email
@@ -414,5 +405,4 @@ async def test_finding():
             historic_treatment[index]['date'][:-9]
         )
     assert result['data']['finding']['historicTreatment'] == expected_output.get('historic_treatment')
-    assert result['data']['finding']['pendingVulns'] == expected_output.get('pending_vulns')
     assert result['data']['finding']['observations'] == expected_output.get('observations')

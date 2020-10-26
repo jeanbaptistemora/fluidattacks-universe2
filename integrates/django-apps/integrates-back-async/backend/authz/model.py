@@ -32,7 +32,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_finding_analyst_resolve',
             'backend_api_resolvers_new_finding_historic_state_resolve',
             'backend_api_resolvers_new_finding_observations_resolve',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_finding__get_draft',
             (
@@ -115,7 +114,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_finding_analyst_resolve',
             'backend_api_resolvers_new_finding_historic_state_resolve',
             'backend_api_resolvers_new_finding_observations_resolve',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_finding__get_draft',
             'backend_api_resolvers_new_finding_sorts_resolve',
@@ -166,7 +164,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__do_update_evidence',
             'backend_api_resolvers_new_finding_analyst_resolve',
             'backend_api_resolvers_new_finding_historic_state_resolve',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             (
                 'backend_api_resolvers_new_vulnerability_'
@@ -203,7 +200,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
             'backend_api_resolvers_finding__do_update_client_description',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
@@ -243,7 +239,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__do_add_finding_consult',
             'backend_api_resolvers_finding__do_handle_acceptation',
             'backend_api_resolvers_finding__do_update_client_description',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
@@ -295,7 +290,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
             'backend_api_resolvers_finding__do_update_client_description',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
@@ -338,7 +332,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__do_update_client_description',
             'backend_api_resolvers_new_finding_analyst_resolve',
             'backend_api_resolvers_new_finding_observations_resolve',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_finding__get_draft',
             'backend_api_resolvers_new_query_vulnerability_resolve',
@@ -436,7 +429,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_finding_analyst_resolve',
             'backend_api_resolvers_new_finding_historic_state_resolve',
             'backend_api_resolvers_new_finding_observations_resolve',
-            'backend_api_resolvers_new_finding_pending_vulns_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_finding__get_draft',
             (
