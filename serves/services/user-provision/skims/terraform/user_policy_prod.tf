@@ -58,6 +58,11 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/asap-uninterruptible",
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = ["batch:ListJobs"]
+    resources = ["*"]
+  }
 
   # EC2
   statement {
