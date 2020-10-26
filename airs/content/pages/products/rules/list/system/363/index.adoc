@@ -18,7 +18,7 @@ This allows administrators to find bugs and makes it easier for forensics teams
 to determine how a system was compromised.
 However, if clocks are not properly synchronized,
 it can be very difficult to compare log files from different systems in order
-to establish the event sequence that led the security incident.
+to establish the event sequence that led to the security incident.
 
 == References
 

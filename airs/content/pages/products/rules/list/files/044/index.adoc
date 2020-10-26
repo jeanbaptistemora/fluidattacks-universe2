@@ -4,12 +4,12 @@
 :keywords: Character Set, Encoding, Files, ASVS, CWE, Dynamic, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R044. Define a explicit charset
+= R044. Define an explicit charset
 
 == Requirement
 
 All system files generated dynamically
-must have a explicitly defined character set (*charset*).
+must have an explicitly defined character set (*charset*).
 
 == References
 

@@ -18,7 +18,7 @@ the organization must consider that using high logging levels
 is only appropriate for development environments,
 since having too much log information in production stages
 may hinder the performance of a system administrator
-to detect abnormal conditions.
+in detecting abnormal conditions.
 Furthermore, if sensitive information is recorded in the logs,
 an attacker that gets access to these can also obtain the information.
 

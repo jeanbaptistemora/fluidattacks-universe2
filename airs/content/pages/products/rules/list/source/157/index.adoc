@@ -8,7 +8,7 @@
 
 == Requirement
 
-The organization should set its parsers, linters, compilers, and interpreters
+The organization should set its parsers, linters, compilers and interpreters
 to run in strict mode.
 
 == References

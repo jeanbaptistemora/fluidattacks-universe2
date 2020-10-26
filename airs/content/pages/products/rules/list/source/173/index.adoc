@@ -15,22 +15,22 @@ received via data inputs.
 
 Technological devices and, in particular, applications
 must be able to notice if the received information
-that does not correspond to its operational purposes,
+does not correspond to its operational purposes,
 in order to treat it properly
 (for example, rejecting and/or generating timely alerts)
-and so that it does not impact the operation negatively.
+and ensure that it does not impact the operation negatively.
 Typical examples of this are: *SQL* queries, *JavaScript* code,
 *OS* commands or *LDAP* queries
 in fields and application parameters;
 text with undesired special characters
 and their possible combinations in fields and parameters;
 files manipulated in structure and extension
-to be loaded in an application or technology artifact,
+to be loaded in an application or technology artifact;
 and in general any type of information
 that does not correspond to the requested format.
 A large amount of the incoming traffic
 (which does not correspond to operational purposes)
-of a technological artifact must also be considered
+of a technological artifact must also be considered,
 and controls and proper treatment must be applied.
 
 == Implementation
@@ -38,26 +38,24 @@ and controls and proper treatment must be applied.
 . Perform whitelisting instead of blacklisting:
 By using this principle, the control implementation
 will be configured to reject all inputs
-that are not explicitly approved
-discarding all possible scenarios
-and forcing enumeration of strictly allowed inputs.
-E.g. allow only *a-z*, *A-Z* y *0-9*.
+that are not explicitly approved,
+thus discarding all possible scenarios
+and forcing enumeration of strictly allowed inputs
+(e.g., allow only *a-z*, *A-Z* and *0-9*).
 
-. Use variable highlight:
-If supported, language and compiler
-can detect foreign variables
+. Use variable highlighting: If supported,
+language and compiler can detect foreign variables
 that are not validated by a filter.
 To this end, you may use techniques to highlight those variables
-and compilers or pre-processors
-to detect that they are not validated.
+and compilers, or pre-processors to detect that they are not validated.
 
-. No only user validation but also input validation:
+. Not only user validation but also input validation:
 Any input from outside the application
-must be considered malicious,
-that is to say, the user can enter incorrect information
-as well as potentially harmful inputs
+must be considered malicious.
+In other words, the user can enter incorrect information,
+as well as potentially harmful inputs,
 that may also compromise external systems,
-therefore this information must be validated.
+and therefore this information must be validated.
 
 == Attacks
 

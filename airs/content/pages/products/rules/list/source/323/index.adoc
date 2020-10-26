@@ -9,7 +9,7 @@
 == Requirement
 
 Binary and other types of files,
-which are often not audited with security purposes,
+which are often not audited for security purposes,
 should not be stored in the source code repository.
 
 == Description

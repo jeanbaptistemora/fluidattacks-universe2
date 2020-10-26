@@ -15,9 +15,10 @@ System logs must not allow modifications or alterations.
 Logs are used to analyze a system's behavior.
 They help detect errors and suspicious activity,
 and often hold very sensitive information.
-Therefore, they should be protected so that no unauthorized actor can modify
-them,
-since this could prevent a vulnerability or a breach from being noticed timely.
+Therefore, they should be protected
+so that no unauthorized actor can modify them,
+since this could prevent a vulnerability or a breach
+from being noticed in a timely manner.
 
 == References
 

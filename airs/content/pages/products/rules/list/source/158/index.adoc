@@ -9,7 +9,7 @@
 == Requirement
 
 System source code must be implemented
-in a stable, updated, tested, and free of known vulnerabilities
+in a stable, updated, tested and free of known vulnerabilities
 version of the chosen programming language.
 
 == Findings

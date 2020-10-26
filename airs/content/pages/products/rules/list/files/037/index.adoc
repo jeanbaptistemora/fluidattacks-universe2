@@ -8,24 +8,23 @@
 
 == Requirement
 
-System must not allow parameter inclusion
+The system must not allow parameter inclusion
 in directory names or file paths.
 
 == Description
 
 A system must not allow the inclusion of directory names
 or files paths in its parameters.
-By tampering the fields associated to these parameters,
+By tampering the fields associated with these parameters,
 an attacker may access those paths
 and compromise sensitive information.
 
 == Implementation
 
 It must be assumed that all data inputs are malicious,
-therefore, whitelisting and escaping should be used
+so whitelisting and escaping should be used
 to discard any type of data input that is not acceptable
-(strictly complies with the specifications)
-or sanitize it.
+(i.e., does not strictly comply with the specifications) or sanitize it.
 
 == Attacks
 
@@ -33,8 +32,8 @@ or sanitize it.
 used to execute code, such as programs or libraries.
 If the target file is used as a security mechanism,
 then the attacker may surpass that mechanism.
-For example, by adding a new account at the end of a password file
-to bypass the authentication process.
+This can be done, for example, by adding a new account
+at the end of a password file to bypass the authentication process.
 
 . An attacker may read the content of unexpected files
 and expose sensitive information.
@@ -44,10 +43,10 @@ For example, by reading a password file,
 the attacker may perform a brute force attack
 to obtain valid user credentials.
 
-. The attacker may overwrite, delete or corrupt critical files
-such as programs, libraries, or sensitive information.
+. The attacker may overwrite, delete or corrupt critical files,
+such as programs, libraries or sensitive information.
 This may lead to a system failure,
-and in case of having authentication mechanisms,
+and in cases where there are authentication mechanisms,
 the attacker may block the system access to all users.
 
 == Attributes

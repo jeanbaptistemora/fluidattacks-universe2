@@ -136,7 +136,7 @@ Thus, the first sentence is encoded as
 and the second as
 <1, 0, 1, 0, 0, 0, 0, 0, 1, 1>.
 We can also count repetitions here.
-We see several problems with these kinds of encondings.
+We see several problems with these kinds of encodings.
 In one-hot, the order is lost,
 and the vectors would become too sparse for large corpora.
 A pro: all vectors are the same size,

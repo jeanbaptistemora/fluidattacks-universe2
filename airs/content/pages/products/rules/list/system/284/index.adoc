@@ -8,5 +8,5 @@
 
 == Requirement
 
-Each port must have a a maximum number of connections
+Each port must have a maximum number of connections
 defined per source `IP`.

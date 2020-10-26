@@ -4,12 +4,12 @@
 :keywords: Content Type, Encoding, Files, Dynamic, ASVS, CAPEC, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R043. Define a explicit content type
+= R043. Define an explicit content type
 
 == Requirement
 
 All system files generated dynamically
-must have a **Content-Type** explicitly defined.
+must have an explicitly defined **content type**.
 
 == References
 

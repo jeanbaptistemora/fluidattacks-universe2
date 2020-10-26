@@ -16,10 +16,9 @@ ensuring secure failures in the application
 
 The organization must ensure that its own systems and those of third parties
 are safe and fully comply with the functions for which they were implemented.
-For this, baselines must be implemented from the design
-and development phase,
-in order to avoid bad practices in the development cycles.
-E.g. the use of a conditional without a default option,
+For this, baselines must be implemented from the design and development phase,
+in order to avoid bad practices in the development cycles,
+e.g., the use of a conditional without a default option,
 which can cause unexpected behaviors in the system.
 
 The system's source code is safer when good programming practices are
@@ -34,7 +33,7 @@ vulnerabilities are more prone to arise.
 in order to guarantee the implementation of good programming practices
 in the development of the source code.
 
-. Quality code and source code vulnerabilities scanners:
+. Quality code and source code vulnerability scanners:
 These are tools that perform code revision using lexical and syntactical
 analyzers. They process it, suggest improvements and highlight possible
 vulnerabilities in the development stage.

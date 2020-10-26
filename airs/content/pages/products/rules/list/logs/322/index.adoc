@@ -18,11 +18,11 @@ the organization must consider that using high logging levels
 is only appropriate for development environments,
 since having too much log information in production stages
 may hinder the performance of a system administrator
-to detect abnormal conditions.
-This may imply that both attacker and attack
-can remain hidden while trying to penetrate the system,
-reduce the audit trail in a forensic analysis,
-or difficult the debugging of issues in production environments.
+in detecting abnormal conditions.
+This may imply that both the attacker and the attack
+be able to remain hidden while trying to penetrate the system,
+the audit trail in a forensic analysis be reduced,
+or the debugging of issues in production environments be hindered.
 
 == Implementation
 
@@ -30,17 +30,17 @@ or difficult the debugging of issues in production environments.
 and replace them with periodic summary messages.
 For example, *syslog* may register a repetition event
 saying "the last message was repeated *X* times",
-to avoid multiple logging of the same event.
+in order to avoid multiple logging of the same event.
 
 . Set a maximum size for log files.
 If the maximum size is reached,
 the system administrator must be notified.
-You may also consider to reduce subsystem functionalities.
+You may also consider reducing subsystem functionalities.
 This may cause a denial of service for all users,
 but prevent subsystems from negatively impacting the overall system.
 
 . Properly adjust system settings
-when changing from debugging to production stage.
+when changing from the debugging to the production stage.
 
 == Attacks
 
@@ -48,7 +48,7 @@ when changing from debugging to production stage.
 become excessively large and consume excessive resources.
 
 . By storing too much information in logs, they lose their value
-in case of performing a troubleshoot diagnosis to recover from an attack,
+when performing either a troubleshoot diagnosis to recover from an attack
 or a forensic analysis.
 
 . If administrators are not able to effectively process files in logs,

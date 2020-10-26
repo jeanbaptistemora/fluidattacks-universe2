@@ -9,7 +9,8 @@
 == Requirement
 
 The system must validate the content and length of all request
-parameters (*GET*, *POST*, cookies, headers, etc.) and the amount of them.
+parameters (*GET*, *POST*, cookies, headers, etc.),
+as well as their amount.
 
 == Description
 

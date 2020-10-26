@@ -17,7 +17,7 @@ A **race condition** occurs when a code sequence requires exclusive access to a
 resource but another code sequence can modify the same resource before the
 first one has released it.
 This can have security implications if it occurs during high-value business
-logic flows such as authentication, authorization and session management.
+logic flows, such as authentication, authorization and session management.
 Therefore, threads and concurrent processes must be managed carefully in order
 to prevent **race conditions** from arising.
 

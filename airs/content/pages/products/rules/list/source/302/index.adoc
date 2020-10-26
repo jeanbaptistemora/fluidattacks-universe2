@@ -15,14 +15,13 @@ Their source code must not be directly included in the repository.
 == Description
 
 The usage of third-party software and libraries is very common in modern
-applications as it greatly reduces the effort required to develop them.
-Unfortunately, this software may introduce vulnerabilities into the
-application,
-which causes it to require frequent updates.
+applications, as it greatly reduces the effort required to develop them.
+Unfortunately, this software may introduce vulnerabilities
+into the application, which causes it to require frequent updates.
 In order to ease the constant update process,
-instead of directly including third-party software source code in application
-repositories,
-it should merely be referenced and managed using a package manager.
+instead of directly including third-party software source code
+in application repositories, it should merely be referenced
+and managed using a package manager.
 
 == Findings
 

@@ -9,24 +9,22 @@
 == Requirement
 
 The files manipulated by the system and the users
-must have defined a maximum file size (*5MB* recommended).
+must have a defined maximum file size (*5MB* recommended).
 
 == Description
 
-When a system allows to upload or attach files to be stored,
+When a system allows users to upload or attach files for storage,
 the maximum file size limit must be defined for these files,
-to avoid issues
-involving the availability of the service
-and reducing the chance that an attacker
-may upload a file containing malicious software.
+in order to avoid issues involving the availability of the service
+and to reduce the chance of an attacker
+uploading a file containing malicious software.
 
 == Implementation
 
 In order to define the file size limit,
-you must first define the information storage needs,
+you must first define the information storage needs
 and the infrastructure size.
-The company can set a default file size
-for information management,
+The company can set a default file size for information management
 and define the exceptions they deem necessary
 to increase the admitted file size,
 but always keeping a defined limit
@@ -35,7 +33,7 @@ caused by abusing the system storage.
 
 == Attacks
 
-. An application allows the upload and storage of files.
+. An application allows the uploading and storage of files.
 A user continuously uploads large size files
 until they cause a denial of service
 because of the lack of space in the system.

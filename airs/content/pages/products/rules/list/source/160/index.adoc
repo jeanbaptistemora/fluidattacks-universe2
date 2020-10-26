@@ -16,7 +16,7 @@ System components use structured messages to communicate with other components.
 When these messages include input from untrusted sources and this input is not
 properly escaped,
 they become prone to the insertion of malicious commands.
-For this reason, enconding or escaping must occur before sending the messages.
+For this reason, encoding or escaping must occur before sending the messages.
 
 == References
 

@@ -13,7 +13,7 @@ overflow (stack, buffer, heap, integer, etc.).
 
 == Description
 
-A overflow occurs when an application receives a value outside of the range
+An overflow occurs when an application receives a value outside of the range
 that it is prepared to handle.
 It can happen when a program tries to process an excessively big number or if
 it attempts to read a memory address outside of its assigned buffer.
@@ -21,7 +21,7 @@ An overflow can cause a program to stop working,
 which can lead to a Denial of Service (*DoS*).
 Therefore, systems should use data structures and mechanisms that help reduce
 the chances that an overflow will arise,
-such as memory-safe strings, and safe memory copy and pointer arithmetic.
+such as memory-safe strings, safe memory copy and pointer arithmetic.
 
 == References
 

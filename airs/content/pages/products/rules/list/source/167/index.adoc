@@ -9,7 +9,7 @@
 == Requirement
 
 The source code must implement mechanisms
-to ensure the closure of any unused open resource.
+to ensure the closure of any unused open resources.
 
 == References
 

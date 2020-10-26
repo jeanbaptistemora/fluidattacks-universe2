@@ -14,11 +14,11 @@ such as user-uploaded files, using octet stream downloads.
 == Description
 
 User-uploaded files should generally be considered to be untrusted input.
-If the appropiate **Content Security Policy** is not set when opening a file,
+If the appropriate **Content Security Policy** is not set when opening a file,
 browsers may render it and interpret potentially malicious code.
 Therefore, user-uploaded files should be served by either octet stream
 downloads, or from an unrelated domain, such as a cloud file storage bucket.
-This reduces the risk from XSS vectors or other attacks from the uploaded file.
+This reduces the risk of XSS vectors or other attacks from the uploaded file.
 
 == References
 

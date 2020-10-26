@@ -17,15 +17,15 @@ in duly protected logs (confidentiality),
 considering that an event of this type
 should not show confidential or detailed information of the problem
 in error messages to prevent the use of that information
-on the part of an attacker or malicious user.
+by an attacker or malicious user.
 
 Recorded events allow error pages to display simple generic messages,
 alerting end users that an error has occurred,
 with some option to contact support.
 
-The detail of how to address these problems
+The details of how to address these problems
 should be kept securely stored in a previously defined log storage.
-When an event of these types is not properly recorded,
+When an event of this type is not properly recorded,
 a malicious behavior can be proven difficult to detect
 or a forensic analysis can be obstructed
 in case an attack is successful.
@@ -49,9 +49,9 @@ can lead to the same problems (**CWE-779**).
 
 Given the scenario that critical security information is not recorded,
 an attacker can perform an attack
-that won't leave a trace during a forensic analysis,
-therefore discovering the cause of the problem
-or the origin of one or several attacks
+that will not leave a trace during a forensic analysis.
+Therefore, discovering the cause of the problem,
+or the origin of one or several attacks,
 can prove to be very difficult or impossible.
 
 == Attributes
