@@ -19,7 +19,7 @@ async def resolve(
     finding_id: str = cast(Dict[str, str], parent)['id']
     release_date: str = cast(Dict[str, str], parent)['release_date']
 
-    finding_vulns_loader: DataLoader = info.context.loaders['vulnerability']
+    finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
 
     if release_date:
         vulns = await finding_vulns_loader.load(finding_id)

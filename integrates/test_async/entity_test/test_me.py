@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from ariadne import graphql
 from django.test import TestCase
 from backend.api.dataloaders.group import GroupLoader
-from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
 from backend.dal.user import get_projects
 from test_async.utils import create_dummy_session
@@ -42,7 +41,6 @@ class MeTests(TestCase):
         request = await create_dummy_session(user_email)
         request.loaders = {
             'group': GroupLoader(),
-            'project': ProjectLoader(),
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         expected_groups = ['unittesting', 'oneshottest']

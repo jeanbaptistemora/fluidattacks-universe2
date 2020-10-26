@@ -20,7 +20,7 @@ async def resolve(
 
     state: Optional[str] = kwargs.get('state')
 
-    finding_vulns_loader: DataLoader = info.context.loaders['vulnerability']
+    finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
 
     if state:

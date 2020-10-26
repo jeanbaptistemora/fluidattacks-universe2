@@ -82,7 +82,7 @@ async def _batch_load_fn(
 
 
 # pylint: disable=too-few-public-methods
-class VulnerabilityLoader(DataLoader):  # type: ignore
+class FindingVulnsLoader(DataLoader):  # type: ignore
     async def batch_load_fn(
             self, finding_ids: List[str]) -> List[List[VulnerabilityType]]:
         return await _batch_load_fn(finding_ids)

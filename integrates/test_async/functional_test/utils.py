@@ -2,14 +2,13 @@ from ariadne import graphql
 
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.single_vulnerability import (
     SingleVulnerabilityLoader
 )
-from backend.api.dataloaders.project import ProjectLoader
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.dal.helpers.redis import AREDIS_CLIENT
 from backend.domain import user as user_domain
@@ -28,12 +27,11 @@ async def get_graphql_result(data, stakeholder, session_jwt=None):
     request.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),
+        'finding_vulns': FindingVulnsLoader(),
         'group': GroupLoader(),
         'group_drafts': GroupDraftsLoader(),
         'group_findings': GroupFindingsLoader(),
-        'project': ProjectLoader(),
         'single_vulnerability': SingleVulnerabilityLoader(),
-        'vulnerability': VulnerabilityLoader()
     }
     _, result = await graphql(SCHEMA, data, context_value=request)
     await complete_all_user_access()

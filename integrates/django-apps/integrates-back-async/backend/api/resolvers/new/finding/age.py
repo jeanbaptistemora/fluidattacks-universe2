@@ -21,7 +21,7 @@ async def resolve(
     finding_id: str = cast(Dict[str, str], parent)['id']
     release_date: datetime = cast(Dict[str, datetime], parent)['release_date']
 
-    finding_vulns_loader: DataLoader = info.context.loaders['vulnerability']
+    finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
 
     return finding_domain.get_age_finding(vulns, cast(str, release_date))

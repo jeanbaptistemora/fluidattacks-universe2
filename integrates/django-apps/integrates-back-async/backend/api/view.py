@@ -14,14 +14,13 @@ from ariadne import graphql
 from asgiref.sync import async_to_sync
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
-from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.single_vulnerability import (
     SingleVulnerabilityLoader
 )
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend import util
 
 
@@ -30,12 +29,11 @@ def append_context_value(context):
     context.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),
+        'finding_vulns': FindingVulnsLoader(),
         'group': GroupLoader(),
         'group_drafts': GroupDraftsLoader(),
         'group_findings': GroupFindingsLoader(),
-        'project': ProjectLoader(),
         'single_vulnerability': SingleVulnerabilityLoader(),
-        'vulnerability': VulnerabilityLoader(),
     }
     context.store = defaultdict(lambda: None)
 

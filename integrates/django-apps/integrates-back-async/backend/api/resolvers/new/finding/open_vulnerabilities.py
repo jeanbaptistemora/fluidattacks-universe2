@@ -19,7 +19,7 @@ async def resolve(
 ) -> int:
     finding_id: str = cast(Dict[str, str], parent)['id']
 
-    finding_vulns_loader: DataLoader = info.context.loaders['vulnerability']
+    finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
 
     return len(vuln_domain.filter_open_vulnerabilities(vulns))

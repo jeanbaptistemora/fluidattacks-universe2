@@ -11,7 +11,7 @@ from aioextensions import run
 from backend.api.dataloaders.project import (
     ProjectLoader as GroupLoader,
 )
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.typing import (
     Vulnerability as VulnerabilityType
 )
@@ -88,7 +88,7 @@ async def generate_one(groups: List[str]):
     for group in groups_data:
         vulns = list(filter(
             lambda vuln: vuln['current_approval_status'] != 'PENDING',
-            chain(*await VulnerabilityLoader().load_many(group['findings']))
+            chain(*await FindingVulnsLoader().load_many(group['findings']))
         ))
 
         open_last_week, closed_last_week = get_totals_by_week(

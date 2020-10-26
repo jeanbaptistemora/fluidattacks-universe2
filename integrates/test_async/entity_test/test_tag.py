@@ -4,9 +4,8 @@ from ariadne import graphql
 from django.test import TestCase
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
-from backend.api.dataloaders.project import ProjectLoader
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
@@ -42,9 +41,8 @@ class TagTests(TestCase):
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
-            'group': GroupLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
+            'finding_vulns': FindingVulnsLoader(),
+            'group': GroupLoader()
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
@@ -79,8 +77,7 @@ class TagTests(TestCase):
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
+            'finding_vulns': FindingVulnsLoader(),
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result

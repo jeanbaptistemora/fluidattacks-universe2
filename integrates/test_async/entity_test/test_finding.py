@@ -14,8 +14,7 @@ from graphql import GraphQLError
 from jose import jwt
 from backend import util
 from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.project import ProjectLoader
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities, list_findings
@@ -31,8 +30,7 @@ class FindingTests(TestCase):
         request = await create_dummy_session(username=user)
         request.loaders = {
             'finding': FindingLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
+            'finding_vulns': FindingVulnsLoader()
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result

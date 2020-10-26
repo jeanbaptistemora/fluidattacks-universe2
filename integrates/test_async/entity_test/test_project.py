@@ -14,11 +14,10 @@ from jose import jwt
 from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
-from backend.api.dataloaders.project import ProjectLoader
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
@@ -36,11 +35,10 @@ class ProjectTests(TestCase):
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
+            'finding_vulns': FindingVulnsLoader(),
             'group': GroupLoader(),
             'group_drafts': GroupDraftsLoader(),
             'group_findings': GroupFindingsLoader(),
-            'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader()
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
