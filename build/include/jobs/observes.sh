@@ -50,6 +50,7 @@ function job_observes_services_toe {
 }
 
 function job_observes_gitlab {
+  export PATH="${PATH}:${EtlGitlab}/bin"
       helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_gitlab \

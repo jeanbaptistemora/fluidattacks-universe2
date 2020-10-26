@@ -144,18 +144,7 @@ function helper_observes_gitlab {
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  echo '[INFO] Running streamer' \
-  &&  streamer-gitlab --projects "${PROJECTS[@]}" > .jsonstream \
-  &&  echo '[INFO] Running tap' \
-  &&  tap-json  \
-        > .singer \
-        < .jsonstream \
-  &&  echo '[INFO] Running target' \
-  &&  target-redshift \
-        --auth "${TEMP_FILE2}" \
-        --drop-schema \
-        --schema-name 'gitlab-ci' \
-        < .singer
+  &&  dif-gitlab-etl --projects "${PROJECTS[@]}" --auth "${TEMP_FILE2}"
 }
 
 function helper_observes_timedoctor {
