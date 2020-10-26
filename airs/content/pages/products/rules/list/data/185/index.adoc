@@ -27,7 +27,7 @@ system from obtaining the information.
 
 == References
 
-. [[r1]] link:https://www.cisecurity.org/controls/[CIS Controls. 14.9 Encrypt Sensitive Information at Rest].
+. [[r1]] link:https://www.cisecurity.org/controls/[CIS Controls. 14.8 Encrypt Sensitive Information at Rest].
 Encrypt all sensitive information at rest using a tool that requires a
 secondary authentication mechanism not integrated into the operating system,
 in order to access the information.

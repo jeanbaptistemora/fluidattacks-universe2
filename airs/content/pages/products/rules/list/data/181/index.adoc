@@ -135,57 +135,62 @@ to Encrypt Wireless Data].
 Leverage the Advanced Encryption Standard (*AES*) to encrypt wireless data in
 transit.
 
-. [[r12]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
+. [[r12]] link:https://www.cisecurity.org/controls/[CIS Controls. 16.5 Encrypt Transmittal of Username and
+Authentication Credentials].
+Ensure that all account usernames and authentication credentials are
+transmitted across networks using encrypted channels.
+
+. [[r13]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
 The product exposes sensitive information to an actor that is not explicitly
 authorized to have access to that information.
 
-. [[r13]] link:https://cwe.mitre.org/data/definitions/311.html[CWE-311: Missing Encryption of Sensitive Data].
+. [[r14]] link:https://cwe.mitre.org/data/definitions/311.html[CWE-311: Missing Encryption of Sensitive Data].
 The software does not encrypt sensitive or critical information before storage
 or transmission.
 
-. [[r14]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information].
+. [[r15]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information].
 The software transmits sensitive or security-critical data in cleartext in a
 communication channel that can be sniffed by unauthorized actors.
 
-. [[r15]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
+. [[r16]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
 The software stores or transmits sensitive data using an encryption scheme that
 is theoretically sound,
 but is not strong enough for the level of protection required.
 
-. [[r16]] link:https://cwe.mitre.org/data/definitions/598.html[CWE-598: Use of GET Request Method With Sensitive Query Strings].
+. [[r17]] link:https://cwe.mitre.org/data/definitions/598.html[CWE-598: Use of GET Request Method With Sensitive Query Strings].
 The web application uses the HTTP GET method to process a request and includes
 sensitive information in the query string of that request.
 
-. [[r17]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r18]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 4: Security of processing.(1a)]
 The measures referred to in paragraph 1 shall at least protect personal data
 stored or transmitted against accidental or unlawful destruction,
 accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
-. [[r18]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 13.2.3]
+. [[r19]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 13.2.3]
 Protect information included in electronic messages appropriately.
 
-. [[r19]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 14.1.3]
+. [[r20]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 14.1.3]
 Protect information included in application services transactions to avoid
 partial transmission, improper routing, unauthorized message modifications,
 unauthorized disclosure and unauthorized message duplication or replay.
 
-. [[r20]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+. [[r21]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
 Protect records against loss, destruction, forgery, unauthorized access and
 unauthorized release,
 in accordance with legal, regulatory, contractual and business requirements.
 
-. [[r21]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R2.2]
+. [[r22]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R2.2]
 For all Interactive Remote Access sessions,
 utilize encryption that terminates at an Intermediate System.
 
-. [[r22]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf[NERC CIP-011-2. B. Requirements and measures. R1.2]
+. [[r23]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf[NERC CIP-011-2. B. Requirements and measures. R1.2]
 Implement procedure(s)for protecting and securely handling BES Cyber System
 Information,
 including storage, transit, and use.
 
-. [[r23]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r24]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -194,68 +199,68 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.7)]
 Verify that the firmware apps protect data-in-transit using transport layer
 security.
 
-. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.8)]
 Verify that the firmware apps validate the digital signature of server
 connections.
 
-. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.9)]
 Verify that wireless communications are mutually authenticated.
 
-. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.10)]
 Verify that wireless communications are sent over an encrypted channel.
 
-. [[r28]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r29]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.16)]
 Verify the presence of tamper resistance and/or tamper detection features.
 
-. [[r29]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r30]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.29)]
 Verify that inter-chip communication is encrypted
 (e.g., Main board to daughter board communication).
 
-. [[r30]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r31]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.9 Client-side Data Protection.(1.9.1)]
 Verify the application encrypts communications between components,
 particularly when these components are in different containers, systems, sites,
 or cloud providers.
 
-. [[r31]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r32]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.5)]
 Verify that where a credential service provider (CSP) and the application
 verifying authentication are separated,
 mutually authenticated *TLS* is in place between the two endpoints.
 
-. [[r32]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r33]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.5 Credential Recovery Requirements.(2.5.1)]
 Verify that a system generated initial activation or recovery secret is not
 sent in clear text to the user.
 
-. [[r33]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r34]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.1 Client-side Data Protection.(3.1.1)]
 Verify the application never reveals session tokens in URL parameters or error
 messages.
 
-. [[r34]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r35]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.1)]
 Verify that sensitive data is sent to the server in the HTTP message body or
 headers,
 and that query string parameters from any HTTP verb do not contain sensitive
 data.
 
-. [[r35]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r36]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.1)]
 Verify that secured *TLS* is used for all client connectivity,
 and does not fall back to insecure or unencrypted protocols.
 
-. [[r36]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r37]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.2)]
 Verify that encrypted communications such as *TLS* is used for all inbound and
 outbound connections,
@@ -264,48 +269,48 @@ or web service calls, database, cloud, serverless, mainframe, external,
 and partner connections.
 The server must not fall back to insecure or unencrypted protocols.
 
-. [[r37]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r38]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.3)]
 Verify that all encrypted connections to external systems that involve
 sensitive information or functions are authenticated.
 
-. [[r38]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r39]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
 Verify that the message headers and payload are trustworthy and not modified
 in transit.
 Requiring strong encryption for transport (*TLS* only) may be sufficient in
 many cases as it provides both confidentiality and integrity protection.
 
-. [[r39]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r40]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.2)]
 Verify that the message payload is signed using *WS-Security* to ensure
 reliable transport between client and service.
 
-. [[r40]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+. [[r41]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
 
-. [[r41]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+. [[r42]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
 Encrypt all non-console administrative access using strong cryptography.
 
-. [[r42]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+. [[r43]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
 Use strong cryptography and security protocols to safeguard sensitive
 cardholder data during transmission over open, public networks.
 The protocol in use only supports secure versions or configurations.
 
-. [[r43]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
+. [[r44]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
 Ensure wireless networks transmitting cardholder data or connected to the
 cardholder data environment,
 use industry best practices to implement strong encryption for authentication
 and transmission.
 
-. [[r44]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.2]
+. [[r45]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.2]
 Never send unprotected **PAN**s by end-user messaging technologies
 (for example, e-mail, instant messaging, *SMS*, chat, etc.).
 
-. [[r45]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.4]
+. [[r46]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.4]
 Address common coding vulnerabilities in software-development processes such as
 insecure communications.
 
-. [[r46]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.2.1]
+. [[r47]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.2.1]
 Using strong cryptography, render all authentication credentials
 (such as passwords/phrases) unreadable during transmission and storage on all
 system components.

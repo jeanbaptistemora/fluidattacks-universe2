@@ -13,24 +13,30 @@ accounts.
 
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[HIPAA Security Rules 164.308(a)(3)(ii)(A):]
+. [[r1]] link:https://www.cisecurity.org/controls/[CIS Controls. 16.7 Establish Process for Revoking Access].
+Establish and follow an automated process for revoking system access by
+disabling accounts immediately upon termination or change of responsibilities
+of an employee or contractor.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[HIPAA Security Rules 164.308(a)(3)(ii)(A):]
 Authorization and/or supervision (Addressable):
 Implement procedures for the authorization and/or supervision
-of workforce members who work with electronic protected health information
+of workforce members who work with electronic protected health informationisable Dormant
+Accounts
 or in locations where it might be accessed.
 
-. [[r2]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 9.2.1]
+. [[r3]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 9.2.1]
 Implement a formal process for user registration and deletion in order to
 enable access rights assignation.
 
-. [[r3]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 9.2.2]
+. [[r4]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 9.2.2]
 Implement a formal access granting process to assign or revoke access rights
 to all types of users to systems and services.
 
-. [[r4]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-004-6.pdf[NERC CIP-004-6. B. Requirements and measures. R5]
+. [[r5]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-004-6.pdf[NERC CIP-004-6. B. Requirements and measures. R5]
 Each Responsible Entity shall implement one or more documented access
 revocation program(s).
 
-. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.2]
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.2]
 Control addition, deletion, and modification of user IDs, credentials,
 and other identifier objects.
