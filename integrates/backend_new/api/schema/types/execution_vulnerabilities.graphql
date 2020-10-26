@@ -1,0 +1,8 @@
+type ExecutionVulnerabilities {
+  acceptedExploits: [ExploitResult!]
+  exploits: [ExploitResult!]
+  integratesExploits: [ExploitResult!]
+  numOfVulnerabilitiesInAcceptedExploits: Int
+  numOfVulnerabilitiesInExploits: Int
+  numOfVulnerabilitiesInIntegratesExploits: Int
+}

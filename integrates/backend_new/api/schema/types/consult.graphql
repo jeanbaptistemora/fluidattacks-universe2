@@ -1,0 +1,10 @@
+"Consult type definition"
+type Consult {
+  content: String
+  created: String
+  email: String
+  fullname: String
+  id: String
+  modified: String
+  parent: String
+}

@@ -1,0 +1,332 @@
+type Mutation {
+    acceptLegal(remember: Boolean): SimplePayload!
+
+    updateAccessToken(expirationTime: Int!): UpdateAccessTokenPayload!
+
+    updateForcesAccessToken(
+        projectName: String!
+    ): UpdateAccessTokenPayload!
+
+    invalidateAccessToken: SimplePayload!
+
+    addEnvironments(
+        projectName: String!
+        envs: [EnvironmentInput]!
+    ): SimplePayload!
+
+    addRepositories(
+        projectName: String!
+        repos: [RepositoryInput]!
+    ): SimplePayload!
+
+    createOrganization(name: String!): CreateOrganizationPayload!
+
+    updateEnvironment(
+        env: EnvironmentInput!
+        projectName: String!
+        state: ResourceState!
+    ): SimplePayload!
+
+    updateOrganizationPolicies(
+        maxAcceptanceDays: Int
+        maxAcceptanceSeverity: Float
+        maxNumberAcceptations: Int
+        minAcceptanceSeverity: Float
+        organizationId: String!
+        organizationName: String!
+    ): SimplePayload!
+
+    updateRepository(
+        projectName: String!
+        repo: RepositoryInput!
+        state: ResourceState!
+    ): SimplePayload!
+
+    addFiles(
+        file: Upload!
+        filesData: JSONString!
+        projectName: String!
+    ): SimplePayload!
+
+    removeFiles(filesData: JSONString!, projectName: String!): SimplePayload!
+
+    downloadFile(
+        filesData: JSONString!
+        projectName: String!
+    ): DownloadFilePayload!
+
+    uploadFile(file: Upload!, findingId: String!): SimplePayload!
+
+    downloadVulnFile(findingId: String!): DownloadFilePayload!
+
+    updateTreatmentVuln(
+        findingId: String!
+        treatmentManager: String
+        vulnerabilities: [String]!
+        severity: Int
+        tag: String
+    ): SimplePayload!
+
+    deleteVulnerability(
+        id: String!
+        findingId: String!
+        justification: DeleteVulnerabilityJustification!
+    ): SimplePayload!
+
+    deleteTags(
+        findingId: String!
+        vulnerabilities: [String]!
+        tag: String
+    ): SimplePayload!
+
+    requestVerificationVuln(
+        findingId: String!
+        justification: String!
+        vulnerabilities: [String]!
+    ): SimplePayload!
+
+    verifyRequestVuln(
+        findingId: String!
+        justification: String!
+        openVulns: [String]!
+        closedVulns: [String]!
+    ): SimplePayload!
+
+    grantStakeholderAccess(
+        projectName: String
+        email: String!
+        responsibility: String
+        role: StakeholderRole!
+        phoneNumber: String
+    ): GrantStakeholderAccessPayload!
+
+    grantStakeholderOrganizationAccess(
+        organizationId: String!
+        phoneNumber: String
+        role: OrganizationRole!
+        userEmail: String!
+    ): GrantStakeholderAccessPayload!
+
+    removeStakeholderAccess(
+        projectName: String!
+        userEmail: String!
+    ): RemoveStakeholderAccessPayload!
+
+    removeStakeholderOrganizationAccess(
+        organizationId: String!
+        userEmail: String!
+    ): SimplePayload!
+
+    editStakeholder(
+        projectName: String!
+        email: String!
+        responsibility: String!
+        role: StakeholderRole!
+        phoneNumber: String!
+    ): EditStakeholderPayload!
+
+    editStakeholderOrganization(
+        organizationId: String!
+        phoneNumber: String
+        role: OrganizationRole!
+        userEmail: String!
+    ): EditStakeholderPayload!
+
+    addStakeholder(
+        email: String!
+        role: StakeholderRole!
+        phoneNumber: String
+    ): AddStakeholderPayload!
+
+    updateEvidence(
+        file: Upload!
+        findingId: String!
+        evidenceId: EvidenceType!
+    ): SimplePayload!
+
+    removeEvidence(
+        findingId: String!
+        evidenceId: EvidenceType!
+    ): SimpleFindingPayload!
+
+    updateEvidenceDescription(
+        description: String!
+        evidenceId: EvidenceDescriptionType!
+        findingId: String!
+    ): SimplePayload!
+
+    updateSeverity(
+        findingId: String!
+        data: GenericScalar!
+    ): SimpleFindingPayload!
+
+    addProjectConsult(
+        content: String!
+        parent: GenericScalar!
+        projectName: String!
+    ): AddConsultPayload!
+
+    createProject(
+        description: String!
+        organization: String
+        projectName: String!
+        subscription: SubscriptionType
+        hasDrills: Boolean
+        hasForces: Boolean
+    ): SimplePayload!
+
+    editGroup(
+        comments: String!
+        groupName: String!
+        hasDrills: Boolean!
+        hasForces: Boolean!
+        hasIntegrates: Boolean!
+        reason: EditGroupReason!
+        subscription: SubscriptionType!
+    ): SimplePayload!
+
+    addFindingConsult(
+        content: String!,
+        findingId: String!,
+        parent: GenericScalar!,
+        type: FindingConsultType!
+    ): AddConsultPayload!
+
+    rejectRemoveProject(projectName: String!): SimplePayload!
+
+    handleAcceptation(
+        findingId: String!
+        observations: String!
+        projectName: String!
+        response: String!
+    ): SimplePayload!
+
+    updateDescription(
+        actor: String!
+        affectedSystems: String!
+        attackVectorDesc: String!
+        cwe: String!
+        description: String!
+        findingId: String!
+        recommendation: String!
+        records: String
+        recordsNumber: Int!
+        requirements: String!
+        risk: String
+        scenario: String!
+        threat: String!
+        title: String!
+        findingType: String
+    ): SimpleFindingPayload!
+
+    updateClientDescription(
+        acceptanceDate: String
+        btsUrl: String
+        findingId: String!
+        treatment: UpdateClientDescriptionTreatment!
+        justification: String!
+        acceptanceStatus: String
+    ): SimpleFindingPayload!
+
+    approveDraft(draftId: String!): ApproveDraftPayload!
+
+    createDraft(
+        affectedSystems: String
+        attackVectorDesc: String
+        cwe: String
+        description: String
+        origin: String
+        projectName: String!
+        recommendation: String
+        requirements: String
+        risk: String
+        threat: String
+        title: String!
+        type: FindingType
+    ): SimplePayload!
+
+    rejectDraft(findingId: String!): SimplePayload!
+
+    deleteFinding(
+        findingId: String!
+        justification: DeleteFindingJustification!
+    ): SimplePayload!
+
+    submitDraft(findingId: String!): SimplePayload!
+
+    addEventConsult(
+        content: String!
+        eventId: String!
+        parent: GenericScalar!
+    ): AddConsultPayload!
+
+    createEvent(
+        actionAfterBlocking: ActionsAfterBlocking!
+        actionBeforeBlocking: ActionsBeforeBlocking!
+        accessibility: [EventAccessibility]!
+        affectedComponents: [AffectedComponents]
+        blockingHours: String
+        context: EventContext!
+        detail: String!
+        eventDate: DateTime!
+        eventType: EventType!
+        file: Upload
+        image: Upload
+        projectName: String!
+    ): SimplePayload!
+
+    downloadEventFile(eventId: String!, fileName: String!): DownloadFilePayload!
+
+    updateEventEvidence(
+        eventId: String!
+        evidenceType: EventEvidenceType!
+        file: Upload!
+    ): SimplePayload!
+
+    removeEventEvidence(
+        eventId: String!
+        evidenceType: EventEvidenceType!
+    ): SimplePayload!
+
+    solveEvent(
+        eventId: String!
+        affectation: String!
+        date: DateTime!
+    ): SimplePayload!
+
+    removeTag(projectName: String!, tag: String!): SimpleProjectPayload!
+
+    addTags(projectName: String!, tags: JSONString): SimpleProjectPayload!
+
+    signIn(authToken: String!, provider: AuthProvider!): SignInPayload!
+
+    addPushToken(token: String!): SimplePayload
+
+    subscribeToEntityReport(
+        frequency: Frequency!
+        reportEntity: SubscriptionReportEntity!
+        reportSubject: String!
+    ): SimplePayload!
+
+    invalidateCache(pattern: String!): SimplePayload!
+
+    addForcesExecution(
+        projectName: String!
+        execution_id: String!
+        date: DateTime!
+        exitCode: String!
+        gitBranch: String
+        gitCommit: String
+        gitOrigin: String
+        gitRepo: String
+        kind: String
+        log: Upload
+        strictness: String!
+        vulnerabilities: ExecutionVulnerabilitiesInput!
+    ): SimplePayload!
+
+    updateAccessTokenProject(
+        expirationTime: Int!
+        projectName: String!
+    ): UpdateAccessTokenPayload!
+}

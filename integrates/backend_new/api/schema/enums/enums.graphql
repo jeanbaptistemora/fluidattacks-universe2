@@ -1,0 +1,215 @@
+enum ActionsAfterBlocking {
+  EXECUTE_OTHER_PROJECT_OTHER_CLIENT
+  EXECUTE_OTHER_PROJECT_SAME_CLIENT
+  NONE
+  OTHER
+  TRAINING
+}
+
+enum ActionsBeforeBlocking {
+  DOCUMENT_PROJECT
+  NONE
+  OTHER
+  TEST_OTHER_PART_TOE
+}
+
+enum AffectedComponents {
+  CLIENT_STATION
+  COMPILE_ERROR
+  DOCUMENTATION
+  FLUID_STATION
+  INTERNET_CONNECTION
+  LOCAL_CONNECTION
+  OTHER
+  SOURCE_CODE
+  TEST_DATA
+  TOE_ALTERATION
+  TOE_CREDENTIALS
+  TOE_EXCLUSSION
+  TOE_LOCATION
+  TOE_PRIVILEGES
+  TOE_UNACCESSIBLE
+  TOE_UNAVAILABLE
+  TOE_UNSTABLE
+  VPN_CONNECTION
+}
+
+enum AuthProvider {
+  BITBUCKET
+  GOOGLE
+  MICROSOFT
+}
+
+enum CallerOrigin {
+  API
+  FRONT
+}
+
+enum DeleteFindingJustification {
+  DUPLICATED
+  FALSE_POSITIVE
+  NOT_REQUIRED
+}
+
+enum DeleteVulnerabilityJustification {
+  DUPLICATED
+  FALSE_POSITIVE
+  REPORTING_ERROR
+}
+
+enum EditGroupReason {
+  BUDGET
+  NONE
+  OTHER
+  PROJECT_FINALIZATION
+  PROJECT_SUSPENSION
+}
+
+enum Entity {
+  ORGANIZATION
+  PROJECT
+  USER
+}
+
+enum EventAccessibility {
+  ENVIRONMENT
+  REPOSITORY
+}
+
+enum EventContext {
+  CLIENT
+  FLUID
+  OTHER
+  PLANNING
+  TELECOMMUTING
+}
+
+enum EventEvidenceType {
+  FILE
+  IMAGE
+}
+
+enum EventType {
+  AUTHORIZATION_SPECIAL_ATTACK
+  CLIENT_APPROVES_CHANGE_TOE
+  CLIENT_DETECTS_ATTACK
+  HIGH_AVAILABILITY_APPROVAL
+  INCORRECT_MISSING_SUPPLIES
+  OTHER
+  TOE_DIFFERS_APPROVED
+}
+
+enum EvidenceDescriptionType {
+  EVIDENCE1
+  EVIDENCE2
+  EVIDENCE3
+  EVIDENCE4
+  EVIDENCE5
+}
+
+enum EvidenceType {
+  ANIMATION
+  EVIDENCE1
+  EVIDENCE2
+  EVIDENCE3
+  EVIDENCE4
+  EVIDENCE5
+  EXPLOIT
+  EXPLOITATION
+  RECORDS
+}
+
+enum FindingConsultType {
+  CONSULT
+  OBSERVATION
+}
+
+enum FindingType {
+  HYGIENE
+  SECURITY
+}
+
+enum Frequency {
+  DAILY
+  HOURLY
+  MONTHLY
+  NEVER
+  WEEKLY
+}
+
+enum NameEntity {
+  GROUP
+  ORGANIZATION
+}
+
+enum OrganizationRole {
+  CUSTOMER
+  CUSTOMERADMIN
+  GROUP_MANAGER
+}
+
+enum RepoProtocol {
+  HTTPS
+  SSH
+}
+
+enum ReportLang {
+  EN
+}
+
+enum ReportType {
+  ALL_USERS
+  ALL_VULNS
+  COMPLETE
+  DATA
+  PDF
+  XLS
+}
+
+enum ResourceState {
+  ACTIVE
+  INACTIVE
+}
+
+enum StakeholderEntity {
+  ORGANIZATION
+  PROJECT
+}
+
+enum StakeholderRole {
+  ADMIN
+  ANALYST
+  CLOSER
+  CUSTOMER
+  CUSTOMERADMIN
+  EXECUTIVE
+  GROUP_MANAGER
+  INTERNAL_MANAGER
+  RESOURCER
+  REVIEWER
+  SERVICE_FORCES
+}
+
+enum SubscriptionReportEntity {
+  GROUP
+  ORGANIZATION
+  PORTFOLIO
+}
+
+enum SubscriptionType {
+  CONTINUOUS
+  ONESHOT
+}
+
+enum UpdateClientDescriptionTreatment {
+  ACCEPTED
+  ACCEPTED_UNDEFINED
+  IN_PROGRESS
+}
+
+enum VulnerabilityState {
+  ACCEPTED
+  CLOSED
+  OPEN
+  UNKNOWN
+}

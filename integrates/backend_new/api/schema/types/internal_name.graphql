@@ -1,0 +1,4 @@
+"InternalNames type definition"
+type InternalName {
+  name: String
+}

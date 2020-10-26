@@ -1,0 +1,35 @@
+input EnvironmentInput {
+  "Environment URL"
+  urlEnv: String!
+}
+
+input ExecutionVulnerabilitiesInput {
+  "acepted vulnerabilities"
+  accepted: [ExploitResultInput!]
+  "closed exploits"
+  closed: [ExploitResultInput!]
+  "open vulnerabilities"
+  open: [ExploitResultInput!]
+}
+
+input ExploitResultInput {
+  "CVSS Exploitability"
+  exploitability: Float
+  "Execution kind"
+  kind: String
+  "Vulnerability state"
+  state: VulnerabilityState
+  "Vulnerability where"
+  where: String
+  "Execution specific"
+  who: String
+}
+
+input RepositoryInput {
+  "Repository branch"
+  branch: String!
+  "Repository protocol for cloning"
+  protocol: RepoProtocol!
+  "Repository URL"
+  urlRepo: String!
+}

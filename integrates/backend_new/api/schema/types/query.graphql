@@ -1,0 +1,74 @@
+"Main Query object"
+type Query {
+    "Get event"
+    event(identifier: String!): Event
+
+    "List of events of a project"
+    events(projectName: String!): [Event]
+
+    "Finding entity"
+    finding(identifier: String!): Finding
+
+    "Vulnerability entity"
+    vulnerability(uuid: String!): Vulnerability
+
+    "InternalNames entity"
+    internalNames(entity: NameEntity!): InternalName
+
+    "Get resources from project"
+    resources(projectName: String!): Resource
+
+    "Get user info from project"
+    stakeholder(
+        entity: StakeholderEntity!
+        organizationId: String
+        projectName: String
+        userEmail: String!
+    ): Stakeholder
+
+    "List projects a user is subscribed to"
+    userListProjects(userEmail: String!): [Project]
+
+    "Organization entity"
+    organization(organizationId: String!): Organization
+    organizationId(organizationName: String!): Organization
+
+    "Project entity"
+    project(projectName: String!): Project
+
+    "Get Forces executions"
+    forcesExecutions(
+        projectName: String!
+        fromDate: DateTime
+        toDate: DateTime
+    ): ForcesExecutions
+
+    "Get new Forces executions"
+    forcesExecutionsNew(
+        projectName: String!
+        fromDate: DateTime
+        toDate: DateTime
+    ): ForcesExecutionsNew
+
+    "Get Forces execution"
+    forcesExecution(
+        projectName: String!
+        executionId: String!
+    ): ForcesExecutionNew
+
+    "Me entity"
+    me(callerOrigin: String): Me
+
+    "Tag entity"
+    tag(tag: String!): Tag
+
+    "Report entity"
+    report(
+        reportType: ReportType!
+        projectName: String
+        lang: ReportLang
+    ): Report
+
+    "List of alive projects"
+    projects: [String]
+}

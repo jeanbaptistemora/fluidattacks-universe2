@@ -1,0 +1,14 @@
+"Tag type definition"
+type Tag {
+  lastClosingVuln: Float
+  maxOpenSeverity: Float
+  maxSeverity: Float
+  meanRemediate: Float
+  meanRemediateCriticalSeverity: Float
+  meanRemediateHighSeverity: Float
+  meanRemediateLowSeverity: Float
+  meanRemediateMediumSeverity: Float
+  name: String
+  organization: String
+  projects: [Project]
+}

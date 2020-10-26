@@ -1,0 +1,72 @@
+interface Payload {
+    success: Boolean!
+}
+
+type SimplePayload implements Payload {
+    success: Boolean!
+}
+
+type CreateOrganizationPayload implements Payload {
+    success: Boolean!
+    organization: Organization
+}
+
+type UpdateAccessTokenPayload implements Payload {
+    success: Boolean!
+    sessionJwt: String
+}
+
+type ResourcesPayload implements Payload {
+    success: Boolean!
+    resources: Resource
+}
+
+type DownloadFilePayload implements Payload {
+    success: Boolean!
+    url: String
+}
+
+type GrantStakeholderAccessPayload implements Payload {
+    success: Boolean!
+    grantedStakeholder: Stakeholder
+}
+
+type RemoveStakeholderAccessPayload implements Payload {
+    success: Boolean!
+    removedEmail: String
+}
+
+type EditStakeholderPayload implements Payload {
+    success: Boolean!
+    modifiedStakeholder: Stakeholder
+}
+
+type AddStakeholderPayload implements Payload {
+    success: Boolean!
+    email: String
+}
+
+type SimpleFindingPayload implements Payload {
+    success: Boolean!
+    finding: Finding
+}
+
+type AddConsultPayload implements Payload {
+    success: Boolean!
+    commentId: String
+}
+
+type ApproveDraftPayload implements Payload {
+    success: Boolean!
+    releaseDate: String
+}
+
+type SimpleProjectPayload implements Payload {
+    success: Boolean!
+    project: Project
+}
+
+type SignInPayload implements Payload {
+    success: Boolean!
+    sessionJwt: String
+}

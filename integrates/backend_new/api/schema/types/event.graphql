@@ -1,0 +1,21 @@
+"Event type definition"
+type Event {
+  accessibility: String
+  affectation: String
+  affectedComponents: String
+  analyst: String
+  client: String
+  closingDate: String
+  consulting: [Consult!]
+  context: String
+  detail: String
+  eventDate: String
+  eventStatus: String
+  eventType: String
+  evidence: String
+  evidenceFile: String
+  historicState: [GenericScalar]
+  id: String
+  projectName: String
+  subscription: String
+}
