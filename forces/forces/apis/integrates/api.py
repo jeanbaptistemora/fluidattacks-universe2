@@ -47,7 +47,12 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
 
     params = {'project_name': project}
     result: Dict[str, Dict[str, List[Any]]] = await execute(
-        query=query, variables=params, default=dict(), **kwargs) or dict()
+        query=query,
+        operation_name='ForcesDoGetProjectFindings',
+        variables=params,
+        default=dict(),
+        **kwargs,
+    ) or dict()
 
     findings: List[str] = [
         group['id']
@@ -83,10 +88,13 @@ async def get_vulnerabilities(
         """
 
     params = {'finding_id': finding}
-    response: Dict[str, Dict[str, List[Any]]] = await execute(query=query,
-                                                              variables=params,
-                                                              default=dict(),
-                                                              **kwargs)
+    response: Dict[str, Dict[str, List[Any]]] = await execute(
+        query=query,
+        operation_name='ForcesDoGetFindingVulnerabilities',
+        variables=params,
+        default=dict(),
+        **kwargs,
+    )
     finding_value = response.get('finding', dict())
 
     # if a findinge its accepted, all vulnerabilities are accepted
@@ -119,7 +127,12 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
         """
     params = {'finding_id': finding}
     response: Dict[str, str] = await execute(
-        query=query, variables=params, default=dict(), **kwargs)
+        query=query,
+        operation_name='ForcesDoGetFinding',
+        variables=params,
+        default=dict(),
+        **kwargs,
+    )
     return response.get('finding', dict())  # type: ignore
 
 
@@ -232,5 +245,10 @@ async def upload_report(project: str, report: Dict[str, Any], log_file: str,
     }
 
     response: Dict[str, Dict[str, bool]] = await execute(
-        query=query, variables=params, default={}, **kwargs)
+        query=query,
+        operation_name='ForcesDoUploadReport',
+        variables=params,
+        default={},
+        **kwargs,
+    )
     return response.get('addForcesExecution', dict()).get('success', False)

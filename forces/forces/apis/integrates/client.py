@@ -52,6 +52,7 @@ async def session(
 
 
 async def execute(query: str,
+                  operation_name: str,
                   variables: Optional[Dict[str, Any]] = None,
                   default: Optional[Any] = None,
                   **kwargs: Any) -> TVar:
@@ -59,7 +60,11 @@ async def execute(query: str,
         result: Any = dict()
         response: aiohttp.ClientResponse
 
-        response = await client.execute(query, variables=variables)
+        response = await client.execute(
+            query,
+            variables=variables,
+            operation=operation_name,
+        )
         result = await response.json()
 
         if 'errors' in result.keys():
