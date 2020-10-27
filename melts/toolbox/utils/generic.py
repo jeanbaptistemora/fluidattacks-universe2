@@ -467,7 +467,15 @@ def _get_okta_aws_credentials(profile: str) -> Dict:
         logger.error(error)
         if config.has_section('continuous-admin'):
             logger.info('Using the continuous-admin credentials')
-            out = json.dumps(_get_aws_credentials('continuous-admin'))
+            envs['AWS_OKTA_ROLE'] = \
+                'arn:aws:iam::205810638802:role/continuous-admin'
+            key_info = _get_aws_credentials('continuous-admin')
+            out = json.dumps(key_info)
+            is_aws_valid = is_credential_valid(key_info['AccessKeyId'],
+                                               key_info['SecretAccessKey'],
+                                               key_info['SessionToken'])
+            if not is_aws_valid:
+                success, out, error = run_command(command, cwd='.', env=envs)
         else:
             envs.pop('AWS_OKTA_ROLE')
             success, out, error = run_command(command, cwd='.', env=envs)
