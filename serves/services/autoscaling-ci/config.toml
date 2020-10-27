@@ -36,7 +36,7 @@ check_interval = 20
   [runners.machine]
     IdleCount = 20
     IdleTime = 1800
-    MaxBuilds = 100
+    MaxBuilds = 25
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-ci-%s"
     MachineOptions = [
@@ -54,7 +54,7 @@ check_interval = 20
       "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=t2.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=65"
+      "amazonec2-root-size=40"
     ]
     OffPeakPeriods = [
       "* * 0-6,21-23 * * mon-fri *",
@@ -96,7 +96,7 @@ check_interval = 20
   [runners.machine]
     IdleCount = 5
     IdleTime = 1800
-    MaxBuilds = 100
+    MaxBuilds = 25
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-large-ci-%s"
     MachineOptions = [
@@ -115,7 +115,7 @@ check_interval = 20
       "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=m5a.large",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=60"
+      "amazonec2-root-size=40"
     ]
     OffPeakPeriods = [
       "* * 0-6,21-23 * * mon-fri *",
@@ -210,7 +210,7 @@ check_interval = 20
   [runners.machine]
     IdleCount = 10
     IdleTime = 1800
-    MaxBuilds = 100
+    MaxBuilds = 25
     MachineDriver = "amazonec2"
     MachineName = "autonomic-ci-%s"
     MachineOptions = [
@@ -228,7 +228,7 @@ check_interval = 20
       "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=t2.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=60"
+      "amazonec2-root-size=40"
     ]
     OffPeakPeriods = [
       "* * 0-6,20-23 * * mon-fri *",
