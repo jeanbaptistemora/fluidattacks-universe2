@@ -13,17 +13,16 @@ from typing import (
 # Local libraries
 from dif_gitlab_etl import db_client
 from dif_gitlab_etl import etl
-from dif_gitlab_etl import page_data
 from dif_gitlab_etl import planner
 from dif_gitlab_etl.db_client import DbState
 from dif_gitlab_etl.etl import ExtractState
+
+from streamer_gitlab import page_data
 from streamer_gitlab.api_client import (
     GitlabResource,
     GResourcePageRange,
 )
-from streamer_gitlab.extractor import (
-    PageData,
-)
+from streamer_gitlab.page_data import PageData
 
 
 def specific_resources(project: str) -> List[GitlabResource]:

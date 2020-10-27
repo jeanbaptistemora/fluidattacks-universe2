@@ -18,9 +18,7 @@ from streamer_gitlab.api_client import (
     GitlabResourcePage,
     GResourcePageRange,
 )
-from streamer_gitlab.extractor import (
-    PageData,
-)
+from streamer_gitlab.page_data import PageData
 from dif_gitlab_etl import planner
 from dif_gitlab_etl.utils import (
     error,

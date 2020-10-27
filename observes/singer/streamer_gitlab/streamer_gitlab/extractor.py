@@ -1,5 +1,4 @@
 # Standard libraries
-import sys
 import json
 
 from typing import (
@@ -9,9 +8,6 @@ from typing import (
     cast,
     Dict,
     List,
-    NamedTuple,
-    Optional,
-    TextIO,
 )
 from asyncio import (
     create_task,
@@ -28,14 +24,7 @@ from aioextensions import (
 
 # Local libraries
 from streamer_gitlab import api_client
-from streamer_gitlab.api_client import GitlabResourcePage
 from streamer_gitlab.log import log
-
-
-class PageData(NamedTuple):
-    id: GitlabResourcePage
-    file: TextIO
-    minor_item_id: int
 
 
 def gitlab_data_emitter(  # pylint: disable=too-many-arguments
@@ -135,42 +124,3 @@ async def main(projects: List[str], api_token: str, max_pags: int) -> None:
     ])
     await queue.put(None)
     await emitter_task
-
-
-async def stream_resource_page(
-    resource: GitlabResourcePage,
-    api_token: str,
-    out_file: TextIO = sys.stdout,
-    items_less_than: Optional[int] = None,
-) -> Optional[PageData]:
-    sys.stdout = out_file
-    project: str = resource.g_resource.project
-    s_resource: str = resource.g_resource.resource
-    init_page: int = resource.page
-    per_page: int = resource.per_page
-    queue: Queue = Queue(maxsize=1024)
-    await collect([
-        gitlab_data_emitter(
-            api_client.build_getter(items_less_than),
-            urllib.parse.quote(project, safe=''),
-            s_resource,
-            dict(resource.g_resource.params),
-            api_token,
-            1, per_page, init_page
-        )(queue)
-    ])
-    m_id: Optional[int] = None
-    if queue.qsize() > 0:
-        item = await queue.get()
-        m_id = api_client.get_minor_id(item['records'])
-        if m_id is not None:
-            await queue.put(item)
-            await queue.put(None)
-            await create_task(emitter(queue))
-            return PageData(
-                resource,
-                file=out_file,
-                minor_item_id=m_id
-            )
-    out_file.close()
-    return None

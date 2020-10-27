@@ -15,7 +15,7 @@ from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )
-from streamer_gitlab.extractor import PageData
+from streamer_gitlab.page_data import PageData
 from dif_gitlab_etl.utils import (
     log,
     NotFoundException,
