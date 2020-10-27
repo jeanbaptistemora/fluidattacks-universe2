@@ -14,6 +14,7 @@ from training.commit import get_subscription_commit_metadata
 from training.file import get_subscription_file_metadata
 from utils.decorators import shield
 from utils.logs import log
+from utils.version import check_version_is_latest
 
 
 @click.command(
@@ -59,6 +60,8 @@ def execute_sorts(
 ) -> None:
     start_time: float = time.time()
     success: bool = False
+    if not check_version_is_latest():
+        log('info', 'There is a newer version available for download')
     if get_commit_data:
         if token:
             create_session(token)
@@ -66,8 +69,9 @@ def execute_sorts(
         else:
             log(
                 'error',
-                'Set the Integrates API token either using the option --token '
-                'or the environmental variable INTEGRATES_API_TOKEN'
+                'Set the Integrates API token either using the option '
+                '--token or the environmental variable '
+                'INTEGRATES_API_TOKEN'
             )
     elif get_file_data:
         if token:
@@ -76,8 +80,9 @@ def execute_sorts(
         else:
             log(
                 'error',
-                'Set the Integrates API token either using the option --token '
-                'or the environmental variable INTEGRATES_API_TOKEN'
+                'Set the Integrates API token either using the option '
+                '--token or the environmental variable '
+                'INTEGRATES_API_TOKEN'
             )
     elif predict_commit:
         success = prioritize_commits(subscription)
