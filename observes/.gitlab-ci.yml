@@ -102,12 +102,22 @@ observes_gitlab_on_aws:
     variables: [$observes_gitlab_on_aws]
   interruptible: false
 
-observes_gitlab_lint:
+observes_gitlab_streamer_lint:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes_gitlab_test:
+observes_gitlab_streamer_test:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-code
+
+observes_gitlab_etl_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes_gitlab_etl_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code

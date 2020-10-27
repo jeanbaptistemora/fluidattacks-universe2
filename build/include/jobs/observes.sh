@@ -408,7 +408,7 @@ function job_observes_code_test {
   ||  return 1
 }
 
-function job_observes_gitlab_lint {
+function job_observes_gitlab_streamer_lint {
 
       pushd observes \
     &&  env_prepare_python_packages \
@@ -417,7 +417,7 @@ function job_observes_gitlab_lint {
   ||  return 1
 }
 
-function job_observes_gitlab_test {
+function job_observes_gitlab_streamer_test {
 
       pushd observes \
     &&  env_prepare_python_packages \

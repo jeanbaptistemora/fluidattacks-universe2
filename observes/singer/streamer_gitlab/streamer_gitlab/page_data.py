@@ -18,6 +18,7 @@ import aiohttp
 from streamer_gitlab import api_client
 from streamer_gitlab import extractor
 from streamer_gitlab.api_client import GitlabResourcePage
+from streamer_gitlab.log import log
 
 
 class PageData(NamedTuple):
@@ -78,15 +79,24 @@ def filter_data_greater_than(
     Returns a PageData only with items greater than target_id
     """
     dpage.file.seek(0)
-    raw_data = dpage.file.read()
-    data = json.loads(raw_data)
+    log('debug', f'Filter greater than @ {dpage.file.name}')
+    lines = dpage.file.readlines()
+    data: List[Dict[str, Any]] = []
+    stream = ''
+    for line in lines:
+        raw_data: Dict[str, Any] = json.loads(line)
+        if not stream:
+            stream = raw_data['stream']
+        elif stream != raw_data['stream']:
+            raise Exception(
+                'PageData is expected to hold items with same stream property'
+            )
+        data.append(raw_data['record'])
     filtered_records = api_client.elements_greater_than(
-        target_id, data['record']
+        target_id, data
     )
-    filtered_data = {'stream': data['stream'], 'record': filtered_records}
     file = tempfile.NamedTemporaryFile(mode='w+')
-    file.write(json.dumps(filtered_data))
-    file.seek(0)
+    extractor.emit(stream, filtered_records, file)
     return PageData(
         id=dpage.id,
         file=file,

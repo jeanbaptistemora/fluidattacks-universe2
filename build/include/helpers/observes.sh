@@ -144,7 +144,7 @@ function helper_observes_gitlab {
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  dif-gitlab-etl --projects "${PROJECTS[@]}" --auth "${TEMP_FILE2}"
+  &&  dif-gitlab-etl start-etl "${PROJECTS[@]}" "${TEMP_FILE2}"
 }
 
 function helper_observes_timedoctor {
