@@ -5,6 +5,8 @@
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
+  variables:
+    GIT_DEPTH: 5
 
 .asserts_commit_pattern: &asserts_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|asserts)/'
 
@@ -243,7 +245,7 @@ asserts_test_api_proto_tcp:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_sca:
+.asserts_test_api_sca:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
