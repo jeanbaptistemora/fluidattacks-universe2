@@ -40,7 +40,11 @@ def _execute(
     response: Dict[str, Any] = {}
     with graphql_client() as client:
         try:
-            response = client.execute(gql(query), variables)
+            response = client.execute(
+                document=gql(query),
+                variable_values=variables,
+                operation_name=operation
+            )
         except TransportQueryError as exc:
             log_exception('error', exc)
             log('debug', 'query %s: %s', operation, query)
