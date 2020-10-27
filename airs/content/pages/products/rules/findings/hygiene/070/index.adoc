@@ -13,4 +13,4 @@ increase the chances that an exploitable vulnerability will be present.
 
 == Rules
 
-. [[r1]] [inner]#link:/products/rules/list/158/[R158. Define secure programming language]#
+. [[r1]] [inner]#link:/products/rules/list/158/[R158. Use a secure programming language]#
