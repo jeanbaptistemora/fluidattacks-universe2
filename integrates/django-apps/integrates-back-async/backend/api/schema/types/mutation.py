@@ -12,12 +12,12 @@ from backend.api.mutations import (
     download_event_file,
     edit_stakeholder_organization,
     invalidate_cache,
+    remove_event_evidence,
     solve_event,
     update_event_evidence,
     update_evidence
 )
 from backend.api.resolvers import (
-    event,
     finding,
     forces,
     me,
@@ -41,11 +41,11 @@ MUTATION.set_field(
     edit_stakeholder_organization.mutate
 )
 MUTATION.set_field('invalidateCache', invalidate_cache.mutate)
+MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('updateEventEvidence', update_event_evidence.mutate)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
 
-MUTATION.set_field('removeEventEvidence', event.resolve_event_mutation)
 MUTATION.set_field('signIn', me.resolve_me_mutation)
 MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
 MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
