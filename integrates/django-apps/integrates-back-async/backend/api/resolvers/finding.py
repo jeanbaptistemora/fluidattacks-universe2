@@ -6,10 +6,8 @@ from typing import Any, Union, cast
 
 # Third party libraries
 from ariadne import convert_kwargs_to_snake_case
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
-import newrelic.agent
 
 from backend.decorators import (
     concurrent_decorators,
@@ -93,51 +91,6 @@ async def _do_remove_evidence(
         )
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
-
-
-@newrelic.agent.background_task()
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-async def _do_update_evidence(
-        _: Any,
-        info: GraphQLResolveInfo,
-        evidence_id: str,
-        finding_id: str,
-        file: InMemoryUploadedFile) -> SimplePayloadType:
-    """Resolve update_evidence mutation."""
-    success = False
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-
-    success = await finding_domain.validate_and_upload_evidence(
-        finding_id,
-        evidence_id,
-        file
-    )
-
-    if success:
-        await util.invalidate_cache(
-            f'{user_email}*{finding_id}',
-            f'evidence*{finding_id}',
-            f'exploit*{finding_id}',
-            f'records*{finding_id}'
-        )
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Updated evidence in finding '
-             f'{finding_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to update evidence in '
-             f'finding {finding_id}')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

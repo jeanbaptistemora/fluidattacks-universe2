@@ -86,7 +86,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
 
           return (
             <React.Fragment>
-              <Can do="backend_api_resolvers_finding__do_update_evidence">
+              <Can do="backend_api_mutations_update_evidence_mutate">
                 <Row>
                   <Col md={2} mdOffset={10} xs={12} sm={12}>
                     <Button onClick={handleEditClick}>

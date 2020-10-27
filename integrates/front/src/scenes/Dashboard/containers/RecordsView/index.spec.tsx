@@ -72,7 +72,7 @@ describe("FindingRecordsView", () => {
 
   it("should render as editable", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_update_evidence" },
+      { action: "backend_api_mutations_update_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -107,7 +107,7 @@ describe("FindingRecordsView", () => {
 
   it("should render delete button", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_update_evidence" },
+      { action: "backend_api_mutations_update_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

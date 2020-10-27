@@ -260,7 +260,7 @@ describe("FindingContent", () => {
   it("should render empty Exploit tab for analyst", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
-      { action: "backend_api_resolvers_finding__do_update_evidence" },
+      { action: "backend_api_mutations_update_evidence_mutate" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },

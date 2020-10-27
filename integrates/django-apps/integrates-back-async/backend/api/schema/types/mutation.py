@@ -5,7 +5,10 @@
 from ariadne import MutationType
 
 # Local
-from backend.api.mutations import organization as org_mutations
+from backend.api.mutations import (
+    organization as org_mutations,
+    update_evidence
+)
 from backend.api.resolvers import (
     cache,
     event,
@@ -24,6 +27,7 @@ MUTATION = MutationType()
 
 # Organization
 MUTATION.set_field('createOrganization', org_mutations.create)
+MUTATION.set_field('updateEvidence', update_evidence.mutate)
 
 MUTATION.set_field('invalidateCache', cache.resolve_invalidate_cache)
 MUTATION.set_field('createEvent', event.resolve_event_mutation)
@@ -74,7 +78,6 @@ MUTATION.set_field('addProjectConsult',
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
-MUTATION.set_field('updateEvidence', finding.resolve_finding_mutation)
 MUTATION.set_field('updateEvidenceDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateSeverity',

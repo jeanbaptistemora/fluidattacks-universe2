@@ -266,7 +266,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     tooltip={translate.t("search_findings.tab_evidence.tooltip")}
                   />
                   <Have I="has_forces">
-                    { hasExploit || permissions.can("backend_api_resolvers_finding__do_update_evidence")
+                    { hasExploit || permissions.can("backend_api_mutations_update_evidence_mutate")
                       ? <ContentTab
                           icon="icon pe-7s-file"
                           id="exploitItem"

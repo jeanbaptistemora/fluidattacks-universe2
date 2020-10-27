@@ -160,7 +160,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
     <React.StrictMode>
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
-          <Can do="backend_api_resolvers_finding__do_update_evidence">
+          <Can do="backend_api_mutations_update_evidence_mutate">
             <Button onClick={handleEditClick}>
               <FluidIcon icon="edit" />&nbsp;{translate.t("group.findings.evidence.edit")}
             </Button>
