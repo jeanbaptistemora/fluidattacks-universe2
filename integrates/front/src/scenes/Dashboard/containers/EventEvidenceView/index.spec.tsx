@@ -178,7 +178,7 @@ describe("EventEvidenceView", () => {
       },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_event__do_update_event_evidence" },
+      { action: "backend_api_mutations_update_event_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>

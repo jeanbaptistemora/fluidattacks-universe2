@@ -152,7 +152,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       <React.Fragment>
         <Row>
           <Col md={2} mdOffset={10} xs={12} sm={12}>
-            <Can do="backend_api_resolvers_event__do_update_event_evidence">
+            <Can do="backend_api_mutations_update_event_evidence_mutate">
               <Button disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
                 <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
               </Button>

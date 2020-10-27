@@ -11,10 +11,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_create_event_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_event__do_remove_event_evidence',
             'backend_api_mutations_solve_event_mutate',
-            'backend_api_resolvers_event__do_update_event_evidence',
+            'backend_api_mutations_update_event_evidence_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
@@ -95,10 +95,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_create_event_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_event__do_remove_event_evidence',
             'backend_api_mutations_solve_event_mutate',
-            'backend_api_resolvers_event__do_update_event_evidence',
+            'backend_api_mutations_update_event_evidence_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
@@ -153,7 +153,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_create_event_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_mutations_solve_event_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
@@ -195,7 +195,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
@@ -233,7 +233,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customeradmin=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
@@ -285,7 +285,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     executive=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
@@ -323,7 +323,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_create_event_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_mutations_solve_event_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
@@ -390,7 +390,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_create_event_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_mutations_solve_event_mutate',
@@ -416,7 +416,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
-            'backend_api_resolvers_event__do_download_event_file',
+            'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
