@@ -287,3 +287,5 @@ asserts_documentation:
   <<: *with_nix
   <<: *in_master_branch_asserts
   stage: deploy-app
+  variables:
+    GIT_DEPTH: "0"
