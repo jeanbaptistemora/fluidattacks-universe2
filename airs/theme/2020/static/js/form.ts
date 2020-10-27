@@ -62,7 +62,7 @@ const fieldHandler: (() => void) = (): void => {
     // tslint:disable-next-line: typedef
     geoIpLookup(callback: (countryCode: string) => void) {
       // tslint:disable-next-line: no-empty
-      $.get("https://ipinfo.io", () => {}, "jsonp")
+      $.get("https://ipinfo.io?token=8ff59332458d40", () => {}, "jsonp")
       .always((resp: {[country: string]: string}) => {
         // tslint:disable-next-line: strict-boolean-expressions
         const countryCode: string = (resp && resp.country) ? resp.country : "";
