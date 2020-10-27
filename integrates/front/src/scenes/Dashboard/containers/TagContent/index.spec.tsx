@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { Route } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/TagInfo/queries";
+import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/queries";
 import store from "store";
 
 describe("TagContent", () => {
