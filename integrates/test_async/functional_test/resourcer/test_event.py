@@ -15,7 +15,7 @@ async def test_event():
         date_format='%Y-%m-%d'
     )
     group_name = 'unittesting'
-    event_detail = 'closer create new event'
+    event_detail = 'resoucer create new event'
     event_date = '2020-01-31 19:00:00'
     event_type = 'INCORRECT_MISSING_SUPPLIES'
     query = f'''
@@ -34,7 +34,6 @@ async def test_event():
             }}
         }}
     '''
-    data = {'query': query}
     data = {'query': query}
     result = await get_result(data)
     assert 'errors' not in result
@@ -58,13 +57,13 @@ async def test_event():
     events = result['data']['project']['events']
     event = [event for event in events if event['detail'] == event_detail][0]
     event_id = event['id']
-    counsult_content = 'Test content of new event'
 
+    consult_content = 'Test content of new event'
     query = f'''
         mutation {{
             addEventConsult(eventId: "{event_id}",
                             parent: "0",
-                            content: "{counsult_content}") {{
+                            content: "{consult_content}") {{
                 success
                 commentId
             }}
@@ -137,7 +136,7 @@ async def test_event():
     assert result['data']['event']['affectedComponents'] == ''
     assert result['data']['event']['client'] == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     assert result['data']['event']['closingDate'] == '-'
-    assert result['data']['event']['consulting'] == [{'content': counsult_content}]
+    assert result['data']['event']['consulting'] == [{'content': consult_content}]
     assert result['data']['event']['context'] == 'CLIENT'
     assert result['data']['event']['detail'] == event_detail
     assert result['data']['event']['eventDate'] == event_date

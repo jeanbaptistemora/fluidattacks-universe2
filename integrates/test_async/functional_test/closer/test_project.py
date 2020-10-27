@@ -47,7 +47,7 @@ async def test_project():
                 email: "integratescloser@fluidattacks.com",
                 phoneNumber: "-",
                 projectName: "{group_name}",
-                responsibility: "Group manager",
+                responsibility: "Closer",
                 role: {role}
             ) {{
             success
