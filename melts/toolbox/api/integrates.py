@@ -74,13 +74,13 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
                 return response
 
 
-async def gql_request(api_token, payload, variables):
+async def gql_request(api_token, payload, variables, **kwargs):
     """Async GraphQL request."""
     headers = {
         'Authorization': f'Bearer {api_token}'
     }
     client = CustomGraphQLClient(INTEGRATES_API_URL, headers=headers)
-    response = await client.execute(payload, variables=variables)
+    response = await client.execute(payload, variables=variables, **kwargs)
     content = await response.json()
     data: Any = content.get('data')
     errors: Any = content.get('errors')
@@ -113,7 +113,8 @@ async def gql_request(api_token, payload, variables):
 def request(api_token: str,
             body: str,
             params: dict = None,
-            expected_types: tuple = (frozendict,)) -> Response:
+            expected_types: tuple = (frozendict,),
+            **kwargs: Any) -> Response:
     """Make a generic query to a GraphQL instance."""
     assert isinstance(body, str)
     if params is not None:
@@ -131,7 +132,7 @@ def request(api_token: str,
                     # Reset the file pointer to BOF
                     params['fileHandle'].seek(0)
 
-            awaitable = gql_request(api_token, body, params)
+            awaitable = gql_request(api_token, body, params, **kwargs)
             response = asyncio.run(awaitable, debug=DEBUGGING)
 
             if response.errors or isinstance(response.data, expected_types):
@@ -158,7 +159,7 @@ class Queries:
         """Get an API token from your session token."""
         logger.debug('Query.me()')
         body: str = """
-            query {
+            query MeltsGetMe {
                 me {
                     accessToken
                     role (entity: USER)
@@ -168,7 +169,7 @@ class Queries:
                 }
             }
             """
-        return request(api_token, body)
+        return request(api_token, body, operation='MeltsGetMe')
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -182,7 +183,7 @@ class Queries:
                      f'with_drafts={with_drafts}, '
                      f'with_findings={with_findings})')
         body: str = """
-            query GetProject($projectName: String!, $withDrafts: Boolean!,
+            query MeltsGetProject($projectName: String!, $withDrafts: Boolean!,
                              $withFindings: Boolean!) {
                 project(projectName: $projectName) {
                     drafts @include(if: $withDrafts) {
@@ -201,7 +202,7 @@ class Queries:
             'withDrafts': with_drafts,
             'withFindings': with_findings,
         }
-        return request(api_token, body, params)
+        return request(api_token, body, params, operation='MeltsGetProject')
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -211,7 +212,7 @@ class Queries:
         logger.debug(f'Query.project('
                      f'project_name={project_name})')
         body: str = """
-            query GetWheres($projectName: String!) {
+            query MeltsGetWheres($projectName: String!) {
                 project(projectName: $projectName) {
                     findings {
                         id
@@ -226,7 +227,7 @@ class Queries:
         params: dict = {
             'projectName': project_name,
         }
-        return request(api_token, body, params)
+        return request(api_token, body, params, operation='MeltsGetWheres')
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -239,7 +240,7 @@ class Queries:
                      f'with_vulns={with_vulns})')
         assert isinstance(identifier, str)
         body: str = """
-            query GetFinding($identifier: String!, $withVulns: Boolean!) {
+            query MeltsGetFinding($identifier: String!, $withVulns: Boolean!) {
                 finding(identifier: $identifier) {
                     attackVectorDesc
                     closedVulnerabilities @include(if: $withVulns)
@@ -266,7 +267,7 @@ class Queries:
             'identifier': identifier,
             'withVulns': with_vulns,
         }
-        return request(api_token, body, params)
+        return request(api_token, body, params, operation='MeltsGetFinding')
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
@@ -275,15 +276,17 @@ class Queries:
         """Get the project repositories"""
         logger.debug(f'Query.finding('
                      f'project_name={project_name} ')
-        body: str = """query GetResources($projectName: String!) {
+        body: str = """
+        query MeltsGetResources($projectName: String!) {
             resources (projectName: $projectName) {
                 repositories
             }
-        }"""
+        }
+        """
         params: dict = {
             'projectName': project_name
         }
-        return request(api_token, body, params)
+        return request(api_token, body, params, operation='MeltsGetResources')
 
 
 class Mutations:
@@ -308,7 +311,7 @@ class Mutations:
         )
         assert isinstance(file_path, str) and os.path.exists(file_path)
         body: str = """
-            mutation UpdateEvidence(
+            mutation MeltsUpdateEvidence(
                 $evidenceId: EvidenceType!,
                 $fileHandle: Upload!,
                 $findingId: String!,
@@ -330,7 +333,10 @@ class Mutations:
                 'fileHandle': file_handle,
             }
 
-            return request(api_token, body, params)
+            return request(api_token,
+                           body,
+                           params,
+                           operation='MeltsUpdateEvidence')
 
     @staticmethod
     def upload_file(api_token: str,
@@ -343,7 +349,10 @@ class Mutations:
         assert isinstance(identifier, str)
         assert isinstance(file_path, str) and os.path.exists(file_path)
         body: str = """
-            mutation UploadFile($identifier: String!, $fileHandle: Upload!) {
+            mutation MeltsUploadFile(
+                $identifier: String!,
+                $fileHandle: Upload!)
+            {
                 uploadFile(findingId: $identifier,
                            file: $fileHandle) {
                     success
@@ -357,7 +366,10 @@ class Mutations:
                 'fileHandle': file_handle,
             }
 
-            return request(api_token, body, params)
+            return request(api_token,
+                           body,
+                           params,
+                           operation='MeltsUploadFile')
 
 
 # Metadata
