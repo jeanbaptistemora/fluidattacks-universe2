@@ -1,4 +1,3 @@
-from time import time
 import sys
 from typing import Any, Union, cast
 
@@ -38,56 +37,6 @@ async def resolve_event_mutation(
         ],
         await resolver_func(obj, info, **parameters)
     )
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_add_event_consult(
-        _: Any,
-        info: GraphQLResolveInfo,
-        content: str,
-        event_id: str,
-        parent: str) -> AddConsultPayloadType:
-    random_comment_id = int(round(time() * 1000))
-    user_info: Any = await util.get_jwt_content(info.context)
-    user_email = str(user_info['user_email'])
-    comment_data = {
-        'comment_type': 'event',
-        'parent': parent,
-        'content': content,
-        'user_id': random_comment_id
-    }
-    comment_id, success = await event_domain.add_comment(
-        user_email,
-        comment_data,
-        event_id,
-        parent
-    )
-    if success:
-        util.queue_cache_invalidation(
-            f'consulting*{event_id}',
-            f'comment*{event_id}'
-        )
-        event_domain.send_comment_mail(
-            user_email,
-            comment_data,
-            await info.context.loaders['event'].load(event_id)
-        )
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Added comment to '
-             f'event {event_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to add comment '
-             f'in event {event_id}')  # pragma: no cover
-        )
-    return AddConsultPayloadType(success=success, comment_id=str(comment_id))
 
 
 @concurrent_decorators(
