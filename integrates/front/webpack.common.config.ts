@@ -59,6 +59,11 @@ export const commonConfig: webpack.Configuration = {
     new MiniCssExtractPlugin({
       filename: "[name]-style.min.css",
     }),
+    new webpack.EnvironmentPlugin([
+      "CI_COMMIT_SHA",
+      "CI_COMMIT_SHORT_SHA",
+      "FI_VERSION",
+    ]),
   ],
   resolve: {
     alias: {

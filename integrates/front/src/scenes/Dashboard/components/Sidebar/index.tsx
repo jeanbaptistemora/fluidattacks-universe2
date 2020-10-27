@@ -75,9 +75,31 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
         {_.isUndefined(userRole) || _.isEmpty(userRole) ? (
           undefined
         ) :
-          <div className={style.version}><small>{translate.t(`userModal.roles.${userRole}`)}</small></div>
+          <div className={style.version}>
+            <small>
+              {translate.t("sidebar.role")}&nbsp;
+              {translate.t(`userModal.roles.${userRole}`)}
+            </small>
+          </div>
         }
-        <div className={style.version}><small>v. integrates_version</small></div>
+        <div className={style.version}>
+          <small>
+            {translate.t("sidebar.version")}&nbsp;
+            {process.env.FI_VERSION}
+          </small>
+        </div>
+        <div className={style.version}>
+          <small>
+            {translate.t("sidebar.commit")}&nbsp;
+            <a
+              href={`https://gitlab.com/fluidattacks/product/-/tree/${process.env.CI_COMMIT_SHA}`}
+              rel="noopener"
+              target="_blank"
+            >
+              {process.env.CI_COMMIT_SHORT_SHA}
+            </a>
+          </small>
+        </div>
         <TooltipWrapper message="Log out of Integrates" placement="right">
           <ul>
             <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>

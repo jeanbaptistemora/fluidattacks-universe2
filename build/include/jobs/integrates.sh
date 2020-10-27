@@ -6,11 +6,11 @@ function job_integrates_build_front {
   &&  npm install \
   &&  < ../../build/patches/jquery-comments.diff \
         patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-  &&  npm run build \
+  &&  npm run build -- \
+        --env.CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
+        --env.CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
+        --env.FI_VERSION="${FI_VERSION}" \
   &&  popd \
-  &&  sed --in-place \
-        "s/integrates_version/${FI_VERSION}/g" \
-        'app/static/dashboard/app-bundle.min.js' \
   &&  popd \
   || return 1
 }

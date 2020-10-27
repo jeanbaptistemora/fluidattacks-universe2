@@ -6,6 +6,7 @@ export CI_COMMIT_AUTHOR
 export CI_COMMIT_BEFORE_SHA
 export CI_COMMIT_REF_NAME
 export CI_COMMIT_SHA
+export CI_COMMIT_SHORT_SHA
 export CI_NODE_INDEX
 export CI_NODE_TOTAL
 export CHANGELOG
@@ -37,6 +38,8 @@ test -n "${CI_COMMIT_REF_SLUG:-}" \
   || CI_COMMIT_REF_SLUG="${CI_COMMIT_REF_NAME}"
 test -n "${CI_COMMIT_SHA:-}" \
   || CI_COMMIT_SHA=$(git log -n 1 --format=%H HEAD)
+test -n "${CI_COMMIT_SHORT_SHA:-}" \
+  || CI_COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)
 test -n "${CI_NODE_INDEX:-}" \
   || CI_NODE_INDEX='1'
 test -n "${CI_NODE_TOTAL:-}" \
