@@ -1,35 +1,18 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { RouteComponentProps } from "react-router";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-import { authzPermissionsContext } from "utils/authz/config";
+
+import store from "store/index";
 
 describe("FindingExploitView", (): void => {
-
-  const mockProps: RouteComponentProps<{ findingId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: { isExact: true, params: { findingId: "422286126" }, path: "/", url: "" },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
@@ -55,8 +38,17 @@ describe("FindingExploitView", (): void => {
   });
 
   it("should render", (): void => {
-    const wrapper: ShallowWrapper = shallow(
-      <TrackingView {...mockProps} />,
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/testorg/groups/testgroup/vulns/422286126/tracking"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route
+              path="/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
+              component={TrackingView}
+            />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -64,9 +56,16 @@ describe("FindingExploitView", (): void => {
 
   it("should render timeline", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <TrackingView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/orgs/okada/groups/testgroup/vulns/422286126/tracking"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route
+              path="/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
+              component={TrackingView}
+            />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("ul"))
