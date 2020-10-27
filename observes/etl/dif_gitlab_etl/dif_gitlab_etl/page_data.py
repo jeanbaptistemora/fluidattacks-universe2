@@ -26,7 +26,6 @@ def extract_data(
     result = loop.run_until_complete(
         extractor.stream_resource_page(
             resource=resource,
-            params={},
             api_token=api_token,
             out_file=file,
         )
@@ -49,7 +48,6 @@ def extract_data_less_than(
     result = loop.run_until_complete(
         extractor.stream_resource_page(
             resource=resource,
-            params={},
             api_token=api_token,
             out_file=file,
             items_less_than=target_id,

@@ -12,7 +12,6 @@ from typing import (
     NamedTuple,
     Optional,
     TextIO,
-    Union
 )
 from asyncio import (
     create_task,
@@ -140,7 +139,6 @@ async def main(projects: List[str], api_token: str, max_pags: int) -> None:
 
 async def stream_resource_page(
     resource: GitlabResourcePage,
-    params: Dict[str, Union[str, int]],
     api_token: str,
     out_file: TextIO = sys.stdout,
     items_less_than: Optional[int] = None,
@@ -156,7 +154,7 @@ async def stream_resource_page(
             api_client.build_getter(items_less_than),
             urllib.parse.quote(project, safe=''),
             s_resource,
-            cast(Dict[str, str], params),
+            dict(resource.g_resource.params),
             api_token,
             1, per_page, init_page
         )(queue)

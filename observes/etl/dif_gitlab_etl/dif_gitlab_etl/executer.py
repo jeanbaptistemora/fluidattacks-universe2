@@ -35,7 +35,7 @@ def specific_resources(project: str) -> List[GitlabResource]:
         GitlabResource(
             project=project,
             resource='merge_requests',
-            params={'scope': 'all'}
+            params=frozenset({'scope': 'all'}.items())
         )
     ]
 
