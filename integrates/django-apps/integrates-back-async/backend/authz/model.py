@@ -559,7 +559,7 @@ ORGANIZATION_LEVEL_ACTIONS: Set[str] = {
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
-            'backend_api_resolvers_cache_resolve_invalidate_cache',
+            'backend_api_mutations_invalidate_cache_mutate',
             'backend_api_resolvers_new_query_internal_names_resolve',
             'backend_api_resolvers_project__do_create_project',
             'backend_api_resolvers_new_query_groups_resolve',
@@ -576,7 +576,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     analyst=dict(
         actions={
             'backend_api_resolvers_new_query_internal_names_resolve',
-            'backend_api_resolvers_cache_resolve_invalidate_cache',
+            'backend_api_mutations_invalidate_cache_mutate',
             'backend_api_resolvers_project__do_create_project',
         },
         tags={

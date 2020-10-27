@@ -1,4 +1,3 @@
-from datetime import datetime
 from time import time
 import sys
 from typing import Any, Union, cast
@@ -39,69 +38,6 @@ async def resolve_event_mutation(
         ],
         await resolver_func(obj, info, **parameters)
     )
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_create_event(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str,
-        image: Union[InMemoryUploadedFile, None] = None,
-        file: Union[InMemoryUploadedFile, None] = None,
-        **kwa: Any) -> SimplePayloadType:
-    """Resolve create_event mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    analyst_email = user_info['user_email']
-    success = await event_domain.create_event(
-        analyst_email, project_name.lower(), file, image, **kwa
-    )
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Created event in '
-             f'{project_name} project successfully')  # pragma: no cover
-        )
-        util.queue_cache_invalidation(project_name)
-    return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_solve_event(
-        _: Any,
-        info: GraphQLResolveInfo,
-        event_id: str,
-        affectation: str,
-        date: datetime) -> SimplePayloadType:
-    """Resolve solve_event mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    analyst_email = user_info['user_email']
-    success = await event_domain.solve_event(
-        event_id, affectation, analyst_email, date
-    )
-    if success:
-        event = await event_domain.get_event(event_id)
-        project_name = str(event.get('project_name', ''))
-        util.queue_cache_invalidation(event_id, project_name)
-        util.cloudwatch_log(
-            info.context,
-            (f'Security: Solved event {event_id} '
-             'successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to '
-             f'solve event {event_id}')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(
