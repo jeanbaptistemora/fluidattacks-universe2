@@ -1,20 +1,19 @@
 # Standard libraries
+import json
 from os import environ
 import sys
 import tempfile
 from typing import (
-    cast,
+    Any,
+    Dict,
     IO,
+    List,
     NamedTuple,
     Optional,
-    TextIO,
 )
 # Third party libraries
 import asyncio
-from asyncio import (
-    Queue
-)
-import urllib.parse
+import aiohttp
 # Local libraries
 from streamer_gitlab import api_client
 from streamer_gitlab import extractor
@@ -71,40 +70,53 @@ def extract_data_less_than(
     return result
 
 
+def filter_data_greater_than(
+    target_id: int,
+    dpage: PageData
+) -> Optional[PageData]:
+    """
+    Returns a PageData only with items greater than target_id
+    """
+    dpage.file.seek(0)
+    raw_data = dpage.file.read()
+    data = json.loads(raw_data)
+    filtered_records = api_client.elements_greater_than(
+        target_id, data['record']
+    )
+    filtered_data = {'stream': data['stream'], 'record': filtered_records}
+    file = tempfile.NamedTemporaryFile(mode='w+')
+    file.write(json.dumps(filtered_data))
+    file.seek(0)
+    return PageData(
+        id=dpage.id,
+        file=file,
+        minor_item_id=dpage.minor_item_id
+    )
+
+
 async def stream_resource_page(
     resource: GitlabResourcePage,
     api_token: str,
     out_file: IO[str] = sys.stdout,
     items_less_than: Optional[int] = None,
 ) -> Optional[PageData]:
-    sys.stdout = cast(TextIO, out_file)
-    project: str = resource.g_resource.project
-    s_resource: str = resource.g_resource.resource
-    init_page: int = resource.page
-    per_page: int = resource.per_page
-    queue: Queue = Queue(maxsize=1024)
-    await extractor.collect([
-        extractor.gitlab_data_emitter(
-            api_client.build_getter(items_less_than),
-            urllib.parse.quote(project, safe=''),
-            s_resource,
-            dict(resource.g_resource.params),
-            api_token,
-            1, per_page, init_page
-        )(queue)
-    ])
-    m_id: Optional[int] = None
-    if queue.qsize() > 0:
-        item = await queue.get()
-        m_id = api_client.get_minor_id(item['records'])
+    """
+    Rerieves remote data of a target resource and
+    creates a PageData object using the supplied file
+    """
+    async with aiohttp.ClientSession() as session:
+        result: List[Dict[str, Any]] = await api_client.get_resource(
+            session, resource, items_less_than,
+            headers={'Private-Token': api_token}
+        )
+        m_id: Optional[int] = None
+        m_id = api_client.get_minor_id(result)
         if m_id is not None:
-            await queue.put(item)
-            await queue.put(None)
-            await extractor.create_task(extractor.emitter(queue))
+            extractor.emit(resource.g_resource.resource, result, out_file)
             return PageData(
                 resource,
                 file=out_file,
                 minor_item_id=m_id
             )
-    out_file.close()
-    return None
+        out_file.close()
+        return None

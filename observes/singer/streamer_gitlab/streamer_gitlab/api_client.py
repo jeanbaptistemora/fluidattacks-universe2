@@ -81,6 +81,17 @@ def elements_less_than(
     return result
 
 
+def elements_greater_than(
+    target_id: int, data: List[Dict[str, Any]]
+) -> List[Dict[str, Any]]:
+    """Returns data where elements id are greater than `target_id`"""
+    result: List[Dict[str, Any]] = []
+    for item in data:
+        if item['id'] > target_id:
+            result.append(item)
+    return result
+
+
 def get_minor_id(data: List[Dict[str, Any]]) -> Optional[int]:
     if data:
         log('debug', f"minor id: {int(data[-1]['id'])}")
@@ -148,5 +159,6 @@ async def get_resource(
         'page': resource.page,
         'per_page': resource.per_page
     }
+    params.update(dict(resource.g_resource.params))
     get_data = build_getter(less_than)
     return await get_data(session, endpoint, params=params, **kargs)

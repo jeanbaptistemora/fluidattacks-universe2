@@ -13,17 +13,18 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
+from dif_gitlab_etl import planner
+from dif_gitlab_etl.utils import (
+    error,
+    log,
+)
+from streamer_gitlab import page_data
 from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
 from streamer_gitlab.page_data import PageData
-from dif_gitlab_etl import planner
-from dif_gitlab_etl.utils import (
-    error,
-    log,
-)
 
 
 class ExtractState(NamedTuple):
@@ -172,6 +173,12 @@ def extract_pages_data(
             extract_range
         )
         pages.extend(extraction_status.data_pages)
+
+    if pages:
+        pages[-1] = page_data.filter_data_greater_than(
+            last_greatest_uploaded_id,
+            pages[-1]
+        )
     log('debug', str(pages))
     return pages
 

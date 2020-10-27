@@ -79,11 +79,14 @@ def gitlab_data_emitter(  # pylint: disable=too-many-arguments
     return data_emitter
 
 
-def emit(stream: str, records: Any) -> None:
+def emit(stream: str, records: Any, file=None) -> None:
     """Emit as special format so tap-json can consume it from stdin."""
     for record in records:
         msg = json.dumps({'stream': stream, 'record': record})
-        print(msg, flush=True)
+        if file:
+            print(msg, file=file, flush=True)
+        else:
+            print(msg, flush=True)
 
 
 async def emitter(queue: Queue) -> None:
