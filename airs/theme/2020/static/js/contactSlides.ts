@@ -39,7 +39,8 @@ const contactSlider: (() => void) = (): void => {
   // tslint:disable-next-line: typedef
   const slides = document.getElementsByClassName("mySlides") as HTMLCollectionOf<HTMLElement>;
   // tslint:disable-next-line: typedef
-  const dots = document.getElementsByClassName("dot") as HTMLCollectionOf<HTMLElement>;
+  const dots: HTMLCollection =
+    document.getElementsByClassName("dot") as HTMLCollectionOf<HTMLElement>;
   if (n > slides.length) {slideIndex = 1; }
   if (n < 1) {slideIndex = slides.length; }
   for (i = 0; i < slides.length; i += 1) {
@@ -51,14 +52,6 @@ const contactSlider: (() => void) = (): void => {
   slides[slideIndex - 1].style.display = "block";
   dots[slideIndex - 1].className += " active-slide";
   };
-
-  // Controls the current slide and resets interval if needed
-  const currentSlide: ((n: number) => void) = (n: number): void => {
-      clearInterval(myTimer);
-      myTimer = setInterval(() => {plusSlides(n + 1); }, 5000);
-      showSlides(slideIndex = n);
-  };
-
 };
 
 try {
