@@ -128,7 +128,7 @@ def swallows_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``catch`` blocks that are empty or only have comments.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -161,7 +161,7 @@ def has_switch_without_default(
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
 
@@ -178,7 +178,7 @@ def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code instantiates ``Random`` class.
 
-    See `REQ.224 <https://fluidattacks.com/rules/224/>`_.
+    See `REQ.224 <https://fluidattacks.com/products/rules/list/224/>`_.
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -214,7 +214,7 @@ def has_if_without_else(
     r"""
     Check if all ``if``\ s have an ``else`` clause.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     :param csharp_dest: Path to a C# source file or package.
     :param conditions: List of texts between parentheses of the
@@ -232,7 +232,7 @@ def uses_md5_hash(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses MD5 as hashing algorithm.
 
-    See `REQ.150 <https://fluidattacks.com/rules/150/>`_.
+    See `REQ.150 <https://fluidattacks.com/products/rules/list/150/>`_.
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -263,7 +263,7 @@ def uses_sha1_hash(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses SHA1 as hashing algorithm.
 
-    See `REQ.150 <https://fluidattacks.com/rules/150/>`_.
+    See `REQ.150 <https://fluidattacks.com/products/rules/list/150/>`_.
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.

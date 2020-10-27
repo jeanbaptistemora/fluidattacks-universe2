@@ -93,7 +93,7 @@ def generic_c_has_switch_without_default(
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
 
@@ -370,7 +370,7 @@ def has_weak_cipher(code_dest: str, expected_text: str,
     """
     Check if code uses base 64 to cipher confidential data.
 
-    See `REQ.185 <https://fluidattacks.com/rules/185/>`_.
+    See `REQ.185 <https://fluidattacks.com/products/rules/list/185/>`_.
 
     :param code_dest: Path to a code source file or package.
     :param expected_text: Text that might be in source file or package

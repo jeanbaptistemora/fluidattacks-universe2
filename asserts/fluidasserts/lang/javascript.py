@@ -106,7 +106,7 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
     r"""
     Check if code uses ``Math.Random()``\ .
 
-    See `REQ.224 <https://fluidattacks.com/rules/224/>`_.
+    See `REQ.224 <https://fluidattacks.com/products/rules/list/224/>`_.
 
     :param js_dest: Path to a JavaScript source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -133,7 +133,7 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``catch`` blocks that are empty or only have comments.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     See `CWE-391 <https://cwe.mitre.org/data/definitions/391.html>`_.
 
@@ -170,7 +170,7 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
 
@@ -191,7 +191,7 @@ def has_if_without_else(
     r"""
     Check if all ``if``\ s have an ``else`` clause.
 
-    See `REQ.161 <https://fluidattacks.com/rules/161/>`_.
+    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
 
     :param js_dest: Path to a JavaScript source file or package.
     :param conditions: List of texts between parentheses of the

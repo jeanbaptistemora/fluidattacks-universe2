@@ -68,7 +68,7 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     Search for on-error empty or *PROGRAM, *FILE, or *ALL codes.
 
     See `REQ. 161
-    <https://fluidattacks.com/rules/161/>`_.
+    <https://fluidattacks.com/products/rules/list/161/>`_.
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -99,7 +99,7 @@ def swallows_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     """
     Search for on-error without code.
 
-    See `REQ.075 <https://fluidattacks.com/rules/075>`_.
+    See `REQ.075 <https://fluidattacks.com/products/rules/list/075>`_.
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
