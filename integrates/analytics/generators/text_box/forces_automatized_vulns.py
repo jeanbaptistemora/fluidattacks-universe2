@@ -15,9 +15,12 @@ async def generate_one(group: str):
     return {
         'fontSizeRatio': 0.5,
         'text': sum(
-            vulns['num_of_vulnerabilities_in_exploits'] +
-            vulns['num_of_vulnerabilities_in_integrates_exploits'] +
-            vulns['num_of_vulnerabilities_in_accepted_exploits']
+            vulns.get('num_of_vulnerabilities_in_exploits', 0) +
+            vulns.get('num_of_vulnerabilities_in_integrates_exploits', 0) +
+            vulns.get('num_of_vulnerabilities_in_accepted_exploits', 0) +
+            vulns.get('num_of_accepted_vulnerabilities', 0) +
+            vulns.get('num_of_open_vulnerabilities', 0) +
+            vulns.get('num_of_closed_vulnerabilities', 0)
             for execution in executions
             for vulns in [execution['vulnerabilities']]
         )

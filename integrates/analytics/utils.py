@@ -44,14 +44,20 @@ TICK_ROTATION = -45  # display group name at that rotation
 async def get_all_time_forces_executions(
     group: str,
 ) -> List[Dict[str, Union[str, int]]]:
-    executions: List[Dict[str, Union[str, int]]]
+    executions: List[Dict[str, Union[str, int]]] = []
+    executions_new: List[Dict[str, Union[str, int]]] = []
     executions = await forces_domain.get_executions(
         from_date=datetime.utcfromtimestamp(1),
         group_name=group,
         to_date=datetime.utcnow(),
     )
+    executions_new = await forces_domain.get_executions_new(
+        from_date=datetime.utcfromtimestamp(1),
+        group_name=group,
+        to_date=datetime.utcnow(),
+    )
 
-    return executions
+    return executions + executions_new
 
 
 def get_result_path(name: str) -> str:

@@ -25,17 +25,20 @@ async def generate_one(group: str):
         execution
         for execution in executions
         for vulns in [execution['vulnerabilities']]
-        if vulns['num_of_vulnerabilities_in_exploits'] > 0
-        or vulns['num_of_vulnerabilities_in_integrates_exploits'] > 0
-        or vulns['num_of_vulnerabilities_in_accepted_exploits'] > 0
+        if vulns.get('num_of_vulnerabilities_in_exploits', 0) > 0
+        or vulns.get('num_of_vulnerabilities_in_integrates_exploits', 0) > 0
+        or vulns.get('num_of_vulnerabilities_in_accepted_exploits', 0) > 0
+        or vulns.get('num_of_open_vulnerabilities', 0) > 0
+        or vulns.get('num_of_accepted_vulnerabilities', 0) > 0
     )
 
     executions_in_strict_mode_with_vulns = tuple(
         execution
         for execution in executions_in_strict_mode
         for vulns in [execution['vulnerabilities']]
-        if vulns['num_of_vulnerabilities_in_exploits'] > 0
-        or vulns['num_of_vulnerabilities_in_integrates_exploits'] > 0
+        if vulns.get('num_of_vulnerabilities_in_exploits', 0) > 0
+        or vulns.get('num_of_vulnerabilities_in_integrates_exploits', 0) > 0
+        or vulns.get('num_of_open_vulnerabilities', 0) > 0
     )
 
     return {
