@@ -140,7 +140,7 @@ describe("EventsView", () => {
 
   it("should render new event modal", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_event__do_create_event" },
+      { action: "backend_api_mutations_create_event_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/events"]}>

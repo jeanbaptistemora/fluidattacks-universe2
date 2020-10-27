@@ -6,8 +6,10 @@ from ariadne import MutationType
 
 # Local
 from backend.api.mutations import (
+    create_event,
     create_organization,
     edit_stakeholder_organization,
+    solve_event,
     update_evidence
 )
 from backend.api.resolvers import (
@@ -27,16 +29,16 @@ from backend.api.resolvers import (
 MUTATION = MutationType()
 
 # Organization
+MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
 MUTATION.set_field(
     'editStakeholderOrganization',
     edit_stakeholder_organization.mutate
 )
+MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
 
 MUTATION.set_field('invalidateCache', cache.resolve_invalidate_cache)
-MUTATION.set_field('createEvent', event.resolve_event_mutation)
-MUTATION.set_field('solveEvent', event.resolve_event_mutation)
 MUTATION.set_field('addEventConsult', event.resolve_event_mutation)
 MUTATION.set_field('updateEventEvidence', event.resolve_event_mutation)
 MUTATION.set_field('downloadEventFile', event.resolve_event_mutation)

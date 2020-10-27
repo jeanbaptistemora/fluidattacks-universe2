@@ -1,5 +1,5 @@
 """Domain functions for events."""  # pylint:disable=cyclic-import
-from typing import Dict, List, Tuple, Union, cast, Any
+from typing import Any, cast, Dict, List, Optional, Tuple, Union
 import random
 from datetime import datetime
 
@@ -203,8 +203,8 @@ async def _send_new_event_mail(
 async def create_event(
         analyst_email: str,
         project_name: str,
-        file: InMemoryUploadedFile = None,
-        image: InMemoryUploadedFile = None,
+        file: Optional[InMemoryUploadedFile] = None,
+        image: Optional[InMemoryUploadedFile] = None,
         **kwargs: Any) -> bool:
     validations.validate_fields([kwargs['detail']])
     validations.validate_field_length(kwargs['detail'], 300)

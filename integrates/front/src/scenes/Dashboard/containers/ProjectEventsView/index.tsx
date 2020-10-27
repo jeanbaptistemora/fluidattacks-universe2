@@ -229,7 +229,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                 <Row>
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
-                      <Can do="backend_api_resolvers_event__do_create_event">
+                      <Can do="backend_api_mutations_create_event_mutate">
                         <TooltipWrapper message={translate.t("group.events.btn.tooltip")}>
                           <Button onClick={openNewEventModal}>
                             <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.btn.text")}

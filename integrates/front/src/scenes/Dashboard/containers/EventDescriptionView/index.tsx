@@ -152,7 +152,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                         <React.Fragment>
                           <Row>
                             <ButtonToolbar className="pull-right">
-                              <Can do="backend_api_resolvers_event__do_solve_event">
+                              <Can do="backend_api_mutations_solve_event_mutate">
                                 <Button disabled={data.event.eventStatus === "SOLVED"} onClick={openSolvingModal}>
                                   <FluidIcon icon="verified" />&nbsp;{translate.t("search_findings.tab_severity.solve")}
                                 </Button>

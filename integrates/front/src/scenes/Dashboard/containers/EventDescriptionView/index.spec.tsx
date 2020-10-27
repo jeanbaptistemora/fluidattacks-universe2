@@ -94,7 +94,7 @@ describe("EventDescriptionView", () => {
 
   it("should render solving modal", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_event__do_solve_event" },
+      { action: "backend_api_mutations_solve_event_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
