@@ -78,7 +78,8 @@ describe("update verification component", () => {
     justification.simulate("change", { target:
       { value: "This is a commenting test of a request verification in vulns" } });
     const form: ReactWrapper = wrapperRequest.find("form");
-    form.simulate("submit");
+    form.at(0)
+      .simulate("submit");
     await act(async () => { await wait(0); wrapperRequest.update(); });
     expect(wrapperRequest)
       .toHaveLength(1);
@@ -132,7 +133,8 @@ describe("update verification component", () => {
     justification.simulate("change", { target:
       { value: "This is a commenting test of a request verification in vulns" } });
     const form: ReactWrapper = wrapper.find("form");
-    form.simulate("submit");
+    form.at(0)
+      .simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
@@ -213,7 +215,8 @@ describe("update verification component", () => {
       .first();
     switchButton.simulate("click");
     const form: ReactWrapper = wrapper.find("form");
-    form.simulate("submit");
+    form.at(0)
+      .simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
@@ -267,7 +270,8 @@ describe("update verification component", () => {
     justification.simulate("change", { target:
       { value: "This is a commenting test of a verifying request verification in vulns" } });
     const form: ReactWrapper = wrapper.find("form");
-    form.simulate("submit");
+    form.at(0)
+      .simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);

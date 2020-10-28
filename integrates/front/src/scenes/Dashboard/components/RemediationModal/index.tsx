@@ -4,15 +4,18 @@
  */
 
 import React from "react";
-import { ButtonToolbar, ControlLabel, FormGroup } from "react-bootstrap";
 import { Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { default as style } from "scenes/Dashboard/components/RemediationModal/index.css";
-import { default as globalStyle } from "styles/global.css";
+import {
+  ButtonToolbar,
+  ControlLabel,
+  FormGroup,
+  RequiredField,
+} from "styles/styledComponents";
 import { TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { minLength, required } from "utils/validations";
@@ -44,13 +47,12 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
               {props.children === undefined ? undefined : props.children()}
               <FormGroup>
                 <ControlLabel>
-                  <label className={style.lbl}>* </label>
+                  <RequiredField>{"* "}</RequiredField>
                   {props.message}
                 </ControlLabel>
                 <Field
                   name="treatmentJustification"
                   type="text"
-                  className={globalStyle.noResize}
                   component={TextArea}
                   validate={[required, minJustificationLength]}
                   withCount={true}
@@ -59,7 +61,7 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
               </FormGroup>
               {props.additionalInfo}
               <br />
-              <ButtonToolbar className="pull-right">
+              <ButtonToolbar>
                 <Button onClick={onClose}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
