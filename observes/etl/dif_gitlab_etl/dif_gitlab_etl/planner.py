@@ -29,6 +29,9 @@ def search_page_with(
     target_id: int,
     last_seen: GitlabResourcePage
 ) -> int:
+    """
+    Returns de id of a page where item_id is present
+    """
     found: bool = False
     items: List[Dict[str, Any]] = []
     counter: int = 0
@@ -59,8 +62,8 @@ def search_page_with(
 
 def calculate_interval(last_page_id: int, max_pages: int) -> range:
     init_page_id = 1
-    if not last_page_id - max_pages < 1:
-        init_page_id = last_page_id - max_pages
+    if not last_page_id - (max_pages - 1) < 1:
+        init_page_id = last_page_id - (max_pages - 1)
     return range(init_page_id, last_page_id + 1)
 
 
@@ -134,7 +137,7 @@ async def search_lgu_page(
     exe_query: Callable[[str], Any]
 ) -> int:
     """
-    Returns de id of a page where item_id is present
+    Returns de id of a page where lgu_id is present
     """
     target_id: int = get_lgu_id(resource, exe_query)
     last_seen: Dict[str, int] = get_lgu_last_seen_page_id(

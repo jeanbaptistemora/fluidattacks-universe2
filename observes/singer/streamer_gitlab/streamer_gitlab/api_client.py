@@ -1,6 +1,7 @@
 # Standard libraries
 from typing import (
-    Any, Awaitable,
+    Any,
+    Awaitable,
     Callable,
     Coroutine,
     cast,
@@ -19,7 +20,10 @@ from aioextensions import (
     rate_limited,
 )
 # Local libraries
-from streamer_gitlab.log import log
+from streamer_gitlab.log import (
+    log,
+    MaxRetriesReached,
+)
 
 
 class GitlabResource(NamedTuple):
@@ -137,7 +141,9 @@ def insistent_endpoint_call(
                 errors += 1
                 log('h_error', f'# {errors}: {type(exc).__name__}')
         if errors >= max_errors:
-            raise Exception('Max retries reached with unsuccessful response')
+            raise MaxRetriesReached(
+                f'#{errors} ClientErrors',
+            )
     return i_getter
 
 

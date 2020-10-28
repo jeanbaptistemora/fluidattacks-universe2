@@ -93,7 +93,6 @@ def test_not_start_from_scratch():
 
 
 ############### `calculate_interval` Tests ###############
-@pytest.mark.xfail  # fixing
 def test_calculate_interval_len():
     """
     Should return a range with `max_pags` elements

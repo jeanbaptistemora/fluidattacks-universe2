@@ -11,3 +11,9 @@ def log(level: str, msg: str) -> None:
     if u_level == 'DEBUG' and not DEBUG_ENABLED:
         return
     print(f'[{u_level}]', msg, file=sys.stderr, flush=True)
+
+
+class MaxRetriesReached(Exception):
+    def __init__(self, msg: str):
+        log('exception', 'Max retries reached: ' + msg)
+        super().__init__(msg)
