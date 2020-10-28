@@ -616,6 +616,7 @@ function job_integrates2_serve_local {
     &&  helper_integrates_aws_login development \
     &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_front \
+    &&  helper_integrates_serve_redis \
     &&  helper_integrates_serve_back \
           'https' \
           'development' \
@@ -670,6 +671,7 @@ function job_integrates2_serve_ephemeral {
           '0.0.0.0' \
           '8000' \
           '*' \
+    &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \
   ||  return 1
