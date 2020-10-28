@@ -12,6 +12,7 @@ from predict.commit import prioritize as prioritize_commits
 from predict.file import prioritize as prioritize_files
 from training.commit import get_subscription_commit_metadata
 from training.file import get_subscription_file_metadata
+from utils.bugs import configure_bugsnag
 from utils.decorators import shield
 from utils.logs import log
 from utils.version import check_version_is_latest
@@ -58,6 +59,7 @@ def execute_sorts(
     predict_commit: bool,
     token: Optional[str]
 ) -> None:
+    configure_bugsnag()
     start_time: float = time.time()
     success: bool = False
     if not check_version_is_latest():
