@@ -7,6 +7,7 @@ from ariadne import MutationType
 # Local
 from backend.api.mutations import (
     add_event_consult,
+    add_forces_execution,
     create_event,
     create_organization,
     download_event_file,
@@ -15,11 +16,11 @@ from backend.api.mutations import (
     remove_event_evidence,
     solve_event,
     update_event_evidence,
-    update_evidence
+    update_evidence,
+    update_forces_access_token
 )
 from backend.api.resolvers import (
     finding,
-    forces,
     me,
     organization,
     project,
@@ -31,8 +32,8 @@ from backend.api.resolvers import (
 
 MUTATION = MutationType()
 
-# Organization
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
+MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
 MUTATION.set_field('downloadEventFile', download_event_file.mutate)
@@ -45,12 +46,14 @@ MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('updateEventEvidence', update_event_evidence.mutate)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
+MUTATION.set_field(
+    'updateForcesAccessToken',
+    update_forces_access_token.mutate
+)
 
 MUTATION.set_field('signIn', me.resolve_me_mutation)
 MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
 MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
-MUTATION.set_field('updateForcesAccessToken',
-                   forces.update_forces_access_token)
 MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)
@@ -114,5 +117,3 @@ MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('addForcesExecution',
-                   forces.resolve_forces_execution_mutation)

@@ -69,7 +69,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_edit_stakeholder',
             'backend_api_resolvers_user__do_grant_stakeholder_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
-            'backend_api_resolvers_forces_update_forces_access_token',
+            'backend_api_mutations_update_forces_access_token_mutate',
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
@@ -365,7 +365,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_edit_stakeholder',
             'backend_api_resolvers_user__do_grant_stakeholder_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
-            'backend_api_resolvers_forces_update_forces_access_token',
+            'backend_api_mutations_update_forces_access_token_mutate',
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_resolvers_vulnerability__do_delete_tags',
             ('backend_api_resolvers_vulnerability__do_'
@@ -463,7 +463,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     service_forces=dict(
         actions={
-            'backend_api_resolvers_forces__do_add_forces_execution',
+            'backend_api_mutations_add_forces_execution_mutate',
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
             'backend_api_resolvers_new_query_vulnerability_resolve',
