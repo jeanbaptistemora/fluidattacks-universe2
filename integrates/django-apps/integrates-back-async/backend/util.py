@@ -689,3 +689,7 @@ async def get_token(key: str) -> str:
 
 async def token_exists(key: str) -> bool:
     return await session_dal.element_exists(key)
+
+
+async def get_ttl_token(key: str) -> int:
+    return await AREDIS_CLIENT.ttl(key)

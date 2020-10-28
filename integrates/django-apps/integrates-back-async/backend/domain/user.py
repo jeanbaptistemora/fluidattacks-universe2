@@ -1,6 +1,6 @@
 # Standard Libraries
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, List, Union, cast, Awaitable
 
 # Third libraries
@@ -281,13 +281,13 @@ async def get_organizations(email: str) -> List[str]:
 
 
 async def complete_user_register(urltoken: str) -> bool:
-    success = True
     info_json = await util.get_token(f'fi_urltoken:{urltoken}')
     info = json.loads(info_json)
 
+    success = True
+
     if info.get('is_used'):
         bugsnag.notify(Exception("Token already used"), severity='warning')
-        success = False
     else:
         coroutines: List[Awaitable[bool]] = []
         coroutines.append(
@@ -307,16 +307,15 @@ async def complete_user_register(urltoken: str) -> bool:
             )
         )
 
-        token_lifetime = timedelta(hours=8)
+        token_ttl = await util.get_ttl_token(f'fi_urltoken:{urltoken}')
 
         info['is_used'] = True
 
         await util.save_token(
             f'fi_urltoken:{urltoken}',
             json.dumps(info),
-            int(token_lifetime.total_seconds())
+            int(token_ttl)
         )
-
         success = all(await collect(coroutines))
 
     return success
