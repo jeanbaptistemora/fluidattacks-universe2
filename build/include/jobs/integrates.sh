@@ -613,6 +613,7 @@ function job_integrates2_serve_local {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
+    &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_front \
     &&  helper_integrates_serve_back \
           'https' \
@@ -658,6 +659,7 @@ function job_integrates2_serve_ephemeral {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
+    &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back \
           'http' \
           'development' \
