@@ -13,6 +13,7 @@ from backend.api.mutations import (
     download_event_file,
     edit_stakeholder_organization,
     execute_skims,
+    grant_stakeholder_organization_access,
     invalidate_cache,
     request_zero_risk_vuln,
     remove_event_evidence,
@@ -43,6 +44,10 @@ MUTATION.set_field(
     'editStakeholderOrganization',
     edit_stakeholder_organization.mutate
 )
+MUTATION.set_field(
+    'grantStakeholderOrganizationAccess',
+    grant_stakeholder_organization_access.mutate
+)
 MUTATION.set_field('invalidateCache', invalidate_cache.mutate)
 MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
@@ -70,10 +75,6 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
-MUTATION.set_field(
-    'grantStakeholderOrganizationAccess',
-    organization.resolve_organization_mutation
-)
 MUTATION.set_field(
     'removeStakeholderOrganizationAccess',
     organization.resolve_organization_mutation
