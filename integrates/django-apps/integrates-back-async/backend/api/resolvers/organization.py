@@ -27,43 +27,6 @@ from backend.typing import (
     require_organization_access,
     enforce_organization_level_auth_async,
 )
-async def _do_remove_stakeholder_organization_access(
-    _: Any,
-    info: GraphQLResolveInfo,
-    organization_id: str,
-    user_email: str
-) -> SimplePayloadType:
-    user_data = await util.get_jwt_content(info.context)
-    requester_email = user_data['user_email']
-    organization_name = await org_domain.get_name_by_id(organization_id)
-
-    success: bool = await org_domain.remove_user(
-        organization_id, user_email.lower()
-    )
-    if success:
-        util.queue_cache_invalidation(
-            user_email,
-            f'stakeholders*{organization_id.lower()}',
-        )
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Stakeholder {requester_email} removed stakeholder'
-            f' {user_email} from organization {organization_name}'
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Stakeholder {requester_email} attempted to remove '
-            f'stakeholder {user_email} from organization {organization_name}'
-        )
-
-    return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_organization_access,
-    enforce_organization_level_auth_async,
-)
 async def _do_update_organization_policies(
     _: Any,
     info: GraphQLResolveInfo,

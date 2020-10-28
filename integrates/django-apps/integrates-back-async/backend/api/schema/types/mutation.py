@@ -22,6 +22,7 @@ from backend.api.mutations import (
     invalidate_cache,
     reject_zero_risk_vuln,
     remove_event_evidence,
+    remove_stakeholder_organization_access,
     request_zero_risk_vuln,
     solve_event,
     submit_draft,
@@ -29,13 +30,13 @@ from backend.api.mutations import (
     update_evidence_description,
     update_evidence,
     update_forces_access_token,
+    update_organization_policies,
     update_severity,
     upload_file
 )
 from backend.api.resolvers import (
     finding,
     me,
-    organization,
     project,
     resource,
     user,
@@ -67,6 +68,10 @@ MUTATION.set_field(
 MUTATION.set_field('invalidateCache', invalidate_cache.mutate)
 MUTATION.set_field('rejectZeroRiskVuln', reject_zero_risk_vuln.mutate)
 MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
+MUTATION.set_field(
+    'removeStakeholderOrganizationAccess',
+    remove_stakeholder_organization_access.mutate
+)
 MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('submitDraft', submit_draft.mutate)
@@ -79,6 +84,10 @@ MUTATION.set_field('updateEvidence', update_evidence.mutate)
 MUTATION.set_field(
     'updateForcesAccessToken',
     update_forces_access_token.mutate
+)
+MUTATION.set_field(
+    'updateOrganizationPolicies',
+    update_organization_policies.mutate
 )
 MUTATION.set_field('updateSeverity', update_severity.mutate)
 MUTATION.set_field('uploadFile', upload_file.mutate)
@@ -100,13 +109,6 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
-MUTATION.set_field(
-    'removeStakeholderOrganizationAccess',
-    organization.resolve_organization_mutation
-)
-MUTATION.set_field(
-    'updateOrganizationPolicies', organization.resolve_organization_mutation
-)
 MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)
 MUTATION.set_field('rejectRemoveProject',
