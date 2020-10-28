@@ -84,6 +84,7 @@ def pull_repos_s3_to_fusion(subs: str,
         'aws', 's3', 'sync',
         '--delete',
         '--sse', 'AES256',
+        '--exact-timestamps',
         bucket_path, local_path,
     ]
 
