@@ -1,24 +1,14 @@
 import Bugsnag from "@bugsnag/js";
-import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { Error } from "@bugsnag/core/types/event";
+import { Event } from "@bugsnag/core";
 import { Logger } from "./logger";
 import React from "react";
 import _ from "lodash";
 import { getEnvironment } from "utils/environment";
-import { Event, OnErrorCallback } from "@bugsnag/core";
-
-type BugsnagErrorBoundary = React.ComponentType<{
-  FallbackComponent?: React.ComponentType<{
-    error: Error;
-    info: React.ErrorInfo;
-    clearError: () => void;
-  }>;
-  onError?: OnErrorCallback;
-}>;
-
-interface IBugsnagPluginReactResultConfig {
-  createErrorBoundary: (react?: typeof React) => BugsnagErrorBoundary;
-}
+import BugsnagPluginReact, {
+  BugsnagErrorBoundary,
+  BugsnagPluginReactResult,
+} from "@bugsnag/plugin-react";
 
 const { userEmail, userName } = window as typeof window & Dictionary<string>;
 
@@ -64,13 +54,11 @@ Bugsnag.start({
   },
 });
 
-const reactPlugin:
-  | IBugsnagPluginReactResultConfig
-  | undefined = Bugsnag.getPlugin("react");
+const reactPlugin: BugsnagPluginReactResult | undefined = Bugsnag.getPlugin(
+  "react"
+);
 
-const bugsnagErrorBoundary:
-  | BugsnagErrorBoundary
-  | React.ExoticComponent = _.isUndefined(reactPlugin)
+const bugsnagErrorBoundary: BugsnagErrorBoundary = _.isUndefined(reactPlugin)
   ? React.Fragment
   : reactPlugin.createErrorBoundary(React);
 

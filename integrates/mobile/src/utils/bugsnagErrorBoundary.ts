@@ -1,6 +1,9 @@
-import { Event, OnErrorCallback } from "@bugsnag/core";
+import { Event } from "@bugsnag/core";
 import Bugsnag from "@bugsnag/expo";
-import BugsnagPluginReact from "@bugsnag/plugin-react";
+import BugsnagPluginReact, {
+  BugsnagErrorBoundary,
+  BugsnagPluginReactResult,
+} from "@bugsnag/plugin-react";
 import * as Network from "expo-network";
 import _ from "lodash";
 import React from "react";
@@ -8,22 +11,6 @@ import React from "react";
 import { BUGSNAG_KEY } from "./constants";
 import { getEnvironment } from "./environment";
 import { LOGGER } from "./logger";
-
-type BugsnagErrorBoundary = React.ComponentType<{
-  FallbackComponent?: React.ComponentType<{
-    error: Error;
-    info: React.ErrorInfo;
-    clearError(): void;
-  }>;
-  onError?: OnErrorCallback;
-}>;
-
-/**
- * Bugsnag react plugin type
- */
-interface IBugsnagPluginReactResultConfig {
-  createErrorBoundary(react?: typeof React): BugsnagErrorBoundary;
-}
 
 Bugsnag.start({
   apiKey: BUGSNAG_KEY,
@@ -52,13 +39,10 @@ Promise.all([
     LOGGER.error("Couldn't get network info", error);
   });
 
-const reactPlugin:
-  | IBugsnagPluginReactResultConfig
-  | undefined = Bugsnag.getPlugin("react");
+const reactPlugin: BugsnagPluginReactResult =
+  Bugsnag.getPlugin("react") as BugsnagPluginReactResult;
 
-const bugsnagErrorBoundary:
-  | BugsnagErrorBoundary
-  | React.ExoticComponent = _.isUndefined(reactPlugin)
+const bugsnagErrorBoundary: BugsnagErrorBoundary = _.isUndefined(reactPlugin)
   ? React.Fragment
   : reactPlugin.createErrorBoundary(React);
 
