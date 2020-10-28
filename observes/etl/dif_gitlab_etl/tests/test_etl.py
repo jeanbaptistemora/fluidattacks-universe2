@@ -7,21 +7,19 @@ import pytest
 # Local libraries
 from dif_gitlab_etl import etl
 from dif_gitlab_etl.etl import ExtractState
-from tests import mock_data
 from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
 from streamer_gitlab.page_data import PageData
-
-
+from tests import mock_data
 
 def test_extract_between():
     # Arrange
     case = mock_data.mock_case_01()
     # Act
-    extract_status: etl.ExtractState = etl.extract_between(
+    extract_status: ExtractState = etl.extract_between(
         resource_range=GResourcePageRange(
             g_resource=case.resource,
             page_range=range(5,8),
@@ -66,7 +64,7 @@ def test_extract_until_found():
     # Arrange
     case = mock_data.mock_case_01()
     # Act
-    extract_status: etl.ExtractState = etl.extract_until_found(
+    extract_status: ExtractState = etl.extract_until_found(
         target_id=case.min_id['2'] + 2,
         start_resource_page=GitlabResourcePage(
             g_resource=case.resource,
@@ -103,7 +101,7 @@ def test_extract_until_found_last_page():
     # Arrange
     case = mock_data.mock_case_01()
     # Act
-    extract_status: etl.ExtractState = etl.extract_until_found(
+    extract_status: ExtractState = etl.extract_until_found(
         target_id=0,
         start_resource_page=GitlabResourcePage(
             g_resource=case.resource,

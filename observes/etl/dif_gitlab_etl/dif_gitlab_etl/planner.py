@@ -64,9 +64,6 @@ def calculate_interval(last_page_id: int, max_pages: int) -> range:
     return range(init_page_id, last_page_id + 1)
 
 
-# integrated functions
-
-
 def get_lgu_id(
     resource: GitlabResource,
     exe_query: Callable[[str], Any]
