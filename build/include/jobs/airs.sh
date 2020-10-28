@@ -204,6 +204,7 @@ function job_airs_test_defends {
 function job_airs_deploy_local {
       helper_common_use_pristine_workdir \
   &&  pushd airs \
+  &&  npm cache clean --force \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_compile 'http://localhost:8000' \
   &&  python3 -m http.server --directory output \
