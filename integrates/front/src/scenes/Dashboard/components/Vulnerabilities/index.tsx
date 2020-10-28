@@ -12,7 +12,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
 
 import { Button } from "components/Button";
@@ -32,6 +31,7 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/updateTreatment";
 import { UploadVulnerabilites } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
+import { RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -518,16 +518,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const renderButtonUpdateVuln: (() => JSX.Element) =
             (): JSX.Element => (
                   <React.Fragment>
-                    <Row>
-                      <Col mdOffset={5} md={4}>
-                        <Button
-                          onClick={handleOpenVulnSetClick}
-                          disabled={!(arraySelectedRows.length > 0)}
-                        >
-                          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
-                        </Button>
-                      </Col>
-                    </Row><br/>
+                    <RowCenter>
+                      <Button
+                        onClick={handleOpenVulnSetClick}
+                        disabled={arraySelectedRows.length === 0}
+                      >
+                        <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
+                      </Button>
+                    </RowCenter>
+                    <br/>
                 </React.Fragment>
             );
 
@@ -557,18 +556,17 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               return (
                 <React.Fragment>
                   <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
-                    <Row>
-                      <Col mdOffset={5} md={4}>
-                        <Button
-                          id="request_verification_vulns"
-                          onClick={handleClick}
-                          disabled={!(arraySelectedRows.length > 0)}
-                          type={"button"}
-                        >
-                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify.text")}
-                        </Button>
-                      </Col><br/>
-                    </Row>
+                    <RowCenter>
+                      <Button
+                        id="request_verification_vulns"
+                        onClick={handleClick}
+                        disabled={arraySelectedRows.length === 0}
+                        type={"button"}
+                      >
+                        <FluidIcon icon="verified" />
+                        {translate.t("search_findings.tab_description.request_verify.text")}
+                      </Button>
+                    </RowCenter><br/>
                   </Can>
                 </React.Fragment>
               );
@@ -585,16 +583,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               return (
                 <React.Fragment>
                   {props.isVerifyRequest === true ?
-                    <Row>
-                      <Col mdOffset={5} md={4}>
-                        <Button
-                          onClick={handleClick}
-                          disabled={!(arraySelectedRows.length > 0)}
-                        >
-                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified.text")}
-                        </Button>
-                      </Col><br/>
-                    </Row>
+                    <RowCenter>
+                      <Button
+                        onClick={handleClick}
+                        disabled={arraySelectedRows.length === 0}
+                      >
+                        <FluidIcon icon="verified" />
+                        {translate.t("search_findings.tab_description.mark_verified.text")}
+                      </Button>
+                    </RowCenter>
                   : undefined}
                 </React.Fragment>
               );

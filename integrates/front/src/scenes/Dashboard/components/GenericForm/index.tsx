@@ -1,5 +1,4 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 import { ConfigProps, DecoratedComponentClass, InjectedFormProps, reduxForm } from "redux-form";
 import { focusError } from "utils/forms/events";
 
@@ -25,9 +24,9 @@ type wrappedForm = DecoratedComponentClass<{}, Pick<IFormProps, "children">
  * and PascalCase rule for naming JSX elements
  */
 const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})((props: formProps) => (
-  <Form onSubmit={props.handleSubmit}>
+  <form onSubmit={props.handleSubmit}>
     {typeof props.children === "function" ? props.children(props) : props.children}
-  </Form>
+  </form>
 ));
 
 const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): JSX.Element => {

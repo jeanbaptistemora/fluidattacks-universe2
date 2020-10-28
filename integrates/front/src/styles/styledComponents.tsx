@@ -275,6 +275,15 @@ const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "mh--15 flex flex-wrap",
 })``;
 
+const RowCenter: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex flex-wrap justify-center",
+})``;
+
 const StickyContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -408,6 +417,7 @@ export {
   RemoveTag,
   RequiredField,
   Row,
+  RowCenter,
   StickyContainer,
   StickyContainerFinding,
   StickyContainerOrg,
