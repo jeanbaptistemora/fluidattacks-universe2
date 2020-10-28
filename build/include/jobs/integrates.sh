@@ -1,16 +1,19 @@
 # shellcheck shell=bash
 
 function job_integrates_build_front {
-      pushd "${STARTDIR}/integrates" \
-  &&  pushd front \
-  &&  npm install \
-  &&  < ../../build/patches/jquery-comments.diff \
-        patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-  &&  npm run build -- \
-        --env.CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
-        --env.CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
-        --env.FI_VERSION="${FI_VERSION}" \
-  &&  popd \
+  export INTEGRATES_DEPLOYMENT_DATE
+
+      pushd integrates \
+    &&  pushd front \
+      &&  npm install \
+      &&  < ../../build/patches/jquery-comments.diff \
+            patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
+      &&  INTEGRATES_DEPLOYMENT_DATE="$(helper_integrates_deployment_date)" \
+      &&  npm run build -- \
+            --env.CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
+            --env.CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
+            --env.INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
+    &&  popd \
   &&  popd \
   || return 1
 }
@@ -1294,7 +1297,7 @@ function job_integrates_deploy_back_ephemeral {
   local cluster='integrates-cluster'
   local region='us-east-1'
   local namespace='ephemeral'
-  local timeout='5m'
+  local timeout='10m'
   local files=(
     deploy/ephemeral/deployment2.yaml
     deploy/ephemeral/service2.yaml

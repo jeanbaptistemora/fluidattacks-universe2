@@ -62,7 +62,7 @@ export const commonConfig: webpack.Configuration = {
     new webpack.EnvironmentPlugin([
       "CI_COMMIT_SHA",
       "CI_COMMIT_SHORT_SHA",
-      "FI_VERSION",
+      "INTEGRATES_DEPLOYMENT_DATE",
     ]),
   ],
   resolve: {

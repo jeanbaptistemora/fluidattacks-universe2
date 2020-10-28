@@ -1765,6 +1765,7 @@ export const enTranslations: ResourceKey = {
   },
   sidebar: {
     commit: "Commit:",
+    deployment_date: "Deploy date:",
     newOrganization: {
       modal: {
         invalidName: "Name specified for the organization is not allowed",
@@ -1790,7 +1791,6 @@ export const enTranslations: ResourceKey = {
       text: "Add Stakeholder",
       tooltip: "Add a user",
     },
-    version: "Version:",
   },
   tag_indicator: {
     critical_severity: "Critical Severity",

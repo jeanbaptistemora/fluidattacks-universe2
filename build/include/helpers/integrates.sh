@@ -59,6 +59,10 @@ function app_version {
   &&  echo "$(date +%y.%m.)${minutes}"
 }
 
+function helper_integrates_deployment_date {
+  date -u '+%FT%H:%M:%SZ'
+}
+
 function helper_bootstrap_prod_ci {
   env_prepare_python_packages \
   &&  helper_integrates_set_prod_secrets \
@@ -89,7 +93,10 @@ function helper_invoke_py {
 }
 
 function helper_integrates_serve_front {
-      pushd front \
+  export INTEGRATES_DEPLOYMENT_DATE
+
+      INTEGRATES_DEPLOYMENT_DATE="$(helper_integrates_deployment_date)" \
+  &&  pushd front \
         &&  npm install \
         &&  { npm start & } \
   &&  popd \
@@ -379,7 +386,6 @@ function helper_integrates_sops_vars {
     NEW_RELIC_LICENSE_KEY \
     NEW_RELIC_ENVIRONMENT \
     REDIS_SERVER \
-    REDIS_SERVER_2 \
     SQS_QUEUE_URL \
     STARLETTE_TEST_KEY \
     TEST_PROJECTS \
