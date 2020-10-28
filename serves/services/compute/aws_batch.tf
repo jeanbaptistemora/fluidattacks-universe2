@@ -214,6 +214,16 @@ resource "aws_batch_job_queue" "default" {
   state = "ENABLED"
 }
 
+resource "aws_batch_job_queue" "gitlab_etl" {
+  # Send here observes gitlab etl jobs
+  compute_environments = [
+    aws_batch_compute_environment.default.arn,
+  ]
+  name = "gitlab_etl"
+  priority = 2
+  state = "ENABLED"
+}
+
 resource "aws_batch_job_queue" "code_upload" {
   # Send here observes code_upload jobs
   compute_environments = [
