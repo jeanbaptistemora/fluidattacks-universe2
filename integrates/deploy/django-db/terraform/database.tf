@@ -7,7 +7,7 @@ resource "aws_db_instance" "django-db" {
   engine_version            = "8.0.16"
   final_snapshot_identifier = "django-db-last-snapshot"
   identifier                = "django-db"
-  instance_class            = "db.t2.micro"
+  instance_class            = "db.t3.small"
   ca_cert_identifier        = "rds-ca-2019"
   db_subnet_group_name      = aws_db_subnet_group.django-db.id
   name                      = "django"
