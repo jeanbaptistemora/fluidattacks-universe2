@@ -175,6 +175,7 @@ BUGSNAG = {
     'auto_capture_sessions': True,
     'project_root': BASE_DIR,
     'release_stage': FI_ENVIRONMENT,
+    'send_environment': True
 }
 
 if FI_ENVIRONMENT == 'production':

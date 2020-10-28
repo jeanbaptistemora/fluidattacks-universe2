@@ -61,7 +61,6 @@ bugsnag.configure(
     release_stage=FI_ENVIRONMENT,
 )
 bugsnag.start_session()
-bugsnag.send_sessions()
 
 LOGGER = logging.getLogger(__name__)
 
