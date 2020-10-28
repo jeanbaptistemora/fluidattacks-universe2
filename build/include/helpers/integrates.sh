@@ -60,7 +60,9 @@ function app_version {
 }
 
 function helper_integrates_deployment_date {
-  date -u '+%FT%H:%M:%SZ'
+  export INTEGRATES_DEPLOYMENT_DATE
+
+  INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')"
 }
 
 function helper_bootstrap_prod_ci {
@@ -93,9 +95,7 @@ function helper_invoke_py {
 }
 
 function helper_integrates_serve_front {
-  export INTEGRATES_DEPLOYMENT_DATE
-
-      INTEGRATES_DEPLOYMENT_DATE="$(helper_integrates_deployment_date)" \
+      helper_integrates_deployment_date \
   &&  pushd front \
         &&  npm install \
         &&  { npm start & } \
@@ -147,6 +147,7 @@ function helper_integrates_serve_back {
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
   &&  helper_integrates_sops_vars "${environment}" \
+  &&  helper_integrates_deployment_date \
   &&  echo "[INFO] Serving ${protocol} on ${host}:${port}" \
   &&  if [ "${protocol}" == 'http' ]
       then

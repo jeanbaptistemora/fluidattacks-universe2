@@ -30,6 +30,7 @@ from graphql import GraphQLError
 from __init__ import (
     CI_COMMIT_AUTHOR,
     CI_COMMIT_SHA,
+    CI_COMMIT_SHORT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_AZUREAD_OAUTH2_KEY,
@@ -49,7 +50,6 @@ from __init__ import (
     FI_JWT_SECRET_API,
     FI_MIXPANEL_API_TOKEN,
     FI_REDIS_SERVER,
-    FI_VERSION,
 )
 
 
@@ -170,7 +170,7 @@ DATABASES = {
 # Error tracking configuration
 BUGSNAG = {
     'api_key': FI_BUGSNAG_ACCESS_TOKEN,
-    'app_version': FI_VERSION,
+    'app_version': CI_COMMIT_SHORT_SHA,
     'asynchronous': True,
     'auto_capture_sessions': True,
     'project_root': BASE_DIR,
@@ -182,7 +182,7 @@ if FI_ENVIRONMENT == 'production':
     HEADERS = {'Content-Type': 'application/json'}
     PAYLOAD = {
         'apiKey': FI_BUGSNAG_ACCESS_TOKEN,
-        'appVersion': FI_VERSION,
+        'appVersion': CI_COMMIT_SHORT_SHA,
         'builderName': CI_COMMIT_AUTHOR,
         'releaseStage': FI_ENVIRONMENT,
         'sourceControl': {

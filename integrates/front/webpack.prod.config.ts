@@ -8,8 +8,8 @@ import {
   BugsnagSourceMapUploaderPlugin,
 } from "webpack-bugsnag-plugins";
 
-const appVersion: string = _.isString(process.env.FI_VERSION)
-  ? process.env.FI_VERSION
+const appVersion: string = _.isString(process.env.CI_COMMIT_SHORT_SHA)
+  ? process.env.CI_COMMIT_SHORT_SHA
   : "";
 const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
   ? process.env.CI_COMMIT_SHA

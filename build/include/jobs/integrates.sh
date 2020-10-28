@@ -1,14 +1,12 @@
 # shellcheck shell=bash
 
 function job_integrates_build_front {
-  export INTEGRATES_DEPLOYMENT_DATE
-
       pushd integrates \
     &&  pushd front \
       &&  npm install \
       &&  < ../../build/patches/jquery-comments.diff \
             patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-      &&  INTEGRATES_DEPLOYMENT_DATE="$(helper_integrates_deployment_date)" \
+      &&  helper_integrates_deployment_date \
       &&  npm run build -- \
             --env.CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
             --env.CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
