@@ -40,7 +40,6 @@ describe("Vulnerabilities view", () => {
               {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
-                currentApprovalStatus: "",
                 currentState: "open",
                 findingId: "480857698",
                 historicState: [{
@@ -54,8 +53,6 @@ describe("Vulnerabilities view", () => {
                   status: "VERIFIED",
                 }],
                 id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-                lastAnalyst: "user@test.com",
-                lastApprovedStatus: "open",
                 remediated: false,
                 severity: -1,
                 specific: "specific-1",
@@ -69,7 +66,6 @@ describe("Vulnerabilities view", () => {
               {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
-                currentApprovalStatus: "",
                 currentState: "open",
                 findingId: "480857698",
                 historicState: [{
@@ -83,8 +79,6 @@ describe("Vulnerabilities view", () => {
                   status: "VERIFIED",
                 }],
                 id: "41b18ce2-a039-11ea-bb37-0242ac130002",
-                lastAnalyst: "user@test.com",
-                lastApprovedStatus: "open",
                 remediated: false,
                 severity: 2,
                 specific: "specific-2",
@@ -100,7 +94,6 @@ describe("Vulnerabilities view", () => {
               {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
-                currentApprovalStatus: "",
                 currentState: "open",
                 findingId: "480857698",
                 historicState: [{
@@ -110,8 +103,6 @@ describe("Vulnerabilities view", () => {
                 }],
                 historicVerification: [],
                 id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
-                lastAnalyst: "user@test.com",
-                lastApprovedStatus: "open",
                 remediated: false,
                 severity: 1,
                 specific: "62",
@@ -125,7 +116,6 @@ describe("Vulnerabilities view", () => {
               {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
-                currentApprovalStatus: "",
                 currentState: "open",
                 findingId: "480857698",
                 historicState: [{
@@ -135,8 +125,6 @@ describe("Vulnerabilities view", () => {
                 }],
                 historicVerification: [],
                 id: "2feaf502-a039-11ea-bb37-0242ac130002",
-                lastAnalyst: "user@test.com",
-                lastApprovedStatus: "open",
                 remediated: false,
                 severity: 2,
                 specific: "63",
@@ -151,7 +139,6 @@ describe("Vulnerabilities view", () => {
             portsVulns: [{
               __typename: "Vulnerability",
               analyst: "user@test.com",
-              currentApprovalStatus: "",
               currentState: "open",
               findingId: "480857698",
               historicState: [{
@@ -161,8 +148,6 @@ describe("Vulnerabilities view", () => {
               }],
               historicVerification: [],
               id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd48",
-              lastAnalyst: "user@test.com",
-              lastApprovedStatus: "open",
               remediated: false,
               severity: 1,
               specific: "4",

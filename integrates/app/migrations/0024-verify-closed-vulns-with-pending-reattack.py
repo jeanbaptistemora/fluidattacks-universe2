@@ -54,7 +54,7 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
         closed_vulns: Dict[str, List[str]] = defaultdict(list)
         vulns = await vuln_domain.list_vulnerabilities_async([finding])
         for vuln in vulns:
-            current_status = vuln_domain.get_last_approved_status(vuln)
+            current_status = vuln_domain.get_last_status(vuln)
             current_verification = vuln.get(
                 'historic_verification', [{}]
             )[-1].get('status', '')

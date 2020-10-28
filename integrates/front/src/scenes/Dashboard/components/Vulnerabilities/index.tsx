@@ -42,8 +42,7 @@ const filterState:
   ((dataVuln: IVulnType, state: string) => IVulnType) =
     (dataVuln: IVulnType, state: string): IVulnType =>
 
-      dataVuln.filter((vuln: IVulnType[0]) => !_.isUndefined(vuln.lastApprovedStatus) ?
-      vuln.lastApprovedStatus === state : vuln.currentState === state);
+      dataVuln.filter((vuln: IVulnType[0]) => vuln.currentState === state);
 
 const specificToNumber: ((line: IVulnRow) => number) =
   (line: IVulnRow): number =>
@@ -105,14 +104,9 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
   const specificGrouped: IVulnType = _.map(groups, (line: IVulnType) =>
     ({
-        acceptanceDate: "",
         analyst: "",
-        currentApprovalStatus: line[0].currentApprovalStatus,
         currentState: line[0].currentState,
         id: line[0].id,
-        isNew: line[0].isNew,
-        lastAnalyst: "",
-        lastApprovedStatus: line[0].lastApprovedStatus,
         remediated: line.every((row: IVulnRow) => row.remediated),
         severity: line.map(getSeverity)
           .filter(Boolean)
@@ -136,25 +130,11 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
 const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => (
     _.map(lines, (line: IVulnType[0]) =>
       ({
-        analyst: line.analyst,
-        currentApprovalStatus: line.currentApprovalStatus,
-        currentState: line.currentState,
-        id: line.id,
-        isNew: _.isEmpty(line.lastApprovedStatus) ?
-        translate.t("search_findings.tab_description.new") :
-        translate.t("search_findings.tab_description.old"),
-        lastAnalyst: line.lastAnalyst,
-        lastApprovedStatus: line.lastApprovedStatus,
-        remediated: line.remediated,
+        ...line,
         severity: getSeverity(line),
-        specific: line.specific,
-        tag: line.tag,
-        treatmentManager: line.treatmentManager,
         verification: line.verification === "Verified"
           ? `${line.verification} (${line.currentState})`
           : line.verification,
-        vulnType: line.vulnType,
-        where: line.where,
       })));
 
 const getVulnByRow: (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]) =>
@@ -516,17 +496,17 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             } else if (canGetAnalyst) {
               inputsHeader.push({
                 align: "left",
-                dataField: "lastAnalyst",
+                dataField: "analyst",
                 header: translate.t("search_findings.tab_description.analyst"),
               });
               linesHeader.push({
                 align: "left",
-                dataField: "lastAnalyst",
+                dataField: "analyst",
                 header: translate.t("search_findings.tab_description.analyst"),
               });
               portsHeader.push({
                 align: "left",
-                dataField: "lastAnalyst",
+                dataField: "analyst",
                 header: translate.t("search_findings.tab_description.analyst"),
               });
             } else if (shouldGroup) {

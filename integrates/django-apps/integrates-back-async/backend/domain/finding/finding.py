@@ -154,27 +154,13 @@ async def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[Dict[str, Union[int, str]]]:
     """get tracking vulnerabilities dictionary"""
-    last_approved_status = await collect(
-        in_process(vuln_domain.get_last_approved_status, vuln)
-        for vuln in vulnerabilities
-    )
-    vulns_filtered = [
-        vuln for vuln, last_approved in zip(
-            vulnerabilities, last_approved_status
-        )
-        if cast(
-            List[Dict[str, str]],
-            vuln['historic_state']
-        )[-1].get('approval_status') != 'PENDING' or
-        last_approved
-    ]
     filter_deleted_status = await collect(
         in_process(vuln_domain.filter_deleted_status, vuln)
         for vuln in vulnerabilities
     )
     vulns_filtered = [
         vuln
-        for vuln, filter_deleted in zip(vulns_filtered, filter_deleted_status)
+        for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
     vuln_casted = finding_utils.remove_repeated(vulns_filtered)

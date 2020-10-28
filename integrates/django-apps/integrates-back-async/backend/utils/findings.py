@@ -490,11 +490,7 @@ def remove_repeated(
             vuln_without_repeated[format_date] = {
                 str(vuln['UUID']): str(state.get('state', ''))
             }
-            if state.get('approval_status') != 'PENDING':
-                vuln_casted.append(vuln_without_repeated)
-            else:
-                # don't append pending's state to tracking
-                pass
+            vuln_casted.append(vuln_without_repeated)
     return vuln_casted
 
 

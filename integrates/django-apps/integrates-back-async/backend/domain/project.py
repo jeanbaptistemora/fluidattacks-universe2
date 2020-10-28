@@ -571,7 +571,7 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
             [finding_id]
         )
         last_approved_status = await collect([
-            in_process(vuln_domain.get_last_approved_status, vuln)
+            in_process(vuln_domain.get_last_status, vuln)
             for vuln in vulnerabilities
         ])
         for current_state in last_approved_status:
@@ -685,7 +685,7 @@ def get_last_closing_date(
 
 def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     """Return if a vulnerability is closed."""
-    return vuln_domain.get_last_approved_status(vuln) == 'closed'
+    return vuln_domain.get_last_status(vuln) == 'closed'
 
 
 async def get_max_open_severity(
@@ -900,7 +900,7 @@ async def get_closers(
 async def get_open_findings(
         finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
     last_approved_status = await collect(
-        in_process(vuln_domain.get_last_approved_status, vuln)
+        in_process(vuln_domain.get_last_status, vuln)
         for vulns in finding_vulns
         for vuln in vulns
     )
@@ -1033,7 +1033,7 @@ async def get_open_vulnerabilities(project_name: str) -> int:
     findings = await list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     last_approved_status = await collect([
-        in_process(vuln_domain.get_last_approved_status, vuln)
+        in_process(vuln_domain.get_last_status, vuln)
         for vuln in vulns
     ])
     open_vulnerabilities = 0
@@ -1047,7 +1047,7 @@ async def get_closed_vulnerabilities(project_name: str) -> int:
     findings = await list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     last_approved_status = await collect([
-        in_process(vuln_domain.get_last_approved_status, vuln)
+        in_process(vuln_domain.get_last_status, vuln)
         for vuln in vulns
     ])
     closed_vulnerabilities = 0

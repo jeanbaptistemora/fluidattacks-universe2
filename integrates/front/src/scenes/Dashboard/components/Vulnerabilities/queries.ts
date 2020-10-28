@@ -8,15 +8,15 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
       releaseDate
       portsVulns {
         ...vulnInfo
-        lastAnalyst @include(if: $analystField)
+        analyst @include(if: $analystField)
       }
       linesVulns {
         ...vulnInfo
-        lastAnalyst @include(if: $analystField)
+        analyst @include(if: $analystField)
       }
       inputsVulns {
         ...vulnInfo
-        lastAnalyst @include(if: $analystField)
+        analyst @include(if: $analystField)
       }
     }
   }
@@ -30,8 +30,6 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     severity
     tag
     treatmentManager
-    currentApprovalStatus
-    lastApprovedStatus
     remediated
     verification
   }

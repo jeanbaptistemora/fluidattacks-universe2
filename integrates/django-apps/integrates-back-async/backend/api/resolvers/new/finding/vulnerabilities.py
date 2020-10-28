@@ -27,9 +27,7 @@ async def resolve(
         return [
             vuln
             for vuln in vulns
-            if (vuln['current_state'] == state and
-                (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status']))
+            if vuln['current_state'] == state
         ]
 
     return vulns

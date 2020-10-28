@@ -13,12 +13,8 @@ export interface IVulnsAttr {
 
 export interface IVulnRow {
   analyst: string;
-  currentApprovalStatus: string;
   currentState: string;
   id: string;
-  isNew: string;
-  lastAnalyst: string;
-  lastApprovedStatus: string;
   remediated: boolean;
   severity: string;
   specific: string;

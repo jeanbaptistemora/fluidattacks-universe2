@@ -86,10 +86,11 @@ async def generate_one(groups: List[str]):
     total_current_closed: int = 0
 
     for group in groups_data:
-        vulns = list(filter(
-            lambda vuln: vuln['current_approval_status'] != 'PENDING',
-            chain(*await FindingVulnsLoader().load_many(group['findings']))
-        ))
+        vulns = list(
+            chain.from_iterable(
+                await FindingVulnsLoader().load_many(group['findings'])
+            )
+        )
 
         open_last_week, closed_last_week = get_totals_by_week(
             vulns,
