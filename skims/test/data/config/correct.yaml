@@ -7,3 +7,4 @@ path:
   exclude:
     - glob(skims/**/*)
 timeout: 900
+upload_evidences: false

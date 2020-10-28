@@ -53,6 +53,7 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
                 include=config_path.pop('include'),
             ) if config_path else None,
             timeout=config.pop('timeout', None),
+            upload_evidences=config.pop('upload_evidences', True),
         )
     except KeyError as exc:
         raise confuse.ConfigError(f'Key: {exc.args[0]} is required')

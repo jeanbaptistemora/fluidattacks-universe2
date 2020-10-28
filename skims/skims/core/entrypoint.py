@@ -122,6 +122,7 @@ async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:
             group=config.group,
             stores=stores,
             token=token,
+            persist_evidences=config.upload_evidences,
         )
     else:
         success = True

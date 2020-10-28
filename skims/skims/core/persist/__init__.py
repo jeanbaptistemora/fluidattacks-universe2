@@ -8,6 +8,7 @@ import sys
 from typing import (
     Dict,
     Tuple,
+    Optional,
 )
 
 # Third party libraries
@@ -90,7 +91,9 @@ async def upload_evidences(
     results: Tuple[Vulnerability, ...] = (
         await store.get_a_few(len(evidence_ids))
     )
-    number_of_samples: int = min(len(results), len(evidence_ids))
+    # Changed to prevent integrates DOS
+    # number_of_samples: int = min(len(results), len(evidence_ids))
+    number_of_samples: int = 1
     result_samples: Tuple[Vulnerability, ...] = tuple(
         random.sample(results, k=number_of_samples),
     )
@@ -226,6 +229,7 @@ async def persist_finding(
     finding: FindingEnum,
     group: str,
     store: EphemeralStore,
+    persist_evidences: Optional[bool] = True
 ) -> bool:
     """Persist a finding to Integrates
 
@@ -272,13 +276,15 @@ async def persist_finding(
 
         # Evidences and draft submit only make sense if there are results
         if has_results:
-            success = success and await upload_evidences(
-                finding_id=finding_id,
-                store=store,
-            ) and await do_release_finding(
+            success_release = await do_release_finding(
                 auto_approve=finding.value.auto_approve,
                 finding_id=finding_id,
             )
+            success_upload_evidence = await upload_evidences(
+                finding_id=finding_id,
+                store=store,
+            ) if persist_evidences else True
+            success = success and success_release and success_upload_evidence
 
         await log(
             'info', 'persisted: %s, modified vulns: %s, success: %s',
@@ -303,6 +309,7 @@ async def persist(
     group: str,
     stores: Dict[FindingEnum, EphemeralStore],
     token: str,
+    persist_evidences: Optional[bool] = True,
 ) -> bool:
     """Persist all findings with the data extracted from the store.
 
@@ -324,6 +331,7 @@ async def persist(
             finding=finding,
             group=group,
             store=stores[finding],
+            persist_evidences=persist_evidences,
         )
         for finding in FindingEnum
     )))
