@@ -19,15 +19,15 @@ spec:
         - name: integrates2
           image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
-          command: ["bash"]
-          args: ["build.sh", "integrates2_serve_ephemeral"]
+          command: [bash]
+          args: [build.sh, integrates2_serve_ephemeral]
           resources:
             requests:
               cpu: 500m
-              memory: 1Gi
+              memory: 2Gi
             limits:
               cpu: 500m
-              memory: 1Gi
+              memory: 2Gi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -38,16 +38,16 @@ spec:
             - containerPort: 8000
           readinessProbe:
             exec:
-              command: [./build.sh, integrates2_probes_ephemeral_readiness]
-            initialDelaySeconds: 60
+              command: [bash, build.sh, integrates2_probes_ephemeral_readiness]
+            initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
             timeoutSeconds: 30
           livenessProbe:
             exec:
-              command: [./build.sh, integrates2_probes_ephemeral_liveness]
-            initialDelaySeconds: 60
+              command: [bash, build.sh, integrates2_probes_ephemeral_liveness]
+            initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
