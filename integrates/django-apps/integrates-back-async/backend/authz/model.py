@@ -78,7 +78,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
-            'backend_api_resolvers_new_vulnerability_last_analyst_resolve',
             'grant_group_level_role:analyst',
             'grant_group_level_role:closer',
             'grant_group_level_role:customer',
@@ -142,7 +141,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
-            'backend_api_resolvers_new_vulnerability_last_analyst_resolve',
             'post_finding_observation'
         },
         tags={
@@ -186,7 +184,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
-            'backend_api_resolvers_new_vulnerability_last_analyst_resolve',
         },
         tags={
             'drills',
@@ -372,7 +369,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
-            'backend_api_resolvers_new_vulnerability_last_analyst_resolve',
             'grant_group_level_role:analyst',
             'grant_group_level_role:closer',
             'grant_user_level_role:customer',
@@ -454,7 +450,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
-            'backend_api_resolvers_new_vulnerability_last_analyst_resolve',
             'post_finding_observation'
         },
         tags={

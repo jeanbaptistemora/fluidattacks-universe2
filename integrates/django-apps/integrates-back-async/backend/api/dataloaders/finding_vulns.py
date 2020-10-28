@@ -46,16 +46,12 @@ async def _batch_load_fn(
                         vuln.get('historic_state', [{}])
                     )[-1].get('approval_status', '')
                 ),
-                last_analyst=vuln_domain.get_last_approved_analyst(vuln),
                 analyst=cast(
                     str,
                     cast(
                         HistoricType,
                         vuln.get('historic_state', [{}])
                     )[-1].get('analyst', '')
-                ),
-                last_approved_status=vuln_domain.get_last_status(
-                    vuln
                 ),
                 remediated=cast(
                     HistoricType,

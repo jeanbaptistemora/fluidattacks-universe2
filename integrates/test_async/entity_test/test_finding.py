@@ -61,10 +61,8 @@ class FindingTests(TestCase):
           'historicVerification': [],
           'currentState': 'open',
           'currentApprovalStatus': '',
-          'lastApprovedStatus': 'open',
           'analyst': 'test@unittesting.com',
           'treatmentManager': 'integratesuser@gmail.com',
-          'lastAnalyst': 'test@unittesting.com',
           'source': 'integrates',
           'vulnType': 'inputs'
         }
@@ -133,10 +131,8 @@ class FindingTests(TestCase):
                 }
                 currentState
                 currentApprovalStatus
-                lastApprovedStatus
                 analyst
                 treatmentManager
-                lastAnalyst
                 source
                 vulnType
               }

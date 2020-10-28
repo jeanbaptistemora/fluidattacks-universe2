@@ -24,7 +24,7 @@ async def resolve(
     open_vulns: List[Vulnerability] = [
         vuln
         for vuln in vulns
-        if vuln['last_approved_status'] == 'open'
+        if vuln['current_state'] == 'open'
     ]
     remediated_vulns: List[Vulnerability] = [
         vuln
