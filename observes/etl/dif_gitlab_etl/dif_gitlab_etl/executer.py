@@ -81,7 +81,7 @@ def start_etl(project, auth: Dict[str, str]):
     for resource in resources:
         try:
             interval: range = planner.get_work_interval(
-                resource, stm_executer, 2
+                resource, stm_executer, 250
             )
             lgu_id: int = planner.get_lgu_id(resource, stm_executer)
             data_pages: PageData = etl.extract_pages_data(

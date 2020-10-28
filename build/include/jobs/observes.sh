@@ -58,12 +58,12 @@ function job_observes_gitlab {
 }
 
 function job_observes_gitlab_on_aws {
-  local vcpus='2'
-  local memory='7200'
+  local vcpus='1'
+  local memory='3600'
   local attempts='10'
-  local timeout='86400'
+  local timeout='14400'
   local jobname="observes_gitlab"
-  local jobqueue='default-uninterruptible'
+  local jobqueue='gitlab_etl'
 
       helper_observes_aws_login prod \
   &&  helper_common_run_on_aws \
