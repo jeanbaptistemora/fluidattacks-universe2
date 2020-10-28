@@ -64,7 +64,8 @@ function helper_skims_pull_repositories {
 function helper_skims_remove_repositories {
   local group="${1}"
 
-  rm -rf "groups/${group}/fusion"
+      echo "[INFO] Removing repositories" \
+  &&  rm -rf "groups/${group}/fusion"
 }
 
 function helper_skims_push_cache {

@@ -97,3 +97,14 @@ skims_documentation:
   <<: *with_nix
   <<: *skims_in_master_branch
   stage: deploy-app
+
+skims_process_group_on_aws:
+  <<: *with_nix
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "trigger"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$SKIMS_GROUP_TO_PROCESS_ON_AWS != null'
+  tags: [autoscaling]
+  stage: scheduler

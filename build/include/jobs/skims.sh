@@ -115,14 +115,19 @@ function job_skims_process_group_on_aws {
   local jobname="skims_process_group__${group}"
   local jobqueue='default'
 
-      if test -z "${group}"
+      if [ -n "$SKIMS_GROUP_TO_PROCESS_ON_AWS" ]
+      then
+            group="${SKIMS_GROUP_TO_PROCESS_ON_AWS}" \
+        &&  jobqueue="asap"
+      fi \
+  &&  if test -z "${group}"
       then
             echo '[INFO] Please set the first argument to the group name' \
         &&  return 1
       fi \
   &&  helper_skims_aws_login prod \
   &&  is_in_queue=$(aws batch list-jobs \
-                      --job-queue default \
+                      --job-queue "${jobqueue}" \
                       --job-status "RUNNABLE" \
                       --query "jobSummaryList[*].jobName" | jq ".| contains([\"${jobname}\"])") \
   &&  if [ "${is_in_queue}" == "false" ]
