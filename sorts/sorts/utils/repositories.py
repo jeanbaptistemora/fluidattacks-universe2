@@ -268,7 +268,7 @@ def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
             with open(os.path.join(dir_, f'{repo}.log'), 'w') as log_file:
                 log_file.write(git_log)
         except GitCommandNotFound as exc:
-            log_exception('info', exc, message=f'Repo {repo} does not exist')
+            log_exception('warning', exc, message=f"Repo {repo} doesn't exist")
 
 
 def get_repository_files(repo_path: str) -> List[str]:

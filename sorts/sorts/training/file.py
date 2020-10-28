@@ -62,7 +62,7 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
         if training_df.empty:
             success = False
             log(
-                'info',
+                'warning',
                 'Group %s does not have any vulnerabilities of type "lines"',
                 group
             )
@@ -79,7 +79,7 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
                 log('info', 'Features extracted succesfully to %s', csv_name)
     else:
         success = False
-        log('info', 'Fusion folder for group %s does not exist', group)
+        log('error', 'Fusion folder for group %s does not exist', group)
     return success
 
 
@@ -104,7 +104,7 @@ def get_safe_files(
         while len(safe_files) < len(vuln_files):
             if retries > FILE_MAX_RETRIES:
                 log(
-                    'info',
+                    'warning',
                     'Could not find enough safe files to balance the '
                     'vulnerable ones'
                 )

@@ -61,7 +61,11 @@ def execute_sorts(
     start_time: float = time.time()
     success: bool = False
     if not check_version_is_latest():
-        log('info', 'There is a newer version available for download')
+        log(
+            'warning',
+            'There is a newer version available for download\n\n\t\t'
+            'pip install -U sorts\n'
+        )
     if get_commit_data:
         if token:
             create_session(token)
@@ -88,10 +92,6 @@ def execute_sorts(
         success = prioritize_commits(subscription)
     else:
         success = prioritize_files(subscription)
-    log(
-        'info',
-        'Success: %s\nProcess finished after %.2f seconds.',
-        success,
-        time.time() - start_time
-    )
+    log('info', 'Success: %s', success)
+    log('info', 'Finished after %.2f seconds.', time.time() - start_time)
     sys.exit(0 if success else 1)

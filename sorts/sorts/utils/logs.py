@@ -5,19 +5,39 @@ from typing import (
     Any,
 )
 
-# Private constants
-_FORMAT: str = '[%(levelname)s] %(message)s'
-
-_LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
-
+# Private constantss
 _LOGGER_HANDLER: logging.StreamHandler = logging.StreamHandler()
 _LOGGER: logging.Logger = logging.getLogger('Sorts')
+
+
+class CustomFormatter(logging.Formatter):
+    """Logging Formatter to add colors"""
+
+    grey: str = "\x1b[38;1m"
+    yellow: str = "\x1b[33;1m"
+    red: str = "\x1b[31;1m"
+    bold_red: str = "\x1b[31;1m"
+    reset: str = "\x1b[0m"
+    msg_format: str = "[%(levelname)s] - %(message)s"
+
+    FORMATS = {
+        logging.DEBUG: grey + msg_format + reset,
+        logging.INFO: grey + msg_format + reset,
+        logging.WARNING: yellow + msg_format + reset,
+        logging.ERROR: red + msg_format + reset,
+        logging.CRITICAL: bold_red + msg_format + reset
+    }
+
+    def format(self, record: logging.LogRecord) -> str:
+        log_fmt = self.FORMATS.get(record.levelno)
+        formatter = logging.Formatter(log_fmt)
+        return formatter.format(record)
 
 
 def configure() -> None:
     _LOGGER_HANDLER.setStream(sys.stdout)
     _LOGGER_HANDLER.setLevel(logging.INFO)
-    _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
+    _LOGGER_HANDLER.setFormatter(CustomFormatter())
 
     _LOGGER.setLevel(logging.INFO)
     _LOGGER.addHandler(_LOGGER_HANDLER)

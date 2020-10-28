@@ -96,13 +96,13 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
         unique_authors = get_unique_authors(git_metrics)
     except FileNotFoundError as exc:
         log_exception(
-            'info',
+            'warning',
             exc,
             message=f'Log file for repo {repo_name} does not exist'
         )
     except IndexError as exc:
         log_exception(
-            'info',
+            'warning',
             exc,
             message=(
                 f'File {os.path.join(repo_name, file_relative)} '
@@ -146,7 +146,7 @@ def get_num_lines(file_path: str) -> int:
         )
         result = sum(buf.count(b'\n') for buf in bufgen)
     except FileNotFoundError:
-        log('info', 'File %s not found', file_path)
+        log('warning', 'File %s not found', file_path)
     return result
 
 
@@ -214,7 +214,7 @@ def extract_features(training_df: DataFrame) -> bool:
             )
     except KeyError as exc:
         log_exception(
-            'info',
+            'error',
             exc,
             message=(
                 "DataFrame does not have one of the required keys "
