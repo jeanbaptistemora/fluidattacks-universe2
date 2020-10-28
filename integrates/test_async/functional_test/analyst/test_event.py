@@ -58,8 +58,8 @@ async def test_event():
     events = result['data']['project']['events']
     event = [event for event in events if event['detail'] == event_detail][0]
     event_id = event['id']
-    counsult_content = 'Test content of new event'
 
+    counsult_content = 'Test content of new event'
     query = f'''
         mutation {{
             addEventConsult(eventId: "{event_id}",

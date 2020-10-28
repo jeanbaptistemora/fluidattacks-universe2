@@ -1,6 +1,6 @@
 import pytest
 
-from test_async.functional_test.executive.utils import get_result
+from test_async.functional_test.reviewer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
  
@@ -44,7 +44,10 @@ async def test_event():
     assert result['data']['event']['affectedComponents'] == ''
     assert result['data']['event']['client'] == 'Fluid Attacks'
     assert result['data']['event']['closingDate'] == '-'
-    assert result['data']['event']['consulting'] == [{'content': 'Test customeradmin content'}]
+    assert result['data']['event']['consulting'] == [
+        {'content': 'Test customeradmin content'},
+        {'content': 'Test executive content'},
+    ]
     assert result['data']['event']['context'] == 'FLUID'
     assert result['data']['event']['detail'] == 'test test test'
     assert result['data']['event']['eventDate'] == '2019-04-02 03:02:00'
@@ -82,12 +85,12 @@ async def test_event():
     assert event['projectName'] == group_name
     assert len(event['detail']) >= 1
 
-    consult_content = 'Test executive content'
+    event_content = 'Test reviewer content'
     query = f'''
         mutation {{
             addEventConsult(eventId: "{event_id}",
                             parent: "0",
-                            content: "{consult_content}") {{
+                            content: "{event_content}") {{
                 success
                 commentId
             }}
@@ -97,7 +100,7 @@ async def test_event():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['addEventConsult']
-    assert result['data']['addEventConsult']
+    assert result['data']['addEventConsult']['success']
     assert 'commentId' in result['data']['addEventConsult']
 
     query = f'''
@@ -131,7 +134,8 @@ async def test_event():
     assert 'event' in result['data']
     assert result['data']['event']['consulting'] == [
         {'content': 'Test customeradmin content'},
-        {'content': consult_content}
+        {'content': 'Test executive content'},
+        {'content': event_content}
     ]
 
     query = f'''{{
@@ -151,5 +155,6 @@ async def test_event():
     event = [event for event in events if event['id'] == event_id][0]
     assert event['consulting'] == [
         {'content': 'Test customeradmin content'},
-        {'content': consult_content}
+        {'content': 'Test executive content'},
+        {'content': event_content}
     ]

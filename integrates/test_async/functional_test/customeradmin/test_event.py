@@ -78,11 +78,12 @@ async def test_event():
     assert event['projectName'] == group_name
     assert len(event['detail']) >= 1
 
+    consult_content = 'Test customeradmin content'
     query = f'''
         mutation {{
             addEventConsult(eventId: "{event_id}",
                             parent: "0",
-                            content: "Test content") {{
+                            content: "{consult_content}") {{
                 success
                 commentId
             }}
@@ -124,4 +125,4 @@ async def test_event():
     result = await get_result(data)
     assert 'errors' not in result
     assert 'event' in result['data']
-    assert result['data']['event']['consulting'] == [{'content': 'Test content'}]
+    assert result['data']['event']['consulting'] == [{'content': consult_content}]
