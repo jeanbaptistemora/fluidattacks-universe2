@@ -184,7 +184,7 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
                     for ev_name in finding_evidence
                 ]
             )
-            has_evidence = any([
+            has_evidence = any([  # noqa
                 str(evidence.get('url', ''))
                 for evidence in evidence_list
             ])
@@ -193,7 +193,11 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
                 [finding_id]
             )
 
-            if all([has_evidence, has_severity, has_vulns]):
+            if all([
+                    # has_evidence,
+                    has_severity,
+                    has_vulns,
+            ]):
                 report_date = datetime_utils.get_as_str(
                     datetime_utils.get_now()
                 )
@@ -213,7 +217,7 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
                 })
             else:
                 required_fields = {
-                    'evidence': has_evidence,
+                    # 'evidence': has_evidence,
                     'severity': has_severity,
                     'vulnerabilities': has_vulns
                 }
