@@ -381,7 +381,7 @@ integrates_infra_backup_deploy:
 
 integrates_infra_backup_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_database_deploy:
@@ -391,7 +391,7 @@ integrates_infra_database_deploy:
 
 integrates_infra_database_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_cache_db_deploy:
@@ -401,7 +401,7 @@ integrates_infra_cache_db_deploy:
 
 integrates_infra_cache_db_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_django_db_deploy:
@@ -411,7 +411,7 @@ integrates_infra_django_db_deploy:
 
 integrates_infra_django_db_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_devicefarm_deploy:
@@ -421,7 +421,7 @@ integrates_infra_devicefarm_deploy:
 
 integrates_infra_devicefarm_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_resources_deploy:
@@ -433,7 +433,7 @@ integrates_infra_resources_deploy:
 
 integrates_infra_resources_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   needs:
     - integrates_build_lambdas
   stage: test-infra
@@ -445,7 +445,7 @@ integrates_infra_secret_management_deploy:
 
 integrates_infra_secret_management_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_cluster_deploy:
@@ -455,7 +455,7 @@ integrates_infra_cluster_deploy:
 
 integrates_infra_cluster_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_ephemeral_deploy:
@@ -465,7 +465,7 @@ integrates_infra_ephemeral_deploy:
 
 integrates_infra_ephemeral_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_infra_firewall_deploy:
@@ -475,32 +475,32 @@ integrates_infra_firewall_deploy:
 
 integrates_infra_firewall_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: test-infra
 
 integrates_lint_back:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: lint-code
 
 integrates_lint_front:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: lint-code
 
 integrates_lint_graphics:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: lint-code
 
 integrates_lint_mobile:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: lint-code
 
 integrates_lint_secrets:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   stage: lint-code
 
 integrates_test_back:

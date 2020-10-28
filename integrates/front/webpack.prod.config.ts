@@ -69,6 +69,7 @@ const prodConfig: webpack.Configuration = {
     new BugsnagSourceMapUploaderPlugin({
       apiKey: bugsnagApiKey,
       appVersion,
+      overwrite: true,
       publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/static/dashboard/`,
     }),
     new BugsnagBuildReporterPlugin({

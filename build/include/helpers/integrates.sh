@@ -147,7 +147,6 @@ function helper_integrates_serve_back {
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
   &&  helper_integrates_sops_vars "${environment}" \
-  &&  helper_integrates_deployment_date \
   &&  echo "[INFO] Serving ${protocol} on ${host}:${port}" \
   &&  if [ "${protocol}" == 'http' ]
       then
