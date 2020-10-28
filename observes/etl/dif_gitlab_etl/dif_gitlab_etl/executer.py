@@ -22,6 +22,7 @@ from streamer_gitlab.api_client import (
     GitlabResource,
     GResourcePageRange,
 )
+from streamer_gitlab.log import MaxRetriesReached
 from streamer_gitlab.page_data import PageData
 
 
@@ -78,20 +79,23 @@ def start_etl(project, auth: Dict[str, str]):
     stm_executer = exe_and_fetch_function(db_state)
     resources: List[GitlabResource] = specific_resources(project)
     for resource in resources:
-        interval: range = planner.get_work_interval(
-            resource, stm_executer, 2
-        )
-        lgu_id: int = planner.get_lgu_id(resource, stm_executer)
-        data_pages: PageData = etl.extract_pages_data(
-            resource_range=GResourcePageRange(
-                g_resource=resource,
-                page_range=interval,
-                per_page=100,
-            ),
-            last_greatest_uploaded_id=lgu_id,
-            extract_range=extract_range_function()
-        )
-        etl.upload_data(
-            list(reversed(data_pages)), auth,
-            statement_executer_function(db_state)
-        )
+        try:
+            interval: range = planner.get_work_interval(
+                resource, stm_executer, 2
+            )
+            lgu_id: int = planner.get_lgu_id(resource, stm_executer)
+            data_pages: PageData = etl.extract_pages_data(
+                resource_range=GResourcePageRange(
+                    g_resource=resource,
+                    page_range=interval,
+                    per_page=100,
+                ),
+                last_greatest_uploaded_id=lgu_id,
+                extract_range=extract_range_function()
+            )
+            etl.upload_data(
+                list(reversed(data_pages)), auth,
+                statement_executer_function(db_state)
+            )
+        except MaxRetriesReached:
+            continue
