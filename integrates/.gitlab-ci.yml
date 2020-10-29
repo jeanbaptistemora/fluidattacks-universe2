@@ -505,7 +505,7 @@ integrates_lint_secrets:
 
 integrates_test_back:
   <<: *with_nix
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: test-code
   retry: 1
   artifacts:
@@ -516,7 +516,7 @@ integrates_test_back:
 
 integrates_test_front:
   <<: *with_nix
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -526,7 +526,7 @@ integrates_test_front:
 
 integrates_test_mobile:
   <<: *with_nix
-  <<: *in_dev_branch_integrates
+  <<: *in_dev_and_master_branch_integrates
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
