@@ -1,5 +1,4 @@
 # pylint:disable=too-many-branches
-import time
 from typing import Dict, List, Union, cast, Optional, Any
 from aioextensions import in_thread
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -25,20 +24,14 @@ async def validate_and_upload_evidence(
     success = False
     mime_type = await in_thread(util.get_uploaded_file_mime, file)
     if await validate_evidence(evidence_id, file, mime_type):
-        success = await update_evidence(
-            finding_id,
-            evidence_id,
-            file,
-            mime_type
-        )
+        success = await update_evidence(finding_id, evidence_id, file)
     return success
 
 
 async def update_evidence(
     finding_id: str,
     evidence_type: str,
-    file: InMemoryUploadedFile,
-    mime_type: str
+    file: InMemoryUploadedFile
 ) -> bool:
     finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
@@ -63,20 +56,7 @@ async def update_evidence(
                 ), file)
                 file.open()
 
-    try:
-        extension = {
-            'image/gif': '.gif',
-            'image/jpeg': '.jpg',
-            'image/png': '.png',
-            'application/x-empty': '.exp',
-            'text/x-python': '.exp',
-            'text/csv': '.csv',
-            'text/plain': '.txt'
-        }[mime_type]
-    except AttributeError:
-        extension = ''
-    evidence_id = f'{project_name}-{finding_id}-{evidence_type}-' \
-        f'{int(time.time())}{extension}'
+    evidence_id = f'{project_name}-{finding_id}-{evidence_type}'
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if await finding_dal.save_evidence(file, full_name):
@@ -89,16 +69,6 @@ async def update_evidence(
         )
         if evidence:
             index = files.index(cast(Dict[str, str], evidence))
-            if files[index].get('file_url', evidence_id) != evidence_id:
-                # old evidence that does not comply the
-                # namestyle will not be replaced and be orphan
-                await finding_dal.remove_evidence(
-                    '{group_name}/{finding_id}/{file_url}'.format(
-                        group_name=project_name,
-                        finding_id=finding_id,
-                        file_url=files[index].get('file_url', '')
-                    )
-                )
             success = await finding_dal.update(
                 finding_id,
                 {f'files[{index}].file_url': evidence_id}

@@ -6,9 +6,7 @@ import logging
 import os
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 
-from aioextensions import in_thread
 import aioboto3
-import boto3
 from botocore.exceptions import ClientError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import (
@@ -41,8 +39,6 @@ if FI_ENVIRONMENT == 'development' and FI_MINIO_LOCAL_ENABLED == 'true' \
         and MINIO_OFF:
     OPTIONS.pop('aws_session_token', None)
     OPTIONS['endpoint_url'] = 'http://localhost:9000'
-
-SYNC_CLIENT = boto3.client(**OPTIONS)
 
 
 @apm.trace()
@@ -89,18 +85,19 @@ async def _send_to_s3(
     file_object: object,
     file_name: str
 ) -> bool:
-    success = False
-    try:
-        await in_thread(
-            SYNC_CLIENT.upload_fileobj,
-            file_object,
-            bucket,
-            file_name
-        )
-        success = True
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-    return success
+    async with aio_client() as client:
+        try:
+            await client.upload_fileobj(
+                file_object,
+                bucket,
+                file_name
+            )
+
+            return True
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={'extra': locals()})
+
+    return False
 
 
 async def upload_memory_file(

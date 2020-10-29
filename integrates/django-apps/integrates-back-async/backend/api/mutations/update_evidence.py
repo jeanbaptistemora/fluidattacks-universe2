@@ -45,6 +45,6 @@ async def mutate(
         elif evidence_id == 'fileRecords':
             await util.invalidate_cache(f'records*{finding_id}')
         else:
-            await util.invalidate_cache(f'evidence*{finding_id}')
+            await util.invalidate_cache(f'view*{finding_id}-{evidence_id}')
 
     return SimplePayload(success=success)

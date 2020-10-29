@@ -343,8 +343,8 @@ async def logout(request: HttpRequest) -> HttpResponse:
     return response
 
 
+@never_cache  # type: ignore
 @cache_content  # type: ignore
-@cache_control(private=True, max_age=31536000)  # type: ignore
 @csrf_exempt  # type: ignore
 @async_to_sync  # type: ignore
 async def get_evidence(
