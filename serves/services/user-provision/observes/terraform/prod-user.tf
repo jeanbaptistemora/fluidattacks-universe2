@@ -56,6 +56,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/asap-uninterruptible",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/mirror_s3",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/code_upload",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/gitlab_etl",
     ]
   }
 
