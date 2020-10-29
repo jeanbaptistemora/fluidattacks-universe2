@@ -115,6 +115,7 @@ function helper_skims_get_group_config_as_json {
           "glog(**/.buildpath)"
         ]
       },
-      timeout: 14400
+      timeout: 14400,
+      upload_evidences: false
     }'
 }

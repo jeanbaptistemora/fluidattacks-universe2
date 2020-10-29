@@ -112,7 +112,6 @@ function job_skims_process_group_on_aws {
   local attempts='10'
   local timeout='18000'
   local group="${1}"
-  local jobname="skims_process_group__${group}"
   local jobqueue='default'
 
       if [ -n "$SKIMS_GROUP_TO_PROCESS_ON_AWS" ]
@@ -125,6 +124,7 @@ function job_skims_process_group_on_aws {
             echo '[INFO] Please set the first argument to the group name' \
         &&  return 1
       fi \
+  &&  jobname="skims_process_group__${group}" \
   &&  helper_skims_aws_login prod \
   &&  is_in_queue=$(aws batch list-jobs \
                       --job-queue "${jobqueue}" \

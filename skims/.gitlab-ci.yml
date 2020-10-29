@@ -105,6 +105,8 @@ skims_process_group_on_aws:
       when: never
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
-    - if: '$SKIMS_GROUP_TO_PROCESS_ON_AWS != null'
+    - if: '$SKIMS_GROUP_TO_PROCESS_ON_AWS == null'
+      when: never
+    - if: *skims_commit_pattern
   tags: [autoscaling]
-  stage: scheduler
+  stage: external
