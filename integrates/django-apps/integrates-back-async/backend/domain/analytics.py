@@ -40,6 +40,7 @@ from backend.decorators import (
     cache_idempotent,
 )
 from backend.domain import (
+    finding as finding_domain,
     organization as organization_domain,
     tag as portfolio_domain,
 )
@@ -90,7 +91,7 @@ ReportParameters = NamedTuple(
 # Constants
 LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
-ENTITIES = {'group', 'organization', 'portfolio'}
+ENTITIES = {'group', 'finding', 'organization', 'portfolio'}
 IMAGE_PATH: str = 'reports/resources/themes/logo.png'
 TRANSPARENCY_RATIO: float = 0.40
 
@@ -155,6 +156,11 @@ async def handle_authz_claims(
             raise PermissionError('Access denied')
     elif params.entity == 'portfolio':
         if not await portfolio_domain.has_user_access(email, params.subject):
+            raise PermissionError('Access denied')
+    elif params.entity == 'finding':
+        if not await has_access_to_group(
+            email, await finding_domain.get_project(params.subject.lower()),
+        ):
             raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
