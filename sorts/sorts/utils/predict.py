@@ -70,7 +70,11 @@ def predict_vuln_prob(
         csv_name
     )
     with open(csv_name, 'r') as csv_file:
-        table: PrettyTable = from_csv(csv_file)
+        table: PrettyTable = from_csv(
+            csv_file,
+            field_names=['file', 'prob_vuln'],
+            delimiter=','
+        )
     table.align[scope] = 'l'
     # pylint: disable=protected-access
     table._max_width = {scope: 120, 'prob_vuln': 10}

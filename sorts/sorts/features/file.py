@@ -117,7 +117,11 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
         risky_commits=risky_commits,
         seldom_contributors=seldom_contributors,
         num_lines=num_lines,
-        commit_frequency=round(num_commits / file_age, 4),
+        commit_frequency=(
+            round(num_commits / file_age, 4)
+            if file_age
+            else num_commits
+        ),
         busy_file=1 if len(unique_authors) > 9 else 0
     )
 
