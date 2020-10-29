@@ -85,7 +85,7 @@ async def do_bitbucket_login(request: Request) -> Any:
     return await bitbucket.authorize_redirect(request, redirect_uri)
 
 
-async def authz(request: Request, client: OAuth) -> HTMLResponse:
+async def authz(request: Request, client: OAuth) -> RedirectResponse:
     token = await client.authorize_access_token(request)
 
     if 'id_token' in token:
@@ -97,24 +97,34 @@ async def authz(request: Request, client: OAuth) -> HTMLResponse:
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
 
-    return RedirectResponse(url='/new/app')
+    return RedirectResponse(url='/new/home')
 
 
 async def app(request: Request) -> HTMLResponse:
     """ View for authenticated users"""
-    response = TEMPLATING_ENGINE.TemplateResponse(
-        name='app.html',
-        context={
-            'request': request,
-            'debug': settings.DEBUG,
-            'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
-            'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
-            'delighted': f'{settings.STATIC_URL}/app/delighted.js'
-        }
-    )
+    if 'username' in request.session:
+        response = TEMPLATING_ENGINE.TemplateResponse(
+            name='app.html',
+            context={
+                'request': request,
+                'debug': settings.DEBUG,
+                'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
+                'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
+                'delighted': f'{settings.STATIC_URL}/app/delighted.js'
+            }
+        )
 
-    jwt_token = utils.create_session_token(request.session)
-    utils.set_token_in_response(response, jwt_token)
+        jwt_token = utils.create_session_token(request.session)
+        utils.set_token_in_response(response, jwt_token)
+    else:
+        response = TEMPLATING_ENGINE.TemplateResponse(
+            name='unauthorized.html',
+            context={
+                'request': request,
+                'debug': settings.DEBUG,
+            }
+        )
+        response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
     return response
 
@@ -145,6 +155,7 @@ APP = Starlette(
         Route('/error401', error401),
         Route('/error500', error500),
         Route('/new/app', app),
+        Route('/new/{full_path:path}/', app),
         Route('/invalid_invitation', invalid_invitation),
         Mount(
             '/static',
