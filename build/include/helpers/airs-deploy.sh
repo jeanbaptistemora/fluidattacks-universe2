@@ -112,7 +112,7 @@ function helper_airs_compile {
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/uglify-js/bin/" \
   &&  npm run --prefix theme/2020/ build \
   &&  sed --in-place \
-        "s/airs_version/${FI_VERSION}/g" \
+        "s/airs_version/${CI_COMMIT_SHORT_SHA}/g" \
         "theme/2020/static/js/tmp/bugsnagErrorBoundary.min.js" \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
   &&  cp -a "${STARTDIR}/airs/cache" . || true \

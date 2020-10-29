@@ -8,8 +8,8 @@ import {
 
 import { commonConfig } from "./webpack.common.config";
 
-const appVersion: string = _.isString(process.env.FI_VERSION)
-? process.env.FI_VERSION
+const appVersion: string = _.isString(process.env.CI_COMMIT_SHORT_SHA)
+? process.env.CI_COMMIT_SHORT_SHA
 : "";
 const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
   ? process.env.CI_COMMIT_SHA
@@ -59,6 +59,7 @@ const prodConfig: webpack.Configuration = {
     new BugsnagSourceMapUploaderPlugin({
       apiKey: bugsnagApiKey,
       appVersion,
+      overwrite: true,
       publicPath: sourceMapPath,
     }),
     new BugsnagBuildReporterPlugin({

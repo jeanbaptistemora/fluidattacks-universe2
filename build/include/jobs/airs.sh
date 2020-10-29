@@ -221,7 +221,7 @@ function job_airs_deploy_ephemeral {
   &&  helper_airs_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  npx bugsnag-build-reporter \
         --api-key 6d0d7e66955855de59cfff659e6edf31 \
-        --app-version "${FI_VERSION}" \
+        --app-version "${CI_COMMIT_SHORT_SHA}" \
         --release-stage "ephemeral" \
         --builder-name "${CI_COMMIT_AUTHOR}" \
         --source-control-provider 'gitlab' \
@@ -249,7 +249,7 @@ function job_airs_deploy_production {
   &&  helper_airs_deploy_sync_s3 'output/' 'fluidattacks.com' \
   &&  npx bugsnag-build-reporter \
         --api-key 6d0d7e66955855de59cfff659e6edf31 \
-        --app-version "${FI_VERSION}" \
+        --app-version "${CI_COMMIT_SHORT_SHA}" \
         --release-stage "production" \
         --builder-name "${CI_COMMIT_AUTHOR}" \
         --source-control-provider 'gitlab' \
