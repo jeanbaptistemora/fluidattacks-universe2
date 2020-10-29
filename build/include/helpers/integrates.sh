@@ -309,11 +309,9 @@ function helper_integrates_functional_tests {
         deploy/functional-tests.py
 }
 
-mobile_get_version() {
-  # Get the current version for a mobile deployment
-
+function helper_integrates_mobile_version_playstore {
   local minutes
-  local fi_version
+  local version
 
       minutes=$(
         printf "%05d" $((
@@ -322,16 +320,8 @@ mobile_get_version() {
         $(date +%M | sed 's/^0//')
         ))
       ) \
-  &&  if [ "$1" = "basic" ]; then
-            fi_version="$(date +%y.%m.)${minutes}" \
-        &&  echo "${fi_version}"
-      elif [ "$1" = "code" ]; then
-            fi_version="$(date +%y%m)${minutes}" \
-        &&  echo "${fi_version}"
-      else
-            echo "Error. Only basic or code allowed as params" \
-        &&  exit 1
-      fi
+  &&  version="$(date +%y%m)${minutes}" \
+  &&  echo "${version}"
 }
 
 function helper_integrates_sops_vars {

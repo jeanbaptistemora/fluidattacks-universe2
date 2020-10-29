@@ -8,7 +8,6 @@ function env_prepare_environment_variables {
   export IS_NIX='true'
   export IS_LOCAL_BUILD
   export ENVIRONMENT_NAME
-  export FI_VERSION
   export STARTDIR="${PWD}"
   export WORKDIR="${PWD}.ephemeral"
 
@@ -33,11 +32,7 @@ function env_prepare_environment_variables {
   &&  if test -n "${srcProduct:-}"
       then
         export PATH="${srcProduct}/bin:${PATH:-}"
-      fi \
-  &&  FI_VERSION=$(app_version) \
-  &&  FI_VERSION_MOBILE=$(mobile_get_version code) \
-  &&  echo "[INFO] FI_VERSION: ${FI_VERSION}" \
-  &&  echo "[INFO] FI_VERSION_MOBILE: ${FI_VERSION_MOBILE}"
+      fi
 }
 
 function env_prepare_ephemeral_vars {

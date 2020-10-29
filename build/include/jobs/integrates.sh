@@ -229,9 +229,11 @@ function job_integrates_deploy_front {
 
 function job_integrates_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
+  local mobile_version
 
       pushd integrates \
     &&  echo '[INFO] Logging in to AWS' \
+    &&  mobile_version="$(helper_integrates_mobile_version_playstore 'code')" \
     &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
     &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
           EXPO_USER \
@@ -251,8 +253,8 @@ function job_integrates_deploy_mobile_ota {
             --username "${EXPO_USER}" \
             --password "${EXPO_PASS}" \
       &&  echo '[INFO] Replacing versions' \
-      &&  sed -i "s/integrates_version/${FI_VERSION}/g" ./app.json \
-      &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_MOBILE}/g" ./app.json \
+      &&  sed -i "s/integrates_version/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
+      &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
       &&  echo '[INFO] Publishing update' \
       &&  npx --no-install expo publish \
             --non-interactive \
@@ -260,7 +262,7 @@ function job_integrates_deploy_mobile_ota {
       &&  echo '[INFO] Sending build info to bugsnag' \
       &&  npx bugsnag-build-reporter \
             --api-key c7b947a293ced0235cdd8edc8c09dad4 \
-            --app-version "${FI_VERSION}" \
+            --app-version "${CI_COMMIT_SHORT_SHA}" \
             --release-stage "mobile-${ENVIRONMENT_NAME}" \
             --builder-name "${CI_COMMIT_AUTHOR}" \
             --source-control-provider gitlab \
