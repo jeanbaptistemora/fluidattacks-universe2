@@ -52,7 +52,7 @@ check_interval = 20
       "amazonec2-use-private-address=true",
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-013da1cc4ae87618c",
-      "amazonec2-instance-type=t2.medium",
+      "amazonec2-instance-type=t4g.medium",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=40"
     ]
@@ -173,7 +173,7 @@ check_interval = 20
       "amazonec2-use-private-address=true",
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-013da1cc4ae87618c",
-      "amazonec2-instance-type=t2.medium",
+      "amazonec2-instance-type=t4g.medium",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=100"
     ]
@@ -226,7 +226,7 @@ check_interval = 20
       "amazonec2-use-private-address=true",
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-013da1cc4ae87618c",
-      "amazonec2-instance-type=t2.medium",
+      "amazonec2-instance-type=t4g.medium",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=40"
     ]
