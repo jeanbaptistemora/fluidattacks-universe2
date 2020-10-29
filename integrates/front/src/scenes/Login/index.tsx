@@ -5,6 +5,7 @@
 import { LoginButton } from "scenes/Login/components/LoginButton";
 import { LoginInfoButton } from "scenes/Login/components/LoginInfoButton";
 import React from "react";
+import _ from "lodash";
 import logo from "resources/integrates.svg";
 import mixpanel from "mixpanel-browser";
 import style from "scenes/Login/index.css";
@@ -14,6 +15,17 @@ import { Slide, toast } from "react-toastify";
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
+  const deploymentDate: string = _.isString(
+    process.env.INTEGRATES_DEPLOYMENT_DATE
+  )
+    ? process.env.INTEGRATES_DEPLOYMENT_DATE
+    : "";
+  const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
+    ? process.env.CI_COMMIT_SHA
+    : "";
+  const commitShaShort: string = _.isString(process.env.CI_COMMIT_SHORT_SHA)
+    ? process.env.CI_COMMIT_SHORT_SHA
+    : "";
 
   // Show 2FA Notification
   React.useEffect((): void => {
@@ -100,6 +112,20 @@ export const Login: React.FC = (): JSX.Element => {
           </Col>
         </Row>
       </Grid>
+      <div className={style.deploymentDate}>
+        {t("sidebar.deployment_date")}&nbsp;
+        {deploymentDate}
+      </div>
+      <div className={style.commit}>
+        {t("sidebar.commit")}&nbsp;
+        <a
+          href={`https://gitlab.com/fluidattacks/product/-/tree/${commitSha}`}
+          rel={"noreferrer"}
+          target={"_blank"}
+        >
+          {commitShaShort}
+        </a>
+      </div>
     </div>
   );
 };

@@ -100,7 +100,7 @@ common_deploy_container_image:
 
 common_lint_build_system:
   <<: *with_nix
-  <<: *common_in_dev_and_master_branch
+  <<: *common_in_dev_branch
   stage: lint-code
 
 common_lint_commit_msg:
