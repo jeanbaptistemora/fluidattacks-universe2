@@ -497,10 +497,6 @@ label {
   border-top: 1px solid #E5E5E5;
 }
 
-:global .modalf-pa {
-  padding: 1.5rem;
-}
-
 :global .montserrat {
   font-family: 'Montserrat', sans-serif;
 }
@@ -524,6 +520,10 @@ label {
 
 :global .orgred {
   color: #FF3435;
+}
+
+:global .pa1-5 {
+  padding: 1.5rem;
 }
 
 :global .pb-animation {
@@ -675,4 +675,9 @@ label {
   :global .top5-5-find {
     top: 5.5rem !important;
   }
+}
+
+
+:global .b--mid-light-gray {
+  border-color: #DDDDDD;
 }

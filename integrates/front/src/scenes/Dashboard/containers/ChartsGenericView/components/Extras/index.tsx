@@ -3,19 +3,11 @@ import { ApolloError } from "apollo-client";
 import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import {
-  ButtonToolbar,
-  Col,
-  Glyphicon,
-  Grid,
-  MenuItem,
-  Panel,
-  Row,
-} from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
-import { DropdownButton } from "components/DropdownButton";
+import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
@@ -28,6 +20,14 @@ import {
   ISubscriptionsToEntityReport,
   ISubscriptionToEntityReport,
 } from "scenes/Dashboard/containers/ChartsGenericView/types";
+import {
+  ButtonToolbarCenter,
+  Col100,
+  Container,
+  Panel,
+  PanelBody,
+  Row,
+} from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -124,17 +124,18 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
 
   return (
     <React.StrictMode>
-      <Grid fluid={true}>
+      <Container>
         <Row>
-          <Col md={12}>
+          <Col100>
             <Panel>
-              <Panel.Body>
+              <PanelBody>
                 <div className={styles.toolbarWrapper}>
                   <div className={styles.toolbarCentered}>
-                    <ButtonToolbar block={true} justified={true}>
+                    <ButtonToolbarCenter>
                       <a
                         download={`charts-${entity}-${subject}.png`}
                         href={downloadPngUrl.toString()}
+                        className={"mr2"}
                       >
                         <Button
                           className={"pv3"}
@@ -174,15 +175,15 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                           </MenuItem>
                         ))}
                       </DropdownButton>
-                    </ButtonToolbar>
+                    </ButtonToolbarCenter>
                   </div>
                 </div>
-              </Panel.Body>
+              </PanelBody>
             </Panel>
-          </Col>
+          </Col100>
         </Row>
         <div className={styles.separatorTitleFromCharts} />
-      </Grid>
+      </Container>
     </React.StrictMode>
   );
 };

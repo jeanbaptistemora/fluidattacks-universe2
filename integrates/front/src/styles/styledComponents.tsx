@@ -100,6 +100,15 @@ const Col80: StyledComponent<
   className: "ph1-5 w-80",
 })``;
 
+const Container: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "center ph1-5",
+})``;
+
 const ControlLabel: StyledComponent<
   "label",
   Record<string, unknown>
@@ -215,7 +224,7 @@ const ModalFooter: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "modalf-bt modalf-pa tr",
+  className: "modalf-bt pa1-5 tr",
 })``;
 
 const ModalHeader: StyledComponent<
@@ -230,6 +239,19 @@ const ModalTitle: StyledComponent<
   Record<string, unknown>
 > = styled.h4.attrs({
   className: "color-inherit fw3 f2 lh-solid ma0 montserrat tc",
+})``;
+
+const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
+  {
+    className: "b--mid-light-gray ba bg-white br2 mb4",
+  }
+)``;
+
+const PanelBody: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "pa1-5",
 })``;
 
 const ProgressBar: StyledComponent<
@@ -393,6 +415,7 @@ export {
   Col50,
   Col60,
   Col80,
+  Container,
   ControlLabel,
   EditableFieldContent,
   EditableFieldNotUrl,
@@ -412,6 +435,8 @@ export {
   ModalFooter,
   ModalHeader,
   ModalTitle,
+  Panel,
+  PanelBody,
   ProgressBar,
   RemoveItem,
   RemoveTag,
