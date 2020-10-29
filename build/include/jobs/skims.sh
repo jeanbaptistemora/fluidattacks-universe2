@@ -114,7 +114,7 @@ function job_skims_process_group_on_aws {
   local group="${1}"
   local jobqueue='default'
 
-      if [ -n "$SKIMS_GROUP_TO_PROCESS_ON_AWS" ]
+      if [ -n "${SKIMS_GROUP_TO_PROCESS_ON_AWS-}" ]
       then
             group="${SKIMS_GROUP_TO_PROCESS_ON_AWS}" \
         &&  jobqueue="asap"
@@ -141,7 +141,7 @@ function job_skims_process_group_on_aws {
         "${jobqueue}" \
         'skims_process_group' "${group}"
       else
-        echo "[INFO] job ${jobname} is already in queue"
+        echo "[WARNING] job ${jobname} is already in queue"
       fi
 }
 
