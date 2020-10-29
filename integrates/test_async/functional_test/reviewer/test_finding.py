@@ -378,12 +378,12 @@ async def test_finding():
             'state': 'SUBMITTED'
         },
         {
-            'analyst': 'integratesreviewer@gmail.com',
+            'analyst': 'integratesreviewer@fluidattacks.com',
             'date': today,
             'state': 'REJECTED'
         },
         {
-            'analyst': 'integratesreviewer@gmail.com',
+            'analyst': 'integratesreviewer@fluidattacks.com',
             'date': today,
             'state': 'APPROVED'
         }
@@ -535,7 +535,7 @@ async def test_finding():
     assert result['data']['finding']['observations'] == [
         {
             'content': observation_content,
-            'email': 'integratesreviewer@gmail.com'
+            'email': 'integratesreviewer@fluidattacks.com'
         }
     ]
     assert result['data']['finding']['consulting'] == [{'content': consult_content}]

@@ -154,7 +154,7 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "user"},
-          "subject": {"S": "integratesreviewer@gmail.com"},
+          "subject": {"S": "integratesreviewer@fluidattacks.com"},
           "object": {"S": "self"},
           "role": {"S": "reviewer"}
         }
@@ -164,7 +164,7 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "group"},
-          "subject": {"S": "integratesreviewer@gmail.com"},
+          "subject": {"S": "integratesreviewer@fluidattacks.com"},
           "object": {"S": "unittesting"},
           "role": {"S": "reviewer"}
         }
@@ -174,7 +174,7 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "organization"},
-          "subject": {"S": "integratesreviewer@gmail.com"},
+          "subject": {"S": "integratesreviewer@fluidattacks.com"},
           "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
           "role": {"S": "reviewer"}
         }

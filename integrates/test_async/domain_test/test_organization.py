@@ -241,7 +241,7 @@ async def test_get_uers():
         'integratesexecutive@gmail.com',
         'integratesmanager@gmail.com',
         'integratesresourcer@fluidattacks.com',
-        'integratesreviewer@gmail.com',
+        'integratesreviewer@fluidattacks.com',
         'integratesuser@gmail.com',
         'unittest2@fluidattacks.com'
     ]
