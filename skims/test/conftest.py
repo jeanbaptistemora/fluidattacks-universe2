@@ -42,6 +42,7 @@ def test_group(test_branch: str) -> Iterator[str]:
     mapping: Dict[str, str] = {
         'kamadoatfluid': 'worcester',
         'drestrepoatfluid': 'wausau',
+        'ataguadaatfluid': 'magdalena',
         'master': 'tovuz',
     }
 
