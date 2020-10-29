@@ -46,21 +46,28 @@ involved in the supply chain lifecycle.
 An adversary attacks a system by bypassing some or all functionality intended
 to protect it.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
+. [[r5]] link:https://www.cisecurity.org/controls/[CIS Controls. 20.8 Control and Monitor Accounts Associated With
+Penetration Testing].
+Any user or system accounts used to perform penetration testing should be
+controlled and monitored to make sure they are only being used for legitimate
+purposes,
+and are removed or restored to normal function after testing is over.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
 A trapdoor is a hidden piece of code that responds to a special input,
 allowing its user access to resources without passing through the normal
 security enforcement mechanism.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
+. [[r7]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
 The product released to market is released in pre-production or manufacturing
 configuration.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.13)]
 Verify all code including third-party binaries, libraries, frameworks are
 reviewed for hardcoded credentials (*backdoors*).
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.3)]
 Verify that the application source code and third party libraries do not contain
 backdoors,
@@ -70,10 +77,10 @@ or anti-debugging, insecure debugging features,
 or otherwise out of date, insecure, or hidden functionality that could be used
 maliciously if discovered.
 
-. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3.1]
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3.1]
 Remove development, test and/or custom application accounts, user IDs,
 and passwords before applications become active or are released to customers.
 
-. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.4]
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.4]
 Processes must include removal of test data and accounts from system components
 before the system becomes active / goes into production.
