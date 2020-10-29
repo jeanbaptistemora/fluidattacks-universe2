@@ -1,0 +1,31 @@
+src.lib_path.f020.missing_encryption:
+  en: Confidential information is stored in plain text in {path}
+  es: Información confidencial es almacenada en texto plano en {path}
+utils.model.finding.enum.f020.description:
+  en: >
+    Confidential information is stored in plain text allowing an
+    attacker to view it without any type of encryption.
+  es: >
+    La información confidencial es almacenada en texto plano permitiendo a un
+    atacante visualizarla sin ningún tipo de cifrado.
+utils.model.finding.enum.f020.impact:
+  en: Obtain sensitive information that may compromise system resources
+  es: Obtener información sensible que puede comprometer recursos del sistema
+utils.model.finding.enum.f020.recommendation:
+  en: >
+    Encrypt all sensitive information that is transported or stored within
+    the application according to the organization's policies.
+  es: >
+    Cifrar toda información sensible que se transporte o se guarde dentro
+    la aplicación de acuerdo a las políticas de la organización.
+utils.model.finding.enum.f020.requirements:
+  en: REQ.0185. Encrypt sensitive information
+  es: REQ.0185. La información sensible almacenada debe estar cifrada.
+utils.model.finding.enum.f020.threat:
+  en: >
+    Attacker with access to the source-code from the Internet.
+  es: >
+    Atacante con acceso al código fuente desde Internet
+utils.model.finding.enum.f020.title:
+  en: FIN.H.0020. Missing encryption of sensitive data
+  es: FIN.S.0020. Ausencia de cifrado de información confidencial
