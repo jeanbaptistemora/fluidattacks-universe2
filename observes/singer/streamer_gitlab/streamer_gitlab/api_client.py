@@ -121,7 +121,7 @@ def build_getter(
     async def normal_getter(
         session: ClientSession, endpoint: str, **kargs
     ) -> List[Dict[str, Any]]:
-        getter = insistent_endpoint_call(get_json)
+        getter = insistent_endpoint_call(get_json, 100)
         return await getter(session, endpoint, **kargs)
 
     return normal_getter
