@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block meta %}
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ page.url }}">
+  <meta name="title"
+        property="og:title"
+        content="{{ page.title }} | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="{{ page.description }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-attacks-logo.png">
+  <meta name="type"
+        property="og:type"
+        content="website">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            Solutions
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block header %}
+<div
+  class="bg-solutions bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
+  <div class="w-100 center">
+    <h1 class="white fw7 f1 neue tc f-5-l ma0">
+      {{ page.title }}
+    </h1>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="roboto mw-1366 ph-body center c-lightblack pv5">
+  <div class="w-100 pv3 flex-l">
+    <div class="w-100">
+      <div class="w-50-l fl-l tl ph0-ns ph-body" data-aos="fade-right">
+        <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/solutions/solution-1.png"
+        alt="Young hacker smiling">
+      </div>
+      <div class="w-50-l fr-l ph-body">
+        <ul class="tl roboto list pl0 mw-20">
+          <li class="c-fluid-bk pv3">
+            <a href="{{ SITEURL }}/solutions/devsecops/" class="c-fluid-bk solution-link no-underline mt0 mb3 t-all-5">
+              <h3 class="f3 fw6 mv0 underline-title">
+                DevSecOps
+              </h3>
+            </a>
+            <p class="f-key-features lh-2 fw3 mv0">
+              You can integrate security into your DevOps approach at any time in
+              your SDLC and ensure your team’s accountability.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 pv3 flex-l">
+    <div class="w-100">
+      <div class="w-50-l fl-l tl ph0-ns ph-body" data-aos="fade-right">
+        <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/solutions/solution-2.png"
+        alt="Young hacker smiling">
+      </div>
+      <div class="w-50-l fr-l ph-body">
+        <ul class="tl roboto list pl0 mw-20">
+          <li class="c-fluid-bk pv3">
+            <a href="{{ SITEURL }}/solutions/security-testing/" class="c-fluid-bk solution-link no-underline mt0 mb3 t-all-5">
+              <h3 class="f3 fw6 mv0 underline-title">
+                Security Testing
+              </h3>
+            </a>
+            <p class="f-key-features lh-2 fw3 mv0">
+              You can obtain detailed and reliable reports on security
+              vulnerabilities in your IT infrastructure, applications, and source
+              code.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 pv3 flex-l">
+    <div class="w-100 pb6">
+      <div class="w-50-l fl-l tl ph0-ns ph-body" data-aos="fade-right">
+        <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/solutions/solution-3.png"
+        alt="Young hacker smiling">
+      </div>
+      <div class="w-50-l fr-l ph-body">
+        <ul class="tl roboto list pl0 mw-20">
+          <li class="c-fluid-bk pv3">
+            <a href="{{ SITEURL }}/solutions/pentesting/" class="c-fluid-bk solution-link no-underline mt0 mb3 t-all-5">
+              <h3 class="f3 fw6 mv0 underline-title">
+                Pentesting
+              </h3>
+            </a>
+            <p class="f-key-features lh-2 fw3 mv0">
+              You can have simulated attacks on your systems performed by our
+              pentesters to discover unseen vulnerabilities via automated tools.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 pv3 flex-l">
+    <div class="w-100">
+      <div class="w-50-l fr-l tl ph0-ns ph-body" data-aos="fade-left">
+        <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/solutions/solution-4.png"
+        alt="Young hacker smiling">
+      </div>
+      <div class="w-50-l fl-l ph-body">
+        <ul class="tl roboto list pl0 mw-20">
+          <li class="c-fluid-bk pv3">
+            <a href="{{ SITEURL }}/solutions/ethical-hacking/" class="c-fluid-bk solution-link no-underline mt0 mb3 t-all-5">
+              <h3 class="f3 fw6 mv0 underline-title">
+                Ethical Hacking
+              </h3>
+            </a>  
+            <p class="f-key-features lh-2 fw3 mv0">
+              You can give our ethical hackers permission to search for and
+              discover what unethical hackers might exploit in your IT systems.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 pv3 flex-l">
+    <div class="w-100">
+      <div class="w-50-l fr-l tl ph0-ns ph-body" data-aos="fade-left">
+        <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/solutions/solution-5.png"
+        alt="Young hacker smiling">
+      </div>
+      <div class="w-50-l fl-l ph-body">
+        <ul class="tl roboto list pl0 mw-20">
+          <li class="c-fluid-bk pv3">
+            <a href="{{ SITEURL }}/solutions/red-teaming/" class="c-fluid-bk solution-link no-underline mt0 mb3 t-all-5">
+              <h3 class="f3 fw6 mv0 underline-title">
+                Red Teaming
+              </h3>
+            </a>
+            <p class="f-key-features lh-2 fw3 mv0">
+              You can include our 100% Red Team in your projects to report
+              security weaknesses to your development team and top management.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 pv3 flex-l">
+    <div class="w-100">
+      <div class="w-50-l fr-l tl ph0-ns ph-body" data-aos="fade-left">
+        <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/solutions/solution-6.png"
+        alt="Young hacker smiling">
+      </div>
+      <div class="w-50-l fl-l ph-body">
+        <ul class="tl roboto list pl0 mw-20">
+          <li class="c-fluid-bk pv3">
+            <a href="{{ SITEURL }}/solutions/attack-simulation/" class="c-fluid-bk solution-link no-underline mt0 mb3 t-all-5">
+              <h3 class="f3 fw6 mv0 underline-title">
+                Attack Simulation
+              </h3>
+            </a>
+            <p class="f-key-features lh-2 fw3 mv0">
+              You can discover through simulated attack scenarios whether your
+              company’s cybersecurity is ready to respond to current threats.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+<!-- Cookiebot consent message -->
+<script id="CookieDeclaration" src="https://consent.cookiebot.com/9c4480b4-b8ae-44d8-9c6f-6300b86e9094/cd.js" type="text/javascript" async></script>
