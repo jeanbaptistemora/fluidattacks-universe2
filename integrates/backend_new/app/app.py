@@ -9,7 +9,7 @@ from ariadne.asgi import GraphQL
 from starlette.applications import Starlette
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -96,6 +96,12 @@ async def authz(request: Request, client: OAuth) -> HTMLResponse:
     request.session['username'] = user['email']
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
+
+    return RedirectResponse(url='/new/app')
+
+
+async def app(request: Request) -> HTMLResponse:
+    """ View for authenticated users"""
     response = TEMPLATING_ENGINE.TemplateResponse(
         name='app.html',
         context={
@@ -138,6 +144,7 @@ APP = Starlette(
         Route('/new/api/', GraphQL(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', error401),
         Route('/error500', error500),
+        Route('/new/app', app),
         Route('/invalid_invitation', invalid_invitation),
         Mount(
             '/static',
