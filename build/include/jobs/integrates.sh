@@ -233,7 +233,8 @@ function job_integrates_deploy_mobile_ota {
 
       pushd integrates \
     &&  echo '[INFO] Logging in to AWS' \
-    &&  mobile_version="$(helper_integrates_mobile_version_playstore 'code')" \
+    &&  mobile_version="$(helper_integrates_mobile_version_playstore)" \
+    &&  helper_integrates_deployment_date \
     &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
     &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
           EXPO_USER \
@@ -253,7 +254,9 @@ function job_integrates_deploy_mobile_ota {
             --username "${EXPO_USER}" \
             --password "${EXPO_PASS}" \
       &&  echo '[INFO] Replacing versions' \
-      &&  sed -i "s/integrates_version/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
+      &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
+      &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
+      &&  sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
       &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
       &&  echo '[INFO] Publishing update' \
       &&  npx --no-install expo publish \

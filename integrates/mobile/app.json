@@ -20,7 +20,10 @@
     "extra": {
       "bugsnag": {
         "apiKey": "c7b947a293ced0235cdd8edc8c09dad4"
-      }
+      },
+      "commitSha": "__CI_COMMIT_SHA__",
+      "commitShaShort": "__CI_COMMIT_SHORT_SHA__",
+      "deploymentDate": "__INTEGRATES_DEPLOYMENT_DATE__"
     },
     "hooks": {
       "postPublish": [
@@ -64,6 +67,6 @@
       "enabled": true
     },
     "userInterfaceStyle": "automatic",
-    "version": "integrates_version"
+    "version": "__CI_COMMIT_SHORT_SHA__"
   }
 }
