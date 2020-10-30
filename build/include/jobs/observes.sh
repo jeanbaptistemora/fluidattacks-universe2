@@ -265,6 +265,7 @@ function job_observes_code_mirror_all_groups_to_s3_on_aws {
 function job_observes_code_mirror_group_to_s3 {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local group="${1}"
+  export PATH="${PATH}:${UpdateSyncStamp}/bin"
 
       if test -z "${group}"
       then
@@ -272,24 +273,24 @@ function job_observes_code_mirror_group_to_s3 {
         &&  return 1
       fi \
   &&  helper_observes_aws_login prod \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  helper_common_use_services \
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group} from source Git repository" \
-    &&  CI='true' \
-        CI_COMMIT_REF_NAME='master' \
-        INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
-        PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-        PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-        melts resources --clone-from-customer-git "${group}" \
+    &&  export CI='true' \
+        export CI_COMMIT_REF_NAME='master' \
+        export INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+        export PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+        export PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+    &&  melts resources --clone-from-customer-git "${group}" \
     &&  if find "groups/${group}/fusion/"* -maxdepth 0 -type d
         then
               echo '[INFO] Pushing repositories to S3' \
-          &&  CI='true' \
-              CI_COMMIT_REF_NAME='master' \
-              INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
-              PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-              PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-              melts drills --push-repos "${group}"
+          &&  melts drills --push-repos "${group}" \
+          &&  update-s3-last-sync-date "${group}" "${TEMP_FILE2}" \
         else
               echo '[INFO] Unable to clone repositories from source' \
           &&  echo '[INFO] Skipping push to S3'
