@@ -9,7 +9,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { InjectedFormProps, Validator } from "redux-form";
 
@@ -22,6 +22,7 @@ import {
   DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
 import { default as globalStyle } from "styles/global.css";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -150,15 +151,13 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   return (
     <React.StrictMode>
       <React.Fragment>
-        <Row>
-          <Col md={2} mdOffset={10} xs={12} sm={12}>
-            <Can do="backend_api_mutations_update_event_evidence_mutate">
-              <Button disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
-                <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
-              </Button>
-            </Can>
-          </Col>
-        </Row>
+        <ButtonToolbarRow>
+          <Can do="backend_api_mutations_update_event_evidence_mutate">
+            <Button disabled={data.event.eventStatus === "SOLVED"} onClick={handleEditClick}>
+              <FluidIcon icon="edit" />&nbsp;{translate.t("group.events.evidence.edit")}
+            </Button>
+          </Can>
+        </ButtonToolbarRow>
         <br />
         {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
           <div className={globalStyle.noData}>
@@ -170,13 +169,11 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               {isEditing ? (
-                <Row>
-                  <Col md={2} mdOffset={10}>
-                    <Button type="submit" disabled={pristine}>
-                      <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
-                    </Button>
-                  </Col>
-                </Row>
+                <ButtonToolbarRow>
+                  <Button type="submit" disabled={pristine}>
+                    <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
+                  </Button>
+                </ButtonToolbarRow>
               ) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
