@@ -28,7 +28,7 @@ const App: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <BugsnagErrorBoundary>
-        <BrowserRouter basename={"/"}>
+        <BrowserRouter basename={"/new"}>
           <ApolloProvider>
             <ReduxProvider store={store}>
               <authzPermissionsContext.Provider value={userLevelPermissions}>
