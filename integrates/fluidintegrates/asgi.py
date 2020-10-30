@@ -1,76 +1,40 @@
 """ASGI config for fluidintegrates project."""
+# Standard
 import os
 
+# Initialize django (order matters)
 import django
-import newrelic.agent
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
+django.setup()
 
-from django.conf import settings  # noqa: E402
+# Third party
+import newrelic.agent   # noqa: E402
+from ariadne.asgi import GraphQL  # noqa: E402
+from channels.auth import AuthMiddlewareStack   # noqa: E402
+from channels.routing import ProtocolTypeRouter, URLRouter   # noqa: E402
+from django.conf import settings   # noqa: E402
+from django.core.asgi import get_asgi_application   # noqa: E402
+from django.urls import re_path   # noqa: E402
+from uvicorn.workers import UvicornWorker   # noqa: E402
+
+# Local
+from backend.api.schema import SCHEMA   # noqa: E402
+
 
 # Init New Relic agent
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fluidintegrates.settings")
-django.setup()
 NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
-from django.urls import re_path  # noqa: E402
-from uvicorn.workers import UvicornWorker  # noqa: E402
-
-from ariadne.asgi import GraphQL  # noqa: E402
-
-from channels.auth import AuthMiddlewareStack  # noqa: E402
-from channels.http import AsgiHandler  # noqa: E402
-from channels.routing import ProtocolTypeRouter, URLRouter  # noqa: E402
-
-
-from backend.api.schema import SCHEMA  # noqa: E402
-
-
-# pylint: disable=too-few-public-methods
-class AsgiHandlerWithNewrelic(AsgiHandler):
-    def get_response(self, request):
-        headers = None
-        if "headers" in request.scope and isinstance(request.scope["headers"],
-                                                     dict):
-            headers = request.scope['headers']
-
-        # https://docs.newrelic.com/docs/agents/python-agent/python-agent-api/webtransaction
-        # instance of channels/handler.py `AsgiRequest`
-        get_response_custom = newrelic.agent.WebTransactionWrapper(
-            super().get_response,
-            scheme=request.scheme,
-            host=request.get_host(),
-            port=request.get_port(),
-            request_method=request.method,
-            request_path=request.path,
-            query_string=request.META.get('QUERY_STRING'),
-            headers=headers
-        )
-        return get_response_custom(request)
-
-
-class DjangoChannelsGraphQL(GraphQL):
-    def __call__(self, scope) -> None:
-        async def handle(receive, send):
-            await \
-                super(DjangoChannelsGraphQL, self).__call__(
-                    scope, receive, send)
-        return handle
-
-
-APP = ProtocolTypeRouter({
-    'http': AsgiHandlerWithNewrelic,
-    'websocket': AuthMiddlewareStack(
-        URLRouter(
-            [
-                re_path(r'^/?api/?\.*$',
-                        DjangoChannelsGraphQL(
-                            SCHEMA, debug=settings.DEBUG)),
-                re_path(r'api',
-                        DjangoChannelsGraphQL(
-                            SCHEMA, debug=settings.DEBUG)),
+APP = newrelic.agent.ASGIApplicationWrapper(
+    ProtocolTypeRouter({
+        'http': get_asgi_application(),
+        'websocket': AuthMiddlewareStack(
+            URLRouter([
+                re_path(r'^api/?', GraphQL(SCHEMA, debug=settings.DEBUG)),
             ])
-    )
-})
+        )
+    })
+)
 
 
 class IntegratesWorker(UvicornWorker):
@@ -80,7 +44,7 @@ class IntegratesWorker(UvicornWorker):
         'loop': 'uvloop',
         'http': 'httptools',
         'root_path': '',
-        'interface': 'asgi2',
+        'interface': 'asgi3',
         'log_level': 'info',
         'headers': [
             [
