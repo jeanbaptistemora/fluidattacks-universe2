@@ -290,7 +290,8 @@ function job_observes_code_mirror_group_to_s3 {
         then
               echo '[INFO] Pushing repositories to S3' \
           &&  melts drills --push-repos "${group}" \
-          &&  update-s3-last-sync-date "${group}" "${TEMP_FILE2}" \
+          &&  echo '[INFO] Updating last sync date' \
+          &&  update-s3-last-sync-date "${group}" "${TEMP_FILE2}"
         else
               echo '[INFO] Unable to clone repositories from source' \
           &&  echo '[INFO] Skipping push to S3'
