@@ -1,4 +1,5 @@
 # Standard libraries
+import asyncio
 import json
 from os import (
     environ,
@@ -27,9 +28,10 @@ def start_etl(projects: List[str], auth_file):
         sys.exit(1)
     else:
         auth = json.load(auth_file)
-        for project in projects:
-            log('info', f'Starting Gitlab ETL for {project}')
-            executer.start_etl(project, auth)
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(
+            executer.start_etls_in_parallel(projects, auth)
+        )
 
 
 @click.group()

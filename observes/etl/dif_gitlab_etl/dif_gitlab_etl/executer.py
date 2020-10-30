@@ -3,6 +3,7 @@ Binds functions of other modules to specific parameters.
 Supports the interface used by cli.
 """
 # Standard libraries
+from multiprocessing import Process
 from typing import (
     Any, Callable,
     Dict,
@@ -16,6 +17,7 @@ from dif_gitlab_etl import etl
 from dif_gitlab_etl import planner
 from dif_gitlab_etl.db_client import DbState
 from dif_gitlab_etl.etl import ExtractState
+from dif_gitlab_etl.utils import log
 
 from streamer_gitlab import page_data
 from streamer_gitlab.api_client import (
@@ -74,7 +76,8 @@ def exe_and_fetch_function(
     return exe_and_fetch
 
 
-def start_etl(project, auth: Dict[str, str]):
+def start_etl(project: str, auth: Dict[str, str]):
+    log('info', f'Starting Gitlab ETL for {project}')
     db_state = db_client.make_access_point(auth)
     stm_executer = exe_and_fetch_function(db_state)
     resources: List[GitlabResource] = specific_resources(project)
@@ -99,3 +102,17 @@ def start_etl(project, auth: Dict[str, str]):
             )
         except MaxRetriesReached:
             continue
+
+
+async def start_etls_in_parallel(projects: List[str], auth: Dict[str, str]):
+    processes = []
+    for project in projects:
+        def etl_function(proj: str):
+            def etl_callable():
+                start_etl(proj, auth)
+            return etl_callable
+        etl_process = Process(target=etl_function(project))
+        processes.append(etl_process)
+        etl_process.start()
+    for process in processes:
+        process.join()
