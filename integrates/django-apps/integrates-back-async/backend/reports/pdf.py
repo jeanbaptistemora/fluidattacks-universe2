@@ -6,6 +6,7 @@ import sys
 import subprocess
 import uuid
 import importlib
+import os
 
 from typing import Dict
 import jinja2
@@ -18,6 +19,10 @@ from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
 
 
 matplotlib.use('Agg')
+
+
+# Constants
+STARDIR = os.environ['STARTDIR']
 
 
 # pylint: disable=too-many-instance-attributes
@@ -41,7 +46,8 @@ class CreatorPDF():
     def __init__(self, lang, doctype):
         """Class constructor."""
         self.path = (
-            '/usr/src/app/django-apps/integrates-back-async/backend/reports'
+            f'{STARDIR}/integrates/django-apps/'
+            'integrates-back-async/backend/reports'
         )
         self.result_dir = self.path + self.result_dir
         self.font_dir = self.path + self.font_dir

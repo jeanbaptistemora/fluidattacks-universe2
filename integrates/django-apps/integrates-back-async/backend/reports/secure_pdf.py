@@ -11,6 +11,10 @@ from backend.dal import project as project_dal
 from backend.typing import Historic
 
 
+# Constants
+STARDIR = os.environ['STARTDIR']
+
+
 class PDF(FPDF):  # type: ignore
     user = ''
 
@@ -40,7 +44,8 @@ class SecurePDF():
     def __init__(self, passphrase: str):
         """Class constructor."""
         self.base = (
-            '/usr/src/app/django-apps/integrates-back-async/backend/reports'
+            f'{STARDIR}/integrates/django-apps/'
+            'integrates-back-async/backend/reports'
         )
 
         self.watermark_tpl = os.path.join(
