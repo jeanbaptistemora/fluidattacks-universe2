@@ -166,7 +166,7 @@ async def validate_evidence(
     elif evidence_id == 'exploit':
         allowed_mimes = ['text/x-python', 'text/plain']
     elif evidence_id == 'fileRecords':
-        allowed_mimes = ['text/csv', 'text/plain']
+        allowed_mimes = ['text/csv', 'text/plain', 'application/csv']
 
     if mime_type not in allowed_mimes:
         raise InvalidFileType()
