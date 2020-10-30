@@ -1,7 +1,10 @@
 # Standar library
+import os
 import re
 from contextlib import suppress
-from typing import (Dict)
+from typing import (
+    Dict,
+)
 
 # Third libraries
 import pytz
@@ -26,8 +29,8 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
     git_commit = DEFAULT_COLUMN_VALUE
     git_commit_author = DEFAULT_COLUMN_VALUE
     git_commit_authored_date = DEFAULT_COLUMN_VALUE
-    git_repo = DEFAULT_COLUMN_VALUE
     git_origin = DEFAULT_COLUMN_VALUE
+    git_repo = DEFAULT_COLUMN_VALUE
 
     with suppress(InvalidGitRepositoryError):
         repo = Repo(repo_path, search_parent_directories=True)
@@ -43,18 +46,19 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         git_commit_authored_date = head_commit.authored_datetime.astimezone(
             pytz.UTC).isoformat()
 
-        git_repo = DEFAULT_COLUMN_VALUE
-        origins = []
-        with suppress(ValueError):
+        with suppress(ValueError, IndexError,):
             origins = list(repo.remote().urls)
-        git_origin = DEFAULT_COLUMN_VALUE
-        if origins:
-            git_origin = origins[0]
-            for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
-                match = regex.match(git_origin)
-                if match and match.group(1):
-                    git_repo = match.group(1)
-
+            git_origin = DEFAULT_COLUMN_VALUE
+            if origins:
+                git_origin = origins[0]
+                for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
+                    match = regex.match(git_origin)
+                    if match and match.group(1):
+                        git_repo = match.group(1)
+                        break
+        if git_repo == DEFAULT_COLUMN_VALUE:
+            with suppress(IndexError):
+                git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
     return {
         'git_branch': git_branch,
         'git_commit': git_commit,
