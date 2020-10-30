@@ -59,13 +59,14 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
 export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceImageProps): JSX.Element => {
   const handleClick: (() => void) = (): void => { props.onClick(); };
 
+  // Add replace to handle the new route until starlette is finished
   return (
     <React.StrictMode>
       <Col md={4} sm={6} xs={12}>
         <div>
           <div className={style.imgContainer}>
             {typeof (props.content) === "string"
-              ? <img src={props.content} className={style.img} onClick={handleClick} />
+              ? <img src={props.content.replace("/new", "")} className={style.img} onClick={handleClick} />
               : React.cloneElement(props.content, { className: style.img, onClick: handleClick })}
           </div>
           <div className={style.description}>
