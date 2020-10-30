@@ -9,7 +9,7 @@
 == Requirement
 
 The system must disable out-of-date or insecure versions
-of *SSL* and *TLS* protocols, algorithms, and ciphers.
+of *SSL* and *TLS* protocols, algorithms and ciphers.
 
 == Descriptions
 
@@ -18,7 +18,7 @@ channels that are protected and encrypted.
 In order to guarantee this, out-of-date or insecure protocols such as *SSLv2*,
 *SSLv3*, or *TLS* 1.0 and *TLS* 1.1 should be disabled.
 The latest version of TLS should be used and communications should not be
-allowed to fall back to insecure or unencrypted protocols.
+allowed to fall back on insecure or unencrypted protocols.
 
 == Findings
 

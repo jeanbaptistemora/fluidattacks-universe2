@@ -15,12 +15,12 @@ for random number generation used in critical processes
 
 == Descriptions
 
-System cryptographic keys are essential for maintaining the confidentiality
+The system's cryptographic keys are essential for maintaining the confidentiality
 and integrity of transactions and communications.
-Some of these keys and other critical elements are generated using random
-numbers.
-In these cases, the random numbers themselves must be generated using secure
-mechanisms,
+Some of these keys and other critical elements
+are generated using random numbers.
+In these cases, the random numbers themselves
+must be generated using secure mechanisms,
 which have often already been implemented by the platform.
 
 == Findings

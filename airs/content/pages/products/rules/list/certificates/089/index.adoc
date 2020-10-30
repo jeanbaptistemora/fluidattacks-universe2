@@ -9,7 +9,7 @@
 == Requirement
 
 The organization must not use digital certificates
-with a validity greater than two years.
+with a validity of more than two years.
 
 == Findings
 

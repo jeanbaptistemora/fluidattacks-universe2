@@ -12,12 +12,12 @@ The server must have a rate limit to control interaction frequency.
 
 == Description
 
-Several attacks depend on executing a huge amount of requests from a single
-host.
+Several attacks depend on executing a huge amount of requests
+from a single host.
 For instance, it is possible to exhaust a server's connection pool with a
 single machine by using asynchronous requests,
 effectively causing a Denial of Service (*DoS*).
-These and other attacks such as the ones depending on brute force
+These and other attacks, such as the ones depending on brute force,
 can be thwarted, or severely hindered, by limiting the number of requests that
 a single host can send to the server in a short period of time.
 Therefore, server settings should include a rate limit that considers a regular

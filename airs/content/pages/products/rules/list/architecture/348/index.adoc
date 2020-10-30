@@ -18,9 +18,9 @@ properly escaped,
 they become prone to the insertion of malicious commands.
 A part of the escaping process can be done by encoding the output messages.
 However, all components must use consistent encoding in order to prevent
-attacks that benefit from the presence of different parsing behaviors.
-E.g. Server-Side Request Forgery (*SSRF*) and Remote File Inclusion (*RFI*)
-attacks.
+attacks that benefit from the presence of different parsing behaviors,
+e.g., Server-Side Request Forgery (*SSRF*)
+and Remote File Inclusion (*RFI*) attacks.
 
 == References
 

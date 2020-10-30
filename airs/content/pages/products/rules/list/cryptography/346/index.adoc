@@ -13,7 +13,7 @@ numbers only once with a given encryption key.
 
 == Descriptions
 
-System cryptographic keys are essential for maintaining the confidentiality
+The system's cryptographic keys are essential for maintaining the confidentiality
 and integrity of transactions and communications.
 Some encryption mechanisms use initialization vectors to reduce the chances
 that a message will be decrypted.

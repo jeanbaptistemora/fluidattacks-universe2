@@ -9,12 +9,12 @@
 == Requirement
 
 The system must enforce access controls on trusted enforcement points,
-not on the client's side.
+which are not on the client's side.
 
 == Description
 
-Systems must enforce access controls on trusted enforcement points such as
-access control gateways, severs and serverless functions.
+Systems must enforce access controls on trusted enforcement points,
+such as access control gateways, severs and serverless functions.
 Client-side access control enforcement cannot be trusted because it is prone
 to being bypassed and/or tampered with.
 

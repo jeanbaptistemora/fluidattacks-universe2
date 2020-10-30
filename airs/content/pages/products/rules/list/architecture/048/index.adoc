@@ -4,7 +4,7 @@
 :keywords: Component, Source Code, System, Dependencies, Requirement, Security, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R048. Components with a minimum of dependencies
+= R048. Components with minimal dependencies
 
 == Requirement
 

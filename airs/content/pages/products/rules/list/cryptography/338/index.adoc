@@ -17,7 +17,7 @@ All communications between the client and the server should take place over
 channels that are protected and encrypted.
 Secure channels often use a single secret to encrypt all communications.
 Therefore, if that secret is breached,
-all past communications can be decrypted an compromised.
+all past communications can be decrypted and compromised.
 **Perfect forward secrecy** is attained when each message in a conversation is
 encrypted using a different secret.
 Thus, if a secret is breached,

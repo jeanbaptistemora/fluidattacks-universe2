@@ -13,11 +13,11 @@ WSDL files containing sensitive information must not be publicly accessible.
 == Description
 
 Some web services architectures require exposing a WSDL file.
-If this file contains sensitive information such as deprecated methods or
-administrative services,
+If this file contains sensitive information,
+such as deprecated methods or administrative services,
 it should not be available to a wider audience than it requires.
-If it must be available on a very public network such as the internet,
-then it must not contain any sensitive information.
+If it must be available on a very public network, like the internet,
+then it should not contain any sensitive information.
 
 == Findings
 

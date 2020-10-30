@@ -10,14 +10,14 @@
 
 The system must restrict access to system functions
 that execute critical business processes,
-it will only allow authorized users.
+allowing only authorized users.
 
 == Description
 
 Systems must enforce access controls on trusted enforcement points.
 They must also have a clear definition of user privileges and roles.
 Functions that execute critical business processes should only be available for
-authenticated users with roles with enough privileges.
+authenticated users with roles that have the required privileges.
 
 == Findings
 

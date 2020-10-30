@@ -8,17 +8,17 @@
 
 == Requirement
 
-System random numbers must be generated
+The system's random numbers must be generated
 using a uniform distribution.
 
 == Descriptions
 
-System cryptographic keys are essential for maintaining the confidentiality
+The system's cryptographic keys are essential for maintaining the confidentiality
 and integrity of transactions and communications.
-Some of these keys and other critical elements are generated using random
-numbers.
+Some of these keys and other critical elements
+are generated using random numbers.
 In these cases, the random numbers themselves must be generated using secure
-mechanisms that guarantee a random distribution,
+mechanisms that guarantee a random distribution.
 
 == Findings
 

@@ -8,7 +8,7 @@
 
 == Requirement
 
-System must use asymmetric cryptography with separated keys
+The system must use asymmetric cryptography with separated keys
 for encryption and signatures.
 
 == References

@@ -8,15 +8,15 @@
 
 == Requirement
 
-The cryptographic functions of the system
-must be implemented with pre-existing and up-to-date cryptographic mechanisms.
+The system's cryptographic functions must be implemented
+with pre-existing and up-to-date cryptographic mechanisms.
 
 == Description
 
-System cryptographic functions are essential for maintaining the
+The system's cryptographic functions are essential for maintaining the
 confidentiality and integrity of transactions and communications.
-Therefore, these functions must be based on pre-existent, tested, approved and
-secure mechanisms.
+Therefore, these functions must be based
+on pre-existent, tested, approved and secure mechanisms.
 
 == References
 

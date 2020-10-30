@@ -9,7 +9,7 @@
 == Requirement
 
 The management of wireless access points
-must be enabled for only one physical port of the equipment.
+must be enabled for only one of the equipment's physical ports.
 
 == References
 

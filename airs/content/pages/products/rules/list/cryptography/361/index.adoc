@@ -8,18 +8,18 @@
 
 == Requirement
 
-System cryptographic keys must be replaced after a defined period of time,
-after having produced a certain amount of cipher-text or after its integrity
-has been weakened.
-E.g. when an employee with knowledge of a key departs or when it is believed to
-have been compromised.
+The system's cryptographic keys must be replaced after a defined period of time,
+after having produced a certain amount of cipher-text
+or after its integrity has been weakened,
+e.g., when an employee with knowledge of a key leaves
+or when it is believed to have been compromised.
 
 == Description
 
-System cryptographic keys are essential for maintaining the confidentiality
+The system's cryptographic keys are essential for maintaining the confidentiality
 and integrity of transactions and communications.
-In order to mitigate their decreased effectiveness over time and any possible
-loss of their integrity,
+In order to mitigate their decreased effectiveness over time
+and any possible loss of their integrity,
 they should be replaced often.
 
 == References

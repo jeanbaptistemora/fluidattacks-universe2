@@ -8,12 +8,12 @@
 
 == Requirement
 
-The system must use stable, tested,
+The system must use stable, tested
 and up-to-date versions of third-party components.
 
 == Description
 
-. The organization must ensure the version of all of its products
+. The organization must ensure that the version of all of its products
 and the products provided by third-parties
 is up to date, stable and tested.
 This reduces the risk of including vulnerabilities
@@ -37,14 +37,14 @@ for the products used by the organization
 and determining the affectation level
 caused by the reported vulnerabilities.
 
-. Apply the necessary updates taking into account the vulnerability type,
-the affected components,
+. Apply the necessary updates
+taking into account the vulnerability type, the affected components
 and its risk classification within the organization.
 
 . Define security policies for the used components,
 requiring updated versions, specific software,
-ethical hacking and product licenses;
-include internal policies to disable unused features
+ethical hacking and product licenses.
+Include internal policies to disable unused features
 and update default settings
 that may pose a risk to the organization.
 

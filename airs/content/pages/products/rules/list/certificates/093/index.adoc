@@ -9,7 +9,7 @@
 == Requirement
 
 The system must use digital certificates with a consistent identification
-of the associated organization (service, server, among others).
+of the associated organization (service, server, etc.).
 
 == Findings
 

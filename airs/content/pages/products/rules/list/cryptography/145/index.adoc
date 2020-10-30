@@ -8,12 +8,12 @@
 
 == Requirement
 
-System private asymmetric or symmetric keys must be protected
-and must not be exposed.
+The system's private asymmetric or symmetric keys must be protected
+and should not be exposed.
 
 == Description
 
-System cryptographic keys are essential for maintaining the confidentiality
+The system's cryptographic keys are essential for maintaining the confidentiality
 and integrity of transactions and communications.
 Their exposure may cause business information leakages, loss of data integrity
 and loss of trust due to the inability to differentiate server traffic from
