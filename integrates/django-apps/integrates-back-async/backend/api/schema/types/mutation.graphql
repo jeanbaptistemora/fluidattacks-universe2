@@ -330,4 +330,8 @@ type Mutation {
         expirationTime: Int!
         projectName: String!
     ): UpdateAccessTokenPayload!
+
+    executeSkims(
+        groupName: String!
+    ): ExecuteSkimsPayload!
 }
