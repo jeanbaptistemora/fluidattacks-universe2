@@ -8,7 +8,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 
@@ -22,6 +21,13 @@ import {
   GET_EVENT_DESCRIPTION,
   SOLVE_EVENT_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
+import {
+  ButtonToolbar,
+  Col50,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { DateTime, Text } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -107,7 +113,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                         {({ pristine }: InjectedFormProps): React.ReactNode => (
                           <React.Fragment>
                             <Row>
-                              <Col md={6}>
+                              <Col50>
                                 <FormGroup>
                                   <ControlLabel>{translate.t("group.events.description.solved.date")}</ControlLabel>
                                   <Field
@@ -116,8 +122,8 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                     validate={[required, validDatetime, dateTimeBeforeToday]}
                                   />
                                 </FormGroup>
-                              </Col>
-                              <Col md={6}>
+                              </Col50>
+                              <Col50>
                                 <FormGroup>
                                   <ControlLabel>
                                     {translate.t("group.events.description.solved.affectation")}
@@ -129,9 +135,9 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                     validate={[required, numeric]}
                                   />
                                 </FormGroup>
-                              </Col>
+                              </Col50>
                             </Row>
-                            <ButtonToolbar className="pull-right">
+                            <ButtonToolbar>
                               <Button onClick={closeSolvingModal}>
                                 {translate.t("confirmmodal.cancel")}
                               </Button>
@@ -151,7 +157,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                       <React.Fragment>
                         <React.Fragment>
                           <Row>
-                            <ButtonToolbar className="pull-right">
+                            <ButtonToolbar>
                               <Can do="backend_api_mutations_solve_event_mutate">
                                 <Button disabled={data.event.eventStatus === "SOLVED"} onClick={openSolvingModal}>
                                   <FluidIcon icon="verified" />&nbsp;{translate.t("search_findings.tab_severity.solve")}
@@ -160,7 +166,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             </ButtonToolbar>
                           </Row>
                           <Row>
-                            <Col md={6}>
+                            <Col50>
                               <EditableField
                                 alignField="horizontalWide"
                                 component={Text}
@@ -170,8 +176,8 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 renderAsEditable={false}
                                 type="text"
                               />
-                            </Col>
-                            <Col md={6}>
+                            </Col50>
+                            <Col50>
                               <EditableField
                                 alignField="horizontalWide"
                                 component={Text}
@@ -181,10 +187,10 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 renderAsEditable={false}
                                 type="text"
                               />
-                            </Col>
+                            </Col50>
                           </Row>
                           <Row>
-                            <Col md={6}>
+                            <Col50>
                               <EditableField
                                 alignField="horizontalWide"
                                 component={Text}
@@ -194,8 +200,8 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 renderAsEditable={false}
                                 type="text"
                               />
-                            </Col>
-                            <Col md={6}>
+                            </Col50>
+                            <Col50>
                               <EditableField
                                 alignField="horizontalWide"
                                 component={Text}
@@ -205,11 +211,11 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 renderAsEditable={false}
                                 type="text"
                               />
-                            </Col>
+                            </Col50>
                           </Row>
                           <Row>
                             {!_.isEmpty(data.event.affectedComponents) ? (
-                              <Col md={6}>
+                              <Col50>
                                 <EditableField
                                   alignField="horizontalWide"
                                   component={Text}
@@ -219,9 +225,9 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                   renderAsEditable={false}
                                   type="text"
                                 />
-                              </Col>
+                              </Col50>
                             ) : undefined}
-                            <Col md={6}>
+                            <Col50>
                               <EditableField
                                 alignField="horizontalWide"
                                 component={Text}
@@ -231,7 +237,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 renderAsEditable={false}
                                 type="text"
                               />
-                            </Col>
+                            </Col50>
                           </Row>
                         </React.Fragment>
                       </React.Fragment>
