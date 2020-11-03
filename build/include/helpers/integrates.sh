@@ -375,7 +375,6 @@ function helper_integrates_sops_vars {
     NEW_RELIC_APP_ID \
     NEW_RELIC_LICENSE_KEY \
     NEW_RELIC_ENVIRONMENT \
-    PRODUCT_PIPELINE_TOKEN \
     REDIS_SERVER \
     SQS_QUEUE_URL \
     STARLETTE_TEST_KEY \

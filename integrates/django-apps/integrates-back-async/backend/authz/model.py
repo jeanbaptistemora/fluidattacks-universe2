@@ -150,7 +150,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     closer=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
-            'backend_api_mutations_execute_skims_mutate',
             'backend_api_mutations_create_event_mutate',
             'backend_api_mutations_download_event_file_mutate',
             'backend_api_mutations_solve_event_mutate',

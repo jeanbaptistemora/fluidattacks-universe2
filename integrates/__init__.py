@@ -5,7 +5,6 @@ try:
     CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
     CI_COMMIT_SHA = os.environ['CI_COMMIT_SHA']
     CI_COMMIT_SHORT_SHA = os.environ['CI_COMMIT_SHORT_SHA']
-    CI_PROJECT_ID = os.environ['CI_PROJECT_ID']
     FI_AWS_DYNAMODB_ACCESS_KEY = os.environ['AWS_ACCESS_KEY_ID']
     FI_AWS_DYNAMODB_SECRET_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     FI_BITBUCKET_OAUTH2_KEY = os.environ['BITBUCKET_OAUTH2_KEY']
@@ -58,7 +57,6 @@ try:
     FORCES_TRIGGER_URL = os.environ['FORCES_TRIGGER_URL']
     FORCES_TRIGGER_REF = os.environ['FORCES_TRIGGER_REF']
     FORCES_TRIGGER_TOKEN = os.environ['FORCES_TRIGGER_TOKEN']
-    PRODUCT_PIPELINE_TOKEN = os.environ['PRODUCT_PIPELINE_TOKEN']
     SQS_QUEUE_URL = os.environ['SQS_QUEUE_URL']
 
     # not secrets but must be environment vars

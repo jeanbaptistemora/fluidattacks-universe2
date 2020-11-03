@@ -12,7 +12,6 @@ from backend.api.mutations import (
     create_organization,
     download_event_file,
     edit_stakeholder_organization,
-    execute_skims,
     invalidate_cache,
     remove_event_evidence,
     solve_event,
@@ -118,4 +117,3 @@ MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('executeSkims', execute_skims.mutate)
