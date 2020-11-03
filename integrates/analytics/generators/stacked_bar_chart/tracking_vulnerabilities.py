@@ -25,7 +25,7 @@ from analytics.colors import (
 async def generate_one(finding_id: str) -> List[Dict[str, Union[int, str]]]:
     vulns = await FindingVulnsLoader().load(finding_id)
     tracking = await get_tracking_vulnerabilities(vulns)
-    return tracking
+    return tracking[-12:]
 
 
 def format_document(tracking: List[Dict[str, Union[int, str]]]) -> dict:
@@ -40,6 +40,11 @@ def format_document(tracking: List[Dict[str, Union[int, str]]]) -> dict:
                     cycle.get('effectiveness') for cycle in tracking
                 ],
             ],
+            axes={
+                'Open': 'y',
+                'Closed': 'y2',
+                '% Effectiveness': 'y2',
+            },
             order=None,
             colors={
                 'Open': RISK.more_agressive,
@@ -63,6 +68,9 @@ def format_document(tracking: List[Dict[str, Union[int, str]]]) -> dict:
                     rotate=12,
                 ),
                 type='category',
+            ),
+            y2=dict(
+                show=False,
             ),
         ),
         legend=dict(
