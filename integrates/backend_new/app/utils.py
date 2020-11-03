@@ -4,15 +4,23 @@ from typing import cast, Dict
 from jose import jwt
 
 # Third party libraries
+from aioextensions import (
+    collect
+)
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
 from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
-from backend import util
+from backend.domain import user as user_domain
+from backend import authz, util
 
 from backend_new import settings
+
+from __init__ import (
+    FI_COMMUNITY_PROJECTS
+)
 
 
 def create_session_token(user: Dict[str, str]) -> str:
@@ -84,3 +92,47 @@ async def get_jwt_userinfo(
     token: str
 ) -> Dict[str, str]:
     return dict(await client.parse_id_token(request, token))
+
+
+async def autoenroll_user(email: str) -> None:
+    new_user_user_level_role: str = 'customer'
+    new_user_group_level_role: str = 'customer'
+
+    await user_domain.create_without_project(
+        email=email,
+        role=new_user_user_level_role
+    )
+
+    for group in FI_COMMUNITY_PROJECTS.split(','):
+        await collect([
+            user_domain.update_project_access(email, group, access=True),
+            authz.grant_group_level_role(
+                email,
+                group,
+                new_user_group_level_role
+            )
+        ])
+
+
+async def create_user(user: Dict[str, str]) -> None:
+    first_name = user['first_name'][:29]
+    last_name = user['last_name'][:29]
+    email = user['username'].lower()
+
+    if not await user_domain.is_registered(email):
+        await autoenroll_user(email)
+
+    today = user_domain.get_current_date()
+    data_dict = {
+        'first_name': first_name,
+        'last_login': today,
+        'last_name': last_name,
+        'date_joined': today
+    }
+
+    if await user_domain.get_data(email, 'first_name'):
+        await user_domain.update_last_login(email)
+    else:
+        await user_domain.update_multiple_user_attributes(
+            email, data_dict
+        )
