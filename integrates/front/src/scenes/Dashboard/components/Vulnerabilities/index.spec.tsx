@@ -35,6 +35,7 @@ describe("Vulnerabilities view", () => {
         data: {
           finding: {
             __typename: "Finding",
+            btsUrl: "",
             id: "480857698",
             inputsVulns: [
               {

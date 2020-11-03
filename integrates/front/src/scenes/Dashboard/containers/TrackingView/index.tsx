@@ -12,25 +12,20 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 
-import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
+import { Graphic } from "graphics/components/Graphic";
 import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities/index";
-import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
-import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/TrackingView/queries";
 import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-export interface IClosing {
-  closed: number;
-  cycle: number;
-  date: string;
-  effectiveness: number;
-  open: number;
+interface ITrackingViewProps {
+  isDraft: boolean;
 }
 
-const trackingView: React.FC = (): JSX.Element => {
-  const { findingId } = useParams<{ findingId: string }>();
+const trackingView: React.FC<ITrackingViewProps> = (props: ITrackingViewProps): JSX.Element => {
+  const { findingId, projectName } = useParams<{ findingId: string; projectName: string }>();
   const { userName } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
@@ -38,14 +33,14 @@ const trackingView: React.FC = (): JSX.Element => {
   };
   React.useEffect(onMount, []);
 
-  const { data } = useQuery(GET_FINDING_TRACKING, {
+  const { data, refetch } = useQuery(GET_FINDING_VULN_INFO, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        Logger.warning("An error occurred loading finding tracking", error);
+        Logger.warning("An error occurred loading finding", error);
       });
     },
-    variables: { findingId },
+    variables: { findingId, groupName: projectName },
   });
 
   return (
@@ -81,24 +76,23 @@ const trackingView: React.FC = (): JSX.Element => {
             </Row>
           </Col>
         </Row>
-        {!_.isUndefined(data) && !_.isEmpty(data) ? (
-        <Row>
-          <Col mdOffset={3} md={9} sm={12}>
-            <ul className={style.timelineContainer}>
-              {data.finding.tracking.map((closing: IClosing, index: number): JSX.Element => (
-                <TrackingItem
-                  closed={closing.closed}
-                  cycle={closing.cycle}
-                  date={closing.date}
-                  effectiveness={closing.effectiveness}
-                  key={index}
-                  open={closing.open}
-                />
-              ))}
-            </ul>
-          </Col>
-        </Row>
-        ) : undefined }
+        {!props.isDraft ? (
+          <Row>
+            <Col md={12}>
+              <Graphic
+                bsHeight={300}
+                documentName="trackingVulnerabilities"
+                documentType="stackedBarChart"
+                entity="finding"
+                generatorName="generic"
+                generatorType="c3"
+                reportMode={false}
+                subject={findingId}
+                title=""
+              />
+            </Col>
+          </Row>
+        ) : undefined}
       </React.Fragment>
     </React.StrictMode>
   );

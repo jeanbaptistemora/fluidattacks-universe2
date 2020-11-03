@@ -314,7 +314,7 @@ class ViewTestCase(unittest.TestCase):
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
+                    "//*[contains(text(), 'FIN.S.0038. Fuga de información de negocio')]")))
         selenium.save_screenshot(SCR_PATH + '09-01-tracking.png')
 
         self.__click(finding_elem)
@@ -325,11 +325,9 @@ class ViewTestCase(unittest.TestCase):
         self.__click(tracking_elem)
         selenium.save_screenshot(SCR_PATH + '09-02-tracking.png')
 
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), '2020-09-09')]")))
+        selenium.execute_script('window.scrollTo(0, 900);')
         selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
-        assert '2020-09-09' in selenium.page_source
+        assert 'Tracking' in selenium.page_source
 
     def test_10_comments(self):
         selenium = self.selenium

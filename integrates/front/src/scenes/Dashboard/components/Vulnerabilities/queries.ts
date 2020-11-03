@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 export const GET_VULNERABILITIES: DocumentNode = gql`
   query GetVulnerabilitiesQuery($identifier: String!, $analystField: Boolean!) {
     finding(identifier: $identifier) {
+      btsUrl
       id
       releaseDate
       portsVulns {

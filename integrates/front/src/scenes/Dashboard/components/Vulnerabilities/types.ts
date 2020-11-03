@@ -2,6 +2,7 @@ import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/
 
 export interface IVulnsAttr {
   finding: {
+    btsUrl?: string;
     id: string;
     inputsVulns: IVulnRow[];
     linesVulns: IVulnRow[];
