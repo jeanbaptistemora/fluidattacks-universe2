@@ -1,4 +1,5 @@
 # Standard library
+from math import ceil
 from typing import (
     Dict,
     List,
@@ -29,6 +30,17 @@ async def generate_one(finding_id: str) -> List[Dict[str, Union[int, str]]]:
 
 
 def format_document(tracking: List[Dict[str, Union[int, str]]]) -> dict:
+    max_open_tracking = (
+        max(tracking, key=lambda track: int(track.get('open', 0)))
+        if len(tracking) > 0 else {}
+    )
+    max_value: int = int(max_open_tracking.get('open', 0)) + 1
+    min_open_tracking = (
+        min(tracking, key=lambda track: int(track.get('open', 0)))
+        if len(tracking) > 0 else {}
+    )
+    min_value: int = int(min_open_tracking.get('open', 0))
+
     return dict(
         data=dict(
             x='date',
@@ -61,6 +73,21 @@ def format_document(tracking: List[Dict[str, Union[int, str]]]) -> dict:
             width=0,
         ),
         axis=dict(
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+                tick=dict(
+                    values=list(
+                        range(
+                            min_value,
+                            max_value,
+                            ceil((max_value - min_value) / 10)
+                        )
+                    ),
+                ),
+            ),
             x=dict(
                 tick=dict(
                     centered=True,
@@ -68,6 +95,10 @@ def format_document(tracking: List[Dict[str, Union[int, str]]]) -> dict:
                     rotate=12,
                 ),
                 type='category',
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
             ),
             y2=dict(
                 show=False,
