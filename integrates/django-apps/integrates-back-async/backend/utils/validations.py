@@ -110,7 +110,7 @@ def validate_field_length(
     if is_greater_than_limit equals False,
     it means we are checking if field < limit
     """
-    if (len(field) >= limit) == is_greater_than_limit:
+    if (len(field) > limit) == is_greater_than_limit:
         raise InvalidFieldLength()
 
 

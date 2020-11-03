@@ -14,7 +14,7 @@ import { Field, WrappedFieldArrayProps } from "redux-form";
 import { maxLength, required, validField } from "utils/validations";
 
 const MAX_REPO_URL_LENGTH: number = 300;
-const MAX_REPO_BRANCH_LENGTH: number = 30;
+const MAX_REPO_BRANCH_LENGTH: number = 40;
 
 const maxRepoUrlLength: ConfigurableValidator = maxLength(MAX_REPO_URL_LENGTH);
 const maxRepoBranchLength: ConfigurableValidator = maxLength(

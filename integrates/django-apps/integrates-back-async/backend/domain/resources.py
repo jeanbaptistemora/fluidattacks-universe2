@@ -289,7 +289,7 @@ async def create_repositories(
         url_repo = str(res.get('urlRepo', ''))
         branch = str(res.get('branch', ''))
         validations.validate_field_length(url_repo, 300)
-        validations.validate_field_length(branch, 30)
+        validations.validate_field_length(unquote(branch), 40)
         res_object: ResourceType = {
             'urlRepo': url_repo,
             'branch': branch,
@@ -325,7 +325,7 @@ async def create_environments(
     json_data: List[ResourceType] = []
     for res in res_data_enc:
         url_env = str(res.get('urlEnv', ''))
-        validations.validate_field_length(url_env, 500)
+        validations.validate_field_length(unquote(url_env), 500)
         res_object = {
             'urlEnv': url_env,
             'historic_state': [create_initial_state(user_email)],
