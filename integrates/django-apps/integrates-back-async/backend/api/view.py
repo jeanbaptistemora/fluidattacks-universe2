@@ -97,7 +97,6 @@ class APIView(GraphQLView):
             request,
             f'API: {name} with parameters {variables}. Complete query: {query}'
         )
-
         # Use this instead of asyncio.run
         # https://docs.djangoproject.com/en/3.0/topics/async/#async-to-sync
         # https://stackoverflow.com/questions/59503825/django-async-to-sync-vs-asyncio-run

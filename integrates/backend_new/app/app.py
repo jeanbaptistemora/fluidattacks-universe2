@@ -1,15 +1,18 @@
 # Starlette views file
 
 # Standard library
-from typing import Any
+import os
+from collections import defaultdict
+from typing import Any, Callable
 
 # Third party libraries
 from ariadne.asgi import GraphQL
 
 from starlette.applications import Starlette
+from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse
+from starlette.responses import HTMLResponse, RedirectResponse, Response
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -25,6 +28,8 @@ import backend_new.app.utils as utils
 from __init__ import (
     FI_STARLETTE_TEST_KEY
 )
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
@@ -141,6 +146,17 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
     return await authz(request, OAUTH.bitbucket)
 
 
+class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
+
+    async def dispatch(
+        self,
+        request: Request,
+        call_next: Callable[..., Any]
+    ) -> Response:
+        request.state.store = defaultdict(lambda: None)
+        return await call_next(request)
+
+
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
@@ -167,3 +183,4 @@ APP = Starlette(
 
 # anyway, not used, just required
 APP.add_middleware(SessionMiddleware, secret_key=FI_STARLETTE_TEST_KEY)
+APP.add_middleware(CustomRequestMiddleware)

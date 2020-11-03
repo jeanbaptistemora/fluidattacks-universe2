@@ -221,12 +221,19 @@ def decrypt_jwt_payload(payload: dict) -> dict:
     return decodings.jwt_payload_decode(result.payload.decode('utf-8'))
 
 
-async def get_jwt_content(context) -> Dict[str, str]:
+async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
     context_store_key = function.get_id(get_jwt_content)
 
+    if isinstance(context, dict):
+        context = context.get('request', {})
+    try:
+        store = context.store
+    except AttributeError:
+        store = context.state.store
+
     # Within the context of one request we only need to process it once
-    if context_store_key in context.store:
-        return context.store[context_store_key]
+    if context_store_key in store:
+        return store[context_store_key]
 
     try:
         cookies = (
@@ -283,7 +290,7 @@ async def get_jwt_content(context) -> Dict[str, str]:
         LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
     else:
-        context.store[context_store_key] = content
+        store[context_store_key] = content
         return content
 
 

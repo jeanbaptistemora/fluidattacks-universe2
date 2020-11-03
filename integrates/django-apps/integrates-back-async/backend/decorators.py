@@ -109,9 +109,16 @@ def require_login(func: TVar) -> TVar:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
 
+        if isinstance(context, dict):
+            context = context.get('request', {})
+        try:
+            store = context.store
+        except AttributeError:
+            store = context.state.store
+
         # Within the context of one request we only need to check this once
         # Future calls to this decorator will be passed trough
-        if context.store[context_store_key]:
+        if store[context_store_key]:
             return await _func(*args, **kwargs)
 
         try:
@@ -125,7 +132,7 @@ def require_login(func: TVar) -> TVar:
         except InvalidAuthorization:
             raise GraphQLError('Login required')
         else:
-            context.store[context_store_key] = True
+            store[context_store_key] = True
             return await _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)
