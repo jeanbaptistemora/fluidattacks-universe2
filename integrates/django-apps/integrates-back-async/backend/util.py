@@ -2,6 +2,7 @@
 """ FluidIntegrates auxiliar functions. """
 
 import collections
+import os
 from datetime import datetime, timedelta, date
 import binascii
 import functools
@@ -18,7 +19,7 @@ from typing import (
     Union,
 )
 import httpx
-
+import magic
 from aioextensions import (
     collect,
     in_thread,
@@ -36,6 +37,7 @@ from django.core.files.uploadedfile import (
     TemporaryUploadedFile,
 )
 from django.http import JsonResponse
+from django.http.request import HttpRequest
 from graphql.language.ast import (
     BooleanValueNode,
     FieldNode,
@@ -47,7 +49,8 @@ from graphql.language.ast import (
     VariableNode
 )
 from jose import jwt, JWTError
-from magic import Magic
+from starlette.concurrency import run_in_threadpool
+from starlette.datastructures import UploadFile
 
 from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
@@ -123,18 +126,19 @@ def ord_asc_by_criticality(
 
 
 def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
-    mime = Magic(mime=True)
-    mime_type = mime.from_file(filename)
+    mime_type = magic.from_file(filename, mime=True)
     return mime_type in allowed_mimes
 
 
 def get_uploaded_file_mime(file_instance: str) -> str:
-    mime = Magic(mime=True)
     mime_type = ''
     if isinstance(file_instance, TemporaryUploadedFile):
-        mime_type = mime.from_file(file_instance.temporary_file_path())
+        mime_type = magic.from_file(
+            file_instance.temporary_file_path(),
+            mime=True
+        )
     elif isinstance(file_instance, InMemoryUploadedFile):
-        mime_type = mime.from_buffer(file_instance.file.getvalue())
+        mime_type = magic.from_buffer(file_instance.file.getvalue(), mime=True)
     else:
         raise InvalidFileType(
             'Provided file is not a valid django upload file. '
@@ -198,11 +202,6 @@ def cloudwatch_log(request, msg: str) -> None:
 async def cloudwatch_log_async(request, msg: str) -> None:
     user_data = await get_jwt_content(request)
     info = [str(user_data['user_email'])]
-    for parameter in ['project', 'findingid']:
-        if parameter in request.POST.dict():
-            info.append(request.POST.dict()[parameter])
-        elif parameter in request.GET.dict():
-            info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
     schedule(
@@ -246,17 +245,19 @@ async def get_jwt_content(context) -> Dict[str, str]:
         return context.store[context_store_key]
 
     try:
-        cookies = context.COOKIES \
-            if hasattr(context, 'COOKIES') \
-            else context['request'].scope.get('cookies', {})
+        cookies = (
+            context.COOKIES
+            if isinstance(context, HttpRequest)
+            else context.cookies
+        )
         cookie_token = cookies.get(settings.JWT_COOKIE_NAME)
+
         header_token = (
             context.META.get('HTTP_AUTHORIZATION')
-            if hasattr(context, 'META')
-            else dict(context['request'].scope['headers']).get(
-                'Authorization', ''
-            )
+            if isinstance(context, HttpRequest)
+            else context.headers.get('Authorization')
         )
+
         token = header_token.split()[1] if header_token else cookie_token
         if not token:
             raise InvalidAuthorization()
@@ -693,3 +694,23 @@ async def token_exists(key: str) -> bool:
 
 async def get_ttl_token(key: str) -> int:
     return await AREDIS_CLIENT.ttl(key)
+
+
+async def get_file_size(file_object: UploadFile) -> int:
+    file = file_object.file
+
+    # Needed while upstream starlette implements a size method
+    # pylint: disable=protected-access
+    if file_object._in_memory:
+        current_position = file.tell()
+        file.seek(0, os.SEEK_END)
+        size = file.tell()
+        file.seek(current_position)
+    else:
+        current_position = await run_in_threadpool(file.tell)
+        await run_in_threadpool(file.seek, 0, os.SEEK_END)
+        size = await run_in_threadpool(file.tell)
+        await run_in_threadpool(file.seek, current_position)
+
+    print(size)
+    return size

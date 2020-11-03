@@ -107,7 +107,7 @@ async def _do_subscribe_to_entity_report(
 
 async def _do_sign_in(
         _: Any,
-        info: GraphQLResolveInfo,
+        _info: GraphQLResolveInfo,
         auth_token: str,
         provider: str) -> SignInPayloadType:
     """ Sign in with an OAuth2 access token """
@@ -115,7 +115,7 @@ async def _do_sign_in(
     success = False
 
     try:
-        strategy = load_strategy(info.context)
+        strategy = load_strategy()
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
         user = await in_thread(

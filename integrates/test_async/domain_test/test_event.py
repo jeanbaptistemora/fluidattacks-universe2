@@ -58,21 +58,21 @@ async def test_create_event_file_image():
     }
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')
-    with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='text/csv')
     imagename = os.path.dirname(os.path.abspath(__file__))
     imagename = os.path.join(imagename, '../mock/test-anim.gif')
-    with open(imagename, 'rb') as image_test:
-        uploaded_image = SimpleUploadedFile(name=image_test.name,
-                                            content=image_test.read(),
-                                            content_type='image/gif')
-    test_data = await event_domain.create_event(
-        **attrs,
-        file=uploaded_file,
-        image=uploaded_image
-    )
+    with open(filename, 'rb') as test_file:
+        uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                           content=test_file.read(),
+                                           content_type='text/csv')
+        with open(imagename, 'rb') as image_test:
+            uploaded_image = SimpleUploadedFile(name=image_test.name,
+                                                content=image_test.read(),
+                                                content_type='image/gif')
+            test_data = await event_domain.create_event(
+                **attrs,
+                file=uploaded_file,
+                image=uploaded_image
+            )
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
@@ -146,8 +146,8 @@ async def test_update_evidence():
         uploaded_file = SimpleUploadedFile(name=test_file.name,
                                             content=test_file.read(),
                                             content_type='text/csv')
-    test_data = await event_domain.update_evidence(
-        event_id, evidence_type, uploaded_file)
+        test_data = await event_domain.update_evidence(
+            event_id, evidence_type, uploaded_file)
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
@@ -170,9 +170,9 @@ async def test_validate_evidence_invalid_image_type():
         uploaded_file = SimpleUploadedFile(name=test_file.name,
                                             content=test_file.read(),
                                             content_type='text/csv')
-    with pytest.raises(InvalidFileType) as context:
-        await event_domain.validate_evidence(evidence_type, uploaded_file)
-    assert 'Exception - Invalid File Type: EVENT_IMAGE' in str(context.value)
+        with pytest.raises(InvalidFileType) as context:
+            await event_domain.validate_evidence(evidence_type, uploaded_file)
+        assert 'Exception - Invalid File Type: EVENT_IMAGE' in str(context.value)
 
 async def test_validate_evidence_invalid_file_size():
     evidence_type = 'evidence'
@@ -182,9 +182,9 @@ async def test_validate_evidence_invalid_file_size():
         uploaded_file = SimpleUploadedFile(name=test_file.name,
                                             content=test_file.read(),
                                             content_type='image/jpg')
-    with pytest.raises(InvalidFileSize) as context:
-        await event_domain.validate_evidence(evidence_type, uploaded_file)
-    assert 'Exception - Invalid File Size' in str(context.value)
+        with pytest.raises(InvalidFileSize) as context:
+            await event_domain.validate_evidence(evidence_type, uploaded_file)
+        assert 'Exception - Invalid File Size' in str(context.value)
 
 @pytest.mark.changes_db
 async def test_mask_event():
@@ -211,11 +211,11 @@ async def test_mask_event():
             content=test_file.read(),
             content_type='text/csv'
         )
-    await event_domain.update_evidence(
-        event_id,
-        evidence_type,
-        uploaded_file
-    )
+        await event_domain.update_evidence(
+            event_id,
+            evidence_type,
+            uploaded_file
+        )
     evidence_prefix = f'unittesting/{event_id}'
 
     assert success

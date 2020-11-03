@@ -221,7 +221,7 @@ class FindingTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type=mime_type)
-        test_data = await validate_evidence(evidence_id, uploaded_file, mime_type)
+            test_data = await validate_evidence(evidence_id, uploaded_file, mime_type)
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
@@ -235,8 +235,8 @@ class FindingTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type=mime_type)
-        with self.assertRaises(InvalidFileType) as context:
-            await validate_evidence(evidence_id, uploaded_file, mime_type)
+            with self.assertRaises(InvalidFileType) as context:
+                await validate_evidence(evidence_id, uploaded_file, mime_type)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
     async def test_validate_evidence_records(self):
@@ -248,7 +248,7 @@ class FindingTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type=mime_type)
-        test_data = await validate_evidence(evidence_id, uploaded_file, mime_type)
+            test_data = await validate_evidence(evidence_id, uploaded_file, mime_type)
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
@@ -262,8 +262,8 @@ class FindingTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type=mime_type)
-        with self.assertRaises(InvalidFileType) as context:
-            await validate_evidence(evidence_id, uploaded_file, mime_type)
+            with self.assertRaises(InvalidFileType) as context:
+                await validate_evidence(evidence_id, uploaded_file, mime_type)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
     async def test_validate_acceptance_severity(self):
