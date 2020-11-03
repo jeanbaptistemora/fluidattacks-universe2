@@ -38,6 +38,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_new_vulnerability_'
                 'historic_verification_resolve'
             ),
+            (
+                'backend_api_resolvers_new_vulnerability_'
+                'historic_zero_risk_resolve'
+            ),
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
             'backend_api_resolvers_new_query_forces_executions_new_resolve',
@@ -120,6 +124,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_new_vulnerability_'
                 'historic_verification_resolve'
             ),
+            (
+                'backend_api_resolvers_new_vulnerability_'
+                'historic_zero_risk_resolve'
+            ),
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
             'backend_api_resolvers_new_query_forces_executions_new_resolve',
@@ -198,6 +206,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__do_add_finding_consult',
             'backend_api_resolvers_finding__do_update_client_description',
             'backend_api_resolvers_new_query_finding_resolve',
+            (
+                'backend_api_resolvers_new_vulnerability_'
+                'historic_zero_risk_resolve'
+            ),
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
             'backend_api_resolvers_new_query_forces_executions_new_resolve',
@@ -237,6 +249,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__do_handle_acceptation',
             'backend_api_resolvers_finding__do_update_client_description',
             'backend_api_resolvers_new_query_finding_resolve',
+            (
+                'backend_api_resolvers_new_vulnerability_'
+                'historic_zero_risk_resolve'
+            ),
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
             'backend_api_resolvers_new_query_forces_executions_new_resolve',
@@ -430,6 +446,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             (
                 'backend_api_resolvers_new_vulnerability_'
                 'historic_verification_resolve'
+            ),
+            (
+                'backend_api_resolvers_new_vulnerability_'
+                'historic_zero_risk_resolve'
             ),
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
