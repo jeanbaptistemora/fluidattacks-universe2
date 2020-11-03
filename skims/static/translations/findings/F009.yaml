@@ -28,15 +28,21 @@ utils.model.finding.enum.f009.impact:
     Obtener información sensible o secretos privados.
 utils.model.finding.enum.f009.recommendation:
   en: |
-    It is recommended to load sensitive data from:
-     - A key vault service
-     - A configuration file that is properly encrypted
-     - Administrative environment variables
+    - Delete all hardcoded sensitive information.
+    - Change all afected access credentials.
+    - Remove sensitive information from git logs.
+    - Load sensitive data from safe sources such as:
+      key vault services,
+      configuration files properly encrypted or
+      administrative environment variables.
   es: |
-    Se recomienda cargar los datos sensibles desde:
-    - Un servicio de bóveda de claves
-    - Un archivo de configuración que esté debidamente cifrado
-    - Variables de entorno administrativas
+    - Eliminar la información sensible quemada en el código fuente.
+    - Cambiar las credenciales de acceso que se vieron comprometidas.
+    - Purgar el historial de git de la información sensible afectada.
+    - Cargar los datos sensibles desde fuentes seguras como:
+      servicios de bóveda de claves,
+      archivos de configuración que estén debidamente cifrados o
+      variables de entorno administrativas.
 utils.model.finding.enum.f009.requirements:
   en: |
     R156. Source code without sensitive information.
