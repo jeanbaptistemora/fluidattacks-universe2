@@ -15,6 +15,7 @@ from os import (
 from os.path import (
     abspath,
 )
+import sys
 from typing import (
     Dict,
     Optional,
@@ -181,6 +182,10 @@ async def main(
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
+    # Increase the level of recursion because some functions must iterate
+    # through very large trees
+    sys.setrecursionlimit(10000)
+
     monitor_task: Task[None] = create_task(monitor())
 
     if debug:
