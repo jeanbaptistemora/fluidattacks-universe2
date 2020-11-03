@@ -80,6 +80,27 @@ def _aws_credentials(
     )
 
 
+def _jwt_token(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    grammar = Regex(r'[A-Za-z0-9-_.+\/=]{20,}\.'
+                    r'[A-Za-z0-9-_.+\/=]{20,}\.'
+                    r'[A-Za-z0-9-_.+\/=]{20,}')
+
+    return blocking_get_vulnerabilities(
+        content=content,
+        cwe={'798'},
+        description=t(
+            key='src.lib_path.f009.jwt_token.description',
+            path=path,
+        ),
+        finding=FindingEnum.F009,
+        grammar=grammar,
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 async def aws_credentials(
@@ -88,6 +109,19 @@ async def aws_credentials(
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
         _aws_credentials,
+        content=content,
+        path=path,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+async def jwt_token(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _jwt_token,
         content=content,
         path=path,
     )
@@ -292,6 +326,10 @@ async def analyze(  # pylint: disable=too-many-arguments
         'yml',
     }:
         coroutines.append(aws_credentials(
+            content=await content_generator(),
+            path=path,
+        ))
+        coroutines.append(jwt_token(
             content=await content_generator(),
             path=path,
         ))

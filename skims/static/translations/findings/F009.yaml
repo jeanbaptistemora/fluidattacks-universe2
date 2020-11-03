@@ -4,6 +4,9 @@ src.lib_path.f009.java_properties_sensitive_data:
 src.lib_path.f009.aws_credentials.description:
   en: AWS credential in {path}
   es: Credencial de AWS en {path}
+src.lib_path.f009.jwt_token.description:
+  en: JWT token in {path}
+  es: Token JWT en {path}
 src.lib_path.f009.crypto_js_credentials.description:
   en: CryptoJS plaintext data source in {path}
   es: Fuente de datos en texto plano para CryptoJS en {path}

@@ -236,6 +236,7 @@ cwe,title,what,where
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,4
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,4
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,8
+798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,18
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,3
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,4
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,5
