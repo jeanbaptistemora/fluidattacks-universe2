@@ -4,7 +4,6 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useContext } from "react";
-import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
@@ -16,7 +15,7 @@ import { OrganizationPortfolios } from "scenes/Dashboard/containers/Organization
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
 import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
 import { default as globalStyle } from "styles/global.css";
-import { StickyContainerOrg, TabsContainer } from "styles/styledComponents";
+import { Col100, Row, StickyContainerOrg, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -96,7 +95,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     <React.StrictMode>
       <React.Fragment>
         <Row>
-          <Col md={12} sm={12}>
+          <Col100>
             <StickyContainerOrg>
               <TabsContainer>
                 <ContentTab
@@ -165,7 +164,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                 <Redirect to={`${path}/analytics`} />
               </Switch>
             </div>
-          </Col>
+          </Col100>
         </Row>
       </React.Fragment>
     </React.StrictMode>
