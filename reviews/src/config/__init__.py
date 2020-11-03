@@ -83,6 +83,13 @@ def validate_specific(config: Dynaconf) -> None:
                 Validator(f'tests.{test}.mr_title_regex', must_exist=True,
                           is_type_of=str, messages=ERR_DEFAULT),
             )
+        elif test in 'mr_only_one_product':
+            config.validators.register(
+                Validator(f'tests.{test}.mr_title_regex', must_exist=True,
+                          is_type_of=str, messages=ERR_DEFAULT),
+                Validator(f'tests.{test}.commit_regex', must_exist=True,
+                          is_type_of=str, messages=ERR_DEFAULT),
+            )
     config.validators.validate()
 
 

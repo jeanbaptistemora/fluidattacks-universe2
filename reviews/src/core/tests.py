@@ -32,7 +32,7 @@ def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bo
     try:
         repo: Any = Repository(repo_path)
     except GitError:
-        log('error',
+        log(err_log,
             'You must be in the repo path in order '
             'to run this test')
         raise GitError
@@ -139,20 +139,18 @@ def most_relevant_type(pull_request: PullRequest, config: Dict[str, Any]) -> boo
     mr_title_match: Any = re.match(commit_regex, pull_request.title)
     if mr_title_match is None:
         success = False
-    else:
-        mr_title_matches: List[str] = list(mr_title_match.groups())
     commits: Any = pull_request.commits()
-    mr_title_type: str = mr_title_matches[0] if success else ''
+    mr_title_type: str = mr_title_match.group(2) if success else ''
     most_relevant_type: str = list(relevances.keys())[-1]
     for commit in commits:
         commit_title_match: Any = re.match(commit_regex, commit.title)
         if commit_title_match is None:
-            log('error',
+            log(err_log,
                 'Commit title is not syntax compliant:\n%s',
                 commit.title)
             success = False
             continue
-        commit_title_type = commit_title_match.group(1)
+        commit_title_type = commit_title_match.group(2)
         if commit_title_type in relevances.keys() and \
                 relevances[commit_title_type] < relevances[most_relevant_type]:
             most_relevant_type = commit_title_type
@@ -243,15 +241,50 @@ def close_issue_directive(pull_request: PullRequest, config: Dict[str, Any]) -> 
     mr_title_match: Any = re.match(mr_title_regex, pull_request.title)
     if mr_title_match is None:
         success = False
-    else:
-        mr_title_matches: List[str] = list(mr_title_match.groups())
-    if success and mr_title_matches[2] not in '#0' \
+    if success and mr_title_match.group(3) not in '#0' \
             and 'Closes #' not in pull_request.description:
         log(err_log,
             'This MR is referencing issue %s '
             'but it does not have a: Close %s '
             'in its footer. Was this intentional?',
-            mr_title_matches[2],
-            mr_title_matches[2])
+            mr_title_match.group(4),
+            mr_title_match.group(4))
         success = False
+    return success or not should_fail
+
+
+def mr_only_one_product(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
+    """Test if a MR only contains commits for its product"""
+    success: bool = True
+    should_fail: bool = config['fail']
+    err_log: str = get_err_log(should_fail)
+    mr_regex: str = config['mr_title_regex']
+    commit_regex: str = config['commit_regex']
+    mr_title_match: Any = re.match(mr_regex, pull_request.title)
+    if mr_title_match is None:
+        log(err_log,
+            'MR title is not syntax compliant: %s',
+            pull_request.title)
+        success = False
+    else:
+        commits: Any = pull_request.commits()
+        for commit in commits:
+            commit_title_match: Any = re.match(commit_regex, commit.title)
+            if commit_title_match is None:
+                log(err_log,
+                    'Commit title is not syntax compliant:\n%s',
+                    commit.title)
+                success = False
+                continue
+            else:
+                if commit_title_match.group(1) not in mr_title_match.group(1):
+                    log(err_log,
+                        'All associated commits must '
+                        'have the same product as the MR.\n'
+                        'MR product: %s\n'
+                        'Commit product: %s',
+                        mr_title_match.group(1),
+                        commit_title_match.group(1))
+                    success = False
+                    continue
     return success or not should_fail
