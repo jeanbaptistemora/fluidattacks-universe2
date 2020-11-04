@@ -18,12 +18,12 @@ const validator: (() => void) = (): void => {
     let valid: boolean; valid = true;
     const captchaResponse: string = grecaptcha.getResponse();
 
-    if ($("#mobile")
+    if ($("#COBJ1CF2")
         .hasClass("error")) {
       valid = false;
     }
 
-    if ($("#00N1I00000NEIK7")
+    if ($("#COBJ1CF5")
         .val() === "") {
       $(".form-error")
         .removeClass("dn");
@@ -49,8 +49,8 @@ try {
 }
 
 // tslint:disable-next-line: no-any
-const input: any = document.querySelector("#mobile") as HTMLElement;
-const country: HTMLElement = document.getElementById("country") as HTMLElement;
+const input: any = document.querySelector("#COBJ1CF2") as HTMLElement;
+const country: HTMLElement = document.getElementById("COBJ1CF6") as HTMLElement;
 // tslint:disable-next-line: no-any
 const countryList: any = window.intlTelInputGlobals.getCountryData();
 const errorMsg: HTMLElement = document.querySelector("#error-msg") as HTMLElement;
@@ -107,4 +107,35 @@ try {
   fieldHandler();
 } catch (error) {
   logger.error("Error executing fieldHandler() function", error);
+}
+
+const selectedValue: (() => void) = (): void => {
+  const opt: HTMLSelectElement = document.getElementById("COBJ1CF5") as HTMLSelectElement;
+  const sel: string = opt.options[opt.selectedIndex].value;
+  const selpoi: HTMLElement = document.querySelector(".poi") as HTMLSelectElement;
+  const msgtext: HTMLElement = document.querySelector(".msg") as HTMLSelectElement;
+
+  sel !== "I want a service proposal" ?
+  selpoi.classList.add("dn") :
+  selpoi.classList.remove("dn");
+
+  sel === "I want a service proposal" ||
+  sel === "I want a Demo" ||
+  sel === "I want to be a partner" ?
+  msgtext.classList.add("dn") :
+  msgtext.classList.remove("dn");
+};
+
+const userSelection: (() => void) = (): void => {
+  const mainSelectField: HTMLElement = document.getElementById("COBJ1CF5") as HTMLElement;
+
+  mainSelectField.addEventListener("change", (event: Event) => {
+    selectedValue();
+  });
+};
+
+try {
+  userSelection();
+} catch (error) {
+  logger.error("Error executing userSelection() function", error);
 }
