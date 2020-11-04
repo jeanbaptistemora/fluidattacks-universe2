@@ -152,6 +152,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "secretsmanager:PutSecretValue",
       "secretsmanager:RestoreSecret",
       "secretsmanager:UpdateSecret",
+      "secretsmanager:TagResource",
     ]
     resources = [
       "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:forces-*"
