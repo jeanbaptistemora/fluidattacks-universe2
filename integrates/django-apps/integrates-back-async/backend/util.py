@@ -32,10 +32,6 @@ from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from django.core.cache import cache
-from django.core.files.uploadedfile import (
-    InMemoryUploadedFile,
-    TemporaryUploadedFile,
-)
 from django.http import JsonResponse
 from django.http.request import HttpRequest
 from graphql.language.ast import (
@@ -60,7 +56,6 @@ from backend.exceptions import (
     ConcurrentSession,
     ExpiredToken,
     InvalidAuthorization,
-    InvalidFileType
 )
 from backend.typing import (
     Finding as FindingType,
@@ -130,27 +125,16 @@ def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
     return mime_type in allowed_mimes
 
 
-def get_uploaded_file_mime(file_instance: str) -> str:
-    mime_type = ''
-    if isinstance(file_instance, TemporaryUploadedFile):
-        mime_type = magic.from_file(
-            file_instance.temporary_file_path(),
-            mime=True
-        )
-    elif isinstance(file_instance, InMemoryUploadedFile):
-        mime_type = magic.from_buffer(file_instance.file.getvalue(), mime=True)
-    else:
-        raise InvalidFileType(
-            'Provided file is not a valid django upload file. '
-            'Use util.assert_file_mime instead.'
-        )
+async def get_uploaded_file_mime(file_instance: UploadFile) -> str:
+    mime_type: str = magic.from_buffer(await file_instance.read(), mime=True)
+    await file_instance.seek(0)
     return mime_type
 
 
-def assert_uploaded_file_mime(
-        file_instance: str,
+async def assert_uploaded_file_mime(
+        file_instance: UploadFile,
         allowed_mimes: List[str]) -> bool:
-    mime_type = get_uploaded_file_mime(file_instance)
+    mime_type = await get_uploaded_file_mime(file_instance)
     return mime_type in allowed_mimes
 
 
@@ -712,5 +696,4 @@ async def get_file_size(file_object: UploadFile) -> int:
         size = await run_in_threadpool(file.tell)
         await run_in_threadpool(file.seek, current_position)
 
-    print(size)
     return size

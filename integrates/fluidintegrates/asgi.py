@@ -9,7 +9,6 @@ django.setup()
 
 # Third party
 import newrelic.agent   # noqa: E402
-from ariadne.asgi import GraphQL  # noqa: E402
 from channels.auth import AuthMiddlewareStack   # noqa: E402
 from channels.routing import ProtocolTypeRouter, URLRouter   # noqa: E402
 from django.conf import settings   # noqa: E402
@@ -18,6 +17,7 @@ from django.urls import re_path   # noqa: E402
 from uvicorn.workers import UvicornWorker   # noqa: E402
 
 # Local
+from backend.api import IntegratesAPI   # noqa: E402
 from backend.api.schema import SCHEMA   # noqa: E402
 
 
@@ -27,10 +27,16 @@ newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 APP = newrelic.agent.ASGIApplicationWrapper(
     ProtocolTypeRouter({
-        'http': get_asgi_application(),
+        'http': URLRouter([
+            re_path(r'^api/?', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+            re_path(r'', get_asgi_application())
+        ]),
         'websocket': AuthMiddlewareStack(
             URLRouter([
-                re_path(r'^api/?', GraphQL(SCHEMA, debug=settings.DEBUG)),
+                re_path(
+                    r'^api/?',
+                    IntegratesAPI(SCHEMA, debug=settings.DEBUG)
+                ),
             ])
         )
     })

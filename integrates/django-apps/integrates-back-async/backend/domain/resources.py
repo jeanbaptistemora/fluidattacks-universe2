@@ -9,7 +9,7 @@ from aioextensions import (
     collect,
     schedule,
 )
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from starlette.datastructures import UploadFile
 
 from backend import mailer
 from backend import util
@@ -91,19 +91,19 @@ async def send_mail(
     )
 
 
-def validate_file_size(
-        uploaded_file: InMemoryUploadedFile,
+async def validate_file_size(
+        uploaded_file: UploadFile,
         file_size: int) -> bool:
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
-    if uploaded_file.size > file_size * mib:
+    if await util.get_file_size(uploaded_file) > file_size * mib:
         raise InvalidFileSize()
     return True
 
 
 async def create_file(
         files_data: List[Dict[str, str]],
-        uploaded_file: InMemoryUploadedFile,
+        uploaded_file: UploadFile,
         project_name: str,
         user_email: str) -> bool:
     success = False
@@ -124,11 +124,11 @@ async def create_file(
         })
     file_id = '{project}/{file_name}'.format(
         project=project_name,
-        file_name=uploaded_file
+        file_name=uploaded_file.filename
     )
     try:
         file_size = 100
-        validate_file_size(uploaded_file, file_size)
+        await validate_file_size(uploaded_file, file_size)
     except InvalidFileSize as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     files = await project_dal.get_attributes(project_name, ['files'])
@@ -137,14 +137,14 @@ async def create_file(
         contains_repeated = [
             f.get('fileName')
             for f in project_files
-            if f.get('fileName') == uploaded_file.name
+            if f.get('fileName') == uploaded_file.filename
         ]
         if contains_repeated:
             LOGGER.error('File already exists', **NOEXTRA)
     else:
         # Project doesn't have files
         pass
-    if validations.validate_file_name(uploaded_file):
+    if validations.validate_file_name(uploaded_file.filename):
         project_files.extend(json_data)
         success = all(await collect([
             resources_dal.save_file(uploaded_file, file_id),

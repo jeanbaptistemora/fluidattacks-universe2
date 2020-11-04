@@ -6,8 +6,8 @@ from typing import (
 )
 
 from ariadne import convert_kwargs_to_snake_case
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
+from starlette.datastructures import UploadFile
 
 from backend.decorators import (
     enforce_group_level_auth_async,
@@ -32,7 +32,7 @@ from backend import util
 async def _do_add_forces_execution(_: Any,
                                    info: GraphQLResolveInfo,
                                    project_name: str,
-                                   log: Union[InMemoryUploadedFile,
+                                   log: Union[UploadFile,
                                               None] = None,
                                    **parameters: Any) -> SimplePayloadType:
     success = await forces_domain.add_forces_execution(

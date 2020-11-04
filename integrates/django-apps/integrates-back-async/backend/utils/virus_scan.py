@@ -3,7 +3,7 @@ import tempfile
 
 import cloudmersive_virus_api_client
 from cloudmersive_virus_api_client.rest import ApiException
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from starlette.datastructures import UploadFile
 
 from backend.exceptions import FileInfected
 from fluidintegrates.settings import LOGGING
@@ -23,14 +23,14 @@ LOGGER = logging.getLogger(__name__)
 
 
 def scan_file(
-        target_file: InMemoryUploadedFile,
+        target_file: UploadFile,
         user_email: str,
         project_name: str):
     if FI_ENVIRONMENT == 'production':
         payload_data = {
             'project_name': project_name,
             'user_email': user_email,
-            'target_file_name': target_file.name
+            'target_file_name': target_file.filename
         }
         try:
             file_object = target_file.file

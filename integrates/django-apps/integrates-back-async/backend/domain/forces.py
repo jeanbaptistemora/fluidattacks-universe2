@@ -17,7 +17,7 @@ import json
 import os
 
 # Third party libraries
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.dal import (
@@ -114,7 +114,7 @@ async def get_execution(
 
 async def add_forces_execution(*,
                                project_name: str,
-                               log: Union[InMemoryUploadedFile, None] = None,
+                               log: Union[UploadFile, None] = None,
                                **execution_attributes: Any) -> bool:
     success = False
     vulnerabilities = execution_attributes.pop('vulnerabilities')

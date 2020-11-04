@@ -3,8 +3,8 @@ from typing import Any, Optional
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
+from starlette.datastructures import UploadFile
 
 # Local
 from backend import util
@@ -19,7 +19,7 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     project_name: str,
-    log: Optional[InMemoryUploadedFile] = None,
+    log: Optional[UploadFile] = None,
     **parameters: Any
 ) -> SimplePayload:
     success = await forces_domain.add_forces_execution(

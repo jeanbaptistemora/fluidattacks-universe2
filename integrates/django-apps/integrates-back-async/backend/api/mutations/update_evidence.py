@@ -3,8 +3,8 @@ from typing import Any
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
+from starlette.datastructures import UploadFile
 
 # Local
 from backend import util
@@ -29,7 +29,7 @@ async def mutate(
     _info: GraphQLResolveInfo,
     **kwargs: Any
 ) -> SimplePayload:
-    file: InMemoryUploadedFile = kwargs['file']
+    file: UploadFile = kwargs['file']
     finding_id: str = kwargs['finding_id']
     evidence_id: str = kwargs['evidence_id']
 

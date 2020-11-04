@@ -13,8 +13,8 @@ from aioextensions import (
 )
 from backports import csv
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from magic import Magic
+from starlette.datastructures import UploadFile
 
 from backend import mailer, util
 from backend.dal import (
@@ -99,9 +99,9 @@ async def _download_evidence_file(
     raise Exception('Evidence not found')
 
 
-def append_records_to_file(
+async def append_records_to_file(
         records: List[Dict[str, str]],
-        new_file: InMemoryUploadedFile) -> ContentFile:
+        new_file: UploadFile) -> ContentFile:
     header = records[0].keys()
     values = [
         list(v)
@@ -110,10 +110,14 @@ def append_records_to_file(
             for record in records
         ]
     ]
-    new_file_records = new_file.read()
-    new_file_header = new_file_records.decode('utf-8').split('\n')[0]
+    new_file_records = await new_file.read()
+    await new_file.seek(0)
+    new_file_header = cast(
+        bytes,
+        new_file_records
+    ).decode('utf-8').split('\n')[0]
     new_file_records = r'\n'.join(
-        new_file_records.decode('utf-8').split('\n')[1:]
+        cast(bytes, new_file_records).decode('utf-8').split('\n')[1:]
     )
     records_str = ''
     for record in values:

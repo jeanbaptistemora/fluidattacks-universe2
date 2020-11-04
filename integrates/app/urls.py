@@ -76,7 +76,6 @@ urlpatterns = [
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^new/oauth/', include('social_django.urls', namespace='social')),
-    url(r'^api/?\.*$', api_dispatcher),
     # Evidences
     url(
         (r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'

@@ -3,10 +3,11 @@
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
+from starlette.datastructures import UploadFile
 
 # Local
+from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -28,7 +29,7 @@ async def mutate(
     _info: GraphQLResolveInfo,
     event_id: str,
     evidence_type: str,
-    file: InMemoryUploadedFile
+    file: UploadFile
 ) -> SimplePayload:
     success = False
     if await event_domain.validate_evidence(evidence_type, file):
@@ -37,5 +38,6 @@ async def mutate(
             evidence_type,
             file
         )
+        await util.invalidate_cache(f'view*events*{event_id}')
 
     return SimplePayload(success=success)

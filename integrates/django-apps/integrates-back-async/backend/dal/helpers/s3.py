@@ -9,9 +9,7 @@ from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 import aioboto3
 from botocore.exceptions import ClientError
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import (
-    InMemoryUploadedFile, TemporaryUploadedFile
-)
+from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.utils import apm
@@ -107,9 +105,8 @@ async def upload_memory_file(
 ) -> None:
     valid_in_memory_files = (
         ContentFile,
-        InMemoryUploadedFile,
         TemporaryFileWrapper,
-        TemporaryUploadedFile,
+        UploadFile
     )
 
     success = False

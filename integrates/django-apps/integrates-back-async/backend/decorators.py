@@ -119,7 +119,7 @@ def require_login(func: TVar) -> TVar:
             if util.is_api_token(user_data):
                 await verify_jti(
                     user_data['user_email'],
-                    context.META.get('HTTP_AUTHORIZATION'),
+                    context.headers.get('Authorization'),
                     user_data['jti']
                 )
         except InvalidAuthorization:

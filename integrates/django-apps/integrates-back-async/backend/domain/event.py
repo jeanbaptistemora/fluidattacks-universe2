@@ -8,8 +8,7 @@ from aioextensions import (
     schedule,
 )
 import pytz
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from magic import Magic
+from starlette.datastructures import UploadFile
 
 from backend import authz, mailer, util
 from backend.dal import (
@@ -92,7 +91,7 @@ async def solve_event(
 async def update_evidence(
         event_id: str,
         evidence_type: str,
-        file: InMemoryUploadedFile) -> bool:
+        file: UploadFile) -> bool:
     event = await get_event(event_id)
     success = False
 
@@ -103,19 +102,15 @@ async def update_evidence(
         raise EventAlreadyClosed()
 
     project_name = str(event.get('project_name', ''))
-    try:
-        mime = Magic(mime=True).from_buffer(file.file.getvalue())
-        extension = {
-            'image/gif': '.gif',
-            'image/jpeg': '.jpg',
-            'image/png': '.png',
-            'application/pdf': '.pdf',
-            'application/zip': '.zip',
-            'text/csv': '.csv',
-            'text/plain': '.txt'
-        }[mime]
-    except AttributeError:
-        extension = ''
+    extension = {
+        'image/gif': '.gif',
+        'image/jpeg': '.jpg',
+        'image/png': '.png',
+        'application/pdf': '.pdf',
+        'application/zip': '.zip',
+        'text/csv': '.csv',
+        'text/plain': '.txt'
+    }.get(file.content_type, '')
     evidence_id = f'{project_name}-{event_id}-{evidence_type}{extension}'
     full_name = f'{project_name}/{event_id}/{evidence_id}'
 
@@ -128,13 +123,13 @@ async def update_evidence(
 
 async def validate_evidence(
         evidence_type: str,
-        file: InMemoryUploadedFile) -> bool:
+        file: UploadFile) -> bool:
     mib = 1048576
     success = False
 
     if evidence_type == 'evidence':
         allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
-        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+        if not await util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType('EVENT_IMAGE')
     else:
         allowed_mimes = [
@@ -143,10 +138,10 @@ async def validate_evidence(
             'text/csv',
             'text/plain'
         ]
-        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+        if not await util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType('EVENT_FILE')
 
-    if file.size < 10 * mib:
+    if await util.get_file_size(file) < 10 * mib:
         success = True
     else:
         raise InvalidFileSize()
@@ -203,8 +198,8 @@ async def _send_new_event_mail(
 async def create_event(
         analyst_email: str,
         project_name: str,
-        file: Optional[InMemoryUploadedFile] = None,
-        image: Optional[InMemoryUploadedFile] = None,
+        file: Optional[UploadFile] = None,
+        image: Optional[UploadFile] = None,
         **kwargs: Any) -> bool:
     validations.validate_fields([kwargs['detail']])
     validations.validate_field_length(kwargs['detail'], 300)

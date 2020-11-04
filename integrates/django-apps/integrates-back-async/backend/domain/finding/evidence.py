@@ -1,7 +1,6 @@
 # pylint:disable=too-many-branches
 from typing import Dict, List, Union, cast, Optional, Any
-from aioextensions import in_thread
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from starlette.datastructures import UploadFile
 from backend import util
 from backend.dal import finding as finding_dal
 from backend.exceptions import (
@@ -19,11 +18,10 @@ from .finding import get_finding
 async def validate_and_upload_evidence(
     finding_id: str,
     evidence_id: str,
-    file: InMemoryUploadedFile
+    file: UploadFile
 ) -> bool:
     success = False
-    mime_type = await in_thread(util.get_uploaded_file_mime, file)
-    if await validate_evidence(evidence_id, file, mime_type):
+    if await validate_evidence(evidence_id, file):
         success = await update_evidence(finding_id, evidence_id, file)
     return success
 
@@ -31,7 +29,7 @@ async def validate_and_upload_evidence(
 async def update_evidence(
     finding_id: str,
     evidence_type: str,
-    file: InMemoryUploadedFile
+    file: UploadFile
 ) -> bool:
     finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
@@ -50,7 +48,7 @@ async def update_evidence(
             old_records = await finding_utils.get_records_from_file(
                 project_name, finding_id, old_file_name)
             if old_records:
-                file = finding_utils.append_records_to_file(cast(
+                file = await finding_utils.append_records_to_file(cast(
                     List[Dict[str, str]],
                     old_records
                 ), file)
@@ -147,8 +145,7 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
 
 async def validate_evidence(
     evidence_id: str,
-    file: InMemoryUploadedFile,
-    mime_type: str
+    file: UploadFile
 ) -> bool:
     mib = 1048576
     success = False
@@ -168,10 +165,10 @@ async def validate_evidence(
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain', 'application/csv']
 
-    if mime_type not in allowed_mimes:
+    if not await util.assert_uploaded_file_mime(file, allowed_mimes):
         raise InvalidFileType()
 
-    if file.size < max_size.get(evidence_id, 10) * mib:
+    if await util.get_file_size(file) < max_size.get(evidence_id, 10) * mib:
         success = True
     else:
         raise InvalidFileSize()
