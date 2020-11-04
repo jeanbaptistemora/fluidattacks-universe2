@@ -28,14 +28,31 @@ def _valid_integrates_token(ctx, param, value):
 
 
 @click.command(name='upgrade', short_help='Get last CLI version')
-def upgrade():
+def upgrade_management():
     click.echo("Updating..")
     if utils.version.upgrade():
         click.echo("Successful")
 
 
-@click.group(name='entrypoint')
-@click.version_option(version=constants.VERSION)
+class ForceUpgrade(click.Group):
+    def parse_args(self, ctx, args):
+        command: str = ''
+
+        if args:
+            command = args[0]
+
+        if command != 'upgrade' \
+                and not utils.generic.is_env_ci() \
+                and not utils.generic.is_dev_mode \
+                and check_new_version():
+
+            logger.info("There is a new version, please upgrade melts ")
+            self.invoke = lambda ctx: None
+        else:
+            click.Group.parse_args(self, ctx, args)
+
+
+@click.group(name='entrypoint', cls=ForceUpgrade)
 def entrypoint():
     """Main comand line group."""
 
@@ -47,7 +64,7 @@ entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
 entrypoint.add_command(reports_management)
-entrypoint.add_command(upgrade)
+entrypoint.add_command(upgrade_management)
 
 
 def retry_debugging_on_failure(func):
@@ -67,9 +84,5 @@ def retry_debugging_on_failure(func):
 @retry_debugging_on_failure
 def main():
     """Usual entrypoint."""
-    utils.bugs.configure_bugsnag(test="test")
     entrypoint()
-
-
-if check_new_version():
-    logger.info("There is a new version, please update melts")
+    return True

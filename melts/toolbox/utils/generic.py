@@ -76,6 +76,15 @@ def is_env_ci() -> bool:
     return bool(os.environ.get('CI'))
 
 
+def is_dev_mode() -> bool:
+    """
+    Check if developer mode is enable.
+    Return True if developer mode is enable.
+    Return False if developer mode is disable.
+    """
+    return bool(os.environ.get('DEV_MODE'))
+
+
 def is_branch_master() -> bool:
     """
     Check if branch is master or dev.
