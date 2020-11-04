@@ -2,17 +2,16 @@
 
 # Standard library
 import os
-from collections import defaultdict
-from typing import Any, Callable
+from typing import Any
 
 # Third party libraries
 from ariadne.asgi import GraphQL
 
 from starlette.applications import Starlette
-from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse, Response
+from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -21,6 +20,7 @@ from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
 from backend_new.api.schema import SCHEMA
+from backend_new.app.middleware import CustomRequestMiddleware
 
 from backend_new import settings
 import backend_new.app.utils as utils
@@ -146,17 +146,6 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
     return await authz(request, OAUTH.bitbucket)
 
 
-class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
-
-    async def dispatch(
-        self,
-        request: Request,
-        call_next: Callable[..., Any]
-    ) -> Response:
-        request.state.store = defaultdict(lambda: None)
-        return await call_next(request)
-
-
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
@@ -179,8 +168,8 @@ APP = Starlette(
             name='static'
         )
     ],
+    middleware=[
+        Middleware(SessionMiddleware, secret_key=FI_STARLETTE_TEST_KEY),
+        Middleware(CustomRequestMiddleware)
+    ]
 )
-
-# anyway, not used, just required
-APP.add_middleware(SessionMiddleware, secret_key=FI_STARLETTE_TEST_KEY)
-APP.add_middleware(CustomRequestMiddleware)
