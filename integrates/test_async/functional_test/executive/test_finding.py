@@ -1,7 +1,7 @@
 import os
 import pytest
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from starlette.datastructures import UploadFile
 
 from backend.utils import datetime as datetime_utils
 from test_async.functional_test.executive.utils import get_result
@@ -67,9 +67,7 @@ async def test_finding():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-vulns.yaml')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='text/x-yaml')
+        uploaded_file = UploadFile(test_file.name, test_file, 'text/x-yaml')
         query = '''
             mutation UploadFileMutation(
                 $file: Upload!, $findingId: String!
@@ -86,8 +84,8 @@ async def test_finding():
             'file': uploaded_file,
             'findingId': draft_id,
         }
-    data = {'query': query, 'variables': variables}
-    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+        data = {'query': query, 'variables': variables}
+        result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
     assert 'errors' not in result
     assert result['data']['uploadFile']['success']
 
@@ -136,9 +134,7 @@ async def test_finding():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='image/gif')
+        uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         variables = {
             'evidenceId': 'EVIDENCE2',
             'findingId': draft_id,

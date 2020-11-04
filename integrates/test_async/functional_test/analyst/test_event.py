@@ -1,7 +1,7 @@
 import os
 import pytest
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from starlette.datastructures import UploadFile
 
 from backend.utils import datetime as datetime_utils
 from test_async.functional_test.analyst.utils import get_result
@@ -90,9 +90,7 @@ async def test_event():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='image/gif')
+        uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         variables = {
             'eventId': event_id,
             'evidenceType': 'IMAGE',
@@ -100,7 +98,7 @@ async def test_event():
         }
         data = {'query': query, 'variables': variables}
 
-    result = await get_result(data)
+        result = await get_result(data)
     assert result['data']['updateEventEvidence']['success']
 
     query = f'''{{

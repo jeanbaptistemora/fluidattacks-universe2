@@ -6,9 +6,10 @@ from ariadne import graphql_sync, graphql
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from jose import jwt
+from starlette.datastructures import UploadFile
+
 from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.schema import SCHEMA
@@ -152,9 +153,7 @@ class EventTests(TestCase):
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-anim.gif')
         with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                               content=test_file.read(),
-                                               content_type='image/gif')
+            uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
             variables = {
                 'eventId': '538745942',
                 'evidenceType': 'IMAGE',

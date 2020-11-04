@@ -32,8 +32,8 @@ def scan_file(
             'user_email': user_email,
             'target_file_name': target_file.filename
         }
+        file_object = target_file.file
         try:
-            file_object = target_file.file
             tmp_file = tempfile.NamedTemporaryFile()
             tmp_file.write(file_object.read())
             tmp_file.flush()
@@ -50,4 +50,4 @@ def scan_file(
                 raise FileInfected()
         except ApiException as api_error:
             LOGGER.exception(api_error, extra={'extra': payload_data})
-            target_file.seek(0)
+            file_object.seek(0)

@@ -2,7 +2,7 @@ import json
 import os
 import pytest
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from starlette.datastructures import UploadFile
 from urllib.parse import quote
 
 from backend.utils import datetime as datetime_utils
@@ -56,9 +56,7 @@ async def test_resource():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='image/gif')
+        uploaded_file = UploadFile('test-anim.gif', test_file, 'image/gif')
         file_data = [
             {'description': 'test',
                 'fileName': test_file.name.split('/')[2],
@@ -81,8 +79,8 @@ async def test_resource():
             'filesData': json.dumps(file_data),
             'projectName': group_name
         }
-    data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+        data = {'query': query, 'variables': variables}
+        result = await get_result(data)
     assert 'errors' not in result
     assert 'success' in result['data']['addFiles']
     assert result['data']['addFiles']['success']

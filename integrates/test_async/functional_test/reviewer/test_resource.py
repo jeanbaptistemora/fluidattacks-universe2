@@ -2,7 +2,7 @@ import json
 import os
 import pytest
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from starlette.datastructures import UploadFile
 
 from test_async.functional_test.reviewer.utils import get_result
 
@@ -95,9 +95,7 @@ async def test_resource():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='image/gif')
+        uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         file_data = [
             {'description': 'test',
                 'fileName': test_file.name.split('/')[2],

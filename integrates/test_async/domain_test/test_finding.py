@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 from asgiref.sync import async_to_sync
 from collections import namedtuple
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
 from graphql.type import GraphQLResolveInfo
+from starlette.datastructures import UploadFile
 
 from backend import mailer
 from backend.domain.finding import (
@@ -218,9 +218,7 @@ class FindingTests(TestCase):
         filename = os.path.join(filename, '../mock/test-exploit.py')
         mime_type = 'text/x-python'
         with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                               content=test_file.read(),
-                                               content_type=mime_type)
+            uploaded_file = UploadFile(test_file.name, test_file, mime_type)
             test_data = await validate_evidence(evidence_id, uploaded_file)
         expected_output = True
         assert isinstance(test_data, bool)
@@ -232,9 +230,7 @@ class FindingTests(TestCase):
         filename = os.path.join(filename, '../mock/test-anim.gif')
         mime_type = 'image/gif'
         with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                               content=test_file.read(),
-                                               content_type=mime_type)
+            uploaded_file = UploadFile(test_file.name, test_file, mime_type)
             with self.assertRaises(InvalidFileType) as context:
                 await validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
@@ -245,9 +241,7 @@ class FindingTests(TestCase):
         filename = os.path.join(filename, '../mock/test-file-records.csv')
         mime_type = 'text/csv'
         with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                               content=test_file.read(),
-                                               content_type=mime_type)
+            uploaded_file = UploadFile(test_file.name, test_file, mime_type)
             test_data = await validate_evidence(evidence_id, uploaded_file)
         expected_output = True
         assert isinstance(test_data, bool)
@@ -259,9 +253,7 @@ class FindingTests(TestCase):
         filename = os.path.join(filename, '../mock/test-anim.gif')
         mime_type = 'image/gif'
         with open(filename, 'rb') as test_file:
-            uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                               content=test_file.read(),
-                                               content_type=mime_type)
+            uploaded_file = UploadFile(test_file.name, test_file, mime_type)
             with self.assertRaises(InvalidFileType) as context:
                 await validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))

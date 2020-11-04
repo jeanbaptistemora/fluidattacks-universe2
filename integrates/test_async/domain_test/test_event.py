@@ -3,8 +3,8 @@ from time import time
 import pytest
 from aniso8601 import parse_datetime
 
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
+from starlette.datastructures import UploadFile
+
 from backend.domain import event as event_domain
 from backend.dal import (
     comment as comment_dal,
@@ -61,13 +61,13 @@ async def test_create_event_file_image():
     imagename = os.path.dirname(os.path.abspath(__file__))
     imagename = os.path.join(imagename, '../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                           content=test_file.read(),
-                                           content_type='text/csv')
+        uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
         with open(imagename, 'rb') as image_test:
-            uploaded_image = SimpleUploadedFile(name=image_test.name,
-                                                content=image_test.read(),
-                                                content_type='image/gif')
+            uploaded_image = UploadFile(
+                image_test.name,
+                image_test,
+                'image/gif'
+            )
             test_data = await event_domain.create_event(
                 **attrs,
                 file=uploaded_file,
@@ -143,22 +143,10 @@ async def test_update_evidence():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='text/csv')
+        uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
         test_data = await event_domain.update_evidence(
             event_id, evidence_type, uploaded_file)
     expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
-
-@pytest.mark.changes_db
-async def test_update_evidence_attribute_error():
-    event_id = '418900978'
-    evidence_type = 'records'
-    test_data = await event_domain.update_evidence(
-        event_id, evidence_type, '')
-    expected_output = False
     assert isinstance(test_data, bool)
     assert test_data == expected_output
 
@@ -167,9 +155,7 @@ async def test_validate_evidence_invalid_image_type():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='text/csv')
+        uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
         with pytest.raises(InvalidFileType) as context:
             await event_domain.validate_evidence(evidence_type, uploaded_file)
         assert 'Exception - Invalid File Type: EVENT_IMAGE' in str(context.value)
@@ -179,9 +165,7 @@ async def test_validate_evidence_invalid_file_size():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-big-image.jpg')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(name=test_file.name,
-                                            content=test_file.read(),
-                                            content_type='image/jpg')
+        uploaded_file = UploadFile(test_file.name, test_file, 'image/jpg')
         with pytest.raises(InvalidFileSize) as context:
             await event_domain.validate_evidence(evidence_type, uploaded_file)
         assert 'Exception - Invalid File Size' in str(context.value)
@@ -206,11 +190,7 @@ async def test_mask_event():
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')
     with open(filename, 'rb') as test_file:
-        uploaded_file = SimpleUploadedFile(
-            name=test_file.name,
-            content=test_file.read(),
-            content_type='text/csv'
-        )
+        uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
         await event_domain.update_evidence(
             event_id,
             evidence_type,
