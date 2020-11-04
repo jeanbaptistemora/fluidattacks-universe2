@@ -35,16 +35,18 @@ class ScanResponse(NamedTuple):
 def paginate_table(
     db_client,
     table_segment: TableSegment,
-    ex_start_key: Dict[str, Any],
+    ex_start_key: Optional[FrozenSet[Tuple[str, Any]]],
 ) -> ScanResponse:
     table = db_client.Table(table_segment.table_name)
-    result = table.scan(
-        Limit=1000,
-        ConsistentRead=True,
-        ExclusiveStartKey=ex_start_key,
-        Segment=table_segment.segment,
-        TotalSegments=table_segment.total_segments,
-    )
+    scan_args: Dict[str, Any] = {
+        'Limit': 1000,
+        'ConsistentRead': True,
+        'Segment': table_segment.segment,
+        'TotalSegments': table_segment.total_segments,
+    }
+    if ex_start_key:
+        scan_args.update({'ExclusiveStartKey': ex_start_key})
+    result = table.scan(**scan_args)
     return ScanResponse(result)
 
 
@@ -88,3 +90,16 @@ def extract_until_end(
             end_reached = True
         d_pages.append(cast(PageData, result))
     return d_pages
+
+
+def extract_segment(db_client, segment: TableSegment) -> List[PageData]:
+    def extract(
+        last_key: Optional[FrozenSet[Tuple[str, Any]]]
+    ) -> Optional[PageData]:
+        response: ScanResponse = paginate_table(
+            db_client, segment, last_key
+        )
+        return response_to_dpage(response)
+    return extract_until_end(
+        extract=extract
+    )
