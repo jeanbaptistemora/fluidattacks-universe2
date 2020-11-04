@@ -24,11 +24,13 @@ class TableSegment(NamedTuple):
 
 
 class PageData(NamedTuple):
+    t_segment: TableSegment
     file: IO[str]
     exclusive_start_key: Optional[FrozenSet[Tuple[str, Any]]]
 
 
 class ScanResponse(NamedTuple):
+    t_segment: TableSegment
     response: FrozenSet[Tuple[str, Any]]
 
 
@@ -47,7 +49,10 @@ def paginate_table(
     if ex_start_key:
         scan_args.update({'ExclusiveStartKey': ex_start_key})
     result = table.scan(**scan_args)
-    return ScanResponse(result)
+    return ScanResponse(
+        t_segment=table_segment,
+        response=result
+    )
 
 
 def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
@@ -61,10 +66,12 @@ def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
     file.write(data)
     if last_key:
         return PageData(
+            t_segment=scan_response.t_segment,
             file=file,
             exclusive_start_key=frozenset(last_key.items())
         )
     return PageData(
+        t_segment=scan_response.t_segment,
         file=file,
         exclusive_start_key=None
     )
