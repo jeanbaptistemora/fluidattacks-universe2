@@ -20,6 +20,10 @@ from forces import entrypoint
 from forces.utils.bugs import configure_bugsnag
 from forces.utils.function import shield
 from forces.utils.logs import blocking_log
+from forces.utils.model import (
+    ForcesConfig,
+    KindEnum,
+)
 
 # Constants
 USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
@@ -162,13 +166,17 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     kind: str,
     repo_name: str,
 ) -> int:
+    config = ForcesConfig(
+        group=group,
+        kind=KindEnum.DYNAMIC if kind == 'dynamic' else
+        (KindEnum.STATIC if kind == 'static' else KindEnum.ALL),
+        output=output,
+        repository_path=repo_path,
+        repository_name=repo_name,
+        strict=strict,
+        verbose_level=verbose,
+    )
     return await entrypoint(
         token=token,
-        group=group,
-        verbose_level=verbose,
-        strict=strict,
-        output=output,
-        repo_path=repo_path,
-        kind=kind,
-        repo_name=repo_name,
+        config=config,
     )

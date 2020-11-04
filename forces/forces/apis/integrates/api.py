@@ -151,9 +151,13 @@ async def vulns_generator(project: str, **kwargs: str) -> AsyncGenerator[Dict[
 
 
 @SHIELD
-async def upload_report(project: str, report: Dict[str, Any], log_file: str,
-                        git_metadata: Dict[str, str],
-                        **kwargs: Union[datetime, str]) -> bool:
+async def upload_report(
+    project: str,
+    report: Dict[str, Any],
+    log_file: str,
+    git_metadata: Dict[str, str],
+    **kwargs: Union[datetime, str],
+) -> bool:
     """
     Upload report execution to Integrates.
 

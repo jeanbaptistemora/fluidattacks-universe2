@@ -12,7 +12,7 @@ from forces.cli import main
 def test_cli_strict(test_token: str) -> None:
     runner = CliRunner()
     result = runner.invoke(
-        main, ['--token', test_token, '--strict', '--repo-path', '../'])
+        main, ['--token', test_token, '--strict', '--repo-name', 'forces'])
     assert result.exit_code == 1
 
 

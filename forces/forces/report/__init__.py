@@ -1,10 +1,8 @@
 """Fluid Forces report module"""
 # Standard imports
 import asyncio
-import fnmatch
 from typing import (
     Any,
-    cast,
     Dict,
     List,
 )
@@ -20,6 +18,11 @@ from forces.apis.integrates.api import (
     get_findings,
     vulns_generator,
 )
+from forces.utils.model import ForcesConfig
+from forces.report.filters import (
+    filter_kind,
+    filter_repo,
+)
 
 
 def get_exploitability_measure(score: int) -> str:
@@ -30,8 +33,10 @@ def get_exploitability_measure(score: int) -> str:
     return data.get(str(score), '-')
 
 
-async def create_findings_dict(project: str,
-                               **kwargs: str) -> Dict[str, Dict[str, Any]]:
+async def create_findings_dict(
+    project: str,
+    **kwargs: str,
+) -> Dict[str, Dict[str, Any]]:
     """Returns a dictionary containing as key the findings of a project."""
     findings_dict: Dict[str, Dict[str, Any]] = dict()
     findings_futures = [
@@ -76,17 +81,7 @@ async def generate_report_log(report: Dict[str, Any],
     return await in_thread(yaml.dump, report, allow_unicode=True)
 
 
-async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
-    """
-    Generate a project vulnerability report.
-
-    :param project: Project Name.
-    :param verbose_level: Level of detail of the report.
-    """
-    _start_time = timer()
-    kind = kwargs.pop('kind', 'all')
-    repo_name = kwargs.pop('repo_name', None)
-
+def get_summary_template(kind: str) -> Dict[str, Dict[str, int]]:
     _summary_dict: Dict[str, Dict[str, int]] = {
         'open': {
             'total': 0
@@ -99,7 +94,7 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
         }
     }
 
-    _summary_dict = _summary_dict if kind != 'all' else {
+    return _summary_dict if kind != 'all' else {
         key: {
             'DAST': 0,
             'SAST': 0,
@@ -108,31 +103,42 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
         for key in _summary_dict
     }
 
-    raw_report: Dict[str, List[Any]] = {'findings': list()}
-    findings_dict = await create_findings_dict(project, **kwargs)
 
-    async for vuln in vulns_generator(project):
+async def generate_report(
+    config: ForcesConfig,
+    **kwargs: Any,
+) -> Dict[str, Any]:
+    """
+    Generate a project vulnerability report.
+
+    :param project: Project Name.
+    :param verbose_level: Level of detail of the report.
+    """
+    _start_time = timer()
+    kind = config.kind.value
+    repo_name = config.repository_name
+
+    _summary_dict = get_summary_template(kind)
+
+    raw_report: Dict[str, List[Any]] = {'findings': list()}
+    findings_dict = await create_findings_dict(config.group, **kwargs,)
+
+    async for vuln in vulns_generator(config.group, **kwargs):
         find_id: str = vuln['findingId']  # type: ignore
-        state = vuln['currentState']
+        state: str = vuln['currentState']  # type: ignore
+
+        if not filter_kind(vuln, kind):
+            continue
+        if not filter_repo(vuln, kind, repo_name):
+            continue
 
         vuln_type = 'SAST' if vuln['vulnType'] == 'lines' else 'DAST'
-        if (kind == 'dynamic'
-                and vuln_type == 'SAST') or (kind == 'static'
-                                             and vuln_type == 'DAST'):
-            continue
-        if kind in ('all', 'static') and vuln_type == 'SAST' and repo_name:
-            if not fnmatch.fnmatch(cast(str, vuln['where']), f"{repo_name}/*"):
-                continue
 
-        for r_state in ('closed', 'accepted', 'open'):
-            if state == r_state:
-                _summary_dict[r_state]['total'] += 1
-                if kind == 'all':
-                    _summary_dict[r_state][
-                        'DAST'] += 1 if vuln_type == 'DAST' else 0
-                    _summary_dict[r_state][
-                        'SAST'] += 1 if vuln_type == 'SAST' else 0
-                findings_dict[find_id][r_state] += 1
+        _summary_dict[state]['total'] += 1
+        if kind == 'all':
+            _summary_dict[state]['DAST'] += bool(vuln_type == 'DAST')
+            _summary_dict[state]['SAST'] += bool(vuln_type == 'SAST')
+        findings_dict[find_id][state] += 1
 
         findings_dict[find_id]['vulnerabilities'].append({
             'type':
@@ -142,7 +148,7 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
             'specific':
             vuln['specific'],
             'URL': ('https://integrates.fluidattacks.com/groups/'
-                    f'{project}/vulns/{vuln["findingId"]}'),
+                    f'{config.group}/vulns/{vuln["findingId"]}'),
             'state':
             state,
             'exploitability':
