@@ -314,9 +314,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <Route path={`${props.match.path}/severity`} component={SeverityView} exact={true} />
                   <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />
                   <Route path={`${props.match.path}/exploit`} component={ExploitView} exact={true} />
-                  <Route path={`${props.match.path}/tracking`} exact={true}>
-                    <TrackingView isDraft={isDraft} />
-                  </Route>
+                  <Route path={`${props.match.path}/tracking`} component={TrackingView} exact={true} />
                   <Route path={`${props.match.path}/records`} component={RecordsView} exact={true} />
                   <Route
                     path={`${props.match.path}/:type(consulting|observations)`}

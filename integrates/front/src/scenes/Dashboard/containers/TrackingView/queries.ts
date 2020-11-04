@@ -1,19 +1,11 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_FINDING_VULN_INFO: DocumentNode = gql`
-  query GetFindingVulnInfo(
-    $findingId: String!,
-    $groupName: String!
-  ) {
+export const GET_FINDING_TRACKING: DocumentNode = gql`
+  query GetFindingTracking($findingId: String!) {
     finding(identifier: $findingId) {
+      tracking
       id
-      newRemediated
-      state
-      verified
-    }
-    project(projectName: $groupName) {
-      subscription
     }
   }
 `;
