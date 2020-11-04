@@ -60,12 +60,23 @@ class FindingTests(TestCase):
           'remediated': False,
           'verification': '',
           'historicVerification': [],
+          'historicZeroRisk': [
+            {
+              'date': '2018-09-28 10:32:58',
+              'status': 'REQUESTED'
+            },
+            {
+              'date': '2020-09-09 16:01:26',
+              'status': 'CONFIRMED'
+            }
+          ],
           'currentState': 'open',
           'currentApprovalStatus': '',
           'analyst': 'test@unittesting.com',
           'treatmentManager': 'integratesuser@gmail.com',
           'source': 'integrates',
-          'vulnType': 'inputs'
+          'vulnType': 'inputs',
+          'zeroRisk': 'Confirmed'
         }
         query = '''{
           finding(identifier: "422286126"){
@@ -130,12 +141,17 @@ class FindingTests(TestCase):
                   date
                   status
                 }
+                historicZeroRisk {
+                  date
+                  status
+                }
                 currentState
                 currentApprovalStatus
                 analyst
                 treatmentManager
                 source
                 vulnType
+                zeroRisk
               }
               portsVulns {
                   specific

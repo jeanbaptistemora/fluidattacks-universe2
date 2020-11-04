@@ -70,7 +70,18 @@ async def _batch_load_fn(
                 historic_verification=cast(
                     HistoricType,
                     vuln.get('historic_verification', [])
-                )
+                ),
+                historic_zero_risk=cast(
+                    HistoricType,
+                    vuln.get('historic_zero_risk', [])
+                ),
+                zero_risk=cast(
+                    HistoricType,
+                    vuln.get(
+                        'historic_zero_risk',
+                        [{}]
+                    )
+                )[-1].get('status', '').capitalize()
             )
         )
 
