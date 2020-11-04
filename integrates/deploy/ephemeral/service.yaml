@@ -6,8 +6,13 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 80
+    - name: integrates1
+      port: 80
       targetPort: 8000
+      protocol: TCP
+    - name: integrates2
+      port: 81
+      targetPort: 8001
       protocol: TCP
   selector:
     app: integrates-__DEPLOYMENT_NAME__

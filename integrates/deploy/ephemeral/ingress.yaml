@@ -31,8 +31,8 @@ spec:
               servicePort: 80
           - path: /new/*
             backend:
-              serviceName: integrates2-__DEPLOYMENT_NAME__
-              servicePort: 80
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
           - path: /*
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__

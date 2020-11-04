@@ -562,17 +562,17 @@ function job_integrates_probes_production_liveness {
 
 function job_integrates2_probes_local {
       helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'https://localhost:8080/new/'
+  &&  helper_integrates_probe_curl 'https://localhost:8081/new/'
 }
 
 function job_integrates2_probes_ephemeral_readiness {
       helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000/new/'
+  &&  helper_integrates_probe_curl 'http://localhost:8001/new/'
 }
 
 function job_integrates2_probes_ephemeral_liveness {
       helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000/new/' \
+  &&  helper_integrates_probe_curl 'http://localhost:8001/new/' \
   &&  helper_integrates_probe_curl \
         "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com/new/"
 }
@@ -629,7 +629,7 @@ function job_integrates2_serve_local {
           'uvicorn.workers.UvicornWorker' \
           '5' \
           '0.0.0.0' \
-          '8080' \
+          '8081' \
           '*' \
     &&  wait \
   &&  popd \
@@ -666,7 +666,6 @@ function job_integrates2_serve_ephemeral {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
-    &&  helper_integrates_serve_dynamo \
     &&  helper_integrates_serve_back \
           'http' \
           'development' \
@@ -674,9 +673,8 @@ function job_integrates2_serve_ephemeral {
           'uvicorn.workers.UvicornWorker' \
           '5' \
           '0.0.0.0' \
-          '8000' \
+          '8001' \
           '*' \
-    &&  helper_integrates_serve_redis \
     &&  wait \
   &&  popd \
   ||  return 1
@@ -1304,8 +1302,6 @@ function job_integrates_deploy_back_ephemeral {
   local namespace='ephemeral'
   local timeout='10m'
   local files=(
-    deploy/ephemeral/deployment2.yaml
-    deploy/ephemeral/service2.yaml
     deploy/ephemeral/deployment.yaml
     deploy/ephemeral/service.yaml
     deploy/ephemeral/ingress.yaml
@@ -1351,10 +1347,6 @@ function job_integrates_deploy_back_ephemeral {
           &&  kubectl apply -f "${file}" \
           ||  return 1
       done \
-  &&  kubectl rollout status \
-        "deploy/integrates2-${CI_COMMIT_REF_SLUG}" \
-        -n "${namespace}" \
-        --timeout="${timeout}" \
   &&  kubectl rollout status \
         "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
         -n "${namespace}" \
