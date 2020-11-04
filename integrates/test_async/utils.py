@@ -5,7 +5,7 @@ from django.http.response import HttpResponseBase
 from django.test.client import RequestFactory
 from jose import jwt
 from backend import util
-from backend.api.view import append_context_value
+from backend.api import apply_context_attrs
 from backend_new import settings
 
 
@@ -14,7 +14,7 @@ def create_dummy_simple_session(
     client: str = 'web',
 ) -> HttpResponseBase:
     request: HttpResponseBase = RequestFactory().get('/')
-    request = append_context_value(request)
+    request = apply_context_attrs(request)
     middleware = SessionMiddleware()
     middleware.process_request(request)
     middleware.process_request(request)
