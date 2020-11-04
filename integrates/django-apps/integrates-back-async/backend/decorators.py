@@ -108,13 +108,7 @@ def require_login(func: TVar) -> TVar:
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
-
-        if isinstance(context, dict):
-            context = context.get('request', {})
-        try:
-            store = context.store
-        except AttributeError:
-            store = context.state.store
+        store = util.get_request_store(context)
 
         # Within the context of one request we only need to check this once
         # Future calls to this decorator will be passed trough

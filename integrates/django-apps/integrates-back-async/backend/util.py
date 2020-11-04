@@ -226,10 +226,7 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
 
     if isinstance(context, dict):
         context = context.get('request', {})
-    try:
-        store = context.store
-    except AttributeError:
-        store = context.state.store
+    store = get_request_store(context)
 
     # Within the context of one request we only need to process it once
     if context_store_key in store:
@@ -704,3 +701,9 @@ async def get_file_size(file_object: UploadFile) -> int:
         await run_in_threadpool(file.seek, current_position)
 
     return size
+
+
+def get_request_store(context) -> collections.defaultdict:
+    """ Returns customized store attribute of a Django/Starlette request"""
+
+    return context.store if hasattr(context, 'store') else context.state.store
