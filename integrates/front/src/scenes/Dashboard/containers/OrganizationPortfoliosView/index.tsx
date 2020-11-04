@@ -1,6 +1,5 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router";
 
 import { DataTableNext } from "components/DataTableNext/index";
@@ -11,6 +10,7 @@ import {
   IPortfolios,
   IPortfoliosTable,
 } from "scenes/Dashboard/containers/OrganizationPortfoliosView/types";
+import { Col100, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
@@ -68,8 +68,8 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
             : (
               <React.Fragment>
                 <Row>
-                  <Col md={12}>
-                    <Row className={style.content}>
+                  <Col100>
+                    <Row>
                       <DataTableNext
                         bordered={true}
                         dataset={formatPortfolioTableData(portfoliosList)}
@@ -81,7 +81,7 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
                         search={true}
                       />
                     </Row>
-                  </Col>
+                  </Col100>
                 </Row>
               </React.Fragment>
             )
