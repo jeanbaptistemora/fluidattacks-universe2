@@ -3,8 +3,7 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import {
-  ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -20,6 +19,11 @@ import {
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import {
+  ButtonToolbarCenter,
+  Col100,
+  Row,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -108,21 +112,19 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
       <div className={style.container}>
         <Row>
           <Can do="backend_api_resolvers_project__do_create_project">
-            <Col md={2} mdOffset={5}>
-              <ButtonToolbar>
-                <TooltipWrapper message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}>
-                  <Button onClick={openNewProjectModal}>
-                    <Glyphicon glyph="plus" />&nbsp;{translate.t("organization.tabs.groups.newGroup.new.text")}
-                  </Button>
-                </TooltipWrapper>
-              </ButtonToolbar>
-            </Col>
+            <ButtonToolbarCenter>
+              <TooltipWrapper message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}>
+                <Button onClick={openNewProjectModal}>
+                  <Glyphicon glyph="plus" />&nbsp;{translate.t("organization.tabs.groups.newGroup.new.text")}
+                </Button>
+              </TooltipWrapper>
+            </ButtonToolbarCenter>
           </Can>
         </Row>
         {(_.isUndefined(data) || _.isEmpty(data)) ? <React.Fragment /> : (
           <React.Fragment>
             <Row>
-              <Col md={12}>
+              <Col100>
                 <Row className={style.content}>
                   <DataTableNext
                     bordered={true}
@@ -136,7 +138,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
                     search={true}
                   />
                 </Row>
-              </Col>
+              </Col100>
               <AddProjectModal
                 isOpen={isProjectModalOpen}
                 organization={organizationName}
