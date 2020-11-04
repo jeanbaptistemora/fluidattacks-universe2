@@ -497,6 +497,27 @@ class NotVerificationRequested(Exception):
         super(NotVerificationRequested, self).__init__(msg)
 
 
+class VulnNotInFinding(Exception):
+    """
+    Exception to control vulnerability in finding
+    """
+    def __init__(self, vuln_uuid: str, finding_id: str) -> None:
+        msg = (
+            f'Exception - {vuln_uuid} vulnerability does not belong to '
+            f'{finding_id} finding'
+        )
+        super(VulnNotInFinding, self).__init__(msg)
+
+
+class AlreadyZeroRiskRequested(Exception):
+    """Exception to control zero risk already requested"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Zero risk vuln is already requested'
+        super(AlreadyZeroRiskRequested, self).__init__(msg)
+
+
 class EvidenceNotFound(Exception):
     """Exception to control evidence data availability"""
 

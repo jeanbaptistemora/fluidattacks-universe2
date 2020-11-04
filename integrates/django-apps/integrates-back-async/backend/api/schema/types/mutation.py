@@ -13,6 +13,7 @@ from backend.api.mutations import (
     download_event_file,
     edit_stakeholder_organization,
     invalidate_cache,
+    request_zero_risk_vuln,
     remove_event_evidence,
     solve_event,
     update_event_evidence,
@@ -111,6 +112,8 @@ MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('requestZeroRiskVuln',
+                   request_zero_risk_vuln.mutate)
 MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',

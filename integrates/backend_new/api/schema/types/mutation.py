@@ -5,7 +5,10 @@
 from ariadne import MutationType
 
 # Local
-from backend.api.mutations import organization as org_mutations
+from backend.api.mutations import (
+    organization as org_mutations,
+    request_zero_risk_vuln,
+)
 from backend.api.resolvers import (
     cache,
     event,
@@ -98,6 +101,8 @@ MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('requestZeroRiskVuln',
+                   request_zero_risk_vuln.mutate)
 MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',
