@@ -145,6 +145,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     effect  = "Allow"
     actions = [
       "secretsmanager:GetSecretValue",
+      "secretsmanager:CreateSecret",
       "secretsmanager:DeleteSecret",
       "secretsmanager:DescribeSecret",
       "secretsmanager:GetResourcePolicy",
