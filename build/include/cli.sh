@@ -44,11 +44,12 @@ source "${srcIncludeHelpersSorts}"
 source "${srcIncludeSortsJobs}"
 
 function cli {
-  local function_to_call
-  local arguments_1
-
-  function_to_call="${1:-}"
-  arguments_1="${2:-}"
+  local function_to_call="${1:-}"
+  local arg1="${2:-}"
+  local arg2="${3:-}"
+  local arg3="${4:-}"
+  local arg4="${5:-}"
+  local arg5="${6:-}"
 
   if test -z "${function_to_call}" \
       || test "${function_to_call}" = '-h' \
@@ -58,7 +59,7 @@ function cli {
     echo "Use: ./build.sh [job-name]"
     echo
     echo 'List of jobs:'
-    helper_common_list_declared_jobs "${arguments_1}" | sed -e 's/^/  * /g'
+    helper_common_list_declared_jobs "${arg1}" | sed -e 's/^/  * /g'
     return 0
   fi
 
@@ -69,14 +70,14 @@ function cli {
   if [[ $function_to_call == "common_bugsnag_report" ]]
   then
     shift
-    arguments_1="$*"
+    arg1="$*"
   fi
 
-  echo "[INFO] Executing function: job_${function_to_call} ${arguments_1}"
-  if "job_${function_to_call}" "${arguments_1}"
+  echo "[INFO] Executing function: job_${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5}"
+  if "job_${function_to_call}" "${arg1}" "${arg2}" "${arg3}" "${arg4}" "${arg5}"
   then
     echo
-    echo "Successfully executed: ${function_to_call} ${arguments_1}"
+    echo "Successfully executed: ${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5}"
     echo '  Congratulations!'
     return 0
   else

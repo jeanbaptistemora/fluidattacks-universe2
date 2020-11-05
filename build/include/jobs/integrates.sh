@@ -588,6 +588,43 @@ function job_integrates2_probes_production_liveness {
   &&  helper_integrates_probe_curl 'https://integrates.fluidattacks.com/new/'
 }
 
+function job_integrates_serve {
+
+  trap 'helper_common_kill_attached_processes 5' SIGINT
+
+      pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  for arg in "$@"
+        do
+              if echo "${arg}" | grep -qP '^http'
+              then
+                    for internal_args in $(echo "${arg}" | tr '/' '\n')
+                    do
+                          back_args+=( "${internal_args}" ) \
+                      ||  return 1
+                    done \
+                &&  echo "${back_args[@]}" \
+                &&  helper_integrates_serve_back "${back_args[@]}"
+              elif [[ "${arg}" == 'redis'  ]]
+              then
+                helper_integrates_serve_redis
+              elif [[ "${arg}" == 'dynamo' ]]
+              then
+                helper_integrates_serve_dynamo
+              elif [[ "${arg}" == 'minio' ]]
+              then
+                helper_integrates_serve_minio
+              elif [[ "${arg}" == 'front' ]]
+              then
+                helper_integrates_serve_front
+              fi \
+          ||  return 1
+        done \
+    &&  wait \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_serve_local {
 
   trap 'helper_common_kill_attached_processes 5' SIGINT

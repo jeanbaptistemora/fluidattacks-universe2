@@ -16,6 +16,10 @@ function check_nix_version {
 function decide_and_call_provisioner {
   local job="${1:-}"
   local arg1="${2:-}"
+  local arg2="${3:-}"
+  local arg3="${4:-}"
+  local arg4="${5:-}"
+  local arg5="${6:-}"
   if [[ $job == "common_bugsnag_report" ]]
   then
     shift
@@ -49,7 +53,7 @@ function decide_and_call_provisioner {
           source "${srcIncludeGenericShellOptions}"
           source "${srcIncludeCli}"
         '"
-          cli ${job} ${arg1}
+          cli ${job} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5}
         " \
         --show-trace \
         "${provisioner}"
