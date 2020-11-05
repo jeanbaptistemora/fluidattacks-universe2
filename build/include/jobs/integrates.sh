@@ -199,14 +199,7 @@ function job_integrates_build_container_app {
   local dockerfile='integrates/deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
   local use_cache='false'
-  local provisioner
-
-  if [ "${CI_COMMIT_REF_NAME}" == 'master' ]
-  then
-    provisioner='build/provisioners/integrates_serve_production.nix'
-  else
-    provisioner='build/provisioners/integrates_serve_ephemeral.nix'
-  fi
+  local provisioner='build/provisioners/integrates_serve_components.nix'
 
   helper_common_docker_build_and_push \
     "${tag}" \
@@ -586,6 +579,24 @@ function job_integrates2_probes_production_liveness {
       helper_integrates_probe_aws_credentials 'integrates-prod' \
   &&  helper_integrates_probe_curl 'http://localhost:8000/new/' \
   &&  helper_integrates_probe_curl 'https://integrates.fluidattacks.com/new/'
+}
+
+function job_integrates_probes_liveness {
+  local aws_creds="${1}"
+  local localhost_endpoint="${2}"
+  local internet_endpoint="${3}"
+
+      helper_integrates_probe_aws_credentials "${aws_creds}" \
+  &&  helper_integrates_probe_curl "${localhost_endpoint}" \
+  &&  helper_integrates_probe_curl "${internet_endpoint}"
+}
+
+function job_integrates_probes_readiness {
+  local aws_creds="${1}"
+  local localhost_endpoint="${2}"
+
+      helper_integrates_probe_aws_credentials "${aws_creds}" \
+  &&  helper_integrates_probe_curl "${localhost_endpoint}"
 }
 
 function job_integrates_serve_components {
@@ -1355,6 +1366,7 @@ function job_integrates_deploy_back_ephemeral {
     B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID
     B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
     B64_CI_COMMIT_REF_NAME
+    CI_COMMIT_REF_NAME
   )
 
   # shellcheck disable=SC2034

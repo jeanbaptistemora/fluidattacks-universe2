@@ -679,8 +679,7 @@ then
   done
 fi
 
-if     test "${CI_JOB_NAME:-}" = 'integrates_serve_local' \
-   ||  test "${CI_JOB_NAME:-}" = 'integrates_serve_ephemeral'
+if [[ "${CI_JOB_NAME:-}" == 'job_integrates_serve_components' ]]
 then
   echo '[INFO] Adding mock users'
   for index in $(seq 1 20)
