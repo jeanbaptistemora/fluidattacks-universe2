@@ -16,6 +16,7 @@ from features.commit import (
 )
 from features.file import (
     FILE_FEATURES,
+    encode_extensions,
     extract_features as extract_file_features,
 )
 
@@ -126,6 +127,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             161,
             round(137/file_ages[0], 4),
             1,
+            'py'
         ],
         [
             116,
@@ -137,6 +139,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             305,
             round(116/file_ages[1], 4),
             1,
+            'py'
         ],
         [
             46,
@@ -148,6 +151,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             123,
             round(46/file_ages[2], 4),
             1,
+            'py'
         ],
         [
             323,
@@ -159,6 +163,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             769,
             round(323/file_ages[3], 4),
             1,
+            'py'
         ],
         [
             251,
@@ -169,6 +174,43 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             77,
             982,
             round(251/file_ages[4], 4),
-            1
+            1,
+            'py'
         ]
     ]
+
+def test_encode_extensions() -> None:
+    extensions_df: DataFrame = pd.DataFrame(
+        ['py', 'java', 'md', 'cs', 'go'],
+        columns=['extension']
+    )
+    encode_extensions(extensions_df)
+    assert extensions_df.loc[0].py == 1
+    assert extensions_df.loc[0].java == 0
+    assert extensions_df.loc[0].md == 0
+    assert extensions_df.loc[0].cs == 0
+    assert extensions_df.loc[0].go == 0
+
+    assert extensions_df.loc[1].py == 0
+    assert extensions_df.loc[1].java == 1
+    assert extensions_df.loc[1].md == 0
+    assert extensions_df.loc[1].cs == 0
+    assert extensions_df.loc[1].go == 0
+
+    assert extensions_df.loc[2].py == 0
+    assert extensions_df.loc[2].java == 0
+    assert extensions_df.loc[2].md == 1
+    assert extensions_df.loc[2].cs == 0
+    assert extensions_df.loc[2].go == 0
+
+    assert extensions_df.loc[3].py == 0
+    assert extensions_df.loc[3].java == 0
+    assert extensions_df.loc[3].md == 0
+    assert extensions_df.loc[3].cs == 1
+    assert extensions_df.loc[3].go == 0
+
+    assert extensions_df.loc[4].py == 0
+    assert extensions_df.loc[4].java == 0
+    assert extensions_df.loc[4].md == 0
+    assert extensions_df.loc[4].cs == 0
+    assert extensions_df.loc[4].go == 1

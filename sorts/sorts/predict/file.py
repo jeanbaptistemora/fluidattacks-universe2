@@ -11,10 +11,19 @@ from features.file import extract_features
 from utils.logs import log
 from utils.predict import predict_vuln_prob
 from utils.repositories import get_repository_files
-from utils.static import read_allowed_names
+from utils.static import (
+    get_extensions_list,
+    read_allowed_names,
+)
 
 
-FILE_PREDICT_FEATURES = ['midnight_commits', 'num_lines', 'commit_frequency']
+FILE_PREDICT_FEATURES = [
+    'num_commits',
+    'num_unique_authors',
+    'file_age',
+    'risky_commits',
+    'num_lines',
+]
 
 
 def get_subscription_files_df(fusion_path: str) -> DataFrame:
@@ -50,12 +59,12 @@ def prioritize(subscription_path: str) -> bool:
         predict_df: DataFrame = get_subscription_files_df(fusion_path)
         success = extract_features(predict_df)
         if success:
-            predict_df.drop(
-                predict_df[predict_df['file_age'] == -1].index,
-                inplace=True
+            predict_vuln_prob(
+                predict_df,
+                FILE_PREDICT_FEATURES + get_extensions_list(),
+                group,
+                'file'
             )
-            predict_df.reset_index(inplace=True, drop=True)
-            predict_vuln_prob(predict_df, FILE_PREDICT_FEATURES, group, 'file')
     else:
         log(
             'error',

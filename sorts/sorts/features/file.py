@@ -12,10 +12,12 @@ from typing import (
 
 # Third-party libraries
 import pytz
+from numpy import ndarray
 from pandas import (
     DataFrame,
     Series,
 )
+from sklearn.preprocessing import OneHotEncoder
 from tqdm import tqdm
 
 # Local libraries
@@ -29,19 +31,9 @@ from utils.repositories import (
     GitMetrics,
     parse_git_shortstat,
 )
+from utils.static import get_extensions_list
 
 
-FILE_FEATURES = [
-    'num_commits',
-    'num_unique_authors',
-    'file_age',
-    'midnight_commits',
-    'risky_commits',
-    'seldom_contributors'
-    'busy_file',
-    'commit_frequency',
-    'num_lines',
-]
 FILE_FEATURES = [
     'num_commits',
     'num_unique_authors',
@@ -51,7 +43,8 @@ FILE_FEATURES = [
     'seldom_contributors',
     'num_lines',
     'commit_frequency',
-    'busy_file'
+    'busy_file',
+    'extension'
 ]
 
 
@@ -65,6 +58,18 @@ class FileFeatures(NamedTuple):
     num_lines: int
     commit_frequency: float
     busy_file: int
+    extension: str
+
+
+def encode_extensions(training_df: DataFrame) -> None:
+    extensions: List[str] = get_extensions_list()
+    encoder: OneHotEncoder = OneHotEncoder()
+    encoder.categories_ = [extensions]
+    encoder.drop_idx_ = None
+    encoded_extensions: ndarray = encoder.transform(
+        training_df[['extension']]
+    ).toarray()
+    training_df[extensions] = encoded_extensions
 
 
 def get_features(row: Series, logs_dir: str) -> FileFeatures:
@@ -76,6 +81,7 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
     risky_commits: int = -1
     seldom_contributors: int = -1
     unique_authors: Set[str] = set()
+    extension: str = ''
     try:
         repo_path: str = row['repo']
         repo_name: str = os.path.basename(repo_path)
@@ -94,6 +100,7 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
         risky_commits = get_risky_commits(git_metrics)
         seldom_contributors = get_seldom_contributors(git_metrics)
         unique_authors = get_unique_authors(git_metrics)
+        extension = file_relative.split('.')[-1].lower()
     except FileNotFoundError as exc:
         log_exception(
             'warning',
@@ -122,7 +129,8 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
             if file_age
             else num_commits
         ),
-        busy_file=1 if len(unique_authors) > 9 else 0
+        busy_file=1 if len(unique_authors) > 9 else 0,
+        extension=extension
     )
 
 
@@ -211,6 +219,12 @@ def extract_features(training_df: DataFrame) -> bool:
                 axis=1,
                 result_type='expand'
             )
+            training_df.drop(
+                training_df[training_df['file_age'] == -1].index,
+                inplace=True
+            )
+            training_df.reset_index(inplace=True, drop=True)
+            encode_extensions(training_df)
             log(
                 'info',
                 'Features extracted after %.2f seconds',
