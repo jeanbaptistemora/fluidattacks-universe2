@@ -70,3 +70,8 @@ type SignInPayload implements Payload {
     success: Boolean!
     sessionJwt: String
 }
+
+type ExecuteSkimsPayload implements Payload {
+    success: Boolean!
+    pipelineUrl: String
+}

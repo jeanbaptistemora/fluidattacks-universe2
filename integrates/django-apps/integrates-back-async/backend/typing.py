@@ -151,3 +151,7 @@ DynamoDelete = NamedTuple(
     'DynamoDelete',
     [('Key', Dict[str, Any])]
 )
+ExecuteSkimsPayload = NamedTuple('ExecuteSkimsPayload', [
+    ('success', bool),
+    ('pipeline_url', str),
+])
