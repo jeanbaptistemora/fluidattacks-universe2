@@ -6,6 +6,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
 python = "3.8"
+streamer-dynamodb = {path = "../../singer/streamer_dynamodb"}
 
 [tool.poetry.dev-dependencies]
 pytest = "5.2"
