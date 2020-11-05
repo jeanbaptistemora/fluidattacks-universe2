@@ -25,8 +25,18 @@ in
         pkgs.sops
         pkgs.jq
         pkgs.ruby
-        pkgs.python37
         pkgs.iproute
+        (pkgs.python37.withPackages (ps: with ps; [
+          matplotlib
+          pip
+          python_magic
+          selenium
+          setuptools
+          wheel
+        ]))
+        pkgs.libmysqlclient
+        pkgs.postgresql
+        pkgs.unixODBC
       ];
 
       nodeJsModuleSecureSpreadsheet =

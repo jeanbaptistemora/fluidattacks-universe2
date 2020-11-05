@@ -50,15 +50,6 @@ function helper_integrates_set_prod_secrets {
   &&  export REDIS_SERVER='localhost'
 }
 
-function app_version {
-  # Return a version for integrates app
-
-  local minutes
-
-      minutes=$(helper_common_minutes_of_month) \
-  &&  echo "$(date +%y.%m.)${minutes}"
-}
-
 function helper_integrates_deployment_date {
   export INTEGRATES_DEPLOYMENT_DATE
 
@@ -293,21 +284,6 @@ function helper_set_local_dynamo_and_redis {
   &&  bash ./deploy/database/provision_local_db.sh
 }
 
-function helper_build_django_apps {
-  local app
-
-  for app in \
-    'django-apps/integrates-'* \
-
-  do
-        echo "[INFO] Building: ${app}" \
-    &&  pushd "${app}" \
-      &&  python3 setup.py sdist -d ../packages/ \
-    &&  popd
-  done \
-  ||  return 1
-}
-
 function helper_integrates_functional_tests {
   local modifier=""
   if [ $# -eq 1 ]; then
@@ -410,131 +386,6 @@ function helper_integrates_sops_vars {
     ZENDESK_SUBDOMAIN \
     ZENDESK_TOKEN
 }
-
-function helper_upload_to_devicefarm {
-    local resource_arn_out="${1}"
-    local run_name="${2}"
-    local file_path="${3}"
-    local file_type="${4}"
-    local file_name
-    local upload_status
-
-        echo "[INFO] Uploading ${file_type} to AWS Device Farm" \
-    &&  file_name=$(basename "${file_path}") \
-    &&  resource_data=$(
-          aws devicefarm create-upload \
-            --content-type "application/octet-stream" \
-            --name "${run_name}_${file_name}" \
-            --project-arn "${project_arn}" \
-            --type "${file_type}" \
-        ) \
-    &&  resource_arn=$(echo "${resource_data}" | jq -r '.upload | .arn') \
-    &&  resource_url=$(echo "${resource_data}" | jq -r '.upload | .url') \
-    &&  curl \
-          --header 'Content-Type: application/octet-stream' \
-          --upload-file \
-          "${file_path}" \
-          "${resource_url}" \
-    &&  while true;
-        do
-          upload_status=$(
-            aws devicefarm get-upload \
-              --arn "${resource_arn}" \
-            | jq -r '.upload | .status'
-          ) \
-          &&  if [ "${upload_status}" == "SUCCEEDED" ];
-              then
-                break
-              elif [ "${upload_status}" == "FAILED" ];
-              then
-                    echo "[ERROR] Couldn't upload ${file_type}" \
-                &&  return 1
-              else
-                    echo "[INFO] Upload in ${upload_status} status, waiting for completion" \
-                &&  sleep 5 \
-                ||  return 1
-              fi
-        done \
-    &&  export "${resource_arn_out}"="${resource_arn}"
-  }
-
-function helper_run_test_devicefarm {
-    local app_arn="${1}"
-    local device_pool_arn="${2}"
-    local project_arn="${3}"
-    local run_name="${4}"
-    local test_pkg_arn="${5}"
-    local test_spec_arn="${6}"
-    local job_arn
-    local logs_url
-    local run_arn
-    local run_result
-
-        echo "[INFO] Scheduling run" \
-    &&  run_arn=$(
-          aws devicefarm schedule-run \
-            --app-arn "${app_arn}" \
-            --device-pool-arn "${device_pool_arn}" \
-            --name "${run_name}" \
-            --project-arn "${project_arn}" \
-            --test "{
-              \"parameters\": {
-                \"app_performance_monitoring\": \"false\",
-                \"video_recording\": \"false\"
-              },
-              \"testPackageArn\": \"${test_pkg_arn}\",
-              \"testSpecArn\": \"${test_spec_arn}\",
-              \"type\": \"APPIUM_PYTHON\"
-            }" \
-          | jq -r '.run | .arn'
-        ) \
-    &&  while true;
-        do
-              run_status=$(
-                aws devicefarm get-run \
-                  --arn "${run_arn}" \
-                | jq -r '.run | .status'
-              ) \
-          &&  if [ "${run_status}" == "COMPLETED" ]; then
-                break
-              elif [ "${run_status}" == "RUNNING" ]; then
-                    job_arn=$(
-                      aws devicefarm list-jobs \
-                        --arn "${run_arn}" \
-                      | jq -r '.jobs[0] | .arn'
-                    ) \
-                &&  logs_url=$(
-                      aws devicefarm list-artifacts \
-                        --arn "${job_arn}" \
-                        --type FILE \
-                      | jq -r '.artifacts | .[] | select(.type == "TESTSPEC_OUTPUT") | .url'
-                    ) \
-                &&  if curl -so "${TEMP_FILE1}" "${logs_url}"
-                    then
-                          comm -13 --nocheck-order "${TEMP_FILE2}" "${TEMP_FILE1}" \
-                      &&  mv "${TEMP_FILE1}" "${TEMP_FILE2}"
-                    fi \
-                &&  sleep 5 \
-                ||  return 1
-              else
-                    echo "[INFO] Run in ${run_status} status, waiting for completion" \
-                &&  sleep 10 \
-                ||  return 1
-              fi
-        done \
-    &&  run_result=$(
-          aws devicefarm get-run \
-            --arn "${run_arn}" \
-          | jq -r '.run | .result'
-        ) \
-    &&  if [ "${run_result}" == "PASSED" ];
-        then
-          return 0
-        else
-              echo "[ERROR] Run finished with status ${run_result}" \
-          &&  return 1
-        fi
-  }
 
 function helper_integrates_to_b64 {
   local value="${1}"

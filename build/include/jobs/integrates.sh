@@ -387,71 +387,6 @@ function job_integrates_functional_tests_mobile_local {
   ||  return 1
 }
 
-function job_integrates_functional_tests_mobile {
-  local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
-  local project_arn
-  local device_pool_arn
-  local apk_arn
-  local test_pkg_arn
-  local test_spec_arn
-  local run_name
-
-      pushd "${STARTDIR}/integrates/mobile/e2e" \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  aws configure set region 'us-west-2' \
-  &&  project_arn=$(
-        aws devicefarm list-projects \
-        | jq -r '.projects | .[] | select(.name == "integrates-mobile") | .arn'
-      ) \
-  &&  run_name="${CI_COMMIT_REF_NAME}_$(date -Iseconds)" \
-  &&  echo '[INFO] Preparing device pool' \
-  &&  device_pool_arn=$(
-        aws devicefarm create-device-pool \
-          --max-devices 1 \
-          --name devicePool \
-          --project-arn "${project_arn}" \
-          --rules file://devicefarm/devices.json \
-        | jq -r '.devicePool | .arn'
-      ) \
-  &&  echo '[INFO] Preparing apk' \
-  &&  curl -sSo expoClient.apk "${expo_apk_url}" \
-  &&  helper_upload_to_devicefarm \
-        apk_arn \
-        "${run_name}" \
-        expoClient.apk \
-        ANDROID_APP \
-  &&  echo '[INFO] Preparing test package' \
-  &&  zip -r9 devicefarm/tests.zip tests/ requirements.txt \
-  &&  helper_upload_to_devicefarm \
-        test_pkg_arn \
-        "${run_name}" \
-        devicefarm/tests.zip \
-        APPIUM_PYTHON_TEST_PACKAGE \
-  &&  echo '[INFO] Preparing test spec' \
-  &&  yq write -i \
-        devicefarm/spec.yml \
-        'phases.test.commands[+]' \
-        "$(cat devicefarm/test.sh)" \
-  &&  sed -i \
-        "s/__CI_COMMIT_REF_NAME__/${CI_COMMIT_REF_NAME}/g" \
-        devicefarm/spec.yml \
-  &&  helper_upload_to_devicefarm \
-        test_spec_arn \
-        "${run_name}" \
-        devicefarm/spec.yml \
-        APPIUM_PYTHON_TEST_SPEC \
-  &&  helper_run_test_devicefarm \
-        "${apk_arn}" \
-        "${device_pool_arn}" \
-        "${project_arn}" \
-        "${run_name}" \
-        "${test_pkg_arn}" \
-        "${test_spec_arn}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_functional_tests_local {
       pushd "${STARTDIR}/integrates" \
   &&  helper_integrates_functional_tests \
@@ -525,23 +460,6 @@ function job_integrates_reset {
   ||  return 1
 }
 
-function job_integrates_probes_local {
-      helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'https://localhost:8080'
-}
-
-function job_integrates_probes_ephemeral_readiness {
-      helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000'
-}
-
-function job_integrates_probes_ephemeral_liveness {
-      helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000' \
-  &&  helper_integrates_probe_curl \
-        "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com"
-}
-
 function job_integrates_probes_production_readiness {
       helper_integrates_probe_aws_credentials 'integrates-prod' \
   &&  helper_integrates_probe_curl 'http://localhost:8000'
@@ -551,23 +469,6 @@ function job_integrates_probes_production_liveness {
       helper_integrates_probe_aws_credentials 'integrates-prod' \
   &&  helper_integrates_probe_curl 'http://localhost:8000' \
   &&  helper_integrates_probe_curl 'https://integrates.fluidattacks.com'
-}
-
-function job_integrates2_probes_local {
-      helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'https://localhost:8081/new/'
-}
-
-function job_integrates2_probes_ephemeral_readiness {
-      helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'http://localhost:8001/new/'
-}
-
-function job_integrates2_probes_ephemeral_liveness {
-      helper_integrates_probe_aws_credentials 'integrates-dev' \
-  &&  helper_integrates_probe_curl 'http://localhost:8001/new/' \
-  &&  helper_integrates_probe_curl \
-        "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com/new/"
 }
 
 function job_integrates2_probes_production_readiness {
@@ -639,98 +540,6 @@ function job_integrates_serve_components {
   ||  return 1
 }
 
-function job_integrates_serve_local {
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_serve_dynamo \
-    &&  helper_integrates_serve_front \
-    &&  helper_integrates_serve_redis \
-    &&  helper_integrates_serve_back \
-          'https' \
-          'development' \
-          'fluidintegrates.asgi:APP' \
-          'fluidintegrates.asgi.IntegratesWorker' \
-          '5' \
-          '0.0.0.0' \
-          '8080' \
-          '127.0.0.1' \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates2_serve_local {
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_serve_dynamo \
-    &&  helper_integrates_serve_front \
-    &&  helper_integrates_serve_redis \
-    &&  helper_integrates_serve_back \
-          'https' \
-          'development' \
-          'backend_new.app:APP' \
-          'uvicorn.workers.UvicornWorker' \
-          '5' \
-          '0.0.0.0' \
-          '8081' \
-          '*' \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_ephemeral {
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_serve_dynamo \
-    &&  helper_integrates_serve_back \
-          'http' \
-          'development' \
-          'fluidintegrates.asgi:APP' \
-          'fluidintegrates.asgi.IntegratesWorker' \
-          '5' \
-          '0.0.0.0' \
-          '8000' \
-          '127.0.0.1' \
-    &&  helper_integrates_serve_redis \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates2_serve_ephemeral {
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_serve_back \
-          'http' \
-          'development' \
-          'backend_new.app:APP' \
-          'uvicorn.workers.UvicornWorker' \
-          '5' \
-          '0.0.0.0' \
-          '8001' \
-          '*' \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_serve_production {
 
   trap 'helper_common_kill_attached_processes 5' SIGINT
@@ -769,35 +578,6 @@ function job_integrates2_serve_production {
           '8000' \
           '*' \
     &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_serve_mobile {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        EXPO_USER \
-        EXPO_PASS \
-  &&  sops \
-        --aws-profile default \
-        --decrypt \
-        --extract '["GOOGLE_SERVICES_APP"]' \
-        --output 'mobile/google-services.json' \
-        --output-type 'json' \
-        "secrets-development.yaml" \
-  &&  pushd mobile \
-  &&  npm install \
-  &&  rm -rf ~/.expo ./.expo \
-  &&  npx --no-install expo login \
-          --username "${EXPO_USER}" \
-          --password "${EXPO_PASS}" \
-          --non-interactive \
-  &&  npm start -- \
-        --clear \
-        --non-interactive \
-  &&  popd \
   &&  popd \
   ||  return 1
 }

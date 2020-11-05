@@ -1,1 +1,1 @@
-import ./integrates_serve_local.nix
+import ./integrates_serve_components.nix

@@ -1,1 +1,1 @@
-import ./integrates_probes_local.nix
+import ./integrates_probes_liveness.nix
