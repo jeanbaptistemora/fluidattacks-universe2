@@ -56,28 +56,40 @@ async def create_findings_dict(
     return findings_dict
 
 
-async def generate_report_log(report: Dict[str, Any],
-                              verbose_level: int) -> str:
+async def generate_report_log(
+    report: Dict[str, Any],
+    verbose_level: int,
+) -> str:
+    # Set finding exploitability level
     for finding in report['findings']:
         explot = get_exploitability_measure(finding.get('exploitability', 0))
         finding['exploitability'] = explot
         for vuln in finding['vulnerabilities']:
             vuln['exploitability'] = explot
+    # Filter findings without vulnerabilities
+    report['findings'] = [
+        finding for finding in report['findings'] if finding['vulnerabilities']
+    ]
+
     if verbose_level == 1:
+        # Filter level 1, do not show vulnerabilities details
         for finding in report['findings']:
             finding.pop('vulnerabilities')
     elif verbose_level == 2:
+        # Filter level 2, only show open vulnerabilities
         for finding in report['findings']:
             finding['vulnerabilities'] = [
                 vuln for vuln in finding['vulnerabilities']
                 if vuln['state'] == 'open'
             ]
     elif verbose_level == 3:
+        # Filter level 4, only show open and closed vulnerabilities
         for finding in report['findings']:
             finding['vulnerabilities'] = [
                 vuln for vuln in finding['vulnerabilities']
                 if vuln['state'] in ('open', 'closed')
             ]
+    # If filter level is 4 show accepted, open and closed vulnerabilities
     return await in_thread(yaml.dump, report, allow_unicode=True)
 
 
