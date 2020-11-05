@@ -5,8 +5,6 @@ import os
 from typing import Any
 
 # Third party libraries
-from ariadne.asgi import GraphQL
-
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -19,11 +17,12 @@ from starlette.templating import Jinja2Templates
 from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
+from backend.api import IntegratesAPI
+
 from backend_new.api.schema import SCHEMA
 from backend_new.app.middleware import CustomRequestMiddleware
-
-from backend_new import settings
 import backend_new.app.utils as utils
+from backend_new import settings
 
 from __init__ import (
     FI_STARLETTE_TEST_KEY
@@ -156,7 +155,7 @@ APP = Starlette(
         Route('/new/dglogin', do_google_login),
         Route('/new/dalogin', do_azure_login),
         Route('/new/dblogin', do_bitbucket_login),
-        Route('/new/api/', GraphQL(SCHEMA, debug=settings.DEBUG)),
+        Route('/new/api/', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', error401),
         Route('/error500', error500),
         Route('/new/app', app),
