@@ -1753,6 +1753,12 @@ export const enTranslations: ResourceKey = {
       title: "Add stakeholder to this group",
       title_success: "Congratulations",
     },
+    tab_vuln: {
+      closed: "Closed",
+      open: "Open",
+      tab_title: "Vulnerabilities",
+      tooltip: "Open / Closed vulnerabilities",
+    },
     users_table: {
       firstlogin: "First login",
       lastlogin: "Last login",
