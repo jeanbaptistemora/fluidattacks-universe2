@@ -108,6 +108,8 @@ def require_login(func: TVar) -> TVar:
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
+        if isinstance(context, dict):
+            context = context.get('request', {})
         store = util.get_request_store(context)
 
         # Within the context of one request we only need to check this once
@@ -199,6 +201,10 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
         else:
             GraphQLError('Could not get context from request.')
 
+        if isinstance(context, dict):
+            context = context.get('request', {})
+        store = util.get_request_store(context)
+
         user_data = await util.get_jwt_content(context)
         subject = user_data['user_email']
         object_ = await resolve_group_name(context, args, kwargs)
@@ -214,7 +220,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
                     }
                 })
 
-        enforcer = await authz.get_group_level_enforcer(subject, context.store)
+        enforcer = await authz.get_group_level_enforcer(subject, store)
 
         if not enforcer(object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -320,6 +326,10 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
             else:
                 GraphQLError('Could not get context from request.')
 
+            if isinstance(context, dict):
+                context = context.get('request', {})
+            store = util.get_request_store(context)
+
             group = await resolve_group_name(context, args, kwargs)
 
             # Unique ID for this decorator function
@@ -329,7 +339,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
             # Within the context of one request we only need to check this once
             # Future calls to this decorator will be passed trough
-            if not context.store[context_store_key]:
+            if not store[context_store_key]:
                 enforcer = await authz.get_group_service_attributes_enforcer(
                     group,
                 )
@@ -337,7 +347,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
                 if not enforcer(attribute):
                     raise GraphQLError('Access denied')
 
-            context.store[context_store_key] = True
+            store[context_store_key] = True
             return await _func(*args, **kwargs)
 
         return cast(TVar, resolve_and_call)
