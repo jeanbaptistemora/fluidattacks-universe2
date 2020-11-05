@@ -1,6 +1,6 @@
 # Standard libraries
 from multiprocessing.context import Process
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 # Third party libraries
 import boto3
 import botocore
@@ -11,7 +11,7 @@ from streamer_dynamodb import extractor
 from streamer_dynamodb.extractor import TableSegment
 
 
-def boto_resource(auth):
+def boto_resource(auth: Dict[str, Any]):
     resource_options: Dict[str, Optional[str]] = {
         'service_name': 'dynamodb',
         'aws_access_key_id': auth['aws_access_key_id'],
@@ -22,13 +22,13 @@ def boto_resource(auth):
     return boto3.resource(**resource_options)
 
 
-def start_etl(db_client, table_segment: TableSegment, auth):
+def start_etl(db_client, table_segment: TableSegment, auth: Dict[str, Any]):
     d_pages = extractor.extract_segment(db_client, table_segment)
     t_pages = transformer.transform_pages(d_pages)
     loader.upload_pages(t_pages, 'dynamodb_forces', auth)
 
 
-def parallel_start_etl(auth, table: str, workers: int = 4):
+def parallel_start_etl(auth: Dict[str, Any], table: str, workers: int = 4):
     db_client = boto_resource(auth)
     processes = []
     for segment in range(workers):
@@ -46,9 +46,9 @@ def parallel_start_etl(auth, table: str, workers: int = 4):
         process.join()
 
 
-def start_new_data_etl(auth):
+def start_new_data_etl(auth: Dict[str, Any]):
     parallel_start_etl(auth, 'FI_forces')
 
 
-def start_old_data_etl(auth):
+def start_old_data_etl(auth: Dict[str, Any]):
     parallel_start_etl(auth, 'bb_executions')
