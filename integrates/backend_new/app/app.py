@@ -101,6 +101,8 @@ async def authz(request: Request, client: OAuth) -> RedirectResponse:
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
 
+    await utils.create_user(request.session)
+
     return RedirectResponse(url='/new/home')
 
 
