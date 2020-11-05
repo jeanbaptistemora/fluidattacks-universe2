@@ -50,6 +50,8 @@ function cli {
   local arg3="${4:-}"
   local arg4="${5:-}"
   local arg5="${6:-}"
+  local arg6="${7:-}"
+  local arg7="${8:-}"
 
   if test -z "${function_to_call}" \
       || test "${function_to_call}" = '-h' \
@@ -73,11 +75,11 @@ function cli {
     arg1="$*"
   fi
 
-  echo "[INFO] Executing function: job_${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5}"
-  if "job_${function_to_call}" "${arg1}" "${arg2}" "${arg3}" "${arg4}" "${arg5}"
+  echo "[INFO] Executing function: job_${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5} ${arg6} ${arg7}"
+  if "job_${function_to_call}" "${arg1}" "${arg2}" "${arg3}" "${arg4}" "${arg5}" "${arg6}" "${arg7}"
   then
     echo
-    echo "Successfully executed: ${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5}"
+    echo "Successfully executed: ${function_to_call} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5} ${arg6} ${arg7}"
     echo '  Congratulations!'
     return 0
   else

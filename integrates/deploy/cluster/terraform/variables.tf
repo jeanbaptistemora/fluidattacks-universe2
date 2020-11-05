@@ -40,12 +40,12 @@ variable "map_roles" {
 
   default = [
     {
-      rolearn  = "arn:aws:iam:205810638802:role/integrates-prod"
+      rolearn  = "arn:aws:iam::205810638802:role/integrates-prod"
       username = "role-integrates-prod"
       groups   = ["system:masters"]
     },
     {
-      rolearn  = "arn:aws:iam:205810638802:role/integrates-dev"
+      rolearn  = "arn:aws:iam::205810638802:role/integrates-dev"
       username = "role-integrates-dev"
       groups   = ["system:masters"]
     },

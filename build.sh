@@ -20,6 +20,9 @@ function decide_and_call_provisioner {
   local arg3="${4:-}"
   local arg4="${5:-}"
   local arg5="${6:-}"
+  local arg6="${7:-}"
+  local arg7="${8:-}"
+
   if [[ $job == "common_bugsnag_report" ]]
   then
     shift
@@ -53,7 +56,7 @@ function decide_and_call_provisioner {
           source "${srcIncludeGenericShellOptions}"
           source "${srcIncludeCli}"
         '"
-          cli ${job} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5}
+          cli ${job} ${arg1} ${arg2} ${arg3} ${arg4} ${arg5} ${arg6} ${arg7}
         " \
         --show-trace \
         "${provisioner}"
