@@ -5,7 +5,7 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView";
@@ -26,29 +26,6 @@ describe("FindingCommentsView", () => {
     document.body.removeChild((container as HTMLDivElement));
     container = undefined;
   });
-
-  const mockProps: RouteComponentProps<{ findingId: string; type: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { findingId: "413372600", type: "consulting" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [
     {
@@ -107,9 +84,11 @@ describe("FindingCommentsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={true}>
-        <CommentsView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/413372600/consulting"]}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <Route path={"/:projectName/vulns/:findingId/:type"} component={CommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -133,9 +112,11 @@ describe("FindingCommentsView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={emptyMocks} addTypename={true}>
-        <CommentsView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/413372600/consulting"]}>
+        <MockedProvider mocks={emptyMocks} addTypename={true}>
+          <Route path={"/:projectName/vulns/:findingId/:type"} component={CommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
@@ -144,9 +125,11 @@ describe("FindingCommentsView", () => {
 
   it("should render comment", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={true}>
-        <CommentsView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/413372600/consulting"]}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <Route path={"/:projectName/vulns/:findingId/:type"} component={CommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     const commentElement: ReactWrapper = wrapper.find("div")
@@ -158,20 +141,12 @@ describe("FindingCommentsView", () => {
   });
 
   it("should render observation", async () => {
-    const routeMock: RouteComponentProps<{ findingId: string; type: string }> = {
-      ...mockProps,
-      match: {
-        ...mockProps.match,
-        params: {
-          ...mockProps.match.params,
-          type: "observations",
-        },
-      },
-    };
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={true}>
-        <CommentsView {...routeMock} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/413372600/observations"]}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <Route path={"/:projectName/vulns/:findingId/:type"} component={CommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     const commentElement: ReactWrapper = wrapper.find("div")
