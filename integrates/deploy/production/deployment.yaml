@@ -48,7 +48,12 @@ spec:
             - containerPort: 8000
           readinessProbe:
             exec:
-              command: [bash, build.sh, integrates_probes_production_readiness]
+              command:
+                - bash
+                - build.sh
+                - integrates_probes_readiness
+                - integrates-prod
+                - http://localhost:8000
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -56,7 +61,13 @@ spec:
             timeoutSeconds: 30
           livenessProbe:
             exec:
-              command: [bash, build.sh, integrates_probes_production_liveness]
+              command:
+                - bash
+                - build.sh
+                - integrates_probes_liveness
+                - integrates-prod
+                - http://localhost:8000
+                - https://integrates.fluidattacks.com
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1

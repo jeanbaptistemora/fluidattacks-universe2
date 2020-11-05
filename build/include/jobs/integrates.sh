@@ -460,28 +460,6 @@ function job_integrates_reset {
   ||  return 1
 }
 
-function job_integrates_probes_production_readiness {
-      helper_integrates_probe_aws_credentials 'integrates-prod' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000'
-}
-
-function job_integrates_probes_production_liveness {
-      helper_integrates_probe_aws_credentials 'integrates-prod' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000' \
-  &&  helper_integrates_probe_curl 'https://integrates.fluidattacks.com'
-}
-
-function job_integrates2_probes_production_readiness {
-      helper_integrates_probe_aws_credentials 'integrates-prod' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000/new/'
-}
-
-function job_integrates2_probes_production_liveness {
-      helper_integrates_probe_aws_credentials 'integrates-prod' \
-  &&  helper_integrates_probe_curl 'http://localhost:8000/new/' \
-  &&  helper_integrates_probe_curl 'https://integrates.fluidattacks.com/new/'
-}
-
 function job_integrates_probes_liveness {
   local aws_creds="${1}"
   local localhost_endpoint="${2}"
@@ -515,7 +493,6 @@ function job_integrates_serve_components {
                           back_args+=( "${internal_args}" ) \
                       ||  return 1
                     done \
-                &&  echo "${back_args[@]}" \
                 &&  helper_integrates_serve_back "${back_args[@]}"
               elif [[ "${arg}" == 'redis'  ]]
               then
