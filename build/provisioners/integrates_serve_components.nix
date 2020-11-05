@@ -18,7 +18,7 @@ in
         pkgs.awscli
         pkgs.curl
         pkgs.cacert
-        pkgs.nodejs-10_x
+        pkgs.nodejs
         pkgs.openjdk
         pkgs.p7zip
         pkgs.redis
@@ -26,6 +26,7 @@ in
         pkgs.jq
         pkgs.ruby
         pkgs.python37
+        pkgs.iproute
       ];
 
       nodeJsModuleSecureSpreadsheet =

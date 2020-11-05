@@ -588,7 +588,7 @@ function job_integrates2_probes_production_liveness {
   &&  helper_integrates_probe_curl 'https://integrates.fluidattacks.com/new/'
 }
 
-function job_integrates_serve {
+function job_integrates_serve_components {
 
   trap 'helper_common_kill_attached_processes 5' SIGINT
 
@@ -617,6 +617,9 @@ function job_integrates_serve {
               elif [[ "${arg}" == 'front' ]]
               then
                 helper_integrates_serve_front
+              elif [[ "${arg}" == 'mobile' ]]
+              then
+                helper_integrates_serve_mobile
               fi \
           ||  return 1
         done \

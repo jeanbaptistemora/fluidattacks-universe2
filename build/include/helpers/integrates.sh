@@ -204,6 +204,32 @@ function helper_integrates_serve_minio {
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!"
 }
 
+function helper_integrates_serve_mobile {
+      helper_integrates_aws_login 'development' \
+  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+        EXPO_USER \
+        EXPO_PASS \
+  &&  sops \
+        --aws-profile default \
+        --decrypt \
+        --extract '["GOOGLE_SERVICES_APP"]' \
+        --output 'mobile/google-services.json' \
+        --output-type 'json' \
+        'secrets-development.yaml' \
+  &&  pushd mobile \
+    &&  npm install \
+    &&  rm -rf ~/.expo ./.expo \
+    &&  npx --no-install expo login \
+            --username "${EXPO_USER}" \
+            --password "${EXPO_PASS}" \
+            --non-interactive \
+    &&  { npm start -- \
+          --clear \
+          --non-interactive & } \
+  &&  popd \
+  ||  return 1
+}
+
 function helper_integrates_probe_aws_credentials {
   local user="${1}"
 
