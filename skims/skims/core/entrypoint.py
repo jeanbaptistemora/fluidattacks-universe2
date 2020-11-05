@@ -143,12 +143,11 @@ async def notify_findings_as_snippets(
         async for result in store.iterate():
             if result.skims_metadata:
                 await log(
-                    'info',
-                    '%(title)s: %(what)s\n\n%(snippet)s\n',
-                    title=t(result.finding.value.title),
-                    what=result.what,
-                    snippet=result.skims_metadata.snippet,
-                )
+                    'info', '{title}: {what}\n\n{snippet}\n'.format(
+                        title=t(result.finding.value.title),
+                        what=result.what,
+                        snippet=result.skims_metadata.snippet,
+                    ))
 
 
 async def notify_findings_as_csv(
