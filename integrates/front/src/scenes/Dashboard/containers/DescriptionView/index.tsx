@@ -21,8 +21,6 @@ import { ConfigurableValidator } from "revalidate";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
-import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities";
 import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
 import {
@@ -219,10 +217,10 @@ const descriptionView: React.FC = (): JSX.Element => {
       <ActionButtons
         isEditing={isEditing}
         isPristine={isDescriptionPristine && isTreatmentPristine}
-        isRemediated={dataset.newRemediated}
-        isRequestingVerify={isRequestingVerify}
-        isVerified={dataset.verified}
-        isVerifying={isVerifying}
+        isRemediated={false}
+        isRequestingVerify={false}
+        isVerified={true}
+        isVerifying={true}
         lastTreatment={lastTreatment}
         onApproveAcceptation={openApproveModal}
         onEdit={toggleEdit}
@@ -328,28 +326,6 @@ const descriptionView: React.FC = (): JSX.Element => {
                     />
                   )}
                 </Can>
-              </Col100>
-            </Row>
-            <Row>
-              <Col100>
-                <FormGroup>
-                  <ControlLabel>
-                    <b>{translate.t("search_findings.tab_description.where")}</b>
-                  </ControlLabel>
-                  <br />
-                  <VulnerabilitiesView
-                    btsUrl={dataset.btsUrl}
-                    editMode={isEditing}
-                    findingId={findingId}
-                    isRequestVerification={isRequestingVerify}
-                    isVerifyRequest={isVerifying}
-                    lastTreatment={lastTreatment}
-                    projectName={projectName}
-                    separatedRow={true}
-                    state="open"
-                    verificationFn={openRemediationModal}
-                  />
-                </FormGroup>
               </Col100>
             </Row>
             <Row>
@@ -518,19 +494,6 @@ const descriptionView: React.FC = (): JSX.Element => {
         projectName={projectName}
         setEditing={setEditing}
       />
-      {remediationModalConfig.open ? (
-        <UpdateVerificationModal
-          clearSelected={_.get(remediationModalConfig, "clearSelected")}
-          findingId={findingId}
-          handleCloseModal={closeRemediationModal}
-          isOpen={true}
-          refetchData={refetch}
-          remediationType={remediationModalConfig.type}
-          setRequestState={toggleRequestVerify}
-          setVerifyState={toggleVerify}
-          vulns={remediationModalConfig.vulnerabilities}
-        />
-      ) : undefined}
     </React.StrictMode>
   );
 };

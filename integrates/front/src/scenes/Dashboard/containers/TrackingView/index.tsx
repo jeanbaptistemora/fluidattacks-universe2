@@ -51,36 +51,6 @@ const trackingView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <React.Fragment>
-        <Row>
-          <Col md={12}>
-            <Row>
-              <Col100>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_tracking.open")}</b>
-                </ControlLabel>
-                <br />
-                <VulnerabilitiesView
-                  editMode={false}
-                  findingId={findingId}
-                  state="open"
-                />
-              </Col100>
-            </Row>
-            <Row>
-              <Col100>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_tracking.closed")}</b>
-                </ControlLabel>
-                <br />
-                <VulnerabilitiesView
-                  editMode={false}
-                  findingId={findingId}
-                  state="closed"
-                />
-              </Col100>
-            </Row>
-          </Col>
-        </Row>
         {!_.isUndefined(data) && !_.isEmpty(data) ? (
         <Row>
           <Col mdOffset={3} md={9} sm={12}>

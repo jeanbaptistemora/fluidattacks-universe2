@@ -34,6 +34,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "scenes/Dashboard/conta
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
+import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index";
 import {
   ButtonToolbar,
   Col100,
@@ -245,6 +246,13 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                 />
                 <TabsContainer>
                   <ContentTab
+                    icon="icon pe-7s-menu"
+                    id="vulnItem"
+                    link={`${props.match.url}/vulns`}
+                    title={translate.t("search_findings.tab_vuln.tab_title")}
+                    tooltip={translate.t("search_findings.tab_vuln.tooltip")}
+                  />
+                  <ContentTab
                     icon="icon pe-7s-note"
                     id="infoItem"
                     link={`${props.match.url}/description`}
@@ -310,6 +318,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               </StickyContainerFinding>
               <TabContent>
                 <Switch>
+                  <Route path={`${props.match.path}/vulns`} component={VulnsView} exact={true} />
                   <Route path={`${props.match.path}/description`} component={DescriptionView} exact={true} />
                   <Route path={`${props.match.path}/severity`} component={SeverityView} exact={true} />
                   <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />
@@ -321,7 +330,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     component={CommentsView}
                     exact={true}
                   />
-                  <Redirect to={`${props.match.path}/description`} />
+                  <Redirect to={`${props.match.path}/vulns`} />
                 </Switch>
               </TabContent>
             </React.Fragment>

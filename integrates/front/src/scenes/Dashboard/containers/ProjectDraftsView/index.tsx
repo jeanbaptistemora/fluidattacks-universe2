@@ -41,7 +41,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     mixpanel.track("ReadDraft", {
       User: (window as typeof window & { userName: string }).userName,
     });
-    push(`/groups/${projectName}/drafts/${rowInfo.id}/description`);
+    push(`/groups/${projectName}/drafts/${rowInfo.id}/vulns`);
   };
 
   const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {

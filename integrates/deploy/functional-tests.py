@@ -206,36 +206,17 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '05-01-finding.png')
 
         self.__click(finding_elem)
+        description_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//a[text()[contains(., 'Description')]]")))
+
+        self.__click(description_elem)
+        selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'R359. Avoid using generic exceptions.')]")))
-        selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
-
-        verify_btn = selenium.find_element_by_xpath(
-            '//*/button[text()[contains(., "Reattack")]]')
-        self.__click(verify_btn)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
-
-        checkboxes = selenium.find_elements_by_css_selector("#linesVulns input[type='checkbox']")
-        for checkbox in checkboxes:
-            if not checkbox.is_selected():
-                self.__click(checkbox)
-        time.sleep(2)
-        selenium.save_screenshot(SCR_PATH + '05-04-finding.png')
-
-        verify_vulns = selenium.find_element_by_id('request_verification_vulns')
-        self.__click(verify_vulns)
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Justification')]")))
-        selenium.save_screenshot(SCR_PATH + '05-05-finding.png')
-
-        modal_btn = selenium.find_element_by_xpath(
-            '//*/button[text()[contains(., "Cancel")]]')
-        self.__click(modal_btn)
-        time.sleep(1)
-        selenium.execute_script('window.scrollTo(0, 0);')
         assert 'The source code uses generic exceptions to handle unexpected errors' in selenium.page_source
 
     def test_06_severity(self):
@@ -563,3 +544,46 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]")))
         selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')
+
+    def test_19_finding_vulns(self):
+        selenium = self.selenium
+        selenium.get(self.url + f'/orgs/okada/groups/unittesting/vulns')
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
+        selenium.save_screenshot(SCR_PATH + '19-01-finding_vuln.png')
+
+        self.__click(finding_elem)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'path/to/file2.ext')]")))
+        selenium.save_screenshot(SCR_PATH + '19-02-finding_vuln.png')
+
+        verify_btn = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Reattack")]]')
+        self.__click(verify_btn)
+        selenium.save_screenshot(SCR_PATH + '19-03-finding_vuln.png')
+
+        checkboxes = selenium.find_elements_by_css_selector("#linesVulns input[type='checkbox']")
+        for checkbox in checkboxes:
+            if not checkbox.is_selected():
+                self.__click(checkbox)
+        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '19-04-finding_vuln.png')
+
+        verify_vulns = selenium.find_element_by_id('request_verification_vulns')
+        self.__click(verify_vulns)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Justification')]")))
+        selenium.save_screenshot(SCR_PATH + '19-05-finding_vuln.png')
+
+        modal_btn = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Cancel")]]')
+        self.__click(modal_btn)
+        time.sleep(1)
+        selenium.execute_script('window.scrollTo(0, 0);')
+
+        assert 'https://example.com' in selenium.page_source
