@@ -739,20 +739,9 @@ async def validate_number_acceptations(
             Optional[Decimal],
             current_max_number_acceptations_info.get('max_number_acceptations')
         )
-        max_acceptations_date = datetime_utils.get_from_str(
-            cast(
-                str,
-                current_max_number_acceptations_info.get(
-                    'date', datetime_utils.DEFAULT_STR
-                )
-            )
-        )
         current_acceptations: int = sum(
             1 for item in historic_treatment
             if item['treatment'] == 'ACCEPTED'
-            and datetime_utils.get_from_str(
-                item.get('date', datetime_utils.DEFAULT_STR)
-            ) > max_acceptations_date
         )
         if max_acceptations and current_acceptations + 1 > max_acceptations:
             raise InvalidNumberAcceptations(cast(str, current_acceptations))
