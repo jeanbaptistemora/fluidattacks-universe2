@@ -5,7 +5,8 @@ from jose import jwt
 
 # Third party libraries
 from aioextensions import (
-    collect
+    collect,
+    schedule
 )
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
@@ -14,12 +15,14 @@ from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
 from backend.domain import user as user_domain
-from backend import authz, util
+from backend import authz, mailer, util
 
 from backend_new import settings
 
 from __init__ import (
-    FI_COMMUNITY_PROJECTS
+    FI_COMMUNITY_PROJECTS,
+    FI_MAIL_CONTINUOUS,
+    FI_MAIL_PROJECTS
 )
 
 
@@ -119,9 +122,6 @@ async def create_user(user: Dict[str, str]) -> None:
     last_name = user['last_name'][:29]
     email = user['username'].lower()
 
-    if not await user_domain.is_registered(email):
-        await autoenroll_user(email)
-
     today = user_domain.get_current_date()
     data_dict = {
         'first_name': first_name,
@@ -130,9 +130,25 @@ async def create_user(user: Dict[str, str]) -> None:
         'date_joined': today
     }
 
-    if await user_domain.get_data(email, 'first_name'):
-        await user_domain.update_last_login(email)
-    else:
+    if not await user_domain.is_registered(email):
+        await autoenroll_user(email)
+
+        schedule(
+            mailer.send_mail_new_user(
+                email_to=[FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS],
+                context={
+                    'name_user': f'{first_name} {last_name}',
+                    'mail_user': email,
+                }
+            )
+        )
         await user_domain.update_multiple_user_attributes(
             email, data_dict
         )
+    else:
+        if await user_domain.get_data(email, 'first_name'):
+            await user_domain.update_last_login(email)
+        else:
+            await user_domain.update_multiple_user_attributes(
+                email, data_dict
+            )
