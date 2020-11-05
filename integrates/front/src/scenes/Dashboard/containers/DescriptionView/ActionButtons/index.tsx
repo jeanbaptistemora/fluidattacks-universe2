@@ -18,36 +18,16 @@ import { translate } from "utils/translations/translate";
 export interface IActionButtonsProps {
   isEditing: boolean;
   isPristine: boolean;
-  // The finding has a pending request to verify
-  isRemediated: boolean;
-  isRequestingVerify: boolean;
-  isVerified: boolean;
-  isVerifying: boolean;
   lastTreatment: IHistoricTreatment;
   state: "open" | "closed";
-  subscription: string;
   onApproveAcceptation(): void;
   onEdit(): void;
   onRejectAcceptation(): void;
-  onRequestVerify(): void;
   onUpdate(): void;
-  onVerify(): void;
 }
 
 const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
-  const { onApproveAcceptation, onEdit, onRejectAcceptation, onRequestVerify, onUpdate, onVerify } = props;
-
-  const isContinuous: boolean = _.includes(
-    ["continuous", "continua", "concurrente", "si"], props.subscription.toLowerCase());
-
-  const shouldRenderRequestVerifyBtn: boolean =
-    isContinuous
-    && props.state === "open"
-    && !(props.isEditing || props.isVerifying);
-
-  const shouldRenderVerifyBtn: boolean =
-    !props.isVerified
-    && !(props.isEditing || props.isRequestingVerify);
+  const { onApproveAcceptation, onEdit, onRejectAcceptation, onUpdate } = props;
 
   const shouldRenderApprovalBtns: boolean =
     props.lastTreatment.treatment === "ACCEPTED_UNDEFINED"
@@ -55,34 +35,6 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
 
   return (
     <ButtonToolbarRow>
-      <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
-        {shouldRenderVerifyBtn ? (
-          <TooltipWrapper
-            message={translate.t("search_findings.tab_description.mark_verified.tooltip")}
-            placement="top"
-          >
-            <Button onClick={onVerify}>
-              <FluidIcon icon="verified" />&nbsp;
-              {props.isVerifying
-                ? translate.t("search_findings.tab_description.cancel_verified")
-                : translate.t("search_findings.tab_description.mark_verified.text")}
-            </Button>
-          </TooltipWrapper>
-        ) : undefined}
-      </Can>
-      <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
-        <br />
-        {shouldRenderRequestVerifyBtn ? (
-          <TooltipWrapper message={translate.t("search_findings.tab_description.request_verify.tooltip")}>
-            <Button onClick={onRequestVerify} disabled={props.isRemediated}>
-              <FluidIcon icon="verified" />&nbsp;
-              {props.isRequestingVerify
-                ? translate.t("search_findings.tab_description.cancel_verify")
-                : translate.t("search_findings.tab_description.request_verify.text")}
-            </Button>
-          </TooltipWrapper>
-        ) : undefined}
-      </Can>
       <Can do="backend_api_resolvers_finding__do_handle_acceptation">
         {shouldRenderApprovalBtns ? (
           <React.Fragment>

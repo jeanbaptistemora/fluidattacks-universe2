@@ -21,7 +21,6 @@ import { ConfigurableValidator } from "revalidate";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
 import {
   GET_FINDING_DESCRIPTION,
@@ -102,44 +101,6 @@ const descriptionView: React.FC = (): JSX.Element => {
     setApprovalModalConfig({ open: false, type: "" });
   };
 
-  type verificationFn = (
-    vulnerabilities: IVulnDataType[], type: "request" | "verify", clearSelected: () => void,
-  ) => void;
-  const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
-    open: boolean;
-    type: "request" | "verify";
-    vulnerabilities: IVulnDataType[];
-    clearSelected(): void;
-  }>({
-    clearSelected: (): void => undefined,
-    open: false,
-    type: "request",
-    vulnerabilities: [],
-  });
-  const openRemediationModal: verificationFn = (
-    vulnerabilities: IVulnDataType[], type: "request" | "verify", clearSelected: () => void,
-  ): void => {
-    setRemediationModalConfig({ open: true, type, vulnerabilities, clearSelected });
-  };
-  const closeRemediationModal: (() => void) = (): void => {
-    setRemediationModalConfig({
-      clearSelected: (): void => undefined,
-      open: false,
-      type: "request",
-      vulnerabilities: [],
-    });
-  };
-
-  const [isRequestingVerify, setRequestingVerify] = React.useState(false);
-  const toggleRequestVerify: (() => void) = (): void => {
-    setRequestingVerify(!isRequestingVerify);
-  };
-
-  const [isVerifying, setVerifying] = React.useState(false);
-  const toggleVerify: (() => void) = (): void => {
-    setVerifying(!isVerifying);
-  };
-
   // GraphQL operations
   const { data, refetch } = useQuery<IFindingDescriptionData, IFindingDescriptionVars>(GET_FINDING_DESCRIPTION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -217,19 +178,12 @@ const descriptionView: React.FC = (): JSX.Element => {
       <ActionButtons
         isEditing={isEditing}
         isPristine={isDescriptionPristine && isTreatmentPristine}
-        isRemediated={false}
-        isRequestingVerify={false}
-        isVerified={true}
-        isVerifying={true}
         lastTreatment={lastTreatment}
         onApproveAcceptation={openApproveModal}
         onEdit={toggleEdit}
         onRejectAcceptation={openRejectModal}
-        onRequestVerify={toggleRequestVerify}
         onUpdate={handleSubmit}
-        onVerify={toggleVerify}
         state={dataset.state}
-        subscription={data.project.subscription}
       />
       <br />
       <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleDescriptionSubmit}>

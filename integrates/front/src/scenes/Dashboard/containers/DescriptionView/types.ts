@@ -29,7 +29,6 @@ export interface IFinding {
   description: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  newRemediated: boolean;
   openVulnerabilities: number;
   recommendation: string;
   requirements: string;
@@ -39,7 +38,6 @@ export interface IFinding {
   threat: string;
   title: string;
   type: string;
-  verified: boolean;
 }
 
 export interface IProject {
@@ -48,7 +46,6 @@ export interface IProject {
 
 export interface IFindingDescriptionData {
   finding: IFinding;
-  project: IProject;
 }
 
 export interface IFindingDescriptionVars {

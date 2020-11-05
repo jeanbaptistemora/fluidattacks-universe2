@@ -5,8 +5,7 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   query GetFindingDescription(
     $canRetrieveAnalyst: Boolean!,
     $canRetrieveSorts: Boolean!,
-    $findingId: String!,
-    $projectName: String!
+    $findingId: String!
   ) {
     finding(identifier: $findingId) {
       actor
@@ -20,7 +19,6 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       description
       historicTreatment
       id
-      newRemediated
       openVulnerabilities
       recommendation
       requirements
@@ -30,10 +28,6 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       threat
       title
       type
-      verified
-    }
-    project(projectName: $projectName) {
-      subscription
     }
   }
 `;

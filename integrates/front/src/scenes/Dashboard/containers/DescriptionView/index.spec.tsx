@@ -32,7 +32,6 @@ describe("Finding Description", () => {
     description: "It's possible to execute shell commands from the site",
     historicTreatment: [],
     id: "413372600",
-    newRemediated: false,
     openVulnerabilities: 0,
     recommendation: "Use good security practices and standards",
     requirements: "REQ.0265. System must restrict access",
@@ -42,11 +41,9 @@ describe("Finding Description", () => {
     threat: "External attack",
     title: "FIN.S.0004. Remote command execution",
     type: "SECURITY",
-    verified: true,
   };
   const findingDescriptionData: IFindingDescriptionData = {
     finding,
-    project,
   };
   const findingDescriptionVars: IFindingDescriptionVars = {
     canRetrieveAnalyst: false,
