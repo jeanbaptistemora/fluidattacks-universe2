@@ -514,7 +514,7 @@ class AlreadyZeroRiskRequested(Exception):
 
     def __init__(self) -> None:
         """ Constructor """
-        msg = 'Exception - Zero risk vuln is already requested'
+        msg = 'Exception - Zero risk vulnerability is already requested'
         super(AlreadyZeroRiskRequested, self).__init__(msg)
 
 
