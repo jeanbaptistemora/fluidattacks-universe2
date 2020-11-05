@@ -22,6 +22,7 @@ from backend.dal import (
     project as project_dal
 )
 from backend.domain import (
+    finding as finding_domain,
     organization as org_domain,
     project as project_domain
 )
@@ -629,7 +630,7 @@ async def send_new_draft_mail(
 async def should_send_mail(
         finding_id: str,
         updated_values: Dict[str, str]) -> None:
-    finding = await finding_dal.get_finding(finding_id)
+    finding = await finding_domain.get_finding(finding_id)
     if updated_values['treatment'] == 'ACCEPTED':
         await send_accepted_email(
             finding, str(updated_values.get('justification', ''))
