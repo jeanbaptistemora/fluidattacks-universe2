@@ -10,6 +10,7 @@ from backend.api.mutations import (
     add_forces_execution,
     create_event,
     create_organization,
+    delete_vulnerability,
     download_event_file,
     edit_stakeholder_organization,
     execute_skims,
@@ -39,6 +40,7 @@ MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
+MUTATION.set_field('deleteVulnerability', delete_vulnerability.mutate)
 MUTATION.set_field('downloadEventFile', download_event_file.mutate)
 MUTATION.set_field(
     'editStakeholderOrganization',
@@ -114,8 +116,6 @@ MUTATION.set_field('updateTreatmentVuln',
 MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
-                   vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)

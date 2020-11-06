@@ -489,7 +489,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               },
             );
 
-            if (props.editMode && permissions.can("backend_api_resolvers_vulnerability__do_delete_vulnerability")) {
+            if (props.editMode && permissions.can("backend_api_mutations_delete_vulnerability_mutate")) {
               inputsHeader.push({
                           align: "center",
                           dataField: "id",

@@ -76,7 +76,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_remove_stakeholder_access',
             'backend_api_mutations_update_forces_access_token_mutate',
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
-            'backend_api_resolvers_vulnerability__do_delete_vulnerability',
+            'backend_api_mutations_delete_vulnerability_mutate',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
@@ -143,7 +143,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_report__get_url_group_report',
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_new_query_resources_resolve',
-            'backend_api_resolvers_vulnerability__do_delete_vulnerability',
+            'backend_api_mutations_delete_vulnerability_mutate',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
