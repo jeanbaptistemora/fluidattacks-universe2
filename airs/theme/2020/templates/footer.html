@@ -187,181 +187,224 @@
           </p>
         </div>
         <div class="contact-form w-100">
-          <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
-          <script>
-            function timestamp() {
-              var response = document.getElementById("g-recaptcha-response");
-              if (response == null || response.value.trim() == "") {
-                var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());
-                document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
-              }
-            }
-            setInterval(timestamp, 500);
-          </script>
           <div>
-          <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
-                method="POST"
-                onsubmit="return validateForm()">
-            <input type=hidden
-                   name='captcha_settings'
-                   value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
-            <input type=hidden
-                   name="oid"
-                   value="00D1I000001dGP6"/>
-            <input type=hidden
-                   name="retURL"
-                   value="{{ SITEURL }}/contact-us/thank-you/"/>
-            <div class="pv3 ml-auto mr-auto">
-              <input  id="first_name"
-                      maxlength="40"
-                      name="first_name"
-                      size="20"
-                      type="text"
+            <form action="https://crm.zoho.com/crm/WebForm" name=WebForm4687720000000504044 method="POST" onSubmit="javascript:document.charset="UTF-8"; return checkMandatory4687720000000504044(); return validateForm()" accept-charset="UTF-8">
+              <input type="text" style="display:none;" name="xnQsjsdp" value="1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d" />
+              <input type="hidden" name="zc_gad" id="zc_gad" value="" />
+              <input type="text" style="display:none;" name="xmIwtLD" value="78c3d7dacbbcd07154bafdf9da487877e22d1c6218228967e11c43d493492210" />
+              <input type="text"  style="display:none;" name="actionType" value="Q3VzdG9tTW9kdWxlMQ==" />
+              <input type="text" style="display:none;" name="returnURL" value="https://fluidattacks.com/contact-us/thank-you/" />
+    
+              <div class="pv3 center">
+                <input type="text"
+                      id="NAME"
                       class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                      required
-                      placeholder="First Name" />
-            </div>
-            <div class="pv3 ml-auto mr-auto">
-              <input  id="last_name"
-                      maxlength="40"
-                      name="last_name"
-                      size="20"
-                      type="text"
+                      name="NAME"
+                      maxlength="120"
+                      placeholder="Full Name" />
+              </div>
+              <div class="pv3 center">
+                <input type="text"
+                      ftype="email"
+                      id="Email"
                       class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                      required
-                      placeholder="Last name" />
-            </div>
-            <div class="pv3 ml-auto mr-auto">
-                <input  id="email"
-                        maxlength="80"
-                        name="email"
-                        size="20"
-                        type="text"
-                        class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                        required
-                        placeholder="Email" />
-            </div>
-            <div class="pv3 ml-auto mr-auto">
-              <input id="country"
-                     maxlength="40"
-                     name="country"
-                     size="20"
-                     type="hidden"
-                     value="">
-              <label for="mobile"
-                 class="db">
-              </label>
-                <input  id="mobile"
-                        maxlength="40"
-                        name="local_mobile"
-                        size="20"
+                      name="Email"
+                      maxlength="100"
+                      placeholder="Email" />
+              </div>
+              <div class="pv3 center">
+                <input id="COBJ1CF6"
+                      name="COBJ1CF6"
+                      maxlength="255"
+                      type="hidden"
+                      value=""/>
+                <label for="COBJ1CF2"
+                    class="db">
+                </label>
+                <input  id="COBJ1CF2"
+                        maxlength="30"
+                        name="COBJ1CF2"
                         type="text"
                         class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
                         required
                         placeholder="Mobile" />
                 <span id="valid-msg"
                       class="green fr fw8 dn">
-                Number is valid</span>
+                      Number is valid
+                </span>
                 <span id="error-msg"
                       class="c-fluid-red fr fw8 dn">
-                Number is not valid</span>
-            </div>
-            {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+                      Number is not valid
+                </span>
+              </div>
+              {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
               <script type="text/javascript"
                       src="{{ SITEURL }}/{{ ASSET_URL }}">
               </script>
-            {% endassets %}
-            {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}
-                <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-            {% endassets %}
-            <div class="pv3 ml-auto mr-auto">
-              <select  id="00N1I00000NEIK7"
-                       name="00N1I00000NEIK7"
-                       title="Request"
-                       class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
-                       onchange="selectedValue()"
-                       required>
-                <option value="">How can we help you?</option>
-                <option value="Quiero una propuesta de servicios">
-                  I want a service proposal</option>
-                <option value="Estoy buscando trabajo">
-                  I am looking for a job</option>
-                <option value="Quiero una Demo">
-                  I want a Demo</option>
-                <option value="Quiero ser Partner">
-                  I want to be a partner</option>
-              </select>
-            </div>
-            <script type="text/javascript">
-              function selectedValue() {
-                var opt = document.getElementById("00N1I00000NEIK7");
-                var sel = opt.options[opt.selectedIndex].value;
-                var poi = document.getElementById("poi");
-                var selpoi = document.getElementById("00N1I00000Lfv4l");
-                var msg = document.getElementById("msg");
-                var msgtext = document.getElementById("00N1I00000O9iJ6")
-                if (sel != "Quiero una propuesta de servicios"){
-                  poi.style.display="none";
-                  selpoi.style.display="none";
+              {% endassets %}
+              <div class="pv3 center">
+                <select id="COBJ1CF5"
+                        name="COBJ1CF5"
+                        class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
+                        required>
+                  <option value="-None-">
+                    How can we help you?</option>
+                  <option value="I want a service proposal">
+                    I want a service proposal</option>
+                  <option value="I am looking for a job">
+                    I am looking for a job</option>
+                  <option value="I want a Demo">
+                    I want a Demo</option>
+                  <option value="I want to be a partner">
+                    I want to be a partner</option>
+                </select>
+              </div>
+              <div class="poi dn pv3 center">
+                <select id="COBJ1CF3"
+                        name="COBJ1CF3"
+                        class="gray roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
+                  <option value="-None-">Products of interest:</option>
+                  <option value="Undetermined">
+                    Undetermined
+                  </option>
+                  <option value="One-Shot&#x20;Hacking">
+                    One-Shot Hacking
+                  </option>
+                  <option value="Continuous&#x20;Hacking">
+                    Continuous Hacking
+                  </option>
+                </select>
+                <span class="c-fluid-red fr fw8 form-error dn">
+                      Please select an option
+                </span>
+              </div>
+              <div class="msg dn pv3 center">       
+                <textarea  id="COBJ1CF4"
+                          name="COBJ1CF4"
+                          wrap="soft"
+                          class="w-100 h4 center"
+                          placeholder="Message"></textarea>
+              </div>
+              <div class="g-recaptcha ma-auto w6 center"
+                  data-sitekey="6LdUZt8ZAAAAAIZuuUl4N3iIsL3FMevSSmuRSFmx"
+                  data-theme="light"
+                  data-callback="rccallback"
+                  captcha-verified="false"
+                  id="recap">
+              </div>
+              <div  id="recapErr" style="font-size:12px;color:red;visibility:hidden;">
+              Captcha validation failed. If you are not a robot then please try again.
+              </div>
+                <div class="tc">
+                  <input type="submit"
+                        id="formsubmit"
+                        class="formsubmit bn br2 bannerbt hv-bt-fluid-rd w-100 pv3 bt-trans white b roboto pointer"
+                        value="Submit"
+                        title="Submit">
+                </div>
+                <script>
+                  var mndFileds=new Array("NAME","Email","COBJ1CF2","COBJ1CF5","COBJ1CF6");
+                  var fldLangVal=new Array("Full name","Email","Mobile","How can we help you?","Country"); 
+                  var name="";
+                  var email="";
+              
+                /* Do not remove this code. */
+                  function rccallback()
+                {
+                  if(document.getElementById("recap")!=undefined){
+                    document.getElementById("recap").setAttribute("captcha-verified",true);
+                  }
+                  if(document.getElementById("recapErr")!=undefined && document.getElementById("recapErr").style.visibility == "visible" ){
+                    document.getElementById("recapErr").style.visibility="hidden";
+                  }
                 }
-                else {
-                  poi.style.display="block";
-                  selpoi.style.display="block";
+                function reCaptchaAlert()
+                {
+                  var recap = document.getElementById("recap");
+                  if( recap !=undefined && recap.getAttribute("captcha-verified") == "false")
+                  {
+                    document.getElementById("recapErr").style.visibility="visible";
+                    return false;
+                  }
+                  return true;
                 }
-
-                if (sel == "Quiero una propuesta de servicios" ||
-                    sel == "Quiero una Demo" ||
-                    sel == "Quiero ser Partner" ){
-                  msg.style.display="block";
-                  msgtext.style.display="block";
+                function validateEmail()
+                {
+                  var emailFld = document.querySelectorAll("[ftype=email]");
+                  var i;
+                  for (i = 0; i < emailFld.length; i++)
+                  {
+                    var emailVal = emailFld[i].value;
+                    if((emailVal.replace(/^\s+|\s+$/g, "")).length!=0 )
+                    {
+                      var atpos=emailVal.indexOf("@");
+                      var dotpos=emailVal.lastIndexOf(".");
+                      if (atpos<1 || dotpos<atpos+2 || dotpos+2>=emailVal.length)
+                      {
+                        alert("Please enter a valid email address. ");
+                        emailFld[i].focus();
+                        return false;
+                      }
+                    }
+                  }
+                  return true;
                 }
-                else {
-                  msg.style.display="none";
-                  msgtext.style.display="none";
+              
+                    function checkMandatory4687720000000504044() {
+                  for(i=0;i<mndFileds.length;i++) {
+                    var fieldObj=document.forms["WebForm4687720000000504044"][mndFileds[i]];
+                    if(fieldObj) {
+                    if (((fieldObj.value).replace(/^\s+|\s+$/g, "")).length==0) {
+                      if(fieldObj.type =="file")
+                      { 
+                        alert("Please select a file to upload."); 
+                        fieldObj.focus(); 
+                        return false;
+                      } 
+                    alert(fldLangVal[i] +" cannot be empty."); 
+                              fieldObj.focus();
+                              return false;
+                    }  else if(fieldObj.nodeName=="SELECT") {
+                              if(fieldObj.options[fieldObj.selectedIndex].value=="-None-") {
+                      alert(fldLangVal[i] +" cannot be none."); 
+                      fieldObj.focus();
+                      return false;
+                        }
+                    } else if(fieldObj.type =="checkbox"){
+                        if(fieldObj.checked == false){
+                      alert("Please accept  "+fldLangVal[i]);
+                      fieldObj.focus();
+                      return false;
+                        } 
+                      } 
+                      try {
+                          if(fieldObj.name == "Last Name") {
+                      name = fieldObj.value;
+                            }
+                    } catch (e) {}
+                      }
+                  }
+                  if(!validateEmail()){return false;}
+                  
+                  if(!reCaptchaAlert()){return false;}
+                  document.querySelector(".crmWebToEntityForm .formsubmit").setAttribute("disabled", true);
+                }
+              
+              function tooltipShow(el){
+                var tooltip = el.nextElementSibling;
+                var tooltipDisplay = tooltip.style.display;
+                if(tooltipDisplay == "none"){
+                  var allTooltip = document.getElementsByClassName("zcwf_tooltip_over");
+                  for(i=0; i<allTooltip.length; i++){
+                    allTooltip[i].style.display="none";
+                  }
+                  tooltip.style.display = "block";
+                }else{
+                  tooltip.style.display="none";
                 }
               }
-            </script>
-            <div class="pv3 ml-auto mr-auto">
-              <label id="poi"
-               class="dn">
-              </label>
-              <select id="00N1I00000Lfv4l"
-                      name="00N1I00000Lfv4l"
-                      title="Producto de interes"
-                      class="gray dn roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
-                <option value="">Products of interest:</option>
-                <option value="Indeterminado">
-                        Undetermined
-                </option>
-                <option value="Puntual">
-                        One-Shot Hacking
-                </option>
-                <option value="Continuas">
-                        Continuous Hacking
-                </option>
-              </select>
-              <span class="c-fluid-red fr fw8 form-error dn">
-                    Please select an option
-              </span>
-            </div>
-            <label id="msg" class="dn"></label>
-            <textarea  id="00N1I00000O9iJ6"
-                       name="00N1I00000O9iJ6"
-                       wrap="soft"
-                       class="dn h4 ml-auto mr-auto"
-                       placeholder="Message"></textarea>
-            <script src="https://www.google.com/recaptcha/api.js?hl=en"
-                    async
-                    defer>
-            </script>
-            <div class="g-recaptcha ma-auto w6 mr-auto ml-auto"
-                 data-sitekey="6LduWqYUAAAAAArX5eMR9xBwFuQK291lVGoXfHHA"></div>
-            <br>
-            <div class="tc">
-              <input type="submit"
-                     name="submit"
-                     class="bn br2 bannerbt hv-bt-fluid-rd pv3 w-100 bt-trans white b roboto pointer"
-                     value="Send your message"/>
+              </script>
+                <!-- Do not remove this --- Analytics Tracking code starts --><script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=78c3d7dacbbcd07154bafdf9da487877e22d1c6218228967e11c43d493492210gid1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2dgid0553f79ba9ccf83e1be97f6851b4205dc78530f131c55496a36cdc928fa214e9gid14f4ec16431e0686150daa43f3210513"></script><!-- Do not remove this --- Analytics Tracking code ends. -->
             </div>
           </form>
           </div>
