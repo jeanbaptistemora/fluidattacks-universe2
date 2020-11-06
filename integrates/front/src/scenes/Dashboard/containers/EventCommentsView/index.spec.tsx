@@ -5,7 +5,7 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route, RouteComponentProps } from "react-router";
 import wait from "waait";
 
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
@@ -77,9 +77,11 @@ describe("EventCommentsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <EventCommentsView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/comments"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route path={"/:projectName/events/:eventId/comments"} component={EventCommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -102,9 +104,11 @@ describe("EventCommentsView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <EventCommentsView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/comments"]}>
+        <MockedProvider mocks={emptyMocks} addTypename={false}>
+          <Route path={"/:projectName/events/:eventId/comments"} component={EventCommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
@@ -113,9 +117,11 @@ describe("EventCommentsView", () => {
 
   it("should render comment", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <EventCommentsView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/comments"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route path={"/:projectName/events/:eventId/comments"} component={EventCommentsView}/>
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     const commentElement: ReactWrapper = wrapper.find("div")
