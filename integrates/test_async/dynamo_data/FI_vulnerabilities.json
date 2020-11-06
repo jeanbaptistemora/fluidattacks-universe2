@@ -1082,6 +1082,20 @@
                     }
                   ]
                },
+               "historic_zero_risk" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "date" : {
+                              "S" : "2018-09-28 10:32:58"
+                           },
+                           "status" : {
+                              "S" : "REQUESTED"
+                           }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "345"
                },
@@ -1295,6 +1309,20 @@
                         }
                       }
                     }
+                  ]
+               },
+               "historic_zero_risk" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "date" : {
+                              "S" : "2018-09-28 10:32:58"
+                           },
+                           "status" : {
+                              "S" : "REQUESTED"
+                           }
+                        }
+                     }
                   ]
                },
                "specific" : {

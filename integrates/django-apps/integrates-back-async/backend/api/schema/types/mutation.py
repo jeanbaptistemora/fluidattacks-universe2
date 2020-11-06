@@ -18,6 +18,7 @@ from backend.api.mutations import (
     execute_skims,
     grant_stakeholder_organization_access,
     invalidate_cache,
+    reject_zero_risk_vuln,
     request_zero_risk_vuln,
     remove_event_evidence,
     solve_event,
@@ -56,6 +57,7 @@ MUTATION.set_field(
     grant_stakeholder_organization_access.mutate
 )
 MUTATION.set_field('invalidateCache', invalidate_cache.mutate)
+MUTATION.set_field('rejectZeroRiskVuln', reject_zero_risk_vuln.mutate)
 MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
 MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)

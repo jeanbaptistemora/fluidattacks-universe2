@@ -8,6 +8,7 @@ from ariadne import MutationType
 from backend.api.mutations import (
     confirm_zero_risk_vuln,
     organization as org_mutations,
+    reject_zero_risk_vuln,
     request_zero_risk_vuln,
 )
 from backend.api.resolvers import (
@@ -36,6 +37,7 @@ MUTATION.set_field('solveEvent', event.resolve_event_mutation)
 MUTATION.set_field('addEventConsult', event.resolve_event_mutation)
 MUTATION.set_field('updateEventEvidence', event.resolve_event_mutation)
 MUTATION.set_field('downloadEventFile', event.resolve_event_mutation)
+MUTATION.set_field('rejectZeroRiskVuln', reject_zero_risk_vuln.mutate)
 MUTATION.set_field('removeEventEvidence', event.resolve_event_mutation)
 MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('signIn', me.resolve_me_mutation)
