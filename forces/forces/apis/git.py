@@ -18,7 +18,11 @@ from git import (
 DEFAULT_COLUMN_VALUE: str = 'unable to retrieve'
 REGEXES_GIT_REPO_FROM_ORIGIN = [
     # https://xxxx.visualstudio.com/xxx/_git/repo_name
-    re.compile(r'^.*visualstudio.com/.*/_git/(.*)$'),
+    re.compile(r'^.*visualstudio.com\/.*\/_git\/(.*)$'),
+    # git@ssh.dev.azure.com:v3/xxx/repo_name
+    re.compile(r'^.*azure.com:.*\/(.*)'),
+    # git@bitbucket.org:xxxxx/repo_name
+    re.compile(r'^.*bitbucket.org:.*\/(.*)'),
     # https://xxx@gitlab.com/xxx/repo_name.git
     re.compile(r'^.*(?:gitlab|github).com(?::|\/).*\/(.*).git$'),
 ]
