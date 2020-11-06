@@ -24,7 +24,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 type verificationFn = (
-  vulnerabilities: IVulnDataType[], type: "request" | "verify", clearSelected: () => void,
+  vulnerabilities: IVulnDataType[], clearSelected: () => void,
 ) => void;
 
 const vulnsView: React.FC = (): JSX.Element => {
@@ -36,29 +36,25 @@ const vulnsView: React.FC = (): JSX.Element => {
   };
   React.useEffect(onMount, []);
 
+  const [isOpen, setOpen] = React.useState(false);
+  const toggleModal: (() => void) = (): void => {
+    setOpen(true);
+  };
+
   const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
-    open: boolean;
-    type: "request" | "verify";
     vulnerabilities: IVulnDataType[];
     clearSelected(): void;
   }>({
     clearSelected: (): void => undefined,
-    open: false,
-    type: "request",
     vulnerabilities: [],
   });
   const openRemediationModal: verificationFn = (
-    vulnerabilities: IVulnDataType[], type: "request" | "verify", clearSelected: () => void,
+    vulnerabilities: IVulnDataType[], clearSelected: () => void,
   ): void => {
-    setRemediationModalConfig({ open: true, type, vulnerabilities, clearSelected });
+    setRemediationModalConfig({ vulnerabilities, clearSelected });
   };
   const closeRemediationModal: (() => void) = (): void => {
-    setRemediationModalConfig({
-      clearSelected: (): void => undefined,
-      open: false,
-      type: "request",
-      vulnerabilities: [],
-    });
+    setOpen(false);
   };
   const [isEditing, setEditing] = React.useState(false);
   const toggleEdit: (() => void) = (): void => {
@@ -91,6 +87,7 @@ const vulnsView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <ActionButtons
+          areVulnsSelected={remediationModalConfig.vulnerabilities.length > 0}
           isEditing={isEditing}
           isReattackRequestedInAllVuln={data.finding.newRemediated}
           isRequestingReattack={isRequestingVerify}
@@ -99,6 +96,7 @@ const vulnsView: React.FC = (): JSX.Element => {
           onEdit={toggleEdit}
           onRequestReattack={toggleRequestVerify}
           onVerify={toggleVerify}
+          openModal={toggleModal}
           state={data.finding.state}
           subscription={data.project.subscription}
         />
@@ -138,14 +136,14 @@ const vulnsView: React.FC = (): JSX.Element => {
             </Row>
           </Col>
         </Row>
-        {remediationModalConfig.open ? (
+        {isOpen ? (
           <UpdateVerificationModal
             clearSelected={_.get(remediationModalConfig, "clearSelected")}
             findingId={findingId}
             handleCloseModal={closeRemediationModal}
-            isOpen={true}
+            isReattacking={isRequestingVerify}
+            isVerifying={isVerifying}
             refetchData={refetch}
-            remediationType={remediationModalConfig.type}
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
             vulns={remediationModalConfig.vulnerabilities}

@@ -573,8 +573,9 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '19-04-finding_vuln.png')
 
-        verify_vulns = selenium.find_element_by_id('request_verification_vulns')
-        self.__click(verify_vulns)
+        reattack_vulns = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Reattack")]]')
+        self.__click(reattack_vulns)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Justification')]")))

@@ -915,8 +915,8 @@ export const enTranslations: ResourceKey = {
       bts_placeholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
-      cancel_verified: "Cancel Verify",
-      cancel_verify: "Cancel Request",
+      cancel_verified: "Cancel",
+      cancel_verify: "Cancel",
       compromised_attrs: {
         text: "Compromised attributes",
         tooltip:
@@ -1754,6 +1754,10 @@ export const enTranslations: ResourceKey = {
       title_success: "Congratulations",
     },
     tab_vuln: {
+      buttons_tooltip: {
+        cancel: "Cancel",
+        edit: "Modify the fields of the vulnerabilities",
+      },
       closed: "Closed",
       open: "Open",
       tab_title: "Vulnerabilities",

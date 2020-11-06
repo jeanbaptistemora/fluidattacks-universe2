@@ -15,6 +15,7 @@ import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
 
 export interface IActionButtonsProps {
+  areVulnsSelected: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
@@ -23,12 +24,13 @@ export interface IActionButtonsProps {
   state: "open" | "closed";
   subscription: string;
   onEdit(): void;
-  onRequestReattack?(): void;
-  onVerify?(): void;
+  onRequestReattack(): void;
+  onVerify(): void;
+  openModal(): void;
 }
 
 const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
-  const { onEdit, onRequestReattack, onVerify } = props;
+  const { onEdit, onRequestReattack, onVerify, openModal } = props;
 
   const isContinuous: boolean = _.includes(
     ["continuous", "continua", "concurrente", "si"], props.subscription.toLowerCase());
@@ -42,43 +44,75 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     !props.isVerified
     && !(props.isEditing || props.isRequestingReattack);
 
+  const shouldRenderEditBtn: boolean = !(props.isRequestingReattack || props.isVerifying);
+
   return (
     <ButtonToolbarRow>
       <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
+        {props.isVerifying ? (
+          <Button onClick={openModal} disabled={!props.areVulnsSelected}>
+            <FluidIcon icon="verified" />&nbsp;
+            {translate.t("search_findings.tab_description.mark_verified.text")}
+          </Button>
+        ) : undefined}
         {shouldRenderVerifyBtn ? (
           <TooltipWrapper
-            message={translate.t("search_findings.tab_description.mark_verified.tooltip")}
+            message={!props.isVerifying
+              ? translate.t("search_findings.tab_description.mark_verified.tooltip")
+              : translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
+            }
             placement="top"
           >
             <Button onClick={onVerify}>
-              <FluidIcon icon="verified" />&nbsp;
-              {props.isVerifying
-                ? translate.t("search_findings.tab_description.cancel_verified")
-                : translate.t("search_findings.tab_description.mark_verified.text")}
+              {props.isVerifying ? (
+                <React.Fragment>
+                  <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.cancel_verified")}
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <FluidIcon icon="verified" />&nbsp;
+                  {translate.t("search_findings.tab_description.mark_verified.text")}
+                </React.Fragment>
+              )}
             </Button>
           </TooltipWrapper>
         ) : undefined}
       </Can>
       <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
-        <br />
+        {props.isRequestingReattack ? (
+          <Button onClick={openModal} disabled={!props.areVulnsSelected}>
+            <FluidIcon icon="verified" />&nbsp;
+            {translate.t("Reattack")}
+          </Button>
+        ) : undefined}
         {shouldRenderRequestVerifyBtn ? (
-          <TooltipWrapper message={translate.t("search_findings.tab_description.request_verify.tooltip")}>
+          <TooltipWrapper message={!props.isRequestingReattack
+            ? translate.t("search_findings.tab_description.request_verify.tooltip")
+            : translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
+          }>
             <Button onClick={onRequestReattack} disabled={props.isReattackRequestedInAllVuln}>
-              <FluidIcon icon="verified" />&nbsp;
-              {props.isRequestingReattack
-                ? translate.t("search_findings.tab_description.cancel_verify")
-                : translate.t("search_findings.tab_description.request_verify.text")}
+              {props.isRequestingReattack ? (
+                <React.Fragment>
+                  <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.cancel_verify")}
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <FluidIcon icon="verified" />&nbsp;
+                  {translate.t("search_findings.tab_description.request_verify.text")}
+                </React.Fragment>
+              )}
             </Button>
           </TooltipWrapper>
         ) : undefined}
       </Can>
+      {shouldRenderEditBtn ? (
       <TooltipWrapper
         message={props.isEditing
           ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
-          : translate.t("search_findings.tab_description.editable.editable_tooltip")
+          : translate.t("search_findings.tab_vuln.buttons_tooltip.edit")
         }
       >
-        <Button onClick={onEdit}>
+        <Button onClick={onEdit} disabled={props.isRequestingReattack || props.isVerifying}>
           {props.isEditing ? (
             <React.Fragment>
               <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
@@ -90,6 +124,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           )}
         </Button>
       </TooltipWrapper>
+      ) : undefined}
     </ButtonToolbarRow>
   );
 };

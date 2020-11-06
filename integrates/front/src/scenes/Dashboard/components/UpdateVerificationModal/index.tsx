@@ -37,8 +37,8 @@ interface IVulnData {
 }
 export interface IUpdateVerificationModal {
   findingId: string;
-  isOpen: boolean;
-  remediationType: "request" | "verify";
+  isReattacking: boolean;
+  isVerifying: boolean;
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
@@ -134,7 +134,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
 
   const handleSubmit: ((values: { treatmentJustification: string }) => void) =
     (values: { treatmentJustification: string }): void => {
-      if (props.remediationType === "request") {
+      if (props.isReattacking) {
         const vulnerabilitiesId: string[] = props.vulns.map((vuln: IVulnData) => vuln.id);
         requestVerification({
           variables: {
@@ -196,26 +196,26 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     <React.StrictMode>
       <RemediationModal
         additionalInfo={
-          props.remediationType === "request"
+          props.isReattacking
             ? translate.t("search_findings.tab_description.remediation_modal.message", { vulns: props.vulns.length })
             : undefined
         }
         isLoading={submittingRequest || submittingVerify}
-        isOpen={props.isOpen}
+        isOpen={true}
         message={
-          props.remediationType === "request"
+          props.isReattacking
             ? translate.t("search_findings.tab_description.remediation_modal.justification")
             : translate.t("search_findings.tab_description.remediation_modal.observations")
         }
         onClose={closeRemediationModal}
         onSubmit={handleSubmit}
         title={
-          props.remediationType === "request"
+          props.isReattacking
             ? translate.t("search_findings.tab_description.remediation_modal.title_request")
             : translate.t("search_findings.tab_description.remediation_modal.title_observations")
         }
       >
-        {props.remediationType === "verify" ? renderVulnsToVerify : undefined}
+        {props.isVerifying ? renderVulnsToVerify : undefined}
       </RemediationModal>
     </React.StrictMode>
   );

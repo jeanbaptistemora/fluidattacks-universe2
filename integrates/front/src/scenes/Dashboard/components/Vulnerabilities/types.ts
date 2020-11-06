@@ -88,7 +88,7 @@ export interface IVulnerabilitiesViewProps {
   projectName?: string;
   separatedRow?: boolean;
   state: "open" | "closed";
-  verificationFn?(vulnerabilities: IVulnDataType[], action: "request" | "verify", clearSelected: () => void): void;
+  verificationFn?(vulnerabilities: IVulnDataType[], clearSelected: () => void): void;
 }
 
 export interface IRequestVerificationVulnResult {

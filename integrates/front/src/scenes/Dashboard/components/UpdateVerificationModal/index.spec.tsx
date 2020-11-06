@@ -62,8 +62,8 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
-            isOpen={true}
-            remediationType={"request"}
+            isReattacking={true}
+            isVerifying={false}
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             refetchData={handleRefetchData}
@@ -117,8 +117,8 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
-            isOpen={true}
-            remediationType={"request"}
+            isReattacking={true}
+            isVerifying={false}
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             refetchData={jest.fn()}
@@ -194,8 +194,8 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
-            isOpen={true}
-            remediationType={"verify"}
+            isReattacking={false}
+            isVerifying={true}
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             refetchData={handleRefetchData}
@@ -254,8 +254,8 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
-            isOpen={true}
-            remediationType={"verify"}
+            isReattacking={false}
+            isVerifying={true}
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
             clearSelected={jest.fn()}
             refetchData={jest.fn()}

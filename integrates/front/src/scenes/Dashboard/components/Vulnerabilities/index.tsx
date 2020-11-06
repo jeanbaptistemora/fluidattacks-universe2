@@ -192,6 +192,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
     // State management
+    const [allVulns, setAllVulns] = useState<IVulnRow[][]>([]);
     const [modalHidden, setModalHidden] = useState(false);
     const [deleteVulnModal, setDeleteVulnModal] = useState(false);
     const [vulnerabilityId, setVulnerabilityId] = useState("");
@@ -244,10 +245,28 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       });
     };
 
+    const handleCompleted: ((vulnerabilities: IVulnsAttr) => void) = (vulnerabilities: IVulnsAttr): void => {
+      if (!_.isUndefined(vulnerabilities)) {
+        setAllVulns([
+          vulnerabilities.finding.inputsVulns,
+          vulnerabilities.finding.linesVulns,
+          vulnerabilities.finding.portsVulns,
+        ]);
+      }
+    };
+
+    const onSelectAnyVuln: (() => void) = (): void => {
+      if (props.verificationFn !== undefined) {
+        props.verificationFn(getVulnInfo(arraySelectedRows, allVulns), clearSelectedRows);
+      }
+    };
+    React.useEffect(onSelectAnyVuln, [arraySelectedRows]);
+
     return(
     <Query
       query={GET_VULNERABILITIES}
       variables={{ analystField: canGetAnalyst, identifier: props.findingId }}
+      onCompleted={handleCompleted}
       onError={handleQueryError}
     >
       {({ data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => { // tslint:disable-next-line: cyclomatic-complexity
@@ -549,7 +568,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 const selectedRows: ICalculateRowsSelected = calculateRowsSelected();
                 const vulnerabilities: IVulnDataType[] = selectedRows.vulns;
                 if (props.verificationFn !== undefined) {
-                  props.verificationFn(vulnerabilities, "request", clearSelectedRows);
+                  props.verificationFn(vulnerabilities, clearSelectedRows);
                 }
               };
 
@@ -576,7 +595,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 const selectedRows: ICalculateRowsSelected = calculateRowsSelected();
                 const vulnerabilities: IVulnDataType[] = selectedRows.vulns;
                 if (props.verificationFn !== undefined) {
-                  props.verificationFn(vulnerabilities, "verify", clearSelectedRows);
+                  props.verificationFn(vulnerabilities, clearSelectedRows);
                 }
               };
 
@@ -853,8 +872,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     </Can>
                   </React.Fragment>
                 ) : undefined}
-                {props.isRequestVerification === true ? renderRequestVerification() : undefined}
-                {renderVerifyRequest()}
               </React.StrictMode>
             );
           } else { return <React.Fragment />; }
