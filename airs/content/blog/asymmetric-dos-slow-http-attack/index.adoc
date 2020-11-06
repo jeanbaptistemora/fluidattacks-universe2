@@ -306,7 +306,7 @@ I wish you a nice week, and will see you in another post!
 link:https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[Wiki].
 
 . [[r2]] Sergey Shekyan (2018).
-'Slowhttptest - Instalation and usage'.
+'Slowhttptest - Installation And Usage'.
 link:https://github.com/shekyan/slowhttptest/wiki/InstallationAndUsage[Github wiki].
 
 . [[r3]] Sergey Shekyan (2018).
