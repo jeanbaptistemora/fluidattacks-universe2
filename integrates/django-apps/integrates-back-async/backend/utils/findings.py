@@ -549,6 +549,7 @@ async def send_remediation_email(
 
 
 async def send_accepted_email(
+        finding_id: str,
         finding: Dict[str, FindingType],
         justification: str) -> None:
     project_name = str(finding.get('projectName', ''))
@@ -568,11 +569,15 @@ async def send_accepted_email(
             recipients,
             {
                 'finding_name': finding_name,
-                'finding_id': str(finding.get('finding_id')),
+                'finding_id': finding_id,
                 'project': project_name.capitalize(),
                 'justification': justification,
                 'user_email': last_historic_treatment['user'],
-                'treatment': treatment
+                'treatment': treatment,
+                'finding_url': (
+                    f'{BASE_URL}/groups/{project_name}/vulns/'
+                    f'{finding_id}/description'
+                ),
             }
         )
     )
@@ -633,10 +638,11 @@ async def should_send_mail(
     finding = await finding_domain.get_finding(finding_id)
     if updated_values['treatment'] == 'ACCEPTED':
         await send_accepted_email(
-            finding, str(updated_values.get('justification', ''))
+            finding_id, finding, str(updated_values.get('justification', ''))
         )
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
         await send_accepted_email(
+            finding_id,
             finding,
             ('Treatment state approval is pending '
              f'for finding {finding.get("finding", "")}')
