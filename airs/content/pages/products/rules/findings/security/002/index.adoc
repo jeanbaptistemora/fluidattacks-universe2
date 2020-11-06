@@ -12,8 +12,8 @@ The server is rendered unresponsive as a result of one of the following:
 
 * An amplification attack,
 which uses a single request to produce multiple responses.
-* A single malicious request that breaks the application or consumes a
-humongous amount of resources.
+* A single malicious request that breaks the application
+or consumes an enormous amount of resources.
 
 == Rules
 

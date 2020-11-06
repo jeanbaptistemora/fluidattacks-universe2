@@ -8,8 +8,8 @@
 
 == Description
 
-It is possible to use low-strength, default credentials to access system
-resources such as the database.
+It is possible to use low-strength,
+default credentials to access system resources, such as the database.
 
 == Rules
 

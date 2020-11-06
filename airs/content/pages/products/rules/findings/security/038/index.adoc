@@ -8,17 +8,17 @@
 
 == Description
 
-It is possible to obtain business information such as:
+It is possible to obtain business information, such as:
 
-* Usernames list
+* Username list
 
 * Strategic information
 
-* Employees' information
+* Employees information
 
-* Clients' information
+* Clients information
 
-* Providers' information
+* Providers information
 
 == Rules
 

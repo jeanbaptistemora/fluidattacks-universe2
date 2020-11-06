@@ -8,8 +8,8 @@
 
 == Description
 
-It is possible to persistently inject *JavaScript* code in the application
-fields.
+It is possible to persistently inject *JavaScript* code
+into the application fields.
 This could allow an attacker to compromise the session of any user who enters
 the platform or to distribute malicious software.
 

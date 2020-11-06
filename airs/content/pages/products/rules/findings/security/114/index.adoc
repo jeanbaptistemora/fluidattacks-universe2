@@ -9,11 +9,12 @@
 == Description
 
 The application users are susceptible to phishing,
-a social engineering technique.
-Attackers present themselves as a legitimate entity that the victim trusts
+a social engineering technique
+in which attackers present themselves as a legitimate entity
+that the victim trusts
 and request confidential information (usually credentials).
-These attacks are often possible due to improperly configured corporate
-email clients.
+These attacks are often possible
+due to improperly configured corporate email clients.
 
 == Rules
 

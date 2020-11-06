@@ -4,7 +4,7 @@
 :findings: yes
 :type: security
 
-= F085. Sensitive data stored in the client-side storage
+= F085. Sensitive data stored in client-side storage
 
 == Description
 

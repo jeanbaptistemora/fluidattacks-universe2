@@ -8,8 +8,8 @@
 
 == Description
 
-The system stores sensitive information such as credentials, bank accounts
-and file paths in log files.
+The system stores sensitive information,
+such as credentials, bank accounts and file paths in log files.
 
 == Rules
 

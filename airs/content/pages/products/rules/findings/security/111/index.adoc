@@ -4,12 +4,12 @@
 :findings: yes
 :type: security
 
-= F111. Out-of-bounds Read
+= F111. Out-of-bounds read
 
 == Description
 
-It is possible to make the system read data before or beyond the intended
-buffer.
+It is possible to make the system read data
+before or beyond the intended buffer.
 
 == Rules
 

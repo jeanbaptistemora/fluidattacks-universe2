@@ -8,8 +8,8 @@
 
 == Description
 
-The system's WSDL file contains sensitive information and is exposed for a
-greater audience than it is required.
+The system's WSDL file contains sensitive information
+and is exposed to a larger audience than required.
 
 == Rules
 

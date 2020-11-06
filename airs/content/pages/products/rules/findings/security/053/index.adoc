@@ -8,8 +8,8 @@
 
 == Description
 
-The system does not have appropriate protection mechanisms against automated
-attacks for guessing credentials.
+The system does not have appropriate protection mechanisms
+against automated attacks designed to guess credentials.
 
 == Rules
 

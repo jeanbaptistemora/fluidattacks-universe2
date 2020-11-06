@@ -8,8 +8,8 @@
 
 == Description
 
-It is possible to use browser side-channels to obtain sensitive information
-of the users.
+It is possible to use browser side-channels
+to obtain sensitive information from the users.
 
 == Rules
 

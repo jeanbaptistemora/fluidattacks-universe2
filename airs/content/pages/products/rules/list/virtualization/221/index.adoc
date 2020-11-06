@@ -10,4 +10,4 @@
 
 A virtual machine must not have connected devices
 that are not necessary for its operation
-(+Floppy+, +IDE+, +CD/DVD+, +USB+, +Serial+).
+(e.g., +Floppy+, +IDE+, +CD/DVD+, +USB+, +Serial+).

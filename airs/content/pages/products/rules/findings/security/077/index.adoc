@@ -9,7 +9,7 @@
 == Description
 
 It is possible to supersede other MAC addresses in the network because the
-associated switch lacks protection mechanisms such as PortSecurity.
+associated switch lacks protection mechanisms, such as PortSecurity.
 
 == Rules
 

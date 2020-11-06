@@ -9,9 +9,9 @@
 == Description
 
 It is possible to inject XML code into the application's requests,
-and it is interpreted by the server.
-This could allow an attacker to perform data exfiltration or execute commands
-remotely.
+which is then interpreted by the server.
+This could allow an attacker to perform data exfiltration
+or execute commands remotely.
 
 == Rules
 

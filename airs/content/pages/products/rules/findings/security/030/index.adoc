@@ -8,16 +8,15 @@
 
 == Description
 
-The system sends sensitive information via URL parameters using the GET
-method.
-These parameters:
+The system sends sensitive information via URL parameters
+using the GET method. These parameters are:
 
-* are stored in clear text in the browser history.
-* are sent to external sites via the referrer HTTP header.
-* are sent to external sites via the search bar if the browser interprets the
-URL as query.
-* are visible to scripts running on the browser that may belong to
-third-parties.
+* stored in clear text in the browser history.
+* sent to external sites via the referrer HTTP header.
+* sent to external sites via the search bar
+if the browser interprets the URL as a query.
+* visible to scripts running on the browser
+that may belong to third-parties.
 
 == Rules
 

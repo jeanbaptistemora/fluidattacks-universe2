@@ -8,10 +8,10 @@
 
 == Description
 
-The system allows the introduction of a link to an external site controlled by
-a malicious actor.
-This site can then redirect the user to a different site on the original
-tab,
+The system allows the introduction of a link
+to an external site controlled by a malicious actor.
+This site can then redirect the user to a different site
+in the original tab,
 making it look like a legitimate redirect performed by the system.
 
 == Rules

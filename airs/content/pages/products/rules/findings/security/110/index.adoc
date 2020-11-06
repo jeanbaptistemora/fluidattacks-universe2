@@ -11,8 +11,8 @@
 The system uses one or more entities, such as a proxy or a firewall,
 to process requests between the client and the server.
 These entities do not process HTTP requests consistently,
-thus it is possible to post malformed requests to make one of the entities
-process a request without the other ones noticing it.
+thus making it possible to post malformed requests to get one of the entities
+to process a request without the other ones noticing it.
 The reason the entities do not process the requests consistently is that the
 web server software each one uses delimits requests differently.
 

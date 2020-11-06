@@ -9,7 +9,7 @@
 == Description
 
 The system stores confidential information in clear text,
-which allows an attacker to obtain it without having to crack any encryption.
+which allows an attacker to obtain it without having to crack an encryption.
 
 == Rules
 

@@ -10,10 +10,10 @@
 
 The system allocates unnecessary resources due to the use of improper
 programming practices or inefficient algorithms.
-Alternatively, the allocation can be controlled by an external source (e.g.
-user input),
-hence, requests that consume a humongous amount of resources are processed
-without any restriction.
+Alternatively, the allocation can be controlled by an external source
+(e.g., user input), and hence,
+requests that consume an enormous amount of resources
+are processed without any restriction.
 
 == Rules
 

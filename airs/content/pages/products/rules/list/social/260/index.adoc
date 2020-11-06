@@ -9,4 +9,4 @@
 == Requirement
 
 The employees must not use corporate emails
-to register accounts in social networks (even on +LinkedIn+).
+to register accounts on social networks (even on +LinkedIn+).

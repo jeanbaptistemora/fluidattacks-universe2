@@ -8,7 +8,8 @@
 
 == Requirement
 
-The system should enable memory protection mechanisms such as *ASLR* and *DEP*.
+The system should enable memory protection mechanisms,
+such as *ASLR* and *DEP*.
 
 == References
 

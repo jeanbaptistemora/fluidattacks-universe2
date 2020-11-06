@@ -8,9 +8,9 @@
 
 == Description
 
-It is possible to connect USB flash drives containing viruses to a corporate
-machine.
-This which may allow an attacker to infect it with malicious software.
+It is possible to connect USB flash drives containing viruses
+to a corporate machine.
+This could allow an attacker to infect it with malicious software.
 
 == Rules
 

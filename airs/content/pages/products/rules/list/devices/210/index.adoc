@@ -8,7 +8,7 @@
 
 == Requirement
 
-The system must delete the information from the mobile devices
+The system must delete the information from mobile devices
 after *10* failed authentication attempts.
 
 == References

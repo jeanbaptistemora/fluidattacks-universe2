@@ -8,8 +8,8 @@
 
 == Description
 
-The system does not properly verify the origin or authenticity of the data it
-receives, thus it accepts invalid data.
+The system does not properly verify the origin
+or authenticity of the data it receives, thus accepting invalid data.
 
 == Rules
 

@@ -10,8 +10,8 @@
 
 The system credentials' low complexity considerably reduces the amount of time
 required to guess them.
-This allows an attacker to have success quicker when executing a brute force
-attack.
+This allows an attacker to have quicker success
+when executing a brute force attack.
 
 == Rules
 
