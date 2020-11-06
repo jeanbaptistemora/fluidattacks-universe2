@@ -136,45 +136,6 @@ async def _do_update_evidence_description(
     require_integrates,
     require_finding_access,
 )
-async def _do_update_severity(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: Any) -> SimpleFindingPayloadType:
-    """Perform update_severity mutation."""
-    data = parameters.get('data', dict())
-    data = {util.snakecase_to_camelcase(k): data[k] for k in data}
-    finding_id = parameters.get('finding_id', '')
-    finding_loader = info.context.loaders['finding']
-    finding_data = await finding_loader.load(finding_id)
-    project_name = finding_data['project_name']
-    success = False
-    success = await finding_domain.save_severity(data)
-    if success:
-        util.queue_cache_invalidation(
-            f'severity*{finding_id}',
-            f'severity*{project_name}'
-        )
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Updated severity in '
-             f'finding {finding_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to update '
-             f'severity in finding {finding_id}')  # pragma: no cover
-        )
-    finding = await info.context.loaders['finding'].load(finding_id)
-    return SimpleFindingPayloadType(finding=finding, success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
 async def _do_add_finding_consult(
         _: Any,
         info: GraphQLResolveInfo,

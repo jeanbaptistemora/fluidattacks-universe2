@@ -125,7 +125,7 @@ describe("SeverityView", () => {
 
   it("should render as editable", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_update_severity" },
+      { action: "backend_api_mutations_update_severity_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

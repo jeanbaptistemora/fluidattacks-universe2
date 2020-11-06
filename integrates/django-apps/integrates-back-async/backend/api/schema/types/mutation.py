@@ -21,14 +21,15 @@ from backend.api.mutations import (
     grant_stakeholder_organization_access,
     invalidate_cache,
     reject_zero_risk_vuln,
-    request_zero_risk_vuln,
     remove_event_evidence,
+    request_zero_risk_vuln,
     solve_event,
     submit_draft,
     update_event_evidence,
     update_evidence,
-    upload_file,
-    update_forces_access_token
+    update_forces_access_token,
+    update_severity,
+    upload_file
 )
 from backend.api.resolvers import (
     finding,
@@ -57,6 +58,7 @@ MUTATION.set_field(
     'editStakeholderOrganization',
     edit_stakeholder_organization.mutate
 )
+MUTATION.set_field('executeSkims', execute_skims.mutate)
 MUTATION.set_field(
     'grantStakeholderOrganizationAccess',
     grant_stakeholder_organization_access.mutate
@@ -74,6 +76,7 @@ MUTATION.set_field(
     'updateForcesAccessToken',
     update_forces_access_token.mutate
 )
+MUTATION.set_field('updateSeverity', update_severity.mutate)
 
 MUTATION.set_field('signIn', me.resolve_me_mutation)
 MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
@@ -110,8 +113,6 @@ MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
 MUTATION.set_field('updateEvidenceDescription',
                    finding.resolve_finding_mutation)
-MUTATION.set_field('updateSeverity',
-                   finding.resolve_finding_mutation)
 MUTATION.set_field('addFindingConsult',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateDescription',
@@ -129,4 +130,3 @@ MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('executeSkims', execute_skims.mutate)

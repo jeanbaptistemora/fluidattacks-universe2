@@ -107,7 +107,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
 
               return (
                 <React.Fragment>
-                  <Can do="backend_api_resolvers_finding__do_update_severity">
+                  <Can do="backend_api_mutations_update_severity_mutate">
                     <Row>
                       <Col md={2} mdOffset={10}>
                         <Button onClick={handleEditClick}>
