@@ -43,7 +43,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
               </TooltipWrapper>
             )}
           </Can>
-          <Can do="backend_api_resolvers_finding__do_approve_draft">
+          <Can do="backend_api_mutations_approve_draft_mutate">
             <ConfirmDialog title={translate.t("group.drafts.approve.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };

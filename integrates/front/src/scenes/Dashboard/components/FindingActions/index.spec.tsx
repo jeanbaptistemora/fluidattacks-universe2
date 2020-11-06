@@ -103,7 +103,7 @@ describe("FindingActions", (): void => {
 
   it("should render approver draft actions", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_approve_draft" },
+      { action: "backend_api_mutations_approve_draft_mutate" },
       { action: "backend_api_mutations_delete_finding_mutate" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
@@ -145,7 +145,7 @@ describe("FindingActions", (): void => {
 
   it("should disable approve button", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_approve_draft" },
+      { action: "backend_api_mutations_approve_draft_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <FindingActions

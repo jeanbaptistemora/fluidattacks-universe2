@@ -431,47 +431,6 @@ async def _do_reject_draft(
     require_login,
     enforce_group_level_auth_async,
     require_integrates,
-)
-async def _do_approve_draft(
-        _: Any,
-        info: GraphQLResolveInfo,
-        draft_id: str) -> ApproveDraftPayloadType:
-    """Resolve approve_draft mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    reviewer_email = user_info['user_email']
-    project_name = await finding_domain.get_project(draft_id)
-
-    success, release_date = await finding_domain.approve_draft(
-        draft_id, reviewer_email
-    )
-    if success:
-        project_attrs_to_clean = {
-            'severity': project_name,
-            'finding': project_name,
-            'drafts': project_name,
-            'vuln': project_name
-        }
-        to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
-        util.queue_cache_invalidation(draft_id, *to_clean)
-        util.forces_trigger_deployment(project_name)
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Approved draft in '
-             f'{project_name} project successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to approve '
-             f'draft in {project_name} project')  # pragma: no cover
-        )
-    return ApproveDraftPayloadType(release_date=release_date, success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
     require_finding_access,
 )
 async def _do_submit_draft(

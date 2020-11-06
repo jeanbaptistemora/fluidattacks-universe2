@@ -8,6 +8,7 @@ from ariadne import MutationType
 from backend.api.mutations import (
     add_event_consult,
     add_forces_execution,
+    approve_draft,
     confirm_zero_risk_vuln,
     create_draft,
     create_event,
@@ -43,6 +44,7 @@ MUTATION = MutationType()
 
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
+MUTATION.set_field('approveDraft', approve_draft.mutate)
 MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createDraft', create_draft.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
@@ -116,7 +118,6 @@ MUTATION.set_field('updateClientDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('handleAcceptation', finding.resolve_finding_mutation)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
-MUTATION.set_field('approveDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',
