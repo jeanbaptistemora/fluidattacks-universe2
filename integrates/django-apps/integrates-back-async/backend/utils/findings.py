@@ -455,6 +455,8 @@ async def send_finding_verified_email(
         project_name: str,
         historic_verification: List[Dict[str, str]],
         vulnerabilities: List[str]) -> None:
+    org_id = await org_domain.get_id_for_group(project_name)
+    org_name = await org_domain.get_name_by_id(org_id)
     all_recipients = await project_domain.get_users_to_notify(
         project_name
     )
@@ -472,9 +474,10 @@ async def send_finding_verified_email(
             recipients,
             {
                 'project': project_name,
+                'organization': org_name,
                 'finding_name': finding_name,
                 'finding_url': (
-                    f'{BASE_URL}/groups/{project_name}'
+                    f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
                     f'/vulns/{finding_id}/tracking'
                 ),
                 'finding_id': finding_id
@@ -527,6 +530,8 @@ async def send_remediation_email(
         finding_name: str,
         project_name: str,
         justification: str) -> None:
+    org_id = await org_domain.get_id_for_group(project_name)
+    org_name = await org_domain.get_name_by_id(org_id)
     recipients = await project_domain.get_closers(
         project_name
     )
@@ -535,9 +540,10 @@ async def send_remediation_email(
             recipients,
             {
                 'project': project_name.lower(),
+                'organization': org_name,
                 'finding_name': finding_name,
                 'finding_url': (
-                    f'{BASE_URL}/groups/{project_name}'
+                    f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
                     f'/{finding_id}/vulns'
                 ),
                 'finding_id': finding_id,
@@ -554,6 +560,8 @@ async def send_accepted_email(
         justification: str) -> None:
     project_name = str(finding.get('projectName', ''))
     finding_name = str(finding.get('finding', ''))
+    org_id = await org_domain.get_id_for_group(project_name)
+    org_name = await org_domain.get_name_by_id(org_id)
     last_historic_treatment = cast(
         List[Dict[str, str]],
         finding.get('historicTreatment')
@@ -570,6 +578,7 @@ async def send_accepted_email(
             {
                 'finding_name': finding_name,
                 'finding_id': finding_id,
+                'organization': org_name,
                 'project': project_name.capitalize(),
                 'justification': justification,
                 'user_email': last_historic_treatment['user'],
@@ -589,18 +598,21 @@ async def send_draft_reject_mail(
         project_name: str,
         discoverer_email: str,
         reviewer_email: str) -> None:
+    org_id = await org_domain.get_id_for_group(project_name)
+    org_name = await org_domain.get_name_by_id(org_id)
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
     email_context: MailContentType = {
         'admin_mail': reviewer_email,
         'analyst_mail': discoverer_email,
         'draft_url': (
-            f'{BASE_URL}/groups/{project_name}'
+            f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
             f'/drafts/{draft_id}/description'
         ),
         'finding_id': draft_id,
         'finding_name': finding_name,
-        'project': project_name
+        'project': project_name,
+        'organization': org_name
     }
     schedule(
         mailer.send_mail_reject_draft(
@@ -614,6 +626,8 @@ async def send_new_draft_mail(
         finding_title: str,
         project_name: str,
         analyst_email: str) -> None:
+    org_id = await org_domain.get_id_for_group(project_name)
+    org_name = await org_domain.get_name_by_id(org_id)
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += await project_dal.list_internal_managers(project_name)
 
@@ -622,10 +636,11 @@ async def send_new_draft_mail(
         'finding_id': finding_id,
         'finding_name': finding_title,
         'finding_url': (
-            f'{BASE_URL}/groups/{project_name}'
+            f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
             f'/drafts/{finding_id}/description'
         ),
-        'project': project_name
+        'project': project_name,
+        'organization': org_name
     }
     schedule(
         mailer.send_mail_new_draft(recipients, email_context)

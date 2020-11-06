@@ -20,6 +20,7 @@ import mandrill
 # Local libraries
 from backend import authz
 from backend.domain import (
+    organization as org_domain,
     project as project_domain,
     user as user_domain
 )
@@ -243,7 +244,7 @@ async def _send_mail_immediately(
     return success
 
 
-async def send_comment_mail(
+async def send_comment_mail(  # pylint: disable=too-many-locals
         comment_data: CommentType,
         entity_name: str,
         user_mail: str,
@@ -264,13 +265,15 @@ async def send_comment_mail(
         finding: Dict[str, FindingType] = cast(Dict[str, FindingType], entity)
         project_name = str(finding.get('project_name', ''))
         recipients = await get_email_recipients(project_name, comment_type)
+        org_id = await org_domain.get_id_for_group(project_name)
+        org_name = await org_domain.get_name_by_id(org_id)
 
         email_context['finding_id'] = str(finding.get('id', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
 
         comment_url = (
             BASE_URL +
-            f'/groups/{project_name}/' +
+            f'orgs/{org_name}/groups/{project_name}/' +
             ('vulns' if 'releaseDate' in finding else 'drafts') +
             '/' + str(finding.get('id', '')) + '/' +
             ('consulting' if comment_type == 'comment' else 'observations')
@@ -280,19 +283,25 @@ async def send_comment_mail(
         event = cast(EventType, entity)
         event_id = str(event.get('id', ''))
         project_name = str(event.get('project_name', ''))
+        org_id = await org_domain.get_id_for_group(project_name)
+        org_name = await org_domain.get_name_by_id(org_id)
         recipients = await project_domain.get_users_to_notify(
             project_name, True
         )
         email_context['finding_id'] = event_id
         email_context['finding_name'] = f'Event #{event_id}'
         comment_url = (
-            f'{BASE_URL}/groups/{project_name}/events/{event_id}/comments'
+            f'{BASE_URL}orgs/{org_name}/groups/{project_name}'
+            f'/events/{event_id}/comments'
         )
 
     elif entity_name == 'project':
         project_name = str(entity)
+        org_id = await org_domain.get_id_for_group(project_name)
+        org_name = await org_domain.get_name_by_id(org_id)
         recipients = await get_email_recipients(project_name, True)
-        comment_url = f'{BASE_URL}/groups/{project_name}/consulting'
+        comment_url = f'{BASE_URL}/orgs/{org_name}/groups/' \
+                      f'{project_name}/consulting'
 
     email_context['comment_url'] = comment_url
     email_context['project'] = project_name

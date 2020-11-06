@@ -119,10 +119,13 @@ async def send_unsolved_events_email(project: str) -> None:
             extract_info_from_event_dict(x)
             for x in unsolved_events
         ]
+    org_id = await org_domain.get_id_for_group(project)
+    org_name = await org_domain.get_name_by_id(org_id)
     context_event: MailContentType = {
         'project': project.capitalize(),
+        'organization': org_name,
         'events_len': int(len(events_info_for_email)),
-        'event_url': f'{BASE_URL}/groups/{project}/events'
+        'event_url': f'{BASE_URL}/orgs/{org_name}groups/{project}/events'
     }
     if context_event['events_len'] and mail_to:
         scheduler_send_mail(
@@ -589,6 +592,8 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
             try:
                 for finding in finding_requests:
                     if 'releaseDate' not in finding:
+                        org_id = await org_domain.get_id_for_group(project)
+                        org_name = await org_domain.get_name_by_id(org_id)
                         submission = finding.get('historicState')
                         status = submission[-1].get('state')
                         category = (
@@ -602,10 +607,12 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
                         ).append({
                             'finding_name': finding.get('finding'),
                             'finding_url': (
-                                f'{BASE_URL}/groups/{project}/drafts/'
-                                f'{finding.get("findingId")}/description'
+                                f'{BASE_URL}/orgs/{org_name}/groups/{project}/'
+                                f'drafts/{finding.get("findingId")}'
+                                '/description'
                             ),
-                            'project': project.upper()
+                            'project': project.upper(),
+                            'organization': org_name
                         })
                         cont += 1
             except (TypeError, KeyError) as ex:

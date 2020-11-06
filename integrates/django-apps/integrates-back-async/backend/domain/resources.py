@@ -21,6 +21,9 @@ from backend.typing import (
     MailContent as MailContentType,
     Resource as ResourceType
 )
+from backend.domain import (
+    organization as org_domain
+)
 from backend.exceptions import (
     InvalidFileSize,
     RepeatedValues,
@@ -69,6 +72,8 @@ async def send_mail(
     recipients.add(user_email)
     recipients.update(FI_MAIL_RESOURCERS.split(','))
     resource_description = format_resource(resource_list, resource_type)
+    org_id = await org_domain.get_id_for_group(project_name)
+    org_name = await org_domain.get_name_by_id(org_id)
     if resource_type == 'repository' and len(resource_list) > 1:
         resource_type = 'repositories'
     elif len(resource_list) > 1:
@@ -78,11 +83,13 @@ async def send_mail(
         pass
     context: MailContentType = {
         'project': project_name.lower(),
+        'organization': org_name,
         'user_email': user_email,
         'action': action,
         'resource_type': resource_type,
         'resource_list': resource_description,
-        'project_url': f'{BASE_URL}/groups/{project_name}/resources'
+        'project_url': f'{BASE_URL}/orgs/{org_name}/groups/'
+                       f'{project_name}/resources'
     }
     schedule(
         mailer.send_mail_resources(

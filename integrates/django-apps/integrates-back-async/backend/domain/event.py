@@ -157,6 +157,8 @@ async def _send_new_event_mail(
         event_type: str) -> None:
     recipients = await project_dal.list_project_managers(project)
     recipients.append(analyst)
+    org_id = await org_domain.get_id_for_group(project)
+    org_name = await org_domain.get_name_by_id(org_id)
     if subscription == 'oneshot':
         recipients.append(FI_MAIL_PROJECTS)
     elif subscription == 'continuous':
@@ -168,8 +170,10 @@ async def _send_new_event_mail(
     email_context: MailContentType = {
         'analyst_email': analyst,
         'event_id': event_id,
-        'event_url': f'{BASE_URL}/groups/{project}/events/{event_id}',
-        'project': project
+        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{project}'
+                     f'/events/{event_id}',
+        'project': project,
+        'organization': org_name
     }
 
     recipients_customers = [
