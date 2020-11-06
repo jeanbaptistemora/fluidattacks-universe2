@@ -60,6 +60,8 @@ async def get_comments(
         filter_exp = Attr('comment_type').eq('observation')
     elif comment_type == 'event':
         filter_exp = Attr('comment_type').eq('event')
+    elif comment_type == 'zero_risk':
+        filter_exp = Attr('comment_type').eq('zero_risk')
 
     query_attrs = {
         'KeyConditionExpression': key_exp,

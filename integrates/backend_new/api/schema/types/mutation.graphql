@@ -94,6 +94,7 @@ type Mutation {
 
     requestZeroRiskVuln(
         findingId: String!
+        justification: String!
         vulnerabilities: [String]!
     ): SimplePayload!
 

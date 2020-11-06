@@ -35,6 +35,7 @@ MUTATION.set_field('addEventConsult', event.resolve_event_mutation)
 MUTATION.set_field('updateEventEvidence', event.resolve_event_mutation)
 MUTATION.set_field('downloadEventFile', event.resolve_event_mutation)
 MUTATION.set_field('removeEventEvidence', event.resolve_event_mutation)
+MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('signIn', me.resolve_me_mutation)
 MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
 MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
@@ -101,8 +102,6 @@ MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('requestZeroRiskVuln',
-                   request_zero_risk_vuln.mutate)
 MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',

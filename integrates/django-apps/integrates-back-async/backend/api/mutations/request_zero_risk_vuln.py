@@ -25,11 +25,18 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     finding_id: str,
+    justification: str,
     vulnerabilities: List[str]
 ) -> SimplePayloadType:
     """Resolve request_zero_risk_vuln mutation."""
+    user_info = await util.get_jwt_content(info.context)
     success = await vuln_domain.request_zero_risk_vulnerabilities(
         finding_id,
+        user_info['user_email'],
+        ' '.join(
+            [user_info.get('first_name', ''), user_info.get('last_name', '')]
+        ),
+        justification,
         vulnerabilities
     )
     if success:

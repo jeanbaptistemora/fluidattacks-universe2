@@ -501,16 +501,13 @@ class VulnNotInFinding(Exception):
     """
     Exception to control vulnerability in finding
     """
-    def __init__(self, vuln_uuid: str, finding_id: str) -> None:
-        msg = (
-            f'Exception - {vuln_uuid} vulnerability does not belong to '
-            f'{finding_id} finding'
-        )
+    def __init__(self) -> None:
+        msg = 'Exception - Vulnerability does not belong to finding'
         super(VulnNotInFinding, self).__init__(msg)
 
 
 class AlreadyZeroRiskRequested(Exception):
-    """Exception to control zero risk already requested"""
+    """Exception to control zero risk already is already requested"""
 
     def __init__(self) -> None:
         """ Constructor """

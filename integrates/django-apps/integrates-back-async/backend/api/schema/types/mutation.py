@@ -50,6 +50,7 @@ MUTATION.set_field(
 )
 MUTATION.set_field('invalidateCache', invalidate_cache.mutate)
 MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
+MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('updateEventEvidence', update_event_evidence.mutate)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
@@ -114,8 +115,6 @@ MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('requestZeroRiskVuln',
-                   request_zero_risk_vuln.mutate)
 MUTATION.set_field('deleteVulnerability',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('uploadFile',
