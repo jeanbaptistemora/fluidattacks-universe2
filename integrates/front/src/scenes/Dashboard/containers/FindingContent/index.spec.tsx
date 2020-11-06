@@ -318,7 +318,7 @@ describe("FindingContent", () => {
   it("should prompt delete justification", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
-      { action: "backend_api_resolvers_finding__do_delete_finding" },
+      { action: "backend_api_mutations_delete_finding_mutate" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },
@@ -751,7 +751,7 @@ describe("FindingContent", () => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
-      { action: "backend_api_resolvers_finding__do_delete_finding" },
+      { action: "backend_api_mutations_delete_finding_mutate" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },
@@ -806,7 +806,7 @@ describe("FindingContent", () => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
-      { action: "backend_api_resolvers_finding__do_delete_finding" },
+      { action: "backend_api_mutations_delete_finding_mutate" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },

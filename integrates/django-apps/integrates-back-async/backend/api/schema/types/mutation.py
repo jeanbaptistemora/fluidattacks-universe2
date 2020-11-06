@@ -12,6 +12,7 @@ from backend.api.mutations import (
     create_draft,
     create_event,
     create_organization,
+    delete_finding,
     delete_vulnerability,
     download_event_file,
     edit_stakeholder_organization,
@@ -46,6 +47,7 @@ MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createDraft', create_draft.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
+MUTATION.set_field('deleteFinding', delete_finding.mutate)
 MUTATION.set_field('deleteVulnerability', delete_vulnerability.mutate)
 MUTATION.set_field('downloadEventFile', download_event_file.mutate)
 MUTATION.set_field(
@@ -114,7 +116,6 @@ MUTATION.set_field('updateClientDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('handleAcceptation', finding.resolve_finding_mutation)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
-MUTATION.set_field('deleteFinding', finding.resolve_finding_mutation)
 MUTATION.set_field('approveDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)

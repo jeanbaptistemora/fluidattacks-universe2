@@ -431,62 +431,6 @@ async def _do_reject_draft(
     require_login,
     enforce_group_level_auth_async,
     require_integrates,
-    require_finding_access,
-)
-async def _do_delete_finding(
-        _: Any,
-        info: GraphQLResolveInfo,
-        finding_id: str,
-        justification: str) -> SimplePayloadType:
-    """Resolve delete_finding mutation."""
-    finding_loader = info.context.loaders['finding']
-    finding_data = await finding_loader.load(finding_id)
-    project_name = finding_data['project_name']
-
-    success = await finding_domain.delete_finding(
-        finding_id, justification, info.context
-    )
-    if success:
-        project_attrs_to_clean = {
-            'severity': project_name,
-            'finding': project_name,
-            'drafts': project_name,
-            'vuln': project_name
-        }
-        to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
-        util.queue_cache_invalidation(*to_clean, finding_id)
-        justification_dict = {
-            'DUPLICATED': 'It is duplicated',
-            'FALSE_POSITIVE': 'It is a false positive',
-            'NOT_REQUIRED': 'Finding not required',
-        }
-        finding_domain.send_finding_mail(
-            finding_utils.send_finding_delete_mail,
-            finding_id,
-            str(finding_data.get('finding', '')),
-            project_name,
-            str(finding_data.get('analyst', '')),
-            justification_dict[justification]
-        )
-        util.forces_trigger_deployment(project_name)
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Deleted finding: '
-             f'{finding_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to delete '
-             f'finding: {finding_id}')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
 )
 async def _do_approve_draft(
         _: Any,
@@ -522,30 +466,6 @@ async def _do_approve_draft(
              f'draft in {project_name} project')  # pragma: no cover
         )
     return ApproveDraftPayloadType(release_date=release_date, success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_create_draft(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str,
-        title: str,
-        **kwargs: Any) -> SimplePayloadType:
-    """Resolve create_draft mutation."""
-    success = await finding_domain.create_draft(
-        info, project_name, title, **kwargs
-    )
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Created draft in '
-             f'{project_name} project successfully')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

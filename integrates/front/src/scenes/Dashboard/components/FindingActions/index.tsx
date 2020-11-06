@@ -75,7 +75,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
           </Can>
         </React.Fragment>
       ) : undefined}
-      <Can do="backend_api_resolvers_finding__do_delete_finding">
+      <Can do="backend_api_mutations_delete_finding_mutate">
         <TooltipWrapper message={translate.t("search_findings.delete.btn.tooltip")}>
           <Button onClick={onDelete}>
             <FluidIcon icon="delete" />&nbsp;{translate.t("search_findings.delete.btn.text")}
