@@ -974,7 +974,7 @@ video {
   display: block;
 }
 
-.usecases-content, .products-content {
+.usecases-content, .products-content, .solutions-content {
   display: none;
   position: absolute;
   background-color: white;
@@ -998,6 +998,10 @@ video {
 }
 
 .products-index:hover .products-content {
+  display: block;
+}
+
+.solutions-index:hover .solutions-content {
   display: block;
 }
 
