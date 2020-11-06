@@ -10,6 +10,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
+            'backend_api_mutations_confirm_zero_risk_vuln_mutate',
             'backend_api_mutations_create_event_mutate',
             'backend_api_mutations_download_event_file_mutate',
             'backend_api_mutations_request_zero_risk_vuln_mutate',
@@ -98,6 +99,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     analyst=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
+            'backend_api_mutations_confirm_zero_risk_vuln_mutate',
             'backend_api_mutations_create_event_mutate',
             'backend_api_mutations_download_event_file_mutate',
             'backend_api_mutations_remove_event_evidence_mutate',
@@ -432,6 +434,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
+            'backend_api_mutations_confirm_zero_risk_vuln_mutate',
             'backend_api_mutations_download_event_file_mutate',
             'backend_api_resolvers_new_query_event_resolve',
             'backend_api_resolvers_new_query_events_resolve',

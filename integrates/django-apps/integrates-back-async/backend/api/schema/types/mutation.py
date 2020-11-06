@@ -8,6 +8,7 @@ from ariadne import MutationType
 from backend.api.mutations import (
     add_event_consult,
     add_forces_execution,
+    confirm_zero_risk_vuln,
     create_event,
     create_organization,
     delete_vulnerability,
@@ -38,6 +39,7 @@ MUTATION = MutationType()
 
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
+MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
 MUTATION.set_field('deleteVulnerability', delete_vulnerability.mutate)

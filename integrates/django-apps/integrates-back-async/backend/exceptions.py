@@ -515,6 +515,15 @@ class AlreadyZeroRiskRequested(Exception):
         super(AlreadyZeroRiskRequested, self).__init__(msg)
 
 
+class NotZeroRiskRequested(Exception):
+    """Exception to control zero risk already is not requested"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Zero risk vulnerability is not requested'
+        super(NotZeroRiskRequested, self).__init__(msg)
+
+
 class EvidenceNotFound(Exception):
     """Exception to control evidence data availability"""
 

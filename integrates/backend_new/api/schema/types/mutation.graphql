@@ -98,6 +98,12 @@ type Mutation {
         vulnerabilities: [String]!
     ): SimplePayload!
 
+    confirmZeroRiskVuln(
+        findingId: String!
+        justification: String!
+        vulnerabilities: [String]!
+    ): SimplePayload!
+
     grantStakeholderAccess(
         projectName: String
         email: String!

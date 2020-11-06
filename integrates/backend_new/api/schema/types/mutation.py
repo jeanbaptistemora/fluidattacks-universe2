@@ -6,6 +6,7 @@ from ariadne import MutationType
 
 # Local
 from backend.api.mutations import (
+    confirm_zero_risk_vuln,
     organization as org_mutations,
     request_zero_risk_vuln,
 )
@@ -29,6 +30,7 @@ MUTATION = MutationType()
 MUTATION.set_field('createOrganization', org_mutations.create)
 
 MUTATION.set_field('invalidateCache', cache.resolve_invalidate_cache)
+MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createEvent', event.resolve_event_mutation)
 MUTATION.set_field('solveEvent', event.resolve_event_mutation)
 MUTATION.set_field('addEventConsult', event.resolve_event_mutation)
