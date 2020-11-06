@@ -1,0 +1,31 @@
+utils.model.finding.enum.f059.description:
+  en: >
+    The system stores sensitive information such as credentials,
+    bank accounts and file paths in log files.
+  es: >
+    El sistema guarda informacion sensible como credenciales,
+    cuentas de banco y rutas de archivos en las bitácoras.
+utils.model.finding.enum.f050.impact:
+  en: >
+    Obtain sensitive information that may compromise system resources.
+  es: >
+    Obtener informacion sensible que puede comprometer recursos del sistema.
+utils.model.finding.enum.f059.recommendation:
+  en: >
+    Verify that the information stored in logs is not sensitive.
+  es: >
+    Verificar que la informacion guardada en los no es sensible.
+utils.model.finding.enum.f059.requirements:
+  en: >
+    R083. El sistema no debe registrar información sensible
+    en un evento excepcional de una bitácora.
+  es: >
+    R083. Avoid logging sensitive data
+utils.model.finding.enum.f059.threat:
+  en: >
+    Authorized local attacker with access to the log files.
+  es: >
+    Atacante local autorizado con acceso a los logs.
+utils.model.finding.enum.f059.title:
+  en: FIN.S.059. Sensitive information stored in logs
+  es: FIN.S.059. Información sensible almacenada en bitácoras
