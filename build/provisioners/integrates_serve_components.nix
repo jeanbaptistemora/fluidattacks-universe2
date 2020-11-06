@@ -48,6 +48,9 @@ in
       pyPkgIntegratesBack =
         import ../../integrates/django-apps/integrates-back-async pkgs;
 
+      pkgGeckoDriver = pkgs.geckodriver;
+      pkgFirefox = pkgs.firefox;
+
       pyPkgReqsApp =
         builders.pythonRequirements ../../integrates/deploy/dependencies/prod-requirements.txt;
 
