@@ -57,9 +57,9 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         ) : undefined}
         {shouldRenderVerifyBtn ? (
           <TooltipWrapper
-            message={!props.isVerifying
-              ? translate.t("search_findings.tab_description.mark_verified.tooltip")
-              : translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
+            message={props.isVerifying
+              ? translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
+              : translate.t("search_findings.tab_description.mark_verified.tooltip")
             }
             placement="top"
           >
@@ -86,9 +86,9 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           </Button>
         ) : undefined}
         {shouldRenderRequestVerifyBtn ? (
-          <TooltipWrapper message={!props.isRequestingReattack
-            ? translate.t("search_findings.tab_description.request_verify.tooltip")
-            : translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
+          <TooltipWrapper message={props.isRequestingReattack
+            ? translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
+            : translate.t("search_findings.tab_description.request_verify.tooltip")
           }>
             <Button onClick={onRequestReattack} disabled={props.isReattackRequestedInAllVuln}>
               {props.isRequestingReattack ? (
@@ -106,25 +106,25 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         ) : undefined}
       </Can>
       {shouldRenderEditBtn ? (
-      <TooltipWrapper
-        message={props.isEditing
-          ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
-          : translate.t("search_findings.tab_vuln.buttons_tooltip.edit")
-        }
-      >
-        <Button onClick={onEdit} disabled={props.isRequestingReattack || props.isVerifying}>
-          {props.isEditing ? (
-            <React.Fragment>
-              <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
-            </React.Fragment>
-          )}
-        </Button>
-      </TooltipWrapper>
-      ) : undefined}
+        <TooltipWrapper
+          message={props.isEditing
+            ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
+            : translate.t("search_findings.tab_vuln.buttons_tooltip.edit")
+          }
+        >
+          <Button onClick={onEdit} disabled={props.isRequestingReattack || props.isVerifying}>
+            {props.isEditing ? (
+              <React.Fragment>
+                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
+              </React.Fragment>
+            )}
+          </Button>
+        </TooltipWrapper>
+        ) : undefined}
     </ButtonToolbarRow>
   );
 };
