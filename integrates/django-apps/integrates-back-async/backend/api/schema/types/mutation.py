@@ -24,6 +24,7 @@ from backend.api.mutations import (
     request_zero_risk_vuln,
     remove_event_evidence,
     solve_event,
+    submit_draft,
     update_event_evidence,
     update_evidence,
     upload_file,
@@ -65,6 +66,7 @@ MUTATION.set_field('rejectZeroRiskVuln', reject_zero_risk_vuln.mutate)
 MUTATION.set_field('removeEventEvidence', remove_event_evidence.mutate)
 MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
+MUTATION.set_field('submitDraft', submit_draft.mutate)
 MUTATION.set_field('updateEventEvidence', update_event_evidence.mutate)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
 MUTATION.set_field('uploadFile', upload_file.mutate)
@@ -118,7 +120,6 @@ MUTATION.set_field('updateClientDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('handleAcceptation', finding.resolve_finding_mutation)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
-MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',
                    vulnerability.resolve_vulnerability_mutation)

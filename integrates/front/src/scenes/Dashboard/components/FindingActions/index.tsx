@@ -34,7 +34,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
     <ButtonToolbar className="pull-right">
       {props.isDraft ? (
         <React.Fragment>
-          <Can do="backend_api_resolvers_finding__do_submit_draft">
+          <Can do="backend_api_mutations_submit_draft_mutate">
             {props.hasSubmission ? undefined : (
               <TooltipWrapper message={translate.t("group.drafts.submit.tooltip")}>
                 <Button disabled={props.loading} onClick={onSubmit}>

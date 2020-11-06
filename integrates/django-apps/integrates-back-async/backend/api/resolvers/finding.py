@@ -425,37 +425,3 @@ async def _do_reject_draft(
              f'draft {finding_id}')  # pragma: no cover
         )
     return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-async def _do_submit_draft(
-        _: Any,
-        info: GraphQLResolveInfo,
-        finding_id: str) -> SimplePayloadType:
-    """Resolve submit_draft mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    analyst_email = user_info['user_email']
-    success = await finding_domain.submit_draft(finding_id, analyst_email)
-
-    if success:
-        util.queue_cache_invalidation(finding_id)
-        finding_loader = info.context.loaders['finding']
-        finding = await finding_loader.load(finding_id)
-        finding_domain.send_finding_mail(
-            finding_utils.send_new_draft_mail,
-            finding_id,
-            str(finding.get('title', '')),
-            str(finding.get('project_name', '')),
-            analyst_email,
-        )
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Submitted draft '
-             f'{finding_id} successfully')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
