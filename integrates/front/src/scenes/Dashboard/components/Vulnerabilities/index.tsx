@@ -867,7 +867,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
                       {renderButtonUpdateVuln()}
                     </Can>
-                    <Can do="backend_api_resolvers_vulnerability__do_upload_file">
+                    <Can do="backend_api_mutations_upload_file_mutate">
                       <UploadVulnerabilites {...props} />
                     </Can>
                   </React.Fragment>

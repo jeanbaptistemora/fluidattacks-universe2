@@ -9,6 +9,7 @@ from backend.api.mutations import (
     add_event_consult,
     add_forces_execution,
     confirm_zero_risk_vuln,
+    create_draft,
     create_event,
     create_organization,
     delete_vulnerability,
@@ -22,6 +23,7 @@ from backend.api.mutations import (
     solve_event,
     update_event_evidence,
     update_evidence,
+    upload_file,
     update_forces_access_token
 )
 from backend.api.resolvers import (
@@ -40,6 +42,7 @@ MUTATION = MutationType()
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
 MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
+MUTATION.set_field('createDraft', create_draft.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
 MUTATION.set_field('deleteVulnerability', delete_vulnerability.mutate)
@@ -58,6 +61,7 @@ MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('updateEventEvidence', update_event_evidence.mutate)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
+MUTATION.set_field('uploadFile', upload_file.mutate)
 MUTATION.set_field(
     'updateForcesAccessToken',
     update_forces_access_token.mutate
@@ -110,7 +114,6 @@ MUTATION.set_field('handleAcceptation', finding.resolve_finding_mutation)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteFinding', finding.resolve_finding_mutation)
 MUTATION.set_field('approveDraft', finding.resolve_finding_mutation)
-MUTATION.set_field('createDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',
@@ -118,8 +121,6 @@ MUTATION.set_field('updateTreatmentVuln',
 MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
-                   vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
