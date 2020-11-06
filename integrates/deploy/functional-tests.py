@@ -558,7 +558,7 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'path/to/file2.ext')]")))
+                    "//*[contains(text(), 'test/data/lib_path/f060/csharp.cs')]")))
         selenium.save_screenshot(SCR_PATH + '19-02-finding_vuln.png')
 
         verify_btn = selenium.find_element_by_xpath(
@@ -587,4 +587,4 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(1)
         selenium.execute_script('window.scrollTo(0, 0);')
 
-        assert 'https://example.com' in selenium.page_source
+        assert 'test/data/lib_path/f060/csharp.cs' in selenium.page_source

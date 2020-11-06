@@ -804,7 +804,7 @@
                      "S" : "lines"
                   },
                   "where" : {
-                     "S" : "path/to/file2.ext"
+                     "S" : "test/data/lib_path/f060/csharp.cs"
                   }
                }
             }
