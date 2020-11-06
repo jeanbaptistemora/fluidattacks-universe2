@@ -17,6 +17,8 @@ from pyparsing import (
     nestedExpr,
     Regex,
 )
+from jose.jwt import decode as jwt_decode
+from jose.exceptions import JOSEError
 
 # Third party libraries
 from aioextensions import (
@@ -61,6 +63,29 @@ DOCKERFILE_ENV: Pattern[str] = re.compile(
 )
 
 
+def _validate_jwt(token: str) -> bool:
+    try:
+        jwt_decode(
+            token,
+            key='',
+            options={
+                'verify_signature': False,
+                'verify_aud': False,
+                'verify_iat': False,
+                'verify_exp': False,
+                'verify_nbf': False,
+                'verify_iss': False,
+                'verify_sub': False,
+                'verify_jti': False,
+                'verify_at_hash': False,
+                'leeway': 0,
+            },
+        )
+        return True
+    except JOSEError:
+        return False
+
+
 def _aws_credentials(
     content: str,
     path: str,
@@ -84,9 +109,11 @@ def _jwt_token(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    grammar = Regex(r'[A-Za-z0-9-_.+\/=]{20,}\.'
-                    r'[A-Za-z0-9-_.+\/=]{20,}\.'
-                    r'[A-Za-z0-9-_.+\/=]{20,}')
+    grammar = Regex(
+        r'[A-Za-z0-9-_.+\/=]{20,}\.'
+        r'[A-Za-z0-9-_.+\/=]{20,}\.'
+        r'[A-Za-z0-9-_.+\/=]{20,}').addCondition(
+            lambda tokens: any(_validate_jwt(token) for token in tokens))
 
     return blocking_get_vulnerabilities(
         content=content,
@@ -333,7 +360,6 @@ async def analyze(  # pylint: disable=too-many-arguments
             content=await content_generator(),
             path=path,
         ))
-
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(crypto_js_credentials(
             content=await content_generator(),
