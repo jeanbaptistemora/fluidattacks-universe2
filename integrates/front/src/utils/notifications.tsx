@@ -37,4 +37,26 @@ const msgErrorStick: (text: string, title?: string) => void = (
   });
 };
 
-export { msgSuccess, msgError, msgErrorStick };
+const msgInfo: (text: string, title: string, hideMessage?: boolean) => void = (
+  text: string,
+  title: string,
+  hideMessage: boolean = false
+): void => {
+  const toastId: string = title.toLocaleLowerCase() + text.toLocaleLowerCase();
+  if (hideMessage) {
+    toast.dismiss(toastId);
+
+    return;
+  }
+  toast.info(<Notification text={text} title={title} />, {
+    autoClose: false,
+    className: "bg-ns",
+    closeButton: false,
+    delay: 0,
+    draggable: false,
+    toastId: toastId,
+    transition: Slide,
+  });
+};
+
+export { msgSuccess, msgError, msgErrorStick, msgInfo };

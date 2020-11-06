@@ -12,6 +12,7 @@ import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 export interface IActionButtonsProps {
@@ -45,6 +46,15 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     && !(props.isEditing || props.isRequestingReattack);
 
   const shouldRenderEditBtn: boolean = !(props.isRequestingReattack || props.isVerifying);
+
+  const displayMessage: (() => void) = (): void => {
+      msgInfo(
+        translate.t("search_findings.tab_vuln.info.text"),
+        translate.t("search_findings.tab_vuln.info.title"),
+        !props.isRequestingReattack,
+      );
+  };
+  React.useEffect(displayMessage, [props.isRequestingReattack]);
 
   return (
     <ButtonToolbarRow>

@@ -123,13 +123,16 @@ const vulnsView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col100>
+                {isRequestingVerify ? undefined : (
                 <ControlLabel>
                   <b>{translate.t("search_findings.tab_vuln.closed")}</b>
                 </ControlLabel>
+                )}
                 <br />
                 <VulnerabilitiesView
                   editMode={false}
                   findingId={findingId}
+                  isRequestVerification={isRequestingVerify}
                   state="closed"
                 />
               </Col100>

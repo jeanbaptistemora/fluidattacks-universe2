@@ -206,6 +206,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       || props.isRequestVerification === true
       || props.isVerifyRequest === true;
 
+    const shouldDisplayVulnOnReattack: boolean = !(props.state === "closed"
+      && props.isRequestVerification === true);
+
     const canGetAnalyst: boolean = permissions.can("backend_api_resolvers_new_finding_analyst_resolve");
     const shouldGroup: boolean = !isEditing && props.separatedRow === true;
 
@@ -782,7 +785,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
             return (
               <React.StrictMode>
-                { dataInputs.length > 0
+                { dataInputs.length > 0 && shouldDisplayVulnOnReattack
                   ? <React.Fragment>
                       <label className={style.vuln_title}>
                         {translate.t("search_findings.tab_description.inputs")}
@@ -803,7 +806,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     </React.Fragment>
                   : undefined
                 }
-                { dataLines.length > 0
+                { dataLines.length > 0 && shouldDisplayVulnOnReattack
                   ? <React.Fragment>
                       <label className={style.vuln_title}>
                         {translate.t("search_findings.tab_description.line", {count: 2})}
@@ -824,7 +827,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     </React.Fragment>
                   : undefined
                 }
-                { dataPorts.length > 0
+                { dataPorts.length > 0 && shouldDisplayVulnOnReattack
                   ? <React.Fragment>
                       <label className={style.vuln_title}>
                         {translate.t("search_findings.tab_description.port", {count: 2})}

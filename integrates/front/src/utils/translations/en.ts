@@ -1759,6 +1759,10 @@ export const enTranslations: ResourceKey = {
         edit: "Modify the fields of the vulnerabilities",
       },
       closed: "Closed",
+      info: {
+        text: "Please select vulnerabilities to reattack",
+        title: "Info",
+      },
       open: "Open",
       tab_title: "Vulnerabilities",
       tooltip: "Open / Closed vulnerabilities",
