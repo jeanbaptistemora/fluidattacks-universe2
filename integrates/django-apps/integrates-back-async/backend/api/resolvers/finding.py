@@ -99,43 +99,6 @@ async def _do_remove_evidence(
     require_integrates,
     require_finding_access,
 )
-async def _do_update_evidence_description(
-        _: Any,
-        info: GraphQLResolveInfo,
-        finding_id: str,
-        evidence_id: str,
-        description: str) -> SimplePayloadType:
-    """Resolve update_evidence_description mutation."""
-    success = False
-    try:
-        success = await finding_domain.update_evidence_description(
-            finding_id, evidence_id, description
-        )
-        if success:
-            util.queue_cache_invalidation(f'evidence*{finding_id}')
-            util.cloudwatch_log(
-                info.context,
-                ('Security: Evidence description '
-                 'successfully updated in finding '
-                 f'{finding_id}')  # pragma: no cover
-            )
-        else:
-            util.cloudwatch_log(
-                info.context,
-                ('Security: Attempted to update '
-                 f'evidence description in {finding_id}')  # pragma: no cover
-            )
-    except KeyError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-    return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
 async def _do_add_finding_consult(
         _: Any,
         info: GraphQLResolveInfo,

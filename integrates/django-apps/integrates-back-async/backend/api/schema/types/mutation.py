@@ -26,6 +26,7 @@ from backend.api.mutations import (
     solve_event,
     submit_draft,
     update_event_evidence,
+    update_evidence_description,
     update_evidence,
     update_forces_access_token,
     update_severity,
@@ -70,13 +71,17 @@ MUTATION.set_field('requestZeroRiskVuln', request_zero_risk_vuln.mutate)
 MUTATION.set_field('solveEvent', solve_event.mutate)
 MUTATION.set_field('submitDraft', submit_draft.mutate)
 MUTATION.set_field('updateEventEvidence', update_event_evidence.mutate)
+MUTATION.set_field(
+    'updateEvidenceDescription',
+    update_evidence_description.mutate
+)
 MUTATION.set_field('updateEvidence', update_evidence.mutate)
-MUTATION.set_field('uploadFile', upload_file.mutate)
 MUTATION.set_field(
     'updateForcesAccessToken',
     update_forces_access_token.mutate
 )
 MUTATION.set_field('updateSeverity', update_severity.mutate)
+MUTATION.set_field('uploadFile', upload_file.mutate)
 
 MUTATION.set_field('signIn', me.resolve_me_mutation)
 MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
@@ -111,8 +116,6 @@ MUTATION.set_field('addProjectConsult',
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
-MUTATION.set_field('updateEvidenceDescription',
-                   finding.resolve_finding_mutation)
 MUTATION.set_field('addFindingConsult',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateDescription',
