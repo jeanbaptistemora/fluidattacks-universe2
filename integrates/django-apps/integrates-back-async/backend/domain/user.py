@@ -39,6 +39,7 @@ from backend import authz
 from backend import util
 
 from backend_new import settings
+from __init__ import FI_DEFAULT_ORG
 
 
 async def add_phone_to_user(email: str, phone: str) -> bool:
@@ -209,7 +210,7 @@ async def create_without_project(
             create(email, new_user_data)
         ]))
 
-        org = await org_domain.get_or_create('okada', email)
+        org = await org_domain.get_or_create(FI_DEFAULT_ORG, email)
         if not await org_domain.has_user_access(str(org['id']), email):
             await org_domain.add_user(str(org['id']), email, 'customer')
 

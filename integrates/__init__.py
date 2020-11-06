@@ -36,6 +36,7 @@ try:
     FI_AWS_S3_ACCESS_KEY = os.environ['AWS_ACCESS_KEY_ID']
     FI_AWS_S3_SECRET_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     FI_ENVIRONMENT = os.environ['ENVIRONMENT']
+    FI_DEFAULT_ORG = os.environ['DEFAULT_ORG']
     FI_MANDRILL_API_KEY = os.environ['MANDRILL_APIKEY']
     FI_JWT_ENCRYPTION_KEY = os.environ['JWT_ENCRYPTION_KEY']
     FI_JWT_SECRET = os.environ['JWT_SECRET']
