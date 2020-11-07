@@ -16,44 +16,53 @@
 
 = Conserving Your Identity
 
-In the digital era everything is or has a web application. Web apps are no
-longer just about content delivery, they have evolved to solve complex business
-needs and have become a mechanism for application integration. The
-communication and integration of these applications is most commonly done
-through Web Services (WS) and with the growing concern over cyber security
+In the digital era, everything is or has a web application.
+Web apps are no longer just about content delivery.
+They have evolved to solve complex business needs
+and have become a mechanism for application integration.
+The communication and integration of these apps are most commonly done
+through Web Services (WS), and with the growing concern over cybersecurity
 comes the need to securely communicate via WS.
 
 .Federated Identity and Web Services
 image::image1.png[fe-ws]
 
-WS-Security defines the basic mechanism for a secure message exchange. This
-specification uses these base mechanisms and defines additional primitives and
-extensions for security token exchange in order to enable the issuance and
-dissemination of credentials within different domains. Pretty much all it does
-is attach signatures, security tokens and headers to SOAP messages. Before two
-parties can securely communicate, each party needs to determine if they can
-"trust" the other. Trust is understood as the expression or relationship
-between parties where one of them will believe statements or claims made by
-another party. It is based on evidence, history, experience, documents and more
-(WS-Trust 1.4, 2012). The two parties don't have to be in the same domain to
-securely exchange messages, this is where a very important concept and the main
-purpose of this articles comes up, WS-Federation.
+WS-Security defines the basic mechanism for secure message exchange.
+This specification uses these base mechanisms
+and defines additional primitives and extensions for security token exchange
+in order to enable the issuance and dissemination of credentials
+within different domains. Pretty much all it does is attach signatures,
+security tokens and headers to SOAP messages.
+Before two parties can securely communicate,
+each party needs to determine if they can "trust" the other.
+Trust is understood as the expression or relationship
+between parties where one of them will believe statements or claims
+made by another party. It is based on evidence,
+history, experience, documents and more (WS-Trust 1.4, 2012).
+The two parties don't have to be in the same domain
+to exchange messages securely.
+This is where a crucial concept
+and the main purpose of this article come up.
 
 == WS-Federation
 
-A federation is a collection of security domains, more commonly known as
-realms, that have established relationships in order to securely share
-resources. A Resource Provider (RP) in one realm can provide authorized access
-to a resource it manages based on claims about a principal, such as identity or
-other distinguishing attributes, that are asserted by an Identity Provider in
-another realm. Identity is verified and relationships established through the
-exchange a security token. WS-Federation builds on the WS-Trust encapsulation
-mechanism which allows protocol processing to remain indifferent to the type of
-token being transmitted. The main purpose of establishing a federation is to
-facilitate the use of security principal attributes across trust boundaries by
-establishing a federation context for that principal. A Relying Party can then
-use this context to grant or deny access to a given resource (Goodner et al,
-2007).
+A federation is a collection of security domains,
+more commonly known as realms, that have established relationships
+in order to securely share resources.
+A Resource Provider (RP) in one realm can provide authorized access
+to a resource it manages based on claims about a principal,
+such as identity or other distinguishing attributes,
+that are asserted by an Identity Provider in another realm.
+Identity is verified, and relationships are established through
+the exchange of a security token.
+WS-Federation builds on the WS-Trust encapsulation mechanism
+which allows protocol processing to remain indifferent
+to the type of token being transmitted.
+The main purpose of establishing a federation
+is to facilitate the use of principal security attributes
+across trust boundaries by establishing a federation context
+for that principal. A Relying Party can then use this context
+to grant or deny access to a given resource (Goodner et al., 2007).
 
 Parties in a federation may have different policies for obtaining services.
 Policies are established to set security requirements when accessing a certain
@@ -61,12 +70,12 @@ resource, hence assuring that my service or resource is only accessible to the
 desired parties. In the same manner, different services may have different
 policies within a party.
 
-Federations must be established by organizations and then the participants of
+Organizations must establish federations. Then, the participants of
 the federation must publish and exchange configuration information by which
 common services and the policies for accessing them can be identified.
-WS-Federation cannot happen until an organization decides to establish a
-federation. This is usually done based on business or legal need, not a
-technical one.
+WS-Federation cannot happen until an organization decides
+to establish a federation. This is usually done
+based on business or legal needs, not technical ones.
 
 === Key Concepts
 
@@ -80,34 +89,36 @@ to access them.
 
 ==== Authorization
 
-WS-Federation defines an authorization model that allows the implementation of
-any authorization service in order to provide a security token and make
-decisions regarding the access to available services. Although an organization
+WS-Federation defines an authorization model that allows the implementation
+of any authorization service in order to provide a security token and make
+decisions regarding access to available services. Although an organization
 can implement any authorization service they desire, a common model to interact
 with the service is required.
 
 === Adding more Security
 
-Within WS-Federation there are some concepts that allow an organization to
-request additional information in order to authorize access to advanced
+Within WS-Federation, there are some concepts that allow an organization
+to request additional information in order to authorize access to advanced
 functionalities of a service, hence adding more security.
 
 ==== Attributes
 
 A federation message may not always be sufficient to identify common services.
-After an initial request to access a basic service is authenticated some
-organizations may request additional information in order to grant access to
-advanced functionalities. In some cases the advanced functionalities contain
-sensitive information which cannot be known to everyone. If an attacker is
-familiar with the process flow and structure of other services, it will be a
-lot easier to maliciously gain access to the sensitive information. Attributes
-are additional information that is requested in order to authorize or deny
-access to a certain service.
+After an initial request to access a basic service is authenticated,
+some organizations may request additional information
+in order to grant access to advanced functionalities.
+In some cases, the advanced functionalities contain
+sensitive information that cannot be known to everyone.
+If an attacker is familiar with the process flow
+and structure of other services,
+it will be easier to maliciously gain access to sensitive information.
+Attributes are additional information that is requested
+in order to authorize or deny access to a certain service.
 
 ==== Pseudonym
 
 Some organizations or individuals are very concerned with identity fraud. This
-is a common risk in WS-Security but Federation also provides a concept that
+is a common risk in WS-Security, but Federation also provides a concept that
 protects the user's identity. If an attacker manages to obtain everything
 needed to take over my identity in a certain context or scope, and pseudonyms
 are not implemented, the attacker can then use my identity to access services
@@ -124,18 +135,18 @@ members of federations and to broker trust and attributes across federations in
 a secure way maintaining individual and business privacy. It integrates with
 the WS-Security model to enable secure and reliable transactions between
 parties within and across federations (IBM, 2007). WS-Federation is a very
-important step in defining a comprehensive Web services security strategy.
+important step in defining a comprehensive Web Services security strategy.
 
 == References
 
 . Goodner, M., Hondo, M., Nadalin, A., McIntosh, M., & Schmidt, D.
 (2007, May 28). Understanding WS-Federation. Retrieved May 2, 2017, from
-link:https://msdn.microsoft.com/en-us/library/bb498017.aspx[Understanding WS-Federation]
+link:https://msdn.microsoft.com/en-us/library/bb498017.aspx[Understanding WS-Federation].
 
 . International Business Machines Corporation. (2007, April 1). Federation of
 Identities in a Web Services World. Retrieved May 2, 2017, from
-link:https://msdn.microsoft.com/en-us/library/ms951235.aspx[Federation of Identities in a Web Services World]
+link:https://msdn.microsoft.com/en-us/library/ms951235.aspx[Federation of Identities in a Web Services World].
 
 . WS-Tust. (2012, April 25). OASIS Standard incorporating Approved Errata 01.
 Retrieved May 2, 2017, from
-link:http://docs.oasis-open.org/ws-sx/ws-trust/v1.4/ws-trust.html[WS-Trust 1.4]
+link:http://docs.oasis-open.org/ws-sx/ws-trust/v1.4/ws-trust.html[WS-Trust 1.4].
