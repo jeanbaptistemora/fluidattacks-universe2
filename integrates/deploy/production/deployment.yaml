@@ -26,7 +26,10 @@ spec:
           image: registry.gitlab.com/fluidattacks/product/app:master
           imagePullPolicy: Always
           command: [bash]
-          args: [build.sh, integrates_serve_production]
+          args:
+            - build.sh
+            - job_integrates_serve_components
+            - http/production/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/5/0.0.0.0/8000/127.0.0.1
           resources:
             requests:
               cpu: 1500m

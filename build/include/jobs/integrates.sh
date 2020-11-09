@@ -517,48 +517,6 @@ function job_integrates_serve_components {
   ||  return 1
 }
 
-function job_integrates_serve_production {
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login production \
-    &&  helper_integrates_serve_back \
-          'http' \
-          'production' \
-          'fluidintegrates.asgi:APP' \
-          'fluidintegrates.asgi.IntegratesWorker' \
-          '5' \
-          '0.0.0.0' \
-          '8000' \
-          '127.0.0.1' \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates2_serve_production {
-
-  trap 'helper_common_kill_attached_processes 5' SIGINT
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login production \
-    &&  helper_integrates_serve_back \
-          'http' \
-          'production' \
-          'backend_new.app:APP' \
-          'uvicorn.workers.UvicornWorker' \
-          '5' \
-          '0.0.0.0' \
-          '8000' \
-          '*' \
-    &&  wait \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_cron_show {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
