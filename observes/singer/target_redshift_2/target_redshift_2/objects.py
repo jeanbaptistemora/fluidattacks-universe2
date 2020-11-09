@@ -10,8 +10,8 @@ from target_redshift_2.db_client import DbTypes
 
 
 class RedshiftField(NamedTuple):
-    type: DbTypes
     name: str
+    dbtype: DbTypes
 
 
 class RedshiftSchema(NamedTuple):
