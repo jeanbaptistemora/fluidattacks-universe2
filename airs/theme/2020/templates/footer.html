@@ -192,6 +192,7 @@
         </div>
         <div class="contact-form w-100">
           <div>
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             <form action="https://crm.zoho.com/crm/WebForm" name=WebForm4687720000000504044 method="POST" onSubmit="javascript:document.charset='UTF-8'; return checkMandatory4687720000000504044(); return validateForm()" accept-charset="UTF-8">
               <input type="text" style="display:none;" name="xnQsjsdp" value="1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d" />
               <input type="hidden" name="zc_gad" id="zc_gad" value="" />
@@ -302,9 +303,14 @@
                 <div class="tc">
                   <input type="submit"
                         id="formsubmit"
-                        class="formsubmit bn br2 bannerbt hv-bt-fluid-rd w-100 pv3 bt-trans white b roboto pointer"
+                        class="formsubmit bn br2 bannerbt hv-bt-fluid-rd bt-pd pv3 bt-trans white b roboto pointer mh3"
                         value="Submit"
-                        title="Submit">
+                        title="Submit" />
+                  <input type="reset"
+                        class="br2 button-white pv3 bt-pd bt-trans c-fluid-bk b roboto pointer outline-transparent mh3"
+                        name="reset"
+                        value="Reset"
+                        title="Reset" />
                 </div>
                 <script>
                   var mndFileds=new Array("NAME","Email","COBJ1CF2","COBJ1CF5","COBJ1CF6");
