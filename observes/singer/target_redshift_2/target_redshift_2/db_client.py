@@ -1,4 +1,5 @@
 # Standard libraries
+from enum import Enum
 from typing import (
     Any,
     Callable,
@@ -17,6 +18,15 @@ from target_redshift_2.utils import log
 
 PGCONN = Any
 PGCURR = Any
+
+
+# Supported JSON Schema types
+class DbTypes(Enum):
+    BOOLEAN = 'BOOLEAN'
+    NUMERIC = 'NUMERIC(38)'
+    FLOAT = 'FLOAT8'
+    VARCHAR = 'VARCHAR'
+    TIMESTAMP = 'TIMESTAMP'
 
 
 class CursorAction(NamedTuple):
@@ -69,29 +79,42 @@ def make_access_point(auth: Dict[str, str]) -> DbClient:
     return DbClient(connection=dbcon, cursor=dbcur)
 
 
-class DbSchema(NamedTuple):
+class SchemaID(NamedTuple):
     db_client: DbClient
     schema_name: str
 
+
+class DbSchema(NamedTuple):
+    id: SchemaID
+
     def create_schema(self: 'DbSchema') -> CursorAction:
-        statement: str = f"CREATE SCHEMA \"{self.schema_name}\""
-        return self.db_client.execute(statement)
+        statement: str = f"CREATE SCHEMA \"{self.id.schema_name}\""
+        return self.id.db_client.execute(statement)
 
 
-class Column(NamedTuple):
+class IsolatedColumn(NamedTuple):
     name: str
     field_type: str
     default_val: str = 'NULL'
 
 
-class DbTable(NamedTuple):
-    schema: DbSchema
+class Column(NamedTuple):
+    table: 'TableID'
+    column: IsolatedColumn
+
+
+class TableID(NamedTuple):
+    schema: SchemaID
     table_name: str
+
+
+class DbTable(NamedTuple):
+    id: TableID
     primary_keys: FrozenSet[str]
-    columns: FrozenSet[Column]
+    columns: FrozenSet[IsolatedColumn]
 
     def table_path(self: 'DbTable') -> str:
-        return f"\"{self.schema.schema_name}\".\"{self.table_name}\""
+        return f"\"{self.id.schema.schema_name}\".\"{self.id.table_name}\""
 
     def create_table(
         self: 'DbTable', if_not_exist: bool = False
@@ -107,13 +130,13 @@ class DbTable(NamedTuple):
         statement: str = (
             f"CREATE TABLE {not_exists}\"{table_path}\" ({fields_def})"
         )
-        return self.schema.db_client.execute(statement)
+        return self.id.schema.db_client.execute(statement)
 
     def new_columns(
-        self: 'DbTable', new_columns: FrozenSet[Column]
+        self: 'DbTable', new_columns: FrozenSet[IsolatedColumn]
     ) -> List[CursorAction]:
-        diff_columns: Set[Column] = \
-            cast(Set[Column], new_columns) - self.columns
+        diff_columns: Set[IsolatedColumn] = \
+            cast(Set[IsolatedColumn], new_columns) - self.columns
         diff_names: Set[str] = set(map(lambda c: c.name, diff_columns))
         current_names: Set[str] = set(map(lambda c: c.name, self.columns))
         if not diff_names.isdisjoint(current_names):
@@ -129,5 +152,5 @@ class DbTable(NamedTuple):
                 f'ADD COLUMN {column.name} '
                 f'{column.field_type} default {column.default_val}'
             )
-            actions.append(self.schema.db_client.execute(statement))
+            actions.append(self.id.schema.db_client.execute(statement))
         return actions
