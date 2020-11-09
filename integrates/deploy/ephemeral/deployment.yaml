@@ -129,10 +129,10 @@ spec:
             - dynamo
           resources:
             requests:
-              cpu: 250m
+              cpu: 300m
               memory: 500Mi
             limits:
-              cpu: 250m
+              cpu: 300m
               memory: 500Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -151,10 +151,10 @@ spec:
             - redis
           resources:
             requests:
-              cpu: 150m
+              cpu: 100m
               memory: 500Mi
             limits:
-              cpu: 150m
+              cpu: 100m
               memory: 500Mi
           env:
             - name: DEPLOYMENT_DATE
