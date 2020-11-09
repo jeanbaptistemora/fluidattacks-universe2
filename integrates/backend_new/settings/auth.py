@@ -22,13 +22,19 @@ GOOGLE_ARGS = dict(
 )
 
 AZURE_AUTHZ_URL = (
-    'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
+    'https://login.microsoftonline.com/common/oauth2/authorize'
 )
+AZURE_CONF_URL = (
+    'https://login.microsoftonline.com/common/.well-known/openid-configuration'
+)
+AZURE_API_BASE_URL = 'https://graph.microsoft.com/'
 AZURE_ARGS = dict(
     name='azure',
+    api_base_url=AZURE_API_BASE_URL,
     client_id=FI_AZUREAD_OAUTH2_KEY,
     client_secret=FI_AZUREAD_OAUTH2_SECRET,
     authorize_url=AZURE_AUTHZ_URL,
+    server_metadata_url=AZURE_CONF_URL,
     client_kwargs={
         'scope': 'openid email profile'
     }
