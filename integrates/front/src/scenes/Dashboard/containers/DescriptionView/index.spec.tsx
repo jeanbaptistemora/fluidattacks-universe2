@@ -12,15 +12,11 @@ import {
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
-  IProject,
 } from "scenes/Dashboard/containers/DescriptionView/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("Finding Description", () => {
-  const project: IProject = {
-    subscription: "continuous",
-  };
   const finding: IFinding = {
     actor: "ANY_EMPLOYEE",
     affectedSystems: "BWAPP Server",

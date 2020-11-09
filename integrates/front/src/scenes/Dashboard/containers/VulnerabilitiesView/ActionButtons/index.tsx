@@ -92,7 +92,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
         {props.isRequestingReattack ? (
           <Button onClick={openModal} disabled={!props.areVulnsSelected}>
             <FluidIcon icon="verified" />&nbsp;
-            {translate.t("Reattack")}
+            {translate.t("search_findings.tab_vuln.buttons.reattack")}
           </Button>
         ) : undefined}
         {shouldRenderRequestVerifyBtn ? (

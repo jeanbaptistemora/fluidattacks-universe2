@@ -1754,6 +1754,9 @@ export const enTranslations: ResourceKey = {
       title_success: "Congratulations",
     },
     tab_vuln: {
+      buttons: {
+        reattack: "Reattack",
+      },
       buttons_tooltip: {
         cancel: "Cancel",
         edit: "Modify the fields of the vulnerabilities",

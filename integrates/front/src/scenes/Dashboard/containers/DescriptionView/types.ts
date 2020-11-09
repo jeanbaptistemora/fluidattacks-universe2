@@ -40,10 +40,6 @@ export interface IFinding {
   type: string;
 }
 
-export interface IProject {
-  subscription: string;
-}
-
 export interface IFindingDescriptionData {
   finding: IFinding;
 }

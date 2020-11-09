@@ -566,59 +566,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               };
             };
 
-            const renderRequestVerification: (() => JSX.Element) = (): JSX.Element => {
-              const handleClick: (() => void) = (): void => {
-                const selectedRows: ICalculateRowsSelected = calculateRowsSelected();
-                const vulnerabilities: IVulnDataType[] = selectedRows.vulns;
-                if (props.verificationFn !== undefined) {
-                  props.verificationFn(vulnerabilities, clearSelectedRows);
-                }
-              };
-
-              return (
-                <React.Fragment>
-                  <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
-                    <RowCenter>
-                      <Button
-                        id="request_verification_vulns"
-                        onClick={handleClick}
-                        disabled={arraySelectedRows.length === 0}
-                        type={"button"}
-                      >
-                        <FluidIcon icon="verified" />
-                        {translate.t("search_findings.tab_description.request_verify.text")}
-                      </Button>
-                    </RowCenter><br/>
-                  </Can>
-                </React.Fragment>
-              );
-            };
-            const renderVerifyRequest: (() => JSX.Element) = (): JSX.Element => {
-              const handleClick: (() => void) = (): void => {
-                const selectedRows: ICalculateRowsSelected = calculateRowsSelected();
-                const vulnerabilities: IVulnDataType[] = selectedRows.vulns;
-                if (props.verificationFn !== undefined) {
-                  props.verificationFn(vulnerabilities, clearSelectedRows);
-                }
-              };
-
-              return (
-                <React.Fragment>
-                  {props.isVerifyRequest === true ?
-                    <RowCenter>
-                      <Button
-                        onClick={handleClick}
-                        disabled={arraySelectedRows.length === 0}
-                      >
-                        <FluidIcon icon="verified" />
-                        {translate.t("search_findings.tab_description.mark_verified.text")}
-                      </Button>
-                    </RowCenter>
-                  : undefined}
-                </React.Fragment>
-              );
-            };
-
             const rowsSelected: ICalculateRowsSelected = calculateRowsSelected();
             const vulnerabilitiesList: IVulnDataType[] = rowsSelected.vulns;
 
