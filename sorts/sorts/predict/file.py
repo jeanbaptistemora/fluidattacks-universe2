@@ -25,7 +25,10 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
         repo_files = get_repository_files(os.path.join(fusion_path, repo))
         allowed_files = list(
             filter(
-                lambda x: x in composites or x.split('.')[-1] in extensions,
+                lambda x: (
+                    x in composites or
+                    x.split('.')[-1].lower() in extensions
+                ),
                 repo_files
             )
         )

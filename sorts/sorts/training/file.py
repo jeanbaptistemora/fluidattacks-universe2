@@ -117,11 +117,15 @@ def get_safe_files(
                 )
             if repo_files[repo]:
                 file: str = random.choice(repo_files[repo])
-                file_extension: str = os.path.splitext(file)[1].strip('.')
+                file_extension: str = os.path.splitext(file)[1]\
+                    .strip('.').lower()
                 if (
                     file not in vuln_files and
                     file not in safe_files and
-                    (file in composites or file_extension in extensions)
+                    (
+                        file in composites or
+                        file_extension in extensions
+                    )
                 ):
                     safe_files.add(file)
                     retries = 0
