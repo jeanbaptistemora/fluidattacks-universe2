@@ -13,7 +13,9 @@ mypy_extensions==0.4.3
 pykwalify==1.7.0
 pynamodb==4.3.1
 python-dateutil==2.8.1
+python-git==2018.2.1
 python-jose==3.1.0
+pytz==2020.4
 requests==2.23.0
 ruamel.yaml==0.16.10
 simplejson==3.17.0
