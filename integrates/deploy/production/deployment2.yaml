@@ -24,7 +24,7 @@ spec:
           command: [bash]
           args:
             - build.sh
-            - job_integrates_serve_components
+            - integrates_serve_components
             - production
             - http/production/backend_new.app:APP/uvicorn.workers.UvicornWorker/5/0.0.0.0/8000/*
           resources:
