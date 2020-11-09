@@ -479,12 +479,13 @@ function job_integrates_probes_readiness {
 }
 
 function job_integrates_serve_components {
+  local aws_creds="${1}"
 
   trap 'helper_common_kill_attached_processes 5' SIGINT
 
       pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  for arg in "$@"
+    &&  helper_integrates_aws_login "${aws_creds}" \
+    &&  for arg in "${@:1}"
         do
               if echo "${arg}" | grep -qP '^http'
               then

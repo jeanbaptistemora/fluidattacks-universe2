@@ -29,6 +29,7 @@ spec:
           args:
             - build.sh
             - job_integrates_serve_components
+            - production
             - http/production/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/5/0.0.0.0/8000/127.0.0.1
           resources:
             requests:

@@ -23,6 +23,7 @@ spec:
           args:
             - build.sh
             - integrates_serve_components
+            - development
             - dynamo
             - http/development/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/5/0.0.0.0/8000/127.0.0.1
           resources:
@@ -74,6 +75,7 @@ spec:
           args:
             - build.sh
             - integrates_serve_components
+            - development
             - redis
             - http/development/backend_new.app:APP/uvicorn.workers.UvicornWorker/5/0.0.0.0/8001/*
           resources:
