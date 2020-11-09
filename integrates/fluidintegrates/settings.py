@@ -180,7 +180,7 @@ BUGSNAG = {
 
 if FI_ENVIRONMENT == 'production':
     URL = 'https://build.bugsnag.com'
-    HEADERS = {'Content-Type': 'application/json'}
+    HEADERS = {'Content-Type': 'application/json', 'server': 'None'}
     PAYLOAD = {
         'apiKey': FI_BUGSNAG_ACCESS_TOKEN,
         'appVersion': CI_COMMIT_SHORT_SHA,

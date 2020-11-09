@@ -58,6 +58,10 @@ class IntegratesWorker(UvicornWorker):
                 'no-cache'
             ],
             [
+                'server',
+                'None'
+            ],
+            [
                 'WWW-Authenticate',
                 'OAuth realm="Access to FLUIDIntegrates" charset="UTF-8"'
             ],
