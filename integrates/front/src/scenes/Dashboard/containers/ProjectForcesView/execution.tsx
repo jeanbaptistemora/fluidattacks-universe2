@@ -9,6 +9,7 @@ import _ from "lodash";
 import React, { ReactElement } from "react";
 import { Col, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
+import { MemoryRouter, Route } from "react-router";
 // tslint:disable-next-line no-submodule-imports
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 // tslint:disable-next-line no-submodule-imports
@@ -17,6 +18,7 @@ import { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/sty
 import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import {
   IExecution,
   IExploitResult,
@@ -27,6 +29,7 @@ import {
 } from "scenes/Dashboard/containers/ProjectForcesView";
 import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { TabsContainer } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
@@ -249,25 +252,46 @@ const modalExecution: React.FC<IExecution> = (
           </p>
         </Col>
       </Row>
-      <br />
-      <DataTableNext
-        bordered={true}
-        dataset={getDatasetFromVulnerabilities(execution.vulnerabilities)}
-        exportCsv={false}
-        search={true}
-        headers={headersCompromisedToeTable(execution.vulnerabilities)}
-        id="tblCompromisedToe"
-        pageSize={100}
-        columnToggle={true}
-        isFilterEnabled={isFilterEnabled}
-        onUpdateEnableFilter={handleUpdateFilter}
-      />
-      <hr />
-
-      <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
-        {execution.log}
-      </SyntaxHighlighter>
-
+      <br/>
+      <MemoryRouter
+        initialEntries={["/summary", "/log"]}
+        initialIndex={0}
+      >
+        <TabsContainer>
+          <ContentTab
+            icon="icon pe-7s-graph3"
+            id="forcesExecutionSummaryTab"
+            link="/summary"
+            title={translate.t("group.forces.tabs.summary.text")}
+            tooltip={translate.t("group.forces.tabs.summary.tooltip")}/>
+          <ContentTab
+            icon="icon pe-7s-file"
+            id="forcesExecutionLogTab"
+            link="/log"
+            title={translate.t("group.forces.tabs.log.text")}
+            tooltip={translate.t("group.forces.tabs.log.tooltip")}/>
+        </TabsContainer>
+        <br />
+        <Route path="/summary">
+          <DataTableNext
+            bordered={true}
+            dataset={getDatasetFromVulnerabilities(execution.vulnerabilities)}
+            exportCsv={false}
+            search={true}
+            headers={headersCompromisedToeTable(execution.vulnerabilities)}
+            id="tblCompromisedToe"
+            pageSize={100}
+            columnToggle={true}
+            isFilterEnabled={isFilterEnabled}
+            onUpdateEnableFilter={handleUpdateFilter}
+          />
+        </Route>
+        <Route path="/log">
+          <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
+            {execution.log}
+          </SyntaxHighlighter>
+        </Route>
+      </MemoryRouter>
     </div>
   );
 };

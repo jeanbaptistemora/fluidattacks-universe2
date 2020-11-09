@@ -466,6 +466,16 @@ export const enTranslations: ResourceKey = {
         tolerant: "Tolerant",
       },
       table_advice: "Click on an execution to see more details",
+      tabs: {
+        log: {
+          text: "Execution Log",
+          tooltip: "Log record of the execution of forces in YAML format",
+        },
+        summary: {
+          text: "Summary",
+          tooltip: "Status summary of found vulnerabilities",
+        },
+      },
     },
     tabs: {
       analytics: {

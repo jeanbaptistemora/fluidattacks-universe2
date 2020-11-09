@@ -472,6 +472,10 @@ class ViewTestCase(unittest.TestCase):
                 expected.presence_of_element_located(
                     (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
             selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
+
+            log_element = selenium.find_element_by_xpath(
+                '//*[@id="forcesExecutionLogTab"]/a')
+            self.__click(log_element)
             assert 'Running Fluid Asserts' in selenium.page_source
 
     def test_17_pending_to_delete(self):
