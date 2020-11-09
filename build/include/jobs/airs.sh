@@ -153,7 +153,7 @@ function job_airs_test_blog {
   local all_blog_adoc_files
   local touched_blog_adoc_files
   local min_words='800'
-  local max_words='1450'
+  local max_words='1200'
   local max_lix='50'
 
       pushd airs \
