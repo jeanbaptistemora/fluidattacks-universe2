@@ -9,7 +9,7 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
+import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router";
 import { NavLink } from "react-router-dom";
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
@@ -27,10 +27,9 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-type EventContentProps = RouteComponentProps<{ eventId: string }>;
-
-const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JSX.Element => {
-  const { eventId } = props.match.params;
+const eventContent: React.FC = (): JSX.Element => {
+  const { eventId } = useParams<{ eventId: string }>();
+  const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
   const handleErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,
@@ -55,19 +54,19 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
             </Query>
             <TabsContainer>
               <Tab id="resourcesTab">
-                <NavLink activeClassName={"nav-active-bg"} to={`${props.match.url}/description`}>
+                <NavLink activeClassName={"nav-active-bg"} to={`${url}/description`}>
                   <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.description")}
                 </NavLink>
               </Tab>
               <Tab id="evidenceTab">
-                <NavLink activeClassName={"nav-active-bg"} to={`${props.match.url}/evidence`}>
+                <NavLink activeClassName={"nav-active-bg"} to={`${url}/evidence`}>
                   <i className="icon pe-7s-note2" />
                   &nbsp;{translate.t("search_findings.tab_events.evidence")}
                 </NavLink>
               </Tab>
               <Tab id="commentsTab">
-                <NavLink activeClassName={"nav-active-bg"} to={`${props.match.url}/comments`}>
+                <NavLink activeClassName={"nav-active-bg"} to={`${url}/comments`}>
                   <i className="icon pe-7s-comment" />
                   &nbsp;{translate.t("search_findings.tab_events.comments")}
                 </NavLink>
@@ -75,10 +74,10 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
             </TabsContainer>
             <TabContent>
               <Switch>
-                <Route path={`${props.match.path}/description`} component={EventDescriptionView} exact={true} />
-                <Route path={`${props.match.path}/evidence`} component={EventEvidenceView} exact={true} />
-                <Route path={`${props.match.path}/comments`} component={EventCommentsView} exact={true} />
-                <Redirect to={`${props.match.path}/description`} />
+                <Route path={`${path}/description`} component={EventDescriptionView} exact={true} />
+                <Route path={`${path}/evidence`} component={EventEvidenceView} exact={true} />
+                <Route path={`${path}/comments`} component={EventCommentsView} exact={true} />
+                <Redirect to={`${path}/description`} />
               </Switch>
             </TabContent>
           </Col100>

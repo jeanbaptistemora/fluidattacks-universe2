@@ -2,36 +2,13 @@ import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import _ from "lodash";
 import * as React from "react";
-import { MemoryRouter, RouteComponentProps } from "react-router";
+import { MemoryRouter, Route, RouteComponentProps } from "react-router";
 import wait from "waait";
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 
 describe("EventContent", () => {
-  const mockProps: RouteComponentProps<{ eventId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { eventId: "413372600" },
-      path: "/",
-      url: "",
-    },
-  };
-
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
       query: GET_EVENT_HEADER,
@@ -56,9 +33,11 @@ describe("EventContent", () => {
 
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <EventContent {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route path={"/:projectName/events/:eventId/description"} component={EventContent}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -66,9 +45,9 @@ describe("EventContent", () => {
 
   it("should render header component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/events/413372600/description"]}>
+      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <EventContent {...mockProps} />
+          <Route path={"/:projectName/events/:eventId/description"} component={EventContent}/>
         </MockedProvider>
       </MemoryRouter>,
     );
