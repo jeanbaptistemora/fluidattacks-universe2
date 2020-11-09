@@ -24,15 +24,14 @@ spec:
             - build.sh
             - integrates_serve_components
             - development
-            - dynamo
-            - http/development/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/5/0.0.0.0/8000/127.0.0.1
+            - http/development/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/2/0.0.0.0/8000/127.0.0.1
           resources:
             requests:
               cpu: 500m
-              memory: 2Gi
+              memory: 2000Mi
             limits:
               cpu: 500m
-              memory: 2Gi
+              memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -76,15 +75,14 @@ spec:
             - build.sh
             - integrates_serve_components
             - development
-            - redis
-            - http/development/backend_new.app:APP/uvicorn.workers.UvicornWorker/5/0.0.0.0/8001/*
+            - http/development/backend_new.app:APP/uvicorn.workers.UvicornWorker/2/0.0.0.0/8001/*
           resources:
             requests:
               cpu: 500m
-              memory: 2Gi
+              memory: 2000Mi
             limits:
               cpu: 500m
-              memory: 2Gi
+              memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -120,3 +118,47 @@ spec:
             successThreshold: 1
             failureThreshold: 40
             timeoutSeconds: 30
+        - name: dynamo
+          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
+          imagePullPolicy: Always
+          command: [bash]
+          args:
+            - build.sh
+            - integrates_serve_components
+            - development
+            - dynamo
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+            limits:
+              cpu: 250m
+              memory: 500Mi
+          env:
+            - name: DEPLOYMENT_DATE
+              value: "__DATE__"
+          envFrom:
+            - secretRef:
+                name: integrates-__DEPLOYMENT_NAME__
+        - name: redis
+          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
+          imagePullPolicy: Always
+          command: [bash]
+          args:
+            - build.sh
+            - integrates_serve_components
+            - development
+            - redis
+          resources:
+            requests:
+              cpu: 150m
+              memory: 500Mi
+            limits:
+              cpu: 150m
+              memory: 500Mi
+          env:
+            - name: DEPLOYMENT_DATE
+              value: "__DATE__"
+          envFrom:
+            - secretRef:
+                name: integrates-__DEPLOYMENT_NAME__
