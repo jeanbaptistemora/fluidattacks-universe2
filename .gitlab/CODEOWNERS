@@ -2,8 +2,8 @@
 * @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid @ralvarezatfluid
 
 # Front approvers
-/integrates/front/ @dacevedoatfluid @jrestrepoatfluid @kamadoatfluid @dsalazaratfluid
-/integrates/mobile/ @dacevedoatfluid @jrestrepoatfluid @kamadoatfluid
+/integrates/front/ @dacevedoatfluid @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid
+/integrates/mobile/ @dacevedoatfluid @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid
 
 # Integrates back authz approvers
 /integrates/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @kamadoatfluid

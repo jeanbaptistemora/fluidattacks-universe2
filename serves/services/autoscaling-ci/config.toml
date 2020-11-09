@@ -36,7 +36,7 @@ check_interval = 20
   [runners.machine]
     IdleCount = 20
     IdleTime = 1800
-    MaxBuilds = 20
+    MaxBuilds = 15
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-ci-%s"
     MachineOptions = [
@@ -95,9 +95,9 @@ check_interval = 20
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 5
+    IdleCount = 10
     IdleTime = 1800
-    MaxBuilds = 20
+    MaxBuilds = 15
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-large-ci-%s"
     MachineOptions = [
@@ -212,7 +212,7 @@ check_interval = 20
   [runners.machine]
     IdleCount = 10
     IdleTime = 1800
-    MaxBuilds = 20
+    MaxBuilds = 15
     MachineDriver = "amazonec2"
     MachineName = "autonomic-ci-%s"
     MachineOptions = [
