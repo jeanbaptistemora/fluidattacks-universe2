@@ -110,7 +110,6 @@ cr
 cs
 csh
 cson
-css
 ctl
 cu
 cuh
@@ -581,8 +580,6 @@ robot
 rc
 rc2
 sas
-sass
-scss
 sh
 smarty
 sml
@@ -599,8 +596,6 @@ i
 svelte
 sv
 svh
-svg
-SVG
 v
 tcl
 tcsh

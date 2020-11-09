@@ -11,6 +11,7 @@ from features.file import extract_features
 from utils.logs import log
 from utils.predict import predict_vuln_prob
 from utils.repositories import get_repository_files
+from utils.static import read_allowed_names
 
 
 FILE_PREDICT_FEATURES = ['midnight_commits', 'num_lines', 'commit_frequency']
@@ -19,8 +20,17 @@ FILE_PREDICT_FEATURES = ['midnight_commits', 'num_lines', 'commit_frequency']
 def get_subscription_files_df(fusion_path: str) -> DataFrame:
     """Builds the basic DF with all the files from every repository"""
     files: List[str] = []
+    extensions, composites = read_allowed_names()
     for repo in os.listdir(fusion_path):
-        files.extend(get_repository_files(os.path.join(fusion_path, repo)))
+        repo_files = get_repository_files(os.path.join(fusion_path, repo))
+        allowed_files = list(
+            filter(
+                lambda x: x in composites or x.split('.')[-1] in extensions,
+                repo_files
+            )
+        )
+        if allowed_files:
+            files.extend(allowed_files)
     files_df: DataFrame = pd.DataFrame(files, columns=['file'])
     files_df['repo'] = files_df['file'].apply(
         lambda x: os.path.join(fusion_path, x.split('/')[0])
