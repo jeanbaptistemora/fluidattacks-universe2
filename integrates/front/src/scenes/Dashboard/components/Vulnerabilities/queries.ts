@@ -33,6 +33,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     treatmentManager
     remediated
     verification
+    zeroRisk
   }
   `;
 

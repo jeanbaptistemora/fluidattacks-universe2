@@ -1053,6 +1053,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "Related Common Weakness Enumeration (CWE) according to MITRE",
       },
       where: "Where",
+      zero_risk: "Zero risk",
     },
     tab_events: {
       affectation: "Affectation",

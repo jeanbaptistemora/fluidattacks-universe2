@@ -24,6 +24,7 @@ export interface IVulnRow {
   verification: string;
   vulnType: string;
   where: string;
+  zeroRisk: string;
 }
 
 export interface IUploadVulnerabilitiesResult {
@@ -82,6 +83,9 @@ export interface IVulnerabilitiesViewProps {
   editMode: boolean;
   editModePending?: boolean;
   findingId: string;
+  isConfirmingZeroRisk?: boolean;
+  isRejectingZeroRisk?: boolean;
+  isRequestingZeroRisk?: boolean;
   isRequestVerification?: boolean;
   isVerifyRequest?: boolean;
   lastTreatment?: IHistoricTreatment;

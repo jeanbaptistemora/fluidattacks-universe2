@@ -44,6 +44,11 @@ const filterState:
 
       dataVuln.filter((vuln: IVulnType[0]) => vuln.currentState === state);
 
+const filterNoConfirmedZeroRisk:
+  ((dataVuln: IVulnType) => IVulnType) =
+    (dataVuln: IVulnType): IVulnType =>
+      dataVuln.filter((vuln: IVulnType[0]) => vuln.zeroRisk !== "Confirmed");
+
 const specificToNumber: ((line: IVulnRow) => number) =
   (line: IVulnRow): number =>
     parseInt(line.specific, 10);
@@ -100,6 +105,10 @@ const groupVerification: ((lines: IVulnRow[]) => string) = (lines: IVulnRow[]): 
   lines.every((row: IVulnRow) => row.verification === "Requested") ? "Requested" :
     lines.every((row: IVulnRow) => row.verification === "Verified (open)") ? "Verified (open)" : "";
 
+const groupZeroRisk: ((lines: IVulnRow[]) => string) = (lines: IVulnRow[]): string =>
+  lines.every((row: IVulnRow) => row.zeroRisk === "Requested") ? "Requested" :
+    lines.every((row: IVulnRow) => row.zeroRisk === "Rejected") ? "Rejected" : "";
+
 const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => {
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
   const specificGrouped: IVulnType = _.map(groups, (line: IVulnType) =>
@@ -122,6 +131,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         verification: groupVerification(line),
         vulnType: line[0].vulnType,
         where: line[0].where,
+        zeroRisk: groupZeroRisk(line),
     }));
 
   return specificGrouped;
@@ -281,11 +291,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           if (!_.isUndefined(data)) {
 
             const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = newVulnerabilities(filterState(
-              data.finding.inputsVulns, props.state));
+              filterNoConfirmedZeroRisk(data.finding.inputsVulns), props.state));
             const dataLines: IVulnsAttr["finding"]["linesVulns"] = newVulnerabilities(filterState(
-              data.finding.linesVulns, props.state));
+              filterNoConfirmedZeroRisk(data.finding.linesVulns), props.state));
             const dataPorts: IVulnsAttr["finding"]["portsVulns"] = newVulnerabilities(filterState(
-              data.finding.portsVulns, props.state));
+              filterNoConfirmedZeroRisk(data.finding.portsVulns), props.state));
 
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {
@@ -412,6 +422,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               },
               {
                 align: "left",
+                dataField: "zeroRisk",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.zero_risk"),
+                onSort: onSortPorts,
+              },
+              {
+                align: "left",
                 dataField: "tag",
                 header: translate.t("search_findings.tab_description.tag"),
                 headerFormatter: proFormatter,
@@ -442,6 +459,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               },
               {
                 align: "left",
+                dataField: "zeroRisk",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.zero_risk"),
+                onSort: onSortPorts,
+              },
+              {
+                align: "left",
                 dataField: "tag",
                 header: translate.t("search_findings.tab_description.tag"),
                 headerFormatter: proFormatter,
@@ -467,6 +491,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 dataField: "verification",
                 formatter: statusFormatter,
                 header: translate.t("search_findings.tab_description.verification"),
+                onSort: onSortPorts,
+              },
+              {
+                align: "left",
+                dataField: "zeroRisk",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.zero_risk"),
                 onSort: onSortPorts,
               },
               {

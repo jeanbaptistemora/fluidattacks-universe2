@@ -63,6 +63,7 @@ describe("Vulnerabilities view", () => {
                 verification: "Verified",
                 vulnType: "inputs",
                 where: "https://example.com/inputs",
+                zeroRisk: "Requested",
               },
               {
                 __typename: "Vulnerability",
@@ -89,6 +90,7 @@ describe("Vulnerabilities view", () => {
                 verification: "Verified",
                 vulnType: "inputs",
                 where: "https://example.com/inputs",
+                zeroRisk: "Requested",
               },
             ],
             linesVulns: [
@@ -113,6 +115,7 @@ describe("Vulnerabilities view", () => {
                 verification: "",
                 vulnType: "lines",
                 where: "https://example.com/lines",
+                zeroRisk: "",
               },
               {
                 __typename: "Vulnerability",
@@ -135,6 +138,7 @@ describe("Vulnerabilities view", () => {
                 verification: "",
                 vulnType: "lines",
                 where: "https://example.com/lines",
+                zeroRisk: "Rejected",
               },
             ],
             portsVulns: [{
@@ -158,6 +162,7 @@ describe("Vulnerabilities view", () => {
               verification: "",
               vulnType: "ports",
               where: "https://example.com/ports",
+              zeroRisk: "",
             }],
             releaseDate: "2019-03-12 00:00:00",
           },
@@ -286,16 +291,20 @@ describe("Vulnerabilities view", () => {
       .find({columnIndex: 1});
     expect(inputSpecifics.text())
       .toEqual("specific-1, specific-2");
-    const inputTags: ReactWrapper = inputsVulns
+    const inputZeroRisk: ReactWrapper = inputsVulns
       .find({columnIndex: 3});
+    expect(inputZeroRisk.text())
+      .toEqual("Requested");
+    const inputTags: ReactWrapper = inputsVulns
+      .find({columnIndex: 4});
     expect(inputTags.text())
       .toEqual("tag-1, tag-2, tag-3, tag-4");
     const inputSeverities: ReactWrapper = inputsVulns
-      .find({columnIndex: 4});
+      .find({columnIndex: 5});
     expect(inputSeverities.text())
       .toEqual("-1, 2");
     const inputTreatmentManagers: ReactWrapper = inputsVulns
-      .find({columnIndex: 5});
+      .find({columnIndex: 6});
     expect(inputTreatmentManagers.text())
       .toEqual("treatment-manager-1, treatment-manager-2");
     const linesVulns: ReactWrapper = wrapper
@@ -305,16 +314,20 @@ describe("Vulnerabilities view", () => {
       .find({columnIndex: 1});
     expect(linesSpecifics.text())
       .toEqual("62-63");
-    const linesTags: ReactWrapper = linesVulns
+    const linesZeroRisk: ReactWrapper = linesVulns
       .find({columnIndex: 3});
+    expect(linesZeroRisk.text())
+      .toEqual("");
+    const linesTags: ReactWrapper = linesVulns
+      .find({columnIndex: 4});
     expect(linesTags.text())
       .toEqual("tag-5, tag-6, tag-7, tag-8");
     const linesSeverities: ReactWrapper = linesVulns
-      .find({columnIndex: 4});
+      .find({columnIndex: 5});
     expect(linesSeverities.text())
       .toEqual("1, 2");
     const linesTreatmentManagers: ReactWrapper = linesVulns
-      .find({columnIndex: 5});
+      .find({columnIndex: 6});
     expect(linesTreatmentManagers.text())
       .toEqual("treatment-manager-3, treatment-manager-4");
   });
