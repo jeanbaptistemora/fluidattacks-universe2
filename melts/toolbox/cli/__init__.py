@@ -43,7 +43,7 @@ class ForceUpgrade(click.Group):
 
         if command != 'upgrade' \
                 and not utils.generic.is_env_ci() \
-                and not utils.generic.is_dev_mode \
+                and not utils.generic.is_dev_mode() \
                 and check_new_version():
 
             logger.info("There is a new version, please upgrade melts ")
