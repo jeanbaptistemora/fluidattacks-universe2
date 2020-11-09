@@ -98,7 +98,8 @@ someone else with similar skills and experience will take over
 because the raw material with which we work will never cease to be shared.
 
 Apart from the collaboration that we can receive
-from smart people of our community and not legally affiliated with our company,
+from smart people of our link:https://community.fluidattacks.com/[community]
+and not legally affiliated with our company,
 almost all `Fluid Attacks'` members can and are encouraged to review the code
 to propose new ideas for its optimization (including security).
 Since `Fluid Attacks's` inception, we have taken advantage
