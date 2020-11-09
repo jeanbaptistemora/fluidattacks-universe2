@@ -8,7 +8,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useParams } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
@@ -35,10 +35,8 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { dateTimeBeforeToday, numeric, required, validDatetime } from "utils/validations";
 
-type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
-
-const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescriptionProps): JSX.Element => {
-  const { eventId } = props.match.params;
+const eventDescriptionView: React.FC = (): JSX.Element => {
+  const { eventId } = useParams<{ eventId: string }>();
   const { userName } = window as typeof window & Dictionary<string>;
 
   // Side effects
