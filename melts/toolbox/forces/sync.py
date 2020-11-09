@@ -552,8 +552,11 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
     # If we didn't run, assume it's synced
     results_static: List[dict] = []
     if should_run_static:
-        results_static = are_exploits_synced__static(subs, exp_name)
-        _print_results_summary(results_static)
+        if os.path.exists(f'groups/{subs}/fusion'):
+            results_static = are_exploits_synced__static(subs, exp_name)
+            _print_results_summary(results_static)
+        else:
+            logger.error("No downloaded repositories")
     else:
         logger.warn()
         logger.warn('Ignoring Static check due to group config')
