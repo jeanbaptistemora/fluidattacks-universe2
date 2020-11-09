@@ -366,14 +366,6 @@ integrates_functional_tests_prod:
       - integrates/test/functional/screenshots/
     when: always
 
-.integrates_functional_tests_mobile:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  needs:
-    - integrates_deploy_back_ephemeral
-    - integrates_deploy_mobile_ota
-  stage: post-deploy
-
 integrates_infra_backup_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
@@ -410,16 +402,6 @@ integrates_infra_django_db_deploy:
   stage: deploy-infra
 
 integrates_infra_django_db_test:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: test-infra
-
-integrates_infra_devicefarm_deploy:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
-
-integrates_infra_devicefarm_test:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: test-infra

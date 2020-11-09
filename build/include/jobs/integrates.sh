@@ -843,29 +843,6 @@ function job_integrates_infra_django_db_test {
   || return 1
 }
 
-function job_integrates_infra_devicefarm_deploy {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  pushd deploy/devicefarm/terraform \
-    &&  terraform init \
-    &&  terraform apply -auto-approve -refresh=true \
-  &&  popd \
-  &&  popd \
-  || return 1
-}
-
-function job_integrates_infra_devicefarm_test {
-  local target='deploy/devicefarm/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_resources_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
