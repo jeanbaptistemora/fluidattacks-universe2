@@ -382,7 +382,7 @@ def get_active_missing_repos(subs):
 
     with open(config_file) as config_handle:
         config = yaml.safe_load(config_handle.read())
-        repos_config: List[Dict] = config.get('code', [])
+        repos_config: List[Dict] = config.get('code', []) or []
         repo_names: List[str] = []
         for repo in repos_config:
             repo_names.extend(
