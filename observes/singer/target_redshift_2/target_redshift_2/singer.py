@@ -1,3 +1,4 @@
+"""Singer standard object and factories"""
 # Standard libraries
 import json
 from typing import (
@@ -15,6 +16,7 @@ from typing import (
 
 
 class SingerSchema(NamedTuple):
+    """Singer schema object type"""
     stream: str
     schema: Dict[str, Any]
     key_properties: FrozenSet[str]
@@ -22,6 +24,7 @@ class SingerSchema(NamedTuple):
 
 
 class SingerSchemaFactory(NamedTuple):
+    """Generator of `SingerSchema` objects"""
     # pylint: disable=too-many-function-args
     # required due to a bug with callable properties
     load_json: Callable[[str], Any] = json.loads
@@ -30,6 +33,7 @@ class SingerSchemaFactory(NamedTuple):
         self: 'SingerSchemaFactory',
         json_schema: str
     ) -> SingerSchema:
+        """Generate `SingerSchema` from json string"""
         try:
             raw_json: Dict[str, Any] = self.load_json(json_schema)
             if raw_json['type'] == 'SCHEMA':
@@ -44,17 +48,21 @@ class SingerSchemaFactory(NamedTuple):
                     if bookmark_properties else None,
                 )
             raise KeyError()
-        except KeyError:
-            raise KeyError('Deserialize singer schema failed. Missing fields.')
+        except KeyError as error:
+            raise KeyError(
+                'Deserialize singer schema failed. Missing fields.'
+            ) from error
 
 
 class SingerRecord(NamedTuple):
+    """Singer record object type"""
     stream: str
     record: Dict[str, Any]
     time_extracted: Optional[str] = None
 
 
 class SingerRecordFactory(NamedTuple):
+    """Generator of `SingerRecord` objects"""
     # pylint: disable=too-many-function-args
     # required due to a bug with callable properties
     load_json: Callable[[str], Any] = json.loads
@@ -63,6 +71,7 @@ class SingerRecordFactory(NamedTuple):
         self: 'SingerRecordFactory',
         json_record: str
     ) -> SingerRecord:
+        """Generate `SingerRecord` from json string"""
         try:
             raw_json = self.load_json(json_record)
             if raw_json['type'] == 'RECORD':
@@ -72,11 +81,14 @@ class SingerRecordFactory(NamedTuple):
                     raw_json.get('time_extracted', None)
                 )
             raise KeyError()
-        except KeyError:
-            raise KeyError('Deserialize singer schema failed. Missing fields.')
+        except KeyError as error:
+            raise KeyError(
+                'Deserialize singer schema failed. Missing fields.'
+            ) from error
 
 
 class SingerFactory(NamedTuple):
+    """Generator of `Singer*` objects"""
     # pylint: disable=too-many-function-args
     # required due to a bug with callable properties
     load_json: Callable[[str], Any] = json.loads
@@ -87,6 +99,7 @@ class SingerFactory(NamedTuple):
         self: 'SingerFactory',
         json_record: str
     ) -> Union[SingerRecord, SingerSchema]:
+        """Generate `SingerRecord` or `SingerSchema` from json string"""
         raw_json: Dict[str, Any] = self.load_json(json_record)
         data_type: Optional[str] = raw_json.get('type', None)
         if data_type == 'RECORD':
