@@ -1,3 +1,7 @@
+/* eslint-disable react/forbid-component-props
+  -------
+  We need className to override default styles from react-boostrap.
+*/
 import { LoginInfoButton } from "scenes/Login/components/LoginInfoButton";
 import React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
@@ -11,11 +15,12 @@ describe("Login info button", (): void => {
   it("should render a button", (): void => {
     expect.hasAssertions();
 
+    const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <LoginInfoButton
-        bsStyle={"primary"}
+        className={"bitbucketInfoBtn"}
         fontAwesomeName={"bitbucket"}
-        href={"https://test"}
+        onClick={clickCallback}
       />
     );
 

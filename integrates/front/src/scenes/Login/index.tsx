@@ -27,6 +27,17 @@ export const Login: React.FC = (): JSX.Element => {
     ? process.env.CI_COMMIT_SHORT_SHA
     : "";
 
+  // Event handlers 2FA notification Buttons
+  function handleNotificationGoogle(): void {
+    location.assign("https://bit.ly/2Gpjt6h");
+  }
+  function handleNotificationMicrosoft(): void {
+    location.assign("https://bit.ly/2Gp1L2X");
+  }
+  function handleNotificationBitbucket(): void {
+    location.assign("https://bit.ly/3it0Im7");
+  }
+
   // Show 2FA Notification
   React.useEffect((): void => {
     toast.info(
@@ -35,23 +46,23 @@ export const Login: React.FC = (): JSX.Element => {
         <div>
           <Col md={4} xs={12}>
             <LoginInfoButton
-              bsStyle={"danger"}
+              className={`${style.socialBtn} ${style.googleInfoBtn}`}
               fontAwesomeName={"google"}
-              href={"https://bit.ly/2Gpjt6h"}
+              onClick={handleNotificationGoogle}
             />
           </Col>
           <Col md={4} xs={12}>
             <LoginInfoButton
-              bsStyle={"primary"}
+              className={`${style.socialBtn} ${style.microsoftInfoBtn}`}
               fontAwesomeName={"windows"}
-              href={"https://bit.ly/2Gp1L2X"}
+              onClick={handleNotificationMicrosoft}
             />
           </Col>
           <Col md={4} xs={12}>
             <LoginInfoButton
-              bsStyle={"primary"}
+              className={`${style.socialBtn} ${style.bitbucketInfoBtn}`}
               fontAwesomeName={"bitbucket"}
-              href={"https://bit.ly/3it0Im7"}
+              onClick={handleNotificationBitbucket}
             />
           </Col>
         </div>

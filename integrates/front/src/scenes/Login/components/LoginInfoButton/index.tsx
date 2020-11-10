@@ -1,23 +1,22 @@
-import { Button } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import React from "react";
 
 interface ILoginInfoButtonProps {
-  bsStyle: string;
   fontAwesomeName: string;
-  href: string;
+  className: string;
+  onClick: () => void;
 }
 
 const loginInfoButton: React.FC<ILoginInfoButtonProps> = (
   props: Readonly<ILoginInfoButtonProps>
 ): JSX.Element => {
-  const { bsStyle, fontAwesomeName, href } = props;
+  const { fontAwesomeName, className, onClick } = props;
 
   return (
-    <Button block={true} bsStyle={bsStyle} href={href}>
+    <button className={className} onClick={onClick}>
       <FontAwesome name={fontAwesomeName} size={"2x"} />
       &nbsp;
-    </Button>
+    </button>
   );
 };
 
