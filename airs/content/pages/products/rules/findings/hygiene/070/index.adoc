@@ -9,7 +9,7 @@
 == Description
 
 There are coding practices in the source code that can be deemed unsafe and
-increase the chances that an exploitable vulnerability will be present.
+increase the chances of an exploitable vulnerability.
 
 == Rules
 

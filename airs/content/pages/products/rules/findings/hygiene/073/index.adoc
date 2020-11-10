@@ -8,8 +8,8 @@
 
 == Description
 
-The source code has conditional statements without a default option.
-E.g. there is a switch statement without a default case.
+The source code has conditional statements without a default option,
+e.g., there is a switch statement without a default case.
 
 == Rules
 

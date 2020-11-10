@@ -10,7 +10,7 @@
 
 It is possible to obtain technical information such as:
 
-* System component versions (*HTTP* headers, service banner, etc)
+* System component versions (*HTTP* headers, service banner, etc.)
 
 * Specific information about the configuration of server components
 (**php.ini**, **web.config**)

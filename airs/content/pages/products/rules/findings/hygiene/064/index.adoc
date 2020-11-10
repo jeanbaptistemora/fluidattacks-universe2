@@ -9,7 +9,7 @@
 == Description
 
 The application triggers logging events exclusively from the front-end.
-This could be used by an attacker to disrupt the traceability of his actions
+This could be used by an attacker to disrupt the traceability of their actions
 by dropping the logging requests.
 
 == Rules

@@ -10,8 +10,9 @@
 
 There are variant variables in the source code,
 i.e., no specific type is declared for them.
-This can be inefficient as it becomes necessary to identify the variable's data
-type and cast it to it every time it will be used.
+This can be inefficient, as it becomes necessary
+to identify the variable's data type
+and cast it to it every time it will be used.
 
 == Rules
 
