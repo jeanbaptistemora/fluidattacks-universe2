@@ -43,6 +43,26 @@ module "eks" {
       root_volume_size     = "50"
       kubelet_extra_args   = "--node-labels=worker_group=xlarge"
     },
+    {
+      name                 = "ephemeral"
+      instance_type        = "m5a.xlarge"
+      asg_min_size         = 10
+      asg_desired_capacity = 10
+      asg_max_size         = 10
+      root_volume_type     = "gp2"
+      root_volume_size     = "50"
+      kubelet_extra_args   = "--node-labels=worker_group=ephemeral"
+    },
+    {
+      name                 = "production"
+      instance_type        = "m5a.xlarge"
+      asg_min_size         = 10
+      asg_desired_capacity = 10
+      asg_max_size         = 10
+      root_volume_type     = "gp2"
+      root_volume_size     = "50"
+      kubelet_extra_args   = "--node-labels=worker_group=production"
+    },
   ]
 
   map_roles    = var.map_roles
