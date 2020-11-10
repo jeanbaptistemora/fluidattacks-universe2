@@ -5,7 +5,7 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { MemoryRouter, Route, RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
@@ -23,29 +23,6 @@ describe("EventCommentsView", () => {
     document.body.removeChild((container as HTMLDivElement));
     container = undefined;
   });
-
-  const mockProps: RouteComponentProps<{ eventId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { eventId: "413372600" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {

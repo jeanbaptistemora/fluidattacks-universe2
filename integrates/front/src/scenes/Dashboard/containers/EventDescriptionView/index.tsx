@@ -8,7 +8,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { RouteComponentProps, useParams } from "react-router";
+import { useParams } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";

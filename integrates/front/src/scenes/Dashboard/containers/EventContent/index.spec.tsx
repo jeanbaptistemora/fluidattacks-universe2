@@ -2,7 +2,7 @@ import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import _ from "lodash";
 import * as React from "react";
-import { MemoryRouter, Route, RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
