@@ -6,7 +6,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
@@ -18,30 +18,6 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventEvidenceView", () => {
-
-  const mockProps: RouteComponentProps<{ eventId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { eventId: "413372600" },
-      path: "/",
-      url: "",
-    },
-  };
-
   it("should return a fuction", () => {
     expect(typeof (EventEvidenceView))
       .toEqual("function");
@@ -65,9 +41,11 @@ describe("EventEvidenceView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <EventEvidenceView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route path={"/:projectName/events/:eventId/evidence"} component={EventEvidenceView}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -92,9 +70,13 @@ describe("EventEvidenceView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <Route path={"/:projectName/events/:eventId/evidence"} component={EventEvidenceView}/>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
@@ -119,9 +101,13 @@ describe("EventEvidenceView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <Route path={"/:projectName/events/:eventId/evidence"} component={EventEvidenceView}/>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.containsMatchingElement(<img />))
@@ -148,9 +134,13 @@ describe("EventEvidenceView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <Route path={"/:projectName/events/:eventId/evidence"} component={EventEvidenceView}/>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     wrapper.find("img")
@@ -181,13 +171,15 @@ describe("EventEvidenceView", () => {
       { action: "backend_api_mutations_update_event_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <EventEvidenceView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route path={"/:projectName/events/:eventId/evidence"} component={EventEvidenceView} />
+            </authzPermissionsContext.Provider>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper
@@ -235,9 +227,13 @@ describe("EventEvidenceView", () => {
       .mockReturnValue({ opener: undefined });
     (window as { open: ((url: string) => { opener: undefined }) }).open = onOpenLink;
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <Route path={"/:projectName/events/:eventId/evidence"} component={EventEvidenceView}/>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     wrapper.find("span")
