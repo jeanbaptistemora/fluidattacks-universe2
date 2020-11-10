@@ -1,6 +1,6 @@
 # Standard library
 from datetime import datetime, timedelta
-from typing import cast, Dict
+from typing import Any, cast, Dict
 from jose import jwt
 
 # Third party libraries
@@ -95,6 +95,10 @@ async def get_jwt_userinfo(
     token: str
 ) -> Dict[str, str]:
     return dict(await client.parse_id_token(request, token))
+
+
+def get_redirect_url(request: Request, pattern: str) -> Any:
+    return request.url_for(pattern).replace('http:', 'https:')
 
 
 async def autoenroll_user(email: str) -> None:

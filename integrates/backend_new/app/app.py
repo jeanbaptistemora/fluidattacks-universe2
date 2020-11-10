@@ -72,19 +72,19 @@ def login(request: Request) -> HTMLResponse:
 
 
 async def do_google_login(request: Request) -> Any:
-    redirect_uri = request.url_for('authz_google').replace(' ', '')
+    redirect_uri = utils.get_redirect_url(request, 'authz_google')
     google = OAUTH.create_client('google')
     return await google.authorize_redirect(request, redirect_uri)
 
 
 async def do_azure_login(request: Request) -> Any:
-    redirect_uri = request.url_for('authz_azure').replace(' ', '')
+    redirect_uri = utils.get_redirect_url(request, 'authz_azure')
     azure = OAUTH.create_client('azure')
     return await azure.authorize_redirect(request, redirect_uri)
 
 
 async def do_bitbucket_login(request: Request) -> Any:
-    redirect_uri = request.url_for('authz_bitbucket').replace(' ', '')
+    redirect_uri = utils.get_redirect_url(request, 'authz_bitbucket')
     bitbucket = OAUTH.create_client('bitbucket')
     return await bitbucket.authorize_redirect(request, redirect_uri)
 
