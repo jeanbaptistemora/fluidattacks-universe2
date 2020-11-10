@@ -14,7 +14,7 @@ spec:
         app: integrates-__DEPLOYMENT_NAME__
     spec:
       nodeSelector:
-        worker_group: large
+        worker_group: ephemeral
       containers:
         - name: integrates1
           image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
@@ -24,14 +24,14 @@ spec:
             - build.sh
             - integrates_serve_components
             - development
-            - http/development/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/2/0.0.0.0/8000/127.0.0.1
+            - http/development/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/3/0.0.0.0/8000/127.0.0.1
           resources:
             requests:
-              cpu: 500m
-              memory: 2000Mi
+              cpu: 900m
+              memory: 4000Mi
             limits:
-              cpu: 500m
-              memory: 2000Mi
+              cpu: 1000m
+              memory: 4000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -75,14 +75,14 @@ spec:
             - build.sh
             - integrates_serve_components
             - development
-            - http/development/backend_new.app:APP/uvicorn.workers.UvicornWorker/2/0.0.0.0/8001/*
+            - http/development/backend_new.app:APP/uvicorn.workers.UvicornWorker/3/0.0.0.0/8001/*
           resources:
             requests:
-              cpu: 500m
-              memory: 2000Mi
+              cpu: 900m
+              memory: 4000Mi
             limits:
-              cpu: 500m
-              memory: 2000Mi
+              cpu: 1000m
+              memory: 4000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -129,11 +129,11 @@ spec:
             - dynamo
           resources:
             requests:
-              cpu: 300m
-              memory: 500Mi
+              cpu: 700m
+              memory: 2000Mi
             limits:
-              cpu: 300m
-              memory: 500Mi
+              cpu: 800m
+              memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -151,11 +151,11 @@ spec:
             - redis
           resources:
             requests:
-              cpu: 100m
-              memory: 500Mi
+              cpu: 400m
+              memory: 2000Mi
             limits:
-              cpu: 100m
-              memory: 500Mi
+              cpu: 500m
+              memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"

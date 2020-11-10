@@ -20,7 +20,7 @@ spec:
         app: integrates-master
     spec:
       nodeSelector:
-        worker_group: xlarge
+        worker_group: production
       containers:
         - name: integrates
           image: registry.gitlab.com/fluidattacks/product/app:master
