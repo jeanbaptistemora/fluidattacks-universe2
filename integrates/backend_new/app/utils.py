@@ -101,6 +101,15 @@ def get_redirect_url(request: Request, pattern: str) -> Any:
     return request.url_for(pattern).replace('http:', 'https:')
 
 
+def get_starlette_request(*request_args_received: Request) -> Request:
+    """ We can distinguish between requests coming from our django channels
+    or directly from starlette app
+    """
+    request = request_args_received[0] if len(request_args_received) == 1 \
+        else Request(request_args_received[0], request_args_received[1])
+    return request[0] if isinstance(request, tuple) else request
+
+
 async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = 'customer'
     new_user_group_level_role: str = 'customer'

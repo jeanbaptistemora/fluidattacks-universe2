@@ -63,8 +63,8 @@ def authenticate(func: TVar) -> TVar:
     @functools.wraps(_func)
     def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
-        if ("username" not in request.session or
-                request.session["username"] is None):
+        if 'username' not in request.session or \
+                request.session['username'] is None:
             parameters: Dict[str, str] = dict()
             return render(request, 'unauthorized.html', parameters)
         return _func(*args, **kwargs)

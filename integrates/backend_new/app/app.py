@@ -5,6 +5,8 @@ import os
 from typing import Any
 
 # Third party libraries
+from asgiref.sync import async_to_sync
+
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -18,6 +20,7 @@ from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
 from backend.api import IntegratesAPI
+from backend.decorators import authenticate
 
 from backend_new.api.schema import SCHEMA
 from backend_new.app.middleware import CustomRequestMiddleware
@@ -106,8 +109,11 @@ async def authz(request: Request, client: OAuth) -> RedirectResponse:
     return RedirectResponse(url='/new/home')
 
 
-async def app(request: Request) -> HTMLResponse:
+@authenticate  # type: ignore
+@async_to_sync  # type: ignore
+async def app(*request_args: Request) -> HTMLResponse:
     """ View for authenticated users"""
+    request = utils.get_starlette_request(request_args)
     if 'username' in request.session:
         response = TEMPLATING_ENGINE.TemplateResponse(
             name='app.html',
