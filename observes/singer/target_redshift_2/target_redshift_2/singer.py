@@ -1,12 +1,14 @@
 # Standard libraries
 import json
 from typing import (
-    Any, Callable,
+    Any,
+    Callable,
     Dict,
     FrozenSet,
     List,
     NamedTuple,
     Optional,
+    Union,
 )
 # Third party libraries
 # Local libraries
@@ -21,7 +23,7 @@ class SingerSchema(NamedTuple):
 
 class SingerSchemaFactory(NamedTuple):
     # pylint: disable=too-many-function-args
-    # Necesary disable due to bug with Callable properies
+    # required due to a bug with callable properties
     load_json: Callable[[str], Any] = json.loads
 
     def deserialize(
@@ -54,7 +56,7 @@ class SingerRecord(NamedTuple):
 
 class SingerRecordFactory(NamedTuple):
     # pylint: disable=too-many-function-args
-    # Necesary disable due to bug with Callable properies
+    # required due to a bug with callable properties
     load_json: Callable[[str], Any] = json.loads
 
     def deserialize(
@@ -72,3 +74,25 @@ class SingerRecordFactory(NamedTuple):
             raise KeyError()
         except KeyError:
             raise KeyError('Deserialize singer schema failed. Missing fields.')
+
+
+class SingerFactory(NamedTuple):
+    # pylint: disable=too-many-function-args
+    # required due to a bug with callable properties
+    load_json: Callable[[str], Any] = json.loads
+    record_factory: SingerRecordFactory = SingerRecordFactory()
+    schema_factory: SingerSchemaFactory = SingerSchemaFactory()
+
+    def deserialize(
+        self: 'SingerFactory',
+        json_record: str
+    ) -> Union[SingerRecord, SingerSchema]:
+        raw_json: Dict[str, Any] = self.load_json(json_record)
+        data_type: Optional[str] = raw_json.get('type', None)
+        if data_type == 'RECORD':
+            return self.record_factory.deserialize(json_record)
+        if data_type == 'SCHEMA':
+            return self.schema_factory.deserialize(json_record)
+        raise KeyError(
+            f'Deserialize singer failed. Unknown or missing type {data_type}.'
+        )
