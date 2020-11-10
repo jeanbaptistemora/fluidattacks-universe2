@@ -191,6 +191,7 @@ scheduler_send_unsolved_to_all:
 integrates_build_front:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
+  tags: [autoscaling-large]
   stage: build
   retry: 1
   artifacts:
@@ -337,6 +338,7 @@ integrates_functional_tests_back:
 integrates_functional_tests_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
+  tags: [autoscaling-large]
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_dev"
   needs:
     - integrates_deploy_back_ephemeral
