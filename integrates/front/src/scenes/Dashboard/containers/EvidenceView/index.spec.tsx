@@ -5,7 +5,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
@@ -13,30 +13,6 @@ import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/
 import store from "store";
 
 describe("FindingEvidenceView", () => {
-
-  const mockProps: RouteComponentProps<{ findingId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { findingId: "413372600" },
-      path: "/",
-      url: "",
-    },
-  };
-
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
       query: GET_FINDING_EVIDENCES,
@@ -67,9 +43,11 @@ describe("FindingEvidenceView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={[]} addTypename={false}>
-        <EvidenceView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={[]} addTypename={false}>
+          <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -100,9 +78,11 @@ describe("FindingEvidenceView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <EvidenceView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={emptyMocks} addTypename={false}>
+          <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
@@ -111,9 +91,13 @@ describe("FindingEvidenceView", () => {
 
   it("should render image", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EvidenceView {...mockProps} /></Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.containsMatchingElement(<img />))
@@ -122,9 +106,13 @@ describe("FindingEvidenceView", () => {
 
   it("should render image lightbox", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}><EvidenceView {...mockProps} /></Provider>
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Provider store={store}>
+            <Route path={"/:projectName/events/:findingId/evidence"} component={EvidenceView}/>
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     wrapper.find("img")

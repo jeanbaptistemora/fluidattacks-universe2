@@ -11,7 +11,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Glyphicon } from "react-bootstrap";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router";
 import { InjectedFormProps, Validator } from "redux-form";
 
 import { Button } from "components/Button";
@@ -31,10 +31,8 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { isValidFileSize, validEvidenceImage } from "utils/validations";
 
-type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
-
-const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
-  const { findingId } = props.match.params;
+const evidenceView: React.FC = (): JSX.Element => {
+  const { findingId } = useParams<{ findingId: string }>();
   const { userName } = window as typeof window & Dictionary<string>;
 
   // Side effects
