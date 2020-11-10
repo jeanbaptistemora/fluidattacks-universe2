@@ -17,7 +17,7 @@
 
 Here at the beginning, we give you link:https://www.brighttalk.com/webcast/13983/382758[the link for the Synopsys' webinar].
 
-As link:https://www.gartner.com/doc/reprints?id=1-1Y59O2ZQ&ct=200115&st=sb[Dale Gardner pointed out in November of last year]:
+As Dale Gardner pointed out in November of last year:
 "Open-source software is increasingly used
 by development teams to support their applications."
 Also, Gardner expressed later:

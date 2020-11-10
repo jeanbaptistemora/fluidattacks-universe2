@@ -18,7 +18,7 @@
 In two posts I published previously,
 I had already mentioned Open Source Software (link:https://en.wikipedia.org/wiki/Open-source_software[*OSS*]).
 In link:../vulns-triage-synopsys/[the first one],
-I remember quoting link:https://www.gartner.com/doc/reprints?id=1-1Y59O2ZQ&ct=200115&st=sb[Dale Gardner],
+I remember quoting Dale Gardner,
 referring to the increasing use of *OSS* by development teams
 in charge of building applications.
 In link:https://fluidattacks.com/blog/look-inside-oss/[the second one],
