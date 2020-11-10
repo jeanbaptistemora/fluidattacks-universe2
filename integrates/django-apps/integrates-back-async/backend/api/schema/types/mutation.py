@@ -8,6 +8,7 @@ from ariadne import MutationType
 from backend.api.mutations import (
     add_event_consult,
     add_forces_execution,
+    add_stakeholder,
     approve_draft,
     confirm_zero_risk_vuln,
     create_draft,
@@ -48,6 +49,7 @@ MUTATION = MutationType()
 
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
+MUTATION.set_field('addStakeholder', add_stakeholder.mutate)
 MUTATION.set_field('approveDraft', approve_draft.mutate)
 MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createDraft', create_draft.mutate)
@@ -98,7 +100,6 @@ MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)
-MUTATION.set_field('addStakeholder', user.resolve_user_mutation)
 MUTATION.set_field('grantStakeholderAccess', user.resolve_user_mutation)
 MUTATION.set_field('removeStakeholderAccess', user.resolve_user_mutation)
 MUTATION.set_field('editStakeholder', user.resolve_user_mutation)

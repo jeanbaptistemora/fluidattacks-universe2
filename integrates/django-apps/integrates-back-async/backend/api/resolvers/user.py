@@ -23,7 +23,6 @@ from backend.decorators import (
     require_integrates,
     require_login,
     enforce_group_level_auth_async,
-    enforce_user_level_auth_async,
 )
 from backend.domain import (
     organization as org_domain,
@@ -168,63 +167,6 @@ async def resolve_user_mutation(
         ],
         await resolver_func(obj, info, **parameters)
     )
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_user_level_auth_async,
-)
-async def _do_add_stakeholder(
-    _: Any,
-    info: GraphQLResolveInfo,
-    email: str,
-    role: str,
-    phone_number: str = ''
-) -> AddStakeholderPayloadType:
-    success: bool = False
-
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-
-    allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
-        requester_email=user_email,
-    )
-
-    if role in allowed_roles_to_grant:
-        new_user = await user_domain.create_without_project(
-            email=email,
-            role=role,
-            phone_number=phone_number,
-        )
-        if new_user:
-            util.cloudwatch_log(
-                info.context,
-                f'Security: Add stakeholder {email}'
-            )
-            mail_to = [email]
-            context: MailContentType = {'admin': email}
-            schedule(
-                mailer.send_mail_access_granted(
-                    mail_to, context,
-                )
-            )
-            success = True
-        else:
-            LOGGER.error(
-                'Error: Couldn\'t grant stakeholder access',
-                extra={'extra': info.context})
-    else:
-        LOGGER.error(
-            'Invalid role provided',
-            extra={
-                'extra': {
-                    'email': email,
-                    'requester_email': user_email,
-                    'role': role
-                }
-            })
-
-    return AddStakeholderPayloadType(success=success, email=email)
 
 
 @concurrent_decorators(

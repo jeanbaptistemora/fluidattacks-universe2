@@ -601,7 +601,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_groups_resolve',
             'backend_api_resolvers_new_query_report__get_url_all_users',
             'backend_api_resolvers_new_query_report__get_url_all_vulns',
-            'backend_api_resolvers_user__do_add_stakeholder',
+            'backend_api_mutations_add_stakeholder_mutate',
             'backend_api_resolvers_new_query_user_list_groups_resolve',
             'grant_user_level_role:admin',
             'grant_user_level_role:customer',

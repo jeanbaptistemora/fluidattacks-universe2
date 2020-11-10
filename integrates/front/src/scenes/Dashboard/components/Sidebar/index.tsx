@@ -45,7 +45,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
     >
       <img className={style.logo} src={logo} alt="integrates-logo" onClick={handleLogoClick} />
       <ul className={style.menuList}>
-        <Can do="backend_api_resolvers_user__do_add_user">
+        <Can do="backend_api_mutations_add_stakeholder_mutate">
         <li onClick={onOpenAddUserModal}>
           <TooltipWrapper message={translate.t("sidebar.user.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-plus" />
