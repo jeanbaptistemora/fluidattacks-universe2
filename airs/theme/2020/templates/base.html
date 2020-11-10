@@ -304,6 +304,11 @@
       </div>
     <!-- Footer -->
       {% include "footer.html" %}
+      {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}
+      <script type="text/javascript"
+              src="{{ SITEURL }}/{{ ASSET_URL }}">
+      </script>
+      {% endassets %}
  <!-- Cookie consent -->
 
     <!-- Initialize Animation on Scroll -->

@@ -94,230 +94,203 @@
     <div class="contact-form w-100">
       <div id="crmWebToEntityForm" class="zcwf_lblLeft crmWebToEntityForm">
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <form action="https://crm.zoho.com/crm/WebForm" name=WebForm4687720000000504044 method="POST" onSubmit="javascript:document.charset='UTF-8'; return checkMandatory4687720000000504044(); return validateForm()" accept-charset="UTF-8">
-          <input type="text" style="display:none;" name="xnQsjsdp" value="1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d" />
-          <input type="hidden" name="zc_gad" id="zc_gad" value="" />
-          <input type="text" style="display:none;" name="xmIwtLD" value="78c3d7dacbbcd07154bafdf9da487877e22d1c6218228967e11c43d493492210" />
-          <input type="text"  style="display:none;" name="actionType" value="Q3VzdG9tTW9kdWxlMQ==" />
-          <input type="text" style="display:none;" name="returnURL" value="https://fluidattacks.com/contact-us/thank-you/" />
+        <form action="https://crm.zoho.com/crm/WebToLeadForm" name=WebToLeads4687720000000388007 method="POST" onSubmit="javascript:document.charset='UTF-8'; return checkMandatory4687720000000388007()" accept-charset="UTF-8">
+          <input type='text' style='display:none;' name='xnQsjsdp' value='1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d'></input> 
+          <input type='hidden' name='zc_gad' id='zc_gad' value=''></input> 
+          <input type='text' style='display:none;' name='xmIwtLD' value='78c3d7dacbbcd07154bafdf9da4878771131756c5fc0387baa3f5706a0968b4b'></input> 
+          <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='></input>
+          <input type='text' style='display:none;' name='returnURL' value='https://fluidattacks.com/contact-us/thank-you/' > </input>
 
-        <div class="w-50-l pv3 center">
-          <input type="text"
-                id="NAME"
-                class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                name="NAME"
-                maxlength="120"
-                placeholder="Full Name" />
-        </div>
-        <div class="w-50-l pv3 center">
-          <input type="text"
-                ftype="email"
-                id="Email"
-                class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                name="Email"
-                maxlength="100"
-                placeholder="Email" />
-        </div>
-        <div class="w-50-l pv3 center">
-          <input id="COBJ1CF6"
-                name="COBJ1CF6"
-                maxlength="255"
-                type="hidden"
-                value=""/>
-          <label for="COBJ1CF2"
-              class="db">
-          </label>
-          <input  id="COBJ1CF2"
-                  maxlength="30"
-                  name="COBJ1CF2"
-                  type="text"
+          <div class="w-50-l pv3 center">
+            <input type="text"
+                  id="Last_Name"
                   class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                  required
-                  placeholder="Mobile" />
-          <span id="valid-msg"
-                class="green fr fw8 dn">
-                Number is valid
-          </span>
-          <span id="error-msg"
-                class="c-fluid-red fr fw8 dn">
-                Number is not valid
-          </span>
-        </div>
-        {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
-        <script type="text/javascript"
-                src="{{ SITEURL }}/{{ ASSET_URL }}">
-        </script>
-        {% endassets %}
-        <div class="w-50-l pv3 center">
-          <select id="COBJ1CF5"
-                  name="COBJ1CF5"
-                  class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
-                  required>
-            <option value="-None-">
-              How can we help you?</option>
-            <option value="I want a service proposal">
-              I want a service proposal</option>
-            <option value="I am looking for a job">
-              I am looking for a job</option>
-            <option value="I want a Demo">
-              I want a Demo</option>
-            <option value="I want to be a partner">
-              I want to be a partner</option>
-          </select>
-        </div>
-        <div class="poi dn w-50-l pv3 center">
-          <select id="COBJ1CF3"
-                  name="COBJ1CF3"
-                  class="gray roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
-            <option value="-None-">Products of interest:</option>
-            <option value="Undetermined">
-              Undetermined
-            </option>
-            <option value="One-Shot&#x20;Hacking">
-              One-Shot Hacking
-            </option>
-            <option value="Continuous&#x20;Hacking">
-              Continuous Hacking
-            </option>
-          </select>
-          <span class="c-fluid-red fr fw8 form-error dn">
-                Please select an option
-          </span>
-        </div>
-        <div class="msg dn w-50-l pv3 center">       
-          <textarea  id="COBJ1CF4"
-                    name="COBJ1CF4"
-                    wrap="soft"
-                    class="w-100 h4 center"
-                    placeholder="Message"></textarea>
-        </div>
-        <div class="g-recaptcha ma-auto w6 center"
-            data-sitekey="6LdUZt8ZAAAAAIZuuUl4N3iIsL3FMevSSmuRSFmx"
-            data-theme="light"
-            data-callback="rccallback"
-            captcha-verified="false"
-            id="recap">
-        </div>
-        <div  id="recapErr" style="font-size:12px;color:red;visibility:hidden;">
-        Captcha validation failed. If you are not a robot then please try again.
-        </div>
+                  name="Last Name"
+                  maxlength="120"
+                  placeholder="Full Name" />
+          </div>
+          <div class="w-50-l pv3 center">
+            <input type="text"
+                  ftype="email"
+                  id="Company"
+                  class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                  name="Company"
+                  maxlength="100"
+                  placeholder="Email" />
+          </div>
+          <div class="w-50-l pv3 center">
+            <input id="Country"
+                  name="Country"
+                  maxlength="100"
+                  type="hidden"
+                  value=""/>
+            <label for="COBJ1CF2"
+                class="db">
+            </label>
+            <input  id="Mobile"
+                    maxlength="30"
+                    name="Mobile"
+                    type="text"
+                    class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                    required
+                    placeholder="Mobile" />
+            <span id="valid-msg"
+                  class="green fr fw8 dn">
+                  Number is valid
+            </span>
+            <span id="error-msg"
+                  class="c-fluid-red fr fw8 dn">
+                  Number is not valid
+            </span>
+          </div>
+          {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+          <script type="text/javascript"
+                  src="{{ SITEURL }}/{{ ASSET_URL }}">
+          </script>
+          {% endassets %}
+          <div class="w-50-l pv3 center">
+            <select id="LEADCF23"
+                    name="LEADCF23"
+                    class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
+                    required>
+              <option value="-None-">
+                How can we help you?</option>
+              <option value="I want a service proposal">
+                I want a service proposal</option>
+              <option value="I&#x20;want&#x20;a&#x20;Demo">
+                I want a Demo</option>
+              <option value="I&#x20;am&#x20;looking&#x20;for&#x20;a&#x20;Job">
+                I am looking for a job</option>
+              <option value="I&#x20;want&#x20;to&#x20;be&#x20;a&#x20;partner">
+                I want to be a partner</option>
+            </select>
+          </div>
+          <div class="poi dn w-50-l pv3 center">
+            <select id="LEADCF24"
+                    name="LEADCF24"
+                    class="gray roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
+              <option value="-None-">Products of interest:</option>
+              <option value="Undetermined">
+                Undetermined
+              </option>
+              <option value="One-Shot&#x20;Hacking">
+                One-Shot Hacking
+              </option>
+              <option value="Continuous&#x20;Hacking">
+                Continuous Hacking
+              </option>
+            </select>
+            <span class="c-fluid-red fr fw8 form-error dn">
+                  Please select an option
+            </span>
+          </div>
+          <div class="g-recaptcha ma-auto w6 center"
+              data-sitekey="6LdUZt8ZAAAAAIZuuUl4N3iIsL3FMevSSmuRSFmx"
+              data-theme="light"
+              data-callback="rccallback"
+              captcha-verified="false"
+              id="recap">
+          </div>
+          <div  id="recapErr" style="font-size:12px;color:red;visibility:hidden;">
+          Captcha validation failed. If you are not a robot then please try again.
+          </div>
           <div class="tc">
             <input type="submit"
                   id="formsubmit"
-                  class="formsubmit bn br2 bannerbt hv-bt-fluid-rd pv3 bt-pd bt-trans white b roboto pointer mh3"
+                  class="formsubmit bn br2 bannerbt hv-bt-fluid-rd bt-pd pv3 bt-trans white b roboto pointer mh3"
                   value="Submit"
-                  title="Submit">
+                  title="Submit" />
             <input type="reset"
-                   class="br2 button-white pv3 bt-pd bt-trans c-fluid-bk b roboto pointer outline-transparent mh3"
-                   name="reset"
-                   value="Reset"
-                   title="Reset">
+                  class="br2 button-white pv3 bt-pd bt-trans c-fluid-bk b roboto pointer outline-transparent mh3"
+                  name="reset"
+                  value="Reset"
+                  title="Reset" />
           </div>
           <script>
-            var mndFileds=new Array("NAME","Email","COBJ1CF2","COBJ1CF5","COBJ1CF6");
-            var fldLangVal=new Array("Full name","Email","Mobile","How can we help you?","Country"); 
-            var name="";
-            var email="";
-        
-          /* Do not remove this code. */
+            var mndFileds=new Array('Company','Last Name','Mobile','LEADCF23');
+            var fldLangVal=new Array('Email','Full name','Mobile','How can we help you'); 
+            var name='';
+            var email='';
+
+            /* Do not remove this code. */
             function rccallback()
-          {
-            if(document.getElementById("recap")!=undefined){
-              document.getElementById("recap").setAttribute("captcha-verified",true);
-            }
-            if(document.getElementById("recapErr")!=undefined && document.getElementById("recapErr").style.visibility == "visible" ){
-              document.getElementById("recapErr").style.visibility="hidden";
-            }
-          }
-          function reCaptchaAlert()
-          {
-            var recap = document.getElementById("recap");
-            if( recap !=undefined && recap.getAttribute("captcha-verified") == "false")
             {
-              document.getElementById("recapErr").style.visibility="visible";
-              return false;
-            }
-            return true;
-          }
-          function validateEmail()
-          {
-            var emailFld = document.querySelectorAll("[ftype=email]");
-            var i;
-            for (i = 0; i < emailFld.length; i++)
-            {
-              var emailVal = emailFld[i].value;
-              if((emailVal.replace(/^\s+|\s+$/g, "")).length!=0 )
-              {
-                var atpos=emailVal.indexOf("@");
-                var dotpos=emailVal.lastIndexOf(".");
-                if (atpos<1 || dotpos<atpos+2 || dotpos+2>=emailVal.length)
-                {
-                  alert("Please enter a valid email address. ");
-                  emailFld[i].focus();
-                  return false;
-                }
+              if(document.getElementById('recap')!=undefined){
+                document.getElementById('recap').setAttribute('captcha-verified',true);
+              }
+              if(document.getElementById('recapErr')!=undefined && document.getElementById('recapErr').style.visibility == 'visible' ){
+                document.getElementById('recapErr').style.visibility='hidden';
               }
             }
-            return true;
-          }
-        
-              function checkMandatory4687720000000504044() {
+            function reCaptchaAlert()
+            {
+              var recap = document.getElementById('recap');
+              if( recap !=undefined && recap.getAttribute('captcha-verified') == 'false')
+              {
+                document.getElementById('recapErr').style.visibility='visible';
+                return false;
+              }
+              return true;
+            }
+
+            function checkMandatory4687720000000388007() {
             for(i=0;i<mndFileds.length;i++) {
-              var fieldObj=document.forms["WebForm4687720000000504044"][mndFileds[i]];
+              var fieldObj=document.forms['WebToLeads4687720000000388007'][mndFileds[i]];
               if(fieldObj) {
-              if (((fieldObj.value).replace(/^\s+|\s+$/g, "")).length==0) {
-                if(fieldObj.type =="file")
+              if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0) {
+              if(fieldObj.type =='file')
                 { 
-                  alert("Please select a file to upload."); 
-                  fieldObj.focus(); 
-                  return false;
+                alert('Please select a file to upload.'); 
+                fieldObj.focus(); 
+                return false;
                 } 
-              alert(fldLangVal[i] +" cannot be empty."); 
-                        fieldObj.focus();
-                        return false;
-              }  else if(fieldObj.nodeName=="SELECT") {
-                        if(fieldObj.options[fieldObj.selectedIndex].value=="-None-") {
-                alert(fldLangVal[i] +" cannot be none."); 
+              alert(fldLangVal[i] +' cannot be empty.'); 
+                      fieldObj.focus();
+                      return false;
+              }  else if(fieldObj.nodeName=='SELECT') {
+                    if(fieldObj.options[fieldObj.selectedIndex].value=='-None-') {
+                alert(fldLangVal[i] +' cannot be none.'); 
                 fieldObj.focus();
                 return false;
-                  }
-              } else if(fieldObj.type =="checkbox"){
-                  if(fieldObj.checked == false){
-                alert("Please accept  "+fldLangVal[i]);
-                fieldObj.focus();
-                return false;
-                  } 
-                } 
-                try {
-                    if(fieldObj.name == "Last Name") {
-                name = fieldObj.value;
-                      }
-              } catch (e) {}
                 }
+              } else if(fieldObj.type =='checkbox'){
+              if(fieldObj.checked == false){
+                alert('Please accept  '+fldLangVal[i]);
+                fieldObj.focus();
+                return false;
+                } 
+              } 
+              try {
+                  if(fieldObj.name == 'Last Name') {
+                name = fieldObj.value;
+                  }
+              } catch (e) {}
+                    }
             }
-            if(!validateEmail()){return false;}
-            
             if(!reCaptchaAlert()){return false;}
-            document.querySelector(".crmWebToEntityForm .formsubmit").setAttribute("disabled", true);
-          }
-        
-        function tooltipShow(el){
-          var tooltip = el.nextElementSibling;
-          var tooltipDisplay = tooltip.style.display;
-          if(tooltipDisplay == "none"){
-            var allTooltip = document.getElementsByClassName("zcwf_tooltip_over");
-            for(i=0; i<allTooltip.length; i++){
-              allTooltip[i].style.display="none";
+              document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled', true);
             }
-            tooltip.style.display = "block";
-          }else{
-            tooltip.style.display="none";
-          }
-        }
-        </script>
-          <!-- Do not remove this --- Analytics Tracking code starts --><script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=78c3d7dacbbcd07154bafdf9da487877e22d1c6218228967e11c43d493492210gid1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2dgid0553f79ba9ccf83e1be97f6851b4205dc78530f131c55496a36cdc928fa214e9gid14f4ec16431e0686150daa43f3210513"></script><!-- Do not remove this --- Analytics Tracking code ends. -->
+
+            function tooltipShow(el){
+              var tooltip = el.nextElementSibling;
+              var tooltipDisplay = tooltip.style.display;
+              if(tooltipDisplay == 'none'){
+                var allTooltip = document.getElementsByClassName('zcwf_tooltip_over');
+                for(i=0; i<allTooltip.length; i++){
+                  allTooltip[i].style.display='none';
+                }
+                tooltip.style.display = 'block';
+              }else{
+                tooltip.style.display='none';
+              }
+            }
+          </script>
+          <!-- Do not remove this --- Analytics Tracking code starts -->
+          <script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=78c3d7dacbbcd07154bafdf9da4878771131756c5fc0387baa3f5706a0968b4bgid1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2dgid885e3c1045bd9bdcc91bdf30f82b5696gid14f4ec16431e0686150daa43f3210513'></script>
+          <!-- Do not remove this --- Analytics Tracking code ends. -->
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}

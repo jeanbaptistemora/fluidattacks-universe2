@@ -49,8 +49,8 @@ try {
 }
 
 // tslint:disable-next-line: no-any
-const input: any = document.querySelector("#COBJ1CF2") as HTMLElement;
-const country: HTMLElement = document.getElementById("COBJ1CF6") as HTMLElement;
+const input: any = document.querySelector("#Mobile") as HTMLElement;
+const country: HTMLElement = document.getElementById("Country") as HTMLElement;
 // tslint:disable-next-line: no-any
 const countryList: any = window.intlTelInputGlobals.getCountryData();
 const errorMsg: HTMLElement = document.querySelector("#error-msg") as HTMLElement;
@@ -110,24 +110,17 @@ try {
 }
 
 const selectedValue: (() => void) = (): void => {
-  const opt: HTMLSelectElement = document.getElementById("COBJ1CF5") as HTMLSelectElement;
+  const opt: HTMLSelectElement = document.getElementById("LEADCF23") as HTMLSelectElement;
   const sel: string = opt.options[opt.selectedIndex].value;
   const selpoi: HTMLElement = document.querySelector(".poi") as HTMLSelectElement;
-  const msgtext: HTMLElement = document.querySelector(".msg") as HTMLSelectElement;
 
   sel !== "I want a service proposal" ?
   selpoi.classList.add("dn") :
   selpoi.classList.remove("dn");
-
-  sel === "I want a service proposal" ||
-  sel === "I want a Demo" ||
-  sel === "I want to be a partner" ?
-  msgtext.classList.add("dn") :
-  msgtext.classList.remove("dn");
 };
 
 const userSelection: (() => void) = (): void => {
-  const mainSelectField: HTMLElement = document.getElementById("COBJ1CF5") as HTMLElement;
+  const mainSelectField: HTMLElement = document.getElementById("LEADCF23") as HTMLElement;
 
   mainSelectField.addEventListener("change", (event: Event) => {
     selectedValue();
