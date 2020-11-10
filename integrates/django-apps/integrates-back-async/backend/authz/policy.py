@@ -70,7 +70,7 @@ async def get_cached_group_service_attributes_policies(
         )
         try:
             # Put the data in the cache
-            await in_thread(cache.set, cache_key, ret, timeout=86400)
+            await in_thread(cache.set, cache_key, ret, timeout=300)
         except RedisClusterException as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
 
@@ -262,12 +262,7 @@ async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     cache_key: str = get_group_cache_key(group)
 
     # Delete the cache key from the cache
-    await in_thread(cache.delete_pattern, f'*{cache_key}*')
-
-    # Refresh the cache key as the user is probably going to use it soon :)
-    await get_cached_group_service_attributes_policies(group)
-
-    return True
+    return bool(await in_thread(cache.delete_pattern, f'*{cache_key}*'))
 
 
 async def revoke_cached_subject_policies(subject: str) -> bool:
@@ -275,12 +270,7 @@ async def revoke_cached_subject_policies(subject: str) -> bool:
     cache_key: str = get_subject_cache_key(subject)
 
     # Delete the cache key from the cache
-    await in_thread(cache.delete_pattern, f'*{cache_key}*')
-
-    # Refresh the cache key as the user is probably going to use it soon :)
-    await get_cached_subject_policies(subject)
-
-    return True
+    return bool(await in_thread(cache.delete_pattern, f'*{cache_key}*'))
 
 
 async def revoke_group_level_role(email: str, group: str) -> bool:
