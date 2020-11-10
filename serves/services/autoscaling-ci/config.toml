@@ -69,7 +69,7 @@ check_interval = 20
   name = "autoscaling-cpu-ci"
   limit = 1000
   url = "https://gitlab.com/"
-  token = "__autoscaling_token_1__"
+  token = "__autoscaling_token_5__"
   executor = "docker+machine"
   [runners.custom_build_dir]
   [runners.docker]
