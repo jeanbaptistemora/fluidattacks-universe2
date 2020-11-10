@@ -60,6 +60,18 @@ const vulnsView: React.FC = (): JSX.Element => {
   const toggleEdit: (() => void) = (): void => {
     setEditing(!isEditing);
   };
+  const [isConfirmingZeroRisk, setConfirmingZeroRisk] = React.useState(false);
+  const toggleConfirmZeroRisk: (() => void) = (): void => {
+    setConfirmingZeroRisk(!isConfirmingZeroRisk);
+  };
+  const [isRejectingZeroRisk, setRejectingZeroRisk] = React.useState(false);
+  const toggleRejectZeroRisk: (() => void) = (): void => {
+    setRejectingZeroRisk(!isRejectingZeroRisk);
+  };
+  const [isRequestingZeroRisk, setRequestingZeroRisk] = React.useState(false);
+  const toggleRequestZeroRisk: (() => void) = (): void => {
+    setRequestingZeroRisk(!isRequestingZeroRisk);
+  };
   const [isRequestingVerify, setRequestingVerify] = React.useState(false);
   const toggleRequestVerify: (() => void) = (): void => {
     setRequestingVerify(!isRequestingVerify);
@@ -88,13 +100,19 @@ const vulnsView: React.FC = (): JSX.Element => {
       <React.Fragment>
         <ActionButtons
           areVulnsSelected={remediationModalConfig.vulnerabilities.length > 0}
+          isConfirmingZeroRisk={isConfirmingZeroRisk}
           isEditing={isEditing}
           isReattackRequestedInAllVuln={data.finding.newRemediated}
           isRequestingReattack={isRequestingVerify}
+          isRejectingZeroRisk={isRejectingZeroRisk}
+          isRequestingZeroRisk={isRequestingZeroRisk}
           isVerified={data.finding.verified}
           isVerifying={isVerifying}
+          onConfirmZeroRisk={toggleConfirmZeroRisk}
           onEdit={toggleEdit}
           onRequestReattack={toggleRequestVerify}
+          onRejectZeroRisk={toggleRejectZeroRisk}
+          onRequestZeroRisk={toggleRequestZeroRisk}
           onVerify={toggleVerify}
           openModal={toggleModal}
           state={data.finding.state}
