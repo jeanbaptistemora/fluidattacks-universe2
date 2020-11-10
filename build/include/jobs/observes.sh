@@ -445,3 +445,21 @@ function job_observes_gitlab_etl_test {
   &&  popd \
   ||  return 1
 }
+
+function job_observes_tredshift_lint {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./singer/target_redshift_2/target_redshift_2" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_tredshift_test {
+  local python="${TargetRedshift}"/bin/python
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_test_generic_package "./singer/target_redshift_2" "${python} -m" \
+  &&  popd \
+  ||  return 1
+}

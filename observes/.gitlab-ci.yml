@@ -40,11 +40,6 @@
       when: never
     - if: *observes_commit_pattern
 
-observes_lint_code:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: lint-code
-
 observes_test_infra:
   <<: *with_nix
   <<: *observes_in_dev_branch
@@ -118,6 +113,16 @@ observes_gitlab_etl_lint:
   stage: lint-code
 
 observes_gitlab_etl_test:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-code
+
+observes_tredshift_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes_tredshift_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code

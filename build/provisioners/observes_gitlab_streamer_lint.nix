@@ -1,1 +1,1 @@
-import ./observes_gitlab_streamer_test.nix
+import ../pkgs/observes_common_lint.nix
