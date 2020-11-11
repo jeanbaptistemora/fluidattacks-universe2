@@ -3,11 +3,13 @@ from typing import cast, Dict, List, Union
 import html
 
 # Third party imports
+from aiodataloader import DataLoader
 from aioextensions import (
     collect,
     in_thread,
 )
 from exponent_server_sdk import DeviceNotRegisteredError
+from graphql.type.definition import GraphQLResolveInfo
 
 # Local imports
 from backend import mailer
@@ -15,10 +17,18 @@ from backend.dal import (
     notifications as notifications_dal,
 )
 from backend.domain import (
+    organization as org_domain,
     user as user_domain
+)
+from backend.typing import (
+    Finding as FindingType,
 )
 from backend.utils import (
     datetime as datetime_utils,
+)
+
+from __init__ import (
+    BASE_URL,
 )
 
 
@@ -120,6 +130,51 @@ async def edit_group(
                 If you require any further information,
                 do not hesitate to contact us.
             """,
+            requester_email=requester_email,
+        )
+    )
+
+
+async def request_zero_risk_vuln(
+    info: GraphQLResolveInfo,
+    finding_id: str,
+    justification: str,
+    requester_email: str
+) -> bool:
+    finding_loader: DataLoader = info.context.loaders['finding']
+    finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
+    group_name = cast(str, finding.get('project_name', ''))
+    org_id = await org_domain.get_id_for_group(group_name)
+    org_name = await org_domain.get_name_by_id(org_id)
+    finding_title = cast(str, finding.get('title', ''))
+    finding_type = cast(str, finding.get('type', ''))
+    finding_url = (
+        f'{BASE_URL}/new/orgs/{org_name}/groups/{group_name}/vulns/'
+        f'{finding_id}/vulns'
+    )
+    description = f"""
+        You are receiving this case because a zero risk vulnerability has been
+        requested through Integrates by Fluid Attacks.
+
+        Here are the details of the zero risk vulnerability:
+        Group: {group_name}
+
+        - Finding: {finding_title}
+        - ID: {finding_id}
+        - Type: {finding_type}
+        - URL: {finding_url}
+        - Justification: {justification}
+
+        If you require any further information,
+        do not hesitate to contact us.
+    """
+
+    return cast(
+        bool,
+        await in_thread(
+            notifications_dal.create_ticket,
+            subject=f'[Integrates] Requested zero risk vulnerabilities',
+            description=description,
             requester_email=requester_email,
         )
     )

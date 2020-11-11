@@ -648,3 +648,15 @@ class TagNotFound(Exception):
         """ Constructor """
         msg = 'Access denied or tag not found'
         super(TagNotFound, self).__init__(msg)
+
+
+class InvalidJustificationMaxLength(Exception):
+    """Exception to control justification length"""
+
+    def __init__(self, field: int) -> None:
+        """ Constructor """
+        msg = (
+            'Exception - Justification must have a maximum of '
+            f'{field} characters'
+        )
+        super(InvalidJustificationMaxLength, self).__init__(msg)
