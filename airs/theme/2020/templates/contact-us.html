@@ -112,9 +112,9 @@
           <div class="w-50-l pv3 center">
             <input type="text"
                   ftype="email"
-                  id="Company"
+                  id="Email"
                   class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
-                  name="Company"
+                  name="Email"
                   maxlength="100"
                   placeholder="Email" />
           </div>
@@ -229,6 +229,28 @@
               {
                 document.getElementById('recapErr').style.visibility='visible';
                 return false;
+              }
+              return true;
+            }
+
+            function validateEmail()
+            {
+              var emailFld = document.querySelectorAll('[ftype=email]');
+              var i;
+              for (i = 0; i < emailFld.length; i++)
+              {
+                var emailVal = emailFld[i].value;
+                if((emailVal.replace(/^\s+|\s+$/g, '')).length!=0 )
+                {
+                  var atpos=emailVal.indexOf('@');
+                  var dotpos=emailVal.lastIndexOf('.');
+                  if (atpos<1 || dotpos<atpos+2 || dotpos+2>=emailVal.length)
+                  {
+                    alert('Please enter a valid email address. ');
+                    emailFld[i].focus();
+                    return false;
+                  }
+                }
               }
               return true;
             }
