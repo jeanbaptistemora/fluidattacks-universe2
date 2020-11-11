@@ -1,0 +1,24 @@
+utils.model.finding.enum.F055_CORS.description:
+  en: >
+    The cross-domain policy includes wildcards, accepting any domain as valid
+    for sharing resources.
+  es: >
+    La política entre dominios incluye comodines, aceptando cualquier dominio
+    como válido para compartir recursos.
+utils.model.finding.enum.F055_CORS.impact:
+  en: Include resources from untrusted origins.
+  es: Incluir recursos de orígenes maliciosos.
+utils.model.finding.enum.F055_CORS.recommendation:
+  en: Define explicitly the trusted origins for the application resources.
+  es: >
+    Definir explícitamente los orígenes permitidos para los recursos de la
+    aplicación.
+utils.model.finding.enum.F055_CORS.requirements:
+  en: R266. Disable insecure functionalities.
+  es: R266. Deshabilitar funcionalidades inseguras.
+utils.model.finding.enum.F055_CORS.threat:
+  en: Unauthorized attacker from the Internet.
+  es: Atacante sin autorización desde Internet.
+utils.model.finding.enum.F055_CORS.title:
+  en: FIN.S.0055. Insecure service configuration - CORS
+  es: FIN.S.0055. Configuración insegura del servicio - CORS
