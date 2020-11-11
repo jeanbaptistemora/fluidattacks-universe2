@@ -65,6 +65,7 @@ type Mutation {
         vulnerabilities: [String]!
         severity: Int
         tag: String
+        externalBts: String
     ): SimplePayload!
 
     deleteVulnerability(

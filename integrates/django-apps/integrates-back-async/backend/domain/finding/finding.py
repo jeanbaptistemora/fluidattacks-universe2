@@ -4,6 +4,7 @@ import re
 from contextlib import AsyncExitStack
 from typing import (
     Any,
+    Awaitable,
     Callable,
     cast,
     Dict,
@@ -326,12 +327,24 @@ async def update_client_description(
     if bts_changed:
         validations.validate_url(updated_values['bts_url'])
         validations.validate_field_length(updated_values['bts_url'], 80)
-        success_external_bts = await finding_dal.update(
-            finding_id,
-            {
-                'external_bts': updated_values.get('bts_url', None)
-            }
+        vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+        bts_data: Dict[str, FindingType] = {
+            'external_bts': updated_values.get('bts_url', None)
+        }
+        coroutines: List[Awaitable[bool]] = []
+        coroutines.append(
+            finding_dal.update(
+                finding_id,
+                bts_data
+            )
         )
+        coroutines.extend(
+            vuln_dal.update(
+                finding_id, str(vuln.get('UUID', '')), bts_data
+            )
+            for vuln in vulns
+        )
+        success_external_bts = all(await collect(coroutines))
     if treatment_changed:
         updated_values.pop('bts_url', None)
         valid_treatment: bool = await finding_utils.validate_treatment_change(

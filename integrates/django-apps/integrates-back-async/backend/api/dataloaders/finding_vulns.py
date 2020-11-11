@@ -23,6 +23,7 @@ async def _batch_load_fn(
             dict(
                 UUID=cast(str, vuln.get('UUID', '')),
                 id=cast(str, vuln.get('UUID', '')),
+                external_bts=cast(str, vuln.get('external_bts', '')),
                 finding_id=cast(str, vuln.get('finding_id', '')),
                 vuln_type=cast(str, vuln.get('vuln_type', '')),
                 where=cast(str, vuln.get('where', '')),
