@@ -1144,9 +1144,7 @@ function job_integrates_deploy_back_production {
   local timeout='10m'
   local files=(
     deploy/production/deployment.yaml
-    deploy/production/deployment2.yaml
     deploy/production/service.yaml
-    deploy/production/service2.yaml
     deploy/production/ingress.yaml
     deploy/production/variables.yaml
   )
