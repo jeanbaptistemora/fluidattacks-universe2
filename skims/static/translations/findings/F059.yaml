@@ -5,7 +5,7 @@ utils.model.finding.enum.f059.description:
   es: >
     El sistema guarda informacion sensible como credenciales,
     cuentas de banco y rutas de archivos en las bitácoras.
-utils.model.finding.enum.f050.impact:
+utils.model.finding.enum.f059.impact:
   en: >
     Obtain sensitive information that may compromise system resources.
   es: >
