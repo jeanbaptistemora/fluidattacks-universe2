@@ -3,7 +3,6 @@ Binds functions of other modules to specific parameters.
 Supports the interface used by cli.
 """
 # Standard libraries
-from multiprocessing import Process
 from typing import (
     Any, Callable,
     Dict,
@@ -104,15 +103,6 @@ def start_etl(project: str, auth: Dict[str, str]):
             continue
 
 
-async def start_etls_in_parallel(projects: List[str], auth: Dict[str, str]):
-    processes = []
+async def start_etls(projects: List[str], auth: Dict[str, str]):
     for project in projects:
-        def etl_function(proj: str):
-            def etl_callable():
-                start_etl(proj, auth)
-            return etl_callable
-        etl_process = Process(target=etl_function(project))
-        processes.append(etl_process)
-        etl_process.start()
-    for process in processes:
-        process.join()
+        start_etl(project, auth)

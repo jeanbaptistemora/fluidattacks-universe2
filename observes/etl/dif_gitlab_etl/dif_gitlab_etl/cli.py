@@ -30,7 +30,7 @@ def start_etl(projects: List[str], auth_file):
         auth = json.load(auth_file)
         loop = asyncio.get_event_loop()
         loop.run_until_complete(
-            executer.start_etls_in_parallel(projects, auth)
+            executer.start_etls(projects, auth)
         )
 
 
