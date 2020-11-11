@@ -21,8 +21,6 @@ from uvicorn.workers import UvicornWorker   # noqa: E402
 from backend.api import IntegratesAPI   # noqa: E402
 from backend.api.schema import SCHEMA   # noqa: E402
 
-from backend_new.app import APP as STARLETTE_APP  # noqa pylint: disable=wrong-import-position
-
 
 # Init New Relic agent
 NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
@@ -32,7 +30,6 @@ APP = newrelic.agent.ASGIApplicationWrapper(
     ProtocolTypeRouter({
         'http': URLRouter([
             re_path(r'^api/?', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
-            re_path(r'^new/', STARLETTE_APP),
             re_path(r'', get_asgi_application())
         ]),
         'websocket': AuthMiddlewareStack(
