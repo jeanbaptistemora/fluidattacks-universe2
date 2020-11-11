@@ -116,6 +116,6 @@ function helper_skims_get_group_config_as_json {
         ]
       },
       timeout: 14400,
-      upload_evidences: false
+      upload_evidences: true
     }'
 }

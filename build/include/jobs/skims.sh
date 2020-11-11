@@ -110,9 +110,9 @@ function job_skims_process_group_on_aws {
   local vcpus='2'
   local memory='7200'
   local attempts='10'
-  local timeout='18000'
+  local timeout='7200'
   local group="${1}"
-  local jobqueue='default'
+  local jobqueue='asap'
 
       if [ -n "${SKIMS_GROUP_TO_PROCESS_ON_AWS-}" ]
       then
