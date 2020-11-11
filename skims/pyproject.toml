@@ -35,6 +35,7 @@ packages = [
   { include = "parse_cfn", from = "skims" },
   { include = "parse_common", from = "skims" },
   { include = "parse_hcl2", from = "skims" },
+  { include = "parse_java", from = "skims"},
   { include = "parse_java_properties", from = "skims"},
   { include = "parse_json", from = "skims" },
   { include = "serialization", from = "skims" },
