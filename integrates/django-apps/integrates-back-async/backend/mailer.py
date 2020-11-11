@@ -8,7 +8,7 @@ from typing import (
     Dict,
     List,
     Optional,
-    Union,
+    Union
 )
 
 # Third party libraries
@@ -16,6 +16,10 @@ import aioboto3
 from aioextensions import schedule
 import botocore
 import mandrill
+from jinja2 import (
+    Environment,
+    FileSystemLoader
+)
 
 # Local libraries
 from backend import authz
@@ -53,6 +57,18 @@ LOGGER = logging.getLogger(__name__)
 VERIFY_TAG = ['verify']
 VULNERABILITIES_TAG = ['vulnerabilities']
 QUEUE_URL = SQS_QUEUE_URL
+TEMPLATES = Environment(
+    loader=FileSystemLoader(
+        './django-apps/integrates-back-async/'
+        'backend/email_templates'
+    ),
+    autoescape=True
+)
+
+
+def _get_content(template_name: str, context: MailContentType) -> str:
+    template = TEMPLATES.get_template(f'{template_name}.html')
+    return template.render(context)
 
 
 def _escape_context(context: Dict[str, Union[str, int]]) -> \
@@ -196,6 +212,32 @@ async def _send_mail_async(
     else:
         # Mail should not be sent if is a test project
         pass
+
+
+async def _send_mail_async_new(
+        email_to: List[str], content: str, subject: str) -> None:
+    mandrill_client = mandrill.Mandrill(API_KEY)
+    emails: List[Dict[str, str]] = []
+    message = {
+        'from_email': 'noreply@fluidattacks.com',
+        'from_name': 'Fluid Attacks',
+        'subject': subject,
+        'html': content
+    }
+    for email in email_to:
+        fname_mail = await _get_recipient_first_name_async(email)
+        emails.append({
+            'email': email,
+            'name': fname_mail,
+            'type': 'to'
+        })
+    message['to'] = cast(str, emails)
+
+    result = mandrill_client.messages.send(message=message)
+    LOGGER.info(
+        '[mailer]: mail sent',
+        extra=result
+    )
 
 
 async def _send_mail_immediately(
@@ -433,6 +475,16 @@ async def send_mail_project_report(
         context: MailContentType) -> None:
     await _send_mail_async(
         'project-report', email_to, context=context, tags=GENERAL_TAG)
+
+
+async def send_mail_project_report_new(
+        email_to: List[str],
+        context: MailContentType) -> None:
+    await _send_mail_async_new(
+        email_to,
+        _get_content('project-report', context),
+        str(context['subject'])
+    )
 
 
 async def send_mail_verified_finding(

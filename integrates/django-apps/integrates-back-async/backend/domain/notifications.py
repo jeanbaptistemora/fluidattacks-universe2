@@ -22,6 +22,16 @@ from backend.utils import (
 )
 
 
+async def _get_recipient_first_name_async(email: str) -> str:
+    first_name = await user_domain.get_data(email, 'first_name')
+    if not first_name:
+        first_name = email.split('@')[0]
+    else:
+        # First name exists in database
+        pass
+    return str(first_name)
+
+
 async def new_group(
     *,
     description: str,
@@ -140,6 +150,8 @@ async def new_password_protected_report(
     file_link: str = '',
 ) -> None:
     today = datetime_utils.get_now()
+    fname = await _get_recipient_first_name_async(user_email)
+    subject = f'{file_type} Report for [{project_name}]'
     await collect((
         send_push_notification(
             user_email,
@@ -149,9 +161,12 @@ async def new_password_protected_report(
             [user_email],
             {
                 'filetype': file_type,
+                'fname': fname,
                 'date': datetime_utils.get_as_str(today, '%Y-%m-%d'),
+                'year': datetime_utils.get_as_str(today, '%Y'),
                 'time': datetime_utils.get_as_str(today, '%H:%M'),
                 'projectname': project_name,
+                'subject': subject,
                 'filelink': file_link
             }
         )
