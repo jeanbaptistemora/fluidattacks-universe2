@@ -37,13 +37,11 @@ import {
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { formatDropdownField } from "utils/formatHelpers";
-import { Date, Dropdown, Text, TextArea } from "utils/forms/fields";
+import { Date, Dropdown, TextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import {
-  isLowerDate, maxLength, required, validTextField, validUrlField,
-} from "utils/validations";
+import { isLowerDate, maxLength, required, validTextField } from "utils/validations";
 
 export interface ITreatmentViewProps {
   approvalModalConfig: { open: boolean; type: string };
@@ -229,30 +227,10 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
               name="editTreatment"
               initialValues={{
                 ...lastTreatment,
-                btsUrl: data.finding.btsUrl,
                 treatment: lastTreatment.treatment.replace("NEW", ""),
               }}
               onSubmit={confirmUndefined}
             >
-              <Row>
-                <Col100>
-                  <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
-                    {(canEdit: boolean): JSX.Element => (
-                      <EditableField
-                        component={Text}
-                        currentValue={data.finding.btsUrl}
-                        label={translate.t("search_findings.tab_description.bts")}
-                        name="btsUrl"
-                        placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
-                        renderAsEditable={props.isEditing}
-                        type="text"
-                        visibleWhileEditing={canEdit}
-                        validate={[validUrlField, maxBtsLength]}
-                      />
-                    )}
-                  </Can>
-                </Col100>
-              </Row>
               <Row>
                 <Col45>
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>

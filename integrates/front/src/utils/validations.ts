@@ -100,7 +100,13 @@ const validTextField: Validator = (value: string): string | undefined => {
   }
 };
 
-const validUrlField: Validator = (value: string): string | undefined => {
+const validUrlField: (value: string) => string | undefined = (
+  value: string
+): string | undefined => {
+  if (_.isNil(value)) {
+    return undefined;
+  }
+
   const encodedCharWhitelist: string[] = ["%20"];
 
   const cleanValue: string = encodedCharWhitelist.reduce(

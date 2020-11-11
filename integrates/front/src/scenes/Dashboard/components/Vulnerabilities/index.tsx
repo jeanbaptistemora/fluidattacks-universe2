@@ -115,6 +115,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
     ({
         analyst: "",
         currentState: line[0].currentState,
+        externalBts: "",
         id: line[0].id,
         remediated: line.every((row: IVulnRow) => row.remediated),
         severity: line.map(getSeverity)
@@ -152,6 +153,7 @@ const getVulnByRow: (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: 
   IVulnDataType[] => {
     categoryVuln.forEach((vuln: {
       currentState: string;
+      externalBts: string;
       id: string;
       severity: string;
       specific: string;
@@ -162,6 +164,7 @@ const getVulnByRow: (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: 
       if (selectedRowId === vuln.id) {
       vulnData.push({
         currentState: vuln.currentState,
+        externalBts: vuln.externalBts,
         id: vuln.id,
         specific: vuln.specific,
         treatments: {
@@ -835,7 +838,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 />
                 { modalHidden ?
                   <UpdateTreatmentModal
-                    btsUrl={data.finding.btsUrl}
                     findingId={props.findingId}
                     lastTreatment={props.lastTreatment}
                     projectName={props.projectName}

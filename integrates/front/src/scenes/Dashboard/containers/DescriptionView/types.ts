@@ -22,7 +22,6 @@ export interface IFinding {
   affectedSystems: string;
   analyst?: string;
   attackVectorDesc: string;
-  btsUrl: string;
   compromisedAttributes: string;
   compromisedRecords: number;
   cweUrl: string;

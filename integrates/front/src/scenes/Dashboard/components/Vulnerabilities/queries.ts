@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 export const GET_VULNERABILITIES: DocumentNode = gql`
   query GetVulnerabilitiesQuery($identifier: String!, $analystField: Boolean!) {
     finding(identifier: $identifier) {
-      btsUrl
       id
       releaseDate
       portsVulns {
@@ -27,6 +26,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     specific
     currentState
     id
+    externalBts
     findingId
     severity
     tag
@@ -44,8 +44,10 @@ export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
     $tag: String
     $treatmentManager: String,
     $vulnerabilities: [String]!,
+    $externalBts: String!,
   ) {
     updateTreatmentVuln (
+      externalBts: $externalBts,
       findingId: $findingId,
       severity: $severity,
       tag: $tag,

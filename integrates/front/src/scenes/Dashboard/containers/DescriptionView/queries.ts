@@ -12,7 +12,6 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       affectedSystems
       analyst @include(if: $canRetrieveAnalyst)
       attackVectorDesc
-      btsUrl
       compromisedAttributes
       compromisedRecords
       cweUrl

@@ -2,7 +2,6 @@ import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/
 
 export interface IVulnsAttr {
   finding: {
-    btsUrl?: string;
     id: string;
     inputsVulns: IVulnRow[];
     linesVulns: IVulnRow[];
@@ -15,6 +14,7 @@ export interface IVulnsAttr {
 export interface IVulnRow {
   analyst: string;
   currentState: string;
+  externalBts: string;
   id: string;
   remediated: boolean;
   severity: string;
@@ -41,6 +41,7 @@ export interface IDownloadVulnerabilitiesResult {
 }
 
 export interface IUpdateTreatmentVulnAttr {
+  externalBts: string;
   findingId: string;
   severity?: number;
   tag?: string;
@@ -68,6 +69,7 @@ export interface IDeleteTagAttr {
 
 export interface IVulnDataType {
   currentState: string;
+  externalBts: string;
   id: string;
   specific: string;
   treatments: {
@@ -79,7 +81,6 @@ export interface IVulnDataType {
 }
 
 export interface IVulnerabilitiesViewProps {
-  btsUrl?: string;
   editMode: boolean;
   editModePending?: boolean;
   findingId: string;

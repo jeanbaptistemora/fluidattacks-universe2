@@ -35,13 +35,13 @@ describe("Vulnerabilities view", () => {
         data: {
           finding: {
             __typename: "Finding",
-            btsUrl: "",
             id: "480857698",
             inputsVulns: [
               {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
                 currentState: "open",
+                externalBts: "",
                 findingId: "480857698",
                 historicState: [{
                   analyst: "user@test.com",
@@ -69,6 +69,7 @@ describe("Vulnerabilities view", () => {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
                 currentState: "open",
+                externalBts: "",
                 findingId: "480857698",
                 historicState: [{
                   analyst: "user@test.com",
@@ -98,6 +99,7 @@ describe("Vulnerabilities view", () => {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
                 currentState: "open",
+                externalBts: "",
                 findingId: "480857698",
                 historicState: [{
                   analyst: "user@test.com",
@@ -121,6 +123,7 @@ describe("Vulnerabilities view", () => {
                 __typename: "Vulnerability",
                 analyst: "user@test.com",
                 currentState: "open",
+                externalBts: "",
                 findingId: "480857698",
                 historicState: [{
                   analyst: "user@test.com",
@@ -145,6 +148,7 @@ describe("Vulnerabilities view", () => {
               __typename: "Vulnerability",
               analyst: "user@test.com",
               currentState: "open",
+              externalBts: "",
               findingId: "480857698",
               historicState: [{
                 analyst: "user@test.com",
@@ -169,6 +173,10 @@ describe("Vulnerabilities view", () => {
         },
       },
     };
+
+  const mockedPermissions: PureAbility<string> = new PureAbility([
+    { action: "backend_api_resolvers_vulnerability__do_update_treatment_vuln" },
+  ]);
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -220,9 +228,6 @@ describe("Vulnerabilities view", () => {
   });
 
   it("should open a modal to edit vulnerabilities", async () => {
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_vulnerability__do_update_treatment_vuln" },
-    ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocks]} addTypename={true}>
@@ -347,6 +352,7 @@ describe("Vulnerabilities view", () => {
     const vulns: IVulnDataType[] = [
       {
         currentState: "",
+        externalBts: "",
         id: "test",
         specific: "",
         treatments: {
@@ -360,11 +366,13 @@ describe("Vulnerabilities view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocksMutation, mocks]} addTypename={false}>
-          <UpdateTreatmentModal
-            findingId="480857698"
-            vulnerabilities={vulns}
-            handleCloseModal={handleOnClose}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <UpdateTreatmentModal
+              findingId="480857698"
+              vulnerabilities={vulns}
+              handleCloseModal={handleOnClose}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );
@@ -400,6 +408,7 @@ describe("Vulnerabilities view", () => {
     const vulns: IVulnDataType[] = [
       {
         currentState: "",
+        externalBts: "",
         id: "test",
         specific: "",
         treatments: {
@@ -413,11 +422,13 @@ describe("Vulnerabilities view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocksError, mocks]} addTypename={false}>
-          <UpdateTreatmentModal
-            findingId="480857698"
-            vulnerabilities={vulns}
-            handleCloseModal={handleOnClose}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <UpdateTreatmentModal
+              findingId="480857698"
+              vulnerabilities={vulns}
+              handleCloseModal={handleOnClose}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

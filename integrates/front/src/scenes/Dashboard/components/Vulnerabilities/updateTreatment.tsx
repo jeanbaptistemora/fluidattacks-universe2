@@ -12,11 +12,14 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
-import { Field, submit } from "redux-form";
+import { ButtonToolbar, Col, Glyphicon } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Field, isPristine, submit } from "redux-form";
+import { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   DELETE_TAGS_MUTATION,
@@ -29,16 +32,22 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import store from "store";
+import {
+  Col100,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatDropdownField } from "utils/formatHelpers";
 import { Dropdown, TagInput, Text } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { isValidVulnSeverity, numeric, required } from "utils/validations";
+import { isValidVulnSeverity, maxLength, numeric, required, validUrlField } from "utils/validations";
 
 export interface IUpdateTreatmentModal {
-  btsUrl?: string;
   findingId: string;
   lastTreatment?: IHistoricTreatment;
   projectName?: string;
@@ -46,6 +55,7 @@ export interface IUpdateTreatmentModal {
   handleCloseModal(): void;
 }
 
+const maxBtsLength: ConfigurableValidator = maxLength(80);
 const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
   props: IUpdateTreatmentModal,
 ): JSX.Element => {
@@ -57,6 +67,16 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
       .split(",");
 
     return tagSplit.map((tag: string) => tag.trim());
+  };
+
+  const groupExternalBts: ((vulnerabilities: IVulnDataType[]) => string) = (
+    vulnerabilities: IVulnDataType[],
+  ): string => {
+    const bts: string = vulnerabilities.reduce(
+      (acc: string, vuln: IVulnDataType) => (_.isEmpty(vuln.externalBts) ? acc : vuln.externalBts), "");
+
+    return vulnerabilities.every((row: IVulnDataType) => _.isEmpty(row.externalBts) ? true : row.externalBts === bts)
+    ? bts : "";
   };
 
   const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.treatments.tag));
@@ -104,6 +124,9 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
     ? {date: "", treatment: "", user: ""}
     : props.lastTreatment;
 
+  const isEditPristine: boolean = useSelector((state: {}) =>
+    isPristine("editTreatmentVulnerability")(state));
+
   return(
     <Mutation
       mutation={UPDATE_TREATMENT_MUTATION}
@@ -128,6 +151,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                 msgError(translate.t("search_findings.tab_resources.no_selection"));
               } else {
                 void updateTreatmentVuln({variables: {
+                  externalBts: dataTreatment.externalBts,
                   findingId: props.findingId,
                   severity: !_.isEmpty(dataTreatment.severity) ? Number(dataTreatment.severity) : -1,
                   tag: dataTreatment.tag,
@@ -203,20 +227,11 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     name="editTreatmentVulnerability"
                     onSubmit={handleUpdateTreatmentVuln}
                     initialValues={{
+                      externalBts: groupExternalBts(props.vulnerabilities),
                       tag: _.join((_.intersection(...vulnsTags)), ","),
                       treatmentManager: props.vulnerabilities[0].treatments.treatmentManager,
                     }}
                   >
-                      <Row>
-                        <Col md={12}>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>{translate.t("search_findings.tab_description.bts")}</b>
-                            </ControlLabel>
-                            <p>{props.btsUrl}</p>
-                          </FormGroup>
-                        </Col>
-                      </Row>
                       <Row>
                         <Col md={6}>
                           <FormGroup>
@@ -256,6 +271,24 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                         </Col>
                       </Row>
                       <Row>
+                        <Col100>
+                          <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
+                            {(canEdit: boolean): JSX.Element => (
+                              <EditableField
+                                component={Text}
+                                currentValue={groupExternalBts(props.vulnerabilities)}
+                                label={translate.t("search_findings.tab_description.bts")}
+                                name="externalBts"
+                                placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
+                                renderAsEditable={canEdit}
+                                type="text"
+                                validate={[maxBtsLength, validUrlField]}
+                              />
+                            )}
+                          </Can>
+                        </Col100>
+                      </Row>
+                      <Row>
                         <Col md={12}>
                           <FormGroup>
                             <ControlLabel>
@@ -291,12 +324,14 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     <Button onClick={handleClose}>
                       {translate.t("group.findings.report.modal_close")}
                     </Button>
-                    <Button
-                      disabled={updateResult.loading || tagsResult.loading}
-                      onClick={handleEditTreatment}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
+                    <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
+                      <Button
+                        disabled={updateResult.loading || tagsResult.loading || isEditPristine}
+                        onClick={handleEditTreatment}
+                      >
+                        {translate.t("confirmmodal.proceed")}
+                      </Button>
+                    </Can>
                   </ButtonToolbar>
                   </Modal>
                 );

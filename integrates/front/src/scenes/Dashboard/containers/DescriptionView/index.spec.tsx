@@ -21,7 +21,6 @@ describe("Finding Description", () => {
     actor: "ANY_EMPLOYEE",
     affectedSystems: "BWAPP Server",
     attackVectorDesc: "Run a reverse shell",
-    btsUrl: "https://gitlab.com/fluidattacks/something/-/issues",
     compromisedAttributes: "Server files",
     compromisedRecords: 204,
     cweUrl: "94",
@@ -111,19 +110,13 @@ describe("Finding Description", () => {
     expect(editingComponents)
       .toHaveLength(2);
     expect(fieldsAsEditable)
-      .toHaveLength(13);
+      .toHaveLength(12);
 
     const titleInput: ReactWrapper = wrapper
       .find({ name: "title", type: "text" })
       .at(0)
       .find("input");
     titleInput.simulate("change", { target: { value: "test" } });
-
-    const btsUrlInput: ReactWrapper = wrapper
-      .find({ name: "btsUrl", type: "text" })
-      .at(0)
-      .find("input");
-    btsUrlInput.simulate("change", { target: { value: "test" } });
 
     editButton.simulate("click");
     editingComponents = wrapper.find({ isEditing: true });

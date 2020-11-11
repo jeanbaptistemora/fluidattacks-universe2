@@ -31,7 +31,6 @@ describe("Finding Treatment", () => {
     result: {
       data: {
         finding: {
-          btsUrl: "https://gitlab.com/fluidattacks/something/-/issues",
           historicTreatment: [],
           id: "413372600",
           openVulnerabilities: 0,
