@@ -11,7 +11,7 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from target_redshift_2.db_client import DbTypes
+from target_redshift_2.db_client.objects import DbTypes
 from target_redshift_2.objects import (
     RedshiftField,
     RedshiftRecord,
