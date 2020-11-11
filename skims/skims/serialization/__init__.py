@@ -6,6 +6,11 @@ from enum import (
     Enum,
 )
 import json
+from datetime import (
+    datetime,
+    date,
+)
+
 from typing import (
     Any,
     Callable,
@@ -23,7 +28,7 @@ from metaloaders.model import (
     Node,
     Type,
 )
-
+from dateutil.parser import parse as date_parser
 # Local libraries
 from parse_common.types import (
     ListToken,
@@ -73,6 +78,14 @@ def _dump_dict(instance: Dict[str, Any]) -> Serialized:
     return _serialize(
         instance, *((_dump(key), _dump(val)) for key, val in instance.items()),
     )
+
+
+def _dump_datetime(time: datetime) -> Serialized:
+    return _serialize(time, time.isoformat())
+
+
+def _load_datetime(time: str) -> datetime:
+    return date_parser(time)
 
 
 def _load_dict(*args: Tuple[Serialized, Serialized]) -> Dict[Any, Any]:
@@ -135,6 +148,8 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (bool, _dump_base, bool),
         (bytes, _dump_bytes, _load_bytes),
         (dict, _dump_dict, _load_dict),
+        (date, _dump_datetime, _load_datetime),
+        (datetime, _dump_datetime, _load_datetime),
         (float, _dump_base, float),
         (int, _dump_base, int),
         (list, _dump_tuple, _load_list),

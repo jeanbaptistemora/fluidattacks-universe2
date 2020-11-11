@@ -91,9 +91,7 @@ async def upload_evidences(
     results: Tuple[Vulnerability, ...] = (
         await store.get_a_few(len(evidence_ids))
     )
-    # Changed to prevent integrates DOS
-    # number_of_samples: int = min(len(results), len(evidence_ids))
-    number_of_samples: int = 1
+    number_of_samples: int = min(len(results), len(evidence_ids))
     result_samples: Tuple[Vulnerability, ...] = tuple(
         random.sample(results, k=number_of_samples),
     )
