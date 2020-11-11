@@ -13,7 +13,7 @@ const loginInfoButton: React.FC<ILoginInfoButtonProps> = (
   const { fontAwesomeName, className, onClick } = props;
 
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className + " dim"} onClick={onClick}>
       <FontAwesome name={fontAwesomeName} size={"2x"} />
       &nbsp;
     </button>

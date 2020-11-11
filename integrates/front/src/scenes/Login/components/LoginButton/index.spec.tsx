@@ -14,7 +14,6 @@ describe("Login button", (): void => {
     const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <LoginButton
-        bsStyle={"danger"}
         // eslint-disable-next-line react/forbid-component-props
         className={"class"}
         fontAwesomeName={"google"}
@@ -32,7 +31,6 @@ describe("Login button", (): void => {
     const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <LoginButton
-        bsStyle={"primary"}
         // eslint-disable-next-line react/forbid-component-props
         className={"class"}
         fontAwesomeName={"windows"}
@@ -41,7 +39,7 @@ describe("Login button", (): void => {
       />
     );
 
-    wrapper.find("Button").simulate("click");
+    wrapper.find("button").simulate("click");
 
     expect(clickCallback).toHaveBeenCalledWith();
   });

@@ -12,15 +12,14 @@
 
 :local .socialBtn {
   align-items: center;
-  border-radius: 0px;
   display: flex;
+  border-style: solid;
+  border-radius: 0px;
+  border-width: 1px;
   font-size: 18px;
   height: 40px;
+  width: 100%;
   justify-content: space-between;
-}
-
-:local .socialBtn:hover {
-  filter: brightness(90%);
 }
 
 :local .socialBtn:focus, .socialBtn:active:focus {
@@ -60,6 +59,7 @@
 :local .bitbucketBtn {
   background-color: #0747A6;
   border-color: #0747A6;
+  margin-top: 5px;
 }
 
 :local .googleBtn {
@@ -72,6 +72,7 @@
 :local .microsoftBtn {
   background-color: #007BFF;
   border-color: #007BFF;
+  margin-top: 5px;
 }
 
 

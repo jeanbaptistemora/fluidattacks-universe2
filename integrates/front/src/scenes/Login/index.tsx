@@ -99,21 +99,18 @@ export const Login: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <LoginButton
-                bsStyle={"danger"}
                 className={`${style.socialBtn} ${style.googleBtn}`}
                 fontAwesomeName={"google"}
                 onClick={handleGoogleLogin}
                 text={t("login.google")}
               />
               <LoginButton
-                bsStyle={"primary"}
                 className={`${style.socialBtn} ${style.microsoftBtn}`}
                 fontAwesomeName={"windows"}
                 onClick={handleMicrosoftLogin}
                 text={t("login.microsoft")}
               />
               <LoginButton
-                bsStyle={"primary"}
                 className={`${style.socialBtn} ${style.bitbucketBtn}`}
                 fontAwesomeName={"bitbucket"}
                 onClick={handleBitbucketLogin}
