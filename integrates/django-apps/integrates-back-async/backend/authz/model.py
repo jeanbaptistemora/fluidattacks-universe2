@@ -101,10 +101,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     analyst=dict(
         actions={
             'backend_api_mutations_add_event_consult_mutate',
-            'backend_api_mutations_confirm_zero_risk_vuln_mutate',
             'backend_api_mutations_create_event_mutate',
             'backend_api_mutations_download_event_file_mutate',
-            'backend_api_mutations_reject_zero_risk_vuln_mutate',
             'backend_api_mutations_remove_event_evidence_mutate',
             'backend_api_mutations_solve_event_mutate',
             'backend_api_mutations_update_event_evidence_mutate',
@@ -129,10 +127,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             (
                 'backend_api_resolvers_new_vulnerability_'
                 'historic_verification_resolve'
-            ),
-            (
-                'backend_api_resolvers_new_vulnerability_'
-                'historic_zero_risk_resolve'
             ),
             'backend_api_resolvers_new_query_vulnerability_resolve',
             'backend_api_resolvers_new_query_forces_executions_resolve',
