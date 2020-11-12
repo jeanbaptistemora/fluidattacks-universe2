@@ -248,6 +248,7 @@ integrates_deploy_back_ephemeral_clean:
 integrates_deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
+  tags: [autoscaling-cpu]
   stage: deploy-app
   needs: [integrates_build_container_app]
   retry: 1
