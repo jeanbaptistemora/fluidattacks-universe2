@@ -1,7 +1,4 @@
 # Standard library
-from collections import (
-    defaultdict,
-)
 import contextlib
 import json
 from typing import (
@@ -102,31 +99,7 @@ async def _parse(
         return {}
 
 
-def parse_rule(
-    model: List[Dict[str, Any]],
-    values: Dict[str, Any],
-) -> Dict[str, Any]:
-    token_index = 0
-
-    for model_element in model:
-        if all(key in model_element for key in ('c', 'l', 'text', 'type')):
-            model_element = {f'__token__.{token_index}': model_element}
-            token_index += 1
-
-        token_name, token_value = next(iter(model_element.items()))
-
-        if token_name not in values:
-            raise ValueError(f'Expected values to contain: {token_name}')
-
-        if isinstance(values[token_name], list):
-            values[token_name].append(token_value)
-        else:
-            values[token_name] = token_value
-
-    return values
-
-
-def parse_rule2(model: List[Dict[str, Any]]) -> Dict[str, Any]:
+def parse_rule(model: List[Dict[str, Any]]) -> Dict[str, Any]:
     result: Dict[str, Any] = {}
     token_index = 0
 
@@ -159,10 +132,10 @@ def structure_model(model: Dict[str, Any]) -> Dict[str, Any]:
             if isinstance(value, list):
                 if len(value) == 1:
                     # Single value list
-                    result = {key: format_model(value[0])}
+                    result = {key: structure_model(value[0])}
                 else:
                     # Multiple values list
-                    result = {key: list(map(format_model, value))}
+                    result = {key: list(map(structure_model, value))}
             else:
                 # Can happen?
                 raise NotImplementedError()
@@ -171,7 +144,7 @@ def structure_model(model: Dict[str, Any]) -> Dict[str, Any]:
             # Token node
             result = {'Token': model}
         else:
-            result = dict(zip(model.keys(), map(format_model, model.values())))
+            result = dict(zip(model, map(structure_model, model.values())))
     else:
         # Can happen?
         raise NotImplementedError()
@@ -179,14 +152,17 @@ def structure_model(model: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-def structure_keys(model: Dict[str, Any]) -> defaultdict:
+def structure_keys(model: Dict[str, Any]) -> Dict[str, Any]:
     if isinstance(model, dict):
-        result: defaultdict = defaultdict(None)
+        result: Dict[str, Any] = {}
         for key, val in model.items():
             if isinstance(val, dict):
-                result[key] = val
+                if key == 'Token':
+                    result[key] = val
+                else:
+                    result[key] = structure_keys(val)
             elif isinstance(val, list):
-                result[key] = parse_rule2(val)
+                result[key] = parse_rule(list(map(structure_keys, val)))
             else:
                 # Can happen?
                 raise NotImplementedError()
@@ -197,5 +173,5 @@ def structure_keys(model: Dict[str, Any]) -> defaultdict:
     return result
 
 
-def format_model(model: Dict[str, Any]) -> defaultdict:
+def format_model(model: Dict[str, Any]) -> Dict[str, Any]:
     return structure_keys(structure_model(model))

@@ -125,32 +125,3 @@ async def test_parse_fail() -> None:
         )
 
         assert data == {}
-
-
-def test_parse_rule() -> None:
-    data: List[Dict[str, Any]] = [
-        {"ClassModifier": []},
-        {"ClassModifier": []},
-        {'c': 7, 'l': 30, 'text': 'class', 'type': 'CLASS'},
-        {"Identifier": []},
-        {"Superclass": []},
-        {"ClassBody": []}
-    ]
-
-    assert parse_rule(data, {
-        'ClassModifier': [],
-        '__token__.0': None,
-        'Identifier': None,
-        'TypeParameters': None,
-        'Superclass': None,
-        'Superinterfaces': None,
-        'ClassBody': None,
-    }) == {
-        'ClassBody': [],
-        'ClassModifier': [[], []],
-        'Identifier': [],
-        'Superclass': [],
-        'Superinterfaces': None,
-        'TypeParameters': None,
-        '__token__.0': {'c': 7, 'l': 30, 'text': 'class', 'type': 'CLASS'},
-    }
