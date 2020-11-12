@@ -2,60 +2,66 @@ import { logger, startBugsnag } from "./bugsnagErrorBoundary";
 
 startBugsnag();
 
-let slideIndex: number; slideIndex = 1;
-let myTimer: NodeJS.Timeout;
+const slideShow: (() => void) = (): void => {
+  const slide1: HTMLElement = document.querySelector(".mySlide1") as HTMLElement;
+  const dot1: HTMLElement = document.querySelector(".dot1") as HTMLElement;
+  const slide2: HTMLElement = document.querySelector(".mySlide2") as HTMLElement;
+  const dot2: HTMLElement = document.querySelector(".dot2") as HTMLElement;
+  const slide3: HTMLElement = document.querySelector(".mySlide3") as HTMLElement;
+  const dot3: HTMLElement = document.querySelector(".dot3") as HTMLElement;
+  const homeSlides: HTMLElement = document.querySelector(".slideshow-home") as HTMLElement;
 
-const contactSlider: (() => void) = (): void => {
-  window.addEventListener("load", () => {
-      // tslint:disable-next-line: no-use-before-declare
-      showSlides(slideIndex);
-      // tslint:disable-next-line: no-use-before-declare
-      myTimer = setInterval(() => { plusSlides(1); }, 4000);
+  dot1.addEventListener("click", (event: Event) => {
+    (event.currentTarget as HTMLElement).classList.replace("bg-fluid-gray", "bg-fluid-red");
+    dot2.classList.replace("bg-fluid-red", "bg-fluid-gray");
+    dot3.classList.replace("bg-fluid-red", "bg-fluid-gray");
+    slide1.classList.remove("dn");
+    slide2.classList.add("dn");
+    slide3.classList.add("dn");
+    if (document.body.contains(homeSlides)) {
+      if (homeSlides.classList.contains("bg-quote2")) {
+        homeSlides.classList.replace("bg-quote2", "bg-quote1");
+      } else if (homeSlides.classList.contains("bg-quote3")) {
+        homeSlides.classList.replace("bg-quote3", "bg-quote1");
+      }
+    }
   });
 
-  // NEXT AND PREVIOUS CONTROL
-  const plusSlides: ((n: number) => void) = (n: number): void => {
-    clearInterval(myTimer);
-    if (n < 0) {
-        // tslint:disable-next-line: no-use-before-declare
-        showSlides(slideIndex -= 1);
-    } else {
-    // tslint:disable-next-line: no-use-before-declare
-    showSlides(slideIndex += 1);
+  dot2.addEventListener("click", (event: Event) => {
+    dot1.classList.replace("bg-fluid-red", "bg-fluid-gray");
+    (event.currentTarget as HTMLElement).classList.replace("bg-fluid-gray", "bg-fluid-red");
+    dot3.classList.replace("bg-fluid-red", "bg-fluid-gray");
+    slide1.classList.add("dn");
+    slide2.classList.remove("dn");
+    slide3.classList.add("dn");
+    if (document.body.contains(homeSlides)) {
+      if (homeSlides.classList.contains("bg-quote1")) {
+        homeSlides.classList.replace("bg-quote1", "bg-quote2");
+      } else if (homeSlides.classList.contains("bg-quote3")) {
+        homeSlides.classList.replace("bg-quote3", "bg-quote2");
+      }
     }
+  });
 
-    // COMMENT OUT THE LINES BELOW TO KEEP ARROWS PART OF MOUSEENTER PAUSE/RESUME
-
-    // tslint:disable-next-line: prefer-conditional-expression
-    if (n === -1) {
-        myTimer = setInterval(() => {plusSlides(n + 2); }, 4000);
-    } else {
-        myTimer = setInterval(() => {plusSlides(n + 1); }, 4000);
+  dot3.addEventListener("click", (event: Event) => {
+    dot1.classList.replace("bg-fluid-red", "bg-fluid-gray");
+    dot2.classList.replace("bg-fluid-red", "bg-fluid-gray");
+    (event.currentTarget as HTMLElement).classList.replace("bg-fluid-gray", "bg-fluid-red");
+    slide1.classList.add("dn");
+    slide2.classList.add("dn");
+    slide3.classList.remove("dn");
+    if (document.body.contains(homeSlides)) {
+      if (homeSlides.classList.contains("bg-quote1")) {
+        homeSlides.classList.replace("bg-quote1", "bg-quote3");
+      } else if (homeSlides.classList.contains("bg-quote2")) {
+        homeSlides.classList.replace("bg-quote2", "bg-quote3");
+      }
     }
-  };
-
-  const showSlides: ((n: number) => void) = (n: number): void => {
-  let i: number;
-  // tslint:disable-next-line: typedef
-  const slides = document.getElementsByClassName("mySlides") as HTMLCollectionOf<HTMLElement>;
-  // tslint:disable-next-line: typedef
-  const dots: HTMLCollection =
-    document.getElementsByClassName("dot") as HTMLCollectionOf<HTMLElement>;
-  if (n > slides.length) {slideIndex = 1; }
-  if (n < 1) {slideIndex = slides.length; }
-  for (i = 0; i < slides.length; i += 1) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i += 1) {
-      dots[i].className = dots[i].className.replace(" active-slide", "");
-  }
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active-slide";
-  };
+  });
 };
 
 try {
-  contactSlider();
+  slideShow();
 } catch (error) {
-  logger.error("Error executing contactSlider() function", error);
+  logger.error("Error executing slideShow() function", error);
 }

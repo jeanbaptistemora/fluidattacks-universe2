@@ -43,6 +43,14 @@ $codepink: rgba(150, 0, 80, 1);
 $codepurple: rgba(174, 129, 255, 1);
 $codeyellow: rgba(230, 219, 116, 1);
 
+// Preloaded images
+body::after {
+  content:
+  url('../../images/bg-quote1.png')
+  url('../../images/bg-quote2.png')
+  url('../../images/bg-quote3.png')
+}
+
 // Tachyons custom classes:
 
 .bg-fluid-red { background-color: $fluid-red;}
@@ -153,7 +161,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .sca-bg { background-image: url('../../images/techniques/cover-sca.png'); }
 .sre-bg { background-image: url('../../images/techniques/cover-sre.png'); }
 .clients-bg { background-image: url('../../images/about-us/clients/cover-clients.png'); }
-.bg-quotes { background-image: url('../../images/bg-quotes.png'); }
+.bg-quote1 { background-image: url('../../images/bg-quote1.png'); }
+.bg-quote2 { background-image: url('../../images/bg-quote2.png'); }
+.bg-quote3 { background-image: url('../../images/bg-quote3.png'); }
 .bg-solutions { background-image: url('../../images/bg-solutions.png'); }
 .bg-ebook { background-image: url('../../images/bg-ebook.png'); }
 .bg-menu-products { background-image: url('../../images/menu/bg-menu-products.png'); }
@@ -214,7 +224,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-key-features { font-size: 1.125rem; }
 .lh-key-features { line-height: 2.25rem; }
 .bb-form { border-bottom: 1px solid $lightblack; }
-.h-slide-bt { height: .188rem; }
+.h-slide-bt { height: .25rem; }
 .slide-bt-trans { transition: background-color 0.6s ease; }
 .ph-bt { padding-left: 4.25rem; padding-right: 4.25rem; }
 .pv-bt { padding-top: .75rem; padding-bottom: .75rem; }
