@@ -1,13 +1,15 @@
+"""Define interface of db objects"""
 # Standard libraries
 from enum import Enum
 from typing import (
     Any,
-    Callable, Optional,
-    cast,
+    Callable,
+    Optional,
+    Tuple,
+    Union,
     FrozenSet,
     List,
     NamedTuple,
-    Set,
 )
 # Third party libraries
 # Local libraries
@@ -36,16 +38,31 @@ class ConnectionID(NamedTuple):
         return "ConnectionID(dbname={}, ****)".format(self.dbname)
 
 
-class SchemaID(NamedTuple):
-    connection: Optional[ConnectionID]
-    schema_name: str
+# ----------------- db actions ------------------
+class FetchAction(Enum):
+    ALL = 'all'
+    ONE = 'one'
 
 
-class TableID(NamedTuple):
-    schema: SchemaID
-    table_name: str
+class CursorExeAction(NamedTuple):
+    cursor: PGCURR
+    act: Callable[[], Any]
+    statement: str
 
 
+class CursorFetchAction(NamedTuple):
+    cursor: PGCURR
+    act: Callable[
+        [], Optional[
+            Union[
+                Tuple[Any, ...], Tuple[Tuple[Any, ...], ...]
+            ]
+        ]
+    ]
+    fetch_type: FetchAction
+
+
+# ----------------- column ------------------
 class IsolatedColumn(NamedTuple):
     name: str
     field_type: str
@@ -57,60 +74,67 @@ class Column(NamedTuple):
     column: IsolatedColumn
 
 
-class CursorAction(NamedTuple):
-    cursor: PGCURR
-    statement: str
-    act: Callable[[], Any]
+# ----------------- table ------------------
+class TableID(NamedTuple):
+    schema: 'SchemaID'
+    table_name: str
 
 
-class Client(NamedTuple):
-    make_action: Callable[[PGCURR, str], CursorAction]
-    connection: PGCONN
-    cursor: PGCURR
-
-    def drop_access_point(self: 'Client') -> None:
-        self.cursor.close()
-        self.connection.close()
-
-    def execute(self: 'Client', statement: str) -> CursorAction:
-        return self.make_action(
-            self.cursor,
-            statement
-        )
-
-
-class Schema(NamedTuple):
-    id: SchemaID
+class TablePrototype(NamedTuple):
+    # Any should be `Table` but mypy do not support recursive types
+    table_path: Callable[[Any], str]
+    add_columns: Callable[
+        [Any, FrozenSet[IsolatedColumn]], List[CursorExeAction]
+    ]
 
 
 class Table(NamedTuple):
     id: TableID
     primary_keys: FrozenSet[str]
     columns: FrozenSet[IsolatedColumn]
-    db_client: Client
+    prototype: TablePrototype
 
     def table_path(self: 'Table') -> str:
-        return f"\"{self.id.schema.schema_name}\".\"{self.id.table_name}\""
+        return self.prototype.table_path(self)
 
     def add_columns(
         self: 'Table', new_columns: FrozenSet[IsolatedColumn]
-    ) -> List[CursorAction]:
-        diff_columns: Set[IsolatedColumn] = \
-            cast(Set[IsolatedColumn], new_columns) - self.columns
-        diff_names: Set[str] = set(map(lambda c: c.name, diff_columns))
-        current_names: Set[str] = set(map(lambda c: c.name, self.columns))
-        if not diff_names.isdisjoint(current_names):
-            raise Exception(
-                'Cannot update the type of existing columns.'
-                f'Columns: {diff_names.intersection(current_names)}'
-            )
-        actions: List[CursorAction] = []
-        table_path: str = self.table_path()
-        for column in diff_columns:
-            statement: str = (
-                f'ALTER TABLE {table_path} '
-                f'ADD COLUMN {column.name} '
-                f'{column.field_type} default {column.default_val}'
-            )
-            actions.append(self.db_client.execute(statement))
-        return actions
+    ) -> List[CursorExeAction]:
+        return self.prototype.add_columns(self, new_columns)
+
+
+# ----------------- db schema ------------------
+class SchemaID(NamedTuple):
+    connection: Optional[ConnectionID]
+    schema_name: str
+
+
+class Schema(NamedTuple):
+    id: SchemaID
+
+
+# ----------------- client ------------------
+class ClientPrototype(NamedTuple):
+    # Any should be `Client` but mypy do not support recursive types
+    execute: Callable[[Any, str], CursorExeAction]
+    fetchall: Callable[[Any], CursorFetchAction]
+    fetchone: Callable[[Any], CursorFetchAction]
+    drop_access_point: Callable[[Any], None]
+
+
+class Client(NamedTuple):
+    connection: PGCONN
+    cursor: PGCURR
+    prototype: ClientPrototype
+
+    def drop_access_point(self: 'Client') -> None:
+        return self.prototype.drop_access_point(self)
+
+    def execute(self: 'Client', statement: str) -> CursorExeAction:
+        return self.prototype.execute(self, statement)
+
+    def fetchall(self: 'Client') -> CursorFetchAction:
+        return self.prototype.fetchall(self)
+
+    def fetchone(self: 'Client') -> CursorFetchAction:
+        return self.prototype.fetchone(self)
