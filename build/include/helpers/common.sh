@@ -4,6 +4,26 @@ function helper_common_json_to_yaml {
   yq -y .
 }
 
+function helper_common_kill_pid_listening_on_port {
+  local port="${1}"
+  local pids_file="${TEMP_FILE1}"
+
+      if ! lsof -t "-i:${port}" > "${pids_file}"
+      then
+            echo "[INFO] Nothing listening on port: ${port}" \
+        &&  return 0
+      fi \
+  &&  while read -r pid
+      do
+        if kill -9 "${pid}"
+        then
+          echo "[INFO] Killed pid: ${pid}, listening on port: ${port}"
+        else
+          echo "[ERROR] Killing pid: ${pid}, listening on port: ${port}"
+        fi
+      done < "${pids_file}"
+}
+
 function helper_common_sops_env {
   local file
   local decrypted_json
