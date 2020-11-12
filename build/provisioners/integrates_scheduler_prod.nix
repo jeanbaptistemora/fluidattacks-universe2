@@ -1,1 +1,1 @@
-import ./integrates_serve_components.nix
+import ./integrates_serve_components_legacy.nix

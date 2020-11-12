@@ -1,3 +1,7 @@
+{
+  inputs ? []
+}:
+
 let
   pkgs = import ../pkgs/integrates.nix;
   builders.nodeJsModule = import ../builders/nodejs-module pkgs;
@@ -26,8 +30,17 @@ in
         pkgs.jq
         pkgs.ruby
         pkgs.iproute
-        pkgs.python37
+        (pkgs.python37.withPackages (ps: with ps; [
+          matplotlib
+          pip
+          python_magic
+          selenium
+          setuptools
+          wheel
+        ]))
         pkgs.libmysqlclient
+        pkgs.postgresql
+        pkgs.unixODBC
       ];
 
       nodeJsModuleSecureSpreadsheet =
