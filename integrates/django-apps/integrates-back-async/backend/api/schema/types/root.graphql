@@ -9,7 +9,7 @@ type DirectoryFilteringConfig {
 
 type IntegrationEnvironment {
   kind: String!
-  URL: String!
+  url: String!
 }
 
 type GitRoot implements IRoot {
@@ -31,5 +31,5 @@ type URLRoot implements IRoot {
   id: ID!
   path: String!
   port: Int!
-  protocol: URLProtocol
+  protocol: URLProtocol!
 }

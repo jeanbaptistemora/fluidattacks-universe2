@@ -155,7 +155,31 @@ ExecuteSkimsPayload = NamedTuple('ExecuteSkimsPayload', [
     ('success', bool),
     ('pipeline_url', str),
 ])
-Root = NamedTuple('Root', [
-    ('id', str),
-    ('kind', str)
+DirectoryFilteringConfig = NamedTuple('DirectoryFilteringConfig', [
+    ('paths', List[str]),
+    ('policy', str)
 ])
+IntegrationEnvironment = NamedTuple('IntegrationEnvironment', [
+    ('kind', str),
+    ('url', str)
+])
+GitRoot = NamedTuple('GitRoot', [
+    ('branch', str),
+    ('directory_filtering', Optional[DirectoryFilteringConfig]),
+    ('environment', Optional[IntegrationEnvironment]),
+    ('id', str),
+    ('url', str)
+])
+IPRoot = NamedTuple('IPRoot', [
+    ('address', str),
+    ('id', str),
+    ('port', int)
+])
+URLRoot = NamedTuple('URLRoot', [
+    ('address', str),
+    ('id', str),
+    ('path', str),
+    ('port', int),
+    ('protocol', str)
+])
+Root = Union[GitRoot, IPRoot, URLRoot]

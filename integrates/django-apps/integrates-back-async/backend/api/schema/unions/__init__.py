@@ -6,7 +6,7 @@ from ariadne import UnionType
 from graphql.type.definition import GraphQLAbstractType, GraphQLResolveInfo
 
 # Local
-from backend.typing import Root
+from backend.typing import GitRoot, IPRoot, URLRoot, Root
 
 
 def resolve_root_type(
@@ -14,11 +14,11 @@ def resolve_root_type(
     _info: GraphQLResolveInfo,
     _return_type: GraphQLAbstractType
 ) -> Optional[str]:
-    if result.kind == 'Git':
+    if isinstance(result, GitRoot):
         return 'GitRoot'
-    if result.kind == 'IP':
+    if isinstance(result, IPRoot):
         return 'IPRoot'
-    if result.kind == 'URL':
+    if isinstance(result, URLRoot):
         return 'URLRoot'
 
     return None

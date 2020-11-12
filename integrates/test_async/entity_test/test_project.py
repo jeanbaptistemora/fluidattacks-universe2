@@ -421,36 +421,80 @@ async def test_edit_group_bad(
 async def test_get_roots() -> None:
     query = '''
         query {
-          project(projectName: "unittesting") {
+          drillsBlackGroup: project(projectName: "oneshottest") {
+            roots {
+              __typename
+              ...on IPRoot {
+                address
+                id
+                port
+              }
+              ...on URLRoot {
+                address
+                id
+                path
+                port
+                protocol
+              }
+            }
+            subscription
+          }
+          drillsWhiteGroup: project(projectName: "unittesting") {
             roots {
               __typename
               ...on GitRoot {
+                branch
+                directoryFiltering {
+                  paths
+                  policy
+                }
+                environment {
+                  kind
+                  url
+                }
                 id
-              }
-              ...on IPRoot {
-                id
-              }
-              ...on URLRoot {
-                id
+                url
               }
             }
+            subscription
           }
         }
     '''
     result = await ProjectTests._get_result_async(None, {'query': query})
 
     assert 'errors' not in result
-    assert result['data']['project']['roots'] == [
-        {
-            '__typename': 'GitRoot',
-            'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19'
-        },
+    assert result['data']['drillsBlackGroup']['subscription'] == 'oneshot'
+    assert result['data']['drillsBlackGroup']['roots'] == [
         {
             '__typename': 'URLRoot',
-            'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034'
+            'address': 'integrates.fluidattacks.com',
+            'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034',
+            'path': '/',
+            'port': 80,
+            'protocol': 'HTTPS'
         },
         {
             '__typename': 'IPRoot',
-            'id': 'ROOT#d312f0b9-da49-4d2b-a881-bed438875e99'
+            'address': '127.0.0.1',
+            'id': 'ROOT#d312f0b9-da49-4d2b-a881-bed438875e99',
+            'port': 8080
+        }
+    ]
+
+    assert result['data']['drillsWhiteGroup']['subscription'] == 'continuous'
+    assert result['data']['drillsWhiteGroup']['roots'] == [
+        {
+            '__typename': 'GitRoot',
+            'branch': 'master',
+            'directoryFiltering': {
+                'paths': ['^.*/bower_components/.*$', '^.*/node_modules/.*$'],
+                'policy': 'EXCLUDE'
+            },
+            'environment': {
+                'kind': 'production',
+                'url': 'https://integrates.fluidattacks.com'
+            },
+            'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
+            'url': 'https://gitlab.com/fluidattacks/product/-/tree/master'
         }
     ]
