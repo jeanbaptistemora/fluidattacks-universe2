@@ -4,8 +4,8 @@
 This migration aims to copy external_bts from
 finding to vulnerability
 
-Execution Time:
-Finalization Time:
+Execution Time:    2020-11-12 13:22:45 UTC-5
+Finalization Time: 2020-11-12 13:31:12 UTC-5
 """
 # Standard library
 import os

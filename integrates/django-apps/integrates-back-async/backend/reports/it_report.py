@@ -301,7 +301,6 @@ class ITReport():
             n_compromised_attributes = str(
                 len(compromised_attributes.split('\n'))
             )
-        external_bts = finding.get('externalBts', EMPTY)
         severity = cast(float, finding.get('severityCvss', 0))
 
         finding_data = {
@@ -314,7 +313,6 @@ class ITReport():
             'Affected System': str(finding.get('affectedSystems', EMPTY)),
             'Threat': str(finding.get('threat', EMPTY)),
             'Recommendation': str(finding.get('effectSolution', EMPTY)),
-            'External BTS': f'=HYPERLINK("{external_bts}", "{external_bts}")',
             'Compromised Attributes': compromised_attributes,
             '# Compromised records': n_compromised_attributes or '0',
         }
@@ -335,11 +333,13 @@ class ITReport():
                 vuln_historic_state[-1]['date']
             )
         vuln_age_days = int((limit_date - vuln_date).days)
+        external_bts = vuln.get('external_bts', EMPTY)
 
         vuln_temporal_data: Dict[str, Union[str, int, float, datetime]] = {
             'Report Moment': vuln_date,
             'Age in days': vuln_age_days,
-            'Close Moment': vuln_close_date
+            'Close Moment': vuln_close_date,
+            'External BTS': f'=HYPERLINK("{external_bts}", "{external_bts}")',
         }
         for key, value in vuln_temporal_data.items():
             self.row_values[self.vulnerability[key]] = value

@@ -275,7 +275,6 @@ async def _do_update_client_description(
     user_info = await util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
     finding_info_to_check = {
-        'bts_url': finding['bts_url'],
         'historic_treatment': finding['historic_treatment'],
         'severity': finding['severity_score']
     }

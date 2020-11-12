@@ -4,7 +4,6 @@ import re
 from contextlib import AsyncExitStack
 from typing import (
     Any,
-    Awaitable,
     Callable,
     cast,
     Dict,
@@ -295,6 +294,7 @@ async def update_client_description(
     """
     Check that the new treatment values to upload are valid and update them
     """
+    success: bool = False
     last_state = {
         key: value
         for key, value in cast(
@@ -306,55 +306,30 @@ async def update_client_description(
     new_state = {
         key: value
         for key, value in updated_values.items()
-        if key not in ['acceptance_status', 'bts_url']
+        if key not in {'acceptance_status'}
     }
 
-    bts_changed: bool = bool(
-        updated_values.get('bts_url') and
-        updated_values.get('bts_url') != info_to_check.get('bts_url')
-    )
     treatment_changed: bool = compare_historic_treatments(
         last_state,
         new_state
     )
-    if not any([bts_changed, treatment_changed]):
+    if not treatment_changed:
         raise GraphQLError(
             'Finding treatment cannot be updated with the same values'
         )
 
     validations.validate_fields(list(updated_values.values()))
-    success_treatment, success_external_bts = True, True
-    if bts_changed:
-        validations.validate_url(updated_values['bts_url'])
-        validations.validate_field_length(updated_values['bts_url'], 80)
-        vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
-        bts_data: Dict[str, FindingType] = {
-            'external_bts': updated_values.get('bts_url', None)
-        }
-        coroutines: List[Awaitable[bool]] = []
-        coroutines.append(
-            finding_dal.update(
-                finding_id,
-                bts_data
-            )
-        )
-        coroutines.extend(
-            vuln_dal.update(
-                finding_id, str(vuln.get('UUID', '')), bts_data
-            )
-            for vuln in vulns
-        )
-        success_external_bts = all(await collect(coroutines))
+
     if treatment_changed:
-        updated_values.pop('bts_url', None)
         valid_treatment: bool = await finding_utils.validate_treatment_change(
             info_to_check, organization, updated_values
         )
         if valid_treatment:
-            success_treatment = await update_treatment(
+            success = await update_treatment(
                 finding_id, updated_values, user_mail
             )
-    return success_treatment and success_external_bts
+
+    return success
 
 
 async def update_treatment(

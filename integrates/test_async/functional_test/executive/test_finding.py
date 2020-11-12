@@ -397,7 +397,6 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
-    bts_url = 'http://test'
     tomorrow_date = datetime_utils.get_now_plus_delta(days=1)
     tomorrow = datetime_utils.get_as_str(
         tomorrow_date
@@ -405,7 +404,6 @@ async def test_finding():
     query = f'''
         mutation {{
             updateClientDescription (
-                btsUrl: "{bts_url}",
                 findingId: "{finding_id}",
                 treatment: ACCEPTED,
                 justification: "This is a treatment justification test",
@@ -427,7 +425,6 @@ async def test_finding():
     )
     query = f'''{{
         finding(identifier: "{finding_id}"){{
-            btsUrl
             consulting{{
                 content
                 email
@@ -439,7 +436,6 @@ async def test_finding():
     data = {'query': query}
     result = await get_result(data)
     assert 'errors' not in result
-    assert result['data']['finding']['btsUrl'] == bts_url
     assert result['data']['finding']['consulting'] == [
         {
             'content': consult_content,

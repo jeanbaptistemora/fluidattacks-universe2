@@ -444,7 +444,6 @@ class FindingTests(TestCase):
         query = f'''
             mutation {{
                 updateClientDescription (
-                btsUrl: "",
                 findingId: "463558592",
                 treatment: ACCEPTED,
                 justification: "This is a treatment justification test",
@@ -452,7 +451,6 @@ class FindingTests(TestCase):
                 ) {{
                 success
                 finding {{
-                    btsUrl
                     historicTreatment
                 }}
                 }}

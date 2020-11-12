@@ -295,7 +295,6 @@ async def test_finding():
     query = f'''
         mutation {{
             updateClientDescription (
-            btsUrl: "",
             findingId: "{finding_id}",
             treatment: IN_PROGRESS,
             justification: "This is a treatment justification test",

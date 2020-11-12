@@ -241,7 +241,6 @@ type Mutation {
 
     updateClientDescription(
         acceptanceDate: String
-        btsUrl: String
         findingId: String!
         treatment: UpdateClientDescriptionTreatment!
         justification: String!
