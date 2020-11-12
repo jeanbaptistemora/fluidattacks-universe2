@@ -11,7 +11,8 @@ from typing import (
     Dict,
     List,
     Union,
-    TypeVar
+    TypeVar,
+    Optional,
 )
 # 3dr Imports
 
@@ -256,3 +257,49 @@ async def upload_report(
         **kwargs,
     )
     return response.get('addForcesExecution', dict()).get('success', False)
+
+
+@SHIELD
+async def get_projects_access(**kwargs: Any) -> List[str]:
+    query = """
+        query ForcesGetMeProjects {
+          me {
+            projects{
+              name
+            }
+          }
+        }
+    """
+    response: Dict[str, Dict[str, List[Dict[str, str]]]] = await execute(
+        query,
+        operation_name='ForcesGetMeProjects',
+        **kwargs,
+    )
+    return list(group['name'] for group in response['me']['projects'])
+
+
+async def get_project_role(group: str, **kwargs: Any) -> str:
+    query = """
+        query ForcesGetMeGroupRole($group: String!) {
+          me {
+            role(entity: PROJECT, identifier: $group)
+          }
+        }
+    """
+    response: Dict[str, Dict[str, str]] = await execute(
+        query,
+        operation_name='ForcesGetMeGroupRole',
+        variables={'group': group},
+        **kwargs,
+    )
+
+    return response['me']['role']
+
+
+async def get_forces_user(**kwargs: Any) -> Optional[str]:
+    projects = await get_projects_access(**kwargs)
+    for group in projects:
+        role = await get_project_role(group, **kwargs)
+        if role == 'service_forces':
+            return group
+    return None

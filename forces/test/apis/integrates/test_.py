@@ -5,8 +5,6 @@ import pytest
 from forces.apis.integrates import (
     set_api_token,
     get_api_token,
-    get_api_token_email,
-    get_api_token_group,
     INTEGRATES_API_TOKEN
 )
 
@@ -24,15 +22,3 @@ def test_get_api_token() -> None:
 def test_set_api_token(test_token: str) -> None:
     set_api_token(test_token)
     assert INTEGRATES_API_TOKEN.get() == test_token
-
-
-@pytest.mark.last  # type: ignore
-def test_get_api_token_email(test_token: str) -> None:
-    set_api_token(test_token)
-    assert get_api_token_email() == 'forces.herrin@fluidattacks.com'
-
-
-@pytest.mark.last  # type: ignore
-def test_get_api_token_group(test_token: str) -> None:
-    set_api_token(test_token)
-    assert get_api_token_group() == 'herrin'

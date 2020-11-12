@@ -23,13 +23,6 @@ def test_cli_lax(test_token: str) -> None:
     assert result.exit_code == 0
 
 
-def test_cli_invalid_token() -> None:
-    runner = CliRunner()
-    result = runner.invoke(
-        main, ['--token', 'invalid_token', '--lax', '--repo-path', '../'])
-    assert result.exit_code == 2
-
-
 def test_cli_invalid_group(test_token: str) -> None:
     runner = CliRunner()
     result = runner.invoke(

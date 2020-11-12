@@ -1,8 +1,6 @@
 """Fluid Forces CLI module."""
 # Standard library
-from typing import (
-    Any,
-)
+from typing import cast
 import sys
 import re
 import textwrap
@@ -10,8 +8,6 @@ from io import TextIOWrapper
 from importlib.metadata import version
 
 # Third parties libraries
-import jose.jwt
-import jose.exceptions
 import click
 from aioextensions import run
 
@@ -24,6 +20,7 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
+from forces.apis.integrates.api import get_forces_user
 
 # Constants
 USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
@@ -36,23 +33,6 @@ def is_forces_user(email: str) -> bool:
 
 def get_group_from_email(email: str) -> str:
     return re.match(USER_PATTERN, email).group('group')  # type: ignore
-
-
-def decode_token(token: str) -> Any:
-    return jose.jwt.decode(token,
-                           key='',
-                           options={
-                               'verify_signature': False,
-                               'verify_aud': True,
-                               'verify_iat': True,
-                               'verify_exp': True,
-                               'verify_nbf': True,
-                               'verify_iss': True,
-                               'verify_sub': True,
-                               'verify_jti': True,
-                               'verify_at_hash': True,
-                               'leeway': 0,
-                           })
 
 
 def show_banner() -> None:
@@ -79,19 +59,10 @@ class IntegratesToken(click.ParamType):
 
     def convert(self, value: str, param, ctx) -> str:  # type: ignore
         """Validate token integrity."""
-        try:
-            token_data = decode_token(value)
-            if not is_forces_user(token_data.get('user_email')):
-                self.fail(("Ensure that you use an forces user"), param, ctx)
-        except jose.exceptions.JOSEError:
-            self.fail(
-                ("Please verify the validity of your integrates api token.\n"
-                 "You can generate one at https://integrates.fluidattacks.com"
-                 ),
-                param,
-                ctx,
-            )
+        if not run(get_forces_user(api_token=value)):
+            self.fail(("Ensure that you use an forces user"), param, ctx)
 
+        # when the new token is implemented, do the validations about it
         return value
 
 
@@ -123,7 +94,7 @@ def main(token: str,  # pylint: disable=too-many-arguments
          static: bool,
          repo_name: str) -> None:
     """Main function"""
-    group = get_group_from_email(decode_token(token)['user_email'])
+    group: str = cast(str, run(get_forces_user(api_token=token)))
     configure_bugsnag(group=group or '')
     show_banner()
     kind = 'all'
