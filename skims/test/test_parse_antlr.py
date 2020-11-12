@@ -1,3 +1,10 @@
+# Standard library
+from typing import (
+    Any,
+    Dict,
+    List,
+)
+
 # Third party libraries
 from aioextensions import (
     run_decorator,
@@ -6,6 +13,7 @@ from aioextensions import (
 # Local libraries
 from parse_antlr import (
     parse,
+    parse_rule,
 )
 from utils.fs import (
     get_file_raw_content,
@@ -117,3 +125,32 @@ async def test_parse_fail() -> None:
         )
 
         assert data == {}
+
+
+def test_parse_rule() -> None:
+    data: List[Dict[str, Any]] = [
+        {"ClassModifier": []},
+        {"ClassModifier": []},
+        {'c': 7, 'l': 30, 'text': 'class', 'type': 'CLASS'},
+        {"Identifier": []},
+        {"Superclass": []},
+        {"ClassBody": []}
+    ]
+
+    assert parse_rule(data, {
+        'ClassModifier': [],
+        '__token__.0': None,
+        'Identifier': None,
+        'TypeParameters': None,
+        'Superclass': None,
+        'Superinterfaces': None,
+        'ClassBody': None,
+    }) == {
+        'ClassBody': [],
+        'ClassModifier': [[], []],
+        'Identifier': [],
+        'Superclass': [],
+        'Superinterfaces': None,
+        'TypeParameters': None,
+        '__token__.0': {'c': 7, 'l': 30, 'text': 'class', 'type': 'CLASS'},
+    }

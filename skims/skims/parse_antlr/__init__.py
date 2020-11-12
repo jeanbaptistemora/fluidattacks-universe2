@@ -4,6 +4,7 @@ import json
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 # Third party libraries
@@ -96,3 +97,27 @@ async def _parse(
     except (IOError, json.JSONDecodeError) as exc:
         await log_exception('error', exc, grammar=grammar.value, path=path)
         return {}
+
+
+def parse_rule(
+    model: List[Dict[str, Any]],
+    values: Dict[str, Any],
+) -> Dict[str, Any]:
+    token_index = 0
+
+    for model_element in model:
+        if all(key in model_element for key in ('c', 'l', 'text', 'type')):
+            model_element = {f'__token__.{token_index}': model_element}
+            token_index += 1
+
+        token_name, token_value = next(iter(model_element.items()))
+
+        if token_name not in values:
+            raise ValueError(f'Expected values to contain: {token_name}')
+
+        if isinstance(values[token_name], list):
+            values[token_name].append(token_value)
+        else:
+            values[token_name] = token_value
+
+    return values
