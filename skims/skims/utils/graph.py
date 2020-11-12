@@ -61,6 +61,15 @@ def simplify(value: Any) -> Any:
     return value
 
 
+def yield_nodes_with_key(*, key: str, node: Any) -> Iterator[Any]:
+    yield from yield_nodes(
+        key_predicates=(key.__eq__,),
+        post_extraction=(),
+        pre_extraction=(),
+        value=node,
+    )
+
+
 def yield_nodes(
     *,
     key: str = '__root__',
