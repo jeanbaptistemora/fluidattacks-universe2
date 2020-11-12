@@ -154,24 +154,6 @@ def index(request: HttpRequest) -> HttpResponse:
     return HttpResponseRedirect('new/')
 
 
-def error500(request: HttpRequest) -> HttpResponse:
-    """Internal server error view"""
-    parameters: Dict[str, Any] = {}
-    return render(request, 'HTTP500.html', parameters)
-
-
-def error401(request: HttpRequest) -> HttpResponse:
-    """Unauthorized error view"""
-    parameters: Dict[str, Any] = {}
-    return render(request, 'HTTP401.html', parameters)
-
-
-def invalid_invitation(request: HttpRequest) -> HttpResponse:
-    """Invalid invitation error view"""
-    parameters: Dict[str, Any] = {}
-    return render(request, 'invalid_invitation.html', parameters)
-
-
 def mobile(request: HttpRequest) -> HttpResponse:
     """Small devices view"""
     parameters: Dict[str, Any] = {}
