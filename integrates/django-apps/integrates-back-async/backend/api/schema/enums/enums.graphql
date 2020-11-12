@@ -218,3 +218,13 @@ enum VulnerabilityState {
   OPEN
   UNKNOWN
 }
+
+enum URLProtocol {
+  HTTP
+  HTTPS
+}
+
+enum DirectoryFilteringPolicy {
+  EXCLUDE
+  INCLUDE
+}

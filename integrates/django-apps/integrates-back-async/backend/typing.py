@@ -156,5 +156,6 @@ ExecuteSkimsPayload = NamedTuple('ExecuteSkimsPayload', [
     ('pipeline_url', str),
 ])
 Root = NamedTuple('Root', [
-    ('id', str)
+    ('id', str),
+    ('kind', str)
 ])

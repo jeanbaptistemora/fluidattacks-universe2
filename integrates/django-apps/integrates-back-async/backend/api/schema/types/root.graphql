@@ -1,3 +1,35 @@
-type Root {
+interface IRoot {
   id: ID!
+}
+
+type DirectoryFilteringConfig {
+  paths: [String!]!
+  policy: DirectoryFilteringPolicy!
+}
+
+type IntegrationEnvironment {
+  kind: String!
+  URL: String!
+}
+
+type GitRoot implements IRoot {
+  branch: String!
+  directoryFiltering: DirectoryFilteringConfig
+  environment: IntegrationEnvironment
+  id: ID!
+  url: String!
+}
+
+type IPRoot implements IRoot {
+  address: String!
+  id: ID!
+  port: Int!
+}
+
+type URLRoot implements IRoot {
+  address: String!
+  id: ID!
+  path: String!
+  port: Int!
+  protocol: URLProtocol
 }

@@ -1,17 +1,8 @@
 import json
-import os
-from datetime import datetime, timedelta
-import random
-import string
 import pytest
 
-from ariadne import graphql, graphql_sync
+from ariadne import graphql
 from django.test import TestCase
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
-from jose import jwt
-from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
@@ -21,7 +12,7 @@ from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
-from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
+from backend.exceptions import NotPendingDeletion, PermissionDenied
 
 from test_async.utils import create_dummy_session
 
@@ -317,7 +308,8 @@ class ProjectTests(TestCase):
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
+    ['group_name', 'subscription', 'has_drills',
+        'has_forces', 'has_integrates', 'expected'],
     [
         ['UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', True],
         ['ONESHOTTEST', 'ONESHOT', 'false', 'false', 'true', True],
@@ -431,7 +423,16 @@ async def test_get_roots() -> None:
         query {
           project(projectName: "unittesting") {
             roots {
-              id
+              __typename
+              ...on GitRoot {
+                id
+              }
+              ...on IPRoot {
+                id
+              }
+              ...on URLRoot {
+                id
+              }
             }
           }
         }
@@ -440,5 +441,16 @@ async def test_get_roots() -> None:
 
     assert 'errors' not in result
     assert result['data']['project']['roots'] == [
-        {'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19'}
+        {
+            '__typename': 'GitRoot',
+            'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19'
+        },
+        {
+            '__typename': 'URLRoot',
+            'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034'
+        },
+        {
+            '__typename': 'IPRoot',
+            'id': 'ROOT#d312f0b9-da49-4d2b-a881-bed438875e99'
+        }
     ]

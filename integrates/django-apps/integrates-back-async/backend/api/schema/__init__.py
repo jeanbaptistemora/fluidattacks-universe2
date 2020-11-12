@@ -13,6 +13,7 @@ from graphql import GraphQLSchema
 from backend.api.schema.enums import ENUMS
 from backend.api.schema.scalars import SCALARS
 from backend.api.schema.types import TYPES
+from backend.api.schema.unions import UNIONS
 
 
 SCHEMA_PATH: str = os.path.dirname(os.path.abspath(__file__))
@@ -23,5 +24,6 @@ SCHEMA: GraphQLSchema = make_executable_schema(
     *ENUMS,
     *SCALARS,
     *TYPES,
+    *UNIONS,
     snake_case_fallback_resolvers
 )

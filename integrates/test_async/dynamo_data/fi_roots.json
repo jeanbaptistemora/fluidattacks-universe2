@@ -1,17 +1,50 @@
 {
   "fi_roots" : [
-     {
-        "PutRequest" : {
-           "Item" : {
-              "pk" : {
-                 "S" : "GROUP#unittesting"
-              },
-              "sk": {
-                 "S" : "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
-              }
-           }
+    {
+      "PutRequest" : {
+        "Item" : {
+          "pk" : {
+            "S" : "GROUP#unittesting"
+          },
+          "sk": {
+            "S" : "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          },
+          "kind": {
+            "S" : "Git"
+          }
         }
-     }
+      }
+    },
+    {
+      "PutRequest" : {
+        "Item" : {
+          "pk" : {
+            "S" : "GROUP#unittesting"
+          },
+          "sk": {
+            "S" : "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99"
+          },
+          "kind": {
+            "S" : "IP"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest" : {
+        "Item" : {
+          "pk" : {
+            "S" : "GROUP#unittesting"
+          },
+          "sk": {
+            "S" : "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
+          },
+          "kind": {
+            "S" : "URL"
+          }
+        }
+      }
+    }
   ]
 }
   
