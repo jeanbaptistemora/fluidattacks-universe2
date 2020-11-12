@@ -33,6 +33,18 @@ spec:
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
               servicePort: 81
+          - path: /error500
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
+          - path: /error401
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
+          - path: /invalid_invitation
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
           - path: /*
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
