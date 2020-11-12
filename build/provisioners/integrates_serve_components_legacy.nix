@@ -1,7 +1,3 @@
-{
-  inputs ? []
-}:
-
 let
   pkgs = import ../pkgs/integrates.nix;
   builders.nodeJsModule = import ../builders/nodejs-module pkgs;

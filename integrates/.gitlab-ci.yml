@@ -191,7 +191,6 @@ scheduler_send_unsolved_to_all:
 integrates_build_front:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
-  tags: [autoscaling-cpu]
   stage: build
   retry: 1
   artifacts:
@@ -248,7 +247,6 @@ integrates_deploy_back_ephemeral_clean:
 integrates_deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
-  tags: [autoscaling-cpu]
   stage: deploy-app
   needs: [integrates_build_container_app]
   retry: 1
@@ -321,7 +319,6 @@ integrates_deploy_permissions_matrix:
 integrates_build_container_app:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
-  tags: [autoscaling-cpu]
   stage: build
 
 integrates_deploy_front:
@@ -339,7 +336,6 @@ integrates_functional_tests_back:
 integrates_functional_tests_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
-  tags: [autoscaling-cpu]
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_dev"
   needs:
     - integrates_deploy_back_ephemeral
