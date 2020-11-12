@@ -129,6 +129,9 @@ const vulnsView: React.FC = (): JSX.Element => {
                 <VulnerabilitiesView
                   editMode={isEditing}
                   findingId={findingId}
+                  isConfirmingZeroRisk={isConfirmingZeroRisk}
+                  isRejectingZeroRisk={isRejectingZeroRisk}
+                  isRequestingZeroRisk={isRequestingZeroRisk}
                   isRequestVerification={isRequestingVerify}
                   isVerifyRequest={isVerifying}
                   lastTreatment={getLastTreatment(data.finding.historicTreatment)}

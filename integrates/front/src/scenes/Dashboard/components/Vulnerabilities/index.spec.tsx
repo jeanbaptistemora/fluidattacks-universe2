@@ -176,6 +176,7 @@ describe("Vulnerabilities view", () => {
 
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "backend_api_resolvers_vulnerability__do_update_treatment_vuln" },
+    { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
   ]);
 
   const mockError: ReadonlyArray<MockedResponse> = [
@@ -277,14 +278,16 @@ describe("Vulnerabilities view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[mocks]} addTypename={true}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
           <VulnerabilitiesView
-            separatedRow={true}
-            isRequestVerification={false}
-            isVerifyRequest={false}
-            editMode={false}
-            findingId="480857698"
-            state="open"
-          />
+              separatedRow={true}
+              isRequestVerification={false}
+              isVerifyRequest={false}
+              editMode={false}
+              findingId="480857698"
+              state="open"
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
     );

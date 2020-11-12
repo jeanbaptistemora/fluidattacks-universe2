@@ -44,10 +44,11 @@ const filterState:
 
       dataVuln.filter((vuln: IVulnType[0]) => vuln.currentState === state);
 
-const filterNoConfirmedZeroRisk:
-  ((dataVuln: IVulnType) => IVulnType) =
-    (dataVuln: IVulnType): IVulnType =>
-      dataVuln.filter((vuln: IVulnType[0]) => vuln.zeroRisk !== "Confirmed");
+const filterZeroRisk:
+  ((shouldFilter: boolean, dataVuln: IVulnType) => IVulnType) =
+    (shouldFilter: boolean, dataVuln: IVulnType): IVulnType => shouldFilter
+    ? dataVuln.filter((vuln: IVulnType[0]) => vuln.zeroRisk === "" || vuln.zeroRisk === "Rejected")
+    : dataVuln;
 
 const specificToNumber: ((line: IVulnRow) => number) =
   (line: IVulnRow): number =>
@@ -216,6 +217,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [selectRowsPorts, setSelectRowsPorts] = useState<number[]>([]);
 
     const isEditing: boolean = props.editMode
+      || props.isConfirmingZeroRisk === true
+      || props.isRejectingZeroRisk === true
+      || props.isRequestingZeroRisk === true
       || props.isRequestVerification === true
       || props.isVerifyRequest === true;
 
@@ -223,7 +227,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       && props.isRequestVerification === true);
 
     const canGetAnalyst: boolean = permissions.can("backend_api_resolvers_new_finding_analyst_resolve");
+    const canConfirmZeroRiskVuln: boolean = permissions.can("backend_api_mutations_confirm_zero_risk_vuln_mutate");
+    const canRejectZeroRiskVuln: boolean = permissions.can("backend_api_mutations_reject_zero_risk_vuln_mutate");
     const shouldGroup: boolean = !isEditing && props.separatedRow === true;
+    const shouldFilterZeroRisk: boolean = !(
+      canConfirmZeroRiskVuln
+      || canRejectZeroRiskVuln
+    );
 
     const handleOpenVulnSetClick: () => void = (): void => {
       setModalHidden(true);
@@ -278,6 +288,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     };
     React.useEffect(onSelectAnyVuln, [arraySelectedRows]);
 
+    const filterVulns: ((dataVuln: IVulnType) => IVulnType) = (dataVuln: IVulnType): IVulnType => (
+      filterState(
+        filterZeroRisk(shouldFilterZeroRisk, dataVuln),
+        props.state,
+      )
+    );
+
     return(
     <Query
       query={GET_VULNERABILITIES}
@@ -293,12 +310,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
           if (!_.isUndefined(data)) {
 
-            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = newVulnerabilities(filterState(
-              filterNoConfirmedZeroRisk(data.finding.inputsVulns), props.state));
-            const dataLines: IVulnsAttr["finding"]["linesVulns"] = newVulnerabilities(filterState(
-              filterNoConfirmedZeroRisk(data.finding.linesVulns), props.state));
-            const dataPorts: IVulnsAttr["finding"]["portsVulns"] = newVulnerabilities(filterState(
-              filterNoConfirmedZeroRisk(data.finding.portsVulns), props.state));
+            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = newVulnerabilities(
+              filterVulns(data.finding.inputsVulns));
+            const dataLines: IVulnsAttr["finding"]["linesVulns"] = newVulnerabilities(
+              filterVulns(data.finding.linesVulns));
+            const dataPorts: IVulnsAttr["finding"]["portsVulns"] = newVulnerabilities(
+              filterVulns(data.finding.portsVulns));
 
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {

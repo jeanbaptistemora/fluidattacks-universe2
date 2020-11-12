@@ -19,6 +19,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
     // Green
     case "Active":
     case "Closed":
+    case "Confirmed":
     case "Enabled":
     case "Secure":
     case "Solved":
