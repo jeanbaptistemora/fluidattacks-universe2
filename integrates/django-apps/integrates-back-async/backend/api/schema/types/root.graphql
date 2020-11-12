@@ -1,0 +1,3 @@
+type Root {
+  id: ID!
+}

@@ -16,6 +16,7 @@ from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
+from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 
@@ -27,6 +28,7 @@ def apply_context_attrs(context: Request) -> Request:
         'group': GroupLoader(),
         'group_drafts': GroupDraftsLoader(),
         'group_findings': GroupFindingsLoader(),
+        'group_roots': GroupRootsLoader(),
         'vulnerability': VulnerabilityLoader()
     })
     setattr(context, 'store', defaultdict(lambda: None))

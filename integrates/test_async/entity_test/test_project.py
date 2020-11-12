@@ -18,6 +18,7 @@ from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
+from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
@@ -39,6 +40,7 @@ class ProjectTests(TestCase):
             'group': GroupLoader(),
             'group_drafts': GroupDraftsLoader(),
             'group_findings': GroupFindingsLoader(),
+            'group_roots': GroupRootsLoader(),
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
@@ -422,3 +424,21 @@ async def test_edit_group_bad(
     assert 'errors' in result
     assert result['errors'][0]['message'] \
         == expected
+
+
+async def test_get_roots() -> None:
+    query = '''
+        query {
+          project(projectName: "unittesting") {
+            roots {
+              id
+            }
+          }
+        }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['project']['roots'] == [
+        {'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19'}
+    ]

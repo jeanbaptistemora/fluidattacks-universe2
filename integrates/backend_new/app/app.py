@@ -21,8 +21,8 @@ from authlib.integrations.starlette_client import OAuth
 # Local libraries
 from backend.api import IntegratesAPI
 from backend.decorators import authenticate
+from backend.api.schema import SCHEMA
 
-from backend_new.api.schema import SCHEMA
 from backend_new.app.middleware import CustomRequestMiddleware
 import backend_new.app.utils as utils
 from backend_new import settings

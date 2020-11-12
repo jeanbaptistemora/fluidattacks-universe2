@@ -27,6 +27,7 @@ type Project {
   openFindings: Int
   openVulnerabilities: Int
   organization: String!
+  roots: [Root!]
   serviceAttributes: [String]
   stakeholders: [Stakeholder!]
   subscription: String

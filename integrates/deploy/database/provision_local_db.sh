@@ -248,6 +248,29 @@ aws dynamodb create-table \
     --provisioned-throughput \
         ReadCapacityUnits=1,WriteCapacityUnits=1
 
+aws dynamodb create-table \
+    --endpoint-url \
+        http://localhost:8022 \
+    --table-name \
+        fi_roots \
+    --attribute-definitions \
+        AttributeName=pk,AttributeType=S \
+        AttributeName=sk,AttributeType=S \
+    --key-schema \
+        AttributeName=pk,KeyType=HASH \
+        AttributeName=sk,KeyType=RANGE \
+    --billing-mode 'PAY_PER_REQUEST' \
+    --global-secondary-indexes '[
+            {
+              "IndexName": "roots_index",
+              "KeySchema": [
+                  {"AttributeName": "sk", "KeyType": "HASH"},
+                  {"AttributeName": "pk", "KeyType": "RANGE"}
+              ],
+              "Projection": {"ProjectionType": "ALL"}
+            }
+        ]'
+
 for mock_file in test_async/dynamo_data/*.json; do
     echo "[INFO] Writing data from: ${mock_file}"
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \

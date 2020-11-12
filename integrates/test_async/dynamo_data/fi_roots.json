@@ -1,0 +1,17 @@
+{
+  "fi_roots" : [
+     {
+        "PutRequest" : {
+           "Item" : {
+              "pk" : {
+                 "S" : "GROUP#unittesting"
+              },
+              "sk": {
+                 "S" : "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              }
+           }
+        }
+     }
+  ]
+}
+  
