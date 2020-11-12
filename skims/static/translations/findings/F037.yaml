@@ -12,8 +12,12 @@ utils.model.finding.enum.f037.description:
     El sistema expone información técnica del sistema a usuarios que no están
     explícitamente autorizados para tener acceso a esa información.
 utils.model.finding.enum.f037.impact:
-  en: Present technical information of the system.
-  es: Exponer información técnica del sistema.
+  en: >
+    Reveal technical information about the application that can increase
+    possible attack vectors.
+  es: >
+    Revelar información técnica de la aplicación que puede incrementar los
+    posibles vectores de ataque.
 utils.model.finding.enum.f037.recommendation:
   en: >
     The application must safely report all possible events that may occur,
@@ -26,8 +30,12 @@ utils.model.finding.enum.f037.recommendation:
     usuarios no autorizados, ya que podrían aprovecharla para ampliar el
     conocimiento de la superficie de ataque.
 utils.model.finding.enum.f037.requirements:
-  en: REQ.077 Avoid disclosing technical information.
-  es: REQ.077 Evite revelar información técnica.
+  en: >
+    REQ.077 The application must not disclose internal system information
+    such as stack traces, SQL sentence fragments, database names or table names.
+  es: >
+    REQ.077 The application must not disclose internal system information such
+    as stack traces, SQL sentence fragments, database names or table names.
 utils.model.finding.enum.f037.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
