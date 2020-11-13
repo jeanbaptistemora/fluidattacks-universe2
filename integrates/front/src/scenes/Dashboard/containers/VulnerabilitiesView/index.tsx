@@ -18,6 +18,7 @@ import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types
 import { getLastTreatment } from "scenes/Dashboard/containers/DescriptionView/utils";
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
 import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -39,6 +40,11 @@ const vulnsView: React.FC = (): JSX.Element => {
   const [isOpen, setOpen] = React.useState(false);
   const toggleModal: (() => void) = (): void => {
     setOpen(true);
+  };
+
+  const [isUpdateZeroRiskModalOpen, setUpdateZeroRiskModalOpen] = React.useState(false);
+  const toggleUpdateZeroRiskModal: (() => void) = (): void => {
+    setUpdateZeroRiskModalOpen(!isUpdateZeroRiskModalOpen);
   };
 
   const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
@@ -115,6 +121,7 @@ const vulnsView: React.FC = (): JSX.Element => {
           onRequestZeroRisk={toggleRequestZeroRisk}
           onVerify={toggleVerify}
           openModal={toggleModal}
+          openUpdateZeroRiskModal={toggleUpdateZeroRiskModal}
           state={data.finding.state}
           subscription={data.project.subscription}
         />
@@ -170,6 +177,17 @@ const vulnsView: React.FC = (): JSX.Element => {
             refetchData={refetch}
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
+            vulns={remediationModalConfig.vulnerabilities}
+          />
+        ) : undefined}
+        {isUpdateZeroRiskModalOpen ? (
+          <UpdateZeroRiskModal
+            clearSelected={_.get(remediationModalConfig, "clearSelected")}
+            findingId={findingId}
+            handleCloseModal={toggleUpdateZeroRiskModal}
+            isRequestingZeroRisk={isRequestingZeroRisk}
+            refetchData={refetch}
+            setRequestState={toggleRequestZeroRisk}
             vulns={remediationModalConfig.vulnerabilities}
           />
         ) : undefined}

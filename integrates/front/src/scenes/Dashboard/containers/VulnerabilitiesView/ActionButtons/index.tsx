@@ -11,6 +11,7 @@ import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { EditButton } from "./EditButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
+import { RequestZeroRiskVulnButton } from "./RequestZeroRiskVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 
 export interface IActionButtonsProps {
@@ -32,6 +33,7 @@ export interface IActionButtonsProps {
   onRequestZeroRisk(): void;
   onVerify(): void;
   openModal(): void;
+  openUpdateZeroRiskModal(): void;
 }
 
 const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
@@ -49,6 +51,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     <ButtonToolbarRow>
       <VerifyVunButton {...props}/>
       <ReattackVulnButton {...props}/>
+      <RequestZeroRiskVulnButton {...props}/>
       <EditButton {...props}/>
     </ButtonToolbarRow>
   );

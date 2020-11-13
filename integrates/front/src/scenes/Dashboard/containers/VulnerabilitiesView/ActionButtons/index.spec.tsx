@@ -25,6 +25,7 @@ describe("ActionButtons", () => {
     onRequestZeroRisk: jest.fn(),
     onVerify: jest.fn(),
     openModal: jest.fn(),
+    openUpdateZeroRiskModal: jest.fn(),
     state: "open",
     subscription: "",
   };
