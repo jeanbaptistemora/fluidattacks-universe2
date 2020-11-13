@@ -7,11 +7,6 @@ from typing import (
     List,
 )
 
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-
 # Local libraries
 from state.cache import (
     CACHE_ETERNALLY,
@@ -90,7 +85,7 @@ async def _parse(
 
         if out_bytes:
             out: str = out_bytes.decode('utf-8')
-            data: Dict[str, Any] = await in_process(json.loads, out)
+            data: Dict[str, Any] = json.loads(out)
             return data
 
         raise IOError('No stdout in process')

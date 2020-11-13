@@ -5,14 +5,14 @@ cwe,title,what,where
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,6
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml.json,6
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,16
@@ -236,7 +236,6 @@ cwe,title,what,where
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,4
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,4
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,8
-798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/java.properties,18
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,3
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,4
 798,FIN.S.009. Sensitive information in source code,test/data/lib_path/f009/javascript.js,5

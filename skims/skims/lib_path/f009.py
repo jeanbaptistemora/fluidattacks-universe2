@@ -317,6 +317,7 @@ def _java_properties_sensitive_data(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def java_properties_sensitive_data(
     content: str,
@@ -353,10 +354,6 @@ async def analyze(  # pylint: disable=too-many-arguments
         'yml',
     }:
         coroutines.append(aws_credentials(
-            content=await content_generator(),
-            path=path,
-        ))
-        coroutines.append(jwt_token(
             content=await content_generator(),
             path=path,
         ))
