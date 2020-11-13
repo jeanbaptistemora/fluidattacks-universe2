@@ -185,121 +185,121 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
 
   return(
     <React.StrictMode>
-                  <Modal
-                    open={true}
-                    headerTitle={translate.t("search_findings.tab_description.editVuln")}
-                  >
-                  <GenericForm
-                    name="editTreatmentVulnerability"
-                    onSubmit={handleUpdateTreatmentVuln}
-                    initialValues={{
-                      externalBts: groupExternalBts(props.vulnerabilities),
-                      tag: _.join((_.intersection(...vulnsTags)), ","),
-                      treatmentManager: props.vulnerabilities[0].treatments.treatmentManager,
-                    }}
-                  >
-                      <Row>
-                        <Col md={6}>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>{translate.t("search_findings.tab_description.treatment.title")}</b>
-                            </ControlLabel>
-                            <p>{translate.t(formatDropdownField(lastTreatment.treatment))}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col md={6}>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>{translate.t("search_findings.tab_description.treatment_mgr")}</b>
-                            </ControlLabel>
-                            <Field
-                              component={Dropdown}
-                              name="treatmentManager"
-                              type="text"
-                              validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}
-                            >
-                              <option value="" />
-                              {userEmails.map((email: string, index: number): JSX.Element => (
-                                <option key={index} value={email}>{email}</option>
-                              ))}
-                            </Field>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={12}>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>{translate.t("search_findings.tab_description.treatment_just")}</b>
-                            </ControlLabel>
-                            <p>{lastTreatment.justification}</p>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col100>
-                          <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
-                            {(canEdit: boolean): JSX.Element => (
-                              <EditableField
-                                component={Text}
-                                currentValue={groupExternalBts(props.vulnerabilities)}
-                                label={translate.t("search_findings.tab_description.bts")}
-                                name="externalBts"
-                                placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
-                                renderAsEditable={canEdit}
-                                type="text"
-                                validate={[maxBtsLength, validUrlField]}
-                              />
-                            )}
-                          </Can>
-                        </Col100>
-                      </Row>
-                      <Row>
-                        <Col md={12}>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>{translate.t("search_findings.tab_description.tag")}</b>
-                            </ControlLabel>
-                            <Field component={TagInput} name="tag" onDeletion={handleDeletion} type="text" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={6}>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
-                            </ControlLabel>
-                            <Field
-                              component={Text}
-                              name="severity"
-                              type="number"
-                              validate={[isValidVulnSeverity, numeric]}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={6}>
-                          <Button onClick={handleDeleteTag}>
-                            <Glyphicon glyph="minus" />&nbsp;
-                            {translate.t("search_findings.tab_description.deleteTags")}
-                          </Button>
-                        </Col>
-                      </Row>
-                  </GenericForm>
-                  <ButtonToolbar className="pull-right">
-                    <Button onClick={handleCloseModal}>
-                      {translate.t("group.findings.report.modal_close")}
-                    </Button>
-                    <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
-                      <Button
-                        disabled={updatingVuln || deletingTag || isEditPristine}
-                        onClick={handleEditTreatment}
-                      >
-                        {translate.t("confirmmodal.proceed")}
-                      </Button>
-                    </Can>
-                  </ButtonToolbar>
-                  </Modal>
+      <Modal
+        open={true}
+        headerTitle={translate.t("search_findings.tab_description.editVuln")}
+      >
+        <GenericForm
+          name="editTreatmentVulnerability"
+          onSubmit={handleUpdateTreatmentVuln}
+          initialValues={{
+            externalBts: groupExternalBts(props.vulnerabilities),
+            tag: _.join((_.intersection(...vulnsTags)), ","),
+            treatmentManager: props.vulnerabilities[0].treatments.treatmentManager,
+          }}
+        >
+          <Row>
+            <Col md={6}>
+              <FormGroup>
+                <ControlLabel>
+                  <b>{translate.t("search_findings.tab_description.treatment.title")}</b>
+                </ControlLabel>
+                <p>{translate.t(formatDropdownField(lastTreatment.treatment))}</p>
+              </FormGroup>
+            </Col>
+            <Col md={6}>
+              <FormGroup>
+                <ControlLabel>
+                  <b>{translate.t("search_findings.tab_description.treatment_mgr")}</b>
+                </ControlLabel>
+                <Field
+                  component={Dropdown}
+                  name="treatmentManager"
+                  type="text"
+                  validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}
+                >
+                  <option value="" />
+                  {userEmails.map((email: string, index: number): JSX.Element => (
+                    <option key={index} value={email}>{email}</option>
+                  ))}
+                </Field>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <FormGroup>
+                <ControlLabel>
+                  <b>{translate.t("search_findings.tab_description.treatment_just")}</b>
+                </ControlLabel>
+                <p>{lastTreatment.justification}</p>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col100>
+              <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
+                {(canEdit: boolean): JSX.Element => (
+                  <EditableField
+                    component={Text}
+                    currentValue={groupExternalBts(props.vulnerabilities)}
+                    label={translate.t("search_findings.tab_description.bts")}
+                    name="externalBts"
+                    placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
+                    renderAsEditable={canEdit}
+                    type="text"
+                    validate={[maxBtsLength, validUrlField]}
+                  />
+                )}
+              </Can>
+            </Col100>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <FormGroup>
+                <ControlLabel>
+                  <b>{translate.t("search_findings.tab_description.tag")}</b>
+                </ControlLabel>
+                <Field component={TagInput} name="tag" onDeletion={handleDeletion} type="text" />
+              </FormGroup>
+            </Col>
+            <Col md={6}>
+              <FormGroup>
+                <ControlLabel>
+                  <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
+                </ControlLabel>
+                <Field
+                  component={Text}
+                  name="severity"
+                  type="number"
+                  validate={[isValidVulnSeverity, numeric]}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <Button onClick={handleDeleteTag}>
+                <Glyphicon glyph="minus" />&nbsp;
+                {translate.t("search_findings.tab_description.deleteTags")}
+              </Button>
+            </Col>
+          </Row>
+        </GenericForm>
+        <ButtonToolbar className="pull-right">
+          <Button onClick={handleCloseModal}>
+            {translate.t("group.findings.report.modal_close")}
+          </Button>
+          <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
+            <Button
+              disabled={updatingVuln || deletingTag || isEditPristine}
+              onClick={handleEditTreatment}
+            >
+              {translate.t("confirmmodal.proceed")}
+            </Button>
+          </Can>
+        </ButtonToolbar>
+      </Modal>
     </React.StrictMode>
   );
 };
