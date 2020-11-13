@@ -95,6 +95,25 @@ label {
   border-color: #c5c5c5;
 }
 
+:global .btn-bitbucketLoginInfo {
+  background-color: #0747A6;
+  border-color: #0747A6;
+}
+
+:global .btn-googleLoginInfo {
+  background-color: #CC0000;
+  border-color: #AA0000;
+}
+
+:global .btn-loginInfo {
+  height: 42px;
+}
+
+:global .btn-microsoftLoginInfo {
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
+
 :global .dropdown-menu > li > a:hover {
   background-color: #ff3435;
   color: #fff;

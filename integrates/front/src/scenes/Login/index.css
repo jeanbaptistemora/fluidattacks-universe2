@@ -26,36 +26,6 @@
   outline: 0;
 }
 
-:local .bitbucketInfoBtn {
-  background-color: #0747A6;
-  border-color: #0747A6;
-  display: block;
-  border-style: solid;
-  border-width: 1px;
-  height: 42px;
-  width: 100%;
-}
-
-:local .googleInfoBtn {
-  background-color: #CC0000;
-  border-color: #AA0000;
-  display: block;
-  border-style: solid;
-  border-width: 1px;
-  height: 42px;
-  width: 100%;
-}
-
-:local .microsoftInfoBtn {
-  background-color: #007BFF;
-  border-color: #007BFF;
-  display: block;
-  border-style: solid;
-  border-width: 1px;
-  height: 42px;
-  width: 100%;
-}
-
 :local .bitbucketBtn {
   background-color: #0747A6;
   border-color: #0747A6;

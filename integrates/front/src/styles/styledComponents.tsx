@@ -200,6 +200,30 @@ const FormGroup: StyledComponent<
   className: "mb4 w-100",
 })``;
 
+const InfoButtonBitbucket: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className:
+    "dim w-100 db ba mt2 br0 outline-0 btn-loginInfo btn-bitbucketLoginInfo",
+})``;
+
+const InfoButtonGoogle: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className:
+    "dim w-100 db ba mt2 br0 outline-0 btn-loginInfo btn-googleLoginInfo",
+})``;
+
+const InfoButtonMicrosoft: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className:
+    "dim w-100 db ba mt2 br0 outline-0 btn-loginInfo btn-microsoftLoginInfo",
+})``;
+
 const Label: StyledComponent<
   "span",
   Record<string, unknown>
@@ -429,6 +453,9 @@ export {
   FindingHeaderIndicator,
   FindingHeaderLabel,
   FormGroup,
+  InfoButtonBitbucket,
+  InfoButtonGoogle,
+  InfoButtonMicrosoft,
   Label,
   Meter,
   ModalBody,

@@ -2,8 +2,8 @@
   -------
   We need className to override default styles from react-boostrap.
 */
+import FontAwesome from "react-fontawesome";
 import { LoginButton } from "scenes/Login/components/LoginButton";
-import { LoginInfoButton } from "scenes/Login/components/LoginInfoButton";
 import React from "react";
 import _ from "lodash";
 import logo from "resources/integrates.svg";
@@ -11,6 +11,11 @@ import mixpanel from "mixpanel-browser";
 import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
 import { Col, Grid, Row } from "react-bootstrap";
+import {
+  InfoButtonBitbucket,
+  InfoButtonGoogle,
+  InfoButtonMicrosoft,
+} from "styles/styledComponents";
 import { Slide, toast } from "react-toastify";
 
 export const Login: React.FC = (): JSX.Element => {
@@ -45,25 +50,25 @@ export const Login: React.FC = (): JSX.Element => {
         <p>{t("login.2fa")}</p>
         <div>
           <Col md={4} xs={12}>
-            <LoginInfoButton
-              className={`${style.socialBtn} ${style.googleInfoBtn}`}
-              fontAwesomeName={"google"}
-              onClick={handleNotificationGoogle}
-            />
+            <InfoButtonGoogle onClick={handleNotificationGoogle}>
+              <span>
+                <FontAwesome name={"google"} size={"2x"} />
+              </span>
+            </InfoButtonGoogle>
           </Col>
           <Col md={4} xs={12}>
-            <LoginInfoButton
-              className={`${style.socialBtn} ${style.microsoftInfoBtn}`}
-              fontAwesomeName={"windows"}
-              onClick={handleNotificationMicrosoft}
-            />
+            <InfoButtonMicrosoft onClick={handleNotificationMicrosoft}>
+              <span>
+                <FontAwesome name={"windows"} size={"2x"} />
+              </span>
+            </InfoButtonMicrosoft>
           </Col>
           <Col md={4} xs={12}>
-            <LoginInfoButton
-              className={`${style.socialBtn} ${style.bitbucketInfoBtn}`}
-              fontAwesomeName={"bitbucket"}
-              onClick={handleNotificationBitbucket}
-            />
+            <InfoButtonBitbucket onClick={handleNotificationBitbucket}>
+              <span>
+                <FontAwesome name={"bitbucket"} size={"2x"} />
+              </span>
+            </InfoButtonBitbucket>
           </Col>
         </div>
       </div>,
