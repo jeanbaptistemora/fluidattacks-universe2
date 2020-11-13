@@ -81,6 +81,23 @@ function env_prepare_python_packages {
   done < "${TEMP_FILE1}"
 }
 
+function env_prepare_nix_overriden_python_packages {
+  export PATH
+  export PYTHONPATH
+  local pkg
+
+  echo '[INFO] Preparing Nix overriden Python packages'
+
+  helper_common_list_vars_with_regex 'overridenPyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r pkg
+  do
+    echo "  [${pkg}] ${!pkg}"
+    PATH="${!pkg}/lib/python3.8/site-packages/bin:${PATH}"
+    PYTHONPATH="${!pkg}/lib/python3.8/site-packages:${PYTHONPATH}"
+  done < "${TEMP_FILE1}"
+}
+
 function env_prepare_ruby_modules {
   export PATH
   export GEM_PATH

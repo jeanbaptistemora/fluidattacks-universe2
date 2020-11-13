@@ -13,4 +13,8 @@ pkgs: {
     pkgs.nodejs
     pkgs.python38
   ];
+
+  overriden = {
+    overridenPyPkgNumpy = pkgs.python38Packages.numpy;
+  };
 }

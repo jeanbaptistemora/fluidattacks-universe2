@@ -61,6 +61,11 @@ function helper_skims_compute_dependencies_cache_key {
 function helper_skims_install_dependencies {
   export PYTHONPATH="${PWD}/skims/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"
 
+      env_prepare_nix_overriden_python_packages \
+  &&  helper_skims_install_poetry_dependencies
+}
+
+function helper_skims_install_poetry_dependencies {
   # If the lock does not exist
   if ! test -e skims/poetry.lock
   then

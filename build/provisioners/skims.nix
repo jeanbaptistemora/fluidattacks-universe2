@@ -9,6 +9,7 @@ in
        (import ../src/basic.nix)
     // (import ../src/external.nix pkgs)
     // (import ../src/antlr4.nix pkgs)
+    // (skimsDependencies.overriden)
     // (rec {
       name = "builder";
 

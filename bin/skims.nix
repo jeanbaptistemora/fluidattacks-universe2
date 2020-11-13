@@ -5,14 +5,17 @@ let
 
   skimsDependencies = import ../build/src/skims-dependencies.nix pkgs;
 in
-  pkgs.stdenv.mkDerivation rec {
-    name = "skims";
+  pkgs.stdenv.mkDerivation (
+       (skimsDependencies.overriden)
+    // (rec {
+      name = "skims";
 
-    buildInputs = skimsDependencies.runtime;
+      buildInputs = skimsDependencies.runtime;
 
-    pyPkgSkims = builders.pythonPackage {
-      cacheKey = ../skims;
-      python = pkgs.python38;
-      requirement = "skims";
-    };
-  }
+      pyPkgSkims = builders.pythonPackage {
+        cacheKey = ../skims;
+        python = pkgs.python38;
+        requirement = "skims";
+      };
+    })
+  )
