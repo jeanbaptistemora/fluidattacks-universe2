@@ -43,14 +43,6 @@ $codepink: rgba(150, 0, 80, 1);
 $codepurple: rgba(174, 129, 255, 1);
 $codeyellow: rgba(230, 219, 116, 1);
 
-// Preloaded images
-body::after {
-  content:
-  url('../../images/bg-quote1.png')
-  url('../../images/bg-quote2.png')
-  url('../../images/bg-quote3.png')
-}
-
 // Tachyons custom classes:
 
 .bg-fluid-red { background-color: $fluid-red;}
