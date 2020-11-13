@@ -3,6 +3,7 @@
  * readability of the code that dynamically renders the fields
  */
 
+import _ from "lodash";
 import React from "react";
 import { Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
@@ -18,12 +19,13 @@ import {
 } from "styles/styledComponents";
 import { TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { minLength, required } from "utils/validations";
+import { maxLength, minLength, required } from "utils/validations";
 
 export interface IAddRemediationProps {
   additionalInfo?: string;
   isLoading: boolean;
   isOpen: boolean;
+  maxJustificationLength?: number;
   message: string;
   title: string;
   children?(): JSX.Element;
@@ -34,6 +36,11 @@ export interface IAddRemediationProps {
 const minJustificationLength: ConfigurableValidator = minLength(10);
 const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediationProps): JSX.Element => {
   const { onClose, onSubmit } = props;
+
+  const justificationValidations: ConfigurableValidator[] = [required, minJustificationLength];
+  if (_.isNumber(props.maxJustificationLength)) {
+    justificationValidations.push(maxLength(props.maxJustificationLength));
+  }
 
   return (
     <React.StrictMode>
@@ -54,7 +61,7 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
                   name="treatmentJustification"
                   type="text"
                   component={TextArea}
-                  validate={[required, minJustificationLength]}
+                  validate={justificationValidations}
                   withCount={true}
                   rows="6"
                 />

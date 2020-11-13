@@ -573,6 +573,7 @@ export const enTranslations: ResourceKey = {
     report_requested:
       "You will be receiving a mail with the link of the report in the next minutes",
     request_remove: "Group deletion request has been sent successfully",
+    requested_zero_risk_success: "Zero risk vulnerability has been requested",
     title_success: "Congratulations",
     updated: "Updated",
     updated_title: "Correct!",
@@ -580,6 +581,7 @@ export const enTranslations: ResourceKey = {
     verification_already_requested: "Verification already requested",
     verified_success: "This finding was marked as verified.",
     vuln_closed: "Vulnerability has already been closed",
+    zero_risk_already_requested: "Zero risk vulnerability already requested",
   },
   legalNotice: {
     acceptBtn: {
@@ -925,6 +927,7 @@ export const enTranslations: ResourceKey = {
       bts_placeholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
+      cancel_requesting_zero_risk: "Cancel",
       cancel_verified: "Cancel",
       cancel_verify: "Cancel",
       compromised_attrs: {
@@ -984,6 +987,10 @@ export const enTranslations: ResourceKey = {
         text: "Reattack",
         tooltip:
           "Request a new reattack cycle when the vulnerability is solved",
+      },
+      request_zero_risk: {
+        text: "Request zero risk",
+        tooltip: "Request a zero risk vulnerability",
       },
       requirements: {
         text: "Requirements",
@@ -1045,6 +1052,12 @@ export const enTranslations: ResourceKey = {
         title: "Finding type",
       },
       update_vulnerabilities: "Update Vulnerabilities",
+      update_zero_risk_modal: {
+        request_justification: "Why is it a zero risk vulnerability?",
+        request_message:
+          "Zero risk will be requested for {{vulns}} vulnerabilities",
+        title: "Justification",
+      },
       verification: "Verification",
       vulnDeleted: "Vulnerability deleted",
       vuln_approval: "Vulnerability approval status was changed",
