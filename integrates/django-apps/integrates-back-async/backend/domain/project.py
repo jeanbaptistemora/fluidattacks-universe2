@@ -278,7 +278,7 @@ async def edit(
         )
 
     if not has_integrates:
-        success = success and await request_deletion(
+        success = success and await delete_project(
             project_name=group_name,
             user_email=requester_email,
         )
@@ -348,6 +348,86 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
     historic_deletion = await project_dal.get_attributes(
         project_name.lower(), ['historic_deletion'])
     return cast(HistoricType, historic_deletion.get('historic_deletion', []))
+
+
+async def remove_resources(project_name: str) -> bool:
+    are_users_removed = await remove_all_users_access(project_name)
+    group_findings = await list_findings(
+        [project_name], should_list_deleted=True
+    )
+    group_drafts = await list_drafts(
+        [project_name], should_list_deleted=True
+    )
+    findings_and_drafts = (
+        group_findings[0] + group_drafts[0]
+    )
+    are_findings_masked = all(await collect(
+        finding_domain.mask_finding(finding_id)
+        for finding_id in findings_and_drafts
+    ))
+    events = await list_events(project_name)
+    are_events_masked = all(await collect(
+        event_domain.mask(event_id)
+        for event_id in events
+    ))
+    is_group_masked = await mask(project_name)
+    are_resources_masked = all(
+        list(
+            cast(List[bool], await resources_domain.mask(project_name))
+        )
+    )
+
+    response = all(
+        [
+            are_findings_masked,
+            are_users_removed,
+            is_group_masked,
+            are_events_masked,
+            are_resources_masked
+        ]
+    )
+
+    return response
+
+
+async def delete_project(project_name: str, user_email: str) -> bool:
+    response = False
+    data = await project_dal.get_attributes(
+        project_name,
+        ['project_status', 'historic_deletion']
+    )
+    historic_deletion = cast(
+        List[Dict[str, str]],
+        data.get('historic_deletion', [])
+    )
+    if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
+        all_resources_removed = await remove_resources(project_name)
+        today = datetime_utils.get_now()
+        new_state = {
+            'date': datetime_utils.get_as_str(today),
+            'deletion_date': datetime_utils.get_as_str(today),
+            'user': user_email.lower(),
+        }
+        historic_deletion.append(new_state)
+        new_data: ProjectType = {
+            'historic_deletion': historic_deletion,
+            'project_status': 'DELETED'
+        }
+        response = all(
+            [
+                all_resources_removed,
+                await project_dal.update(project_name, new_data)
+            ]
+        )
+    else:
+        raise AlreadyPendingDeletion()
+
+    if response:
+        await authz.revoke_cached_group_service_attributes_policies(
+            project_name
+        )
+
+    return response
 
 
 async def request_deletion(project_name: str, user_email: str) -> bool:

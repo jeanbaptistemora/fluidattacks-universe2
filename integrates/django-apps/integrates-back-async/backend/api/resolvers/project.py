@@ -25,6 +25,7 @@ from backend.domain import (
     project as project_domain,
     user as user_domain,
 )
+from backend.exceptions import PermissionDenied
 from backend.typing import (
     Project as ProjectType,
     AddConsultPayload as AddConsultPayloadType,
@@ -137,17 +138,25 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     group_name = group_name.lower()
     user_info = await util.get_jwt_content(info.context)
     requester_email = user_info['user_email']
+    success = False
 
-    success = await project_domain.edit(
-        comments=comments,
-        group_name=group_name,
-        has_drills=has_drills,
-        has_forces=has_forces,
-        has_integrates=has_integrates,
-        reason=reason,
-        requester_email=requester_email,
-        subscription=subscription,
-    )
+    try:
+        success = await project_domain.edit(
+            comments=comments,
+            group_name=group_name,
+            has_drills=has_drills,
+            has_forces=has_forces,
+            has_integrates=has_integrates,
+            reason=reason,
+            requester_email=requester_email,
+            subscription=subscription,
+        )
+    except PermissionDenied:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Unauthorized role attempted to edit group'
+        )
+
     if success and has_forces:
         await _create_forces_user(info, group_name)
     elif success and not has_forces and await user_domain.ensure_user_exists(
