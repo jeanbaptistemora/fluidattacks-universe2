@@ -53,10 +53,8 @@ class CursorExeAction(NamedTuple):
 class CursorFetchAction(NamedTuple):
     cursor: PGCURR
     act: Callable[
-        [], Optional[
-            Union[
-                Tuple[Any, ...], Tuple[Tuple[Any, ...], ...]
-            ]
+        [], Union[
+            Tuple[Any, ...], Tuple[Tuple[Any, ...], ...]
         ]
     ]
     fetch_type: FetchAction
@@ -138,3 +136,11 @@ class Client(NamedTuple):
 
     def fetchone(self: 'Client') -> CursorFetchAction:
         return self.prototype.fetchone(self)
+
+
+class MutateColumnException(Exception):
+    pass
+
+
+class TableCreationFail(Exception):
+    pass
