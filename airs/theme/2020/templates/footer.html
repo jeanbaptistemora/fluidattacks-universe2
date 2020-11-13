@@ -200,26 +200,26 @@
               <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='></input>
               <input type='text' style='display:none;' name='returnURL' value='https://fluidattacks.com/contact-us/thank-you/' > </input>
 
-              <div class="pv3 center">
+              <div class="pb3 center">
                 <label class="tl f5 c-fluid-bk roboto">Full Name</label>
                 <input type="text"
                       id="Last_Name"
-                      class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-bk bg-transparent pl2"
+                      class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                       name="Last Name"
                       maxlength="120"
                       placeholder="Full Name" />
               </div>
-              <div class="pv3 center">
+              <div class="pb3 center">
                 <label class="tl f5 c-fluid-bk roboto">Email</label>
                 <input type="text"
                       ftype="email"
                       id="Email"
-                      class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-bk bg-transparent pl2"
+                      class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                       name="Email"
                       maxlength="100"
                       placeholder="Email" />
               </div>
-              <div class="pv3 center">
+              <div class="pb3 center">
                 <label class="tl f5 c-fluid-bk roboto">Mobile</label>
                 <input id="Country"
                       name="Country"
@@ -233,7 +233,7 @@
                         maxlength="30"
                         name="Mobile"
                         type="text"
-                        class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-bk bg-transparent pl2"
+                        class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                         required
                         placeholder="Mobile" />
                 <span id="valid-msg"
@@ -250,11 +250,11 @@
                       src="{{ SITEURL }}/{{ ASSET_URL }}">
               </script>
               {% endassets %}
-              <div class="pv3 center">
+              <div class="pb3 center">
                 <label class="tl f5 c-fluid-bk roboto">How can we help you?</label>
                 <select id="LEADCF23"
                         name="LEADCF23"
-                        class="gray db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-bk bg-transparent pl2"
+                        class="gray db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                         required>
                   <option value="-None-">
                     Select...</option>
@@ -268,11 +268,11 @@
                     I want to be a partner</option>
                 </select>
               </div>
-              <div class="poi dn pv3 center">
+              <div class="poi dn pb3 center">
                 <label class="tl f5 c-fluid-bk roboto">Products of interest</label>
                 <select id="LEADCF24"
                         name="LEADCF24"
-                        class="gray roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-bk bg-transparent pl2">
+                        class="gray roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2">
                   <option value="-None-">Select...</option>
                   <option value="Undetermined">
                     Undetermined
@@ -307,10 +307,10 @@
               </div>
               <script>
                 var mndFileds=new Array('Company','Last Name','Mobile','LEADCF23');
-                var fldLangVal=new Array('Email','Full name','Mobile','How can we help you'); 
+                var fldLangVal=new Array('Email','Full name','Mobile','How can we help you');
                 var name='';
                 var email='';
-    
+
                 /* Do not remove this code. */
                 function rccallback()
                 {
@@ -353,7 +353,7 @@
                   }
                   return true;
                 }
-    
+
                 function checkMandatory4687720000000388007() {
                 for(i=0;i<mndFileds.length;i++) {
                   var fieldObj=document.forms['WebToLeads4687720000000388007'][mndFileds[i]];
@@ -361,16 +361,16 @@
                   if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0) {
                   if(fieldObj.type =='file')
                     { 
-                    alert('Please select a file to upload.'); 
-                    fieldObj.focus(); 
+                    alert('Please select a file to upload.');
+                    fieldObj.focus();
                     return false;
                     } 
-                  alert(fldLangVal[i] +' cannot be empty.'); 
+                  alert(fldLangVal[i] +' cannot be empty.');
                           fieldObj.focus();
                           return false;
                   }  else if(fieldObj.nodeName=='SELECT') {
                         if(fieldObj.options[fieldObj.selectedIndex].value=='-None-') {
-                    alert(fldLangVal[i] +' cannot be none.'); 
+                    alert(fldLangVal[i] +' cannot be none.');
                     fieldObj.focus();
                     return false;
                     }
@@ -391,7 +391,7 @@
                 if(!reCaptchaAlert()){return false;}
                   document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled', true);
                 }
-    
+
                 function tooltipShow(el){
                   var tooltip = el.nextElementSibling;
                   var tooltipDisplay = tooltip.style.display;
