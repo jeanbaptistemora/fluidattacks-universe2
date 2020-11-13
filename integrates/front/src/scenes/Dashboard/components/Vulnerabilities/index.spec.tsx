@@ -144,30 +144,56 @@ describe("Vulnerabilities view", () => {
                 zeroRisk: "Rejected",
               },
             ],
-            portsVulns: [{
-              __typename: "Vulnerability",
-              analyst: "user@test.com",
-              currentState: "open",
-              externalBts: "",
-              findingId: "480857698",
-              historicState: [{
+            portsVulns: [
+              {
+                __typename: "Vulnerability",
                 analyst: "user@test.com",
-                date: "2020-03-16 11:36:40",
-                state: "open",
-              }],
-              historicVerification: [],
-              id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd48",
-              remediated: false,
-              severity: 1,
-              specific: "4",
-              tag: "Token",
-              tags: undefined,
-              treatmentManager: "",
-              verification: "",
-              vulnType: "ports",
-              where: "https://example.com/ports",
-              zeroRisk: "",
-            }],
+                currentState: "open",
+                externalBts: "",
+                findingId: "480857698",
+                historicState: [{
+                  analyst: "user@test.com",
+                  date: "2020-03-16 11:36:40",
+                  state: "open",
+                }],
+                historicVerification: [],
+                id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd48",
+                remediated: false,
+                severity: 1,
+                specific: "4",
+                tag: "Token",
+                tags: undefined,
+                treatmentManager: "",
+                verification: "",
+                vulnType: "ports",
+                where: "https://example.com/ports",
+                zeroRisk: "Confirmed",
+              },
+              {
+                __typename: "Vulnerability",
+                analyst: "user@test.com",
+                currentState: "open",
+                externalBts: "",
+                findingId: "480857698",
+                historicState: [{
+                  analyst: "user@test.com",
+                  date: "2020-03-16 11:36:40",
+                  state: "open",
+                }],
+                historicVerification: [],
+                id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd49",
+                remediated: false,
+                severity: 1,
+                specific: "4",
+                tag: "Token",
+                tags: undefined,
+                treatmentManager: "",
+                verification: "",
+                vulnType: "ports",
+                where: "https://example.com/ports2",
+                zeroRisk: "Confirmed",
+              },
+            ],
             releaseDate: "2019-03-12 00:00:00",
           },
         },
@@ -226,6 +252,104 @@ describe("Vulnerabilities view", () => {
     await wait(0);
     expect(wrapper.find("Query"))
       .toBeTruthy();
+  });
+
+  it("should list all status of zero risk vulns if user has permissions", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[mocks]} addTypename={true}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <VulnerabilitiesView
+              separatedRow={false}
+              isRequestVerification={true}
+              isVerifyRequest={true}
+              editMode={false}
+              findingId="480857698"
+              state="open"
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </Provider>,
+      );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const inputsVulns: ReactWrapper = wrapper
+      .find({id: "inputsVulns"})
+      .at(0);
+    const requestedZeroRiskInputVulnCells: ReactWrapper = inputsVulns
+      .find({columnIndex: 3})
+      .filterWhere((element: ReactWrapper) => element.contains("Requested"));
+    expect(requestedZeroRiskInputVulnCells)
+    .toHaveLength(2);
+
+    const linesVulns: ReactWrapper = wrapper
+      .find({id: "linesVulns"})
+      .at(0);
+    const zeroRiskLineVulnCells: ReactWrapper = linesVulns
+      .find({columnIndex: 3});
+    expect(zeroRiskLineVulnCells)
+      .toHaveLength(2);
+    const rejectedZeroRiskLineVulnCells: ReactWrapper = linesVulns
+      .find({columnIndex: 3})
+      .filterWhere((element: ReactWrapper) => element.contains("Rejected"));
+    expect(rejectedZeroRiskLineVulnCells)
+      .toHaveLength(1);
+
+    const portsVulns: ReactWrapper = wrapper
+      .find({id: "portsVulns"})
+      .at(0);
+    const confirmedZeroRiskPortVulnCells: ReactWrapper = portsVulns
+      .find({columnIndex: 3})
+      .filterWhere((element: ReactWrapper) => element.contains("Confirmed"));
+    expect(confirmedZeroRiskPortVulnCells)
+      .toHaveLength(2);
+  });
+
+  it("should hide confirmed and requested zero risk vulns if user has not permissions", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={[mocks]} addTypename={true}>
+            <VulnerabilitiesView
+              separatedRow={false}
+              isRequestVerification={true}
+              isVerifyRequest={true}
+              editMode={false}
+              findingId="480857698"
+              state="open"
+            />
+        </MockedProvider>
+      </Provider>,
+      );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const inputsVulns: ReactWrapper = wrapper
+      .find({id: "inputsVulns"})
+      .at(0);
+    const requestedZeroRiskInputVulnCells: ReactWrapper = inputsVulns
+      .find({columnIndex: 3})
+      .filterWhere((element: ReactWrapper) => element.contains("Requested"));
+    expect(requestedZeroRiskInputVulnCells)
+    .toHaveLength(0);
+
+    const linesVulns: ReactWrapper = wrapper
+      .find({id: "linesVulns"})
+      .at(0);
+    const zeroRiskLineVulnCells: ReactWrapper = linesVulns
+      .find({columnIndex: 3});
+    expect(zeroRiskLineVulnCells)
+      .toHaveLength(2);
+    const rejectedZeroRiskLineVulnCells: ReactWrapper = linesVulns
+      .find({columnIndex: 3})
+      .filterWhere((element: ReactWrapper) => element.contains("Rejected"));
+    expect(rejectedZeroRiskLineVulnCells)
+      .toHaveLength(1);
+
+    const portsVulns: ReactWrapper = wrapper
+      .find({id: "portsVulns"})
+      .at(0);
+    const confirmedZeroRiskPortVulnCells: ReactWrapper = portsVulns
+      .find({columnIndex: 3})
+      .filterWhere((element: ReactWrapper) => element.contains("Confirmed"));
+    expect(confirmedZeroRiskPortVulnCells)
+      .toHaveLength(0);
   });
 
   it("should open a modal to edit vulnerabilities", async () => {
