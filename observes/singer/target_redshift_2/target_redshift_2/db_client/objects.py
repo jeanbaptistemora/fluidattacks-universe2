@@ -4,6 +4,7 @@ from enum import Enum
 from typing import (
     Any,
     Callable,
+    Dict,
     Optional,
     Tuple,
     Union,
@@ -36,6 +37,14 @@ class ConnectionID(NamedTuple):
 
     def __repr__(self):
         return "ConnectionID(dbname={}, ****)".format(self.dbname)
+
+
+class DynamicSQLargs(NamedTuple):
+    values: Dict[str, Any] = {}
+    identifiers: Dict[str, Any] = {}
+
+
+SQLidPurifier = Callable[[str, Optional[DynamicSQLargs]], str]
 
 
 # ----------------- db actions ------------------
@@ -114,7 +123,7 @@ class Schema(NamedTuple):
 # ----------------- client ------------------
 class ClientPrototype(NamedTuple):
     # Any should be `Client` but mypy do not support recursive types
-    execute: Callable[[Any, str], CursorExeAction]
+    execute: Callable[[Any, str, Optional[DynamicSQLargs]], CursorExeAction]
     fetchall: Callable[[Any], CursorFetchAction]
     fetchone: Callable[[Any], CursorFetchAction]
     drop_access_point: Callable[[Any], None]
@@ -128,8 +137,10 @@ class Client(NamedTuple):
     def drop_access_point(self: 'Client') -> None:
         return self.prototype.drop_access_point(self)
 
-    def execute(self: 'Client', statement: str) -> CursorExeAction:
-        return self.prototype.execute(self, statement)
+    def execute(
+        self: 'Client', statement: str, args: Optional[DynamicSQLargs] = None
+    ) -> CursorExeAction:
+        return self.prototype.execute(self, statement, args)
 
     def fetchall(self: 'Client') -> CursorFetchAction:
         return self.prototype.fetchall(self)

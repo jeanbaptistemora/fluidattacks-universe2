@@ -2,6 +2,7 @@
 from typing import (
     Callable,
     cast,
+    Optional,
     FrozenSet,
     List,
     Set,
@@ -13,27 +14,32 @@ from target_redshift_2.db_client.objects import (
     ClientPrototype,
     CursorExeAction,
     CursorFetchAction,
+    DynamicSQLargs,
     FetchAction,
     IsolatedColumn,
     MutateColumnException,
     PGCURR,
+    SQLidPurifier,
     Table,
     TablePrototype,
 )
 
 
 def client_prototype_1(
-    make_exe_action: Callable[[PGCURR, str], CursorExeAction],
+    make_exe_action: Callable[
+        [PGCURR, str, Optional[DynamicSQLargs]], CursorExeAction
+    ],
     make_fetch_action: Callable[[PGCURR, FetchAction], CursorFetchAction]
 ) -> ClientPrototype:
     def drop_access_point(self: Client) -> None:
         self.cursor.close()
         self.connection.close()
 
-    def execute(self: Client, statement: str) -> CursorExeAction:
+    def execute(
+        self: Client, statement: str, args: Optional[DynamicSQLargs] = None
+    ) -> CursorExeAction:
         return make_exe_action(
-            self.cursor,
-            statement
+            self.cursor, statement, args
         )
 
     def fetchall(self: Client) -> CursorFetchAction:
@@ -57,7 +63,9 @@ def client_prototype_1(
 
 
 def table_prototype_1(
-    make_exe_action: Callable[[str], CursorExeAction]
+    make_exe_action: Callable[
+        [str, Optional[DynamicSQLargs]], CursorExeAction
+    ]
 ) -> TablePrototype:
 
     def table_path(self: Table) -> str:
@@ -79,14 +87,41 @@ def table_prototype_1(
         table_path: str = self.table_path()
         for column in diff_columns:
             statement: str = (
-                f'ALTER TABLE {table_path} '
-                f'ADD COLUMN {column.name} '
-                f'{column.field_type} default {column.default_val}'
+                'ALTER TABLE {table_path} '
+                'ADD COLUMN {column_name} '
+                '{field_type} default %(default_val)s'
             )
-            actions.append(make_exe_action(statement))
+            actions.append(
+                make_exe_action(
+                    statement,
+                    DynamicSQLargs(
+                        values={
+                            'default_val': column.default_val
+                        },
+                        identifiers={
+                            'table_path': table_path,
+                            'column_name': column.name,
+                            'field_type': column.field_type
+                        }
+                    )
+                )
+            )
         return actions
 
     return TablePrototype(
         table_path=table_path,
         add_columns=add_columns
     )
+
+
+def sql_id_purifier_1(sql) -> SQLidPurifier:
+    def purifier(statement: str, args: Optional[DynamicSQLargs] = None) -> str:
+        raw_sql = sql.SQL(statement)
+        format_input = {}
+        if args:
+            for key, value in args.identifiers.items():
+                format_input[key] = sql.Identifier(value)
+        if format_input:
+            return raw_sql.format(**format_input)
+        return statement
+    return purifier
