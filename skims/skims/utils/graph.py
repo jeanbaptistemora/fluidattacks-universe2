@@ -11,6 +11,14 @@ from typing import (
 from jmespath import (
     search as jsh,
 )
+import networkx as nx
+
+
+def export_graph(graph: nx.OrderedDiGraph, path: str) -> None:
+    # $ nix-env -i graphviz
+    # $ dot -O -T svg  <path>
+    # $ eog <path>.svg
+    nx.drawing.nx_agraph.write_dot(graph, path)
 
 
 def symbolic_evaluate(value: Any) -> Any:

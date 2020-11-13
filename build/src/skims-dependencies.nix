@@ -15,6 +15,6 @@ pkgs: {
   ];
 
   overriden = {
-    overridenPyPkgNumpy = pkgs.python38Packages.numpy;
+    overridenPyPkgPyGraphviz = pkgs.python38Packages.pygraphviz;
   };
 }

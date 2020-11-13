@@ -1,11 +1,18 @@
 # Standard library
 import contextlib
+from uuid import (
+    uuid4 as uuid,
+)
 import json
 from typing import (
     Any,
     Dict,
     List,
+    Optional,
 )
+
+# Third party libraries
+import networkx as nx
 
 # Local libraries
 from state.cache import (
@@ -170,3 +177,77 @@ def structure_keys(model: Dict[str, Any]) -> Dict[str, Any]:
 
 def format_model(model: Dict[str, Any]) -> Dict[str, Any]:
     return structure_keys(structure_model(model))
+
+
+def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
+    return set(node.keys()) == {'c', 'l', 'text', 'type'}
+
+
+def _create_leaf(
+    graph: nx.OrderedDiGraph,
+    index: int,
+    key: Optional[str],
+    parent: Optional[str],
+    value: Any,
+) -> nx.OrderedDiGraph:
+    node_id: str = f'{key}.{uuid().hex}' if key else uuid().hex
+
+    # Add a new node and link it to the parent
+    graph.add_node(node_id)
+    if parent:
+        graph.add_edge(parent, node_id, index=index)
+
+    if isinstance(value, dict):
+        if _node_has_position_metadata(value):
+            for value_key, value_value in value.items():
+                graph.nodes[node_id][value_key] = value_value
+        else:
+            graph = model_to_graph(
+                model=value,
+                _graph=graph,
+                _parent=node_id,
+            )
+    elif isinstance(value, list):
+        graph = model_to_graph(
+            model=value,
+            _graph=graph,
+            _parent=node_id,
+        )
+    else:
+        # May happen?
+        raise NotImplementedError()
+
+    return graph
+
+
+def model_to_graph(
+    model: Any,
+    _graph: Optional[nx.OrderedDiGraph] = None,
+    _parent: Optional[str] = None,
+) -> nx.OrderedDiGraph:
+    # Handle first level of recurssion, where _graph is None
+    graph = nx.OrderedDiGraph() if _graph is None else _graph
+
+    if isinstance(model, dict):
+        for index, (key, value) in enumerate(model.items()):
+            _create_leaf(
+                graph=graph,
+                index=index,
+                key=key,
+                parent=_parent,
+                value=value,
+            )
+    elif isinstance(model, list):
+        for index, value in enumerate(model):
+            _create_leaf(
+                graph=graph,
+                index=index,
+                key=None,
+                parent=_parent,
+                value=value,
+            )
+    else:
+        # May happen?
+        raise NotImplementedError()
+
+    return graph
