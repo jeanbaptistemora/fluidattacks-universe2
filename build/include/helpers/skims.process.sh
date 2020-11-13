@@ -108,11 +108,11 @@ function helper_skims_get_group_config_as_json {
           "glob(**/UI/Tabs)",
           "glob(**/.vscode)",
           "glob(**/.idea)",
-          "glog(**/*.pydevproject)",
-          "glog(**/*.swp)",
-          "glog(**/*.launch)",
-          "glog(**/.cproject)",
-          "glog(**/.buildpath)"
+          "glob(**/*.pydevproject)",
+          "glob(**/*.swp)",
+          "glob(**/*.launch)",
+          "glob(**/.cproject)",
+          "glob(**/.buildpath)"
         ]
       },
       timeout: 14400,
