@@ -56,7 +56,7 @@ check_interval = 20
       "amazonec2-instance-type=c5d.large",
       "amazonec2-userdata=/etc/gitlab-runner/init.sh",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=35"
+      "amazonec2-root-size=10"
     ]
     OffPeakPeriods = [
       "* * 0-6,21-23 * * mon-fri *",
@@ -179,7 +179,7 @@ check_interval = 20
       "amazonec2-instance-type=c5d.large",
       "amazonec2-userdata=/etc/gitlab-runner/init.sh",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=100"
+      "amazonec2-root-size=10"
     ]
 
 [[runners]]
@@ -234,7 +234,7 @@ check_interval = 20
       "amazonec2-instance-type=c5d.large",
       "amazonec2-userdata=/etc/gitlab-runner/init.sh",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=35"
+      "amazonec2-root-size=10"
     ]
     OffPeakPeriods = [
       "* * 0-6,20-23 * * mon-fri *",
