@@ -63,7 +63,7 @@ function job_observes_gitlab_on_aws {
   local attempts='10'
   local timeout='14400'
   local jobname="observes_gitlab"
-  local jobqueue='gitlab_etl'
+  local jobqueue='default'
 
       helper_observes_aws_login prod \
   &&  helper_common_run_on_aws \
@@ -163,7 +163,7 @@ function job_observes_code_upload_group_on_aws {
   local attempts='10'
   local timeout='7200'
   local jobname="observes_code_upload_group__${group}"
-  local jobqueue='code_upload'
+  local jobqueue='default'
 
       if test -z "${group}"
       then
@@ -308,7 +308,7 @@ function job_observes_code_mirror_group_to_s3_on_aws {
   local attempts='10'
   local timeout='3600'
   local jobname="observes_code_mirror_group_to_s3__${group}"
-  local jobqueue='mirror_s3'
+  local jobqueue='default'
 
       if test -z "${group}"
       then

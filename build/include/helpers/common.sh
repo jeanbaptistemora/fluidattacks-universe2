@@ -456,6 +456,7 @@ function helper_common_run_on_aws {
   local jobqueue="${6}"
   local command=('./build.sh' "${@:7}")
   local maxmemory
+  local is_already_in_queue
 
       maxmemory=$(( "${vcpus}" * 4 * 900 )) \
   &&  if test "${memory}" -gt "${maxmemory}"
@@ -481,13 +482,26 @@ function helper_common_run_on_aws {
           "${memory}" \
           "${command[@]}" \
       ) \
-  &&  aws batch submit-job \
-        --container-overrides "${job_definition}" \
-        --job-name "${jobname}" \
-        --job-queue "${jobqueue}" \
-        --job-definition 'default' \
-        --retry-strategy "attempts=${attempts}" \
-        --timeout "attemptDurationSeconds=${timeout}"
+  &&  is_already_in_queue=$( \
+        aws batch list-jobs \
+          --job-queue "${jobqueue}" \
+          --job-status "RUNNABLE" \
+          --query 'jobSummaryList[*].jobName' \
+          | jq --arg jobname "${jobname}" ". | contains([\$jobname])" \
+      ) \
+  &&  if [ "${is_already_in_queue}" == "false" ]
+      then
+            echo "[INFO] Job ${jobname} has been succesfully sent" \
+        &&  aws batch submit-job \
+              --container-overrides "${job_definition}" \
+              --job-name "${jobname}" \
+              --job-queue "${jobqueue}" \
+              --job-definition 'default' \
+              --retry-strategy "attempts=${attempts}" \
+              --timeout "attemptDurationSeconds=${timeout}"
+      else
+        echo "[INFO] Job ${jobname} is already in queue, skipped sending"
+      fi
 }
 
 function helper_common_kill_attached_processes {

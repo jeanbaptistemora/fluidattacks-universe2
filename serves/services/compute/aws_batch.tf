@@ -133,7 +133,7 @@ resource "aws_batch_compute_environment" "default" {
       "m5a.large",
       "m5a.xlarge",
     ]
-    max_vcpus = 16
+    max_vcpus = 32
     min_vcpus = 0
     security_group_ids = [
       aws_security_group.aws_batch_compute_environment_security_group.id,
@@ -211,36 +211,6 @@ resource "aws_batch_job_queue" "default" {
   ]
   name = "default"
   priority = 1
-  state = "ENABLED"
-}
-
-resource "aws_batch_job_queue" "gitlab_etl" {
-  # Send here observes gitlab etl jobs
-  compute_environments = [
-    aws_batch_compute_environment.default.arn,
-  ]
-  name = "gitlab_etl"
-  priority = 2
-  state = "ENABLED"
-}
-
-resource "aws_batch_job_queue" "code_upload" {
-  # Send here observes code_upload jobs
-  compute_environments = [
-    aws_batch_compute_environment.default.arn,
-  ]
-  name = "code_upload"
-  priority = 2
-  state = "ENABLED"
-}
-
-resource "aws_batch_job_queue" "mirror_s3" {
-  # Send here observes mirror_s3 jobs
-  compute_environments = [
-    aws_batch_compute_environment.default.arn,
-  ]
-  name = "mirror_s3"
-  priority = 3
   state = "ENABLED"
 }
 

@@ -111,12 +111,13 @@ function job_skims_process_group_on_aws {
   local vcpus='2'
   local memory='7200'
   local attempts='10'
-  local timeout='7200'
+  local timeout='18000'
   local group="${1}"
-  local jobqueue='asap'
+  local jobqueue='default'
 
-      if [ -n "${SKIMS_GROUP_TO_PROCESS_ON_AWS-}" ]
+      if [ -n "${SKIMS_GROUP_TO_PROCESS_ON_AWS:-}" ]
       then
+            # This job was triggered from Integrates
             group="${SKIMS_GROUP_TO_PROCESS_ON_AWS}" \
         &&  jobqueue="asap"
       fi \
@@ -127,13 +128,7 @@ function job_skims_process_group_on_aws {
       fi \
   &&  jobname="skims_process_group__${group}" \
   &&  helper_skims_aws_login prod \
-  &&  is_in_queue=$(aws batch list-jobs \
-                      --job-queue "${jobqueue}" \
-                      --job-status "RUNNABLE" \
-                      --query "jobSummaryList[*].jobName" | jq ".| contains([\"${jobname}\"])") \
-  &&  if [ "${is_in_queue}" == "false" ]
-      then
-        helper_common_run_on_aws \
+  &&  helper_common_run_on_aws \
         "${vcpus}" \
         "${memory}" \
         "${attempts}" \
@@ -141,9 +136,6 @@ function job_skims_process_group_on_aws {
         "${jobname}" \
         "${jobqueue}" \
         'skims_process_group' "${group}"
-      else
-        echo "[WARNING] job ${jobname} is already in queue"
-      fi
 }
 
 function job_skims_process_all_groups_on_aws {
