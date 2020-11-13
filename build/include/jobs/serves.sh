@@ -721,6 +721,8 @@ function job_serves_test_lint_code {
 function job_serves_apply_config_autoscaling_ci {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
+  local config='services/autoscaling-ci/config.toml'
+  local init='services/autoscaling-ci/init.sh'
   local secrets_to_replace=(
     autoscaling_token_1
     autoscaling_token_2
@@ -749,7 +751,7 @@ function job_serves_apply_config_autoscaling_ci {
   &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
         'sudo whoami' \
   &&  echo '[INFO] Writing config with secrets' \
-  &&  cp './services/autoscaling-ci/config.toml' "${TEMP_FILE2}" \
+  &&  cp "${config}" "${TEMP_FILE2}" \
   &&  for secret in "${secrets_to_replace[@]}"
       do
         rpl "__${secret}__" "${!secret}" "${TEMP_FILE2}" \
@@ -759,9 +761,14 @@ function job_serves_apply_config_autoscaling_ci {
       done \
   &&  echo '[INFO] Deploying config file to the bastion 1: /port/config.toml' \
   &&  scp -i "${TEMP_FILE1}" "${TEMP_FILE2}" "${bastion_user}@${bastion_ip}:/port/config.toml" \
+  &&  echo '[INFO] Deploying init file to the bastion 1: /port/init.sh' \
+  &&  scp -i "${TEMP_FILE1}" "${init}" "${bastion_user}@${bastion_ip}:/port/init.sh" \
   &&  echo '[INFO] Deploying config file to the bastion 2: /etc/gitlab-runner/config.toml' \
   &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
         'sudo mv /port/config.toml /etc/gitlab-runner/config.toml' \
+  &&  echo '[INFO] Deploying init file to the bastion 2: /etc/gitlab-runner/init.sh' \
+  &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
+        'sudo mv /port/init.sh /etc/gitlab-runner/init.sh' \
   &&  echo '[INFO] Reloading config in the bastion from: /etc/gitlab-runner/config.toml' \
   &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
         'sudo killall -SIGHUP gitlab-runner' \
