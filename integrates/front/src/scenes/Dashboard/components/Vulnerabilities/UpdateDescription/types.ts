@@ -9,4 +9,27 @@ interface IUpdateTreatmentModal {
   handleCloseModal(): void;
 }
 
-export { IUpdateTreatmentModal };
+interface IDeleteTagAttr {
+  findingId: string;
+  tag?: string;
+  vulnerabilities: string[];
+}
+
+interface IDeleteTagResult {
+  deleteTags: {
+    success: boolean;
+  };
+}
+
+interface IUpdateVulnDescriptionResult {
+  updateTreatmentVuln: {
+    success: boolean;
+  };
+}
+
+export {
+  IDeleteTagAttr,
+  IDeleteTagResult,
+  IUpdateTreatmentModal,
+  IUpdateVulnDescriptionResult,
+};

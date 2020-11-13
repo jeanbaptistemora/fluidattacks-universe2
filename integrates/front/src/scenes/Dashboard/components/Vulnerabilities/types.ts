@@ -49,24 +49,6 @@ export interface IUpdateTreatmentVulnAttr {
   vulnerabilities: string[];
 }
 
-export interface IUpdateVulnTreatment {
-  updateTreatmentVuln: {
-    success: boolean;
-  };
-}
-
-export interface IDeleteTagResult {
-  deleteTags: {
-    success: boolean;
-  };
-}
-
-export interface IDeleteTagAttr {
-  findingId: string;
-  tag?: string;
-  vulnerabilities: string[];
-}
-
 export interface IVulnDataType {
   currentState: string;
   externalBts: string;

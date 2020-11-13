@@ -45,14 +45,6 @@ export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
   }`
 ;
 
-export const DELETE_TAGS_MUTATION: DocumentNode = gql`
-  mutation DeleteTagsVuln ($findingId: String!, $tag: String, $vulnerabilities: [String]!){
-    deleteTags(findingId: $findingId, tag: $tag, vulnerabilities: $vulnerabilities) {
-      success
-    }
-  }`
-;
-
 export const GET_PROJECT_USERS: DocumentNode = gql`
   query GetProjectUsers($projectName: String!) {
     project(projectName: $projectName) {

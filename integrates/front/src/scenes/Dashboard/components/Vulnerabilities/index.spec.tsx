@@ -10,12 +10,10 @@ import wait from "waait";
 
 import { compareNumbers, VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities";
 import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
-import {
-  IUpdateVulnTreatment,
-  IVulnDataType,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
+import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/index";
 import { UPDATE_DESCRIPTION_MUTATION } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
+import { IUpdateVulnDescriptionResult } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -464,7 +462,7 @@ describe("Vulnerabilities view", () => {
 
   it("should render update treatment", async () => {
     const handleOnClose: jest.Mock = jest.fn();
-    const updateTreatment: IUpdateVulnTreatment = { updateTreatmentVuln : { success: true } };
+    const updateTreatment: IUpdateVulnDescriptionResult = { updateTreatmentVuln : { success: true } };
     const mocksMutation: MockedResponse = {
       request: {
         query: UPDATE_DESCRIPTION_MUTATION,

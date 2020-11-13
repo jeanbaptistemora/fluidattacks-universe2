@@ -23,4 +23,12 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { UPDATE_DESCRIPTION_MUTATION };
+const DELETE_TAGS_MUTATION: DocumentNode = gql`
+  mutation DeleteTagsVuln ($findingId: String!, $tag: String, $vulnerabilities: [String]!){
+    deleteTags(findingId: $findingId, tag: $tag, vulnerabilities: $vulnerabilities) {
+      success
+    }
+  }
+`;
+
+export { DELETE_TAGS_MUTATION, UPDATE_DESCRIPTION_MUTATION };

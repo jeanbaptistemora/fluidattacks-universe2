@@ -2,8 +2,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code in graphql queries
  */
-import { MutationFunction, MutationResult } from "@apollo/react-common";
-import { Mutation } from "@apollo/react-components";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -23,15 +21,20 @@ import { Modal } from "components/Modal";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
-  DELETE_TAGS_MUTATION,
   GET_PROJECT_USERS,
   GET_VULNERABILITIES,
 } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { IUpdateTreatmentVulnAttr, IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
-  IDeleteTagAttr, IDeleteTagResult, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment, IVulnDataType,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
-import { UPDATE_DESCRIPTION_MUTATION } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import { IUpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
+  DELETE_TAGS_MUTATION,
+  UPDATE_DESCRIPTION_MUTATION,
+} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
+import {
+  IDeleteTagAttr,
+  IDeleteTagResult,
+  IUpdateTreatmentModal,
+  IUpdateVulnDescriptionResult,
+} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import { groupExternalBts, sortTags } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import {
@@ -60,8 +63,8 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
   const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.treatments.tag));
 
   const dispatch: Dispatch = useDispatch();
-  const [updateVuln, {loading: updatingVuln}] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
-    onCompleted: async (result: { updateTreatmentVuln: { success: boolean } }): Promise<void> => {
+  const [updateVuln, {loading: updatingVuln}] = useMutation<IUpdateVulnDescriptionResult>(UPDATE_DESCRIPTION_MUTATION, {
+    onCompleted: async (result: IUpdateVulnDescriptionResult): Promise<void> => {
       if (result.updateTreatmentVuln.success) {
         mixpanel.track(
           "UpdatedTreatmentVulnerabilities", {
@@ -70,7 +73,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
         msgSuccess(
           translate.t("search_findings.tab_description.update_vulnerabilities"),
           translate.t("group_alerts.title_success"));
-        props.handleCloseModal();
+        handleCloseModal();
       }
     },
     onError: (updateError: ApolloError): void => {
@@ -102,6 +105,33 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
     },
   });
 
+  const [deleteTagVuln, {loading: deletingTag}] = useMutation<IDeleteTagResult, IDeleteTagAttr>
+  (DELETE_TAGS_MUTATION, {
+    onCompleted: async (result: IDeleteTagResult): Promise<void> => {
+      if (!_.isUndefined(result)) {
+        if (result.deleteTags.success) {
+          msgSuccess(
+            translate.t("search_findings.tab_description.update_vulnerabilities"),
+            translate.t("group_alerts.title_success"));
+        }
+      }
+    },
+    onError: (updateError: ApolloError): void => {
+      updateError.graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        Logger.warning("An error occurred deleting vulnerabilities", error);
+      });
+    },
+    refetchQueries: [
+      { query: GET_VULNERABILITIES,
+        variables: {
+          analystField: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
+          identifier: props.findingId,
+        },
+      },
+    ],
+  });
+
   const handleUpdateTreatmentVuln: ((dataTreatment: IUpdateTreatmentVulnAttr) => void) =
     (dataTreatment: IUpdateTreatmentVulnAttr): void => {
       if (props.vulnerabilities.length === 0) {
@@ -118,27 +148,28 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
       }
   };
 
-  const handleDeleteError: ((updateError: ApolloError) => void) = (
-    { graphQLErrors }: ApolloError,
-  ): void => {
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      Logger.warning("An error occurred deleting vulnerabilities", error);
-    });
-  };
-  const handleDeleteResult: ((mtResult: IDeleteTagResult) => void) =
-  (mtResult: IDeleteTagResult): void => {
-    if (!_.isUndefined(mtResult)) {
-      if (mtResult.deleteTags.success) {
-        msgSuccess(
-          translate.t("search_findings.tab_description.update_vulnerabilities"),
-          translate.t("group_alerts.title_success"));
-      }
+  const handleDeleteTag: (() => void) = (): void => {
+    if (props.vulnerabilities.length === 0) {
+      msgError(translate.t("search_findings.tab_resources.no_selection"));
+    } else {
+      deleteTagVuln({variables: {
+        findingId: props.findingId,
+        vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
+      }});
+      handleCloseModal();
     }
   };
 
   const handleEditTreatment: (() => void) = (): void => {
     dispatch(submit("editTreatmentVulnerability"));
+  };
+
+  const handleDeletion: ((tag: string) => void) = (tag: string): void => {
+    deleteTagVuln({variables: {
+      findingId: props.findingId,
+      tag,
+      vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
+    }});
   };
 
   const userEmails: string[] = (_.isUndefined(data) || _.isEmpty(data))
@@ -154,41 +185,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
 
   return(
     <React.StrictMode>
-            <Mutation
-              mutation={DELETE_TAGS_MUTATION}
-              onCompleted={handleDeleteResult}
-              onError={handleDeleteError}
-              refetchQueries={[
-                {
-                  query: GET_VULNERABILITIES,
-                  variables: {
-                    analystField: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
-                    identifier: props.findingId,
-                  },
-                },
-              ]}
-            >
-              {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>,
-                tagsResult: MutationResult): JSX.Element => {
-                const handleDeleteTag: (() => void) = (): void => {
-                  if (props.vulnerabilities.length === 0) {
-                    msgError(translate.t("search_findings.tab_resources.no_selection"));
-                  } else {
-                    void deleteTagVuln({variables: {
-                      findingId: props.findingId,
-                      vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-                    }});
-                  }
-                };
-                const handleDeletion: ((tag: string) => void) = (tag: string): void => {
-                  void deleteTagVuln({variables: {
-                    findingId: props.findingId,
-                    tag,
-                    vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-                  }});
-                };
-
-                return (
                   <Modal
                     open={true}
                     headerTitle={translate.t("search_findings.tab_description.editVuln")}
@@ -296,7 +292,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     </Button>
                     <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
                       <Button
-                        disabled={updatingVuln || tagsResult.loading || isEditPristine}
+                        disabled={updatingVuln || deletingTag || isEditPristine}
                         onClick={handleEditTreatment}
                       >
                         {translate.t("confirmmodal.proceed")}
@@ -304,9 +300,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                     </Can>
                   </ButtonToolbar>
                   </Modal>
-                );
-              }}
-            </Mutation>
     </React.StrictMode>
   );
 };
