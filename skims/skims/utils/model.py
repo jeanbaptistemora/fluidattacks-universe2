@@ -583,7 +583,6 @@ class SkimsConfig(NamedTuple):
     path: Optional[SkimsPathConfig]
     timeout: Optional[float]
     language: LocalesEnum
-    upload_evidences: Optional[bool]
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

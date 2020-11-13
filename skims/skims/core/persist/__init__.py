@@ -8,7 +8,6 @@ import sys
 from typing import (
     Dict,
     Tuple,
-    Optional,
 )
 
 # Third party libraries
@@ -227,7 +226,6 @@ async def persist_finding(
     finding: FindingEnum,
     group: str,
     store: EphemeralStore,
-    persist_evidences: Optional[bool] = True
 ) -> bool:
     """Persist a finding to Integrates
 
@@ -281,7 +279,7 @@ async def persist_finding(
             success_upload_evidence = await upload_evidences(
                 finding_id=finding_id,
                 store=store,
-            ) if persist_evidences else True
+            )
             success = success and success_release and success_upload_evidence
 
         await log(
@@ -307,7 +305,6 @@ async def persist(
     group: str,
     stores: Dict[FindingEnum, EphemeralStore],
     token: str,
-    persist_evidences: Optional[bool] = True,
 ) -> bool:
     """Persist all findings with the data extracted from the store.
 
@@ -329,7 +326,6 @@ async def persist(
             finding=finding,
             group=group,
             store=stores[finding],
-            persist_evidences=persist_evidences,
         )
         for finding in FindingEnum
     )))
