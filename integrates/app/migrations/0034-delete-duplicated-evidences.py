@@ -1,8 +1,8 @@
 """
 This migration delete the duplicated evidences on S3
 for unittesting
-Execution Time:    2020-10-19 13:20:56 UTC-5
-Finalization Time: 2020-10-19 13:21:24 UTC-5
+Execution Time:    2020-11-13 at 12:08:40 UTC-05
+Finalization Time: 2020-11-13 at 12:31:53 UTC-05
 """
 # disable MyPy due to error "boto module has no attribute client"
 import aioboto3
@@ -138,7 +138,6 @@ async def main() -> None:
             f'{sum(results)} of {len(evidences)}'
         )
         print('[INFO] migration 0031 apply finished')
-        pass
 
 if __name__ == '__main__':
     execution_time = time.strftime(

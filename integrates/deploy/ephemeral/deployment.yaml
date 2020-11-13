@@ -76,6 +76,7 @@ spec:
             - integrates_serve_components
             - development
             - http/development/backend_new.app:APP/uvicorn.workers.UvicornWorker/3/0.0.0.0/8001/*
+            - minio
           resources:
             requests:
               cpu: 900m

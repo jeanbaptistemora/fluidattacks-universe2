@@ -351,7 +351,10 @@ function job_integrates_functional_tests_back {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
-  &&  helper_set_local_dynamo_and_redis \
+  &&  helper_integrates_serve_dynamo \
+  &&  helper_integrates_serve_minio \
+  &&  sleep 10 \
+  &&  helper_integrates_serve_redis \
   &&  pytest \
         "${common_args[@]}" \
         'test_async/functional_test' \
@@ -652,7 +655,9 @@ function job_integrates_analytics_make_documents_dev {
   &&  helper_integrates_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
-        helper_set_local_dynamo_and_redis
+            helper_integrates_serve_dynamo \
+        &&  helper_integrates_serve_redis \
+        &&  helper_integrates_serve_minio
       fi \
   &&  _job_integrates_analytics_make_documents \
   &&  popd \
@@ -1024,7 +1029,10 @@ function job_integrates_test_back {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
-  &&  helper_set_local_dynamo_and_redis \
+  &&  helper_integrates_serve_dynamo \
+  &&  helper_integrates_serve_minio \
+  &&  sleep 10 \
+  &&  helper_integrates_serve_redis \
   &&  for i in "${!markers[@]}"
       do
             echo "[INFO] Running marker: ${markers[i]}" \

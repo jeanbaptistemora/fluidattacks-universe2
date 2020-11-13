@@ -61,7 +61,9 @@ function helper_bootstrap_prod_ci {
   &&  helper_integrates_set_prod_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
-        helper_set_local_dynamo_and_redis
+            helper_integrates_serve_dynamo \
+        &&  helper_integrates_serve_minio \
+        &&  helper_integrates_serve_redis
       fi
 }
 
@@ -70,7 +72,9 @@ function helper_bootstrap_dev_ci {
   &&  helper_integrates_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
-        helper_set_local_dynamo_and_redis
+            helper_integrates_serve_dynamo \
+        &&  helper_integrates_serve_minio \
+        &&  helper_integrates_serve_redis
       fi
 }
 
@@ -123,7 +127,7 @@ function helper_integrates_serve_dynamo {
         -port "${port}" \
         -sharedDb \
         & } \
-  &&  sleep 5 \
+  &&  sleep 10 \
   &&  echo '[INFO] Populating DynamoDB local' \
   &&  { bash ./deploy/database/provision_local_db.sh & }
 }
@@ -190,18 +194,26 @@ function helper_integrates_serve_minio {
   &&  echo '[INFO] Setting buckets' \
   &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.evidences \
   &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.analytics \
+  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.resources \
+  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.reports \
+  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.forces \
   &&  echo '[INFO] Populating MinIO local' \
   &&  readarray -d , -t projects <<< "${TEST_PROJECTS}" \
   &&  {
         for project in "${projects[@]}"
         do
-          aws s3 sync "s3://fluidintegrates.evidences/${project}" \
-            "${data_path}/fluidintegrates.evidences/${project}" \
+              aws s3 sync --quiet "s3://fluidintegrates.evidences/${project}" \
+                "${data_path}/fluidintegrates.evidences/${project}" \
+          &&  aws s3 sync --quiet "s3://fluidintegrates.resources/${project}" \
+                "${data_path}/fluidintegrates.resources/${project}" \
+          &&  aws s3 sync --quiet "s3://fluidintegrates.forces/${project}" \
+                "${data_path}/fluidintegrates.forces/${project}" \
           ||  return 1
         done
       } \
-  &&  aws s3 sync "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
-        "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
+  &&  aws s3 sync --quiet "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
+        "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" &> /dev/null \
+  &&  mkdir -p "${data_path}/fluidintegrates.reports/tmp" \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!"
 }
 
@@ -253,45 +265,6 @@ function helper_integrates_probe_curl {
         echo "[ERROR] helper_integrates_probe_curl failed on ${endpoint}" \
     &&  return 1
   fi
-}
-
-function helper_set_local_dynamo_and_redis {
-  local processes_to_kill=()
-  local port_dynamo='8022'
-  local port_redis='6379'
-
-  function kill_processes {
-    for process in "${processes_to_kill[@]}"
-    do
-      echo "[INFO] Killing PID: ${process}"
-      kill -9 "${process}" || true
-    done
-  }
-
-  trap kill_processes EXIT
-
-      echo '[INFO] Launching Redis' \
-  &&  {
-        redis-server --port "${port_redis}" \
-          &
-        processes_to_kill+=( "$!" )
-      } \
-  &&  echo '[INFO] Launching DynamoDB local' \
-  &&  env_prepare_dynamodb_local \
-  &&  {
-        java \
-          -Djava.library.path="${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal_lib" \
-          -jar "${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal.jar" \
-          -inMemory \
-          -port "${port_dynamo}" \
-          -sharedDb \
-          &
-        processes_to_kill+=( "$!" )
-      } \
-  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
-  &&  sleep 5 \
-  &&  echo '[INFO] Populating DynamoDB local' \
-  &&  bash ./deploy/database/provision_local_db.sh
 }
 
 function helper_integrates_functional_tests {
