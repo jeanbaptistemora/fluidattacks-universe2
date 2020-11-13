@@ -22,6 +22,7 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
   statement {
     effect = "Allow"
     actions = [
+      "s3:DeleteObject",
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
