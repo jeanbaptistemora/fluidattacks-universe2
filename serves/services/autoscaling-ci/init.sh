@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/sh
 
 # Make disk gpt and create partitions
 parted /dev/nvme1n1 --script -- mklabel gpt
@@ -13,7 +13,7 @@ mkfs -t xfs /dev/nvme1n1p1
 mkfs -t xfs /dev/nvme1n1p2
 
 # Mount partitions
+mkdir -p /var/lib/docker
 mkdir -p /builds
-mkdir -p /var
-mount /dev/nvme1n1p1 /var
+mount /dev/nvme1n1p1 /var/lib/docker
 mount /dev/nvme1n1p2 /builds

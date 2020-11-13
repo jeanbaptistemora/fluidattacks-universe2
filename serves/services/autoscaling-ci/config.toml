@@ -54,7 +54,7 @@ check_interval = 20
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=c5d.large",
-      "amazonec2-userdata=./init.sh",
+      "amazonec2-userdata=/etc/gitlab-runner/init.sh",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=35"
     ]
@@ -177,7 +177,7 @@ check_interval = 20
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=c5d.large",
-      "amazonec2-userdata=./init.sh",
+      "amazonec2-userdata=/etc/gitlab-runner/init.sh",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=100"
     ]
@@ -232,7 +232,7 @@ check_interval = 20
       "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-013da1cc4ae87618c",
       "amazonec2-instance-type=c5d.large",
-      "amazonec2-userdata=./init.sh",
+      "amazonec2-userdata=/etc/gitlab-runner/init.sh",
       "amazonec2-volume-type=gp2",
       "amazonec2-root-size=35"
     ]
