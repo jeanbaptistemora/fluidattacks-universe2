@@ -29,7 +29,7 @@ import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities
 import {
   IVulnDataType, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/updateTreatment";
+import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/index";
 import { UploadVulnerabilites } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
 import { RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";

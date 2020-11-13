@@ -9,15 +9,13 @@ import { Provider } from "react-redux";
 import wait from "waait";
 
 import { compareNumbers, VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities";
-import {
-  GET_VULNERABILITIES,
-  UPDATE_TREATMENT_MUTATION,
-} from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
   IUpdateVulnTreatment,
   IVulnDataType,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/updateTreatment";
+import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/index";
+import { UPDATE_DESCRIPTION_MUTATION } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -469,7 +467,7 @@ describe("Vulnerabilities view", () => {
     const updateTreatment: IUpdateVulnTreatment = { updateTreatmentVuln : { success: true } };
     const mocksMutation: MockedResponse = {
       request: {
-        query: UPDATE_TREATMENT_MUTATION,
+        query: UPDATE_DESCRIPTION_MUTATION,
         variables: {
           findingId: "480857698", severity: -1, tag: "one", treatmentManager: "", vulnerabilities: ["test"],
         },
@@ -523,7 +521,7 @@ describe("Vulnerabilities view", () => {
     const handleOnClose: jest.Mock = jest.fn();
     const mocksError: MockedResponse = {
       request: {
-        query: UPDATE_TREATMENT_MUTATION,
+        query: UPDATE_DESCRIPTION_MUTATION,
         variables: {
           findingId: "480857698", severity: -1, tag: "one", treatmentManager: "", vulnerabilities: ["test"],
         },

@@ -52,7 +52,6 @@ export interface ITreatmentViewProps {
   setEditing(value: boolean): void;
 }
 
-const maxBtsLength: ConfigurableValidator = maxLength(80);
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
 const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps): JSX.Element => {
   const { onCloseApproval } = props;

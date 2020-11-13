@@ -37,28 +37,6 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
   }
   `;
 
-export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
-  mutation UpdateTreatmentVulnMutation(
-    $findingId: String!,
-    $severity: Int,
-    $tag: String
-    $treatmentManager: String,
-    $vulnerabilities: [String]!,
-    $externalBts: String!,
-  ) {
-    updateTreatmentVuln (
-      externalBts: $externalBts,
-      findingId: $findingId,
-      severity: $severity,
-      tag: $tag,
-      treatmentManager: $treatmentManager,
-      vulnerabilities: $vulnerabilities,
-    ) {
-      success
-    }
-  }
-  `;
-
 export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
   mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
     uploadFile(findingId: $findingId, file: $file) {
