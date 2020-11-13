@@ -12,9 +12,13 @@ import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
 import { Col, Grid, Row } from "react-bootstrap";
 import {
+  Col100,
   InfoButtonBitbucket,
   InfoButtonGoogle,
   InfoButtonMicrosoft,
+  Notification2FaCol,
+  Notification2FaGrid,
+  Notification2FaRow,
 } from "styles/styledComponents";
 import { Slide, toast } from "react-toastify";
 
@@ -46,32 +50,36 @@ export const Login: React.FC = (): JSX.Element => {
   // Show 2FA Notification
   React.useEffect((): void => {
     toast.info(
-      <div>
-        <p>{t("login.2fa")}</p>
-        <div>
-          <Col md={4} xs={12}>
+      <Notification2FaGrid>
+        <Notification2FaRow>
+          <Col100>
+            <p>{t("login.2fa")}</p>
+          </Col100>
+        </Notification2FaRow>
+        <Notification2FaRow>
+          <Notification2FaCol>
             <InfoButtonGoogle onClick={handleNotificationGoogle}>
               <span>
                 <FontAwesome name={"google"} size={"2x"} />
               </span>
             </InfoButtonGoogle>
-          </Col>
-          <Col md={4} xs={12}>
+          </Notification2FaCol>
+          <Notification2FaCol>
             <InfoButtonMicrosoft onClick={handleNotificationMicrosoft}>
               <span>
                 <FontAwesome name={"windows"} size={"2x"} />
               </span>
             </InfoButtonMicrosoft>
-          </Col>
-          <Col md={4} xs={12}>
+          </Notification2FaCol>
+          <Notification2FaCol>
             <InfoButtonBitbucket onClick={handleNotificationBitbucket}>
               <span>
                 <FontAwesome name={"bitbucket"} size={"2x"} />
               </span>
             </InfoButtonBitbucket>
-          </Col>
-        </div>
-      </div>,
+          </Notification2FaCol>
+        </Notification2FaRow>
+      </Notification2FaGrid>,
       { autoClose: false, className: style.twofactor, transition: Slide }
     );
   }, [t]);
