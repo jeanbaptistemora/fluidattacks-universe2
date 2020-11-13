@@ -17,6 +17,12 @@ import subprocess
 import sys
 from uuid import uuid4
 
+from typing import (
+    Dict,
+    List,
+    Union,
+    Any,
+)
 import bugsnag
 import requests
 from boto3.session import Session
@@ -53,7 +59,7 @@ from __init__ import (
 )
 
 
-def get_installed_packages():
+def get_installed_packages() -> List[str]:
     """Retrieve a list of installed python packages."""
     reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
     return [r.decode().split('==')[0] for r in reqs.split()]
@@ -196,7 +202,7 @@ if FI_ENVIRONMENT == 'production':
 
 
 # Customize errors for bugsnag
-def customize_bugsnag_error_reports(notification):
+def customize_bugsnag_error_reports(notification: Any) -> None:
     """Handle for expected errors and customization"""
     ex_msg = str(notification.exception)
 
@@ -365,10 +371,6 @@ STATICFILES_DIRS = [
     ('styles', os.path.join(BASE_DIR, 'app', 'static', 'styles')),
 ]
 
-# All new scheduled tasks are performed using the CI.
-# Check the CI configuration to learn how to add new tasks.
-CRONJOBS = []
-
 
 AUTHENTICATION_BACKENDS = (
     'backend.auth.azuread_tenant.AzureADTenantBackend',
@@ -377,7 +379,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-CACHE_OPTIONS = {}
+CACHE_OPTIONS: Dict[str, Union[str, int, Dict[str, bool]]] = {}
 
 if FI_ENVIRONMENT == 'development':
     CACHE_OPTIONS = {
