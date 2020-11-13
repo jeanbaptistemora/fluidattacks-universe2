@@ -48,6 +48,27 @@
       "PutRequest" : {
         "Item" : {
           "pk" : {
+            "S" : "GROUP#unittesting"
+          },
+          "sk": {
+            "S" : "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          },
+          "kind": {
+            "S" : "Git"
+          },
+          "branch": {
+            "S" : "master"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest" : {
+        "Item" : {
+          "pk" : {
             "S" : "GROUP#oneshottest"
           },
           "sk": {

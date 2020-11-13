@@ -186,7 +186,7 @@ async def test_me():
     data = {'query': query}
     result = await get_result(data, session_jwt=session_jwt)
     assert 'errors' not in result
-    assert len(result['data']['me']['permissions']) == 48
+    assert len(result['data']['me']['permissions']) == 49
     assert result['data']['me']['role'] == 'customeradmin'
 
     query = f'''{{

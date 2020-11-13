@@ -33,3 +33,17 @@ input RepositoryInput {
   "Repository URL"
   urlRepo: String!
 }
+
+input DirectoryFilteringConfigInput {
+  "Paths to be filtered"
+  paths: [String!]!
+  "Filtering policy for the specified paths"
+  policy: DirectoryFilteringPolicy!
+}
+
+input IntegrationEnvironmentInput {
+  "Kind of environment to test. E.g. production, QA, etc."
+  kind: String!
+  "URL to access the environment"
+  url: String!
+}

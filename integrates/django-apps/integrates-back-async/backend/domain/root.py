@@ -1,5 +1,5 @@
 # Standard
-from typing import List
+from typing import Any, Dict, List
 
 # Third party
 # None
@@ -36,3 +36,17 @@ async def get_roots_by_group(group_name: str) -> List[Root]:
         )
         for root in roots
     ]
+
+
+async def add_git_root(user_email: str, **kwargs: Any) -> None:
+    group_name: str = kwargs['group_name'].lower()
+    root_attributes: Dict[str, Any] = {
+        'branch': kwargs['branch'],
+        'directory_filtering': kwargs.get('directory_filtering'),
+        'environment': kwargs.get('environment'),
+        'created_by': user_email,
+        'kind': 'Git',
+        'url': kwargs['url']
+    }
+
+    await root_dal.add_root(group_name, root_attributes)

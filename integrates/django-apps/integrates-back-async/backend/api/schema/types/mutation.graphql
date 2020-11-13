@@ -352,4 +352,12 @@ type Mutation {
     executeSkims(
         groupName: String!
     ): ExecuteSkimsPayload!
+
+    addGitRoot(
+        branch: String!
+        directoryFiltering: DirectoryFilteringConfigInput
+        environment: IntegrationEnvironmentInput
+        groupName: String!
+        url: String!
+    ): SimplePayload!
 }

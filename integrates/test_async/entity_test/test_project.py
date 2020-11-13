@@ -496,5 +496,51 @@ async def test_get_roots() -> None:
             },
             'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
             'url': 'https://gitlab.com/fluidattacks/product/-/tree/master'
+        },
+        {
+            '__typename': 'GitRoot',
+            'branch': 'master',
+            'directoryFiltering': None,
+            'environment': None,
+            'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
+            'url': 'https://gitlab.com/fluidattacks/integrates/-/tree/master'
         }
     ]
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_add_git_root_black() -> None:
+    query = '''
+      mutation {
+        addGitRoot(
+          branch: "master"
+          groupName: "oneshottest"
+          url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_add_git_root_white() -> None:
+    query = '''
+      mutation {
+        addGitRoot(
+          branch: "master"
+          groupName: "unittesting"
+          url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['addGitRoot']['success']
