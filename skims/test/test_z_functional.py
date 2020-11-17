@@ -340,8 +340,6 @@ async def test_correct_assert(
         )),
         ('F037', 'SUBMITTED', (
             ('test/data/lib_path/f037/Test.java', '16'),
-            ('test/data/lib_path/f037/Test.java', '22'),
-            ('test/data/lib_path/f037/Test.java', '29'),
             ('test/data/lib_path/f037/Test.java', '35'),
             ('test/data/lib_path/f037/javascript.js', '20'),
             ('test/data/lib_path/f037/javascript.js', '28'),

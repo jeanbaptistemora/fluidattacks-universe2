@@ -16,8 +16,6 @@ cwe,title,what,where
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,16
-200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,22
-200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,29
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/Test.java,35
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,20
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,28

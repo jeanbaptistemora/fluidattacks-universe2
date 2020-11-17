@@ -93,40 +93,6 @@ def _is_java_method_call(node: Any, *members: str) -> bool:
     ))) == len(members)
 
 
-def _is_java_logs(model: Any, logger_identifier: str) -> bool:
-    log_methods = (
-        'info',
-        'error',
-        'warn',
-        'trace',
-    )
-    return any(
-        tuple(
-            _is_java_method_call(model, logger_identifier, x)
-            for x in log_methods))
-
-
-def _yield_java_loggers(model: Any) -> Iterator[Any]:
-    logger_patterns = (
-        ('LogManager', 'getLogger'),
-        ('LoggerFactory', 'getLogger'),
-        ('Logger', 'getLogger'),
-    )
-    for invocation in yield_nodes(
-            value=model,
-            key_predicates=('FieldDeclaration'.__eq__, ),
-            pre_extraction=(),
-            post_extraction=(),
-    ):
-        if any((_is_java_method_call(invocation, *pattern)
-                for pattern in logger_patterns)):
-            yield tuple(
-                yield_nodes(
-                    value=model,
-                    key_predicates=('VariableDeclaratorId'.__eq__, ),
-                ))[0]
-
-
 def _javascript_use_console_log(
     content: str,
     model: Dict[str, Any],
@@ -185,7 +151,6 @@ def _java_logging_exceptions(
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     def iterator() -> Iterator[Tuple[int, int]]:
-        loggers = tuple(_yield_java_loggers(model))
 
         for node in yield_nodes(
                 value=model,
@@ -232,25 +197,6 @@ def _java_logging_exceptions(
                     # }
                     for var in _yield_java_var_usage(
                             call[4]['ArgumentList'],
-                            exc_identifier['text'],
-                    ):
-                        yield (var['l'], var['c'])
-                elif loggers and any(
-                        _is_java_logs(call, x['text']) for x in loggers):
-                    # validate that the most common loggers are not used with
-                    # the exception
-                    # catch (IndexException e) {
-                    #   logger.info(e);
-                    # }
-                    arguments = tuple(
-                        yield_nodes(
-                            value=call,
-                            key_predicates=('ArgumentList'.__eq__, ),
-                            pre_extraction=(),
-                            post_extraction=(),
-                        ))[0]
-                    for var in _yield_java_var_usage(
-                            arguments,
                             exc_identifier['text'],
                     ):
                         yield (var['l'], var['c'])
