@@ -1426,7 +1426,7 @@ castExpression
 
 // LEXER
 
-identifier : Identifier | 'to' | 'module' | 'open' | 'with' | 'provides' | 'uses' | 'opens' | 'requires' | 'exports';
+identifier : IdentifierRule | 'to' | 'module' | 'open' | 'with' | 'provides' | 'uses' | 'opens' | 'requires' | 'exports';
 
 // §3.9 Keywords
 
@@ -1822,7 +1822,7 @@ URSHIFT_ASSIGN : '>>>=';
 
 // §3.8 Identifiers (must appear after all keywords in the grammar)
 
-Identifier
+IdentifierRule
 	:	JavaLetter JavaLetterOrDigit*
 	;
 

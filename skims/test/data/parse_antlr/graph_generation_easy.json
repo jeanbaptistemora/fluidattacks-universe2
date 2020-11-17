@@ -811,7 +811,7 @@
       "c": 7,
       "l": 1,
       "text": "java",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "100": {
       "c": 27,
@@ -878,7 +878,7 @@
       "c": 27,
       "l": 6,
       "text": "File",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "112": {
       "c": 31,
@@ -895,7 +895,7 @@
       "c": 32,
       "l": 6,
       "text": "createTempFile",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "115": {
       "c": 46,
@@ -981,7 +981,7 @@
       "c": 12,
       "l": 1,
       "text": "io",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "130": {
       "c": 47,
@@ -1152,7 +1152,7 @@
       "c": 15,
       "l": 1,
       "text": "File",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "160": {
       "c": 59,
@@ -1224,7 +1224,7 @@
       "c": 17,
       "l": 7,
       "text": "Exception",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "172": {
       "c": 27,
@@ -1240,7 +1240,7 @@
       "c": 27,
       "l": 7,
       "text": "e",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "175": {
       "c": 28,
@@ -1329,7 +1329,7 @@
       "c": 13,
       "l": 3,
       "text": "Test",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "26": {
       "c": 18,
@@ -1423,7 +1423,7 @@
       "c": 23,
       "l": 4,
       "text": "main",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "42": {
       "c": 27,
@@ -1486,7 +1486,7 @@
       "c": 28,
       "l": 4,
       "text": "String",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "53": {
       "c": 34,
@@ -1519,7 +1519,7 @@
       "c": 37,
       "l": 4,
       "text": "args",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "59": {
       "c": 41,
@@ -1654,7 +1654,7 @@
       "c": 8,
       "l": 6,
       "text": "System",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "82": {
       "c": 14,
@@ -1671,7 +1671,7 @@
       "c": 15,
       "l": 6,
       "text": "out",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "85": {
       "c": 18,
@@ -1688,7 +1688,7 @@
       "c": 19,
       "l": 6,
       "text": "println",
-      "type": "Identifier"
+      "type": "IdentifierRule"
     },
     "88": {
       "c": 26,
