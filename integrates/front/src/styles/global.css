@@ -105,6 +105,12 @@ label {
   border-color: #AA0000;
 }
 
+:global .btn-login {
+  border-width: 1px;
+  font-size: 18px;
+  height: 40px;
+}
+
 :global .btn-loginInfo {
   height: 42px;
 }
@@ -117,6 +123,11 @@ label {
 :global .dropdown-menu > li > a:hover {
   background-color: #ff3435;
   color: #fff;
+}
+
+:global .login-grid {
+  height: 400px;
+  width: 405px;
 }
 
 .lightFg {

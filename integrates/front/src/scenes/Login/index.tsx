@@ -3,19 +3,23 @@
   We need className to override default styles from react-boostrap.
 */
 import FontAwesome from "react-fontawesome";
-import { LoginButton } from "scenes/Login/components/LoginButton";
 import React from "react";
 import _ from "lodash";
 import logo from "resources/integrates.svg";
 import mixpanel from "mixpanel-browser";
 import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
-import { Col, Grid, Row } from "react-bootstrap";
 import {
   Col100,
   InfoButtonBitbucket,
   InfoButtonGoogle,
   InfoButtonMicrosoft,
+  LoginButtonBitbucket,
+  LoginButtonGoogle,
+  LoginButtonMicrosoft,
+  LoginContainer,
+  LoginGrid,
+  LoginRow,
   Notification2FaCol,
   Notification2FaGrid,
   Notification2FaRow,
@@ -99,40 +103,30 @@ export const Login: React.FC = (): JSX.Element => {
   }
 
   return (
-    <div className={style.container}>
-      <Grid>
-        <Row className={style.content}>
-          <Col md={4} mdOffset={4}>
-            <Row>
-              <img alt={"logo"} src={logo} />
-            </Row>
-            <Row className={"text-center"}>
-              <p>{t("login.auth")}</p>
-              <p>{t("login.newuser")}</p>
-            </Row>
-            <Row>
-              <LoginButton
-                className={`${style.socialBtn} ${style.googleBtn}`}
-                fontAwesomeName={"google"}
-                onClick={handleGoogleLogin}
-                text={t("login.google")}
-              />
-              <LoginButton
-                className={`${style.socialBtn} ${style.microsoftBtn}`}
-                fontAwesomeName={"windows"}
-                onClick={handleMicrosoftLogin}
-                text={t("login.microsoft")}
-              />
-              <LoginButton
-                className={`${style.socialBtn} ${style.bitbucketBtn}`}
-                fontAwesomeName={"bitbucket"}
-                onClick={handleBitbucketLogin}
-                text={t("login.bitbucket")}
-              />
-            </Row>
-          </Col>
-        </Row>
-      </Grid>
+    <LoginContainer>
+      <LoginGrid>
+        <LoginRow>
+          <img alt={"logo"} src={logo} />
+        </LoginRow>
+        <LoginRow>
+          <p>{t("login.auth")}</p>
+          <p>{t("login.newuser")}</p>
+        </LoginRow>
+        <LoginRow>
+          <LoginButtonGoogle onClick={handleGoogleLogin}>
+            <FontAwesome name={"google"} size={"2x"} />
+            {t("login.google")}
+          </LoginButtonGoogle>
+          <LoginButtonMicrosoft onClick={handleMicrosoftLogin}>
+            <FontAwesome name={"windows"} size={"2x"} />
+            {t("login.microsoft")}
+          </LoginButtonMicrosoft>
+          <LoginButtonBitbucket onClick={handleBitbucketLogin}>
+            <FontAwesome name={"bitbucket"} size={"2x"} />
+            {t("login.bitbucket")}
+          </LoginButtonBitbucket>
+        </LoginRow>
+      </LoginGrid>
       <div className={style.deploymentDate}>
         {t("sidebar.deployment_date")}&nbsp;
         {deploymentDate}
@@ -147,6 +141,6 @@ export const Login: React.FC = (): JSX.Element => {
           {commitShaShort}
         </a>
       </div>
-    </div>
+    </LoginContainer>
   );
 };

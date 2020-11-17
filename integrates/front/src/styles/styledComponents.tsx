@@ -230,6 +230,57 @@ const Label: StyledComponent<
   className: "bg-lbl-gray br2 f4 fw7 ml3 nowrap pv1 ph2 tc white",
 })``;
 
+const LoginButtonBitbucket: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className:
+    "dim w-100 flex ba br0 pa3 mt2 outline-0 justify-between items-center btn-login btn-bitbucketLoginInfo",
+})``;
+
+const LoginButtonGoogle: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className:
+    "dim w-100 flex ba br0 pa3 mt5 outline-0 justify-between items-center btn-login btn-googleLoginInfo",
+})``;
+
+const LoginButtonMicrosoft: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className:
+    "dim w-100 flex ba br0 pa3 mt2 outline-0 justify-between items-center btn-login btn-microsoftLoginInfo",
+})``;
+
+const LoginContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "items-center flex flex-row white h-100",
+})``;
+
+const LoginGrid: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "login-grid center pa2-ns",
+})``;
+
+const LoginRow: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "cf pa1-ns content-center tc",
+})``;
+
 const Meter: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
     className: "bg-light-gray br3 h2 meter-shadow relative",
@@ -483,6 +534,12 @@ export {
   InfoButtonGoogle,
   InfoButtonMicrosoft,
   Label,
+  LoginButtonBitbucket,
+  LoginButtonGoogle,
+  LoginButtonMicrosoft,
+  LoginContainer,
+  LoginGrid,
+  LoginRow,
   Meter,
   ModalBody,
   ModalFooter,
