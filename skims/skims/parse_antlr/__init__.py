@@ -294,10 +294,27 @@ def _add_labels(graph: nx.OrderedDiGraph) -> None:
         graph[n_id_u][n_id_v]['label'] = _create_label(graph[n_id_u][n_id_v])
 
 
+def _colorize(graph: nx.OrderedDiGraph) -> None:
+    # https://graphviz.org/doc/info/attrs.html
+    # https://graphviz.org/doc/info/colors.html
+    # color: border of the node, edge
+    # fillcolor: fill color of the node
+    # fontcolor: color of the text
+
+    # Walk the nodes and compute a label from the node attributes
+    for n_id in graph.nodes:
+        graph.nodes[n_id]['color'] = 'black'
+
+    # Walk the edges and compute a label from the edge attributes
+    for n_id_u, n_id_v in graph.edges:
+        graph[n_id_u][n_id_v]['color'] = 'blue'
+
+
 def model_to_graph(model: Any) -> nx.OrderedDiGraph:
     graph = _build_graph(model)
 
     _propagate_positions(graph)
     _add_labels(graph)
+    _colorize(graph)
 
     return graph

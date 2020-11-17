@@ -41,15 +41,18 @@ def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
     data: Dict[str, Any] = {}
     data['nodes'] = {}
     data['edges'] = {}
+    ignored_attrs = ['color', 'label']
 
     for n_id, n_attrs in graph.nodes.items():
         data['nodes'][n_id] = n_attrs.copy()
-        data['nodes'][n_id].pop('label', None)
+        for attr in ignored_attrs:
+            data['nodes'][n_id].pop(attr, None)
 
     for n_id_from, n_id_to in graph.edges:
         data['edges'].setdefault(n_id_from, {})
         data['edges'][n_id_from][n_id_to] = graph[n_id_from][n_id_to].copy()
-        data['edges'][n_id_from][n_id_to].pop('label', None)
+        for attr in ignored_attrs:
+            data['edges'][n_id_from][n_id_to].pop(attr, None)
 
     return data
 
