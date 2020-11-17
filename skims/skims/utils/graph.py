@@ -37,6 +37,16 @@ async def graphviz_to_svg(path: str) -> bool:
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
 
 
+def has_label(data: Dict[str, Any], *labels: str) -> bool:
+    if labels:
+        match_labels = [
+            label for key, value in data.items() for label in labels
+            if key != 'label' and key.startswith('label') and value == label
+        ]
+        return len(labels) == len(match_labels)
+    return False
+
+
 def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
     data: Dict[str, Any] = {}
     data['nodes'] = {}

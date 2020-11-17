@@ -2,802 +2,982 @@
   "edges": {
     "1": {
       "2": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "100": {
       "101": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "101": {
       "102": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "102": {
       "103": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "103": {
       "104": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "104": {
       "105": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "105": {
       "106": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "106": {
       "107": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "107": {
       "108": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "108": {
       "109": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "112": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "113": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "115": {
-        "index": 3
+        "index": 3,
+        "label_ast": "AST"
       },
       "116": {
-        "index": 4
+        "index": 4,
+        "label_ast": "AST"
       },
       "159": {
-        "index": 5
+        "index": 5,
+        "label_ast": "AST"
       }
     },
     "109": {
       "110": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "110": {
       "111": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "113": {
       "114": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "116": {
       "117": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "158": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "117": {
       "118": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "138": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "118": {
       "119": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "119": {
       "120": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "12": {
       "13": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "120": {
       "121": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "121": {
       "122": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "122": {
       "123": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "123": {
       "124": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "124": {
       "125": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "125": {
       "126": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "126": {
       "127": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "127": {
       "128": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "128": {
       "129": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "129": {
       "130": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "130": {
       "131": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "131": {
       "132": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "132": {
       "133": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "133": {
       "134": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "134": {
       "135": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "135": {
       "136": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "136": {
       "137": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "138": {
       "139": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "139": {
       "140": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "140": {
       "141": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "141": {
       "142": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "142": {
       "143": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "143": {
       "144": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "144": {
       "145": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "145": {
       "146": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "146": {
       "147": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "147": {
       "148": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "148": {
       "149": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "149": {
       "150": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "15": {
       "16": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "150": {
       "151": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "151": {
       "152": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "152": {
       "153": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "153": {
       "154": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "154": {
       "155": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "155": {
       "156": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "156": {
       "157": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "163": {
       "164": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "164": {
       "165": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "166": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "167": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "175": {
-        "index": 3
+        "index": 3,
+        "label_ast": "AST"
       },
       "176": {
-        "index": 4
+        "index": 4,
+        "label_ast": "AST"
       }
     },
     "167": {
       "168": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "172": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "168": {
       "169": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "169": {
       "170": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "170": {
       "171": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "172": {
       "173": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "173": {
       "174": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "176": {
       "177": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "178": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "18": {
       "19": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "19": {
       "20": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "2": {
       "18": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "181": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "3": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "20": {
       "21": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "23": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "24": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "26": {
-        "index": 3
+        "index": 3,
+        "label_ast": "AST"
       }
     },
     "21": {
       "22": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "24": {
       "25": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "26": {
       "180": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "27": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "28": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "28": {
       "29": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "29": {
       "30": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "3": {
       "4": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "30": {
       "31": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "36": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "60": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       }
     },
     "31": {
       "32": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "34": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "32": {
       "33": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "34": {
       "35": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "36": {
       "37": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "39": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "37": {
       "38": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "39": {
       "40": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "42": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "43": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "59": {
-        "index": 3
+        "index": 3,
+        "label_ast": "AST"
       }
     },
     "4": {
       "17": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "5": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "6": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "40": {
       "41": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "43": {
       "44": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "44": {
       "45": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "45": {
       "46": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "56": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "46": {
       "47": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "47": {
       "48": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "48": {
       "49": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "53": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "49": {
       "50": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "50": {
       "51": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "51": {
       "52": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "53": {
       "54": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "55": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "56": {
       "57": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "57": {
       "58": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "6": {
       "14": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "15": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "7": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "60": {
       "61": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "61": {
       "179": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "62": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "63": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "63": {
       "64": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "64": {
       "65": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "65": {
       "66": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "66": {
       "67": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "67": {
       "163": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "68": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "69": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "69": {
       "162": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "70": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "71": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "7": {
       "11": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "12": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "8": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "71": {
       "72": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "72": {
       "73": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "73": {
       "74": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "74": {
       "75": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "75": {
       "161": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "76": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "76": {
       "77": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "77": {
       "160": {
-        "index": 5
+        "index": 5,
+        "label_ast": "AST"
       },
       "78": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "85": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "86": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       },
       "88": {
-        "index": 3
+        "index": 3,
+        "label_ast": "AST"
       },
       "89": {
-        "index": 4
+        "index": 4,
+        "label_ast": "AST"
       }
     },
     "78": {
       "79": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       },
       "82": {
-        "index": 1
+        "index": 1,
+        "label_ast": "AST"
       },
       "83": {
-        "index": 2
+        "index": 2,
+        "label_ast": "AST"
       }
     },
     "79": {
       "80": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "8": {
       "9": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "80": {
       "81": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "83": {
       "84": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "86": {
       "87": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "89": {
       "90": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "9": {
       "10": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "90": {
       "91": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "91": {
       "92": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "92": {
       "93": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "93": {
       "94": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "94": {
       "95": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "95": {
       "96": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "96": {
       "97": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "97": {
       "98": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "98": {
       "99": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     },
     "99": {
       "100": {
-        "index": 0
+        "index": 0,
+        "label_ast": "AST"
       }
     }
   },
@@ -805,112 +985,133 @@
     "1": {
       "c": 0,
       "l": 1,
+      "label_type": "CompilationUnit",
       "type": "CompilationUnit"
     },
     "10": {
       "c": 7,
       "l": 1,
+      "label_type": "Token",
       "text": "java",
       "type": "IdentifierRule"
     },
     "100": {
       "c": 27,
       "l": 6,
+      "label_type": "ShiftExpression",
       "type": "ShiftExpression"
     },
     "101": {
       "c": 27,
       "l": 6,
+      "label_type": "AdditiveExpression",
       "type": "AdditiveExpression"
     },
     "102": {
       "c": 27,
       "l": 6,
+      "label_type": "MultiplicativeExpression",
       "type": "MultiplicativeExpression"
     },
     "103": {
       "c": 27,
       "l": 6,
+      "label_type": "UnaryExpression",
       "type": "UnaryExpression"
     },
     "104": {
       "c": 27,
       "l": 6,
+      "label_type": "UnaryExpressionNotPlusMinus",
       "type": "UnaryExpressionNotPlusMinus"
     },
     "105": {
       "c": 27,
       "l": 6,
+      "label_type": "PostfixExpression",
       "type": "PostfixExpression"
     },
     "106": {
       "c": 27,
       "l": 6,
+      "label_type": "Primary",
       "type": "Primary"
     },
     "107": {
       "c": 27,
       "l": 6,
+      "label_type": "PrimaryNoNewArray_lfno_primary",
       "type": "PrimaryNoNewArray_lfno_primary"
     },
     "108": {
       "c": 27,
       "l": 6,
+      "label_type": "MethodInvocation_lfno_primary",
       "type": "MethodInvocation_lfno_primary"
     },
     "109": {
       "c": 27,
       "l": 6,
+      "label_type": "TypeName",
       "type": "TypeName"
     },
     "11": {
       "c": 11,
       "l": 1,
+      "label_type": "Token[0]",
       "text": ".",
       "type": "DOT"
     },
     "110": {
       "c": 27,
       "l": 6,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "111": {
       "c": 27,
       "l": 6,
+      "label_type": "Token",
       "text": "File",
       "type": "IdentifierRule"
     },
     "112": {
       "c": 31,
       "l": 6,
+      "label_type": "Token[0]",
       "text": ".",
       "type": "DOT"
     },
     "113": {
       "c": 32,
       "l": 6,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "114": {
       "c": 32,
       "l": 6,
+      "label_type": "Token",
       "text": "createTempFile",
       "type": "IdentifierRule"
     },
     "115": {
       "c": 46,
       "l": 6,
+      "label_type": "Token[1]",
       "text": "(",
       "type": "LPAREN"
     },
     "116": {
       "c": 47,
       "l": 6,
+      "label_type": "ArgumentList",
       "type": "ArgumentList"
     },
     "117": {
       "c": 47,
-      "l": 6
+      "l": 6,
+      "label_type": "Expression"
     },
     "118": {
       "c": 47,
@@ -920,107 +1121,128 @@
     "119": {
       "c": 47,
       "l": 6,
+      "label_type": "AssignmentExpression",
       "type": "AssignmentExpression"
     },
     "12": {
       "c": 12,
       "l": 1,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "120": {
       "c": 47,
       "l": 6,
+      "label_type": "ConditionalExpression",
       "type": "ConditionalExpression"
     },
     "121": {
       "c": 47,
       "l": 6,
+      "label_type": "ConditionalOrExpression",
       "type": "ConditionalOrExpression"
     },
     "122": {
       "c": 47,
       "l": 6,
+      "label_type": "ConditionalAndExpression",
       "type": "ConditionalAndExpression"
     },
     "123": {
       "c": 47,
       "l": 6,
+      "label_type": "InclusiveOrExpression",
       "type": "InclusiveOrExpression"
     },
     "124": {
       "c": 47,
       "l": 6,
+      "label_type": "ExclusiveOrExpression",
       "type": "ExclusiveOrExpression"
     },
     "125": {
       "c": 47,
       "l": 6,
+      "label_type": "AndExpression",
       "type": "AndExpression"
     },
     "126": {
       "c": 47,
       "l": 6,
+      "label_type": "EqualityExpression",
       "type": "EqualityExpression"
     },
     "127": {
       "c": 47,
       "l": 6,
+      "label_type": "RelationalExpression",
       "type": "RelationalExpression"
     },
     "128": {
       "c": 47,
       "l": 6,
+      "label_type": "ShiftExpression",
       "type": "ShiftExpression"
     },
     "129": {
       "c": 47,
       "l": 6,
+      "label_type": "AdditiveExpression",
       "type": "AdditiveExpression"
     },
     "13": {
       "c": 12,
       "l": 1,
+      "label_type": "Token",
       "text": "io",
       "type": "IdentifierRule"
     },
     "130": {
       "c": 47,
       "l": 6,
+      "label_type": "MultiplicativeExpression",
       "type": "MultiplicativeExpression"
     },
     "131": {
       "c": 47,
       "l": 6,
+      "label_type": "UnaryExpression",
       "type": "UnaryExpression"
     },
     "132": {
       "c": 47,
       "l": 6,
+      "label_type": "UnaryExpressionNotPlusMinus",
       "type": "UnaryExpressionNotPlusMinus"
     },
     "133": {
       "c": 47,
       "l": 6,
+      "label_type": "PostfixExpression",
       "type": "PostfixExpression"
     },
     "134": {
       "c": 47,
       "l": 6,
+      "label_type": "Primary",
       "type": "Primary"
     },
     "135": {
       "c": 47,
       "l": 6,
+      "label_type": "PrimaryNoNewArray_lfno_primary",
       "type": "PrimaryNoNewArray_lfno_primary"
     },
     "136": {
       "c": 47,
       "l": 6,
+      "label_type": "Literal",
       "type": "Literal"
     },
     "137": {
       "c": 47,
       "l": 6,
+      "label_type": "Token",
       "text": "\"xxx\"",
       "type": "StringLiteral"
     },
@@ -1032,339 +1254,402 @@
     "139": {
       "c": 54,
       "l": 6,
+      "label_type": "AssignmentExpression",
       "type": "AssignmentExpression"
     },
     "14": {
       "c": 14,
       "l": 1,
+      "label_type": "Token[0]",
       "text": ".",
       "type": "DOT"
     },
     "140": {
       "c": 54,
       "l": 6,
+      "label_type": "ConditionalExpression",
       "type": "ConditionalExpression"
     },
     "141": {
       "c": 54,
       "l": 6,
+      "label_type": "ConditionalOrExpression",
       "type": "ConditionalOrExpression"
     },
     "142": {
       "c": 54,
       "l": 6,
+      "label_type": "ConditionalAndExpression",
       "type": "ConditionalAndExpression"
     },
     "143": {
       "c": 54,
       "l": 6,
+      "label_type": "InclusiveOrExpression",
       "type": "InclusiveOrExpression"
     },
     "144": {
       "c": 54,
       "l": 6,
+      "label_type": "ExclusiveOrExpression",
       "type": "ExclusiveOrExpression"
     },
     "145": {
       "c": 54,
       "l": 6,
+      "label_type": "AndExpression",
       "type": "AndExpression"
     },
     "146": {
       "c": 54,
       "l": 6,
+      "label_type": "EqualityExpression",
       "type": "EqualityExpression"
     },
     "147": {
       "c": 54,
       "l": 6,
+      "label_type": "RelationalExpression",
       "type": "RelationalExpression"
     },
     "148": {
       "c": 54,
       "l": 6,
+      "label_type": "ShiftExpression",
       "type": "ShiftExpression"
     },
     "149": {
       "c": 54,
       "l": 6,
+      "label_type": "AdditiveExpression",
       "type": "AdditiveExpression"
     },
     "15": {
       "c": 15,
       "l": 1,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "150": {
       "c": 54,
       "l": 6,
+      "label_type": "MultiplicativeExpression",
       "type": "MultiplicativeExpression"
     },
     "151": {
       "c": 54,
       "l": 6,
+      "label_type": "UnaryExpression",
       "type": "UnaryExpression"
     },
     "152": {
       "c": 54,
       "l": 6,
+      "label_type": "UnaryExpressionNotPlusMinus",
       "type": "UnaryExpressionNotPlusMinus"
     },
     "153": {
       "c": 54,
       "l": 6,
+      "label_type": "PostfixExpression",
       "type": "PostfixExpression"
     },
     "154": {
       "c": 54,
       "l": 6,
+      "label_type": "Primary",
       "type": "Primary"
     },
     "155": {
       "c": 54,
       "l": 6,
+      "label_type": "PrimaryNoNewArray_lfno_primary",
       "type": "PrimaryNoNewArray_lfno_primary"
     },
     "156": {
       "c": 54,
       "l": 6,
+      "label_type": "Literal",
       "type": "Literal"
     },
     "157": {
       "c": 54,
       "l": 6,
+      "label_type": "Token",
       "text": "null",
       "type": "NullLiteral"
     },
     "158": {
       "c": 52,
       "l": 6,
+      "label_type": "Token[0]",
       "text": ",",
       "type": "COMMA"
     },
     "159": {
       "c": 58,
       "l": 6,
+      "label_type": "Token[2]",
       "text": ")",
       "type": "RPAREN"
     },
     "16": {
       "c": 15,
       "l": 1,
+      "label_type": "Token",
       "text": "File",
       "type": "IdentifierRule"
     },
     "160": {
       "c": 59,
       "l": 6,
+      "label_type": "Token[2]",
       "text": ")",
       "type": "RPAREN"
     },
     "161": {
       "c": 60,
       "l": 6,
+      "label_type": "Token[0]",
       "text": ";",
       "type": "SEMI"
     },
     "162": {
       "c": 8,
       "l": 7,
+      "label_type": "Token[1]",
       "text": "}",
       "type": "RBRACE"
     },
     "163": {
       "c": 10,
       "l": 7,
+      "label_type": "Catches",
       "type": "Catches"
     },
     "164": {
       "c": 10,
       "l": 7,
+      "label_type": "CatchClause",
       "type": "CatchClause"
     },
     "165": {
       "c": 10,
       "l": 7,
+      "label_type": "Token[0]",
       "text": "catch",
       "type": "CATCH"
     },
     "166": {
       "c": 16,
       "l": 7,
+      "label_type": "Token[1]",
       "text": "(",
       "type": "LPAREN"
     },
     "167": {
       "c": 17,
       "l": 7,
+      "label_type": "CatchFormalParameter",
       "type": "CatchFormalParameter"
     },
     "168": {
       "c": 17,
       "l": 7,
+      "label_type": "CatchType",
       "type": "CatchType"
     },
     "169": {
       "c": 17,
       "l": 7,
+      "label_type": "UnannClassType",
       "type": "UnannClassType"
     },
     "17": {
       "c": 19,
       "l": 1,
+      "label_type": "Token[1]",
       "text": ";",
       "type": "SEMI"
     },
     "170": {
       "c": 17,
       "l": 7,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "171": {
       "c": 17,
       "l": 7,
+      "label_type": "Token",
       "text": "Exception",
       "type": "IdentifierRule"
     },
     "172": {
       "c": 27,
       "l": 7,
+      "label_type": "VariableDeclaratorId",
       "type": "VariableDeclaratorId"
     },
     "173": {
       "c": 27,
       "l": 7,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "174": {
       "c": 27,
       "l": 7,
+      "label_type": "Token",
       "text": "e",
       "type": "IdentifierRule"
     },
     "175": {
       "c": 28,
       "l": 7,
+      "label_type": "Token[2]",
       "text": ")",
       "type": "RPAREN"
     },
     "176": {
       "c": 30,
       "l": 7,
+      "label_type": "Block",
       "type": "Block"
     },
     "177": {
       "c": 30,
       "l": 7,
+      "label_type": "Token[0]",
       "text": "{",
       "type": "LBRACE"
     },
     "178": {
       "c": 31,
       "l": 7,
+      "label_type": "Token[1]",
       "text": "}",
       "type": "RBRACE"
     },
     "179": {
       "c": 4,
       "l": 8,
+      "label_type": "Token[1]",
       "text": "}",
       "type": "RBRACE"
     },
     "18": {
       "c": 0,
       "l": 3,
+      "label_type": "TypeDeclaration",
       "type": "TypeDeclaration"
     },
     "180": {
       "c": 0,
       "l": 9,
+      "label_type": "Token[1]",
       "text": "}",
       "type": "RBRACE"
     },
     "181": {
       "c": 0,
       "l": 17,
+      "label_type": "Token[0]",
       "text": "<EOF>",
       "type": "EOF"
     },
     "19": {
       "c": 0,
       "l": 3,
+      "label_type": "ClassDeclaration",
       "type": "ClassDeclaration"
     },
     "2": {
       "c": 0,
       "l": 1,
+      "label_type": "OrdinaryCompilation",
       "type": "OrdinaryCompilation"
     },
     "20": {
       "c": 0,
       "l": 3,
+      "label_type": "NormalClassDeclaration",
       "type": "NormalClassDeclaration"
     },
     "21": {
       "c": 0,
       "l": 3,
+      "label_type": "ClassModifier",
       "type": "ClassModifier"
     },
     "22": {
       "c": 0,
       "l": 3,
+      "label_type": "Token",
       "text": "public",
       "type": "PUBLIC"
     },
     "23": {
       "c": 7,
       "l": 3,
+      "label_type": "Token[0]",
       "text": "class",
       "type": "CLASS"
     },
     "24": {
       "c": 13,
       "l": 3,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "25": {
       "c": 13,
       "l": 3,
+      "label_type": "Token",
       "text": "Test",
       "type": "IdentifierRule"
     },
     "26": {
       "c": 18,
       "l": 3,
+      "label_type": "ClassBody",
       "type": "ClassBody"
     },
     "27": {
       "c": 18,
       "l": 3,
+      "label_type": "Token[0]",
       "text": "{",
       "type": "LBRACE"
     },
     "28": {
       "c": 4,
       "l": 4,
+      "label_type": "ClassBodyDeclaration",
       "type": "ClassBodyDeclaration"
     },
     "29": {
       "c": 4,
       "l": 4,
+      "label_type": "ClassMemberDeclaration",
       "type": "ClassMemberDeclaration"
     },
     "3": {
       "c": 0,
       "l": 1,
+      "label_type": "ImportDeclaration",
       "type": "ImportDeclaration"
     },
     "30": {
       "c": 4,
       "l": 4,
+      "label_type": "MethodDeclaration",
       "type": "MethodDeclaration"
     },
     "31": {
       "c": 4,
-      "l": 4
+      "l": 4,
+      "label_type": "MethodModifier"
     },
     "32": {
       "c": 4,
@@ -1374,6 +1659,7 @@
     "33": {
       "c": 4,
       "l": 4,
+      "label_type": "Token",
       "text": "public",
       "type": "PUBLIC"
     },
@@ -1385,375 +1671,446 @@
     "35": {
       "c": 11,
       "l": 4,
+      "label_type": "Token",
       "text": "static",
       "type": "STATIC"
     },
     "36": {
       "c": 18,
       "l": 4,
+      "label_type": "MethodHeader",
       "type": "MethodHeader"
     },
     "37": {
       "c": 18,
       "l": 4,
+      "label_type": "Result",
       "type": "Result"
     },
     "38": {
       "c": 18,
       "l": 4,
+      "label_type": "Token",
       "text": "void",
       "type": "VOID"
     },
     "39": {
       "c": 23,
       "l": 4,
+      "label_type": "MethodDeclarator",
       "type": "MethodDeclarator"
     },
     "4": {
       "c": 0,
       "l": 1,
+      "label_type": "SingleTypeImportDeclaration",
       "type": "SingleTypeImportDeclaration"
     },
     "40": {
       "c": 23,
       "l": 4,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "41": {
       "c": 23,
       "l": 4,
+      "label_type": "Token",
       "text": "main",
       "type": "IdentifierRule"
     },
     "42": {
       "c": 27,
       "l": 4,
+      "label_type": "Token[0]",
       "text": "(",
       "type": "LPAREN"
     },
     "43": {
       "c": 28,
       "l": 4,
+      "label_type": "FormalParameterList",
       "type": "FormalParameterList"
     },
     "44": {
       "c": 28,
       "l": 4,
+      "label_type": "LastFormalParameter",
       "type": "LastFormalParameter"
     },
     "45": {
       "c": 28,
       "l": 4,
+      "label_type": "FormalParameter",
       "type": "FormalParameter"
     },
     "46": {
       "c": 28,
       "l": 4,
+      "label_type": "UnannType",
       "type": "UnannType"
     },
     "47": {
       "c": 28,
       "l": 4,
+      "label_type": "UnannReferenceType",
       "type": "UnannReferenceType"
     },
     "48": {
       "c": 28,
       "l": 4,
+      "label_type": "UnannArrayType",
       "type": "UnannArrayType"
     },
     "49": {
       "c": 28,
       "l": 4,
+      "label_type": "UnannClassOrInterfaceType",
       "type": "UnannClassOrInterfaceType"
     },
     "5": {
       "c": 0,
       "l": 1,
+      "label_type": "Token[0]",
       "text": "import",
       "type": "IMPORT"
     },
     "50": {
       "c": 28,
       "l": 4,
+      "label_type": "UnannClassType_lfno_unannClassOrInterfaceType",
       "type": "UnannClassType_lfno_unannClassOrInterfaceType"
     },
     "51": {
       "c": 28,
       "l": 4,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "52": {
       "c": 28,
       "l": 4,
+      "label_type": "Token",
       "text": "String",
       "type": "IdentifierRule"
     },
     "53": {
       "c": 34,
       "l": 4,
+      "label_type": "Dims",
       "type": "Dims"
     },
     "54": {
       "c": 34,
       "l": 4,
+      "label_type": "Token[0]",
       "text": "[",
       "type": "LBRACK"
     },
     "55": {
       "c": 35,
       "l": 4,
+      "label_type": "Token[1]",
       "text": "]",
       "type": "RBRACK"
     },
     "56": {
       "c": 37,
       "l": 4,
+      "label_type": "VariableDeclaratorId",
       "type": "VariableDeclaratorId"
     },
     "57": {
       "c": 37,
       "l": 4,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "58": {
       "c": 37,
       "l": 4,
+      "label_type": "Token",
       "text": "args",
       "type": "IdentifierRule"
     },
     "59": {
       "c": 41,
       "l": 4,
+      "label_type": "Token[1]",
       "text": ")",
       "type": "RPAREN"
     },
     "6": {
       "c": 7,
       "l": 1,
+      "label_type": "TypeName",
       "type": "TypeName"
     },
     "60": {
       "c": 42,
       "l": 4,
+      "label_type": "MethodBody",
       "type": "MethodBody"
     },
     "61": {
       "c": 42,
       "l": 4,
+      "label_type": "Block",
       "type": "Block"
     },
     "62": {
       "c": 42,
       "l": 4,
+      "label_type": "Token[0]",
       "text": "{",
       "type": "LBRACE"
     },
     "63": {
       "c": 8,
       "l": 5,
+      "label_type": "BlockStatements",
       "type": "BlockStatements"
     },
     "64": {
       "c": 8,
       "l": 5,
+      "label_type": "BlockStatement",
       "type": "BlockStatement"
     },
     "65": {
       "c": 8,
       "l": 5,
+      "label_type": "Statement",
       "type": "Statement"
     },
     "66": {
       "c": 8,
       "l": 5,
+      "label_type": "StatementWithoutTrailingSubstatement",
       "type": "StatementWithoutTrailingSubstatement"
     },
     "67": {
       "c": 8,
       "l": 5,
+      "label_type": "TryStatement",
       "type": "TryStatement"
     },
     "68": {
       "c": 8,
       "l": 5,
+      "label_type": "Token[0]",
       "text": "try",
       "type": "TRY"
     },
     "69": {
       "c": 12,
       "l": 5,
+      "label_type": "Block",
       "type": "Block"
     },
     "7": {
       "c": 7,
       "l": 1,
+      "label_type": "PackageOrTypeName",
       "type": "PackageOrTypeName"
     },
     "70": {
       "c": 12,
       "l": 5,
+      "label_type": "Token[0]",
       "text": "{",
       "type": "LBRACE"
     },
     "71": {
       "c": 8,
       "l": 6,
+      "label_type": "BlockStatements",
       "type": "BlockStatements"
     },
     "72": {
       "c": 8,
       "l": 6,
+      "label_type": "BlockStatement",
       "type": "BlockStatement"
     },
     "73": {
       "c": 8,
       "l": 6,
+      "label_type": "Statement",
       "type": "Statement"
     },
     "74": {
       "c": 8,
       "l": 6,
+      "label_type": "StatementWithoutTrailingSubstatement",
       "type": "StatementWithoutTrailingSubstatement"
     },
     "75": {
       "c": 8,
       "l": 6,
+      "label_type": "ExpressionStatement",
       "type": "ExpressionStatement"
     },
     "76": {
       "c": 8,
       "l": 6,
+      "label_type": "StatementExpression",
       "type": "StatementExpression"
     },
     "77": {
       "c": 8,
       "l": 6,
+      "label_type": "MethodInvocation",
       "type": "MethodInvocation"
     },
     "78": {
       "c": 8,
       "l": 6,
+      "label_type": "TypeName",
       "type": "TypeName"
     },
     "79": {
       "c": 8,
       "l": 6,
+      "label_type": "PackageOrTypeName",
       "type": "PackageOrTypeName"
     },
     "8": {
       "c": 7,
       "l": 1,
+      "label_type": "PackageOrTypeName",
       "type": "PackageOrTypeName"
     },
     "80": {
       "c": 8,
       "l": 6,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "81": {
       "c": 8,
       "l": 6,
+      "label_type": "Token",
       "text": "System",
       "type": "IdentifierRule"
     },
     "82": {
       "c": 14,
       "l": 6,
+      "label_type": "Token[0]",
       "text": ".",
       "type": "DOT"
     },
     "83": {
       "c": 15,
       "l": 6,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "84": {
       "c": 15,
       "l": 6,
+      "label_type": "Token",
       "text": "out",
       "type": "IdentifierRule"
     },
     "85": {
       "c": 18,
       "l": 6,
+      "label_type": "Token[0]",
       "text": ".",
       "type": "DOT"
     },
     "86": {
       "c": 19,
       "l": 6,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "87": {
       "c": 19,
       "l": 6,
+      "label_type": "Token",
       "text": "println",
       "type": "IdentifierRule"
     },
     "88": {
       "c": 26,
       "l": 6,
+      "label_type": "Token[1]",
       "text": "(",
       "type": "LPAREN"
     },
     "89": {
       "c": 27,
       "l": 6,
+      "label_type": "ArgumentList",
       "type": "ArgumentList"
     },
     "9": {
       "c": 7,
       "l": 1,
+      "label_type": "Identifier",
       "type": "Identifier"
     },
     "90": {
       "c": 27,
       "l": 6,
+      "label_type": "Expression",
       "type": "Expression"
     },
     "91": {
       "c": 27,
       "l": 6,
+      "label_type": "AssignmentExpression",
       "type": "AssignmentExpression"
     },
     "92": {
       "c": 27,
       "l": 6,
+      "label_type": "ConditionalExpression",
       "type": "ConditionalExpression"
     },
     "93": {
       "c": 27,
       "l": 6,
+      "label_type": "ConditionalOrExpression",
       "type": "ConditionalOrExpression"
     },
     "94": {
       "c": 27,
       "l": 6,
+      "label_type": "ConditionalAndExpression",
       "type": "ConditionalAndExpression"
     },
     "95": {
       "c": 27,
       "l": 6,
+      "label_type": "InclusiveOrExpression",
       "type": "InclusiveOrExpression"
     },
     "96": {
       "c": 27,
       "l": 6,
+      "label_type": "ExclusiveOrExpression",
       "type": "ExclusiveOrExpression"
     },
     "97": {
       "c": 27,
       "l": 6,
+      "label_type": "AndExpression",
       "type": "AndExpression"
     },
     "98": {
       "c": 27,
       "l": 6,
+      "label_type": "EqualityExpression",
       "type": "EqualityExpression"
     },
     "99": {
       "c": 27,
       "l": 6,
+      "label_type": "RelationalExpression",
       "type": "RelationalExpression"
     }
   }

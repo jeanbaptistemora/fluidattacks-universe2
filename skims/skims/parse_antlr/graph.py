@@ -36,6 +36,9 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     if parent:
         graph.add_edge(parent, node_id, index=index)
 
+    if key:
+        graph.nodes[node_id]['label_type'] = key
+
     if isinstance(value, dict):
         if _node_has_position_metadata(value):
             for value_key, value_value in value.items():
@@ -120,6 +123,7 @@ def _add_labels(graph: nx.OrderedDiGraph) -> None:
     # Walk the edges and compute a label from the edge attributes
     for n_id_u, n_id_v in graph.edges:
         graph[n_id_u][n_id_v]['label'] = _create_label(**graph[n_id_u][n_id_v])
+        graph[n_id_u][n_id_v]['label_ast'] = 'AST'
 
 
 def _colorize(graph: nx.OrderedDiGraph) -> None:
