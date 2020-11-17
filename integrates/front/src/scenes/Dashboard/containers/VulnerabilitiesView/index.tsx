@@ -185,8 +185,10 @@ const vulnsView: React.FC = (): JSX.Element => {
             clearSelected={_.get(remediationModalConfig, "clearSelected")}
             findingId={findingId}
             handleCloseModal={toggleUpdateZeroRiskModal}
+            isConfirmingZeroRisk={isConfirmingZeroRisk}
             isRequestingZeroRisk={isRequestingZeroRisk}
             refetchData={refetch}
+            setConfirmState={toggleConfirmZeroRisk}
             setRequestState={toggleRequestZeroRisk}
             vulns={remediationModalConfig.vulnerabilities}
           />

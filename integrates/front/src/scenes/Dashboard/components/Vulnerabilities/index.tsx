@@ -649,6 +649,18 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               (acc: number[], vuln: IVulnRow, index: number) => (vuln.zeroRisk === "Requested" ? [...acc, index] : acc),
               [],
             );
+            const inputNoRequestedZeroRiskVulns: number[] = dataInputs.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (vuln.zeroRisk !== "Requested" ? [...acc, index] : acc),
+              [],
+            );
+            const lineNoRequestedZeroRiskVulns: number[] = dataLines.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (vuln.zeroRisk !== "Requested" ? [...acc, index] : acc),
+              [],
+            );
+            const portNoRequestedZeroRiskVulns: number[] = dataPorts.reduce(
+              (acc: number[], vuln: IVulnRow, index: number) => (vuln.zeroRisk !== "Requested" ? [...acc, index] : acc),
+              [],
+            );
 
             const calculateIndex: ((row: IVulnRow, vulns: IVulnRow[]) => number) =
               (row: IVulnRow, vulns: IVulnRow[]): number => (
@@ -680,6 +692,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isVerifyRequest === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(inputVulnsVerified, indexFilter));
+                } else if (props.isConfirmingZeroRisk === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    _.includes(inputRequestedZeroRiskVulns, indexFilter));
                 } else if (props.isRequestingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(inputRequestedZeroRiskVulns, indexFilter));
@@ -719,6 +734,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isVerifyRequest === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(lineVulnsVerified, indexFilter));
+                } else if (props.isConfirmingZeroRisk === true) {
+                    newArray = newArray.filter((indexFilter: number) =>
+                    _.includes(lineRequestedZeroRiskVulns, indexFilter));
                 } else if (props.isRequestingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(lineRequestedZeroRiskVulns, indexFilter));
@@ -758,6 +776,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isVerifyRequest === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(portVulnsVerified, indexFilter));
+                } else if (props.isConfirmingZeroRisk === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    _.includes(portRequestedZeroRiskVulns, indexFilter));
                 } else if (props.isRequestingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(portRequestedZeroRiskVulns, indexFilter));
@@ -777,6 +798,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               mode: "checkbox",
               nonSelectable: props.isRequestVerification === true ? inputVulnsRemediated :
                 props.isVerifyRequest === true ? inputVulnsVerified :
+                props.isConfirmingZeroRisk === true ? inputNoRequestedZeroRiskVulns :
                 props.isRequestingZeroRisk === true ? inputRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectInputs,
@@ -789,6 +811,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               mode: "checkbox",
               nonSelectable: props.isRequestVerification === true ? lineVulnsRemediated :
                 props.isVerifyRequest === true ? lineVulnsVerified :
+                props.isConfirmingZeroRisk === true ? lineNoRequestedZeroRiskVulns :
                 props.isRequestingZeroRisk === true ? lineRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectLines,
@@ -801,6 +824,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               mode: "checkbox",
               nonSelectable: props.isRequestVerification === true ? portVulnsRemediated :
                 props.isVerifyRequest === true ? portVulnsVerified :
+                props.isConfirmingZeroRisk === true ? portNoRequestedZeroRiskVulns :
                 props.isRequestingZeroRisk === true ? portRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectPorts,

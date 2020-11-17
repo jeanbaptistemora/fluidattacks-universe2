@@ -528,6 +528,7 @@ export const enTranslations: ResourceKey = {
     acceptation_approved: "Indefinite acceptation has been approved",
     acceptation_rejected: "Indefinite acceptation has been rejected",
     access_denied: "Access denied",
+    confirmed_zero_risk_success: "Zero risk vulnerability has been confirmed",
     draft_already_approved: "This finding has already been approved",
     draft_already_submitted: "This finding has already been submitted",
     draft_not_submitted:
@@ -582,6 +583,7 @@ export const enTranslations: ResourceKey = {
     verified_success: "This finding was marked as verified.",
     vuln_closed: "Vulnerability has already been closed",
     zero_risk_already_requested: "Zero risk vulnerability already requested",
+    zero_risk_is_not_requested: "Zero risk vulnerability is not requested",
   },
   legalNotice: {
     acceptBtn: {
@@ -927,6 +929,7 @@ export const enTranslations: ResourceKey = {
       bts_placeholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
+      cancel_confirming_zero_risk: "Cancel",
       cancel_requesting_zero_risk: "Cancel",
       cancel_verified: "Cancel",
       cancel_verify: "Cancel",
@@ -938,6 +941,10 @@ export const enTranslations: ResourceKey = {
       compromised_records: {
         text: "Compromised records",
         tooltip: "Number of records in risk",
+      },
+      confirm_zero_risk: {
+        text: "Confirm zero risk",
+        tooltip: "Assess whether the vulnerability was confirmed as zero risk",
       },
       delete: "Delete",
       deleteTags: "Delete Tags",
@@ -1053,6 +1060,9 @@ export const enTranslations: ResourceKey = {
       },
       update_vulnerabilities: "Update Vulnerabilities",
       update_zero_risk_modal: {
+        confirm_justification: "Why is the zero risk vulnerability confirmed?",
+        confirm_message:
+          "Zero risk will be confirmed for {{vulns}} vulnerabilities",
         request_justification: "Why is it a zero risk vulnerability?",
         request_message:
           "Zero risk will be requested for {{vulns}} vulnerabilities",

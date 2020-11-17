@@ -9,6 +9,7 @@ import React from "react";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { ConfirmZeroRiskVulnButton } from "./ConfirmZeroRiskVulnButton";
 import { EditButton } from "./EditButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { RequestZeroRiskVulnButton } from "./RequestZeroRiskVulnButton";
@@ -54,7 +55,10 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
       <VerifyVunButton {...props}/>
       <ReattackVulnButton {...props}/>
       {userEmail.endsWith("@fluidattacks.com") ? (
-        <RequestZeroRiskVulnButton {...props}/>
+        <React.Fragment>
+          <ConfirmZeroRiskVulnButton {...props}/>
+          <RequestZeroRiskVulnButton {...props}/>
+        </React.Fragment>
       ) : undefined}
       <EditButton {...props}/>
     </ButtonToolbarRow>
