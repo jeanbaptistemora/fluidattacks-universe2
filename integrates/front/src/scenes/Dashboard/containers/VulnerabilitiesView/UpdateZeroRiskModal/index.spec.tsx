@@ -10,6 +10,7 @@ import wait from "waait";
 import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
 import {
+  CONFIRM_ZERO_RISK_VULN,
   REQUEST_ZERO_RISK_VULN,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal/queries";
 import store from "store";
@@ -162,6 +163,128 @@ describe("update zero risk component", () => {
     expect(handleOnClose)
       .toHaveBeenCalled();
     expect(handleRequestState)
+      .not
+      .toHaveBeenCalled();
+    expect(handleRefetchData)
+      .not
+      .toHaveBeenCalled();
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
+
+  it("should handle confirm zero risk", async () => {
+    const handleClearSelected: jest.Mock = jest.fn();
+    const handleOnClose: jest.Mock = jest.fn();
+    const handleConfirmState: jest.Mock = jest.fn();
+    const handleRequestState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: CONFIRM_ZERO_RISK_VULN,
+          variables: {
+            findingId: "422286126",
+            justification: "This is a commenting test of confirm zero risk in vulns",
+            vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
+          },
+        },
+        result: { data: { confirmZeroRiskVuln : { success: true } } },
+      },
+      mocksVulns,
+    ];
+    const wrapperRequest: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksMutation} addTypename={false}>
+          <UpdateZeroRiskModal
+            findingId={"422286126"}
+            isConfirmingZeroRisk={true}
+            isRequestingZeroRisk={false}
+            vulns={[{id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa"}]}
+            clearSelected={handleClearSelected}
+            refetchData={handleRefetchData}
+            handleCloseModal={handleOnClose}
+            setConfirmState={handleConfirmState}
+            setRequestState={handleRequestState}
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+    const justification: ReactWrapper = wrapperRequest.find("textarea");
+    justification.simulate("change", { target:
+      { value: "This is a commenting test of confirm zero risk in vulns" } });
+    const form: ReactWrapper = wrapperRequest.find("form");
+    form.at(0)
+      .simulate("submit");
+    await act(async () => { await wait(0); wrapperRequest.update(); });
+
+    expect(wrapperRequest)
+      .toHaveLength(1);
+    expect(handleClearSelected)
+      .toHaveBeenCalled();
+    expect(handleOnClose)
+      .toHaveBeenCalled();
+    expect(handleConfirmState)
+      .toHaveBeenCalled();
+    expect(handleRefetchData)
+      .toHaveBeenCalled();
+    expect(msgSuccess)
+      .toHaveBeenCalled();
+  });
+
+  it("should handle confirm zero risk error", async () => {
+    const handleClearSelected: jest.Mock = jest.fn();
+    const handleOnClose: jest.Mock = jest.fn();
+    const handleConfirmState: jest.Mock = jest.fn();
+    const handleRequestState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
+    const mocksMutation: MockedResponse[] = [
+    {
+      request: {
+        query: CONFIRM_ZERO_RISK_VULN,
+        variables: {
+            findingId: "422286126",
+            justification: "This is a commenting test of confirm zero risk in vulns",
+            vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
+        },
+      },
+      result: {
+        errors: [
+          new GraphQLError("Exception - Zero risk vulnerability is not requested"),
+        ],
+      },
+    }];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksMutation} addTypename={false}>
+          <UpdateZeroRiskModal
+            findingId={"422286126"}
+            isConfirmingZeroRisk={true}
+            isRequestingZeroRisk={false}
+            vulns={[{id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa"}]}
+            clearSelected={handleClearSelected}
+            refetchData={handleRefetchData}
+            handleCloseModal={handleOnClose}
+            setConfirmState={handleConfirmState}
+            setRequestState={handleRequestState}
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+    const justification: ReactWrapper = wrapper.find("textarea");
+    justification.simulate("change", { target:
+      { value: "This is a commenting test of confirm zero risk in vulns" } });
+    const form: ReactWrapper = wrapper.find("form");
+    form.at(0)
+      .simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(handleClearSelected)
+      .not
+      .toHaveBeenCalled();
+    expect(handleOnClose)
+      .toHaveBeenCalled();
+    expect(handleConfirmState)
       .not
       .toHaveBeenCalled();
     expect(handleRefetchData)

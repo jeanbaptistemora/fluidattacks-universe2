@@ -144,7 +144,7 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
                           { vulns: props.vulns.length })
             : ""
         }
-        isLoading={submittingRequest}
+        isLoading={submittingRequest || submittingConfirm}
         isOpen={true}
         maxJustificationLength={2000}
         message={
