@@ -117,4 +117,73 @@ describe("ActionButtons", () => {
           .includes("Edit")))
       .toHaveLength(0);
   });
+
+  it("should render request zero risk", async () => {
+    const requestZeroRiskMockProps: IActionButtonsProps = {
+      ...baseMockedProps,
+    };
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_mutations_request_zero_risk_vuln_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <ActionButtons {...requestZeroRiskMockProps} />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      },
+    );
+    expect(wrapper)
+      .toHaveLength(1);
+
+    let buttons: ReactWrapper = wrapper.find("Button");
+    expect(buttons)
+      .toHaveLength(2);
+
+    let requestZeroRiskButton: ReactWrapper = buttons
+    .filterWhere((button: ReactWrapper): boolean =>
+      button
+        .text()
+        .includes("Request zero risk"));
+    expect(requestZeroRiskButton)
+      .toHaveLength(1);
+
+    const editButton: ReactWrapper = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+        .text()
+        .includes("Edit"));
+    expect(editButton)
+      .toHaveLength(1);
+
+    requestZeroRiskButton.simulate("click");
+
+    act(() => {
+      wrapper.setProps({ isRequestingZeroRisk: true });
+      wrapper.update();
+    });
+
+    const { onRequestZeroRisk } = requestZeroRiskMockProps;
+    expect(onRequestZeroRisk)
+      .toHaveBeenCalled();
+
+    buttons = wrapper.find("Button");
+    expect(buttons)
+      .toHaveLength(2);
+
+    requestZeroRiskButton = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+        .text()
+        .includes("Request zero risk"));
+    expect(requestZeroRiskButton)
+      .toHaveLength(1);
+
+    const cancelButton: ReactWrapper = buttons
+    .filterWhere((button: ReactWrapper): boolean =>
+      button
+      .text()
+      .includes("Cancel"));
+    expect(cancelButton)
+      .toHaveLength(1);
+  });
 });
