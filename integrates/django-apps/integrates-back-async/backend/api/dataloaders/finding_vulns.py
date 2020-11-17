@@ -68,6 +68,10 @@ async def _batch_load_fn(
                         [{}]
                     )
                 )[-1].get('status', '').capitalize(),
+                historic_treatment=cast(
+                    HistoricType,
+                    vuln.get('historic_treatment', [])
+                ),
                 historic_verification=cast(
                     HistoricType,
                     vuln.get('historic_verification', [])

@@ -1,0 +1,10 @@
+"Treatment type definition"
+type Treatment {
+  acceptanceDate: String
+  acceptanceStatus: String
+  date: String
+  justification: String
+  treatment: String
+  treatmentManager: String
+  user: String
+}

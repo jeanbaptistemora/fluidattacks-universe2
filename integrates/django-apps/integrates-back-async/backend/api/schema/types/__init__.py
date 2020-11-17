@@ -28,6 +28,7 @@ from .report import REPORT
 from .resource import RESOURCE
 from .stakeholder import STAKEHOLDER
 from .tag import TAG
+from .treatment import TREATMENT
 from .verification import VERIFICATION
 from .vulnerability import VULNERABILITY
 
@@ -56,6 +57,7 @@ TYPES: Tuple[ObjectType, ...] = (
     RESOURCE,
     STAKEHOLDER,
     TAG,
+    TREATMENT,
     VERIFICATION,
     VULNERABILITY
 )

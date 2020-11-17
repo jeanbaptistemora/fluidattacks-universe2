@@ -240,6 +240,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+            'valid_treatment_manager',
         },
         tags=set(),
     ),
@@ -298,6 +299,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:customer',
             'grant_group_level_role:customeradmin',
             'grant_group_level_role:executive',
+            'valid_treatment_manager',
         },
         tags=set(),
     ),
@@ -402,7 +404,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:group_manager',
             'grant_group_level_role:reviewer',
             'grant_group_level_role:resourcer',
-            'post_finding_observation'
+            'post_finding_observation',
+            'valid_treatment_manager',
         },
         tags=set(),
     ),

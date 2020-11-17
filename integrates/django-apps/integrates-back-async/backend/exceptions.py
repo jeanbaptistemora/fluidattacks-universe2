@@ -660,3 +660,12 @@ class InvalidJustificationMaxLength(Exception):
             f'{field} characters'
         )
         super(InvalidJustificationMaxLength, self).__init__(msg)
+
+
+class InvalidTreatmentManager(Exception):
+    """Exception to control if treatment manager is valid"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Invalid treatment manager'
+        super(InvalidTreatmentManager, self).__init__(msg)
