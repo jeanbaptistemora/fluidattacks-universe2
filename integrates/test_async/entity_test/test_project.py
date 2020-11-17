@@ -508,7 +508,6 @@ async def test_get_roots() -> None:
     ]
 
 
-@pytest.mark.changes_db  # type: ignore
 async def test_add_git_root_black() -> None:
     query = '''
       mutation {
@@ -544,3 +543,58 @@ async def test_add_git_root_white() -> None:
 
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
+
+
+async def test_add_git_root_invalid_branch() -> None:
+    query = '''
+      mutation {
+        addGitRoot(
+          branch: "( ͡° ͜ʖ ͡°)"
+          groupName: "unittesting"
+          url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']
+
+
+async def test_add_git_root_invalid_url() -> None:
+    query = '''
+      mutation {
+        addGitRoot(
+          branch: "master"
+          groupName: "unittesting"
+          url: "randomstring"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']
+
+
+async def test_add_git_root_invalid_env_url() -> None:
+    query = '''
+      mutation {
+        addGitRoot(
+          branch: "master"
+          environment:  { kind: "production", url: "randomstring" }
+          groupName: "unittesting"
+          url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']

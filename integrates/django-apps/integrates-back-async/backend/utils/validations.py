@@ -1,7 +1,10 @@
 import re
 from typing import List
+
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from git import Git, GitCommandError
+from urllib3.util.url import parse_url, Url
 
 from backend import authz
 from backend.exceptions import (
@@ -140,3 +143,17 @@ def validate_phone_field(phone_field: str) -> bool:
     if re.match((r'(^\+\d+$)|(^\d+$)|(^$)|(^-$)'), phone_field):
         return True
     raise InvalidField('phone number')
+
+
+def is_valid_url(url: str) -> bool:
+    url_attributes: Url = parse_url(url)
+
+    return bool(url_attributes.netloc and url_attributes.scheme)
+
+
+def is_valid_git_branch(branch_name: str) -> bool:
+    try:
+        Git().check_ref_format('--branch', branch_name)
+        return True
+    except GitCommandError:
+        return False

@@ -1,12 +1,17 @@
-import os
 import pytest
 
 from django.test import TestCase
 
 from backend.utils.validations import (
-    validate_email_address, validate_fields, validate_field_length,
-    validate_file_name, validate_project_name, validate_alphanumeric_field,
-    validate_phone_field
+    is_valid_git_branch,
+    is_valid_url,
+    validate_alphanumeric_field,
+    validate_email_address,
+    validate_field_length,
+    validate_fields,
+    validate_file_name,
+    validate_phone_field,
+    validate_project_name
 )
 from backend.exceptions import InvalidChar, InvalidField, InvalidFieldLength
 
@@ -24,10 +29,12 @@ class ValidationsTests(TestCase):
 
     def test_validate_field_length(self):
         assert not bool(validate_field_length('testlength', limit=12))
-        assert not bool(validate_field_length('testlength', limit=2, is_greater_than_limit= False))
+        assert not bool(validate_field_length(
+            'testlength', limit=2, is_greater_than_limit=False))
         with pytest.raises(InvalidFieldLength):
             assert validate_field_length('testlength', limit=9)
-            assert validate_field_length('testlength', limit=11, is_greater_than_limit=False)
+            assert validate_field_length(
+                'testlength', limit=11, is_greater_than_limit=False)
 
     def test_validate_email_address(self):
         assert validate_email_address('test@unittesting.com')
@@ -55,3 +62,13 @@ class ValidationsTests(TestCase):
         invalid_name = 'test.test.py'
         assert validate_file_name(name)
         assert not validate_file_name(invalid_name)
+
+
+def test_is_valid_url() -> None:
+    assert is_valid_url('https://fluidattacks.com/')
+    assert not is_valid_url('randomstring')
+
+
+def test_is_valid_git_branch() -> None:
+    assert is_valid_git_branch('master')
+    assert not is_valid_git_branch('( ͡° ͜ʖ ͡°)')
