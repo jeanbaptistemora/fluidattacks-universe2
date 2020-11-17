@@ -1,4 +1,5 @@
 import { default as $ } from "jquery";
+import { add } from "lodash";
 
 import { logger, startBugsnag } from "./bugsnagErrorBoundary";
 import { addClasses } from "./jqueryFunctions";
@@ -30,6 +31,8 @@ const dynClasses: (() => void) = (): void => {
     addClasses(".product-features > .sect2", "w-benefit dib-l");
 
     addClasses(".faq-list > .sect2 > div", "accordion-content b--black-20 pl3-l");
+
+    addClasses(".compliance-page > .sect1 > h2", "f1-ns f2");
 
     if ($("div")
         .hasClass("contact-page")) {

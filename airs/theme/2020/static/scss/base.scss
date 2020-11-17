@@ -168,6 +168,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-card9 { background-image: url('../../images/resources/card9.png'); height: 200px;}
 .bg-faq { background-image: url('../../images/faq/cover-faq.png'); }
 .bg-compliance { background-image: url('../../images/compliance/cover-compliance.png'); }
+.bg-compliance-internal { background-image: url('../../images/compliance/cover-internal-compliance.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -1181,4 +1182,27 @@ video {
 
 .intl-tel-input {
   width: 100%;
+}
+
+.compliance-page {
+  .sect2 {
+    h3 { font-size: 2.25rem; }
+  }
+  .sect3 {
+    h4 { font-size: 1.5rem; }
+    h4::after {
+      content: "";
+      display: block;
+      width: 30%;
+      border-bottom: 4px solid $button-hover;
+    }
+  }
+  .sect1:last-child {
+    .sectionbody {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 }
