@@ -20,7 +20,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from parse_antlr import (
+from parse_antlr.parse import (
     parse as parse_antlr,
 )
 from lib_path.common import (

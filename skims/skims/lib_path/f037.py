@@ -44,7 +44,7 @@ from utils.graph import (
 from parse_babel import (
     parse as parse_babel,
 )
-from parse_antlr import (
+from parse_antlr.parse import (
     parse as parse_antlr,
 )
 from zone import (

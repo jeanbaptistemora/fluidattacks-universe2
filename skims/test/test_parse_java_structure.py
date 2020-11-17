@@ -4,9 +4,11 @@ from aioextensions import (
 )
 
 # Local libraries
-from parse_antlr import (
+from parse_antlr.parse import (
     parse,
-    format_model,
+)
+from parse_antlr.model import (
+    from_parse_tree as model_from_parse_tree,
 )
 from parse_java.structure import (
     yield_normal_class,
@@ -23,11 +25,12 @@ from utils.model import (
 @run_decorator
 async def test_structure() -> None:
     path = 'test/data/benchmark/owasp/BenchmarkTest00008.java'
-    model = format_model(await parse(
+    parse_tree = await parse(
         Grammar.JAVA9,
         content=await get_file_raw_content(path),
         path=path,
-    ))
+    )
+    model = model_from_parse_tree(parse_tree)
 
     assert len(tuple(yield_normal_class(model))) == 1
     assert len(tuple(yield_normal_class_methods(model))) == 2

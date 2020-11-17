@@ -1,8 +1,3 @@
-# Standard library
-from typing import (
-    TypedDict,
-)
-
 # Third party libraries
 from aioextensions import (
     run_decorator,
@@ -12,18 +7,12 @@ from aioextensions import (
 from core.persist import (
     diff_results,
 )
-from parse_antlr import (
-    parse,
-)
 from state.ephemeral import (
     get_ephemeral_store,
     EphemeralStore,
 )
 from utils.model import (
     FindingEnum,
-    FindingEvidenceIDEnum,
-    FindingEvidenceDescriptionIDEnum,
-    get_vulnerability_hash,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
