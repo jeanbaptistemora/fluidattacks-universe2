@@ -187,4 +187,73 @@ describe("ActionButtons", () => {
     expect(cancelButton)
       .toHaveLength(1);
   });
+
+  it("should render confirm zero risk", async () => {
+    const confirmZeroRiskMockProps: IActionButtonsProps = {
+      ...baseMockedProps,
+    };
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <ActionButtons {...confirmZeroRiskMockProps} />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      },
+    );
+    expect(wrapper)
+      .toHaveLength(1);
+
+    let buttons: ReactWrapper = wrapper.find("Button");
+    expect(buttons)
+      .toHaveLength(2);
+
+    let confirmZeroRiskButton: ReactWrapper = buttons
+    .filterWhere((button: ReactWrapper): boolean =>
+      button
+        .text()
+        .includes("Confirm zero risk"));
+    expect(confirmZeroRiskButton)
+      .toHaveLength(1);
+
+    const editButton: ReactWrapper = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+        .text()
+        .includes("Edit"));
+    expect(editButton)
+      .toHaveLength(1);
+
+    confirmZeroRiskButton.simulate("click");
+
+    act(() => {
+      wrapper.setProps({ isConfirmingZeroRisk: true });
+      wrapper.update();
+    });
+
+    const { onConfirmZeroRisk } = confirmZeroRiskMockProps;
+    expect(onConfirmZeroRisk)
+      .toHaveBeenCalled();
+
+    buttons = wrapper.find("Button");
+    expect(buttons)
+      .toHaveLength(2);
+
+    confirmZeroRiskButton = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+        .text()
+        .includes("Confirm zero risk"));
+    expect(confirmZeroRiskButton)
+      .toHaveLength(1);
+
+    const cancelButton: ReactWrapper = buttons
+    .filterWhere((button: ReactWrapper): boolean =>
+      button
+      .text()
+      .includes("Cancel"));
+    expect(cancelButton)
+      .toHaveLength(1);
+  });
 });
