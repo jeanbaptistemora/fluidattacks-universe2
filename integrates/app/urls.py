@@ -42,21 +42,19 @@ urlpatterns = [
     url(r'^new/oauth/', include('social_django.urls', namespace='social')),
     # Evidences
     url(
-        (r'^new/project/'
-         r'(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+        (r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
          r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
         views.get_evidence
     ),
     # intentionally duplicate to give support to old evidence url
     url(
-        (r'^new/groups/'
-         r'(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+        (r'^groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
          r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
         views.get_evidence
     ),
     # New group URL format including organization
     url(
-        r'^new/orgs/[a-zA-Z]+/groups/(?P<project>[A-Za-z0-9]+)/'
+        r'^orgs/[a-zA-Z]+/groups/(?P<project>[A-Za-z0-9]+)/'
         r'(?P<evidence_type>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/'
         r'(?P<fileid>[\w\.-]+)?$',
         views.get_evidence

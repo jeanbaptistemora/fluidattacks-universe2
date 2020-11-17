@@ -36,9 +36,9 @@ const evidenceLightbox: React.FC<IEvidenceLightboxProps> = (props: IEvidenceLigh
 
   return props.index > -1 ? (
     <Lightbox
-      mainSrc={`${location.href}/${props.evidenceImages[props.index].url}`}
-      nextSrc={`${location.href}/${props.evidenceImages[nextIndex].url}`}
-      prevSrc={`${location.href}/${props.evidenceImages[previousIndex].url}`}
+      mainSrc={`${location.href.replace("/new", "")}/${props.evidenceImages[props.index].url}`}
+      nextSrc={`${location.href.replace("/new", "")}/${props.evidenceImages[nextIndex].url}`}
+      prevSrc={`${location.href.replace("/new", "")}/${props.evidenceImages[previousIndex].url}`}
       imagePadding={50}
       imageTitle={props.evidenceImages[props.index].description}
       onAfterOpen={adjustZoom}

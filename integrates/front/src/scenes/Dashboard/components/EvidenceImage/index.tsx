@@ -66,7 +66,7 @@ export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceIma
         <div>
           <div className={style.imgContainer}>
             {typeof (props.content) === "string"
-              ? <img src={props.content} className={style.img} onClick={handleClick} />
+              ? <img src={props.content.replace("/new", "")} className={style.img} onClick={handleClick} />
               : React.cloneElement(props.content, { className: style.img, onClick: handleClick })}
           </div>
           <div className={style.description}>
