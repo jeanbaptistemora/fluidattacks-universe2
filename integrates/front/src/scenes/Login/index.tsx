@@ -87,7 +87,7 @@ export const Login: React.FC = (): JSX.Element => {
   // Event handlers
   function handleBitbucketLogin(): void {
     mixpanel.track("Login Bitbucket");
-    window.location.assign("/new/dblogin");
+    window.location.assign("/oauth/login/bitbucket-oauth2/");
   }
   function handleGoogleLogin(): void {
     mixpanel.track("Login Google");
