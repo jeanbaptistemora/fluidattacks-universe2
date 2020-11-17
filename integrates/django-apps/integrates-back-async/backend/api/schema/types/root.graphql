@@ -39,8 +39,6 @@ type IPRoot implements IRoot {
 }
 
 type URLRoot implements IRoot {
-  "URL of the environment to test"
-  url: String!
   "ID of the root"
   id: ID!
   "URL path"
@@ -49,4 +47,6 @@ type URLRoot implements IRoot {
   port: Int!
   "URL protocol"
   protocol: URLProtocol!
+  "URL of the environment to test"
+  url: String!
 }

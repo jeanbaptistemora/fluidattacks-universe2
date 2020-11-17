@@ -5,6 +5,7 @@ from typing import List
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from git import Git, GitCommandError
+from urllib3.exceptions import LocationParseError
 from urllib3.util.url import parse_url, Url
 
 from backend import authz
@@ -147,9 +148,12 @@ def validate_phone_field(phone_field: str) -> bool:
 
 
 def is_valid_url(url: str) -> bool:
-    url_attributes: Url = parse_url(url)
+    try:
+        url_attributes: Url = parse_url(url)
 
-    return bool(url_attributes.netloc and url_attributes.scheme)
+        return bool(url_attributes.netloc and url_attributes.scheme)
+    except LocationParseError:
+        return False
 
 
 def is_valid_git_branch(branch_name: str) -> bool:

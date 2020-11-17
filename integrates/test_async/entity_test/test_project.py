@@ -467,11 +467,11 @@ async def test_get_roots() -> None:
     assert result['data']['drillsBlackGroup']['roots'] == [
         {
             '__typename': 'URLRoot',
-            'url': 'integrates.fluidattacks.com',
             'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034',
             'path': '/',
             'port': 80,
-            'protocol': 'HTTPS'
+            'protocol': 'HTTPS',
+            'url': 'integrates.fluidattacks.com'
         },
         {
             '__typename': 'IPRoot',
@@ -604,7 +604,7 @@ async def test_add_git_root_invalid_env_url() -> None:
 async def test_add_ip_root_black() -> None:
     query = '''
       mutation {
-        addIPRoot(address: "8.8.8.8", groupName: "oneshottest", port: 53) {
+        addIpRoot(address: "8.8.8.8", groupName: "oneshottest", port: 53) {
           success
         }
       }
@@ -612,13 +612,13 @@ async def test_add_ip_root_black() -> None:
     result = await ProjectTests._get_result_async(None, {'query': query})
 
     assert 'errors' not in result
-    assert result['data']['addIPRoot']['success']
+    assert result['data']['addIpRoot']['success']
 
 
 async def test_add_ip_root_white() -> None:
     query = '''
       mutation {
-        addIPRoot(address: "8.8.8.8", groupName: "unittesting", port: 53) {
+        addIpRoot(address: "8.8.8.8", groupName: "unittesting", port: 53) {
           success
         }
       }
@@ -632,7 +632,7 @@ async def test_add_ip_root_white() -> None:
 async def test_add_ip_root_invalid_ip() -> None:
     query = '''
       mutation {
-        addIPRoot(address: "randomstr", groupName: "oneshottest", port: 53) {
+        addIpRoot(address: "randomstr", groupName: "oneshottest", port: 53) {
           success
         }
       }
@@ -645,12 +645,12 @@ async def test_add_ip_root_invalid_ip() -> None:
 
 async def test_add_ip_root_invalid_port() -> None:
     query = '''
-    mutation {
-      addIPRoot(address: "8.8.8.8", groupName: "oneshottest", port: -2600) {
-        success
+      mutation {
+        addIpRoot(address: "8.8.8.8", groupName: "oneshottest", port: -2600) {
+          success
+        }
       }
-    }
-  '''
+    '''
     result = await ProjectTests._get_result_async(None, {'query': query})
 
     assert 'errors' in result

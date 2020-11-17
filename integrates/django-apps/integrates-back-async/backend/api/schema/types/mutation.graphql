@@ -366,7 +366,7 @@ type Mutation {
         url: String!
     ): SimplePayload!
 
-    addIPRoot(
+    addIpRoot(
         "IP address of the environment to test"
         address: String!
         "Name of the group the root is associated with"

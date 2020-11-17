@@ -67,6 +67,7 @@ class ValidationsTests(TestCase):
 
 def test_is_valid_url() -> None:
     assert is_valid_url('https://fluidattacks.com/')
+    assert not is_valid_url('https://fluidattacks.com:65536/')
     assert not is_valid_url('randomstring')
 
 
