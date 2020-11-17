@@ -183,6 +183,10 @@ def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
     return set(node.keys()) == {'c', 'l', 'text', 'type'}
 
 
+def _create_label(attributes: Dict[str, str]) -> str:
+    return ', '.join([f'{key}={val}' for key, val in attributes.items()])
+
+
 def _create_leaf(
     graph: nx.OrderedDiGraph,
     index: int,
@@ -197,10 +201,17 @@ def _create_leaf(
     if parent:
         graph.add_edge(parent, node_id, index=index)
 
+        # Add edge attributes
+        graph[parent][node_id]['label'] = _create_label(graph[parent][node_id])
+
     if isinstance(value, dict):
         if _node_has_position_metadata(value):
             for value_key, value_value in value.items():
                 graph.nodes[node_id][value_key] = value_value
+
+            # Add node attributes
+            label_data_str = _create_label(graph.nodes[node_id])
+            graph.nodes[node_id]['label'] = f'{node_id} ({label_data_str})'
         else:
             graph = model_to_graph(
                 model=value,
