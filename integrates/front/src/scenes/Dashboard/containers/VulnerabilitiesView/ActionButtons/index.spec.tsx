@@ -7,6 +7,7 @@ import { ActionButtons, IActionButtonsProps } from "scenes/Dashboard/containers/
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ActionButtons", () => {
+  (window as typeof window & { userEmail: string }).userEmail = "test@fluidattacks.com";
 
   const baseMockedProps: IActionButtonsProps = {
     areVulnsSelected: false,
