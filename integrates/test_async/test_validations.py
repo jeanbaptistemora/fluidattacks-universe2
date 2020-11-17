@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from backend.utils.validations import (
     is_valid_git_branch,
+    is_valid_ip,
     is_valid_url,
     validate_alphanumeric_field,
     validate_email_address,
@@ -72,3 +73,8 @@ def test_is_valid_url() -> None:
 def test_is_valid_git_branch() -> None:
     assert is_valid_git_branch('master')
     assert not is_valid_git_branch('( ͡° ͜ʖ ͡°)')
+
+
+def test_is_valid_ip() -> None:
+    assert is_valid_ip('8.8.8.8')
+    assert not is_valid_ip('randomstring')

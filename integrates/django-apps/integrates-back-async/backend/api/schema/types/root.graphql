@@ -25,6 +25,7 @@ type GitRoot implements IRoot {
   environment: IntegrationEnvironment
   "ID of the root"
   id: ID!
+  "Repository URL"
   url: String!
 }
 

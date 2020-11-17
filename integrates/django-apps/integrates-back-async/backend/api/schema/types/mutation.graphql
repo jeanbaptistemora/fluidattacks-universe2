@@ -354,10 +354,24 @@ type Mutation {
     ): ExecuteSkimsPayload!
 
     addGitRoot(
+        "Repository branch to be tested"
         branch: String!
+        "Preferences for filtering directories"
         directoryFiltering: DirectoryFilteringConfigInput
+        "Environment for the code provided"
         environment: IntegrationEnvironmentInput
+        "Name of the group the root is associated with"
         groupName: String!
+        "Repository URL"
         url: String!
+    ): SimplePayload!
+
+    addIPRoot(
+        "IP address of the environment to test"
+        address: String!
+        "Name of the group the root is associated with"
+        groupName: String!
+        "Indicates the port to test. Zero means all ports"
+        port: Int!
     ): SimplePayload!
 }

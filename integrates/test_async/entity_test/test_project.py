@@ -598,3 +598,60 @@ async def test_add_git_root_invalid_env_url() -> None:
 
     assert 'errors' in result
     assert 'value is not valid' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_add_ip_root_black() -> None:
+    query = '''
+      mutation {
+        addIPRoot(address: "8.8.8.8", groupName: "oneshottest", port: 53) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['addIPRoot']['success']
+
+
+async def test_add_ip_root_white() -> None:
+    query = '''
+      mutation {
+        addIPRoot(address: "8.8.8.8", groupName: "unittesting", port: 53) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+
+async def test_add_ip_root_invalid_ip() -> None:
+    query = '''
+      mutation {
+        addIPRoot(address: "randomstr", groupName: "oneshottest", port: 53) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']
+
+
+async def test_add_ip_root_invalid_port() -> None:
+    query = '''
+    mutation {
+      addIPRoot(address: "8.8.8.8", groupName: "oneshottest", port: -2600) {
+        success
+      }
+    }
+  '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']

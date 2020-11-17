@@ -9,6 +9,7 @@ from backend.api.mutations import (
     add_event_consult,
     add_forces_execution,
     add_git_root,
+    add_ip_root,
     add_stakeholder,
     approve_draft,
     confirm_zero_risk_vuln,
@@ -51,6 +52,7 @@ MUTATION = MutationType()
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)
 MUTATION.set_field('addGitRoot', add_git_root.mutate)
+MUTATION.set_field('addIPRoot', add_ip_root.mutate)
 MUTATION.set_field('addStakeholder', add_stakeholder.mutate)
 MUTATION.set_field('approveDraft', approve_draft.mutate)
 MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)

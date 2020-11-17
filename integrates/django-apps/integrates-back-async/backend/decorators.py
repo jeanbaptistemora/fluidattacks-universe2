@@ -358,6 +358,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 # Factory functions
 REQUIRE_INTEGRATES = require_attribute('has_integrates')
 REQUIRE_FORCES = require_attribute('has_forces')
+REQUIRE_DRILLS_BLACK = require_attribute('has_drills_black')
 REQUIRE_DRILLS_WHITE = require_attribute('has_drills_white')
 
 
@@ -367,6 +368,10 @@ def require_integrates(func: TVar) -> TVar:
 
 def require_forces(func: TVar) -> TVar:
     return REQUIRE_FORCES(func)
+
+
+def require_drills_black(func: TVar) -> TVar:
+    return REQUIRE_DRILLS_BLACK(func)
 
 
 def require_drills_white(func: TVar) -> TVar:

@@ -66,3 +66,25 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         await root_dal.add_root(group_name, root_attributes)
     else:
         raise InvalidParameter()
+
+
+async def add_ip_root(user_email: str, **kwargs: Any) -> None:
+    group_name: str = kwargs['group_name'].lower()
+
+    def _is_valid() -> bool:
+        return (
+            validations.is_valid_ip(kwargs['address'])
+            and 0 <= int(kwargs['port']) <= 65535
+        )
+
+    if _is_valid():
+        root_attributes: Dict[str, Any] = {
+            'address': kwargs['address'],
+            'created_by': user_email,
+            'kind': 'IP',
+            'port': kwargs['port']
+        }
+
+        await root_dal.add_root(group_name, root_attributes)
+    else:
+        raise InvalidParameter()

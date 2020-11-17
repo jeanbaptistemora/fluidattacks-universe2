@@ -1,4 +1,5 @@
 import re
+from ipaddress import ip_address
 from typing import List
 
 from django.core.exceptions import ValidationError
@@ -156,4 +157,12 @@ def is_valid_git_branch(branch_name: str) -> bool:
         Git().check_ref_format('--branch', branch_name)
         return True
     except GitCommandError:
+        return False
+
+
+def is_valid_ip(address: str) -> bool:
+    try:
+        ip_address(address)
+        return True
+    except ValueError:
         return False
