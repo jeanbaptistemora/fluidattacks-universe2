@@ -95,6 +95,12 @@ class TablePrototype(NamedTuple):
     ]
 
 
+class TableDraft(NamedTuple):
+    id: TableID
+    primary_keys: FrozenSet[str]
+    columns: FrozenSet[IsolatedColumn]
+
+
 class Table(NamedTuple):
     id: TableID
     primary_keys: FrozenSet[str]

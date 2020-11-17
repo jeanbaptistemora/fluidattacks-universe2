@@ -43,8 +43,10 @@ class SQLidPurifierFactory(NamedTuple):
 
 class CursorActionFactory(NamedTuple):
     """Generator of `CursorAction` objects"""
+    # pylint: disable=too-many-function-args
+    # required due to a bug with callable properties
     cursor: PGCURR
-    sql_id_purifier: SQLidPurifier
+    sql_id_purifier: SQLidPurifier = SQLidPurifierFactory().sql_id_purifier()
 
     def exe_action(
         self: 'CursorActionFactory',
