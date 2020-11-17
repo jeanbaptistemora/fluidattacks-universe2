@@ -13,6 +13,11 @@ from jmespath import (
 )
 import networkx as nx
 
+# Local libraries
+from utils.system import (
+    read,
+)
+
 
 def export_graph(graph: nx.OrderedDiGraph, path: str) -> bool:
     # $ nix-env -i graphviz
@@ -21,6 +26,15 @@ def export_graph(graph: nx.OrderedDiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
     return True
+
+
+async def graphviz_to_svg(path: str) -> bool:
+    code, stdout, stderr = await read('dot', '-O', '-T', 'svg', path)
+
+    if code == 0:
+        return True
+
+    raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
 
 
 def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:

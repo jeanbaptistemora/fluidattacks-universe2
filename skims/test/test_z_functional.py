@@ -70,7 +70,7 @@ def skims(*args: str) -> Tuple[int, str, str]:
 
 
 def do_csv_results_match(caller: Callable[..., Any]) -> bool:
-    with open('results.csv') as results:
+    with open(f'test/outputs/results.csv') as results:
         with open(f'test/data/{caller.__name__}.csv') as expected:
             assert sorted(results.readlines()) == sorted(expected.readlines())
             return sorted(results.readlines()) == sorted(expected.readlines())

@@ -14,7 +14,6 @@
 /docs/skims
 /dist
 /poetry.lock
-/results.csv
 /skims.*.svg
 /static/parsers/antlr/.gradle
 /static/parsers/antlr/build/

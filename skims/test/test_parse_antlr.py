@@ -18,6 +18,7 @@ from utils.fs import (
 from utils.graph import (
     export_graph,
     export_graph_as_json,
+    graphviz_to_svg,
 )
 from utils.model import (
     Grammar,
@@ -142,6 +143,7 @@ async def test_graph_generation_easy() -> None:
     graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
 
     assert export_graph(graph, 'test/outputs/test_graph_generation_easy.graph')
+    assert await graphviz_to_svg('test/outputs/test_graph_generation_easy.graph')
 
     with open('test/data/parse_antlr/graph_generation_easy.json') as handle:
         expected = handle.read()
@@ -163,6 +165,7 @@ async def test_graph_generation_hard() -> None:
     graph_as_json_str = json.dumps(graph_as_json, indent=2)
 
     assert export_graph(graph, 'test/outputs/test_graph_generation_hard.graph')
+    assert await graphviz_to_svg('test/outputs/test_graph_generation_hard.graph')
 
     with open('test/data/parse_antlr/graph_generation_hard.json') as handle:
         expected = handle.read()

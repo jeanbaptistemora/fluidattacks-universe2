@@ -1,6 +1,6 @@
 chdir: ../../
 language: EN
-output: results.csv
+output: test/outputs/results.csv
 path:
   include:
     - product/
