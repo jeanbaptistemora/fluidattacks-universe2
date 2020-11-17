@@ -21,6 +21,7 @@ from authlib.integrations.starlette_client import OAuth
 # Local libraries
 from backend.api import IntegratesAPI
 from backend.decorators import authenticate
+from backend.domain import organization as org_domain
 from backend.api.schema import SCHEMA
 
 from backend_new.app.middleware import CustomRequestMiddleware
@@ -59,6 +60,16 @@ def invalid_invitation(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='invalid_invitation.html',
         context={'request': request}
+    )
+
+
+def unauthorized(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='unauthorized.html',
+        context={
+            'request': request,
+            'debug': settings.DEBUG,
+        }
     )
 
 
@@ -115,27 +126,26 @@ async def app(*request_args: Request) -> HTMLResponse:
     """ View for authenticated users"""
     request = utils.get_starlette_request(request_args)
     if 'username' in request.session:
-        response = TEMPLATING_ENGINE.TemplateResponse(
-            name='app.html',
-            context={
+        if not await org_domain.get_user_organizations(
+                request.session['username']):
+            response = unauthorized(request)
+        else:
+            context = {
                 'request': request,
                 'debug': settings.DEBUG,
                 'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
                 'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
                 'delighted': f'{settings.STATIC_URL}/app/delighted.js'
             }
-        )
+            response = TEMPLATING_ENGINE.TemplateResponse(
+                name='app.html',
+                context=context
+            )
 
-        jwt_token = utils.create_session_token(request.session)
-        utils.set_token_in_response(response, jwt_token)
+            jwt_token = utils.create_session_token(request.session)
+            utils.set_token_in_response(response, jwt_token)
     else:
-        response = TEMPLATING_ENGINE.TemplateResponse(
-            name='unauthorized.html',
-            context={
-                'request': request,
-                'debug': settings.DEBUG,
-            }
-        )
+        response = unauthorized(request)
         response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
     return response
