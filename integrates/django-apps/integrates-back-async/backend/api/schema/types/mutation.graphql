@@ -374,4 +374,11 @@ type Mutation {
         "Indicates the port to test. Zero means all ports"
         port: Int!
     ): SimplePayload!
+
+    addUrlRoot(
+        "URL of the environment to test"
+        url: String!
+        "Name of the group the root is associated with"
+        groupName: String!
+    ): SimplePayload!
 }

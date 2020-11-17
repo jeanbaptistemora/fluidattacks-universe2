@@ -176,7 +176,7 @@ IPRoot = NamedTuple('IPRoot', [
     ('port', int)
 ])
 URLRoot = NamedTuple('URLRoot', [
-    ('address', str),
+    ('url', str),
     ('id', str),
     ('path', str),
     ('port', int),

@@ -40,7 +40,7 @@ type IPRoot implements IRoot {
 
 type URLRoot implements IRoot {
   "URL of the environment to test"
-  address: String!
+  url: String!
   "ID of the root"
   id: ID!
   "URL path"

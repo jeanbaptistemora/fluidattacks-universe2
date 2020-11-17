@@ -430,11 +430,11 @@ async def test_get_roots() -> None:
                 port
               }
               ...on URLRoot {
-                address
                 id
                 path
                 port
                 protocol
+                url
               }
             }
             subscription
@@ -467,7 +467,7 @@ async def test_get_roots() -> None:
     assert result['data']['drillsBlackGroup']['roots'] == [
         {
             '__typename': 'URLRoot',
-            'address': 'integrates.fluidattacks.com',
+            'url': 'integrates.fluidattacks.com',
             'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034',
             'path': '/',
             'port': 80,
@@ -651,6 +651,69 @@ async def test_add_ip_root_invalid_port() -> None:
       }
     }
   '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_add_url_root_black() -> None:
+    query = '''
+      mutation {
+        addUrlRoot(
+          groupName: "oneshottest",
+          url: "https://fluidattacks.com/"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['addUrlRoot']['success']
+
+
+async def test_add_url_root_white() -> None:
+    query = '''
+      mutation {
+        addUrlRoot(
+          groupName: "unittesting",
+          url: "https://fluidattacks.com/"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+
+async def test_add_url_root_invalid_url() -> None:
+    query = '''
+      mutation {
+        addUrlRoot(groupName: "oneshottest", url: "randomstring") {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'value is not valid' in result['errors'][0]['message']
+
+
+async def test_add_url_root_invalid_protocol() -> None:
+    query = '''
+      mutation {
+        addUrlRoot(groupName: "oneshottest", url: "ssh://test.com:22") {
+          success
+        }
+      }
+    '''
     result = await ProjectTests._get_result_async(None, {'query': query})
 
     assert 'errors' in result

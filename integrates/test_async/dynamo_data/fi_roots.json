@@ -98,9 +98,6 @@
           "kind": {
             "S" : "URL"
           },
-          "address": {
-            "S" : "integrates.fluidattacks.com"
-          },
           "path": {
             "S" : "/"
           },
@@ -109,6 +106,9 @@
           },
           "protocol": {
             "S" : "HTTPS"
+          },
+          "url": {
+            "S" : "integrates.fluidattacks.com"
           }
         }
       }
