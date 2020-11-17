@@ -26,3 +26,4 @@
 /static/parsers/babel/node_modules/
 /static/parsers/babel/package-lock.json
 /test/**/*.yaml.json
+/test/outputs/

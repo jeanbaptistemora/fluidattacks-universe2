@@ -181,11 +181,16 @@ def format_model(model: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
-    return set(node.keys()) == {'c', 'l', 'text', 'type'}
+    return set(node.keys()).issuperset({'c', 'l', 'text', 'type'})
 
 
-def _create_label(attributes: Dict[str, str]) -> str:
-    return ', '.join([f'{key}={val}' for key, val in attributes.items()])
+def _create_label(attrs: Dict[str, str], **more_attrs: str) -> str:
+    all_attrs = {**attrs, **more_attrs}
+
+    return '\n'.join(
+        f'{key}: {all_attrs[key]}'
+        for key in sorted(all_attrs)
+    )
 
 
 def _create_leaf(  # pylint: disable=too-many-arguments
@@ -196,33 +201,27 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     parent: Optional[str],
     value: Any,
 ) -> nx.OrderedDiGraph:
-    node_id: str = f'{key}.{next(counter)}' if key else f'{next(counter)}'
+    node_id: str = str(next(counter))
 
     # Add a new node and link it to the parent
     graph.add_node(node_id)
     if parent:
         graph.add_edge(parent, node_id, index=index)
 
-        # Add edge attributes
-        graph[parent][node_id]['label'] = _create_label(graph[parent][node_id])
-
     if isinstance(value, dict):
         if _node_has_position_metadata(value):
             for value_key, value_value in value.items():
                 graph.nodes[node_id][value_key] = value_value
-
-            # Add node attributes
-            label_data_str = _create_label(graph.nodes[node_id])
-            graph.nodes[node_id]['label'] = f'{node_id} ({label_data_str})'
         else:
-            graph = model_to_graph(
+            graph = _build_graph(
                 model=value,
                 _counter=counter,
                 _graph=graph,
                 _parent=node_id,
             )
+            graph.nodes[node_id]['type'] = key
     elif isinstance(value, list):
-        graph = model_to_graph(
+        graph = _build_graph(
             model=value,
             _counter=counter,
             _graph=graph,
@@ -235,7 +234,7 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     return graph
 
 
-def model_to_graph(
+def _build_graph(
     model: Any,
     _counter: Optional[Iterator[int]] = None,
     _graph: Optional[nx.OrderedDiGraph] = None,
@@ -268,5 +267,37 @@ def model_to_graph(
     else:
         # May happen?
         raise NotImplementedError()
+
+    return graph
+
+
+def _propagate_positions(graph: nx.OrderedDiGraph) -> None:
+    # Iterate nodes ordered from the leaves to the root
+    for n_id in nx.dfs_postorder_nodes(graph):
+        # If the node has no metadata let's propagate it from the child
+        if not _node_has_position_metadata(graph.nodes[n_id]):
+            # This is the first child node, graph ordering guarantees it
+            c_id = tuple(graph.adj[n_id])[0]
+
+            # Propagate metadata from the child to the parent
+            graph.nodes[n_id]['c'] = graph.nodes[c_id]['c']
+            graph.nodes[n_id]['l'] = graph.nodes[c_id]['l']
+
+
+def _add_labels(graph: nx.OrderedDiGraph) -> None:
+    # Walk the nodes and compute a label from the node attributes
+    for n_id, n_attrs in graph.nodes.items():
+        graph.nodes[n_id]['label'] = _create_label(n_attrs, id=n_id)
+
+    # Walk the edges and compute a label from the edge attributes
+    for n_id_u, n_id_v in graph.edges:
+        graph[n_id_u][n_id_v]['label'] = _create_label(graph[n_id_u][n_id_v])
+
+
+def model_to_graph(model: Any) -> nx.OrderedDiGraph:
+    graph = _build_graph(model)
+
+    _propagate_positions(graph)
+    _add_labels(graph)
 
     return graph

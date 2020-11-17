@@ -34,7 +34,7 @@ def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
 
     for n_id_from, n_id_to in graph.edges:
         data['edges'].setdefault(n_id_from, {})
-        data['edges'][n_id_from][n_id_to] = graph[n_id_from][n_id_to]
+        data['edges'][n_id_from][n_id_to] = graph[n_id_from][n_id_to].copy()
         data['edges'][n_id_from][n_id_to].pop('label', None)
 
     return data
