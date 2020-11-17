@@ -14,11 +14,30 @@ from jmespath import (
 import networkx as nx
 
 
-def export_graph(graph: nx.OrderedDiGraph, path: str) -> None:
+def export_graph(graph: nx.OrderedDiGraph, path: str) -> bool:
     # $ nix-env -i graphviz
     # $ dot -O -T svg  <path>
-    # $ eog <path>.svg
+    # $ google-chrome <path>.svg
     nx.drawing.nx_agraph.write_dot(graph, path)
+
+    return True
+
+
+def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
+    data: Dict[str, Any] = {}
+    data['nodes'] = {}
+    data['edges'] = {}
+
+    for n_id, n_attrs in graph.nodes.items():
+        data['nodes'][n_id] = n_attrs.copy()
+        data['nodes'][n_id].pop('label', None)
+
+    for n_id_from, n_id_to in graph.edges:
+        data['edges'].setdefault(n_id_from, {})
+        data['edges'][n_id_from][n_id_to] = graph[n_id_from][n_id_to]
+        data['edges'][n_id_from][n_id_to].pop('label', None)
+
+    return data
 
 
 def symbolic_evaluate(value: Any) -> Any:

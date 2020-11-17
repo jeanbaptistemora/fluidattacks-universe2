@@ -1,12 +1,13 @@
 # Standard library
 import contextlib
-from uuid import (
-    uuid4 as uuid,
+from itertools import (
+    count,
 )
 import json
 from typing import (
     Any,
     Dict,
+    Iterator,
     List,
     Optional,
 )
@@ -187,14 +188,15 @@ def _create_label(attributes: Dict[str, str]) -> str:
     return ', '.join([f'{key}={val}' for key, val in attributes.items()])
 
 
-def _create_leaf(
+def _create_leaf(  # pylint: disable=too-many-arguments
+    counter: Iterator[int],
     graph: nx.OrderedDiGraph,
     index: int,
     key: Optional[str],
     parent: Optional[str],
     value: Any,
 ) -> nx.OrderedDiGraph:
-    node_id: str = f'{key}.{uuid().hex}' if key else uuid().hex
+    node_id: str = f'{key}.{next(counter)}' if key else f'{next(counter)}'
 
     # Add a new node and link it to the parent
     graph.add_node(node_id)
@@ -215,12 +217,14 @@ def _create_leaf(
         else:
             graph = model_to_graph(
                 model=value,
+                _counter=counter,
                 _graph=graph,
                 _parent=node_id,
             )
     elif isinstance(value, list):
         graph = model_to_graph(
             model=value,
+            _counter=counter,
             _graph=graph,
             _parent=node_id,
         )
@@ -233,15 +237,18 @@ def _create_leaf(
 
 def model_to_graph(
     model: Any,
+    _counter: Optional[Iterator[int]] = None,
     _graph: Optional[nx.OrderedDiGraph] = None,
     _parent: Optional[str] = None,
 ) -> nx.OrderedDiGraph:
     # Handle first level of recurssion, where _graph is None
+    counter = count(1) if _counter is None else _counter
     graph = nx.OrderedDiGraph() if _graph is None else _graph
 
     if isinstance(model, dict):
         for index, (key, value) in enumerate(model.items()):
             _create_leaf(
+                counter=counter,
                 graph=graph,
                 index=index,
                 key=key,
@@ -251,6 +258,7 @@ def model_to_graph(
     elif isinstance(model, list):
         for index, value in enumerate(model):
             _create_leaf(
+                counter=counter,
                 graph=graph,
                 index=index,
                 key=None,

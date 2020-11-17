@@ -1,9 +1,5 @@
 # Standard library
-from typing import (
-    Any,
-    Dict,
-    List,
-)
+import json
 
 # Third party libraries
 from aioextensions import (
@@ -12,11 +8,16 @@ from aioextensions import (
 
 # Local libraries
 from parse_antlr import (
+    format_model,
+    model_to_graph,
     parse,
-    parse_rule,
 )
 from utils.fs import (
     get_file_raw_content,
+)
+from utils.graph import (
+    export_graph,
+    export_graph_as_json,
 )
 from utils.model import (
     Grammar,
@@ -125,3 +126,45 @@ async def test_parse_fail() -> None:
         )
 
         assert data == {}
+
+
+@run_decorator
+async def test_graph_generation_easy() -> None:
+    path = 'test/data/lib_path/f031_cwe378/Test.java'
+    model = await parse(
+        Grammar.JAVA9,
+        content=await get_file_raw_content(path),
+        path=path,
+    )
+    model = format_model(model)
+    graph = model_to_graph(model)
+    graph_as_json = export_graph_as_json(graph)
+    graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
+
+    assert export_graph(graph, 'graph')
+
+    with open('test/data/parse_antlr/graph_generation_easy.json') as handle:
+        expected = handle.read()
+
+    assert graph_as_json_str == expected
+
+
+@run_decorator
+async def test_graph_generation_hard() -> None:
+    path = 'test/data/benchmark/owasp/BenchmarkTest00008.java'
+    model = await parse(
+        Grammar.JAVA9,
+        content=await get_file_raw_content(path),
+        path=path,
+    )
+    model = format_model(model)
+    graph = model_to_graph(model)
+    graph_as_json = export_graph_as_json(graph)
+    graph_as_json_str = json.dumps(graph_as_json, indent=2)
+
+    assert export_graph(graph, 'graph')
+
+    with open('test/data/parse_antlr/graph_generation_hard.json') as handle:
+        expected = handle.read()
+
+    assert graph_as_json_str == expected
