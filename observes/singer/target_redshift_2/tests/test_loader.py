@@ -2,6 +2,7 @@ from target_redshift_2 import loader
 from target_redshift_2.db_client.objects import (
     DbTypes,
     SchemaID,
+    Table,
     TableID,
 )
 from target_redshift_2.objects import (
@@ -91,6 +92,7 @@ def test_create_table_schema_map_builder():
 
 
 def test_create_redshift_records_builder():
+    # Arrange
     s_record1 = SingerRecord('table_1', {})
     s_record2 = SingerRecord('table_2', {})
     r_schema1 = RedshiftSchema(
@@ -132,3 +134,27 @@ def test_create_redshift_records_builder():
     # Assert
     assert r_record1 in result
     assert r_record2 in result
+
+
+def test_create_table_mapper_builder():
+    # Arrange
+    test_table_id = TableID(SchemaID(None, 'test_schema'), 'test_table')
+    test_table = Table(
+        id=test_table_id,
+        primary_keys=frozenset(),
+        columns=frozenset({}),
+        prototype=None
+    )
+
+    def mock_retrieve_table(table_id: TableID) -> Table:
+        if table_id == test_table_id:
+            return test_table
+        raise Exception(f'Unexpected input')
+
+    # Act
+    create_table_map = loader.create_table_mapper_builder(
+        mock_retrieve_table
+    )
+    result = create_table_map([test_table_id])
+    # Assert
+    assert result[test_table_id] == test_table

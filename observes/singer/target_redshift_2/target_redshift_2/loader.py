@@ -8,8 +8,15 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from target_redshift_2.db_client.objects import SchemaID, TableID
-from target_redshift_2.objects import RedshiftRecord, RedshiftSchema
+from target_redshift_2.db_client.objects import (
+    SchemaID,
+    Table,
+    TableID,
+)
+from target_redshift_2.objects import (
+    RedshiftRecord,
+    RedshiftSchema,
+)
 from target_redshift_2.singer import (
     SingerObject,
     SingerRecord,
@@ -22,6 +29,7 @@ TableRschemaMap = Dict[TableID, RedshiftSchema]
 RRecordCreator = Callable[
     [Iterable[SingerRecord], TableRschemaMap], Iterable[RedshiftRecord]
 ]
+RealTableMap = Dict[TableID, Table]
 
 
 def process_lines_builder(
@@ -82,3 +90,19 @@ def create_redshift_records_builder(
         return r_records
 
     return create_rrecords
+
+
+def create_table_mapper_builder(
+    retrieve_table: Transform[TableID, Table]
+) -> Transform[Iterable[TableID], RealTableMap]:
+    """Returns implemented `RealTableMap`"""
+    def create_table_mapper(table_ids: Iterable[TableID]):
+        """
+        Retrieves real tables from table ids and return a map between them
+        """
+        mapper = {}
+        for table_id in table_ids:
+            table = retrieve_table(table_id)
+            mapper[table_id] = table
+        return mapper
+    return create_table_mapper
