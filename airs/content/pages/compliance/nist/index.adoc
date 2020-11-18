@@ -1,0 +1,98 @@
+:slug: compliance/nist/
+:description: At Fluid Attacks, through comprehensive analysis, we can help you comply with a variety of security standards for information technology, including NIST.
+:keywords: Fluid Attacks, NIST, 800-53, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
+:template: compliance
+
+= NIST
+
+== What is the NIST?
+
+[role="fw3 f3"]
+NIST is the National Institute of Standards and Technology from the U.S. that
+has been in operation for more than a century, supporting a multiplicity of
+science-based products and services. Within NIST is the Information Technology
+Laboratory (ITL), and linked to it is the National Vulnerability Database (NVD),
+where the NIST Special Publication 800-53 (Rev. 4) appears.
+
+== What is the NIST SP 800-53?
+
+[role="fw3 f3"]
+The NIST SP 800-53, a database related to security and privacy controls for
+federal information systems and organizations, serves as a guide for security
+policies and the protection of private information of both agencies and citizens
+against cyberattacks, errors and disasters. It provides administrative,
+operational and technical controls for developing secure IT systems and
+maintaining the availability, integrity and confidentiality of information
+assets. The NIST SP 800-53, which applies to any system storing, processing or
+transmitting federal data, is divided into three Minimum Security Controls
+(High, Moderate and Low-Impact Baseline) that apply to the following 18 Control
+Families, each one with the corresponding and variable security controls
+(follow the links below):
+
+[role="fw3 f3"]
+1. AC - Access Control
+2. AT - Awareness and Training
+3. AU - Audit and Accountability
+4. CA - Security Assessment and Authorization
+5. CM - Configuration Management
+6. CP - Contingency Planning
+7. IA - Identification and Authentication
+8. IR - Incident Response
+9. MA - Maintenance
+10. MP - Media Protection
+11. PE - Physical and Environmental Protection
+12. PL - Planning
+13. PM - Program Management
+14. PS - Personnel Security
+15. RA - Risk Assessment
+16. SA - System and Services Acquisition
+17. SC - System and Communications Protection
+18. SI - System and Information Integrity
+
+[role="fw3 f3"]
+It is relevant to mention that in September 2020 a final version of the NIST
+SP 800-53 (Rev. 5) was completed, which eliminated the word ‘federal’ from the
+title, changing it to ‘Security and Privacy Controls for Information Systems and
+Organizations’, thus indicating that it is not limited to federal agencies and
+can serve as a guide for any organization for the compliance of multiple
+security standards. In this revision there are now 20 Control Families, with
+the CA now called ‘Assessment, Authorization and Monitoring’, and the new ones
+‘PT - PII Processing and Transparency’ and ‘SR - Supply Chain Risk Management’.
+
+[role="fw3 f3"]
+The NIST 800-53 is not a regulation but a standard of best practices in security
+and privacy, so there are no penalties or fines for non-compliance. The official
+documents by NIST can be quite useful for organizations, providing them with
+guidance according to their security objectives and including suggested
+practices for data protection and breach avoidance, such as:
+
+[role="fw3 f3"]
+* Identification of all sensitive information used, users and access permissions.
+* Removal of inactive users.
+* Privilege management.
+* Monitoring of suspicious activity and potential threats.
+* Detection and remediation of security vulnerabilities in the systems.
+
+=== How can Fluid Attacks help with the NIST 800-53 compliance?
+
+[role="fw3 f-key-features"]
+Ensuring compliance with up-to-date security standards may become a complicated
+issue for diverse organizations that use continually evolving information
+technology for their businesses. Fluid Attacks recognizes this and offers you
+comprehensive testing and analysis to determine whether your company is
+effectively complying with all corresponding security requirements.
+
+[role="fw3 f-key-features"]
+Although Fluid Attacks’ Continuous Hacking service goes beyond the NIST 800-53,
+testing around 200 technical security requirements in each of your projects,
+we can guarantee the detection of all vulnerabilities in your software
+associated with this standard. In addition, we provide you with reliable
+reports so that your team can take the necessary steps to adjust and maintain
+your information systems in line with such requirements.
+
+[role="fw3 f-key-features"]
+All our security testing is based on Rules, which is a set of security
+requirements written by us in a comprehensible manner, using several
+international standards as a reference. It allows you to parameterize the
+assessments we make to your systems and determine what your company agrees to
+comply with and what would be considered a vulnerability.
