@@ -1,5 +1,5 @@
 import { Button } from "components/Button";
-import { ButtonToolbar } from "react-bootstrap";
+import { ButtonToolbar } from "styles/styledComponents";
 import { Checkbox } from "utils/forms/fields";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -38,7 +38,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
           >
             {translate.t("legalNotice.rememberCbo.text")}
           </Field>
-          <ButtonToolbar bsClass={"pull-right"}>
+          <ButtonToolbar>
             <Button
               title={translate.t("legalNotice.acceptBtn.tooltip")}
               type={"submit"}
