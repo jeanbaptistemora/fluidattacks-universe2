@@ -256,4 +256,73 @@ describe("ActionButtons", () => {
     expect(cancelButton)
       .toHaveLength(1);
   });
+
+  it("should render reject zero risk", async () => {
+    const rejectZeroRiskMockProps: IActionButtonsProps = {
+      ...baseMockedProps,
+    };
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "backend_api_mutations_reject_zero_risk_vuln_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <ActionButtons {...rejectZeroRiskMockProps} />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      },
+    );
+    expect(wrapper)
+      .toHaveLength(1);
+
+    let buttons: ReactWrapper = wrapper.find("Button");
+    expect(buttons)
+      .toHaveLength(2);
+
+    let rejectZeroRiskButton: ReactWrapper = buttons
+    .filterWhere((button: ReactWrapper): boolean =>
+      button
+        .text()
+        .includes("Reject zero risk"));
+    expect(rejectZeroRiskButton)
+      .toHaveLength(1);
+
+    const editButton: ReactWrapper = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+        .text()
+        .includes("Edit"));
+    expect(editButton)
+      .toHaveLength(1);
+
+    rejectZeroRiskButton.simulate("click");
+
+    act(() => {
+      wrapper.setProps({ isRejectingZeroRisk: true });
+      wrapper.update();
+    });
+
+    const { onRejectZeroRisk } = rejectZeroRiskMockProps;
+    expect(onRejectZeroRisk)
+      .toHaveBeenCalled();
+
+    buttons = wrapper.find("Button");
+    expect(buttons)
+      .toHaveLength(2);
+
+    rejectZeroRiskButton = buttons
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+        .text()
+        .includes("Reject zero risk"));
+    expect(rejectZeroRiskButton)
+      .toHaveLength(1);
+
+    const cancelButton: ReactWrapper = buttons
+    .filterWhere((button: ReactWrapper): boolean =>
+      button
+      .text()
+      .includes("Cancel"));
+    expect(cancelButton)
+      .toHaveLength(1);
+  });
 });
