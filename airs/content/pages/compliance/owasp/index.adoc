@@ -1,6 +1,6 @@
 :slug: compliance/owasp/
-:description: Contact Fluid Attacks' team and solve now all the vulnerabilities in your company's software!
-:keywords: Fluid Attacks, Contact Us, Information, Company, About Us, Security, Experts, Pentesting, Ethical Hacking
+:description: At Fluid Attacks, through comprehensive analysis, we can help you comply with a variety of security standards for information technology, including OWASP.
+:keywords: Fluid Attacks, OWASP, Top 10, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
 :template: compliance
 
 = OWASP
