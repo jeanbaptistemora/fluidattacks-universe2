@@ -5,6 +5,9 @@ from typing import (
     Any,
     Tuple,
 )
+from contextlib import (
+    suppress,
+)
 
 # Third party libraries
 import networkx as nx
@@ -39,7 +42,7 @@ def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
                 graph,
                 node_id,
                 'Statement',
-                depth_limit=2,
+                depth_limit=1,
             )[0]
             graph.add_edge(
                 node_id,
@@ -52,7 +55,7 @@ def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
                 graph,
                 node_id,
                 'StatementNoShortIf',
-                depth_limit=2,
+                depth_limit=1,
             )[0]
             graph.add_edge(
                 node_id,
@@ -64,7 +67,7 @@ def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
                 graph,
                 node_id,
                 'Statement',
-                depth_limit=2,
+                depth_limit=1,
             )[0]
             graph.add_edge(
                 node_id,
@@ -74,5 +77,25 @@ def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
             )
 
 
+def _analyze_block_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+    for node_id, node in graph.nodes.items():
+        if has_label(node, 'BlockStatement'):
+            statements = nx.dfs_successors(
+                graph,
+                source=node_id,
+                depth_limit=2,
+            )[node_id]
+            for index, statement in enumerate(statements):
+                with suppress(IndexError):
+                    graph.add_edge(
+                        statement,
+                        statements[index + 1],
+                        label_type='e',
+                        label_cfg='CFG',
+                    )
+    return graph
+
+
 def analyze(graph: nx.OrderedDiGraph) -> None:
     _analyze_if_then_statement(graph)
+    _analyze_block_statements(graph)
