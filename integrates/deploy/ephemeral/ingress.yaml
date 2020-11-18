@@ -25,11 +25,7 @@ spec:
             backend:
               serviceName: ssl-redirect
               servicePort: use-annotation
-          - path: /new/orgs/*
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 80
-          - path: /new/*
+          - path: /error401
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
               servicePort: 81
@@ -37,11 +33,15 @@ spec:
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
               servicePort: 81
-          - path: /error401
+          - path: /invalid_invitation
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
               servicePort: 81
-          - path: /invalid_invitation
+          - path: /new/*
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
+          - path: /static/*
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
               servicePort: 81

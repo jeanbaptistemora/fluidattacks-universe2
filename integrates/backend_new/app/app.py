@@ -204,6 +204,9 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
+        Route('/error401', error401),
+        Route('/error500', error500),
+        Route('/invalid_invitation', invalid_invitation),
         Route('/new/', login),
         Route('/new/authz_google', authz_google),
         Route('/new/authz_azure', authz_azure),
@@ -211,12 +214,8 @@ APP = Starlette(
         Route('/new/dglogin', do_google_login),
         Route('/new/dalogin', do_azure_login),
         Route('/new/dblogin', do_bitbucket_login),
-        Route('/new/api/', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
-        Route('/error401', error401),
-        Route('/error500', error500),
-        Route('/new/app', app),
-        Route('/new/{full_path:path}/', app),
-        Route('/invalid_invitation', invalid_invitation),
+        Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route('/new/{full_path:path}', app),
         Mount(
             '/static',
             StaticFiles(directory=f'{settings.TEMPLATES_DIR}/static'),
