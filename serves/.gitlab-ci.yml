@@ -100,6 +100,11 @@ serves_test_user_provision_skims:
   <<: *serves_in_dev_branch
   stage: test-infra
 
+serves_test_user_provision_sorts:
+  <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
 serves_test_user_provision_airs:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -175,6 +180,11 @@ serves_apply_user_provision_integrates:
   stage: deploy-infra
 
 serves_apply_user_provision_skims:
+  <<: *with_nix
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
+serves_apply_user_provision_sorts:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra

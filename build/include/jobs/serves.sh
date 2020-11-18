@@ -247,6 +247,28 @@ function job_serves_apply_user_provision_skims {
   ||  return 1
 }
 
+function job_serves_test_user_provision_sorts {
+  local target='services/user-provision/sorts/terraform'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd serves \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_serves_apply_user_provision_sorts {
+  local target='services/user-provision/sorts/terraform'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd serves \
+    &&  helper_serves_aws_login production \
+    &&  helper_common_terraform_apply "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_serves_test_user_provision_airs {
   local target='services/user-provision/airs/terraform'
 
