@@ -669,3 +669,14 @@ class InvalidTreatmentManager(Exception):
         """ Constructor """
         msg = 'Invalid treatment manager'
         super(InvalidTreatmentManager, self).__init__(msg)
+
+
+class AcceptionNotRequested(Exception):
+    """Exception to control if acceptation is not valid"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = (
+            'Exception - It cant handle acceptation without being requested'
+        )
+        super(AcceptionNotRequested, self).__init__(msg)

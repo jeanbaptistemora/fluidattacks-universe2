@@ -111,6 +111,13 @@ type Mutation {
         vulnerabilities: [String]!
     ): SimplePayload!
 
+    handleVulnsAcceptation(
+        acceptedVulns: [String]!
+        findingId: String!
+        justification: String!
+        rejectedVulns: [String]!
+    ): SimplePayload!
+
     grantStakeholderAccess(
         projectName: String
         email: String!

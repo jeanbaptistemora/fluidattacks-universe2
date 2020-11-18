@@ -23,6 +23,7 @@ from backend.api.mutations import (
     edit_stakeholder_organization,
     execute_skims,
     grant_stakeholder_organization_access,
+    handle_vulns_acceptation,
     invalidate_cache,
     reject_zero_risk_vuln,
     remove_event_evidence,
@@ -142,3 +143,4 @@ MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
