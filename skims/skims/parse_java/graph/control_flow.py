@@ -90,7 +90,7 @@ def _analyze_block_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
                     graph.add_edge(
                         statement,
                         statements[index + 1],
-                        label_type='e',
+                        label_e='e',
                         label_cfg='CFG',
                     )
     return graph

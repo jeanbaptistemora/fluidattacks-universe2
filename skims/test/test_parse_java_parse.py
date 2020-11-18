@@ -17,6 +17,9 @@ from parse_antlr.model import (
 from parse_java.parse import (
     from_antlr_model,
 )
+from parse_java.graph.control_flow import (
+    analyze as analyze_control_flow,
+)
 from utils.fs import (
     get_file_raw_content,
 )
@@ -24,6 +27,7 @@ from utils.graph import (
     export_graph,
     export_graph_as_json,
     graphviz_to_svg,
+    has_label,
 )
 from utils.model import (
     Grammar,
@@ -73,3 +77,40 @@ async def test_graph_generation(path: str, name: str) -> None:
         expected = handle.read()
 
     assert graph_as_json_str == expected
+
+
+@run_decorator
+async def test_apply_control_flow() -> None:
+    path = 'test/data/parse_java/TestCFG.java'
+    parse_tree = await parse(
+        Grammar.JAVA9,
+        content=await get_file_raw_content(path),
+        path=path,
+    )
+    model = model_from_parse_tree(parse_tree)
+    graph = from_antlr_model(model)
+
+    export_graph(graph, 'test/outputs/test_apply_control_flow.graph')
+    await graphviz_to_svg('test/outputs/test_apply_control_flow.graph')
+
+    # Check IfThenStatement and IfThenElseStatement
+    assert has_label(graph['352']['396'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['460']['483'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['531']['554'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['531']['601'], label_cfg='CFG', label_false='False')
+    assert has_label(graph['649']['729'], label_cfg='CFG', label_false='False')
+    assert has_label(graph['649']['682'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['730']['763'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['730']['810'], label_cfg='CFG', label_false='False')
+    assert has_label(graph['2623']['2659'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['2843']['2879'], label_cfg='CFG', label_true='True')
+    assert has_label(graph['3333']['3402'], label_cfg='CFG', label_true='True')
+
+    # Check BlockStatement
+    assert has_label(graph['98']['132'], label_cfg='CFG', label_e='e')
+    assert has_label(graph['132']['169'], label_cfg='CFG', label_e='e')
+    assert has_label(graph['169']['459'], label_cfg='CFG', label_e='e')
+    assert has_label(graph['459']['530'], label_cfg='CFG', label_e='e')
+    assert has_label(graph['530']['648'], label_cfg='CFG', label_e='e')
+    assert has_label(graph['893']['908'], label_cfg='CFG', label_e='e')
+    assert has_label(graph['908']['1213'], label_cfg='CFG', label_e='e')

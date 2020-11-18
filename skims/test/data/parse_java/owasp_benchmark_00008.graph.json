@@ -729,7 +729,7 @@
       },
       "1171": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "1128": {
@@ -2917,7 +2917,7 @@
       },
       "437": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "402": {
@@ -3143,7 +3143,7 @@
       },
       "474": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "438": {
@@ -3351,7 +3351,7 @@
       },
       "608": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "475": {
@@ -4209,7 +4209,7 @@
       },
       "698": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "609": {
@@ -4723,7 +4723,7 @@
       },
       "754": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "699": {
@@ -5169,7 +5169,7 @@
       },
       "832": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "764": {
@@ -5539,7 +5539,7 @@
       },
       "905": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "833": {
@@ -5941,7 +5941,7 @@
       },
       "958": {
         "label_cfg": "CFG",
-        "label_type": "e"
+        "label_e": "e"
       }
     },
     "906": {

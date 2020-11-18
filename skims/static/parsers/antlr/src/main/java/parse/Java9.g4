@@ -1088,10 +1088,6 @@ primaryNoNewArray_lfno_primary
 	|	methodReference_lfno_primary
 	;
 
-primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary
-	:
-	;
-
 primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary
 	:	literal
 	|	typeName ('[' ']')* '.' 'class'
@@ -1171,7 +1167,7 @@ arrayAccess_lfno_primary
 	:	(	expressionName '[' expression ']'
 		|	primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary '[' expression ']'
 		)
-		(	primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary '[' expression ']'
+		(   '[' expression ']'
 		)*
 	;
 
