@@ -248,3 +248,8 @@ serves_rotate_keys_user_provision_skims:
   <<: *with_nix
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation
+
+serves_rotate_keys_user_provision_sorts:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation

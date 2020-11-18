@@ -564,6 +564,53 @@ function job_serves_rotate_keys_user_provision_skims {
   ||  return 1
 }
 
+function job_serves_rotate_keys_user_provision_sorts {
+  local terraform_dir='services/user-provision/sorts/terraform'
+  local gitlab_repo_id='20741933'
+
+  # Dev
+  local dev_resource_to_taint='aws_iam_access_key.sorts_dev_key'
+  local dev_output_key_id_name='sorts_dev_access_key'
+  local dev_output_secret_key_name='sorts_dev_secret_key'
+  local dev_gitlab_key_id_name='SORTS_DEV_AWS_ACCESS_KEY_ID'
+  local dev_gitlab_secret_key_name='SORTS_DEV_AWS_SECRET_ACCESS_KEY'
+  local dev_gitlab_masked='true'
+  local dev_gitlab_protected='false'
+
+  # Prod
+  local prod_resource_to_taint='aws_iam_access_key.sorts_prod_key'
+  local prod_output_key_id_name='sorts_prod_access_key'
+  local prod_output_secret_key_name='sorts_prod_secret_key'
+  local prod_gitlab_key_id_name='SORTS_PROD_AWS_ACCESS_KEY_ID'
+  local prod_gitlab_secret_key_name='SORTS_PROD_AWS_SECRET_ACCESS_KEY'
+  local prod_gitlab_masked='true'
+  local prod_gitlab_protected='true'
+
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${dev_resource_to_taint}" \
+        "${dev_output_key_id_name}" \
+        "${dev_output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${dev_gitlab_key_id_name}" \
+        "${dev_gitlab_secret_key_name}" \
+        "${dev_gitlab_masked}" \
+        "${dev_gitlab_protected}" \
+  &&  helper_serves_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${prod_resource_to_taint}" \
+        "${prod_output_key_id_name}" \
+        "${prod_output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${prod_gitlab_key_id_name}" \
+        "${prod_gitlab_secret_key_name}" \
+        "${prod_gitlab_masked}" \
+        "${prod_gitlab_protected}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_serves_rotate_keys_user_provision_airs {
   local terraform_dir='services/user-provision/airs/terraform'
   local gitlab_repo_id='20741933'
