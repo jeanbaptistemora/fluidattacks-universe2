@@ -2,7 +2,8 @@
 
 # Standard library
 import os
-from typing import Any
+from typing import Any, Dict
+import requests
 
 # Third party libraries
 from asgiref.sync import async_to_sync
@@ -16,7 +17,9 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
+from authlib.integrations.requests_client import OAuth2Session
 from authlib.integrations.starlette_client import OAuth
+from authlib.common.security import generate_token
 
 # Local libraries
 from backend.api import IntegratesAPI
@@ -85,6 +88,26 @@ def login(request: Request) -> HTMLResponse:
     )
 
 
+def get_azure_client(request: Request) -> OAuth:
+    redirect_uri = utils.get_redirect_url(request, 'authz_azure')
+    azure = OAuth2Session(
+        settings.AZURE_ARGS['client_id'],
+        settings.AZURE_ARGS['client_secret'],
+        scope='https://graph.microsoft.com/.default openid email profile',
+        redirect_uri=redirect_uri
+    )
+    return azure
+
+
+async def handle_user(request: Request, user: Dict[str, str]) -> Request:
+    request.session['username'] = user['email']
+    request.session['first_name'] = user.get('given_name', '')
+    request.session['last_name'] = user.get('family_name', '')
+    await utils.create_user(request.session)
+
+    return request
+
+
 async def do_google_login(request: Request) -> Any:
     redirect_uri = utils.get_redirect_url(request, 'authz_google')
     google = OAUTH.create_client('google')
@@ -92,9 +115,12 @@ async def do_google_login(request: Request) -> Any:
 
 
 async def do_azure_login(request: Request) -> Any:
-    redirect_uri = utils.get_redirect_url(request, 'authz_azure')
-    azure = OAUTH.create_client('azure')
-    return await azure.authorize_redirect(request, redirect_uri)
+    azure = get_azure_client(request)
+    uri, _ = azure.create_authorization_url(
+        settings.AZURE_ARGS['authorize_url'],
+        nonce=generate_token()
+    )
+    return RedirectResponse(url=uri)
 
 
 async def do_bitbucket_login(request: Request) -> Any:
@@ -111,11 +137,7 @@ async def authz(request: Request, client: OAuth) -> RedirectResponse:
     else:
         user = await utils.get_bitbucket_oauth_userinfo(client, token)
 
-    request.session['username'] = user['email']
-    request.session['first_name'] = user.get('given_name', '')
-    request.session['last_name'] = user.get('family_name', '')
-
-    await utils.create_user(request.session)
+    request = await handle_user(request, user)
 
     return RedirectResponse(url='/new/home')
 
@@ -156,7 +178,21 @@ async def authz_google(request: Request) -> HTMLResponse:
 
 
 async def authz_azure(request: Request) -> HTMLResponse:
-    return await authz(request, OAUTH.azure)
+    azure = azure = get_azure_client(request)
+    token = azure.fetch_token(
+        'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+        authorization_response=str(request.url)
+    )
+    user = requests.get(
+        'https://graph.microsoft.com/oidc/userinfo',
+        headers={
+            'Authorization': f'Bearer {token["access_token"]}',
+            'Host': 'graph.microsoft.com'
+        }
+    )
+    request = await handle_user(request, user.json())
+
+    return RedirectResponse(url='/new/home')
 
 
 async def authz_bitbucket(request: Request) -> HTMLResponse:

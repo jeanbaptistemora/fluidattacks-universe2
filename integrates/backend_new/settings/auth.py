@@ -22,7 +22,7 @@ GOOGLE_ARGS = dict(
 )
 
 AZURE_AUTHZ_URL = (
-    'https://login.microsoftonline.com/common/oauth2/authorize'
+    'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
 )
 AZURE_CONF_URL = (
     'https://login.microsoftonline.com/common/.well-known/openid-configuration'
