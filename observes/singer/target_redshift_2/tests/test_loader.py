@@ -1,6 +1,14 @@
 from target_redshift_2 import loader
-from target_redshift_2.db_client.objects import SchemaID, TableID
-from target_redshift_2.objects import RedshiftSchema
+from target_redshift_2.db_client.objects import (
+    DbTypes,
+    SchemaID,
+    TableID,
+)
+from target_redshift_2.objects import (
+    RedshiftField,
+    RedshiftRecord,
+    RedshiftSchema,
+)
 from target_redshift_2.singer import (
     SingerObject,
     SingerRecord,
@@ -40,7 +48,7 @@ def test_process_lines_builder():
     assert test_record_2 in result[1]
 
 
-def test_create_table_schema_map():
+def test_create_table_schema_map_builder():
     # Arrange
     test_schemas = [
         SingerSchema(
@@ -80,3 +88,47 @@ def test_create_table_schema_map():
                 table_name=f'the_table_{i}'
             )
         ] == expected[i]
+
+
+def test_create_redshift_records_builder():
+    s_record1 = SingerRecord('table_1', {})
+    s_record2 = SingerRecord('table_2', {})
+    r_schema1 = RedshiftSchema(
+        frozenset({RedshiftField('field1',DbTypes.BOOLEAN)}),
+        'test_schema', 'test_table'
+    )
+    r_schema2 = RedshiftSchema(
+        frozenset({RedshiftField('field2',DbTypes.FLOAT)}),
+        'test_schema', 'test_table_2'
+    )
+    table_id1 = TableID(SchemaID(None, 'test_schema'), 'table1')
+    table_id2 = TableID(SchemaID(None, 'test_schema_2'), 'table2')
+    r_record1 = RedshiftRecord(r_schema1,frozenset())
+    r_record2 = RedshiftRecord(r_schema2,frozenset())
+    test_records = [s_record1, s_record2]
+    test_map = {table_id1: r_schema1, table_id2: r_schema2}
+
+    def mock_to_rrecord(
+        s_record: SingerRecord, r_schema: RedshiftSchema
+    ) -> RedshiftRecord:
+        if s_record == s_record1 and r_schema == r_schema1:
+            return r_record1
+        if s_record == s_record2 and r_schema == r_schema2:
+            return r_record2
+        raise Exception(f'Unexpected input')
+
+    def mock_to_extract_table_id(s_record: SingerRecord) -> TableID:
+        if s_record == s_record1:
+            return table_id1
+        if s_record == s_record2:
+            return table_id2
+        raise Exception(f'Unexpected input')
+
+    # Act
+    create_rrecords = loader.create_redshift_records_builder(
+        mock_to_rrecord, mock_to_extract_table_id
+    )
+    result = create_rrecords(test_records, test_map)
+    # Assert
+    assert r_record1 in result
+    assert r_record2 in result
