@@ -21,8 +21,8 @@ from utils.graph import (
 def _get_successors_by_label(
     graph: nx.OrderedDiGraph,
     source: Any,
-    *labels: Any,
     depth_limit: int = 1,
+    **labels: Any,
 ) -> Tuple[Any, ...]:
     return tuple(successor for _, successors in nx.dfs_successors(
         graph,
@@ -30,47 +30,47 @@ def _get_successors_by_label(
         depth_limit=depth_limit,
     ).items() for successor in successors if has_label(
         graph.nodes[successor],
-        *labels,
+        **labels,
     ))
 
 
 def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
-    for node_id, node in graph.nodes.items():
-        if has_label(node, 'IfThenStatement'):
+    for n_id, node in graph.nodes.items():
+        if has_label(node, label_type='IfThenStatement'):
             # an ifThenStatement should only have one Statement
             true_statement = _get_successors_by_label(
                 graph,
-                node_id,
-                'Statement',
+                n_id,
                 depth_limit=1,
+                label_type='Statement',
             )[0]
             graph.add_edge(
-                node_id,
+                n_id,
                 true_statement,
                 label_cfg='CFG',
                 label_true='True',
             )
-        elif has_label(node, 'IfThenElseStatement'):
+        elif has_label(node, label_type='IfThenElseStatement'):
             true_statement = _get_successors_by_label(
                 graph,
-                node_id,
-                'StatementNoShortIf',
+                n_id,
                 depth_limit=1,
+                label_type='StatementNoShortIf',
             )[0]
             graph.add_edge(
-                node_id,
+                n_id,
                 true_statement,
                 label_cfg='CFG',
                 label_true='True',
             )
             false_statement = _get_successors_by_label(
                 graph,
-                node_id,
-                'Statement',
+                n_id,
                 depth_limit=1,
+                label_type='Statement',
             )[0]
             graph.add_edge(
-                node_id,
+                n_id,
                 false_statement,
                 label_cfg='CFG',
                 label_false='False',
@@ -78,13 +78,13 @@ def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
 
 
 def _analyze_block_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
-    for node_id, node in graph.nodes.items():
-        if has_label(node, 'BlockStatement'):
+    for n_id, node in graph.nodes.items():
+        if has_label(node, label_type='BlockStatement'):
             statements = nx.dfs_successors(
                 graph,
-                source=node_id,
+                source=n_id,
                 depth_limit=2,
-            )[node_id]
+            )[n_id]
             for index, statement in enumerate(statements):
                 with suppress(IndexError):
                     graph.add_edge(
