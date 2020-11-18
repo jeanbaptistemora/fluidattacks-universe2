@@ -109,3 +109,6 @@ class SingerFactory(NamedTuple):
         raise KeyError(
             f'Deserialize singer failed. Unknown or missing type {data_type}.'
         )
+
+
+SingerObject = Union[SingerRecord, SingerSchema]
