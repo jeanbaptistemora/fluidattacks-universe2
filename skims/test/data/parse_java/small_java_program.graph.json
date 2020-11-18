@@ -1609,6 +1609,7 @@
     },
     "30": {
       "label_c": 4,
+      "label_input_type": "function",
       "label_l": 4,
       "label_parent_ast": "29",
       "label_type": "MethodDeclaration"

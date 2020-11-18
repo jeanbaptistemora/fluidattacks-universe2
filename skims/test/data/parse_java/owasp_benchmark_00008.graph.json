@@ -8753,6 +8753,7 @@
     },
     "223": {
       "label_c": 4,
+      "label_input_type": "function",
       "label_l": 34,
       "label_parent_ast": "222",
       "label_type": "MethodDeclaration"
@@ -9509,6 +9510,7 @@
     },
     "339": {
       "label_c": 4,
+      "label_input_type": "function",
       "label_l": 39,
       "label_parent_ast": "338",
       "label_type": "MethodDeclaration"

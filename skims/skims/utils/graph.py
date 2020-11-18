@@ -18,6 +18,9 @@ from utils.system import (
     read,
 )
 
+# Constants
+GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
+
 
 def export_graph(graph: nx.OrderedDiGraph, path: str) -> bool:
     # $ nix-env -i graphviz
@@ -51,7 +54,7 @@ def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
     data: Dict[str, Any] = {}
     data['nodes'] = {}
     data['edges'] = {}
-    ignored_attrs = ['arrowhead', 'color', 'label']
+    ignored_attrs = GRAPH_STYLE_ATTRS
 
     for n_id, n_attrs in graph.nodes.items():
         data['nodes'][n_id] = n_attrs.copy()

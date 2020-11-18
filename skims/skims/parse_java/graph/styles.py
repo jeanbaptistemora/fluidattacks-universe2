@@ -6,6 +6,11 @@ Only presentation (visual) logic should go here
 # Third party libraries
 import networkx as nx
 
+# Local libraries
+from utils.graph import (
+    GRAPH_STYLE_ATTRS,
+)
+
 
 def _create_label(**attrs: str) -> str:
     return '\n'.join(f'{key}: {attrs[key]}' for key in sorted(attrs))
@@ -16,9 +21,7 @@ def _verify(graph: nx.OrderedDiGraph) -> None:
 
     Styles should be added in this module for maintainability.
     """
-    reserved_attrs = ['arrowhead', 'color', 'label']
-
-    for reserved_attr in reserved_attrs:
+    for reserved_attr in GRAPH_STYLE_ATTRS:
         for n_attrs in graph.nodes.values():
             if reserved_attr in n_attrs:
                 raise ValueError(f'{reserved_attr} must be added in styles')
@@ -46,8 +49,14 @@ def _add_styles(graph: nx.OrderedDiGraph) -> None:
     # fontcolor: color of the text
 
     # Walk the nodes and compute a label from the node attributes
-    for n_id in graph.nodes:
-        graph.nodes[n_id]['color'] = 'black'
+    for n_attrs in graph.nodes.values():
+        n_attrs['color'] = 'black'
+        n_attrs['style'] = 'filled'
+
+        if n_attrs.get('label_input_type') == 'function':
+            n_attrs['fillcolor'] = 'gold'
+        else:
+            n_attrs['fillcolor'] = 'white'
 
     # Walk the edges and compute a label from the edge attributes
     for n_id_u, n_id_v in graph.edges:
