@@ -51,12 +51,15 @@ def _add_styles(graph: nx.OrderedDiGraph) -> None:
 
     # Walk the edges and compute a label from the edge attributes
     for n_id_u, n_id_v in graph.edges:
-        graph[n_id_u][n_id_v]['arrowhead'] = 'open'
+        edge_attrs = graph[n_id_u][n_id_v]
+        edge_attrs['arrowhead'] = 'open'
 
-        if 'label_ast' in graph[n_id_u][n_id_v]:
-            graph[n_id_u][n_id_v]['color'] = 'blue'
-        elif 'label_cfg' in graph[n_id_u][n_id_v]:
-            graph[n_id_u][n_id_v]['color'] = 'red'
+        if 'label_ast' in edge_attrs and 'label_cfg' in edge_attrs:
+            edge_attrs['color'] = 'purple'
+        elif 'label_ast' in edge_attrs:
+            edge_attrs['color'] = 'blue'
+        elif 'label_cfg' in edge_attrs:
+            edge_attrs['color'] = 'red'
         else:
             # Should not happen
             raise NotImplementedError()

@@ -31,7 +31,11 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     node_id: str = str(next(counter))
 
     # Add a new node and link it to the parent
-    graph.add_node(node_id, label_type=key)
+    graph.add_node(
+        node_id,
+        label_parent_ast=parent,
+        label_type=key,
+    )
     if parent:
         graph.add_edge(parent, node_id, index=index)
 
