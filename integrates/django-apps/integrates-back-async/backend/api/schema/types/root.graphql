@@ -13,7 +13,7 @@ type IntegrationEnvironment {
   "Kind of environment to test. E.g. production, QA, etc."
   kind: String!
   "URL to access the environment"
-  url: String!
+  url: String
 }
 
 type GitRoot implements IRoot {
@@ -22,7 +22,7 @@ type GitRoot implements IRoot {
   "Preferences for filtering directories"
   directoryFiltering: DirectoryFilteringConfig
   "Environment for the code provided"
-  environment: IntegrationEnvironment
+  environment: IntegrationEnvironment!
   "ID of the root"
   id: ID!
   "Repository URL"
@@ -39,6 +39,8 @@ type IPRoot implements IRoot {
 }
 
 type URLRoot implements IRoot {
+  "Domain name or IP of the environment to test"
+  host: String!
   "ID of the root"
   id: ID!
   "URL path"
@@ -47,6 +49,4 @@ type URLRoot implements IRoot {
   port: Int!
   "URL protocol"
   protocol: URLProtocol!
-  "URL of the environment to test"
-  url: String!
 }

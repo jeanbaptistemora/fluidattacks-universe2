@@ -176,10 +176,10 @@ IPRoot = NamedTuple('IPRoot', [
     ('port', int)
 ])
 URLRoot = NamedTuple('URLRoot', [
+    ('host', str),
     ('id', str),
     ('path', str),
     ('port', int),
-    ('protocol', str),
-    ('url', str)
+    ('protocol', str)
 ])
 Root = Union[GitRoot, IPRoot, URLRoot]

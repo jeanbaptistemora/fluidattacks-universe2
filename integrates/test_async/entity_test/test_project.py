@@ -430,11 +430,11 @@ async def test_get_roots() -> None:
                 port
               }
               ...on URLRoot {
+                host
                 id
                 path
                 port
                 protocol
-                url
               }
             }
             subscription
@@ -467,11 +467,11 @@ async def test_get_roots() -> None:
     assert result['data']['drillsBlackGroup']['roots'] == [
         {
             '__typename': 'URLRoot',
+            'host': 'integrates.fluidattacks.com',
             'id': 'ROOT#8493c82f-2860-4902-86fa-75b0fef76034',
             'path': '/',
-            'port': 80,
-            'protocol': 'HTTPS',
-            'url': 'integrates.fluidattacks.com'
+            'port': 443,
+            'protocol': 'HTTPS'
         },
         {
             '__typename': 'IPRoot',
@@ -499,9 +499,12 @@ async def test_get_roots() -> None:
         },
         {
             '__typename': 'GitRoot',
-            'branch': 'master',
+            'branch': 'develop',
             'directoryFiltering': None,
-            'environment': None,
+            'environment': {
+                'kind': 'QA',
+                'url': None
+            },
             'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             'url': 'https://gitlab.com/fluidattacks/integrates/-/tree/master'
         }
@@ -513,6 +516,7 @@ async def test_add_git_root_black() -> None:
       mutation {
         addGitRoot(
           branch: "master"
+          environment: { kind: "Test" }
           groupName: "oneshottest"
           url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
         ) {
@@ -532,6 +536,10 @@ async def test_add_git_root_white() -> None:
       mutation {
         addGitRoot(
           branch: "master"
+          environment: {
+            kind: "production"
+            url: "https://integrates.fluidattacks.com/"
+          }
           groupName: "unittesting"
           url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
         ) {
@@ -550,6 +558,7 @@ async def test_add_git_root_invalid_branch() -> None:
       mutation {
         addGitRoot(
           branch: "( ͡° ͜ʖ ͡°)"
+          environment: { kind: "Test" }
           groupName: "unittesting"
           url: "https://gitlab.com/fluidattacks/integrates/-/tree/master"
         ) {
@@ -568,6 +577,7 @@ async def test_add_git_root_invalid_url() -> None:
       mutation {
         addGitRoot(
           branch: "master"
+          environment: { kind: "Test" }
           groupName: "unittesting"
           url: "randomstring"
         ) {

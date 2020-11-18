@@ -30,7 +30,7 @@ async def get_roots_by_group(group_name: str) -> List[Root]:
         )
         if root['kind'] == 'IP'
         else URLRoot(
-            url=root['url'],
+            host=root['host'],
             id=root['sk'],
             path=root['path'],
             port=root['port'],
@@ -48,7 +48,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
     )
     is_valid_env: bool = (
         validations.is_valid_url(kwargs['environment']['url'])
-        if kwargs.get('environment')
+        if kwargs['environment'].get('url')
         else True
     )
 
@@ -99,11 +99,11 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
         default_port: int = 443 if url_attributes.scheme == 'https' else 80
         root_attributes: Dict[str, Any] = {
             'created_by': user_email,
+            'host': url_attributes.host,
             'kind': 'URL',
             'path': url_attributes.path or '/',
             'port': url_attributes.port or default_port,
-            'protocol': url_attributes.scheme,
-            'url': kwargs['url'],
+            'protocol': url_attributes.scheme.upper()
         }
 
         await root_dal.add_root(group_name, root_attributes)

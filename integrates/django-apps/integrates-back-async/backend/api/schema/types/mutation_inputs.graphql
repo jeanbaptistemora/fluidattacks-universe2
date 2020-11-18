@@ -45,5 +45,5 @@ input IntegrationEnvironmentInput {
   "Kind of environment to test. E.g. production, QA, etc."
   kind: String!
   "URL to access the environment"
-  url: String!
+  url: String
 }

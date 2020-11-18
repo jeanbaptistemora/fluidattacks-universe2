@@ -359,7 +359,7 @@ type Mutation {
         "Preferences for filtering directories"
         directoryFiltering: DirectoryFilteringConfigInput
         "Environment for the code provided"
-        environment: IntegrationEnvironmentInput
+        environment: IntegrationEnvironmentInput!
         "Name of the group the root is associated with"
         groupName: String!
         "Repository URL"

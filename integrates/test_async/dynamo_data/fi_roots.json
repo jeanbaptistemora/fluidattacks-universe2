@@ -57,7 +57,14 @@
             "S" : "Git"
           },
           "branch": {
-            "S" : "master"
+            "S" : "develop"
+          },
+          "environment": {
+            "M": {
+              "kind": {
+                "S": "QA"
+              }
+            }
           },
           "url": {
             "S": "https://gitlab.com/fluidattacks/integrates/-/tree/master"
@@ -95,6 +102,9 @@
           "sk": {
             "S" : "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
           },
+          "host": {
+            "S" : "integrates.fluidattacks.com"
+          },
           "kind": {
             "S" : "URL"
           },
@@ -102,13 +112,10 @@
             "S" : "/"
           },
           "port": {
-            "N" : "80"
+            "N" : "443"
           },
           "protocol": {
             "S" : "HTTPS"
-          },
-          "url": {
-            "S" : "integrates.fluidattacks.com"
           }
         }
       }
