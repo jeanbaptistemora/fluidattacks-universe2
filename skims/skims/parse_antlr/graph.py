@@ -14,7 +14,10 @@ import networkx as nx
 
 
 def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
-    return set(node.keys()).issuperset({'c', 'l', 'text', 'type'})
+    keys = set(node.keys())
+
+    return keys.issuperset({'c', 'l', 'text', 'type'}) \
+        or keys.issuperset({'label_c', 'label_l', 'label_text', 'label_type'})
 
 
 def _create_leaf(  # pylint: disable=too-many-arguments
@@ -28,17 +31,14 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     node_id: str = str(next(counter))
 
     # Add a new node and link it to the parent
-    graph.add_node(node_id)
+    graph.add_node(node_id, label_type=key)
     if parent:
         graph.add_edge(parent, node_id, index=index)
-
-    if key:
-        graph.nodes[node_id]['label_type'] = key
 
     if isinstance(value, dict):
         if _node_has_position_metadata(value):
             for value_key, value_value in value.items():
-                graph.nodes[node_id][value_key] = value_value
+                graph.nodes[node_id][f'label_{value_key}'] = value_value
         else:
             graph = _build_graph(
                 model=value,
@@ -46,7 +46,6 @@ def _create_leaf(  # pylint: disable=too-many-arguments
                 _graph=graph,
                 _parent=node_id,
             )
-            graph.nodes[node_id]['type'] = key
     elif isinstance(value, list):
         graph = _build_graph(
             model=value,
@@ -107,8 +106,8 @@ def _propagate_positions(graph: nx.OrderedDiGraph) -> None:
             c_id = tuple(graph.adj[n_id])[0]
 
             # Propagate metadata from the child to the parent
-            graph.nodes[n_id]['c'] = graph.nodes[c_id]['c']
-            graph.nodes[n_id]['l'] = graph.nodes[c_id]['l']
+            graph.nodes[n_id]['label_c'] = graph.nodes[c_id]['label_c']
+            graph.nodes[n_id]['label_l'] = graph.nodes[c_id]['label_l']
 
 
 def _mark_as_created_by_this_module(graph: nx.OrderedDiGraph) -> None:

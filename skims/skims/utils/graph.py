@@ -51,7 +51,7 @@ def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
     data: Dict[str, Any] = {}
     data['nodes'] = {}
     data['edges'] = {}
-    ignored_attrs = ['color', 'label']
+    ignored_attrs = ['arrowhead', 'color', 'label']
 
     for n_id, n_attrs in graph.nodes.items():
         data['nodes'][n_id] = n_attrs.copy()

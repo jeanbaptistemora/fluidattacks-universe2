@@ -14,9 +14,6 @@ from utils.model import (
 from parse_antlr.parse import (
     parse,
 )
-from parse_antlr.graph import (
-    from_model,
-)
 from utils.graph import (
     has_label,
     export_graph,
