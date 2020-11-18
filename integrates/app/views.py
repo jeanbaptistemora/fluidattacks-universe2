@@ -71,34 +71,6 @@ BUCKET_S3 = FI_AWS_S3_BUCKET
 LOGGER = logging.getLogger(__name__)
 
 
-async def enforce_group_level_role(
-        request: HttpRequest,
-        group: str,
-        *allowed_roles: Sequence[str]) -> HttpResponse:
-    # Verify role if the user is logged in
-    email = request.session.get('username')
-    registered = request.session.get('registered')
-
-    if not email or not registered:
-        # The user is not even authenticated. Redirect to login
-        return HttpResponse(
-            '<script> '
-            'var getUrl=window.location.href.split('
-            '`${window.location.host}/`); '
-            'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/"; '
-            '</script>'
-        )
-
-    requester_role = await authz.get_group_level_role(email, group)
-    if requester_role not in allowed_roles:
-        response = HttpResponse("Access denied")
-        response.status_code = 403
-        return response
-
-    return None
-
-
 async def create_session_token(
     *,
     email: str,
@@ -342,12 +314,14 @@ async def get_evidence(
         'reviewer'
     ]
 
-    error = await enforce_group_level_role(request, project, *allowed_roles)
+    username = await util.get_jwt_content(request)
+    username = username.get('user_email')
+
+    error = await enforce_group_level_role(username, project, *allowed_roles)
 
     if error is not None:
         return error
 
-    username = request.session['username']
     if ((evidence_type in ['drafts', 'findings', 'vulns'] and
          await has_access_to_finding(username, findingid)) or
         (evidence_type == 'events' and
@@ -380,6 +354,30 @@ async def get_evidence(
             'Security: Attempted to retrieve evidence without permission'
         )
         return util.response([], 'Access denied or evidence not found', True)
+
+
+async def enforce_group_level_role(
+        email: str,
+        group: str,
+        *allowed_roles: Sequence[str]) -> HttpResponse:
+    if not email:
+        # The user is not even authenticated. Redirect to login
+        return HttpResponse(
+            '<script> '
+            'var getUrl=window.location.href.split('
+            '`${window.location.host}/`); '
+            'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
+            'location = "/"; '
+            '</script>'
+        )
+
+    requester_role = await authz.get_group_level_role(email, group)
+    if requester_role not in allowed_roles:
+        response = HttpResponse("Access denied")
+        response.status_code = 403
+        return response
+
+    return None
 
 
 def retrieve_image(request: HttpRequest, img_file: str) -> HttpResponse:
