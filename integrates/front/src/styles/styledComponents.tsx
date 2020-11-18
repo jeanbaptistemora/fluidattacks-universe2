@@ -254,6 +254,15 @@ const LoginButtonMicrosoft: StyledComponent<
     "dim w-100 flex ba br0 pa3 mt2 outline-0 justify-between items-center btn-login btn-microsoftLoginInfo",
 })``;
 
+const LoginCommit: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "absolute commit",
+})``;
+
 const LoginContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -261,6 +270,15 @@ const LoginContainer: StyledComponent<
   className: string;
 }>({
   className: "items-center flex flex-row white h-100",
+})``;
+
+const LoginDeploymentDate: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "absolute deploymentDate",
 })``;
 
 const LoginGrid: StyledComponent<
@@ -537,7 +555,9 @@ export {
   LoginButtonBitbucket,
   LoginButtonGoogle,
   LoginButtonMicrosoft,
+  LoginCommit,
   LoginContainer,
+  LoginDeploymentDate,
   LoginGrid,
   LoginRow,
   Meter,

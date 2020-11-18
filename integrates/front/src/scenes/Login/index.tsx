@@ -17,7 +17,9 @@ import {
   LoginButtonBitbucket,
   LoginButtonGoogle,
   LoginButtonMicrosoft,
+  LoginCommit,
   LoginContainer,
+  LoginDeploymentDate,
   LoginGrid,
   LoginRow,
   Notification2FaCol,
@@ -127,11 +129,11 @@ export const Login: React.FC = (): JSX.Element => {
           </LoginButtonBitbucket>
         </LoginRow>
       </LoginGrid>
-      <div className={style.deploymentDate}>
+      <LoginDeploymentDate>
         {t("sidebar.deployment_date")}&nbsp;
         {deploymentDate}
-      </div>
-      <div className={style.commit}>
+      </LoginDeploymentDate>
+      <LoginCommit>
         {t("sidebar.commit")}&nbsp;
         <a
           href={`https://gitlab.com/fluidattacks/product/-/tree/${commitSha}`}
@@ -140,7 +142,7 @@ export const Login: React.FC = (): JSX.Element => {
         >
           {commitShaShort}
         </a>
-      </div>
+      </LoginCommit>
     </LoginContainer>
   );
 };
