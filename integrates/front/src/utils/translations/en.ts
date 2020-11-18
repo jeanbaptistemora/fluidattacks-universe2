@@ -571,6 +571,7 @@ export const enTranslations: ResourceKey = {
     port_value: "Port value should be between 0 and 65535.",
     range_error: "Range limits are wrong.",
     records_removed: "Records have been removed successfully",
+    rejected_zero_risk_success: "Zero risk vulnerability has been rejected",
     report_requested:
       "You will be receiving a mail with the link of the report in the next minutes",
     request_remove: "Group deletion request has been sent successfully",
@@ -930,6 +931,7 @@ export const enTranslations: ResourceKey = {
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
       cancel_confirming_zero_risk: "Cancel",
+      cancel_rejecting_zero_risk: "Cancel",
       cancel_requesting_zero_risk: "Cancel",
       cancel_verified: "Cancel",
       cancel_verify: "Cancel",
@@ -982,6 +984,10 @@ export const enTranslations: ResourceKey = {
       recommendation: {
         text: "Recommendation",
         tooltip: "General suggestion to solve the vulnerability",
+      },
+      reject_zero_risk: {
+        text: "Reject zero risk",
+        tooltip: "Assess whether the vulnerability was rejected as zero risk",
       },
       remediation_modal: {
         justification: "Which was the applied solution?",
@@ -1063,6 +1069,9 @@ export const enTranslations: ResourceKey = {
         confirm_justification: "Why is the zero risk vulnerability confirmed?",
         confirm_message:
           "Zero risk will be confirmed for {{vulns}} vulnerabilities",
+        reject_justification: "Why is the zero risk vulnerability rejected?",
+        reject_message:
+          "Zero risk will be rejected for {{vulns}} vulnerabilities",
         request_justification: "Why is it a zero risk vulnerability?",
         request_message:
           "Zero risk will be requested for {{vulns}} vulnerabilities",

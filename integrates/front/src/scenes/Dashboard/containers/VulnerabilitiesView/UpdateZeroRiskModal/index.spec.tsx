@@ -54,6 +54,7 @@ describe("update zero risk component", () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleConfirmState: jest.Mock = jest.fn();
+    const handleRejectState: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -76,12 +77,14 @@ describe("update zero risk component", () => {
           <UpdateZeroRiskModal
             findingId={"422286126"}
             isConfirmingZeroRisk={false}
+            isRejectingZeroRisk={false}
             isRequestingZeroRisk={true}
             vulns={[{id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa"}]}
             clearSelected={handleClearSelected}
             refetchData={handleRefetchData}
             handleCloseModal={handleOnClose}
             setConfirmState={handleConfirmState}
+            setRejectState={handleRejectState}
             setRequestState={handleRequestState}
           />
         </MockedProvider>
@@ -113,6 +116,7 @@ describe("update zero risk component", () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleConfirmState: jest.Mock = jest.fn();
+    const handleRejectState: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -137,12 +141,14 @@ describe("update zero risk component", () => {
           <UpdateZeroRiskModal
             findingId={"422286126"}
             isConfirmingZeroRisk={false}
+            isRejectingZeroRisk={false}
             isRequestingZeroRisk={true}
             vulns={[{id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa"}]}
             clearSelected={handleClearSelected}
             refetchData={handleRefetchData}
             handleCloseModal={handleOnClose}
             setConfirmState={handleConfirmState}
+            setRejectState={handleRejectState}
             setRequestState={handleRequestState}
           />
         </MockedProvider>
@@ -176,6 +182,7 @@ describe("update zero risk component", () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleConfirmState: jest.Mock = jest.fn();
+    const handleRejectState: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -198,12 +205,14 @@ describe("update zero risk component", () => {
           <UpdateZeroRiskModal
             findingId={"422286126"}
             isConfirmingZeroRisk={true}
+            isRejectingZeroRisk={false}
             isRequestingZeroRisk={false}
             vulns={[{id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa"}]}
             clearSelected={handleClearSelected}
             refetchData={handleRefetchData}
             handleCloseModal={handleOnClose}
             setConfirmState={handleConfirmState}
+            setRejectState={handleRejectState}
             setRequestState={handleRequestState}
           />
         </MockedProvider>
@@ -235,6 +244,7 @@ describe("update zero risk component", () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleConfirmState: jest.Mock = jest.fn();
+    const handleRejectState: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -259,12 +269,14 @@ describe("update zero risk component", () => {
           <UpdateZeroRiskModal
             findingId={"422286126"}
             isConfirmingZeroRisk={true}
+            isRejectingZeroRisk={false}
             isRequestingZeroRisk={false}
             vulns={[{id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa"}]}
             clearSelected={handleClearSelected}
             refetchData={handleRefetchData}
             handleCloseModal={handleOnClose}
             setConfirmState={handleConfirmState}
+            setRejectState={handleRejectState}
             setRequestState={handleRequestState}
           />
         </MockedProvider>

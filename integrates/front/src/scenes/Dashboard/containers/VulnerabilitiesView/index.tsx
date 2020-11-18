@@ -186,9 +186,11 @@ const vulnsView: React.FC = (): JSX.Element => {
             findingId={findingId}
             handleCloseModal={toggleUpdateZeroRiskModal}
             isConfirmingZeroRisk={isConfirmingZeroRisk}
+            isRejectingZeroRisk={isRejectingZeroRisk}
             isRequestingZeroRisk={isRequestingZeroRisk}
             refetchData={refetch}
             setConfirmState={toggleConfirmZeroRisk}
+            setRejectState={toggleRejectZeroRisk}
             setRequestState={toggleRequestZeroRisk}
             vulns={remediationModalConfig.vulnerabilities}
           />

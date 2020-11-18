@@ -4,6 +4,12 @@ export interface IConfirmZeroRiskVulnResult {
   };
 }
 
+export interface IRejectZeroRiskVulnResult {
+  rejectZeroRiskVuln: {
+    success: boolean;
+  };
+}
+
 export interface IRequestZeroRiskVulnResult {
   requestZeroRiskVuln: {
     success: boolean;

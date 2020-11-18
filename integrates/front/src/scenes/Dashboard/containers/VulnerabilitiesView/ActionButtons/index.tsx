@@ -12,6 +12,7 @@ import { translate } from "utils/translations/translate";
 import { ConfirmZeroRiskVulnButton } from "./ConfirmZeroRiskVulnButton";
 import { EditButton } from "./EditButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
+import { RejectZeroRiskVulnButton } from "./RejectZeroRiskVulnButton";
 import { RequestZeroRiskVulnButton } from "./RequestZeroRiskVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 
@@ -57,6 +58,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
       {userEmail.endsWith("@fluidattacks.com") ? (
         <React.Fragment>
           <ConfirmZeroRiskVulnButton {...props}/>
+          <RejectZeroRiskVulnButton {...props}/>
           <RequestZeroRiskVulnButton {...props}/>
         </React.Fragment>
       ) : undefined}

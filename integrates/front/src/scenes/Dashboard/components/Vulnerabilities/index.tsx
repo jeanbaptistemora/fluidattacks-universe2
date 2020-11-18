@@ -695,6 +695,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isConfirmingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     _.includes(inputRequestedZeroRiskVulns, indexFilter));
+                } else if (props.isRejectingZeroRisk === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    _.includes(inputRequestedZeroRiskVulns, indexFilter));
                 } else if (props.isRequestingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(inputRequestedZeroRiskVulns, indexFilter));
@@ -737,6 +740,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isConfirmingZeroRisk === true) {
                     newArray = newArray.filter((indexFilter: number) =>
                     _.includes(lineRequestedZeroRiskVulns, indexFilter));
+                } else if (props.isRejectingZeroRisk === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                  _.includes(lineRequestedZeroRiskVulns, indexFilter));
                 } else if (props.isRequestingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(lineRequestedZeroRiskVulns, indexFilter));
@@ -779,6 +785,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isConfirmingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     _.includes(portRequestedZeroRiskVulns, indexFilter));
+                } else if (props.isRejectingZeroRisk === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    _.includes(portRequestedZeroRiskVulns, indexFilter));
                 } else if (props.isRequestingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     !_.includes(portRequestedZeroRiskVulns, indexFilter));
@@ -799,6 +808,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               nonSelectable: props.isRequestVerification === true ? inputVulnsRemediated :
                 props.isVerifyRequest === true ? inputVulnsVerified :
                 props.isConfirmingZeroRisk === true ? inputNoRequestedZeroRiskVulns :
+                props.isRejectingZeroRisk === true ? inputNoRequestedZeroRiskVulns :
                 props.isRequestingZeroRisk === true ? inputRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectInputs,
@@ -812,6 +822,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               nonSelectable: props.isRequestVerification === true ? lineVulnsRemediated :
                 props.isVerifyRequest === true ? lineVulnsVerified :
                 props.isConfirmingZeroRisk === true ? lineNoRequestedZeroRiskVulns :
+                props.isRejectingZeroRisk === true ? lineNoRequestedZeroRiskVulns :
                 props.isRequestingZeroRisk === true ? lineRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectLines,
@@ -825,6 +836,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               nonSelectable: props.isRequestVerification === true ? portVulnsRemediated :
                 props.isVerifyRequest === true ? portVulnsVerified :
                 props.isConfirmingZeroRisk === true ? portNoRequestedZeroRiskVulns :
+                props.isRejectingZeroRisk === true ? portNoRequestedZeroRiskVulns :
                 props.isRequestingZeroRisk === true ? portRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectPorts,

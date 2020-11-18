@@ -13,10 +13,12 @@ import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/i
 import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
   CONFIRM_ZERO_RISK_VULN,
+  REJECT_ZERO_RISK_VULN,
   REQUEST_ZERO_RISK_VULN,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal/queries";
 import {
   IConfirmZeroRiskVulnResult,
+  IRejectZeroRiskVulnResult,
   IRequestZeroRiskVulnResult,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal/types";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -30,12 +32,14 @@ interface IVulnData {
 export interface IUpdateZeroRiskModal {
   findingId: string;
   isConfirmingZeroRisk: boolean;
+  isRejectingZeroRisk: boolean;
   isRequestingZeroRisk: boolean;
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
   refetchData(): void;
   setConfirmState(): void;
+  setRejectState(): void;
   setRequestState(): void;
 }
 
@@ -107,6 +111,36 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
     ],
   });
 
+  const [rejectZeroRisk, { loading: submittingReject }] = useMutation(
+    REJECT_ZERO_RISK_VULN, {
+    onCompleted: (data: IRejectZeroRiskVulnResult): void => {
+      if (data.rejectZeroRiskVuln.success) {
+        msgSuccess(
+          translate.t("group_alerts.rejected_zero_risk_success"),
+          translate.t("group_alerts.updated_title"),
+        );
+        props.refetchData();
+        props.clearSelected();
+        props.setRejectState();
+      }
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
+          case "Exception - Zero risk vulnerability is not requested":
+            msgError(translate.t("group_alerts.zero_risk_is_not_requested"));
+            break;
+          default:
+            msgError(translate.t("group_alerts.error_textsad"));
+            Logger.warning("An error occurred rejecting zero risk vuln", error);
+        }
+      });
+    },
+    refetchQueries: [
+      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+    ],
+  });
+
   const handleSubmit: ((values: { treatmentJustification: string }) => void) =
     (values: { treatmentJustification: string }): void => {
       if (props.isRequestingZeroRisk) {
@@ -129,6 +163,16 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
           },
         });
       }
+      if (props.isRejectingZeroRisk) {
+        const vulnerabilitiesId: string[] = props.vulns.map((vuln: IVulnData) => vuln.id);
+        void rejectZeroRisk({
+          variables: {
+            findingId: props.findingId,
+            justification: values.treatmentJustification,
+            vulnerabilities: vulnerabilitiesId,
+          },
+        });
+      }
       closeRemediationModal();
     };
 
@@ -142,9 +186,12 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
           : props.isConfirmingZeroRisk
             ? translate.t("search_findings.tab_description.update_zero_risk_modal.confirm_message",
                           { vulns: props.vulns.length })
-            : ""
+            : props.isRejectingZeroRisk
+              ? translate.t("search_findings.tab_description.update_zero_risk_modal.reject_message",
+                            { vulns: props.vulns.length })
+              : ""
         }
-        isLoading={submittingRequest || submittingConfirm}
+        isLoading={submittingRequest || submittingConfirm || submittingReject}
         isOpen={true}
         maxJustificationLength={2000}
         message={
@@ -152,7 +199,9 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
           ? translate.t("search_findings.tab_description.update_zero_risk_modal.request_justification")
           : props.isConfirmingZeroRisk
             ? translate.t("search_findings.tab_description.update_zero_risk_modal.confirm_justification")
-            : ""
+            : props.isRejectingZeroRisk
+              ? translate.t("search_findings.tab_description.update_zero_risk_modal.reject_justification")
+              : ""
         }
         onClose={closeRemediationModal}
         onSubmit={handleSubmit}
