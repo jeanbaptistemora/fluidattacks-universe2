@@ -56,19 +56,32 @@ UNAUTHORIZED_ROLE_MSG = (
 )
 
 
-def authenticate(func: TVar) -> TVar:
+def authenticate_jwt(func: TFun) -> TFun:
 
-    _func = cast(Callable[..., Any], func)
+    @functools.wraps(func)
+    async def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
+        request = args[0]
+        request_data = await util.get_jwt_content(request)
 
-    @functools.wraps(_func)
+        if request_data.get('user_email') is None:
+            return render(request, 'unauthorized.html', {})
+
+        return await func(*args, **kwargs)
+
+    return cast(TFun, authenticate_and_call)
+
+
+def authenticate_session(func: TFun) -> TFun:
+
+    @functools.wraps(func)
     def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
         if 'username' not in request.session or \
                 request.session['username'] is None:
-            parameters: Dict[str, str] = dict()
-            return render(request, 'unauthorized.html', parameters)
-        return _func(*args, **kwargs)
-    return cast(TVar, authenticate_and_call)
+            return render(request, 'unauthorized.html', {})
+        return func(*args, **kwargs)
+
+    return cast(TFun, authenticate_and_call)
 
 
 # Access control decorators for GraphQL

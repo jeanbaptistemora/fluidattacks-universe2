@@ -23,7 +23,7 @@ from authlib.common.security import generate_token
 
 # Local libraries
 from backend.api import IntegratesAPI
-from backend.decorators import authenticate
+from backend.decorators import authenticate_session
 from backend.domain import organization as org_domain
 from backend.api.schema import SCHEMA
 
@@ -142,14 +142,15 @@ async def authz(request: Request, client: OAuth) -> RedirectResponse:
     return RedirectResponse(url='/new/home')
 
 
-@authenticate  # type: ignore
+@authenticate_session  # type: ignore
 @async_to_sync  # type: ignore
 async def app(*request_args: Request) -> HTMLResponse:
     """ View for authenticated users"""
     request = utils.get_starlette_request(request_args)
-    if 'username' in request.session:
-        if not await org_domain.get_user_organizations(
-                request.session['username']):
+    email = request.session.get('username')
+
+    if email:
+        if not await org_domain.get_user_organizations(email):
             response = unauthorized(request)
         else:
             context = {

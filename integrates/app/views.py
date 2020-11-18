@@ -44,7 +44,8 @@ from backend.domain import (
     user as user_domain,
 )
 from backend.decorators import (
-    authenticate,
+    authenticate_jwt,
+    authenticate_session,
     cache_content,
     require_login,
 )
@@ -134,28 +135,31 @@ def mobile(request: HttpRequest) -> HttpResponse:
 
 @csrf_exempt  # type: ignore
 @cache_control(private=True, max_age=3600)  # type: ignore
-@authenticate  # type: ignore
+@authenticate_session  # type: ignore
 @async_to_sync  # type: ignore
 async def app(request: HttpRequest) -> HttpResponse:
     """App view for authenticated users."""
+    email = request.session['username']
+    first_name = request.session['first_name']
+    last_name = request.session['last_name']
+
     try:
         if not isinstance(request, StarletteRequest):
             await util.check_concurrent_sessions(
-                request.session['username'],
+                email,
                 request.session.session_key,
             )
 
-        if not await org_domain.get_user_organizations(
-                request.session['username']):
+        if not await org_domain.get_user_organizations(email):
             LOGGER.warning(
                 'User does not have organizations',
-                extra={'extra': {'user': request.session['username']}})
+                extra={'extra': {'user': email}})
             response = render(
                 request,
                 'unauthorized.html',
                 {
                     'debug': settings.DEBUG,
-                    'username': request.session['username']
+                    'username': email,
                 }
             )
             await in_thread(logout, request)
@@ -165,15 +169,15 @@ async def app(request: HttpRequest) -> HttpResponse:
                 'app.html',
                 {
                     'debug': settings.DEBUG,
-                    'username': request.session['username']
+                    'username': email,
                 }
             )
             set_session_cookie_in_response(
                 response=response,
                 token=await create_session_token(
-                    email=request.session['username'],
-                    first_name=request.session['first_name'],
-                    last_name=request.session['last_name'],
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name,
                 ),
             )
     except (KeyError, TypeError) as ex:
@@ -192,7 +196,7 @@ async def app(request: HttpRequest) -> HttpResponse:
             'unauthorized.html',
             {
                 'debug': settings.DEBUG,
-                'username': request.session['username']
+                'username': email
             }
         )
         await in_thread(logout, request)
@@ -268,8 +272,8 @@ async def graphics_report(request: HttpRequest) -> HttpResponse:
 
 
 @csrf_exempt  # type: ignore
-@authenticate  # type: ignore
 @async_to_sync  # type: ignore
+@authenticate_jwt  # type: ignore
 async def logout(request: HttpRequest) -> HttpResponse:
     """Close a user's active session"""
     try:
