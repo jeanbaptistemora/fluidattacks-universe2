@@ -2,7 +2,10 @@ import json
 import pytest
 
 from backend.domain.available_name import get_name
-from backend.exceptions import NotPendingDeletion
+from backend.exceptions import (
+    NotPendingDeletion,
+    UserNotInOrganization
+)
 from test_async.functional_test.group_manager.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -278,8 +281,5 @@ async def test_project():
     '''
     data = {'query': query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert not result['data']['project']['hasDrills']
-    assert not result['data']['project']['hasForces']
-    assert not result['data']['project']['hasIntegrates']
-    assert result['data']['project']['subscription'] == 'oneshot'
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == str(UserNotInOrganization())

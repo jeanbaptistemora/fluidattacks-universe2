@@ -159,8 +159,12 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
 
     if success and has_forces:
         await _create_forces_user(info, group_name)
-    elif success and not has_forces and await user_domain.ensure_user_exists(
-            user_domain.format_forces_user_email(group_name)):
+    elif (
+        success and not has_forces and has_integrates and
+        await user_domain.ensure_user_exists(
+            user_domain.format_forces_user_email(group_name)
+        )
+    ):
         await project_domain.remove_user_access(
             group_name, user_domain.format_forces_user_email(group_name))
     if success:

@@ -278,7 +278,7 @@ async def edit(
         )
 
     if not has_integrates:
-        success = success and await request_deletion(
+        success = success and await delete_project(
             project_name=group_name,
             user_email=requester_email,
         )
