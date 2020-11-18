@@ -212,7 +212,7 @@ function helper_integrates_serve_minio {
         done
       } \
   &&  aws s3 sync --quiet "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
-        "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" &> /dev/null \
+        "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
   &&  mkdir -p "${data_path}/fluidintegrates.reports/tmp" \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!"
 }
