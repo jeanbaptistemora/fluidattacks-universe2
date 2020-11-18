@@ -52,44 +52,50 @@ def test_process_lines_builder():
 
 def test_create_table_schema_map_builder():
     # Arrange
-    test_schemas = [
-        SingerSchema(
-            stream='the_table_0', schema={}, key_properties=frozenset()
-        ),
-        SingerSchema(
-            stream='the_table_1', schema={}, key_properties=frozenset()
-        ),
-    ]
+    s_schema1 = SingerSchema(
+        stream='the_table_1', schema={'field1': 'str'}, key_properties=frozenset()
+    )
+    s_schema2 = SingerSchema(
+        stream='the_table_1',
+        schema={'field2': 'bool', 'field1': 'str'},
+        key_properties=frozenset()
+    )
+    field1 = RedshiftField('field1', DbTypes.VARCHAR)
+    field2 = RedshiftField('field2', DbTypes.BOOLEAN)
+    test_table_id = TableID(SchemaID(None, 'test_schema'), 'the_table_1')
+    test_schemas = [s_schema1, s_schema2]
 
     def mock_to_rschema(s_schema: SingerSchema) -> RedshiftSchema:
-        return RedshiftSchema(
-            fields=frozenset(),
-            schema_name='test_schema',
-            table_name=s_schema.stream
-        )
+        if s_schema == s_schema1:
+            return RedshiftSchema(
+                fields=frozenset({field1}),
+                schema_name='test_schema',
+                table_name=s_schema.stream
+            )
+        if s_schema == s_schema2:
+            return RedshiftSchema(
+                fields=frozenset({field2, field1}),
+                schema_name='test_schema',
+                table_name=s_schema.stream
+            )
+        raise Exception(f'Unexpected input')
+
+    def mock_extract_table_id(r_schema: RedshiftSchema) -> TableID:
+        return test_table_id
+
     # Act
-    create_table_map = loader.create_table_schema_map_builder(mock_to_rschema)
+    create_table_map = loader.create_table_schema_map_builder(
+        mock_to_rschema,
+        mock_extract_table_id
+    )
     result = create_table_map(test_schemas)
     # Assert
-    expected = [
-        RedshiftSchema(
-            fields=frozenset(),
-            schema_name='test_schema',
-            table_name='the_table_0'
-        ),
-        RedshiftSchema(
-            fields=frozenset(),
-            schema_name='test_schema',
-            table_name='the_table_1'
-        )
-    ]
-    for i in range(2):
-        assert result[
-            TableID(
-                schema=SchemaID(None,schema_name=f'test_schema'),
-                table_name=f'the_table_{i}'
-            )
-        ] == expected[i]
+    expected = RedshiftSchema(
+        fields=frozenset({field2, field1}),
+        schema_name='test_schema',
+        table_name='the_table_1'
+    )
+    assert result[test_table_id] == expected
 
 
 def test_create_redshift_records_builder():

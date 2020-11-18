@@ -10,7 +10,8 @@ from typing import (
 # Third party libraries
 # Local libraries
 from target_redshift_2.db_client.objects import (
-    CursorExeAction, IsolatedColumn, SchemaID,
+    CursorExeAction,
+    IsolatedColumn,
     Table,
     TableID,
 )
@@ -54,21 +55,27 @@ def process_lines_builder(
 
 
 def create_table_schema_map_builder(
-    to_rschema: Transform[SingerSchema, RedshiftSchema]
+    to_rschema: Transform[SingerSchema, RedshiftSchema],
+    extract_table_id: Transform[RedshiftSchema, TableID]
 ) -> Transform[Iterable[SingerSchema], TableRschemaMap]:
     """Returns creator of `TableRschemaMap`"""
     def table_map(s_schemas: Iterable[SingerSchema]) -> Dict[
         TableID, RedshiftSchema
     ]:
         """Returns `TableRschemaMap` from various `SingerSchema`"""
-        mapper = {}
+        mapper: TableRschemaMap = {}
         for s_schema in s_schemas:
             r_schema = to_rschema(s_schema)
-            table_id = TableID(
-                schema=SchemaID(None, schema_name=r_schema.schema_name),
-                table_name=r_schema.table_name
-            )
-            mapper[table_id] = r_schema
+            table_id = extract_table_id(r_schema)
+            if table_id in mapper:
+                prev_rschema: RedshiftSchema = mapper[table_id]
+                mapper[table_id] = RedshiftSchema(
+                    fields=prev_rschema.fields.union(r_schema.fields),
+                    schema_name=r_schema.schema_name,
+                    table_name=r_schema.table_name
+                )
+            else:
+                mapper[table_id] = r_schema
         return mapper
 
     return table_map
