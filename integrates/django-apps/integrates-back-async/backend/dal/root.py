@@ -1,7 +1,7 @@
 # Standard
 import logging
 import uuid
-from typing import Any, Dict, List
+from typing import Any, Dict, Tuple
 
 # Third party
 from boto3.dynamodb.conditions import Key
@@ -19,8 +19,8 @@ LOGGER: logging.Logger = logging.getLogger(__name__)
 TABLE_NAME: str = 'fi_roots'
 
 
-async def get_roots_by_group(group_name: str) -> List[Dict[str, Any]]:
-    roots = await dynamodb.async_query(
+async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
+    return tuple(await dynamodb.async_query(
         TABLE_NAME,
         {
             'KeyConditionExpression': (
@@ -28,12 +28,7 @@ async def get_roots_by_group(group_name: str) -> List[Dict[str, Any]]:
                 Key('sk').begins_with('ROOT#')
             ),
         }
-    )
-
-    if roots:
-        return roots
-
-    return []
+    ))
 
 
 async def add_root(group_name: str, root_attributes: Dict[str, Any]) -> None:

@@ -611,6 +611,31 @@ async def test_add_git_root_invalid_env_url() -> None:
 
 
 @pytest.mark.changes_db  # type: ignore
+async def test_add_git_root_uniqueness() -> None:
+    query = '''
+      mutation {
+        addGitRoot(
+          branch: "unique"
+          environment: { kind: "unique" }
+          groupName: "unittesting"
+          url: "https://gitlab.com/fluidattacks/unique.git"
+        ) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['addGitRoot']['success']
+
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'One or more values already exist' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
 async def test_add_ip_root_black() -> None:
     query = '''
       mutation {
@@ -665,6 +690,26 @@ async def test_add_ip_root_invalid_port() -> None:
 
     assert 'errors' in result
     assert 'value is not valid' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_add_ip_root_uniqueness() -> None:
+    query = '''
+      mutation {
+        addIpRoot(address: "1.1.1.1", groupName: "oneshottest", port: 53) {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['addIpRoot']['success']
+
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'One or more values already exist' in result['errors'][0]['message']
 
 
 @pytest.mark.changes_db  # type: ignore
@@ -728,3 +773,23 @@ async def test_add_url_root_invalid_protocol() -> None:
 
     assert 'errors' in result
     assert 'value is not valid' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_add_url_root_uniqueness() -> None:
+    query = '''
+      mutation {
+        addUrlRoot(groupName: "oneshottest", url: "https://unique.com/") {
+          success
+        }
+      }
+    '''
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['addUrlRoot']['success']
+
+    result = await ProjectTests._get_result_async(None, {'query': query})
+
+    assert 'errors' in result
+    assert 'One or more values already exist' in result['errors'][0]['message']
