@@ -494,12 +494,12 @@ path:
     # - BenchmarkTest00018.java
     # - BenchmarkTest00024.java
     # - BenchmarkTest00025.java
-    # - BenchmarkTest00026.java
+    # - BenchmarkTest00026.java # 5
     # - BenchmarkTest00027.java
     # - BenchmarkTest00032.java
     # - BenchmarkTest00033.java
     # - BenchmarkTest00034.java
-    # - BenchmarkTest00037.java
+    # - BenchmarkTest00037.java # 10
     # - BenchmarkTest00038.java
     # - BenchmarkTest00039.java
     # - BenchmarkTest00043.java

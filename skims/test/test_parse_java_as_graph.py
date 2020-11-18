@@ -22,8 +22,8 @@ from utils.graph import (
     export_graph,
     graphviz_to_svg,
 )
-from parse_java_as_graph import (
-    apply_control_flow_graph,
+from parse_java.parse import (
+    from_antlr_model,
 )
 
 
@@ -36,8 +36,7 @@ async def test_apply_cfg() -> None:
         path=path,
     )
 
-    graph = from_model(model=model)
-    graph = apply_control_flow_graph(graph)
+    graph = from_antlr_model(model)
 
     export_graph(graph, 'test/outputs/test_apply_cfg.graph')
     await graphviz_to_svg('test/outputs/test_apply_cfg.graph')

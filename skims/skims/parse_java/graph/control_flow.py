@@ -1,3 +1,5 @@
+"""Walk the graph and append edges with the possible code execution flow."""
+
 # Standar libraries
 from typing import (
     Any,
@@ -13,7 +15,7 @@ from utils.graph import (
 )
 
 
-def get_successors_by_label(
+def _get_successors_by_label(
     graph: nx.OrderedDiGraph,
     source: Any,
     *labels: Any,
@@ -29,11 +31,11 @@ def get_successors_by_label(
     ))
 
 
-def apply_control_flow_graph(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
     for node_id, node in graph.nodes.items():
         if has_label(node, 'IfThenStatement'):
             # an ifThenStatement should only have one Statement
-            true_statement = get_successors_by_label(
+            true_statement = _get_successors_by_label(
                 graph,
                 node_id,
                 'Statement',
@@ -44,11 +46,9 @@ def apply_control_flow_graph(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
                 true_statement,
                 label_cfg='CFG',
                 label_true='True',
-                color='red',
-                label='True',
             )
         elif has_label(node, 'IfThenElseStatement'):
-            true_statement = get_successors_by_label(
+            true_statement = _get_successors_by_label(
                 graph,
                 node_id,
                 'StatementNoShortIf',
@@ -59,10 +59,8 @@ def apply_control_flow_graph(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
                 true_statement,
                 label_cfg='CFG',
                 label_true='True',
-                color='red',
-                label='True',
             )
-            false_statement = get_successors_by_label(
+            false_statement = _get_successors_by_label(
                 graph,
                 node_id,
                 'Statement',
@@ -73,8 +71,8 @@ def apply_control_flow_graph(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
                 false_statement,
                 label_cfg='CFG',
                 label_false='False',
-                color='red',
-                label='False',
             )
 
-    return graph
+
+def analyze(graph: nx.OrderedDiGraph) -> None:
+    _analyze_if_then_statement(graph)
