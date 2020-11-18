@@ -2,6 +2,7 @@
 from typing import (
     Callable,
     Dict,
+    FrozenSet,
     Iterable,
     List,
     Tuple,
@@ -9,7 +10,7 @@ from typing import (
 # Third party libraries
 # Local libraries
 from target_redshift_2.db_client.objects import (
-    SchemaID,
+    CursorExeAction, IsolatedColumn, SchemaID,
     Table,
     TableID,
 )
@@ -106,3 +107,18 @@ def create_table_mapper_builder(
             mapper[table_id] = table
         return mapper
     return create_table_mapper
+
+
+def update_schema_builder(
+    to_columns: Transform[RedshiftSchema, FrozenSet[IsolatedColumn]],
+    add_columns: Callable[
+        [Table, FrozenSet[IsolatedColumn]], List[CursorExeAction]
+    ]
+) -> Callable[[RealTableMap, TableRschemaMap], None]:
+    def update_schema(tables_map, table_schema_map):
+        for table_id, schema in table_schema_map.items():
+            table: Table = tables_map[table_id]
+            actions = add_columns(table, to_columns(schema))
+            for action in actions:
+                action.act()
+    return update_schema

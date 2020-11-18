@@ -1,6 +1,7 @@
+from typing import FrozenSet, List
 from target_redshift_2 import loader
 from target_redshift_2.db_client.objects import (
-    DbTypes,
+    CursorExeAction, DbTypes, IsolatedColumn,
     SchemaID,
     Table,
     TableID,
@@ -158,3 +159,47 @@ def test_create_table_mapper_builder():
     result = create_table_map([test_table_id])
     # Assert
     assert result[test_table_id] == test_table
+
+
+def test_update_schema_builder():
+    # Arrange
+    test_table_id = TableID(SchemaID(None, 'test_schema'), 'test_table')
+    test_table = Table(
+        id=test_table_id,
+        primary_keys=frozenset(),
+        columns=frozenset({}),
+        prototype=None
+    )
+    test_schema = RedshiftSchema(frozenset(), 'the_schema', 'the_table')
+    test_columns = frozenset({IsolatedColumn('field1','bool')})
+    test_table_map = {test_table_id: test_table}
+    test_table_schema_map = {test_table_id: test_schema}
+    action_executed = {'executed': False}
+
+    def mock_to_columns(rschema: RedshiftSchema) -> FrozenSet[IsolatedColumn]:
+        if rschema == test_schema:
+            return test_columns
+        raise Exception(f'Unexpected input')
+
+    def mock_action():
+        action_executed['executed'] = True
+
+    def mock_add_columns(
+        table: Table, columns: FrozenSet[IsolatedColumn]
+    ) -> List[CursorExeAction]:
+        if table == test_table and columns == test_columns:
+            return [
+                CursorExeAction(
+                    cursor=None, act=mock_action, statement='the_statement'
+                )
+            ]
+        raise Exception(f'Unexpected input')
+
+    # Act
+    update_schema = loader.update_schema_builder(
+        mock_to_columns,
+        mock_add_columns
+    )
+    update_schema(test_table_map, test_table_schema_map)
+    # Assert
+    assert action_executed['executed'] == True
