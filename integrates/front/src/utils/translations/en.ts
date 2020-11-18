@@ -1797,6 +1797,10 @@ export const enTranslations: ResourceKey = {
       title_success: "Congratulations",
     },
     tab_vuln: {
+      alerts: {
+        acceptation_not_requested: "Indefinite acceptation is not requested",
+        acceptation_success: "Indefinite acceptation has been handled",
+      },
       buttons: {
         reattack: "Reattack",
       },
