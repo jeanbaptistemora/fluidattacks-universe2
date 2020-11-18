@@ -510,6 +510,9 @@ function job_integrates_serve_components {
               elif [[ "${arg}" == 'mobile' ]]
               then
                 helper_integrates_serve_mobile
+              elif [[ "${arg}" == 'nginx' ]]
+              then
+                helper_integrates_serve_nginx
               fi \
           ||  return 1
         done \

@@ -22,6 +22,7 @@ in
         pkgs.openjdk
         pkgs.p7zip
         pkgs.redis
+        pkgs.nginx
         pkgs.sops
         pkgs.jq
         pkgs.ruby
@@ -29,6 +30,8 @@ in
         pkgs.python37
         pkgs.libmysqlclient
       ];
+
+      nginxPath = pkgs.nginx;
 
       nodeJsModuleSecureSpreadsheet =
         builders.nodeJsModule {

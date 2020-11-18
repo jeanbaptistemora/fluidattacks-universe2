@@ -85,6 +85,16 @@ function helper_invoke_py {
         "${module}"
 }
 
+function helper_integrates_serve_nginx {
+  local conf='deploy/local/nginx/nginx.conf'
+
+      cp -r "${nginxPath}" .nginx \
+  &&  chmod -R 777 .nginx \
+  &&  cp "${conf}" .nginx/conf/ \
+  &&  sed -i "s|__srcDerivationsCerts__|${srcDerivationsCerts}|g" .nginx/conf/nginx.conf \
+  &&  { nginx -p .nginx & }
+}
+
 function helper_integrates_serve_front {
       helper_integrates_deployment_date \
   &&  pushd front \
