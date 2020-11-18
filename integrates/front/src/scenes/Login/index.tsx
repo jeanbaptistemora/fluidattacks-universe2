@@ -42,6 +42,19 @@ export const Login: React.FC = (): JSX.Element => {
     ? process.env.CI_COMMIT_SHORT_SHA
     : "";
 
+  // Login feature flag
+  const searchParams: URLSearchParams = new URLSearchParams(location.search);
+  const experimentalLogin: boolean = searchParams.has("experimental");
+  const bitbucketLoginUrl: string = experimentalLogin
+    ? "/new/dblogin"
+    : "/oauth/login/bitbucket-oauth2/";
+  const googleLoginUrl: string = experimentalLogin
+    ? "/new/dglogin"
+    : "/oauth/login/google-oauth2/";
+  const azureLoginUrl: string = experimentalLogin
+    ? "/new/dalogin"
+    : "/oauth/login/azuread-tenant-oauth2/";
+
   // Event handlers 2FA notification Buttons
   function handleNotificationGoogle(): void {
     location.assign("https://bit.ly/2Gpjt6h");
@@ -93,15 +106,15 @@ export const Login: React.FC = (): JSX.Element => {
   // Event handlers
   function handleBitbucketLogin(): void {
     mixpanel.track("Login Bitbucket");
-    window.location.assign("/oauth/login/bitbucket-oauth2/");
+    window.location.assign(bitbucketLoginUrl);
   }
   function handleGoogleLogin(): void {
     mixpanel.track("Login Google");
-    window.location.assign("/oauth/login/google-oauth2/");
+    window.location.assign(googleLoginUrl);
   }
   function handleMicrosoftLogin(): void {
     mixpanel.track("Login Azure");
-    window.location.assign("/oauth/login/azuread-tenant-oauth2/");
+    window.location.assign(azureLoginUrl);
   }
 
   return (
