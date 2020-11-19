@@ -205,6 +205,7 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
+        Route('/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', error401),
         Route('/error500', error500),
         Route('/invalid_invitation', invalid_invitation),
