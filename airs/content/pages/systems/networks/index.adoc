@@ -1,0 +1,27 @@
+:slug: systems/networks/
+:category: systems
+:description: Networks are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
+:keywords: Fluid Attacks, Internal Network, External Network, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
+:banner: bg-systems
+:template: compliance
+
+= Networks
+
+[role="fw3 f3"]
+The information flows that organizations usually establish and maintain in the
+current market are supported by external and internal networks. Fluid Attacks
+can check these infrastructures for your company, with the primary objective of
+finding security vulnerabilities that can represent different risk levels for
+your information assets and other resources. Our red team applies automatic
+scans and manual attacks following techniques such as SAST, DAST, IAST, and
+Pentesting. They can discover misconfigurations in servers, ports or file
+transfer protocols, outdated components and other flaws that cybercriminals can
+follow and take advantage of in order to cause direct or indirect damage to your
+company.
+
+[role="fw3 f3"]
+Our network security testing focuses both on services and devices of your
+internal and external networks (e.g., servers, VPNs, DNSs, apps, routers, IoT).
+First, it analyzes a general structure with its access points and then it checks
+each software element’s weaknesses, always taking into account the malicious
+hacker’s mindset, since at Fluid Attacks we are established as a red team.
