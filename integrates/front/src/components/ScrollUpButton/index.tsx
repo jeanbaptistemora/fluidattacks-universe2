@@ -1,10 +1,4 @@
 import React from "react";
-/*
- * Disabling here is necessary because there are currently no available
- * type definitions for neither this nor any other 3rd-party scroll-up
- * components.
- */
-// @ts-expect-error: Explanation above
 import ScrollUp from "react-scroll-up";
 import styled, { StyledComponent } from "styled-components";
 

@@ -24,7 +24,7 @@ import { translate } from "utils/translations/translate";
 
 const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizationContent): JSX.Element => {
   const { setUserRole } = props;
-  const { organizationName } = useParams();
+  const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch();
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);

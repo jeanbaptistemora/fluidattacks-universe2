@@ -31,7 +31,7 @@ import { translate } from "utils/translations/translate";
 
 const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganizationGroupsProps): JSX.Element => {
   const { organizationId } = props;
-  const { organizationName } = useParams();
+  const { organizationName } = useParams<{ organizationName: string }>();
   const { url } = useRouteMatch();
   const { push } = useHistory();
 

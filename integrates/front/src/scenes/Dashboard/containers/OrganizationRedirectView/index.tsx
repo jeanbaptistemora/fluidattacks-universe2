@@ -13,7 +13,7 @@ import { translate } from "utils/translations/translate";
 const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
     (props: IOrganizationRedirectProps): JSX.Element => {
   const { type } = props;
-  const { projectName, tagName } = useParams();
+  const { projectName, tagName } = useParams<{ projectName: string; tagName: string }>();
   const { pathname } = useLocation();
 
   // GraphQL operations

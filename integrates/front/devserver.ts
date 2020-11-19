@@ -4,7 +4,6 @@
 */
 import WebpackDevServer from "webpack-dev-server";
 import devConfig from "./webpack.dev.config";
-import open from "open";
 import webpack from "webpack";
 
 const HOST: string = "localhost";
@@ -45,9 +44,6 @@ devServer.listen(PORT, HOST, (serverError?: Error): void => {
   }
 
   console.log("Starting the development server...\n");
-  open(`https://${HOST}:8080`).catch((error?: Error): void => {
-    console.error(error);
-  });
 });
 
 (["SIGINT", "SIGTERM"] as NodeJS.Signals[]).forEach(

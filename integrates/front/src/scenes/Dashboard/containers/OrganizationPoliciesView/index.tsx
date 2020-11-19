@@ -29,7 +29,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
 
   // State management
   const { organizationId } = props;
-  const { organizationName } = useParams();
+  const { organizationName } = useParams<{ organizationName: string }>();
   const selector: (state: {}, ...fields: string[]) => IPoliciesFormData = formValueSelector("orgPolicies");
   const formValues: IPoliciesFormData = useSelector((state: {}) =>
     selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));

@@ -8,9 +8,9 @@ function job_integrates_build_front {
             patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
       &&  helper_integrates_deployment_date \
       &&  npm run build -- \
-            --env.CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
-            --env.CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
-            --env.INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
+            --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
+            --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
+            --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
     &&  popd \
   &&  popd \
   || return 1
