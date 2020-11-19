@@ -44,15 +44,25 @@
       when: never
     - if: *sorts_commit_pattern
 
-sorts_lint:
+sorts_lint_code:
   <<: *with_nix
   <<: *sorts_in_dev_branch
   stage: lint-code
 
-sorts_test:
+sorts_test_code:
   <<: *with_nix
   <<: *sorts_in_dev_branch
   stage: test-code
+
+sorts_test_infra:
+  <<: *with_nix
+  <<: *sorts_in_dev_branch
+  stage: test-infra
+
+sorts_deploy_infra:
+  <<: *with_nix
+  <<: *sorts_in_master_branch
+  stage: deploy-infra
 
 sorts_deploy_to_pypi:
   <<: *with_nix

@@ -13,7 +13,7 @@ declare -Arx SORTS_GLOBAL_TEST_PKGS=(
   [test]=test/
 )
 
-function job_sorts_lint {
+function job_sorts_lint_code {
   local args_mypy=(
     --config-file 'settings.cfg'
   )
@@ -37,7 +37,7 @@ function job_sorts_lint {
   ||  return 1
 }
 
-function job_sorts_test {
+function job_sorts_test_code {
   export PYTHONUNBUFFERED='1'
   local args_pytest=(
     --capture tee-sys
@@ -60,6 +60,28 @@ function job_sorts_test {
           args_pytest+=( "--cov=${pkg}" )
         done \
     &&  poetry run pytest "${args_pytest[@]}" < /dev/null \
+  &&  popd \
+  ||  return 1
+}
+
+function job_sorts_test_infra {
+  local target='infra'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd sorts \
+    &&  helper_sorts_aws_login dev \
+    &&  helper_sorts_terraform_plan "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_sorts_deploy_infra {
+  local target='infra'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd sorts \
+    &&  helper_sorts_aws_login prod \
+    &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   ||  return 1
 }
