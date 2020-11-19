@@ -46,6 +46,18 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       var.terraform_state_lock_arn,
     ]
   }
+
+  # S3 admin over Sorts bucket
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      "arn:aws:s3:::sorts",
+      "arn:aws:s3:::sorts/*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "sorts_prod_policy" {

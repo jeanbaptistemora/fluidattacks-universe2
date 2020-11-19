@@ -52,6 +52,20 @@ data "aws_iam_policy_document" "sorts_dev_policy_data" {
       var.terraform_state_lock_arn,
     ]
   }
+
+  # S3 access to Sorts bucket
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::sorts",
+      "arn:aws:s3:::sorts/*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "sorts_dev_policy" {
