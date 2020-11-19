@@ -27,17 +27,19 @@ AZURE_AUTHZ_URL = (
 AZURE_CONF_URL = (
     'https://login.microsoftonline.com/common/.well-known/openid-configuration'
 )
+AZURE_TOKEN_URL = 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
 AZURE_API_BASE_URL = 'https://graph.microsoft.com/'
+AZURE_USERINFO_BASE_URL = f'{AZURE_API_BASE_URL}oidc/userinfo'
 AZURE_ARGS = dict(
     name='azure',
     api_base_url=AZURE_API_BASE_URL,
+    api_userinfo_url=AZURE_USERINFO_BASE_URL,
+    token_url=AZURE_TOKEN_URL,
     client_id=FI_AZUREAD_OAUTH2_KEY,
     client_secret=FI_AZUREAD_OAUTH2_SECRET,
     authorize_url=AZURE_AUTHZ_URL,
     server_metadata_url=AZURE_CONF_URL,
-    client_kwargs={
-        'scope': 'openid email profile'
-    }
+    scope='openid email profile'
 )
 
 BITBUCKET_AUTZ_URL = 'https://bitbucket.org/site/oauth2/authorize'

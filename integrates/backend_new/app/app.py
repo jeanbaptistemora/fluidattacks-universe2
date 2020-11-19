@@ -93,7 +93,10 @@ def get_azure_client(request: Request) -> OAuth:
     azure = AsyncOAuth2Client(
         settings.AZURE_ARGS['client_id'],
         settings.AZURE_ARGS['client_secret'],
-        scope='https://graph.microsoft.com/.default openid email profile',
+        scope=(
+            f'{settings.AZURE_ARGS["api_base_url"]}.default '
+            f'{settings.AZURE_ARGS["scope"]}'
+        ),
         redirect_uri=redirect_uri
     )
     return azure
@@ -181,12 +184,12 @@ async def authz_google(request: Request) -> HTMLResponse:
 async def authz_azure(request: Request) -> HTMLResponse:
     azure = azure = get_azure_client(request)
     token = await azure.fetch_token(
-        'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+        settings.AZURE_ARGS['token_url'],
         authorization_response=str(request.url)
     )
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            'https://graph.microsoft.com/oidc/userinfo',
+            settings.AZURE_ARGS['api_userinfo_url'],
             headers={
                 'Authorization': f'Bearer {token["access_token"]}',
                 'Host': 'graph.microsoft.com'
