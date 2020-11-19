@@ -205,7 +205,7 @@ def _java_logging_exceptions(
         content=content,
         cwe={'200', '209'},
         description=t(
-            key='src.lib_path.f037.java_logging_exceptions',
+            key='src.lib_path.f037.java_print_stack_traces',
             path=path,
         ),
         finding=FindingEnum.F037,

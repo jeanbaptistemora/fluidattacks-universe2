@@ -1,9 +1,9 @@
 src.lib_path.f037.javascript_use_console_log:
   en: Using logging to show JavaScript exceptions in {path}
   es: Uso de logging para mostrar excepciones JavasScript en {path}
-src.lib_path.f037.java_logging_exceptions:
-  en: Using logging to show Java exceptions in {path}
-  es: Uso de logging para mostrar excepciones Javas en {path}
+src.lib_path.f037.java_print_stack_traces:
+  en: Using PrintStackTrace in {path}
+  es: Uso de printStackTrace en {path}
 utils.model.finding.enum.f037.description:
   en: >
     The system exposes technical information about the system to users who are
@@ -34,8 +34,9 @@ utils.model.finding.enum.f037.requirements:
     REQ.077 The application must not disclose internal system information
     such as stack traces, SQL sentence fragments, database names or table names.
   es: >
-    REQ.077 The application must not disclose internal system information such
-    as stack traces, SQL sentence fragments, database names or table names.
+    REQ.077 La aplicación no debe revelar información interna del sistema, como
+    stack traces, fragmentos de sentencias SQL, nombres de bases de
+    datos o nombres de tablas.
 utils.model.finding.enum.f037.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
