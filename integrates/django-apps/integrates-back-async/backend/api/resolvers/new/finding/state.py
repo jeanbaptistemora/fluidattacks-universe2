@@ -24,6 +24,7 @@ async def resolve(
         vuln
         for vuln in vulns
         if vuln['current_state'] == 'open'
+        and vuln['zero_risk'] in ['', 'Rejected']
     ]
 
     return 'open' if open_vulns else 'closed'
