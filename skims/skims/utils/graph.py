@@ -40,7 +40,7 @@ async def graphviz_to_svg(path: str) -> bool:
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
 
 
-def has_label(n_attrs: Dict[str, str], **expected_attrs: str) -> bool:
+def has_labels(n_attrs: Dict[str, str], **expected_attrs: str) -> bool:
     return all(
         n_attrs.get(expected_attr) == expected_attr_value
         for expected_attr, expected_attr_value in expected_attrs.items()

@@ -6,56 +6,8 @@
         "label_ast": "AST"
       }
     },
-    "100": {
-      "101": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "101": {
-      "102": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "102": {
-      "103": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "103": {
-      "104": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "104": {
-      "105": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "105": {
-      "106": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "106": {
-      "107": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "107": {
-      "108": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "108": {
-      "109": {
+      "111": {
         "index": 0,
         "label_ast": "AST"
       },
@@ -63,7 +15,7 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "113": {
+      "114": {
         "index": 2,
         "label_ast": "AST"
       },
@@ -80,24 +32,6 @@
         "label_ast": "AST"
       }
     },
-    "109": {
-      "110": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "110": {
-      "111": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "113": {
-      "114": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "116": {
       "117": {
         "index": 0,
@@ -109,246 +43,12 @@
       }
     },
     "117": {
-      "119": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "139": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "119": {
-      "120": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "12": {
-      "13": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "120": {
-      "121": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "121": {
-      "122": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "122": {
-      "123": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "123": {
-      "124": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "124": {
-      "125": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "125": {
-      "126": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "126": {
-      "127": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "127": {
-      "128": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "128": {
-      "129": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "129": {
-      "130": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "130": {
-      "131": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "131": {
-      "132": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "132": {
-      "133": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "133": {
-      "134": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "134": {
-      "135": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "135": {
-      "136": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "136": {
       "137": {
         "index": 0,
         "label_ast": "AST"
-      }
-    },
-    "139": {
-      "140": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "140": {
-      "141": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "141": {
-      "142": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "142": {
-      "143": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "143": {
-      "144": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "144": {
-      "145": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "145": {
-      "146": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "146": {
-      "147": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "147": {
-      "148": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "148": {
-      "149": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "149": {
-      "150": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "15": {
-      "16": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "150": {
-      "151": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "151": {
-      "152": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "152": {
-      "153": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "153": {
-      "154": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "154": {
-      "155": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "155": {
-      "156": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "156": {
+      },
       "157": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "163": {
-      "164": {
-        "index": 0,
+        "index": 1,
         "label_ast": "AST"
       }
     },
@@ -375,42 +75,12 @@
       }
     },
     "167": {
-      "168": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "172": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "168": {
-      "169": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "169": {
-      "170": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "170": {
       "171": {
         "index": 0,
         "label_ast": "AST"
-      }
-    },
-    "172": {
-      "173": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "173": {
+      },
       "174": {
-        "index": 0,
+        "index": 1,
         "label_ast": "AST"
       }
     },
@@ -424,34 +94,22 @@
         "label_ast": "AST"
       }
     },
-    "18": {
-      "19": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "19": {
-      "20": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "2": {
-      "18": {
-        "index": 1,
-        "label_ast": "AST"
-      },
       "181": {
         "index": 2,
         "label_ast": "AST"
       },
-      "3": {
+      "20": {
+        "index": 1,
+        "label_ast": "AST"
+      },
+      "4": {
         "index": 0,
         "label_ast": "AST"
       }
     },
     "20": {
-      "21": {
+      "22": {
         "index": 0,
         "label_ast": "AST"
       },
@@ -459,24 +117,12 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "24": {
+      "25": {
         "index": 2,
         "label_ast": "AST"
       },
       "26": {
         "index": 3,
-        "label_ast": "AST"
-      }
-    },
-    "21": {
-      "22": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "24": {
-      "25": {
-        "index": 0,
         "label_ast": "AST"
       }
     },
@@ -489,26 +135,8 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "28": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "28": {
-      "29": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "29": {
       "30": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "3": {
-      "4": {
-        "index": 0,
+        "index": 1,
         "label_ast": "AST"
       }
     },
@@ -521,7 +149,7 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "60": {
+      "61": {
         "index": 2,
         "label_ast": "AST"
       }
@@ -537,7 +165,7 @@
       }
     },
     "36": {
-      "37": {
+      "38": {
         "index": 0,
         "label_ast": "AST"
       },
@@ -546,14 +174,8 @@
         "label_ast": "AST"
       }
     },
-    "37": {
-      "38": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "39": {
-      "40": {
+      "41": {
         "index": 0,
         "label_ast": "AST"
       },
@@ -561,7 +183,7 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "43": {
+      "45": {
         "index": 2,
         "label_ast": "AST"
       },
@@ -584,71 +206,23 @@
         "label_ast": "AST"
       }
     },
-    "40": {
-      "41": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "43": {
-      "44": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "44": {
-      "45": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "45": {
-      "46": {
+      "48": {
         "index": 0,
         "label_ast": "AST"
       },
-      "56": {
+      "58": {
         "index": 1,
         "label_ast": "AST"
       }
     },
-    "46": {
-      "47": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "47": {
-      "48": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "48": {
-      "49": {
+      "52": {
         "index": 0,
         "label_ast": "AST"
       },
       "53": {
         "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "49": {
-      "50": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "50": {
-      "51": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "51": {
-      "52": {
-        "index": 0,
         "label_ast": "AST"
       }
     },
@@ -662,34 +236,16 @@
         "label_ast": "AST"
       }
     },
-    "56": {
-      "57": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "57": {
-      "58": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "6": {
       "14": {
         "index": 1,
         "label_ast": "AST"
       },
-      "15": {
+      "16": {
         "index": 2,
         "label_ast": "AST"
       },
       "7": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "60": {
-      "61": {
         "index": 0,
         "label_ast": "AST"
       }
@@ -703,37 +259,13 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "63": {
+      "67": {
         "index": 1,
         "label_ast": "AST"
       }
     },
-    "63": {
-      "64": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "64": {
-      "65": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "65": {
-      "66": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "66": {
-      "67": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "67": {
-      "163": {
+      "164": {
         "index": 2,
         "label_ast": "AST"
       },
@@ -755,46 +287,22 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "71": {
+      "75": {
         "index": 1,
         "label_ast": "AST"
       }
     },
     "7": {
+      "10": {
+        "index": 0,
+        "label_ast": "AST"
+      },
       "11": {
         "index": 1,
         "label_ast": "AST"
       },
-      "12": {
+      "13": {
         "index": 2,
-        "label_ast": "AST"
-      },
-      "8": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "71": {
-      "72": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "72": {
-      "73": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "73": {
-      "74": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "74": {
-      "75": {
-        "index": 0,
         "label_ast": "AST"
       }
     },
@@ -803,18 +311,16 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "76": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "76": {
       "77": {
         "index": 0,
         "label_ast": "AST"
       }
     },
     "77": {
+      "108": {
+        "index": 4,
+        "label_ast": "AST"
+      },
       "160": {
         "index": 5,
         "label_ast": "AST"
@@ -827,21 +333,17 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "86": {
+      "87": {
         "index": 2,
         "label_ast": "AST"
       },
       "88": {
         "index": 3,
         "label_ast": "AST"
-      },
-      "89": {
-        "index": 4,
-        "label_ast": "AST"
       }
     },
     "78": {
-      "79": {
+      "81": {
         "index": 0,
         "label_ast": "AST"
       },
@@ -849,110 +351,8 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "83": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "79": {
-      "80": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "8": {
-      "9": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "80": {
-      "81": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "83": {
       "84": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "86": {
-      "87": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "89": {
-      "90": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "9": {
-      "10": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "90": {
-      "91": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "91": {
-      "92": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "92": {
-      "93": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "93": {
-      "94": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "94": {
-      "95": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "95": {
-      "96": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "96": {
-      "97": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "97": {
-      "98": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "98": {
-      "99": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
-    "99": {
-      "100": {
-        "index": 0,
+        "index": 2,
         "label_ast": "AST"
       }
     }
@@ -960,76 +360,22 @@
   "nodes": {
     "1": {
       "label_c": 0,
-      "label_l": 1,
+      "label_l": 17,
       "label_parent_ast": null,
       "label_type": "CompilationUnit"
     },
     "10": {
       "label_c": 7,
       "label_l": 1,
-      "label_parent_ast": "9",
+      "label_parent_ast": "7",
       "label_text": "java",
       "label_type": "IdentifierRule"
     },
-    "100": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "99",
-      "label_type": "ShiftExpression"
-    },
-    "101": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "100",
-      "label_type": "AdditiveExpression"
-    },
-    "102": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "101",
-      "label_type": "MultiplicativeExpression"
-    },
-    "103": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "102",
-      "label_type": "UnaryExpression"
-    },
-    "104": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "103",
-      "label_type": "UnaryExpressionNotPlusMinus"
-    },
-    "105": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "104",
-      "label_type": "PostfixExpression"
-    },
-    "106": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "105",
-      "label_type": "Primary"
-    },
-    "107": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "106",
-      "label_type": "PrimaryNoNewArray_lfno_primary"
-    },
     "108": {
-      "label_c": 27,
+      "label_c": 31,
       "label_l": 6,
-      "label_parent_ast": "107",
+      "label_parent_ast": "77",
       "label_type": "MethodInvocation_lfno_primary"
-    },
-    "109": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "108",
-      "label_type": "TypeName"
     },
     "11": {
       "label_c": 11,
@@ -1038,16 +384,10 @@
       "label_text": ".",
       "label_type": "DOT"
     },
-    "110": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "109",
-      "label_type": "Identifier"
-    },
     "111": {
       "label_c": 27,
       "label_l": 6,
-      "label_parent_ast": "110",
+      "label_parent_ast": "108",
       "label_text": "File",
       "label_type": "IdentifierRule"
     },
@@ -1058,16 +398,10 @@
       "label_text": ".",
       "label_type": "DOT"
     },
-    "113": {
-      "label_c": 32,
-      "label_l": 6,
-      "label_parent_ast": "108",
-      "label_type": "Identifier"
-    },
     "114": {
       "label_c": 32,
       "label_l": 6,
-      "label_parent_ast": "113",
+      "label_parent_ast": "108",
       "label_text": "createTempFile",
       "label_type": "IdentifierRule"
     },
@@ -1090,139 +424,19 @@
       "label_parent_ast": "116",
       "label_type": "Expression"
     },
-    "119": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "117",
-      "label_type": "AssignmentExpression"
-    },
-    "12": {
-      "label_c": 12,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_type": "Identifier"
-    },
-    "120": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "119",
-      "label_type": "ConditionalExpression"
-    },
-    "121": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "120",
-      "label_type": "ConditionalOrExpression"
-    },
-    "122": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "121",
-      "label_type": "ConditionalAndExpression"
-    },
-    "123": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "122",
-      "label_type": "InclusiveOrExpression"
-    },
-    "124": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "123",
-      "label_type": "ExclusiveOrExpression"
-    },
-    "125": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "124",
-      "label_type": "AndExpression"
-    },
-    "126": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "125",
-      "label_type": "EqualityExpression"
-    },
-    "127": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "126",
-      "label_type": "RelationalExpression"
-    },
-    "128": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "127",
-      "label_type": "ShiftExpression"
-    },
-    "129": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "128",
-      "label_type": "AdditiveExpression"
-    },
     "13": {
       "label_c": 12,
       "label_l": 1,
-      "label_parent_ast": "12",
+      "label_parent_ast": "7",
       "label_text": "io",
       "label_type": "IdentifierRule"
-    },
-    "130": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "129",
-      "label_type": "MultiplicativeExpression"
-    },
-    "131": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "130",
-      "label_type": "UnaryExpression"
-    },
-    "132": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "131",
-      "label_type": "UnaryExpressionNotPlusMinus"
-    },
-    "133": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "132",
-      "label_type": "PostfixExpression"
-    },
-    "134": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "133",
-      "label_type": "Primary"
-    },
-    "135": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "134",
-      "label_type": "PrimaryNoNewArray_lfno_primary"
-    },
-    "136": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "135",
-      "label_type": "Literal"
     },
     "137": {
       "label_c": 47,
       "label_l": 6,
-      "label_parent_ast": "136",
+      "label_parent_ast": "117",
       "label_text": "\"xxx\"",
       "label_type": "StringLiteral"
-    },
-    "139": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "117",
-      "label_type": "AssignmentExpression"
     },
     "14": {
       "label_c": 14,
@@ -1231,118 +445,10 @@
       "label_text": ".",
       "label_type": "DOT"
     },
-    "140": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "139",
-      "label_type": "ConditionalExpression"
-    },
-    "141": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "140",
-      "label_type": "ConditionalOrExpression"
-    },
-    "142": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "141",
-      "label_type": "ConditionalAndExpression"
-    },
-    "143": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "142",
-      "label_type": "InclusiveOrExpression"
-    },
-    "144": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "143",
-      "label_type": "ExclusiveOrExpression"
-    },
-    "145": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "144",
-      "label_type": "AndExpression"
-    },
-    "146": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "145",
-      "label_type": "EqualityExpression"
-    },
-    "147": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "146",
-      "label_type": "RelationalExpression"
-    },
-    "148": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "147",
-      "label_type": "ShiftExpression"
-    },
-    "149": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "148",
-      "label_type": "AdditiveExpression"
-    },
-    "15": {
-      "label_c": 15,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_type": "Identifier"
-    },
-    "150": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "149",
-      "label_type": "MultiplicativeExpression"
-    },
-    "151": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "150",
-      "label_type": "UnaryExpression"
-    },
-    "152": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "151",
-      "label_type": "UnaryExpressionNotPlusMinus"
-    },
-    "153": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "152",
-      "label_type": "PostfixExpression"
-    },
-    "154": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "153",
-      "label_type": "Primary"
-    },
-    "155": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "154",
-      "label_type": "PrimaryNoNewArray_lfno_primary"
-    },
-    "156": {
-      "label_c": 54,
-      "label_l": 6,
-      "label_parent_ast": "155",
-      "label_type": "Literal"
-    },
     "157": {
       "label_c": 54,
       "label_l": 6,
-      "label_parent_ast": "156",
+      "label_parent_ast": "117",
       "label_text": "null",
       "label_type": "NullLiteral"
     },
@@ -1363,7 +469,7 @@
     "16": {
       "label_c": 15,
       "label_l": 1,
-      "label_parent_ast": "15",
+      "label_parent_ast": "6",
       "label_text": "File",
       "label_type": "IdentifierRule"
     },
@@ -1388,16 +494,10 @@
       "label_text": "}",
       "label_type": "RBRACE"
     },
-    "163": {
-      "label_c": 10,
-      "label_l": 7,
-      "label_parent_ast": "67",
-      "label_type": "Catches"
-    },
     "164": {
       "label_c": 10,
       "label_l": 7,
-      "label_parent_ast": "163",
+      "label_parent_ast": "67",
       "label_type": "CatchClause"
     },
     "165": {
@@ -1420,18 +520,6 @@
       "label_parent_ast": "164",
       "label_type": "CatchFormalParameter"
     },
-    "168": {
-      "label_c": 17,
-      "label_l": 7,
-      "label_parent_ast": "167",
-      "label_type": "CatchType"
-    },
-    "169": {
-      "label_c": 17,
-      "label_l": 7,
-      "label_parent_ast": "168",
-      "label_type": "UnannClassType"
-    },
     "17": {
       "label_c": 19,
       "label_l": 1,
@@ -1439,35 +527,17 @@
       "label_text": ";",
       "label_type": "SEMI"
     },
-    "170": {
-      "label_c": 17,
-      "label_l": 7,
-      "label_parent_ast": "169",
-      "label_type": "Identifier"
-    },
     "171": {
       "label_c": 17,
       "label_l": 7,
-      "label_parent_ast": "170",
+      "label_parent_ast": "167",
       "label_text": "Exception",
       "label_type": "IdentifierRule"
-    },
-    "172": {
-      "label_c": 27,
-      "label_l": 7,
-      "label_parent_ast": "167",
-      "label_type": "VariableDeclaratorId"
-    },
-    "173": {
-      "label_c": 27,
-      "label_l": 7,
-      "label_parent_ast": "172",
-      "label_type": "Identifier"
     },
     "174": {
       "label_c": 27,
       "label_l": 7,
-      "label_parent_ast": "173",
+      "label_parent_ast": "167",
       "label_text": "e",
       "label_type": "IdentifierRule"
     },
@@ -1505,12 +575,6 @@
       "label_text": "}",
       "label_type": "RBRACE"
     },
-    "18": {
-      "label_c": 0,
-      "label_l": 3,
-      "label_parent_ast": "2",
-      "label_type": "TypeDeclaration"
-    },
     "180": {
       "label_c": 0,
       "label_l": 9,
@@ -1525,34 +589,22 @@
       "label_text": "<EOF>",
       "label_type": "EOF"
     },
-    "19": {
-      "label_c": 0,
-      "label_l": 3,
-      "label_parent_ast": "18",
-      "label_type": "ClassDeclaration"
-    },
     "2": {
       "label_c": 0,
-      "label_l": 1,
+      "label_l": 17,
       "label_parent_ast": "1",
       "label_type": "OrdinaryCompilation"
     },
     "20": {
-      "label_c": 0,
+      "label_c": 7,
       "label_l": 3,
-      "label_parent_ast": "19",
+      "label_parent_ast": "2",
       "label_type": "NormalClassDeclaration"
-    },
-    "21": {
-      "label_c": 0,
-      "label_l": 3,
-      "label_parent_ast": "20",
-      "label_type": "ClassModifier"
     },
     "22": {
       "label_c": 0,
       "label_l": 3,
-      "label_parent_ast": "21",
+      "label_parent_ast": "20",
       "label_text": "public",
       "label_type": "PUBLIC"
     },
@@ -1563,16 +615,10 @@
       "label_text": "class",
       "label_type": "CLASS"
     },
-    "24": {
-      "label_c": 13,
-      "label_l": 3,
-      "label_parent_ast": "20",
-      "label_type": "Identifier"
-    },
     "25": {
       "label_c": 13,
       "label_l": 3,
-      "label_parent_ast": "24",
+      "label_parent_ast": "20",
       "label_text": "Test",
       "label_type": "IdentifierRule"
     },
@@ -1589,29 +635,11 @@
       "label_text": "{",
       "label_type": "LBRACE"
     },
-    "28": {
-      "label_c": 4,
-      "label_l": 4,
-      "label_parent_ast": "26",
-      "label_type": "ClassBodyDeclaration"
-    },
-    "29": {
-      "label_c": 4,
-      "label_l": 4,
-      "label_parent_ast": "28",
-      "label_type": "ClassMemberDeclaration"
-    },
-    "3": {
-      "label_c": 0,
-      "label_l": 1,
-      "label_parent_ast": "2",
-      "label_type": "ImportDeclaration"
-    },
     "30": {
       "label_c": 4,
       "label_input_type": "function",
       "label_l": 4,
-      "label_parent_ast": "29",
+      "label_parent_ast": "26",
       "label_type": "MethodDeclaration"
     },
     "31": {
@@ -1635,26 +663,20 @@
       "label_type": "STATIC"
     },
     "36": {
-      "label_c": 18,
+      "label_c": 27,
       "label_l": 4,
       "label_parent_ast": "30",
       "label_type": "MethodHeader"
     },
-    "37": {
-      "label_c": 18,
-      "label_l": 4,
-      "label_parent_ast": "36",
-      "label_type": "Result"
-    },
     "38": {
       "label_c": 18,
       "label_l": 4,
-      "label_parent_ast": "37",
+      "label_parent_ast": "36",
       "label_text": "void",
       "label_type": "VOID"
     },
     "39": {
-      "label_c": 23,
+      "label_c": 27,
       "label_l": 4,
       "label_parent_ast": "36",
       "label_type": "MethodDeclarator"
@@ -1662,19 +684,13 @@
     "4": {
       "label_c": 0,
       "label_l": 1,
-      "label_parent_ast": "3",
+      "label_parent_ast": "2",
       "label_type": "SingleTypeImportDeclaration"
-    },
-    "40": {
-      "label_c": 23,
-      "label_l": 4,
-      "label_parent_ast": "39",
-      "label_type": "Identifier"
     },
     "41": {
       "label_c": 23,
       "label_l": 4,
-      "label_parent_ast": "40",
+      "label_parent_ast": "39",
       "label_text": "main",
       "label_type": "IdentifierRule"
     },
@@ -1685,47 +701,17 @@
       "label_text": "(",
       "label_type": "LPAREN"
     },
-    "43": {
-      "label_c": 28,
+    "45": {
+      "label_c": 34,
       "label_l": 4,
       "label_parent_ast": "39",
-      "label_type": "FormalParameterList"
-    },
-    "44": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "43",
-      "label_type": "LastFormalParameter"
-    },
-    "45": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "44",
       "label_type": "FormalParameter"
     },
-    "46": {
-      "label_c": 28,
+    "48": {
+      "label_c": 34,
       "label_l": 4,
       "label_parent_ast": "45",
-      "label_type": "UnannType"
-    },
-    "47": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "46",
-      "label_type": "UnannReferenceType"
-    },
-    "48": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "47",
       "label_type": "UnannArrayType"
-    },
-    "49": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "48",
-      "label_type": "UnannClassOrInterfaceType"
     },
     "5": {
       "label_c": 0,
@@ -1734,22 +720,10 @@
       "label_text": "import",
       "label_type": "IMPORT"
     },
-    "50": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "49",
-      "label_type": "UnannClassType_lfno_unannClassOrInterfaceType"
-    },
-    "51": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "50",
-      "label_type": "Identifier"
-    },
     "52": {
       "label_c": 28,
       "label_l": 4,
-      "label_parent_ast": "51",
+      "label_parent_ast": "48",
       "label_text": "String",
       "label_type": "IdentifierRule"
     },
@@ -1773,22 +747,10 @@
       "label_text": "]",
       "label_type": "RBRACK"
     },
-    "56": {
-      "label_c": 37,
-      "label_l": 4,
-      "label_parent_ast": "45",
-      "label_type": "VariableDeclaratorId"
-    },
-    "57": {
-      "label_c": 37,
-      "label_l": 4,
-      "label_parent_ast": "56",
-      "label_type": "Identifier"
-    },
     "58": {
       "label_c": 37,
       "label_l": 4,
-      "label_parent_ast": "57",
+      "label_parent_ast": "45",
       "label_text": "args",
       "label_type": "IdentifierRule"
     },
@@ -1800,21 +762,15 @@
       "label_type": "RPAREN"
     },
     "6": {
-      "label_c": 7,
+      "label_c": 11,
       "label_l": 1,
       "label_parent_ast": "4",
       "label_type": "TypeName"
     },
-    "60": {
-      "label_c": 42,
-      "label_l": 4,
-      "label_parent_ast": "30",
-      "label_type": "MethodBody"
-    },
     "61": {
       "label_c": 42,
       "label_l": 4,
-      "label_parent_ast": "60",
+      "label_parent_ast": "30",
       "label_type": "Block"
     },
     "62": {
@@ -1824,34 +780,10 @@
       "label_text": "{",
       "label_type": "LBRACE"
     },
-    "63": {
-      "label_c": 8,
-      "label_l": 5,
-      "label_parent_ast": "61",
-      "label_type": "BlockStatements"
-    },
-    "64": {
-      "label_c": 8,
-      "label_l": 5,
-      "label_parent_ast": "63",
-      "label_type": "BlockStatement"
-    },
-    "65": {
-      "label_c": 8,
-      "label_l": 5,
-      "label_parent_ast": "64",
-      "label_type": "Statement"
-    },
-    "66": {
-      "label_c": 8,
-      "label_l": 5,
-      "label_parent_ast": "65",
-      "label_type": "StatementWithoutTrailingSubstatement"
-    },
     "67": {
       "label_c": 8,
       "label_l": 5,
-      "label_parent_ast": "66",
+      "label_parent_ast": "61",
       "label_type": "TryStatement"
     },
     "68": {
@@ -1868,7 +800,7 @@
       "label_type": "Block"
     },
     "7": {
-      "label_c": 7,
+      "label_c": 11,
       "label_l": 1,
       "label_parent_ast": "6",
       "label_type": "PackageOrTypeName"
@@ -1880,76 +812,28 @@
       "label_text": "{",
       "label_type": "LBRACE"
     },
-    "71": {
-      "label_c": 8,
+    "75": {
+      "label_c": 60,
       "label_l": 6,
       "label_parent_ast": "69",
-      "label_type": "BlockStatements"
-    },
-    "72": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "71",
-      "label_type": "BlockStatement"
-    },
-    "73": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "72",
-      "label_type": "Statement"
-    },
-    "74": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "73",
-      "label_type": "StatementWithoutTrailingSubstatement"
-    },
-    "75": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "74",
       "label_type": "ExpressionStatement"
     },
-    "76": {
-      "label_c": 8,
+    "77": {
+      "label_c": 14,
       "label_l": 6,
       "label_parent_ast": "75",
-      "label_type": "StatementExpression"
-    },
-    "77": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "76",
       "label_type": "MethodInvocation"
     },
     "78": {
-      "label_c": 8,
+      "label_c": 14,
       "label_l": 6,
       "label_parent_ast": "77",
       "label_type": "TypeName"
     },
-    "79": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "78",
-      "label_type": "PackageOrTypeName"
-    },
-    "8": {
-      "label_c": 7,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_type": "PackageOrTypeName"
-    },
-    "80": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "79",
-      "label_type": "Identifier"
-    },
     "81": {
       "label_c": 8,
       "label_l": 6,
-      "label_parent_ast": "80",
+      "label_parent_ast": "78",
       "label_text": "System",
       "label_type": "IdentifierRule"
     },
@@ -1960,16 +844,10 @@
       "label_text": ".",
       "label_type": "DOT"
     },
-    "83": {
-      "label_c": 15,
-      "label_l": 6,
-      "label_parent_ast": "78",
-      "label_type": "Identifier"
-    },
     "84": {
       "label_c": 15,
       "label_l": 6,
-      "label_parent_ast": "83",
+      "label_parent_ast": "78",
       "label_text": "out",
       "label_type": "IdentifierRule"
     },
@@ -1980,16 +858,10 @@
       "label_text": ".",
       "label_type": "DOT"
     },
-    "86": {
-      "label_c": 19,
-      "label_l": 6,
-      "label_parent_ast": "77",
-      "label_type": "Identifier"
-    },
     "87": {
       "label_c": 19,
       "label_l": 6,
-      "label_parent_ast": "86",
+      "label_parent_ast": "77",
       "label_text": "println",
       "label_type": "IdentifierRule"
     },
@@ -1999,78 +871,6 @@
       "label_parent_ast": "77",
       "label_text": "(",
       "label_type": "LPAREN"
-    },
-    "89": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "77",
-      "label_type": "ArgumentList"
-    },
-    "9": {
-      "label_c": 7,
-      "label_l": 1,
-      "label_parent_ast": "8",
-      "label_type": "Identifier"
-    },
-    "90": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "89",
-      "label_type": "Expression"
-    },
-    "91": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "90",
-      "label_type": "AssignmentExpression"
-    },
-    "92": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "91",
-      "label_type": "ConditionalExpression"
-    },
-    "93": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "92",
-      "label_type": "ConditionalOrExpression"
-    },
-    "94": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "93",
-      "label_type": "ConditionalAndExpression"
-    },
-    "95": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "94",
-      "label_type": "InclusiveOrExpression"
-    },
-    "96": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "95",
-      "label_type": "ExclusiveOrExpression"
-    },
-    "97": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "96",
-      "label_type": "AndExpression"
-    },
-    "98": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "97",
-      "label_type": "EqualityExpression"
-    },
-    "99": {
-      "label_c": 27,
-      "label_l": 6,
-      "label_parent_ast": "98",
-      "label_type": "RelationalExpression"
     }
   }
 }

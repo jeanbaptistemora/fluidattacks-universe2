@@ -28,7 +28,7 @@ from utils.graph import (
     export_graph,
     export_graph_as_json,
     graphviz_to_svg,
-    has_label,
+    has_labels,
 )
 from utils.model import (
     Grammar,
@@ -96,24 +96,12 @@ async def test_apply_control_flow() -> None:
     export_graph(graph, 'test/outputs/test_apply_control_flow.graph')
     await graphviz_to_svg('test/outputs/test_apply_control_flow.graph')
 
-    # Check IfThenStatement and IfThenElseStatement
-    assert has_label(graph['352']['396'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['460']['483'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['531']['554'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['531']['601'], label_cfg='CFG', label_false='False')
-    assert has_label(graph['649']['729'], label_cfg='CFG', label_false='False')
-    assert has_label(graph['649']['682'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['730']['763'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['730']['810'], label_cfg='CFG', label_false='False')
-    assert has_label(graph['2623']['2659'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['2843']['2879'], label_cfg='CFG', label_true='True')
-    assert has_label(graph['3333']['3402'], label_cfg='CFG', label_true='True')
+    # Check IfThenStatement
+    assert has_labels(graph['352']['398'], label_cfg='CFG', label_true='True')
+
+    # Check IfThenElseStatement
+    assert has_labels(graph['531']['552'], label_cfg='CFG', label_true='True')
+    assert has_labels(graph['531']['603'], label_cfg='CFG', label_false='False')
 
     # Check BlockStatement
-    assert has_label(graph['98']['132'], label_cfg='CFG', label_e='e')
-    assert has_label(graph['132']['169'], label_cfg='CFG', label_e='e')
-    assert has_label(graph['169']['459'], label_cfg='CFG', label_e='e')
-    assert has_label(graph['459']['530'], label_cfg='CFG', label_e='e')
-    assert has_label(graph['530']['648'], label_cfg='CFG', label_e='e')
-    assert has_label(graph['893']['908'], label_cfg='CFG', label_e='e')
-    assert has_label(graph['908']['1213'], label_cfg='CFG', label_e='e')
+    assert has_labels(graph['967']['1007'], label_cfg='CFG', label_e='e')

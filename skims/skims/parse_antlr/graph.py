@@ -6,7 +6,9 @@ from typing import (
     Any,
     Dict,
     Iterator,
+    List,
     Optional,
+    Tuple,
 )
 
 # Third party libraries
@@ -120,9 +122,34 @@ def _mark_as_created_by_this_module(graph: nx.OrderedDiGraph) -> None:
         graph[n_id_u][n_id_v]['label_ast'] = 'AST'
 
 
+def _chop_single_element_nodes(graph: nx.OrderedDiGraph) -> None:
+    reductions: List[Tuple[int, int]] = []
+
+    # Iterate nodes ordered from the root to the leaves
+    for n_id in nx.dfs_preorder_nodes(graph):
+        n_attrs = graph.nodes[n_id]
+        c_ids = tuple(graph.adj[n_id])
+
+        # If only one child and has a parent
+        if len(c_ids) == 1 and n_attrs['label_parent_ast'] is not None:
+            reductions.append((n_id, c_ids[0]))
+
+    # Reduce
+    for n_id, c_id in reductions:
+        n_attrs = graph.nodes[n_id]
+        c_attrs = graph.nodes[c_id]
+        p_id = n_attrs['label_parent_ast']
+        # Before: p -> n -> c
+        # After: p -> c
+        c_attrs['label_parent_ast'] = p_id
+        graph.add_edge(p_id, c_id, **graph[p_id][n_id])
+        graph.remove_node(n_id)
+
+
 def from_model(model: Any) -> nx.OrderedDiGraph:
     graph = _build_graph(model)
 
+    _chop_single_element_nodes(graph)
     _propagate_positions(graph)
     _mark_as_created_by_this_module(graph)
 
