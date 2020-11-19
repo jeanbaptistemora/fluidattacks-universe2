@@ -1,9 +1,9 @@
-from target_redshift_2.db_client.objects import DbTypes, IsolatedColumn, SchemaID, TableDraft, TableID
+from target_redshift_2.db_client.objects import ConnectionID, DbTypes, IsolatedColumn, SchemaID, TableDraft, TableID
 from target_redshift_2.factory_pack import table
 from target_redshift_2.objects import RedshiftField, RedshiftSchema
 
 
-def test_from_rschema_builder():
+def test_draft_from_rschema_builder():
     # Arrange
     field1 = RedshiftField('field1', DbTypes.BOOLEAN)
     field2 = RedshiftField('field2', DbTypes.NUMERIC)
@@ -13,29 +13,57 @@ def test_from_rschema_builder():
     column2 = IsolatedColumn(
         name='field2', field_type='numeric', default_val='0'
     )
+    test_rschema = RedshiftSchema(
+        fields=frozenset({field1, field2}),
+        schema_name='the_schema',
+        table_name='super_table'
+    )
+    test_table_id = TableID(
+        SchemaID(None, 'the_schema'), table_name='super_table'
+    )
 
-    def mock_from_rfield(rfield: RedshiftField) -> IsolatedColumn:
+    def mock_column_from_rfield(rfield: RedshiftField) -> IsolatedColumn:
         if rfield == field1:
             return column1
         if rfield == field2:
             return column2
         raise Exception('Unexpected input')
 
-    from_rschema = table.from_rschema_builder(mock_from_rfield)
+    def mock_tid_from_rschema(rfield: RedshiftSchema) -> TableID:
+        if rfield == test_rschema:
+            return test_table_id
+        raise Exception('Unexpected input')
+
+    # Act
+    from_rschema = table.draft_from_rschema_builder(
+        mock_column_from_rfield, mock_tid_from_rschema
+    )
+    result = from_rschema(test_rschema)
+    # Assert
+    expected = TableDraft(
+        id=test_table_id,
+        primary_keys=frozenset(),
+        columns=frozenset({column1, column2})
+    )
+    assert result == expected
+
+
+def test_tid_from_rschema_builder():
+    # Arrange
+    test_connection = ConnectionID(
+        'the_db', 'super_user', '1234', 'the_host', '9000'
+    )
     test_rschema = RedshiftSchema(
-        fields=frozenset({field1, field2}),
+        fields=frozenset(),
         schema_name='the_schema',
         table_name='super_table'
     )
     # Act
+    from_rschema = table.tid_from_rschema_builder(test_connection)
     result = from_rschema(test_rschema)
     # Assert
-    expected_id = TableID(
-        SchemaID(None, 'the_schema'), table_name='super_table'
-    )
-    expected = TableDraft(
-        id=expected_id,
-        primary_keys=frozenset(),
-        columns=frozenset({column1, column2})
+    expected = TableID(
+        SchemaID(test_connection, 'the_schema'),
+        table_name='super_table'
     )
     assert result == expected
