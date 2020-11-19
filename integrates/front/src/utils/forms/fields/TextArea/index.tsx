@@ -3,16 +3,12 @@
   We need className to override default styles from react-bootstrap and props
   spreading is the best way to pass down props.
 */
+import type { FormControlProps } from "react-bootstrap";
 import React from "react";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import {
-  Badge,
-  FormControl,
-  FormControlProps,
-  HelpBlock,
-} from "react-bootstrap";
-import { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+import { Badge, FormControl, HelpBlock } from "react-bootstrap";
+import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITextAreaProps extends WrappedFieldProps, FormControlProps {
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;

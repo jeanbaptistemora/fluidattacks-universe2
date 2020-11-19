@@ -1,7 +1,8 @@
-import { PureAbility } from "@casl/ability";
-import React from "react";
+import type { BoundCanProps } from "@casl/react";
+import type { PureAbility } from "@casl/ability";
+import type React from "react";
 import { authzGroupContext } from "utils/authz/config";
-import { BoundCanProps, createContextualCan } from "@casl/react";
+import { createContextualCan } from "@casl/react";
 
 const have: React.FC<BoundCanProps<PureAbility<string>>> = createContextualCan(
   authzGroupContext.Consumer

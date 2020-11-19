@@ -1,7 +1,8 @@
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 import React from "react";
-import { ReactWrapper, mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
 import {
   authzGroupContext,
   authzPermissionsContext,

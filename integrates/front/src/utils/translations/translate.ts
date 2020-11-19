@@ -1,7 +1,8 @@
 import { Logger } from "utils/logger";
+import type { TOptions } from "i18next";
 import { enTranslations } from "utils/translations/en";
+import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import i18next, { TOptions } from "i18next";
 
 i18next
   .use(initReactI18next)

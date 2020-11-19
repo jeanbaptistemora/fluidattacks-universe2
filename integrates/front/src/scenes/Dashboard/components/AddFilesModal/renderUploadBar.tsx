@@ -1,4 +1,4 @@
-import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
+import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import React from "react";
 import { translate } from "utils/translations/translate";
 import { Meter, ProgressBar } from "styles/styledComponents";

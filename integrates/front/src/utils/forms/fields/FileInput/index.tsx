@@ -3,19 +3,19 @@
   Readonly utility type does not work on deeply nested types and we need
   className to override default styles from react-bootstrap.
 */
+import type { FormControlProps } from "react-bootstrap";
 import React from "react";
 import _ from "lodash";
 import style from "utils/forms/index.css";
 import {
   ControlLabel,
   FormControl,
-  FormControlProps,
   FormGroup,
   Glyphicon,
   HelpBlock,
   InputGroup,
 } from "react-bootstrap";
-import { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface IFileInputProps extends WrappedFieldProps, FormControlProps {
   input: { value: FileList } & Omit<WrappedFieldInputProps, "value">;

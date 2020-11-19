@@ -2,9 +2,10 @@
   --------
   We need className to override default styles from react-bootstrap
 */
+import { Modal } from "react-bootstrap";
 import React from "react";
+import type { Sizes } from "react-bootstrap";
 import style from "components/Modal/index.css";
-import { Modal, Sizes } from "react-bootstrap";
 import {
   ModalBody,
   ModalFooter,

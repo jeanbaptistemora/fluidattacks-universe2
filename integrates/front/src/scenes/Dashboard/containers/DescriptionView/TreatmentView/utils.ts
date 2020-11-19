@@ -1,4 +1,4 @@
-import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { formatHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/utils";
 
 export const getPreviousTreatment: (

@@ -1,6 +1,8 @@
 import { Logger } from "utils/logger";
-import { Validator } from "redux-form";
+import type { Moment } from "moment";
+import type { Validator } from "redux-form";
 import _ from "lodash";
+import moment from "moment";
 import { translate } from "utils/translations/translate";
 import {
   hasLengthGreaterThan,
@@ -10,7 +12,6 @@ import {
   isRequired,
   matchesPattern,
 } from "revalidate";
-import moment, { Moment } from "moment";
 
 const required: Validator = isRequired({
   message: translate.t("validations.required"),
@@ -193,7 +194,7 @@ const isValidVulnSeverity: Validator = (value: string): string | undefined => {
     )
   ) {
     const severityBetween: (
-      value: number
+      input: number
     ) => string | undefined = numberBetween(min, max);
 
     return severityBetween(Number(value));

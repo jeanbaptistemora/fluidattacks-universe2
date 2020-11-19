@@ -1,16 +1,18 @@
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import React from "react";
-import ReactRouterDom from "react-router-dom";
+import type ReactRouterDom from "react-router-dom";
+import type { ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store";
 import waitForExpect from "wait-for-expect";
 import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
 } from "scenes/Dashboard/components/AddOrganizationModal/queries";
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { ReactWrapper, mount } from "enzyme";
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();

@@ -1,5 +1,6 @@
 import Bugsnag from "@bugsnag/js";
-import Event, { Error } from "@bugsnag/core/types/event";
+import type { Error } from "@bugsnag/core/types/event";
+import type Event from "@bugsnag/core/types/event";
 
 interface ILoggerAttr {
   error: (msg: string, extra?: unknown) => void;

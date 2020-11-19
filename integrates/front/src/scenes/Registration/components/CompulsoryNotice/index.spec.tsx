@@ -2,7 +2,8 @@ import { CompulsoryNotice } from "scenes/Registration/components/CompulsoryNotic
 import { Provider } from "react-redux";
 import React from "react";
 import store from "store";
-import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
 
 describe("Compulsory notice modal", (): void => {
   it("should return a function", (): void => {

@@ -3,9 +3,9 @@
   Disabling this rule is necessary, because the dataset array may contain
   different types since this is a generic component.
 */
-import { Column } from "react-bootstrap-table-next";
-import { ReactElement } from "react";
-import {
+import type { Column } from "react-bootstrap-table-next";
+import type { ReactElement } from "react";
+import type {
   ColumnToggleProps,
   ToolkitProviderProps,
 } from "react-bootstrap-table2-toolkit";

@@ -3,7 +3,8 @@
   We need props spreading in order to pass down props to StyledButton.
 */
 import React from "react";
-import styled, { StyledComponent } from "styled-components";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 const StyledButton: StyledComponent<
   "button",

@@ -1,4 +1,4 @@
-import { ResourceKey } from "i18next";
+import type { ResourceKey } from "i18next";
 
 export const enTranslations: ResourceKey = {
   analytics: {

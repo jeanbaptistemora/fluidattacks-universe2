@@ -5,8 +5,10 @@
 */
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
-import { ErrorResponse } from "apollo-link-error";
+import type { ErrorResponse } from "apollo-link-error";
+import { InMemoryCache } from "apollo-cache-inmemory";
 import { Logger } from "utils/logger";
+import type { NormalizedCacheObject } from "apollo-cache-inmemory";
 import React from "react";
 import { WebSocketLink } from "apollo-link-ws";
 import _ from "lodash";
@@ -17,21 +19,19 @@ import { getMainDefinition } from "apollo-utilities";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router";
-import {
-  ApolloLink,
+import { ApolloLink, Observable } from "apollo-link";
+import type {
   ExecutionResult,
   FetchResult,
   NextLink,
-  Observable,
   Operation,
 } from "apollo-link";
-import {
+import type {
   FragmentDefinitionNode,
   GraphQLError,
   OperationDefinitionNode,
 } from "graphql";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { ServerError, ServerParseError } from "apollo-link-http-common";
+import type { ServerError, ServerParseError } from "apollo-link-http-common";
 
 interface IHandledErrorAttr {
   graphQLErrors?: readonly GraphQLError[];
@@ -222,7 +222,7 @@ const onError: (
                   }
                 },
               });
-            } catch (exception) {
+            } catch (exception: unknown) {
               errorHandler({
                 forward,
                 networkError: exception as Error,

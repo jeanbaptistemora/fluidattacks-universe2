@@ -1,8 +1,10 @@
-import { ApolloError } from "apollo-client";
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
-import { ConfigurableValidator } from "revalidate";
+import type { ConfigurableValidator } from "revalidate";
+import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { GraphQLError } from "graphql";
+import type { GraphQLError } from "graphql";
+import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal/index";
 import React from "react";
@@ -23,13 +25,12 @@ import {
   PROJECTS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddProjectModal/queries";
 import { Dropdown, Text } from "utils/forms/fields";
-import { Field, InjectedFormProps } from "redux-form";
-import {
+import type {
   IAddProjectModalProps,
   IProjectNameProps,
 } from "scenes/Dashboard/components/AddProjectModal/types";
 import { Mutation, Query } from "@apollo/react-components";
-import {
+import type {
   MutationFunction,
   MutationResult,
   QueryResult,

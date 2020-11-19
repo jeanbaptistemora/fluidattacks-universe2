@@ -8,7 +8,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Button } from "components/Button";
 import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
-import { ITableWrapperProps } from "components/DataTableNext/types";
+import type { ITableWrapperProps } from "components/DataTableNext/types";
 import React from "react";
 import { Search } from "react-bootstrap-table2-toolkit";
 import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";

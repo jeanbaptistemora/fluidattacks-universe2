@@ -1,11 +1,12 @@
 import Bugsnag from "@bugsnag/js";
-import { Error } from "@bugsnag/core/types/event";
-import { Event } from "@bugsnag/core";
+import BugsnagPluginReact from "@bugsnag/plugin-react";
+import type { Error } from "@bugsnag/core/types/event";
+import type { Event } from "@bugsnag/core";
 import { Logger } from "./logger";
 import React from "react";
 import _ from "lodash";
 import { getEnvironment } from "utils/environment";
-import BugsnagPluginReact, {
+import type {
   BugsnagErrorBoundary,
   BugsnagPluginReactResult,
 } from "@bugsnag/plugin-react";

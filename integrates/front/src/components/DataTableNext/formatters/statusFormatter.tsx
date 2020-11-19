@@ -1,6 +1,7 @@
-import { Label } from "react-bootstrap";
+import type { Label } from "react-bootstrap";
 import React from "react";
-import styled, { StyledComponent } from "styled-components";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 const StatusFormatter: StyledComponent<
   "span",

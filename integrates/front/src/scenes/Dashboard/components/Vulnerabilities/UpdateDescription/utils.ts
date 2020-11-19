@@ -1,4 +1,4 @@
-import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import _ from "lodash";
 
 const sortTags: (tags: string) => string[] = (tags: string): string[] => {

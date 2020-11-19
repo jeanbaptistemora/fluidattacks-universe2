@@ -2,7 +2,7 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import _ from "lodash";
 import { commonConfig } from "./webpack.common.config";
-import webpack from "webpack";
+import type webpack from "webpack";
 import {
   BugsnagBuildReporterPlugin,
   BugsnagSourceMapUploaderPlugin,

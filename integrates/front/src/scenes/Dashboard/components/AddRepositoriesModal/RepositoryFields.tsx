@@ -3,14 +3,15 @@
   We need className to override default styles from react-boostrap.
 */
 import { Button } from "components/Button/index";
-import { ConfigurableValidator } from "revalidate";
+import type { ConfigurableValidator } from "revalidate";
+import { Field } from "redux-form";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import type { WrappedFieldArrayProps } from "redux-form";
 import style from "scenes/Dashboard/components/AddRepositoriesModal/index.css";
 import { translate } from "utils/translations/translate";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { Dropdown, Text } from "utils/forms/fields";
-import { Field, WrappedFieldArrayProps } from "redux-form";
 import { maxLength, required, validField } from "utils/validations";
 
 const MAX_REPO_URL_LENGTH: number = 300;

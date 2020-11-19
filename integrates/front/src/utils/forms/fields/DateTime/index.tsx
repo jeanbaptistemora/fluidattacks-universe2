@@ -1,9 +1,10 @@
 import Datetime from "react-datetime";
+import type { FormControlProps } from "react-bootstrap";
+import { HelpBlock } from "react-bootstrap";
 import React from "react";
-import { WrappedFieldProps } from "redux-form";
+import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { FormControlProps, HelpBlock } from "react-bootstrap";
 import "react-datetime/css/react-datetime.css";
 
 export const DateTime: React.FC<WrappedFieldProps & FormControlProps> = (

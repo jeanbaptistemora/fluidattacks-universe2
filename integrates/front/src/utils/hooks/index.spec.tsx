@@ -1,7 +1,8 @@
 import React from "react";
+import type { ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { shallow } from "enzyme";
 import { useStoredState } from "utils/hooks";
-import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Custom utility hooks", (): void => {
   describe("useStoredState", (): void => {

@@ -3,9 +3,10 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
 import { WithContext as ReactTags } from "react-tag-input";
+import type { ReactWrapper } from "enzyme";
 import { TagInput } from "utils/forms/fields/TagInput";
+import { mount } from "enzyme";
 import store from "store";
-import { ReactWrapper, mount } from "enzyme";
 
 describe("TagInput Field", (): void => {
   it("should return a function", (): void => {

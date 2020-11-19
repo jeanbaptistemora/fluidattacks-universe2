@@ -1,4 +1,4 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 const PROJECTS_NAME_QUERY: DocumentNode = gql`

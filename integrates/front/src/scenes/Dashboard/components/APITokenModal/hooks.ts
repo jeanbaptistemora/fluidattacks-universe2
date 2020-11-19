@@ -1,20 +1,21 @@
-import { GraphQLError } from "graphql";
+import type { FormAction } from "redux-form";
+import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { ApolloError, ApolloQueryResult } from "apollo-client";
-import { FormAction, change, reset } from "redux-form";
+import type { ApolloError, ApolloQueryResult } from "apollo-client";
 import {
   GET_ACCESS_TOKEN,
   INVALIDATE_ACCESS_TOKEN_MUTATION,
   UPDATE_ACCESS_TOKEN_MUTATION,
 } from "scenes/Dashboard/components/APITokenModal/queries";
-import {
+import type {
   IGetAccessTokenAttr,
   IInvalidateAccessTokenAttr,
   IUpdateAccessTokenAttr,
 } from "scenes/Dashboard/components/APITokenModal/types";
-import { MutationFunction, MutationResult } from "@apollo/react-common";
+import type { MutationFunction, MutationResult } from "@apollo/react-common";
+import { change, reset } from "redux-form";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 

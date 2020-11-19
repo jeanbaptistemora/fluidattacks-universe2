@@ -1,12 +1,13 @@
 import { Button } from "components/Button";
 import { ButtonToolbar } from "styles/styledComponents";
 import { EnvironmentFields } from "scenes/Dashboard/components/AddEnvironmentsModal/environmentFields";
+import { FieldArray } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { IEnvironmentsAttr } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import type { IEnvironmentsAttr } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
 import { translate } from "utils/translations/translate";
-import { FieldArray, InjectedFormProps } from "redux-form";
 
 interface IAddEnvironmentsModalProps {
   isOpen: boolean;

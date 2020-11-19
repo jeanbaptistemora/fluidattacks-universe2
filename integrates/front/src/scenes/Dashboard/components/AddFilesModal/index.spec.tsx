@@ -2,7 +2,8 @@ import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { Provider } from "react-redux";
 import React from "react";
 import store from "store";
-import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
 
 describe("Add Files modal", (): void => {
   it("should return a function", (): void => {

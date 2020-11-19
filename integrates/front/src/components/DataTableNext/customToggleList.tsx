@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
-import { Column } from "react-bootstrap-table-next";
-import { ColumnToggle } from "react-bootstrap-table2-toolkit";
-import { ICustomToggleProps } from "components/DataTableNext/types";
+import type { Column } from "react-bootstrap-table-next";
+import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
+import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";

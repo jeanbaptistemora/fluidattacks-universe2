@@ -1,9 +1,9 @@
 import { ADD_STAKEHOLDER_MUTATION } from "scenes/Dashboard/queries";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import { IAddStakeholderAttr } from "scenes/Dashboard/types";
+import type { ApolloError } from "apollo-client";
+import type { GraphQLError } from "graphql";
+import type { IAddStakeholderAttr } from "scenes/Dashboard/types";
 import { Logger } from "utils/logger";
-import { MutationFunction } from "@apollo/react-common";
+import type { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
 import { useMutation } from "@apollo/react-hooks";

@@ -1,11 +1,10 @@
-import { ITableProps } from "components/DataTableNext/types";
+import type { ITableProps } from "components/DataTableNext/types";
 import React from "react";
 import { TableWrapper } from "components/DataTableNext/table";
+import ToolkitProvider from "react-bootstrap-table2-toolkit";
+import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 import _ from "lodash";
 import style from "components/DataTableNext/index.css";
-import ToolkitProvider, {
-  ToolkitProviderProps,
-} from "react-bootstrap-table2-toolkit";
 import {
   addUniqueKeys,
   customizeColumns,

@@ -1,6 +1,7 @@
 import { DropdownButton } from "components/DropdownButton";
 import React from "react";
-import { ShallowWrapper, shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 
 describe("DropdownButton", (): void => {
   it("should return a fuction", (): void => {

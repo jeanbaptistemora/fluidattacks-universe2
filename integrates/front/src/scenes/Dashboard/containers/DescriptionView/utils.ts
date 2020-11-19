@@ -1,4 +1,4 @@
-import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import _ from "lodash";
 import { formatTreatment } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";

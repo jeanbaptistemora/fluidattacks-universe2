@@ -41,7 +41,12 @@
     "line-comment-position": ["error", "above"],
     "multiline-comment-style": ["error", "starred-block"],
     "no-console": "error",
-    "no-duplicate-imports": "error",
+    /*
+     * Replaced by @typescript-eslint/no-duplicate-imports to avoid
+     * conflicts with type imports
+     * https://github.com/typescript-eslint/typescript-eslint/issues/2315
+     */
+    "no-duplicate-imports": "off",
     "no-shadow": "error",
     "no-useless-rename": "error",
     "one-var": ["error", "never"],
@@ -99,6 +104,7 @@
         "suffix": ["Attr", "Config", "Fn", "Props"]
       }
     ],
+    "@typescript-eslint/no-duplicate-imports": ["error"],
     /*
      * Disabling this rule is necessary to avoid a conflict with
      * @typescript-eslint/typedef that checks for all variables to be typed.

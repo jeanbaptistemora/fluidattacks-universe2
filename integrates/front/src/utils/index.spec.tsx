@@ -1,4 +1,4 @@
-import { ConfigurableValidator } from "revalidate";
+import type { ConfigurableValidator } from "revalidate";
 import {
   alphaNumeric,
   isLowerDate,

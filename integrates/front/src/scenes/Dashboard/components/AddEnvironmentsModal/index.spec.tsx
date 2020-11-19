@@ -3,7 +3,8 @@ import { EnvironmentFields } from "scenes/Dashboard/components/AddEnvironmentsMo
 import { Provider } from "react-redux";
 import React from "react";
 import store from "store";
-import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
 
 describe("Add Environments modal", (): void => {
   const mockedFn: jest.Mock = jest.fn();

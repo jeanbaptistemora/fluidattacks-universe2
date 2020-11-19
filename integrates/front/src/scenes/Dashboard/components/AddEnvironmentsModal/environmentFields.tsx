@@ -1,13 +1,15 @@
 import { Button } from "components/Button";
-import { ConfigurableValidator } from "revalidate";
+import type { ConfigurableValidator } from "revalidate";
+import { Field } from "redux-form";
 import { Glyphicon } from "react-bootstrap";
 import React from "react";
+import type { StyledComponent } from "styled-components";
 import { TextArea } from "utils/forms/fields";
+import type { WrappedFieldArrayProps } from "redux-form";
+import styled from "styled-components";
 import { translate } from "utils/translations/translate";
-import { Field, WrappedFieldArrayProps } from "redux-form";
 import { RequiredField, Row } from "styles/styledComponents";
 import { maxLength, required, validField } from "utils/validations";
-import styled, { StyledComponent } from "styled-components";
 
 const maxCharCount: number = 500;
 const maxEnvUrlLength: ConfigurableValidator = maxLength(maxCharCount);

@@ -2,10 +2,10 @@
   ------
   We need to override default styles from react-bootstrap
 */
-import { ApolloError } from "apollo-client";
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { CompulsoryNotice } from "scenes/Registration/components/CompulsoryNotice";
-import { GraphQLError } from "graphql";
+import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import React from "react";
 import _ from "lodash";

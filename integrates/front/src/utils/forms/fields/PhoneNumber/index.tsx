@@ -1,7 +1,7 @@
-import { FormControlProps } from "react-bootstrap";
+import type { FormControlProps } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
 import React from "react";
-import { WrappedFieldProps } from "redux-form";
+import type { WrappedFieldProps } from "redux-form";
 import style from "utils/forms/index.css";
 import "react-phone-input-2/lib/bootstrap.css";
 

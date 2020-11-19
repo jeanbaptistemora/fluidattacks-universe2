@@ -1,15 +1,15 @@
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
-import { IHeaderConfig } from "components/DataTableNext/types";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
 
 export const changeVulnStateFormatter: (
   value: string,
-  row: Readonly<{ [key: string]: string }>,
+  row: Readonly<Record<string, string>>,
   rowIndex: number,
   key: Readonly<IHeaderConfig>
 ) => JSX.Element = (
   _value: string,
-  row: Readonly<{ [key: string]: string }>,
+  row: Readonly<Record<string, string>>,
   _rowIndex: number,
   key: Readonly<IHeaderConfig>
 ): JSX.Element => {

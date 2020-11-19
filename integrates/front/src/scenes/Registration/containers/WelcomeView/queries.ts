@@ -1,4 +1,4 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 const GET_USER_AUTHORIZATION: DocumentNode = gql`

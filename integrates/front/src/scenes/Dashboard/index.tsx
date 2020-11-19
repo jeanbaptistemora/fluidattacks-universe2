@@ -1,16 +1,18 @@
 import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
 import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
+import type { ApolloError } from "apollo-client";
+import { ConfirmDialog } from "components/ConfirmDialog";
+import type { GraphQLError } from "graphql";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
-import { IStakeholderDataAttr } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import type { IStakeholderDataAttr } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { Logger } from "utils/logger";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
 import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
-import { PureAbility } from "@casl/ability";
+import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { ReportsView } from "scenes/Dashboard/containers/ReportsView";
 import { ScrollUpButton } from "components/ScrollUpButton";
@@ -22,12 +24,11 @@ import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { useQuery } from "@apollo/react-hooks";
-import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
 import {
   GET_USER_PERMISSIONS,
   SESSION_EXPIRATION,
 } from "scenes/Dashboard/queries";
-import {
+import type {
   IGetUserPermissionsAttr,
   ISessionExpirationAttr,
 } from "scenes/Dashboard/types";
@@ -129,20 +130,18 @@ export const Dashboard: React.FC = (): JSX.Element => {
       }
     };
 
-    window.setInterval(
-      (): void => sessionIsAlive(true),
-      milliseconds * seconds * 2
-    );
+    window.setInterval((): void => {
+      sessionIsAlive(true);
+    }, milliseconds * seconds * 2);
 
     const goInactive: () => void = (): void => {
       const Iseconds: number = 10;
       const total: number = milliseconds * Iseconds;
       sessionIsAlive(false);
       // eslint-disable-next-line fp/no-mutation
-      timersID.interval = window.setInterval(
-        (): void => sessionIsAlive(false),
-        total
-      );
+      timersID.interval = window.setInterval((): void => {
+        sessionIsAlive(false);
+      }, total);
     };
 
     const startTimer: () => void = (): void => {

@@ -1,12 +1,9 @@
+import type { FormControlProps } from "react-bootstrap";
 import React from "react";
-import { WrappedFieldProps } from "redux-form";
+import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import {
-  Checkbox as BootstrapCheckbox,
-  FormControlProps,
-  HelpBlock,
-} from "react-bootstrap";
+import { Checkbox as BootstrapCheckbox, HelpBlock } from "react-bootstrap";
 
 export const Checkbox: React.FC<WrappedFieldProps & FormControlProps> = (
   // Readonly utility type does not work on deeply nested types

@@ -2,7 +2,8 @@ import { AddRepositoriesModal } from "scenes/Dashboard/components/AddRepositorie
 import { Provider } from "react-redux";
 import React from "react";
 import store from "store";
-import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
 
 const functionMock: () => void = (): void => undefined;
 

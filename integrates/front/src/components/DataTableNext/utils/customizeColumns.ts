@@ -1,16 +1,16 @@
-import { Column } from "react-bootstrap-table-next";
-import { IHeaderConfig } from "components/DataTableNext/types";
+import type { Column } from "react-bootstrap-table-next";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 import _ from "lodash";
-import { CSSProperties, ReactElement } from "react";
+import type { CSSProperties, ReactElement } from "react";
 
 const handleFormatter: (
   value: string,
-  row: Readonly<{ [key: string]: string }>,
+  row: Readonly<Record<string, string>>,
   rowIndex: number,
   key: Readonly<IHeaderConfig>
 ) => string | ReactElement | undefined = (
   value: string,
-  row: Readonly<{ [key: string]: string }>,
+  row: Readonly<Record<string, string>>,
   rowIndex: number,
   key: Readonly<IHeaderConfig>
 ): string | ReactElement | undefined => {

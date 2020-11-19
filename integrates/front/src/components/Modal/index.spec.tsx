@@ -5,13 +5,14 @@
 import { Button } from "react-bootstrap";
 import { Modal } from "components/Modal";
 import React from "react";
+import type { ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 import {
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
 } from "styles/styledComponents";
-import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Generic modal", (): void => {
   it("should return a function", (): void => {

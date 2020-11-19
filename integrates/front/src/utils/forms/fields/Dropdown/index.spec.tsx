@@ -3,9 +3,10 @@ import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
 import { required } from "utils/validations";
 import store from "store";
-import { ReactWrapper, mount } from "enzyme";
 
 describe("Dropdown Field", (): void => {
   it("should return a function", (): void => {

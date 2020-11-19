@@ -1,8 +1,8 @@
-import { ApolloError } from "apollo-client";
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { GraphQLError } from "graphql";
+import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import React from "react";
@@ -22,7 +22,7 @@ import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
 } from "scenes/Dashboard/components/AddOrganizationModal/queries";
-import {
+import type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
   IAddOrganizationQryProps,

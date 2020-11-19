@@ -1,14 +1,16 @@
 import { GET_USER_AUTHORIZATION } from "scenes/Registration/containers/WelcomeView/queries";
 import { MemoryRouter } from "react-router-dom";
+import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import React from "react";
+import type { ReactWrapper } from "enzyme";
 import { WelcomeView } from "scenes/Registration/containers/WelcomeView";
 import _ from "lodash";
 import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store";
 import { translate } from "utils/translations/translate";
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { ReactWrapper, mount } from "enzyme";
+import { MockedProvider, wait } from "@apollo/react-testing";
 
 describe("Welcome view", (): void => {
   // Necessary to setup the window object within the test.

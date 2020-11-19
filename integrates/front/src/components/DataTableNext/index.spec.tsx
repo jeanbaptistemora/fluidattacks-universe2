@@ -1,12 +1,13 @@
 import { DataTableNext } from "components/DataTableNext";
-import { IHeaderConfig } from "components/DataTableNext/types";
+import type { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
-import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import {
   changeFormatter,
   deleteFormatter,
   statusFormatter,
 } from "components/DataTableNext/formatters";
+import { mount, shallow } from "enzyme";
 
 describe("Data table next", (): void => {
   it("should return a function", (): void => {

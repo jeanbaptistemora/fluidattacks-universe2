@@ -3,10 +3,11 @@ import { FormControl } from "react-bootstrap";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
+import type { ReactWrapper } from "enzyme";
 import { TextArea } from ".";
+import { mount } from "enzyme";
 import { required } from "../../../validations";
 import store from "../../../../store";
-import { ReactWrapper, mount } from "enzyme";
 
 describe("TextArea Field", (): void => {
   it("should return a function", (): void => {

@@ -1,6 +1,7 @@
 import { FluidIcon } from "components/FluidIcon";
 import React from "react";
-import { ShallowWrapper, shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 
 describe("FluidIcon", (): void => {
   it("should return a function", (): void => {

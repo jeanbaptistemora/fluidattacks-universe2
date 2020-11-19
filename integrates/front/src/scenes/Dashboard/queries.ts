@@ -1,4 +1,4 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`

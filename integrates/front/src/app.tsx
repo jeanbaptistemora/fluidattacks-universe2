@@ -1,7 +1,7 @@
 import { BugsnagErrorBoundary } from "utils/bugsnagErrorBoundary";
 import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
-import { NetworkStatus } from "react-apollo-network-status";
+import type { NetworkStatus } from "react-apollo-network-status";
 import { Preloader } from "components/Preloader";
 import React from "react";
 import ReactDOM from "react-dom";

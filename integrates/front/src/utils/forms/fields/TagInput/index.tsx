@@ -1,11 +1,13 @@
+import type { FormControlProps } from "react-bootstrap";
+import { HelpBlock } from "react-bootstrap";
 import React from "react";
+import { WithContext as ReactTags } from "react-tag-input";
+import type { Tag } from "react-tag-input";
 import _ from "lodash";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 import { validTextField } from "utils/validations";
-import { FormControlProps, HelpBlock } from "react-bootstrap";
-import { WithContext as ReactTags, Tag } from "react-tag-input";
-import { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITagInputProps extends WrappedFieldProps, FormControlProps {
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;

@@ -1,6 +1,7 @@
 import React from "react";
 import ScrollUp from "react-scroll-up";
-import styled, { StyledComponent } from "styled-components";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 const StyledScrollUp: StyledComponent<
   "span",

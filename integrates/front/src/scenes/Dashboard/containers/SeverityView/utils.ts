@@ -1,5 +1,5 @@
 import { translate } from "utils/translations/translate";
-import {
+import type {
   ISeverityAttr,
   ISeverityField,
 } from "scenes/Dashboard/containers/SeverityView/types";

@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { StyledComponent } from "styled-components";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 const StyledBadge: StyledComponent<
   "span",

@@ -1,6 +1,7 @@
 import { Notification } from "components/Notification";
 import React from "react";
-import { ShallowWrapper, shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 
 describe("Notification", (): void => {
   it("should return a function", (): void => {

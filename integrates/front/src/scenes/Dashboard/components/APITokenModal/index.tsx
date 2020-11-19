@@ -1,7 +1,9 @@
 import { Button } from "components/Button";
+import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
-import { MutationFunction } from "@apollo/react-common";
+import type { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";
@@ -14,8 +16,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Date as DateField, TextArea } from "utils/forms/fields";
-import { Field, InjectedFormProps } from "redux-form";
-import {
+import type {
   IAccessTokenAttr,
   IGetAccessTokenDictAttr,
 } from "scenes/Dashboard/components/APITokenModal/types";
