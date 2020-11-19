@@ -57,8 +57,7 @@ data "aws_iam_policy_document" "sorts_dev_policy_data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
+      "s3:Get*",
       "s3:ListBucket"
     ]
     resources = [
