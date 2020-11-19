@@ -135,6 +135,40 @@ async def edit_group(
     )
 
 
+async def delete_group(
+    *,
+    deletion_date: str,
+    group_name: str,
+    requester_email: str,
+    subscription: str,
+) -> bool:
+    translations: Dict[Union[str, bool], str] = {
+        'continuous': 'Continuous Hacking',
+        'oneshot': 'One-Shot Hacking',
+    }
+
+    return cast(
+        bool,
+        await in_thread(
+            notifications_dal.create_ticket,
+            subject=f'[Integrates] Group deleted: {group_name}',
+            description=f"""
+                You are receiving this email because you have deleted a group
+                through Integrates by Fluid Attacks.
+
+                Here are the details of the group:
+                - Name: {group_name}
+                - Type: {translations.get(subscription, subscription)}
+                - Deletion date: {deletion_date}
+
+                If you require any further information,
+                do not hesitate to contact us.
+            """,
+            requester_email=requester_email,
+        )
+    )
+
+
 async def request_zero_risk_vuln(
     info: GraphQLResolveInfo,
     finding_id: str,

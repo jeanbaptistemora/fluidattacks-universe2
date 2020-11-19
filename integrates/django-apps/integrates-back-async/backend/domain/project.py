@@ -283,7 +283,7 @@ async def edit(
             user_email=requester_email,
         )
 
-    if success:
+    if success and has_integrates:
         await notifications_domain.edit_group(
             comments=comments,
             group_name=group_name,
@@ -312,6 +312,15 @@ async def edit(
             has_forces=has_forces,
             has_integrates=has_integrates,
             reason=reason,
+            requester_email=requester_email,
+            subscription=subscription,
+        )
+    elif success and not has_integrates:
+        await notifications_domain.delete_group(
+            deletion_date=datetime_utils.get_as_str(
+                datetime_utils.get_now()
+            ),
+            group_name=group_name,
             requester_email=requester_email,
             subscription=subscription,
         )
