@@ -20,6 +20,7 @@ from target_redshift_2.objects import (
     RedshiftSchema,
     RedshiftField,
 )
+from target_redshift_2.singer import SingerRecord
 from target_redshift_2.utils import Transform
 
 
@@ -47,13 +48,28 @@ def draft_from_rschema_builder(
     return transform
 
 
-def tid_from_rschema_builder(connection: ConnectionID):
+def tid_from_rschema_builder(
+    connection: ConnectionID
+) -> Transform[RedshiftSchema, TableID]:
     """Builder of `tid_from_rschema`"""
     def transform(r_schema: RedshiftSchema) -> TableID:
         """Transform `RedshiftSchema` into a `TableID`"""
         return TableID(
             schema=SchemaID(connection, r_schema.schema_name),
             table_name=r_schema.table_name
+        )
+    return transform
+
+
+def tid_from_srecord_builder(
+    connection: ConnectionID, schema_name: str
+) -> Transform[SingerRecord, TableID]:
+    """Builder of `tid_from_srecord`"""
+    def transform(srecord: SingerRecord) -> TableID:
+        """Transform `SingerRecord` into a `TableID`"""
+        return TableID(
+            schema=SchemaID(connection, schema_name),
+            table_name=srecord.stream
         )
     return transform
 

@@ -1,6 +1,17 @@
-from target_redshift_2.db_client.objects import ConnectionID, DbTypes, IsolatedColumn, SchemaID, TableDraft, TableID
+from target_redshift_2.db_client.objects import (
+    ConnectionID,
+    DbTypes,
+    IsolatedColumn,
+    SchemaID,
+    TableDraft,
+    TableID,
+)
 from target_redshift_2.factory_pack import table
-from target_redshift_2.objects import RedshiftField, RedshiftSchema
+from target_redshift_2.objects import (
+    RedshiftField,
+    RedshiftSchema,
+)
+from target_redshift_2.singer import SingerRecord
 
 
 def test_draft_from_rschema_builder():
@@ -65,5 +76,25 @@ def test_tid_from_rschema_builder():
     expected = TableID(
         SchemaID(test_connection, 'the_schema'),
         table_name='super_table'
+    )
+    assert result == expected
+
+
+def test_tid_from_srecord_builder():
+    # Arrange
+    test_connection = ConnectionID(
+        'the_db', 'super_user', '1234', 'the_host', '9000'
+    )
+    test_schema = 'the_schema'
+    test_srecord = SingerRecord(stream='table1', record={})
+    # Act
+    from_srecord = table.tid_from_srecord_builder(
+        test_connection, test_schema
+    )
+    result = from_srecord(test_srecord)
+    # Assert
+    expected = TableID(
+        SchemaID(test_connection, test_schema),
+        table_name='table1'
     )
     assert result == expected
