@@ -215,7 +215,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
             : translate.t("search_findings.tab_description.remediation_modal.title_observations")
         }
       >
-        {props.isVerifying ? renderVulnsToVerify : undefined}
+        {props.isVerifying ? renderVulnsToVerify() : undefined}
       </RemediationModal>
     </React.StrictMode>
   );

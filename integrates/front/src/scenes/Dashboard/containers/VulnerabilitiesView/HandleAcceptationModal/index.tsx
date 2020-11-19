@@ -1,6 +1,3 @@
-/* tslint:disable:jsx-no-multiline-js
- * NO-MULTILINE-JS: Disabling this rule is necessary for using components with render props
- */
 import { useMutation } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -48,11 +45,14 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
         handleCloseModal();
       }
     },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
+    onError: (errors: ApolloError): void => {
+      errors.graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {
           case "Exception - It cant handle acceptation without being requested":
             msgError(translate.t("search_findings.tab_vuln.alerts.acceptation_not_requested"));
+            break;
+          case "Exception - Vulnerability not found":
+            msgError(translate.t("group_alerts.no_found"));
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
@@ -109,7 +109,7 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
         onSubmit={handleSubmit}
         title={translate.t("search_findings.tab_description.remediation_modal.title_observations")}
       >
-        {(): JSX.Element => (
+        <React.Fragment>
           <DataTableNext
             id="vulnsToHandleAcceptation"
             bordered={false}
@@ -119,7 +119,7 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
             pageSize={10}
             search={false}
           />
-        )}
+        </React.Fragment>
       </RemediationModal>
     </React.StrictMode>
   );

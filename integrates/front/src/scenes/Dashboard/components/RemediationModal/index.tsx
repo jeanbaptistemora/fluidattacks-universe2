@@ -23,19 +23,19 @@ import { maxLength, minLength, required } from "utils/validations";
 
 export interface IAddRemediationProps {
   additionalInfo?: string;
+  children?: React.ReactNode;
   isLoading: boolean;
   isOpen: boolean;
   maxJustificationLength?: number;
   message: string;
   title: string;
-  children?(): JSX.Element;
   onClose(): void;
   onSubmit(values: {}): void;
 }
 
 const minJustificationLength: ConfigurableValidator = minLength(10);
 const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediationProps): JSX.Element => {
-  const { onClose, onSubmit } = props;
+  const { children, onClose, onSubmit } = props;
 
   const justificationValidations: ConfigurableValidator[] = [required, minJustificationLength];
   if (_.isNumber(props.maxJustificationLength)) {
@@ -51,7 +51,7 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
         <GenericForm name="updateRemediation" onSubmit={onSubmit}>
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
-              {props.children === undefined ? undefined : props.children()}
+              {children === undefined ? undefined : children}
               <FormGroup>
                 <ControlLabel>
                   <RequiredField>{"* "}</RequiredField>
