@@ -4,7 +4,7 @@ from typing import (
     Dict,
     FrozenSet,
     Iterable,
-    List,
+    List, NamedTuple, Set,
     Tuple,
 )
 # Third party libraries
@@ -27,11 +27,11 @@ from target_redshift_2.singer import (
 from target_redshift_2.utils import Transform
 
 ClassifiedSinger = Tuple[List[SingerSchema], List[SingerRecord]]
-TableRschemaMap = Dict[TableID, RedshiftSchema]
+TidRschemaMap = Dict[TableID, RedshiftSchema]
 RRecordCreator = Callable[
-    [Iterable[SingerRecord], TableRschemaMap], Iterable[RedshiftRecord]
+    [Iterable[SingerRecord], TidRschemaMap], Iterable[RedshiftRecord]
 ]
-RealTableMap = Dict[TableID, Table]
+TidTableMap = Dict[TableID, Table]
 
 
 def process_lines_builder(
@@ -57,13 +57,13 @@ def process_lines_builder(
 def create_table_schema_map_builder(
     to_rschema: Transform[SingerSchema, RedshiftSchema],
     extract_table_id: Transform[RedshiftSchema, TableID]
-) -> Transform[Iterable[SingerSchema], TableRschemaMap]:
-    """Returns creator of `TableRschemaMap`"""
+) -> Transform[Iterable[SingerSchema], TidRschemaMap]:
+    """Returns creator of `TidRschemaMap`"""
     def table_map(s_schemas: Iterable[SingerSchema]) -> Dict[
         TableID, RedshiftSchema
     ]:
-        """Returns `TableRschemaMap` from various `SingerSchema`"""
-        mapper: TableRschemaMap = {}
+        """Returns `TidRschemaMap` from various `SingerSchema`"""
+        mapper: TidRschemaMap = {}
         for s_schema in s_schemas:
             r_schema = to_rschema(s_schema)
             table_id = extract_table_id(r_schema)
@@ -87,7 +87,7 @@ def create_redshift_records_builder(
 ) -> RRecordCreator:
     """Returns implemented `RRecordCreator`"""
     def create_rrecords(
-        s_records: Iterable[SingerRecord], schema_map: TableRschemaMap
+        s_records: Iterable[SingerRecord], schema_map: TidRschemaMap
     ) -> Iterable[RedshiftRecord]:
         """Creates `RedshiftRecord`s from `SingerRecord`s and a rschema map"""
         r_records = []
@@ -102,8 +102,8 @@ def create_redshift_records_builder(
 
 def create_table_mapper_builder(
     retrieve_table: Transform[TableID, Table]
-) -> Transform[Iterable[TableID], RealTableMap]:
-    """Returns implemented `RealTableMap`"""
+) -> Transform[Iterable[TableID], TidTableMap]:
+    """Returns implemented `TidTableMap`"""
     def create_table_mapper(table_ids: Iterable[TableID]):
         """
         Retrieves real tables from table ids and return a map between them
@@ -121,7 +121,7 @@ def update_schema_builder(
     add_columns: Callable[
         [Table, FrozenSet[IsolatedColumn]], List[CursorExeAction]
     ]
-) -> Callable[[RealTableMap, TableRschemaMap], None]:
+) -> Callable[[TidTableMap, TidRschemaMap], None]:
     def update_schema(tables_map, table_schema_map):
         for table_id, schema in table_schema_map.items():
             table: Table = tables_map[table_id]
@@ -129,3 +129,26 @@ def update_schema_builder(
             for action in actions:
                 action.act()
     return update_schema
+
+
+class Loader(NamedTuple):
+    process_lines: Transform[Iterable[str], ClassifiedSinger]
+    create_table_schema_map: Transform[Iterable[SingerSchema], TidRschemaMap]
+    create_rrecords: RRecordCreator
+    create_table_mapper: Transform[Iterable[TableID], TidTableMap]
+    update_schema: Callable[[TidTableMap, TidRschemaMap], None]
+    upload_records: Callable[[Set[RedshiftRecord], TidTableMap], None]
+
+
+def upload_lines(lines: List[str], loader: Loader):
+    separated_singers: ClassifiedSinger = loader.process_lines(lines)
+    tableid_schema_map: Dict[TableID, RedshiftSchema] = \
+        loader.create_table_schema_map(separated_singers[0])
+    rrecords: Iterable[RedshiftRecord] = loader.create_rrecords(
+        separated_singers[1], tableid_schema_map
+    )
+    tables_map: TidTableMap = loader.create_table_mapper(
+        set(tableid_schema_map.keys())
+    )
+    loader.update_schema(tables_map, tableid_schema_map)
+    loader.upload_records(set(rrecords), tables_map)
