@@ -176,17 +176,6 @@ async def test_project():
         'must_only_have_fluidattacks_hackers',
     ]
     assert result['data']['project']['bill']['developers'] == []
-    query = f'''
-        mutation {{
-            rejectRemoveProject(projectName: "{group_name}") {{
-                success
-        }}
-    }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == str(NotPendingDeletion())
 
     query = f'''
         mutation {{

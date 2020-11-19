@@ -871,7 +871,7 @@ export const enTranslations: ResourceKey = {
         type_group_name: "Please type the group name to proceed",
         warning: "Warning",
         warning_downgrade_integrates:
-          "Disabling Integrates will schedule the group for deletion. " +
+          "Disabling Integrates will immediately delete the group. " +
           "This will remove all of its data including findings and related vulnerabilities. " +
           "This is a destructive action and cannot be undone.",
       },
