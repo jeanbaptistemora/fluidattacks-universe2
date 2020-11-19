@@ -44,6 +44,7 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_ec2_instances,
+    iter_ec2_security_groups,
     iter_s3_buckets,
     iterate_resources,
 )
@@ -74,6 +75,12 @@ def _instances_without_role_iter_vulns(
         if isinstance(instance, Node):
             if not instance.raw.get('IamInstanceProfile', None):
                 yield instance
+
+
+def _groups_without_egress_iter_vulnerabilities(
+        groups_iterators: Iterator[Node]) -> Iterator[Node]:
+    yield from (group for group in groups_iterators
+                if not group.raw.get('SecurityGroupEgress', None))
 
 
 def _unencrypted_volume_iterate_vulnerabilities(
@@ -187,6 +194,21 @@ def _cfn_unencrypted_buckets(
     )
 
 
+def _cfn_groups_without_egress(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return create_vulns(
+        content=content,
+        description_key='src.lib_path.f055_aws.security_group_without_egress',
+        finding=FindingEnum.F055_AWS,
+        path=path,
+        statements_iterator=_groups_without_egress_iter_vulnerabilities(
+            groups_iterators=iter_ec2_security_groups(template=template)),
+    )
+
+
 def _terraform_unencrypted_buckets(
     content: str,
     path: str,
@@ -216,6 +238,22 @@ def _terraform_public_buckets(
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
             buckets_iterator=terraform_iter_s3_buckets(model=model)),
+    )
+
+
+# @CACHE_ETERNALLY
+@SHIELD
+async def cfn_groups_without_egress(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag F1000 Missing egress rule means all traffic is allowed outbound
+    return await in_process(
+        _cfn_groups_without_egress,
+        content=content,
+        path=path,
+        template=template,
     )
 
 
@@ -327,6 +365,11 @@ async def analyze(
         content = await content_generator()
         async for template in load_templates(content=content,
                                              fmt=file_extension):
+            coroutines.append(cfn_groups_without_egress(
+                content=content,
+                path=path,
+                template=template,
+            ))
             coroutines.append(cfn_unencrypted_buckets(
                 content=content,
                 path=path,

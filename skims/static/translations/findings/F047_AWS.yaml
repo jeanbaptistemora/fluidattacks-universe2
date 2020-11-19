@@ -1,10 +1,3 @@
-src.lib_path.f047_aws.security_group_without_egress:
-  en: >
-    Missing egress rules allows all egress traffic, explicitly define egress
-    rules.
-  es: >
-    La falta de reglas de salida permite todo el tráfico de salida, defina
-    explícitamente las reglas de salida.
 src.lib_path.f047_aws.unrestricted_protocols:
   en: >
     The ingress/egress rules of the SecurityGroup allow the use of all ip
