@@ -140,6 +140,13 @@ label {
   width: 405px;
 }
 
+@media (max-width: 450px) {
+  :global .login-grid {
+    height: unset;
+    width: unset;
+  }
+}
+
 .lightFg {
   color: #fff;
 }

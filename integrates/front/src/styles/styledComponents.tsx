@@ -287,7 +287,7 @@ const LoginGrid: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "login-grid center pa2-ns",
+  className: "login-grid center pa2",
 })``;
 
 const LoginRow: StyledComponent<
@@ -357,7 +357,7 @@ const Notification2FaRow: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "cf pa1-ns",
+  className: "cf flex pa1-ns",
 })``;
 
 const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
