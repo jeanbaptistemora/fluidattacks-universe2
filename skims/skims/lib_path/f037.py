@@ -23,7 +23,6 @@ from aioextensions import (
 from lib_path.common import (
     blocking_get_vulnerabilities_from_iterator,
     EXTENSIONS_JAVASCRIPT,
-    EXTENSIONS_JAVA,
     SHIELD,
 )
 from state.cache import (
@@ -262,11 +261,7 @@ async def analyze(
             content=await content_generator(),
             path=path,
         ))
-    elif file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_logging_exceptions(
-            content=await content_generator(),
-            path=path,
-        ))
+
     for results in resolve(coroutines, worker_greediness=1):
         for result in await results:
             await store.store(result)

@@ -33,10 +33,12 @@ def test_branch() -> Iterator[str]:
 @pytest.fixture(autouse=True, scope='session')  # type: ignore
 def test_group(test_branch: str) -> Iterator[str]:
     mapping: Dict[str, str] = {
-        'kamadoatfluid': 'worcester',
         'drestrepoatfluid': 'wausau',
-        'ataguadaatfluid': 'magdalena',
+        'kamadoatfluid': 'worcester',
         'master': 'tovuz',
+    } if os.environ.get('CI') else {
+        'drestrepoatfluid': 'djibo',
+        'kamadoatfluid': 'magdalena',
     }
 
     yield mapping.get(test_branch, 'utuado')
