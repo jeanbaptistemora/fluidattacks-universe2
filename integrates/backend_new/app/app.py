@@ -133,19 +133,6 @@ async def do_bitbucket_login(request: Request) -> Response:
     return await bitbucket.authorize_redirect(request, redirect_uri)
 
 
-async def authz(request: Request, client: OAuth) -> RedirectResponse:
-    token = await client.authorize_access_token(request)
-
-    if 'id_token' in token:
-        user = await utils.get_jwt_userinfo(client, request, token)
-    else:
-        user = await utils.get_bitbucket_oauth_userinfo(client, token)
-
-    request = await handle_user(request, user)
-
-    return RedirectResponse(url='/new/home')
-
-
 @authenticate_session  # type: ignore
 @async_to_sync  # type: ignore
 async def app(*request_args: Request) -> HTMLResponse:
@@ -179,7 +166,12 @@ async def app(*request_args: Request) -> HTMLResponse:
 
 
 async def authz_google(request: Request) -> HTMLResponse:
-    return await authz(request, OAUTH.google)
+    client = OAUTH.google
+    token = await client.authorize_access_token(request)
+    user = await utils.get_jwt_userinfo(client, request, token)
+    request = await handle_user(request, user)
+
+    return RedirectResponse(url='/new/home')
 
 
 async def authz_azure(request: Request) -> HTMLResponse:
@@ -202,7 +194,12 @@ async def authz_azure(request: Request) -> HTMLResponse:
 
 
 async def authz_bitbucket(request: Request) -> HTMLResponse:
-    return await authz(request, OAUTH.bitbucket)
+    client = OAUTH.bitbucket
+    token = await client.authorize_access_token(request)
+    user = await utils.get_bitbucket_oauth_userinfo(client, token)
+    request = await handle_user(request, user)
+
+    return RedirectResponse(url='/new/home')
 
 
 APP = Starlette(
