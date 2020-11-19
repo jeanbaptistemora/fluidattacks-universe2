@@ -74,7 +74,7 @@
 
 {% block header %}
 <div
-  class="bg-compliance-internal bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
+  class="{{page.banner}} bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
   <div class="w-100 center">
     <h1 class="white fw7 f1 neue tc f-5-l ma0">
       {{ page.title }}
@@ -84,7 +84,7 @@
 {% endblock header %}
 
 {% block content %}
-<div class="mw-1366 ph-body center roboto compliance-page flex flex-wrap items-center justify-center">
+<div class="mw-1366 ph-body center roboto compliance-page flex flex-wrap items-center justify-center pv4">
   {{ page.content }}
 </div>
 {% endblock content %}
