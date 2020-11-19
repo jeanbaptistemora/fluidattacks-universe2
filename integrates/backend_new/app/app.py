@@ -30,6 +30,11 @@ from backend.api.schema import SCHEMA
 from backend_new.app.middleware import CustomRequestMiddleware
 import backend_new.app.utils as utils
 from backend_new import settings
+from backend_new.settings.auth import (
+    azure,
+    BITBUCKET_ARGS,
+    GOOGLE_ARGS
+)
 
 from __init__ import (
     FI_STARLETTE_TEST_KEY
@@ -40,9 +45,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
 OAUTH = OAuth()
-OAUTH.register(**settings.GOOGLE_ARGS)
-OAUTH.register(**settings.AZURE_ARGS)
-OAUTH.register(**settings.BITBUCKET_ARGS)
+OAUTH.register(**GOOGLE_ARGS)
+OAUTH.register(**BITBUCKET_ARGS)
 
 
 def error500(request: Request) -> HTMLResponse:
@@ -90,16 +94,13 @@ def login(request: Request) -> HTMLResponse:
 
 def get_azure_client(request: Request) -> OAuth:
     redirect_uri = utils.get_redirect_url(request, 'authz_azure')
-    azure = AsyncOAuth2Client(
-        settings.AZURE_ARGS['client_id'],
-        settings.AZURE_ARGS['client_secret'],
-        scope=(
-            f'{settings.AZURE_ARGS["api_base_url"]}.default '
-            f'{settings.AZURE_ARGS["scope"]}'
-        ),
+    azure_client = AsyncOAuth2Client(
+        azure.CLIENT_ID,
+        azure.CLIENT_SECRET,
+        scope=f'{azure.API_BASE_URL}.default {azure.SCOPE}',
         redirect_uri=redirect_uri
     )
-    return azure
+    return azure_client
 
 
 async def handle_user(request: Request, user: Dict[str, str]) -> Request:
@@ -118,9 +119,9 @@ async def do_google_login(request: Request) -> Response:
 
 
 async def do_azure_login(request: Request) -> Response:
-    azure = get_azure_client(request)
-    uri, _ = azure.create_authorization_url(
-        settings.AZURE_ARGS['authorize_url'],
+    azure_client = get_azure_client(request)
+    uri, _ = azure_client.create_authorization_url(
+        azure.AUTHZ_URL,
         nonce=generate_token()
     )
     return RedirectResponse(url=uri)
@@ -182,14 +183,14 @@ async def authz_google(request: Request) -> HTMLResponse:
 
 
 async def authz_azure(request: Request) -> HTMLResponse:
-    azure = azure = get_azure_client(request)
-    token = await azure.fetch_token(
-        settings.AZURE_ARGS['token_url'],
+    azure_client = get_azure_client(request)
+    token = await azure_client.fetch_token(
+        azure.TOKEN_URL,
         authorization_response=str(request.url)
     )
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            settings.AZURE_ARGS['api_userinfo_url'],
+            azure.API_USERINFO_BASE_URL,
             headers={
                 'Authorization': f'Bearer {token["access_token"]}',
                 'Host': 'graph.microsoft.com'

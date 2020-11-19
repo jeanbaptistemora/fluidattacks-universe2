@@ -1,11 +1,6 @@
 from .analytics import (
     MIXPANEL_API_TOKEN
 )
-from .auth import (
-    AZURE_ARGS,
-    BITBUCKET_ARGS,
-    GOOGLE_ARGS
-)
 from .cache import (
     CACHE_TTL
 )
@@ -30,9 +25,6 @@ from .various import (
 
 __all__ = [
     'MIXPANEL_API_TOKEN',
-    'AZURE_ARGS',
-    'BITBUCKET_ARGS',
-    'GOOGLE_ARGS',
     'CACHE_TTL',
     'JWT_COOKIE_NAME',
     'JWT_COOKIE_SAMESITE',
