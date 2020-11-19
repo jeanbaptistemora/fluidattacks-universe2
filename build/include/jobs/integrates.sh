@@ -532,6 +532,7 @@ function job_integrates_kill_components {
     8022  # dynamodb
     8080  # back1
     8081  # back2
+    8500  # nginx
   )
 
   if test -n "${port}"
