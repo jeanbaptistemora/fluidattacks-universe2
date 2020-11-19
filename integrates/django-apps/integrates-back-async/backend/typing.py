@@ -161,7 +161,7 @@ DirectoryFilteringConfig = NamedTuple('DirectoryFilteringConfig', [
 ])
 IntegrationEnvironment = NamedTuple('IntegrationEnvironment', [
     ('kind', str),
-    ('url', str)
+    ('url', Optional[str])
 ])
 GitRoot = NamedTuple('GitRoot', [
     ('branch', str),

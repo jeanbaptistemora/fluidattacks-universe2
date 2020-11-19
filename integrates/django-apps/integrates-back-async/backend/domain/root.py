@@ -12,42 +12,52 @@ from backend.typing import GitRoot, IPRoot, URLRoot, Root
 from backend.utils import validations
 
 
-async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
-    roots = await root_dal.get_roots_by_group(group_name)
+def format_root(root: Dict[str, Any]) -> Root:
+    assert root['kind'] in {'Git', 'IP', 'URL'}
 
-    return tuple(
-        GitRoot(
+    if root['kind'] == 'Git':
+        return GitRoot(
             branch=root['branch'],
             directory_filtering=root.get('directory_filtering'),
-            environment=root.get('environment'),
+            environment=root['environment'],
             id=root['sk'],
             url=root['url']
         )
-        if root['kind'] == 'Git'
-        else IPRoot(
+
+    if root['kind'] == 'IP':
+        return IPRoot(
             address=root['address'],
             id=root['sk'],
             port=root['port']
         )
-        if root['kind'] == 'IP'
-        else URLRoot(
-            host=root['host'],
-            id=root['sk'],
-            path=root['path'],
-            port=root['port'],
-            protocol=root['protocol']
-        )
-        for root in roots
+
+    return URLRoot(
+        host=root['host'],
+        id=root['sk'],
+        path=root['path'],
+        port=root['port'],
+        protocol=root['protocol']
     )
 
 
-async def _is_unique_in_org(org_id: str, new_root: Dict[str, Any]) -> bool:
+async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
+    roots = await root_dal.get_roots_by_group(group_name)
+
+    return tuple(format_root(root) for root in roots)
+
+
+async def _is_unique_in_org(
+    org_id: str,
+    kind: str,
+    new_root: Dict[str, Any]
+) -> bool:
+    assert kind in {'Git', 'IP', 'URL'}
     org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
 
     for group_name in org_groups:
         group_roots: Tuple[Root, ...] = await get_roots_by_group(group_name)
 
-        if new_root['kind'] == 'Git' and next(
+        if kind == 'Git' and bool(next(
             (
                 root
                 for root in group_roots
@@ -56,10 +66,10 @@ async def _is_unique_in_org(org_id: str, new_root: Dict[str, Any]) -> bool:
                 and root.branch == new_root['branch']
             ),
             None
-        ):
+        )):
             return False
 
-        if new_root['kind'] == 'IP' and next(
+        if kind == 'IP' and bool(next(
             (
                 root
                 for root in group_roots
@@ -68,10 +78,10 @@ async def _is_unique_in_org(org_id: str, new_root: Dict[str, Any]) -> bool:
                 and root.port == new_root['port']
             ),
             None
-        ):
+        )):
             return False
 
-        if new_root['kind'] == 'URL' and next(
+        if kind == 'URL' and bool(next(
             (
                 root
                 for root in group_roots
@@ -82,7 +92,7 @@ async def _is_unique_in_org(org_id: str, new_root: Dict[str, Any]) -> bool:
                 and root.protocol == new_root['protocol']
             ),
             None
-        ):
+        )):
             return False
 
     return True
@@ -101,17 +111,18 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
     )
 
     if is_valid_repo and is_valid_env:
+        kind: str = 'Git'
         org_id: str = await org_domain.get_id_for_group(group_name)
         root_attributes: Dict[str, Any] = {
             'branch': kwargs['branch'],
             'directory_filtering': kwargs.get('directory_filtering'),
             'environment': kwargs.get('environment'),
             'created_by': user_email,
-            'kind': 'Git',
+            'kind': kind,
             'url': kwargs['url']
         }
 
-        if await _is_unique_in_org(org_id, root_attributes):
+        if await _is_unique_in_org(org_id, kind, root_attributes):
             await root_dal.add_root(group_name, root_attributes)
         else:
             raise RepeatedValues()
@@ -127,15 +138,16 @@ async def add_ip_root(user_email: str, **kwargs: Any) -> None:
     )
 
     if is_valid:
+        kind: str = 'IP'
         org_id: str = await org_domain.get_id_for_group(group_name)
         root_attributes: Dict[str, Any] = {
             'address': kwargs['address'],
             'created_by': user_email,
-            'kind': 'IP',
+            'kind': kind,
             'port': kwargs['port']
         }
 
-        if await _is_unique_in_org(org_id, root_attributes):
+        if await _is_unique_in_org(org_id, kind, root_attributes):
             await root_dal.add_root(group_name, root_attributes)
         else:
             raise RepeatedValues()
@@ -153,17 +165,18 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
 
     if is_valid:
         default_port: int = 443 if url_attributes.scheme == 'https' else 80
+        kind: str = 'URL'
         org_id: str = await org_domain.get_id_for_group(group_name)
         root_attributes: Dict[str, Any] = {
             'created_by': user_email,
             'host': url_attributes.host,
-            'kind': 'URL',
+            'kind': kind,
             'path': url_attributes.path or '/',
             'port': url_attributes.port or default_port,
             'protocol': url_attributes.scheme.upper()
         }
 
-        if await _is_unique_in_org(org_id, root_attributes):
+        if await _is_unique_in_org(org_id, kind, root_attributes):
             await root_dal.add_root(group_name, root_attributes)
         else:
             raise RepeatedValues()

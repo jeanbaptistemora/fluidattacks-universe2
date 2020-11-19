@@ -40,6 +40,49 @@
           },
           "url": {
             "S": "https://gitlab.com/fluidattacks/product/-/tree/master"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "branch": {
+                    "S" : "master"
+                  },
+                  "date": {
+                    "S": "2020-11-19 08:37:10"
+                  },
+                  "directory_filtering": {
+                    "M": {
+                      "paths": {
+                        "L": [
+                          { "S": "^.*/bower_components/.*$" },
+                          { "S": "^.*/node_modules/.*$" }
+                        ]
+                      },
+                      "policy": {
+                        "S": "EXCLUDE"
+                      }
+                    }
+                  },
+                  "environment": {
+                    "M": {
+                      "kind": {
+                        "S": "production"
+                      },
+                      "url": {
+                        "S": "https://integrates.fluidattacks.com"
+                      }
+                    }
+                  },
+                  "url": {
+                    "S": "https://gitlab.com/fluidattacks/product/-/tree/master"
+                  },
+                  "user": {
+                    "S": "jdoe@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           }
         }
       }
@@ -68,6 +111,33 @@
           },
           "url": {
             "S": "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "branch": {
+                    "S" : "develop"
+                  },
+                  "date": {
+                    "S": "2020-11-19 08:39:56"
+                  },
+                  "environment": {
+                    "M": {
+                      "kind": {
+                        "S": "QA"
+                      }
+                    }
+                  },
+                  "url": {
+                    "S": "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+                  },
+                  "user": {
+                    "S": "jdoe@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           }
         }
       }
@@ -89,6 +159,26 @@
           },
           "port": {
             "N" : "8080"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "address": {
+                    "S" : "127.0.0.1"
+                  },
+                  "date": {
+                    "S": "2020-11-19 08:44:37"
+                  },
+                  "port": {
+                    "N" : "8080"
+                  },
+                  "user": {
+                    "S": "jdoe@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           }
         }
       }
@@ -116,6 +206,32 @@
           },
           "protocol": {
             "S" : "HTTPS"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-11-19 08:45:55"
+                  },
+                  "host": {
+                    "S" : "integrates.fluidattacks.com"
+                  },
+                  "path": {
+                    "S" : "/"
+                  },
+                  "port": {
+                    "N" : "443"
+                  },
+                  "protocol": {
+                    "S" : "HTTPS"
+                  },
+                  "user": {
+                    "S": "jdoe@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           }
         }
       }
