@@ -44,6 +44,22 @@
       when: never
     - if: *sorts_commit_pattern
 
+.sorts_in_master_branch_code_changes: &sorts_in_master_branch_code_changes
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *sorts_commit_pattern
+      changes:
+        - "sorts/pyproject.toml"
+        - "sorts/static/*"
+        - "sorts/sorts/**/*"
+
 sorts_lint_code:
   <<: *with_nix
   <<: *sorts_in_dev_branch
@@ -66,5 +82,5 @@ sorts_deploy_infra:
 
 sorts_deploy_to_pypi:
   <<: *with_nix
-  <<: *sorts_in_master_branch
+  <<: *sorts_in_master_branch_code_changes
   stage: deploy-app
