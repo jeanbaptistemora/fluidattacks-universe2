@@ -12,35 +12,6 @@
           "kind": {
             "S" : "Git"
           },
-          "branch": {
-            "S" : "master"
-          },
-          "directory_filtering": {
-            "M": {
-              "paths": {
-                "L": [
-                  { "S": "^.*/bower_components/.*$" },
-                  { "S": "^.*/node_modules/.*$" }
-                ]
-              },
-              "policy": {
-                "S": "EXCLUDE"
-              }
-            }
-          },
-          "environment": {
-            "M": {
-              "kind": {
-                "S": "production"
-              },
-              "url": {
-                "S": "https://integrates.fluidattacks.com"
-              }
-            }
-          },
-          "url": {
-            "S": "https://gitlab.com/fluidattacks/product/-/tree/master"
-          },
           "historic_state": {
             "L": [
               {
@@ -99,19 +70,6 @@
           "kind": {
             "S" : "Git"
           },
-          "branch": {
-            "S" : "develop"
-          },
-          "environment": {
-            "M": {
-              "kind": {
-                "S": "QA"
-              }
-            }
-          },
-          "url": {
-            "S": "https://gitlab.com/fluidattacks/integrates/-/tree/master"
-          },
           "historic_state": {
             "L": [
               {
@@ -154,12 +112,6 @@
           "kind": {
             "S" : "IP"
           },
-          "address": {
-            "S" : "127.0.0.1"
-          },
-          "port": {
-            "N" : "8080"
-          },
           "historic_state": {
             "L": [
               {
@@ -192,20 +144,8 @@
           "sk": {
             "S" : "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
           },
-          "host": {
-            "S" : "integrates.fluidattacks.com"
-          },
           "kind": {
             "S" : "URL"
-          },
-          "path": {
-            "S" : "/"
-          },
-          "port": {
-            "N" : "443"
-          },
-          "protocol": {
-            "S" : "HTTPS"
           },
           "historic_state": {
             "L": [
