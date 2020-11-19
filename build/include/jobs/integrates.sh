@@ -1230,12 +1230,6 @@ function job_integrates_deploy_back_production {
         &&  kubectl rollout undo 'deploy/integrates-master' \
         &&  return 1
       fi \
-  &&  if ! kubectl rollout status -n "${namespace}" --timeout="${timeout}" 'deploy/integrates2-master'
-      then
-            echo '[INFO] Undoing integrates2 deployment' \
-        &&  kubectl rollout undo 'deploy/integrates2-master' \
-        &&  return 1
-      fi \
   &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
         --request 'POST' \
         --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
