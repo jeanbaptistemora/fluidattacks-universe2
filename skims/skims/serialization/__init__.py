@@ -24,14 +24,22 @@ from typing import (
 from aioextensions import (
     in_process,
 )
+from dateutil.parser import (
+    parse as date_parser
+)
 from metaloaders.model import (
     Node,
     Type,
 )
-from dateutil.parser import parse as date_parser
+import networkx as nx
+
 # Local libraries
 from parse_common.types import (
     ListToken,
+)
+from utils.graph import (
+    export_graph_as_json,
+    import_graph_from_json,
 )
 from utils.logs import (
     log_exception,
@@ -100,6 +108,15 @@ def _load_enum(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda value: factory(_deserialize(value))
 
 
+def _dump_graph(instance: nx.OrderedDiGraph) -> Serialized:
+    graph_as_json = export_graph_as_json(instance, include_styles=True)
+    return _serialize(instance, graph_as_json)
+
+
+def _load_graph(graph_as_json: Any) -> nx.OrderedDiGraph:
+    return import_graph_from_json(graph_as_json)
+
+
 def _load_list(*args: Serialized) -> List[Any]:
     return list(_load_tuple(*args))
 
@@ -154,6 +171,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (int, _dump_base, int),
         (list, _dump_tuple, _load_list),
         (ListToken, _dump_tuple, _load_list),
+        (nx.OrderedDiGraph, _dump_graph, _load_graph),
         (OrderedDict, _dump_dict, _load_ordered_dict),
         (str, _dump_base, str),
         (tuple, _dump_tuple, _load_tuple),

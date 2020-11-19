@@ -47,7 +47,24 @@ def has_label(n_attrs: Dict[str, str], **expected_attrs: str) -> bool:
     )
 
 
-def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
+def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:
+    graph = nx.OrderedDiGraph()
+
+    for n_id, n_attrs in model['nodes'].items():
+        graph.add_node(n_id, **n_attrs)
+
+    for n_id_from, n_id_from_value in model['edges'].items():
+        for n_id_to, edge_attrs in n_id_from_value.items():
+            graph.add_edge(n_id_from, n_id_to, **edge_attrs)
+
+    return graph
+
+
+def export_graph_as_json(
+    graph: nx.OrderedDiGraph,
+    *,
+    include_styles: bool = False,
+) -> Dict[str, Any]:
     data: Dict[str, Any] = {}
     data['nodes'] = {}
     data['edges'] = {}
@@ -55,16 +72,23 @@ def export_graph_as_json(graph: nx.OrderedDiGraph) -> Dict[str, Any]:
 
     for n_id, n_attrs in graph.nodes.items():
         data['nodes'][n_id] = n_attrs.copy()
-        for attr in ignored_attrs:
-            data['nodes'][n_id].pop(attr, None)
+
+        if not include_styles:
+            for attr in ignored_attrs:
+                data['nodes'][n_id].pop(attr, None)
 
     for n_id_from, n_id_to in graph.edges:
         data['edges'].setdefault(n_id_from, {})
         data['edges'][n_id_from][n_id_to] = graph[n_id_from][n_id_to].copy()
-        for attr in ignored_attrs:
-            data['edges'][n_id_from][n_id_to].pop(attr, None)
+
+        if not include_styles:
+            for attr in ignored_attrs:
+                data['edges'][n_id_from][n_id_to].pop(attr, None)
 
     return data
+
+
+# Functions below should disappear
 
 
 def symbolic_evaluate(value: Any) -> Any:

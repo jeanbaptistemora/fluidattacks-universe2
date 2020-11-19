@@ -16,6 +16,7 @@ from parse_antlr.model import (
 )
 from parse_java.parse import (
     from_antlr_model,
+    parse_from_content,
 )
 from parse_java.graph.control_flow import (
     analyze as analyze_control_flow,
@@ -53,14 +54,16 @@ from utils.model import (
 )
 @run_decorator
 async def test_graph_generation(path: str, name: str) -> None:
-    parse_tree = await parse(
-        Grammar.JAVA9,
-        content=await get_file_raw_content(path),
-        path=path,
-    )
+    content = await get_file_raw_content(path)
+
+    # Old way
+    parse_tree = await parse(Grammar.JAVA9, content=content, path=path)
     model = model_from_parse_tree(parse_tree)
     model_as_json = json.dumps(model, indent=2)
     graph = from_antlr_model(model)
+
+    # New way, comprised
+    graph = await parse_from_content(Grammar.JAVA9, content=content, path=path)
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
 
