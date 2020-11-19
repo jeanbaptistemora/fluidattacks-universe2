@@ -36,7 +36,7 @@ def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
             )
 
 
-def _analyze_block_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+def _analyze_block_statements(graph: nx.OrderedDiGraph) -> None:
     for n_id, n_attrs in graph.nodes.items():
         if n_attrs.get('label_type') == 'BlockStatement':
             for a_id, b_id in windowed(graph.adj[n_id], 2):
@@ -46,7 +46,6 @@ def _analyze_block_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
                     label_e='e',
                     label_cfg='CFG',
                 )
-    return graph
 
 
 def analyze(graph: nx.OrderedDiGraph) -> None:

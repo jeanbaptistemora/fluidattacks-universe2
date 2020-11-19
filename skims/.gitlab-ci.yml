@@ -86,6 +86,10 @@ skims_structure:
 skims_test:
   <<: *with_nix
   <<: *skims_in_dev_branch
+  artifacts:
+    paths:
+      - skims/test/outputs/
+    when: always
   stage: test-code
 
 skims_test_infra:

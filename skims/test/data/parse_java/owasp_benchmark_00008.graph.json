@@ -1647,11 +1647,31 @@
       }
     },
     "771": {
+      "772": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "776": {
+        "index": 1,
+        "label_ast": "AST"
+      }
+    },
+    "772": {
       "773": {
         "index": 0,
         "label_ast": "AST"
       },
+      "775": {
+        "index": 1,
+        "label_ast": "AST"
+      }
+    },
+    "776": {
       "777": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "779": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -1783,11 +1803,31 @@
       }
     },
     "840": {
+      "841": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "845": {
+        "index": 1,
+        "label_ast": "AST"
+      }
+    },
+    "841": {
       "842": {
         "index": 0,
         "label_ast": "AST"
       },
+      "844": {
+        "index": 1,
+        "label_ast": "AST"
+      }
+    },
+    "845": {
       "846": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "848": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -1881,11 +1921,31 @@
       }
     },
     "913": {
+      "914": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "918": {
+        "index": 1,
+        "label_ast": "AST"
+      }
+    },
+    "914": {
       "915": {
         "index": 0,
         "label_ast": "AST"
       },
+      "917": {
+        "index": 1,
+        "label_ast": "AST"
+      }
+    },
+    "918": {
       "919": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "921": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -4399,10 +4459,16 @@
       "label_parent_ast": "767",
       "label_type": "UnannClassType_lf_unannClassOrInterfaceType"
     },
-    "773": {
+    "772": {
       "label_c": 16,
       "label_l": 57,
       "label_parent_ast": "771",
+      "label_type": "__link__"
+    },
+    "773": {
+      "label_c": 16,
+      "label_l": 57,
+      "label_parent_ast": "772",
       "label_text": ".",
       "label_type": "DOT"
     },
@@ -4413,10 +4479,16 @@
       "label_text": "sql",
       "label_type": "IdentifierRule"
     },
-    "777": {
+    "776": {
       "label_c": 20,
       "label_l": 57,
       "label_parent_ast": "771",
+      "label_type": "__link__"
+    },
+    "777": {
+      "label_c": 20,
+      "label_l": 57,
+      "label_parent_ast": "776",
       "label_text": ".",
       "label_type": "DOT"
     },
@@ -4634,10 +4706,16 @@
       "label_parent_ast": "836",
       "label_type": "UnannClassType_lf_unannClassOrInterfaceType"
     },
-    "842": {
+    "841": {
       "label_c": 16,
       "label_l": 58,
       "label_parent_ast": "840",
+      "label_type": "__link__"
+    },
+    "842": {
+      "label_c": 16,
+      "label_l": 58,
+      "label_parent_ast": "841",
       "label_text": ".",
       "label_type": "DOT"
     },
@@ -4648,10 +4726,16 @@
       "label_text": "sql",
       "label_type": "IdentifierRule"
     },
-    "846": {
+    "845": {
       "label_c": 20,
       "label_l": 58,
       "label_parent_ast": "840",
+      "label_type": "__link__"
+    },
+    "846": {
+      "label_c": 20,
+      "label_l": 58,
+      "label_parent_ast": "845",
       "label_text": ".",
       "label_type": "DOT"
     },
@@ -4802,10 +4886,16 @@
       "label_parent_ast": "909",
       "label_type": "UnannClassType_lf_unannClassOrInterfaceType"
     },
-    "915": {
+    "914": {
       "label_c": 16,
       "label_l": 59,
       "label_parent_ast": "913",
+      "label_type": "__link__"
+    },
+    "915": {
+      "label_c": 16,
+      "label_l": 59,
+      "label_parent_ast": "914",
       "label_text": ".",
       "label_type": "DOT"
     },
@@ -4816,10 +4906,16 @@
       "label_text": "sql",
       "label_type": "IdentifierRule"
     },
-    "919": {
+    "918": {
       "label_c": 20,
       "label_l": 59,
       "label_parent_ast": "913",
+      "label_type": "__link__"
+    },
+    "919": {
+      "label_c": 20,
+      "label_l": 59,
+      "label_parent_ast": "918",
       "label_text": ".",
       "label_type": "DOT"
     },

@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 import json
 from glob import (
     iglob,
@@ -9,17 +8,11 @@ from itertools import (
 )
 import os
 from typing import (
-    AsyncIterator,
-    Callable,
     Dict,
     Iterator,
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-    run_decorator,
-)
 import pytest
 
 # Local libraries

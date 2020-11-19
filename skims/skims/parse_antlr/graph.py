@@ -26,7 +26,7 @@ def _create_leaf(  # pylint: disable=too-many-arguments
     counter: Iterator[int],
     graph: nx.OrderedDiGraph,
     index: int,
-    key: Optional[str],
+    key: str,
     parent: Optional[str],
     value: Any,
 ) -> nx.OrderedDiGraph:
@@ -92,7 +92,7 @@ def _build_graph(
                 counter=counter,
                 graph=graph,
                 index=index,
-                key=None,
+                key='__link__',
                 parent=_parent,
                 value=value,
             )
