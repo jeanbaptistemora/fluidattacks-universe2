@@ -48,6 +48,10 @@ from utils.model import (
         (
             'test/data/benchmark/owasp/BenchmarkTest00167.java',
             'owasp_benchmark_00167'
+        ),
+        (
+            'test/data/parse_java/TestCFG.java',
+            'apply_control_flow'
         )
     ],
 )
@@ -91,14 +95,25 @@ async def test_apply_control_flow() -> None:
     model = model_from_parse_tree(parse_tree)
     graph = from_antlr_model(model)
 
-    assert await export_graph_as_svg(graph, 'test/outputs/test_apply_control_flow.graph')
-
     # Check IfThenStatement
-    assert has_labels(graph['352']['398'], label_cfg='CFG', label_true='True')
+    assert has_labels(graph['352']['398'], label_cfg='CFG', label_true='true')
 
     # Check IfThenElseStatement
-    assert has_labels(graph['531']['552'], label_cfg='CFG', label_true='True')
-    assert has_labels(graph['531']['603'], label_cfg='CFG', label_false='False')
+    assert has_labels(graph['531']['556'], label_cfg='CFG', label_true='true')
+    assert has_labels(graph['531']['603'], label_cfg='CFG', label_false='false')
 
     # Check BlockStatement
     assert has_labels(graph['967']['1007'], label_cfg='CFG', label_e='e')
+
+    # Check WhileStatement
+    assert has_labels(graph['1965']['2009'], label_cfg='CFG', label_true='true')
+    assert has_labels(graph['1965']['2069'], label_cfg='CFG', label_false='false')
+    assert has_labels(graph['2058']['1965'], label_cfg='CFG', label_e='e')
+
+    # Check DoWhileStatement
+    assert has_labels(graph['2107']['2118'], label_cfg='CFG', label_true='true')
+    assert has_labels(graph['2167']['2215'], label_cfg='CFG', label_false='false')
+    assert has_labels(graph['2167']['2107'], label_cfg='CFG', label_e='e')
+
+    # Check breakStatement
+    assert has_labels(graph['2928']['2995'], label_cfg='CFG', label_break='break')
