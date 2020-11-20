@@ -163,6 +163,7 @@ async def get_tracking_vulnerabilities(
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
+    vulns_filtered = vuln_domain.filter_zero_risk(vulns_filtered)
     vuln_casted = finding_utils.remove_repeated(vulns_filtered)
     open_verification_dates = finding_utils.get_open_verification_dates(
         vulns_filtered

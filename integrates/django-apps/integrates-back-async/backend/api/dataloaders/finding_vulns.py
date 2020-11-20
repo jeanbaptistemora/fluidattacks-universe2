@@ -78,7 +78,7 @@ async def _batch_load_fn(
                 ),
                 historic_zero_risk=cast(
                     HistoricType,
-                    vuln.get('historic_zero_risk', [])
+                    vuln.get('historic_zero_risk', [{}])
                 ),
                 zero_risk=cast(
                     HistoricType,

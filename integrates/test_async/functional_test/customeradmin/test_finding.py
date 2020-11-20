@@ -22,26 +22,11 @@ async def test_finding():
         'tracking': [
             {
                 'cycle': 0,
-                'open': 2,
-                'closed': 2,
+                'open': 1,
+                'closed': 1,
                 'effectiveness': 50,
                 'date': '2019-01-15'
-            },
-            {
-                'cycle': 1,
-                'open': 4,
-                'closed': 2,
-                'effectiveness': 33,
-                'date': '2019-01-16'
-            },
-            {
-                'closed': 4,
-                'cycle': 2,
-                'date': today,
-                'effectiveness': 66,
-                'open': 2
             }
-
         ],
         'records': '[]',
         'severity': {
