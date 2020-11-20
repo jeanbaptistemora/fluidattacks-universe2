@@ -14,6 +14,7 @@ from aioextensions import (
     resolve,
     in_process,
 )
+import networkx as nx
 from pyparsing import (
     delimitedList,
     Keyword,
@@ -25,6 +26,7 @@ from pyparsing import (
 from lib_path.common import (
     blocking_get_vulnerabilities,
     blocking_get_vulnerabilities_from_iterator,
+    blocking_get_vulnerabilities_from_n_attrs_iterator,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
@@ -35,16 +37,23 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
+from parse_java.parse import (
+    parse_from_content as java_parse_from_content,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
 )
+from utils import (
+    graph as g,
+)
 from utils.ast import (
     iterate_nodes,
 )
 from utils.model import (
+    Grammar,
     FindingEnum,
     Vulnerability,
 )
@@ -194,6 +203,76 @@ async def java_insecure_exceptions(
     )
 
 
+def _java_declaration_of_throws_for_generic_exception(
+    content: str,
+    graph: nx.OrderedDiGraph,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    generics: Set[str] = {
+        'Exception',
+        'Throwable',
+        'lang.Exception',
+        'lang.Throwable',
+        'java.lang.Exception',
+        'java.lang.Throwable',
+    }
+
+    def handle_identifier_rule(n_attrs: g.NAttrs) -> Iterator[g.NAttrs]:
+        if n_attrs['label_text'] in generics:
+            yield n_attrs
+
+    def iterator() -> Iterator[g.NAttrs]:
+        for throw_id in g.filter_nodes(
+            graph,
+            graph.nodes,
+            g.pred_has_labels(label_type='Throws_'),
+        ):
+            # Walk first level childs
+            for c_id in graph.adj[throw_id]:
+                c_attrs = graph.nodes[c_id]
+                # Throws_ childs possibilities
+                # - IdentifierRule
+                # - ExceptionTypeList
+                #   - ExceptionType
+                #     - IdentifierRule
+                #     - ClassType
+                #   - COMMA
+                # - ClassType
+
+                if c_attrs.get('label_type') == 'IdentifierRule':
+                    yield from handle_identifier_rule(c_attrs)
+
+    return blocking_get_vulnerabilities_from_n_attrs_iterator(
+        content=content,
+        cwe={'397'},
+        description=t(
+            key='src.lib_path.f060.insecure_exceptions.description',
+            lang='Java',
+            path=path,
+        ),
+        finding=FindingEnum.F060,
+        n_attrs_iterator=iterator(),
+        path=path,
+    )
+
+
+@SHIELD
+async def java_declaration_of_throws_for_generic_exception(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_declaration_of_throws_for_generic_exception,
+        content=content,
+        graph=await java_parse_from_content(
+            Grammar.JAVA9,
+            content=content.encode(),
+            path=path,
+        ),
+        path=path,
+    )
+
+
 def _python_insecure_exceptions(
     content: str,
     path: str,
@@ -297,6 +376,7 @@ async def analyze(
     store: EphemeralStore,
 ) -> None:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+    content: str
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_insecure_exceptions(
@@ -304,8 +384,13 @@ async def analyze(
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVA:
+        content = await content_generator()
         coroutines.append(java_insecure_exceptions(
-            content=await content_generator(),
+            content=content,
+            path=path,
+        ))
+        coroutines.append(java_declaration_of_throws_for_generic_exception(
+            content=content,
             path=path,
         ))
     elif file_extension in EXTENSIONS_PYTHON:

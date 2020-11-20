@@ -5,15 +5,32 @@ Static Application Security Testing  or _SAST_ is used to secure software by rev
 
 Below are the vulnerability types and their description that Skims report:
 
-## [F060. Insecure exceptions](https://fluidattacks.com/products/rules/findings/060)
+## [F060][F060] - [CWE-397][CWE-397]
 
-### [CWE-397: Declaration of Throws for Generic Exception](https://cwe.mitre.org/data/definitions/397.html)
+### Java
 
-Vulnerable code examples:
+Code examples:
 
 ```java
-// Java
 public class Test {
-  public static void method() throws Exception {};
+  // Vulnerable, Exception is generic
+  public static void vulnerable() throws Exception {};
+
+  // Safe, CustomException is not generic
+  public static void safe() throws CustomException {};
 }
 ```
+
+The following exceptions are considered generic:
+
+- Exception
+- Throwable
+- lang.Exception
+- lang.Throwable
+- java.lang.Exception
+- java.lang.Throwable
+
+---
+
+[CWE-397]: https://cwe.mitre.org/data/definitions/397.html
+[F060]: https://fluidattacks.com/products/rules/findings/060
