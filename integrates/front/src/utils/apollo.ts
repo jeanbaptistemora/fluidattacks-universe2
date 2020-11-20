@@ -6,7 +6,6 @@
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import type { ErrorResponse } from "apollo-link-error";
-import { InMemoryCache } from "apollo-cache-inmemory";
 import { Logger } from "utils/logger";
 import type { NormalizedCacheObject } from "apollo-cache-inmemory";
 import React from "react";
@@ -31,6 +30,10 @@ import type {
   GraphQLError,
   OperationDefinitionNode,
 } from "graphql";
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+} from "apollo-cache-inmemory";
 import type { ServerError, ServerParseError } from "apollo-link-http-common";
 
 interface IHandledErrorAttr {
@@ -304,6 +307,30 @@ const errorLink: (history: History) => ApolloLink = (
     history
   );
 
+/**
+ * Load cache with union type definitions
+ * @see https://www.apollographql.com/docs/react/v2.6/data/fragments/#fragments-on-unions-and-interfaces
+ */
+const cache: InMemoryCache = new InMemoryCache({
+  fragmentMatcher: new IntrospectionFragmentMatcher({
+    introspectionQueryResultData: {
+      __schema: {
+        types: [
+          {
+            kind: "UNION",
+            name: "Root",
+            possibleTypes: [
+              { name: "GitRoot" },
+              { name: "IPRoot" },
+              { name: "URLRoot" },
+            ],
+          },
+        ],
+      },
+    },
+  }),
+});
+
 type ProviderProps = Omit<
   React.ComponentProps<typeof BaseApolloProvider>,
   "client"
@@ -316,7 +343,7 @@ const ApolloProvider: React.FC<ProviderProps> = (
   const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
     (): ApolloClient<NormalizedCacheObject> =>
       new ApolloClient({
-        cache: new InMemoryCache(),
+        cache,
         connectToDevTools: getEnvironment() !== "production",
         defaultOptions: {
           watchQuery: {
@@ -333,4 +360,4 @@ const ApolloProvider: React.FC<ProviderProps> = (
   return React.createElement(BaseApolloProvider, { client, ...props });
 };
 
-export { networkStatusNotifier, ApolloProvider };
+export { cache, networkStatusNotifier, ApolloProvider };

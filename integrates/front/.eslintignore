@@ -12,5 +12,6 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/AddRepositoriesModal/RepositoryFields.tsx
 !src/scenes/Dashboard/components/NewsWidget/**
 !src/scenes/Dashboard/components/AddFilesModal/**
+!src/scenes/Dashboard/containers/GroupScopeView/**
 src/**/*.css.d.ts
 src/**/*.d.ts

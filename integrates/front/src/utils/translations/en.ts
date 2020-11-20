@@ -477,6 +477,11 @@ export const enTranslations: ResourceKey = {
         },
       },
     },
+    scope: {
+      table: {
+        branch: "Branch",
+      },
+    },
     tabs: {
       analytics: {
         text: "Analytics",
