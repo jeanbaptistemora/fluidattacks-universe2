@@ -70,7 +70,7 @@ async def get_file_content(
     encoding: str = 'latin-1',
     size: int = -1,
 ) -> str:
-    async with aiofiles.open(
+    async with aiofiles.open(  # type: ignore
         path,
         mode='r',
         encoding=encoding,
@@ -81,7 +81,10 @@ async def get_file_content(
 
 
 async def get_file_raw_content(path: str, size: int = -1) -> bytes:
-    async with aiofiles.open(path, mode='rb') as file_handle:
+    async with aiofiles.open(  # type: ignore
+        path,
+        mode='rb',
+    ) as file_handle:
         file_contents: bytes = await file_handle.read(size)
 
         return file_contents

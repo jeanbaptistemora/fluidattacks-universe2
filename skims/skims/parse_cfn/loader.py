@@ -2,6 +2,7 @@
 from typing import (
     Any,
     AsyncIterator,
+    Type as TypeOf,
 )
 
 # Third party libraries
@@ -37,13 +38,13 @@ from utils.logs import log_exception
 
 
 class BasicLoader(  # pylint: disable=too-many-ancestors
-    yaml.SafeLoader,  # type: ignore
+    yaml.SafeLoader,
 ):
     pass
 
 
 class Loader(  # pylint: disable=too-many-ancestors
-    yaml.SafeLoader,  # type: ignore
+    yaml.SafeLoader,
 ):
     pass
 
@@ -66,7 +67,7 @@ def overloaded_construct_sequence(
 ) -> Any:
     return ListToken(
         value=[
-            self.construct_object(child, deep=deep)  # type: ignore
+            self.construct_object(child, deep=deep)
             for child in node.value
         ],
         column=node.start_mark.column,
@@ -96,7 +97,11 @@ def load_as_yaml_without_line_number(content: str) -> Any:
     return load_as_yaml(content, loader_cls=BasicLoader)
 
 
-def load_as_yaml(content: str, *, loader_cls=Loader) -> Any:
+def load_as_yaml(
+    content: str,
+    *,
+    loader_cls: TypeOf[yaml.SafeLoader] = Loader,
+) -> Any:
     try:
         loader = loader_cls(content)
         try:
@@ -125,7 +130,7 @@ def load_as_json(content: str) -> Any:
         obj: Any,
     ) -> Any:
         if isinstance(obj, frozendict):
-            obj_copy = {}
+            obj_copy: Any = {}
             for key, value in obj.items():
                 if _is_meta(value):
                     last_c, last_l = value['column'], value['line']
@@ -174,7 +179,7 @@ def load_as_json(content: str) -> Any:
 
 async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
     try:
-        templates = await in_process(
+        templates: Node = await in_process(
             load_cfn,
             stream=content,
             fmt=fmt,

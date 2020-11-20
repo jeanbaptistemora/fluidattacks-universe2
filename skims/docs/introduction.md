@@ -4,7 +4,7 @@
 
 Skims is a vulnerability scanner tool.
 This means it scans your source-code and applications and shows you the security
-problems it has.
+problems they have.
 
 Skims is able to constantly monitor the security state of your system.
 It opens new security findings as they are introduced,

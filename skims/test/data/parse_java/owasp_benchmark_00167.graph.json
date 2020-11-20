@@ -721,7 +721,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_true": "True"
+        "label_true": "true"
       },
       "1870": {
         "label_cfg": "CFG",
@@ -1035,7 +1035,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_true": "True"
+        "label_true": "true"
       }
     },
     "1688": {
@@ -1131,7 +1131,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_true": "True"
+        "label_true": "true"
       }
     },
     "175": {
@@ -1351,9 +1351,7 @@
       },
       "1891": {
         "index": 2,
-        "label_ast": "AST",
-        "label_cfg": "CFG",
-        "label_true": "True"
+        "label_ast": "AST"
       },
       "1892": {
         "index": 3,
@@ -1361,7 +1359,9 @@
       },
       "1895": {
         "index": 4,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_true": "true"
       },
       "1962": {
         "index": 5,
@@ -1371,7 +1371,7 @@
         "index": 6,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_false": "False"
+        "label_false": "false"
       },
       "2399": {
         "label_cfg": "CFG",
@@ -2845,7 +2845,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_true": "True"
+        "label_true": "true"
       },
       "610": {
         "label_cfg": "CFG",
@@ -3229,7 +3229,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_true": "True"
+        "label_true": "true"
       },
       "940": {
         "label_cfg": "CFG",

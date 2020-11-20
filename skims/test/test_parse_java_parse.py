@@ -34,7 +34,7 @@ from utils.model import (
 )
 
 
-@pytest.mark.parametrize(  # type: ignore
+@pytest.mark.parametrize(
     'path,name',
     [
         (
@@ -75,13 +75,15 @@ async def test_graph_generation(path: str, name: str) -> None:
     with open(f'test/outputs/{name}.model.json', 'w') as handle:
         handle.write(model_as_json)
 
-    with open(f'test/data/parse_java/{name}.graph.json', 'w') as handle:
-        handle.write(graph_as_json_str)
-
     with open(f'test/data/parse_java/{name}.graph.json') as handle:
         expected = handle.read()
 
     assert graph_as_json_str == expected
+
+    # This must be at the end so it fails in the pipeline if the dev
+    # did not committed the file
+    with open(f'test/data/parse_java/{name}.graph.json', 'w') as handle:
+        handle.write(graph_as_json_str)
 
 
 @run_decorator

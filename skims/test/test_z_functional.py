@@ -157,7 +157,7 @@ def test_bad_integrates_api_token(test_group: str) -> None:
     assert not stderr, stderr
 
 
-@pytest.mark.flaky(reruns=0)  # type: ignore
+@pytest.mark.flaky(reruns=0)
 def test_correct_run_no_group(test_group: str) -> None:
     code, stdout, stderr = skims('test/data/config/correct.yaml')
 
@@ -450,18 +450,6 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/java.properties', '6'),
         )),
         ('F055_AWS', 'SUBMITTED', (
-            ('test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml', '18'),
-            ('test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml', '22'),
-            ('test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json','26'),
-            ('test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json','32'),
-            ('test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml', '18'),
-            ('test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json', '26'),
-            ('test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml', '18'),
-            ('test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json', '26'),
-            ('test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml', '18'),
-            ('test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json', '26'),
-            ('test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml', '18'),
-            ('test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml.json', '26'),
             ('test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml', '5'),
             ('test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json', '5'),
             ('test/data/lib_path/f055_aws/cfn_public_buckets.yaml', '16'),

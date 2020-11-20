@@ -19,9 +19,6 @@ from metaloaders.model import (
 )
 
 # Local libraries
-from aws.utils import (
-    create_vulns,
-)
 from aws.model import (
     AWSS3Bucket,
     AWSS3Acl,
@@ -35,6 +32,7 @@ from parse_hcl2.structure import (
     get_attribute,
 )
 from lib_path.common import (
+    blocking_get_vulnerabilities_from_aws_iterator,
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     SHIELD,
@@ -133,7 +131,7 @@ def _cfn_instances_without_profile(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key=('utils.model.finding.enum.F055_AWS.'
                          'instances_without_profile'),
@@ -149,7 +147,7 @@ def _cfn_public_buckets(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='utils.model.finding.enum.F055_AWS.public_buckets',
         finding=FindingEnum.F055_AWS,
@@ -164,7 +162,7 @@ def _cfn_unencrypted_volumes(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key=('utils.model.finding.enum.'
                          'F055_AWS.unencrypted_volumes'),
@@ -183,7 +181,7 @@ def _cfn_unencrypted_buckets(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key=('utils.model.finding.enum.'
                          'F055_AWS.unencrypted_buckets'),
@@ -199,7 +197,7 @@ def _cfn_groups_without_egress(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='src.lib_path.f055_aws.security_group_without_egress',
         finding=FindingEnum.F055_AWS,
@@ -214,7 +212,7 @@ def _terraform_unencrypted_buckets(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key=('utils.model.finding.enum.'
                          'F055_AWS.unencrypted_buckets'),
@@ -231,7 +229,7 @@ def _terraform_public_buckets(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='utils.model.finding.enum.F055_AWS.public_buckets',
         finding=FindingEnum.F055_AWS,
@@ -365,11 +363,6 @@ async def analyze(
         content = await content_generator()
         async for template in load_templates(content=content,
                                              fmt=file_extension):
-            coroutines.append(cfn_groups_without_egress(
-                content=content,
-                path=path,
-                template=template,
-            ))
             coroutines.append(cfn_unencrypted_buckets(
                 content=content,
                 path=path,

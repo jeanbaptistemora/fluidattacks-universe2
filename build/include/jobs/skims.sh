@@ -207,7 +207,7 @@ function job_skims_install {
 
 function job_skims_lint {
   local args_mypy=(
-    --config-file 'settings.cfg'
+    --config-file "${PWD}/skims/settings.cfg"
   )
   local args_prospector=(
     # Some day when skims has https://readthedocs.org !
@@ -219,12 +219,14 @@ function job_skims_lint {
 
       helper_skims_install_dependencies \
   &&  pushd skims \
-    &&  echo '[INFO] Checking static typing' \
-    &&  poetry run mypy "${args_mypy[@]}" skims/ \
-    &&  poetry run mypy "${args_mypy[@]}" test/ \
-    &&  echo "[INFO] Linting" \
-    &&  poetry run prospector "${args_prospector[@]}" skims/ \
-    &&  poetry run prospector "${args_prospector[@]}" test/ \
+    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
+        do
+              echo "[INFO] Checking static typing: ${pkg}" \
+          &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
+          &&  echo "[INFO] Linting: ${pkg}" \
+          &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \
+          ||  return 1
+        done \
   &&  popd \
   ||  return 1
 }

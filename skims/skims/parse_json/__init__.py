@@ -73,9 +73,7 @@ async def loads(
     return await in_process(blocking_loads, stream, default=default)
 
 
-class JSONBuilder(
-    lark.Transformer,  # type: ignore
-):
+class JSONBuilder(lark.Transformer):
 
     pair = tuple
     object = frozendict
@@ -86,7 +84,7 @@ class JSONBuilder(
     }
 
     @staticmethod
-    @lark.v_args(tree=True)  # type: ignore
+    @lark.v_args(tree=True)
     def single(tree: lark.Tree) -> frozendict:
         children: lark.Tree = tree.children[0]
         return frozendict({
@@ -96,7 +94,7 @@ class JSONBuilder(
         })
 
     @staticmethod
-    @lark.v_args(inline=True)  # type: ignore
+    @lark.v_args(inline=True)
     def string(token: lark.Token) -> frozendict:
         return frozendict({
             'column': token.column,
@@ -105,7 +103,7 @@ class JSONBuilder(
         })
 
     @staticmethod
-    @lark.v_args(inline=True)  # type: ignore
+    @lark.v_args(inline=True)
     def number(token: lark.Token) -> frozendict:
         return frozendict({
             'column': token.column,
@@ -114,7 +112,7 @@ class JSONBuilder(
         })
 
     @staticmethod
-    @lark.v_args(tree=True)  # type: ignore
+    @lark.v_args(tree=True)
     def array(tree: lark.Tree) -> frozendict:
         return frozendict({
             'column': 0,

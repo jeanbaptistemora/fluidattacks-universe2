@@ -66,7 +66,6 @@ skims_process_all_groups_on_aws:
     refs: [schedules]
     variables: [$skims_process_all_groups_on_aws]
   stage: scheduler
-  tags: [autoscaling]
 
 skims_security:
   <<: *with_nix
@@ -112,5 +111,4 @@ skims_process_group_on_aws:
     - if: '$SKIMS_GROUP_TO_PROCESS_ON_AWS == null'
       when: never
     - if: *skims_commit_pattern
-  tags: [autoscaling]
   stage: external

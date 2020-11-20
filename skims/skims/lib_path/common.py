@@ -8,9 +8,13 @@ from typing import (
     Set,
     Tuple,
     TypeVar,
+    Union,
 )
 
 # Third party libraries
+from metaloaders.model import (
+    Node,
+)
 from pyparsing import (
     alphas,
     alphanums,
@@ -25,6 +29,12 @@ from pyparsing import (
 )
 
 # Local libraries
+from aws.model import (
+    AWSIamManagedPolicyArns,
+    AWSIamPolicyStatement,
+    AWSS3Acl,
+    AWSS3Bucket,
+)
 from utils.function import (
     shield,
 )
@@ -41,6 +51,9 @@ from utils.model import (
 )
 from utils.string import (
     blocking_to_snippet,
+)
+from zone import (
+    t,
 )
 
 # Constants
@@ -173,7 +186,7 @@ def blocking_get_vulnerabilities_from_n_attrs_iterator(
         description=description,
         finding=finding,
         iterator=(
-            (int(n_attrs['l']), int(n_attrs['c']))
+            (int(n_attrs['label_l']), int(n_attrs['label_c']))
             for n_attrs in n_attrs_iterator
         ),
         path=path,
@@ -185,3 +198,32 @@ def str_to_number(token: str, default: float = math.nan) -> float:
         return float(ast.literal_eval(token))
     except (SyntaxError, ValueError):
         return default
+
+
+def blocking_get_vulnerabilities_from_aws_iterator(
+    content: str,
+    description_key: str,
+    finding: FindingEnum,
+    path: str,
+    statements_iterator: Iterator[Union[
+        AWSIamManagedPolicyArns,
+        AWSIamPolicyStatement,
+        AWSS3Acl,
+        AWSS3Bucket,
+        Node,
+    ]],
+) -> Tuple[Vulnerability, ...]:
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        cwe={finding.value.cwe},
+        description=t(
+            key=description_key,
+            path=path,
+        ),
+        finding=finding,
+        iterator=((
+            stmt.start_line if isinstance(stmt, Node) else stmt.line,
+            stmt.start_column if isinstance(stmt, Node) else stmt.column,
+        ) for stmt in statements_iterator),
+        path=path,
+    )

@@ -32,7 +32,9 @@ async def get_obj_id(obj: Any) -> bytes:
 
 
 async def read_blob(obj_location: str) -> Any:
-    async with aiofiles.open(obj_location, mode='rb') as obj_store:
+    async with aiofiles.open(  # type: ignore
+        obj_location, mode='rb',
+    ) as obj_store:
         obj_stream: bytes = await obj_store.read()
         return await py_loads(obj_stream)
 
@@ -74,5 +76,7 @@ async def store_object(
     obj_stream: bytes = await py_dumps(value, ttl=ttl)
     obj_location: str = join(folder, obj_id.hex())
 
-    async with aiofiles.open(obj_location, mode='wb') as obj_store:
+    async with aiofiles.open(  # type: ignore
+        obj_location, mode='wb',
+    ) as obj_store:
         await obj_store.write(obj_stream)

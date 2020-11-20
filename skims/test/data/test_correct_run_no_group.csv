@@ -1,16 +1,4 @@
 cwe,title,what,where
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,18
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,22
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,26
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,32
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,18
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,26
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,18
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,26
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,18
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,26
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml,18
-16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml.json,26
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16

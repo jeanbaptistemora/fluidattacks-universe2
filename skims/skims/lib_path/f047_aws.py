@@ -24,8 +24,8 @@ from metaloaders.model import (
 )
 
 # Local libraries
-from aws.utils import create_vulns
 from lib_path.common import (
+    blocking_get_vulnerabilities_from_aws_iterator,
     EXTENSIONS_CLOUDFORMATION,
     SHIELD,
 )
@@ -143,7 +143,7 @@ def _cnf_unrestricted_ports(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_ports',
         finding=FindingEnum.F047_AWS,
@@ -161,7 +161,7 @@ def _cfn_unrestricted_ip_protocols(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_protocols',
         finding=FindingEnum.F047_AWS,
@@ -179,7 +179,7 @@ def _cnf_unrestricted_cidrs(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_cidrs',
         finding=FindingEnum.F047_AWS,
@@ -197,7 +197,7 @@ def _cfn_allows_anyone_to_admin_ports(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return create_vulns(
+    return blocking_get_vulnerabilities_from_aws_iterator(
         content=content,
         description_key='src.lib_path.f047_aws.allows_anyone_to_admin_ports',
         finding=FindingEnum.F047_AWS,

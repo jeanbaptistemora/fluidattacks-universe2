@@ -30,7 +30,7 @@ DATA['options']['propagate_positions'] = True
 
 
 class HCL2Builder(  # pylint: disable=too-few-public-methods
-    lark.Transformer,  # type: ignore
+    lark.Transformer,
 ):
 
     def __init__(self) -> None:
