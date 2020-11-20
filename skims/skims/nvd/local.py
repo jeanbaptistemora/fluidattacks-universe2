@@ -41,9 +41,11 @@ IGNORED_CHARS = str.maketrans('', '', ''.join({'^', '~'}))
 def does_version_match(version: str, condition: str) -> bool:
     """Given a version and a condition return True if version match condition.
     """
+    result: bool = False
     with suppress(ValueError):
-        return match(version, condition)
-    return False
+        result = match(version, condition)
+
+    return result
 
 
 def normalize(version: str) -> str:

@@ -90,7 +90,8 @@ def overloaded_construct_yaml_timestamp(
     self: yaml.Loader,
     node: yaml.Node,
 ) -> str:
-    return self.construct_yaml_timestamp(node).isoformat()
+    result: str = self.construct_yaml_timestamp(node).isoformat()
+    return result
 
 
 def load_as_yaml_without_line_number(content: str) -> Any:
