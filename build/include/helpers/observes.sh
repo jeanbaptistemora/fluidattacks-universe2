@@ -341,17 +341,20 @@ function helper_observes_lint_generic_package {
 
       find "${path}" -type f -name '*.py' | while read -r file
       do
-            echo "[INFO] running mypy over file: ${file}" \
+            echo "[INFO] linting file: ${file}" \
+            echo "[INFO] running mypy" \
         &&  mypy \
               --ignore-missing-imports \
               --no-incremental \
               --allow-any-generics \
               --pretty \
               "${file}" \
+        &&  echo "[INFO] running prospector" \
+        &&  prospector --full-pep8 --strictness veryhigh "${file}" \
         || return 1
       done \
   &&  echo "[INFO] linting python file: ${path}" \
-  &&  prospector --full-pep8 --strictness veryhigh "${path}"
+
 }
 
 function helper_observes_test_generic_package {

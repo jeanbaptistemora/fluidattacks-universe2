@@ -463,3 +463,22 @@ function job_observes_tredshift_test {
   &&  popd \
   ||  return 1
 }
+
+function job_observes_zoho_crm_lint {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/zoho_crm_etl" \
+    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/tests" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_zoho_crm_test {
+  local python="${TargetRedshift}"/bin/python
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_test_generic_package "./etl/zoho_crm_etl" "${python} -m" \
+  &&  popd \
+  ||  return 1
+}

@@ -1,10 +1,8 @@
 # Standard libraries
-import json
 # Third party libraries
 import click
 # Local libraries
 from zoho_crm_etl import auth
-from zoho_crm_etl.auth import Credentials
 
 
 @click.command()

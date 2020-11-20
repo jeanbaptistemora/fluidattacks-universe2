@@ -6,7 +6,8 @@ from typing import Dict, NamedTuple
 import requests
 # Local libraries
 
-ACCOUNTS_URL = 'https://accounts.zoho.com' # for US region
+
+ACCOUNTS_URL = 'https://accounts.zoho.com'  # for US region
 
 
 class Credentials(NamedTuple):
