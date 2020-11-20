@@ -37,19 +37,19 @@ class FindingsTests(TestCase):
     async def test_download_evidence_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
-        file_name = 'unittesting-422286126-38307222-a.png'
+        file_name = 'unittesting-422286126-evidence_route_1.png'
         test_data = await _download_evidence_file(
             project_name, finding_id, file_name
         )
         expected_output = os.path.abspath(
-            '/tmp/unittesting-422286126-38307222-a.png'
+            '/tmp/unittesting-422286126-evidence_route_1.png'
         )
         assert test_data == expected_output
 
     async def test_get_records_from_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
-        file_name = 'unittesting-422286126-49412246-Untitled 1.csv'
+        file_name = 'unittesting-422286126-evidence_file.csv'
         test_data = await get_records_from_file(project_name, finding_id, file_name)
         expected_output = [
             OrderedDict(
@@ -74,7 +74,7 @@ class FindingsTests(TestCase):
     async def test_get_exploit_from_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
-        file_name = 'unittesting-422286126-38307199-exploit.py'
+        file_name = 'unittesting-422286126-exploit.py'
         test_data = await get_exploit_from_file(project_name, finding_id, file_name)
         expected_output = 'print "It works!"\n'
         assert test_data == expected_output

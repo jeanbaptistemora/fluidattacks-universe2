@@ -80,7 +80,7 @@ async def test_finding():
                 'description': 'test'
             },
             'evidence2': {
-                'url': 'unittesting-463558592-evidence_route_2.png',
+                'url': 'unittesting-463558592-evidence_route_2.jpg',
                 'description': 'Test2'
             },
             'evidence3': {
