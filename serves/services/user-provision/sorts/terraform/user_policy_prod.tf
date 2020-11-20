@@ -47,6 +47,22 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     ]
   }
 
+  # Batch access
+  statement {
+    effect = "Allow"
+    actions = ["batch:SubmitJob"]
+    resources = [
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/default",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/default-uninterruptible"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = ["batch:ListJobs"]
+    resources = ["*"]
+  }
+
   # S3 admin over Sorts bucket
   statement {
     effect = "Allow"
