@@ -33,10 +33,10 @@ build/coverage
 django-apps/**/*.egg-info
 django-apps/**/build
 django-apps/**/dist
-django-apps/integrates-back-async/backend/reports/results/results_pdf/*.pdf
-django-apps/integrates-back-async/backend/reports/results/results_excel/*.xlsx
-django-apps/integrates-back-async/backend/reports/tpls/*.tpl
-django-apps/integrates-back-async/backend/reports/images/*.png
+backend_new/packages/integrates-back/backend/reports/results/results_pdf/*.pdf
+backend_new/packages/integrates-back/backend/reports/results/results_excel/*.xlsx
+backend_new/packages/integrates-back/backend/reports/tpls/*.tpl
+backend_new/packages/integrates-back/backend/reports/images/*.png
 
 # Analytics
 analytics/**/*.jpg

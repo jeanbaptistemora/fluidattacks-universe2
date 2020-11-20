@@ -21,6 +21,6 @@ in
         builders.pythonRequirements ../../integrates/deploy/dependencies/dev-requirements.txt;
 
       pyPkgIntegratesBack =
-        import ../../integrates/django-apps/integrates-back-async pkgs;
+        import ../../integrates/backend_new/packages/integrates-back pkgs;
     })
   )

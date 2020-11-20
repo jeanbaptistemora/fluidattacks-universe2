@@ -85,7 +85,7 @@ function helper_invoke_py {
 
       echo "[INFO] Waking up: ${module}" \
   &&  python3 \
-        'django-apps/integrates-back-async/cli/invoker.py' \
+        'backend_new/packages/integrates-back/cli/invoker.py' \
         "${module}"
 }
 

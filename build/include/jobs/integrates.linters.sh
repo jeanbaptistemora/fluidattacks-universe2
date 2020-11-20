@@ -5,20 +5,20 @@ function job_integrates_lint_back {
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
-        django-apps/integrates-back-async \
+        backend_new/packages/integrates-back \
   &&  mypy --strict --ignore-missing-imports app/migrations/ \
   &&  mypy --strict --ignore-missing-imports backend_new \
   &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s veryhigh -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules backend_new \
-  &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async \
+  &&  prospector -F -s veryhigh -u django -i node_modules backend_new/packages/integrates-back \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
   &&  npx graphql-schema-linter \
         --except 'enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,type-fields-sorted-alphabetically,arguments-have-descriptions' \
-        django-apps/integrates-back-async/backend/api/schema/**/*.graphql \
-        django-apps/integrates-back-async/backend/api/schema/types/**/*.graphql \
+        backend_new/packages/integrates-back/backend/api/schema/**/*.graphql \
+        backend_new/packages/integrates-back/backend/api/schema/types/**/*.graphql \
   &&  popd \
   || return 1
 }

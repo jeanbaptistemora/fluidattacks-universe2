@@ -21,7 +21,7 @@ in
       pkgFirefox = pkgs.firefox;
 
       pyPkgIntegratesBack =
-        import ../../integrates/django-apps/integrates-back-async pkgs;
+        import ../../integrates/backend_new/packages/integrates-back pkgs;
 
       pyPkgReqs =
         builders.pythonRequirements ../../integrates/deploy/dependencies/dev-requirements.txt;
