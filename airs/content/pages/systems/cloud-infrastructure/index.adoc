@@ -1,4 +1,4 @@
-:slug: systems/cloud/
+:slug: systems/cloud-infrastructure/
 :category: systems
 :description: Cloud infrastructure is among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 :keywords: Fluid Attacks, Cloud, Infrastructure, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
