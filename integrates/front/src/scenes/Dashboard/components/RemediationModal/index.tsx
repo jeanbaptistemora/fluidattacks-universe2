@@ -51,7 +51,7 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
         <GenericForm name="updateRemediation" onSubmit={onSubmit}>
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
-              {children === undefined ? undefined : children}
+              {children}
               <FormGroup>
                 <ControlLabel>
                   <RequiredField>{"* "}</RequiredField>

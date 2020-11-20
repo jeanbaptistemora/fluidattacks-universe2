@@ -1802,11 +1802,13 @@ export const enTranslations: ResourceKey = {
         acceptation_success: "Indefinite acceptation has been handled",
       },
       buttons: {
+        handle_acceptation: "Treatment Acceptation",
         reattack: "Reattack",
       },
       buttons_tooltip: {
         cancel: "Cancel",
         edit: "Modify the fields of the vulnerabilities",
+        handle_acceptation: "Approve/Reject indefinite acceptation treatment",
       },
       closed: "Closed",
       info: {

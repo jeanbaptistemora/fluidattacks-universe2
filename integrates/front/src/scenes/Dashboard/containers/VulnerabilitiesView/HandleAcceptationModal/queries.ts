@@ -16,4 +16,5 @@ export const HANDLE_VULNS_ACCEPTATION: DocumentNode = gql`
     ) {
       success
     }
-  }`;
+  }
+`;
