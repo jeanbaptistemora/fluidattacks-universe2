@@ -110,3 +110,52 @@ function job_sorts_deploy_to_pypi {
   &&  popd \
   ||  return 1
 }
+
+function job_sorts_extract_all_features_on_aws {
+  local groups_file="${TEMP_FILE1}"
+  local groups_count
+
+      echo '[INFO] Computing groups list' \
+  &&  helper_common_list_services_groups "${groups_file}" \
+  &&  groups_count=$(wc -l < "${groups_file}") \
+  &&  echo "[INFO] ${groups_count} groups found" \
+  &&  while read -r group
+      do
+            echo "[INFO] Submitting: ${group}" \
+        &&  job_sorts_extract_features_on_aws "${group}" \
+        ||  return 1
+      done < "${groups_file}"
+}
+
+function job_sorts_extract_features_on_aws {
+  local vcpus='2'
+  local memory='3600'
+  local attempts='10'
+  local timeout='18000'
+  local group="${1}"
+  local jobqueue='default'
+
+      jobname="sorts_extract_features__${group}" \
+  &&  helper_sorts_aws_login prod \
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        "${jobname}" \
+        "${jobqueue}" \
+        'sorts_extract_features' "${group}"
+}
+
+function job_sorts_extract_features {
+  local group="${1}"
+
+  if test -n "${group}"
+  then
+        echo "[INFO] Processing: ${group}" \
+    &&  helper_sorts_extract_features "${group}"
+  else
+        echo '[INFO] Please set the first argument to the group name' \
+    &&  return 1
+  fi
+}

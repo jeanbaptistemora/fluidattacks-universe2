@@ -15,7 +15,7 @@ function helper_skims_process_group {
       helper_common_use_services \
   &&  helper_skims_aws_login prod \
   &&  echo '[INFO] Cloning repositories' \
-  &&  { helper_skims_pull_repositories "${group}" ||  true; } \
+  &&  { helper_common_pull_services_repositories "${group}" ||  true; } \
   &&  if ! test -e "groups/${group}/fusion"
       then
             echo '[WARNING] No repositories to test' \
@@ -34,7 +34,7 @@ function helper_skims_process_group {
             echo "[ERROR] While running skims on: ${group}" \
         &&  success='false'
       fi \
-  &&  helper_skims_remove_repositories "${group}" \
+  &&  helper_common_remove_services_repositories "${group}" \
   &&  helper_skims_push_cache "${group}" \
   &&  test "${success}" = 'true'
 }
@@ -47,25 +47,6 @@ function helper_skims_pull_cache {
       echo "[INFO] Moving skims state from ${source} to ${target}" \
   &&  mkdir -p "${target}" \
   &&  aws s3 sync --delete --quiet "${source}" "${target}"
-}
-
-function helper_skims_pull_repositories {
-  export SERVICES_PROD_AWS_ACCESS_KEY_ID
-  export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
-  local group="${1}"
-
-  CI='true' \
-  CI_COMMIT_REF_NAME='master' \
-  PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
-  PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
-  "${product}/bin/melts" drills --pull-repos "${group}"
-}
-
-function helper_skims_remove_repositories {
-  local group="${1}"
-
-      echo "[INFO] Removing repositories" \
-  &&  rm -rf "groups/${group}/fusion"
 }
 
 function helper_skims_push_cache {

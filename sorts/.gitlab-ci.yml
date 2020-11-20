@@ -84,3 +84,8 @@ sorts_deploy_to_pypi:
   <<: *with_nix
   <<: *sorts_in_master_branch_code_changes
   stage: deploy-app
+
+sorts_extract_all_features_on_aws:
+  <<: *with_nix
+  <<: *sorts_in_master_branch
+  stage: external

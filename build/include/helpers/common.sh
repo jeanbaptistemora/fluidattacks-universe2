@@ -514,3 +514,22 @@ function helper_common_kill_attached_processes {
   done
   sleep "${sleep_time}"
 }
+
+function helper_common_pull_services_repositories {
+  export SERVICES_PROD_AWS_ACCESS_KEY_ID
+  export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
+  local group="${1}"
+
+  CI='true' \
+  CI_COMMIT_REF_NAME='master' \
+  PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
+  PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
+  "${product}/bin/melts" drills --pull-repos "${group}"
+}
+
+function helper_common_remove_services_repositories {
+  local group="${1}"
+
+      echo "[INFO] Removing repositories" \
+  &&  rm -rf "groups/${group}/fusion"
+}
