@@ -21,10 +21,11 @@ import {
   IRejectZeroRiskVulnResult,
   IRequestZeroRiskVulnResult,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal/types";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 
 interface IVulnData {
   id: string;
@@ -46,6 +47,9 @@ export interface IUpdateZeroRiskModal {
 const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroRiskModal): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_new_finding_analyst_resolve");
+  const canGetHistoricState: boolean = permissions.can("backend_api_resolvers_new_finding_historic_state_resolve");
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
+  const canGetExploit: boolean = groupPermissions.can("has_forces");
 
   // State management
   const closeRemediationModal: (() => void) = (): void => { props.handleCloseModal(); };
@@ -78,6 +82,7 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
     },
     refetchQueries: [
       { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_FINDING_HEADER, variables: { canGetExploit, canGetHistoricState, findingId: props.findingId } },
     ],
   });
 
@@ -108,6 +113,7 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
     },
     refetchQueries: [
       { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_FINDING_HEADER, variables: { canGetExploit, canGetHistoricState, findingId: props.findingId } },
     ],
   });
 
@@ -138,6 +144,7 @@ const updateZeroRiskModal: React.FC<IUpdateZeroRiskModal> = (props: IUpdateZeroR
     },
     refetchQueries: [
       { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_FINDING_HEADER, variables: { canGetExploit, canGetHistoricState, findingId: props.findingId } },
     ],
   });
 

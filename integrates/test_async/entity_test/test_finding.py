@@ -170,7 +170,7 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert result['data']['finding']['id'] == '422286126'
         assert result['data']['finding']['projectName'] == 'unittesting'
-        assert result['data']['finding']['openVulnerabilities'] == 2
+        assert result['data']['finding']['openVulnerabilities'] == 1
         assert result['data']['finding']['closedVulnerabilities'] == 0
         assert result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
         assert result['data']['finding']['tracking'][0]['cycle'] == 0

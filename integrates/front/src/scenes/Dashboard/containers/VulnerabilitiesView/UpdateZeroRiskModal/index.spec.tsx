@@ -16,6 +16,7 @@ import {
 } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal/queries";
 import store from "store";
 import { msgError, msgSuccess } from "utils/notifications";
+import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 
 jest.mock("../../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
@@ -50,6 +51,31 @@ describe("update zero risk component", () => {
       },
     },
   };
+  const mocksFindingHeader: MockedResponse = {
+    request: {
+      query: GET_FINDING_HEADER,
+      variables: {
+        canGetExploit: false,
+        canGetHistoricState: false,
+        findingId: "422286126",
+      },
+    },
+    result: {
+      data: {
+        finding: {
+          closedVulns: 0,
+          id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+          openVulns: 0,
+          releaseDate: "",
+          reportDate: "",
+          severityScore: 1,
+          state: "default",
+          title: "",
+          tracking: [],
+        },
+      },
+    },
+  };
 
   it("should handle request zero risk", async () => {
     const handleClearSelected: jest.Mock = jest.fn();
@@ -71,6 +97,7 @@ describe("update zero risk component", () => {
         result: { data: { requestZeroRiskVuln : { success: true } } },
       },
       mocksVulns,
+      mocksFindingHeader,
     ];
     const wrapperRequest: ReactWrapper = mount(
       <Provider store={store}>
@@ -199,6 +226,7 @@ describe("update zero risk component", () => {
         result: { data: { confirmZeroRiskVuln : { success: true } } },
       },
       mocksVulns,
+      mocksFindingHeader,
     ];
     const wrapperRequest: ReactWrapper = mount(
       <Provider store={store}>
@@ -327,6 +355,7 @@ describe("update zero risk component", () => {
         result: { data: { rejectZeroRiskVuln : { success: true } } },
       },
       mocksVulns,
+      mocksFindingHeader,
     ];
     const wrapperRequest: ReactWrapper = mount(
       <Provider store={store}>

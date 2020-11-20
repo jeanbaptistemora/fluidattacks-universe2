@@ -17,7 +17,7 @@ async def test_finding():
         'id': finding_id,
         'project_name': 'unittesting',
         'release_date': '2018-12-17 00:00:00',
-        'open_vulnerabilities': 2,
+        'open_vulnerabilities': 1,
         'closed_vulnerabilities': 4,
         'tracking': [
             {
