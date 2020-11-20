@@ -28,6 +28,9 @@ from pyparsing import (
 from utils.function import (
     shield,
 )
+from utils.graph import (
+    NAttrs,
+)
 from utils.model import (
     FindingEnum,
     GrammarMatch,
@@ -85,7 +88,7 @@ def blocking_get_matching_lines(
             start_column=col(start_char, content) - 1,
             start_line=lineno(start_char, content),
         )
-        for tokens, start_char, _ in grammar.scanString(content)
+        for _, start_char, _ in grammar.scanString(content)
     )
 
     return matches
@@ -154,6 +157,27 @@ def blocking_get_vulnerabilities_from_iterator(
     )
 
     return results
+
+
+def blocking_get_vulnerabilities_from_n_attrs_iterator(
+    content: str,
+    cwe: Set[str],
+    description: str,
+    finding: FindingEnum,
+    n_attrs_iterator: Iterator[NAttrs],
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return blocking_get_vulnerabilities_from_iterator(
+        content=content,
+        cwe=cwe,
+        description=description,
+        finding=finding,
+        iterator=(
+            (int(n_attrs['l']), int(n_attrs['c']))
+            for n_attrs in n_attrs_iterator
+        ),
+        path=path,
+    )
 
 
 def str_to_number(token: str, default: float = math.nan) -> float:

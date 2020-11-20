@@ -5,6 +5,7 @@ from typing import (
     Callable,
     Iterable,
     Iterator,
+    Optional,
     Set,
     Tuple,
 )
@@ -23,6 +24,10 @@ from utils.system import (
 # Constants
 GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
 
+# Types
+NAttrs = Dict[str, str]
+NAttrsPredicateFunction = Callable[[NAttrs], bool]
+
 
 async def export_graph_as_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
@@ -35,17 +40,25 @@ async def export_graph_as_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
 
 
-def has_labels(n_attrs: Dict[str, str], **expected_attrs: str) -> bool:
+def has_labels(n_attrs: NAttrs, **expected_attrs: str) -> bool:
     return all(
         n_attrs.get(expected_attr) == expected_attr_value
         for expected_attr, expected_attr_value in expected_attrs.items()
     )
 
 
+def pred_has_labels(**expected_attrs: str) -> NAttrsPredicateFunction:
+
+    def predicate(n_attrs: NAttrs) -> bool:
+        return has_labels(n_attrs, **expected_attrs)
+
+    return predicate
+
+
 def filter_nodes(
     graph: nx.OrderedDiGraph,
     nodes: Iterable[str],
-    predicate: Callable[[Dict[str, Any]], bool],
+    predicate: NAttrsPredicateFunction,
 ) -> Set[str]:
     result: Set[str] = set(
         n_id
@@ -54,6 +67,27 @@ def filter_nodes(
     )
 
     return result
+
+
+def yield_nodes_reachable_from_node(
+    graph: nx.OrderedDiGraph,
+    n_id: str,
+    depth_limit: Optional[int] = None,
+) -> Set[str]:
+    if depth_limit == 0:
+        return set()
+
+    results: Set[str] = set(
+        s_id
+        for s_ids in nx.dfs_successors(
+            graph,
+            depth_limit=depth_limit,
+            source=n_id,
+        ).values()
+        for s_id in s_ids
+    )
+
+    return results
 
 
 def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:
