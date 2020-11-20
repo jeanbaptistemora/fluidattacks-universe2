@@ -218,6 +218,7 @@ APP = Starlette(
         Route('/new/dblogin', do_bitbucket_login),
         Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
         Route('/new/{full_path:path}', app),
+        Route('/', app),
         Mount(
             '/static',
             StaticFiles(directory=f'{settings.TEMPLATES_DIR}/static'),

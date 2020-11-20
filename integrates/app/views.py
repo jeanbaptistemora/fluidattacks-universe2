@@ -8,24 +8,21 @@
 import logging
 from datetime import datetime, timedelta
 from typing import (
-    List,
-    Dict,
-    Sequence,
     Any,
+    Dict,
+    List,
+    Sequence,
     cast
 )
 
 # Third party libraries
-from aioextensions import (
-    in_thread,
-)
 import bugsnag
 from asgiref.sync import async_to_sync
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.decorators.cache import never_cache, cache_control
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from jose import jwt
@@ -40,18 +37,12 @@ from backend.dal.helpers.s3 import (
 )
 from backend.domain import (
     analytics as analytics_domain,
-    organization as org_domain,
     user as user_domain,
 )
 from backend.decorators import (
     authenticate_jwt,
-    authenticate_session,
     cache_content,
     require_login,
-)
-from backend.exceptions import (
-    ConcurrentSession,
-    ExpiredToken,
 )
 from backend.services import (
     has_access_to_finding,
@@ -131,76 +122,6 @@ def mobile(request: HttpRequest) -> HttpResponse:
     """Small devices view"""
     parameters: Dict[str, Any] = {}
     return render(request, 'mobile.html', parameters)
-
-
-@csrf_exempt  # type: ignore
-@cache_control(private=True, max_age=3600)  # type: ignore
-@authenticate_session  # type: ignore
-@async_to_sync  # type: ignore
-async def app(request: HttpRequest) -> HttpResponse:
-    """App view for authenticated users."""
-    email = request.session['username']
-    first_name = request.session['first_name']
-    last_name = request.session['last_name']
-
-    try:
-        if not isinstance(request, StarletteRequest):
-            await util.check_concurrent_sessions(
-                email,
-                request.session.session_key,
-            )
-
-        if not await org_domain.get_user_organizations(email):
-            LOGGER.warning(
-                'User does not have organizations',
-                extra={'extra': {'user': email}})
-            response = render(
-                request,
-                'unauthorized.html',
-                {
-                    'debug': settings.DEBUG,
-                    'username': email,
-                }
-            )
-            await in_thread(logout, request)
-        else:
-            response = render(
-                request,
-                'app.html',
-                {
-                    'debug': settings.DEBUG,
-                    'username': email,
-                }
-            )
-            set_session_cookie_in_response(
-                response=response,
-                token=await create_session_token(
-                    email=email,
-                    first_name=first_name,
-                    last_name=last_name,
-                ),
-            )
-    except (KeyError, TypeError) as ex:
-        bugsnag.notify(ex)
-        return redirect('/error500')
-    except ConcurrentSession:
-        return HttpResponse(
-            '<script> '
-            'localStorage.setItem("concurrentSession","1"); '
-            'location.assign("/registration"); '
-            '</script>'
-        )
-    except ExpiredToken:
-        response = render(
-            request,
-            'unauthorized.html',
-            {
-                'debug': settings.DEBUG,
-                'username': email
-            }
-        )
-        await in_thread(logout, request)
-    return response
 
 
 @never_cache  # type: ignore
