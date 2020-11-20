@@ -2,6 +2,7 @@
 
 # Standard library
 import os
+import logging
 from typing import Dict
 import aiohttp
 
@@ -41,6 +42,8 @@ from __init__ import (
 )
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
+
+LOGGER = logging.getLogger(__name__)
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
@@ -100,6 +103,7 @@ def get_azure_client(request: Request) -> OAuth:
         scope=f'{azure.API_BASE_URL}.default {azure.SCOPE}',
         redirect_uri=redirect_uri
     )
+    LOGGER.info('[INFO] Doing get_azure_client', extra={'extra': locals()})
     return azure_client
 
 
@@ -107,6 +111,7 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session['username'] = user['email']
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
+    LOGGER.info('[INFO] Doing handle_user', extra={'extra': locals()})
     await utils.create_user(request.session)
 
     return request
@@ -124,6 +129,7 @@ async def do_azure_login(request: Request) -> Response:
         azure.AUTHZ_URL,
         nonce=generate_token()
     )
+    LOGGER.info('[INFO] Doing do_azure_login', extra={'extra': locals()})
     return RedirectResponse(url=uri)
 
 
@@ -162,6 +168,8 @@ async def app(*request_args: Request) -> HTMLResponse:
         response = unauthorized(request)
         response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
+    LOGGER.info('[INFO] Doing app', extra={'extra': locals()})
+
     return response
 
 
@@ -189,6 +197,8 @@ async def authz_azure(request: Request) -> HTMLResponse:
             }
         ) as user:
             request = await handle_user(request, await user.json())
+
+    LOGGER.info('[INFO] Doing authz_azure', extra={'extra': locals()})
 
     return RedirectResponse(url='/new/home')
 
