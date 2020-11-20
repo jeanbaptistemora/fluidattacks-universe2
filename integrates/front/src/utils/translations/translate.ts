@@ -24,7 +24,9 @@ interface ITranslationFn {
   (key: string | string[], options?: TOptions): string;
 }
 
-export const translate: { t: ITranslationFn } = {
+const translate: { t: ITranslationFn } = {
   t: (key: string | string[], options?: TOptions): string =>
     i18next.t(key, options),
 };
+
+export { i18next, translate };

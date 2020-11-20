@@ -480,6 +480,7 @@ export const enTranslations: ResourceKey = {
     scope: {
       table: {
         branch: "Branch",
+        url: "URL",
       },
     },
     tabs: {
