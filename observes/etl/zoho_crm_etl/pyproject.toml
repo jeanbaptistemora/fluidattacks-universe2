@@ -6,10 +6,16 @@ authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
 python = "3.8.5"
+requests = "2.25.0"
+click = "7.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "5.2"
+mypy = "0.790"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+zoho-crm-etl = 'zoho_crm_etl.cli:main'
