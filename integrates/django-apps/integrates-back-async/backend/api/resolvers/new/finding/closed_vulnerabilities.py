@@ -7,6 +7,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend.decorators import get_entity_cache_async
+from backend.domain import vulnerability as vuln_domain
 from backend.typing import Finding, Vulnerability
 
 
@@ -21,8 +22,4 @@ async def resolve(
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
 
-    return len([
-        vuln
-        for vuln in vulns
-        if vuln['current_state'] == 'closed'
-    ])
+    return len(vuln_domain.filter_closed_vulnerabilities(vulns))
