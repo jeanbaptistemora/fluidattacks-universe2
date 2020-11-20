@@ -20,16 +20,15 @@ with a link:https://www.who.int/emergencies/diseases/novel-coronavirus-2019[COVI
 linked to it, within our particular context as a red team,
 considerable growth in the number of cyberattacks.
 Due to isolation, virtual activities have increased
-(e.g., learning, shopping, meeting, working), and consequently,
-the areas of action for cybercriminals have expanded.
+(e.g., learning, shopping, meeting, working).
+Consequently, the areas of action for cybercriminals have expanded.
 
-Let's start this first part of this post
-dedicated to the State of Cybersecurity 2020-21
-with some statistics that may attract your attention:
+Let's start this first part of the State of Cybersecurity 2020-21
+with some statistics that you may find a bit shocking:
 
 - link:https://www.forbes.com/sites/daveywinder/2020/01/22/microsoft-security-shocker-as-250-million-customer-records-exposed-online/?sh=d86a1954d1b3[A database with] *250 million* Microsoft customer records
 was found exposed in January.
-- link:https://www.csoonline.com/article/3153707/top-cybersecurity-facts-figures-and-statistics.html[In March, CSO reported] that *$17,700* is lost every minute
+- link:https://www.csoonline.com/article/3153707/top-cybersecurity-facts-figures-and-statistics.html[In March, CSO reported] that *$17,700* are lost every minute
 because of phishing attacks.
 - According to CSO, *60%* of breaches involved vulnerabilities
 for which the existing patch was not applied.
@@ -68,7 +67,7 @@ with very stressed and busy people
 highly focused on responding to or fighting against COVID-19.
 (Some of these attacks, highly planned and prepared,
 could even be aimed at link:https://www.prnewswire.com/news-releases/top-cyber-security-experts-report-4-000-cyber-attacks-a-day-since-covid-19-pandemic-301110157.html[theft of research data]
-desired by major organizations).
+desired by major organizations.)
 As reported by link:https://www.enisa.europa.eu/publications/enisa-threat-landscape-2020-main-incidents[ENISA]
 (European Union Agency for Cybersecurity),
 it has occurred, for instance, with link:../ransomware/[ransomware] incidents.
@@ -124,7 +123,7 @@ and advanced driver assistance systems that enable smooth communication."
 The problem arises because these cars employ standard connection systems
 such as WiFi and Bluetooth and end up being exposed to cyber threats.
 
-Another trend in cybercriminals' sights for their attacks
+Another trend targeted by cybercriminals
 is undoubtedly the widespread and growing use of mobile devices,
 which currently link:https://chrishtopher-henry-38679.medium.com/cybersecurity-trends-to-watch-out-in-2020-278bc41200ed[are storing more and more business data].
 Following link:https://www.statista.com/statistics/245501/multiple-mobile-device-ownership-worldwide/#:~:text=The%20number%20of%20mobile%20devices,to%2014.91%20billion%20by%202021.[Statista's data], "the number of mobile devices
@@ -168,7 +167,7 @@ is achieved through poisoned data sources,
 and the backdoor attacks, "which can fundamentally rewrite
 the model's functionalities or even skew data."
 
-Before finishing this part,
+Before finishing this part of the State of Cybersecurity 2020-21,
 to keep in mind what you or your company may face at present,
 here is the list of top 15 threats reported by link:https://www.enisa.europa.eu/news/enisa-news/enisa-threat-landscape-2020[ENISA]
 covering the period January 2019-April 2020:
@@ -189,6 +188,6 @@ covering the period January 2019-April 2020:
 . Cyberespionage
 . Cryptojacking
 
-We hope you have enjoyed this post.
-Soon you will be able to read its second part.
+We hope you have enjoyed reading this post.
+Soon, you will be able to read a second part on the topic.
 Any doubt? Do not hesitate to link:../../contact-us/[contact us!]
