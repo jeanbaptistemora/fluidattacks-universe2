@@ -1,6 +1,8 @@
 # Standard library
+import json
 from typing import (
     Any,
+    Optional,
 )
 
 # Third party libraries
@@ -30,6 +32,9 @@ from parse_java.graph.styles import (
 from state.cache import (
     CACHE_1SEC,
 )
+from utils.graph import (
+    export_graph_as_svg,
+)
 from utils.model import (
     Grammar,
 )
@@ -46,19 +51,24 @@ def from_antlr_model(model: Any) -> nx.OrderedDiGraph:
     return graph
 
 
-def _from_antlr_parse_tree(parse_tree: Any) -> nx.OrderedDiGraph:
-    model = antlr_model.from_parse_tree(parse_tree)
-    return from_antlr_model(model)
-
-
 @CACHE_1SEC
 async def parse_from_content(
     grammar: Grammar,
     *,
     content: bytes,
+    output: Optional[str] = None,
     path: str,
 ) -> nx.OrderedDiGraph:
-    return await in_process(
-        _from_antlr_parse_tree,
-        await antlr_parse.parse(grammar, content=content, path=path),
-    )
+    parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
+    model = await in_process(antlr_model.from_parse_tree, parse_tree)
+
+    if output:
+        with open(f'{output}.model.json', 'w') as handle:
+            json.dump(model, handle, indent=2, sort_keys=True)
+
+    graph = await in_process(from_antlr_model, model)
+
+    if output:
+        await export_graph_as_svg(graph, output)
+
+    return graph

@@ -3,7 +3,9 @@ from typing import (
     Any,
     Dict,
     Callable,
+    Iterable,
     Iterator,
+    Set,
     Tuple,
 )
 
@@ -22,16 +24,9 @@ from utils.system import (
 GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
 
 
-def export_graph(graph: nx.OrderedDiGraph, path: str) -> bool:
-    # $ nix-env -i graphviz
-    # $ dot -O -T svg  <path>
-    # $ google-chrome <path>.svg
+async def export_graph_as_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
-    return True
-
-
-async def graphviz_to_svg(path: str) -> bool:
     code, stdout, stderr = await read('dot', '-O', '-T', 'svg', path)
 
     if code == 0:
@@ -45,6 +40,20 @@ def has_labels(n_attrs: Dict[str, str], **expected_attrs: str) -> bool:
         n_attrs.get(expected_attr) == expected_attr_value
         for expected_attr, expected_attr_value in expected_attrs.items()
     )
+
+
+def filter_nodes(
+    graph: nx.OrderedDiGraph,
+    nodes: Iterable[str],
+    predicate: Callable[[Dict[str, Any]], bool],
+) -> Set[str]:
+    result: Set[str] = set(
+        n_id
+        for n_id in nodes
+        if predicate(graph.nodes[n_id])
+    )
+
+    return result
 
 
 def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:

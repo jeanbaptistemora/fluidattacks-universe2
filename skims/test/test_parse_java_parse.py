@@ -25,9 +25,8 @@ from utils.fs import (
     get_file_raw_content,
 )
 from utils.graph import (
-    export_graph,
     export_graph_as_json,
-    graphviz_to_svg,
+    export_graph_as_svg,
     has_labels,
 )
 from utils.model import (
@@ -67,8 +66,7 @@ async def test_graph_generation(path: str, name: str) -> None:
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
 
-    assert export_graph(graph, f'test/outputs/{name}.graph')
-    assert await graphviz_to_svg(f'test/outputs/{name}.graph')
+    assert await export_graph_as_svg(graph, f'test/outputs/{name}.graph')
 
     with open(f'test/outputs/{name}.model.json', 'w') as handle:
         handle.write(model_as_json)
@@ -93,8 +91,7 @@ async def test_apply_control_flow() -> None:
     model = model_from_parse_tree(parse_tree)
     graph = from_antlr_model(model)
 
-    export_graph(graph, 'test/outputs/test_apply_control_flow.graph')
-    await graphviz_to_svg('test/outputs/test_apply_control_flow.graph')
+    assert await export_graph_as_svg(graph, 'test/outputs/test_apply_control_flow.graph')
 
     # Check IfThenStatement
     assert has_labels(graph['352']['398'], label_cfg='CFG', label_true='True')
