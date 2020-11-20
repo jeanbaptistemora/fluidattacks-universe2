@@ -63,7 +63,7 @@ try:
     SQS_QUEUE_URL = os.environ['SQS_QUEUE_URL']
 
     # not secrets but must be environment vars
-    BASE_URL = 'https://integrates.fluidattacks.com'
+    BASE_URL = 'https://integrates.fluidattacks.com/new'
     FI_AWS_REDSHIFT_PORT = 5439
     FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
     FI_AWS_S3_ANALYTICS_BUCKET = 'fluidintegrates.analytics'

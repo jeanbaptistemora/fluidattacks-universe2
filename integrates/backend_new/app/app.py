@@ -2,11 +2,12 @@
 
 # Standard library
 import os
-import logging
 from typing import Dict
 import aiohttp
 
 # Third party libraries
+from aioextensions import in_thread
+
 from asgiref.sync import async_to_sync
 
 from starlette.applications import Starlette
@@ -23,9 +24,14 @@ from authlib.integrations.starlette_client import OAuth
 from authlib.common.security import generate_token
 
 # Local libraries
+import bugsnag
+from backend import util
 from backend.api import IntegratesAPI
 from backend.decorators import authenticate_session
-from backend.domain import organization as org_domain
+from backend.domain import (
+    organization as org_domain,
+    user as user_domain,
+)
 from backend.api.schema import SCHEMA
 
 from backend_new.app.middleware import CustomRequestMiddleware
@@ -42,8 +48,6 @@ from __init__ import (
 )
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
-
-LOGGER = logging.getLogger(__name__)
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
@@ -103,7 +107,7 @@ def get_azure_client(request: Request) -> OAuth:
         scope=f'{azure.API_BASE_URL}.default {azure.SCOPE}',
         redirect_uri=redirect_uri
     )
-    LOGGER.info('[INFO] Doing get_azure_client', extra={'extra': locals()})
+
     return azure_client
 
 
@@ -111,7 +115,6 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session['username'] = user['email'].lower()
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
-    LOGGER.info('[INFO] Doing handle_user', extra={'extra': locals()})
     await utils.create_user(request.session)
 
     return request
@@ -129,7 +132,7 @@ async def do_azure_login(request: Request) -> Response:
         azure.AUTHZ_URL,
         nonce=generate_token()
     )
-    LOGGER.info('[INFO] Doing do_azure_login', extra={'extra': locals()})
+
     return RedirectResponse(url=uri)
 
 
@@ -168,8 +171,6 @@ async def app(*request_args: Request) -> HTMLResponse:
         response = unauthorized(request)
         response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
-    LOGGER.info('[INFO] Doing app', extra={'extra': locals()})
-
     return response
 
 
@@ -198,8 +199,6 @@ async def authz_azure(request: Request) -> HTMLResponse:
         ) as user:
             request = await handle_user(request, await user.json())
 
-    LOGGER.info('[INFO] Doing authz_azure', extra={'extra': locals()})
-
     return RedirectResponse(url='/new/home')
 
 
@@ -210,6 +209,22 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
     request = await handle_user(request, user)
 
     return RedirectResponse(url='/new/home')
+
+
+async def confirm_access(request: Request) -> HTMLResponse:
+    url_token = request.path_params.get('url_token')
+    redir = '/new'
+    token_exists = await util.token_exists(f'fi_urltoken:{url_token}')
+
+    if token_exists:
+        token_unused = await user_domain.complete_user_register(url_token)
+        if not token_unused:
+            redir = '/invalid_invitation'
+    else:
+        await in_thread(bugsnag.notify, Exception('Invalid token'), 'warning')
+        redir = '/invalid_invitation'
+
+    return RedirectResponse(url=redir)
 
 
 APP = Starlette(
@@ -227,6 +242,7 @@ APP = Starlette(
         Route('/new/dalogin', do_azure_login),
         Route('/new/dblogin', do_bitbucket_login),
         Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route('/new/confirm_access/{url_token:path}', confirm_access),
         Route('/new/{full_path:path}', app),
         Route('/', app),
         Mount(

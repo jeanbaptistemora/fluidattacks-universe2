@@ -125,7 +125,7 @@ async def send_unsolved_events_email(project: str) -> None:
         'project': project.capitalize(),
         'organization': org_name,
         'events_len': int(len(events_info_for_email)),
-        'event_url': f'{BASE_URL}/orgs/{org_name}groups/{project}/events'
+        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{project}/events'
     }
     if context_event['events_len'] and mail_to:
         scheduler_send_mail(
