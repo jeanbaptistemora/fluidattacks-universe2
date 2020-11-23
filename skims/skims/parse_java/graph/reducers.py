@@ -24,7 +24,7 @@ def _class_type_lf_class_or_interface_type(graph: nx.OrderedDiGraph) -> None:
     nodes_to_edit: List[str] = [
         n_id
         for n_id in nodes_to_process
-        for c_ids in [tuple(graph.adj[n_id])]
+        for c_ids in [g.adj(graph, n_id)]
         if len(c_ids) == 2
         and graph.nodes[c_ids[0]]['label_type'] == 'DOT'
         and graph.nodes[c_ids[1]]['label_type'] == 'IdentifierRule'

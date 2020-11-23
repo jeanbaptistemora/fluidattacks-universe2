@@ -5,7 +5,7 @@ from typing import (
     Callable,
     Iterable,
     Iterator,
-    Optional,
+    List,
     Set,
     Tuple,
 )
@@ -69,25 +69,41 @@ def filter_nodes(
     return result
 
 
-def yield_nodes_reachable_from_node(
+def adj(
     graph: nx.OrderedDiGraph,
     n_id: str,
-    depth_limit: Optional[int] = None,
-) -> Set[str]:
-    if depth_limit == 0:
-        return set()
+    depth: int = 1,
+    **edge_attrs: str,
+) -> Tuple[str, ...]:
+    """Return adjacent nodes to `n_id`, following just edges with given attrs.
 
-    results: Set[str] = set(
-        s_id
-        for s_ids in nx.dfs_successors(
-            graph,
-            depth_limit=depth_limit,
-            source=n_id,
-        ).values()
-        for s_id in s_ids
-    )
+    - Parameter `depth` may be -1 to indicate infinite depth.
+    - Search is done breadth first.
+    - Nodes are returned ordered ascending by index on each level.
 
-    return results
+    This function must be used instead of graph.adj, because graph.adj
+    becomes unstable (unordered) after mutating the graph, also this allow
+    following just edges matching `edge_attrs`.
+    """
+    if depth == 0:
+        return ()
+
+    results: List[str] = []
+
+    childs: List[str] = sorted(graph.adj[n_id], key=int)
+
+    # Append direct childs
+    for c_id in childs:
+        if has_labels(graph[n_id][c_id], **edge_attrs):
+            results.append(c_id)
+
+    # Recurse into childs
+    if depth < 0 or depth > 1:
+        for c_id in childs:
+            if has_labels(graph[n_id][c_id], **edge_attrs):
+                results.extend(adj(graph, c_id, depth=depth - 1, **edge_attrs))
+
+    return tuple(results)
 
 
 def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:
