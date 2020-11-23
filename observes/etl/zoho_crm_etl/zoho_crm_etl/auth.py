@@ -1,7 +1,11 @@
 # Standard libraries
 import json
 from getpass import getpass
-from typing import Dict, NamedTuple
+from typing import (
+    Any,
+    Dict,
+    NamedTuple,
+)
 # Third party libraries
 import requests
 # Local libraries
@@ -37,4 +41,16 @@ def generate_refresh_token(
         'code': grant_token_code
     }
     response = requests.post(url=endpoint, data=data)
+    return response.json()
+
+
+def generate_token(credentials: Credentials) -> Dict[str, Any]:
+    endpoint = f'{ACCOUNTS_URL}/oauth/v2/token'
+    params = {
+        'refresh_token': credentials.REFRESH_TOKEN,
+        'client_id': credentials.CLIENT_ID,
+        'client_secret': credentials.CLIENT_SECRET,
+        'grant_type': 'refresh_token'
+    }
+    response = requests.post(url=endpoint, params=params)
     return response.json()
