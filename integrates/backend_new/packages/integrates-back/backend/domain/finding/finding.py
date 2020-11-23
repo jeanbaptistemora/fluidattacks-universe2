@@ -281,8 +281,32 @@ async def update_treatment_in_vuln(
         )
         for vuln in vulns
     )
+    schedule(update_historic_treatment_in_vuln(
+        finding_id, updated_values, vulns, new_values,
+    ))
     resp = all(update_treatment_result)
     return resp
+
+
+async def update_historic_treatment_in_vuln(
+    finding_id: str,
+    updated_values: Dict[str, str],
+    vulns: List[Dict[str, FindingType]],
+    new_values: Dict[str, FindingType],
+) -> bool:
+    if new_values.get('treatment_manager'):
+        updated_values['treatment_manager'] = str(
+            new_values.get('treatment_manager', ''))
+    return all(await collect(
+        vuln_domain.add_vuln_treatment(
+            finding_id=finding_id,
+            updated_values=updated_values,
+            vuln=vuln,
+            user_email=updated_values.get('user', ''),
+            date=updated_values.get('date', datetime_utils.DEFAULT_STR),
+        )
+        for vuln in vulns
+    ))
 
 
 async def update_client_description(
