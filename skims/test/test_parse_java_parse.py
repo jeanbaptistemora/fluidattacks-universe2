@@ -111,3 +111,10 @@ async def test_apply_control_flow() -> None:
 
     # Check breakStatement
     assert has_labels(graph['2928']['2995'], label_cfg='CFG', label_break='break')
+
+    # Check for statement
+    assert has_labels(graph['2215']['2303'], label_cfg='CFG', label_true='true')
+    assert has_labels(graph['2303']['2215'], label_cfg='CFG', label_e='e')
+    assert has_labels(graph['2535']['2623'], label_cfg='CFG', label_true='true')
+    assert has_labels(graph['2715']['2535'], label_cfg='CFG', label_e='e')
+    assert has_labels(graph['2708']['2763'], label_cfg='CFG', label_break='break')

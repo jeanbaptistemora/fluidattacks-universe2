@@ -72,18 +72,36 @@ def _analyze_block_statements(graph: nx.OrderedDiGraph) -> None:
                 )
 
 
-def _analyze_while_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+def _analyze_loop_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
     for n_id, n_attrs in graph.nodes.items():
-        if n_attrs.get('label_type') not in ('WhileStatement', 'DoStatement'):
+        if n_attrs['label_type'] not in {
+            'WhileStatement',
+            'DoStatement',
+            'BasicForStatement',
+        }:
             continue
         else_id = tuple(graph.adj[n_id])[-1]
-        while_block_statement = _get_successors_by_label(
+        loop_block_statement = _get_successors_by_label(
             graph,
             n_id,
             depth_limit=2,
             label_type='BlockStatement',
-        )[0]
-        statements = tuple(graph.adj[while_block_statement])
+        )
+        if loop_block_statement:
+            loop_block_statement = loop_block_statement[0]
+            statements = tuple(graph.adj[loop_block_statement])
+        else:
+            # Some loops only have a single statement, the BlockStatement
+            # does not appear in the graph
+            block = _get_successors_by_label(
+                graph,
+                n_id,
+                depth_limit=1,
+                label_type='Block',
+            )[0]
+            statements = (tuple(graph.adj[block])[-1], )
+            loop_block_statement = block
+
         # Add edge when cycle continues
         graph.add_edge(
             n_id,
@@ -112,8 +130,10 @@ def _analyze_while_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
             )
 
         # Find `continue` and `break` statements
-        for _statement in nx.dfs_successors(graph,
-                                            source=while_block_statement):
+        for _statement in nx.dfs_successors(
+            graph,
+            source=loop_block_statement,
+        ):
             # Prevent the tour from leaving the declaration block
             if _statement == n_id:
                 break
@@ -137,4 +157,4 @@ def _analyze_while_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
 def analyze(graph: nx.OrderedDiGraph) -> None:
     _analyze_if_then_statement(graph)
     _analyze_block_statements(graph)
-    _analyze_while_statements(graph)
+    _analyze_loop_statements(graph)
