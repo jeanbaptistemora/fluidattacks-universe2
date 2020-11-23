@@ -16,6 +16,12 @@
   padding: 0 2px;
 }
 
+:local .breadcrumb > li + li > a > a:active,
+.breadcrumb > li + li > a > a:focus,
+.breadcrumb > li + li > a > a:hover {
+  color: #272727 !important;
+}
+
 :local .navbarForm {
   margin-bottom: 4px;
   margin-top: 4px;
@@ -24,7 +30,7 @@
 :local .splitButton button:active,
 .splitButton button:focus,
 .splitButton button:hover {
-  color: #23527c !important;
+  color: #272727 !important;
   background: transparent !important;
 }
 
