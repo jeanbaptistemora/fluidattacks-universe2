@@ -190,3 +190,56 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
+
+    query = f'''
+      mutation {{
+        addGitRoot(
+          branch: "master"
+          environment: {{
+            kind: "production"
+            url: "https://integrates.fluidattacks.com"
+          }}
+          groupName: "{group_name}"
+          url: "https://gitlab.com/fluidattacks/test2"
+        ) {{
+          success
+        }}
+      }}
+    '''
+    result = await get_result({'query': query})
+    assert 'errors' not in result
+    assert result['data']['addGitRoot']['success']
+
+    query = f'''
+        query {{
+          group: project(projectName: "{group_name}") {{
+            roots {{
+              __typename
+              ...on GitRoot {{
+                branch
+                directoryFiltering {{
+                  paths
+                  policy
+                }}
+                environment {{
+                  kind
+                  url
+                }}
+                url
+              }}
+            }}
+          }}
+        }}
+    '''
+    result = await get_result({'query': query})
+    assert 'errors' not in result
+    assert {
+        '__typename': 'GitRoot',
+        'branch': 'master',
+        'directoryFiltering': None,
+        'environment': {
+            'kind': 'production',
+            'url': 'https://integrates.fluidattacks.com'
+        },
+        'url': 'https://gitlab.com/fluidattacks/test2'
+    } in result['data']['group']['roots']

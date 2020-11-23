@@ -6,6 +6,7 @@ from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
+from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.dal.helpers.redis import AREDIS_CLIENT
@@ -29,6 +30,7 @@ async def get_graphql_result(data, stakeholder, session_jwt=None):
         'group': GroupLoader(),
         'group_drafts': GroupDraftsLoader(),
         'group_findings': GroupFindingsLoader(),
+        'group_roots': GroupRootsLoader(),
         'vulnerability': VulnerabilityLoader()
     }
     _, result = await graphql(SCHEMA, data, context_value=request)
