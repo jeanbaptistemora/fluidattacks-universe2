@@ -218,10 +218,6 @@ def _java_declaration_of_throws_for_generic_exception(
         'java.lang.Throwable',
     }
 
-    def handle_identifier_rule(n_attrs: g.NAttrs) -> Iterator[g.NAttrs]:
-        if n_attrs['label_text'] in generics:
-            yield n_attrs
-
     def iterator() -> Iterator[g.NAttrs]:
         for throw_id in g.filter_nodes(
             graph,
@@ -229,10 +225,14 @@ def _java_declaration_of_throws_for_generic_exception(
             g.pred_has_labels(label_type='Throws_'),
         ):
             # Walk first level childs
-            for c_id in graph.adj[throw_id]:
+            for c_id in g.adj(graph, throw_id):
                 c_attrs = graph.nodes[c_id]
                 # Throws_ childs possibilities
                 # - IdentifierRule
+                # - CustomClassType
+                #
+                # This one may appear
+                # Most cases have been simplified to CustomClassType:
                 # - ExceptionTypeList
                 #   - ExceptionType
                 #     - IdentifierRule
@@ -240,8 +240,12 @@ def _java_declaration_of_throws_for_generic_exception(
                 #   - COMMA
                 # - ClassType
 
-                if c_attrs['label_type'] == 'IdentifierRule':
-                    yield from handle_identifier_rule(c_attrs)
+                if c_attrs['label_type'] in {
+                    'IdentifierRule',
+                    'CustomClassType',
+                }:
+                    if c_attrs['label_text'] in generics:
+                        yield c_attrs
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,
