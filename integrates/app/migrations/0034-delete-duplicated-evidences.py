@@ -87,7 +87,7 @@ async def remove_file(name: str) -> int:
 
 
 async def main() -> None:
-    print('[INFO] starting migration 0031')
+    print('[INFO] starting migration 0034')
     all_evidences = await get_all_project_evidences('unittesting')
     mock_findings = [
         '988493279',  # findings on dev
@@ -96,17 +96,17 @@ async def main() -> None:
         '463461507',  # findings on dev
         '463558592',  # findings on dev
         '457497316',  # findings on dev
-        '695730302',  # findings on prod
-        '626277119',  # findings on prod
-        '763866292',  # findings on prod
-        '724980983',  # findings on prod
-        '602606668',  # findings on prod
-        '830307016',  # findings on prod
-        '679777842',  # findings on prod
-        '563324181',  # findings on prod
-        '835563730',  # findings on prod
-        '772927078',  # findings on prod
-        '719218120',  # findings on prod
+        '769755028',  # findings on prod
+        '639056172',  # findings on prod
+        '645240449',  # findings on prod
+        '968394513',  # findings on prod
+        '901143918',  # findings on prod
+        '654626578',  # findings on prod
+        '777490716',  # findings on prod
+        '771151388',  # findings on prod
+        '890102429',  # findings on prod
+        '677101109',  # findings on prod
+        '890190724',  # findings on prod
     ]
     evidences: List[str] = []
     for evidence in all_evidences:

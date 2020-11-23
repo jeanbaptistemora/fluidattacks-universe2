@@ -106,7 +106,7 @@
                     "S": "Evidencia"
                   },
                   "file_url": {
-                    "S": "oneshottest-475041513-evidence_route_1.png"
+                    "S": "oneshottest-475041513-evidence_route_1"
                   }
                 }
               },
@@ -119,7 +119,7 @@
                     "S": "AAAAAAAAAAAA"
                   },
                   "file_url": {
-                    "S": "oneshottest-475041513-evidence_route_2.png"
+                    "S": "oneshottest-475041513-evidence_route_2"
                   }
                 }
               }
@@ -2520,7 +2520,7 @@
                     "S": "Evidencia"
                   },
                   "file_url": {
-                    "S": "oneshottest-475041535-evidence_route_1.png"
+                    "S": "oneshottest-475041535-evidence_route_1"
                   }
                 }
               },
@@ -2533,7 +2533,7 @@
                     "S": "AAAAAAAAA"
                   },
                   "file_url": {
-                    "S": "oneshottest-475041535-evidence_route_2.png"
+                    "S": "oneshottest-475041535-evidence_route_2"
                   }
                 }
               }
@@ -2760,7 +2760,7 @@
                     "S": "Comentario"
                   },
                   "file_url": {
-                    "S": "oneshottest-457497318-evidence_route_1.png"
+                    "S": "oneshottest-457497318-evidence_route_1"
                   }
                 }
               },
@@ -2783,7 +2783,7 @@
                     "S": "test"
                   },
                   "file_url": {
-                    "S": "oneshottest-457497318-evidence_route_2.png"
+                    "S": "oneshottest-457497318-evidence_route_2"
                   }
                 }
               },
@@ -2796,7 +2796,7 @@
                     "S": "1"
                   },
                   "file_url": {
-                    "S": "oneshottest-457497318-evidence_route_3.png"
+                    "S": "oneshottest-457497318-evidence_route_3"
                   }
                 }
               }
