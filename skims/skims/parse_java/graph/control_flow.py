@@ -10,6 +10,9 @@ import networkx as nx
 from more_itertools import (
     windowed,
 )
+from utils import (
+    graph as g,
+)
 from utils.graph import (
     has_labels,
 )
@@ -33,37 +36,30 @@ def _get_successors_by_label(
 
 def _analyze_if_then_statement(graph: nx.OrderedDiGraph) -> None:
     for n_id, n_attrs in graph.nodes.items():
-        if n_attrs.get('label_type') == 'IfThenStatement':
-            # Find the ifThenStatement `then` node
-            then_id = tuple(graph.adj[n_id])[4]
+        if n_attrs['label_type'] in {'IfThenStatement', 'IfThenElseStatement'}:
+            # Find the IfThenStatement `then` node
+            c_ids = g.adj(graph, n_id)
             graph.add_edge(
                 n_id,
-                then_id,
+                c_ids[4],
                 label_cfg='CFG',
                 label_true='true',
             )
-        elif n_attrs.get('label_type') == 'IfThenElseStatement':
-            # Find the ifThenStatement `then` and `else` node
-            then_id = tuple(graph.adj[n_id])[5]
-            else_id = tuple(graph.adj[n_id])[6]
-            graph.add_edge(
-                n_id,
-                then_id,
-                label_cfg='CFG',
-                label_true='true',
-            )
-            graph.add_edge(
-                n_id,
-                else_id,
-                label_cfg='CFG',
-                label_false='false',
-            )
+
+            # Find the IfThenElseStatement `else` node
+            if n_attrs['label_type'] == 'IfThenElseStatement':
+                graph.add_edge(
+                    n_id,
+                    c_ids[6],
+                    label_cfg='CFG',
+                    label_false='false',
+                )
 
 
 def _analyze_block_statements(graph: nx.OrderedDiGraph) -> None:
     for n_id, n_attrs in graph.nodes.items():
-        if n_attrs.get('label_type') == 'BlockStatement':
-            for a_id, b_id in windowed(graph.adj[n_id], 2):
+        if n_attrs['label_type'] == 'BlockStatement':
+            for a_id, b_id in windowed(g.adj(graph, n_id), 2):
                 graph.add_edge(
                     a_id,
                     b_id,
@@ -75,11 +71,12 @@ def _analyze_block_statements(graph: nx.OrderedDiGraph) -> None:
 def _analyze_loop_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
     for n_id, n_attrs in graph.nodes.items():
         if n_attrs['label_type'] not in {
-            'WhileStatement',
-            'DoStatement',
             'BasicForStatement',
+            'DoStatement',
+            'WhileStatement',
         }:
             continue
+
         else_id = tuple(graph.adj[n_id])[-1]
         loop_block_statement = _get_successors_by_label(
             graph,
@@ -116,11 +113,11 @@ def _analyze_loop_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
             label_e='e',
             label_cfg='CFG',
         )
-        if n_attrs.get('label_type') == 'WhileStatement':
+        if n_attrs['label_type'] == 'WhileStatement':
             # Add edge when loop ends
             graph[n_id][else_id]['label_false'] = 'false'
             graph[n_id][else_id].pop('label_e', None)
-        elif n_attrs.get('label_type') == 'DoStatement':
+        elif n_attrs['label_type'] == 'DoStatement':
             # Add edge when loop ends
             graph.add_edge(
                 statements[-1],
@@ -137,15 +134,14 @@ def _analyze_loop_statements(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
             # Prevent the tour from leaving the declaration block
             if _statement == n_id:
                 break
-            if graph.nodes[_statement].get(
-                    'label_type') == 'ContinueStatement':
+            if graph.nodes[_statement]['label_type'] == 'ContinueStatement':
                 graph.add_edge(
                     _statement,
                     n_id,
                     label_continue='continue',
                     label_cfg='CFG',
                 )
-            elif graph.nodes[_statement].get('label_type') == 'BreakStatement':
+            elif graph.nodes[_statement]['label_type'] == 'BreakStatement':
                 graph.add_edge(
                     _statement,
                     else_id,

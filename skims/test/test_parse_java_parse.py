@@ -44,11 +44,11 @@ from utils.model import (
         ),
         (
             'test/data/benchmark/owasp/BenchmarkTest00167.java',
-            'owasp_benchmark_00167'
+            'owasp_benchmark_00167',
         ),
         (
             'test/data/parse_java/TestCFG.java',
-            'apply_control_flow'
+            'apply_control_flow',
         )
     ],
 )

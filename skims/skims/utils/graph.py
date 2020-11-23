@@ -6,7 +6,6 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Set,
     Tuple,
 )
 
@@ -59,8 +58,8 @@ def filter_nodes(
     graph: nx.OrderedDiGraph,
     nodes: Iterable[str],
     predicate: NAttrsPredicateFunction,
-) -> Set[str]:
-    result: Set[str] = set(
+) -> Tuple[str, ...]:
+    result: Tuple[str, ...] = tuple(
         n_id
         for n_id in nodes
         if predicate(graph.nodes[n_id])
