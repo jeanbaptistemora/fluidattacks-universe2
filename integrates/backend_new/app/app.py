@@ -7,8 +7,8 @@ import aiohttp
 
 # Third party libraries
 from aioextensions import in_thread
-
 from asgiref.sync import async_to_sync
+import bugsnag
 
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -24,11 +24,11 @@ from authlib.integrations.starlette_client import OAuth
 from authlib.common.security import generate_token
 
 # Local libraries
-import bugsnag
 from backend import util
 from backend.api import IntegratesAPI
 from backend.decorators import authenticate_session
 from backend.domain import (
+    analytics as analytics_domain,
     organization as org_domain,
     user as user_domain,
 )
@@ -172,6 +172,46 @@ async def app(*request_args: Request) -> HTMLResponse:
         response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
     return response
+
+
+async def graphic(request: Request) -> Response:
+    return await analytics_domain.handle_graphic_request(request)
+
+
+async def graphics_for_group(request: Request) -> Response:
+    return await _graphics_for_entity('group', request)
+
+
+async def graphics_for_organization(request: Request) -> Response:
+    return await _graphics_for_entity('organization', request)
+
+
+async def graphics_for_portfolio(request: Request) -> Response:
+    return await _graphics_for_entity('portfolio', request)
+
+
+async def _graphics_for_entity(entity: str, request: Request) -> Response:
+    request_data = await util.get_jwt_content(request)
+
+    response = await analytics_domain.handle_graphics_for_entity_request(
+        entity=entity,
+        request=request,
+    )
+
+    jwt_token = utils.create_session_token(
+        dict(
+            username=request_data['user_email'],
+            first_name=request_data['first_name'],
+            last_name=request_data['last_name'],
+        )
+    )
+    utils.set_token_in_response(response, jwt_token)
+
+    return response
+
+
+async def graphics_report(request: Request) -> HTMLResponse:
+    return await analytics_domain.handle_graphics_report_request(request)
 
 
 async def authz_google(request: Request) -> HTMLResponse:
