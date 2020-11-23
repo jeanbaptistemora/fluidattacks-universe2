@@ -788,10 +788,6 @@
       "334": {
         "index": 3,
         "label_ast": "AST"
-      },
-      "335": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "293": {
@@ -1264,10 +1260,6 @@
       "575": {
         "index": 2,
         "label_ast": "AST"
-      },
-      "605": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "56": {

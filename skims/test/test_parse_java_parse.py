@@ -125,3 +125,9 @@ async def test_apply_control_flow() -> None:
     assert has_labels(graph['2535']['2623'], **TRUE)
     assert has_labels(graph['2715']['2535'], **ALWAYS)
     assert has_labels(graph['2708']['2763'], **BREAK)
+
+    # Check SwitchStatement
+    assert has_labels(graph['910']['967'], **ALWAYS)
+    assert has_labels(graph['910']['1041'], **ALWAYS)
+    assert has_labels(graph['1081']['1213'], **ALWAYS)
+    assert has_labels(graph['910']['1115'], **ALWAYS)

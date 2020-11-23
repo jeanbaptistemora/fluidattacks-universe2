@@ -1358,10 +1358,6 @@
       "1862": {
         "index": 2,
         "label_ast": "AST"
-      },
-      "1863": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "1870": {
@@ -1454,10 +1450,6 @@
       "1959": {
         "index": 5,
         "label_ast": "AST"
-      },
-      "1960": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "1906": {
@@ -2482,10 +2474,6 @@
       "334": {
         "index": 3,
         "label_ast": "AST"
-      },
-      "335": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "293": {
@@ -3006,10 +2994,6 @@
       "575": {
         "index": 2,
         "label_ast": "AST"
-      },
-      "605": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "56": {
@@ -3372,10 +3356,6 @@
       "807": {
         "index": 2,
         "label_ast": "AST"
-      },
-      "937": {
-        "label_cfg": "CFG",
-        "label_e": "e"
       }
     },
     "807": {

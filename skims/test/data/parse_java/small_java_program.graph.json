@@ -335,10 +335,6 @@
         "index": 5,
         "label_ast": "AST"
       },
-      "161": {
-        "label_cfg": "CFG",
-        "label_e": "e"
-      },
       "78": {
         "index": 0,
         "label_ast": "AST"

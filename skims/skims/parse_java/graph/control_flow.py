@@ -52,16 +52,15 @@ def _loop_statements(graph: nx.OrderedDiGraph) -> None:
         }:
             continue
 
-        else_id = tuple(graph.adj[n_id])[-1]
-        loop_block_statement = _get_successors_by_label(
+        _loop_block_statement: Tuple[str, ...] = _get_successors_by_label(
             graph,
             n_id,
             depth_limit=2,
             label_type='BlockStatement',
         )
-        if loop_block_statement:
-            loop_block_statement = loop_block_statement[0]
-            statements = tuple(graph.adj[loop_block_statement])
+        if _loop_block_statement:
+            loop_block_statement: str = _loop_block_statement[0]
+            statements: Tuple[str, ...] = g.adj(graph, loop_block_statement)
         else:
             # Some loops only have a single statement, the BlockStatement
             # does not appear in the graph
@@ -71,7 +70,7 @@ def _loop_statements(graph: nx.OrderedDiGraph) -> None:
                 depth_limit=1,
                 label_type='Block',
             )[0]
-            statements = (tuple(graph.adj[block])[-1], )
+            statements = (g.adj(graph, block)[1], )
             loop_block_statement = block
 
         # Add edge when cycle continues
@@ -79,11 +78,18 @@ def _loop_statements(graph: nx.OrderedDiGraph) -> None:
         # Add cycle restart
         graph.add_edge(statements[-1], n_id, **ALWAYS)
 
-        if n_attrs['label_type'] == 'WhileStatement':
+        else_id = g.adj(graph, n_id)[-1]
+        else_parent = tuple(graph.predecessors(else_id))[0]
+        # This statement can be the last in the BlockStatement
+        # else_id can be a children directly of loop statement
+        else_in_block = graph.nodes[else_parent][
+            'label_type'] == 'BlockStatement'
+
+        if n_attrs['label_type'] == 'WhileStatement' and else_in_block:
             # Add edge when loop ends
             graph[n_id][else_id]['label_false'] = 'false'
             graph[n_id][else_id].pop('label_e', None)
-        elif n_attrs['label_type'] == 'DoStatement':
+        elif n_attrs['label_type'] == 'DoStatement' and else_in_block:
             # Add edge when loop ends
             graph.add_edge(statements[-1], else_id, **FALSE)
 
@@ -97,7 +103,8 @@ def _loop_statements(graph: nx.OrderedDiGraph) -> None:
                 break
             if graph.nodes[_statement]['label_type'] == 'ContinueStatement':
                 graph.add_edge(_statement, n_id, **CONTINUE)
-            elif graph.nodes[_statement]['label_type'] == 'BreakStatement':
+            elif graph.nodes[_statement][
+                    'label_type'] == 'BreakStatement' and else_in_block:
                 graph.add_edge(_statement, else_id, **BREAK)
 
 
@@ -138,8 +145,11 @@ def _block_statements(graph: nx.OrderedDiGraph) -> None:
                     # Link Block to first Statement
                     graph.add_edge(block_c_id, stmt_a_id, **ALWAYS)
 
-                # Link Statement[i] to Statement[i + 1]
-                graph.add_edge(stmt_a_id, stmt_b_id, **ALWAYS)
+                # verify that stmt_b_id is a child of a BlockStatement
+                b_parent = tuple(graph.predecessors(stmt_b_id))[0]
+                if graph.nodes[b_parent]['label_type'] == 'BlockStatement':
+                    # Link Statement[i] to Statement[i + 1]
+                    graph.add_edge(stmt_a_id, stmt_b_id, **ALWAYS)
 
 
 def _if_then_statement(graph: nx.OrderedDiGraph) -> None:
@@ -155,8 +165,40 @@ def _if_then_statement(graph: nx.OrderedDiGraph) -> None:
                 graph.add_edge(n_id, c_ids[6], **FALSE)
 
 
+def _switch_statements(graph: nx.OrderedDiGraph) -> None:
+    for n_id, n_attrs in graph.nodes.items():
+        if n_attrs['label_type'] == 'SwitchStatement':
+            block_statement_cases = _get_successors_by_label(
+                graph=graph,
+                source=n_id,
+                depth_limit=3,
+                label_type='SwitchBlockStatementGroup',
+            )[0]
+            for case in g.adj(graph, block_statement_cases):
+                block_statements = _get_successors_by_label(
+                    graph,
+                    case,
+                    depth_limit=2,
+                    label_type='BlockStatement',
+                )
+                if block_statements:
+                    statements = g.adj(graph, block_statements[0])
+                else:
+                    statements = (g.adj(graph, case)[-1], )
+
+                graph.add_edge(n_id, statements[0], **ALWAYS)
+                else_block = g.adj(graph, n_id)[-1]
+                else_parent = tuple(graph.predecessors(else_block))[0]
+                # This statement can be the last in the BlockStatement
+                else_in_block = graph.nodes[else_parent][
+                    'label_type'] == 'BlockStatement'
+                if else_in_block:
+                    graph.add_edge(statements[-1], else_block, **ALWAYS)
+
+
 def analyze(graph: nx.OrderedDiGraph) -> None:
     _method_declaration(graph)
     _block_statements(graph)
     _if_then_statement(graph)
     _loop_statements(graph)
+    _switch_statements(graph)
