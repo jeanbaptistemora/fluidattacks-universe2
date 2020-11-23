@@ -228,24 +228,30 @@ def _java_declaration_of_throws_for_generic_exception(
             for c_id in g.adj(graph, throw_id):
                 c_attrs = graph.nodes[c_id]
                 # Throws_ childs possibilities
+                # - ClassType
                 # - IdentifierRule
-                # - CustomClassType
                 #
-                # This one may appear
-                # Most cases have been simplified to CustomClassType:
+                # This one may appear.
+                # Most cases have been simplified to Custom types, though:
+                # - ClassType
                 # - ExceptionTypeList
+                #   - ClassType
                 #   - ExceptionType
                 #     - IdentifierRule
                 #     - ClassType
-                #   - COMMA
-                # - ClassType
+                # - IdentifierRule
 
                 if c_attrs['label_type'] in {
-                    'IdentifierRule',
                     'CustomClassType',
+                    'IdentifierRule',
                 }:
                     if c_attrs['label_text'] in generics:
                         yield c_attrs
+                elif c_attrs['label_type'] == 'ExceptionType':
+                    for c_c_id in g.adj(graph, c_id):
+                        c_c_attrs = graph.nodes[c_c_id]
+                        if c_c_attrs['label_text'] in generics:
+                            yield c_c_attrs
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,

@@ -2393,17 +2393,7 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "268": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "268": {
       "269": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "278": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -2613,17 +2603,7 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "384": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "384": {
       "385": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "394": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -7228,16 +7208,10 @@
       "label_text": "throws",
       "label_type": "THROWS"
     },
-    "268": {
-      "label_c": 84,
-      "label_l": 35,
-      "label_parent_ast": "266",
-      "label_type": "ExceptionTypeList"
-    },
     "269": {
       "label_c": 84,
       "label_l": 35,
-      "label_parent_ast": "268",
+      "label_parent_ast": "266",
       "label_type": "ExceptionType"
     },
     "273": {
@@ -7554,16 +7528,10 @@
       "label_text": "throws",
       "label_type": "THROWS"
     },
-    "384": {
-      "label_c": 85,
-      "label_l": 40,
-      "label_parent_ast": "382",
-      "label_type": "ExceptionTypeList"
-    },
     "385": {
       "label_c": 85,
       "label_l": 40,
-      "label_parent_ast": "384",
+      "label_parent_ast": "382",
       "label_type": "ExceptionType"
     },
     "389": {

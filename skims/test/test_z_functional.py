@@ -469,8 +469,11 @@ async def test_correct_assert(
         )),
         ('F060', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),
+            ('test/data/lib_path/f060/Test.java', '11'),
+            ('test/data/lib_path/f060/Test.java', '12'),
             ('test/data/lib_path/f060/Test.java', '4'),
             ('test/data/lib_path/f060/Test.java', '5'),
+            ('test/data/lib_path/f060/Test.java', '7'),
             ('test/data/lib_path/f060/Test.java', '8'),
             ('test/data/lib_path/f060/csharp.cs', '2'),
             ('test/data/lib_path/f060/csharp.cs', '3'),

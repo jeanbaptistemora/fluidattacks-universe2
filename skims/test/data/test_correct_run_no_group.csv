@@ -204,8 +204,11 @@ cwe,title,what,where
 396,FIN.H.060. Insecure exceptions,test/data/lib_path/f061/swift.swift,5
 396,FIN.H.060. Insecure exceptions,test/data/lib_path/f061/swift.swift,6
 396,FIN.H.060. Insecure exceptions,test/data/lib_path/f061/swift.swift,7
+397,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/Test.java,11
+397,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/Test.java,12
 397,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/Test.java,4
 397,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/Test.java,5
+397,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/Test.java,7
 397,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/Test.java,8
 478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,20
 478,FIN.H.073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,3
