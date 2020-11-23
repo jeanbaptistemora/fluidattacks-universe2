@@ -18,6 +18,13 @@ from parse_java.parse import (
     from_antlr_model,
     parse_from_content,
 )
+from parse_java.graph.control_flow import (
+    ALWAYS,
+    BREAK,
+    CONTINUE,
+    FALSE,
+    TRUE,
+)
 from utils.fs import (
     get_file_raw_content,
 )
@@ -90,31 +97,31 @@ async def test_apply_control_flow() -> None:
     graph = from_antlr_model(model)
 
     # Check IfThenStatement
-    assert has_labels(graph['352']['398'], label_cfg='CFG', label_true='true')
+    assert has_labels(graph['352']['398'], **TRUE)
 
     # Check IfThenElseStatement
-    assert has_labels(graph['531']['556'], label_cfg='CFG', label_true='true')
-    assert has_labels(graph['531']['603'], label_cfg='CFG', label_false='false')
+    assert has_labels(graph['531']['556'], **TRUE)
+    assert has_labels(graph['531']['603'], **FALSE)
 
     # Check BlockStatement
-    assert has_labels(graph['967']['1007'], label_cfg='CFG', label_e='e')
+    assert has_labels(graph['176']['178'], **ALWAYS)
 
     # Check WhileStatement
-    assert has_labels(graph['1965']['2009'], label_cfg='CFG', label_true='true')
-    assert has_labels(graph['1965']['2069'], label_cfg='CFG', label_false='false')
-    assert has_labels(graph['2058']['1965'], label_cfg='CFG', label_e='e')
+    assert has_labels(graph['1965']['2009'], **TRUE)
+    assert has_labels(graph['1965']['2069'], **FALSE)
+    assert has_labels(graph['2058']['1965'], **ALWAYS)
 
     # Check DoWhileStatement
-    assert has_labels(graph['2107']['2118'], label_cfg='CFG', label_true='true')
-    assert has_labels(graph['2167']['2215'], label_cfg='CFG', label_false='false')
-    assert has_labels(graph['2167']['2107'], label_cfg='CFG', label_e='e')
+    assert has_labels(graph['2107']['2118'], **TRUE)
+    assert has_labels(graph['2167']['2215'], **FALSE)
+    assert has_labels(graph['2167']['2107'], **ALWAYS)
 
     # Check breakStatement
-    assert has_labels(graph['2928']['2995'], label_cfg='CFG', label_break='break')
+    assert has_labels(graph['2928']['2995'], **BREAK)
 
     # Check for statement
-    assert has_labels(graph['2215']['2303'], label_cfg='CFG', label_true='true')
-    assert has_labels(graph['2303']['2215'], label_cfg='CFG', label_e='e')
-    assert has_labels(graph['2535']['2623'], label_cfg='CFG', label_true='true')
-    assert has_labels(graph['2715']['2535'], label_cfg='CFG', label_e='e')
-    assert has_labels(graph['2708']['2763'], label_cfg='CFG', label_break='break')
+    assert has_labels(graph['2215']['2303'], **TRUE)
+    assert has_labels(graph['2303']['2215'], **ALWAYS)
+    assert has_labels(graph['2535']['2623'], **TRUE)
+    assert has_labels(graph['2715']['2535'], **ALWAYS)
+    assert has_labels(graph['2708']['2763'], **BREAK)

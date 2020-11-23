@@ -165,14 +165,14 @@ def _get_subgraph(
     copy: nx.OrderedDiGraph = nx.OrderedDiGraph()
 
     for n_a_id, n_b_id in graph.edges:
-        edge_attrs = graph[n_a_id][n_b_id]
-        n_a_attrs = graph.nodes[n_a_id]
-        n_b_attrs = graph.nodes[n_b_id]
+        edge_attrs = graph[n_a_id][n_b_id].copy()
+        n_a_attrs = graph.nodes[n_a_id].copy()
+        n_b_attrs = graph.nodes[n_b_id].copy()
 
         if (
             edge_predicate(edge_attrs)
-            and node_predicate(n_a_id)
-            and node_predicate(n_b_id)
+            and node_predicate(n_a_attrs)
+            and node_predicate(n_b_attrs)
         ):
             copy.add_node(n_a_id, **n_a_attrs)
             copy.add_node(n_b_id, **n_b_attrs)
