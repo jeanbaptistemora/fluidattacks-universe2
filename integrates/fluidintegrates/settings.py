@@ -195,7 +195,7 @@ if FI_ENVIRONMENT == 'production':
         'sourceControl': {
             'provider': 'gitlab',
             'repository': 'https://gitlab.com/fluidattacks/product.git',
-            'revision': f'{CI_COMMIT_SHA}/integrates/django-apps',
+            'revision': f'{CI_COMMIT_SHA}/integrates/backend_new/packages',
         },
     }
     requests.post(URL, headers=HEADERS, data=json.dumps(PAYLOAD))

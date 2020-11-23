@@ -6,7 +6,7 @@
 /integrates/mobile/ @dacevedoatfluid @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid
 
 # Integrates back authz approvers
-/integrates/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @kamadoatfluid
+/integrates/backend_new/packages/integrates-back/backend/authz/ @jrestrepoatfluid @kamadoatfluid
 
 # Linter approvers
 /build/include/linter-jobs.sh @kamadoatfluid @jrestrepoatfluid
