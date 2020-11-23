@@ -360,7 +360,7 @@
   "nodes": {
     "1": {
       "label_c": 0,
-      "label_l": 17,
+      "label_l": 1,
       "label_parent_ast": null,
       "label_type": "CompilationUnit"
     },
@@ -372,7 +372,7 @@
       "label_type": "IdentifierRule"
     },
     "108": {
-      "label_c": 31,
+      "label_c": 27,
       "label_l": 6,
       "label_parent_ast": "77",
       "label_type": "MethodInvocation_lfno_primary"
@@ -591,12 +591,12 @@
     },
     "2": {
       "label_c": 0,
-      "label_l": 17,
+      "label_l": 1,
       "label_parent_ast": "1",
       "label_type": "OrdinaryCompilation"
     },
     "20": {
-      "label_c": 7,
+      "label_c": 0,
       "label_l": 3,
       "label_parent_ast": "2",
       "label_type": "NormalClassDeclaration"
@@ -663,7 +663,7 @@
       "label_type": "STATIC"
     },
     "36": {
-      "label_c": 27,
+      "label_c": 18,
       "label_l": 4,
       "label_parent_ast": "30",
       "label_type": "MethodHeader"
@@ -676,7 +676,7 @@
       "label_type": "VOID"
     },
     "39": {
-      "label_c": 27,
+      "label_c": 23,
       "label_l": 4,
       "label_parent_ast": "36",
       "label_type": "MethodDeclarator"
@@ -702,13 +702,13 @@
       "label_type": "LPAREN"
     },
     "45": {
-      "label_c": 34,
+      "label_c": 28,
       "label_l": 4,
       "label_parent_ast": "39",
       "label_type": "FormalParameter"
     },
     "48": {
-      "label_c": 34,
+      "label_c": 28,
       "label_l": 4,
       "label_parent_ast": "45",
       "label_type": "UnannArrayType"
@@ -762,7 +762,7 @@
       "label_type": "RPAREN"
     },
     "6": {
-      "label_c": 11,
+      "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "4",
       "label_type": "TypeName"
@@ -800,7 +800,7 @@
       "label_type": "Block"
     },
     "7": {
-      "label_c": 11,
+      "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "6",
       "label_type": "PackageOrTypeName"
@@ -813,19 +813,19 @@
       "label_type": "LBRACE"
     },
     "75": {
-      "label_c": 60,
+      "label_c": 8,
       "label_l": 6,
       "label_parent_ast": "69",
       "label_type": "ExpressionStatement"
     },
     "77": {
-      "label_c": 14,
+      "label_c": 8,
       "label_l": 6,
       "label_parent_ast": "75",
       "label_type": "MethodInvocation"
     },
     "78": {
-      "label_c": 14,
+      "label_c": 8,
       "label_l": 6,
       "label_parent_ast": "77",
       "label_type": "TypeName"

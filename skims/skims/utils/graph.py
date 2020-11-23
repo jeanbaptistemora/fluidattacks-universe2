@@ -10,6 +10,9 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    collect,
+)
 from jmespath import (
     search as jsh,
 )
@@ -28,7 +31,7 @@ NAttrs = Dict[str, str]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 
 
-async def export_graph_as_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
+async def _to_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
     code, stdout, stderr = await read('dot', '-O', '-T', 'svg', path)
@@ -37,6 +40,14 @@ async def export_graph_as_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
         return True
 
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
+
+
+async def to_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
+    return all(await collect((
+        _to_svg(graph, path),
+        _to_svg(copy_ast(graph), f'{path}.ast'),
+        _to_svg(copy_cfg(graph), f'{path}.cfg'),
+    )))
 
 
 def has_labels(n_attrs: NAttrs, **expected_attrs: str) -> bool:
@@ -144,6 +155,44 @@ def export_graph_as_json(
                 data['edges'][n_id_from][n_id_to].pop(attr, None)
 
     return data
+
+
+def _get_subgraph(
+    graph: nx.OrderedDiGraph,
+    node_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
+    edge_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
+) -> nx.OrderedDiGraph:
+    copy: nx.OrderedDiGraph = nx.OrderedDiGraph()
+
+    for n_a_id, n_b_id in graph.edges:
+        edge_attrs = graph[n_a_id][n_b_id]
+        n_a_attrs = graph.nodes[n_a_id]
+        n_b_attrs = graph.nodes[n_b_id]
+
+        if (
+            edge_predicate(edge_attrs)
+            and node_predicate(n_a_id)
+            and node_predicate(n_b_id)
+        ):
+            copy.add_node(n_a_id, **n_a_attrs)
+            copy.add_node(n_b_id, **n_b_attrs)
+            copy.add_edge(n_a_id, n_b_id, **edge_attrs)
+
+    return copy
+
+
+def copy_ast(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+    return _get_subgraph(
+        graph=graph,
+        edge_predicate=pred_has_labels(label_ast='AST'),
+    )
+
+
+def copy_cfg(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+    return _get_subgraph(
+        graph=graph,
+        edge_predicate=pred_has_labels(label_cfg='CFG'),
+    )
 
 
 # Functions below should disappear

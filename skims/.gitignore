@@ -11,6 +11,10 @@
 /**/.skims
 /**/.venv
 /**/log
+/**/log.ast
+/**/log.ast.svg
+/**/log.cfg
+/**/log.cfg.svg
 /**/log.model.json
 /**/log.svg
 /coverage*

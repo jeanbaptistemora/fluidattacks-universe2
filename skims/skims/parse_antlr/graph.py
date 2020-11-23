@@ -14,6 +14,11 @@ from typing import (
 # Third party libraries
 import networkx as nx
 
+# Local libraries
+from utils import (
+    graph as g,
+)
+
 
 def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
     keys = set(node.keys())
@@ -109,7 +114,7 @@ def _propagate_positions(graph: nx.OrderedDiGraph) -> None:
         # If the node has no metadata let's propagate it from the child
         if not _node_has_position_metadata(graph.nodes[n_id]):
             # This is the first child node, graph ordering guarantees it
-            c_id = tuple(graph.adj[n_id])[0]
+            c_id = g.adj(graph, n_id)[0]
 
             # Propagate metadata from the child to the parent
             graph.nodes[n_id]['label_c'] = graph.nodes[c_id]['label_c']
@@ -123,12 +128,12 @@ def _mark_as_created_by_this_module(graph: nx.OrderedDiGraph) -> None:
 
 
 def _chop_single_element_nodes(graph: nx.OrderedDiGraph) -> None:
-    reductions: List[Tuple[int, int]] = []
+    reductions: List[Tuple[str, str]] = []
 
     # Iterate nodes ordered from the root to the leaves
     for n_id in nx.dfs_preorder_nodes(graph):
         n_attrs = graph.nodes[n_id]
-        c_ids = tuple(graph.adj[n_id])
+        c_ids = g.adj(graph, n_id)
 
         # If only one child and has a parent
         if len(c_ids) == 1 and n_attrs['label_parent_ast'] is not None:

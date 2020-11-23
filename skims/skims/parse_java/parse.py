@@ -33,7 +33,7 @@ from state.cache import (
     CACHE_1SEC,
 )
 from utils.graph import (
-    export_graph_as_svg,
+    to_svg,
 )
 from utils.model import (
     Grammar,
@@ -69,6 +69,6 @@ async def parse_from_content(
     graph = await in_process(from_antlr_model, model)
 
     if output:
-        await export_graph_as_svg(graph, output)
+        await to_svg(graph, output)
 
     return graph
