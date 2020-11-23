@@ -132,3 +132,33 @@ try {
 } catch (error) {
   logger.error("Error executing userSelection() function", error);
 }
+
+// Get the modal
+const contactModal: HTMLElement = document.getElementById("contactModal") as HTMLSelectElement;
+
+// Get the button that opens the modal
+const modalButton: HTMLElement = document.getElementById("modalBtn") as HTMLElement;
+
+// Get the <span> element that closes the modal
+const closeModal: HTMLElement = document.getElementsByClassName("close-modal")[0] as HTMLElement;
+
+// When the user clicks the button, open the modal
+const displayModal: (() => void) = (): void => {
+  modalButton.addEventListener("click", () => {
+    contactModal.style.display = "block";
+  });
+};
+
+try {
+  displayModal();
+} catch (error) {
+  logger.error("Error executing displayModal() function", error);
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = (event: Event): void => {
+  // tslint:disable-next-line: strict-comparisons
+  if (event.target === contactModal) {
+    contactModal.style.display = "none";
+  }
+};

@@ -259,6 +259,11 @@ $codeyellow: rgba(230, 219, 116, 1);
 .services-features  { .sect2 { min-height: 720px !important; } }
 .mw-1200 { max-width: 1200px; }
 .h-form-field { height: 3rem; }
+.top-50 { top: 50%; }
+.contact-modal {
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1199px) {
