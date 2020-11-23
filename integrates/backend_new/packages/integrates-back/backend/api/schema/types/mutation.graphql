@@ -68,6 +68,15 @@ type Mutation {
         externalBts: String
     ): SimplePayload!
 
+    updateVulnsTreatment(
+        acceptanceDate: String
+        findingId: String!
+        treatment: UpdateClientDescriptionTreatment!
+        treatmentManager: String
+        justification: String!
+        vulnerabilities: [String]!
+    ): SimplePayload!
+
     deleteVulnerability(
         id: String!
         findingId: String!

@@ -680,3 +680,12 @@ class AcceptionNotRequested(Exception):
             'Exception - It cant handle acceptation without being requested'
         )
         super(AcceptionNotRequested, self).__init__(msg)
+
+
+class MaxNumberOfVulns(Exception):
+    """Exception to control max number of vulns"""
+
+    def __init__(self, max_value: int) -> None:
+        """ Constructor """
+        msg = f'Exception - You can update up to {max_value} vulnerabilities'
+        super(MaxNumberOfVulns, self).__init__(msg)
