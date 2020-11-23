@@ -1,6 +1,6 @@
 from typing import FrozenSet, List
 from target_redshift_2 import loader
-from target_redshift_2.db_client.objects import (
+from postgres_client.objects import (
     CursorExeAction, DbTypes, IsolatedColumn,
     SchemaID,
     Table,

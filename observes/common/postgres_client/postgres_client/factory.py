@@ -13,7 +13,7 @@ import psycopg2.extensions as postgres_extensions
 from psycopg2 import sql as postgres_sql
 
 # Local libraries
-from target_redshift_2.db_client.objects import (
+from postgres_client.objects import (
     Client,
     ClientPrototype,
     ConnectionID,
@@ -29,7 +29,7 @@ from target_redshift_2.db_client.objects import (
     TableID,
     TablePrototype,
 )
-from target_redshift_2.db_client import prototypes
+from postgres_client import prototypes
 from target_redshift_2.utils import log
 
 

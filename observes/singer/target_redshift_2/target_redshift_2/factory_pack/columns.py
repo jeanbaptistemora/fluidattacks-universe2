@@ -1,7 +1,7 @@
 # Standard libraries
 # Third party libraries
 # Local libraries
-from target_redshift_2.db_client.objects import IsolatedColumn
+from postgres_client.objects import IsolatedColumn
 from target_redshift_2.objects import RedshiftField
 
 

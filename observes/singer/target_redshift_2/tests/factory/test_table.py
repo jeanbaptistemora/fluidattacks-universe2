@@ -1,4 +1,4 @@
-from target_redshift_2.db_client.objects import (
+from postgres_client.objects import (
     ConnectionID,
     DbTypes,
     IsolatedColumn,

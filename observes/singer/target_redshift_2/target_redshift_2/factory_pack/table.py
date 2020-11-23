@@ -2,7 +2,7 @@
 from typing import NamedTuple, Optional
 # Third party libraries
 # Local libraries
-from target_redshift_2.db_client.objects import (
+from postgres_client.objects import (
     Client,
     ConnectionID,
     IsolatedColumn,
@@ -11,11 +11,11 @@ from target_redshift_2.db_client.objects import (
     TableDraft,
     TableID,
 )
-from target_redshift_2.db_client.factory import (
+from postgres_client.factory import (
     CursorActionFactory,
     TableFactory as DBTableFactory,
 )
-from target_redshift_2.db_client import prototypes
+from postgres_client import prototypes
 from target_redshift_2.objects import (
     RedshiftSchema,
     RedshiftField,
