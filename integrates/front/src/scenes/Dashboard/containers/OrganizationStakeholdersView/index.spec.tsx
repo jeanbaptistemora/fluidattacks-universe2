@@ -726,7 +726,7 @@ describe("Organization users view", () => {
             .find("td")
             .at(0)
             .text())
-          .toBe("There is no data to display");
+          .toBe("dataTableNext.noDataIndication");
       });
     });
   });

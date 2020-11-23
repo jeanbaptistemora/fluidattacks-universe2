@@ -4,7 +4,7 @@ import React from "react";
 import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import style from "components/DataTableNext/index.css";
-import { translate } from "utils/translations/translate";
+import { useTranslation } from "react-i18next";
 
 export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
   // Readonly utility type doesn't seem to work on ToolkitProviderProps
@@ -13,9 +13,10 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
 ): JSX.Element => {
   const { csvProps } = props;
   const { ExportCSVButton } = CSVExport;
+  const { t } = useTranslation();
 
   return (
-    <TooltipWrapper message={translate.t("group.findings.exportCsv.tooltip")}>
+    <TooltipWrapper message={t("group.findings.exportCsv.tooltip")}>
       <div className={style.buttonWrapper}>
         <ExportCSVButton
           // This technique is used by react-bootstrap-table2 creators
@@ -26,7 +27,7 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
           className={style.exportCsv}
         >
           <FluidIcon icon={"export"} />
-          &nbsp;{translate.t("group.findings.exportCsv.text")}
+          &nbsp;{t("group.findings.exportCsv.text")}
         </ExportCSVButton>
       </div>
     </TooltipWrapper>

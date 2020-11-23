@@ -6,7 +6,7 @@ import { Modal } from "components/Modal";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import { translate } from "utils/translations/translate";
+import { useTranslation } from "react-i18next";
 import { ButtonToolbar, Checkbox, Col, Glyphicon } from "react-bootstrap";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
@@ -14,6 +14,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<ICustomToggleProps>
 ): JSX.Element => {
+  const { t } = useTranslation();
   const {
     propsTable: { onColumnToggle: sideEffects },
     propsToggle: { columns, toggles, onColumnToggle },
@@ -28,17 +29,15 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
 
   return (
     <div>
-      <TooltipWrapper
-        message={translate.t("group.findings.tableSet.btn.tooltip")}
-      >
+      <TooltipWrapper message={t("group.findings.tableSet.btn.tooltip")}>
         <Button onClick={handleOpenTableSetClick}>
           <Glyphicon glyph={"glyphicon glyphicon-cog"} />
           &nbsp;
-          {translate.t("group.findings.tableSet.btn.text")}
+          {t("group.findings.tableSet.btn.text")}
         </Button>
       </TooltipWrapper>
       <Modal
-        headerTitle={translate.t("group.findings.tableSet.modal_title")}
+        headerTitle={t("group.findings.tableSet.modal_title")}
         open={hidden}
       >
         <Col mdOffset={5}>
@@ -83,7 +82,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
           className={"pull-right"}
         >
           <Button onClick={handleCloseTableSetClick}>
-            {translate.t("group.findings.report.modal_close")}
+            {t("group.findings.report.modal_close")}
           </Button>
         </ButtonToolbar>
       </Modal>

@@ -14,6 +14,17 @@ mixpanel.disable();
 // Mock fetch
 Object.defineProperty(global, "fetch", { value: fetchMock, writable: true });
 
+// Mock i18n
+jest.mock(
+  "react-i18next",
+  (): Record<string, unknown> => ({
+    ...jest.requireActual("react-i18next"),
+    useTranslation: (): Record<string, unknown> => ({
+      t: (key: string): string => key,
+    }),
+  })
+);
+
 // Configure enzyme
 configure({ adapter: new ReactSixteenAdapter() });
 

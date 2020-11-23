@@ -1,13 +1,13 @@
 import { GET_ROOTS } from "./query";
 import { GroupScopeView } from ".";
-import { I18nextProvider } from "react-i18next";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { authzGroupContext } from "utils/authz/config";
 import { cache } from "utils/apollo";
-import { i18next } from "utils/translations/translate";
 import { mount } from "enzyme";
 import wait from "waait";
 import { MemoryRouter, Route } from "react-router";
@@ -18,7 +18,7 @@ describe("GroupScopeView", (): void => {
     expect(typeof GroupScopeView).toStrictEqual("function");
   });
 
-  it("should render roots table", async (): Promise<void> => {
+  it("should render git roots", async (): Promise<void> => {
     expect.hasAssertions();
 
     const queryMock: MockedResponse = {
@@ -54,7 +54,9 @@ describe("GroupScopeView", (): void => {
     };
 
     const wrapper: ReactWrapper = mount(
-      <I18nextProvider i18n={i18next}>
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "has_drills_white" }])}
+      >
         <MemoryRouter initialEntries={["/orgs/okada/groups/unittesting/scope"]}>
           <MockedProvider cache={cache} mocks={[queryMock]}>
             <Route
@@ -63,13 +65,15 @@ describe("GroupScopeView", (): void => {
             />
           </MockedProvider>
         </MemoryRouter>
-      </I18nextProvider>
+      </authzGroupContext.Provider>
     );
 
-    await wait(0);
-    act((): void => {
-      wrapper.update();
-    });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
     const firstRowInfo: ReactWrapper = wrapper.find("RowPureContent").at(0);
 

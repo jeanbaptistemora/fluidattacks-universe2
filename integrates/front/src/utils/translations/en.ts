@@ -478,7 +478,8 @@ export const enTranslations: ResourceKey = {
       },
     },
     scope: {
-      table: {
+      git: {
+        add: "Add new",
         branch: "Branch",
         url: "URL",
       },

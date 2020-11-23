@@ -17,7 +17,7 @@ import _ from "lodash";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import style from "components/DataTableNext/index.css";
-import { translate } from "utils/translations/translate";
+import { useTranslation } from "react-i18next";
 import {
   ButtonGroup,
   ButtonToolbar,
@@ -49,6 +49,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     selectionMode,
     striped,
   } = tableProps;
+  const { t } = useTranslation();
 
   function handleUpdateEnableFilter(): void {
     if (!_.isUndefined(onUpdateEnableFilter)) {
@@ -56,7 +57,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     }
   }
   function handleNoData(): string {
-    return translate.t("dataTableNext.noDataIndication");
+    return t("dataTableNext.noDataIndication");
   }
 
   const isPaginationEnable: boolean =
@@ -88,9 +89,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               )}
               {!_.isUndefined(isFilterEnabled) && (
                 <ButtonGroup>
-                  <TooltipWrapper
-                    message={translate.t("dataTableNext.tooltip")}
-                  >
+                  <TooltipWrapper message={t("dataTableNext.tooltip")}>
                     <Button onClick={handleUpdateEnableFilter}>
                       {isFilterEnabled ? (
                         <Glyphicon glyph={"minus"} />
@@ -98,7 +97,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                         <Glyphicon glyph={"plus"} />
                       )}
                       &nbsp;
-                      {translate.t("dataTableNext.filters")}
+                      {t("dataTableNext.filters")}
                     </Button>
                   </TooltipWrapper>
                 </ButtonGroup>

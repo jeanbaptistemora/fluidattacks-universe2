@@ -1,17 +1,20 @@
 import type { ApolloError } from "apollo-client";
-import { DataTableNext } from "components/DataTableNext";
 import { GET_ROOTS } from "./query";
+import { GitRoots } from "./GitRoots";
 import type { GraphQLError } from "graphql";
+import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
 import React from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
-import { useTranslation } from "react-i18next";
 import type { IGitRootAttr, Root } from "./types";
+
+const isGitRoot: (root: Root) => root is IGitRootAttr = (
+  root: Root
+): root is IGitRootAttr => root.__typename === "GitRoot";
 
 export const GroupScopeView: React.FC = (): JSX.Element => {
   const { projectName: groupName } = useParams<{ projectName: string }>();
-  const { t } = useTranslation();
 
   // GraphQL operations
   const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
@@ -24,23 +27,9 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
   });
   const roots: Root[] = data === undefined ? [] : data.group.roots;
 
-  const gitRoots: IGitRootAttr[] = roots.filter(
-    (root: Root): boolean => root.__typename === "GitRoot"
-  ) as IGitRootAttr[];
-
   return (
-    <DataTableNext
-      bordered={false}
-      dataset={gitRoots}
-      exportCsv={false}
-      headers={[
-        { dataField: "url", header: t("group.scope.table.url") },
-        { dataField: "branch", header: t("group.scope.table.branch") },
-      ]}
-      id={"tblGitRoots"}
-      pageSize={15}
-      search={true}
-      striped={true}
-    />
+    <Have I={"has_drills_white"}>
+      <GitRoots roots={roots.filter(isGitRoot)} />
+    </Have>
   );
 };
