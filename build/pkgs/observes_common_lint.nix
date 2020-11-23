@@ -14,10 +14,12 @@ in
 
             pyPkgMypy = builders.pythonPackage {
               requirement = "mypy==0.782";
+              python = pkgs.python38;
             };
 
             pyPkgProspector = builders.pythonPackage {
               requirement = "prospector==1.3.0";
+              python = pkgs.python38;
             };
 
           })
