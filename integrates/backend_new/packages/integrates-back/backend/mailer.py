@@ -59,7 +59,7 @@ VULNERABILITIES_TAG = ['vulnerabilities']
 QUEUE_URL = SQS_QUEUE_URL
 TEMPLATES = Environment(
     loader=FileSystemLoader(
-        './django-apps/integrates-back-async/'
+        './backend_new/packages/integrates-back/'
         'backend/email_templates'
     ),
     autoescape=True

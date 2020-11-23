@@ -46,8 +46,8 @@ class CreatorPDF():
     def __init__(self, lang, doctype):
         """Class constructor."""
         self.path = (
-            f'{STARDIR}/integrates/django-apps/'
-            'integrates-back-async/backend/reports'
+            f'{STARDIR}/integrates/backend_new/packages/'
+            'integrates-back/backend/reports'
         )
         self.result_dir = self.path + self.result_dir
         self.font_dir = self.path + self.font_dir

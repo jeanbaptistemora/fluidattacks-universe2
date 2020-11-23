@@ -30,9 +30,9 @@ coverage.xml
 build/coverage
 
 # Django apps
-django-apps/**/*.egg-info
-django-apps/**/build
-django-apps/**/dist
+backend_new/packages/**/*.egg-info
+backend_new/packages/**/build
+backend_new/packages/**/dist
 backend_new/packages/integrates-back/backend/reports/results/results_pdf/*.pdf
 backend_new/packages/integrates-back/backend/reports/results/results_excel/*.xlsx
 backend_new/packages/integrates-back/backend/reports/tpls/*.tpl

@@ -29,6 +29,8 @@ from fluidintegrates.settings import LOGGING
 logging.config.dictConfig(LOGGING)
 
 # Constants
+STARDIR = os.environ['STARTDIR']
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -156,15 +158,17 @@ async def generate_xls(
 
 async def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
     images_path = (
-        '/usr/src/app/django-apps/integrates-back-async/backend/reports/images'
+        f'{STARDIR}/integrates/backend_new/packages/'
+        'integrates-back/backend/reports/images'
     )
     path: str = (
         images_path
         if os.path.exists(images_path)
         else os.path.join(
             os.getcwd(),
-            'django-apps',
-            'integrates-back-async',
+            'backend_new',
+            'packages'
+            'integrates-back',
             'backend',
             'reports',
             'images')

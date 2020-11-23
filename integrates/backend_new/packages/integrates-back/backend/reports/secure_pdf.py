@@ -44,8 +44,8 @@ class SecurePDF():
     def __init__(self, passphrase: str):
         """Class constructor."""
         self.base = (
-            f'{STARDIR}/integrates/django-apps/'
-            'integrates-back-async/backend/reports'
+            f'{STARDIR}/integrates/backend_new/packages/'
+            'integrates-back/backend/reports'
         )
 
         self.watermark_tpl = os.path.join(
