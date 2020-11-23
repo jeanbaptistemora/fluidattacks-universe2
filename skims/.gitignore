@@ -10,6 +10,9 @@
 /**/.coverage*
 /**/.skims
 /**/.venv
+/**/log
+/**/log.model.json
+/**/log.svg
 /coverage*
 /docs/skims
 /dist
@@ -25,4 +28,5 @@
 /static/parsers/babel/node_modules/
 /static/parsers/babel/package-lock.json
 /test/**/*.yaml.json
+/test/data/config/*.dev.yaml
 /test/outputs/

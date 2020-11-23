@@ -18,9 +18,6 @@ from parse_java.parse import (
     from_antlr_model,
     parse_from_content,
 )
-from parse_java.graph.control_flow import (
-    analyze as analyze_control_flow,
-)
 from utils.fs import (
     get_file_raw_content,
 )
@@ -79,11 +76,6 @@ async def test_graph_generation(path: str, name: str) -> None:
         expected = handle.read()
 
     assert graph_as_json_str == expected
-
-    # This must be at the end so it fails in the pipeline if the dev
-    # did not committed the file
-    with open(f'test/data/parse_java/{name}.graph.json', 'w') as handle:
-        handle.write(graph_as_json_str)
 
 
 @run_decorator

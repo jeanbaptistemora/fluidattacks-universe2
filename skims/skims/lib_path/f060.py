@@ -42,6 +42,7 @@ from parse_java.parse import (
 )
 from state.cache import (
     CACHE_ETERNALLY,
+    CACHE_1SEC,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -239,7 +240,7 @@ def _java_declaration_of_throws_for_generic_exception(
                 #   - COMMA
                 # - ClassType
 
-                if c_attrs.get('label_type') == 'IdentifierRule':
+                if c_attrs['label_type'] == 'IdentifierRule':
                     yield from handle_identifier_rule(c_attrs)
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
@@ -256,19 +257,17 @@ def _java_declaration_of_throws_for_generic_exception(
     )
 
 
+@CACHE_1SEC
 @SHIELD
 async def java_declaration_of_throws_for_generic_exception(
+    graph: nx.OrderedDiGraph,
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
         _java_declaration_of_throws_for_generic_exception,
         content=content,
-        graph=await java_parse_from_content(
-            Grammar.JAVA9,
-            content=content.encode(),
-            path=path,
-        ),
+        graph=graph,
         path=path,
     )
 
@@ -385,12 +384,18 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_JAVA:
         content = await content_generator()
+        graph = await java_parse_from_content(
+            Grammar.JAVA9,
+            content=content.encode(),
+            path=path,
+        )
         coroutines.append(java_insecure_exceptions(
             content=content,
             path=path,
         ))
         coroutines.append(java_declaration_of_throws_for_generic_exception(
             content=content,
+            graph=graph,
             path=path,
         ))
     elif file_extension in EXTENSIONS_PYTHON:
