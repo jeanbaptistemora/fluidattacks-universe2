@@ -12,6 +12,9 @@ from backend.api.dataloaders.project import (
     ProjectLoader as GroupLoader,
 )
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
+from backend.domain import (
+    vulnerability as vuln_domain,
+)
 from backend.typing import (
     Vulnerability as VulnerabilityType
 )
@@ -91,6 +94,7 @@ async def generate_one(groups: List[str]):
                 await FindingVulnsLoader().load_many(group['findings'])
             )
         )
+        vulns = vuln_domain.filter_zero_risk(vulns)
 
         open_last_week, closed_last_week = get_totals_by_week(
             vulns,

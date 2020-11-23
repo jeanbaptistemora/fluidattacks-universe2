@@ -8,7 +8,10 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend.decorators import get_entity_cache_async
-from backend.domain import finding as finding_domain
+from backend.domain import (
+    finding as finding_domain,
+    vulnerability as vuln_domain,
+)
 from backend.typing import Finding, Vulnerability
 
 
@@ -23,5 +26,6 @@ async def resolve(
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
+    vulns = vuln_domain.filter_zero_risk(vulns)
 
     return finding_domain.get_age_finding(vulns, cast(str, release_date))

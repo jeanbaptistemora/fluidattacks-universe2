@@ -77,7 +77,7 @@ class ProjectTest(TestCase):
 
     async def test_get_pending_closing_checks(self):
         test_data = await get_pending_closing_check('unittesting')
-        expected_output = 2
+        expected_output = 1
         assert test_data == expected_output
 
     async def test_get_last_closing_vuln(self):
@@ -91,7 +91,7 @@ class ProjectTest(TestCase):
         actual_date = datetime.now(tz=tzn).date()
         initial_date = datetime(2019, 1, 15).date()
         assert test_data[0] == (actual_date - initial_date).days
-        assert test_data[1]['UUID'] == '6f023c26-5b10-4ded-aa27-bb563c2206ab'
+        assert test_data[1]['UUID'] == '242f848c-148a-4028-8e36-c7d995502590'
         assert test_data[1]['finding_id'] == "463558592"
 
     async def test_get_last_closing_date(self):
@@ -156,12 +156,12 @@ class ProjectTest(TestCase):
 
     async def test_get_open_vulnerabilities(self):
         project_name = 'unittesting'
-        expected_output = 33
+        expected_output = 29
         assert await get_open_vulnerabilities(project_name) == expected_output
 
     async def test_get_closed_vulnerabilities(self):
         project_name = 'unittesting'
-        expected_output = 8
+        expected_output = 7
         assert await get_closed_vulnerabilities(project_name) == expected_output
 
     async def test_get_open_finding(self):
@@ -202,7 +202,7 @@ class ProjectTest(TestCase):
         open_finding = await finding_dal.get_finding(open_vuln_finding)
 
         test_data = await get_mean_remediate([open_finding])
-        expected_output = Decimal('212.0')
+        expected_output = Decimal('160.0')
         assert test_data == expected_output
 
         closed_vuln_finding = '457497316'
@@ -220,7 +220,7 @@ class ProjectTest(TestCase):
         )
         test_data = await get_total_treatment(findings)
         expected_output = \
-            {'inProgress': 2, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
+            {'inProgress': 1, 'accepted': 1, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
 
     async def test_list_drafts(self):
@@ -341,13 +341,13 @@ class ProjectTest(TestCase):
         max_severity = 3.9
         mean_remediate_low_severity = await get_mean_remediate_severity(
             project_name, min_severity, max_severity)
-        expected_output = (212, 232)
-        assert mean_remediate_low_severity in expected_output
+        expected_output = 194.0
+        assert mean_remediate_low_severity == expected_output
         min_severity = 4
         max_severity = 6.9
         mean_remediate_medium_severity = await get_mean_remediate_severity(
             project_name, min_severity, max_severity)
-        expected_output = 287
+        expected_output = 236
         assert mean_remediate_medium_severity == expected_output
 
     @pytest.mark.changes_db

@@ -7,6 +7,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend.decorators import get_entity_cache_async
+from backend.domain import vulnerability as vuln_domain
 from backend.typing import Finding, Vulnerability
 
 
@@ -20,10 +21,8 @@ async def resolve(
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-    remediated_vulns: List[Vulnerability] = [
-        vuln
-        for vuln in vulns
-        if vuln['current_state'] == 'open' and vuln['remediated']
-    ]
+    vulns = vuln_domain.filter_zero_risk(vulns)
+    vulns = vuln_domain.filter_open_vulnerabilities(vulns)
+    remediated_vulns = vuln_domain.filter_remediated(vulns)
 
     return len(remediated_vulns) == 0

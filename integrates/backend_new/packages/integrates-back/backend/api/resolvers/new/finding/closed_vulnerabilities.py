@@ -21,5 +21,7 @@ async def resolve(
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
+    vulns = vuln_domain.filter_zero_risk(vulns)
+    vulns = vuln_domain.filter_closed_vulnerabilities(vulns)
 
-    return len(vuln_domain.filter_closed_vulnerabilities(vulns))
+    return len(vulns)

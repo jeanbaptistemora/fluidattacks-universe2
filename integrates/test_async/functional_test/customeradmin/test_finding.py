@@ -107,7 +107,7 @@ async def test_finding():
         'report_date': '2018-12-17 15:32:25',
         'current_state': 'APPROVED',
         'new_remediated': False,
-        'verified': False,
+        'verified': True,
         'vulnerabilities': [
             {
                 'id': '0a848781-b6a4-422e-95fa-692151e6a98e'

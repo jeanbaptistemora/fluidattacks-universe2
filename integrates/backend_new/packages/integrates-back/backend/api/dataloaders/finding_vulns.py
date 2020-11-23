@@ -17,7 +17,11 @@ async def _batch_load_fn(
     """Batch the data load requests within the same execution fragment."""
     vulnerabilities: Dict[str, List[VulnerabilityType]] = defaultdict(list)
 
-    vulns = await vuln_domain.list_vulnerabilities_async(finding_ids)
+    vulns = await vuln_domain.list_vulnerabilities_async(
+        finding_ids,
+        include_confirmed_zero_risk=True,
+        include_requested_zero_risk=True
+    )
     for vuln in vulns:
         vulnerabilities[cast(str, vuln['finding_id'])].append(
             dict(

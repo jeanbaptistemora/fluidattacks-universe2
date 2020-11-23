@@ -103,7 +103,9 @@ class SchedulerTests(TestCase):
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
         vulns = await list_vulnerabilities_async(
-            [str(finding['finding_id']) for finding in released_findings]
+            [str(finding['finding_id']) for finding in released_findings],
+            include_confirmed_zero_risk=True,
+            include_requested_zero_risk=True
         )
         test_data = get_status_vulns_by_time_range(
             vulns, first_day, last_day, released_findings
@@ -122,7 +124,9 @@ class SchedulerTests(TestCase):
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
         vulns = await list_vulnerabilities_async(
-            [str(finding['finding_id']) for finding in released_findings]
+            [str(finding['finding_id']) for finding in released_findings],
+            include_confirmed_zero_risk=True,
+            include_requested_zero_risk=True
         )
         test_data = get_accepted_vulns(
             released_findings, vulns, first_day, last_day
@@ -167,13 +171,21 @@ class SchedulerTests(TestCase):
         assert test_data == expected_output
 
     async def test_get_first_week_dates(self):
-        vulns = await list_vulnerabilities_async(['422286126'])
+        vulns = await list_vulnerabilities_async(
+            ['422286126'],
+            include_confirmed_zero_risk=True,
+            include_requested_zero_risk=True
+        )
         test_data = get_first_week_dates(vulns)
         expected_output = ('2018-09-24 00:00:00', '2018-09-30 23:59:59')
         assert test_data == expected_output
 
     async def test_get_date_last_vulns(self):
-        vulns = await list_vulnerabilities_async(['422286126'])
+        vulns = await list_vulnerabilities_async(
+            ['422286126'],
+            include_confirmed_zero_risk=True,
+            include_requested_zero_risk=True
+        )
         test_data = get_date_last_vulns(vulns)
         expected_output = '2020-09-07 16:01:26'
         assert test_data == expected_output

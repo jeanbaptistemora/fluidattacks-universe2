@@ -163,7 +163,8 @@ async def get_tracking_vulnerabilities(
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
-    vulns_filtered = vuln_domain.filter_zero_risk(vulns_filtered)
+    vulns_filtered = vuln_domain.filter_no_confirmed_zero_risk(vulns_filtered)
+    vulns_filtered = vuln_domain.filter_no_requested_zero_risk(vulns_filtered)
     vuln_casted = finding_utils.remove_repeated(vulns_filtered)
     open_verification_dates = finding_utils.get_open_verification_dates(
         vulns_filtered
@@ -252,7 +253,11 @@ async def update_treatment_in_vuln(
     })
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
-    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    vulns = await vuln_domain.list_vulnerabilities_async(
+        [finding_id],
+        include_confirmed_zero_risk=True,
+        include_requested_zero_risk=True
+    )
     for vuln in vulns:
         if not any('treatment_manager' in dicts
                    for dicts in [new_values, vuln]):
@@ -669,7 +674,9 @@ async def mask_finding(finding_id: str) -> bool:
 
     list_vulns = await vuln_domain.list_vulnerabilities_async(
         [finding_id],
-        True
+        should_list_deleted=True,
+        include_confirmed_zero_risk=True,
+        include_requested_zero_risk=True
     )
     mask_vulns_coroutines = [
         vuln_utils.mask_vuln(finding_id, str(vuln['UUID']))
