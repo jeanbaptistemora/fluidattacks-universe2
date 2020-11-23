@@ -27,6 +27,7 @@ from backend.api.mutations import (
     invalidate_cache,
     reject_zero_risk_vuln,
     remove_event_evidence,
+    remove_group,
     remove_stakeholder_organization_access,
     request_zero_risk_vuln,
     solve_event,
@@ -119,6 +120,7 @@ MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
 MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)
+MUTATION.set_field('removeGroup', remove_group.mutate)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
 MUTATION.set_field('addProjectConsult',

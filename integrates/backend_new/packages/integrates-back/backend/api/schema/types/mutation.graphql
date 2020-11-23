@@ -211,6 +211,11 @@ type Mutation {
         subscription: SubscriptionType!
     ): SimplePayload!
 
+     removeGroup(
+        groupName: String!
+        subscription: SubscriptionType!
+    ): SimplePayload!
+
     addFindingConsult(
         content: String!,
         findingId: String!,

@@ -34,6 +34,27 @@ async def test_project():
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
+    group_name2 = await get_name('group')
+    query = f'''
+        mutation {{
+            createProject(
+                organization: "{org_name}",
+                description: "This is a new project from pytest",
+                projectName: "{group_name2}",
+                subscription: CONTINUOUS,
+                hasDrills: true,
+                hasForces: true
+            ) {{
+            success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    assert 'errors' not in result
+    assert 'success' in result['data']['createProject']
+    assert result['data']['createProject']['success']
+
     role = 'GROUP_MANAGER'
     query = f'''
         mutation {{
@@ -55,6 +76,43 @@ async def test_project():
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
+
+    query = f'''
+        mutation {{
+            grantStakeholderAccess (
+                email: "unittest2@fluidattacks.com",
+                phoneNumber: "-",
+                projectName: "{group_name2}",
+                responsibility: "Group manager",
+                role: {role}
+            ) {{
+            success
+                grantedStakeholder {{
+                    email
+                }}
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    assert 'errors' not in result
+    assert  result['data']['grantStakeholderAccess']['success']
+
+    query = f'''
+        mutation {{
+            removeGroup(
+                groupName: "{group_name2}",
+                subscription: CONTINUOUS
+            ) {{
+            success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['removeGroup']
+    assert result['data']['removeGroup']['success']
 
     query = f'''
         mutation {{

@@ -259,6 +259,21 @@ async def test_project():
     assert result['data']['editGroup']['success']
 
     query = f'''
+        mutation {{
+            removeGroup(
+                groupName: "{group_name}",
+                subscription: CONTINUOUS
+            ) {{
+            success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == str(UserNotInOrganization())
+
+    query = f'''
         query {{
             project(projectName: "{group_name}"){{
                 hasDrills
