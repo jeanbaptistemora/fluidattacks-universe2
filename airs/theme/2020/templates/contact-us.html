@@ -107,7 +107,9 @@
                   id="Last_Name"
                   class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                   name="Last Name"
-                  maxlength="120" />
+                  maxlength="120"
+                  pattern="[A-Za-z]{1,50}"
+                  required/>
           </div>
           <div class="w-50-l pb3 center">
             <label class="tl f5 c-fluid-bk roboto">Email</label>
@@ -117,7 +119,10 @@
                   class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                   name="Email"
                   maxlength="100"
-                  placeholder="Email" />
+                  placeholder="Email"
+                  onchange="validateEmail()"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  required/>
           </div>
           <div class="w-50-l pb3 center">
             <label class="tl f5 c-fluid-bk roboto">Mobile</label>
@@ -125,7 +130,8 @@
                   name="Country"
                   maxlength="100"
                   type="hidden"
-                  value=""/>
+                  value=""
+                  required/>
             <label for="COBJ1CF2"
                 class="db">
             </label>
@@ -135,7 +141,8 @@
                     type="text"
                     class="db roboto f5 w-100 h-form-field ma0 outline-transparent ba br2 bc-fluid-gray bg-transparent pl2"
                     required
-                    placeholder="Mobile" />
+                    placeholder="Mobile"
+                    required/>
             <span id="valid-msg"
                   class="green fr fw8 dn">
                   Number is valid
