@@ -429,6 +429,34 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f061.title',
         type=FindingTypeEnum.SECURITY,
     )
+    F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata(
+        auto_approve=False,
+        cwe='22',
+        description='utils.model.finding.enum.F063_PATH_TRAVERSAL.description',
+        impact='utils.model.finding.enum.F063_PATH_TRAVERSAL.impact',
+        recommendation=(
+            'utils.model.finding.enum.F063_PATH_TRAVERSAL.recommendation'
+        ),
+        requirements=(
+            'utils.model.finding.enum.F063_PATH_TRAVERSAL.requirements'
+        ),
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.0,
+            'exploitability': 1.0,
+            'integrityImpact': 0.56,
+            'privilegesRequired': 0.62,
+            'remediationLevel': 1.0,
+            'reportConfidence': 0.96,
+            'severityScope': 0.0,
+            'userInteraction': 0.85
+        },
+        threat='utils.model.finding.enum.F063_PATH_TRAVERSAL.threat',
+        title='utils.model.finding.enum.F063_PATH_TRAVERSAL.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F073: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='478',
@@ -437,17 +465,17 @@ class FindingEnum(Enum):
         recommendation='utils.model.finding.enum.F073.recommendation',
         requirements='utils.model.finding.enum.F073.requirements',
         severity={
-            "attackComplexity": 0.44,
-            "attackVector": 0.85,
-            "availabilityImpact": 0.0,
-            "confidentialityImpact": 0.0,
-            "exploitability": 0.91,
-            "integrityImpact": 0.22,
-            "privilegesRequired": 0.62,
-            "remediationLevel": 1.0,
-            "reportConfidence": 1.0,
-            "severityScope": 0.0,
-            "userInteraction": 0.85
+            'attackComplexity': 0.44,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.0,
+            'exploitability': 0.91,
+            'integrityImpact': 0.22,
+            'privilegesRequired': 0.62,
+            'remediationLevel': 1.0,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.85
         },
         threat='utils.model.finding.enum.F073.threat',
         title='utils.model.finding.enum.F073.title',
