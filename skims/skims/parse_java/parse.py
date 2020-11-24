@@ -1,8 +1,8 @@
 # Standard library
 import json
+import os
 from typing import (
     Any,
-    Optional,
 )
 
 # Third party libraries
@@ -56,19 +56,21 @@ async def parse_from_content(
     grammar: Grammar,
     *,
     content: bytes,
-    output: Optional[str] = None,
+    debug: bool = False,
     path: str,
 ) -> nx.OrderedDiGraph:
     parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
     model = await in_process(antlr_model.from_parse_tree, parse_tree)
 
-    if output:
+    if debug:
+        simple_path = os.path.relpath(path).replace('/', '__')
+        output = os.path.join('test/outputs', simple_path)
         with open(f'{output}.model.json', 'w') as handle:
             json.dump(model, handle, indent=2, sort_keys=True)
 
     graph = await in_process(from_antlr_model, model)
 
-    if output:
+    if debug:
         await to_svg(graph, output)
 
     return graph

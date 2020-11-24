@@ -47,6 +47,10 @@ from utils.model import (
             'small_java_program',
         ),
         (
+            'test/data/benchmark/owasp/BenchmarkTest00001.java',
+            'owasp_benchmark_00001',
+        ),
+        (
             'test/data/benchmark/owasp/BenchmarkTest00008.java',
             'owasp_benchmark_00008',
         ),
@@ -68,6 +72,8 @@ async def test_graph_generation(path: str, name: str) -> None:
     parse_tree = await parse(Grammar.JAVA9, content=content, path=path)
     model = model_from_parse_tree(parse_tree)
     model_as_json = json.dumps(model, indent=2)
+    with open(f'test/outputs/{name}.model.json', 'w') as handle:
+        handle.write(model_as_json)
     graph = from_antlr_model(model)
 
     # New way, comprised
@@ -76,9 +82,6 @@ async def test_graph_generation(path: str, name: str) -> None:
     graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
 
     assert await to_svg(graph, f'test/outputs/{name}.graph')
-
-    with open(f'test/outputs/{name}.model.json', 'w') as handle:
-        handle.write(model_as_json)
 
     with open(f'test/data/parse_java/{name}.graph.json') as handle:
         expected = handle.read()
