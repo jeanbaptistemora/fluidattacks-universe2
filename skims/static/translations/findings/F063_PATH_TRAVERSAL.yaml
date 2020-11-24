@@ -1,0 +1,37 @@
+src.lib_path.f063_path_traversal.java_like.description:
+  en: ... in {path}
+  es: ... en {path}
+utils.model.finding.enum.F063_PATH_TRAVERSAL.description:
+  en: >
+    The software uses external input to construct a pathname that is intended
+    to identify a file or directory but it does not properly neutralize
+    or validate special elements within the pathname.
+  es: >
+    El software usa entradas externas para construir rutas que identifican
+    un archivo o directorio pero no se neutraliza o validan apropiadamente
+    los elementos especiales dentro de dicha ruta.
+utils.model.finding.enum.F063_PATH_TRAVERSAL.impact:
+  en: >
+    Make the software resolve the pathname to a location that is outside of
+    the intended target, for instance: /etc/passwd.
+  es: >
+    Hacer que el software resuelva la ruta a una ubicación que esta por fuera
+    del objetivo de la aplicación, por ejemplo: /etc/passwd.
+utils.model.finding.enum.F063_PATH_TRAVERSAL.recommendation:
+  en: |
+    - Prevent the attacker from constructing the pathname, or
+    - Validate/Neutralize the input for special elements like: .., ~, etc.
+  es: |
+    - Prevenir que el atacante construya la ruta, o
+    - Validar/Neutralizar que las entradas no contengan elementos especiales como: .., ~, etc.
+utils.model.finding.enum.F063_PATH_TRAVERSAL.requirements:
+  en: R173. Discard unsafe inputs
+  es: R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
+utils.model.finding.enum.F063_PATH_TRAVERSAL.threat:
+  en: Autenticated attacker from the Internet.
+  es: Atacante autenticado desde Internet.
+utils.model.finding.enum.F063_PATH_TRAVERSAL.title:
+  # en: FIN.S.063. Falta de validación de datos - Path Traversal
+  # en: FIN.S.063. Lack of data validation - Path Traversal
+  en: SKIMS.S.063. Test - please delete
+  es: SKIMS.S.063. Test - please delete
