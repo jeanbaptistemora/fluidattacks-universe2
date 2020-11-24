@@ -22,6 +22,7 @@
       "src/scenes/Dashboard/components/AddRepositoriesModal/index.spec.tsx",
       "src/scenes/Dashboard/components/AddRepositoriesModal/RepositoryFields.tsx",
       "src/scenes/Dashboard/components/APITokenModal/**",
+      "src/scenes/Dashboard/components/DeleteGroupModal/**",
       "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Dashboard/containers/GroupScopeView/**",
       "src/scenes/Registration/**"

@@ -13,5 +13,6 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/NewsWidget/**
 !src/scenes/Dashboard/components/AddFilesModal/**
 !src/scenes/Dashboard/containers/GroupScopeView/**
+!src/scenes/Dashboard/components/DeleteGroupModal/**
 src/**/*.css.d.ts
 src/**/*.d.ts

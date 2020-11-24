@@ -836,6 +836,16 @@ export const enTranslations: ResourceKey = {
     services_table: {
       active: "Active",
       continuous: "Continuous Hacking",
+      delete_group: {
+        delete_group: "Delete this group",
+        type_group_name: "Please type the group name to procede.",
+        warning: "Group deletion cannot be undone.",
+        warning_body:
+          "This action will immediately delete the group. " +
+          "This will remove all of its data including findings and related vulnerabilities. " +
+          "This is a destructive action and cannot be undone.",
+        warning_title: "Warning!",
+      },
       deletedsoon: "Scheduled to be deleted in 1 month",
       drills: "Drills",
       errors: {
