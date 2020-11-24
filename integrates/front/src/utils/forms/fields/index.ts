@@ -1,3 +1,4 @@
+export { ArrayField } from "utils/forms/fields/ArrayField";
 export { AutoCompleteText } from "utils/forms/fields/AutoCompleteText";
 export { Checkbox } from "utils/forms/fields/Checkbox";
 export { Date } from "utils/forms/fields/Date";
