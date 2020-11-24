@@ -247,7 +247,7 @@ def _java_declaration_of_throws_for_generic_exception(
                 }:
                     if c_attrs['label_text'] in generics:
                         yield c_attrs
-                elif c_attrs['label_type'] == 'ExceptionType':
+                elif c_attrs['label_type'] == 'ExceptionTypeList':
                     for c_c_id in g.adj(graph, c_id):
                         c_c_attrs = graph.nodes[c_c_id]
                         if c_c_attrs['label_text'] in generics:

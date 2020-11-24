@@ -15,6 +15,22 @@ from utils import (
 )
 
 
+def _patch_node_types(graph: nx.OrderedDiGraph) -> None:
+    for n_attrs in graph.nodes.values():
+        label_type: str = n_attrs['label_type']
+
+        try:
+            # Input format is regularly Name|index
+            label_type, label_type_index = label_type.rsplit('|', maxsplit=1)
+
+            n_attrs['label_type'] = label_type
+            n_attrs['label_type_index'] = label_type_index
+        except ValueError:
+            # Some literal nodes have not the index
+            n_attrs['label_type'] = label_type
+            n_attrs['label_type_index'] = '0'
+
+
 def _concatenate_child_texts(
     graph: nx.OrderedDiGraph,
     parent_label_type: str,
@@ -69,6 +85,7 @@ def _replace_with_child(
 
 
 def reduce(graph: nx.OrderedDiGraph) -> None:
+    _patch_node_types(graph)
     _concatenate_child_texts(graph, 'ClassType_lf_classOrInterfaceType', (
         'DOT',
         'IdentifierRule',

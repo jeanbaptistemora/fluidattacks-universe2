@@ -6,92 +6,86 @@
         "label_ast": "AST"
       }
     },
-    "108": {
-      "111": {
+    "107": {
+      "110": {
         "index": 0,
         "label_ast": "AST"
       },
-      "112": {
+      "111": {
         "index": 1,
         "label_ast": "AST"
       },
-      "114": {
+      "113": {
         "index": 2,
         "label_ast": "AST"
       },
-      "115": {
+      "114": {
         "index": 3,
         "label_ast": "AST"
       },
-      "116": {
+      "115": {
         "index": 4,
         "label_ast": "AST"
       },
-      "159": {
+      "157": {
         "index": 5,
         "label_ast": "AST"
       }
     },
-    "116": {
-      "117": {
+    "115": {
+      "135": {
         "index": 0,
         "label_ast": "AST"
       },
-      "158": {
+      "136": {
         "index": 1,
+        "label_ast": "AST"
+      },
+      "156": {
+        "index": 2,
         "label_ast": "AST"
       }
     },
-    "117": {
-      "137": {
+    "162": {
+      "163": {
         "index": 0,
         "label_ast": "AST"
       },
-      "157": {
+      "164": {
         "index": 1,
         "label_ast": "AST"
-      }
-    },
-    "164": {
+      },
       "165": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "166": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "167": {
         "index": 2,
         "label_ast": "AST"
       },
-      "175": {
+      "173": {
         "index": 3,
         "label_ast": "AST"
       },
-      "176": {
+      "174": {
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_m": "m"
+        "label_e": "e"
       }
     },
-    "167": {
-      "171": {
+    "165": {
+      "169": {
         "index": 0,
         "label_ast": "AST"
       },
-      "174": {
+      "172": {
         "index": 1,
         "label_ast": "AST"
       }
     },
-    "176": {
-      "177": {
+    "174": {
+      "175": {
         "index": 0,
         "label_ast": "AST"
       },
-      "178": {
+      "176": {
         "index": 1,
         "label_ast": "AST",
         "label_cfg": "CFG",
@@ -99,7 +93,7 @@
       }
     },
     "2": {
-      "181": {
+      "179": {
         "index": 2,
         "label_ast": "AST"
       },
@@ -131,7 +125,7 @@
       }
     },
     "26": {
-      "180": {
+      "178": {
         "index": 2,
         "label_ast": "AST"
       },
@@ -145,55 +139,49 @@
       }
     },
     "30": {
-      "31": {
+      "32": {
         "index": 0,
         "label_ast": "AST"
       },
-      "36": {
+      "34": {
         "index": 1,
         "label_ast": "AST"
       },
-      "61": {
+      "35": {
         "index": 2,
+        "label_ast": "AST"
+      },
+      "60": {
+        "index": 3,
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_e": "e"
       }
     },
-    "31": {
-      "33": {
+    "35": {
+      "37": {
         "index": 0,
         "label_ast": "AST"
       },
-      "35": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "36": {
       "38": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "39": {
         "index": 1,
         "label_ast": "AST"
       }
     },
-    "39": {
-      "41": {
+    "38": {
+      "40": {
         "index": 0,
         "label_ast": "AST"
       },
-      "42": {
+      "41": {
         "index": 1,
         "label_ast": "AST"
       },
-      "45": {
+      "44": {
         "index": 2,
         "label_ast": "AST"
       },
-      "59": {
+      "58": {
         "index": 3,
         "label_ast": "AST"
       }
@@ -212,32 +200,32 @@
         "label_ast": "AST"
       }
     },
-    "45": {
-      "48": {
+    "44": {
+      "47": {
         "index": 0,
         "label_ast": "AST"
       },
-      "58": {
+      "57": {
         "index": 1,
         "label_ast": "AST"
       }
     },
-    "48": {
+    "47": {
+      "51": {
+        "index": 0,
+        "label_ast": "AST"
+      },
       "52": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "53": {
         "index": 1,
         "label_ast": "AST"
       }
     },
-    "53": {
-      "54": {
+    "52": {
+      "53": {
         "index": 0,
         "label_ast": "AST"
       },
-      "55": {
+      "54": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -256,52 +244,52 @@
         "label_ast": "AST"
       }
     },
-    "61": {
-      "179": {
+    "60": {
+      "177": {
         "index": 2,
         "label_ast": "AST"
       },
-      "62": {
+      "61": {
         "index": 0,
         "label_ast": "AST"
       },
-      "67": {
+      "66": {
         "index": 1,
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_e": "e"
       }
     },
-    "67": {
-      "164": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "68": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "69": {
-        "index": 1,
-        "label_ast": "AST",
-        "label_cfg": "CFG",
-        "label_e": "e"
-      }
-    },
-    "69": {
+    "66": {
       "162": {
         "index": 2,
         "label_ast": "AST"
       },
-      "164": {
-        "label_cfg": "CFG",
-        "label_m": "m"
-      },
-      "70": {
+      "67": {
         "index": 0,
         "label_ast": "AST"
       },
-      "75": {
+      "68": {
+        "index": 1,
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_e": "e"
+      }
+    },
+    "68": {
+      "160": {
+        "index": 2,
+        "label_ast": "AST"
+      },
+      "162": {
+        "label_cfg": "CFG",
+        "label_m": "m"
+      },
+      "69": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "74": {
         "index": 1,
         "label_ast": "AST",
         "label_cfg": "CFG",
@@ -322,54 +310,58 @@
         "label_ast": "AST"
       }
     },
-    "75": {
-      "161": {
+    "74": {
+      "159": {
         "index": 1,
         "label_ast": "AST"
       },
-      "77": {
+      "76": {
         "index": 0,
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_e": "e"
       }
     },
-    "77": {
-      "108": {
+    "76": {
+      "107": {
         "index": 4,
         "label_ast": "AST"
       },
-      "160": {
+      "158": {
         "index": 5,
         "label_ast": "AST"
       },
-      "78": {
+      "159": {
+        "label_cfg": "CFG",
+        "label_e": "e"
+      },
+      "77": {
         "index": 0,
         "label_ast": "AST"
       },
-      "85": {
+      "84": {
         "index": 1,
         "label_ast": "AST"
       },
-      "87": {
+      "86": {
         "index": 2,
         "label_ast": "AST"
       },
-      "88": {
+      "87": {
         "index": 3,
         "label_ast": "AST"
       }
     },
-    "78": {
-      "81": {
+    "77": {
+      "80": {
         "index": 0,
         "label_ast": "AST"
       },
-      "82": {
+      "81": {
         "index": 1,
         "label_ast": "AST"
       },
-      "84": {
+      "83": {
         "index": 2,
         "label_ast": "AST"
       }
@@ -380,515 +372,578 @@
       "label_c": 0,
       "label_l": 1,
       "label_parent_ast": null,
-      "label_type": "CompilationUnit"
+      "label_type": "CompilationUnit",
+      "label_type_index": "0"
     },
     "10": {
       "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "7",
       "label_text": "java",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "108": {
+    "107": {
       "label_c": 27,
       "label_l": 6,
-      "label_parent_ast": "77",
-      "label_type": "MethodInvocation_lfno_primary"
+      "label_parent_ast": "76",
+      "label_type": "MethodInvocation_lfno_primary",
+      "label_type_index": "0"
     },
     "11": {
       "label_c": 11,
       "label_l": 1,
       "label_parent_ast": "7",
       "label_text": ".",
-      "label_type": "DOT"
+      "label_type": "DOT",
+      "label_type_index": "0"
     },
-    "111": {
+    "110": {
       "label_c": 27,
       "label_l": 6,
-      "label_parent_ast": "108",
+      "label_parent_ast": "107",
       "label_text": "File",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "112": {
+    "111": {
       "label_c": 31,
       "label_l": 6,
-      "label_parent_ast": "108",
+      "label_parent_ast": "107",
       "label_text": ".",
-      "label_type": "DOT"
+      "label_type": "DOT",
+      "label_type_index": "0"
     },
-    "114": {
+    "113": {
       "label_c": 32,
       "label_l": 6,
-      "label_parent_ast": "108",
+      "label_parent_ast": "107",
       "label_text": "createTempFile",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "115": {
+    "114": {
       "label_c": 46,
       "label_l": 6,
-      "label_parent_ast": "108",
+      "label_parent_ast": "107",
       "label_text": "(",
-      "label_type": "LPAREN"
+      "label_type": "LPAREN",
+      "label_type_index": "0"
     },
-    "116": {
+    "115": {
       "label_c": 47,
       "label_l": 6,
-      "label_parent_ast": "108",
-      "label_type": "ArgumentList"
-    },
-    "117": {
-      "label_c": 47,
-      "label_l": 6,
-      "label_parent_ast": "116",
-      "label_type": "Expression"
+      "label_parent_ast": "107",
+      "label_type": "ArgumentList",
+      "label_type_index": "0"
     },
     "13": {
       "label_c": 12,
       "label_l": 1,
       "label_parent_ast": "7",
       "label_text": "io",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "137": {
+    "135": {
       "label_c": 47,
       "label_l": 6,
-      "label_parent_ast": "117",
+      "label_parent_ast": "115",
       "label_text": "\"xxx\"",
-      "label_type": "StringLiteral"
+      "label_type": "StringLiteral",
+      "label_type_index": "0"
+    },
+    "136": {
+      "label_c": 52,
+      "label_l": 6,
+      "label_parent_ast": "115",
+      "label_text": ",",
+      "label_type": "COMMA",
+      "label_type_index": "0"
     },
     "14": {
       "label_c": 14,
       "label_l": 1,
       "label_parent_ast": "6",
       "label_text": ".",
-      "label_type": "DOT"
+      "label_type": "DOT",
+      "label_type_index": "0"
     },
-    "157": {
+    "156": {
       "label_c": 54,
       "label_l": 6,
-      "label_parent_ast": "117",
+      "label_parent_ast": "115",
       "label_text": "null",
-      "label_type": "NullLiteral"
+      "label_type": "NullLiteral",
+      "label_type_index": "0"
     },
-    "158": {
-      "label_c": 52,
-      "label_l": 6,
-      "label_parent_ast": "116",
-      "label_text": ",",
-      "label_type": "COMMA"
-    },
-    "159": {
+    "157": {
       "label_c": 58,
       "label_l": 6,
-      "label_parent_ast": "108",
+      "label_parent_ast": "107",
       "label_text": ")",
-      "label_type": "RPAREN"
+      "label_type": "RPAREN",
+      "label_type_index": "0"
+    },
+    "158": {
+      "label_c": 59,
+      "label_l": 6,
+      "label_parent_ast": "76",
+      "label_text": ")",
+      "label_type": "RPAREN",
+      "label_type_index": "0"
+    },
+    "159": {
+      "label_c": 60,
+      "label_l": 6,
+      "label_parent_ast": "74",
+      "label_text": ";",
+      "label_type": "SEMI",
+      "label_type_index": "0"
     },
     "16": {
       "label_c": 15,
       "label_l": 1,
       "label_parent_ast": "6",
       "label_text": "File",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
     "160": {
-      "label_c": 59,
-      "label_l": 6,
-      "label_parent_ast": "77",
-      "label_text": ")",
-      "label_type": "RPAREN"
-    },
-    "161": {
-      "label_c": 60,
-      "label_l": 6,
-      "label_parent_ast": "75",
-      "label_text": ";",
-      "label_type": "SEMI"
-    },
-    "162": {
       "label_c": 8,
       "label_l": 7,
-      "label_parent_ast": "69",
+      "label_parent_ast": "68",
       "label_text": "}",
-      "label_type": "RBRACE"
+      "label_type": "RBRACE",
+      "label_type_index": "0"
+    },
+    "162": {
+      "label_c": 10,
+      "label_l": 7,
+      "label_parent_ast": "66",
+      "label_type": "CatchClause",
+      "label_type_index": "0"
+    },
+    "163": {
+      "label_c": 10,
+      "label_l": 7,
+      "label_parent_ast": "162",
+      "label_text": "catch",
+      "label_type": "CATCH",
+      "label_type_index": "0"
     },
     "164": {
-      "label_c": 10,
-      "label_l": 7,
-      "label_parent_ast": "67",
-      "label_type": "CatchClause"
-    },
-    "165": {
-      "label_c": 10,
-      "label_l": 7,
-      "label_parent_ast": "164",
-      "label_text": "catch",
-      "label_type": "CATCH"
-    },
-    "166": {
       "label_c": 16,
       "label_l": 7,
-      "label_parent_ast": "164",
+      "label_parent_ast": "162",
       "label_text": "(",
-      "label_type": "LPAREN"
+      "label_type": "LPAREN",
+      "label_type_index": "0"
     },
-    "167": {
+    "165": {
       "label_c": 17,
       "label_l": 7,
-      "label_parent_ast": "164",
-      "label_type": "CatchFormalParameter"
+      "label_parent_ast": "162",
+      "label_type": "CatchFormalParameter",
+      "label_type_index": "0"
+    },
+    "169": {
+      "label_c": 17,
+      "label_l": 7,
+      "label_parent_ast": "165",
+      "label_text": "Exception",
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
     "17": {
       "label_c": 19,
       "label_l": 1,
       "label_parent_ast": "4",
       "label_text": ";",
-      "label_type": "SEMI"
+      "label_type": "SEMI",
+      "label_type_index": "0"
     },
-    "171": {
-      "label_c": 17,
-      "label_l": 7,
-      "label_parent_ast": "167",
-      "label_text": "Exception",
-      "label_type": "IdentifierRule"
-    },
-    "174": {
+    "172": {
       "label_c": 27,
       "label_l": 7,
-      "label_parent_ast": "167",
+      "label_parent_ast": "165",
       "label_text": "e",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "175": {
+    "173": {
       "label_c": 28,
       "label_l": 7,
-      "label_parent_ast": "164",
+      "label_parent_ast": "162",
       "label_text": ")",
-      "label_type": "RPAREN"
+      "label_type": "RPAREN",
+      "label_type_index": "0"
+    },
+    "174": {
+      "label_c": 30,
+      "label_l": 7,
+      "label_parent_ast": "162",
+      "label_type": "Block",
+      "label_type_index": "0"
+    },
+    "175": {
+      "label_c": 30,
+      "label_l": 7,
+      "label_parent_ast": "174",
+      "label_text": "{",
+      "label_type": "LBRACE",
+      "label_type_index": "0"
     },
     "176": {
-      "label_c": 30,
-      "label_l": 7,
-      "label_parent_ast": "164",
-      "label_type": "Block"
-    },
-    "177": {
-      "label_c": 30,
-      "label_l": 7,
-      "label_parent_ast": "176",
-      "label_text": "{",
-      "label_type": "LBRACE"
-    },
-    "178": {
       "label_c": 31,
       "label_l": 7,
-      "label_parent_ast": "176",
+      "label_parent_ast": "174",
       "label_text": "}",
-      "label_type": "RBRACE"
+      "label_type": "RBRACE",
+      "label_type_index": "0"
     },
-    "179": {
+    "177": {
       "label_c": 4,
       "label_l": 8,
-      "label_parent_ast": "61",
+      "label_parent_ast": "60",
       "label_text": "}",
-      "label_type": "RBRACE"
+      "label_type": "RBRACE",
+      "label_type_index": "0"
     },
-    "180": {
+    "178": {
       "label_c": 0,
       "label_l": 9,
       "label_parent_ast": "26",
       "label_text": "}",
-      "label_type": "RBRACE"
+      "label_type": "RBRACE",
+      "label_type_index": "0"
     },
-    "181": {
+    "179": {
       "label_c": 0,
       "label_l": 17,
       "label_parent_ast": "2",
       "label_text": "<EOF>",
-      "label_type": "EOF"
+      "label_type": "EOF",
+      "label_type_index": "0"
     },
     "2": {
       "label_c": 0,
       "label_l": 1,
       "label_parent_ast": "1",
-      "label_type": "OrdinaryCompilation"
+      "label_type": "OrdinaryCompilation",
+      "label_type_index": "0"
     },
     "20": {
       "label_c": 0,
       "label_l": 3,
       "label_parent_ast": "2",
-      "label_type": "NormalClassDeclaration"
+      "label_type": "NormalClassDeclaration",
+      "label_type_index": "0"
     },
     "22": {
       "label_c": 0,
       "label_l": 3,
       "label_parent_ast": "20",
       "label_text": "public",
-      "label_type": "PUBLIC"
+      "label_type": "PUBLIC",
+      "label_type_index": "0"
     },
     "23": {
       "label_c": 7,
       "label_l": 3,
       "label_parent_ast": "20",
       "label_text": "class",
-      "label_type": "CLASS"
+      "label_type": "CLASS",
+      "label_type_index": "0"
     },
     "25": {
       "label_c": 13,
       "label_l": 3,
       "label_parent_ast": "20",
       "label_text": "Test",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
     "26": {
       "label_c": 18,
       "label_l": 3,
       "label_parent_ast": "20",
-      "label_type": "ClassBody"
+      "label_type": "ClassBody",
+      "label_type_index": "0"
     },
     "27": {
       "label_c": 18,
       "label_l": 3,
       "label_parent_ast": "26",
       "label_text": "{",
-      "label_type": "LBRACE"
+      "label_type": "LBRACE",
+      "label_type_index": "0"
     },
     "30": {
       "label_c": 4,
       "label_input_type": "function",
       "label_l": 4,
       "label_parent_ast": "26",
-      "label_type": "MethodDeclaration"
+      "label_type": "MethodDeclaration",
+      "label_type_index": "0"
     },
-    "31": {
+    "32": {
       "label_c": 4,
       "label_l": 4,
       "label_parent_ast": "30",
-      "label_type": "MethodModifier"
-    },
-    "33": {
-      "label_c": 4,
-      "label_l": 4,
-      "label_parent_ast": "31",
       "label_text": "public",
-      "label_type": "PUBLIC"
+      "label_type": "PUBLIC",
+      "label_type_index": "0"
     },
-    "35": {
+    "34": {
       "label_c": 11,
       "label_l": 4,
-      "label_parent_ast": "31",
+      "label_parent_ast": "30",
       "label_text": "static",
-      "label_type": "STATIC"
+      "label_type": "STATIC",
+      "label_type_index": "0"
     },
-    "36": {
+    "35": {
       "label_c": 18,
       "label_l": 4,
       "label_parent_ast": "30",
-      "label_type": "MethodHeader"
+      "label_type": "MethodHeader",
+      "label_type_index": "0"
     },
-    "38": {
+    "37": {
       "label_c": 18,
       "label_l": 4,
-      "label_parent_ast": "36",
+      "label_parent_ast": "35",
       "label_text": "void",
-      "label_type": "VOID"
+      "label_type": "VOID",
+      "label_type_index": "0"
     },
-    "39": {
+    "38": {
       "label_c": 23,
       "label_l": 4,
-      "label_parent_ast": "36",
-      "label_type": "MethodDeclarator"
+      "label_parent_ast": "35",
+      "label_type": "MethodDeclarator",
+      "label_type_index": "0"
     },
     "4": {
       "label_c": 0,
       "label_l": 1,
       "label_parent_ast": "2",
-      "label_type": "SingleTypeImportDeclaration"
+      "label_type": "SingleTypeImportDeclaration",
+      "label_type_index": "0"
     },
-    "41": {
+    "40": {
       "label_c": 23,
       "label_l": 4,
-      "label_parent_ast": "39",
+      "label_parent_ast": "38",
       "label_text": "main",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "42": {
+    "41": {
       "label_c": 27,
       "label_l": 4,
-      "label_parent_ast": "39",
+      "label_parent_ast": "38",
       "label_text": "(",
-      "label_type": "LPAREN"
+      "label_type": "LPAREN",
+      "label_type_index": "0"
     },
-    "45": {
+    "44": {
       "label_c": 28,
       "label_l": 4,
-      "label_parent_ast": "39",
-      "label_type": "FormalParameter"
+      "label_parent_ast": "38",
+      "label_type": "FormalParameter",
+      "label_type_index": "0"
     },
-    "48": {
+    "47": {
       "label_c": 28,
       "label_l": 4,
-      "label_parent_ast": "45",
-      "label_type": "UnannArrayType"
+      "label_parent_ast": "44",
+      "label_type": "UnannArrayType",
+      "label_type_index": "0"
     },
     "5": {
       "label_c": 0,
       "label_l": 1,
       "label_parent_ast": "4",
       "label_text": "import",
-      "label_type": "IMPORT"
+      "label_type": "IMPORT",
+      "label_type_index": "0"
     },
-    "52": {
+    "51": {
       "label_c": 28,
       "label_l": 4,
-      "label_parent_ast": "48",
+      "label_parent_ast": "47",
       "label_text": "String",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
+    },
+    "52": {
+      "label_c": 34,
+      "label_l": 4,
+      "label_parent_ast": "47",
+      "label_type": "Dims",
+      "label_type_index": "0"
     },
     "53": {
       "label_c": 34,
       "label_l": 4,
-      "label_parent_ast": "48",
-      "label_type": "Dims"
+      "label_parent_ast": "52",
+      "label_text": "[",
+      "label_type": "LBRACK",
+      "label_type_index": "0"
     },
     "54": {
-      "label_c": 34,
-      "label_l": 4,
-      "label_parent_ast": "53",
-      "label_text": "[",
-      "label_type": "LBRACK"
-    },
-    "55": {
       "label_c": 35,
       "label_l": 4,
-      "label_parent_ast": "53",
+      "label_parent_ast": "52",
       "label_text": "]",
-      "label_type": "RBRACK"
+      "label_type": "RBRACK",
+      "label_type_index": "0"
     },
-    "58": {
+    "57": {
       "label_c": 37,
       "label_l": 4,
-      "label_parent_ast": "45",
+      "label_parent_ast": "44",
       "label_text": "args",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "59": {
+    "58": {
       "label_c": 41,
       "label_l": 4,
-      "label_parent_ast": "39",
+      "label_parent_ast": "38",
       "label_text": ")",
-      "label_type": "RPAREN"
+      "label_type": "RPAREN",
+      "label_type_index": "0"
     },
     "6": {
       "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "4",
-      "label_type": "TypeName"
+      "label_type": "TypeName",
+      "label_type_index": "0"
+    },
+    "60": {
+      "label_c": 42,
+      "label_l": 4,
+      "label_parent_ast": "30",
+      "label_type": "Block",
+      "label_type_index": "0"
     },
     "61": {
       "label_c": 42,
       "label_l": 4,
-      "label_parent_ast": "30",
-      "label_type": "Block"
-    },
-    "62": {
-      "label_c": 42,
-      "label_l": 4,
-      "label_parent_ast": "61",
+      "label_parent_ast": "60",
       "label_text": "{",
-      "label_type": "LBRACE"
+      "label_type": "LBRACE",
+      "label_type_index": "0"
+    },
+    "66": {
+      "label_c": 8,
+      "label_l": 5,
+      "label_parent_ast": "60",
+      "label_type": "TryStatement",
+      "label_type_index": "0"
     },
     "67": {
       "label_c": 8,
       "label_l": 5,
-      "label_parent_ast": "61",
-      "label_type": "TryStatement"
+      "label_parent_ast": "66",
+      "label_text": "try",
+      "label_type": "TRY",
+      "label_type_index": "0"
     },
     "68": {
-      "label_c": 8,
+      "label_c": 12,
       "label_l": 5,
-      "label_parent_ast": "67",
-      "label_text": "try",
-      "label_type": "TRY"
+      "label_parent_ast": "66",
+      "label_type": "Block",
+      "label_type_index": "0"
     },
     "69": {
       "label_c": 12,
       "label_l": 5,
-      "label_parent_ast": "67",
-      "label_type": "Block"
+      "label_parent_ast": "68",
+      "label_text": "{",
+      "label_type": "LBRACE",
+      "label_type_index": "0"
     },
     "7": {
       "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "6",
-      "label_type": "PackageOrTypeName"
+      "label_type": "PackageOrTypeName",
+      "label_type_index": "0"
     },
-    "70": {
-      "label_c": 12,
-      "label_l": 5,
-      "label_parent_ast": "69",
-      "label_text": "{",
-      "label_type": "LBRACE"
-    },
-    "75": {
+    "74": {
       "label_c": 8,
       "label_l": 6,
-      "label_parent_ast": "69",
-      "label_type": "ExpressionStatement"
+      "label_parent_ast": "68",
+      "label_type": "ExpressionStatement",
+      "label_type_index": "0"
+    },
+    "76": {
+      "label_c": 8,
+      "label_l": 6,
+      "label_parent_ast": "74",
+      "label_type": "MethodInvocation",
+      "label_type_index": "0"
     },
     "77": {
       "label_c": 8,
       "label_l": 6,
-      "label_parent_ast": "75",
-      "label_type": "MethodInvocation"
+      "label_parent_ast": "76",
+      "label_type": "TypeName",
+      "label_type_index": "0"
     },
-    "78": {
+    "80": {
       "label_c": 8,
       "label_l": 6,
       "label_parent_ast": "77",
-      "label_type": "TypeName"
+      "label_text": "System",
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
     "81": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "78",
-      "label_text": "System",
-      "label_type": "IdentifierRule"
-    },
-    "82": {
       "label_c": 14,
       "label_l": 6,
-      "label_parent_ast": "78",
+      "label_parent_ast": "77",
       "label_text": ".",
-      "label_type": "DOT"
+      "label_type": "DOT",
+      "label_type_index": "0"
     },
-    "84": {
+    "83": {
       "label_c": 15,
       "label_l": 6,
-      "label_parent_ast": "78",
+      "label_parent_ast": "77",
       "label_text": "out",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "85": {
+    "84": {
       "label_c": 18,
       "label_l": 6,
-      "label_parent_ast": "77",
+      "label_parent_ast": "76",
       "label_text": ".",
-      "label_type": "DOT"
+      "label_type": "DOT",
+      "label_type_index": "0"
     },
-    "87": {
+    "86": {
       "label_c": 19,
       "label_l": 6,
-      "label_parent_ast": "77",
+      "label_parent_ast": "76",
       "label_text": "println",
-      "label_type": "IdentifierRule"
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
     },
-    "88": {
+    "87": {
       "label_c": 26,
       "label_l": 6,
-      "label_parent_ast": "77",
+      "label_parent_ast": "76",
       "label_text": "(",
-      "label_type": "LPAREN"
+      "label_type": "LPAREN",
+      "label_type_index": "0"
     }
   }
 }

@@ -134,28 +134,28 @@ def _method_declaration(graph: nx.OrderedDiGraph) -> None:
         label_type='MethodDeclaration',
     )):
         # MethodDeclaration = MethodModifier MethodHeader Block
-        block_id = g.adj(graph, n_id)[2]
+        block_id = g.adj(graph, n_id)[-1]
         graph.add_edge(n_id, block_id, **ALWAYS)
 
 
-def _block_statements(graph: nx.OrderedDiGraph) -> None:
+def _block(graph: nx.OrderedDiGraph) -> None:
     # Iterate all Block nodes
     for block_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='Block',
     )):
-        # Block = { BasicForStatement }
-        # Block = { BlockStatement }
-        # Block = { ExpressionStatement }
-        # Block = { IfThenStatement }
         block_c_id = g.adj(graph, block_id)[1]
         graph.add_edge(block_id, block_c_id, **ALWAYS)
 
-        if graph.nodes[block_c_id]['label_type'] in {
-            'BlockStatement',
+
+def _block_statements(graph: nx.OrderedDiGraph) -> None:
+    # Iterate all Block nodes
+    for n_id, n_attrs in graph.nodes.items():
+        if n_attrs['label_type'] in {
+            'BlockStatements',
             'ExpressionStatement',
         }:
             # Statements = step1 step2 ...
-            stmt_ids = g.adj(graph, block_c_id)
+            stmt_ids = g.adj(graph, n_id)
 
             # Walk the Statements
             for first, _, (stmt_a_id, stmt_b_id) in mark_ends(
@@ -163,19 +163,19 @@ def _block_statements(graph: nx.OrderedDiGraph) -> None:
             ):
                 if first:
                     # Link Block to first Statement
-                    graph.add_edge(block_c_id, stmt_a_id, **ALWAYS)
+                    graph.add_edge(n_id, stmt_a_id, **ALWAYS)
 
-                # verify that stmt_b_id is a child of a BlockStatement
-                b_parent = tuple(graph.predecessors(stmt_b_id))[0]
-                if graph.nodes[b_parent]['label_type'] == 'BlockStatement':
-                    # Link Statement[i] to Statement[i + 1]
-                    graph.add_edge(stmt_a_id, stmt_b_id, **ALWAYS)
+                # Link Statement[i] to Statement[i + 1]
+                graph.add_edge(stmt_a_id, stmt_b_id, **ALWAYS)
 
 
 def _if_then_statement(graph: nx.OrderedDiGraph) -> None:
     # Iterate nodes
     for n_id, n_attrs in graph.nodes.items():
-        if n_attrs['label_type'] in {'IfThenStatement', 'IfThenElseStatement'}:
+        if n_attrs['label_type'] in {
+            'IfThenStatement',
+            'IfThenElseStatement',
+        }:
             # Find the IfThenStatement `then` node
             c_ids = g.adj(graph, n_id)
             graph.add_edge(n_id, c_ids[4], **TRUE)
@@ -227,25 +227,41 @@ def _try_statement(graph: nx.OrderedDiGraph) -> None:
             'TRY',
             'ResourceSpecification',
             'Block',
+            'Catches',
             'CatchClause',
             'Finally_',
             'SEMI',
         ))
 
+        # Initialize by linking the parent to the first executed node
         p_id = n_id
-        for c_id, attrs in (
-            # If present, this is always evaluated
-            (childs['ResourceSpecification'], ALWAYS),
-            # This is always present, and always is evaluated
-            (childs['Block'], ALWAYS),
-            # Only if something inside the Block throwed an exception
-            (childs['CatchClause'], MAYBE),
-            # Finally is always executed
-            (childs['Finally_'], ALWAYS),
-        ):
-            if c_id is not None:
-                graph.add_edge(p_id, c_id, **attrs)
-                p_id = c_id
+
+        # If present, this is always evaluated
+        if c_id := childs['ResourceSpecification']:
+            graph.add_edge(p_id, c_id, **ALWAYS)
+            p_id = c_id
+
+        # This is always present and evaluated
+        if c_id := childs['Block']:
+            graph.add_edge(p_id, c_id, **ALWAYS)
+            p_id = c_id
+
+        # Only if something inside the Block throwed an exception
+        if c_id := childs['CatchClause']:
+            graph.add_edge(p_id, c_id, **MAYBE)
+            p_id = c_id
+
+        # Only if something inside the Block throwed an exception
+        if c_id := childs['Catches']:
+            # Link to the CatchClause nodes
+            for c_c_id in g.adj(graph, c_id):
+                graph.add_edge(p_id, c_c_id, **MAYBE)
+            p_id = c_id
+
+        # If Present finally is always executed
+        if c_id := childs['Finally_']:
+            graph.add_edge(p_id, c_id, **ALWAYS)
+            p_id = c_id
 
 
 def _try_statement_catch_clause(graph: nx.OrderedDiGraph) -> None:
@@ -253,26 +269,14 @@ def _try_statement_catch_clause(graph: nx.OrderedDiGraph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CatchClause',
     )):
-        # Get the CatchClause childs
-        c_ids = g.adj(graph, n_id)
-
         # CatchClause = CATCH ( CatchFormalParameter ) BLOCK
-        if graph.nodes[c_ids[0]]['label_type'] == 'CATCH':
-            graph.add_edge(n_id, c_ids[4], **MAYBE)
-        # CatchClause = __link__
-        elif graph.nodes[c_ids[0]]['label_type'] == '__link__':
-            # Iterate all __link__ nodes
-            for c_id in c_ids:
-                # Get the __link__ childs
-                c_c_ids = g.adj(graph, c_id)
-
-                # __link__ = CATCH ( CatchFormalParameter ) BLOCK
-                if graph.nodes[c_c_ids[0]]['label_type'] == 'CATCH':
-                    graph.add_edge(n_id, c_c_ids[4], **MAYBE)
+        c_ids = g.adj(graph, n_id)
+        graph.add_edge(n_id, c_ids[4], **ALWAYS)
 
 
 def analyze(graph: nx.OrderedDiGraph) -> None:
     _method_declaration(graph)
+    _block(graph)
     _block_statements(graph)
     _try_statement(graph)
     _try_statement_catch_clause(graph)

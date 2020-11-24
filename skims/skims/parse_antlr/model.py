@@ -25,7 +25,7 @@ def _parse_rule2(model: List[Dict[str, Any]]) -> Dict[str, Any]:
         if current_token_name != token_name:
             token_indexes[token_name] += 1
 
-        token_name = f'{token_name}[{token_indexes[token_name]}]'
+        token_name = f'{token_name}|{token_indexes[token_name]}'
 
         if token_name in tokens:
             if isinstance(tokens[token_name], list):
@@ -147,7 +147,7 @@ def _structure_keys2(model: Dict[str, Any]) -> Dict[str, Any]:
         result: Dict[str, Any] = {}
         for key, val in model.items():
             if isinstance(val, dict):
-                if key == 'Token' or key.startswith('Token['):
+                if key == 'Token' or key.startswith('Token|'):
                     result[key] = val
                 else:
                     result[key] = _parse_rule2([_structure_keys2(val)])
@@ -165,7 +165,7 @@ def _structure_keys2(model: Dict[str, Any]) -> Dict[str, Any]:
 
 def from_parse_tree(parse_tree: Dict[str, Any]) -> Dict[str, Any]:
     model = parse_tree
-    model = _structure_model(model)
-    model = _structure_keys(model)
+    model = _structure_model2(model)
+    model = _structure_keys2(model)
 
     return model
