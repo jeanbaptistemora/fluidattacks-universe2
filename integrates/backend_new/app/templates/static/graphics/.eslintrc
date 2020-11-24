@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "strict",
+    "strict/browser",
+    "strict/d3"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    // Camel case
+    "filenames/match-regex": [2, "^[a-z]+([a-zA-Z0-9]+)*$", true],
+    // Many D3 properties like force generators are 'fx', or 'fy'
+    "id-length": "off",
+    // Many C3 arguments use 'data', which is black-listed
+    "id-blacklist": "warn"
+  }
+}
