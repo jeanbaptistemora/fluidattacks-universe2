@@ -40,8 +40,6 @@ export interface IActionButtonsProps {
 
 const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
 
-  const { userEmail } = window as typeof window & { userEmail: string };
-
   const displayMessage: (() => void) = (): void => {
       msgInfo(
         translate.t("search_findings.tab_vuln.info.text"),
@@ -55,13 +53,9 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     <ButtonToolbarRow>
       <VerifyVunButton {...props}/>
       <ReattackVulnButton {...props}/>
-      {userEmail.endsWith("@fluidattacks.com") ? (
-        <React.Fragment>
-          <ConfirmZeroRiskVulnButton {...props}/>
-          <RejectZeroRiskVulnButton {...props}/>
-          <RequestZeroRiskVulnButton {...props}/>
-        </React.Fragment>
-      ) : undefined}
+      <ConfirmZeroRiskVulnButton {...props}/>
+      <RejectZeroRiskVulnButton {...props}/>
+      <RequestZeroRiskVulnButton {...props}/>
       <EditButton {...props}/>
     </ButtonToolbarRow>
   );
