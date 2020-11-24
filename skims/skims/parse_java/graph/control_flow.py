@@ -248,10 +248,34 @@ def _try_statement(graph: nx.OrderedDiGraph) -> None:
                 p_id = c_id
 
 
+def _try_statement_catch_clause(graph: nx.OrderedDiGraph) -> None:
+    # Iterate all CatchClause nodes
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='CatchClause',
+    )):
+        # Get the CatchClause childs
+        c_ids = g.adj(graph, n_id)
+
+        # CatchClause = CATCH ( CatchFormalParameter ) BLOCK
+        if graph.nodes[c_ids[0]]['label_type'] == 'CATCH':
+            graph.add_edge(n_id, c_ids[4], **MAYBE)
+        # CatchClause = __link__
+        elif graph.nodes[c_ids[0]]['label_type'] == '__link__':
+            # Iterate all __link__ nodes
+            for c_id in c_ids:
+                # Get the __link__ childs
+                c_c_ids = g.adj(graph, c_id)
+
+                # __link__ = CATCH ( CatchFormalParameter ) BLOCK
+                if graph.nodes[c_c_ids[0]]['label_type'] == 'CATCH':
+                    graph.add_edge(n_id, c_c_ids[4], **MAYBE)
+
+
 def analyze(graph: nx.OrderedDiGraph) -> None:
     _method_declaration(graph)
     _block_statements(graph)
     _try_statement(graph)
+    _try_statement_catch_clause(graph)
     _if_then_statement(graph)
     _loop_statements(graph)
     _switch_statements(graph)

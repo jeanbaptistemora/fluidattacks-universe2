@@ -25,7 +25,9 @@
       },
       "1072": {
         "index": 4,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_m": "m"
       }
     },
     "1054": {
