@@ -9,6 +9,8 @@ in
       buildInputs = [
         pkgs.git
         pkgs.python38
+        pkgs.postgresql
+        pkgs.python38Packages.setuptools
       ];
 
       TargetRedshift = pkgs.poetry2nix.mkPoetryEnv {
