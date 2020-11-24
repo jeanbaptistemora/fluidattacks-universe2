@@ -360,6 +360,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_add_event_consult_mutate',
             'backend_api_mutations_create_event_mutate',
             'backend_api_mutations_download_event_file_mutate',
+            'backend_api_mutations_request_zero_risk_vuln_mutate',
             'backend_api_mutations_solve_event_mutate',
             'backend_api_mutations_handle_vulns_acceptation_mutate',
             'backend_api_mutations_remove_group_mutate',
@@ -414,6 +415,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
+            (
+                'backend_api_resolvers_new_vulnerability_'
+                'historic_zero_risk_resolve'
+            ),
             'grant_group_level_role:analyst',
             'grant_group_level_role:closer',
             'grant_user_level_role:customer',
