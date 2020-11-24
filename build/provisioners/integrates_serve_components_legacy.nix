@@ -48,6 +48,10 @@ in
       pyPkgIntegratesBack =
         import ../../integrates/backend_new/packages/integrates-back pkgs;
 
+      pkgGeckoDriver = pkgs.geckodriver;
+
+      pkgFirefox = pkgs.firefox;
+
       pyPkgReqsApp =
         builders.pythonRequirements ../../integrates/deploy/dependencies/prod-requirements.txt;
 
