@@ -60,7 +60,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { handleCloseModal } = props;
 
-  const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.treatments.tag));
+  const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.tag));
 
   const dispatch: Dispatch = useDispatch();
   const [updateVuln, {loading: updatingVuln}] = useMutation<IUpdateVulnDescriptionResult>(UPDATE_DESCRIPTION_MUTATION, {
@@ -195,7 +195,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           initialValues={{
             externalBts: groupExternalBts(props.vulnerabilities),
             tag: _.join((_.intersection(...vulnsTags)), ","),
-            treatmentManager: props.vulnerabilities[0].treatments.treatmentManager,
+            treatmentManager: props.vulnerabilities[0].treatmentManager,
           }}
         >
           <Row>

@@ -15,6 +15,7 @@ export interface IVulnRow {
   analyst: string;
   currentState: string;
   externalBts: string;
+  historicTreatment: IHistoricTreatment[];
   id: string;
   remediated: boolean;
   severity: string;
@@ -52,13 +53,12 @@ export interface IUpdateTreatmentVulnAttr {
 export interface IVulnDataType {
   currentState: string;
   externalBts: string;
+  historicTreatment: IHistoricTreatment[];
   id: string;
+  severity: string;
   specific: string;
-  treatments: {
-    severity: string;
-    tag: string;
-    treatmentManager: string;
-  };
+  tag: string;
+  treatmentManager: string;
   where: string;
 }
 

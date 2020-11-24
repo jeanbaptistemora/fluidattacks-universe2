@@ -44,6 +44,7 @@ describe("Vulnerabilities view", () => {
                   date: "2019-07-05 09:56:40",
                   state: "open",
                 }],
+                historicTreatment: [],
                 historicVerification: [{
                   __typename: "Verification",
                   date: "2020-04-01 12:32:24",
@@ -72,6 +73,7 @@ describe("Vulnerabilities view", () => {
                   date: "2019-07-05 09:56:40",
                   state: "open",
                 }],
+                historicTreatment: [],
                 historicVerification: [{
                   __typename: "Verification",
                   date: "2020-04-01 12:32:24",
@@ -102,6 +104,7 @@ describe("Vulnerabilities view", () => {
                   date: "2020-03-16 11:36:40",
                   state: "open",
                 }],
+                historicTreatment: [],
                 historicVerification: [],
                 id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
                 remediated: false,
@@ -126,6 +129,7 @@ describe("Vulnerabilities view", () => {
                   date: "2020-03-16 11:36:40",
                   state: "open",
                 }],
+                historicTreatment: [],
                 historicVerification: [],
                 id: "2feaf502-a039-11ea-bb37-0242ac130002",
                 remediated: false,
@@ -152,6 +156,7 @@ describe("Vulnerabilities view", () => {
                   date: "2020-03-16 11:36:40",
                   state: "open",
                 }],
+                historicTreatment: [],
                 historicVerification: [],
                 id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd48",
                 remediated: false,
@@ -176,6 +181,7 @@ describe("Vulnerabilities view", () => {
                   date: "2020-03-16 11:36:40",
                   state: "open",
                 }],
+                historicTreatment: [],
                 historicVerification: [],
                 id: "c83cda8a-f3a7-4421-ad1f-20d2e63afd49",
                 remediated: false,
@@ -476,13 +482,12 @@ describe("Vulnerabilities view", () => {
       {
         currentState: "",
         externalBts: "",
+        historicTreatment: [],
         id: "test",
+        severity: "",
         specific: "",
-        treatments: {
-          severity: "",
-          tag: "one",
-          treatmentManager: "",
-        },
+        tag: "one",
+        treatmentManager: "",
         where: "",
       },
     ];
@@ -532,13 +537,12 @@ describe("Vulnerabilities view", () => {
       {
         currentState: "",
         externalBts: "",
+        historicTreatment: [],
         id: "test",
+        severity: "",
         specific: "",
-        treatments: {
-          severity: "",
-          tag: "one",
-          treatmentManager: "",
-        },
+        tag: "one",
+        treatmentManager: "",
         where: "",
       },
     ];

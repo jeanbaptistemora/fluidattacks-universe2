@@ -117,6 +117,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         analyst: "",
         currentState: line[0].currentState,
         externalBts: "",
+        historicTreatment: [],
         id: line[0].id,
         remediated: line.every((row: IVulnRow) => row.remediated),
         severity: line.map(getSeverity)
@@ -152,27 +153,17 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
 const getVulnByRow: (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]) =>
   IVulnDataType[] = (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]):
   IVulnDataType[] => {
-    categoryVuln.forEach((vuln: {
-      currentState: string;
-      externalBts: string;
-      id: string;
-      severity: string;
-      specific: string;
-      tag: string;
-      treatmentManager: string;
-      where: string;
-    }) => {
+    categoryVuln.forEach((vuln: IVulnRow) => {
       if (selectedRowId === vuln.id) {
       vulnData.push({
         currentState: vuln.currentState,
         externalBts: vuln.externalBts,
+        historicTreatment: vuln.historicTreatment,
         id: vuln.id,
+        severity: vuln.severity,
         specific: vuln.specific,
-        treatments: {
-          severity: vuln.severity,
-          tag: vuln.tag,
-          treatmentManager: vuln.treatmentManager,
-        },
+        tag: vuln.tag,
+        treatmentManager: vuln.treatmentManager,
         where: vuln.where,
       });
     }

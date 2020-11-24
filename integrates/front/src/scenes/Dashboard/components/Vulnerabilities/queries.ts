@@ -25,6 +25,15 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     where
     specific
     currentState
+    historicTreatment {
+      acceptanceDate
+      acceptanceStatus
+      date
+      justification
+      user
+      treatment
+      treatmentManager
+    }
     id
     externalBts
     findingId

@@ -14,6 +14,7 @@ export interface IHistoricTreatment {
   date: string;
   justification?: string;
   treatment: string;
+  treatmentManager?: string;
   user: string;
 }
 
