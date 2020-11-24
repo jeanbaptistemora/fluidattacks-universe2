@@ -974,7 +974,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "Brief explanation of the vulnerability and how it works",
       },
       download_vulnerabilities: "Download Vulnerabilities",
-      editVuln: "Edit vulnerabilites",
+      editVuln: "Edit vulnerabilities",
       editable: {
         cancel: "Cancel",
         cancel_tooltip: "Cancel changes",

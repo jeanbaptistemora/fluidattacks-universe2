@@ -18,6 +18,7 @@ import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types
 import { getLastTreatment } from "scenes/Dashboard/containers/DescriptionView/utils";
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { IGetFindingVulnInfo } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
 import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -87,7 +88,7 @@ const vulnsView: React.FC = (): JSX.Element => {
     setVerifying(!isVerifying);
   };
 
-  const { data, refetch } = useQuery(GET_FINDING_VULN_INFO, {
+  const { data, refetch } = useQuery<IGetFindingVulnInfo>(GET_FINDING_VULN_INFO, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));

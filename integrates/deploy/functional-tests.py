@@ -544,7 +544,7 @@ class ViewTestCase(unittest.TestCase):
                 (By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]")))
         selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')
 
-    def test_19_finding_vulns(self):
+    def test_19_finding_reattack_vulns(self):
         selenium = self.selenium
         selenium.get(self.url + f'/orgs/okada/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -582,6 +582,53 @@ class ViewTestCase(unittest.TestCase):
 
         modal_btn = selenium.find_element_by_xpath(
             '//*/button[text()[contains(., "Cancel")]]')
+        self.__click(modal_btn)
+        time.sleep(1)
+        selenium.execute_script('window.scrollTo(0, 0);')
+
+        assert 'test/data/lib_path/f060/csharp.cs' in selenium.page_source
+
+    def test_20_finding_edit_vulns(self):
+        selenium = self.selenium
+        selenium.get(self.url + f'/orgs/okada/groups/unittesting/vulns')
+        finding_elem = WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
+
+        selenium.save_screenshot(SCR_PATH + '20-01-finding_vuln.png')
+
+        self.__click(finding_elem)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH,
+                    "//*[contains(text(), 'test/data/lib_path/f060/csharp.cs')]")))
+
+        selenium.save_screenshot(SCR_PATH + '20-02-finding_vuln.png')
+
+        edit_btn = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Edit")]]')
+        self.__click(edit_btn)
+        selenium.save_screenshot(SCR_PATH + '20-03-finding_vuln.png')
+
+        checkboxes = selenium.find_elements_by_css_selector("#linesVulns input[type='checkbox']")
+        for checkbox in checkboxes:
+            if not checkbox.is_selected():
+                self.__click(checkbox)
+        time.sleep(2)
+        selenium.save_screenshot(SCR_PATH + '20-04-finding_vuln.png')
+
+        selenium.execute_script('window.scrollTo(0, 580);')
+        edit_vulns = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Edit vulnerabilities")]]')
+        self.__click(edit_vulns)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'External BTS')]")))
+        selenium.save_screenshot(SCR_PATH + '20-05-finding_vuln.png')
+
+        modal_btn = selenium.find_element_by_xpath(
+            '//*/button[text()[contains(., "Close")]]')
         self.__click(modal_btn)
         time.sleep(1)
         selenium.execute_script('window.scrollTo(0, 0);')

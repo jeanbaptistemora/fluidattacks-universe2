@@ -16,6 +16,7 @@ import { UPDATE_DESCRIPTION_MUTATION } from "scenes/Dashboard/components/Vulnera
 import { IUpdateVulnDescriptionResult } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
+import { translate } from "utils/translations/translate";
 
 describe("Vulnerabilities view", () => {
 
@@ -380,12 +381,12 @@ describe("Vulnerabilities view", () => {
     input.simulate("click");
     const editButton: ReactWrapper = wrapper
       .find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Edit vulnerabilites"))
+      .findWhere((element: ReactWrapper) => element.contains(translate.t("search_findings.tab_description.editVuln")))
       .at(0);
     editButton.simulate("click");
     let editVulnModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit vulnerabilites"});
+      .find({open: true, headerTitle: translate.t("search_findings.tab_description.editVuln")});
     expect(editVulnModal)
       .toHaveLength(1);
     const closeButton: ReactWrapper = wrapper.find("button")
@@ -394,7 +395,7 @@ describe("Vulnerabilities view", () => {
     closeButton.simulate("click");
     editVulnModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit vulnerabilites"});
+      .find({open: true, headerTitle: translate.t("search_findings.tab_description.editVuln")});
     await act(async () => { await wait(0); wrapper.update(); });
     expect(editVulnModal)
       .toHaveLength(0);
