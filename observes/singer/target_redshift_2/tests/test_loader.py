@@ -1,11 +1,7 @@
 from typing import FrozenSet, List
+from postgres_client.cursor import CursorExeAction
+from postgres_client.table import DbTypes, IsolatedColumn, Table, TableID
 from target_redshift_2 import loader
-from postgres_client.objects import (
-    CursorExeAction, DbTypes, IsolatedColumn,
-    SchemaID,
-    Table,
-    TableID,
-)
 from target_redshift_2.objects import (
     RedshiftField,
     RedshiftRecord,
@@ -62,7 +58,7 @@ def test_create_table_schema_map_builder():
     )
     field1 = RedshiftField('field1', DbTypes.VARCHAR)
     field2 = RedshiftField('field2', DbTypes.BOOLEAN)
-    test_table_id = TableID(SchemaID(None, 'test_schema'), 'the_table_1')
+    test_table_id = TableID('test_schema', 'the_table_1')
     test_schemas = [s_schema1, s_schema2]
 
     def mock_to_rschema(s_schema: SingerSchema) -> RedshiftSchema:
@@ -110,8 +106,8 @@ def test_create_redshift_records_builder():
         frozenset({RedshiftField('field2',DbTypes.FLOAT)}),
         'test_schema', 'test_table_2'
     )
-    table_id1 = TableID(SchemaID(None, 'test_schema'), 'table1')
-    table_id2 = TableID(SchemaID(None, 'test_schema_2'), 'table2')
+    table_id1 = TableID('test_schema', 'table1')
+    table_id2 = TableID('test_schema_2', 'table2')
     r_record1 = RedshiftRecord(r_schema1,frozenset())
     r_record2 = RedshiftRecord(r_schema2,frozenset())
     test_records = [s_record1, s_record2]
@@ -145,12 +141,13 @@ def test_create_redshift_records_builder():
 
 def test_create_table_mapper_builder():
     # Arrange
-    test_table_id = TableID(SchemaID(None, 'test_schema'), 'test_table')
+    test_table_id = TableID('test_schema', 'test_table')
     test_table = Table(
         id=test_table_id,
         primary_keys=frozenset(),
         columns=frozenset({}),
-        prototype=None
+        table_path=lambda x: x,
+        add_columns=lambda x: x,
     )
 
     def mock_retrieve_table(table_id: TableID) -> Table:
@@ -169,12 +166,13 @@ def test_create_table_mapper_builder():
 
 def test_update_schema_builder():
     # Arrange
-    test_table_id = TableID(SchemaID(None, 'test_schema'), 'test_table')
+    test_table_id = TableID('test_schema', 'test_table')
     test_table = Table(
         id=test_table_id,
         primary_keys=frozenset(),
         columns=frozenset({}),
-        prototype=None
+        table_path=lambda x: x,
+        add_columns=lambda x: x,
     )
     test_schema = RedshiftSchema(frozenset(), 'the_schema', 'the_table')
     test_columns = frozenset({IsolatedColumn('field1','bool')})
@@ -196,7 +194,7 @@ def test_update_schema_builder():
         if table == test_table and columns == test_columns:
             return [
                 CursorExeAction(
-                    cursor=None, act=mock_action, statement='the_statement'
+                    act=mock_action, statement='the_statement'
                 )
             ]
         raise Exception(f'Unexpected input')

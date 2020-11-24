@@ -9,8 +9,8 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from postgres_client.objects import (
-    CursorExeAction,
+from postgres_client.cursor import CursorExeAction
+from postgres_client.table import (
     IsolatedColumn,
     Table,
     TableID,

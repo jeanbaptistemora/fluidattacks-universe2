@@ -1,11 +1,5 @@
-from postgres_client.objects import (
-    ConnectionID,
-    DbTypes,
-    IsolatedColumn,
-    SchemaID,
-    TableDraft,
-    TableID,
-)
+from postgres_client.connection import ConnectionID
+from postgres_client.table import DbTypes, IsolatedColumn, TableDraft, TableID
 from target_redshift_2.factory_pack import table
 from target_redshift_2.objects import (
     RedshiftField,
@@ -30,7 +24,7 @@ def test_draft_from_rschema_builder():
         table_name='super_table'
     )
     test_table_id = TableID(
-        SchemaID(None, 'the_schema'), table_name='super_table'
+        'the_schema', table_name='super_table'
     )
 
     def mock_column_from_rfield(rfield: RedshiftField) -> IsolatedColumn:
@@ -59,22 +53,19 @@ def test_draft_from_rschema_builder():
     assert result == expected
 
 
-def test_tid_from_rschema_builder():
+def test_tid_from_rschema():
     # Arrange
-    test_connection = ConnectionID(
-        'the_db', 'super_user', '1234', 'the_host', '9000'
-    )
     test_rschema = RedshiftSchema(
         fields=frozenset(),
         schema_name='the_schema',
         table_name='super_table'
     )
     # Act
-    from_rschema = table.tid_from_rschema_builder(test_connection)
+    from_rschema = table.tid_from_rschema
     result = from_rschema(test_rschema)
     # Assert
     expected = TableID(
-        SchemaID(test_connection, 'the_schema'),
+        schema='the_schema',
         table_name='super_table'
     )
     assert result == expected
@@ -88,13 +79,11 @@ def test_tid_from_srecord_builder():
     test_schema = 'the_schema'
     test_srecord = SingerRecord(stream='table1', record={})
     # Act
-    from_srecord = table.tid_from_srecord_builder(
-        test_connection, test_schema
-    )
+    from_srecord = table.tid_from_srecord_builder(test_schema)
     result = from_srecord(test_srecord)
     # Assert
     expected = TableID(
-        SchemaID(test_connection, test_schema),
+        schema=test_schema,
         table_name='table1'
     )
     assert result == expected

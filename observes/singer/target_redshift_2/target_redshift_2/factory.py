@@ -11,7 +11,7 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from postgres_client.objects import DbTypes
+from postgres_client.table import DbTypes
 from target_redshift_2.objects import (
     RedshiftField,
     RedshiftRecord,

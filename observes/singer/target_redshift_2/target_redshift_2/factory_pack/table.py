@@ -2,20 +2,15 @@
 from typing import NamedTuple, Optional
 # Third party libraries
 # Local libraries
-from postgres_client.objects import (
-    Client,
-    ConnectionID,
+
+from postgres_client import table
+from postgres_client.client import Client
+from postgres_client.table import (
     IsolatedColumn,
-    SchemaID,
     Table,
     TableDraft,
     TableID,
 )
-from postgres_client.factory import (
-    CursorActionFactory,
-    TableFactory as DBTableFactory,
-)
-from postgres_client import prototypes
 from target_redshift_2.objects import (
     RedshiftSchema,
     RedshiftField,
@@ -33,12 +28,12 @@ class TableFactory(NamedTuple):
 
 def draft_from_rschema_builder(
     column_from_rfield: Transform[RedshiftField, IsolatedColumn],
-    tid_from_rschema: Transform[RedshiftSchema, TableID]
+    tid_from_rschema_function: Transform[RedshiftSchema, TableID]
 ) -> Transform[RedshiftSchema, TableDraft]:
     """Builder of `draft_from_rschema`"""
     def transform(r_schema: RedshiftSchema) -> TableDraft:
         """Transform `RedshiftSchema` into a `TableDraft`"""
-        table_id: TableID = tid_from_rschema(r_schema)
+        table_id: TableID = tid_from_rschema_function(r_schema)
         return TableDraft(
             id=table_id, primary_keys=frozenset(),
             columns=frozenset(
@@ -48,27 +43,22 @@ def draft_from_rschema_builder(
     return transform
 
 
-def tid_from_rschema_builder(
-    connection: ConnectionID
-) -> Transform[RedshiftSchema, TableID]:
-    """Builder of `tid_from_rschema`"""
-    def transform(r_schema: RedshiftSchema) -> TableID:
-        """Transform `RedshiftSchema` into a `TableID`"""
-        return TableID(
-            schema=SchemaID(connection, r_schema.schema_name),
-            table_name=r_schema.table_name
-        )
-    return transform
+def tid_from_rschema(r_schema: RedshiftSchema) -> TableID:
+    """Transform `RedshiftSchema` into a `TableID`"""
+    return TableID(
+        schema=r_schema.schema_name,
+        table_name=r_schema.table_name
+    )
 
 
 def tid_from_srecord_builder(
-    connection: ConnectionID, schema_name: str
+    schema_name: str
 ) -> Transform[SingerRecord, TableID]:
     """Builder of `tid_from_srecord`"""
     def transform(srecord: SingerRecord) -> TableID:
         """Transform `SingerRecord` into a `TableID`"""
         return TableID(
-            schema=SchemaID(connection, schema_name),
+            schema=schema_name,
             table_name=srecord.stream
         )
     return transform
@@ -76,25 +66,18 @@ def tid_from_srecord_builder(
 
 def factory_1(
     client: Client,
-    connection: ConnectionID,
     column_from_rfield: Transform[RedshiftField, IsolatedColumn]
 ) -> TableFactory:
     """Concrete `TableFactory` implementation #1"""
-    db_table_factory = DBTableFactory(
-        db_client=client,
-        c_action_factory=CursorActionFactory(client.cursor)
-    )
-    tid_from_rschema = tid_from_rschema_builder(connection)
-    table_prototype = prototypes.table_prototype_1(client.execute)
 
-    def table_create(draft: TableDraft):
-        table = Table(
-            draft.id, draft.primary_keys, draft.columns,
-            prototype=table_prototype
-        )
-        return db_table_factory.create(table)
+    def table_create(draft: TableDraft) -> Table:
+        return table.table_builder(client, draft)
+
+    def retrieve_table(table_id: TableID) -> Optional[Table]:
+        return table.retrieve(client, table_id)
+
     return TableFactory(
-        retrieve=db_table_factory.retrieve,
+        retrieve=retrieve_table,
         create=table_create,
         draft_from_rschema=draft_from_rschema_builder(
             column_from_rfield, tid_from_rschema

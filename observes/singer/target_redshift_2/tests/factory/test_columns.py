@@ -1,7 +1,7 @@
 # Standard libraries
 # Third party libraries
 # Local libraries
-from postgres_client.objects import (
+from postgres_client.table import (
     DbTypes,
     IsolatedColumn,
 )
