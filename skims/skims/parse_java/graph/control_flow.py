@@ -2,6 +2,8 @@
 # Standar libraries
 from typing import (
     Any,
+    Dict,
+    Optional,
     Tuple,
 )
 
@@ -21,6 +23,7 @@ from utils.graph import (
 
 # Constants
 ALWAYS = dict(label_e='e', label_cfg='CFG')
+MAYBE = dict(label_m='m', label_cfg='CFG')
 BREAK = dict(label_break='break', **ALWAYS)
 CONTINUE = dict(label_continue='continue', **ALWAYS)
 FALSE = dict(label_false='false', label_cfg='CFG')
@@ -41,6 +44,23 @@ def _get_successors_by_label(
         graph.nodes[successor],
         **labels,
     ))
+
+
+def _match_childs_over_template(
+    graph: nx.OrderedDiGraph,
+    n_id: str,
+    template_keys: Tuple[str, ...],
+) -> Dict[str, Optional[str]]:
+    template: Dict[str, Optional[str]] = dict.fromkeys(template_keys)
+
+    for c_id in g.adj(graph, n_id, label_ast='AST'):
+        c_type = graph.nodes[c_id]['label_type']
+        if c_type in template:
+            template[c_type] = c_id
+        else:
+            raise NotImplementedError(c_type)
+
+    return template
 
 
 def _loop_statements(graph: nx.OrderedDiGraph) -> None:
@@ -196,9 +216,42 @@ def _switch_statements(graph: nx.OrderedDiGraph) -> None:
                     graph.add_edge(statements[-1], else_block, **ALWAYS)
 
 
+def _try_statement(graph: nx.OrderedDiGraph) -> None:
+    # Iterate all TryStatement nodes
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='TryStatement',
+    )):
+        # Strain the childs over the following node types
+        childs = _match_childs_over_template(graph, n_id, (
+            # Components in order
+            'TRY',
+            'ResourceSpecification',
+            'Block',
+            'CatchClause',
+            'Finally_',
+            'SEMI',
+        ))
+
+        p_id = n_id
+        for c_id, attrs in (
+            # If present, this is always evaluated
+            (childs['ResourceSpecification'], ALWAYS),
+            # This is always present, and always is evaluated
+            (childs['Block'], ALWAYS),
+            # Only if something inside the Block throwed an exception
+            (childs['CatchClause'], MAYBE),
+            # Finally is always executed
+            (childs['Finally_'], ALWAYS),
+        ):
+            if c_id is not None:
+                graph.add_edge(p_id, c_id, **attrs)
+                p_id = c_id
+
+
 def analyze(graph: nx.OrderedDiGraph) -> None:
     _method_declaration(graph)
     _block_statements(graph)
+    _try_statement(graph)
     _if_then_statement(graph)
     _loop_statements(graph)
     _switch_statements(graph)

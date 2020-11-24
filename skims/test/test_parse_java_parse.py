@@ -23,6 +23,7 @@ from parse_java.graph.control_flow import (
     BREAK,
     CONTINUE,
     FALSE,
+    MAYBE,
     TRUE,
 )
 from utils.fs import (
@@ -131,3 +132,13 @@ async def test_apply_control_flow() -> None:
     assert has_labels(graph['910']['1041'], **ALWAYS)
     assert has_labels(graph['1081']['1213'], **ALWAYS)
     assert has_labels(graph['910']['1115'], **ALWAYS)
+
+    # TryStatement
+    assert has_labels(graph['171']['173'], **ALWAYS)
+    assert has_labels(graph['173']['334'], **MAYBE)
+
+    assert has_labels(graph['4228']['4230'], **ALWAYS)
+    assert has_labels(graph['4230']['4271'], **MAYBE)
+
+    assert has_labels(graph['4475']['4477'], **ALWAYS)
+    assert has_labels(graph['4477']['4517'], **ALWAYS)

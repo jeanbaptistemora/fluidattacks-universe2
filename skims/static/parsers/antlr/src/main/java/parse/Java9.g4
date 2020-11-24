@@ -961,7 +961,7 @@ synchronizedStatement
 tryStatement
 	:	'try' block catches
 	|	'try' block catches? finally_
-	|	tryWithResourcesStatement
+	|	'try' resourceSpecification block catches? finally_?
 	;
 
 catches
@@ -982,10 +982,6 @@ catchType
 
 finally_
 	:	'finally' block
-	;
-
-tryWithResourcesStatement
-	:	'try' resourceSpecification block catches? finally_?
 	;
 
 resourceSpecification

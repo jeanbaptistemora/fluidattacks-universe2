@@ -73,8 +73,8 @@ public class Test {
 		case 2:
 		case 3: System.out.println("You are three or less than three yr old");
 			break;
-		case 4: 
-		case 5: 
+		case 4:
+		case 5:
 		case 6: System.out.println("You are six or less than six yr old");
 			break;
 		default: System.out.println("You are more than six yr old");
@@ -144,5 +144,10 @@ public class Test {
 			}
 		}
 	}
+
+  try {int j = 0;} catch (E e) {log(e);} catch (E2 e2) {log2(e);};
+  try {int j = 0;} catch (E e) {log(e);};
+  try {int j = 0;} finally {log(e);};
+  try (T r = 0) {int j = 0;};
   }
 }
