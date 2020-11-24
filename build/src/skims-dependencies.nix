@@ -1,4 +1,4 @@
-pkgs: {
+pkgs: rec {
   build = [
     pkgs.awscli
     pkgs.gnutar
@@ -6,15 +6,15 @@ pkgs: {
     pkgs.python38Packages.poetry
   ];
 
-  runtime = [
+  overriden = {
+    overridenPyPkgPyGraphviz = pkgs.python38Packages.pygraphviz;
+  };
+
+  runtime = (builtins.attrValues overriden) ++ [
     pkgs.git
     pkgs.graphviz
     pkgs.jdk11
     pkgs.nodejs
     pkgs.python38
   ];
-
-  overriden = {
-    overridenPyPkgPyGraphviz = pkgs.python38Packages.pygraphviz;
-  };
 }

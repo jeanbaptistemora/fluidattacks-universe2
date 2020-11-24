@@ -167,7 +167,6 @@ function job_skims_deploy_infra {
 
 function job_skims_deploy_to_pypi {
   # Propagated from Gitlab env vars
-  export SKIMS_PYPI_TOKEN
   local version
 
   function restore_version {
