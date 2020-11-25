@@ -37,6 +37,10 @@ spec:
             backend:
               serviceName: integrates-master
               servicePort: 81
+          - path: /logout
+            backend:
+              serviceName: integrates-master
+              servicePort: 81
           - path: /new/*
             backend:
               serviceName: integrates-master

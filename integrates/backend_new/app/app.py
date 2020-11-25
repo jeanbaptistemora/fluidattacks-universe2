@@ -10,7 +10,7 @@ from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
@@ -53,6 +53,16 @@ async def app(*request_args: Request) -> HTMLResponse:
     return response
 
 
+def logout(request: Request) -> HTMLResponse:
+    """Close a user's active session"""
+    request.session.clear()
+
+    response = RedirectResponse('/new')
+    response.delete_cookie(key=settings.JWT_COOKIE_NAME)
+
+    return response
+
+
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
@@ -61,14 +71,15 @@ APP = Starlette(
         Route('/error500', views.error500),
         Route('/invalid_invitation', views.invalid_invitation),
         Route('/new/', views.login),
+        Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
         Route('/new/authz_google', views.authz_google),
         Route('/new/authz_azure', views.authz_azure),
         Route('/new/authz_bitbucket', views.authz_bitbucket),
+        Route('/new/confirm_access/{url_token:path}', views.confirm_access),
         Route('/new/dglogin', views.do_google_login),
         Route('/new/dalogin', views.do_azure_login),
         Route('/new/dblogin', views.do_bitbucket_login),
-        Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
-        Route('/new/confirm_access/{url_token:path}', views.confirm_access),
+        Route('/logout', logout),
         Route('/new/{full_path:path}', app),
         Route('/', app),
         Mount(
