@@ -206,7 +206,7 @@ async def java_insecure_exceptions(
 
 def _java_declaration_of_throws_for_generic_exception(
     content: str,
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     generics: Set[str] = {
@@ -270,7 +270,7 @@ def _java_declaration_of_throws_for_generic_exception(
 @CACHE_1SEC
 @SHIELD
 async def java_declaration_of_throws_for_generic_exception(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:

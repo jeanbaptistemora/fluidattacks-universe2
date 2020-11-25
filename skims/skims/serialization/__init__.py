@@ -119,12 +119,12 @@ def _load_enum(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda value: factory(_deserialize(value))
 
 
-def _dump_graph(instance: nx.OrderedDiGraph) -> Serialized:
+def _dump_graph(instance: nx.DiGraph) -> Serialized:
     graph_as_json = export_graph_as_json(instance, include_styles=True)
     return _serialize(instance, graph_as_json)
 
 
-def _load_graph(graph_as_json: Any) -> nx.OrderedDiGraph:
+def _load_graph(graph_as_json: Any) -> nx.DiGraph:
     return import_graph_from_json(graph_as_json)
 
 
@@ -207,7 +207,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (LarkMeta, _dump_lark_meta, _load_lark_meta),
         (LarkTree, _dump_lark_tree, _load_lark_tree),
         (ListToken, _dump_tuple, _load_list),
-        (nx.OrderedDiGraph, _dump_graph, _load_graph),
+        (nx.DiGraph, _dump_graph, _load_graph),
         (OrderedDict, _dump_dict, _load_ordered_dict),
         (str, _dump_base, str),
         (tuple, _dump_tuple, _load_tuple),

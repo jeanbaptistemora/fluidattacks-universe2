@@ -43,7 +43,7 @@ from utils.model import (
 )
 
 
-def from_antlr_model(model: Any) -> nx.OrderedDiGraph:
+def from_antlr_model(model: Any) -> nx.DiGraph:
     graph = antlr_graph.from_model(model)
 
     reduce_graph(graph)
@@ -62,7 +62,7 @@ async def parse_from_content(
     content: bytes,
     debug: bool = False,
     path: str,
-) -> nx.OrderedDiGraph:
+) -> nx.DiGraph:
     parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
     model = await in_process(antlr_model.from_parse_tree, parse_tree)
 

@@ -31,7 +31,7 @@ NAttrs = Dict[str, str]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 
 
-async def _to_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
+async def _to_svg(graph: nx.DiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
     code, stdout, stderr = await read('dot', '-O', '-T', 'svg', path)
@@ -42,7 +42,7 @@ async def _to_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
 
 
-async def to_svg(graph: nx.OrderedDiGraph, path: str) -> bool:
+async def to_svg(graph: nx.DiGraph, path: str) -> bool:
     return all(await collect((
         _to_svg(graph, path),
         _to_svg(copy_ast(graph), f'{path}.ast'),
@@ -66,7 +66,7 @@ def pred_has_labels(**expected_attrs: str) -> NAttrsPredicateFunction:
 
 
 def filter_nodes(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     nodes: Iterable[str],
     predicate: NAttrsPredicateFunction,
 ) -> Tuple[str, ...]:
@@ -80,7 +80,7 @@ def filter_nodes(
 
 
 def adj(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -117,7 +117,7 @@ def adj(
 
 
 def pred(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -146,8 +146,8 @@ def pred(
     return tuple(results)
 
 
-def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:
-    graph = nx.OrderedDiGraph()
+def import_graph_from_json(model: Any) -> nx.DiGraph:
+    graph = nx.DiGraph()
 
     for n_id, n_attrs in model['nodes'].items():
         graph.add_node(n_id, **n_attrs)
@@ -160,7 +160,7 @@ def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:
 
 
 def export_graph_as_json(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     *,
     include_styles: bool = False,
 ) -> Dict[str, Any]:
@@ -188,11 +188,11 @@ def export_graph_as_json(
 
 
 def _get_subgraph(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     node_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
     edge_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
-) -> nx.OrderedDiGraph:
-    copy: nx.OrderedDiGraph = nx.OrderedDiGraph()
+) -> nx.DiGraph:
+    copy: nx.DiGraph = nx.DiGraph()
 
     for n_a_id, n_b_id in graph.edges:
         edge_attrs = graph[n_a_id][n_b_id].copy()
@@ -211,14 +211,14 @@ def _get_subgraph(
     return copy
 
 
-def copy_ast(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+def copy_ast(graph: nx.DiGraph) -> nx.DiGraph:
     return _get_subgraph(
         graph=graph,
         edge_predicate=pred_has_labels(label_ast='AST'),
     )
 
 
-def copy_cfg(graph: nx.OrderedDiGraph) -> nx.OrderedDiGraph:
+def copy_cfg(graph: nx.DiGraph) -> nx.DiGraph:
     return _get_subgraph(
         graph=graph,
         edge_predicate=pred_has_labels(label_cfg='CFG'),

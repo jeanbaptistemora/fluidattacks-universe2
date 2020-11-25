@@ -14,7 +14,7 @@ from utils import (
 )
 
 
-def _path_traversal(graph: nx.OrderedDiGraph) -> None:
+def _path_traversal(graph: nx.DiGraph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='ClassInstanceCreationExpression_lfno_primary',
     )):
@@ -34,5 +34,5 @@ def _path_traversal(graph: nx.OrderedDiGraph) -> None:
             break
 
 
-def mark(graph: nx.OrderedDiGraph) -> None:
+def mark(graph: nx.DiGraph) -> None:
     _path_traversal(graph)

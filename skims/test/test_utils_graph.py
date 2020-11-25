@@ -8,7 +8,7 @@ from utils import (
 
 
 def test_all() -> None:
-    graph = nx.OrderedDiGraph()
+    graph = nx.DiGraph()
     graph.add_node('1')
     graph.add_node('2')
     graph.add_node('3')

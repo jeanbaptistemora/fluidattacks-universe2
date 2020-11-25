@@ -29,12 +29,12 @@ def _node_has_position_metadata(node: Dict[str, Any]) -> bool:
 
 def _create_leaf(  # pylint: disable=too-many-arguments
     counter: Iterator[int],
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     index: int,
     key: str,
     parent: Optional[str],
     value: Any,
-) -> nx.OrderedDiGraph:
+) -> nx.DiGraph:
     node_id: str = str(next(counter))
 
     # Add a new node and link it to the parent
@@ -74,12 +74,12 @@ def _create_leaf(  # pylint: disable=too-many-arguments
 def _build_graph(
     model: Any,
     _counter: Optional[Iterator[int]] = None,
-    _graph: Optional[nx.OrderedDiGraph] = None,
+    _graph: Optional[nx.DiGraph] = None,
     _parent: Optional[str] = None,
-) -> nx.OrderedDiGraph:
+) -> nx.DiGraph:
     # Handle first level of recurssion, where _graph is None
     counter = count(1) if _counter is None else _counter
-    graph = nx.OrderedDiGraph() if _graph is None else _graph
+    graph = nx.DiGraph() if _graph is None else _graph
 
     if isinstance(model, dict):
         for index, (key, value) in enumerate(model.items()):
@@ -108,7 +108,7 @@ def _build_graph(
     return graph
 
 
-def _propagate_positions(graph: nx.OrderedDiGraph) -> None:
+def _propagate_positions(graph: nx.DiGraph) -> None:
     # Iterate nodes ordered from the leaves to the root
     for n_id in nx.dfs_postorder_nodes(graph):
         # If the node has no metadata let's propagate it from the child
@@ -121,13 +121,13 @@ def _propagate_positions(graph: nx.OrderedDiGraph) -> None:
             graph.nodes[n_id]['label_l'] = graph.nodes[c_id]['label_l']
 
 
-def _mark_as_created_by_this_module(graph: nx.OrderedDiGraph) -> None:
+def _mark_as_created_by_this_module(graph: nx.DiGraph) -> None:
     # Walk the edges and compute a label from the edge attributes
     for n_id_u, n_id_v in graph.edges:
         graph[n_id_u][n_id_v]['label_ast'] = 'AST'
 
 
-def _chop_single_element_nodes(graph: nx.OrderedDiGraph) -> None:
+def _chop_single_element_nodes(graph: nx.DiGraph) -> None:
     reductions: List[Tuple[str, str]] = []
 
     # Iterate nodes ordered from the root to the leaves
@@ -151,7 +151,7 @@ def _chop_single_element_nodes(graph: nx.OrderedDiGraph) -> None:
         graph.remove_node(n_id)
 
 
-def from_model(model: Any) -> nx.OrderedDiGraph:
+def from_model(model: Any) -> nx.DiGraph:
     graph = _build_graph(model)
 
     _chop_single_element_nodes(graph)

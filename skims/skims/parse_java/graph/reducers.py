@@ -19,7 +19,7 @@ from utils import (
 )
 
 
-def _patch_node_types(graph: nx.OrderedDiGraph) -> None:
+def _patch_node_types(graph: nx.DiGraph) -> None:
     for n_attrs in graph.nodes.values():
         label_type: str = n_attrs['label_type']
 
@@ -35,12 +35,12 @@ def _patch_node_types(graph: nx.OrderedDiGraph) -> None:
             n_attrs['label_type_index'] = '0'
 
 
-def _join_label_texts(graph: nx.OrderedDiGraph, n_ids: Iterable[str]) -> str:
+def _join_label_texts(graph: nx.DiGraph, n_ids: Iterable[str]) -> str:
     return ''.join(graph.nodes[n_id]['label_text'] for n_id in n_ids)
 
 
 def _concatenate_child_texts_in_place(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     n_attrs_label_type: str,
     n_ids: List[str],
 ) -> None:
@@ -50,7 +50,7 @@ def _concatenate_child_texts_in_place(
 
 
 def _concatenate_child_texts(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     parent_label_type: str,
     childs_label_types: Tuple[str, ...],
 ) -> None:
@@ -78,7 +78,7 @@ def _concatenate_child_texts(
 
 
 def _replace_with_child(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     parent_label_type: str,
     childs_label_type: str,
 ) -> None:
@@ -101,11 +101,11 @@ def _replace_with_child(
 
 
 def _reduce_ordered(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     parent_label_type: str,
     rules: Tuple[Tuple[str, Set[str]], ...],
     reducers: Dict[str, Callable[
-        [nx.OrderedDiGraph, str, List[str]],
+        [nx.DiGraph, str, List[str]],
         None,
     ]],
 ) -> None:
@@ -153,7 +153,7 @@ def _reduce_ordered(
                 reducers[label_type](graph, label_type, c_ids)
 
 
-def reduce(graph: nx.OrderedDiGraph) -> None:
+def reduce(graph: nx.DiGraph) -> None:
     _patch_node_types(graph)
     _concatenate_child_texts(graph, 'ClassType_lf_classOrInterfaceType', (
         'DOT',

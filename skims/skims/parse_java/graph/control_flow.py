@@ -31,7 +31,7 @@ TRUE = dict(label_true='true', label_cfg='CFG')
 
 
 def _get_successors_by_label(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     source: Any,
     depth_limit: int = 1,
     **labels: Any,
@@ -47,7 +47,7 @@ def _get_successors_by_label(
 
 
 def _match_childs_over_template(
-    graph: nx.OrderedDiGraph,
+    graph: nx.DiGraph,
     n_id: str,
     template_keys: Tuple[str, ...],
 ) -> Dict[str, Optional[str]]:
@@ -63,7 +63,7 @@ def _match_childs_over_template(
     return template
 
 
-def _loop_statements(graph: nx.OrderedDiGraph) -> None:
+def _loop_statements(graph: nx.DiGraph) -> None:
     for n_id, n_attrs in graph.nodes.items():
         if n_attrs['label_type'] not in {
             'BasicForStatement',
@@ -128,7 +128,7 @@ def _loop_statements(graph: nx.OrderedDiGraph) -> None:
                 graph.add_edge(_statement, else_id, **BREAK)
 
 
-def _method_declaration(graph: nx.OrderedDiGraph) -> None:
+def _method_declaration(graph: nx.DiGraph) -> None:
     # Iterate all MethodDeclaration nodes
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='MethodDeclaration',
@@ -138,7 +138,7 @@ def _method_declaration(graph: nx.OrderedDiGraph) -> None:
         graph.add_edge(n_id, block_id, **ALWAYS)
 
 
-def _block(graph: nx.OrderedDiGraph) -> None:
+def _block(graph: nx.DiGraph) -> None:
     # Iterate all Block nodes
     for block_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='Block',
@@ -147,7 +147,7 @@ def _block(graph: nx.OrderedDiGraph) -> None:
         graph.add_edge(block_id, block_c_id, **ALWAYS)
 
 
-def _block_statements(graph: nx.OrderedDiGraph) -> None:
+def _block_statements(graph: nx.DiGraph) -> None:
     # Iterate all Block nodes
     for n_id, n_attrs in graph.nodes.items():
         if n_attrs['label_type'] in {
@@ -169,7 +169,7 @@ def _block_statements(graph: nx.OrderedDiGraph) -> None:
                 graph.add_edge(stmt_a_id, stmt_b_id, **ALWAYS)
 
 
-def _if_then_statement(graph: nx.OrderedDiGraph) -> None:
+def _if_then_statement(graph: nx.DiGraph) -> None:
     # Iterate nodes
     for n_id, n_attrs in graph.nodes.items():
         if n_attrs['label_type'] in {
@@ -185,7 +185,7 @@ def _if_then_statement(graph: nx.OrderedDiGraph) -> None:
                 graph.add_edge(n_id, c_ids[6], **FALSE)
 
 
-def _switch_statements(graph: nx.OrderedDiGraph) -> None:
+def _switch_statements(graph: nx.DiGraph) -> None:
     for n_id, n_attrs in graph.nodes.items():
         if n_attrs['label_type'] == 'SwitchStatement':
             block_statement_cases = _get_successors_by_label(
@@ -216,7 +216,7 @@ def _switch_statements(graph: nx.OrderedDiGraph) -> None:
                     graph.add_edge(statements[-1], else_block, **ALWAYS)
 
 
-def _try_statement(graph: nx.OrderedDiGraph) -> None:
+def _try_statement(graph: nx.DiGraph) -> None:
     # Iterate all TryStatement nodes
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='TryStatement',
@@ -264,7 +264,7 @@ def _try_statement(graph: nx.OrderedDiGraph) -> None:
             p_id = c_id
 
 
-def _try_statement_catch_clause(graph: nx.OrderedDiGraph) -> None:
+def _try_statement_catch_clause(graph: nx.DiGraph) -> None:
     # Iterate all CatchClause nodes
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CatchClause',
@@ -274,7 +274,7 @@ def _try_statement_catch_clause(graph: nx.OrderedDiGraph) -> None:
         graph.add_edge(n_id, c_ids[4], **ALWAYS)
 
 
-def analyze(graph: nx.OrderedDiGraph) -> None:
+def analyze(graph: nx.DiGraph) -> None:
     _method_declaration(graph)
     _block(graph)
     _block_statements(graph)
