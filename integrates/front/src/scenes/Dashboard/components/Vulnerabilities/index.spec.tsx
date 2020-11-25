@@ -16,8 +16,15 @@ import { UPDATE_DESCRIPTION_MUTATION } from "scenes/Dashboard/components/Vulnera
 import { IUpdateVulnDescriptionResult } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+jest.mock("../../../../utils/notifications", () => {
+  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
+  mockedNotifications.msgSuccess = jest.fn();
+
+  return mockedNotifications;
+});
 describe("Vulnerabilities view", () => {
 
   const mocks: MockedResponse = {
@@ -470,21 +477,40 @@ describe("Vulnerabilities view", () => {
   it("should render update treatment", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResult = { updateTreatmentVuln : { success: true } };
-    const mocksMutation: MockedResponse = {
-      request: {
-        query: UPDATE_DESCRIPTION_MUTATION,
-        variables: {
-          findingId: "480857698", severity: -1, tag: "one", treatmentManager: "", vulnerabilities: ["test"],
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_DESCRIPTION_MUTATION,
+          variables: { externalBts: "http://test.t", findingId: "480857698", severity: -1, tag: "one",
+                       treatmentManager: "", vulnerabilities: ["test1"]},
         },
+        result: { data: updateTreatment},
       },
-      result: { data: updateTreatment},
-    };
+      {
+        request: {
+          query: UPDATE_DESCRIPTION_MUTATION,
+          variables: { externalBts: "http://test.t", findingId: "480857698", severity: -1, tag: "one",
+                       treatmentManager: "", vulnerabilities: ["test2"]},
+        },
+        result: { data: updateTreatment},
+    }];
     const vulns: IVulnDataType[] = [
       {
         currentState: "",
         externalBts: "",
         historicTreatment: [],
-        id: "test",
+        id: "test1",
+        severity: "",
+        specific: "",
+        tag: "one",
+        treatmentManager: "",
+        where: "",
+      },
+      {
+        currentState: "",
+        externalBts: "",
+        historicTreatment: [],
+        id: "test2",
         severity: "",
         specific: "",
         tag: "one",
@@ -494,11 +520,12 @@ describe("Vulnerabilities view", () => {
     ];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[mocksMutation, mocks]} addTypename={false}>
+        <MockedProvider mocks={[...mocksMutation, mocks]} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
               findingId="480857698"
               vulnerabilities={vulns}
+              vulnerabilitiesChunk={1}
               handleCloseModal={handleOnClose}
             />
           </authzPermissionsContext.Provider>
@@ -507,18 +534,24 @@ describe("Vulnerabilities view", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
 
-    const closeButton: ReactWrapper = wrapper
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.contains("Close"));
-    closeButton.simulate("click");
+    const externalBts: ReactWrapper = wrapper
+      .find({ name: "externalBts" })
+      .find("input");
+    externalBts
+      .at(0)
+      .simulate("change", { target: { value: "http://test.t" } });
+    await act(async () => { await wait(0); wrapper.update(); });
     const proceedButton: ReactWrapper = wrapper
     .find("Button")
     .filterWhere((element: ReactWrapper) => element.contains("Proceed"));
     proceedButton.simulate("click");
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
       .toHaveLength(1);
-    expect(handleOnClose.mock.calls.length)
-      .toEqual(1);
+    expect(handleOnClose)
+      .toHaveBeenCalledTimes(1);
+    expect(msgSuccess)
+      .toHaveBeenCalledTimes(1);
   });
 
   it("should render error update treatment", async () => {
@@ -554,6 +587,7 @@ describe("Vulnerabilities view", () => {
             <UpdateTreatmentModal
               findingId="480857698"
               vulnerabilities={vulns}
+              vulnerabilitiesChunk={100}
               handleCloseModal={handleOnClose}
             />
           </authzPermissionsContext.Provider>

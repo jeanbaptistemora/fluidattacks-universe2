@@ -6,11 +6,11 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
+import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon } from "react-bootstrap";
+import { ButtonToolbar, Glyphicon } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { Field, isPristine, submit } from "redux-form";
@@ -39,6 +39,7 @@ import { groupExternalBts, sortTags } from "scenes/Dashboard/components/Vulnerab
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import {
   Col100,
+  Col50,
   ControlLabel,
   FormGroup,
   Row,
@@ -53,41 +54,18 @@ import { translate } from "utils/translations/translate";
 import { isValidVulnSeverity, maxLength, numeric, required, validUrlField } from "utils/validations";
 
 const maxBtsLength: ConfigurableValidator = maxLength(80);
-const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
+const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
   props: IUpdateTreatmentModal,
 ): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { handleCloseModal } = props;
+  const [isRunning, setRunning] = React.useState(false);
 
   const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.tag));
 
   const dispatch: Dispatch = useDispatch();
   const [updateVuln, {loading: updatingVuln}] = useMutation<IUpdateVulnDescriptionResult>(UPDATE_DESCRIPTION_MUTATION, {
-    onCompleted: async (result: IUpdateVulnDescriptionResult): Promise<void> => {
-      if (result.updateTreatmentVuln.success) {
-        mixpanel.track(
-          "UpdatedTreatmentVulnerabilities", {
-            User: (window as typeof window & { userName: string }).userName,
-          });
-        msgSuccess(
-          translate.t("search_findings.tab_description.update_vulnerabilities"),
-          translate.t("group_alerts.title_success"));
-        handleCloseModal();
-      }
-    },
-    onError: (updateError: ApolloError): void => {
-      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Invalid treatment manager":
-            msgError(translate.t("group_alerts.invalid_treatment_mgr"));
-            break;
-          default:
-            msgError(translate.t("group_alerts.error_textsad"));
-            Logger.warning("An error occurred updating vuln treatment", updateError);
-        }
-      });
-    },
     refetchQueries: [
       { query: GET_VULNERABILITIES,
         variables: {
@@ -132,19 +110,58 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
     ],
   });
 
-  const handleUpdateTreatmentVuln: ((dataTreatment: IUpdateTreatmentVulnAttr) => void) =
-    (dataTreatment: IUpdateTreatmentVulnAttr): void => {
+  const handleUpdateTreatmentVuln: ((dataTreatment: IUpdateTreatmentVulnAttr) => Promise<void>) = async (
+    dataTreatment: IUpdateTreatmentVulnAttr): Promise<void> => {
       if (props.vulnerabilities.length === 0) {
         msgError(translate.t("search_findings.tab_resources.no_selection"));
       } else {
-        updateVuln({variables: {
-          externalBts: dataTreatment.externalBts,
-          findingId: props.findingId,
-          severity: !_.isEmpty(dataTreatment.severity) ? Number(dataTreatment.severity) : -1,
-          tag: dataTreatment.tag,
-          treatmentManager: dataTreatment.treatmentManager,
-          vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-        }});
+        try {
+          setRunning(true);
+          const results: Array<ExecutionResult<IUpdateVulnDescriptionResult>> = await Promise.all(
+            _.chunk(props.vulnerabilities, props.vulnerabilitiesChunk)
+              .map((vulnsChuncked: IVulnDataType[]) => (
+                updateVuln({variables: {
+                  externalBts: dataTreatment.externalBts,
+                  findingId: props.findingId,
+                  severity: _.isEmpty(dataTreatment.severity) ? -1 : Number(dataTreatment.severity),
+                  tag: dataTreatment.tag,
+                  treatmentManager: dataTreatment.treatmentManager,
+                  vulnerabilities: vulnsChuncked.map((vuln: IVulnDataType) => vuln.id),
+                }})
+              )));
+
+          const areAllMutationValid: boolean[] = results.map((
+            result: ExecutionResult<IUpdateVulnDescriptionResult>,
+          ) => {
+            if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
+
+              return result.data.updateTreatmentVuln.success;
+            }
+
+            return false;
+          });
+
+          if (areAllMutationValid.every(Boolean)) {
+            mixpanel.track(
+              "UpdatedTreatmentVulnerabilities", {
+              User: (window as typeof window & { userName: string }).userName,
+            });
+            msgSuccess(
+              translate.t("search_findings.tab_description.update_vulnerabilities"),
+              translate.t("group_alerts.title_success"),
+            );
+            handleCloseModal();
+          }
+        } catch (updateError) {
+          if (_.includes(String(updateError), "Invalid treatment manager")) {
+            msgError(translate.t("group_alerts.invalid_treatment_mgr"));
+          } else {
+            msgError(translate.t("group_alerts.error_textsad"));
+            Logger.warning("An error occurred updating vuln treatment", updateError);
+          }
+        } finally {
+          setRunning(false);
+        }
       }
   };
 
@@ -199,15 +216,15 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           }}
         >
           <Row>
-            <Col md={6}>
+            <Col50>
               <FormGroup>
                 <ControlLabel>
                   <b>{translate.t("search_findings.tab_description.treatment.title")}</b>
                 </ControlLabel>
                 <p>{translate.t(formatDropdownField(lastTreatment.treatment))}</p>
               </FormGroup>
-            </Col>
-            <Col md={6}>
+            </Col50>
+            <Col50>
               <FormGroup>
                 <ControlLabel>
                   <b>{translate.t("search_findings.tab_description.treatment_mgr")}</b>
@@ -224,17 +241,17 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                   ))}
                 </Field>
               </FormGroup>
-            </Col>
+            </Col50>
           </Row>
           <Row>
-            <Col md={12}>
+            <Col100>
               <FormGroup>
                 <ControlLabel>
                   <b>{translate.t("search_findings.tab_description.treatment_just")}</b>
                 </ControlLabel>
                 <p>{lastTreatment.justification}</p>
               </FormGroup>
-            </Col>
+            </Col100>
           </Row>
           <Row>
             <Col100>
@@ -255,15 +272,15 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
             </Col100>
           </Row>
           <Row>
-            <Col md={12}>
+            <Col100>
               <FormGroup>
                 <ControlLabel>
                   <b>{translate.t("search_findings.tab_description.tag")}</b>
                 </ControlLabel>
                 <Field component={TagInput} name="tag" onDeletion={handleDeletion} type="text" />
               </FormGroup>
-            </Col>
-            <Col md={6}>
+            </Col100>
+            <Col50>
               <FormGroup>
                 <ControlLabel>
                   <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
@@ -275,15 +292,15 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                   validate={[isValidVulnSeverity, numeric]}
                 />
               </FormGroup>
-            </Col>
+            </Col50>
           </Row>
           <Row>
-            <Col md={6}>
+            <Col50>
               <Button onClick={handleDeleteTag}>
                 <Glyphicon glyph="minus" />&nbsp;
                 {translate.t("search_findings.tab_description.deleteTags")}
               </Button>
-            </Col>
+            </Col50>
           </Row>
         </GenericForm>
         <ButtonToolbar className="pull-right">
@@ -292,7 +309,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           </Button>
           <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
             <Button
-              disabled={updatingVuln || deletingTag || isEditPristine}
+              disabled={updatingVuln || deletingTag || isRunning || isEditPristine}
               onClick={handleEditTreatment}
             >
               {translate.t("confirmmodal.proceed")}

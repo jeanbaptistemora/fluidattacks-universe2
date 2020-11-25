@@ -6,6 +6,7 @@ interface IUpdateTreatmentModal {
   lastTreatment?: IHistoricTreatment;
   projectName?: string;
   vulnerabilities: IVulnDataType[];
+  vulnerabilitiesChunk: number;
   handleCloseModal(): void;
 }
 

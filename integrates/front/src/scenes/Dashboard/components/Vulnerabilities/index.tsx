@@ -913,6 +913,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     lastTreatment={props.lastTreatment}
                     projectName={props.projectName}
                     vulnerabilities={vulnerabilitiesList}
+                    vulnerabilitiesChunk={100}
                     handleCloseModal={handleCloseTableSetClick}
                   />
                 : undefined }
