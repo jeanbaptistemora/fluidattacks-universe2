@@ -35,7 +35,10 @@ import {
   IUpdateTreatmentModal,
   IUpdateVulnDescriptionResult,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
-import { groupExternalBts, sortTags } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
+import {
+  groupExternalBts,
+  sortTags,
+} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import {
   Col100,
@@ -47,11 +50,18 @@ import {
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatDropdownField } from "utils/formatHelpers";
-import { Dropdown, TagInput, Text } from "utils/forms/fields";
+import { Date, Dropdown, TagInput, Text, TextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { isValidVulnSeverity, maxLength, numeric, required, validUrlField } from "utils/validations";
+import {
+  isLowerDate,
+  isValidVulnSeverity,
+  maxLength,
+  numeric,
+  required,
+  validUrlField,
+} from "utils/validations";
 
 const maxBtsLength: ConfigurableValidator = maxLength(80);
 const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
@@ -200,6 +210,13 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
   const isEditPristine: boolean = useSelector((state: {}) =>
     isPristine("editTreatmentVulnerability")(state));
 
+  const isAcceptedUndefinedPendingToApproved: boolean = lastTreatment.treatment === "ACCEPTED_UNDEFINED"
+    && lastTreatment.acceptanceStatus !== "APPROVED";
+  const treatmentLabel: string = translate.t(formatDropdownField(lastTreatment.treatment)) +
+    (isAcceptedUndefinedPendingToApproved
+    ? translate.t("search_findings.tab_description.treatment.pending_approval")
+    : "");
+
   return(
     <React.StrictMode>
       <Modal
@@ -217,42 +234,102 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
         >
           <Row>
             <Col50>
-              <FormGroup>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_description.treatment.title")}</b>
-                </ControlLabel>
-                <p>{translate.t(formatDropdownField(lastTreatment.treatment))}</p>
-              </FormGroup>
+              <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
+                {(canEdit: boolean): JSX.Element => (
+                  <EditableField
+                    component={Dropdown}
+                    currentValue={treatmentLabel}
+                    label={translate.t("search_findings.tab_description.treatment.title")}
+                    name="treatment"
+                    renderAsEditable={false}
+                    type="text"
+                    visibleWhileEditing={canEdit}
+                  >
+                    <option value="" />
+                    <option value="IN_PROGRESS">
+                      {translate.t("search_findings.tab_description.treatment.in_progress")}
+                    </option>
+                    <option value="ACCEPTED">
+                      {translate.t("search_findings.tab_description.treatment.accepted")}
+                    </option>
+                    <option value="ACCEPTED_UNDEFINED">
+                      {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
+                    </option>
+                  </EditableField>
+                )}
+              </Can>
             </Col50>
+            {lastTreatment.acceptanceStatus === "APPROVED" ? (
+              <Col50>
+                <FormGroup>
+                  <ControlLabel>
+                    <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
+                  </ControlLabel>
+                  <p>{lastTreatment.user}</p>
+                </FormGroup>
+              </Col50>
+            ) : undefined}
+          </Row>
+          <Row>
             <Col50>
-              <FormGroup>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_description.treatment_mgr")}</b>
-                </ControlLabel>
-                <Field
-                  component={Dropdown}
-                  name="treatmentManager"
-                  type="text"
-                  validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}
-                >
-                  <option value="" />
-                  {userEmails.map((email: string, index: number): JSX.Element => (
-                    <option key={index} value={email}>{email}</option>
-                  ))}
-                </Field>
-              </FormGroup>
+              <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
+                {(canEdit: boolean): JSX.Element => (
+                  <EditableField
+                    component={Dropdown}
+                    currentValue={_.get(lastTreatment, "treatmentManager", "")}
+                    label={translate.t("search_findings.tab_description.treatment_mgr")}
+                    name="treatmentManager"
+                    renderAsEditable={canEdit}
+                    type="text"
+                    visibleWhileEditing={canEdit}
+                    validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}
+                  >
+                    <option value="" />
+                    {userEmails.map((email: string, index: number): JSX.Element => (
+                      <option key={index} value={email}>{email}</option>
+                    ))}
+                  </EditableField>
+                )}
+              </Can>
             </Col50>
           </Row>
           <Row>
             <Col100>
-              <FormGroup>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_description.treatment_just")}</b>
-                </ControlLabel>
-                <p>{lastTreatment.justification}</p>
-              </FormGroup>
+              <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
+                {(canEdit: boolean): JSX.Element => (
+                  <EditableField
+                    component={TextArea}
+                    currentValue={lastTreatment.justification as string}
+                    label={translate.t("search_findings.tab_description.treatment_just")}
+                    name="justification"
+                    renderAsEditable={false}
+                    type="text"
+                    visibleWhileEditing={canEdit}
+                  />
+                )}
+              </Can>
             </Col100>
           </Row>
+          {lastTreatment.treatment === "ACCEPTED" ? (
+            <Row>
+              <Col50>
+                <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
+                  {(canEdit: boolean): JSX.Element => (
+                    <EditableField
+                      component={Date}
+                      currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
+                      label={translate.t("search_findings.tab_description.acceptance_date")}
+                      name="acceptanceDate"
+                      renderAsEditable={false}
+                      type="date"
+                      validate={[required, isLowerDate]}
+                      visibleWhileEditing={canEdit}
+                    />
+                  )}
+                </Can>
+              </Col50>
+            </Row>
+          ) : undefined}
           <Row>
             <Col100>
               <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
