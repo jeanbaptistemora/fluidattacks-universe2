@@ -51,7 +51,7 @@ which gathers information from more than ten international standards.
 The companies that work with us
 find it useful to go beyond mere security compliance.
 
-== Technology advances but best practices remain constant
+== Technology advances yet best practices remain
 
 It is a secret for no one that malicious hackers or attackers
 have kept up with technological and methodological advances.
@@ -78,9 +78,8 @@ are not available or by simple carelessness.
 
 == Talent in cybersecurity is still lacking
 
-It is convenient to refer at this point to something that,
-in April this year, link:../trends-2020-ii/[Julian Arango shared with us]
-precisely by talking about current trends in cybersecurity.
+At this point, it is convenient to remember what link:../trends-2020-ii/[Julian Arango shared with us]
+in April this year, in regards to current trends in cybersecurity.
 Nowadays, there is something that has become a common denominator
 for many companies with cybersecurity issues:
 the shortage of skilled and prepared talent.
@@ -110,7 +109,7 @@ In cybersecurity, specifically, as link:https://www.entrepreneur.com/article/358
 automation is useful for identifying, investigating, triaging,
 prioritizing, and remediating vulnerabilities and threats.
 
-Nonetheless, the trouble lies in assuming that machines' work,
+Still, the trouble lies in assuming that machines' work,
 at least in these times, can replace all human activity
 in a field like cybersecurity.
 On countless occasions, `Fluid Attacks` has informed
@@ -140,7 +139,7 @@ and we have experienced this at `Fluid Attacks`, for example, with *Sorts*.
 *Sorts* is a recent command-line interface that we use
 for extracting metrics from the code repository.
 A previously trained, neural network-based ML model is used
-to evaluate these metrics and then gives probabilities
+to evaluate these metrics, which then returns the probabilities
 of finding vulnerabilities in specific files.
 As link:../security-trends/[Oscar Prado remarked one year ago],
 tools like this "can help our analysts to decide where to look first,
@@ -166,7 +165,7 @@ Organizations should no longer fall into the trap
 of relying only on these automated systems that generally check
 the perimeter of attack and deliver weak and limited reports.
 
-== Cybersecurity from the beginning
+== Cybersecurity implemented from the beginning
 
 It is ideal that today we include security in the DevOps methodology
 primarily from the beginning with the intention
