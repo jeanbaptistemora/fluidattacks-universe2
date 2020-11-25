@@ -339,6 +339,7 @@ def _terraform_negative_statement(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def terraform_negative_statement(
     content: str,
@@ -379,6 +380,7 @@ def _terraform_open_passrole(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def terraform_open_passrole(
     content: str,
@@ -416,6 +418,7 @@ def _terraform_permissive_policy(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def terraform_permissive_policy(
     content: str,
@@ -457,6 +460,7 @@ def _terraform_admin_policy_attached(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def terraform_admin_policy_attached(
     content: str,
@@ -472,6 +476,7 @@ async def terraform_admin_policy_attached(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

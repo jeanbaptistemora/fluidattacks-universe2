@@ -278,6 +278,7 @@ async def cfn_unrestricted_ip_protocols(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

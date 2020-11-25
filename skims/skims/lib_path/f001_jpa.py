@@ -188,6 +188,7 @@ async def java_jpa_like(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

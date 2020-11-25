@@ -378,6 +378,7 @@ async def swift_insecure_exceptions(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

@@ -239,7 +239,7 @@ def _terraform_public_buckets(
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 async def cfn_groups_without_egress(
     content: str,
@@ -320,6 +320,7 @@ async def cfn_unencrypted_volumes(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def terraform_unencrypted_buckets(
     content: str,
@@ -335,6 +336,7 @@ async def terraform_unencrypted_buckets(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def terraform_public_buckets(
     content: str,
@@ -351,6 +353,7 @@ async def terraform_public_buckets(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

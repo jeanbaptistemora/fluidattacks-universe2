@@ -22,6 +22,9 @@ from lib_path.common import (
 from parse_java_properties import (
     load as load_java_properties,
 )
+from state.cache import (
+    CACHE_ETERNALLY,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -70,6 +73,7 @@ def _java_properties_unencrypted_transport(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 async def java_properties_unencrypted_transport(
     content: str,
@@ -82,6 +86,7 @@ async def java_properties_unencrypted_transport(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

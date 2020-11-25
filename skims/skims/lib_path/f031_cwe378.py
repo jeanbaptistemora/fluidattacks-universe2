@@ -75,6 +75,7 @@ async def java_file_create_temp_file(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

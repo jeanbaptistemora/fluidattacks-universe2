@@ -60,6 +60,7 @@ async def unverifiable_files(
     )
 
 
+@SHIELD
 async def analyze(
     file_name: str,
     file_extension: str,

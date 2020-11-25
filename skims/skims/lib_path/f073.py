@@ -229,6 +229,7 @@ async def javascript_switch_no_default(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

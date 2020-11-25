@@ -248,6 +248,7 @@ async def javascript_use_console_log(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

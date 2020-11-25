@@ -129,6 +129,7 @@ async def javascript_client_storage(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

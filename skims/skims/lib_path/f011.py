@@ -313,6 +313,7 @@ def translate_dependencies_to_vulnerabilities(
     return results
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_name: str,

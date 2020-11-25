@@ -330,6 +330,7 @@ async def java_properties_sensitive_data(
     )
 
 
+@SHIELD
 async def analyze(  # pylint: disable=too-many-arguments
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

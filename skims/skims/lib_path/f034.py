@@ -216,6 +216,7 @@ async def javascript_insecure_randoms(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,

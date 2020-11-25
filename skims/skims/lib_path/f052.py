@@ -523,6 +523,7 @@ async def java_properties_weak_cipher_suite(
     )
 
 
+@SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
