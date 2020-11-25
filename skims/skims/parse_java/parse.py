@@ -26,6 +26,9 @@ from parse_java.graph.inputs import (
 from parse_java.graph.reducers import (
     reduce as reduce_graph,
 )
+from parse_java.graph.sinks import (
+    mark as mark_sinks,
+)
 from parse_java.graph.styles import (
     stylize,
 )
@@ -45,6 +48,7 @@ def from_antlr_model(model: Any) -> nx.OrderedDiGraph:
 
     reduce_graph(graph)
     mark_inputs(graph)
+    mark_sinks(graph)
     analyze_control_flow(graph)
     stylize(graph)
 

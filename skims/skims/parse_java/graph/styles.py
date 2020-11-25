@@ -53,8 +53,10 @@ def _add_styles(graph: nx.OrderedDiGraph) -> None:
         n_attrs['color'] = 'black'
         n_attrs['style'] = 'filled'
 
-        if n_attrs.get('label_input_type') == 'function':
+        if n_attrs.get('label_input_type'):
             n_attrs['fillcolor'] = 'gold'
+        elif n_attrs.get('label_sink_type'):
+            n_attrs['fillcolor'] = 'orange'
         else:
             n_attrs['fillcolor'] = 'white'
 
