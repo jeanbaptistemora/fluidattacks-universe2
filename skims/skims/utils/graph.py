@@ -1,4 +1,7 @@
 # Standard library
+from itertools import (
+    product,
+)
 from typing import (
     Any,
     Dict,
@@ -15,6 +18,9 @@ from aioextensions import (
 )
 from jmespath import (
     search as jsh,
+)
+from more_itertools.recipes import (
+    pairwise,
 )
 import networkx as nx
 
@@ -144,6 +150,46 @@ def pred(
                 )
 
     return tuple(results)
+
+
+def paths(
+    graph: nx.DiGraph,
+    s_id: str,
+    t_id: str,
+    **edge_attrs: str,
+) -> Iterator[Tuple[str, ...]]:
+    paths_iterator: Iterator[List[str]] = filter(
+        # Paths whose edges have the required attributes
+        lambda path: all(
+            has_labels(graph[n_a_id][n_b_id], **edge_attrs)
+            for n_a_id, n_b_id in pairwise(path)
+        ),
+        # All paths going from source to target
+        nx.all_simple_paths(graph, s_id, t_id)
+    )
+
+    yield from (tuple(path) for path in paths_iterator)
+
+
+def flows(graph: nx.DiGraph, sink_type: str) -> Tuple[Tuple[str, ...], ...]:
+    return tuple(
+        path
+        for s_id, t_id in product(
+            # Inputs
+            filter_nodes(
+                graph,
+                graph.nodes,
+                lambda n_attrs: 'label_input_type' in n_attrs,
+            ),
+            # Sinks
+            filter_nodes(
+                graph,
+                graph.nodes,
+                pred_has_labels(label_sink_type=sink_type),
+            ),
+        )
+        for path in paths(graph, s_id, t_id, label_cfg='CFG')
+    )
 
 
 def import_graph_from_json(model: Any) -> nx.DiGraph:

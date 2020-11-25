@@ -274,6 +274,13 @@ def _try_statement_catch_clause(graph: nx.DiGraph) -> None:
         graph.add_edge(n_id, c_ids[4], **ALWAYS)
 
 
+def _link_to_parent(graph: nx.DiGraph, label_type: str) -> None:
+    for n_id in g.filter_nodes(
+        graph, graph.nodes, g.pred_has_labels(label_type=label_type),
+    ):
+        graph.add_edge(graph.nodes[n_id]['label_parent_ast'], n_id, **ALWAYS)
+
+
 def analyze(graph: nx.DiGraph) -> None:
     _method_declaration(graph)
     _block(graph)
@@ -283,3 +290,8 @@ def analyze(graph: nx.DiGraph) -> None:
     _if_then_statement(graph)
     _loop_statements(graph)
     _switch_statements(graph)
+
+    # Single evaluations
+    _link_to_parent(graph, 'ClassInstanceCreationExpression_lfno_primary')
+    _link_to_parent(graph, 'LocalVariableDeclaration')
+    _link_to_parent(graph, 'VariableDeclarator')

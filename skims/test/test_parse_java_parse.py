@@ -8,14 +8,7 @@ from aioextensions import (
 import pytest
 
 # Local libraries
-from parse_antlr.parse import (
-    parse,
-)
-from parse_antlr.model import (
-    from_parse_tree as model_from_parse_tree,
-)
 from parse_java.parse import (
-    from_antlr_model,
     parse_from_content,
 )
 from parse_java.graph.control_flow import (
@@ -25,6 +18,9 @@ from parse_java.graph.control_flow import (
     FALSE,
     MAYBE,
     TRUE,
+)
+from utils import (
+    graph as g,
 )
 from utils.fs import (
     get_file_raw_content,
@@ -82,7 +78,7 @@ async def test_graph_generation(path: str, name: str) -> None:
 
 
 @run_decorator
-async def test_apply_control_flow() -> None:
+async def test_control_flow_1() -> None:
     path = 'test/data/parse_java/TestCFG.java'
     graph = await parse_from_content(
         Grammar.JAVA9,
@@ -126,3 +122,18 @@ async def test_apply_control_flow() -> None:
 
     assert has_labels(graph['4440']['4442'], **ALWAYS)  # try -> block
     assert has_labels(graph['4442']['4482'], **ALWAYS)  # block -> finally
+
+
+@run_decorator
+async def test_control_flow_2() -> None:
+    path = 'test/data/lib_path/f063_path_traversal/Test.java'
+    graph = await parse_from_content(
+        Grammar.JAVA9,
+        content=await get_file_raw_content(path),
+        path=path,
+    )
+
+    assert sorted(g.flows(graph, sink_type='F063_PATH_TRAVERSAL')) == [
+        ('30', '85', '87', '91', '125', '185', '286', '351', '352', '368', '392', '422'),
+        ('30', '85', '87', '91', '93', '123', '125', '185', '286', '351', '352', '368', '392', '422'),
+    ]
