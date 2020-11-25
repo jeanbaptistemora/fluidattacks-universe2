@@ -248,6 +248,7 @@ async def test_organization():
         'integratesmanager@gmail.com',
         'integratesresourcer@fluidattacks.com',
         'integratesreviewer@fluidattacks.com',
+        'integratesserviceforces@gmail.com',
         'integratesuser@gmail.com',
         'unittest2@fluidattacks.com'
     ]

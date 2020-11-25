@@ -311,6 +311,7 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         expected_output = [
             'integratescloser@fluidattacks.com',
+            'integratesserviceforces@gmail.com',
             'integratesmanager@gmail.com',
             'unittest@fluidattacks.com',
             'unittest2@fluidattacks.com',
