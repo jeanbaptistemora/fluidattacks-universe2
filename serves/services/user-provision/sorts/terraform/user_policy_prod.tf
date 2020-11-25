@@ -74,6 +74,22 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "arn:aws:s3:::sorts/*"
     ]
   }
+
+  # SageMaker access
+  statement {
+    effect = "Allow"
+    actions = [
+      "sagemaker:AddTags",
+      "sagemaker:CreateTrainingJob",
+      "sagemaker:DeleteTags",
+      "sagemaker:DescribeTrainingJob",
+      "sagemaker:ListTrainingJobs",
+      "sagemaker:StopTrainingJob"
+    ]
+    resources = [
+      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sorts*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "sorts_prod_policy" {
