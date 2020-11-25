@@ -103,14 +103,31 @@ async def test_control_flow_1() -> None:
     assert has_labels(graph['454']['525'], **ALWAYS)
 
     # Check WhileStatement
+    assert has_labels(graph['1946']['1983'], **TRUE)
+    assert has_labels(graph['2038']['1946'], **ALWAYS)
+    assert has_labels(graph['2776']['2813'], **TRUE)
 
     # Check DoWhileStatement
+    assert has_labels(graph['2087']['2091'], **ALWAYS)
+    assert has_labels(graph['2146']['2087'], **TRUE)
+    assert has_labels(graph['2146']['2194'], **FALSE)
 
-    # Check breakStatement
+    # Check BreakStatement
+    assert has_labels(graph['2902']['2969'], **BREAK)
 
-    # Check for statement
+    # Check ContinueStatement
+    assert has_labels(graph['3382']['3215'], **ALWAYS)
+
+    # Check ForStatement
+    assert has_labels(graph['2194']['2276'], **TRUE)
+    assert has_labels(graph['2194']['2330'], **FALSE)
+    assert has_labels(graph['2282']['2194'], **ALWAYS)
 
     # Check SwitchStatement
+    assert has_labels(graph['904']['927'], **ALWAYS)
+    assert has_labels(graph['1075']['1101'], **TRUE)
+    assert has_labels(graph['1145']['1202'], **ALWAYS)  # Break
+    assert has_labels(graph['1312']['1347'], **ALWAYS)  # no Break
 
     # TryStatement
     assert has_labels(graph['168']['170'], **ALWAYS)  # try -> block
@@ -135,5 +152,4 @@ async def test_control_flow_2() -> None:
 
     assert sorted(g.flows(graph, sink_type='F063_PATH_TRAVERSAL')) == [
         ('30', '85', '87', '91', '125', '185', '286', '351', '352', '368', '392', '422'),
-        ('30', '85', '87', '91', '93', '123', '125', '185', '286', '351', '352', '368', '392', '422'),
     ]
