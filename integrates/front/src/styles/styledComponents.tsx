@@ -340,6 +340,42 @@ const ModalTitle: StyledComponent<
   className: "color-inherit fw3 f2 lh-solid ma0 montserrat tc",
 })``;
 
+const NavBar: StyledComponent<
+  "nav",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph4 navbar h-100",
+})``;
+
+const NavBarCollapse: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex items-center nav-collapse",
+})``;
+
+const NavBarHeader: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex navbar-header",
+})``;
+
+const NavItem: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "nav-item",
+})``;
+
 const Notification2FaCol: StyledComponent<
   "div",
   Record<string, unknown>
@@ -573,6 +609,10 @@ export {
   ModalFooter,
   ModalHeader,
   ModalTitle,
+  NavBar,
+  NavBarCollapse,
+  NavBarHeader,
+  NavItem,
   Notification2FaCol,
   Notification2FaGrid,
   Notification2FaRow,

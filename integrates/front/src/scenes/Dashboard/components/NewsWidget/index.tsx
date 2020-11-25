@@ -1,4 +1,5 @@
 import { Glyphicon } from "react-bootstrap";
+import { NavItem } from "styles/styledComponents";
 import React from "react";
 
 const NewsWidget: React.FC = (): JSX.Element => {
@@ -19,9 +20,9 @@ const NewsWidget: React.FC = (): JSX.Element => {
   }, []);
 
   return (
-    <span id={"news"}>
+    <NavItem id={"news"}>
       <Glyphicon glyph={"bullhorn"} />
-    </span>
+    </NavItem>
   );
 };
 

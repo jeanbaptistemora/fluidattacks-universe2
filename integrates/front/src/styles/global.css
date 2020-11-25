@@ -140,6 +140,49 @@ label {
   width: 405px;
 }
 
+:global .navbar {
+  background-color: #f5f5f5;
+  border-bottom: 2px #e4e4e4 solid;
+  font-size: 18px;
+  height: 55px;
+  margin-bottom: 0px;
+}
+
+:global .nav-collapse {
+  list-style: none;
+}
+
+:global .nav-item {
+  color: #777;
+  padding: 10px;
+  display: inline-block;
+}
+
+:global .nav-item > span:hover {
+  color: #272727;
+}
+
+@media (min-width: 768px) {
+  :global .navbar {
+    margin-left: 210px;
+    position: sticky;
+    top: 0px;
+    z-index: 5;
+  }
+}
+
+@media (min-width: 768px) {
+  :global .navbar-header {
+    float: left;
+  }
+}
+
+@media (min-width: 768px) {
+  :global .nav-collapse {
+    float: right !important;
+  }
+}
+
 @media (max-width: 450px) {
   :global .login-grid {
     height: unset;
@@ -334,7 +377,6 @@ label {
 
 :global .HW_badge_cont {
   display: inline-block !important;
-  left: 24px;
   position: absolute !important;
 }
 

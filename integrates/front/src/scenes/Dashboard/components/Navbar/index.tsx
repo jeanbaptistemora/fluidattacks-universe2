@@ -8,15 +8,20 @@ import {
   BreadcrumbItem,
   InputGroup,
   MenuItem,
-  Nav,
   Navbar,
-  NavItem,
   SelectCallback,
   SplitButton,
 } from "react-bootstrap";
 import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
+import {
+  Col100,
+  Col25,
+  NavBar,
+  NavBarCollapse,
+  NavBarHeader,
+} from "styles/styledComponents";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
@@ -118,8 +123,8 @@ export const navbarComponent: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Navbar className={style.container} fluid={true} id={"navbar"}>
-        <Navbar.Header>
+      <NavBar id={"navbar"}>
+        <NavBarHeader>
           <Breadcrumb className={style.breadcrumb}>
             <BreadcrumbItem>
               <div className={style.splitButton}>
@@ -142,13 +147,12 @@ export const navbarComponent: React.FC = (): JSX.Element => {
             </BreadcrumbItem>
             {breadcrumbItems}
           </Breadcrumb>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight={true}>
-            <NavItem>
-              <NewsWidget />
-            </NavItem>
+        </NavBarHeader>
+        <NavBarCollapse>
+          <Col25>
+            <NewsWidget />
+          </Col25>
+          <Col100>
             {userEmail.endsWith("fluidattacks.com") ? (
               <li role="presentation">
                 <Navbar.Form className={style.navbarForm}>
@@ -170,9 +174,9 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                 </Navbar.Form>
               </li>
             ) : undefined}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+          </Col100>
+        </NavBarCollapse>
+      </NavBar>
     </React.StrictMode>
   );
 };
