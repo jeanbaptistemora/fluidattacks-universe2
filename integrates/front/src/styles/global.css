@@ -80,6 +80,23 @@ label {
   cursor: default;
 }
 
+:global .breadcrumb {
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+:global .breadcrumb > li + li::before {
+  padding: 0 2px;
+}
+
+:global .breadcrumb > li + li > a:active,
+:global .breadcrumb > li + li > a:focus,
+:global .breadcrumb > li + li > a:hover {
+  color: #272727 !important;
+}
+
 :global .btn {
   border-radius: 0;
 }

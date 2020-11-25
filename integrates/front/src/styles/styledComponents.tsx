@@ -35,6 +35,13 @@ const ButtonToolbarRow: StyledComponent<
   className: "flex flex-wrap justify-end",
 })``;
 
+const BreadCrumb: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "breadcrumb",
+})``;
+
 const Col100: StyledComponent<
   "div",
   Record<string, unknown>
@@ -566,6 +573,7 @@ const TabsContainer: StyledComponent<
 
 export {
   Alert,
+  BreadCrumb,
   ButtonToolbar,
   ButtonToolbarCenter,
   ButtonToolbarLeft,

@@ -4,8 +4,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
   InputGroup,
   MenuItem,
   Navbar,
@@ -16,6 +14,7 @@ import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
 import {
+  BreadCrumb,
   Col100,
   Col25,
   NavBar,
@@ -115,9 +114,9 @@ export const navbarComponent: React.FC = (): JSX.Element => {
         .join("/");
 
       return (
-        <BreadcrumbItem key={index}>
+        <li key={index}>
           <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
-        </BreadcrumbItem>
+        </li>
       );
     });
 
@@ -125,8 +124,8 @@ export const navbarComponent: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <NavBar id={"navbar"}>
         <NavBarHeader>
-          <Breadcrumb className={style.breadcrumb}>
-            <BreadcrumbItem>
+          <BreadCrumb>
+            <li>
               <div className={style.splitButton}>
                 <SplitButton
                   id={"organizationList"}
@@ -144,9 +143,9 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                   ))}
                 </SplitButton>
               </div>
-            </BreadcrumbItem>
+            </li>
             {breadcrumbItems}
-          </Breadcrumb>
+          </BreadCrumb>
         </NavBarHeader>
         <NavBarCollapse>
           <Col25>

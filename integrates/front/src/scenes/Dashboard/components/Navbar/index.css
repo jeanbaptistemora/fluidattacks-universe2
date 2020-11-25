@@ -1,20 +1,3 @@
-:local .breadcrumb {
-  margin-bottom: 0;
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-:local .breadcrumb > li + li::before {
-  padding: 0 2px;
-}
-
-:local .breadcrumb > li + li > a > a:active,
-.breadcrumb > li + li > a > a:focus,
-.breadcrumb > li + li > a > a:hover {
-  color: #272727 !important;
-}
-
 :local .navbarForm {
   margin-bottom: 4px;
   margin-top: 4px;
