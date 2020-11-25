@@ -488,7 +488,7 @@ export const enTranslations: ResourceKey = {
           none: "None",
           paths: "Paths",
           policy: "Policy",
-          title: "Exclusions",
+          title: "Filters",
         },
         repo: {
           branch: "Branch",

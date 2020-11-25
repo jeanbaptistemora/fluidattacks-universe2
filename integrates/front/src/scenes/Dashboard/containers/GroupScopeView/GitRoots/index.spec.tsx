@@ -1,4 +1,5 @@
 import { GitRoots } from ".";
+import { GitRootsModal } from "./modal";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
 import React from "react";
@@ -47,14 +48,18 @@ describe("GitRoots", (): void => {
     expect(wrapper.text()).toContain("add");
   });
 
-  // Giving TDD a try, will enable next MR
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should render modal", (): void => {
+  it("should render modal", (): void => {
     expect.hasAssertions();
 
+    const handleClose: jest.Mock = jest.fn();
+    const handleSubmit: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <div />
+        <GitRootsModal
+          isOpen={true}
+          onClose={handleClose}
+          onSubmit={handleSubmit}
+        />
       </Provider>
     );
 
