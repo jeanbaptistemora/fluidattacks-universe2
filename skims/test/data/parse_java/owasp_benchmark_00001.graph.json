@@ -825,22 +825,6 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "1439": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "1441": {
-        "index": 3,
-        "label_ast": "AST"
-      },
-      "1442": {
-        "index": 4,
-        "label_ast": "AST"
-      },
-      "1444": {
-        "index": 5,
-        "label_ast": "AST"
-      },
       "1445": {
         "index": 6,
         "label_ast": "AST"
@@ -861,22 +845,6 @@
       },
       "1468": {
         "index": 1,
-        "label_ast": "AST"
-      },
-      "1469": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "1471": {
-        "index": 3,
-        "label_ast": "AST"
-      },
-      "1472": {
-        "index": 4,
-        "label_ast": "AST"
-      },
-      "1474": {
-        "index": 5,
         "label_ast": "AST"
       },
       "1475": {
@@ -2487,30 +2455,6 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "363": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "365": {
-        "index": 3,
-        "label_ast": "AST"
-      },
-      "366": {
-        "index": 4,
-        "label_ast": "AST"
-      },
-      "368": {
-        "index": 5,
-        "label_ast": "AST"
-      },
-      "369": {
-        "index": 6,
-        "label_ast": "AST"
-      },
-      "371": {
-        "index": 7,
-        "label_ast": "AST"
-      },
       "372": {
         "index": 8,
         "label_ast": "AST"
@@ -2905,22 +2849,6 @@
       },
       "576": {
         "index": 1,
-        "label_ast": "AST"
-      },
-      "577": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "579": {
-        "index": 3,
-        "label_ast": "AST"
-      },
-      "580": {
-        "index": 4,
-        "label_ast": "AST"
-      },
-      "582": {
-        "index": 5,
         "label_ast": "AST"
       },
       "583": {
@@ -5082,40 +5010,8 @@
       "label_c": 20,
       "label_l": 71,
       "label_parent_ast": "1435",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1439": {
-      "label_c": 24,
-      "label_l": 71,
-      "label_parent_ast": "1435",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1441": {
-      "label_c": 25,
-      "label_l": 71,
-      "label_parent_ast": "1435",
-      "label_text": "io",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1442": {
-      "label_c": 27,
-      "label_l": 71,
-      "label_parent_ast": "1435",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1444": {
-      "label_c": 28,
-      "label_l": 71,
-      "label_parent_ast": "1435",
-      "label_text": "FileInputStream",
-      "label_type": "IdentifierRule",
+      "label_text": "java.io.FileInputStream",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "1445": {
@@ -5145,40 +5041,8 @@
       "label_c": 48,
       "label_l": 71,
       "label_parent_ast": "1465",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1469": {
-      "label_c": 52,
-      "label_l": 71,
-      "label_parent_ast": "1465",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1471": {
-      "label_c": 53,
-      "label_l": 71,
-      "label_parent_ast": "1465",
-      "label_text": "io",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1472": {
-      "label_c": 55,
-      "label_l": 71,
-      "label_parent_ast": "1465",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1474": {
-      "label_c": 56,
-      "label_l": 71,
-      "label_parent_ast": "1465",
-      "label_text": "File",
-      "label_type": "IdentifierRule",
+      "label_text": "java.io.File",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "1475": {
@@ -7690,48 +7554,8 @@
       "label_c": 45,
       "label_l": 37,
       "label_parent_ast": "359",
-      "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "363": {
-      "label_c": 50,
-      "label_l": 37,
-      "label_parent_ast": "359",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "365": {
-      "label_c": 51,
-      "label_l": 37,
-      "label_parent_ast": "359",
-      "label_text": "servlet",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "366": {
-      "label_c": 58,
-      "label_l": 37,
-      "label_parent_ast": "359",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "368": {
-      "label_c": 59,
-      "label_l": 37,
-      "label_parent_ast": "359",
-      "label_text": "http",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "369": {
-      "label_c": 63,
-      "label_l": 37,
-      "label_parent_ast": "359",
-      "label_text": ".",
-      "label_type": "DOT",
+      "label_text": "javax.servlet.http.Cookie",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "37": {
@@ -7739,14 +7563,6 @@
       "label_l": 23,
       "label_parent_ast": "2",
       "label_type": "SingleTypeImportDeclaration",
-      "label_type_index": "0"
-    },
-    "371": {
-      "label_c": 64,
-      "label_l": 37,
-      "label_parent_ast": "359",
-      "label_text": "Cookie",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "372": {
@@ -8269,40 +8085,8 @@
       "label_c": 27,
       "label_l": 41,
       "label_parent_ast": "573",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "577": {
-      "label_c": 31,
-      "label_l": 41,
-      "label_parent_ast": "573",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "579": {
-      "label_c": 32,
-      "label_l": 41,
-      "label_parent_ast": "573",
-      "label_text": "net",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "580": {
-      "label_c": 35,
-      "label_l": 41,
-      "label_parent_ast": "573",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "582": {
-      "label_c": 36,
-      "label_l": 41,
-      "label_parent_ast": "573",
-      "label_text": "URL",
-      "label_type": "IdentifierRule",
+      "label_text": "java.net.URL",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "583": {

@@ -4,6 +4,7 @@ from asyncio import (
 )
 import functools
 import inspect
+import traceback
 from typing import (
     Any,
     Callable,
@@ -90,10 +91,17 @@ def shield(
                 try:
                     return await function(*args, **kwargs)
                 except on_exceptions as exc:
-                    msg: str = 'Function: %s, %s: %s'
+                    msg: str = 'Function: %s, %s: %s\n%s'
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
-                    await log('warning', msg, function_id, exc_type, exc_msg)
+                    await log(
+                        'warning',
+                        msg,
+                        function_id,
+                        exc_type,
+                        exc_msg,
+                        traceback.format_exc(),
+                    )
                     await log_to_remote(
                         exception=exc,
                         function_id=function_id,

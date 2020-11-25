@@ -1629,30 +1629,6 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "2002": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "2004": {
-        "index": 3,
-        "label_ast": "AST"
-      },
-      "2005": {
-        "index": 4,
-        "label_ast": "AST"
-      },
-      "2007": {
-        "index": 5,
-        "label_ast": "AST"
-      },
-      "2008": {
-        "index": 6,
-        "label_ast": "AST"
-      },
-      "2010": {
-        "index": 7,
-        "label_ast": "AST"
-      },
       "2011": {
         "index": 8,
         "label_ast": "AST"
@@ -3737,22 +3713,6 @@
       },
       "964": {
         "index": 1,
-        "label_ast": "AST"
-      },
-      "965": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "967": {
-        "index": 3,
-        "label_ast": "AST"
-      },
-      "968": {
-        "index": 4,
-        "label_ast": "AST"
-      },
-      "970": {
-        "index": 5,
         "label_ast": "AST"
       },
       "971": {
@@ -6483,56 +6443,8 @@
       "label_c": 46,
       "label_l": 88,
       "label_parent_ast": "1998",
-      "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "2002": {
-      "label_c": 51,
-      "label_l": 88,
-      "label_parent_ast": "1998",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "2004": {
-      "label_c": 52,
-      "label_l": 88,
-      "label_parent_ast": "1998",
-      "label_text": "servlet",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "2005": {
-      "label_c": 59,
-      "label_l": 88,
-      "label_parent_ast": "1998",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "2007": {
-      "label_c": 60,
-      "label_l": 88,
-      "label_parent_ast": "1998",
-      "label_text": "http",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "2008": {
-      "label_c": 64,
-      "label_l": 88,
-      "label_parent_ast": "1998",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "2010": {
-      "label_c": 65,
-      "label_l": 88,
-      "label_parent_ast": "1998",
-      "label_text": "Cookie",
-      "label_type": "IdentifierRule",
+      "label_text": "javax.servlet.http.Cookie",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "2011": {
@@ -9615,32 +9527,8 @@
       "label_c": 15,
       "label_l": 59,
       "label_parent_ast": "961",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "965": {
-      "label_c": 19,
-      "label_l": 59,
-      "label_parent_ast": "961",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "967": {
-      "label_c": 20,
-      "label_l": 59,
-      "label_parent_ast": "961",
-      "label_text": "util",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "968": {
-      "label_c": 24,
-      "label_l": 59,
-      "label_parent_ast": "961",
-      "label_text": ".",
-      "label_type": "DOT",
+      "label_text": "java.util.Random",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "97": {
@@ -9648,14 +9536,6 @@
       "label_l": 26,
       "label_parent_ast": "94",
       "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "970": {
-      "label_c": 25,
-      "label_l": 59,
-      "label_parent_ast": "961",
-      "label_text": "Random",
       "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
