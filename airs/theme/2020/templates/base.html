@@ -289,18 +289,16 @@
           }
         }
       </script>
-      <!-- Rocketchat live Chat -->
+      <!-- Zoho live Chat -->
       <div>
-      <!-- Start of Rocket.Chat Livechat Script -->
-          <script type="text/javascript">
-              (function(w, d, s, u) {
-                  w.RocketChat = function(c) { w.RocketChat._.push(c) }; w.RocketChat._ = []; w.RocketChat.url = u;
-                  var h = d.getElementsByTagName(s)[0], j = d.createElement(s);
-                  j.async = true; j.src = 'https://fluidattacks.rocket.chat/livechat/rocketchat-livechat.min.js?_=201903270000';
-                  h.parentNode.insertBefore(j, h);
-              })(window, document, 'script', 'https://fluidattacks.rocket.chat/livechat');
-          </script>
-      <!-- End of Rocket.Chat Livechat Script -->
+      <!-- Start of Zoho Livechat Script -->
+      <script type="text/javascript">
+        var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || 
+        {widgetcode:"50094df2b302da078befa3cee2e8de00943ab0089a71d1aa34f6df9b6cb54ae5feb79731b60e202192c2895c9acefb61", values:{},ready:function(){}};
+        var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;
+        s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");
+      </script>
+      <!-- End of Zoho Livechat Script -->
       </div>
     <!-- Footer -->
       {% include "footer.html" %}
