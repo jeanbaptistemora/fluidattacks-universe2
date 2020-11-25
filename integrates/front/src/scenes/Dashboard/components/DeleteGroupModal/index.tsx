@@ -21,7 +21,7 @@ interface IDeleteGroupModalProps {
   onSubmit: (values: { confirmation: string }) => void;
 }
 
-const deleteGroupModal: React.FC<IDeleteGroupModalProps> = (
+const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
   props: IDeleteGroupModalProps
 ): JSX.Element => {
   const { groupName, isOpen, onClose, onSubmit } = props;
@@ -29,7 +29,7 @@ const deleteGroupModal: React.FC<IDeleteGroupModalProps> = (
   function formValidations(values: {
     confirmation: string;
   }): { confirmation?: string } {
-    return values.confirmation !== groupName
+    return values.confirmation === groupName
       ? {}
       : {
           confirmation: translate.t(
@@ -101,4 +101,4 @@ const deleteGroupModal: React.FC<IDeleteGroupModalProps> = (
   );
 };
 
-export { deleteGroupModal as DeleteGroupModal };
+export { DeleteGroupModal };

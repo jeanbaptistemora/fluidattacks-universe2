@@ -322,7 +322,6 @@ async def edit(
             ),
             group_name=group_name,
             requester_email=requester_email,
-            subscription=subscription,
         )
 
     return success

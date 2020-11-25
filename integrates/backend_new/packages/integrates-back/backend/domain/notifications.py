@@ -140,13 +140,7 @@ async def delete_group(
     deletion_date: str,
     group_name: str,
     requester_email: str,
-    subscription: str,
 ) -> bool:
-    translations: Dict[Union[str, bool], str] = {
-        'continuous': 'Continuous Hacking',
-        'oneshot': 'One-Shot Hacking',
-    }
-
     return cast(
         bool,
         await in_thread(
@@ -158,7 +152,6 @@ async def delete_group(
 
                 Here are the details of the group:
                 - Name: {group_name}
-                - Type: {translations.get(subscription, subscription)}
                 - Deletion date: {deletion_date}
 
                 If you require any further information,

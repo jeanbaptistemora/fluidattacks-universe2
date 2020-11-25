@@ -25,8 +25,7 @@ from backend.typing import SimplePayload as SimplePayloadType
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-    group_name: str,
-    subscription: str
+    group_name: str
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     user_info = await util.get_jwt_content(info.context)
@@ -42,7 +41,7 @@ async def mutate(
             has_integrates=False,
             reason="",
             requester_email=requester_email,
-            subscription=subscription,
+            subscription="continuous",
         )
     except PermissionDenied:
         util.cloudwatch_log(

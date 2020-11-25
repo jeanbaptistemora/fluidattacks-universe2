@@ -101,8 +101,7 @@ async def test_project():
     query = f'''
         mutation {{
             removeGroup(
-                groupName: "{group_name2}",
-                subscription: CONTINUOUS
+                groupName: "{group_name2}"
             ) {{
             success
             }}

@@ -222,7 +222,6 @@ type Mutation {
 
      removeGroup(
         groupName: String!
-        subscription: SubscriptionType!
     ): SimplePayload!
 
     addFindingConsult(
