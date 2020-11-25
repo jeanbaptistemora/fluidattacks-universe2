@@ -150,12 +150,7 @@ async def validate_evidence(
     mib = 1048576
     success = False
     allowed_mimes = []
-    max_size = {
-        'animation': 10,
-        'exploitation': 1,
-        'exploit': 1,
-        'fileRecords': 1
-    }
+    max_size = 10
 
     if (evidence_id in ['animation', 'exploitation'] or
             evidence_id.startswith('evidence')):
@@ -168,7 +163,7 @@ async def validate_evidence(
     if not await util.assert_uploaded_file_mime(file, allowed_mimes):
         raise InvalidFileType()
 
-    if await util.get_file_size(file) < max_size.get(evidence_id, 10) * mib:
+    if await util.get_file_size(file) < max_size * mib:
         success = True
     else:
         raise InvalidFileSize()

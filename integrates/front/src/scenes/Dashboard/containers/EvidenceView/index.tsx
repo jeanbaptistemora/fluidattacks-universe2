@@ -153,7 +153,7 @@ const evidenceView: React.FC = (): JSX.Element => {
     await refetch();
   };
 
-  const maxFileSize: Validator = isValidFileSize(15);
+  const maxFileSize: Validator = isValidFileSize(10);
 
   return (
     <React.StrictMode>
