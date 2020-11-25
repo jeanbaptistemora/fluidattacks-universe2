@@ -56,9 +56,9 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         'AuthProvider',
         {
-            'BITBUCKET': 'bitbucket-oauth2',
-            'GOOGLE': 'google-oauth2',
-            'MICROSOFT': 'azuread-tenant-oauth2'
+            'BITBUCKET': 'BITBUCKET',
+            'GOOGLE': 'GOOGLE',
+            'MICROSOFT': 'MICROSOFT'
         }
     ),
     EnumType(

@@ -1,6 +1,8 @@
 import logging
+import json
 import sys
-from typing import Dict, Any
+from typing import Any, Dict, Optional
+import aiohttp
 
 from aioextensions import (
     in_thread,
@@ -10,14 +12,6 @@ from ariadne import (
 )
 from jose import jwt
 from mixpanel import Mixpanel
-from social_core.exceptions import AuthException
-from django.core.exceptions import ImproperlyConfigured
-
-try:
-    from social_django.utils import load_strategy
-    from social_django.utils import load_backend
-except ImproperlyConfigured:
-    pass
 
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -38,6 +32,11 @@ from backend.utils import (
 from backend import util
 
 from backend_new import settings
+from backend_new.settings.auth import (
+    azure,
+    BITBUCKET_ARGS,
+    GOOGLE_ARGS
+)
 
 from fluidintegrates.settings import LOGGING
 
@@ -105,6 +104,53 @@ async def _do_subscribe_to_entity_report(
     return SimplePayloadType(success=success)
 
 
+async def get_provider_user_info(
+    provider: str,
+    token: str
+) -> Optional[Dict[str, str]]:
+    if provider == 'bitbucket':
+        userinfo_endpoint = BITBUCKET_ARGS['userinfo_endpoint']
+    elif provider == 'google':
+        userinfo_endpoint = (
+            f'{GOOGLE_ARGS["userinfo_endpoint"]}?access_token={token}'
+        )
+    elif provider == 'microsoft':
+        userinfo_endpoint = azure.API_USERINFO_BASE_URL
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            userinfo_endpoint,
+            headers={
+                'Authorization': f'Bearer {token}'
+            }
+        ) as user:
+            if user.status != 200:
+                return None
+            user = await user.read()
+            user = json.loads(user)
+            if 'given_name' not in user:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(
+                        f'{userinfo_endpoint}/emails',
+                        headers={
+                            'Authorization': f'Bearer {token}'
+                        }
+                    ) as emails:
+                        emails = await emails.json()
+                        email = next(iter([
+                            email.get('email', '')
+                            for email in emails.get('values', '')
+                            if email.get('is_primary')
+                        ]), '')
+
+                user['email'] = email
+                user_name = user.get('display_name', '')
+                user['given_name'] = user_name.split(' ')[0]
+                user['family_name'] = \
+                    user_name.split(' ')[1] if len(user_name) == 2 else ''
+            return user
+
+
 async def _do_sign_in(
         _: Any,
         _info: GraphQLResolveInfo,
@@ -114,21 +160,14 @@ async def _do_sign_in(
     session_jwt = ''
     success = False
 
-    try:
-        strategy = load_strategy()
-        auth_backend = load_backend(
-            strategy=strategy, name=provider, redirect_uri=None)
-        user = await in_thread(
-            auth_backend.do_auth,
-            auth_token,
-            client='mobile'
-        )
-        email = user.email.lower()
+    user = await get_provider_user_info(str(provider).lower(), auth_token)
+    if user:
+        email = user['email'].lower()
         session_jwt = jwt.encode(
             {
                 'user_email': email,
-                'first_name': getattr(user, 'first_name'),
-                'last_name': getattr(user, 'last_name'),
+                'first_name': user.get('given_name'),
+                'last_name': user.get('family_name'),
                 'exp': datetime_utils.get_now_plus_delta(
                     seconds=settings.MOBILE_SESSION_AGE
                 ),
@@ -148,8 +187,8 @@ async def _do_sign_in(
             }
         )
         success = True
-    except AuthException as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+    else:
+        LOGGER.exception('Mobile login failed', extra={'extra': locals()})
 
     return SignInPayloadType(
         session_jwt=session_jwt,

@@ -30,12 +30,16 @@ const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
   DiscoveryDocument
 > => {
   const baseDocument: DiscoveryDocument = await fetchDiscoveryAsync(
-    "https://login.microsoftonline.com/common",
+
+    "https://login.microsoftonline.com/common/",
   );
 
   return {
     ...baseDocument,
+    authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
     revocationEndpoint: baseDocument.endSessionEndpoint,
+    tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+    userInfoEndpoint: "https://graph.microsoft.com/oidc/userinfo",
   };
 };
 
@@ -80,7 +84,7 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
     );
 
     if (logInResult.type === "success") {
-      const { accessToken, idToken } = await getTokenResponse(
+      const { accessToken } = await getTokenResponse(
         discovery,
         logInResult.params,
         request,
@@ -97,7 +101,7 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
 
       return {
         authProvider: "MICROSOFT",
-        authToken: idToken as string,
+        authToken: accessToken,
         type: "success",
         user: {
           email: _.get(userProps, "upn", userProps.email),
