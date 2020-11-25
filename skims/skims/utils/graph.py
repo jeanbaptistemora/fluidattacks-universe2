@@ -116,6 +116,36 @@ def adj(
     return tuple(results)
 
 
+def pred(
+    graph: nx.OrderedDiGraph,
+    n_id: str,
+    depth: int = 1,
+    **edge_attrs: str,
+) -> Tuple[str, ...]:
+    """Same as `adj` but follow edges in the opposite direction."""
+    if depth == 0:
+        return ()
+
+    results: List[str] = []
+
+    p_ids: List[str] = sorted(graph.pred[n_id], key=int)
+
+    # Append direct parents
+    for p_id in p_ids:
+        if has_labels(graph[p_id][n_id], **edge_attrs):
+            results.append(p_id)
+
+    # Recurse into parents
+    if depth < 0 or depth > 1:
+        for p_id in p_ids:
+            if has_labels(graph[p_id][n_id], **edge_attrs):
+                results.extend(
+                    pred(graph, p_id, depth=depth - 1, **edge_attrs),
+                )
+
+    return tuple(results)
+
+
 def import_graph_from_json(model: Any) -> nx.OrderedDiGraph:
     graph = nx.OrderedDiGraph()
 
