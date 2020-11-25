@@ -295,12 +295,9 @@ class ITReport():
         finding: Dict[str, FindingType],
         vuln: VulnType
     ) -> None:
-        compromised_attributes = str(finding.get('compromisedAttrs')) or EMPTY
-        n_compromised_attributes = None
-        if compromised_attributes != EMPTY:
-            n_compromised_attributes = str(
-                len(compromised_attributes.split('\n'))
-            )
+        compromised_attributes = str(finding.get('compromisedAttrs', EMPTY))
+        n_compromised_attributes = str(finding.get('recordsNumber', '0'))
+
         severity = cast(float, finding.get('severityCvss', 0))
 
         finding_data = {
@@ -314,7 +311,7 @@ class ITReport():
             'Threat': str(finding.get('threat', EMPTY)),
             'Recommendation': str(finding.get('effectSolution', EMPTY)),
             'Compromised Attributes': compromised_attributes,
-            '# Compromised records': n_compromised_attributes or '0',
+            '# Compromised records': n_compromised_attributes,
         }
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
