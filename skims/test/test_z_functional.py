@@ -170,6 +170,13 @@ def test_correct_run_no_group(test_group: str) -> None:
     assert do_csv_results_match(test_correct_run_no_group)
 
 
+@pytest.mark.flaky(reruns=0)
+def test_correct_run_no_group_again(test_group: str) -> None:
+    # Execute it again to verify that cache retrievals work as expected
+    # and are reproducible
+    test_correct_run_no_group(test_group)
+
+
 @run_decorator
 async def test_reset_environment_run(
     test_group: str,

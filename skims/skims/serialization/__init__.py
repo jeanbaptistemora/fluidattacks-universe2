@@ -27,6 +27,12 @@ from aioextensions import (
 from dateutil.parser import (
     parse as date_parser
 )
+from lark import (
+    Tree as LarkTree,
+)
+from lark.tree import (
+    Meta as LarkMeta,
+)
 from metaloaders.model import (
     Node,
     Type,
@@ -36,6 +42,11 @@ import networkx as nx
 # Local libraries
 from parse_common.types import (
     ListToken,
+)
+from parse_hcl2.tokens import (
+    Attribute as HCL2Attribute,
+    Block as HCL2Block,
+    Json as HCL2Json,
 )
 from utils.graph import (
     export_graph_as_json,
@@ -149,6 +160,29 @@ def _load_tuple(*args: Serialized) -> Tuple[Any, ...]:
     return tuple(map(_deserialize, args))
 
 
+def _dump_lark_meta(meta: LarkMeta) -> Serialized:
+    return _serialize(meta, *map(_dump, {
+        attr: getattr(meta, attr, None)
+        for attr in ('column', 'empty', 'end_column', 'end_line', 'line')
+    }))
+
+
+def _load_lark_meta(**kwargs: Any) -> LarkMeta:
+    meta = LarkMeta()
+    for attr, value in kwargs.items():
+        if value is not None:
+            setattr(meta, attr, value)
+    return meta
+
+
+def _dump_lark_tree(tree: LarkTree) -> Serialized:
+    return _serialize(tree, *map(_dump, (tree.children, tree.data, tree.meta)))
+
+
+def _load_lark_tree(children: Any, data: Any, meta: Any) -> LarkTree:
+    return LarkTree(data, children, meta)
+
+
 def get_signature(factory: Any) -> Tuple[str, str]:
     return (factory.__module__, factory.__name__)
 
@@ -170,6 +204,8 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (float, _dump_base, float),
         (int, _dump_base, int),
         (list, _dump_tuple, _load_list),
+        (LarkMeta, _dump_lark_meta, _load_lark_meta),
+        (LarkTree, _dump_lark_tree, _load_lark_tree),
         (ListToken, _dump_tuple, _load_list),
         (nx.OrderedDiGraph, _dump_graph, _load_graph),
         (OrderedDict, _dump_dict, _load_ordered_dict),
@@ -194,6 +230,9 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
             (named_tuple, _dump_named_tuple, _load_named_tuple(named_tuple))
             for named_tuple in (
                 FindingMetadata,
+                HCL2Attribute,
+                HCL2Block,
+                HCL2Json,
                 IntegratesVulnerabilityMetadata,
                 NVDVulnerability,
                 SkimsVulnerabilityMetadata,
