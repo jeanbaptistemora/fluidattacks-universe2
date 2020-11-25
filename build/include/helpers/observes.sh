@@ -338,16 +338,27 @@ function helper_observes_timedoctor_manually_create_token {
 
 function helper_observes_lint_generic_package {
   local path="${1}"
+  local strict="${2:-0}"
+  local strict_opt
+
+      if [ "$strict" = "1" ]
+      then
+            strict_opt=--strict
+            echo "[INFO] Strict mode"
+      else
+            strict_opt="--"
+      fi
 
       find "${path}" -type f -name '*.py' | while read -r file
       do
-            echo "[INFO] linting file: ${file}" \
-            echo "[INFO] running mypy" \
+            echo "[INFO] Linting file: ${file}" \
+        &&  echo "[INFO] Running mypy" \
         &&  mypy \
               --ignore-missing-imports \
               --no-incremental \
               --allow-any-generics \
               --pretty \
+              "${strict_opt}" \
               "${file}" \
         &&  echo "[INFO] running prospector" \
         &&  prospector --full-pep8 --strictness veryhigh "${file}" \

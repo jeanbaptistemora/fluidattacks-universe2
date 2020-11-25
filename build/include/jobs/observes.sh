@@ -468,8 +468,8 @@ function job_observes_zoho_crm_lint {
 
       pushd observes \
     &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/zoho_crm_etl" \
-    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/tests" \
+    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/zoho_crm_etl" 1 \
+    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/tests" 1 \
   &&  popd \
   ||  return 1
 }
