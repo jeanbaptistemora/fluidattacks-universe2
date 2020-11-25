@@ -8,7 +8,7 @@ from zoho_crm_etl.auth import Credentials
 # Local libraries
 
 
-def test_to_credentials():
+def test_to_credentials() -> None:
     file = tempfile.TemporaryFile('w+')
     test_file_data = {
         'client_id': 'client_1',
@@ -24,13 +24,13 @@ def test_to_credentials():
 
 @pytest.mark.skip(
     reason="need manual intervention to retrieve the access code"
-)
-def test_generate_refresh_token():
+)  # type: ignore
+def test_generate_refresh_token() -> None:
     pass
 
 
 @pytest.mark.skip(
     reason="need real credentials and can invalidate other tokens"
-)
-def test_generate_token():
+)  # type: ignore
+def test_generate_token() -> None:
     pass

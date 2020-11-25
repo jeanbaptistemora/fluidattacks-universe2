@@ -1,7 +1,7 @@
 
 # Standard libraries
 import getpass
-from typing import Optional
+from typing import Any, Iterable, Optional
 # Third party libraries
 import pytest
 from pytest_postgresql import factories
@@ -15,25 +15,25 @@ from postgres_client.cursor import (
     FetchAction,
 )
 from zoho_crm_etl import db
-from zoho_crm_etl.api import BulkJob
+from zoho_crm_etl.api import BulkJob, ModuleName
 
 postgresql_my_proc = factories.postgresql_proc(
     port=None, unixsocketdir='/var/run/postgresql')
 postgresql_my = factories.postgresql('postgresql_my_proc')
 
 
-def setup_cursor(postgresql):
+def setup_cursor(postgresql: Any) -> Cursor:
     cur = postgresql.cursor()
     purifier = cursor_module.sql_id_purifier_builder()
 
-    def mock_close():
+    def mock_close() -> None:
         cur.close()
         postgresql.close()
 
     def mock_execute(
         statement: str, args: Optional[DynamicSQLargs] = None
     ) -> CursorExeAction:
-        def act():
+        def act() -> None:
             safe_stm = purifier(statement, args)
             stm_values = args.values if args else {}
             cur.execute(safe_stm, stm_values)
@@ -43,15 +43,15 @@ def setup_cursor(postgresql):
         )
 
     def mock_fetchall() -> CursorFetchAction:
-        def act():
-            return cur.fetchall()
+        def act() -> Iterable[Any]:
+            return iter(cur.fetchall())
         return CursorFetchAction(
             act=act, fetch_type=FetchAction.ALL
         )
 
     def mock_fetchone() -> CursorFetchAction:
-        def act():
-            return cur.fetchone()
+        def act() -> Iterable[Any]:
+            return iter(cur.fetchone())
         return CursorFetchAction(
             act=act, fetch_type=FetchAction.ONE
         )
@@ -64,7 +64,7 @@ def setup_cursor(postgresql):
     )
 
 
-def setup_db(cursor: Cursor):
+def setup_db(cursor: Cursor) -> None:
     create_schema = cursor.execute('CREATE SCHEMA \"super-schema\"')
     create_table = cursor.execute("""
         CREATE TABLE \"super-schema\".bulk_jobs (
@@ -73,6 +73,8 @@ def setup_db(cursor: Cursor):
             created_time VARCHAR,
             state VARCHAR,
             id VARCHAR,
+            module VARCHAR,
+            page INTEGER,
             result VARCHAR DEFAULT NULL
         );
     """)
@@ -82,7 +84,7 @@ def setup_db(cursor: Cursor):
 
 @pytest.mark.xfail(
     getpass.getuser() == 'root',
-    reason="can not run with root")
+    reason="can not run with root")  # type: ignore
 def test_save_load_bulk_job_integrated(  # pylint: disable=redefined-outer-name
     postgresql_my  # is a fixture
 ):
@@ -95,6 +97,8 @@ def test_save_load_bulk_job_integrated(  # pylint: disable=redefined-outer-name
         created_time='{"time": "2020-01-01 00:00"}',
         state='procesing',
         id='a1234bc',
+        module=ModuleName.PRICE_BOOKS,
+        page=1,
         result=None
     )
     schema = 'super-schema'

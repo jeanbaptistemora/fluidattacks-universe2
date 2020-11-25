@@ -1,4 +1,5 @@
 # Standard libraries
+from typing import AnyStr, IO
 # Third party libraries
 import click
 # Local libraries
@@ -7,7 +8,7 @@ from zoho_crm_etl import auth
 
 @click.command()
 @click.argument('auth_file', type=click.File('r'))
-def gen_refresh_token(auth_file):
+def gen_refresh_token(auth_file: IO[AnyStr]) -> None:
     # Manual refresh token generation, see:
     # https://www.zoho.com/crm/developer/docs/api/v2/auth-request.html
     print(
@@ -18,7 +19,7 @@ def gen_refresh_token(auth_file):
 
 
 @click.group()
-def main():
+def main() -> None:
     pass
 
 

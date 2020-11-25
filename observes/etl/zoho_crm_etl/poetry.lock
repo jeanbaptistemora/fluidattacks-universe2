@@ -228,6 +228,17 @@ docs = ["sphinx"]
 tests = ["pytest-cov", "pytest-xdist"]
 
 [[package]]
+name = "ratelimiter"
+version = "1.2.0.post0"
+description = "Simple python rate limiting object"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["pytest (>=3.0)", "pytest-asyncio"]
+
+[[package]]
 name = "requests"
 version = "2.25.0"
 description = "Python HTTP for Humans."
@@ -293,7 +304,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "3.8.5"
-content-hash = "f540677a0168a22644ce8efe085bc6c9e789d31fc2669a12d3cd8bbfa6f7539b"
+content-hash = "6be664fae9b186bf9b6fb21db02aec844bdac0773b116cf26f5ffcea0e174d8b"
 
 [metadata.files]
 atomicwrites = [
@@ -406,6 +417,10 @@ pytest = [
 ]
 pytest-postgresql = [
     {file = "pytest_postgresql-2.5.2-py3-none-any.whl", hash = "sha256:3677dfd5d9380dd81a3a34d5406a4934bba7c008b5c0b5aa45b7711f024dfb4d"},
+]
+ratelimiter = [
+    {file = "ratelimiter-1.2.0.post0-py3-none-any.whl", hash = "sha256:a52be07bc0bb0b3674b4b304550f10c769bbb00fead3072e035904474259809f"},
+    {file = "ratelimiter-1.2.0.post0.tar.gz", hash = "sha256:5c395dcabdbbde2e5178ef3f89b568a3066454a6ddc223b76473dac22f89b4f7"},
 ]
 requests = [
     {file = "requests-2.25.0-py2.py3-none-any.whl", hash = "sha256:e786fa28d8c9154e6a4de5d46a1d921b8749f8b74e28bde23768e5e16eece998"},

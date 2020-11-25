@@ -8,13 +8,13 @@ from typing import (
     NamedTuple,
     Optional,
     TypedDict,
-    Union,
 )
 # Third party libraries
 import requests
-from zoho_crm_etl.auth import Credentials
+from ratelimiter import RateLimiter
 # Local libraries
 from zoho_crm_etl import auth
+from zoho_crm_etl.auth import Credentials
 
 
 JSONstr = str
@@ -73,6 +73,8 @@ class BulkJobDict(TypedDict):
     created_time: Dict[str, Any]
     state: str
     id: str
+    module: ModuleName
+    page: int
     result: Optional[BulkJobResultDict]
 
 
@@ -82,6 +84,8 @@ class BulkJob(NamedTuple):
     created_time: JSONstr
     state: str
     id: str
+    module: ModuleName
+    page: int
     result: Optional[BulkJobResult] = None
 
 
@@ -98,28 +102,32 @@ def bjob_from_json(
         created_time=json.dumps(data['created_time']),
         state=data['state'],
         id=data['id'],
+        module=data['module'],
+        page=data['page'],
         result=bjob_result
     )
 
 
+rate_limiter = RateLimiter(max_calls=10, period=60)
+
+
 def create_bulk_read_job(
     token: str, module: ModuleName, page: int
-) -> Dict[str, Union[str, BulkJob]]:
-    endpoint = f'{API_URL}/crm/bulk/v2/read'
-    headers = {'Authorization': f'Zoho-oauthtoken {token}'}
-    data = {
-        'query': {
-            'module': module,
-            'page': page
+) -> BulkJob:
+    with rate_limiter:
+        endpoint = f'{API_URL}/crm/bulk/v2/read'
+        headers = {'Authorization': f'Zoho-oauthtoken {token}'}
+        data = {
+            'query': {
+                'module': module,
+                'page': page
+            }
         }
-    }
-    response = requests.post(url=endpoint, data=data, headers=headers)
-    r_data = response.json()
-    return {
-        'status': r_data['status'],
-        'message': r_data['message'],
-        'details': bjob_from_json(r_data)
-    }
+        response = requests.post(url=endpoint, data=data, headers=headers)
+        r_data = response.json()
+        r_data['module'] = module
+        r_data['page'] = page
+        return bjob_from_json(r_data)
 
 
 def get_bulk_job(token: str, job_id: str) -> BulkJob:
@@ -133,9 +141,7 @@ def get_bulk_job(token: str, job_id: str) -> BulkJob:
 
 
 class ApiClient(NamedTuple):
-    create_bulk_read_job: Callable[
-        [ModuleName, int], Dict[str, Union[str, BulkJob]]
-    ]
+    create_bulk_read_job: Callable[[ModuleName, int], BulkJob]
     get_bulk_job: Callable[[str], BulkJob]
 
 
@@ -143,11 +149,11 @@ def new_client(credentials: Credentials) -> ApiClient:
     result = auth.generate_token(credentials)
     token = result['access_token']
 
-    def create_job(module: ModuleName, page: int):
-        create_bulk_read_job(token, module, page)
+    def create_job(module: ModuleName, page: int) -> BulkJob:
+        return create_bulk_read_job(token, module, page)
 
-    def get_job(job_id: str):
-        get_bulk_job(token, job_id)
+    def get_job(job_id: str) -> BulkJob:
+        return get_bulk_job(token, job_id)
 
     return ApiClient(
         create_bulk_read_job=create_job,
