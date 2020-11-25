@@ -4,15 +4,21 @@ import React from "react";
 
 interface IArrayProps {
   children: (fieldName: string) => React.ReactNode;
+  initialValue: unknown;
   name: string;
 }
 
 const ArrayField: React.FC<IArrayProps> = ({
   children,
+  initialValue,
   name,
 }: IArrayProps): JSX.Element => {
   return (
-    <FieldArray component={ArrayWrapper} name={name}>
+    <FieldArray
+      component={ArrayWrapper}
+      initialValue={initialValue}
+      name={name}
+    >
       {children}
     </FieldArray>
   );

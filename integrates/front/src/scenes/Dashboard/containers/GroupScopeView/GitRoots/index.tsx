@@ -22,7 +22,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <Button>
             <Glyphicon glyph={"plus"} />
-            &nbsp;{t("group.scope.git.add")}
+            &nbsp;{t("group.scope.common.add")}
           </Button>
         </Can>
       </ButtonToolbarRow>
@@ -31,8 +31,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         dataset={roots}
         exportCsv={false}
         headers={[
-          { dataField: "url", header: t("group.scope.git.url") },
-          { dataField: "branch", header: t("group.scope.git.branch") },
+          { dataField: "url", header: t("group.scope.git.repo.url") },
+          { dataField: "branch", header: t("group.scope.git.repo.branch") },
         ]}
         id={"tblGitRoots"}
         pageSize={15}

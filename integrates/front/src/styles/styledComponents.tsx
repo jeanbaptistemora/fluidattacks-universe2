@@ -463,7 +463,7 @@ const RequiredField: StyledComponent<
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "mh--15 flex flex-wrap",
+  className: "flex flex-wrap",
 })``;
 
 const RowCenter: StyledComponent<

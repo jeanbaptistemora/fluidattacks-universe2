@@ -478,10 +478,24 @@ export const enTranslations: ResourceKey = {
       },
     },
     scope: {
+      common: {
+        add: "Add new root",
+      },
       git: {
-        add: "Add new",
-        branch: "Branch",
-        url: "URL",
+        filter: {
+          exclude: "Exclude",
+          include: "Include",
+          none: "None",
+          paths: "Paths",
+          policy: "Policy",
+          title: "Exclusions",
+        },
+        repo: {
+          branch: "Branch",
+          environment: "Environment kind (Production, QA or other)",
+          title: "Git repository",
+          url: "URL",
+        },
       },
     },
     tabs: {

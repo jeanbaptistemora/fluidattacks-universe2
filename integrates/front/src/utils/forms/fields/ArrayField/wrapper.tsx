@@ -1,15 +1,15 @@
 import { Button } from "components/Button";
 import { Glyphicon } from "react-bootstrap";
 import React from "react";
-import { Row } from "styles/styledComponents";
 import type { WrappedFieldArrayProps } from "redux-form";
 
 const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
   props: WrappedFieldArrayProps
 ): JSX.Element => {
   const { fields } = props;
-  const { children } = props as WrappedFieldArrayProps & {
+  const { children, initialValue } = props as WrappedFieldArrayProps & {
     children: (fieldName: string) => React.ReactNode;
+    initialValue: unknown;
   };
 
   function addItem(): void {
@@ -18,7 +18,7 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
      * in Redux.
      */
     // eslint-disable-next-line fp/no-mutating-methods
-    fields.push({});
+    fields.push(initialValue);
   }
 
   return (
@@ -30,21 +30,25 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
           }
 
           return (
-            <Row key={fieldName}>
-              {children(fieldName)}
-              {index > 0 ? (
-                <Button onClick={removeItem}>
-                  <Glyphicon glyph={"trash"} />
-                </Button>
-              ) : undefined}
-            </Row>
+            <div className={"flex items-end"} key={fieldName}>
+              <div className={"w-80"}>{children(fieldName)}</div>
+              <div className={"w-20"}>
+                {index > 0 ? (
+                  <Button onClick={removeItem}>
+                    <Glyphicon glyph={"trash"} />
+                  </Button>
+                ) : undefined}
+              </div>
+              <br />
+            </div>
           );
         }
       )}
-      <br />
-      <Button onClick={addItem}>
-        <Glyphicon glyph={"plus"} />
-      </Button>
+      <div className={"mt4"}>
+        <Button onClick={addItem}>
+          <Glyphicon glyph={"plus"} />
+        </Button>
+      </div>
     </React.Fragment>
   );
 };
