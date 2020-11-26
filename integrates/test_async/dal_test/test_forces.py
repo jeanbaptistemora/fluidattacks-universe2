@@ -1,6 +1,5 @@
 import pytest
 
-from django.test import TestCase
 from backend.dal.forces import (
     create_execution
 )

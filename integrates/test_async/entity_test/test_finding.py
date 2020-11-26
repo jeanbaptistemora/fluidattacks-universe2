@@ -5,7 +5,6 @@ import os
 import pytest
 
 from ariadne import graphql
-from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
@@ -24,625 +23,623 @@ from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 
-class FindingTests(TestCase):
+async def _get_result(data, user='integratesmanager@gmail.com'):
+    """Get result."""
+    request = await create_dummy_session(username=user)
+    request.loaders = {
+        'finding': FindingLoader(),
+        'finding_vulns': FindingVulnsLoader()
+    }
+    _, result = await graphql(SCHEMA, data, context_value=request)
+    return result
 
-    async def _get_result(self, data, user='integratesmanager@gmail.com'):
-        """Get result."""
-        request = await create_dummy_session(username=user)
-        request.loaders = {
-            'finding': FindingLoader(),
-            'finding_vulns': FindingVulnsLoader()
-        }
-        _, result = await graphql(SCHEMA, data, context_value=request)
-        return result
-
-    async def test_finding(self):
-        """Check for finding query."""
-        expected_vuln = {
-          'id': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
-          'findingId': '422286126',
-          'where': 'https://example.com',
-          'specific': 'phone',
-          'historicState': [
-            {
-              'date': '2018-09-28 10:32:58',
-              'analyst': 'test@unittesting.com',
-              'state': 'open'
-            },
-            {
-              'date': '2020-09-09 16:01:26',
-              'analyst': 'test@unittesting.com',
-              'state': 'open'
-            }
-          ],
-          'tag': '',
-          'severity': '',
-          'remediated': False,
-          'verification': '',
-          'historicVerification': [],
-          'historicZeroRisk': [
-            {
-              'date': '2018-09-28 10:32:58',
-              'status': 'REQUESTED'
-            },
-            {
-              'date': '2020-09-09 16:01:26',
-              'status': 'CONFIRMED'
-            }
-          ],
-          'currentState': 'open',
-          'currentApprovalStatus': '',
+async def test_finding():
+    """Check for finding query."""
+    expected_vuln = {
+      'id': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
+      'findingId': '422286126',
+      'where': 'https://example.com',
+      'specific': 'phone',
+      'historicState': [
+        {
+          'date': '2018-09-28 10:32:58',
           'analyst': 'test@unittesting.com',
-          'treatmentManager': 'integratesuser@gmail.com',
-          'source': 'integrates',
-          'vulnType': 'inputs',
-          'zeroRisk': 'Confirmed'
+          'state': 'open'
+        },
+        {
+          'date': '2020-09-09 16:01:26',
+          'analyst': 'test@unittesting.com',
+          'state': 'open'
         }
-        query = '''{
-          finding(identifier: "422286126"){
+      ],
+      'tag': '',
+      'severity': '',
+      'remediated': False,
+      'verification': '',
+      'historicVerification': [],
+      'historicZeroRisk': [
+        {
+          'date': '2018-09-28 10:32:58',
+          'status': 'REQUESTED'
+        },
+        {
+          'date': '2020-09-09 16:01:26',
+          'status': 'CONFIRMED'
+        }
+      ],
+      'currentState': 'open',
+      'currentApprovalStatus': '',
+      'analyst': 'test@unittesting.com',
+      'treatmentManager': 'integratesuser@gmail.com',
+      'source': 'integrates',
+      'vulnType': 'inputs',
+      'zeroRisk': 'Confirmed'
+    }
+    query = '''{
+      finding(identifier: "422286126"){
+          id
+          projectName
+          releaseDate
+          openVulnerabilities
+          closedVulnerabilities
+          tracking
+          records
+          severity
+          cvssVersion
+          exploit
+          evidence
+          consulting {
               id
-              projectName
-              releaseDate
-              openVulnerabilities
-              closedVulnerabilities
-              tracking
-              records
-              severity
-              cvssVersion
-              exploit
-              evidence
-              consulting {
-                  id
-                  content
-              }
-              observations {
-                  id
-                  content
-              }
-              state
-              lastVulnerability
-              historicState
-              title
-              scenario
-              actor
-              description
-              requirements
-              attackVectorDesc
-              threat
-              recommendation
-              affectedSystems
-              compromisedAttributes
-              compromisedRecords
-              cweUrl
-              btsUrl
-              risk
-              remediated
-              type
-              age
-              isExploitable
-              severityScore
-              reportDate
-              analyst
-              historicTreatment
-              currentState
-              newRemediated
-              verified
-              vulnerabilities {
-                id
-                findingId
-                where
-                specific
-                historicState
-                tag
-                severity
-                remediated
-                verification
-                historicVerification {
-                  date
-                  status
-                }
-                historicZeroRisk {
-                  date
-                  status
-                }
-                currentState
-                currentApprovalStatus
-                analyst
-                treatmentManager
-                source
-                vulnType
-                zeroRisk
-              }
-              portsVulns {
-                  specific
-              }
-              inputsVulns {
-                  specific
-              }
-              linesVulns {
-                  specific
-              }
-              __typename
+              content
           }
-        }'''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert result['data']['finding']['id'] == '422286126'
-        assert result['data']['finding']['projectName'] == 'unittesting'
-        assert result['data']['finding']['openVulnerabilities'] == 1
-        assert result['data']['finding']['closedVulnerabilities'] == 0
-        assert result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
-        assert result['data']['finding']['tracking'][0]['cycle'] == 0
-        assert result['data']['finding']['tracking'][0]['open'] == 1
-        assert result['data']['finding']['tracking'][0]['closed'] == 0
-        assert result['data']['finding']['tracking'][0]['effectiveness'] == 0
-        assert result['data']['finding']['tracking'][0]['date'] == '2020-09-09'
-        assert 'records' in result['data']['finding']
-        assert result['data']['finding']['severity']['attackComplexity'] == 0.77
-        assert result['data']['finding']['severity']['remediationLevel'] == 0.97
-        assert result['data']['finding']['cvssVersion'] == "3.1"
-        assert 'It works' in result['data']['finding']['exploit']
-        assert 'evidence' in result['data']['finding']
-        assert 'evidence1' in result['data']['finding']['evidence']
-        assert 'consulting' in result['data']['finding']
-        assert result['data']['finding']['consulting'][0]['content'] == 'This is a comenting test'
-        assert 'historicState' in result['data']['finding']
-        assert 'title' in result['data']['finding']
-        assert 'scenario' in result['data']['finding']
-        assert 'actor' in result['data']['finding']
-        assert 'description' in result['data']['finding']
-        assert 'requirements' in result['data']['finding']
-        assert 'attackVectorDesc' in result['data']['finding']
-        assert 'threat' in result['data']['finding']
-        assert 'recommendation' in result['data']['finding']
-        assert 'affectedSystems' in result['data']['finding']
-        assert 'compromisedAttributes' in result['data']['finding']
-        assert 'compromisedRecords' in result['data']['finding']
-        assert 'cweUrl' in result['data']['finding']
-        assert 'btsUrl' in result['data']['finding']
-        assert 'risk' in result['data']['finding']
-        assert 'remediated' in result['data']['finding']
-        assert 'type' in result['data']['finding']
-        assert 'age' in result['data']['finding']
-        assert 'isExploitable' in result['data']['finding']
-        assert 'severityScore' in result['data']['finding']
-        assert 'reportDate' in result['data']['finding']
-        assert 'analyst' in result['data']['finding']
-        assert 'historicTreatment' in result['data']['finding']
-        assert 'currentState' in result['data']['finding']
-        assert 'newRemediated' in result['data']['finding']
-        assert 'verified' in result['data']['finding']
-        assert 'observations' in result['data']['finding']
-        assert result['data']['finding']['state'] == 'open'
-        assert 'lastVulnerability' in result['data']['finding']
-        assert 'historicState' in result['data']['finding']
-        assert 'vulnerabilities' in result['data']['finding']
-        for field, value in result['data']['finding']['vulnerabilities'][1].items():
-            assert value == expected_vuln[field]
-
-    @pytest.mark.changes_db
-    async def test_remove_evidence(self):
-        """Check for removeEvidence mutation."""
-        query = '''
-            mutation RemoveEvidenceMutation($evidenceId: EvidenceType!, $findingId: String!) {
-                removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
-                success
-                }
+          observations {
+              id
+              content
+          }
+          state
+          lastVulnerability
+          historicState
+          title
+          scenario
+          actor
+          description
+          requirements
+          attackVectorDesc
+          threat
+          recommendation
+          affectedSystems
+          compromisedAttributes
+          compromisedRecords
+          cweUrl
+          btsUrl
+          risk
+          remediated
+          type
+          age
+          isExploitable
+          severityScore
+          reportDate
+          analyst
+          historicTreatment
+          currentState
+          newRemediated
+          verified
+          vulnerabilities {
+            id
+            findingId
+            where
+            specific
+            historicState
+            tag
+            severity
+            remediated
+            verification
+            historicVerification {
+              date
+              status
             }
-        '''
-        variables = {
-            'evidenceId': 'EVIDENCE2',
-            'findingId': '457497316'
+            historicZeroRisk {
+              date
+              status
+            }
+            currentState
+            currentApprovalStatus
+            analyst
+            treatmentManager
+            source
+            vulnType
+            zeroRisk
+          }
+          portsVulns {
+              specific
+          }
+          inputsVulns {
+              specific
+          }
+          linesVulns {
+              specific
+          }
+          __typename
+      }
+    }'''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert result['data']['finding']['id'] == '422286126'
+    assert result['data']['finding']['projectName'] == 'unittesting'
+    assert result['data']['finding']['openVulnerabilities'] == 1
+    assert result['data']['finding']['closedVulnerabilities'] == 0
+    assert result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
+    assert result['data']['finding']['tracking'][0]['cycle'] == 0
+    assert result['data']['finding']['tracking'][0]['open'] == 1
+    assert result['data']['finding']['tracking'][0]['closed'] == 0
+    assert result['data']['finding']['tracking'][0]['effectiveness'] == 0
+    assert result['data']['finding']['tracking'][0]['date'] == '2020-09-09'
+    assert 'records' in result['data']['finding']
+    assert result['data']['finding']['severity']['attackComplexity'] == 0.77
+    assert result['data']['finding']['severity']['remediationLevel'] == 0.97
+    assert result['data']['finding']['cvssVersion'] == "3.1"
+    assert 'It works' in result['data']['finding']['exploit']
+    assert 'evidence' in result['data']['finding']
+    assert 'evidence1' in result['data']['finding']['evidence']
+    assert 'consulting' in result['data']['finding']
+    assert result['data']['finding']['consulting'][0]['content'] == 'This is a comenting test'
+    assert 'historicState' in result['data']['finding']
+    assert 'title' in result['data']['finding']
+    assert 'scenario' in result['data']['finding']
+    assert 'actor' in result['data']['finding']
+    assert 'description' in result['data']['finding']
+    assert 'requirements' in result['data']['finding']
+    assert 'attackVectorDesc' in result['data']['finding']
+    assert 'threat' in result['data']['finding']
+    assert 'recommendation' in result['data']['finding']
+    assert 'affectedSystems' in result['data']['finding']
+    assert 'compromisedAttributes' in result['data']['finding']
+    assert 'compromisedRecords' in result['data']['finding']
+    assert 'cweUrl' in result['data']['finding']
+    assert 'btsUrl' in result['data']['finding']
+    assert 'risk' in result['data']['finding']
+    assert 'remediated' in result['data']['finding']
+    assert 'type' in result['data']['finding']
+    assert 'age' in result['data']['finding']
+    assert 'isExploitable' in result['data']['finding']
+    assert 'severityScore' in result['data']['finding']
+    assert 'reportDate' in result['data']['finding']
+    assert 'analyst' in result['data']['finding']
+    assert 'historicTreatment' in result['data']['finding']
+    assert 'currentState' in result['data']['finding']
+    assert 'newRemediated' in result['data']['finding']
+    assert 'verified' in result['data']['finding']
+    assert 'observations' in result['data']['finding']
+    assert result['data']['finding']['state'] == 'open'
+    assert 'lastVulnerability' in result['data']['finding']
+    assert 'historicState' in result['data']['finding']
+    assert 'vulnerabilities' in result['data']['finding']
+    for field, value in result['data']['finding']['vulnerabilities'][1].items():
+        assert value == expected_vuln[field]
+
+@pytest.mark.changes_db
+async def test_remove_evidence():
+    """Check for removeEvidence mutation."""
+    query = '''
+        mutation RemoveEvidenceMutation($evidenceId: EvidenceType!, $findingId: String!) {
+            removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
+            success
+            }
         }
-        data = {'query': query, 'variables': variables}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['removeEvidence']
+    '''
+    variables = {
+        'evidenceId': 'EVIDENCE2',
+        'findingId': '457497316'
+    }
+    data = {'query': query, 'variables': variables}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['removeEvidence']
 
-    @pytest.mark.changes_db
-    async def test_update_evidence(self):
-        """Check for updateEvidence mutation."""
-        query = '''
-          mutation UpdateEvidenceMutation(
-            $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
-          ) {
-            updateEvidence(
-              evidenceId: $evidenceId, file: $file, findingId: $findingId
-            ) {
-              success
-            }
-          }
-        '''
-        filename = os.path.dirname(os.path.abspath(__file__))
-        filename = os.path.join(filename, '../mock/test-anim.gif')
-        with open(filename, 'rb') as test_file:
-            uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
-            variables = {
-                'evidenceId': 'ANIMATION',
-                'findingId': '422286126',
-                'file': uploaded_file
-            }
-            data = {'query': query, 'variables': variables}
-            result = await self._get_result(data)
-        if 'errors' not in result:
-            assert 'errors' not in result
-            assert 'success' in result['data']['updateEvidence']
-            assert result['data']['updateEvidence']['success']
-        else:
-            pytest.skip("Expected error")
-
-    @pytest.mark.changes_db
-    async def test_update_evidence_description(self):
-        """Check for updateEvidenceDescription mutation."""
-        query = '''
-            mutation {
-                updateEvidenceDescription(
-                description: "this is a test description",
-                findingId: "422286126",
-                evidenceId: EVIDENCE2) {
-                success
-                }
-            }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateEvidenceDescription']
-        assert result['data']['updateEvidenceDescription']
-
-    @pytest.mark.changes_db
-    async def test_update_severity(self):
-        """Check for updateSeverity mutation."""
-        query = '''
-                mutation {
-                  updateSeverity (
-                    findingId: "422286126",
-                    data: {
-            attackComplexity: 0.77, attackVector: 0.62,
-            availabilityImpact: "0", availabilityRequirement: "1",
-            confidentialityImpact: "0", confidentialityRequirement: "1",
-            cvssVersion: "3.1", exploitability: 0.91, id: "422286126",
-            integrityImpact: "0.22", integrityRequirement: "1",
-            modifiedAttackComplexity: 0.77, modifiedAttackVector: 0.62,
-            modifiedAvailabilityImpact: "0",
-            modifiedConfidentialityImpact: "0",
-            modifiedIntegrityImpact: "0.22",
-            modifiedPrivilegesRequired: "0.62",
-            modifiedSeverityScope: 0, modifiedUserInteraction: 0.85,
-            privilegesRequired: "0.62", remediationLevel: "0.97",
-            reportConfidence: "0.92",
-            severity: "2.9", severityScope: 0, userInteraction: 0.85
-                    }
-                  ) {
-                    success
-                    finding {
-                      cvssVersion
-                      severity
-                    }
-                  }
-                }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateSeverity']
-        assert result['data']['updateSeverity']['success']
-
-    @pytest.mark.changes_db
-    async def test_add_finding_consult_parent_zero(self):
-        """Check for addFindingConsult mutation."""
-        query = '''
-          mutation {
-            addFindingConsult(
-              content: "This is a comenting test",
-              findingId: "422286126",
-              type: CONSULT,
-              parent: "0"
-            ) {
-              success
-              commentId
-            }
-          }
-          '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['addFindingConsult']
-        assert result['data']['addFindingConsult']['success']
-
-    @pytest.mark.changes_db
-    async def test_add_finding_consult_parent_non_zero(self):
-        """Check for addFindingConsult mutation."""
-        query = '''
-          mutation {
-            addFindingConsult(
-              content: "This is a comenting test",
-              findingId: "422286126",
-              type: CONSULT,
-              parent: "1566336916294"
-            ) {
-              success
-              commentId
-            }
-          }
-          '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['addFindingConsult']
-        assert result['data']['addFindingConsult']['success']
-
-    @pytest.mark.changes_db
-    async def test_update_description(self):
-        """Check for updateDescription mutation."""
-        query = '''
-            mutation UpdateFindingDescription(
-                $actor: String!,
-                $affectedSystems: String!,
-                $attackVectorDesc: String!,
-                $compromisedAttributes: String,
-                $compromisedRecords: Int!,
-                $cweUrl: String!,
-                $description: String!,
-                $findingId: String!,
-                $recommendation: String!,
-                $requirements: String!,
-                $scenario: String!,
-                $threat: String!,
-                $title: String!,
-                $type: String
-            ){
-                updateDescription(
-                actor: $actor,
-                affectedSystems: $affectedSystems,
-                attackVectorDesc: $attackVectorDesc,
-                cwe: $cweUrl,
-                description: $description,
-                findingId: $findingId,
-                records: $compromisedAttributes,
-                recommendation: $recommendation,
-                recordsNumber: $compromisedRecords,
-                requirements: $requirements,
-                scenario: $scenario,
-                threat: $threat,
-                title: $title,
-                findingType: $type
-                ) {
-                success
-                }
-            }
-        '''
+@pytest.mark.changes_db
+async def test_update_evidence():
+    """Check for updateEvidence mutation."""
+    query = '''
+      mutation UpdateEvidenceMutation(
+        $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
+      ) {
+        updateEvidence(
+          evidenceId: $evidenceId, file: $file, findingId: $findingId
+        ) {
+          success
+        }
+      }
+    '''
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, '../mock/test-anim.gif')
+    with open(filename, 'rb') as test_file:
+        uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         variables = {
-            'actor': 'ANYONE_INTERNET',
-            'affectedSystems': 'Server bWAPP',
-            'attackVectorDesc': 'This is an updated attack vector',
-            'compromisedAttributes': 'Clave plana',
-            'compromisedRecords': 12,
-            'cweUrl': '200',
-            'description': 'I just have updated the description',
+            'evidenceId': 'ANIMATION',
             'findingId': '422286126',
-            'recommendation': 'Updated recommendation',
-            'requirements': 'REQ.0132. Passwords (phrase type) must be at least 3 words long.',
-            'scenario': 'UNAUTHORIZED_USER_EXTRANET',
-            'threat': 'Updated threat',
-            'title': 'FIN.S.0051. Weak passwords reversed',
-            'type': 'SECURITY'
+            'file': uploaded_file
         }
         data = {'query': query, 'variables': variables}
-        result = await self._get_result(data)
+        result = await _get_result(data)
+    if 'errors' not in result:
         assert 'errors' not in result
-        assert 'success' in result['data']['updateDescription']
-        assert result['data']['updateDescription']['success']
+        assert 'success' in result['data']['updateEvidence']
+        assert result['data']['updateEvidence']['success']
+    else:
+        pytest.skip("Expected error")
 
-    @pytest.mark.changes_db
-    async def test_update_client_description(self):
-        """Check for updateClientDescription mutation."""
-        acceptance_date = (
-          datetime.now() + timedelta(days=5)
-        ).strftime('%Y-%m-%d %H:%M:%S')
-        query = f'''
-            mutation {{
-                updateClientDescription (
-                findingId: "463558592",
-                treatment: ACCEPTED,
-                justification: "This is a treatment justification test",
-                acceptanceDate: "{acceptance_date}"
-                ) {{
-                success
-                finding {{
-                    historicTreatment
-                }}
-                }}
-            }}
-        '''
-        data = {'query': query}
-        result = await self._get_result(data, user='integratesuser@gmail.com')
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateClientDescription']
-        assert result['data']['updateClientDescription']['success']
+@pytest.mark.changes_db
+async def test_update_evidence_description():
+    """Check for updateEvidenceDescription mutation."""
+    query = '''
+        mutation {
+            updateEvidenceDescription(
+            description: "this is a test description",
+            findingId: "422286126",
+            evidenceId: EVIDENCE2) {
+            success
+            }
+        }
+    '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateEvidenceDescription']
+    assert result['data']['updateEvidenceDescription']
 
-    @pytest.mark.changes_db
-    async def test_reject_draft(self):
-        """Check for rejectDraft mutation."""
-        query = '''
+@pytest.mark.changes_db
+async def test_update_severity():
+    """Check for updateSeverity mutation."""
+    query = '''
             mutation {
-                rejectDraft(findingId: "836530833") {
-                    success
+              updateSeverity (
+                findingId: "422286126",
+                data: {
+        attackComplexity: 0.77, attackVector: 0.62,
+        availabilityImpact: "0", availabilityRequirement: "1",
+        confidentialityImpact: "0", confidentialityRequirement: "1",
+        cvssVersion: "3.1", exploitability: 0.91, id: "422286126",
+        integrityImpact: "0.22", integrityRequirement: "1",
+        modifiedAttackComplexity: 0.77, modifiedAttackVector: 0.62,
+        modifiedAvailabilityImpact: "0",
+        modifiedConfidentialityImpact: "0",
+        modifiedIntegrityImpact: "0.22",
+        modifiedPrivilegesRequired: "0.62",
+        modifiedSeverityScope: 0, modifiedUserInteraction: 0.85,
+        privilegesRequired: "0.62", remediationLevel: "0.97",
+        reportConfidence: "0.92",
+        severity: "2.9", severityScope: 0, userInteraction: 0.85
                 }
-            }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['rejectDraft']
-        assert result['data']['rejectDraft']
-
-    @pytest.mark.changes_db
-    async def test_delete_finding(self):
-        """Check for deleteFinding mutation."""
-        query = '''
-          mutation {
-            deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
-              success
-            }
-          }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['deleteFinding']
-        assert result['data']['deleteFinding']['success']
-        with pytest.raises(FindingNotFound):
-            assert await get_finding('560175507')
-
-    @pytest.mark.changes_db
-    async def test_approve_draft(self):
-        """Check for approveDraft mutation."""
-        query = '''
-          mutation {
-            approveDraft(draftId: "836530833") {
-              success
-            }
-          }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' in result
-        assert result['errors'][0]['message'] == 'CANT_APPROVE_FINDING_WITHOUT_VULNS'
-
-    @pytest.mark.changes_db
-    async def test_create_draft(self):
-        """Check for createDraft mutation."""
-        query = '''
-            mutation CreateDraftMutation(
-                $cwe: String,
-                $description: String,
-                $projectName: String!,
-                $recommendation: String,
-                $requirements: String,
-                $risk: String,
-                $threat: String,
-                $title: String!,
-                $type: FindingType
-                ) {
-                createDraft(
-                cwe: $cwe,
-                description: $description,
-                projectName: $projectName,
-                recommendation: $recommendation,
-                requirements: $requirements,
-                risk: $risk,
-                threat: $threat,
-                title: $title,
-                type: $type
-                ) {
+              ) {
                 success
+                finding {
+                  cvssVersion
+                  severity
                 }
+              }
             }
-        '''
-        variables = {
-            'cwe': '200',
-            'description': 'This is pytest created draft',
-            'projectName': 'UNITTESTING',
-            'recommendation': 'Solve this finding',
-            'requirements': 'REQ.0001. Apply filters',
-            'risk': 'Losing money',
-            'threat': 'Attacker',
-            'title': 'FIN.S.0001. Very serious vulnerability',
-            'type': 'SECURITY'
+    '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateSeverity']
+    assert result['data']['updateSeverity']['success']
+
+@pytest.mark.changes_db
+async def test_add_finding_consult_parent_zero():
+    """Check for addFindingConsult mutation."""
+    query = '''
+      mutation {
+        addFindingConsult(
+          content: "This is a comenting test",
+          findingId: "422286126",
+          type: CONSULT,
+          parent: "0"
+        ) {
+          success
+          commentId
         }
-        data = {'query': query, 'variables': variables}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['createDraft']
-        assert result['data']['createDraft']['success']
+      }
+      '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['addFindingConsult']
+    assert result['data']['addFindingConsult']['success']
 
-    @pytest.mark.changes_db
-    async def test_submit_draft(self):
-        """Check for submitDraft mutation."""
-        query = '''
-          mutation {
-            submitDraft(findingId: "475041535") {
-              success
+@pytest.mark.changes_db
+async def test_add_finding_consult_parent_non_zero():
+    """Check for addFindingConsult mutation."""
+    query = '''
+      mutation {
+        addFindingConsult(
+          content: "This is a comenting test",
+          findingId: "422286126",
+          type: CONSULT,
+          parent: "1566336916294"
+        ) {
+          success
+          commentId
+        }
+      }
+      '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['addFindingConsult']
+    assert result['data']['addFindingConsult']['success']
+
+@pytest.mark.changes_db
+async def test_update_description():
+    """Check for updateDescription mutation."""
+    query = '''
+        mutation UpdateFindingDescription(
+            $actor: String!,
+            $affectedSystems: String!,
+            $attackVectorDesc: String!,
+            $compromisedAttributes: String,
+            $compromisedRecords: Int!,
+            $cweUrl: String!,
+            $description: String!,
+            $findingId: String!,
+            $recommendation: String!,
+            $requirements: String!,
+            $scenario: String!,
+            $threat: String!,
+            $title: String!,
+            $type: String
+        ){
+            updateDescription(
+            actor: $actor,
+            affectedSystems: $affectedSystems,
+            attackVectorDesc: $attackVectorDesc,
+            cwe: $cweUrl,
+            description: $description,
+            findingId: $findingId,
+            records: $compromisedAttributes,
+            recommendation: $recommendation,
+            recordsNumber: $compromisedRecords,
+            requirements: $requirements,
+            scenario: $scenario,
+            threat: $threat,
+            title: $title,
+            findingType: $type
+            ) {
+            success
             }
-          }
-        '''
-        data = {'query': query}
-        result = await self._get_result(data)
-        assert 'errors' in result
-        expected_error = 'Exception - This draft has missing fields: vulnerabilities'
-        assert result['errors'][0]['message'] == expected_error
+        }
+    '''
+    variables = {
+        'actor': 'ANYONE_INTERNET',
+        'affectedSystems': 'Server bWAPP',
+        'attackVectorDesc': 'This is an updated attack vector',
+        'compromisedAttributes': 'Clave plana',
+        'compromisedRecords': 12,
+        'cweUrl': '200',
+        'description': 'I just have updated the description',
+        'findingId': '422286126',
+        'recommendation': 'Updated recommendation',
+        'requirements': 'REQ.0132. Passwords (phrase type) must be at least 3 words long.',
+        'scenario': 'UNAUTHORIZED_USER_EXTRANET',
+        'threat': 'Updated threat',
+        'title': 'FIN.S.0051. Weak passwords reversed',
+        'type': 'SECURITY'
+    }
+    data = {'query': query, 'variables': variables}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateDescription']
+    assert result['data']['updateDescription']['success']
 
-    @pytest.mark.changes_db
-    async def test_handle_acceptation(self):
-        """Check for handleAcceptation mutation."""
-        query = '''
-            mutation HandleAcceptationMutation(
-                $findingId: String!,
-                $observations: String!,
-                $projectName: String!,
-                $response: String!
-                ) {
-                handleAcceptation(
-                findingId: $findingId,
-                observations: $observations,
-                projectName: $projectName,
-                response: $response
-                ) {
+@pytest.mark.changes_db
+async def test_update_client_description():
+    """Check for updateClientDescription mutation."""
+    acceptance_date = (
+      datetime.now() + timedelta(days=5)
+    ).strftime('%Y-%m-%d %H:%M:%S')
+    query = f'''
+        mutation {{
+            updateClientDescription (
+            findingId: "463558592",
+            treatment: ACCEPTED,
+            justification: "This is a treatment justification test",
+            acceptanceDate: "{acceptance_date}"
+            ) {{
+            success
+            finding {{
+                historicTreatment
+            }}
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await _get_result(data, user='integratesuser@gmail.com')
+    assert 'errors' not in result
+    assert 'success' in result['data']['updateClientDescription']
+    assert result['data']['updateClientDescription']['success']
+
+@pytest.mark.changes_db
+async def test_reject_draft():
+    """Check for rejectDraft mutation."""
+    query = '''
+        mutation {
+            rejectDraft(findingId: "836530833") {
                 success
-                }
             }
-        '''
-        variables = {
-            'findingId': '475041513',
-            'observations': 'Test observations',
-            'projectName': 'oneshottest',
-            'response': 'IN PROGRESS'
         }
-        data = {'query': query, 'variables': variables}
-        result = await self._get_result(data, user='continuoushacking@gmail.com')
-        assert 'errors' not in result
-        assert 'success' in result['data']['handleAcceptation']
-        assert result['data']['handleAcceptation']['success']
+    '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['rejectDraft']
+    assert result['data']['rejectDraft']
 
-    @pytest.mark.changes_db
-    async def test_filter_deleted_findings(self):
-        """Check if vuln of deleted vulns are filter out."""
-        mutation = '''
-          mutation {
-            deleteFinding(findingId: "988493279", justification: NOT_REQUIRED) {
-              success
-            }
-          }
-        '''
-        open_vulns = await get_open_vulnerabilities('unittesting')
-
-        data = {'query': mutation}
-        result = await self._get_result(data)
-        assert 'errors' not in result
-        assert 'success' in result['data']['deleteFinding']
-        assert result['data']['deleteFinding']['success']
-
-        assert await get_open_vulnerabilities('unittesting') < open_vulns
-
-    async def test_non_existing_finding(self):
-        query = '''
-          query GetFindingHeader($findingId: String!) {
-            finding(identifier: $findingId) {
-              closedVulns: closedVulnerabilities
-              exploit
-              id
-              openVulns: openVulnerabilities
-              releaseDate
-            }
-          }
-        '''
-        variables = {
-          'findingId': '777493279',
+@pytest.mark.changes_db
+async def test_delete_finding():
+    """Check for deleteFinding mutation."""
+    query = '''
+      mutation {
+        deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
+          success
         }
-        data = {'query': query, 'variables': variables}
-        result = await self._get_result(data)
-        assert 'errors' in result
-        expected_error = 'Access denied'
-        assert result['errors'][0]['message'] == expected_error
+      }
+    '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['deleteFinding']
+    assert result['data']['deleteFinding']['success']
+    with pytest.raises(FindingNotFound):
+        assert await get_finding('560175507')
+
+@pytest.mark.changes_db
+async def test_approve_draft():
+    """Check for approveDraft mutation."""
+    query = '''
+      mutation {
+        approveDraft(draftId: "836530833") {
+          success
+        }
+      }
+    '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'CANT_APPROVE_FINDING_WITHOUT_VULNS'
+
+@pytest.mark.changes_db
+async def test_create_draft():
+    """Check for createDraft mutation."""
+    query = '''
+        mutation CreateDraftMutation(
+            $cwe: String,
+            $description: String,
+            $projectName: String!,
+            $recommendation: String,
+            $requirements: String,
+            $risk: String,
+            $threat: String,
+            $title: String!,
+            $type: FindingType
+            ) {
+            createDraft(
+            cwe: $cwe,
+            description: $description,
+            projectName: $projectName,
+            recommendation: $recommendation,
+            requirements: $requirements,
+            risk: $risk,
+            threat: $threat,
+            title: $title,
+            type: $type
+            ) {
+            success
+            }
+        }
+    '''
+    variables = {
+        'cwe': '200',
+        'description': 'This is pytest created draft',
+        'projectName': 'UNITTESTING',
+        'recommendation': 'Solve this finding',
+        'requirements': 'REQ.0001. Apply filters',
+        'risk': 'Losing money',
+        'threat': 'Attacker',
+        'title': 'FIN.S.0001. Very serious vulnerability',
+        'type': 'SECURITY'
+    }
+    data = {'query': query, 'variables': variables}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['createDraft']
+    assert result['data']['createDraft']['success']
+
+@pytest.mark.changes_db
+async def test_submit_draft():
+    """Check for submitDraft mutation."""
+    query = '''
+      mutation {
+        submitDraft(findingId: "475041535") {
+          success
+        }
+      }
+    '''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' in result
+    expected_error = 'Exception - This draft has missing fields: vulnerabilities'
+    assert result['errors'][0]['message'] == expected_error
+
+@pytest.mark.changes_db
+async def test_handle_acceptation():
+    """Check for handleAcceptation mutation."""
+    query = '''
+        mutation HandleAcceptationMutation(
+            $findingId: String!,
+            $observations: String!,
+            $projectName: String!,
+            $response: String!
+            ) {
+            handleAcceptation(
+            findingId: $findingId,
+            observations: $observations,
+            projectName: $projectName,
+            response: $response
+            ) {
+            success
+            }
+        }
+    '''
+    variables = {
+        'findingId': '475041513',
+        'observations': 'Test observations',
+        'projectName': 'oneshottest',
+        'response': 'IN PROGRESS'
+    }
+    data = {'query': query, 'variables': variables}
+    result = await _get_result(data, user='continuoushacking@gmail.com')
+    assert 'errors' not in result
+    assert 'success' in result['data']['handleAcceptation']
+    assert result['data']['handleAcceptation']['success']
+
+@pytest.mark.changes_db
+async def test_filter_deleted_findings():
+    """Check if vuln of deleted vulns are filter out."""
+    mutation = '''
+      mutation {
+        deleteFinding(findingId: "988493279", justification: NOT_REQUIRED) {
+          success
+        }
+      }
+    '''
+    open_vulns = await get_open_vulnerabilities('unittesting')
+
+    data = {'query': mutation}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['deleteFinding']
+    assert result['data']['deleteFinding']['success']
+
+    assert await get_open_vulnerabilities('unittesting') < open_vulns
+
+async def test_non_existing_finding():
+    query = '''
+      query GetFindingHeader($findingId: String!) {
+        finding(identifier: $findingId) {
+          closedVulns: closedVulnerabilities
+          exploit
+          id
+          openVulns: openVulnerabilities
+          releaseDate
+        }
+      }
+    '''
+    variables = {
+      'findingId': '777493279',
+    }
+    data = {'query': query, 'variables': variables}
+    result = await _get_result(data)
+    assert 'errors' in result
+    expected_error = 'Access denied'
+    assert result['errors'][0]['message'] == expected_error

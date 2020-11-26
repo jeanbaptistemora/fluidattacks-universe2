@@ -158,7 +158,6 @@ async def test_validate_evidence_invalid_image_type():
         uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
         with pytest.raises(InvalidFileType) as context:
             await event_domain.validate_evidence(evidence_type, uploaded_file)
-        assert 'Exception - Invalid File Type: EVENT_IMAGE' in str(context.value)
 
 async def test_validate_evidence_invalid_file_size():
     evidence_type = 'evidence'
@@ -168,7 +167,6 @@ async def test_validate_evidence_invalid_file_size():
         uploaded_file = UploadFile(test_file.name, test_file, 'image/jpg')
         with pytest.raises(InvalidFileSize) as context:
             await event_domain.validate_evidence(evidence_type, uploaded_file)
-        assert 'Exception - Invalid File Size' in str(context.value)
 
 @pytest.mark.changes_db
 async def test_mask_event():

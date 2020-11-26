@@ -15,7 +15,6 @@ import logging.config
 import os
 import subprocess
 import sys
-from uuid import uuid4
 
 from typing import (
     Dict,
@@ -44,9 +43,6 @@ from __init__ import (
     FI_BITBUCKET_OAUTH2_KEY,
     FI_BITBUCKET_OAUTH2_SECRET,
     FI_BUGSNAG_ACCESS_TOKEN,
-    FI_DB_HOST,
-    FI_DB_PASSWD,
-    FI_DB_USER,
     FI_DEBUG,
     FI_DJANGO_SECRET_KEY,
     FI_ENVIRONMENT,
@@ -154,23 +150,8 @@ ASGI_APPLICATION = 'fluidintegrates.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': FI_DB_USER,
-        'PASSWORD': FI_DB_PASSWD,
-        'HOST': FI_DB_HOST,
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
-        },
-        'TEST': {
-            'NAME': f'test_django_{CI_COMMIT_REF_NAME}_{uuid4().hex[:16]}',
-            'CHARSET': 'utf8',
-            'COLLATION': 'utf8_general_ci',
-        },
-    }
+DATABASES: Dict[str, Dict[str, str]] = {
+    'default': {}
 }
 
 # Error tracking configuration

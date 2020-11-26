@@ -1,7 +1,6 @@
 import pytest
 
 from boto3.dynamodb.conditions import Attr, Key, Not
-from django.test import TestCase
 from asgiref.sync import async_to_sync
 from backend.dal.user import (
     delete, get, create, update

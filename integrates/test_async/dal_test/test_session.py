@@ -1,7 +1,6 @@
 import pytest
 
 from asgiref.sync import async_to_sync
-from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from operator import itemgetter

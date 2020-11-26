@@ -1,5 +1,4 @@
 import pytest
-from django.test import TestCase
 
 from backend.dal.project import (
     list_internal_managers, list_project_managers, update_access, get_users
