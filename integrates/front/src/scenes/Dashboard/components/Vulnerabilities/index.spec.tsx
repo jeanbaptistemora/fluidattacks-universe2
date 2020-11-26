@@ -52,7 +52,16 @@ describe("Vulnerabilities view", () => {
                   date: "2019-07-05 09:56:40",
                   state: "open",
                 }],
-                historicTreatment: [],
+                historicTreatment: [{
+                  __typename: "Treatment",
+                  acceptanceDate: "",
+                  acceptanceStatus: "",
+                  date: "2019-07-05 09:56:40",
+                  justification: "test progress justification",
+                  treatment: "IN PROGRESS",
+                  treatmentManager: "treatment-manager-1",
+                  user: "usertreatment@test.test",
+                }],
                 historicVerification: [{
                   __typename: "Verification",
                   date: "2020-04-01 12:32:24",
@@ -81,7 +90,16 @@ describe("Vulnerabilities view", () => {
                   date: "2019-07-05 09:56:40",
                   state: "open",
                 }],
-                historicTreatment: [],
+                historicTreatment: [{
+                  __typename: "Treatment",
+                  acceptanceDate: "",
+                  acceptanceStatus: "",
+                  date: "2019-07-05 09:56:40",
+                  justification: "test progress justification",
+                  treatment: "IN PROGRESS",
+                  treatmentManager: "treatment-manager-2",
+                  user: "usertreatment@test.test",
+                }],
                 historicVerification: [{
                   __typename: "Verification",
                   date: "2020-04-01 12:32:24",
@@ -112,7 +130,16 @@ describe("Vulnerabilities view", () => {
                   date: "2020-03-16 11:36:40",
                   state: "open",
                 }],
-                historicTreatment: [],
+                historicTreatment: [{
+                  __typename: "Treatment",
+                  acceptanceDate: "",
+                  acceptanceStatus: "",
+                  date: "2019-07-05 09:56:40",
+                  justification: "test progress justification",
+                  treatment: "IN PROGRESS",
+                  treatmentManager: "treatment-manager-3",
+                  user: "usertreatment@test.test",
+                }],
                 historicVerification: [],
                 id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
                 remediated: false,
@@ -137,7 +164,16 @@ describe("Vulnerabilities view", () => {
                   date: "2020-03-16 11:36:40",
                   state: "open",
                 }],
-                historicTreatment: [],
+                historicTreatment: [{
+                  __typename: "Treatment",
+                  acceptanceDate: "",
+                  acceptanceStatus: "",
+                  date: "2019-07-05 09:56:40",
+                  justification: "test progress justification",
+                  treatment: "IN PROGRESS",
+                  treatmentManager: "treatment-manager-4",
+                  user: "usertreatment@test.test",
+                }],
                 historicVerification: [],
                 id: "2feaf502-a039-11ea-bb37-0242ac130002",
                 remediated: false,
@@ -477,20 +513,25 @@ describe("Vulnerabilities view", () => {
   it("should render update treatment", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResult = { updateTreatmentVuln : { success: true } };
+    const mutationVariables: Dictionary<string | number > = {
+      externalBts: "http://test.t",
+      findingId: "480857698",
+      severity: -1,
+      tag: "one",
+      treatmentManager: "manager_test@test.test",
+    };
     const mocksMutation: MockedResponse[] = [
       {
         request: {
           query: UPDATE_DESCRIPTION_MUTATION,
-          variables: { externalBts: "http://test.t", findingId: "480857698", severity: -1, tag: "one",
-                       treatmentManager: "", vulnerabilities: ["test1"]},
+          variables: { ...mutationVariables, vulnerabilities: ["test1"] },
         },
         result: { data: updateTreatment},
       },
       {
         request: {
           query: UPDATE_DESCRIPTION_MUTATION,
-          variables: { externalBts: "http://test.t", findingId: "480857698", severity: -1, tag: "one",
-                       treatmentManager: "", vulnerabilities: ["test2"]},
+          variables: { ...mutationVariables, vulnerabilities: ["test2"]},
         },
         result: { data: updateTreatment},
     }];
@@ -540,6 +581,12 @@ describe("Vulnerabilities view", () => {
     externalBts
       .at(0)
       .simulate("change", { target: { value: "http://test.t" } });
+    const treatmentManager: ReactWrapper = wrapper
+      .find({ name: "treatmentManager" })
+      .find("select");
+    treatmentManager
+      .at(0)
+      .simulate("change", { target: { value: "manager_test@test.test" } });
     await act(async () => { await wait(0); wrapper.update(); });
     const proceedButton: ReactWrapper = wrapper
     .find("Button")
