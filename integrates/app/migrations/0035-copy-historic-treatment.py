@@ -4,8 +4,8 @@
 This migration aims to copy historic_treatment from
 finding to vulnerability
 
-Execution Time:
-Finalization Time:
+Execution Time:    2020-11-26 13:42:51 UTC-5
+Finalization Time: 2020-11-26 14:19:55 UTC-5
 """
 # Standard library
 from itertools import chain

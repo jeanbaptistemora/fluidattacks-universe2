@@ -97,7 +97,7 @@ describe("Update Description component", () => {
         expect(wrapper)
           .toHaveLength(1);
         expect(wrapper.find({ renderAsEditable: true }))
-          .toHaveLength(2);
+          .toHaveLength(4);
       });
     });
   });

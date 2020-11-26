@@ -13,10 +13,11 @@ import React from "react";
 import { ButtonToolbar, Glyphicon } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { Field, isPristine, submit } from "redux-form";
+import { Field, formValueSelector, isPristine, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -37,6 +38,7 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import {
   groupExternalBts,
+  groupLastHistoricTreatment,
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
@@ -60,10 +62,12 @@ import {
   maxLength,
   numeric,
   required,
+  validTextField,
   validUrlField,
 } from "utils/validations";
 
 const maxBtsLength: ConfigurableValidator = maxLength(80);
+const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
 const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
   props: IUpdateTreatmentModal,
 ): JSX.Element => {
@@ -73,6 +77,19 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
   const [isRunning, setRunning] = React.useState(false);
 
   const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.tag));
+  const isEditPristine: boolean = useSelector((state: {}) =>
+    isPristine("editTreatmentVulnerability")(
+      state,
+      ...["externalBts", "tag", "severity"],
+    ),
+  );
+
+  const isTreatmentPristine: boolean = useSelector((state: {}) =>
+    isPristine("editTreatmentVulnerability")(
+      state,
+      ...["acceptanceDate", "treatment", "treatmentManager", "justification"],
+    ),
+  );
 
   const dispatch: Dispatch = useDispatch();
   const [updateVuln, {loading: updatingVuln}] = useMutation<IUpdateVulnDescriptionResult>(UPDATE_DESCRIPTION_MUTATION, {
@@ -131,10 +148,15 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             _.chunk(props.vulnerabilities, props.vulnerabilitiesChunk)
               .map((vulnsChuncked: IVulnDataType[]) => (
                 updateVuln({variables: {
+                  acceptanceDate: dataTreatment.acceptanceDate,
                   externalBts: dataTreatment.externalBts,
                   findingId: props.findingId,
+                  isVulnInfoChanged: !isEditPristine,
+                  isVulnTreatmentChanged: !isTreatmentPristine,
+                  justification: dataTreatment.justification,
                   severity: _.isEmpty(dataTreatment.severity) ? -1 : Number(dataTreatment.severity),
                   tag: dataTreatment.tag,
+                  treatment: isTreatmentPristine ? "IN_PROGRESS" : dataTreatment.treatment,
                   treatmentManager: dataTreatment.treatmentManager,
                   vulnerabilities: vulnsChuncked.map((vuln: IVulnDataType) => vuln.id),
                 }})
@@ -144,8 +166,12 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             result: ExecutionResult<IUpdateVulnDescriptionResult>,
           ) => {
             if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
+              const updateInfoSuccess: boolean =
+                _.isUndefined(result.data.updateTreatmentVuln) ? true : result.data.updateTreatmentVuln.success;
+              const updateTreatmentSuccess: boolean =
+                _.isUndefined(result.data.updateVulnsTreatment) ? true : result.data.updateVulnsTreatment.success;
 
-              return result.data.updateTreatmentVuln.success;
+              return updateInfoSuccess && updateTreatmentSuccess;
             }
 
             return false;
@@ -165,6 +191,11 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
         } catch (updateError) {
           if (_.includes(String(updateError), "Invalid treatment manager")) {
             msgError(translate.t("group_alerts.invalid_treatment_mgr"));
+          } else if (_.includes(
+            String(updateError),
+            translate.t("group_alerts.organization_policies.maxium_number_of_acceptations"))
+          ) {
+            msgError(translate.t("search_findings.tab_vuln.alerts.maxium_number_of_acceptations"));
           } else {
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred updating vuln treatment", updateError);
@@ -203,12 +234,10 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
     ? [userEmail]
     : data.project.stakeholders.map((stakeholder: Dictionary<string>): string => stakeholder.email);
 
-  const lastTreatment: IHistoricTreatment = props.lastTreatment === undefined
-    ? {date: "", treatment: "", user: ""}
-    : props.lastTreatment;
+  const lastTreatment: IHistoricTreatment = groupLastHistoricTreatment(props.vulnerabilities);
 
-  const isEditPristine: boolean = useSelector((state: {}) =>
-    isPristine("editTreatmentVulnerability")(state));
+  const formValues: Dictionary<string> = useSelector((state: {}) =>
+    formValueSelector("editTreatmentVulnerability")(state, "treatment", ""));
 
   const isAcceptedUndefinedPendingToApproved: boolean = lastTreatment.treatment === "ACCEPTED_UNDEFINED"
     && lastTreatment.acceptanceStatus !== "APPROVED";
@@ -223,13 +252,35 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
         open={true}
         headerTitle={translate.t("search_findings.tab_description.editVuln")}
       >
+        <ConfirmDialog
+          message={translate.t("search_findings.tab_description.approval_message")}
+          title={translate.t("search_findings.tab_description.approval_title")}
+        >
+        {(confirm: IConfirmFn): JSX.Element => {
+          const confirmUndefined: ((values: IUpdateTreatmentVulnAttr) => void) = (
+            values: IUpdateTreatmentVulnAttr,
+          ): void => {
+            const changedToUndefined: boolean =
+              values.treatment === "ACCEPTED_UNDEFINED"
+              && lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
+
+            if (changedToUndefined) {
+              confirm((): void => { handleUpdateTreatmentVuln(values); });
+            } else {
+              handleUpdateTreatmentVuln(values);
+            }
+          };
+
+          return (
+            <React.Fragment>
         <GenericForm
           name="editTreatmentVulnerability"
-          onSubmit={handleUpdateTreatmentVuln}
+          onSubmit={confirmUndefined}
           initialValues={{
+            ...lastTreatment,
             externalBts: groupExternalBts(props.vulnerabilities),
             tag: _.join((_.intersection(...vulnsTags)), ","),
-            treatmentManager: props.vulnerabilities[0].treatmentManager,
+            treatment: lastTreatment.treatment.replace("NEW", ""),
           }}
         >
           <Row>
@@ -241,8 +292,9 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
                     currentValue={treatmentLabel}
                     label={translate.t("search_findings.tab_description.treatment.title")}
                     name="treatment"
-                    renderAsEditable={false}
+                    renderAsEditable={canEdit}
                     type="text"
+                    validate={isTreatmentPristine ? [] : required}
                     visibleWhileEditing={canEdit}
                   >
                     <option value="" />
@@ -272,7 +324,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
           </Row>
           <Row>
             <Col50>
-              <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
+              <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
                 {(canEdit: boolean): JSX.Element => (
                   <EditableField
                     component={Dropdown}
@@ -282,7 +334,6 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
                     renderAsEditable={canEdit}
                     type="text"
                     visibleWhileEditing={canEdit}
-                    validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}
                   >
                     <option value="" />
                     {userEmails.map((email: string, index: number): JSX.Element => (
@@ -302,15 +353,16 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
                     currentValue={lastTreatment.justification as string}
                     label={translate.t("search_findings.tab_description.treatment_just")}
                     name="justification"
-                    renderAsEditable={false}
+                    renderAsEditable={canEdit}
                     type="text"
+                    validate={isTreatmentPristine ? [] : [required, validTextField, maxTreatmentJustificationLength]}
                     visibleWhileEditing={canEdit}
                   />
                 )}
               </Can>
             </Col100>
           </Row>
-          {lastTreatment.treatment === "ACCEPTED" ? (
+          {formValues.treatment === "ACCEPTED" ? (
             <Row>
               <Col50>
                 <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
@@ -320,7 +372,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
                       currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
                       label={translate.t("search_findings.tab_description.acceptance_date")}
                       name="acceptanceDate"
-                      renderAsEditable={false}
+                      renderAsEditable={canEdit}
                       type="date"
                       validate={[required, isLowerDate]}
                       visibleWhileEditing={canEdit}
@@ -386,13 +438,17 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
           </Button>
           <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
             <Button
-              disabled={updatingVuln || deletingTag || isRunning || isEditPristine}
+              disabled={updatingVuln || deletingTag || isRunning || (isEditPristine && isTreatmentPristine)}
               onClick={handleEditTreatment}
             >
               {translate.t("confirmmodal.proceed")}
             </Button>
           </Can>
         </ButtonToolbar>
+        </React.Fragment>
+          );
+        }}
+        </ConfirmDialog>
       </Modal>
     </React.StrictMode>
   );

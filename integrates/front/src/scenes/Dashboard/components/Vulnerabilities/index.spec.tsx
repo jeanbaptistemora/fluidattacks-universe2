@@ -249,6 +249,7 @@ describe("Vulnerabilities view", () => {
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "backend_api_resolvers_vulnerability__do_update_treatment_vuln" },
     { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
+    { action: "backend_api_mutations_update_vulns_treatment_mutate" },
   ]);
 
   const mockError: ReadonlyArray<MockedResponse> = [
@@ -513,11 +514,16 @@ describe("Vulnerabilities view", () => {
   it("should render update treatment", async () => {
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResult = { updateTreatmentVuln : { success: true } };
-    const mutationVariables: Dictionary<string | number > = {
+    const mutationVariables: Dictionary<boolean | string | number > = {
+      acceptanceDate: "",
       externalBts: "http://test.t",
       findingId: "480857698",
+      isVulnInfoChanged: true,
+      isVulnTreatmentChanged: true,
+      justification: "test justification to treatment",
       severity: -1,
       tag: "one",
+      treatment: "IN_PROGRESS",
       treatmentManager: "manager_test@test.test",
     };
     const mocksMutation: MockedResponse[] = [
@@ -584,6 +590,14 @@ describe("Vulnerabilities view", () => {
     const treatmentManager: ReactWrapper = wrapper
       .find({ name: "treatmentManager" })
       .find("select");
+    const treatment: ReactWrapper = wrapper.find({ name: "treatment" })
+      .find("select")
+      .at(0);
+    const treatmentJustification: ReactWrapper = wrapper.find({ name: "justification" })
+      .find("textarea")
+      .at(0);
+    treatment.simulate("change", { target: { value: "IN_PROGRESS" }});
+    treatmentJustification.simulate("change", { target: { value: "test justification to treatment" }});
     treatmentManager
       .at(0)
       .simulate("change", { target: { value: "manager_test@test.test" } });

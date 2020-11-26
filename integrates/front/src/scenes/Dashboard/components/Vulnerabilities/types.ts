@@ -42,10 +42,13 @@ export interface IDownloadVulnerabilitiesResult {
 }
 
 export interface IUpdateTreatmentVulnAttr {
+  acceptanceDate: string;
   externalBts: string;
   findingId: string;
+  justification: string;
   severity?: number;
   tag?: string;
+  treatment: string;
   treatmentManager: string;
   vulnerabilities: string[];
 }

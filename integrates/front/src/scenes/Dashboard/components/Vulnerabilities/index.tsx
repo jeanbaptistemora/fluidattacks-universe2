@@ -30,6 +30,7 @@ import {
   IVulnDataType, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/index";
+import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { UploadVulnerabilites } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
 import { RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -145,6 +146,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
       ({
         ...line,
         severity: getSeverity(line),
+        treatmentManager: getLastTreatment(line.historicTreatment).treatmentManager as string,
         verification: line.verification === "Verified"
           ? `${line.verification} (${line.currentState})`
           : line.verification,

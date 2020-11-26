@@ -9,6 +9,11 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $treatmentManager: String,
     $vulnerabilities: [String]!,
     $externalBts: String!,
+    $acceptanceDate: String,
+    $justification: String!,
+    $treatment: UpdateClientDescriptionTreatment!
+    $isVulnTreatmentChanged: Boolean!,
+    $isVulnInfoChanged: Boolean!,
   ) {
     updateTreatmentVuln (
       externalBts: $externalBts,
@@ -17,7 +22,17 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       tag: $tag,
       treatmentManager: $treatmentManager,
       vulnerabilities: $vulnerabilities,
-    ) {
+    ) @include (if: $isVulnInfoChanged) {
+      success
+    }
+    updateVulnsTreatment(
+      acceptanceDate: $acceptanceDate,
+      findingId: $findingId,
+      justification: $justification,
+      treatment: $treatment,
+      treatmentManager: $treatmentManager,
+      vulnerabilities: $vulnerabilities,
+    ) @include (if: $isVulnTreatmentChanged) {
       success
     }
   }

@@ -23,7 +23,10 @@ interface IDeleteTagResult {
 }
 
 interface IUpdateVulnDescriptionResult {
-  updateTreatmentVuln: {
+  updateTreatmentVuln?: {
+    success: boolean;
+  };
+  updateVulnsTreatment?: {
     success: boolean;
   };
 }
