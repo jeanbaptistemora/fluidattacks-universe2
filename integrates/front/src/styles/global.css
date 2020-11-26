@@ -590,6 +590,10 @@ label {
   left: 5rem;
 }
 
+:global .mb10{
+  margin-bottom: 10rem;
+}
+
 :global .menu-grid {
   grid-template-columns: repeat( auto-fit, minmax(12rem, 1fr) );
 }
@@ -736,6 +740,11 @@ label {
 
 :global .top9-9 {
   top: 9.9rem;
+}
+
+:global .vertical-center {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 :global .w-200 {

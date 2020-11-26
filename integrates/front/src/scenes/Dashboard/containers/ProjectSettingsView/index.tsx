@@ -7,6 +7,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 
+import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup";
 import { Environments } from "scenes/Dashboard/containers/ProjectSettingsView/Environments";
 import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
@@ -39,6 +40,12 @@ const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewP
           <React.Fragment>
             <hr />
             <Services groupName={projectName} />
+          </React.Fragment>
+        </Can>
+        <Can do="backend_api_mutations_remove_group_mutate">
+          <React.Fragment>
+            <hr />
+            <DeleteGroup />
           </React.Fragment>
         </Can>
       </div>

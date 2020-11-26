@@ -207,6 +207,12 @@ const FindingHeaderLabel: StyledComponent<
   className: "mb0",
 })``;
 
+const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex flex-wrap",
+})``;
+
 const FormGroup: StyledComponent<
   "form",
   Record<string, unknown>
@@ -242,6 +248,15 @@ const Label: StyledComponent<
   Record<string, unknown>
 > = styled.span.attrs({
   className: "bg-lbl-gray br2 f4 fw7 ml3 nowrap pv1 ph2 tc white",
+})``;
+
+const LastProjectSetting: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "mb10",
 })``;
 
 const LoginButtonBitbucket: StyledComponent<
@@ -433,6 +448,15 @@ const ProgressBar: StyledComponent<
   width: ${(props: { theme: { width: string } }): string => props.theme.width};
 `;
 
+const ProjectScopeText: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph1-5 vertical-center w-60-ns fw2 f2-5",
+})``;
+
 const RemoveItem: StyledComponent<
   "div",
   Record<string, unknown>
@@ -599,11 +623,13 @@ export {
   FindingHeaderGrid,
   FindingHeaderIndicator,
   FindingHeaderLabel,
+  Flex,
   FormGroup,
   InfoButtonBitbucket,
   InfoButtonGoogle,
   InfoButtonMicrosoft,
   Label,
+  LastProjectSetting,
   LoginButtonBitbucket,
   LoginButtonGoogle,
   LoginButtonMicrosoft,
@@ -627,6 +653,7 @@ export {
   Panel,
   PanelBody,
   ProgressBar,
+  ProjectScopeText,
   RemoveItem,
   RemoveTag,
   RequiredField,

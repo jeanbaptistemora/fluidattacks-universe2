@@ -257,7 +257,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
 
   return (
     <React.StrictMode>
-      <div className={styles.wrapper}>
+      <div>
         <Row>
           <Col lg={8} md={10} xs={7}>
             <h3>{translate.t("search_findings.services_table.services")}</h3>
