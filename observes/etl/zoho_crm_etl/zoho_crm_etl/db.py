@@ -2,8 +2,8 @@
 from typing import (
     Any,
     Callable,
+    FrozenSet,
     NamedTuple,
-    Set,
     Tuple,
 )
 # Third party libraries
@@ -18,11 +18,12 @@ from zoho_crm_etl.api import BulkJob, ModuleName
 
 
 class Client(NamedTuple):
-    get_bulk_jobs: Callable[[str], Set[BulkJob]]
-    save_bulk_job: Callable[[BulkJob, str], None]
+    get_bulk_jobs: Callable[[], FrozenSet[BulkJob]]
+    save_bulk_job: Callable[[BulkJob], None]
+    update_bulk_job: Callable[[BulkJob], None]
 
 
-def get_bulk_jobs(db_client: DbClient, db_schema: str) -> Set[BulkJob]:
+def get_bulk_jobs(db_client: DbClient, db_schema: str) -> FrozenSet[BulkJob]:
     statement = 'SELECT * FROM {schema_name}.bulk_jobs'
     exe_action = db_client.execute(
         statement,
@@ -44,10 +45,10 @@ def get_bulk_jobs(db_client: DbClient, db_schema: str) -> Set[BulkJob]:
             result=element[7]
         )
 
-    return set(map(tuple_to_bulkjob, results))
+    return frozenset(map(tuple_to_bulkjob, results))
 
 
-def save_bulk_job_state(
+def save_bulk_job(
     db_client: DbClient, job: BulkJob, db_schema: str
 ) -> None:
     statement = """
@@ -73,17 +74,43 @@ def save_bulk_job_state(
     exe_action.act()
 
 
-def new_client(db_auth: ConnectionID) -> Client:
+def update_bulk_job(
+    db_client: DbClient, job: BulkJob, db_schema: str
+) -> None:
+    statement = """
+        UPDATE {schema_name}.bulk_jobs SET
+            state = %(state)s
+        WHERE id = %(id)s
+    """
+    job_dict = dict(job._asdict())
+    exe_action = db_client.execute(
+        statement,
+        DynamicSQLargs(
+            values=job_dict,
+            identifiers={'schema_name': db_schema}
+        )
+    )
+    exe_action.act()
+
+
+SCHEMA = 'zoho_crm'
+
+
+def new_client(db_auth: ConnectionID, db_schema: str = SCHEMA) -> Client:
     db_connection: DbConnection = connection.make_access_point(db_auth)
     db_client: DbClient = client.new_client(db_connection)
 
-    def get_jobs(schema: str) -> Set[BulkJob]:
-        return get_bulk_jobs(db_client, schema)
+    def get_jobs() -> FrozenSet[BulkJob]:
+        return get_bulk_jobs(db_client, db_schema)
 
-    def save_job(job: BulkJob, schema: str) -> None:
-        save_bulk_job_state(db_client, job, schema)
+    def save_job(job: BulkJob) -> None:
+        save_bulk_job(db_client, job, db_schema)
+
+    def update_job(job: BulkJob) -> None:
+        update_bulk_job(db_client, job, db_schema)
 
     return Client(
         get_bulk_jobs=get_jobs,
-        save_bulk_job=save_job
+        save_bulk_job=save_job,
+        update_bulk_job=update_job,
     )

@@ -103,7 +103,47 @@ def test_save_load_bulk_job_integrated(  # pylint: disable=redefined-outer-name
     )
     schema = 'super-schema'
     # Act
-    db.save_bulk_job_state(cursor, test_job, schema)
+    db.save_bulk_job(cursor, test_job, schema)
     jobs = db.get_bulk_jobs(cursor, schema)
     # Assert
     assert test_job in jobs
+
+
+@pytest.mark.xfail(
+    getpass.getuser() == 'root',
+    reason="can not run with root")  # type: ignore
+def test_update_bulk_job_integrated(  # pylint: disable=redefined-outer-name
+    postgresql_my  # is a fixture
+):
+    # Arrange
+    cursor = setup_cursor(postgresql_my)
+    setup_db(cursor)
+    test_job = BulkJob(
+        operation='operation1',
+        created_by='{"author": master"}',
+        created_time='{"time": "2020-01-01 00:00"}',
+        state='procesing',
+        id='a1234bc',
+        module=ModuleName.PRICE_BOOKS,
+        page=1,
+        result=None
+    )
+    updated_job = BulkJob(
+        operation='operation1',
+        created_by='{"author": master"}',
+        created_time='{"time": "2020-01-01 00:00"}',
+        state='done',
+        id='a1234bc',
+        module=ModuleName.PRICE_BOOKS,
+        page=1,
+        result=None
+    )
+    schema = 'super-schema'
+    # Act
+    db.save_bulk_job(cursor, test_job, schema)
+    db.update_bulk_job(cursor, updated_job, schema)
+    jobs = db.get_bulk_jobs(cursor, schema)
+    # Assert
+    expected = updated_job
+    assert test_job not in jobs
+    assert expected in jobs
