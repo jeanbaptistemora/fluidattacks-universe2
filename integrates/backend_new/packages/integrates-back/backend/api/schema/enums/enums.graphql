@@ -224,7 +224,7 @@ enum URLProtocol {
   HTTPS
 }
 
-enum DirectoryFilteringPolicy {
+enum GitRootFilterPolicy {
   EXCLUDE
   INCLUDE
 }

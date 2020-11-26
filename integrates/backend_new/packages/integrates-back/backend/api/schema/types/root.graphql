@@ -2,27 +2,22 @@ interface IRoot {
   id: ID!
 }
 
-type DirectoryFilteringConfig {
+type GitRootFilter {
   "Paths to be filtered"
   paths: [String!]!
-  "Filtering policy for the specified paths"
-  policy: DirectoryFilteringPolicy!
-}
-
-type IntegrationEnvironment {
-  "Kind of environment to test. E.g. production, QA, etc."
-  kind: String!
-  "URL to access the environment"
-  url: String
+  "Filter policy for the specified paths"
+  policy: GitRootFilterPolicy!
 }
 
 type GitRoot implements IRoot {
   "Repository branch to be tested"
   branch: String!
+  "Kind of environment to test. E.g. production, QA, etc."
+  environment: String!
+  "URL to access the environment"
+  environmentUrls: [String!]!
   "Preferences for filtering directories"
-  directoryFiltering: DirectoryFilteringConfig
-  "Environment for the code provided"
-  environment: IntegrationEnvironment!
+  filter: GitRootFilter
   "ID of the root"
   id: ID!
   "Repository URL"

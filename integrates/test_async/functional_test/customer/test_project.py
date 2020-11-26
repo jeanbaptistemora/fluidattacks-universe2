@@ -195,10 +195,7 @@ async def test_project():
       mutation {{
         addGitRoot(
           branch: "master"
-          environment: {{
-            kind: "production"
-            url: "https://integrates.fluidattacks.com"
-          }}
+          environment: "production"
           groupName: "{group_name}"
           url: "https://gitlab.com/fluidattacks/test2"
         ) {{
@@ -217,13 +214,11 @@ async def test_project():
               __typename
               ...on GitRoot {{
                 branch
-                directoryFiltering {{
+                environment
+                environmentUrls
+                filter {{
                   paths
                   policy
-                }}
-                environment {{
-                  kind
-                  url
                 }}
                 url
               }}
@@ -236,10 +231,8 @@ async def test_project():
     assert {
         '__typename': 'GitRoot',
         'branch': 'master',
-        'directoryFiltering': None,
-        'environment': {
-            'kind': 'production',
-            'url': 'https://integrates.fluidattacks.com'
-        },
+        'filter': None,
+        'environment': 'production',
+        'environmentUrls': [],
         'url': 'https://gitlab.com/fluidattacks/test2'
     } in result['data']['group']['roots']

@@ -34,15 +34,12 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
-                directoryFiltering: {
-                  __typename: "DirectoryFilteringConfig",
+                environment: "production",
+                environmentUrls: [],
+                filter: {
+                  __typename: "GitRootFilter",
                   paths: ["^.*/bower_components/.*$", "^.*/node_modules/.*$"],
                   policy: "EXCLUDE",
-                },
-                environment: {
-                  __typename: "IntegrationEnvironment",
-                  kind: "production",
-                  url: "https://integrates.fluidattacks.com",
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 url: "https://gitlab.com/fluidattacks/product/",

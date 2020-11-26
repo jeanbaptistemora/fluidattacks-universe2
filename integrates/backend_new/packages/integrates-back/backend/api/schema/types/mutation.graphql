@@ -376,10 +376,10 @@ type Mutation {
     addGitRoot(
         "Repository branch to be tested"
         branch: String!
+        "Kind of environment to test. E.g. production, QA, etc."
+        environment: String!
         "Preferences for filtering directories"
-        directoryFiltering: DirectoryFilteringConfigInput
-        "Environment for the code provided"
-        environment: IntegrationEnvironmentInput!
+        filter: GitRootFilterInput
         "Name of the group the root is associated with"
         groupName: String!
         "Repository URL"

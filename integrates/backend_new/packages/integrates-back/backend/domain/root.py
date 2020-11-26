@@ -19,8 +19,9 @@ def format_root(root: Dict[str, Any]) -> Root:
     if root['kind'] == 'Git':
         return GitRoot(
             branch=root_state['branch'],
-            directory_filtering=root_state.get('directory_filtering'),
             environment=root_state['environment'],
+            environment_urls=root_state.get('environment_urls', []),
+            filter=root_state.get('filter'),
             id=root['sk'],
             url=root_state['url']
         )
@@ -101,24 +102,19 @@ async def _is_unique_in_org(
 
 async def add_git_root(user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
-    is_valid_repo: bool = (
+    is_valid: bool = (
         validations.is_valid_url(kwargs['url'])
         and validations.is_valid_git_branch(kwargs['branch'])
     )
-    is_valid_env: bool = (
-        validations.is_valid_url(kwargs['environment']['url'])
-        if kwargs['environment'].get('url')
-        else True
-    )
 
-    if is_valid_repo and is_valid_env:
+    if is_valid:
         kind: str = 'Git'
         org_id: str = await org_domain.get_id_for_group(group_name)
         initial_state: Dict[str, Any] = {
             'branch': kwargs['branch'],
             'date': datetime.get_as_str(datetime.get_now()),
-            'directory_filtering': kwargs.get('directory_filtering'),
-            'environment': kwargs.get('environment'),
+            'environment': kwargs['environment'],
+            'filter': kwargs.get('filter'),
             'url': kwargs['url'],
             'user': user_email
         }

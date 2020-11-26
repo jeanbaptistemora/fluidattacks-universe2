@@ -22,7 +22,7 @@
                   "date": {
                     "S": "2020-11-19 08:37:10"
                   },
-                  "directory_filtering": {
+                  "filter": {
                     "M": {
                       "paths": {
                         "L": [
@@ -36,17 +36,15 @@
                     }
                   },
                   "environment": {
-                    "M": {
-                      "kind": {
-                        "S": "production"
-                      },
-                      "url": {
-                        "S": "https://integrates.fluidattacks.com"
-                      }
-                    }
+                    "S": "production"
+                  },
+                  "environment_urls": {
+                    "L": [
+                      { "S": "https://integrates.fluidattacks.com" }
+                    ]
                   },
                   "url": {
-                    "S": "https://gitlab.com/fluidattacks/product/-/tree/master"
+                    "S": "https://gitlab.com/fluidattacks/product"
                   },
                   "user": {
                     "S": "jdoe@fluidattacks.com"
@@ -81,14 +79,10 @@
                     "S": "2020-11-19 08:39:56"
                   },
                   "environment": {
-                    "M": {
-                      "kind": {
-                        "S": "QA"
-                      }
-                    }
+                    "S": "QA"
                   },
                   "url": {
-                    "S": "https://gitlab.com/fluidattacks/integrates/-/tree/master"
+                    "S": "https://gitlab.com/fluidattacks/integrates"
                   },
                   "user": {
                     "S": "jdoe@fluidattacks.com"

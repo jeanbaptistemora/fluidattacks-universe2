@@ -7,13 +7,10 @@ export const GET_ROOTS: DocumentNode = gql`
       roots {
         ... on GitRoot {
           branch
-          directoryFiltering {
+          environment
+          filter {
             paths
             policy
-          }
-          environment {
-            kind
-            url
           }
           id
           url
