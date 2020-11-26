@@ -142,9 +142,9 @@ async def test_finding():
         }
     '''
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../mock/test-anim.gif')
+    filename = os.path.join(filename, '../../mock/test-img.png')
     with open(filename, 'rb') as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
+        uploaded_file = UploadFile(test_file.name, test_file, 'image/png')
         variables = {
             'evidenceId': 'EVIDENCE2',
             'findingId': draft_id,

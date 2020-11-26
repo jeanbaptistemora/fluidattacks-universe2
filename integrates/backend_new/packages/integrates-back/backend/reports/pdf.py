@@ -32,7 +32,6 @@ class CreatorPDF():
     style_dir = '/resources/themes'
     tpl_dir = '/tpls/'
     font_dir = '/resources/fonts'
-    images_dir = '/images/'
     result_dir = '/results/results_pdf/'
     proj_tpl = 'templates/pdf/executive.adoc'
     style = 'fluid'
@@ -43,7 +42,7 @@ class CreatorPDF():
     command = ''
     context: Dict[str, str] = {}
 
-    def __init__(self, lang, doctype):
+    def __init__(self, lang, doctype, tempdir):
         """Class constructor."""
         self.path = (
             f'{STARDIR}/integrates/backend_new/packages/'
@@ -52,7 +51,7 @@ class CreatorPDF():
         self.result_dir = self.path + self.result_dir
         self.font_dir = self.path + self.font_dir
         self.tpl_dir = self.path + self.tpl_dir
-        self.tpl_img_path = self.path + self.images_dir
+        self.tpl_img_path = tempdir
         self.lang = lang
         self.doctype = doctype
         self.style_dir = self.path + self.style_dir

@@ -117,8 +117,10 @@ async def _append_evidences(
     group: str,
 ) -> None:
     target_folders: Dict[str, str] = {
+        '': 'evidences',
         '.exp': 'exploits',
         '.gif': 'evidences',
+        '.jpg': 'evidences',
         '.png': 'evidences',
         '.py': 'exploits',
         '.txt': 'compromised-records',

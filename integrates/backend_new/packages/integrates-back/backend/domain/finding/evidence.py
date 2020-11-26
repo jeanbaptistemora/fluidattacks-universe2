@@ -152,9 +152,10 @@ async def validate_evidence(
     allowed_mimes = []
     max_size = 10
 
-    if (evidence_id in ['animation', 'exploitation'] or
-            evidence_id.startswith('evidence')):
-        allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
+    if evidence_id in ['animation', 'exploitation']:
+        allowed_mimes = ['image/gif', 'image/png']
+    elif evidence_id.startswith('evidence'):
+        allowed_mimes = ['image/png']
     elif evidence_id == 'exploit':
         allowed_mimes = ['text/x-python', 'text/plain']
     elif evidence_id == 'fileRecords':

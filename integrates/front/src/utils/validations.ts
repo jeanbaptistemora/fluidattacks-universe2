@@ -233,8 +233,7 @@ const validEventFile: Validator = (value: FileList): string | undefined =>
     : translate.t("group.events.form.wrong_file_type");
 
 const validEvidenceImage: Validator = (value: FileList): string | undefined =>
-  _.isEmpty(value) ||
-  hasExtension(["gif", "jpg", "jpeg", "png"], _.first(value))
+  _.isEmpty(value) || hasExtension(["gif", "png"], _.first(value))
     ? undefined
     : translate.t("group.events.form.wrong_image_type");
 

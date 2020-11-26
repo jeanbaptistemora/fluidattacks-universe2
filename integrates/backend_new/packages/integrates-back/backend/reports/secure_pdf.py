@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
-from typing import cast
 import os
 from aioextensions import (
     in_process,
@@ -8,7 +7,6 @@ from aioextensions import (
 from fpdf import FPDF
 from PyPDF4 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
-from backend.typing import Historic
 
 
 # Constants
@@ -69,11 +67,7 @@ class SecurePDF():
         project_info = await project_dal.get_attributes(
             project.lower(), ['historic_configuration']
         )
-        historic_configuration = cast(
-            Historic, project_info.get('historic_configuration', [{}])
-        )
-        if (project_info and
-                historic_configuration[-1].get('type') == 'continuous'):
+        if project_info:
             self.secure_pdf_filename = await in_process(
                 self.lock, basic_pdf_name
             )

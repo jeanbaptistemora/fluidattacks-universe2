@@ -4,6 +4,7 @@ test_async/dynamo_data/FI_forces.json.now
 .MinIO
 .tmp
 oneshottest-vulnerabilities-*
+unittesting-vulnerabilities-*
 version.txt
 
 # Rule for ignore non compiled js files over dashboard
@@ -36,7 +37,7 @@ backend_new/packages/**/dist
 backend_new/packages/integrates-back/backend/reports/results/results_pdf/*.pdf
 backend_new/packages/integrates-back/backend/reports/results/results_excel/*.xlsx
 backend_new/packages/integrates-back/backend/reports/tpls/*.tpl
-backend_new/packages/integrates-back/backend/reports/images/*.png
+backend_new/packages/integrates-back/backend/reports/images/*
 
 # Analytics
 analytics/**/*.jpg

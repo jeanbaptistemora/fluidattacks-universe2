@@ -201,7 +201,7 @@ const evidenceView: React.FC = (): JSX.Element => {
 
                     return (
                       <EvidenceImage
-                        acceptedMimes="image/jpeg,image/gif,image/png"
+                        acceptedMimes="image/gif,image/png"
                         content={showEmpty ? <div /> : `${location.href}/${evidence.url}`}
                         description={evidence.description}
                         isDescriptionEditable={index > 1}
