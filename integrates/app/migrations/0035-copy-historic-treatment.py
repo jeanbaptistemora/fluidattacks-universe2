@@ -50,6 +50,7 @@ async def _copy_historic_treatment(
 ) -> None:
     historic_treatment = finding.get('historic_treatment', [])
     vuln_historic_treatment = vuln.get('historic_treatment', [])
+    treatment_manager = vuln.get('treatment_manager', '')
     vuln_id = str(vuln.get('UUID', ''))
     if vuln_historic_treatment:
         if historic_treatment:
@@ -58,6 +59,8 @@ async def _copy_historic_treatment(
             if (get_from_str(current_treatment.get('date', DEFAULT_STR)) >
                     get_from_str(current_vuln.get('date', DEFAULT_STR))):
                 if STAGE == 'apply':
+                    if treatment_manager:
+                        current_treatment['treatment_manager'] = treatment_manager
                     await add_vuln_treatment(
                         finding_id=finding_id,
                         updated_values=current_treatment,
@@ -68,7 +71,24 @@ async def _copy_historic_treatment(
                 else:
                     print(f'treatment on finding {finding_id} is most recent'
                           f' than treatment on vuln {vuln_id}')
+            else:
+                if (treatment_manager
+                        and 'treatment_manager' not in current_vuln):
+                    if STAGE == 'apply':
+                        vuln_historic_treatment[-1]['treatment_manager'] = (
+                            treatment_manager
+                        )
+                        await vuln_dal.update(
+                            finding_id,
+                            vuln_id,
+                            {'historic_treatment': historic_treatment}
+                        )
+                    else:
+                        print(f'historic_treatment on vuln {vuln_id} without'
+                               'treatment_manager')
     elif historic_treatment:
+        if treatment_manager:
+            historic_treatment[-1]['treatment_manager'] = treatment_manager
         if STAGE == 'apply':
             await vuln_dal.update(
                 finding_id,

@@ -1426,6 +1426,29 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                   "L": [
+                       {
+                           "M": {
+                                "acceptance_date": {
+                                    "S": "2021-01-16 12:46:10"
+                                },
+                                "date": {
+                                    "S": "2020-11-13 12:46:10"
+                                },
+                                "justification": {
+                                    "S": "accepted justification"
+                                },
+                                "treatment": {
+                                    "S": "ACCEPTED"
+                                },
+                                "user": {
+                                    "S": "integratesuser@gmail.com"
+                                }
+                            }
+                        }
+                    ]
+               },
                "specific" : {
                   "S" : "3636"
                },
