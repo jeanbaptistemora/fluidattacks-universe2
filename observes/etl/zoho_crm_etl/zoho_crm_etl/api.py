@@ -2,12 +2,9 @@
 import json
 from enum import Enum
 from typing import (
-    Any,
     Callable,
-    Dict,
     NamedTuple,
     Optional,
-    TypedDict,
 )
 # Third party libraries
 import requests
@@ -22,7 +19,7 @@ API_URL = 'https://www.zohoapis.com'
 
 
 class ModuleName(Enum):
-    LEADS = 'leads'
+    LEADS = 'Leads'
     ACCOUNTS = 'accounts'
     CONTACTS = 'contacts'
     DEALS = 'deals'
@@ -32,7 +29,7 @@ class ModuleName(Enum):
     MEETINGS = 'meetings'
     CALLS = 'calls'
     SOLUTIONS = 'solutions'
-    PRODUCTS = 'products'
+    PRODUCTS = 'Products'
     VENDORS = 'vendors'
     PRICE_BOOKS = 'pricebooks'
     QUOTES = 'quotes'
@@ -42,13 +39,6 @@ class ModuleName(Enum):
     CUSTOM = 'custom'
 
 
-class BulkJobResultDict(TypedDict):
-    page: int
-    count: int
-    download_url: str
-    more_records: bool
-
-
 class BulkJobResult(NamedTuple):
     page: int
     count_items: int
@@ -56,56 +46,15 @@ class BulkJobResult(NamedTuple):
     more_records: bool
 
 
-def bjob_result_from_json(
-    data: BulkJobResultDict
-) -> BulkJobResult:
-    return BulkJobResult(
-        page=data['page'],
-        count_items=data['count'],
-        download_url=data['download_url'],
-        more_records=data['more_records'],
-    )
-
-
-class BulkJobDict(TypedDict):
-    operation: str
-    created_by: Dict[str, Any]
-    created_time: Dict[str, Any]
-    state: str
-    id: str
-    module: ModuleName
-    page: int
-    result: Optional[BulkJobResultDict]
-
-
 class BulkJob(NamedTuple):
     operation: str
     created_by: JSONstr
-    created_time: JSONstr
+    created_time: str
     state: str
     id: str
     module: ModuleName
     page: int
     result: Optional[BulkJobResult] = None
-
-
-def bjob_from_json(
-    data: BulkJobDict
-) -> BulkJob:
-    bjob_result = None
-    result = data['result']
-    if result:
-        bjob_result = bjob_result_from_json(result)
-    return BulkJob(
-        operation=data['operation'],
-        created_by=json.dumps(data['created_by']),
-        created_time=json.dumps(data['created_time']),
-        state=data['state'],
-        id=data['id'],
-        module=data['module'],
-        page=data['page'],
-        result=bjob_result
-    )
 
 
 rate_limiter = RateLimiter(max_calls=10, period=60)
@@ -119,25 +68,50 @@ def create_bulk_read_job(
         headers = {'Authorization': f'Zoho-oauthtoken {token}'}
         data = {
             'query': {
-                'module': module,
+                'module': module.value,
                 'page': page
             }
         }
-        response = requests.post(url=endpoint, data=data, headers=headers)
-        r_data = response.json()
-        r_data['module'] = module
-        r_data['page'] = page
-        return bjob_from_json(r_data)
+        response = requests.post(url=endpoint, json=data, headers=headers)
+        r_data = response.json()['data'][0]['details']
+
+        return BulkJob(
+            operation=r_data['operation'],
+            created_by=json.dumps(r_data['created_by']),
+            created_time=json.dumps(r_data['created_time']),
+            state=r_data['state'],
+            id=r_data['id'],
+            module=module,
+            page=page,
+            result=None
+        )
 
 
 def get_bulk_job(token: str, job_id: str) -> BulkJob:
     endpoint = f'{API_URL}/crm/bulk/v2/read/{job_id}'
     headers = {'Authorization': f'Zoho-oauthtoken {token}'}
     response = requests.get(url=endpoint, headers=headers)
-    data = response.json()
-    if data.get('result') is None:
-        data['result'] = None
-    return bjob_from_json(data)
+    r_data = response.json()['data'][0]
+    bulk_result: Optional[BulkJobResult]
+    if r_data.get('result') is None:
+        bulk_result = None
+    else:
+        bulk_result = BulkJobResult(
+            page=r_data['result']['page'],
+            count_items=r_data['result']['count'],
+            download_url=r_data['result']['download_url'],
+            more_records=r_data['result']['more_records'],
+        )
+    return BulkJob(
+        operation=r_data['operation'],
+        created_by=json.dumps(r_data['created_by']),
+        created_time=r_data['created_time'],
+        state=r_data['state'],
+        id=r_data['id'],
+        module=ModuleName(r_data['query']['module']),
+        page=r_data['query']['page'],
+        result=bulk_result
+    )
 
 
 class ApiClient(NamedTuple):
