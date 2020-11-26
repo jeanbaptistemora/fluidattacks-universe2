@@ -8,8 +8,14 @@ from aioextensions import (
 import pytest
 
 # Local libraries
+from parse_java.assertions.inspect import (
+    inspect,
+)
 from parse_java.parse import (
     parse_from_content,
+)
+from parse_java.graph.sinks import (
+    SINKS,
 )
 from parse_java.graph.control_flow import (
     ALWAYS,
@@ -40,7 +46,11 @@ from utils.model import (
     [
         (
             'test/data/lib_path/f031_cwe378/Test.java',
-            'small_java_program',
+            'f031_cwe378',
+        ),
+        (
+            'test/data/lib_path/f063_path_traversal/Test.java',
+            'f063_path_traversal',
         ),
         (
             'test/data/benchmark/owasp/BenchmarkTest00001.java',
@@ -75,6 +85,18 @@ async def test_graph_generation(path: str, name: str) -> None:
         expected = handle.read()
 
     assert graph_as_json_str == expected
+
+    for sink in SINKS:
+        for index, path in enumerate(  # type: ignore
+            sorted(g.flows(graph, sink_type=sink)),
+        ):
+            assertions = inspect(graph, path)  # type: ignore
+            assertions_as_json = json.dumps(assertions, indent=2, sort_keys=True)
+
+            with open(f'test/data/parse_java/{name}.{sink}.{index}.assertions.json') as handle:
+                expected = handle.read()
+
+            assert assertions_as_json == expected
 
 
 @run_decorator

@@ -4,6 +4,9 @@
 from itertools import (
     chain,
 )
+from typing import (
+    Set,
+)
 
 # Third party libraries
 import networkx as nx
@@ -12,6 +15,11 @@ import networkx as nx
 from utils import (
     graph as g,
 )
+
+# Constants
+SINKS: Set[str] = {
+    'F063_PATH_TRAVERSAL',
+}
 
 
 def _path_traversal(graph: nx.DiGraph) -> None:

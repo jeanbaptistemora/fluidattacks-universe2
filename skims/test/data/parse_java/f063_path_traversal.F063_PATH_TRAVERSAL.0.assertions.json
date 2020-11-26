@@ -1,0 +1,17 @@
+{
+  "inputs": {
+    "vars": {
+      "request": {
+        "trusted": false
+      }
+    }
+  },
+  "vars": {
+    "request": {
+      "type": "HttpServletRequest"
+    },
+    "response": {
+      "type": "HttpServletResponse"
+    }
+  }
+}

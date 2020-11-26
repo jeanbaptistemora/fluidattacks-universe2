@@ -76,8 +76,15 @@ def _formal_parameter(
         and graph.nodes[c_ids[1]]['label_type'] == 'IdentifierRule'
     ):
         type_attrs = graph.nodes[c_ids[0]]
+        type_attrs_label_text = type_attrs['label_text']
         var_attrs = graph.nodes[c_ids[1]]
+        var_attrs_label_text = var_attrs['label_text']
 
-        ctx['vars'][var_attrs['label_text']] = {
-            'type': type_attrs['label_text'],
-        }
+        # Add the variable to the mapping
+        ctx['vars'].setdefault(var_attrs_label_text, {})
+        ctx['vars'][var_attrs_label_text]['type'] = type_attrs_label_text
+
+        # Taint the variable
+        if type_attrs_label_text in {'HttpServletRequest'}:
+            ctx['inputs']['vars'].setdefault(var_attrs_label_text, {})
+            ctx['inputs']['vars'][var_attrs_label_text]['trusted'] = False

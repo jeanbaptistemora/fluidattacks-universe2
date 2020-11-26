@@ -11,6 +11,9 @@ from parse_java.assertions import (
     method_declaration,
     types,
 )
+from utils.logs import (
+    blocking_log,
+)
 
 
 def inspect(
@@ -18,6 +21,9 @@ def inspect(
     path: Tuple[str, ...],
 ) -> types.Context:
     ctx: types.Context = {
+        'inputs': {
+            'vars': {},
+        },
         'vars': {},
     }
 
@@ -27,5 +33,8 @@ def inspect(
 
         if n_attrs_label_type == 'MethodDeclaration':
             method_declaration.inspect(graph, n_id, ctx=ctx)
+        else:
+            blocking_log('warning', 'Unknown path %s after: %s', path, n_id)
+            break
 
     return ctx
