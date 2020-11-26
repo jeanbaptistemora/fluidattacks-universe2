@@ -38,16 +38,10 @@ from __init__ import (
     CI_COMMIT_SHORT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
     FI_AWS_CLOUDWATCH_SECRET_KEY,
-    FI_AZUREAD_OAUTH2_KEY,
-    FI_AZUREAD_OAUTH2_SECRET,
-    FI_BITBUCKET_OAUTH2_KEY,
-    FI_BITBUCKET_OAUTH2_SECRET,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_DEBUG,
     FI_DJANGO_SECRET_KEY,
     FI_ENVIRONMENT,
-    FI_GOOGLE_OAUTH2_KEY,
-    FI_GOOGLE_OAUTH2_SECRET,
     FI_JWT_SECRET,
     FI_JWT_SECRET_API,
     FI_MIXPANEL_API_TOKEN,
@@ -352,14 +346,6 @@ STATICFILES_DIRS = [
     ('styles', os.path.join(BASE_DIR, 'app', 'static', 'styles')),
 ]
 
-
-AUTHENTICATION_BACKENDS = (
-    'backend.auth.azuread_tenant.AzureADTenantBackend',
-    'social_core.backends.bitbucket.BitbucketOAuth2',
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
 CACHE_OPTIONS: Dict[str, Union[str, int, Dict[str, bool]]] = {}
 
 if FI_ENVIRONMENT == 'development':
@@ -426,61 +412,6 @@ SESSION_REDIS = {
     'cluster': CLUSTER_SESSION
 }
 
-
-# Social
-SOCIAL_AUTH_PIPELINE = (
-    'app.pipeline.user.get_upn',
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.auth_allowed',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.user.get_username',
-    'app.pipeline.user.create_user',
-    'social_core.pipeline.user.create_user',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
-    'app.pipeline.user.check_registered',
-)
-
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'registration'
-LOGIN_ERROR_URL = 'error401'
-
-SOCIAL_AUTH_SANITIZE_REDIRECTS = False
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
-SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
-USE_X_FORWARDED_HOST = True
-
 # django-analytical
 MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
 ANALYTICAL_AUTO_IDENTIFY = False
-
-# Social Auth
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'
-SOCIAL_AUTH_INACTIVE_USER_URL = '/'
-SOCIAL_AUTH_LOGIN_URL = '/'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
-
-# Bitbucket OAuth2
-SOCIAL_AUTH_BITBUCKET_OAUTH2_KEY = FI_BITBUCKET_OAUTH2_KEY
-SOCIAL_AUTH_BITBUCKET_OAUTH2_SECRET = FI_BITBUCKET_OAUTH2_SECRET  # noqa
-SOCIAL_AUTH_BITBUCKET_OAUTH2_VERIFIED_EMAILS_ONLY = True
-
-# Google OAuth2
-SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/userinfo.profile'
-]
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = FI_GOOGLE_OAUTH2_KEY
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = FI_GOOGLE_OAUTH2_SECRET  # noqa
-
-# Azure OAuth2
-SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
-SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
-SOCIAL_AUTH_AZUREAD_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'
