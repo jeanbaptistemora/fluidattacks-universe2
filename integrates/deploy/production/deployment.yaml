@@ -85,7 +85,7 @@ spec:
             - build.sh
             - integrates_serve_components
             - production
-            - http/production/backend_new.app:APP/uvicorn.workers.UvicornWorker/5/0.0.0.0/8001/*
+            - http/production/backend_new.app.app:APP/uvicorn.workers.UvicornWorker/5/0.0.0.0/8001/*
           resources:
             requests:
               cpu: 1500m

@@ -48,7 +48,7 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session['username'] = user['email'].lower()
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
-    await utils.create_user(request.session)
+    await utils.create_user(user)
 
     return request
 

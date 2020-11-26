@@ -30,16 +30,12 @@ const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
   DiscoveryDocument
 > => {
   const baseDocument: DiscoveryDocument = await fetchDiscoveryAsync(
-
-    "https://login.microsoftonline.com/common/",
+    "https://login.microsoftonline.com/common/v2.0/",
   );
 
   return {
     ...baseDocument,
-    authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
     revocationEndpoint: baseDocument.endSessionEndpoint,
-    tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/v2.0/token",
-    userInfoEndpoint: "https://graph.microsoft.com/oidc/userinfo",
   };
 };
 

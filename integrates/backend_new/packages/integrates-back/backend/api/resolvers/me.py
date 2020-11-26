@@ -32,6 +32,7 @@ from backend.utils import (
 from backend import util
 
 from backend_new import settings
+from backend_new.app import utils
 from backend_new.settings.auth import (
     azure,
     BITBUCKET_ARGS,
@@ -160,8 +161,9 @@ async def _do_sign_in(
     session_jwt = ''
     success = False
 
-    user = await get_provider_user_info(str(provider).lower(), auth_token)
+    user = await get_provider_user_info(provider, auth_token)
     if user:
+        await utils.create_user(user)
         email = user['email'].lower()
         session_jwt = jwt.encode(
             {

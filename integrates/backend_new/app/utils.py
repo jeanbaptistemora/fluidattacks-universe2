@@ -131,9 +131,9 @@ async def autoenroll_user(email: str) -> None:
 
 
 async def create_user(user: Dict[str, str]) -> None:
-    first_name = user['first_name'][:29]
-    last_name = user['last_name'][:29]
-    email = user['username'].lower()
+    first_name = user.get('given_name', '')[:29]
+    last_name = user.get('family_name', '')[:29]
+    email = user['email'].lower()
 
     today = user_domain.get_current_date()
     data_dict = {
