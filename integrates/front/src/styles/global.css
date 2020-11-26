@@ -165,6 +165,11 @@ label {
   margin-bottom: 0px;
 }
 
+:global .navbar-form {
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
 :global .nav-collapse {
   list-style: none;
 }
@@ -221,6 +226,49 @@ label {
 
 .primaryBg {
   background-color: #ff3435;
+}
+
+:global .split-button button:active,
+:global .split-button button:focus,
+:global .split-button button:hover {
+  color: #272727 !important;
+  background: transparent !important;
+}
+
+:global .split-button button:active,
+:global .split-button button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+:global .split-button button {
+  background: transparent !important;
+  border: none;
+  color: #ff3435;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: none !important;
+  text-transform: capitalize;
+  padding: 0;
+}
+
+:global .split-button button:nth-child(2) {
+  padding-right: 0.5rem !important;
+  padding-left: 1rem !important;
+  top: -0.1rem !important;
+}
+
+:global .split-button ul {
+  font-size: 18px !important;
+  padding: 0;
+  text-transform: capitalize;
+  max-height: 500px !important;
+  min-width: auto;
+  overflow-y: auto !important;
+}
+
+:global .split-button ul a {
+  padding: 0.6rem 3rem 0.6rem 1.8rem;
 }
 
 .text {

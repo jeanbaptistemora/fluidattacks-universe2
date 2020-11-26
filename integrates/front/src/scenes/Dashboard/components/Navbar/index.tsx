@@ -6,7 +6,6 @@ import React from "react";
 import {
   InputGroup,
   MenuItem,
-  Navbar,
   SelectCallback,
   SplitButton,
 } from "react-bootstrap";
@@ -19,7 +18,9 @@ import {
   Col25,
   NavBar,
   NavBarCollapse,
+  NavBarForm,
   NavBarHeader,
+  NavSplitButtonContainer,
 } from "styles/styledComponents";
 
 import { Button } from "components/Button";
@@ -126,7 +127,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
         <NavBarHeader>
           <BreadCrumb>
             <li>
-              <div className={style.splitButton}>
+              <NavSplitButtonContainer>
                 <SplitButton
                   id={"organizationList"}
                   onClick={handleOrganizationClick}
@@ -142,7 +143,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                     </MenuItem>
                   ))}
                 </SplitButton>
-              </div>
+              </NavSplitButtonContainer>
             </li>
             {breadcrumbItems}
           </BreadCrumb>
@@ -154,7 +155,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
           <Col100>
             {userEmail.endsWith("fluidattacks.com") ? (
               <li role="presentation">
-                <Navbar.Form className={style.navbarForm}>
+                <NavBarForm>
                   <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
                     <InputGroup className={style.groupsInput}>
                       <Field
@@ -170,7 +171,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                       </InputGroup.Button>
                     </InputGroup>
                   </GenericForm>
-                </Navbar.Form>
+                </NavBarForm>
               </li>
             ) : undefined}
           </Col100>

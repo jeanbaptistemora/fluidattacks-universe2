@@ -380,6 +380,15 @@ const NavBarCollapse: StyledComponent<
   className: "flex items-center nav-collapse",
 })``;
 
+const NavBarForm: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "navbar-form",
+})``;
+
 const NavBarHeader: StyledComponent<
   "div",
   Record<string, unknown>
@@ -396,6 +405,15 @@ const NavItem: StyledComponent<
   className: string;
 }>({
   className: "nav-item",
+})``;
+
+const NavSplitButtonContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "split-button",
 })``;
 
 const Notification2FaCol: StyledComponent<
@@ -645,8 +663,10 @@ export {
   ModalTitle,
   NavBar,
   NavBarCollapse,
+  NavBarForm,
   NavBarHeader,
   NavItem,
+  NavSplitButtonContainer,
   Notification2FaCol,
   Notification2FaGrid,
   Notification2FaRow,
