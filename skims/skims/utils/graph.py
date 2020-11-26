@@ -122,6 +122,19 @@ def adj(
     return tuple(results)
 
 
+def adj_ast(
+    graph: nx.DiGraph,
+    n_id: str,
+    depth: int = 1,
+    **n_attrs: str,
+) -> Tuple[Any, ...]:
+    return tuple(
+        c_id
+        for c_id in adj(graph, n_id, depth, label_ast='AST')
+        if has_labels(graph.nodes[c_id], **n_attrs)
+    )
+
+
 def pred(
     graph: nx.DiGraph,
     n_id: str,

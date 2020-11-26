@@ -1,7 +1,6 @@
 """Walk the graph and append edges with the possible code execution flow."""
 # Standar libraries
 from typing import (
-    Any,
     Dict,
     Optional,
     Tuple,
@@ -16,10 +15,6 @@ from more_itertools import (
 from utils import (
     graph as g,
 )
-from utils.graph import (
-    has_labels,
-)
-
 
 # Constants
 ALWAYS = dict(label_e='e', label_cfg='CFG')
@@ -28,21 +23,6 @@ BREAK = dict(label_break='break', **ALWAYS)
 CONTINUE = dict(label_continue='continue', **ALWAYS)
 FALSE = dict(label_false='false', label_cfg='CFG')
 TRUE = dict(label_true='true', label_cfg='CFG')
-
-
-def _get_successors_by_label(
-    graph: nx.DiGraph,
-    n_id: Any,
-    depth: int = 1,
-    **labels: Any,
-) -> Tuple[Any, ...]:
-    return tuple(
-        successor
-        for successor in g.adj(graph, n_id, depth, label_ast='AST')
-        if has_labels(
-            graph.nodes[successor],
-            **labels,
-        ))
 
 
 def _match_childs_over_template(
@@ -67,7 +47,7 @@ def _loop_statements(graph: nx.DiGraph) -> None:
         key for key, value in graph.nodes.items()
             if value['label_type'] in {'BasicForStatement', 'WhileStatement'}):
 
-        loop_block_statement = _get_successors_by_label(
+        loop_block_statement = g.adj_ast(
             graph,
             n_id,
             depth=1,
@@ -77,7 +57,7 @@ def _loop_statements(graph: nx.DiGraph) -> None:
         graph[n_id][loop_block_statement].update(**ALWAYS)
 
         # BlockStatements
-        blockstatements = _get_successors_by_label(
+        blockstatements = g.adj_ast(
             graph,
             loop_block_statement,
             depth=1,
@@ -124,7 +104,7 @@ def _do_statement(graph: nx.DiGraph) -> None:
         graph[n_id][block_statement].update(**ALWAYS)
 
         # BlockStatements
-        blockstatements = _get_successors_by_label(
+        blockstatements = g.adj_ast(
             graph,
             block_statement,
             depth=1,
@@ -235,7 +215,7 @@ def _switch_statements(graph: nx.DiGraph) -> None:
         _switch_block = g.adj(graph, n_id)[4]
         graph.add_edge(n_id, _switch_block, **ALWAYS)
 
-        block_statements_groups = _get_successors_by_label(
+        block_statements_groups = g.adj_ast(
             graph,
             _switch_block,
             depth=1,
