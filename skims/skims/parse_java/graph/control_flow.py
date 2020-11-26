@@ -1,10 +1,4 @@
 """Walk the graph and append edges with the possible code execution flow."""
-# Standar libraries
-from typing import (
-    Dict,
-    Optional,
-    Tuple,
-)
 
 # Third party libraries
 import networkx as nx
@@ -23,23 +17,6 @@ BREAK = dict(label_break='break', **ALWAYS)
 CONTINUE = dict(label_continue='continue', **ALWAYS)
 FALSE = dict(label_false='false', label_cfg='CFG')
 TRUE = dict(label_true='true', label_cfg='CFG')
-
-
-def _match_childs_over_template(
-    graph: nx.DiGraph,
-    n_id: str,
-    template_keys: Tuple[str, ...],
-) -> Dict[str, Optional[str]]:
-    template: Dict[str, Optional[str]] = dict.fromkeys(template_keys)
-
-    for c_id in g.adj(graph, n_id, label_ast='AST'):
-        c_type = graph.nodes[c_id]['label_type']
-        if c_type in template:
-            template[c_type] = c_id
-        else:
-            raise NotImplementedError(c_type)
-
-    return template
 
 
 def _loop_statements(graph: nx.DiGraph) -> None:
@@ -251,7 +228,9 @@ def _try_statement(graph: nx.DiGraph) -> None:
         label_type='TryStatement',
     )):
         # Strain the childs over the following node types
-        childs = _match_childs_over_template(graph, n_id, (
+        childs = g.match_ast(
+            graph,
+            n_id,
             # Components in order
             'TRY',
             'ResourceSpecification',
@@ -260,7 +239,7 @@ def _try_statement(graph: nx.DiGraph) -> None:
             'CatchClause',
             'Finally_',
             'SEMI',
-        ))
+        )
 
         # Initialize by linking the parent to the first executed node
         p_id = n_id

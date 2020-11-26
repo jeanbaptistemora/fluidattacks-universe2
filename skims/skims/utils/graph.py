@@ -9,6 +9,7 @@ from typing import (
     Iterable,
     Iterator,
     List,
+    Optional,
     Tuple,
 )
 
@@ -182,6 +183,21 @@ def paths(
     )
 
     yield from (tuple(path) for path in paths_iterator)
+
+
+def match_ast(
+    graph: nx.DiGraph,
+    n_id: str,
+    *label_type: str,
+) -> Dict[str, Optional[str]]:
+    nodes: Dict[str, Optional[str]] = dict.fromkeys(label_type)
+
+    for c_id in adj(graph, n_id, label_ast='AST'):
+        c_type = graph.nodes[c_id]['label_type']
+        if c_type in nodes:
+            nodes[c_type] = c_id
+
+    return nodes
 
 
 def flows(graph: nx.DiGraph, sink_type: str) -> Tuple[Tuple[str, ...], ...]:
