@@ -37,6 +37,7 @@ from lib_path import (
     f055_aws,
     f060,
     f061,
+    f063_path_traversal,
     f073,
     f085,
     f117,
@@ -151,6 +152,12 @@ async def analyze_one_path(
             file_extension=file_extension,
             path=path,
             store=stores[FindingEnum.F061],
+        ),
+        f063_path_traversal.analyze(
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F060],
         ),
         f073.analyze(
             content_generator=file_content_generator,
