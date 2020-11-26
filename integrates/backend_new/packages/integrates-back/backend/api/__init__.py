@@ -10,6 +10,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local
+from backend import util
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
@@ -48,8 +49,15 @@ class IntegratesAPI(GraphQL):
         data: Dict[str, Any] = await super().extract_data_from_request(request)
 
         name: str = data.get('operationName', 'External (unnamed)')
+        query = data.get('query', '-').replace('\n', '')
+        variables = data.get('variables', '-')
+
         newrelic.agent.set_transaction_name(f'api:{name}')
         newrelic.agent.add_custom_parameters(tuple(data.items()))
+        util.cloudwatch_log(
+            request,
+            f'API: {name} with parameters {variables}. Complete query: {query}'
+        )
 
         return data
 
