@@ -80,7 +80,7 @@ describe("Finding Description", () => {
         button
           .text()
           .includes("Edit")))
-      .toHaveLength(1);
+      .toHaveLength(0);
   });
 
   it("should set the description as editable", async () => {
@@ -108,9 +108,9 @@ describe("Finding Description", () => {
     let editingComponents: ReactWrapper = wrapper.find({ isEditing: true });
     let fieldsAsEditable: ReactWrapper = wrapper.find({ renderAsEditable: true });
     expect(editingComponents)
-      .toHaveLength(2);
+      .toHaveLength(1);
     expect(fieldsAsEditable)
-      .toHaveLength(12);
+      .toHaveLength(10);
 
     const titleInput: ReactWrapper = wrapper
       .find({ name: "title", type: "text" })

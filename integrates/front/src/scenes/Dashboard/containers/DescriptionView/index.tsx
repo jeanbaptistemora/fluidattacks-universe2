@@ -440,14 +440,6 @@ const descriptionView: React.FC = (): JSX.Element => {
           </React.Fragment>
         </React.Fragment>
       </GenericForm>
-      <TreatmentView
-        approvalModalConfig={approvalModalConfig}
-        findingId={findingId}
-        isEditing={isEditing}
-        onCloseApproval={closeApprovalModal}
-        projectName={projectName}
-        setEditing={setEditing}
-      />
     </React.StrictMode>
   );
 };

@@ -29,9 +29,7 @@ export interface IActionButtonsProps {
 const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
   const { onApproveAcceptation, onEdit, onRejectAcceptation, onUpdate } = props;
 
-  const shouldRenderApprovalBtns: boolean =
-    props.lastTreatment.treatment === "ACCEPTED_UNDEFINED"
-    && props.lastTreatment.acceptanceStatus === "SUBMITTED";
+  const shouldRenderApprovalBtns: boolean = false;
 
   return (
     <ButtonToolbarRow>
@@ -48,6 +46,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           </React.Fragment>
         ) : undefined}
       </Can>
+      <Can do="backend_api_resolvers_finding__do_update_description">
       {props.isEditing ? (
         <TooltipWrapper message={translate.t("search_findings.tab_description.save.tooltip")}>
           <Button onClick={onUpdate} disabled={props.isPristine}>
@@ -74,6 +73,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           )}
         </Button>
       </TooltipWrapper>
+      </Can>
     </ButtonToolbarRow>
   );
 };

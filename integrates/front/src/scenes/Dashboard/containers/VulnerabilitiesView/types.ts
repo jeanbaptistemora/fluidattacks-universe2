@@ -1,4 +1,4 @@
-import { IHistoricTreatment } from "../DescriptionView/types";
+import type { IHistoricTreatment } from "../DescriptionView/types";
 
 interface IProject {
   subscription: string;
@@ -10,6 +10,7 @@ interface IFinding {
   newRemediated: boolean;
   state: "open" | "closed";
   verified: boolean;
+  vulnerabilities: IVulnerabilities[];
 }
 
 interface IGetFindingVulnInfo {
@@ -17,4 +18,11 @@ interface IGetFindingVulnInfo {
   project: IProject;
 }
 
-export { IFinding, IGetFindingVulnInfo, IProject };
+interface IVulnerabilities {
+  historicTreatment: IHistoricTreatment[];
+  id: string;
+  specific: string;
+  where: string;
+}
+
+export { IFinding, IGetFindingVulnInfo, IProject, IVulnerabilities };

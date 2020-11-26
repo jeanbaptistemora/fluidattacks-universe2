@@ -12,6 +12,15 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
       newRemediated
       state
       verified
+      vulnerabilities {
+        id
+        specific
+        where
+        historicTreatment {
+          acceptanceStatus
+          treatment
+        }
+      }
     }
     project(projectName: $groupName) {
       subscription

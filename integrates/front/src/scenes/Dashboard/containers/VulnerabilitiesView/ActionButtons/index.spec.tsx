@@ -11,6 +11,7 @@ describe("ActionButtons", () => {
 
   const baseMockedProps: IActionButtonsProps = {
     areVulnsSelected: false,
+    canHandleAcceptation: false,
     isConfirmingZeroRisk: false,
     isEditing: false,
     isReattackRequestedInAllVuln: false,
@@ -25,6 +26,7 @@ describe("ActionButtons", () => {
     onRequestReattack: jest.fn(),
     onRequestZeroRisk: jest.fn(),
     onVerify: jest.fn(),
+    openHandleAcceptation: jest.fn(),
     openModal: jest.fn(),
     openUpdateZeroRiskModal: jest.fn(),
     state: "open",

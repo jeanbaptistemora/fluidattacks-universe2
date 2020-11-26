@@ -35,13 +35,13 @@ describe("ActionButtons", () => {
       .toHaveLength(1);
     const buttons: ReactWrapper = wrapper.find("Button");
     expect(buttons)
-      .toHaveLength(1);
+      .toHaveLength(0);
     expect(buttons
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
           .includes("Edit")))
-      .toHaveLength(1);
+      .toHaveLength(0);
   });
 
 });

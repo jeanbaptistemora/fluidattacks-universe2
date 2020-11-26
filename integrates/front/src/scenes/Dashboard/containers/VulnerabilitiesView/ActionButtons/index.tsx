@@ -11,6 +11,7 @@ import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { ConfirmZeroRiskVulnButton } from "./ConfirmZeroRiskVulnButton";
 import { EditButton } from "./EditButton";
+import { HandleAcceptationButton } from "./HandleAcceptationButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { RejectZeroRiskVulnButton } from "./RejectZeroRiskVulnButton";
 import { RequestZeroRiskVulnButton } from "./RequestZeroRiskVulnButton";
@@ -18,6 +19,7 @@ import { VerifyVunButton } from "./VerifyVunButton";
 
 export interface IActionButtonsProps {
   areVulnsSelected: boolean;
+  canHandleAcceptation: boolean;
   isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
@@ -34,6 +36,7 @@ export interface IActionButtonsProps {
   onRequestReattack(): void;
   onRequestZeroRisk(): void;
   onVerify(): void;
+  openHandleAcceptation(): void;
   openModal(): void;
   openUpdateZeroRiskModal(): void;
 }
@@ -51,6 +54,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
 
   return (
     <ButtonToolbarRow>
+      <HandleAcceptationButton {...props} />
       <VerifyVunButton {...props}/>
       <ReattackVulnButton {...props}/>
       <ConfirmZeroRiskVulnButton {...props}/>

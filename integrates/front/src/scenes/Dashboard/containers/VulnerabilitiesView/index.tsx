@@ -17,6 +17,7 @@ import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities
 import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { getLastTreatment } from "scenes/Dashboard/containers/DescriptionView/utils";
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
+import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { IGetFindingVulnInfo } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
@@ -24,6 +25,8 @@ import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { IVulnData } from "./HandleAcceptationModal/types";
+import { getVulnsPendingOfAcceptation } from "./utils";
 
 type verificationFn = (
   vulnerabilities: IVulnDataType[], clearSelected: () => void,
@@ -46,6 +49,11 @@ const vulnsView: React.FC = (): JSX.Element => {
   const [isUpdateZeroRiskModalOpen, setUpdateZeroRiskModalOpen] = React.useState(false);
   const toggleUpdateZeroRiskModal: (() => void) = (): void => {
     setUpdateZeroRiskModalOpen(!isUpdateZeroRiskModalOpen);
+  };
+
+  const [isHandleAcceptationModalOpen, setHandleAcceptationModalOpen] = React.useState(false);
+  const toggleHandleAcceptationModal: (() => void) = (): void => {
+    setHandleAcceptationModalOpen(!isHandleAcceptationModalOpen);
   };
 
   const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
@@ -102,11 +110,15 @@ const vulnsView: React.FC = (): JSX.Element => {
     return <React.Fragment />;
   }
 
+  const pendingVulnsToHandleAcceptation: IVulnData[] = getVulnsPendingOfAcceptation(data.finding.vulnerabilities);
+  const canHandleAcceptation: boolean = pendingVulnsToHandleAcceptation.length > 0;
+
   return (
     <React.StrictMode>
       <React.Fragment>
         <ActionButtons
           areVulnsSelected={remediationModalConfig.vulnerabilities.length > 0}
+          canHandleAcceptation={canHandleAcceptation}
           isConfirmingZeroRisk={isConfirmingZeroRisk}
           isEditing={isEditing}
           isReattackRequestedInAllVuln={data.finding.newRemediated}
@@ -121,6 +133,7 @@ const vulnsView: React.FC = (): JSX.Element => {
           onRejectZeroRisk={toggleRejectZeroRisk}
           onRequestZeroRisk={toggleRequestZeroRisk}
           onVerify={toggleVerify}
+          openHandleAcceptation={toggleHandleAcceptationModal}
           openModal={toggleModal}
           openUpdateZeroRiskModal={toggleUpdateZeroRiskModal}
           state={data.finding.state}
@@ -194,6 +207,14 @@ const vulnsView: React.FC = (): JSX.Element => {
             setRejectState={toggleRejectZeroRisk}
             setRequestState={toggleRequestZeroRisk}
             vulns={remediationModalConfig.vulnerabilities}
+          />
+        ) : undefined}
+        {isHandleAcceptationModalOpen ? (
+          <HandleAcceptationModal
+            findingId={findingId}
+            vulns={pendingVulnsToHandleAcceptation}
+            handleCloseModal={toggleHandleAcceptationModal}
+            refetchData={refetch}
           />
         ) : undefined}
       </React.Fragment>
