@@ -112,55 +112,59 @@ async def test_control_flow_1() -> None:
     assert has_labels(graph['346']['392'], **TRUE)
 
     # Check IfThenElseStatement
-    assert has_labels(graph['525']['550'], **TRUE)
-    assert has_labels(graph['525']['597'], **FALSE)
+    assert has_labels(graph['1075']['1122'], **TRUE)
+    assert has_labels(graph['1075']['1135'], **FALSE)
 
     # Check BlockStatement
-    assert has_labels(graph['61']['91'], **ALWAYS)
-    assert has_labels(graph['91']['93'], **ALWAYS)
-    assert has_labels(graph['93']['95'], **ALWAYS)
-    assert has_labels(graph['95']['129'], **ALWAYS)
-    assert has_labels(graph['129']['168'], **ALWAYS)
-    assert has_labels(graph['168']['454'], **ALWAYS)
-    assert has_labels(graph['454']['525'], **ALWAYS)
+    assert has_labels(graph['3138']['3140'], **ALWAYS)
+    assert has_labels(graph['3140']['3144'], **ALWAYS)
+    assert has_labels(graph['3144']['3193'], **ALWAYS)
+    assert has_labels(graph['3279']['3316'], **ALWAYS)
+    assert has_labels(graph['3316']['3561'], **FALSE)
+    assert has_labels(graph['3561']['3193'], **ALWAYS)
+    assert has_labels(graph['3193']['3056'], **ALWAYS)
 
     # Check WhileStatement
-    assert has_labels(graph['1946']['1983'], **TRUE)
-    assert has_labels(graph['2038']['1946'], **ALWAYS)
-    assert has_labels(graph['2776']['2813'], **TRUE)
+    assert has_labels(graph['816']['853'], **TRUE)
+    assert has_labels(graph['1266']['816'], **ALWAYS)
 
     # Check DoWhileStatement
-    assert has_labels(graph['2087']['2091'], **ALWAYS)
-    assert has_labels(graph['2146']['2087'], **TRUE)
-    assert has_labels(graph['2146']['2194'], **FALSE)
+    assert has_labels(graph['2985']['3648'], **ALWAYS)
+    assert has_labels(graph['3056']['2985'], **TRUE)
+    assert has_labels(graph['3056']['3648'], **FALSE)
 
     # Check BreakStatement
-    assert has_labels(graph['2902']['2969'], **BREAK)
+    assert has_labels(graph['1128']['1216'], **BREAK)
+    assert has_labels(graph['1663']['2100'], **BREAK)  # break in switch
+    assert has_labels(graph['4440']['4495'], **BREAK)  # break in for
+    assert has_labels(graph['4658']['4725'], **BREAK)  # break in while
 
     # Check ContinueStatement
-    assert has_labels(graph['3382']['3215'], **ALWAYS)
+    assert has_labels(graph['3553']['3316'], **CONTINUE)  # continue in nested loop for-for-while
+    assert has_labels(graph['1141']['920'], **CONTINUE)  # continue in nested loop while-for
+    assert has_labels(graph['5138']['4971'], **CONTINUE)
 
     # Check ForStatement
-    assert has_labels(graph['2194']['2276'], **TRUE)
-    assert has_labels(graph['2194']['2330'], **FALSE)
-    assert has_labels(graph['2282']['2194'], **ALWAYS)
+    assert has_labels(graph['920']['1002'], **TRUE)
+    assert has_labels(graph['920']['1216'], **FALSE)
+    assert has_labels(graph['1148']['920'], **ALWAYS)
 
     # Check SwitchStatement
-    assert has_labels(graph['904']['927'], **ALWAYS)
-    assert has_labels(graph['1075']['1101'], **TRUE)
-    assert has_labels(graph['1145']['1202'], **ALWAYS)  # Break
-    assert has_labels(graph['1312']['1347'], **ALWAYS)  # no Break
+    assert has_labels(graph['1568']['1591'], **ALWAYS)
+    assert has_labels(graph['1593']['1619'], **TRUE)
+    assert has_labels(graph['1591']['1973'], **ALWAYS)  # Break
+    assert has_labels(graph['1591']['1666'], **ALWAYS)  # no Break
 
     # TryStatement
     assert has_labels(graph['168']['170'], **ALWAYS)  # try -> block
     assert has_labels(graph['170']['329'], **MAYBE)  # block -> catch
 
-    assert has_labels(graph['4194']['4196'], **ALWAYS)  # try -> block
-    assert has_labels(graph['4196']['4237'], **MAYBE)  # block -> catch
-    assert has_labels(graph['4196']['4285'], **MAYBE)  # block -> catch
+    assert has_labels(graph['5950']['5952'], **ALWAYS)  # try -> block
+    assert has_labels(graph['5952']['5993'], **MAYBE)  # block -> catch
+    assert has_labels(graph['5952']['6041'], **MAYBE)  # block -> catch
 
-    assert has_labels(graph['4440']['4442'], **ALWAYS)  # try -> block
-    assert has_labels(graph['4442']['4482'], **ALWAYS)  # block -> finally
+    assert has_labels(graph['6097']['6099'], **ALWAYS)  # try -> block
+    assert has_labels(graph['6099']['6103'], **ALWAYS)  # block -> finally
 
 
 @run_decorator

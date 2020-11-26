@@ -1,5 +1,10 @@
 """Walk the graph and append edges with the possible code execution flow."""
 
+# Standar library
+from typing import (
+    Iterator,
+)
+
 # Third party libraries
 import networkx as nx
 from more_itertools import (
@@ -17,6 +22,19 @@ BREAK = dict(label_break='break', **ALWAYS)
 CONTINUE = dict(label_continue='continue', **ALWAYS)
 FALSE = dict(label_false='false', label_cfg='CFG')
 TRUE = dict(label_true='true', label_cfg='CFG')
+
+
+def _pred_ast_types(
+    graph: nx.DiGraph,
+    n_id: str,
+    *label_types: str,
+    depth: int = 1,
+) -> Iterator[str]:
+    for node in g.pred_lazy(graph, n_id, depth, label_ast='AST'):
+        if any(
+            g.has_labels(graph.nodes[node], label_type=label)
+                for label in label_types):
+            yield node
 
 
 def _loop_statements(graph: nx.DiGraph) -> None:
@@ -58,20 +76,6 @@ def _loop_statements(graph: nx.DiGraph) -> None:
             graph[n_id][else_id]['label_false'] = 'false'
             graph[n_id][else_id].pop('label_e', None)
 
-        # Find `continue` and `break` statements
-        for _statement in nx.dfs_successors(
-            graph,
-            source=loop_block_statement,
-        ):
-            # Prevent the tour from leaving the declaration block
-            if _statement == n_id:
-                break
-            if graph.nodes[_statement]['label_type'] == 'ContinueStatement':
-                graph.add_edge(_statement, n_id, **CONTINUE)
-            elif graph.nodes[_statement][
-                    'label_type'] == 'BreakStatement' and else_in_block:
-                graph.add_edge(_statement, else_id, **BREAK)
-
 
 def _do_statement(graph: nx.DiGraph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
@@ -104,19 +108,45 @@ def _do_statement(graph: nx.DiGraph) -> None:
             # Add edge when loop ends
             graph.add_edge(statements[-1], else_id, **FALSE)
 
-        # Find `continue` and `break` statements
-        for _statement in nx.dfs_successors(
+
+def _continue(graph: nx.DiGraph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='ContinueStatement'
+    )):
+        for loop in _pred_ast_types(
             graph,
-            source=block_statement,
+            n_id,
+            'DoStatement',
+            'BasicForStatement',
+            'WhileStatement',
+            depth=-1,
         ):
-            # Prevent the tour from leaving the declaration block
-            if _statement == n_id:
-                break
-            if graph.nodes[_statement]['label_type'] == 'ContinueStatement':
-                graph.add_edge(_statement, n_id, **CONTINUE)
-            elif graph.nodes[_statement][
-                    'label_type'] == 'BreakStatement' and else_in_block:
-                graph.add_edge(_statement, else_id, **BREAK)
+            graph.add_edge(n_id, loop, **CONTINUE)
+            break
+
+
+def _break(graph: nx.DiGraph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='BreakStatement'
+    )):
+        for loop in _pred_ast_types(
+            graph,
+            n_id,
+            'DoStatement',
+            'BasicForStatement',
+            'WhileStatement',
+            'SwitchStatement',
+            depth=-1,
+        ):
+            else_id = g.adj(graph, loop)[-1]
+            else_parent = graph.nodes[else_id]['label_parent_ast']
+            else_in_block = else_parent != loop
+            # This statement can be the last in the BlockStatement
+            # else_id can be a children directly of loop statement
+            if else_in_block:
+                # Add edge when loop ends
+                graph.add_edge(n_id, else_id, **BREAK)
+            break
 
 
 def _method_declaration(graph: nx.DiGraph) -> None:
@@ -186,9 +216,6 @@ def _switch_statements(graph: nx.DiGraph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='SwitchStatement',
     )):
-        else_block = g.adj(graph, n_id)[-1]
-        else_in_block = graph.nodes[else_block]['label_parent_ast'] != n_id
-
         _switch_block = g.adj(graph, n_id)[4]
         graph.add_edge(n_id, _switch_block, **ALWAYS)
 
@@ -212,9 +239,7 @@ def _switch_statements(graph: nx.DiGraph) -> None:
             else:
                 statements = (g.adj(graph, block_statements)[0], )
 
-            if graph.nodes[statements[-1]][
-                    'label_type'] == 'BreakStatement' and else_in_block:
-                graph.add_edge(statements[-1], else_block, **ALWAYS)
+            if graph.nodes[statements[-1]]['label_type'] == 'BreakStatement':
                 last_statement = None
             else:
                 # if the block does not end with BreakStatement, the following
@@ -299,6 +324,8 @@ def analyze(graph: nx.DiGraph) -> None:
     _loop_statements(graph)
     _do_statement(graph)
     _switch_statements(graph)
+    _continue(graph)
+    _break(graph)
 
     # Single evaluations
     _link_to_parent(graph, 'ClassInstanceCreationExpression_lfno_primary')

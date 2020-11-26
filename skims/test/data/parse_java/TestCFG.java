@@ -18,7 +18,10 @@ public class Test {
 
     if(isCar)
     {
-    	System.out.println("I am a Car");
+      System.out.println("I am a Car");
+      for(int i=1; i<=5; i++){
+    	  System.out.println("Car number :" + i);
+      }
     }
 
     if(isCar)
@@ -27,7 +30,25 @@ public class Test {
     }
     else
     {
-    	System.out.println("I am a Truck");
+      System.out.println("I am a Truck");
+      int counter = 0;
+      while(counter < 5) {
+          System.out.println("Truck number: " + counter);
+          counter++;
+          for(int i=1; i<=5; i++){
+            System.out.println("Truck Number: " + i + ", " + counter);
+            if (counter % 2 == 0){
+              break;
+            }else{
+              continue;
+            }
+            System.out.println("Truck Number: " + i + ", " + counter);
+        }
+        if (counter > 4){
+          break;
+        }
+        System.out.println("Finish");
+      }
     }
 
     if(vehicle="Car")
@@ -48,8 +69,17 @@ public class Test {
     switch (age) {
         case 1:  System.out.println("You are one yr old");
                  break;
-        case 2:  System.out.println("You are two yr old");
-                 break;
+        case 2:  {
+                 System.out.println("You are two yr old");
+                 for(int i=1; i<=5; i++){
+                  System.out.println("number :" + i);
+                  if (i > 3){
+                    break;
+                    }
+                 }
+                 System.out.println("Finish");
+              break;
+            }
         case 3:  System.out.println("You are three yr old");
                  break;
         default: System.out.println("You are more than three yr old");
@@ -91,6 +121,25 @@ public class Test {
     do {
         System.out.println("Inside the while loop, counting: " + counter);
         counter++;
+        for(int i=1; i<=5; i++){
+          System.out.println("number :" + i);
+            for(int j=1; j<=5; j++){
+              int counter = 0;
+              while(counter < 5) {
+                if(counter==3)
+                {
+                  System.out.println("Breaking the for loop.");
+                  break;
+                }
+                  System.out.println("Inside the while loop, counting: " + counter);
+                  counter++;
+                if (counter == 4){
+                  continue;
+                }
+              }
+              System.out.println("number :" + j);
+            }
+        }
     } while(counter < 5);
 
     for(int i=1; i<=5; i++){
@@ -99,7 +148,18 @@ public class Test {
 
     String[] people = {"Vivek","Kavya","Aryan"};
     for (String person : people) {
-    	System.out.println("Hi, I am " + person);
+      System.out.println("Hi, I am " + person);
+      int age = 2;
+      String yourAge;
+      switch (age) {
+        case 3: System.out.println("You are three or less than three yr old");
+          break;
+        case 5:
+        case 6: System.out.println("You are six or less than six yr old");
+          break;
+        default: System.out.println("You are more than six yr old");
+          break;
+      }
     }
 
     for(int i=1; i<=5; i++){

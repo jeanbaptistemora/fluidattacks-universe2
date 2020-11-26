@@ -136,34 +136,42 @@ def adj_ast(
     )
 
 
-def pred(
+def pred_lazy(
     graph: nx.DiGraph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
-) -> Tuple[str, ...]:
+) -> Iterator[str]:
     """Same as `adj` but follow edges in the opposite direction."""
     if depth == 0:
-        return ()
-
-    results: List[str] = []
+        return
 
     p_ids: List[str] = sorted(graph.pred[n_id], key=int)
 
     # Append direct parents
     for p_id in p_ids:
         if has_labels(graph[p_id][n_id], **edge_attrs):
-            results.append(p_id)
+            yield p_id
 
     # Recurse into parents
     if depth < 0 or depth > 1:
         for p_id in p_ids:
             if has_labels(graph[p_id][n_id], **edge_attrs):
-                results.extend(
-                    pred(graph, p_id, depth=depth - 1, **edge_attrs),
+                yield from pred_lazy(
+                    graph,
+                    p_id,
+                    depth=depth - 1,
+                    **edge_attrs,
                 )
 
-    return tuple(results)
+
+def pred(
+    graph: nx.DiGraph,
+    n_id: str,
+    depth: int = 1,
+    **edge_attrs: str,
+) -> Tuple[str, ...]:
+    return tuple(pred_lazy(graph, n_id, depth, **edge_attrs))
 
 
 def paths(
