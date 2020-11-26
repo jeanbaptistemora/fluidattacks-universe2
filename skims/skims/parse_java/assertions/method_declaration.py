@@ -3,7 +3,7 @@ import networkx as nx
 
 # Local libraries
 from parse_java.assertions import (
-    types,
+    common,
 )
 from utils import (
     graph as g,
@@ -14,7 +14,7 @@ def inspect(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: types.Context
+    ctx: common.Context
 ) -> None:
     # methodDeclaration = methodModifier* methodHeader methodBody
     match = g.match_ast(graph, n_id, 'MethodHeader')
@@ -26,7 +26,7 @@ def _method_header(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: types.Context
+    ctx: common.Context
 ) -> None:
     # methodHeader
     #   : result methodDeclarator throws_?
@@ -40,7 +40,7 @@ def _method_declarator(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: types.Context
+    ctx: common.Context
 ) -> None:
     # methodDeclarator = identifier '(' formalParameterList? ')' dims?
     match = g.match_ast(graph, n_id, 'FormalParameterList')
@@ -52,7 +52,7 @@ def _formal_parameter_list(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: types.Context
+    ctx: common.Context
 ) -> None:
     for c_id in g.filter_nodes(
         graph,
@@ -66,7 +66,7 @@ def _formal_parameter(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: types.Context
+    ctx: common.Context
 ) -> None:
     c_ids = g.adj_ast(graph, n_id)
 
@@ -88,3 +88,5 @@ def _formal_parameter(
         if type_attrs_label_text in {'HttpServletRequest'}:
             ctx['inputs']['vars'].setdefault(var_attrs_label_text, {})
             ctx['inputs']['vars'][var_attrs_label_text]['trusted'] = False
+    else:
+        common.warn_not_impl(_formal_parameter, n_id=n_id)

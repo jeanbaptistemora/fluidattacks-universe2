@@ -576,74 +576,6 @@
         "label_e": "e"
       }
     },
-    "1369": {
-      "1370": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1386": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1370": {
-      "1373": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1374": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1378": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "1382": {
-        "index": 3,
-        "label_ast": "AST"
-      }
-    },
-    "1374": {
-      "1375": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1377": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1378": {
-      "1379": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1381": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1382": {
-      "1383": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1385": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1386": {
-      "1387": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1388": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "139": {
       "141": {
         "index": 0,
@@ -937,54 +869,6 @@
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_e": "e"
-      }
-    },
-    "1582": {
-      "1585": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1586": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1590": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "1594": {
-        "index": 3,
-        "label_ast": "AST"
-      }
-    },
-    "1586": {
-      "1587": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1589": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1590": {
-      "1591": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1593": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1594": {
-      "1595": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1597": {
-        "index": 1,
-        "label_ast": "AST"
       }
     },
     "1599": {
@@ -1575,54 +1459,6 @@
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_e": "e"
-      }
-    },
-    "1957": {
-      "1960": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1961": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1965": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "1969": {
-        "index": 3,
-        "label_ast": "AST"
-      }
-    },
-    "1961": {
-      "1962": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1964": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1965": {
-      "1966": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1968": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1969": {
-      "1970": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1972": {
-        "index": 1,
-        "label_ast": "AST"
       }
     },
     "1974": {
@@ -4668,7 +4504,8 @@
       "label_c": 2,
       "label_l": 70,
       "label_parent_ast": "1366",
-      "label_type": "UnannArrayType",
+      "label_text": "javax.servlet.http.Cookie[]",
+      "label_type": "CustomUnannArrayType",
       "label_type_index": "0"
     },
     "137": {
@@ -4677,113 +4514,6 @@
       "label_parent_ast": "132",
       "label_text": "(",
       "label_type": "LPAREN",
-      "label_type_index": "0"
-    },
-    "1370": {
-      "label_c": 2,
-      "label_l": 70,
-      "label_parent_ast": "1369",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1373": {
-      "label_c": 2,
-      "label_l": 70,
-      "label_parent_ast": "1370",
-      "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1374": {
-      "label_c": 7,
-      "label_l": 70,
-      "label_parent_ast": "1370",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1375": {
-      "label_c": 7,
-      "label_l": 70,
-      "label_parent_ast": "1374",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1377": {
-      "label_c": 8,
-      "label_l": 70,
-      "label_parent_ast": "1374",
-      "label_text": "servlet",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1378": {
-      "label_c": 15,
-      "label_l": 70,
-      "label_parent_ast": "1370",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "1379": {
-      "label_c": 15,
-      "label_l": 70,
-      "label_parent_ast": "1378",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1381": {
-      "label_c": 16,
-      "label_l": 70,
-      "label_parent_ast": "1378",
-      "label_text": "http",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1382": {
-      "label_c": 20,
-      "label_l": 70,
-      "label_parent_ast": "1370",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "2"
-    },
-    "1383": {
-      "label_c": 20,
-      "label_l": 70,
-      "label_parent_ast": "1382",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1385": {
-      "label_c": 21,
-      "label_l": 70,
-      "label_parent_ast": "1382",
-      "label_text": "Cookie",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1386": {
-      "label_c": 27,
-      "label_l": 70,
-      "label_parent_ast": "1369",
-      "label_type": "Dims",
-      "label_type_index": "0"
-    },
-    "1387": {
-      "label_c": 27,
-      "label_l": 70,
-      "label_parent_ast": "1386",
-      "label_text": "[",
-      "label_type": "LBRACK",
-      "label_type_index": "0"
-    },
-    "1388": {
-      "label_c": 28,
-      "label_l": 70,
-      "label_parent_ast": "1386",
-      "label_text": "]",
-      "label_type": "RBRACK",
       "label_type_index": "0"
     },
     "139": {
@@ -5220,84 +4950,8 @@
       "label_c": 4,
       "label_l": 73,
       "label_parent_ast": "1579",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1585": {
-      "label_c": 4,
-      "label_l": 73,
-      "label_parent_ast": "1582",
-      "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1586": {
-      "label_c": 9,
-      "label_l": 73,
-      "label_parent_ast": "1582",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1587": {
-      "label_c": 9,
-      "label_l": 73,
-      "label_parent_ast": "1586",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1589": {
-      "label_c": 10,
-      "label_l": 73,
-      "label_parent_ast": "1586",
-      "label_text": "servlet",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1590": {
-      "label_c": 17,
-      "label_l": 73,
-      "label_parent_ast": "1582",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "1591": {
-      "label_c": 17,
-      "label_l": 73,
-      "label_parent_ast": "1590",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1593": {
-      "label_c": 18,
-      "label_l": 73,
-      "label_parent_ast": "1590",
-      "label_text": "http",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1594": {
-      "label_c": 22,
-      "label_l": 73,
-      "label_parent_ast": "1582",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "2"
-    },
-    "1595": {
-      "label_c": 22,
-      "label_l": 73,
-      "label_parent_ast": "1594",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1597": {
-      "label_c": 23,
-      "label_l": 73,
-      "label_parent_ast": "1594",
-      "label_text": "Cookie",
-      "label_type": "IdentifierRule",
+      "label_text": "javax.servlet.http.Cookie",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "1599": {
@@ -6257,84 +5911,8 @@
       "label_c": 3,
       "label_l": 88,
       "label_parent_ast": "1954",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1960": {
-      "label_c": 3,
-      "label_l": 88,
-      "label_parent_ast": "1957",
-      "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1961": {
-      "label_c": 8,
-      "label_l": 88,
-      "label_parent_ast": "1957",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1962": {
-      "label_c": 8,
-      "label_l": 88,
-      "label_parent_ast": "1961",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1964": {
-      "label_c": 9,
-      "label_l": 88,
-      "label_parent_ast": "1961",
-      "label_text": "servlet",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1965": {
-      "label_c": 16,
-      "label_l": 88,
-      "label_parent_ast": "1957",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "1966": {
-      "label_c": 16,
-      "label_l": 88,
-      "label_parent_ast": "1965",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1968": {
-      "label_c": 17,
-      "label_l": 88,
-      "label_parent_ast": "1965",
-      "label_text": "http",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1969": {
-      "label_c": 21,
-      "label_l": 88,
-      "label_parent_ast": "1957",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "2"
-    },
-    "1970": {
-      "label_c": 21,
-      "label_l": 88,
-      "label_parent_ast": "1969",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1972": {
-      "label_c": 22,
-      "label_l": 88,
-      "label_parent_ast": "1969",
-      "label_text": "Cookie",
-      "label_type": "IdentifierRule",
+      "label_text": "javax.servlet.http.Cookie",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "1974": {

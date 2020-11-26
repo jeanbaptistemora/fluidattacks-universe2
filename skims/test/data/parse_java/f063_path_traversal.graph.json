@@ -34,74 +34,6 @@
         "label_e": "e"
       }
     },
-    "129": {
-      "130": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "146": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "130": {
-      "133": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "134": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "138": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "142": {
-        "index": 3,
-        "label_ast": "AST"
-      }
-    },
-    "134": {
-      "135": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "137": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "138": {
-      "139": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "141": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "142": {
-      "143": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "145": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "146": {
-      "147": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "148": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "150": {
       "153": {
         "index": 0,
@@ -496,40 +428,6 @@
         "label_e": "e"
       }
     },
-    "355": {
-      "358": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "359": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "363": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "359": {
-      "360": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "362": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "363": {
-      "364": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "366": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "368": {
       "371": {
         "index": 0,
@@ -881,7 +779,8 @@
       "label_c": 4,
       "label_l": 10,
       "label_parent_ast": "126",
-      "label_type": "UnannArrayType",
+      "label_text": "javax.servlet.http.Cookie[]",
+      "label_type": "CustomUnannArrayType",
       "label_type_index": "0"
     },
     "13": {
@@ -892,119 +791,12 @@
       "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
-    "130": {
-      "label_c": 4,
-      "label_l": 10,
-      "label_parent_ast": "129",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "133": {
-      "label_c": 4,
-      "label_l": 10,
-      "label_parent_ast": "130",
-      "label_text": "javax",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "134": {
-      "label_c": 9,
-      "label_l": 10,
-      "label_parent_ast": "130",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "135": {
-      "label_c": 9,
-      "label_l": 10,
-      "label_parent_ast": "134",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "137": {
-      "label_c": 10,
-      "label_l": 10,
-      "label_parent_ast": "134",
-      "label_text": "servlet",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "138": {
-      "label_c": 17,
-      "label_l": 10,
-      "label_parent_ast": "130",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "139": {
-      "label_c": 17,
-      "label_l": 10,
-      "label_parent_ast": "138",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
     "14": {
       "label_c": 14,
       "label_l": 1,
       "label_parent_ast": "6",
       "label_text": ".",
       "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "141": {
-      "label_c": 18,
-      "label_l": 10,
-      "label_parent_ast": "138",
-      "label_text": "http",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "142": {
-      "label_c": 22,
-      "label_l": 10,
-      "label_parent_ast": "130",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "2"
-    },
-    "143": {
-      "label_c": 22,
-      "label_l": 10,
-      "label_parent_ast": "142",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "145": {
-      "label_c": 23,
-      "label_l": 10,
-      "label_parent_ast": "142",
-      "label_text": "Cookie",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "146": {
-      "label_c": 29,
-      "label_l": 10,
-      "label_parent_ast": "129",
-      "label_type": "Dims",
-      "label_type_index": "0"
-    },
-    "147": {
-      "label_c": 29,
-      "label_l": 10,
-      "label_parent_ast": "146",
-      "label_text": "[",
-      "label_type": "LBRACK",
-      "label_type_index": "0"
-    },
-    "148": {
-      "label_c": 30,
-      "label_l": 10,
-      "label_parent_ast": "146",
-      "label_text": "]",
-      "label_type": "RBRACK",
       "label_type_index": "0"
     },
     "150": {
@@ -1610,61 +1402,8 @@
       "label_c": 4,
       "label_l": 13,
       "label_parent_ast": "352",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "358": {
-      "label_c": 4,
-      "label_l": 13,
-      "label_parent_ast": "355",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "359": {
-      "label_c": 8,
-      "label_l": 13,
-      "label_parent_ast": "355",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "360": {
-      "label_c": 8,
-      "label_l": 13,
-      "label_parent_ast": "359",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "362": {
-      "label_c": 9,
-      "label_l": 13,
-      "label_parent_ast": "359",
-      "label_text": "io",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "363": {
-      "label_c": 11,
-      "label_l": 13,
-      "label_parent_ast": "355",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "364": {
-      "label_c": 11,
-      "label_l": 13,
-      "label_parent_ast": "363",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "366": {
-      "label_c": 12,
-      "label_l": 13,
-      "label_parent_ast": "363",
-      "label_text": "FileInputStream",
-      "label_type": "IdentifierRule",
+      "label_text": "java.io.FileInputStream",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "368": {

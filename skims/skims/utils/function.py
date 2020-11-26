@@ -60,6 +60,10 @@ def get_bound_arguments(
     return arguments
 
 
+def get_id(function: Callable[..., Any]) -> str:
+    return f'{function.__module__}.{function.__name__}'
+
+
 def get_signature(function: Callable[..., Any]) -> inspect.Signature:
     signature: inspect.Signature = inspect.signature(
         function, follow_wrapped=True,
@@ -85,7 +89,7 @@ def shield(
 
         @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            function_id = f'{function.__module__}.{function.__name__}'
+            function_id = get_id(function)
 
             for _, is_last, number in mark_ends(range(retries)):
                 try:

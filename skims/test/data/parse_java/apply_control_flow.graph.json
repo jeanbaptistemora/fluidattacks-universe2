@@ -1424,16 +1424,6 @@
         "label_ast": "AST"
       }
     },
-    "183": {
-      "184": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "185": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "1830": {
       "1832": {
         "index": 0,
@@ -4687,16 +4677,6 @@
         "label_ast": "AST"
       }
     },
-    "3793": {
-      "3794": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "3795": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "3797": {
       "3800": {
         "index": 0,
@@ -6211,16 +6191,6 @@
         "label_ast": "AST"
       },
       "4734": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "4734": {
-      "4735": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "4736": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -8775,16 +8745,6 @@
         "label_ast": "AST"
       }
     },
-    "83": {
-      "84": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "85": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "853": {
       "1303": {
         "index": 2,
@@ -11331,7 +11291,8 @@
       "label_c": 9,
       "label_l": 10,
       "label_parent_ast": "178",
-      "label_type": "Dims",
+      "label_text": "[]",
+      "label_type": "CustomDims",
       "label_type_index": "0"
     },
     "1830": {
@@ -11379,14 +11340,6 @@
       "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
-    "184": {
-      "label_c": 9,
-      "label_l": 10,
-      "label_parent_ast": "183",
-      "label_text": "[",
-      "label_type": "LBRACK",
-      "label_type_index": "0"
-    },
     "1840": {
       "label_c": 28,
       "label_l": 75,
@@ -11409,14 +11362,6 @@
       "label_parent_ast": "1832",
       "label_text": "(",
       "label_type": "LPAREN",
-      "label_type_index": "0"
-    },
-    "185": {
-      "label_c": 10,
-      "label_l": 10,
-      "label_parent_ast": "183",
-      "label_text": "]",
-      "label_type": "RBRACK",
       "label_type_index": "0"
     },
     "1856": {
@@ -16167,23 +16112,8 @@
       "label_c": 10,
       "label_l": 149,
       "label_parent_ast": "3788",
-      "label_type": "Dims",
-      "label_type_index": "0"
-    },
-    "3794": {
-      "label_c": 10,
-      "label_l": 149,
-      "label_parent_ast": "3793",
-      "label_text": "[",
-      "label_type": "LBRACK",
-      "label_type_index": "0"
-    },
-    "3795": {
-      "label_c": 11,
-      "label_l": 149,
-      "label_parent_ast": "3793",
-      "label_text": "]",
-      "label_type": "RBRACK",
+      "label_text": "[]",
+      "label_type": "CustomDims",
       "label_type_index": "0"
     },
     "3797": {
@@ -18507,23 +18437,8 @@
       "label_c": 7,
       "label_l": 185,
       "label_parent_ast": "4729",
-      "label_type": "Dims",
-      "label_type_index": "0"
-    },
-    "4735": {
-      "label_c": 7,
-      "label_l": 185,
-      "label_parent_ast": "4734",
-      "label_text": "[",
-      "label_type": "LBRACK",
-      "label_type_index": "0"
-    },
-    "4736": {
-      "label_c": 8,
-      "label_l": 185,
-      "label_parent_ast": "4734",
-      "label_text": "]",
-      "label_type": "RBRACK",
+      "label_text": "[]",
+      "label_type": "CustomDims",
       "label_type_index": "0"
     },
     "4738": {
@@ -22485,7 +22400,8 @@
       "label_c": 32,
       "label_l": 6,
       "label_parent_ast": "78",
-      "label_type": "Dims",
+      "label_text": "[]",
+      "label_type": "CustomDims",
       "label_type_index": "0"
     },
     "838": {
@@ -22504,28 +22420,12 @@
       "label_type": "LT",
       "label_type_index": "0"
     },
-    "84": {
-      "label_c": 32,
-      "label_l": 6,
-      "label_parent_ast": "83",
-      "label_text": "[",
-      "label_type": "LBRACK",
-      "label_type_index": "0"
-    },
     "849": {
       "label_c": 22,
       "label_l": 35,
       "label_parent_ast": "828",
       "label_text": "5",
       "label_type": "IntegerLiteral",
-      "label_type_index": "0"
-    },
-    "85": {
-      "label_c": 34,
-      "label_l": 6,
-      "label_parent_ast": "83",
-      "label_text": "]",
-      "label_type": "RBRACK",
       "label_type_index": "0"
     },
     "850": {

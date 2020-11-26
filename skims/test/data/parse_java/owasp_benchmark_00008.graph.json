@@ -54,26 +54,6 @@
         "label_ast": "AST"
       }
     },
-    "1041": {
-      "1044": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1045": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "1045": {
-      "1046": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1048": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "1056": {
       "1057": {
         "index": 0,
@@ -1632,40 +1612,6 @@
         "label_e": "e"
       }
     },
-    "755": {
-      "758": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "759": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "763": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "759": {
-      "760": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "762": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "763": {
-      "764": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "766": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "768": {
       "771": {
         "index": 0,
@@ -1786,40 +1732,6 @@
         "label_e": "e"
       }
     },
-    "823": {
-      "826": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "827": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "831": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "827": {
-      "828": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "830": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "831": {
-      "832": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "834": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "836": {
       "839": {
         "index": 0,
@@ -1888,30 +1800,6 @@
         "label_e": "e"
       }
     },
-    "895": {
-      "898": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "899": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "903": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "899": {
-      "900": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "902": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "90": {
       "107": {
         "index": 2,
@@ -1922,16 +1810,6 @@
         "label_ast": "AST"
       },
       "92": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "903": {
-      "904": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "906": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -2268,38 +2146,8 @@
       "label_c": 17,
       "label_l": 62,
       "label_parent_ast": "1040",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1044": {
-      "label_c": 17,
-      "label_l": 62,
-      "label_parent_ast": "1041",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1045": {
-      "label_c": 21,
-      "label_l": 62,
-      "label_parent_ast": "1041",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "1046": {
-      "label_c": 21,
-      "label_l": 62,
-      "label_parent_ast": "1045",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1048": {
-      "label_c": 22,
-      "label_l": 62,
-      "label_parent_ast": "1045",
-      "label_text": "sql",
-      "label_type": "IdentifierRule",
+      "label_text": "java.sql",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "1049": {
@@ -4683,61 +4531,8 @@
       "label_c": 12,
       "label_l": 57,
       "label_parent_ast": "752",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "758": {
-      "label_c": 12,
-      "label_l": 57,
-      "label_parent_ast": "755",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "759": {
-      "label_c": 16,
-      "label_l": 57,
-      "label_parent_ast": "755",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "760": {
-      "label_c": 16,
-      "label_l": 57,
-      "label_parent_ast": "759",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "762": {
-      "label_c": 17,
-      "label_l": 57,
-      "label_parent_ast": "759",
-      "label_text": "sql",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "763": {
-      "label_c": 20,
-      "label_l": 57,
-      "label_parent_ast": "755",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "764": {
-      "label_c": 20,
-      "label_l": 57,
-      "label_parent_ast": "763",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "766": {
-      "label_c": 21,
-      "label_l": 57,
-      "label_parent_ast": "763",
-      "label_text": "Connection",
-      "label_type": "IdentifierRule",
+      "label_text": "java.sql.Connection",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "768": {
@@ -4960,61 +4755,8 @@
       "label_c": 12,
       "label_l": 58,
       "label_parent_ast": "820",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "826": {
-      "label_c": 12,
-      "label_l": 58,
-      "label_parent_ast": "823",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "827": {
-      "label_c": 16,
-      "label_l": 58,
-      "label_parent_ast": "823",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "828": {
-      "label_c": 16,
-      "label_l": 58,
-      "label_parent_ast": "827",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "830": {
-      "label_c": 17,
-      "label_l": 58,
-      "label_parent_ast": "827",
-      "label_text": "sql",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "831": {
-      "label_c": 20,
-      "label_l": 58,
-      "label_parent_ast": "823",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "832": {
-      "label_c": 20,
-      "label_l": 58,
-      "label_parent_ast": "831",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "834": {
-      "label_c": 21,
-      "label_l": 58,
-      "label_parent_ast": "831",
-      "label_text": "CallableStatement",
-      "label_type": "IdentifierRule",
+      "label_text": "java.sql.CallableStatement",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "836": {
@@ -5153,22 +4895,8 @@
       "label_c": 12,
       "label_l": 59,
       "label_parent_ast": "892",
-      "label_type": "UnannClassOrInterfaceType",
-      "label_type_index": "0"
-    },
-    "898": {
-      "label_c": 12,
-      "label_l": 59,
-      "label_parent_ast": "895",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "899": {
-      "label_c": 16,
-      "label_l": 59,
-      "label_parent_ast": "895",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
+      "label_text": "java.sql.ResultSet",
+      "label_type": "CustomUnannClassOrInterfaceType",
       "label_type_index": "0"
     },
     "90": {
@@ -5176,45 +4904,6 @@
       "label_l": 26,
       "label_parent_ast": "2",
       "label_type": "SingleTypeImportDeclaration",
-      "label_type_index": "0"
-    },
-    "900": {
-      "label_c": 16,
-      "label_l": 59,
-      "label_parent_ast": "899",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "902": {
-      "label_c": 17,
-      "label_l": 59,
-      "label_parent_ast": "899",
-      "label_text": "sql",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "903": {
-      "label_c": 20,
-      "label_l": 59,
-      "label_parent_ast": "895",
-      "label_type": "UnannClassType_lf_unannClassOrInterfaceType",
-      "label_type_index": "1"
-    },
-    "904": {
-      "label_c": 20,
-      "label_l": 59,
-      "label_parent_ast": "903",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "906": {
-      "label_c": 21,
-      "label_l": 59,
-      "label_parent_ast": "903",
-      "label_text": "ResultSet",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "908": {

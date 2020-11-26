@@ -169,6 +169,41 @@ def reduce(graph: nx.DiGraph) -> None:
         'IdentifierRule',
     ))
     _replace_with_child(graph, 'ExceptionTypeList', 'ExceptionType')
+
+    _concatenate_child_texts(
+        graph, 'UnannClassType_lf_unannClassOrInterfaceType', (
+            'DOT',
+            'IdentifierRule',
+        ),
+    )
+    _concatenate_child_texts(graph, 'Dims', ('LBRACK', 'RBRACK'))
+    _concatenate_child_texts(graph, 'UnannClassOrInterfaceType', (
+        'IdentifierRule',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+    ))
+    _concatenate_child_texts(graph, 'UnannClassOrInterfaceType', (
+        'IdentifierRule',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+    ))
+    _concatenate_child_texts(graph, 'UnannClassOrInterfaceType', (
+        'IdentifierRule',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+    ))
+    _concatenate_child_texts(graph, 'UnannClassOrInterfaceType', (
+        'IdentifierRule',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+        'CustomUnannClassType_lf_unannClassOrInterfaceType',
+    ))
+    _concatenate_child_texts(graph, 'UnannArrayType', (
+        'CustomUnannClassOrInterfaceType',
+        'CustomDims',
+    ))
+
     _reduce_ordered(
         graph,
         parent_label_type='ClassInstanceCreationExpression_lfno_primary',
