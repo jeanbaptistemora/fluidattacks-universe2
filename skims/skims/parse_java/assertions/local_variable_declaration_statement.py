@@ -50,7 +50,7 @@ def _local_variable_declaration(
         and graph.nodes[c_ids[0]]['label_type'] in {
             'CustomUnannArrayType',
             'CustomUnannClassOrInterfaceType',
-            'VariableDeclarator',
+            'IdentifierRule',
         }
         # Binding
         and graph.nodes[c_ids[1]]['label_type'] == 'VariableDeclarator'

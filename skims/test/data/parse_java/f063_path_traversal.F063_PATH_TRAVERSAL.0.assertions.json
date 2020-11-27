@@ -22,6 +22,18 @@
       "var_type": "javax.servlet.http.Cookie[]"
     },
     {
+      "source": [],
+      "type": "BINDING",
+      "var": "param",
+      "var_type": "String"
+    },
+    {
+      "source": [],
+      "type": "BINDING",
+      "var": "fileName",
+      "var_type": "String"
+    },
+    {
       "source": [
         {
           "args": [

@@ -24,6 +24,18 @@
     {
       "source": [],
       "type": "BINDING",
+      "var": "param",
+      "var_type": "String"
+    },
+    {
+      "source": [],
+      "type": "BINDING",
+      "var": "fileName",
+      "var_type": "String"
+    },
+    {
+      "source": [],
+      "type": "BINDING",
       "var": "fis",
       "var_type": "java.io.FileInputStream"
     },
