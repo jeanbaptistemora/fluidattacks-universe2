@@ -85,11 +85,9 @@ def setup_db(cursor: Cursor) -> None:
 @pytest.mark.xfail(
     getpass.getuser() == 'root',
     reason="can not run with root")  # type: ignore
-def test_save_load_bulk_job_integrated(  # pylint: disable=redefined-outer-name
-    postgresql_my  # is a fixture
-):
+def test_save_load_bulk_job_integrated(postgresql):
     # Arrange
-    cursor = setup_cursor(postgresql_my)
+    cursor = setup_cursor(postgresql)
     setup_db(cursor)
     test_job = BulkJob(
         operation='operation1',
@@ -112,11 +110,9 @@ def test_save_load_bulk_job_integrated(  # pylint: disable=redefined-outer-name
 @pytest.mark.xfail(
     getpass.getuser() == 'root',
     reason="can not run with root")  # type: ignore
-def test_update_bulk_job_integrated(  # pylint: disable=redefined-outer-name
-    postgresql_my  # is a fixture
-):
+def test_update_bulk_job_integrated(postgresql):
     # Arrange
-    cursor = setup_cursor(postgresql_my)
+    cursor = setup_cursor(postgresql)
     setup_db(cursor)
     test_job = BulkJob(
         operation='operation1',
