@@ -835,44 +835,6 @@ function job_integrates_infra_cache_db_test {
   || return 1
 }
 
-function job_integrates_infra_django_db_deploy {
-  export TF_VAR_db_user
-  export TF_VAR_db_password
-
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-        DB_USER \
-        DB_PASSWD \
-  &&  TF_VAR_db_user="${DB_USER}" \
-  &&  TF_VAR_db_password="${DB_PASSWD}" \
-  &&  pushd deploy/django-db/terraform \
-    &&  terraform init \
-    &&  terraform apply -auto-approve -refresh=true \
-  &&  popd \
-  &&  popd \
-  || return 1
-}
-
-function job_integrates_infra_django_db_test {
-  local target='deploy/django-db/terraform'
-  export TF_VAR_db_user
-  export TF_VAR_db_password
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-          DB_USER \
-          DB_PASSWD \
-    &&  TF_VAR_db_user="${DB_USER}" \
-    &&  TF_VAR_db_password="${DB_PASSWD}" \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_resources_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
