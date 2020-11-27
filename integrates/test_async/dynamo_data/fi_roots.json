@@ -1,27 +1,17 @@
 {
-  "fi_roots" : [
+  "fi_roots": [
     {
-      "PutRequest" : {
-        "Item" : {
-          "pk" : {
-            "S" : "GROUP#unittesting"
-          },
-          "sk": {
-            "S" : "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
-          },
-          "kind": {
-            "S" : "Git"
-          },
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
+          "kind": { "S": "Git" },
           "historic_state": {
             "L": [
               {
                 "M": {
-                  "branch": {
-                    "S" : "master"
-                  },
-                  "date": {
-                    "S": "2020-11-19 08:37:10"
-                  },
+                  "branch": { "S": "master" },
+                  "date": { "S": "2020-11-19 08:37:10" },
                   "filter": {
                     "M": {
                       "paths": {
@@ -30,26 +20,16 @@
                           { "S": "^.*/node_modules/.*$" }
                         ]
                       },
-                      "policy": {
-                        "S": "EXCLUDE"
-                      }
+                      "policy": { "S": "EXCLUDE" }
                     }
                   },
-                  "environment": {
-                    "S": "production"
-                  },
+                  "environment": { "S": "production" },
                   "environment_urls": {
-                    "L": [
-                      { "S": "https://integrates.fluidattacks.com" }
-                    ]
+                    "L": [{ "S": "https://integrates.fluidattacks.com" }]
                   },
                   "includes_health_check": { "BOOL": true },
-                  "url": {
-                    "S": "https://gitlab.com/fluidattacks/product"
-                  },
-                  "user": {
-                    "S": "jdoe@fluidattacks.com"
-                  }
+                  "url": { "S": "https://gitlab.com/fluidattacks/product" },
+                  "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
             ]
@@ -58,37 +38,22 @@
       }
     },
     {
-      "PutRequest" : {
-        "Item" : {
-          "pk" : {
-            "S" : "GROUP#unittesting"
-          },
-          "sk": {
-            "S" : "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-          },
-          "kind": {
-            "S" : "Git"
-          },
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
+          "kind": { "S": "Git" },
           "historic_state": {
             "L": [
               {
                 "M": {
-                  "branch": {
-                    "S" : "develop"
-                  },
-                  "date": {
-                    "S": "2020-11-19 08:39:56"
-                  },
-                  "environment": {
-                    "S": "QA"
-                  },
+                  "branch": { "S": "develop" },
+                  "date": { "S": "2020-11-19 08:39:56" },
+                  "filter": { "NULL": true },
+                  "environment": { "S": "QA" },
                   "includes_health_check": { "BOOL": false },
-                  "url": {
-                    "S": "https://gitlab.com/fluidattacks/integrates"
-                  },
-                  "user": {
-                    "S": "jdoe@fluidattacks.com"
-                  }
+                  "url": { "S": "https://gitlab.com/fluidattacks/integrates" },
+                  "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
             ]
@@ -97,33 +62,19 @@
       }
     },
     {
-      "PutRequest" : {
-        "Item" : {
-          "pk" : {
-            "S" : "GROUP#oneshottest"
-          },
-          "sk": {
-            "S" : "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99"
-          },
-          "kind": {
-            "S" : "IP"
-          },
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "GROUP#oneshottest" },
+          "sk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
+          "kind": { "S": "IP" },
           "historic_state": {
             "L": [
               {
                 "M": {
-                  "address": {
-                    "S" : "127.0.0.1"
-                  },
-                  "date": {
-                    "S": "2020-11-19 08:44:37"
-                  },
-                  "port": {
-                    "N" : "8080"
-                  },
-                  "user": {
-                    "S": "jdoe@fluidattacks.com"
-                  }
+                  "address": { "S": "127.0.0.1" },
+                  "date": { "S": "2020-11-19 08:44:37" },
+                  "port": { "N": "8080" },
+                  "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
             ]
@@ -132,39 +83,21 @@
       }
     },
     {
-      "PutRequest" : {
-        "Item" : {
-          "pk" : {
-            "S" : "GROUP#oneshottest"
-          },
-          "sk": {
-            "S" : "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
-          },
-          "kind": {
-            "S" : "URL"
-          },
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "GROUP#oneshottest" },
+          "sk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
+          "kind": { "S": "URL" },
           "historic_state": {
             "L": [
               {
                 "M": {
-                  "date": {
-                    "S": "2020-11-19 08:45:55"
-                  },
-                  "host": {
-                    "S" : "integrates.fluidattacks.com"
-                  },
-                  "path": {
-                    "S" : "/"
-                  },
-                  "port": {
-                    "N" : "443"
-                  },
-                  "protocol": {
-                    "S" : "HTTPS"
-                  },
-                  "user": {
-                    "S": "jdoe@fluidattacks.com"
-                  }
+                  "date": { "S": "2020-11-19 08:45:55" },
+                  "host": { "S": "integrates.fluidattacks.com" },
+                  "path": { "S": "/" },
+                  "port": { "N": "443" },
+                  "protocol": { "S": "HTTPS" },
+                  "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
             ]
@@ -174,4 +107,3 @@
     }
   ]
 }
-  
