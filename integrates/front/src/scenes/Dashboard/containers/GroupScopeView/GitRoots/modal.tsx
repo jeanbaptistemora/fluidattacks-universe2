@@ -18,7 +18,7 @@ import { checked, required } from "utils/validations";
 
 interface IGitRootsModalProps {
   onClose: () => void;
-  onSubmit: (values: IGitFormAttr) => void;
+  onSubmit: (values: IGitFormAttr) => Promise<void>;
 }
 
 const GitRootsModal: React.FC<IGitRootsModalProps> = ({
@@ -34,7 +34,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
   const selector: (
     state: Record<string, unknown>,
     field1: string
-  ) => string = formValueSelector("gitRoots");
+  ) => string = formValueSelector("gitRoot");
   const filterPolicy: string = useSelector(
     (state: Record<string, unknown>): string => selector(state, "filter.policy")
   );
@@ -46,10 +46,10 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
           filter: { paths: [""], policy: "NONE" },
           includesHealthCheck: false,
         }}
-        name={"gitRoots"}
+        name={"gitRoot"}
         onSubmit={onSubmit}
       >
-        {({ pristine }: InjectedFormProps): JSX.Element => (
+        {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
             <React.Fragment>
               <fieldset>
@@ -190,7 +190,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
             </React.Fragment>
             <ButtonToolbar>
               <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
-              <Button disabled={pristine} type={"submit"}>
+              <Button disabled={pristine || submitting} type={"submit"}>
                 {t("confirmmodal.proceed")}
               </Button>
             </ButtonToolbar>

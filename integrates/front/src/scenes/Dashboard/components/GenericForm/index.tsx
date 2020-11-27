@@ -30,14 +30,14 @@ const WrappedForm: wrappedForm = reduxForm<{}, Pick<IFormProps, "children">>({})
 ));
 
 const genericForm: ((props: IFormProps) => JSX.Element) = (props: IFormProps): JSX.Element => {
-  const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
+  const { onSubmit } = props;
 
   return (
     <WrappedForm
       enableReinitialize={props.initialValues !== undefined}
       form={props.name}
       initialValues={props.initialValues}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       onSubmitFail={focusError}
       onChange={props.onChange}
       validate={props.validate}

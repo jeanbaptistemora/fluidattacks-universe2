@@ -24,10 +24,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // State management
   const [isModalOpen, setModalOpen] = React.useState(false);
 
-  // GraphQL operations
-  const [addGitRoot] = useMutation(ADD_GIT_ROOT);
-
-  // Event handlers
   const openModal: () => void = React.useCallback((): void => {
     setModalOpen(true);
   }, []);
@@ -36,9 +32,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setModalOpen(false);
   }, []);
 
-  const handleSubmit: (values: IGitFormAttr) => void = React.useCallback(
-    (values): void => {
-      void addGitRoot({
+  // GraphQL operations
+  const [addGitRoot] = useMutation(ADD_GIT_ROOT);
+
+  // Event handlers
+  const handleSubmit: (
+    values: IGitFormAttr
+  ) => Promise<void> = React.useCallback(
+    async (values): Promise<void> => {
+      await addGitRoot({
         variables: {
           ...values,
           filter: values.filter.policy === "NONE" ? undefined : values.filter,
@@ -53,19 +55,25 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     <React.Fragment>
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
-          <Button onClick={openModal}>
-            <Glyphicon glyph={"plus"} />
-            &nbsp;{t("group.scope.common.add")}
-          </Button>
+          <div className={"mb3"}>
+            <Button onClick={openModal}>
+              <Glyphicon glyph={"plus"} />
+              &nbsp;{t("group.scope.common.add")}
+            </Button>
+          </div>
         </Can>
       </ButtonToolbarRow>
       <DataTableNext
-        bordered={false}
+        bordered={true}
         dataset={roots}
         exportCsv={false}
         headers={[
           { dataField: "url", header: t("group.scope.git.repo.url") },
           { dataField: "branch", header: t("group.scope.git.repo.branch") },
+          {
+            dataField: "environment",
+            header: t("group.scope.git.repo.environment"),
+          },
         ]}
         id={"tblGitRoots"}
         pageSize={15}
