@@ -21,7 +21,7 @@ async def resolve(
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-    vulns = vuln_domain.filter_zero_risk(vulns)
+    vulns = vuln_domain.filter_no_confirmed_zero_risk_vuln(vulns)
     open_vulns = vuln_domain.filter_open_vulnerabilities(vulns)
 
     return 'open' if open_vulns else 'closed'
