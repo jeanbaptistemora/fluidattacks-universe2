@@ -7,7 +7,7 @@
 
 = APIs and Microservices
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 APIs and microservices play essential roles in the applications. APIs
 (application programming interfaces) define and facilitate data exchange between
 different software components and change the way we interact with applications.
@@ -20,7 +20,7 @@ for malicious hackers. Therefore, each of these elements should be evaluated
 continuously, considering every line of their code, ideally from the early
 development stages.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 This is where we come in. Our team of ethical hackers uses diverse techniques,
 among which, for these cases, SAST, DAST and Manual Pentesting stand out.
 Interactions between microservices, their functions, business logic and the

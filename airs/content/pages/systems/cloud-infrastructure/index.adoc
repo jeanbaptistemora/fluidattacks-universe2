@@ -5,9 +5,9 @@
 :banner: bg-systems
 :template: compliance
 
-= Cloud infrastructure
+= Cloud Infrastructure
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 It is common today for many companies to move their systems and applications to
 the cloud, seeking benefits of higher speed and reduced costs. Nevertheless,
 cloud infrastructure can also mean important, new security issues that need to
@@ -16,7 +16,7 @@ include configuration, application and network weaknesses and flaws that
 malicious hackers can exploit to reach sensitive data and may disrupt your
 infrastructure’s operational flow.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Our cloud security testing, which involves automatic and manual techniques such
 as SAST, DAST, IAST and SCA, does not have any problem if your information
 assets are hosted on Azure, GCP, AWS or another cloud. It is our responsibility

@@ -9,7 +9,7 @@
 
 == What is HIPAA?
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 The HIPAA or Health Insurance Portability and Accountability Act is legislation
 created by the U.S. Congress in 1996. It was enacted to regulate and improve the
 flow of Protected Health Information (PHI; any data that could be used to
@@ -21,7 +21,7 @@ providers) and business associates.
 
 == What is HIPAA compliance?
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 The covered entities have to respond to and implement three particular
 safeguards for the protection of PHI. These sets of requirements belong to the
 Code of Federal Regulations, Title 45, Part 164, Subpart C - Security Standards
@@ -29,7 +29,7 @@ for the Protection of Electronic Protected Health Information and are
 specifically the Administrative (164.308), the Physical (164.310) and the
 Technical (164.312) safeguards.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Among the Administrative safeguards, we can observe requirements related to
 implementing periodic reviews of information systems activity and implementing
 policies to guarantee access to data by authorized personnel and procedures for
@@ -41,11 +41,11 @@ requirements, we can highlight the employment of unique user identifications,
 the automatic logoff for predetermined times of inactivity, and the use of PHI
 encryption and decryption processes.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 To see all the requirements of each of the safeguards, you can follow these
 links: 164.308; 164.310; 164.312.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Every organization storing, processing or transmitting PHI must ensure that
 their security controls meet the HIPAA rules’ requirements in order to guarantee
 both the availability and privacy of data. Organizations must prevent all types
@@ -56,14 +56,14 @@ procedures to identify weaknesses and take prompt remedial action.
 
 === How can Fluid Attacks help with HIPAA compliance?
 
-[role="fw3 f-key-features"]
+[role="fw3 f3 lh-2"]
 Ensuring compliance with up-to-date security standards may become a complicated
 issue for diverse organizations that use continually evolving information
 technology for their businesses. Fluid Attacks recognizes this and offers you
 comprehensive testing and analysis to determine whether your company is
 effectively complying with all corresponding security requirements.
 
-[role="fw3 f-key-features"]
+[role="fw3 f3 lh-2"]
 Although Fluid Attacks’ Continuous Hacking service goes beyond the HIPAA,
 testing around 200 technical security requirements in each of your projects,
 we can guarantee the detection of all vulnerabilities in your software
@@ -73,7 +73,7 @@ information systems in line with such requirements. We allow you to avoid
 penalties and, above all, guarantee secure systems for customers or users,
 thus ensuring their continued trust.
 
-[role="fw3 f-key-features"]
+[role="fw3 f3 lh-2"]
 All our security testing is based on Rules, which is a set of security
 requirements written by us in a comprehensible manner, using several
 international standards as a reference. It allows you to parameterize the

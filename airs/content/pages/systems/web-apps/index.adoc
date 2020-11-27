@@ -7,7 +7,7 @@
 
 = Web Applications
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Like any other software, web applications can be susceptible to showing
 vulnerabilities that put organizations’ and their clients’ information assets at
 risk. Our ethical hackers target these vulnerabilities before cybercriminals
@@ -16,7 +16,7 @@ should not depend on defense by firewalls and should look for weaknesses in your
 applications’ security features and other functions, and even in the open-source
 software associated with them.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Our web application security testing goes beyond the most popular cybersecurity
 vulnerabilities (e.g., OWASP Top 10) and is performed from different
 perspectives, not only by automated tools but mainly by multiple members of our

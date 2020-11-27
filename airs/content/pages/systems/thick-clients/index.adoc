@@ -7,7 +7,7 @@
 
 = Thick Clients
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Thick client applications are those in which most of the operations and
 information processing occurs on the client side, regardless of whether they are
 connected to a network or not. In organizations, security testing tends to be
@@ -16,7 +16,7 @@ sometimes overlooking the security weaknesses or vulnerabilities that thick
 clients may possess (e.g., injection, memory corruption, cryptographic issues).
 These vulnerabilities could affect both client-side and server-side systems.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 At Fluid Attacks, we can also help you detect vulnerabilities in your thick
 client applications. During the first steps of an application’s assessment, we
 identify the technologies used, the functions and processes it carries out, and

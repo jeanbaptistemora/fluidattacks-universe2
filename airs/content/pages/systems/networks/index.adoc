@@ -7,7 +7,7 @@
 
 = Networks
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 The information flows that organizations usually establish and maintain in the
 current market are supported by external and internal networks. Fluid Attacks
 can check these infrastructures for your company, with the primary objective of
@@ -19,7 +19,7 @@ transfer protocols, outdated components and other flaws that cybercriminals can
 follow and take advantage of in order to cause direct or indirect damage to your
 company.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Our network security testing focuses both on services and devices of your
 internal and external networks (e.g., servers, VPNs, DNSs, apps, routers, IoT).
 First, it analyzes a general structure with its access points and then it checks

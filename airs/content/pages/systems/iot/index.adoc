@@ -7,7 +7,7 @@
 
 = Internet of Things (IoT)
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 IoT devices (e.g., cameras, scanners, sensors, vehicles) are becoming
 increasingly part of many organizations’ infrastructure, but this is happening
 in some cases without considering thenecessary security measures and standards
@@ -20,7 +20,7 @@ and even the main server. So, security assessments must be carried out on each
 device present in your infrastructure and on each new incorporation; this is in
 addition to what has to be done on your network.
 
-[role="fw3 f3"]
+[role="fw3 f3 lh-2"]
 Here at Fluid Attacks, we can help you with IoT devices’ continuous analyses
 using automatic scanning processes and manual hacking techniques, including
 SAST, DAST and Penetration Testing. We seek to detect all the vulnerabilities
