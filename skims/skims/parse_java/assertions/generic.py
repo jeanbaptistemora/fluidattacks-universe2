@@ -33,8 +33,6 @@ def inspect(
         custom_class_instance_creation_expression_lfno_primary.inspect(
             graph, n_id, ctx=ctx,
         )
-    elif type_ == 'ExpressionStatement':
-        pass
     elif type_ == 'LocalVariableDeclarationStatement':
         local_variable_declaration_statement.inspect(graph, n_id, ctx=ctx)
     elif type_ == 'MethodDeclaration':
@@ -42,6 +40,6 @@ def inspect(
     elif type_ in _UNINTERESTING_NODES:
         pass
     else:
-        raise NotImplementedError(type_)
+        common.warn_not_impl(inspect, n_id=n_id)
 
     return common.mark_seen(ctx, n_id)

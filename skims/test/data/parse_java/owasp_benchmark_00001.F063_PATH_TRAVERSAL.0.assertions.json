@@ -16,10 +16,32 @@
       "type": "BINDING"
     },
     {
-      "source": "pending-to-implement",
+      "source": [],
       "type": "BINDING",
       "var": "theCookies",
       "var_type": "javax.servlet.http.Cookie[]"
+    },
+    {
+      "source": [],
+      "type": "BINDING",
+      "var": "fis",
+      "var_type": "java.io.FileInputStream"
+    },
+    {
+      "args": [
+        {
+          "args": [
+            {
+              "symbol": "fileName",
+              "type": "LOOKUP"
+            }
+          ],
+          "class_type": "java.io.File",
+          "type": "CLASS_INSTANTIATION"
+        }
+      ],
+      "class_type": "java.io.FileInputStream",
+      "type": "CLASS_INSTANTIATION"
     }
   ]
 }

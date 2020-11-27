@@ -43,7 +43,9 @@ def inspect(
                 'type': 'LOOKUP',
             }]
         else:
-            args = generic.inspect(graph, arg_id, ctx=None)['log']
+            args_ctx = generic.inspect(graph, arg_id, ctx=None)
+            common.merge_contexts(ctx, args_ctx)
+            args = args_ctx['log']
 
         ctx['log'].append({
             'args': args,

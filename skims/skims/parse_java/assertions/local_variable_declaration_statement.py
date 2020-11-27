@@ -4,6 +4,7 @@ import networkx as nx
 # Local libraries
 from parse_java.assertions import (
     common,
+    generic,
 )
 from utils import (
     graph as g,
@@ -78,10 +79,17 @@ def _variable_declarator(
     # variableDeclaratorId ('=' variableInitializer)?
     match = g.match_ast(graph, n_id, 'IdentifierRule', 'ASSIGN')
 
-    if match['IdentifierRule'] and match['ASSIGN']:
+    if (
+        match['IdentifierRule']
+        and match['ASSIGN']
+        and (src_id := match['__0__'])
+    ):
+        src_ctx = generic.inspect(graph, src_id, ctx=None)
+        common.merge_contexts(ctx, src_ctx)
+
         # Add the variable to the mapping
         ctx['log'].append({
-            'source': 'pending-to-implement',
+            'source': src_ctx['log'],
             'type': 'BINDING',
             'var': graph.nodes[match['IdentifierRule']]['label_text'],
             'var_type': type_attrs_label_text,

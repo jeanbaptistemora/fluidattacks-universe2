@@ -21,8 +21,8 @@ OptionalContext = Optional[Context]
 
 def _build_empty_context() -> Context:
     ctx: Context = {
-        'seen': set(),
         'log': [],
+        'seen': set(),
     }
 
     return ctx
@@ -40,6 +40,10 @@ def mark_seen(ctx: Context, n_id: str) -> Context:
 
 def ensure_context(ctx: OptionalContext) -> Context:
     return _build_empty_context() if ctx is None else ctx
+
+
+def merge_contexts(target: Context, source: Context) -> None:
+    target['seen'].update(source['seen'])
 
 
 def warn_not_impl(function: Callable[..., Any], **kwargs: Any) -> None:
