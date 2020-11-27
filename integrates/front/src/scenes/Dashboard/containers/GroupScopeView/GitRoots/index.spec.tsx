@@ -1,5 +1,7 @@
+import { Button } from "components/Button";
 import { GitRoots } from ".";
 import { GitRootsModal } from "./modal";
+import { MockedProvider } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
 import React from "react";
@@ -19,7 +21,13 @@ describe("GitRoots", (): void => {
   it("should render table", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(<GitRoots roots={[]} />);
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider>
+          <GitRoots groupName={"unittesting"} roots={[]} />
+        </MockedProvider>
+      </Provider>
+    );
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find("table")).toHaveLength(1);
@@ -29,15 +37,19 @@ describe("GitRoots", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <authzPermissionsContext.Provider
-        value={
-          new PureAbility([
-            { action: "backend_api_mutations_add_git_root_mutate" },
-          ])
-        }
-      >
-        <GitRoots roots={[]} />
-      </authzPermissionsContext.Provider>
+      <Provider store={store}>
+        <MockedProvider>
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                { action: "backend_api_mutations_add_git_root_mutate" },
+              ])
+            }
+          >
+            <GitRoots groupName={"unittesting"} roots={[]} />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </Provider>
     );
 
     expect(wrapper).toHaveLength(1);
@@ -46,7 +58,14 @@ describe("GitRoots", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.text()).toContain("add");
+    const addButton: ReactWrapper = wrapper.find(Button);
+
+    expect(addButton).toHaveLength(1);
+    expect(wrapper.find(GitRootsModal)).toHaveLength(0);
+
+    addButton.simulate("click");
+
+    expect(wrapper.find(GitRootsModal)).toHaveLength(1);
   });
 
   it("should render modal", (): void => {
@@ -56,7 +75,9 @@ describe("GitRoots", (): void => {
     const handleSubmit: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <GitRootsModal onClose={handleClose} onSubmit={handleSubmit} />
+        <MockedProvider>
+          <GitRootsModal onClose={handleClose} onSubmit={handleSubmit} />
+        </MockedProvider>
       </Provider>
     );
 

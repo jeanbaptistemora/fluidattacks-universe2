@@ -1,5 +1,6 @@
 import { Button } from "components/Button";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { IGitFormAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
@@ -17,7 +18,7 @@ import { checked, required } from "utils/validations";
 
 interface IGitRootsModalProps {
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (values: IGitFormAttr) => void;
 }
 
 const GitRootsModal: React.FC<IGitRootsModalProps> = ({
@@ -41,7 +42,10 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
   return (
     <Modal headerTitle={t("group.scope.common.add")} open={true}>
       <GenericForm
-        initialValues={{ filter: { paths: [""], policy: "NONE" } }}
+        initialValues={{
+          filter: { paths: [""], policy: "NONE" },
+          includesHealthCheck: false,
+        }}
         name={"gitRoots"}
         onSubmit={onSubmit}
       >
@@ -131,6 +135,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                           type={"checkbox"}
                           validate={[checked]}
                         >
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
                           {t("group.scope.git.healthCheck.accept")}
                         </Field>
                       ) : undefined}

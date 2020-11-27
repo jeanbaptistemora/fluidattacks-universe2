@@ -29,7 +29,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
 
   return (
     <Have I={"has_drills_white"}>
-      <GitRoots roots={roots.filter(isGitRoot)} />
+      <GitRoots groupName={groupName} roots={roots.filter(isGitRoot)} />
     </Have>
   );
 };

@@ -2,6 +2,7 @@ import { GET_ROOTS } from "./query";
 import { GroupScopeView } from ".";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
+import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
@@ -9,6 +10,7 @@ import { act } from "react-dom/test-utils";
 import { authzGroupContext } from "utils/authz/config";
 import { cache } from "utils/apollo";
 import { mount } from "enzyme";
+import store from "store";
 import wait from "waait";
 import { MemoryRouter, Route } from "react-router";
 
@@ -56,10 +58,12 @@ describe("GroupScopeView", (): void => {
       >
         <MemoryRouter initialEntries={["/orgs/okada/groups/unittesting/scope"]}>
           <MockedProvider cache={cache} mocks={[queryMock]}>
-            <Route
-              component={GroupScopeView}
-              path={"/orgs/:organizationName/groups/:projectName/scope"}
-            />
+            <Provider store={store}>
+              <Route
+                component={GroupScopeView}
+                path={"/orgs/:organizationName/groups/:projectName/scope"}
+              />
+            </Provider>
           </MockedProvider>
         </MemoryRouter>
       </authzGroupContext.Provider>

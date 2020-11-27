@@ -1,7 +1,7 @@
 import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_ROOTS: DocumentNode = gql`
+const GET_ROOTS: DocumentNode = gql`
   query GetRoots($groupName: String!) {
     group: project(projectName: $groupName) {
       roots {
@@ -31,3 +31,27 @@ export const GET_ROOTS: DocumentNode = gql`
     }
   }
 `;
+
+const ADD_GIT_ROOT: DocumentNode = gql`
+  mutation AddGitRoot(
+    $branch: String!
+    $environment: String!
+    $filter: GitRootFilterInput
+    $groupName: String!
+    $includesHealthCheck: Boolean!
+    $url: String!
+  ) {
+    addGitRoot(
+      branch: $branch
+      environment: $environment
+      filter: $filter
+      groupName: $groupName
+      includesHealthCheck: $includesHealthCheck
+      url: $url
+    ) {
+      success
+    }
+  }
+`;
+
+export { GET_ROOTS, ADD_GIT_ROOT };
