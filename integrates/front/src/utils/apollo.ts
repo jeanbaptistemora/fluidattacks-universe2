@@ -311,25 +311,26 @@ const errorLink: (history: History) => ApolloLink = (
  * Load cache with union type definitions
  * @see https://www.apollographql.com/docs/react/v2.6/data/fragments/#fragments-on-unions-and-interfaces
  */
-const cache: InMemoryCache = new InMemoryCache({
-  fragmentMatcher: new IntrospectionFragmentMatcher({
-    introspectionQueryResultData: {
-      __schema: {
-        types: [
-          {
-            kind: "UNION",
-            name: "Root",
-            possibleTypes: [
-              { name: "GitRoot" },
-              { name: "IPRoot" },
-              { name: "URLRoot" },
-            ],
-          },
-        ],
+const getCache: () => InMemoryCache = (): InMemoryCache =>
+  new InMemoryCache({
+    fragmentMatcher: new IntrospectionFragmentMatcher({
+      introspectionQueryResultData: {
+        __schema: {
+          types: [
+            {
+              kind: "UNION",
+              name: "Root",
+              possibleTypes: [
+                { name: "GitRoot" },
+                { name: "IPRoot" },
+                { name: "URLRoot" },
+              ],
+            },
+          ],
+        },
       },
-    },
-  }),
-});
+    }),
+  });
 
 type ProviderProps = Omit<
   React.ComponentProps<typeof BaseApolloProvider>,
@@ -343,7 +344,7 @@ const ApolloProvider: React.FC<ProviderProps> = (
   const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
     (): ApolloClient<NormalizedCacheObject> =>
       new ApolloClient({
-        cache,
+        cache: getCache(),
         connectToDevTools: getEnvironment() !== "production",
         defaultOptions: {
           watchQuery: {
@@ -360,4 +361,4 @@ const ApolloProvider: React.FC<ProviderProps> = (
   return React.createElement(BaseApolloProvider, { client, ...props });
 };
 
-export { cache, networkStatusNotifier, ApolloProvider };
+export { getCache, networkStatusNotifier, ApolloProvider };

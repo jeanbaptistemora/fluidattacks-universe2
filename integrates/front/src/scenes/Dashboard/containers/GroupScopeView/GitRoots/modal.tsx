@@ -91,6 +91,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                     <Field
                       component={Text}
                       name={"environment"}
+                      placeholder={t("group.scope.git.repo.environmentHint")}
                       type={"text"}
                       validate={[required]}
                     />

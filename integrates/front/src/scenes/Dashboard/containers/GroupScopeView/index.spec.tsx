@@ -6,7 +6,7 @@ import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { cache } from "utils/apollo";
+import { getCache } from "utils/apollo";
 import { mount } from "enzyme";
 import store from "store";
 import wait from "waait";
@@ -57,7 +57,7 @@ describe("GroupScopeView", (): void => {
         value={new PureAbility([{ action: "has_drills_white" }])}
       >
         <MemoryRouter initialEntries={["/orgs/okada/groups/unittesting/scope"]}>
-          <MockedProvider cache={cache} mocks={[queryMock]}>
+          <MockedProvider cache={getCache()} mocks={[queryMock]}>
             <Provider store={store}>
               <Route
                 component={GroupScopeView}
@@ -76,18 +76,16 @@ describe("GroupScopeView", (): void => {
       }
     );
 
-    const firstRowInfo: ReactWrapper = wrapper.find("RowPureContent").at(0);
+    const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
 
-    expect(firstRowInfo.text()).toStrictEqual(
+    expect(firstTableRow.text()).toStrictEqual(
       ["https://gitlab.com/fluidattacks/product", "master", "production"].join(
         ""
       )
     );
   });
 
-  // Will be enabled next MR
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should add git roots", async (): Promise<void> => {
+  it("should add git roots", async (): Promise<void> => {
     expect.hasAssertions();
 
     const initialQueryMock: MockedResponse = {
@@ -154,7 +152,7 @@ describe("GroupScopeView", (): void => {
               initialEntries={["/orgs/okada/groups/unittesting/scope"]}
             >
               <MockedProvider
-                cache={cache}
+                cache={getCache()}
                 mocks={[initialQueryMock, mutationMock, finalQueryMock]}
               >
                 <Route
@@ -189,10 +187,9 @@ describe("GroupScopeView", (): void => {
       .find("input");
     environment.simulate("change", { target: { value: "production" } });
 
-    wrapper.find("form").simulate("submit");
-
     await act(
       async (): Promise<void> => {
+        wrapper.find("form").simulate("submit");
         const delay: number = 200;
         await wait(delay);
         wrapper.update();

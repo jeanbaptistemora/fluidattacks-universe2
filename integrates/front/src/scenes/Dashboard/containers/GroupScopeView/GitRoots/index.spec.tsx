@@ -1,4 +1,3 @@
-import { Button } from "components/Button";
 import { GitRoots } from ".";
 import { GitRootsModal } from "./modal";
 import { MockedProvider } from "@apollo/react-testing";
@@ -21,10 +20,11 @@ describe("GitRoots", (): void => {
   it("should render table", (): void => {
     expect.hasAssertions();
 
+    const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider>
-          <GitRoots groupName={"unittesting"} roots={[]} />
+          <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
         </MockedProvider>
       </Provider>
     );
@@ -36,6 +36,7 @@ describe("GitRoots", (): void => {
   it("should render action buttons", (): void => {
     expect.hasAssertions();
 
+    const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider>
@@ -46,7 +47,7 @@ describe("GitRoots", (): void => {
               ])
             }
           >
-            <GitRoots groupName={"unittesting"} roots={[]} />
+            <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -58,7 +59,7 @@ describe("GitRoots", (): void => {
       wrapper.update();
     });
 
-    const addButton: ReactWrapper = wrapper.find(Button);
+    const addButton: ReactWrapper = wrapper.find("button");
 
     expect(addButton).toHaveLength(1);
     expect(wrapper.find(GitRootsModal)).toHaveLength(0);

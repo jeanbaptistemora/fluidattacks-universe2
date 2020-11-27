@@ -480,8 +480,14 @@ export const enTranslations: ResourceKey = {
     scope: {
       common: {
         add: "Add new root",
+        errors: {
+          duplicate: "The root already exists within the organization",
+        },
       },
       git: {
+        errors: {
+          invalid: "Repository URL or branch are not valid",
+        },
         filter: {
           exclude: "Exclude",
           include: "Include",
@@ -498,7 +504,8 @@ export const enTranslations: ResourceKey = {
         },
         repo: {
           branch: "Branch",
-          environment: "Environment kind (Production, QA or other)",
+          environment: "Environment kind",
+          environmentHint: "(Production, QA or other)",
           title: "Git repository",
           url: "URL",
         },

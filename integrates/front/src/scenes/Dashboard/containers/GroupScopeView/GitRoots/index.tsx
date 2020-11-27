@@ -1,22 +1,28 @@
 import { ADD_GIT_ROOT } from "../query";
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { DataTableNext } from "components/DataTableNext";
 import { GitRootsModal } from "./modal";
 import { Glyphicon } from "react-bootstrap";
+import type { GraphQLError } from "graphql";
+import { Logger } from "utils/logger";
 import React from "react";
+import { msgError } from "utils/notifications";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
 import type { IGitFormAttr, IGitRootAttr } from "../types";
 
 interface IGitRootsProps {
   groupName: string;
+  onUpdate: () => void;
   roots: IGitRootAttr[];
 }
 
 export const GitRoots: React.FC<IGitRootsProps> = ({
   groupName,
+  onUpdate,
   roots,
 }: IGitRootsProps): JSX.Element => {
   const { t } = useTranslation();
@@ -33,7 +39,27 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   }, []);
 
   // GraphQL operations
-  const [addGitRoot] = useMutation(ADD_GIT_ROOT);
+  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+      closeModal();
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
+          case "Exception - Error empty value is not valid":
+            msgError(t("group.scope.git.errors.invalid"));
+            break;
+          case "Exception - One or more values already exist":
+            msgError(t("group.scope.common.errors.duplicate"));
+            break;
+          default:
+            msgError(t("group_alerts.error_textsad"));
+            Logger.error("Couldn't add git roots", error);
+        }
+      });
+    },
+  });
 
   // Event handlers
   const handleSubmit: (

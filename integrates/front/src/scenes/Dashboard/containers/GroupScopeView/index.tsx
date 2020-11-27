@@ -17,7 +17,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
   const { projectName: groupName } = useParams<{ projectName: string }>();
 
   // GraphQL operations
-  const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
+  const { data, refetch } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't load roots", error);
@@ -29,7 +29,11 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
 
   return (
     <Have I={"has_drills_white"}>
-      <GitRoots groupName={groupName} roots={roots.filter(isGitRoot)} />
+      <GitRoots
+        groupName={groupName}
+        onUpdate={refetch}
+        roots={roots.filter(isGitRoot)}
+      />
     </Have>
   );
 };
