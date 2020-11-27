@@ -45,7 +45,7 @@ async def mutate(
             'zero_risk': finding_id,
         }
         to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        util.queue_cache_invalidation(*to_clean)
+        await util.invalidate_cache(*to_clean)
         util.cloudwatch_log(
             info.context,
             ('Security: Confirmed a zero risk vuln  '
