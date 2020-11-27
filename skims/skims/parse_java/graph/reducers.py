@@ -136,7 +136,8 @@ def _reduce_ordered(
                 and c_attrs_label_type not in expected_label_types
             ):
                 # If this happens map more rules to rules_i
-                raise NotImplementedError(c_attrs_label_type)
+                result = {}
+                break
 
             # Append the current node to the results
             label_type = (
@@ -152,9 +153,118 @@ def _reduce_ordered(
             if len(c_ids) > 1:
                 reducers[label_type](graph, label_type, c_ids)
 
-        graph.nodes[n_id]['label_type'] = (
-            'Custom' + graph.nodes[n_id]['label_type']
+        if result:
+            graph.nodes[n_id]['label_type'] = (
+                'Custom' + graph.nodes[n_id]['label_type']
+            )
+
+
+def _package_or_type_name(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'PackageOrTypeName', (
+        'IdentifierRule',
+        'DOT',
+        'IdentifierRule',
+    ))
+    _concatenate_child_texts(graph, 'PackageOrTypeName', (
+        'CustomPackageOrTypeName',
+        'DOT',
+        'IdentifierRule',
+    ))
+
+
+def _type_names(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'TypeName', (
+        'IdentifierRule',
+        'DOT',
+        'IdentifierRule',
+    ))
+    _concatenate_child_texts(graph, 'TypeName', (
+        'CustomPackageOrTypeName',
+        'DOT',
+        'IdentifierRule',
+    ))
+
+
+def _method_invocations(graph: nx.DiGraph) -> None:
+    for label_type in (
+        'MethodInvocation',
+        'MethodInvocation_lf_primary',
+        'MethodInvocation_lfno_primary',
+    ):
+        # x.y.z()
+        _reduce_ordered(
+            graph,
+            parent_label_type=label_type,
+            rules=(
+                ('CustomIdentifier', {
+                    'DOT',
+                    'IdentifierRule',
+                }),
+                ('LPAREN', {'LPAREN'}),
+                ('RPAREN', {'RPAREN'}),
+            ),
+            reducers={
+                'CustomIdentifier': _concatenate_child_texts_in_place,
+            },
         )
+        # x.y.z(...)
+        _reduce_ordered(
+            graph,
+            parent_label_type=label_type,
+            rules=(
+                ('CustomIdentifier', {
+                    'CustomTypeName',
+                    'DOT',
+                    'IdentifierRule',
+                }),
+                ('LPAREN', {'LPAREN'}),
+                ('__idem__', {'__any__'}),
+                ('RPAREN', {'RPAREN'}),
+            ),
+            reducers={
+                'CustomIdentifier': _concatenate_child_texts_in_place,
+            },
+        )
+
+    # x().y.z(...)
+    _reduce_ordered(
+        graph,
+        parent_label_type='MethodInvocation',
+        rules=(
+            ('CustomMethodInvocation_lfno_primary', {
+                'CustomMethodInvocation_lfno_primary',
+            }),
+            ('CustomIdentifier', {
+                'DOT',
+                'IdentifierRule',
+            }),
+            ('LPAREN', {'LPAREN'}),
+            ('__idem__', {'__any__'}),
+            ('RPAREN', {'RPAREN'}),
+        ),
+        reducers={
+            'CustomIdentifier': _concatenate_child_texts_in_place,
+        },
+    )
+    # x().y.z()
+    _reduce_ordered(
+        graph,
+        parent_label_type='MethodInvocation',
+        rules=(
+            ('CustomMethodInvocation_lfno_primary', {
+                'CustomMethodInvocation_lfno_primary',
+            }),
+            ('CustomIdentifier', {
+                'DOT',
+                'IdentifierRule',
+            }),
+            ('LPAREN', {'LPAREN'}),
+            ('RPAREN', {'RPAREN'}),
+        ),
+        reducers={
+            'CustomIdentifier': _concatenate_child_texts_in_place,
+        },
+    )
 
 
 def reduce(graph: nx.DiGraph) -> None:
@@ -222,3 +332,7 @@ def reduce(graph: nx.DiGraph) -> None:
             'CustomIdentifier': _concatenate_child_texts_in_place,
         },
     )
+
+    _package_or_type_name(graph)
+    _type_names(graph)
+    _method_invocations(graph)

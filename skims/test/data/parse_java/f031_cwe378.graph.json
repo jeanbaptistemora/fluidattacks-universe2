@@ -11,14 +11,6 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "111": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "113": {
-        "index": 2,
-        "label_ast": "AST"
-      },
       "114": {
         "index": 3,
         "label_ast": "AST"
@@ -220,20 +212,6 @@
         "label_ast": "AST"
       }
     },
-    "6": {
-      "14": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "16": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "7": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "60": {
       "177": {
         "index": 2,
@@ -286,20 +264,6 @@
         "label_e": "e"
       }
     },
-    "7": {
-      "10": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "11": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "13": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
     "74": {
       "159": {
         "index": 1,
@@ -325,30 +289,8 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "84": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "86": {
-        "index": 2,
-        "label_ast": "AST"
-      },
       "87": {
         "index": 3,
-        "label_ast": "AST"
-      }
-    },
-    "77": {
-      "80": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "81": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "83": {
-        "index": 2,
         "label_ast": "AST"
       }
     }
@@ -361,51 +303,19 @@
       "label_type": "CompilationUnit",
       "label_type_index": "0"
     },
-    "10": {
-      "label_c": 7,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_text": "java",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
     "107": {
       "label_c": 27,
       "label_l": 6,
       "label_parent_ast": "76",
-      "label_type": "MethodInvocation_lfno_primary",
-      "label_type_index": "0"
-    },
-    "11": {
-      "label_c": 11,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_text": ".",
-      "label_type": "DOT",
+      "label_type": "CustomMethodInvocation_lfno_primary",
       "label_type_index": "0"
     },
     "110": {
       "label_c": 27,
       "label_l": 6,
       "label_parent_ast": "107",
-      "label_text": "File",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "111": {
-      "label_c": 31,
-      "label_l": 6,
-      "label_parent_ast": "107",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "113": {
-      "label_c": 32,
-      "label_l": 6,
-      "label_parent_ast": "107",
-      "label_text": "createTempFile",
-      "label_type": "IdentifierRule",
+      "label_text": "File.createTempFile",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "114": {
@@ -423,14 +333,6 @@
       "label_type": "ArgumentList",
       "label_type_index": "0"
     },
-    "13": {
-      "label_c": 12,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_text": "io",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
     "135": {
       "label_c": 47,
       "label_l": 6,
@@ -445,14 +347,6 @@
       "label_parent_ast": "115",
       "label_text": ",",
       "label_type": "COMMA",
-      "label_type_index": "0"
-    },
-    "14": {
-      "label_c": 14,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_text": ".",
-      "label_type": "DOT",
       "label_type_index": "0"
     },
     "156": {
@@ -485,14 +379,6 @@
       "label_parent_ast": "74",
       "label_text": ";",
       "label_type": "SEMI",
-      "label_type_index": "0"
-    },
-    "16": {
-      "label_c": 15,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_text": "File",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "160": {
@@ -792,7 +678,8 @@
       "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "4",
-      "label_type": "TypeName",
+      "label_text": "java.io.File",
+      "label_type": "CustomTypeName",
       "label_type_index": "0"
     },
     "60": {
@@ -840,13 +727,6 @@
       "label_type": "LBRACE",
       "label_type_index": "0"
     },
-    "7": {
-      "label_c": 7,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
     "74": {
       "label_c": 8,
       "label_l": 6,
@@ -858,54 +738,15 @@
       "label_c": 8,
       "label_l": 6,
       "label_parent_ast": "74",
-      "label_type": "MethodInvocation",
+      "label_type": "CustomMethodInvocation",
       "label_type_index": "0"
     },
     "77": {
       "label_c": 8,
       "label_l": 6,
       "label_parent_ast": "76",
-      "label_type": "TypeName",
-      "label_type_index": "0"
-    },
-    "80": {
-      "label_c": 8,
-      "label_l": 6,
-      "label_parent_ast": "77",
-      "label_text": "System",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "81": {
-      "label_c": 14,
-      "label_l": 6,
-      "label_parent_ast": "77",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "83": {
-      "label_c": 15,
-      "label_l": 6,
-      "label_parent_ast": "77",
-      "label_text": "out",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "84": {
-      "label_c": 18,
-      "label_l": 6,
-      "label_parent_ast": "76",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "86": {
-      "label_c": 19,
-      "label_l": 6,
-      "label_parent_ast": "76",
-      "label_text": "println",
-      "label_type": "IdentifierRule",
+      "label_text": "System.out.println",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "87": {
