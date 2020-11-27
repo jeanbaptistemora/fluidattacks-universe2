@@ -50,7 +50,7 @@ def convert_evidences_to_png(
             img_id = evidence['id'].split('/')[-1]
             new_name = img_id.split('.')[0]
             evidence['id'] = new_name
-            evidence['name'] = f'image::../images/{new_name}[align="center"]'
+            evidence['name'] = f'image::{tempdir}/{new_name}[align="center"]'
             img = Image.open(f'{tempdir}/{img_id}')
             img.save(f'{tempdir}/{new_name}', 'png', optimize=True)
             img.close()
