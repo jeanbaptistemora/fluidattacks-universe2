@@ -1,6 +1,6 @@
 """File for linking routes between http queries and django views."""
 
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.views.generic import RedirectView
 
 from app import views
@@ -37,9 +37,7 @@ urlpatterns = [
     url(r'^graphics-report/?$', views.graphics_report, name='graphics_report'),
 
     url(r'^mobile/?$', views.mobile, name='mobile'),
-    url(r'^logout/?$', views.logout, name='logout'),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^new/oauth/', include('social_django.urls', namespace='social')),
+
     # Evidences
     url(
         (r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'

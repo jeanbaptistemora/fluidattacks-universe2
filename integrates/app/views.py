@@ -27,7 +27,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from jose import jwt
 from magic import Magic
-from starlette.requests import Request as StarletteRequest
 
 # Local libraries
 from backend import authz, util
@@ -40,7 +39,6 @@ from backend.domain import (
     user as user_domain,
 )
 from backend.decorators import (
-    authenticate_jwt,
     cache_content,
     require_login,
 )
@@ -190,36 +188,6 @@ async def _graphics_for_entity(
 @require_login  # type: ignore
 async def graphics_report(request: HttpRequest) -> HttpResponse:
     return await analytics_domain.handle_graphics_report_request(request)
-
-
-@csrf_exempt  # type: ignore
-@async_to_sync  # type: ignore
-@authenticate_jwt  # type: ignore
-async def logout(request: HttpRequest) -> HttpResponse:
-    """Close a user's active session"""
-    try:
-        if isinstance(request, StarletteRequest):
-            jwt_cookie = request.cookies.get(settings.JWT_COOKIE_NAME)
-        else:
-            jwt_cookie = request.COOKIES.get(settings.JWT_COOKIE_NAME)
-        if jwt_cookie:
-            cookie_content = jwt.decode(
-                token=jwt_cookie,
-                key=settings.JWT_SECRET,
-                algorithms='HS512'
-            )
-            cookie_content = util.decrypt_jwt_payload(cookie_content)
-            jti = cookie_content.get('jti')
-            if jti:
-                await util.remove_token(f'fi_jwt:{jti}')
-
-        request.session.flush()
-    except KeyError as ex:
-        bugsnag.notify(ex)
-
-    response = redirect('/')
-    response.delete_cookie(settings.JWT_COOKIE_NAME)
-    return response
 
 
 @never_cache  # type: ignore
