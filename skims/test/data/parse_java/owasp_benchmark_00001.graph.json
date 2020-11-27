@@ -4532,7 +4532,7 @@
       "label_c": 16,
       "label_l": 71,
       "label_parent_ast": "1410",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "1436": {
@@ -4564,7 +4564,7 @@
       "label_l": 71,
       "label_parent_ast": "1435",
       "label_sink_type": "F063_PATH_TRAVERSAL",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "1466": {
@@ -5436,7 +5436,7 @@
       "label_c": 76,
       "label_l": 76,
       "label_parent_ast": "1768",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "1793": {
@@ -6986,7 +6986,7 @@
       "label_c": 41,
       "label_l": 37,
       "label_parent_ast": "335",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "360": {
@@ -7517,7 +7517,7 @@
       "label_c": 23,
       "label_l": 41,
       "label_parent_ast": "571",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "574": {

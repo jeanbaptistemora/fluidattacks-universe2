@@ -328,6 +328,9 @@ def analyze(graph: nx.DiGraph) -> None:
     _break(graph)
 
     # Single evaluations
-    _link_to_parent(graph, 'ClassInstanceCreationExpression_lfno_primary')
-    _link_to_parent(graph, 'LocalVariableDeclaration')
-    _link_to_parent(graph, 'VariableDeclarator')
+    for label_type in (
+        'CustomClassInstanceCreationExpression_lfno_primary',
+        'LocalVariableDeclaration',
+        'VariableDeclarator',
+    ):
+        _link_to_parent(graph, label_type)

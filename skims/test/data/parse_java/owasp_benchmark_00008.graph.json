@@ -2616,7 +2616,7 @@
       "label_c": 23,
       "label_l": 69,
       "label_parent_ast": "1163",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "1184": {

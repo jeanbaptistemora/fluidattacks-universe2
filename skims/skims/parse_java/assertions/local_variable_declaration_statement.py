@@ -79,12 +79,13 @@ def _variable_declarator(
     match = g.match_ast(graph, n_id, 'IdentifierRule', 'ASSIGN')
 
     if match['IdentifierRule'] and match['ASSIGN']:
-        var_attrs = graph.nodes[match['IdentifierRule']]
-        var_attrs_label_text = var_attrs['label_text']
-
         # Add the variable to the mapping
-        ctx['vars'].setdefault(var_attrs_label_text, {})
-        ctx['vars'][var_attrs_label_text]['type'] = type_attrs_label_text
+        ctx['log'].append({
+            'source': 'pending-to-implement',
+            'type': 'BINDING',
+            'var': graph.nodes[match['IdentifierRule']]['label_text'],
+            'var_type': type_attrs_label_text,
+        })
     else:
         common.warn_not_impl(_local_variable_declaration, n_id=n_id)
 

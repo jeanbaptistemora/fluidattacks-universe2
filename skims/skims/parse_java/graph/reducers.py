@@ -152,6 +152,10 @@ def _reduce_ordered(
             if len(c_ids) > 1:
                 reducers[label_type](graph, label_type, c_ids)
 
+        graph.nodes[n_id]['label_type'] = (
+            'Custom' + graph.nodes[n_id]['label_type']
+        )
+
 
 def reduce(graph: nx.DiGraph) -> None:
     _patch_node_types(graph)

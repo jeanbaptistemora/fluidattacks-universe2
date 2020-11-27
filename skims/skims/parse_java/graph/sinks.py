@@ -24,7 +24,7 @@ SINKS: Set[str] = {
 
 def _path_traversal(graph: nx.DiGraph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
-        label_type='ClassInstanceCreationExpression_lfno_primary',
+        label_type='CustomClassInstanceCreationExpression_lfno_primary',
     )):
         # Filter childs of CustomIdentifier type
         for _ in chain.from_iterable(

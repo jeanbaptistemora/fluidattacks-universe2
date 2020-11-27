@@ -15,30 +15,25 @@ from utils.logs import (
 )
 
 # Types
-Context = Dict[str, Dict[str, Any]]
+Context = Dict[str, Any]
 OptionalContext = Optional[Context]
 
 
 def _build_empty_context() -> Context:
     ctx: Context = {
-        'inputs': {
-            'vars': {},
-        },
-        'seen': {
-            'nodes': set(),
-        },
-        'vars': {},
+        'seen': set(),
+        'log': [],
     }
 
     return ctx
 
 
 def already_seen(ctx: Context, n_id: str) -> bool:
-    return n_id in ctx['seen']['nodes']
+    return n_id in ctx['seen']
 
 
 def mark_seen(ctx: Context, n_id: str) -> Context:
-    ctx['seen']['nodes'].add(n_id)
+    ctx['seen'].add(n_id)
 
     return ctx
 

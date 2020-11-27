@@ -1,20 +1,25 @@
 {
-  "inputs": {
-    "vars": {
-      "request": {
-        "trusted": false
-      }
-    }
-  },
-  "vars": {
-    "request": {
-      "type": "HttpServletRequest"
+  "log": [
+    {
+      "target": "request",
+      "target_type": "HttpServletRequest",
+      "type": "BINDING"
     },
-    "response": {
-      "type": "HttpServletResponse"
+    {
+      "__reason__": "Variable is user controlled",
+      "target": "request",
+      "type": "TAINT"
     },
-    "theCookies": {
-      "type": "javax.servlet.http.Cookie[]"
+    {
+      "target": "response",
+      "target_type": "HttpServletResponse",
+      "type": "BINDING"
+    },
+    {
+      "source": "pending-to-implement",
+      "type": "BINDING",
+      "var": "theCookies",
+      "var_type": "javax.servlet.http.Cookie[]"
     }
-  }
+  ]
 }

@@ -5942,7 +5942,7 @@
       "label_c": 42,
       "label_l": 88,
       "label_parent_ast": "1974",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "1999": {
@@ -8479,7 +8479,7 @@
       "label_c": 9,
       "label_l": 54,
       "label_parent_ast": "771",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "797": {
@@ -9041,7 +9041,7 @@
       "label_c": 11,
       "label_l": 59,
       "label_parent_ast": "959",
-      "label_type": "ClassInstanceCreationExpression_lfno_primary",
+      "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },
     "962": {
