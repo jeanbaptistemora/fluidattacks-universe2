@@ -313,6 +313,7 @@ async def test_get_users():
         'unittest@fluidattacks.com',
         'unittest2@fluidattacks.com',
         'integratesexecutive@gmail.com',
+        'integratesinternalmanager@fluidattacks.com',
         'integratesresourcer@fluidattacks.com',
         'integratescustomer@gmail.com',
         'integratesuser@gmail.com',
