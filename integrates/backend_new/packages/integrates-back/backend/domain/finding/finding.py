@@ -46,7 +46,6 @@ from backend.dal.helpers.dynamodb import start_context
 from backend.dal import (
     comment as comment_dal,
     finding as finding_dal,
-    vulnerability as vuln_dal
 )
 from backend.typing import (
     Comment as CommentType,
@@ -246,62 +245,22 @@ async def update_description(
 
 async def update_treatment_in_vuln(
         finding_id: str, updated_values: Dict[str, str]) -> bool:
-    new_values = cast(Dict[str, FindingType], {
-        'treatment': updated_values.get('treatment', ''),
-        'treatment_justification': updated_values.get('justification'),
-        'acceptance_date': updated_values.get('acceptance_date'),
-    })
-    if new_values['treatment'] == 'NEW':
-        new_values['treatment_manager'] = None
     vulns = await vuln_domain.list_vulnerabilities_async(
         [finding_id],
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True
     )
-    for vuln in vulns:
-        if not any('treatment_manager' in dicts
-                   for dicts in [new_values, vuln]):
-            finding = await finding_dal.get_finding(finding_id)
-            group: str = cast(str, finding.get('project_name', ''))
-            email: str = updated_values.get('user', '')
-            treatment: str = cast(str, new_values.get('treatment', ''))
-            group_level_role: str = await authz.get_group_level_role(
-                email, group)
-
-            new_values['treatment_manager'] = \
-                await vuln_domain.set_treatment_manager(
-                    treatment,
-                    email,
-                    finding,
-                    group_level_role == 'customeradmin',
-                    email
-            )
-            break
-
-    update_treatment_result = await collect(
-        vuln_dal.update(
-            finding_id,
-            str(vuln.get('UUID', '')),
-            new_values.copy()
-        )
-        for vuln in vulns
+    return await update_historic_treatment_in_vuln(
+        finding_id, updated_values, vulns
     )
-    schedule(update_historic_treatment_in_vuln(
-        finding_id, updated_values, vulns, new_values,
-    ))
-    resp = all(update_treatment_result)
-    return resp
 
 
 async def update_historic_treatment_in_vuln(
     finding_id: str,
     updated_values: Dict[str, str],
     vulns: List[Dict[str, FindingType]],
-    new_values: Dict[str, FindingType],
 ) -> bool:
-    if new_values.get('treatment_manager'):
-        updated_values['treatment_manager'] = str(
-            new_values.get('treatment_manager', ''))
+
     return all(await collect(
         vuln_domain.add_vuln_treatment(
             finding_id=finding_id,
