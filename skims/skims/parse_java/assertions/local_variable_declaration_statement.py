@@ -25,7 +25,7 @@ def inspect(
     else:
         common.warn_not_impl(inspect, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)
 
 
 def _local_variable_declaration(
@@ -63,7 +63,7 @@ def _local_variable_declaration(
     else:
         common.warn_not_impl(_local_variable_declaration, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)
 
 
 def _variable_declarator(
@@ -88,4 +88,4 @@ def _variable_declarator(
     else:
         common.warn_not_impl(_local_variable_declaration, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)

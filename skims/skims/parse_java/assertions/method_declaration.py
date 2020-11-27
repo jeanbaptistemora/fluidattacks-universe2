@@ -25,7 +25,7 @@ def inspect(
     else:
         common.warn_not_impl(inspect, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)
 
 
 def _method_header(
@@ -45,7 +45,7 @@ def _method_header(
     else:
         common.warn_not_impl(_method_header, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)
 
 
 def _method_declarator(
@@ -63,7 +63,7 @@ def _method_declarator(
     else:
         common.warn_not_impl(_method_declarator, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)
 
 
 def _formal_parameter_list(
@@ -81,7 +81,7 @@ def _formal_parameter_list(
     ):
         _formal_parameter(graph, c_id, ctx=ctx)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)
 
 
 def _formal_parameter(
@@ -115,4 +115,4 @@ def _formal_parameter(
     else:
         common.warn_not_impl(_formal_parameter, n_id=n_id)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)

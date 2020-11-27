@@ -24,8 +24,21 @@ def _build_empty_context() -> Context:
         'inputs': {
             'vars': {},
         },
+        'seen': {
+            'nodes': set(),
+        },
         'vars': {},
     }
+
+    return ctx
+
+
+def already_seen(ctx: Context, n_id: str) -> bool:
+    return n_id in ctx['seen']['nodes']
+
+
+def mark_seen(ctx: Context, n_id: str) -> Context:
+    ctx['seen']['nodes'].add(n_id)
 
     return ctx
 

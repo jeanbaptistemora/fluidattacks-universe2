@@ -31,6 +31,10 @@ def inspect(
             common.warn_not_impl(inspect, path=path, n_id=n_id)
             break
 
-    blocking_log('debug', 'Ctx: %s', json.dumps(ctx, indent=2))
+    # Remove temporal state
+    ctx.pop('seen')
+
+    # Debugging information, only visible with skims --debug
+    blocking_log('debug', 'Context:\n\n%s\n', json.dumps(ctx, indent=2))
 
     return ctx

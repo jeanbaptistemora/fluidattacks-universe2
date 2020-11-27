@@ -26,7 +26,9 @@ def inspect(
 
     n_attrs_label_type = graph.nodes[n_id]['label_type']
 
-    if n_attrs_label_type == 'MethodDeclaration':
+    if common.already_seen(ctx, n_id):
+        pass
+    elif n_attrs_label_type == 'MethodDeclaration':
         method_declaration.inspect(graph, n_id, ctx=ctx)
     elif n_attrs_label_type == 'ExpressionStatement':
         pass
@@ -37,4 +39,4 @@ def inspect(
     else:
         raise NotImplementedError(n_attrs_label_type)
 
-    return ctx
+    return common.mark_seen(ctx, n_id)

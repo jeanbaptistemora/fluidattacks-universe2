@@ -171,7 +171,7 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
 
     stream: BytesIO = BytesIO()
 
-    img.save(stream, format='JPEG', quality=25)
+    img.save(stream, format='PNG')
 
     stream.seek(0)
 
