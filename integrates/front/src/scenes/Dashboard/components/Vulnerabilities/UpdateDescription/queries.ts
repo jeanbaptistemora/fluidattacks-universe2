@@ -20,7 +20,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       findingId: $findingId,
       severity: $severity,
       tag: $tag,
-      treatmentManager: $treatmentManager,
       vulnerabilities: $vulnerabilities,
     ) @include (if: $isVulnInfoChanged) {
       success

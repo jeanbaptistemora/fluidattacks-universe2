@@ -1837,7 +1837,7 @@ export const enTranslations: ResourceKey = {
       alerts: {
         acceptation_not_requested: "Indefinite acceptation is not requested",
         acceptation_success: "Indefinite acceptation has been handled",
-        maxium_number_of_acceptations:
+        maximum_number_of_acceptations:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
       },
       buttons: {

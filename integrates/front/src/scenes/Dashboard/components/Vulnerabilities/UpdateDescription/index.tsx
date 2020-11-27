@@ -157,7 +157,9 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
                   severity: _.isEmpty(dataTreatment.severity) ? -1 : Number(dataTreatment.severity),
                   tag: dataTreatment.tag,
                   treatment: isTreatmentPristine ? "IN_PROGRESS" : dataTreatment.treatment,
-                  treatmentManager: dataTreatment.treatmentManager,
+                  treatmentManager: _.isEmpty(dataTreatment.treatmentManager)
+                    ? undefined
+                    : dataTreatment.treatmentManager,
                   vulnerabilities: vulnsChuncked.map((vuln: IVulnDataType) => vuln.id),
                 }})
               )));
@@ -195,7 +197,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             String(updateError),
             translate.t("group_alerts.organization_policies.maxium_number_of_acceptations"))
           ) {
-            msgError(translate.t("search_findings.tab_vuln.alerts.maxium_number_of_acceptations"));
+            msgError(translate.t("search_findings.tab_vuln.alerts.maximum_number_of_acceptations"));
           } else {
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred updating vuln treatment", updateError);
