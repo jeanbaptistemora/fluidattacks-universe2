@@ -44,7 +44,7 @@ def update_all(
     )
     need_update: FrozenSet[BulkJob] = updated_jobs - jobs
     LOG.info('Updating %s jobs status', len(need_update))
-    map(db_client.update_bulk_job, need_update)
+    list(map(db_client.update_bulk_job, need_update))
 
 
 def new_bulk_utils(

@@ -12,8 +12,11 @@ from typing import (
 import requests
 # Local libraries
 from postgres_client.connection import ConnectionID
+from zoho_crm_etl import utils
+
 
 ACCOUNTS_URL = 'https://accounts.zoho.com'  # for US region
+LOG = utils.get_log(__name__)
 
 
 class Credentials(NamedTuple):
@@ -53,6 +56,7 @@ def revoke_refresh_token() -> Dict[str, str]:
 
 
 def generate_token(credentials: Credentials) -> Dict[str, Any]:
+    LOG.info('Generating access token')
     endpoint = f'{ACCOUNTS_URL}/oauth/v2/token'
     params = {
         'refresh_token': credentials.refresh_token,

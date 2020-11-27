@@ -28,7 +28,7 @@ def initialize(db_auth: ConnectionID) -> None:
 def creation_phase(
     crm_creds: Credentials,
     db_auth: ConnectionID,
-    target_modules: FrozenSet[ModuleName] = frozenset({ModuleName.LEADS})
+    target_modules: FrozenSet[ModuleName] = ALL_MODULES
 ) -> None:
     """Creates bulk jobs for the `target_modules`"""
     api_client: ApiClient = api.new_client(crm_creds)
