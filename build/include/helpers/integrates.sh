@@ -59,12 +59,7 @@ function helper_integrates_deployment_date {
 function helper_bootstrap_prod_ci {
   env_prepare_python_packages \
   &&  helper_integrates_set_prod_secrets \
-  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
-      then
-            helper_integrates_serve_dynamo \
-        &&  helper_integrates_serve_minio \
-        &&  helper_integrates_serve_redis
-      fi
+  &&  helper_integrates_serve_redis
 }
 
 function helper_bootstrap_dev_ci {
