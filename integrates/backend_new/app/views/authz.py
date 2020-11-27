@@ -5,9 +5,6 @@ from typing import Dict
 import aiohttp
 
 # Third party libraries
-from aioextensions import in_thread
-import bugsnag
-
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, RedirectResponse, Response
 
@@ -16,9 +13,6 @@ from authlib.integrations.starlette_client import OAuth
 from authlib.common.security import generate_token
 
 # Local libraries
-from backend import util
-from backend.domain import user as user_domain
-
 import backend_new.app.utils as utils
 from backend_new.settings.auth import (
     azure,
@@ -110,19 +104,3 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
     request = await handle_user(request, user)
 
     return RedirectResponse(url='/new/home')
-
-
-async def confirm_access(request: Request) -> HTMLResponse:
-    url_token = request.path_params.get('url_token')
-    redir = '/new'
-    token_exists = await util.token_exists(f'fi_urltoken:{url_token}')
-
-    if token_exists:
-        token_unused = await user_domain.complete_user_register(url_token)
-        if not token_unused:
-            redir = '/invalid_invitation'
-    else:
-        await in_thread(bugsnag.notify, Exception('Invalid token'), 'warning')
-        redir = '/invalid_invitation'
-
-    return RedirectResponse(url=redir)

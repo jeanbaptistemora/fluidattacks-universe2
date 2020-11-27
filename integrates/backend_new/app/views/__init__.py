@@ -2,7 +2,6 @@ from .authz import (
     authz_azure,
     authz_bitbucket,
     authz_google,
-    confirm_access,
     do_azure_login,
     do_bitbucket_login,
     do_google_login
@@ -43,7 +42,6 @@ __all__ = [
     'authz_azure',
     'authz_bitbucket',
     'authz_google',
-    'confirm_access',
     'do_azure_login',
     'do_bitbucket_login',
     'do_google_login'

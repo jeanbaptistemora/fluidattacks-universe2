@@ -20,7 +20,7 @@ import bugsnag
 from asgiref.sync import async_to_sync
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
@@ -35,8 +35,7 @@ from backend.dal.helpers.s3 import (
     list_files,
 )
 from backend.domain import (
-    analytics as analytics_domain,
-    user as user_domain,
+    analytics as analytics_domain
 )
 from backend.decorators import (
     cache_content,
@@ -293,22 +292,3 @@ def retrieve_image(request: HttpRequest, img_file: str) -> HttpResponse:
 async def list_s3_evidences(prefix: str) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
     return list(await list_files(BUCKET_S3, prefix))
-
-
-@async_to_sync  # type: ignore
-async def confirm_access(
-    request: HttpRequest,
-    urltoken: str,
-) -> HttpResponse:
-    redir = '/'
-    token_exists = await util.token_exists(f'fi_urltoken:{urltoken}')
-
-    if token_exists:
-        token_unused = await user_domain.complete_user_register(urltoken)
-        if not token_unused:
-            redir = '/invalid_invitation'
-    else:
-        bugsnag.notify(Exception("Invalid token"), severity='warning')
-        redir = '/invalid_invitation'
-
-    return redirect(redir)

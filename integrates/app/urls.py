@@ -56,10 +56,5 @@ urlpatterns = [
         r'(?P<evidence_type>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/'
         r'(?P<fileid>[\w\.-]+)?$',
         views.get_evidence
-    ),
-    # Confirm access to group
-    url(
-        r'^confirm_access/(?P<urltoken>[A-Za-z0-9\._-]+)?$',
-        views.confirm_access
-    ),
+    )
 ]

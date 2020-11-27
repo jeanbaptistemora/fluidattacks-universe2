@@ -4,6 +4,9 @@
 import os
 
 # Third party libraries
+import bugsnag
+
+from aioextensions import in_thread
 from asgiref.sync import async_to_sync
 
 from starlette.applications import Starlette
@@ -15,9 +18,13 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
 # Local libraries
+from backend import util
 from backend.api import IntegratesAPI
 from backend.decorators import authenticate_session
-from backend.domain import organization as org_domain
+from backend.domain import (
+    organization as org_domain,
+    user as user_domain
+)
 from backend.api.schema import SCHEMA
 
 from backend_new.app.middleware import CustomRequestMiddleware
@@ -63,6 +70,22 @@ def logout(request: Request) -> HTMLResponse:
     return response
 
 
+async def confirm_access(request: Request) -> HTMLResponse:
+    url_token = request.path_params.get('url_token')
+    redir = '/new'
+    token_exists = await util.token_exists(f'fi_urltoken:{url_token}')
+
+    if token_exists:
+        token_unused = await user_domain.complete_user_register(url_token)
+        if not token_unused:
+            redir = '/invalid_invitation'
+    else:
+        await in_thread(bugsnag.notify, Exception('Invalid token'), 'warning')
+        redir = '/invalid_invitation'
+
+    return RedirectResponse(url=redir)
+
+
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
@@ -75,7 +98,7 @@ APP = Starlette(
         Route('/new/authz_google', views.authz_google),
         Route('/new/authz_azure', views.authz_azure),
         Route('/new/authz_bitbucket', views.authz_bitbucket),
-        Route('/new/confirm_access/{url_token:path}', views.confirm_access),
+        Route('/new/confirm_access/{url_token:path}', confirm_access),
         Route('/new/dglogin', views.do_google_login),
         Route('/new/dalogin', views.do_azure_login),
         Route('/new/dblogin', views.do_bitbucket_login),
