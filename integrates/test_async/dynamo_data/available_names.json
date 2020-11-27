@@ -202,6 +202,60 @@
             "PutRequest": {
                 "Item": {
                     "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "KARACHI"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "f5311f48-7386-44db-a711-9b18bd3e132f"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "LAHORE"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "d1624b97-8786-402d-819d-779ee5cbbc0e"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_GROUP"
+                    },
+                    "sk": {
+                        "S": "WUHAN"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_GROUP_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "c10af943-9ecd-4d78-82ed-02048315bdc4"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
                         "S": "AVAILABLE_ORGANIZATION"
                     },
                     "sk": {
