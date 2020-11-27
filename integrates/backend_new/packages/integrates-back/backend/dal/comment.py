@@ -68,3 +68,23 @@ async def get_comments(
         'FilterExpression': filter_exp
     }
     return await dynamodb.async_query(TABLE_NAME, query_attrs)
+
+async def edit_comment_scope(
+        comment_id: str,
+        comment_scope: str) -> bool:
+    """Edit the scope (internal/external) on the given comment"""
+    success = False
+    try:
+        set_expression = f'comment_scope = : cs'
+        expression_values = {f':cs': comment_scope}
+
+        edit_scope = {
+            'Key': { 'id': comment_id },
+            'UpdateExpression': f'SET {set_expression}'.strip(),
+            'ExpressionAttributeValues': expression_values
+        }
+        success = await dynamodb.async_update_item(TABLE_NAME, edit_scope)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+
+    return success
