@@ -21,7 +21,7 @@ def inspect(
     graph: nx.DiGraph,
     path: Tuple[str, ...],
 ) -> common.Context:
-    ctx: common.Context = common.build_empty_context()
+    ctx = common.ensure_context(None)
 
     # Walk the path and mine the nodes in order to increase the context
     for n_id in path:

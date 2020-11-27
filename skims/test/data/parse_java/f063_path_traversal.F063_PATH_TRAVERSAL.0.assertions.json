@@ -7,11 +7,17 @@
     }
   },
   "vars": {
+    "fis": {
+      "type": "java.io.FileInputStream"
+    },
     "request": {
       "type": "HttpServletRequest"
     },
     "response": {
       "type": "HttpServletResponse"
+    },
+    "theCookies": {
+      "type": "javax.servlet.http.Cookie[]"
     }
   }
 }

@@ -20,8 +20,10 @@ def inspect(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.Context
-) -> None:
+    ctx: common.OptionalContext,
+) -> common.Context:
+    ctx = common.ensure_context(ctx)
+
     n_attrs_label_type = graph.nodes[n_id]['label_type']
 
     if n_attrs_label_type == 'MethodDeclaration':
@@ -34,3 +36,5 @@ def inspect(
         pass
     else:
         raise NotImplementedError(n_attrs_label_type)
+
+    return ctx

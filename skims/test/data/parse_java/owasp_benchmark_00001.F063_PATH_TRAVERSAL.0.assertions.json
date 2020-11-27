@@ -12,6 +12,9 @@
     },
     "response": {
       "type": "HttpServletResponse"
+    },
+    "theCookies": {
+      "type": "javax.servlet.http.Cookie[]"
     }
   }
 }

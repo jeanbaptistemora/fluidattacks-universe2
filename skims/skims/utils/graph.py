@@ -198,12 +198,16 @@ def match_ast(
     n_id: str,
     *label_type: str,
 ) -> Dict[str, Optional[str]]:
+    index: int = 0
     nodes: Dict[str, Optional[str]] = dict.fromkeys(label_type)
 
     for c_id in adj(graph, n_id, label_ast='AST'):
         c_type = graph.nodes[c_id]['label_type']
         if c_type in nodes:
             nodes[c_type] = c_id
+        else:
+            nodes[f'__{index}__'] = c_id
+            index += 1
 
     return nodes
 

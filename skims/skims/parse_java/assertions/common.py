@@ -3,6 +3,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Optional,
 )
 
 # Local libraries
@@ -15,9 +16,10 @@ from utils.logs import (
 
 # Types
 Context = Dict[str, Dict[str, Any]]
+OptionalContext = Optional[Context]
 
 
-def build_empty_context() -> Context:
+def _build_empty_context() -> Context:
     ctx: Context = {
         'inputs': {
             'vars': {},
@@ -26,6 +28,10 @@ def build_empty_context() -> Context:
     }
 
     return ctx
+
+
+def ensure_context(ctx: OptionalContext) -> Context:
+    return _build_empty_context() if ctx is None else ctx
 
 
 def warn_not_impl(function: Callable[..., Any], **kwargs: Any) -> None:
