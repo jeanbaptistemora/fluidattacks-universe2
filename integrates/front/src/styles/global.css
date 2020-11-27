@@ -199,6 +199,13 @@ label {
   }
 }
 
+@media (max-width: 768px) {
+  :global .navbar-header {
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+  }
+}
+
 @media (min-width: 768px) {
   :global .nav-collapse {
     float: right !important;
