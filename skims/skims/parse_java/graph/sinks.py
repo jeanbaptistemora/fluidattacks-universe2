@@ -42,5 +42,26 @@ def _path_traversal(graph: nx.DiGraph) -> None:
             break
 
 
+def _insecure_randoms(graph: nx.DiGraph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='MethodInvocation_lfno_primary',
+    )):
+        if g.filter_nodes(
+            graph,
+            nodes=g.adj(graph, n_id),
+            predicate=g.pred_has_labels(
+                label_type='IdentifierRule',
+                label_text='getSession',
+            ),
+        ):
+            m_invocation = g.pred_ast(graph, n_id)[0]
+            if graph.nodes[m_invocation]['label_type'] == 'MethodInvocation':
+                f_invocation = g.adj_ast(graph, m_invocation)[2]
+                if graph.nodes[f_invocation]['label_text'] == 'setAttribute':
+                    graph.nodes[m_invocation][
+                        'label_sink_type'] = 'F034_INSECURE_RANDOMS'
+
+
 def mark(graph: nx.DiGraph) -> None:
     _path_traversal(graph)
+    _insecure_randoms(graph)

@@ -307,6 +307,16 @@ def _try_statement_catch_clause(graph: nx.DiGraph) -> None:
         graph.add_edge(n_id, c_ids[4], **ALWAYS)
 
 
+def _primary(graph: nx.DiGraph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='Primary',
+    )):
+        invocations = g.adj_ast(graph, n_id)
+        graph.add_edge(n_id, invocations[0], **ALWAYS)
+        for s_id, d_id in pairwise(invocations):
+            graph.add_edge(s_id, d_id, **ALWAYS)
+
+
 def _link_to_parent(graph: nx.DiGraph, label_type: str) -> None:
     for n_id in g.filter_nodes(
         graph, graph.nodes, g.pred_has_labels(label_type=label_type),
@@ -326,11 +336,13 @@ def analyze(graph: nx.DiGraph) -> None:
     _switch_statements(graph)
     _continue(graph)
     _break(graph)
+    _primary(graph)
 
     # Single evaluations
     for label_type in (
         'CustomClassInstanceCreationExpression_lfno_primary',
         'LocalVariableDeclaration',
         'VariableDeclarator',
+        'Primary',
     ):
         _link_to_parent(graph, label_type)
