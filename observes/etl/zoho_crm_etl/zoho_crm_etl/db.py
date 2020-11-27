@@ -3,6 +3,7 @@ from typing import (
     Any,
     Callable,
     FrozenSet,
+    List,
     NamedTuple,
     Tuple,
 )
@@ -12,6 +13,7 @@ from postgres_client import connection, client
 from postgres_client.client import Client as DbClient
 from postgres_client.connection import ConnectionID, DbConnection
 from postgres_client.cursor import (
+    CursorExeAction,
     DynamicSQLargs,
 )
 from zoho_crm_etl.api import BulkJob, ModuleName
@@ -21,6 +23,7 @@ class Client(NamedTuple):
     get_bulk_jobs: Callable[[], FrozenSet[BulkJob]]
     save_bulk_job: Callable[[BulkJob], None]
     update_bulk_job: Callable[[BulkJob], None]
+    close: Callable[[], None]
 
 
 def get_bulk_jobs(db_client: DbClient, db_schema: str) -> FrozenSet[BulkJob]:
@@ -96,6 +99,34 @@ def update_bulk_job(
 SCHEMA = 'zoho_crm'
 
 
+def init_db(db_auth: ConnectionID) -> None:
+    db_connection: DbConnection = connection.make_access_point(db_auth)
+    db_client: DbClient = client.new_client(db_connection)
+    create_schema = f"""
+        CREATE SCHEMA {SCHEMA};
+    """
+    create_table = f"""
+        CREATE TABLE {SCHEMA}.bulk_jobs (
+            operation VARCHAR,
+            created_by VARCHAR,
+            created_time VARCHAR,
+            state VARCHAR,
+            id VARCHAR,
+            module VARCHAR,
+            page INTEGER,
+            result VARCHAR DEFAULT NULL
+        );
+    """
+    actions: List[CursorExeAction] = list(
+        map(db_client.execute, [create_schema, create_table])
+    )
+    try:
+        for action in actions:
+            action.act()
+    finally:
+        db_client.drop_access_point()
+
+
 def new_client(db_auth: ConnectionID, db_schema: str = SCHEMA) -> Client:
     db_connection: DbConnection = connection.make_access_point(db_auth)
     db_client: DbClient = client.new_client(db_connection)
@@ -109,8 +140,12 @@ def new_client(db_auth: ConnectionID, db_schema: str = SCHEMA) -> Client:
     def update_job(job: BulkJob) -> None:
         update_bulk_job(db_client, job, db_schema)
 
+    def close() -> None:
+        db_client.drop_access_point()
+
     return Client(
         get_bulk_jobs=get_jobs,
         save_bulk_job=save_job,
         update_bulk_job=update_job,
+        close=close,
     )

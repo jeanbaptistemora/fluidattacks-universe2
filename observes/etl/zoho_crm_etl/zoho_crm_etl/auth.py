@@ -44,6 +44,14 @@ def generate_refresh_token(
     return dict(response.json())
 
 
+def revoke_refresh_token() -> Dict[str, str]:
+    endpoint = f'{ACCOUNTS_URL}/oauth/v2/token/revoke'
+    refresh_token = getpass('Refresh token to revoke:')
+    params = {'token': refresh_token}
+    response = requests.post(url=endpoint, params=params)
+    return dict(response.json())
+
+
 def generate_token(credentials: Credentials) -> Dict[str, Any]:
     endpoint = f'{ACCOUNTS_URL}/oauth/v2/token'
     params = {
