@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
+import { SwitchButton } from "components/SwitchButton";
 import { act } from "react-dom/test-utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
@@ -55,19 +56,28 @@ describe("GitRoots", (): void => {
     const handleSubmit: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <GitRootsModal
-          isOpen={true}
-          onClose={handleClose}
-          onSubmit={handleSubmit}
-        />
+        <GitRootsModal onClose={handleClose} onSubmit={handleSubmit} />
       </Provider>
     );
 
     expect(wrapper).toHaveLength(1);
+
+    // Repository fields
     expect(wrapper.find({ name: "url" }).find("input")).toHaveLength(1);
     expect(wrapper.find({ name: "branch" }).find("input")).toHaveLength(1);
     expect(wrapper.find({ name: "environment" }).find("input")).toHaveLength(1);
 
+    // Health Check
+    expect(wrapper.find({ name: "includesHealthCheck" })).toHaveLength(0);
+
+    wrapper.find(SwitchButton).at(0).simulate("click");
+    wrapper.find(SwitchButton).at(1).simulate("click");
+
+    expect(
+      wrapper.find({ name: "includesHealthCheck" }).find("input")
+    ).toHaveLength(1);
+
+    // Filters
     const policyDropdown: ReactWrapper = wrapper
       .find({ name: "policy" })
       .find("select");

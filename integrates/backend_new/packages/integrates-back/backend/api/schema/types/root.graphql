@@ -20,6 +20,8 @@ type GitRoot implements IRoot {
   filter: GitRootFilter
   "ID of the root"
   id: ID!
+  "Analyze already existing code"
+  includesHealthCheck: Boolean!
   "Repository URL"
   url: String!
 }

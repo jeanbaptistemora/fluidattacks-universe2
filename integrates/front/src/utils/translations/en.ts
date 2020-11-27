@@ -490,6 +490,12 @@ export const enTranslations: ResourceKey = {
           policy: "Policy",
           title: "Filters",
         },
+        healthCheck: {
+          accept: "I accept the additional costs derived from the healthcheck",
+          confirm: "Would you like a health check for the existing code?",
+          hasCode: "Is there any code on the repo?",
+          title: "Health Check",
+        },
         repo: {
           branch: "Branch",
           environment: "Environment kind (Production, QA or other)",

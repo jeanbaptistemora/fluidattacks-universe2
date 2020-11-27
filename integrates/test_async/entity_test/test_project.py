@@ -444,6 +444,7 @@ async def test_get_roots() -> None:
                   policy
                 }
                 id
+                includesHealthCheck
                 url
               }
             }
@@ -484,6 +485,7 @@ async def test_get_roots() -> None:
                 'policy': 'EXCLUDE'
             },
             'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
+            'includesHealthCheck': True,
             'url': 'https://gitlab.com/fluidattacks/product'
         },
         {
@@ -493,6 +495,7 @@ async def test_get_roots() -> None:
             'environmentUrls': [],
             'filter': None,
             'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
+            'includesHealthCheck': False,
             'url': 'https://gitlab.com/fluidattacks/integrates'
         }
     ]
@@ -505,6 +508,7 @@ async def test_add_git_root_black() -> None:
           branch: "master"
           environment: "Test"
           groupName: "oneshottest"
+          includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/integrates"
         ) {
           success
@@ -525,6 +529,7 @@ async def test_add_git_root_white() -> None:
           branch: "master"
           environment: "production"
           groupName: "unittesting"
+          includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/integrates"
         ) {
           success
@@ -544,6 +549,7 @@ async def test_add_git_root_invalid_branch() -> None:
           branch: "( ͡° ͜ʖ ͡°)"
           environment: "Test"
           groupName: "unittesting"
+          includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/integrates"
         ) {
           success
@@ -563,6 +569,7 @@ async def test_add_git_root_invalid_url() -> None:
           branch: "master"
           environment: "Test"
           groupName: "unittesting"
+          includesHealthCheck: false
           url: "randomstring"
         ) {
           success
@@ -583,6 +590,7 @@ async def test_add_git_root_uniqueness() -> None:
           branch: "unique"
           environment: "unique"
           groupName: "unittesting"
+          includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/unique.git"
         ) {
           success

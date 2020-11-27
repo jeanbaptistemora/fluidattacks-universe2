@@ -23,6 +23,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             environment_urls=root_state.get('environment_urls', []),
             filter=root_state.get('filter'),
             id=root['sk'],
+            includes_health_check=root_state['includes_health_check'],
             url=root_state['url']
         )
 
@@ -115,6 +116,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
             'filter': kwargs.get('filter'),
+            'includes_health_check': kwargs['includes_health_check'],
             'url': kwargs['url'],
             'user': user_email
         }

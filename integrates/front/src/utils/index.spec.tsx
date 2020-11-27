@@ -1,6 +1,7 @@
 import type { ConfigurableValidator } from "revalidate";
 import {
   alphaNumeric,
+  checked,
   isLowerDate,
   isValidFileName,
   isValidFileSize,
@@ -582,5 +583,13 @@ describe("Validations", (): void => {
     );
 
     expect(date).toBeDefined();
+  });
+
+  it("should validate checked", (): void => {
+    expect.hasAssertions();
+
+    expect(checked(true)).toBeUndefined();
+    expect(checked(false)).toBeDefined();
+    expect(checked(undefined)).toBeDefined();
   });
 });

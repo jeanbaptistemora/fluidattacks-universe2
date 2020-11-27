@@ -43,6 +43,7 @@
                       { "S": "https://integrates.fluidattacks.com" }
                     ]
                   },
+                  "includes_health_check": { "BOOL": true },
                   "url": {
                     "S": "https://gitlab.com/fluidattacks/product"
                   },
@@ -81,6 +82,7 @@
                   "environment": {
                     "S": "QA"
                   },
+                  "includes_health_check": { "BOOL": false },
                   "url": {
                     "S": "https://gitlab.com/fluidattacks/integrates"
                   },

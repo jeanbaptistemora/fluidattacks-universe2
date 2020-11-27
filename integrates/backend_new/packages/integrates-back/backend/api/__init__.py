@@ -49,8 +49,8 @@ class IntegratesAPI(GraphQL):
         data: Dict[str, Any] = await super().extract_data_from_request(request)
 
         name: str = data.get('operationName', 'External (unnamed)')
-        query = data.get('query', '-').replace('\n', '')
-        variables = data.get('variables', '-')
+        query: str = data.get('query', '-').replace('\n', '')
+        variables: str = data.get('variables', '-')
 
         newrelic.agent.set_transaction_name(f'api:{name}')
         newrelic.agent.add_custom_parameters(tuple(data.items()))

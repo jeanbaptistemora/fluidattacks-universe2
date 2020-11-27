@@ -243,6 +243,7 @@ async def test_project():
           branch: "master"
           environment: "production"
           groupName: "{group_name}"
+          includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/test1"
         ) {{
           success
@@ -266,6 +267,7 @@ async def test_project():
                   paths
                   policy
                 }}
+                includesHealthCheck
                 url
               }}
             }}
@@ -277,9 +279,10 @@ async def test_project():
     assert {
         '__typename': 'GitRoot',
         'branch': 'master',
-        'filter': None,
         'environment': 'production',
         'environmentUrls': [],
+        'filter': None,
+        'includesHealthCheck': True,
         'url': 'https://gitlab.com/fluidattacks/test1'
     } in result['data']['group']['roots']
 

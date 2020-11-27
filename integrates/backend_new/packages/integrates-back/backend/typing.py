@@ -169,6 +169,7 @@ GitRoot = NamedTuple('GitRoot', [
     ('environment_urls', List[str]),
     ('filter', Optional[GitRootFilter]),
     ('id', str),
+    ('includes_health_check', bool),
     ('url', str)
 ])
 IPRoot = NamedTuple('IPRoot', [

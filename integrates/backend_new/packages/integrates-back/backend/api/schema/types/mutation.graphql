@@ -382,6 +382,8 @@ type Mutation {
         filter: GitRootFilterInput
         "Name of the group the root is associated with"
         groupName: String!
+        "Analyze already existing code"
+        includesHealthCheck: Boolean!
         "Repository URL"
         url: String!
     ): SimplePayload!

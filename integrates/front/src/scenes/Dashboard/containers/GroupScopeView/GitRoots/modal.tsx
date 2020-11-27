@@ -3,41 +3,43 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
-import { required } from "utils/validations";
+import { SwitchButton } from "components/SwitchButton";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { ArrayField, Dropdown, Text } from "utils/forms/fields";
+import { ArrayField, Checkbox, Dropdown, Text } from "utils/forms/fields";
 import {
   ButtonToolbar,
   ControlLabel,
   RequiredField,
 } from "styles/styledComponents";
 import { Field, FormSection, formValueSelector } from "redux-form";
+import { checked, required } from "utils/validations";
 
 interface IGitRootsModalProps {
-  isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
 }
 
 const GitRootsModal: React.FC<IGitRootsModalProps> = ({
-  isOpen,
   onClose,
   onSubmit,
 }: IGitRootsModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   // State management
+  const [hasCode, setHasCode] = React.useState(false);
+  const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(false);
+
   const selector: (
     state: Record<string, unknown>,
-    field: string
+    field1: string
   ) => string = formValueSelector("gitRoots");
   const filterPolicy: string = useSelector(
     (state: Record<string, unknown>): string => selector(state, "filter.policy")
   );
 
   return (
-    <Modal headerTitle={t("group.scope.common.add")} open={isOpen}>
+    <Modal headerTitle={t("group.scope.common.add")} open={true}>
       <GenericForm
         initialValues={{ filter: { paths: [""], policy: "NONE" } }}
         name={"gitRoots"}
@@ -90,6 +92,51 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                     />
                   </div>
                 </div>
+              </fieldset>
+              <fieldset>
+                <legend className={"f3 b"}>
+                  {t("group.scope.git.healthCheck.title")}
+                </legend>
+                <div className={"flex"}>
+                  <div className={"w-100"}>
+                    <ControlLabel>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t("group.scope.git.healthCheck.hasCode")}
+                    </ControlLabel>
+                    <SwitchButton
+                      checked={hasCode}
+                      offlabel={t("No")}
+                      onChange={setHasCode}
+                      onlabel={t("Yes")}
+                    />
+                  </div>
+                </div>
+                {hasCode ? (
+                  <div className={"flex"}>
+                    <div className={"w-100"}>
+                      <ControlLabel>
+                        <RequiredField>{"*"}&nbsp;</RequiredField>
+                        {t("group.scope.git.healthCheck.confirm")}
+                      </ControlLabel>
+                      <SwitchButton
+                        checked={confirmHealthCheck}
+                        offlabel={t("No")}
+                        onChange={setConfirmHealthCheck}
+                        onlabel={t("Yes")}
+                      />
+                      {confirmHealthCheck ? (
+                        <Field
+                          component={Checkbox}
+                          name={"includesHealthCheck"}
+                          type={"checkbox"}
+                          validate={[checked]}
+                        >
+                          {t("group.scope.git.healthCheck.accept")}
+                        </Field>
+                      ) : undefined}
+                    </div>
+                  </div>
+                ) : undefined}
               </fieldset>
               <FormSection name={"filter"}>
                 <fieldset>

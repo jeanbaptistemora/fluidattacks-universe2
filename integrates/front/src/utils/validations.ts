@@ -337,7 +337,11 @@ const isLowerDate: Validator = (value: string): string | undefined => {
   }
 };
 
+const checked: Validator = (value: unknown): string | undefined =>
+  value === true ? undefined : translate.t("validations.required");
+
 export {
+  checked,
   required,
   someRequired,
   validEvidenceDescription,
