@@ -34,7 +34,7 @@ async def graphics_report(request: Request) -> Response:
 async def graphics_for_entity(entity: str, request: Request) -> Response:
     request_data = await util.get_jwt_content(request)
 
-    response = await analytics_domain.handlegraphics_for_entity_request(
+    response = await analytics_domain.handle_graphics_for_entity_request(
         entity=entity,
         request=request,
     )

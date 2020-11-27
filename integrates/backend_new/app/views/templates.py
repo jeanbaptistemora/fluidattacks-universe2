@@ -13,10 +13,12 @@ TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
 
 def error500(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
+    response = TEMPLATING_ENGINE.TemplateResponse(
         name='HTTP500.html',
         context={'request': request}
     )
+    response.headers = {'x-frame-options': 'SAMEORIGIN'}
+    return response
 
 
 def error401(request: Request) -> HTMLResponse:

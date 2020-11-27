@@ -92,6 +92,7 @@ APP = Starlette(
         Route('/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
         Route('/error401', views.error401),
         Route('/error500', views.error500),
+        Route('/graphic', views.graphic),
         Route('/invalid_invitation', views.invalid_invitation),
         Route('/new/', views.login),
         Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),

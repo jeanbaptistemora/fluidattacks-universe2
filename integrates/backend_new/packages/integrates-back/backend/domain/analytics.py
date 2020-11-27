@@ -20,7 +20,6 @@ from ariadne import (
     convert_camel_case_to_snake,
 )
 import botocore.exceptions
-from django.conf import settings
 from django.http import (
     HttpRequest,
     HttpResponse,
@@ -31,6 +30,9 @@ from django.shortcuts import (
 from PIL import (
     Image,
 )
+
+from starlette.responses import Response
+from starlette.templating import Jinja2Templates
 
 # Local libraries
 from backend.dal import (
@@ -56,6 +58,8 @@ from backend.utils.encodings import (
 )
 from backend import util
 from fluidintegrates.settings import LOGGING
+
+from backend_new import settings
 
 logging.config.dictConfig(LOGGING)
 
@@ -170,14 +174,14 @@ def handle_graphic_request_parameters(
     *,
     request: HttpRequest,
 ) -> GraphicParameters:
-    document_name: str = request.GET['documentName']
-    document_type: str = request.GET['documentType']
-    generator_name: str = request.GET['generatorName']
-    generator_type: str = request.GET['generatorType']
-    entity: str = request.GET['entity']
-    height: int = int(request.GET['height'])
-    subject: str = request.GET['subject']
-    width: int = int(request.GET['width'])
+    document_name: str = request.query_params['documentName']
+    document_type: str = request.query_params['documentType']
+    generator_name: str = request.query_params['generatorName']
+    generator_type: str = request.query_params['generatorType']
+    entity: str = request.query_params['entity']
+    height: int = int(request.query_params['height'])
+    subject: str = request.query_params['subject']
+    width: int = int(request.query_params['width'])
 
     for param_name, param_value in [
         ('documentName', document_name),
@@ -262,7 +266,7 @@ def handle_graphics_report_request_parameters(
     )
 
 
-async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
+async def handle_graphic_request(request: HttpRequest) -> Response:
     try:
         params: GraphicParameters = \
             handle_graphic_request_parameters(request=request)
@@ -282,27 +286,39 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = render(request, 'graphic-error.html', dict(
-            debug=settings.DEBUG,
-            traceback=traceback.format_exc(),
-        ))
+        response = \
+            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
+                name='graphic-error.html',
+                context=dict(
+                    request=request,
+                    debug=settings.DEBUG,
+                    traceback=traceback.format_exc()
+                )
+            )
     else:
-        response = render(request, 'graphic.html', dict(
-            args=dict(
-                data=json.dumps(document),
-                height=params.height,
-                width=params.width,
-            ),
-            generator_src=(
-                f'graphics/'
-                f'generators/'
-                f'{params.generator_type}/'
-                f'{params.generator_name}.js'
-            ),
-        ))
-
-    # Allow the frame to render if and only if we are on the same origin
-    response['x-frame-options'] = 'SAMEORIGIN'
+        response = \
+            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
+                name='graphic.html',
+                context=dict(
+                    request=request,
+                    args=dict(
+                        data=json.dumps(document),
+                        height=params.height,
+                        width=params.width,
+                    ),
+                    generator_src=(
+                        f'graphics/'
+                        f'generators/'
+                        f'{params.generator_type}/'
+                        f'{params.generator_name}.js'
+                    ),
+                    c3js=f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.js',
+                    c3css=(
+                        f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.css'
+                    )
+                )
+            )
+        response.headers['x-frame-options'] = 'SAMEORIGIN'
 
     return response
 
