@@ -441,7 +441,7 @@ We take into account all pushes to the tested branch,
 which are monitored using automated scripts (robots)
 that extract and analyze the changes made to the source code every night.
 
-=== 59. Does `Fluid Attacks` test every time I make a push in the subscription branch?
+=== 59. Does Fluid Attacks test every time I make a push in the subscription branch?
 During the execution of a project, the following scenarios can occur:
 
 . Application in development without overdue code (`100%` coverage):
