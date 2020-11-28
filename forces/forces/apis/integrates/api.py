@@ -80,6 +80,9 @@ async def get_vulnerabilities(
             vulnerabilities {
               findingId
               currentState
+              historicTreatment {
+                treatment
+              }
               vulnType
               where
               specific
@@ -97,14 +100,12 @@ async def get_vulnerabilities(
         **kwargs,
     )
     finding_value = response.get('finding', dict())
-
-    # if a findinge its accepted, all vulnerabilities are accepted
-    current_state: Dict[str, str] = (finding_value.get('historicTreatment', [])
-                                     or ['unknown'])[-1]
-
-    if 'accepted' in current_state.get('treatment', 'unknown').lower():
-        vulnerabilities = finding_value.get('vulnerabilities', list())
-        for index, _ in enumerate(vulnerabilities):
+    vulnerabilities = finding_value.get('vulnerabilities', list())
+    for index, _ in enumerate(vulnerabilities):
+        current_state: Dict[str, str] = (
+            vulnerabilities[index].get('historicTreatment', [{}])
+        )[-1]
+        if 'accepted' in current_state.get('treatment', 'unknown').lower():
             vulnerabilities[index]['currentState'] = 'accepted'
     return finding_value.get('vulnerabilities', list())
 
