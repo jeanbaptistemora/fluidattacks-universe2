@@ -126,15 +126,6 @@ def mobile(request: HttpRequest) -> HttpResponse:
 @require_http_methods(['GET'])  # type: ignore
 @async_to_sync  # type: ignore
 @require_login  # type: ignore
-async def graphic(request: HttpRequest) -> HttpResponse:
-    return await analytics_domain.handle_graphic_request(request)
-
-
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
-@require_login  # type: ignore
 async def graphics_for_group(request: HttpRequest) -> HttpResponse:
     return await _graphics_for_entity('group', request)
 

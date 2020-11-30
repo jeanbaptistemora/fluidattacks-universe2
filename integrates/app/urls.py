@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(pattern_name='new')),
     url(r'^new/?$', views.index, name='new'),
     # Principal process.
-    url(r'^graphic/?$', views.graphic, name='graphic'),
     url(
         r'^graphics-for-group/?$',
         views.graphics_for_group,
