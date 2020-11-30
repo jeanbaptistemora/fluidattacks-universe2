@@ -689,3 +689,9 @@ class MaxNumberOfVulns(Exception):
         """ Constructor """
         msg = f'Exception - You can update up to {max_value} vulnerabilities'
         super(MaxNumberOfVulns, self).__init__(msg)
+
+
+class RootNotFound(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - Access denied or root not found'
+        super(RootNotFound, self).__init__(msg)

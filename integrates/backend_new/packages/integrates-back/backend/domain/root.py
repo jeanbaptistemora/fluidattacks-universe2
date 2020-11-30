@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 # Third party
 from urllib3.util.url import parse_url, Url
@@ -7,7 +7,7 @@ from urllib3.util.url import parse_url, Url
 # Local
 from backend.dal import root as root_dal
 from backend.domain import organization as org_domain
-from backend.exceptions import InvalidParameter, RepeatedValues
+from backend.exceptions import InvalidParameter, RepeatedValues, RootNotFound
 from backend.typing import GitRoot, IPRoot, URLRoot, Root
 from backend.utils import datetime, validations
 
@@ -41,6 +41,14 @@ def format_root(root: Dict[str, Any]) -> Root:
         port=root_state['port'],
         protocol=root_state['protocol']
     )
+
+
+async def get_root_by_id(root_id: str) -> Dict[str, Any]:
+    root: Optional[Dict[str, Any]] = await root_dal.get_root_by_id(root_id)
+
+    if root:
+        return root
+    raise RootNotFound()
 
 
 async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
@@ -126,7 +134,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
                 'historic_state': [initial_state],
                 'kind': kind
             }
-            await root_dal.add_root(group_name, root_attributes)
+            await root_dal.create(group_name, root_attributes)
         else:
             raise RepeatedValues()
     else:
@@ -155,7 +163,7 @@ async def add_ip_root(user_email: str, **kwargs: Any) -> None:
                 'historic_state': [initial_state],
                 'kind': kind
             }
-            await root_dal.add_root(group_name, root_attributes)
+            await root_dal.create(group_name, root_attributes)
         else:
             raise RepeatedValues()
     else:
@@ -188,8 +196,29 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
                 'historic_state': [initial_state],
                 'kind': kind
             }
-            await root_dal.add_root(group_name, root_attributes)
+            await root_dal.create(group_name, root_attributes)
         else:
             raise RepeatedValues()
     else:
         raise InvalidParameter()
+
+
+async def update_git_root(user_email: str, **kwargs: Any) -> None:
+    root_id: str = kwargs['root_id']
+    root: Dict[str, Any] = await get_root_by_id(root_id)
+    group_name: str = root['sk'].split('GROUP#')[-1]
+    new_state: Dict[str, Any] = {
+        'branch': kwargs['branch'],
+        'date': datetime.get_as_str(datetime.get_now()),
+        'environment': kwargs['environment'],
+        'filter': kwargs.get('filter'),
+        'includes_health_check': kwargs['includes_health_check'],
+        'url': kwargs['url'],
+        'user': user_email
+    }
+
+    await root_dal.update(
+        group_name,
+        root_id,
+        {'historic_state': [*root['historic_state'], new_state]}
+    )
