@@ -40,7 +40,17 @@
     {
       "source": [
         {
-          "args": [],
+          "args": [
+            {
+              "args": [],
+              "method": "theCookie.getValue",
+              "type": "CALL"
+            },
+            {
+              "type": "LITERAL",
+              "value": "\"UTF-8\""
+            }
+          ],
           "method": "java.net.URLDecoder.decode",
           "type": "CALL"
         }
@@ -50,7 +60,23 @@
       "var_type": "String"
     },
     {
-      "source": [],
+      "source": [
+        {
+          "left": [
+            {
+              "type": "LITERAL",
+              "value": "org.owasp.benchmark.helpers.Utils.testfileDir"
+            }
+          ],
+          "right": [
+            {
+              "type": "LITERAL",
+              "value": "param"
+            }
+          ],
+          "type": "ADD"
+        }
+      ],
       "type": "BINDING",
       "var": "fileName",
       "var_type": "String"

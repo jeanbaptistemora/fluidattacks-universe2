@@ -185,6 +185,28 @@ def _type_names(graph: nx.DiGraph) -> None:
     ))
 
 
+def _ambiguous_names(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'AmbiguousName', (
+        'IdentifierRule',
+        'DOT',
+        'IdentifierRule',
+    ))
+    for _ in range(5):
+        _concatenate_child_texts(graph, 'AmbiguousName', (
+            'CustomAmbiguousName',
+            'DOT',
+            'IdentifierRule',
+        ))
+
+
+def _expression_name(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'ExpressionName', (
+        'CustomAmbiguousName',
+        'DOT',
+        'IdentifierRule',
+    ))
+
+
 def _method_invocations(graph: nx.DiGraph) -> None:
     for label_type in (
         'MethodInvocation',
@@ -333,6 +355,8 @@ def reduce(graph: nx.DiGraph) -> None:
         },
     )
 
+    _ambiguous_names(graph)
+    _expression_name(graph)
     _package_or_type_name(graph)
     _type_names(graph)
     _method_invocations(graph)

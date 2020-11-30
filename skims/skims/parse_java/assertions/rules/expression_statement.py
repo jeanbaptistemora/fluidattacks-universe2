@@ -4,6 +4,8 @@ import networkx as nx
 # Local libraries
 from parse_java.assertions import (
     common,
+)
+from parse_java.assertions.rules import (
     generic,
 )
 from utils import (
@@ -19,7 +21,7 @@ def inspect(
 ) -> common.Context:
     ctx = common.ensure_context(ctx)
 
-    for c_id in g.adj(graph, n_id):
+    for c_id in g.adj_ast(graph, n_id):
         c_ctx = generic.inspect(graph, c_id, ctx=None)
         common.merge_contexts(ctx, c_ctx)
 

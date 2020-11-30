@@ -4,6 +4,8 @@ import networkx as nx
 # Local libraries
 from parse_java.assertions import (
     common,
+)
+from parse_java.assertions.rules import (
     generic,
 )
 from utils import (

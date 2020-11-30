@@ -4,6 +4,8 @@ import networkx as nx
 # Local libraries
 from parse_java.assertions import (
     common,
+)
+from parse_java.assertions.rules import (
     generic,
 )
 from utils import (
@@ -22,30 +24,35 @@ def inspect(
     match = g.match_ast(
         graph,
         n_id,
+        'NEW',
         'CustomIdentifier',
         'LPAREN',
-        '__0__',
         'RPAREN',
     )
 
     if (
-        match['CustomIdentifier']
+        match['NEW']
+        and match['CustomIdentifier']
         and match['LPAREN']
+        and (arg_id := match['__0__'])
         and match['RPAREN']
     ):
-        method = graph.nodes[match['CustomIdentifier']]['label_text']
+        arg_attrs_label_type = graph.nodes[arg_id]['label_type']
 
-        if args_id := match['__0__']:
-            args_ctx = generic.inspect(graph, args_id, ctx=None)
+        if arg_attrs_label_type == 'IdentifierRule':
+            args = [{
+                'symbol': graph.nodes[arg_id]['label_text'],
+                'type': 'LOOKUP',
+            }]
+        else:
+            args_ctx = generic.inspect(graph, arg_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
             args = args_ctx['log']
-        else:
-            args = []
 
         ctx['log'].append({
             'args': args,
-            'method': method,
-            'type': 'CALL',
+            'class_type': graph.nodes[match['CustomIdentifier']]['label_text'],
+            'type': 'CLASS_INSTANTIATION',
         })
     else:
         common.warn_not_impl(inspect, n_id=n_id)

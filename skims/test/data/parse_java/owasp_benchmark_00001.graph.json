@@ -514,76 +514,6 @@
         "label_ast": "AST"
       }
     },
-    "1373": {
-      "1374": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1393": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1395": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1374": {
-      "1375": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1390": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1392": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1375": {
-      "1376": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1387": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1389": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1376": {
-      "1377": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1384": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1386": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1377": {
-      "1380": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1381": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1383": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
     "139": {
       "141": {
         "index": 0,
@@ -3543,91 +3473,8 @@
       "label_c": 21,
       "label_l": 70,
       "label_parent_ast": "1367",
-      "label_type": "ExpressionName",
-      "label_type_index": "0"
-    },
-    "1374": {
-      "label_c": 21,
-      "label_l": 70,
-      "label_parent_ast": "1373",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1375": {
-      "label_c": 21,
-      "label_l": 70,
-      "label_parent_ast": "1374",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1376": {
-      "label_c": 21,
-      "label_l": 70,
-      "label_parent_ast": "1375",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1377": {
-      "label_c": 21,
-      "label_l": 70,
-      "label_parent_ast": "1376",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1380": {
-      "label_c": 21,
-      "label_l": 70,
-      "label_parent_ast": "1377",
-      "label_text": "org",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1381": {
-      "label_c": 24,
-      "label_l": 70,
-      "label_parent_ast": "1377",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1383": {
-      "label_c": 25,
-      "label_l": 70,
-      "label_parent_ast": "1377",
-      "label_text": "owasp",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1384": {
-      "label_c": 30,
-      "label_l": 70,
-      "label_parent_ast": "1376",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1386": {
-      "label_c": 31,
-      "label_l": 70,
-      "label_parent_ast": "1376",
-      "label_text": "benchmark",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1387": {
-      "label_c": 40,
-      "label_l": 70,
-      "label_parent_ast": "1375",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1389": {
-      "label_c": 41,
-      "label_l": 70,
-      "label_parent_ast": "1375",
-      "label_text": "helpers",
-      "label_type": "IdentifierRule",
+      "label_text": "org.owasp.benchmark.helpers.Utils.testfileDir",
+      "label_type": "CustomExpressionName",
       "label_type_index": "0"
     },
     "139": {
@@ -3635,38 +3482,6 @@
       "label_l": 29,
       "label_parent_ast": "132",
       "label_type": "ElementValuePair",
-      "label_type_index": "0"
-    },
-    "1390": {
-      "label_c": 48,
-      "label_l": 70,
-      "label_parent_ast": "1374",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1392": {
-      "label_c": 49,
-      "label_l": 70,
-      "label_parent_ast": "1374",
-      "label_text": "Utils",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1393": {
-      "label_c": 54,
-      "label_l": 70,
-      "label_parent_ast": "1373",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1395": {
-      "label_c": 55,
-      "label_l": 70,
-      "label_parent_ast": "1373",
-      "label_text": "testfileDir",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "1396": {

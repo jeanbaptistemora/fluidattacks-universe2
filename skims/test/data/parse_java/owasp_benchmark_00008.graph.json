@@ -104,76 +104,6 @@
         "label_false": "false"
       }
     },
-    "1080": {
-      "1081": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1100": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1102": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1081": {
-      "1082": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1097": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1099": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1082": {
-      "1083": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1094": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1096": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1083": {
-      "1084": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1091": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1093": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "1084": {
-      "1087": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1088": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1090": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
     "109": {
       "110": {
         "index": 0,
@@ -1832,51 +1762,8 @@
       "label_c": 16,
       "label_l": 63,
       "label_parent_ast": "1061",
-      "label_type": "ExpressionName",
-      "label_type_index": "0"
-    },
-    "1081": {
-      "label_c": 16,
-      "label_l": 63,
-      "label_parent_ast": "1080",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1082": {
-      "label_c": 16,
-      "label_l": 63,
-      "label_parent_ast": "1081",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1083": {
-      "label_c": 16,
-      "label_l": 63,
-      "label_parent_ast": "1082",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1084": {
-      "label_c": 16,
-      "label_l": 63,
-      "label_parent_ast": "1083",
-      "label_type": "AmbiguousName",
-      "label_type_index": "0"
-    },
-    "1087": {
-      "label_c": 16,
-      "label_l": 63,
-      "label_parent_ast": "1084",
-      "label_text": "org",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1088": {
-      "label_c": 19,
-      "label_l": 63,
-      "label_parent_ast": "1084",
-      "label_text": ".",
-      "label_type": "DOT",
+      "label_text": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
+      "label_type": "CustomExpressionName",
       "label_type_index": "0"
     },
     "109": {
@@ -1884,62 +1771,6 @@
       "label_l": 27,
       "label_parent_ast": "2",
       "label_type": "SingleTypeImportDeclaration",
-      "label_type_index": "0"
-    },
-    "1090": {
-      "label_c": 20,
-      "label_l": 63,
-      "label_parent_ast": "1084",
-      "label_text": "owasp",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1091": {
-      "label_c": 25,
-      "label_l": 63,
-      "label_parent_ast": "1083",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1093": {
-      "label_c": 26,
-      "label_l": 63,
-      "label_parent_ast": "1083",
-      "label_text": "benchmark",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1094": {
-      "label_c": 35,
-      "label_l": 63,
-      "label_parent_ast": "1082",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1096": {
-      "label_c": 36,
-      "label_l": 63,
-      "label_parent_ast": "1082",
-      "label_text": "helpers",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1097": {
-      "label_c": 43,
-      "label_l": 63,
-      "label_parent_ast": "1081",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1099": {
-      "label_c": 44,
-      "label_l": 63,
-      "label_parent_ast": "1081",
-      "label_text": "DatabaseHelper",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "11": {
@@ -1956,22 +1787,6 @@
       "label_parent_ast": "109",
       "label_text": "import",
       "label_type": "IMPORT",
-      "label_type_index": "0"
-    },
-    "1100": {
-      "label_c": 58,
-      "label_l": 63,
-      "label_parent_ast": "1080",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "1102": {
-      "label_c": 59,
-      "label_l": 63,
-      "label_parent_ast": "1080",
-      "label_text": "hideSQLErrors",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "1103": {
