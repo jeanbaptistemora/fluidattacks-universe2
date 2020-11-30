@@ -282,7 +282,7 @@ class ITReport():
 
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)
-        self.set_treatment_data(finding, row)
+        self.set_treatment_data(row)
         self.set_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
@@ -343,7 +343,6 @@ class ITReport():
 
     def set_treatment_data(  # pylint: disable=too-many-locals
         self,
-        finding: Dict[str, FindingType],
         vuln: VulnType
     ) -> None:
         def format_treatment(treatment: str) -> str:
@@ -354,64 +353,51 @@ class ITReport():
                 treatment = 'Temporarily accepted'
             return treatment
 
-        historic_state = cast(
+        historic_treatment = cast(
             HistoricType,
-            finding.get('historicState')
-        )
-        finding_historic_treatment = cast(
-            HistoricType,
-            finding.get('historicTreatment')
+            vuln.get('historic_treatment', [{}])
         )
         curr_trtmnt_date: Union[str, datetime] = get_formatted_last_date(
-            historic_state
+            historic_treatment
         )
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         first_treatment_exp_date: Union[str, datetime] = EMPTY
-
-        if 'acceptance_date' in vuln:
+        current_treatment = historic_treatment[-1]
+        first_treatment_state = historic_treatment[0]
+        if current_treatment.get('acceptance_date'):
             current_treatment_exp_date = datetime_utils.get_from_str(
-                str(vuln.get('acceptance_date'))
+                str(current_treatment['acceptance_date'])
             )
-        first_treatment_state = finding_historic_treatment[0]
-        if len(str(finding.get('releaseDate')).split(' ')) == 2:
-            first_treatment_date_format = '%Y-%m-%d %H:%M:%S'
-        else:
-            first_treatment_date_format = '%Y-%m-%d'
-        if len(finding_historic_treatment) > 1:
-            first_treatment_exp_date = finding_historic_treatment[1].get(
-                'date', EMPTY
+        if first_treatment_state.get('acceptance_date'):
+            first_treatment_exp_date = datetime_utils.get_from_str(
+                str(first_treatment_state['acceptance_date'])
             )
-            if first_treatment_exp_date != EMPTY:
-                first_treatment_exp_date = datetime_utils.get_from_str(
-                    str(first_treatment_exp_date)
-                )
 
         current_treatment_data: Dict[str, Union[str, int, float, datetime]] = {
             'Current Treatment': format_treatment(
-                str(vuln.get('treatment', 'NEW'))
+                str(current_treatment.get('treatment', 'NEW'))
             ),
             'Current Treatment Moment': curr_trtmnt_date,
             'Current Treatment Justification': str(
-                vuln.get('treatment_justification', EMPTY)),
+                current_treatment.get('justification', EMPTY)),
             'Current Treatment expiration Moment': current_treatment_exp_date,
             'Current Treatment manager': str(
-                vuln.get('treatment_manager', EMPTY)
+                current_treatment.get('treatment_manager', EMPTY)
             ),
         }
         first_treatment_data: Dict[str, Union[str, int, float, datetime]] = {
             'First Treatment': str(
                 format_treatment(first_treatment_state.get('treatment', 'NEW'))
             ),
-            'First Treatment Moment': datetime_utils.get_from_str(
-                str(finding.get('releaseDate')),
-                date_format=first_treatment_date_format
+            'First Treatment Moment': get_formatted_last_date(
+                [first_treatment_state]
             ),
             'First Treatment Justification': str(
                 first_treatment_state.get('justification', EMPTY)
             ),
             'First Treatment expiration Moment': first_treatment_exp_date,
             'First Treatment manager': str(
-                first_treatment_state.get('user', EMPTY)
+                first_treatment_state.get('treatment_manager', EMPTY)
             ),
         }
 

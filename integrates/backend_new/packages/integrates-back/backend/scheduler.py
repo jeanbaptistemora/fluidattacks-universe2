@@ -829,14 +829,17 @@ async def reset_group_expired_accepted_findings(
     list_findings = await project_domain.list_findings(
         [group_name]
     )
-    findings = await finding_domain.get_findings_async(
-        list_findings[0]
+    vulns = await vuln_domain.list_vulnerabilities_async(
+        [finding_id for findings in list_findings
+         for finding_id in findings],
+        include_requested_zero_risk=True,
+        include_confirmed_zero_risk=True
     )
-    for finding in findings:
-        finding_id = cast(str, finding.get('findingId'))
+    for vuln in vulns:
+        finding_id = cast(str, vuln.get('finding_id'))
         historic_treatment = cast(
             List[Dict[str, str]],
-            finding.get('historicTreatment', [{}])
+            vuln.get('historic_treatment', [{}])
         )
         is_accepted_expired = (
             historic_treatment[-1].get('acceptance_date', today) < today
@@ -857,8 +860,12 @@ async def reset_group_expired_accepted_findings(
         )
         if is_accepted_expired or is_undefined_accepted_expired:
             updated_values = {'treatment': 'NEW'}
-            await finding_domain.update_treatment(
-                finding_id, updated_values, ''
+            await vuln_domain.add_vuln_treatment(
+                finding_id=finding_id,
+                updated_values=updated_values,
+                vuln=vuln,
+                user_email=historic_treatment[-1].get('user', ''),
+                date=datetime_utils.get_as_str(datetime_utils.get_now())
             )
             util.queue_cache_invalidation(finding_id)
 

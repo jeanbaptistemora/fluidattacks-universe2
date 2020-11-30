@@ -657,6 +657,58 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-04-07 19:43:18"
+                                    },
+                                    "treatment": {
+                                        "S": "NEW"
+                                    }
+                                }
+                            },
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-04-07 19:59:06"
+                                    },
+                                    "treatment": {
+                                        "S": "ACCEPTED_UNDEFINED"
+                                    },
+                                    "justification": {
+                                        "S": "test justification eternally accepted"
+                                    },
+                                    "user": {
+                                        "S": "integratesuser@gmail.com"
+                                    },
+                                    "acceptance_status": {
+                                        "S": "SUBMITTED"
+                                    }
+                                }
+                            },
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2020-10-07 19:59:06"
+                                    },
+                                    "treatment": {
+                                        "S": "ACCEPTED_UNDEFINED"
+                                    },
+                                    "justification": {
+                                        "S": "Observations about eternally accepted"
+                                    },
+                                    "user": {
+                                        "S": "integratesuser@gmail.com"
+                                    },
+                                    "acceptance_status": {
+                                        "S": "APPROVED"
+                                    }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "8888"
                     },
@@ -703,6 +755,42 @@
                                     },
                                     "state" : {
                                         "S" : "closed"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-04-07 19:43:18"
+                                    },
+                                    "treatment": {
+                                        "S": "NEW"
+                                    }
+                                }
+                            },
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2020-11-07 19:59:06"
+                                    },
+                                    "treatment": {
+                                        "S": "ACCEPTED"
+                                    },
+                                    "justification": {
+                                        "S": "test justification temporarily accepted"
+                                    },
+                                    "user": {
+                                        "S": "integratesuser@gmail.com"
+                                    },
+                                    "acceptance_date": {
+                                        "S": "2021-04-07 19:59:06"
+                                    },
+                                    "treatment_manager": {
+                                        "S": "integratescustomer@gmail.com"
                                     }
                                 }
                             }
