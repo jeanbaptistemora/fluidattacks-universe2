@@ -40,11 +40,11 @@ def evaluate(
         if args_id := match['__0__']:
             args_ctx = generic.evaluate(graph, args_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
-            args = args_ctx['log']
+            args = args_ctx['statements']
         else:
             args = []
 
-        ctx['log'].append({
+        ctx['statements'].append({
             'args': args,
             'method': method,
             'type': 'CALL',

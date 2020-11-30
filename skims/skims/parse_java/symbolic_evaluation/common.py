@@ -22,8 +22,8 @@ OptionalContext = Optional[Context]
 def _build_empty_context() -> Context:
     ctx: Context = {
         'complete': True,
-        'log': [],
         'seen': set(),
+        'statements': [],
     }
 
     return ctx

@@ -1,15 +1,10 @@
 {
   "complete": true,
-  "log": [
+  "statements": [
     {
       "target": "request",
       "target_type": "HttpServletRequest",
       "type": "BINDING"
-    },
-    {
-      "__reason__": "Variable is user controlled",
-      "target": "request",
-      "type": "TAINT"
     },
     {
       "target": "response",

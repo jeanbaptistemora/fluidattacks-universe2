@@ -15,7 +15,7 @@ def evaluate(
 ) -> common.Context:
     ctx = common.ensure_context(ctx)
 
-    ctx['log'].append({
+    ctx['statements'].append({
         'value':  graph.nodes[n_id]['label_text'],
         'type': 'LITERAL',
     })

@@ -90,8 +90,8 @@ def _variable_declarator(
         common.merge_contexts(ctx, src_ctx)
 
         # Add the variable to the mapping
-        ctx['log'].append({
-            'source': src_ctx['log'],
+        ctx['statements'].append({
+            'source': src_ctx['statements'],
             'type': 'BINDING',
             'var': graph.nodes[match['IdentifierRule']]['label_text'],
             'var_type': type_attrs_label_text,

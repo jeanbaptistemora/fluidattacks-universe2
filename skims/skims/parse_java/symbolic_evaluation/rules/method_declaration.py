@@ -105,19 +105,12 @@ def _formal_parameter(
         var_attrs_label_text = var_attrs['label_text']
 
         # Add the variable to the mapping
-        ctx['log'].append({
+        ctx['statements'].append({
             'type': 'BINDING',
             'target': var_attrs_label_text,
             'target_type': type_attrs_label_text,
         })
 
-        # Taint the variable
-        if type_attrs_label_text in {'HttpServletRequest'}:
-            ctx['log'].append({
-                'type': 'TAINT',
-                'target': var_attrs_label_text,
-                '__reason__': 'Variable is user controlled',
-            })
     else:
         common.not_implemented(_formal_parameter, n_id, ctx=ctx)
 

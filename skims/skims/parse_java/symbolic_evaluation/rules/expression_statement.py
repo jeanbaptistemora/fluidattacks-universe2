@@ -25,6 +25,6 @@ def evaluate(
         c_ctx = generic.evaluate(graph, c_id, ctx=None)
         common.merge_contexts(ctx, c_ctx)
 
-        ctx['log'].extend(c_ctx['log'])
+        ctx['statements'].extend(c_ctx['statements'])
 
     return common.mark_seen(ctx, n_id)

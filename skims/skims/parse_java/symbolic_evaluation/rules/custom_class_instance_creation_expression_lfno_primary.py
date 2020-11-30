@@ -47,9 +47,9 @@ def evaluate(
         else:
             args_ctx = generic.evaluate(graph, arg_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
-            args = args_ctx['log']
+            args = args_ctx['statements']
 
-        ctx['log'].append({
+        ctx['statements'].append({
             'args': args,
             'class_type': graph.nodes[match['CustomIdentifier']]['label_text'],
             'type': 'CLASS_INSTANTIATION',
