@@ -40,7 +40,7 @@ def evaluate(
     if n_attrs_label_type in _UNINTERESTING_NODES:
         return common.mark_seen(ctx, n_id)
 
-    for types, evaluateor in (
+    for types, evaluator in (
         ({'AdditiveExpression'},
          additive_expression.evaluate),
         ({'ArgumentList'},
@@ -62,8 +62,8 @@ def evaluate(
          string_literal.evaluate),
     ):
         if n_attrs_label_type in types:
-            evaluateor(graph, n_id, ctx=ctx)
+            evaluator(graph, n_id, ctx=ctx)
             return common.mark_seen(ctx, n_id)
 
-    common.warn_not_impl(evaluate, n_id=n_id)
+    common.not_implemented(evaluate, n_id, ctx=ctx)
     return common.mark_seen(ctx, n_id)

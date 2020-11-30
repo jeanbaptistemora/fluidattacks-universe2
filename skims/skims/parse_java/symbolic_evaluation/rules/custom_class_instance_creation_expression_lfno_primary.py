@@ -55,6 +55,6 @@ def evaluate(
             'type': 'CLASS_INSTANTIATION',
         })
     else:
-        common.warn_not_impl(evaluate, n_id=n_id)
+        common.not_implemented(evaluate, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

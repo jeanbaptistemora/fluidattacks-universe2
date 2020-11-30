@@ -23,7 +23,7 @@ def evaluate(
     if c_id := match['MethodHeader']:
         _method_header(graph, c_id, ctx=ctx)
     else:
-        common.warn_not_impl(evaluate, n_id=n_id)
+        common.not_implemented(evaluate, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -43,7 +43,7 @@ def _method_header(
     if c_id := match['MethodDeclarator']:
         _method_declarator(graph, c_id, ctx=ctx)
     else:
-        common.warn_not_impl(_method_header, n_id=n_id)
+        common.not_implemented(_method_header, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -61,7 +61,7 @@ def _method_declarator(
     if c_id := match['FormalParameterList']:
         _formal_parameter_list(graph, c_id, ctx=ctx)
     else:
-        common.warn_not_impl(_method_declarator, n_id=n_id)
+        common.not_implemented(_method_declarator, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -119,6 +119,6 @@ def _formal_parameter(
                 '__reason__': 'Variable is user controlled',
             })
     else:
-        common.warn_not_impl(_formal_parameter, n_id=n_id)
+        common.not_implemented(_formal_parameter, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

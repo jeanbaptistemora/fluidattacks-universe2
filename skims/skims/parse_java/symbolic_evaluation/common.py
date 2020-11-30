@@ -21,6 +21,7 @@ OptionalContext = Optional[Context]
 
 def _build_empty_context() -> Context:
     ctx: Context = {
+        'complete': True,
         'log': [],
         'seen': set(),
     }
@@ -46,10 +47,17 @@ def merge_contexts(target: Context, source: Context) -> None:
     target['seen'].update(source['seen'])
 
 
-def warn_not_impl(function: Callable[..., Any], **kwargs: Any) -> None:
+def not_implemented(
+    function: Callable[..., Any],
+    n_id: str,
+    *,
+    ctx: Context
+) -> None:
     blocking_log(
-        'warning',
+        'debug',
         'Missing case handling in %s: %s',
         get_id(function),
-        kwargs,
+        n_id,
     )
+
+    ctx['complete'] = False

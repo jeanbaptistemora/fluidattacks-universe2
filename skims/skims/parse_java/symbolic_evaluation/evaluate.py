@@ -27,11 +27,7 @@ def evaluate(
 
     # Walk the path and mine the nodes in order to increase the context
     for n_id in path:
-        try:
-            generic.evaluate(graph, n_id, ctx=ctx)
-        except NotImplementedError:
-            common.warn_not_impl(evaluate, path=path, n_id=n_id)
-            break
+        generic.evaluate(graph, n_id, ctx=ctx)
 
     # Remove temporal state
     ctx.pop('seen')

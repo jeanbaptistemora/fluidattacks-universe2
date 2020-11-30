@@ -26,7 +26,7 @@ def evaluate(
     if c_id := match['LocalVariableDeclaration']:
         _local_variable_declaration(graph, c_id, ctx=ctx)
     else:
-        common.warn_not_impl(evaluate, n_id=n_id)
+        common.not_implemented(evaluate, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -64,7 +64,7 @@ def _local_variable_declaration(
             type_attrs_label_text=graph.nodes[c_ids[0]]['label_text'],
         )
     else:
-        common.warn_not_impl(_local_variable_declaration, n_id=n_id)
+        common.not_implemented(_local_variable_declaration, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -97,6 +97,6 @@ def _variable_declarator(
             'var_type': type_attrs_label_text,
         })
     else:
-        common.warn_not_impl(_local_variable_declaration, n_id=n_id)
+        common.not_implemented(_local_variable_declaration, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
