@@ -2,10 +2,10 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
-from parse_java.assertions.rules import (
+from parse_java.symbolic_evaluation.rules import (
     generic,
 )
 from utils import (
@@ -13,7 +13,7 @@ from utils import (
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -26,7 +26,7 @@ def inspect(
     if c_id := match['LocalVariableDeclaration']:
         _local_variable_declaration(graph, c_id, ctx=ctx)
     else:
-        common.warn_not_impl(inspect, n_id=n_id)
+        common.warn_not_impl(evaluate, n_id=n_id)
 
     return common.mark_seen(ctx, n_id)
 
@@ -86,7 +86,7 @@ def _variable_declarator(
         and match['ASSIGN']
         and (src_id := match['__0__'])
     ):
-        src_ctx = generic.inspect(graph, src_id, ctx=None)
+        src_ctx = generic.evaluate(graph, src_id, ctx=None)
         common.merge_contexts(ctx, src_ctx)
 
         # Add the variable to the mapping

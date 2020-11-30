@@ -8,10 +8,10 @@ from typing import (
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
-from parse_java.assertions.rules import (
+from parse_java.symbolic_evaluation.rules import (
     generic,
 )
 from utils.logs import (
@@ -19,7 +19,7 @@ from utils.logs import (
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     path: Tuple[str, ...],
 ) -> common.Context:
@@ -28,9 +28,9 @@ def inspect(
     # Walk the path and mine the nodes in order to increase the context
     for n_id in path:
         try:
-            generic.inspect(graph, n_id, ctx=ctx)
+            generic.evaluate(graph, n_id, ctx=ctx)
         except NotImplementedError:
-            common.warn_not_impl(inspect, path=path, n_id=n_id)
+            common.warn_not_impl(evaluate, path=path, n_id=n_id)
             break
 
     # Remove temporal state

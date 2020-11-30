@@ -2,7 +2,7 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
 from utils import (
@@ -10,7 +10,7 @@ from utils import (
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -23,7 +23,7 @@ def inspect(
     if c_id := match['MethodHeader']:
         _method_header(graph, c_id, ctx=ctx)
     else:
-        common.warn_not_impl(inspect, n_id=n_id)
+        common.warn_not_impl(evaluate, n_id=n_id)
 
     return common.mark_seen(ctx, n_id)
 

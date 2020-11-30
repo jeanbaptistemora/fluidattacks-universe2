@@ -2,10 +2,10 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
-from parse_java.assertions.rules import (
+from parse_java.symbolic_evaluation.rules import (
     additive_expression,
     argument_list,
     custom_class_instance_creation_expression_lfno_primary,
@@ -24,7 +24,7 @@ _UNINTERESTING_NODES = {
 }
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -40,30 +40,30 @@ def inspect(
     if n_attrs_label_type in _UNINTERESTING_NODES:
         return common.mark_seen(ctx, n_id)
 
-    for types, inspector in (
+    for types, evaluateor in (
         ({'AdditiveExpression'},
-         additive_expression.inspect),
+         additive_expression.evaluate),
         ({'ArgumentList'},
-         argument_list.inspect),
+         argument_list.evaluate),
         ({'CustomClassInstanceCreationExpression_lfno_primary'},
-         custom_class_instance_creation_expression_lfno_primary.inspect),
+         custom_class_instance_creation_expression_lfno_primary.evaluate),
         ({'CustomMethodInvocation',
           'CustomMethodInvocation_lfno_primary'},
-         custom_method_invocation.inspect),
+         custom_method_invocation.evaluate),
         ({'ExpressionStatement'},
-         expression_statement.inspect),
+         expression_statement.evaluate),
         ({'LocalVariableDeclarationStatement'},
-         local_variable_declaration_statement.inspect),
+         local_variable_declaration_statement.evaluate),
         ({'MethodDeclaration'},
-         method_declaration.inspect),
+         method_declaration.evaluate),
         ({'CustomExpressionName',
           'IdentifierRule',
           'StringLiteral'},
-         string_literal.inspect),
+         string_literal.evaluate),
     ):
         if n_attrs_label_type in types:
-            inspector(graph, n_id, ctx=ctx)
+            evaluateor(graph, n_id, ctx=ctx)
             return common.mark_seen(ctx, n_id)
 
-    common.warn_not_impl(inspect, n_id=n_id)
+    common.warn_not_impl(evaluate, n_id=n_id)
     return common.mark_seen(ctx, n_id)

@@ -2,12 +2,12 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,

@@ -2,10 +2,10 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
-from parse_java.assertions.rules import (
+from parse_java.symbolic_evaluation.rules import (
     generic,
 )
 from utils import (
@@ -13,7 +13,7 @@ from utils import (
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -38,7 +38,7 @@ def inspect(
         method = graph.nodes[match['CustomIdentifier']]['label_text']
 
         if args_id := match['__0__']:
-            args_ctx = generic.inspect(graph, args_id, ctx=None)
+            args_ctx = generic.evaluate(graph, args_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
             args = args_ctx['log']
         else:
@@ -50,6 +50,6 @@ def inspect(
             'type': 'CALL',
         })
     else:
-        common.warn_not_impl(inspect, n_id=n_id)
+        common.warn_not_impl(evaluate, n_id=n_id)
 
     return common.mark_seen(ctx, n_id)

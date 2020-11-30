@@ -20,8 +20,8 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     SHIELD,
 )
-from parse_java.assertions.inspect import (
-    inspect,
+from parse_java.symbolic_evaluation.evaluate import (
+    evaluate,
 )
 from parse_java.parse import (
     parse_from_content as java_parse_from_content,
@@ -53,10 +53,10 @@ def _java_path_traversal(
 
     def iterator() -> Iterator[g.NAttrs]:
         for path in g.flows(graph, sink_type='F063_PATH_TRAVERSAL'):
-            assertions = inspect(graph, path)
+            assertions = evaluate(graph, path)
 
             # This is never going to happen
-            # I'm adding it to early test g.flows and inspect on production
+            # I'm adding it to early test g.flows and evaluate on production
             if '__never__' in assertions:
                 yield assertions['vulnerable']['node']
 

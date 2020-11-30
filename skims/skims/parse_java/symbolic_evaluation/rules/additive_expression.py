@@ -2,10 +2,10 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
-from parse_java.assertions.rules import (
+from parse_java.symbolic_evaluation.rules import (
     generic,
 )
 from utils import (
@@ -13,7 +13,7 @@ from utils import (
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -28,8 +28,8 @@ def inspect(
         and (left_id := match['__0__'])
         and (right_id := match['__1__'])
     ):
-        l_ctx = generic.inspect(graph, left_id, ctx=None)
-        r_ctx = generic.inspect(graph, right_id, ctx=None)
+        l_ctx = generic.evaluate(graph, left_id, ctx=None)
+        r_ctx = generic.evaluate(graph, right_id, ctx=None)
         common.merge_contexts(ctx, l_ctx)
         common.merge_contexts(ctx, r_ctx)
 
@@ -39,6 +39,6 @@ def inspect(
             'type': 'ADD',
         })
     else:
-        common.warn_not_impl(inspect, n_id=n_id)
+        common.warn_not_impl(evaluate, n_id=n_id)
 
     return common.mark_seen(ctx, n_id)

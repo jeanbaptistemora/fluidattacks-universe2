@@ -8,8 +8,8 @@ from aioextensions import (
 import pytest
 
 # Local libraries
-from parse_java.assertions.inspect import (
-    inspect,
+from parse_java.symbolic_evaluation.evaluate import (
+    evaluate,
 )
 from parse_java.parse import (
     parse_from_content,
@@ -90,7 +90,7 @@ async def test_graph_generation(path: str, name: str) -> None:
         for index, path in enumerate(  # type: ignore
             sorted(g.flows(graph, sink_type=sink)),
         ):
-            assertions = inspect(graph, path)  # type: ignore
+            assertions = evaluate(graph, path)  # type: ignore
             assertions_as_json = json.dumps(assertions, indent=2, sort_keys=True)
 
             with open(f'test/data/parse_java/{name}.{sink}.{index}.assertions.json') as handle:

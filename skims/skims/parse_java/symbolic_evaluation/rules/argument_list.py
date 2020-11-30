@@ -2,10 +2,10 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.assertions import (
+from parse_java.symbolic_evaluation import (
     common,
 )
-from parse_java.assertions.rules import (
+from parse_java.symbolic_evaluation.rules import (
     generic,
 )
 from utils import (
@@ -13,7 +13,7 @@ from utils import (
 )
 
 
-def inspect(
+def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -25,7 +25,7 @@ def inspect(
         c_attrs_label_type = graph.nodes[c_id]['label_type']
 
         if c_attrs_label_type != 'COMMA':
-            c_ctx = generic.inspect(graph, c_id, ctx=None)
+            c_ctx = generic.evaluate(graph, c_id, ctx=None)
             common.merge_contexts(ctx, c_ctx)
             ctx['log'].extend(c_ctx['log'])
 
