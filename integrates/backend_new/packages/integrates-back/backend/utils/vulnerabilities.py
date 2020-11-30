@@ -202,6 +202,7 @@ async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
         'specific': 'Masked',
         'where': 'Masked',
         'treatment_manager': 'Masked',
-        'treatment_justification': 'Masked'
+        'treatment_justification': 'Masked',
+        'source': 'Masked'
     })
     return success

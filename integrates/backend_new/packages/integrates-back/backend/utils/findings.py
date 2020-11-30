@@ -408,7 +408,12 @@ async def mask_treatment(
         finding_id: str,
         historic_treatment: List[Dict[str, str]]) -> bool:
     historic = [
-        {**treatment, 'user': 'Masked', 'justification': 'Masked'}
+        {
+            **treatment,
+            'user': 'Masked',
+            'justification': 'Masked',
+            'treatment': 'Masked'
+        }
         for treatment in historic_treatment
     ]
     return await finding_dal.update(
@@ -417,11 +422,28 @@ async def mask_treatment(
     )
 
 
+async def mask_state(
+        finding_id: str,
+        historic_state: List[Dict[str, str]]) -> bool:
+    historic = [
+        {
+            **state,
+            'analyst': 'Masked',
+            'state': 'Masked'
+        }
+        for state in historic_state
+    ]
+    return await finding_dal.update(
+        finding_id,
+        {'historic_state': historic}
+    )
+
+
 async def mask_verification(
         finding_id: str,
         historic_verification: List[Dict[str, str]]) -> bool:
     historic = [
-        {**treatment, 'user': 'Masked'}
+        {**treatment, 'user': 'Masked', 'status': 'Masked'}
         for treatment in historic_verification
     ]
     return await finding_dal.update(

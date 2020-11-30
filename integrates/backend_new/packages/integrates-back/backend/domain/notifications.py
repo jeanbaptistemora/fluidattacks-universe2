@@ -176,7 +176,7 @@ async def request_zero_risk_vuln(
     finding_title = cast(str, finding.get('title', ''))
     finding_type = cast(str, finding.get('type', ''))
     finding_url = (
-        f'{BASE_URL}/new/orgs/{org_name}/groups/{group_name}/vulns/'
+        f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/'
         f'{finding_id}/vulns'
     )
     description = f"""
