@@ -14,6 +14,7 @@ from aioextensions import (
     resolve,
     in_process,
 )
+import networkx as nx
 
 # Local libraries
 from parse_antlr.parse import (
@@ -22,18 +23,26 @@ from parse_antlr.parse import (
 from parse_babel import (
     parse as parse_babel,
 )
+from parse_java.parse import (
+    parse_from_content as java_parse_from_content,
+)
 from lib_path.common import (
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
     blocking_get_vulnerabilities_from_iterator,
+    blocking_get_vulnerabilities_from_n_attrs_iterator,
 )
 from state.cache import (
+    CACHE_1SEC,
     CACHE_ETERNALLY,
 )
 from state.ephemeral import (
     EphemeralStore,
+)
+from utils import (
+    graph as g,
 )
 from utils.graph import (
     yield_dicts,
@@ -106,38 +115,32 @@ async def csharp_switch_no_default(
     )
 
 
-def _java_switch_no_default(
+def _java_switch_without_default(
     content: str,
-    model: Dict[str, Any],
+    graph: nx.DiGraph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
 
-    def iterator() -> Iterator[Tuple[int, int]]:
-        for switch in yield_nodes(
-            value=model,
-            key_predicates=(
-                'SwitchStatement'.__eq__,
-            ),
-            pre_extraction=(),
-            post_extraction=(),
-        ):
-            for labels in yield_nodes(
-                value=switch,
-                value_extraction='.'.join((
-                    '[4]',
-                    'SwitchBlock[1:-1]',
-                    'SwitchBlockStatementGroup[]',
-                    'SwitchLabels[0]',
-                    'SwitchLabel[0]',
-                    'text',
-                )),
-                pre_extraction=(),
-                post_extraction=(),
-            ):
-                if labels and 'default' not in labels:
-                    yield switch[0]['l'], switch[0]['c']
+    def iterator() -> Iterator[Dict[str, str]]:
+        for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+            label_type='SwitchStatement',
+        )):
+            match = g.match_ast(graph, n_id, 'SwitchBlock')
+            if c_id := match['SwitchBlock']:
 
-    return blocking_get_vulnerabilities_from_iterator(
+                match = g.match_ast(graph, c_id, 'SwitchBlockStatementGroup')
+                if c_id := match['SwitchBlockStatementGroup']:
+
+                    default_ids = g.filter_nodes(
+                        graph,
+                        g.adj_ast(graph, c_id, depth=3),
+                        g.pred_has_labels(label_type='DEFAULT'),
+                    )
+
+                    if len(default_ids) == 0:
+                        yield graph.nodes[n_id]
+
+    return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,
         cwe={'478'},
         description=t(
@@ -145,25 +148,22 @@ def _java_switch_no_default(
             path=path,
         ),
         finding=FindingEnum.F073,
-        iterator=iterator(),
+        n_attrs_iterator=iterator(),
         path=path,
     )
 
 
-@CACHE_ETERNALLY
+@CACHE_1SEC
 @SHIELD
-async def java_switch_no_default(
+async def java_switch_without_default(
     content: str,
+    graph: nx.DiGraph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        _java_switch_no_default,
+        _java_switch_without_default,
         content=content,
-        model=await parse_antlr(
-            Grammar.JAVA9,
-            content=content.encode(),
-            path=path,
-        ),
+        graph=graph,
         path=path,
     )
 
@@ -244,8 +244,15 @@ async def analyze(
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_switch_no_default(
-            content=await content_generator(),
+        content = await content_generator()
+        graph = await java_parse_from_content(
+            Grammar.JAVA9,
+            content=content.encode(),
+            path=path,
+        )
+        coroutines.append(java_switch_without_default(
+            content=content,
+            graph=graph,
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVASCRIPT:

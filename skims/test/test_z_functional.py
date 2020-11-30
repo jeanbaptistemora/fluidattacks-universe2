@@ -519,6 +519,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f073/Test.cs', '44'),
             ('test/data/lib_path/f073/Test.java', '44'),
             ('test/data/lib_path/f073/Test.java', '92'),
+            ('test/data/lib_path/f073/Test2.java', '23'),
             ('test/data/lib_path/f073/javascript.js', '3'),
             ('test/data/lib_path/f073/javascript.tsx', '4'),
         )),
