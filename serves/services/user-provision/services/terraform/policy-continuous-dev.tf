@@ -15,18 +15,6 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     ]
   }
 
-  # S3 read break-build-logs bucket configs
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:ListBucket",
-      "s3:Get*"
-    ]
-    resources = [
-      "arn:aws:s3:::break-build-logs"
-    ]
-  }
-
   # S3 read over continuous buckets
   statement {
     sid = "s3ContinuousRepositoriesRead"
@@ -38,32 +26,6 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     resources = [
       "arn:aws:s3:::continuous-*",
       "arn:aws:s3:::continuous-*/*",
-    ]
-  }
-
-  # ECR Auth Token
-  statement {
-      sid = "ecrBreakBuildAdminAuthToken"
-      effect = "Allow"
-      actions = [
-        "ecr:GetAuthorizationToken"
-      ]
-      resources = [
-        "*"
-      ]
-  }
-
-  # ECR read break-build
-  statement {
-    sid = "ecrBreakBuildAdmin"
-    effect = "Allow"
-    actions = [
-      "ecr:DescribeRepositories",
-      "ecr:ListTagsForResource",
-      "ecr:GetLifecyclePolicy"
-      ]
-    resources = [
-      "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
     ]
   }
 
@@ -114,18 +76,6 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     actions = ["kms:*"]
     resources = [
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-dev-*"
-    ]
-  }
-
-  # DynamoDB
-  statement {
-    effect = "Allow"
-    actions = [
-      "dynamodb:Describe*",
-      "dynamodb:List*"
-    ]
-    resources = [
-      "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/bb_*",
     ]
   }
 

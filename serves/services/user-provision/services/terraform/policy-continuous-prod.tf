@@ -16,19 +16,6 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
   }
 
-  # S3 Break Build
-  statement {
-    sid = "s3BreakBuildAdmin"
-    effect = "Allow"
-    actions = [
-      "s3:*"
-    ]
-    resources = [
-      "arn:aws:s3:::break-build-logs",
-      "arn:aws:s3:::break-build-logs/*"
-    ]
-  }
-
   # S3 admin over continuous buckets
   statement {
     sid = "s3ContinuousRepositoriesAdmin"
@@ -39,30 +26,6 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     resources = [
       "arn:aws:s3:::continuous-*",
       "arn:aws:s3:::continuous-*/*"
-    ]
-  }
-
-  # ECR Auth Token
-  statement {
-      sid = "ecrBreakBuildAdminAuthToken"
-      effect = "Allow"
-      actions = [
-        "ecr:GetAuthorizationToken"
-      ]
-      resources = [
-        "*"
-      ]
-  }
-
-  # ECR Break Build
-  statement {
-    sid = "ecrBreakBuildAdmin"
-    effect = "Allow"
-    actions = [
-      "ecr:*"
-    ]
-    resources = [
-      "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
     ]
   }
 
