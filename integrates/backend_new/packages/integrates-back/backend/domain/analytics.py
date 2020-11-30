@@ -24,9 +24,6 @@ from django.http import (
     HttpRequest,
     HttpResponse,
 )
-from django.shortcuts import (
-    render,
-)
 from PIL import (
     Image,
 )
@@ -220,7 +217,7 @@ def handle_graphics_for_entity_request_parameters(
             ' and "portfolio" are valid',
         )
 
-    subject: str = request.GET[entity]
+    subject: str = request.query_params[entity]
 
     for param_name, param_value in [
         ('subject', subject),
@@ -241,7 +238,7 @@ def handle_graphics_report_request_parameters(
     *,
     request: HttpRequest,
 ) -> ReportParameters:
-    entity: str = request.GET['entity']
+    entity: str = request.query_params['entity']
 
     if entity not in ENTITIES:
         raise ValueError(
@@ -249,7 +246,7 @@ def handle_graphics_report_request_parameters(
             ' and "portfolio" are valid',
         )
 
-    subject: str = request.GET[entity]
+    subject: str = request.query_params[entity]
 
     for param_name, param_value in [
         ('subject', subject),
@@ -342,15 +339,33 @@ async def handle_graphics_for_entity_request(
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = render(request, 'graphic-error.html', dict(
-            debug=settings.DEBUG,
-            traceback=traceback.format_exc(),
-        ))
+        response = response = \
+            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
+                name='graphic-error.html',
+                context=dict(
+                    request=request,
+                    debug=settings.DEBUG,
+                    traceback=traceback.format_exc()
+                )
+            )
     else:
-        response = render(request, 'graphics-for-entity.html', dict(
-            debug=settings.DEBUG,
-            entity=entity.title(),
-        ))
+        response = \
+            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
+                name='graphics-for-entity.html',
+                context=dict(
+                    request=request,
+                    debug=settings.DEBUG,
+                    entity=entity.title(),
+                    js=(
+                        f'{settings.STATIC_URL}/dashboard/'
+                        f'graphicsFor{entity}-bundle.min.js'
+                    ),
+                    css=(
+                        f'{settings.STATIC_URL}/dashboard/'
+                        f'graphicsFor{entity}-style.min.css'
+                    )
+                )
+            )
 
     return response
 
@@ -379,12 +394,17 @@ async def handle_graphics_report_request(
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = render(request, 'graphic-error.html', dict(
-            debug=settings.DEBUG,
-            traceback=traceback.format_exc(),
-        ))
+        response = response = \
+            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
+                name='graphic-error.html',
+                context=dict(
+                    request=request,
+                    debug=settings.DEBUG,
+                    traceback=traceback.format_exc()
+                )
+            )
     else:
-        response = HttpResponse(report, content_type='image/png')
+        response = Response(report, media_type='image/png')
 
     return response
 

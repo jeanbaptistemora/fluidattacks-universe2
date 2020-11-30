@@ -45,6 +45,22 @@ spec:
             backend:
               serviceName: integrates-master
               servicePort: 81
+          - path: /graphics-for-organization
+            backend:
+              serviceName: integrates-master
+              servicePort: 81
+          - path: /graphics-for-group
+            backend:
+              serviceName: integrates-master
+              servicePort: 81
+          - path: /graphics-for-portfolio
+            backend:
+              serviceName: integrates-master
+              servicePort: 81
+          - path: /graphics-report
+            backend:
+              serviceName: integrates-master
+              servicePort: 81
           - path: /logout
             backend:
               serviceName: integrates-master

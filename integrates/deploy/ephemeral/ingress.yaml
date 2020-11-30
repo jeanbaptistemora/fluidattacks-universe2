@@ -45,6 +45,22 @@ spec:
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
               servicePort: 81
+          - path: /graphics-for-organization
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
+          - path: /graphics-for-group
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
+          - path: /graphics-for-portfolio
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
+          - path: /graphics-report
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 81
           - path: /logout
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
