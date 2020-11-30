@@ -5,8 +5,11 @@ import networkx as nx
 from parse_java.assertions import (
     common,
     custom_class_instance_creation_expression_lfno_primary,
+    custom_method_invocation,
+    expression_statement,
     local_variable_declaration_statement,
     method_declaration,
+    string_literal,
 )
 
 # Constants
@@ -33,10 +36,19 @@ def inspect(
         custom_class_instance_creation_expression_lfno_primary.inspect(
             graph, n_id, ctx=ctx,
         )
+    elif type_ in {
+        'CustomMethodInvocation',
+        'CustomMethodInvocation_lfno_primary',
+    }:
+        custom_method_invocation.inspect(graph, n_id, ctx=ctx)
+    elif type_ == 'ExpressionStatement':
+        expression_statement.inspect(graph, n_id, ctx=ctx)
     elif type_ == 'LocalVariableDeclarationStatement':
         local_variable_declaration_statement.inspect(graph, n_id, ctx=ctx)
     elif type_ == 'MethodDeclaration':
         method_declaration.inspect(graph, n_id, ctx=ctx)
+    elif type_ == 'StringLiteral':
+        string_literal.inspect(graph, n_id, ctx=ctx)
     elif type_ in _UNINTERESTING_NODES:
         pass
     else:

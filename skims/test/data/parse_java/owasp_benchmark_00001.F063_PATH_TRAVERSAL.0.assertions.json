@@ -16,13 +16,34 @@
       "type": "BINDING"
     },
     {
-      "source": [],
+      "args": [
+        {
+          "type": "LITERAL",
+          "value": "\"text/html;charset=UTF-8\""
+        }
+      ],
+      "method": "response.setContentType",
+      "type": "CALL"
+    },
+    {
+      "source": [
+        {
+          "args": [],
+          "method": "request.getCookies",
+          "type": "CALL"
+        }
+      ],
       "type": "BINDING",
       "var": "theCookies",
       "var_type": "javax.servlet.http.Cookie[]"
     },
     {
-      "source": [],
+      "source": [
+        {
+          "type": "LITERAL",
+          "value": "\"noCookieValueSupplied\""
+        }
+      ],
       "type": "BINDING",
       "var": "param",
       "var_type": "String"
