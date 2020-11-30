@@ -236,7 +236,10 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
     ? [userEmail]
     : data.project.stakeholders.map((stakeholder: Dictionary<string>): string => stakeholder.email);
 
-  const lastTreatment: IHistoricTreatment = groupLastHistoricTreatment(props.vulnerabilities);
+  const lastTreatment: IHistoricTreatment = {
+    ...groupLastHistoricTreatment(props.vulnerabilities),
+    justification: "",
+  };
 
   const formValues: Dictionary<string> = useSelector((state: {}) =>
     formValueSelector("editTreatmentVulnerability")(state, "treatment", ""));
@@ -324,6 +327,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
               </Col50>
             ) : undefined}
           </Row>
+          {formValues.treatment === "IN_PROGRESS" ? (
           <Row>
             <Col50>
               <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
@@ -346,6 +350,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
               </Can>
             </Col50>
           </Row>
+          ) : undefined}
           <Row>
             <Col100>
               <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>

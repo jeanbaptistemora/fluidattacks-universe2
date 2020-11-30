@@ -587,9 +587,6 @@ describe("Vulnerabilities view", () => {
     externalBts
       .at(0)
       .simulate("change", { target: { value: "http://test.t" } });
-    const treatmentManager: ReactWrapper = wrapper
-      .find({ name: "treatmentManager" })
-      .find("select");
     const treatment: ReactWrapper = wrapper.find({ name: "treatment" })
       .find("select")
       .at(0);
@@ -598,6 +595,11 @@ describe("Vulnerabilities view", () => {
       .at(0);
     treatment.simulate("change", { target: { value: "IN_PROGRESS" }});
     treatmentJustification.simulate("change", { target: { value: "test justification to treatment" }});
+
+    await act(async () => { await wait(0); wrapper.update(); });
+    const treatmentManager: ReactWrapper = wrapper
+      .find({ name: "treatmentManager" })
+      .find("select");
     treatmentManager
       .at(0)
       .simulate("change", { target: { value: "manager_test@test.test" } });

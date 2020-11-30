@@ -97,6 +97,14 @@ describe("Update Description component", () => {
         expect(wrapper)
           .toHaveLength(1);
         expect(wrapper.find({ renderAsEditable: true }))
+          .toHaveLength(3);
+
+        const treatment: ReactWrapper = wrapper.find({ name: "treatment" })
+          .find("select")
+          .at(0);
+        treatment.simulate("change", { target: { value: "IN_PROGRESS" }});
+        wrapper.update();
+        expect(wrapper.find({ renderAsEditable: true }))
           .toHaveLength(4);
       });
     });
