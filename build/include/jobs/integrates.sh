@@ -513,9 +513,6 @@ function job_integrates_serve_components {
               elif [[ "${arg}" == 'mobile' ]]
               then
                 helper_integrates_serve_mobile
-              elif [[ "${arg}" == 'nginx' ]]
-              then
-                helper_integrates_serve_nginx
               fi \
           ||  return 1
         done \
@@ -532,7 +529,6 @@ function job_integrates_kill_components {
     8022  # dynamodb
     8080  # back1
     8081  # back2
-    8500  # nginx
   )
 
   if test -n "${port}"

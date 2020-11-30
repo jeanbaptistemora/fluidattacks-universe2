@@ -44,6 +44,3 @@ analytics/**/*.jpg
 analytics/**/*.json
 analytics/**/*.html
 analytics/**/*.png
-
-# Nginx local
-.nginx
