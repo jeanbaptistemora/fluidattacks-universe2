@@ -5,6 +5,7 @@ import os
 
 # Third party libraries
 import bugsnag
+import newrelic.agent
 
 from aioextensions import in_thread
 from asgiref.sync import async_to_sync
@@ -86,7 +87,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
     return RedirectResponse(url=redir)
 
 
-APP = Starlette(
+STARLETTE_APP = Starlette(
     debug=settings.DEBUG,
     routes=[
         Route('/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
@@ -116,4 +117,10 @@ APP = Starlette(
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_TEST_KEY),
         Middleware(CustomRequestMiddleware)
     ]
+)
+
+newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
+APP = newrelic.agent.ASGIApplicationWrapper(
+    STARLETTE_APP,
+    framework=('Starlette', '0.13.8')
 )
