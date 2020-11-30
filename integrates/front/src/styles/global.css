@@ -174,6 +174,14 @@ label {
   list-style: none;
 }
 
+:global .nav-group input {
+  background: unset;
+  border: none;
+  border-left: 1px solid lightgray;
+  border-bottom: none;
+  border-right: none;
+}
+
 :global .nav-item {
   color: #777;
   padding: 10px;

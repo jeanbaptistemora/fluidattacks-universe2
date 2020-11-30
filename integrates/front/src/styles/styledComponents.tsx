@@ -389,6 +389,15 @@ const NavBarForm: StyledComponent<
   className: "navbar-form",
 })``;
 
+const NavBarFormGroup: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "nav-group flex items-center",
+})``;
+
 const NavBarHeader: StyledComponent<
   "div",
   Record<string, unknown>
@@ -664,6 +673,7 @@ export {
   NavBar,
   NavBarCollapse,
   NavBarForm,
+  NavBarFormGroup,
   NavBarHeader,
   NavItem,
   NavSplitButtonContainer,

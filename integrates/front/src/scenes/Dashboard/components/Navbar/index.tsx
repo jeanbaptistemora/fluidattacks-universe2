@@ -4,7 +4,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {
-  InputGroup,
   MenuItem,
   SelectCallback,
   SplitButton,
@@ -19,6 +18,7 @@ import {
   NavBar,
   NavBarCollapse,
   NavBarForm,
+  NavBarFormGroup,
   NavBarHeader,
   NavSplitButtonContainer,
 } from "styles/styledComponents";
@@ -26,7 +26,6 @@ import {
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { default as style } from "scenes/Dashboard/components/Navbar/index.css";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
@@ -157,19 +156,17 @@ export const navbarComponent: React.FC = (): JSX.Element => {
               <li role="presentation">
                 <NavBarForm>
                   <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
-                    <InputGroup className={style.groupsInput}>
+                    <NavBarFormGroup>
                       <Field
                         component={Text}
                         name={"projectName"}
                         placeholder={translate.t("navbar.searchPlaceholder")}
                         validate={[alphaNumeric]}
                       />
-                      <InputGroup.Button>
-                        <Button className={"bg-sb b--sb"} type={"submit"}>
-                          <FluidIcon icon={"search"} />
-                        </Button>
-                      </InputGroup.Button>
-                    </InputGroup>
+                      <Button className={"bg-sb b--sb outline-0"} type={"submit"}>
+                        <FluidIcon icon={"search"} />
+                      </Button>
+                    </NavBarFormGroup>
                   </GenericForm>
                 </NavBarForm>
               </li>
