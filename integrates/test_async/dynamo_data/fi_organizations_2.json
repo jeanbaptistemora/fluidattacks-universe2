@@ -31,6 +31,9 @@
                     },
                     "max_number_acceptations": {
                         "N": "2"
+                    },
+                    "pending_deletion_date": {
+                        "S": "2019-11-22 15:07:57"
                     }
                 }
             }
@@ -121,6 +124,9 @@
                     },
                     "min_acceptance_severity": {
                         "N": "3.4"
+                    },
+                    "pending_deletion_date": {
+                        "S": "2019-11-22 15:07:57"
                     }
                 }
             }
@@ -219,6 +225,9 @@
                     },
                     "max_number_acceptations": {
                         "N": "1"
+                    },
+                    "pending_deletion_date": {
+                        "S": "2019-11-22 15:07:57"
                     }
                 }
             }
@@ -351,6 +360,9 @@
                     },
                     "sk": {
                         "S": "INFO#himura"
+                    },
+                    "pending_deletion_date": {
+                        "S": "2019-11-22 15:07:57"
                     }
                 }
             }

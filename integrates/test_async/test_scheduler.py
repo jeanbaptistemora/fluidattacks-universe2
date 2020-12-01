@@ -6,10 +6,16 @@ from decimal import Decimal
 from asgiref.sync import async_to_sync
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
+from freezegun import freeze_time
 from jose import jwt
 
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
+from backend.domain.organization import (
+    get_pending_deletion_date,
+    iterate_organizations,
+    update_pending_deletion_date,
+)
 from backend.domain.project import get_released_findings
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
@@ -20,8 +26,10 @@ from backend.scheduler import (
     get_by_time_range, create_register_by_week, create_data_format_chart,
     get_first_week_dates, get_date_last_vulns,
     create_msj_finding_pending, format_vulnerabilities,
-    get_project_indicators
+    get_project_indicators,
+    integrates_delete_obsolete_orgs
 )
+from backend.utils import datetime as datetime_utils
 
 from backend_new import settings
 
@@ -223,3 +231,33 @@ async def test_get_project_indicators():
     assert isinstance(test_data, dict)
     assert len(test_data) == 14
     assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))
+
+@pytest.mark.changes_db
+@freeze_time("2019-12-01")
+async def test_integrates_delete_obsolete_orgs():
+    org_id = 'ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448'
+    org_name = 'kiba'
+    org_ids = []
+    async for organization_id, _ in iterate_organizations():
+        org_ids.append(organization_id)
+    assert org_id in org_ids
+    assert len(org_ids) == 8
+
+    now_str = datetime_utils.get_as_str(
+         datetime_utils.get_now()
+    )
+    await update_pending_deletion_date(
+        org_id,
+        org_name,
+        now_str
+    )
+    await integrates_delete_obsolete_orgs()
+    new_org_ids = []
+    async for organization_id, _ in iterate_organizations():
+        new_org_ids.append(organization_id)
+    assert org_id not in new_org_ids
+    assert len(new_org_ids) == 7
+
+    org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
+    org_pending_deletion_date = await get_pending_deletion_date(org_id)
+    assert org_pending_deletion_date == '2020-01-29 19:00:00'

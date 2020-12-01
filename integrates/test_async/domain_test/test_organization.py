@@ -402,7 +402,8 @@ async def test_iterate_organizations():
         'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de': 'tatsumi',
         'ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2': 'himura',
         'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1': 'makimachi',
-        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': 'kamiya'
+        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': 'kamiya',
+        'ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448': 'kiba',
     }
     async for org_id, org_name in org_domain.iterate_organizations():
         assert expected_organizations.pop(org_id) == org_name
@@ -431,7 +432,10 @@ async def test_iterate_organizations_and_groups():
         },
         'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': {
             'kamiya': ['barranquilla', 'monteria']
-        }
+        },
+        'ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448': {
+            'kiba': []
+        },
     }
     async for org_id, org_name, groups in org_domain.iterate_organizations_and_groups():
         assert sorted(groups) == sorted(expected_organizations_and_groups.pop(org_id)[org_name])

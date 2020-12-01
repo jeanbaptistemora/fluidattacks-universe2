@@ -107,6 +107,30 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+                    },
+                    "sk": {
+                        "S": "INFO#kiba"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+                    },
+                    "sk": {
+                        "S": "USER#org_testuser6@gmail.com"
+                    }
+                }
+            }
         }
     ]
 }
