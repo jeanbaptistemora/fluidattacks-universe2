@@ -157,7 +157,8 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
                   severity: _.isEmpty(dataTreatment.severity) ? -1 : Number(dataTreatment.severity),
                   tag: dataTreatment.tag,
                   treatment: isTreatmentPristine ? "IN_PROGRESS" : dataTreatment.treatment,
-                  treatmentManager: _.isEmpty(dataTreatment.treatmentManager)
+                  treatmentManager:
+                    _.isEmpty(dataTreatment.treatmentManager) || dataTreatment.treatment !== "IN_PROGRESS"
                     ? undefined
                     : dataTreatment.treatmentManager,
                   vulnerabilities: vulnsChuncked.map((vuln: IVulnDataType) => vuln.id),
