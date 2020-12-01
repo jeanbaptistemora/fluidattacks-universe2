@@ -29,6 +29,16 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
       "arn:aws:s3:::sorts/training/*"
     ]
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject"
+    ]
+    resources = [
+      "arn:aws:s3:::sorts/sorts_training*/*"
+    ]
+  }
 }
 
 resource "aws_iam_role" "sorts_sagemaker" {
