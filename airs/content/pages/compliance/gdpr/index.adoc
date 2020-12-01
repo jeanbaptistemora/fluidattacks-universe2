@@ -10,7 +10,7 @@
 == What is GDPR?
 
 [role="fw3 f3 lh-2"]
-GDPR refers to the General Data Protection Regulation that appeared in 2016 and
+link:https://gdpr-info.eu/[GDPR] refers to the General Data Protection Regulation that appeared in 2016 and
 was implemented in 2018 as a replacement of the EU Data Protection Directive
 95/46/EC. GDPR is constituted as a set of rules for data protection and privacy
 within the European Union (EU) and the European Economic Area (EEA). The GDPR
@@ -63,7 +63,7 @@ comprehensive testing and analysis to determine whether your company is
 effectively complying with all corresponding security requirements.
 
 [role="fw3 f3 lh-2"]
-Although Fluid Attacks’ Continuous Hacking service goes beyond the GDPR,
+Although Fluid Attacks’ link:../../services/continuous-hacking/[Continuous Hacking] service goes beyond the GDPR,
 testing around 200 technical security requirements in each of your projects,
 we can guarantee the detection of all vulnerabilities in your software
 associated with this standard. In addition, we provide you with reliable reports
@@ -73,7 +73,7 @@ penalties and, above all, guarantee secure systems for customers or users, thus
 ensuring their continued trust.
 
 [role="fw3 f3 lh-2"]
-All our security testing is based on Rules, which is a set of security
+All our security testing is based on link:../../products/rules/[​Rules], which is a set of security
 requirements written by us in a comprehensible manner, using several
 international standards as a reference. It allows you to parameterize the
 assessments we make to your systems and determine what your company agrees to

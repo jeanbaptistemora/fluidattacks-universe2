@@ -10,14 +10,15 @@
 == What is HIPAA?
 
 [role="fw3 f3 lh-2"]
-The HIPAA or Health Insurance Portability and Accountability Act is legislation
+The link:https://www.hhs.gov/hipaa/for-professionals/index.html[HIPAA] or Health Insurance Portability and Accountability Act is legislation
 created by the U.S. Congress in 1996. It was enacted to regulate and improve the
 flow of Protected Health Information (PHI; any data that could be used to
 identify a patient) within the healthcare context to avoid fraud and theft.
-This standard comprises five general rules, among which we highlight the Privacy
-Rule and the Security Rule for the storage and handling of PHI by covered
-entities (i.e., health plans, healthcare clearinghouses and healthcare
-providers) and business associates.
+This standard comprises five general rules,
+among which we highlight the link:https://www.hhs.gov/sites/default/files/privacysummary.pdf[Privacy Rule] and the link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Security Rule]
+for the storage and handling of PHI by link:https://www.hhs.gov/hipaa/for-professionals/covered-entities/index.html[covered entities]
+(i.e., health plans, healthcare clearinghouses
+and healthcare providers) and link:https://www.hhs.gov/hipaa/for-professionals/privacy/guidance/business-associates/index.html[business associates].
 
 == What is HIPAA compliance?
 
@@ -26,8 +27,8 @@ The covered entities have to respond to and implement three particular
 safeguards for the protection of PHI. These sets of requirements belong to the
 Code of Federal Regulations, Title 45, Part 164, Subpart C - Security Standards
 for the Protection of Electronic Protected Health Information and are
-specifically the Administrative (164.308), the Physical (164.310) and the
-Technical (164.312) safeguards.
+specifically the Administrative (link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308]), the Physical (link:https://www.law.cornell.edu/cfr/text/45/164.310[164.310])
+and the Technical (link:https://www.law.cornell.edu/cfr/text/45/164.312[164.312]) safeguards.
 
 [role="fw3 f3 lh-2"]
 Among the Administrative safeguards, we can observe requirements related to
@@ -43,7 +44,7 @@ encryption and decryption processes.
 
 [role="fw3 f3 lh-2"]
 To see all the requirements of each of the safeguards, you can follow these
-links: 164.308; 164.310; 164.312.
+links: link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308]; link:https://www.law.cornell.edu/cfr/text/45/164.310[164.310]; link:https://www.law.cornell.edu/cfr/text/45/164.312[164.312].
 
 [role="fw3 f3 lh-2"]
 Every organization storing, processing or transmitting PHI must ensure that
@@ -64,7 +65,7 @@ comprehensive testing and analysis to determine whether your company is
 effectively complying with all corresponding security requirements.
 
 [role="fw3 f3 lh-2"]
-Although Fluid Attacks’ Continuous Hacking service goes beyond the HIPAA,
+Although Fluid Attacks’ link:../../services/continuous-hacking/[Continuous Hacking] service goes beyond the HIPAA,
 testing around 200 technical security requirements in each of your projects,
 we can guarantee the detection of all vulnerabilities in your software
 associated with this standard. In addition, we provide you with reliable reports
@@ -74,7 +75,7 @@ penalties and, above all, guarantee secure systems for customers or users,
 thus ensuring their continued trust.
 
 [role="fw3 f3 lh-2"]
-All our security testing is based on Rules, which is a set of security
+All our security testing is based on link:../../products/rules/[​Rules], which is a set of security
 requirements written by us in a comprehensible manner, using several
 international standards as a reference. It allows you to parameterize the
 assessments we make to your systems and determine what your company agrees to

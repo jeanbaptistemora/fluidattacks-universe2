@@ -13,8 +13,8 @@
 NIST is the National Institute of Standards and Technology from the U.S. that
 has been in operation for more than a century, supporting a multiplicity of
 science-based products and services. Within NIST is the Information Technology
-Laboratory (ITL), and linked to it is the National Vulnerability Database (NVD),
-where the NIST Special Publication 800-53 (Rev. 4) appears.
+Laboratory (link:https://www.nist.gov/itl/about-itl[ITL]), and linked to it is the National Vulnerability Database (link:https://nvd.nist.gov/general[NVD]),
+where the link:https://nvd.nist.gov/800-53/Rev4[NIST Special Publication 800-53 (Rev. 4)] appears.
 
 == What is the NIST SP 800-53?
 
@@ -32,28 +32,29 @@ Families, each one with the corresponding and variable security controls
 (follow the links below):
 
 [role="fw3 f3 lh-2"]
-1. AC - Access Control
-2. AT - Awareness and Training
-3. AU - Audit and Accountability
-4. CA - Security Assessment and Authorization
-5. CM - Configuration Management
-6. CP - Contingency Planning
-7. IA - Identification and Authentication
-8. IR - Incident Response
-9. MA - Maintenance
-10. MP - Media Protection
-11. PE - Physical and Environmental Protection
-12. PL - Planning
-13. PM - Program Management
-14. PS - Personnel Security
-15. RA - Risk Assessment
-16. SA - System and Services Acquisition
-17. SC - System and Communications Protection
-18. SI - System and Information Integrity
+1. AC - link:https://nvd.nist.gov/800-53/Rev4/family/Access%20Control[Access Control]
+2. AT - link:https://nvd.nist.gov/800-53/Rev4/family/Awareness%20and%20Training[Awareness and Training]
+3. AU - link:https://nvd.nist.gov/800-53/Rev4/family/Audit%20and%20Accountability[Audit and Accountability]
+4. CA - link:https://nvd.nist.gov/800-53/Rev4/family/Security%20Assessment%20and%20Authorization[Security Assessment and Authorization]
+5. CM - link:https://nvd.nist.gov/800-53/Rev4/family/Configuration%20Management[Configuration Management]
+6. CP - link:https://nvd.nist.gov/800-53/Rev4/family/Contingency%20Planning[Contingency Planning]
+7. IA - link:https://nvd.nist.gov/800-53/Rev4/family/Identification%20and%20Authentication[Identification and Authentication]
+8. IR - link:https://nvd.nist.gov/800-53/Rev4/family/Incident%20Response[Incident Response]
+9. MA - link:https://nvd.nist.gov/800-53/Rev4/family/Maintenance[Maintenance]
+10. MP - link:https://nvd.nist.gov/800-53/Rev4/family/Media%20Protection[Media Protection]
+11. PE - link:https://nvd.nist.gov/800-53/Rev4/family/Physical%20and%20Environmental%20Protection[Physical and Environmental Protection]
+12. PL - link:https://nvd.nist.gov/800-53/Rev4/family/Planning[Planning]
+13. PM - link:https://nvd.nist.gov/800-53/Rev4/family/Program%20Management[Program Management]
+14. PS - link:https://nvd.nist.gov/800-53/Rev4/family/Personnel%20Security[Personnel Security]
+15. RA - link:https://nvd.nist.gov/800-53/Rev4/family/Risk%20Assessment[Risk Assessment]
+16. SA - link:https://nvd.nist.gov/800-53/Rev4/family/System%20and%20Services%20Acquisition[System and Services Acquisition]
+17. SC - link:https://nvd.nist.gov/800-53/Rev4/family/System%20and%20Communications%20Protection[System and Communications Protection]
+18. SI - link:https://nvd.nist.gov/800-53/Rev4/family/System%20and%20Information%20Integrity[System and Information Integrity]
 
 [role="fw3 f3 lh-2"]
-It is relevant to mention that in September 2020 a final version of the NIST
-SP 800-53 (Rev. 5) was completed, which eliminated the word ‘federal’ from the
+It is relevant to mention that in September 2020
+a final version of the link:https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final[NIST SP 800-53 (Rev. 5)] was completed,
+which eliminated the word ‘federal’ from the
 title, changing it to ‘Security and Privacy Controls for Information Systems and
 Organizations’, thus indicating that it is not limited to federal agencies and
 can serve as a guide for any organization for the compliance of multiple
@@ -85,7 +86,7 @@ comprehensive testing and analysis to determine whether your company is
 effectively complying with all corresponding security requirements.
 
 [role="fw3 f3 lh-2"]
-Although Fluid Attacks’ Continuous Hacking service goes beyond the NIST 800-53,
+Although Fluid Attacks’ link:../../services/continuous-hacking/[Continuous Hacking] service goes beyond the NIST 800-53,
 testing around 200 technical security requirements in each of your projects,
 we can guarantee the detection of all vulnerabilities in your software
 associated with this standard. In addition, we provide you with reliable
@@ -93,7 +94,7 @@ reports so that your team can take the necessary steps to adjust and maintain
 your information systems in line with such requirements.
 
 [role="fw3 f3 lh-2"]
-All our security testing is based on Rules, which is a set of security
+All our security testing is based on link:../../products/rules/[​Rules], which is a set of security
 requirements written by us in a comprehensible manner, using several
 international standards as a reference. It allows you to parameterize the
 assessments we make to your systems and determine what your company agrees to
