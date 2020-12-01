@@ -4,18 +4,21 @@ from typing import Any, Dict
 # Third party libraries
 from selenium import webdriver
 
+# Local libraries
+import helpers
 
-def test_login_screen(
+
+def test_dashboard(
         browserstack_cap: Dict[str, str],
-        browserstack_url: str,
-        endpoint: str) -> None:
-    browserstack_cap['name'] = test_login_screen.__name__
+        bitbucket_credentials: Dict[str, str],
+        browserstack_url: str) -> None:
+    browserstack_cap['name'] = test_dashboard.__name__
 
     driver: Any = webdriver.Remote(
         command_executor=browserstack_url,
         desired_capabilities=browserstack_cap
     )
 
-    driver.get(endpoint)
-    assert 'FluidIntegrates' in driver.page_source
+    helpers.login_bitbucket(driver, bitbucket_credentials)
+
     driver.quit()

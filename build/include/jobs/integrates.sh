@@ -1037,6 +1037,7 @@ function job_integrates_test_e2e {
     --maxfail 20
     --show-capture no
     --verbose
+    -n 2
   )
 
       pushd integrates \
@@ -1045,6 +1046,8 @@ function job_integrates_test_e2e {
     &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
           BROWSERSTACK_USER \
           BROWSERSTACK_KEY \
+          BITBUCKET_USER \
+          BITBUCKET_PASS \
     &&  pushd test_e2e \
       &&  pytest "${args_pytest[@]}" < /dev/null \
     &&  popd \

@@ -34,6 +34,16 @@ def is_ci() -> bool:
 
 
 @pytest.fixture(autouse=True, scope='session')
+def bitbucket_credentials() -> Dict[str, str]:
+    user = os.environ['BITBUCKET_USER']
+    password = os.environ['BITBUCKET_PASS']
+    return {
+        'user': user,
+        'password': password
+    }
+
+
+@pytest.fixture(autouse=True, scope='session')
 def endpoint(branch: str, is_ci: bool) -> str:
     url: str = ''
     if branch == 'master':
