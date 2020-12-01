@@ -22,7 +22,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
             filter=root_state.get('filter'),
-            id=root['sk'],
+            id=root['id'],
             includes_health_check=root_state['includes_health_check'],
             url=root_state['url']
         )
@@ -30,13 +30,13 @@ def format_root(root: Dict[str, Any]) -> Root:
     if root['kind'] == 'IP':
         return IPRoot(
             address=root_state['address'],
-            id=root['sk'],
+            id=root['id'],
             port=root_state['port']
         )
 
     return URLRoot(
         host=root_state['host'],
-        id=root['sk'],
+        id=root['id'],
         path=root_state['path'],
         port=root_state['port'],
         protocol=root_state['protocol']
@@ -47,14 +47,56 @@ async def get_root_by_id(root_id: str) -> Dict[str, Any]:
     root: Optional[Dict[str, Any]] = await root_dal.get_root_by_id(root_id)
 
     if root:
-        return root
+        return {
+            **root,
+            'group_name': root['sk'].split('GROUP#')[-1],
+            'id': root['pk']
+        }
     raise RootNotFound()
 
 
-async def get_roots_by_group(group_name: str) -> Tuple[Root, ...]:
+async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
     roots = await root_dal.get_roots_by_group(group_name)
 
-    return tuple(format_root(root) for root in roots)
+    return tuple(
+        {
+            **root,
+            'group_name': root['pk'].split('GROUP#')[-1],
+            'id': root['sk']
+        }
+        for root in roots
+    )
+
+
+def _matches_root(
+    kind: str,
+    root: Dict[str, Any],
+    new_root: Dict[str, str]
+) -> bool:
+    assert kind in {'Git', 'IP', 'URL'}
+    current_state: Dict[str, str] = root['historic_state'][-1]
+
+    if kind == root['kind'] == 'Git':
+        return (
+            current_state['url'] == new_root['url']
+            and current_state['branch'] == new_root['branch']
+        )
+
+    if kind == root['kind'] == 'IP':
+        return (
+            current_state['address'] == new_root['address']
+            and current_state['port'] == new_root['port']
+        )
+
+    if kind == root['kind'] == 'URL':
+        return (
+            current_state['host'] == new_root['host']
+            and current_state['path'] == new_root['path']
+            and current_state['port'] == new_root['port']
+            and current_state['protocol'] == new_root['protocol']
+        )
+
+    return False
 
 
 async def _is_unique_in_org(
@@ -66,57 +108,32 @@ async def _is_unique_in_org(
     org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
 
     for group_name in org_groups:
-        group_roots: Tuple[Root, ...] = await get_roots_by_group(group_name)
+        group_roots = await get_roots_by_group(group_name)
 
-        if kind == 'Git' and bool(next(
+        if next(
             (
                 root
                 for root in group_roots
-                if isinstance(root, GitRoot)
-                and root.url == new_root['url']
-                and root.branch == new_root['branch']
+                if _matches_root(kind, root, new_root)
             ),
             None
-        )):
-            return False
-
-        if kind == 'IP' and bool(next(
-            (
-                root
-                for root in group_roots
-                if isinstance(root, IPRoot)
-                and root.address == new_root['address']
-                and root.port == new_root['port']
-            ),
-            None
-        )):
-            return False
-
-        if kind == 'URL' and bool(next(
-            (
-                root
-                for root in group_roots
-                if isinstance(root, URLRoot)
-                and root.host == new_root['host']
-                and root.path == new_root['path']
-                and root.port == new_root['port']
-                and root.protocol == new_root['protocol']
-            ),
-            None
-        )):
+        ):
             return False
 
     return True
 
 
-async def add_git_root(user_email: str, **kwargs: Any) -> None:
-    group_name: str = kwargs['group_name'].lower()
-    is_valid: bool = (
-        validations.is_valid_url(kwargs['url'])
-        and validations.is_valid_git_branch(kwargs['branch'])
+def is_valid_git_repo(url: str, branch: str) -> bool:
+    return (
+        validations.is_valid_url(url)
+        and validations.is_valid_git_branch(branch)
     )
 
-    if is_valid:
+
+async def add_git_root(user_email: str, **kwargs: Any) -> None:
+    group_name: str = kwargs['group_name'].lower()
+
+    if is_valid_git_repo(kwargs['url'], kwargs['branch']):
         kind: str = 'Git'
         org_id: str = await org_domain.get_id_for_group(group_name)
         initial_state: Dict[str, Any] = {
@@ -206,19 +223,36 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['root_id']
     root: Dict[str, Any] = await get_root_by_id(root_id)
-    group_name: str = root['sk'].split('GROUP#')[-1]
-    new_state: Dict[str, Any] = {
-        'branch': kwargs['branch'],
-        'date': datetime.get_as_str(datetime.get_now()),
-        'environment': kwargs['environment'],
-        'filter': kwargs.get('filter'),
-        'includes_health_check': kwargs['includes_health_check'],
-        'url': kwargs['url'],
-        'user': user_email
-    }
-
-    await root_dal.update(
-        group_name,
-        root_id,
-        {'historic_state': [*root['historic_state'], new_state]}
+    is_valid: bool = (
+        is_valid_git_repo(kwargs['url'], kwargs['branch'])
+        and root['kind'] == 'Git'
     )
+
+    if is_valid:
+        group_name: str = root['group_name']
+        kind: str = 'Git'
+        org_id: str = await org_domain.get_id_for_group(group_name)
+        new_state: Dict[str, Any] = {
+            'branch': kwargs['branch'],
+            'date': datetime.get_as_str(datetime.get_now()),
+            'environment': kwargs['environment'],
+            'filter': kwargs.get('filter'),
+            'includes_health_check': kwargs['includes_health_check'],
+            'url': kwargs['url'],
+            'user': user_email
+        }
+
+        if (
+            new_state['branch'] != root['branch']
+            or new_state['url'] != root['url']
+            and not _is_unique_in_org(org_id, kind, new_state)
+        ):
+            raise RepeatedValues()
+
+        await root_dal.update(
+            group_name,
+            root_id,
+            {'historic_state': [*root['historic_state'], new_state]}
+        )
+    else:
+        raise InvalidParameter()
