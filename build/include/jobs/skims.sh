@@ -69,10 +69,31 @@ function job_skims_benchmark_owasp {
   &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  echo '[INFO] Computing score...' \
-    &&  poetry run skims test/data/config/owasp_benchmark.yaml \
+    &&  poetry run skims test/data/config/benchmark_owasp.yaml \
     &&  poetry run python3 skims/benchmark/__init__.py \
   &&  popd \
   ||  return 1
+}
+
+function job_skims_benchmark_upload {
+  local auth_redshift="${TEMP_FILE1}"
+
+      env_prepare_python_packages \
+  &&  echo '[INFO] Setting up secrets' \
+  &&  helper_observes_aws_login 'prod' \
+  &&  helper_common_sops_env 'observes/secrets-prod.yaml' 'default' \
+        'analytics_auth_redshift' \
+  &&  echo "${analytics_auth_redshift}" > "${auth_redshift}" \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json \
+        < 'skims/benchmark.json' \
+        > '.singer' \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${auth_redshift}" \
+        --drop-schema \
+        --schema-name 'skims_benchmark' \
+        < '.singer'
 }
 
 function job_skims_process_group {

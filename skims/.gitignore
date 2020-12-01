@@ -17,6 +17,7 @@
 /**/log.cfg.svg
 /**/log.model.json
 /**/log.svg
+/benchmark.json
 /coverage*
 /docs/skims
 /dist

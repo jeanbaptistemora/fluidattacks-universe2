@@ -1,7 +1,9 @@
 # Standard library
 import os
 import csv
+import json
 from typing import (
+    Any,
     Dict,
     List,
     NamedTuple,
@@ -142,17 +144,25 @@ def load_skims_results() -> Score:
 
 def main() -> None:
     score: Score = load_skims_results()
+    results_owasp: Dict[str, Any] = {
+        'stream': 'owasp',
+        'record': {},
+    }
 
     for attr, attr_value in (
-        ('skims_false_negatives', score.false_negatives),
-        ('skims_false_positives', score.false_positives),
-        ('skims_true_negatives', score.true_negatives),
-        ('skims_true_positives', score.true_positives),
-        ('skims_true_positives_rate', score.true_positives_rate),
-        ('skims_false_positives_rate', score.false_positives_rate),
-        ('skims_score', score.score),
+        ('false_negatives', score.false_negatives),
+        ('false_positives', score.false_positives),
+        ('true_negatives', score.true_negatives),
+        ('true_positives', score.true_positives),
+        ('true_positives_rate', score.true_positives_rate),
+        ('false_positives_rate', score.false_positives_rate),
+        ('score', 100 * score.score),
     ):
+        results_owasp['record'][attr] = attr_value
         blocking_log('info', '%s: %s', attr, attr_value)
+
+    with open('benchmark.json', 'w') as handle:
+        json.dump(results_owasp, handle, sort_keys=True)
 
 
 if __name__ == '__main__':

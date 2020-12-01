@@ -141,6 +141,7 @@ function job_common_test_jobs_provisioner {
     'common_process_on_aws'
     'forces'
     'skims'
+    'skims_benchmark'
     'sorts'
     'observes_code'
     'integrates_analytics_make_snapshots_prod'

@@ -1,4 +1,5 @@
 # Standard library
+import os
 from typing import (
     Optional,
 )
@@ -43,11 +44,14 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
     try:
         config_path = config.pop('path', None)
 
+        if output := config.pop('output', None):
+            output = os.path.abspath(output)
+
         skims_config: SkimsConfig = SkimsConfig(
             chdir=config.pop('chdir', None),
             group=group,
             language=LocalesEnum(config.pop('language')),
-            output=config.pop('output', None),
+            output=output,
             path=SkimsPathConfig(
                 exclude=config_path.pop('exclude'),
                 include=config_path.pop('include'),

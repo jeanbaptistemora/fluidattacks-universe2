@@ -104,7 +104,6 @@ async def analyze(
         graph = await java_parse_from_content(
             Grammar.JAVA9,
             content=content.encode(),
-            debug=True,
             path=path,
         )
         coroutines.append(java_path_traversal(

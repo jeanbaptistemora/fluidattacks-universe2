@@ -44,6 +44,17 @@
       when: never
     - if: *skims_commit_pattern
 
+skims_benchmark:
+  <<: *with_nix
+  interruptible: false
+  only:
+    refs: [schedules]
+    variables: [$skims_benchmark]
+  script:
+    - ./build.sh skims_benchmark_owasp
+    - ./build.sh skims_benchmark_upload
+  stage: scheduler
+
 skims_deploy_infra:
   <<: *with_nix
   <<: *skims_in_master_branch
