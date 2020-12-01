@@ -91,7 +91,7 @@ def _variable_declarator(
 
         # Add the variable to the mapping
         ctx['statements'].append({
-            'source': src_ctx['statements'],
+            'stack': src_ctx['statements'],
             'type': 'BINDING',
             'var': graph.nodes[match['IdentifierRule']]['label_text'],
             'var_type': type_attrs_label_text,

@@ -19,9 +19,6 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     SHIELD,
 )
-from parse_java.assertions import (
-    get as get_assertions,
-)
 from parse_java.parse import (
     parse_from_content as java_parse_from_content,
 )
@@ -52,13 +49,11 @@ def _java_path_traversal(
 
     def iterator() -> Iterator[g.NAttrs]:
         for path in g.flows(graph, sink_type='F063_PATH_TRAVERSAL'):
-            context = evaluate(graph, path)
-            if context['complete']:
-                get_assertions(context['statements'])
+            if evaluate(graph, path):
                 # This is never going to happen
                 # I'm adding it to early test the functionality
-                if '__never__' in context:
-                    yield context['vulnerable']['node']
+                if '__never__' in locals():
+                    yield {}
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,

@@ -90,7 +90,11 @@ async def test_graph_generation(path: str, name: str) -> None:
         for index, path in enumerate(  # type: ignore
             sorted(g.flows(graph, sink_type=sink)),
         ):
-            assertions = evaluate(graph, path)  # type: ignore
+            assertions = evaluate(
+                graph,
+                path,  # type: ignore
+                allow_incomplete=True,
+            )
             assertions_as_json = json.dumps(assertions, indent=2, sort_keys=True)
 
             with open(f'test/data/parse_java/{name}.{sink}.{index}.assertions.json') as handle:

@@ -34,8 +34,8 @@ def evaluate(
         common.merge_contexts(ctx, r_ctx)
 
         ctx['statements'].append({
-            'left': l_ctx['statements'],
-            'right': r_ctx['statements'],
+            'stack_0': r_ctx['statements'],
+            'stack_1': l_ctx['statements'],
             'type': 'ADD',
         })
     else:

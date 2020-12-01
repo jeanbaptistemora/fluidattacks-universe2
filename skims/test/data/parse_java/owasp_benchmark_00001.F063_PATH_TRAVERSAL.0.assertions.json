@@ -1,78 +1,72 @@
-{
-  "complete": false,
-  "statements": [
-    {
-      "source": null,
-      "type": "BINDING",
-      "var": "request",
-      "var_type": "HttpServletRequest"
-    },
-    {
-      "source": null,
-      "type": "BINDING",
-      "var": "response",
-      "var_type": "HttpServletResponse"
-    },
-    {
-      "args": [
-        {
-          "type": "LITERAL",
-          "value": "\"text/html;charset=UTF-8\""
-        }
-      ],
-      "method": "response.setContentType",
-      "type": "CALL"
-    },
-    {
-      "source": [
-        {
-          "args": [],
-          "method": "request.getCookies",
-          "type": "CALL"
-        }
-      ],
-      "type": "BINDING",
-      "var": "theCookies",
-      "var_type": "javax.servlet.http.Cookie[]"
-    },
-    {
-      "source": [
-        {
-          "type": "LITERAL",
-          "value": "\"noCookieValueSupplied\""
-        }
-      ],
-      "type": "BINDING",
-      "var": "param",
-      "var_type": "String"
-    },
-    {
-      "source": [],
-      "type": "BINDING",
-      "var": "fileName",
-      "var_type": "String"
-    },
-    {
-      "source": [],
-      "type": "BINDING",
-      "var": "fis",
-      "var_type": "java.io.FileInputStream"
-    },
-    {
-      "args": [
-        {
-          "args": [
-            {
-              "symbol": "fileName",
-              "type": "LOOKUP"
-            }
-          ],
-          "class_type": "java.io.File",
-          "type": "CLASS_INSTANTIATION"
-        }
-      ],
-      "class_type": "java.io.FileInputStream",
-      "type": "CLASS_INSTANTIATION"
-    }
-  ]
-}
+[
+  {
+    "stack": 0,
+    "type": "BINDING",
+    "var": "request",
+    "var_type": "HttpServletRequest"
+  },
+  {
+    "stack": 0,
+    "type": "BINDING",
+    "var": "response",
+    "var_type": "HttpServletResponse"
+  },
+  {
+    "stack": 0,
+    "type": "LITERAL",
+    "value": "\"text/html;charset=UTF-8\""
+  },
+  {
+    "method": "response.setContentType",
+    "stack": -1,
+    "type": "CALL"
+  },
+  {
+    "method": "request.getCookies",
+    "stack": 0,
+    "type": "CALL"
+  },
+  {
+    "stack": -1,
+    "type": "BINDING",
+    "var": "theCookies",
+    "var_type": "javax.servlet.http.Cookie[]"
+  },
+  {
+    "stack": 0,
+    "type": "LITERAL",
+    "value": "\"noCookieValueSupplied\""
+  },
+  {
+    "stack": -1,
+    "type": "BINDING",
+    "var": "param",
+    "var_type": "String"
+  },
+  {
+    "stack": 0,
+    "type": "BINDING",
+    "var": "fileName",
+    "var_type": "String"
+  },
+  {
+    "stack": 0,
+    "type": "BINDING",
+    "var": "fis",
+    "var_type": "java.io.FileInputStream"
+  },
+  {
+    "symbol": "fileName",
+    "type": "LOOKUP"
+  },
+  {
+    "class_type": "java.io.File",
+    "stack": -1,
+    "type": "CLASS_INSTANTIATION"
+  },
+  {
+    "class_type": "java.io.FileInputStream",
+    "stack": -1,
+    "type": "CLASS_INSTANTIATION"
+  }
+]

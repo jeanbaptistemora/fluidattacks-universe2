@@ -1,106 +1,97 @@
-{
-  "complete": true,
-  "statements": [
-    {
-      "source": null,
-      "type": "BINDING",
-      "var": "request",
-      "var_type": "HttpServletRequest"
-    },
-    {
-      "source": null,
-      "type": "BINDING",
-      "var": "response",
-      "var_type": "HttpServletResponse"
-    },
-    {
-      "args": [
-        {
-          "type": "LITERAL",
-          "value": "\"text/html;charset=UTF-8\""
-        }
-      ],
-      "method": "response.setContentType",
-      "type": "CALL"
-    },
-    {
-      "source": [
-        {
-          "args": [],
-          "method": "request.getCookies",
-          "type": "CALL"
-        }
-      ],
-      "type": "BINDING",
-      "var": "theCookies",
-      "var_type": "javax.servlet.http.Cookie[]"
-    },
-    {
-      "source": [
-        {
-          "args": [
-            {
-              "args": [],
-              "method": "theCookie.getValue",
-              "type": "CALL"
-            },
-            {
-              "type": "LITERAL",
-              "value": "\"UTF-8\""
-            }
-          ],
-          "method": "java.net.URLDecoder.decode",
-          "type": "CALL"
-        }
-      ],
-      "type": "BINDING",
-      "var": "param",
-      "var_type": "String"
-    },
-    {
-      "source": [
-        {
-          "left": [
-            {
-              "type": "LITERAL",
-              "value": "org.owasp.benchmark.helpers.Utils.testfileDir"
-            }
-          ],
-          "right": [
-            {
-              "type": "LITERAL",
-              "value": "param"
-            }
-          ],
-          "type": "ADD"
-        }
-      ],
-      "type": "BINDING",
-      "var": "fileName",
-      "var_type": "String"
-    },
-    {
-      "source": [
-        {
-          "args": [
-            {
-              "args": [
-                {
-                  "symbol": "fileName",
-                  "type": "LOOKUP"
-                }
-              ],
-              "class_type": "java.io.File",
-              "type": "CLASS_INSTANTIATION"
-            }
-          ],
-          "class_type": "java.io.FileInputStream",
-          "type": "CLASS_INSTANTIATION"
-        }
-      ],
-      "type": "BINDING",
-      "var": "fis",
-      "var_type": "java.io.FileInputStream"
-    }
-  ]
-}
+[
+  {
+    "stack": 0,
+    "type": "BINDING",
+    "var": "request",
+    "var_type": "HttpServletRequest"
+  },
+  {
+    "stack": 0,
+    "type": "BINDING",
+    "var": "response",
+    "var_type": "HttpServletResponse"
+  },
+  {
+    "stack": 0,
+    "type": "LITERAL",
+    "value": "\"text/html;charset=UTF-8\""
+  },
+  {
+    "method": "response.setContentType",
+    "stack": -1,
+    "type": "CALL"
+  },
+  {
+    "method": "request.getCookies",
+    "stack": 0,
+    "type": "CALL"
+  },
+  {
+    "stack": -1,
+    "type": "BINDING",
+    "var": "theCookies",
+    "var_type": "javax.servlet.http.Cookie[]"
+  },
+  {
+    "method": "theCookie.getValue",
+    "stack": 0,
+    "type": "CALL"
+  },
+  {
+    "stack": 0,
+    "type": "LITERAL",
+    "value": "\"UTF-8\""
+  },
+  {
+    "method": "java.net.URLDecoder.decode",
+    "stack": -2,
+    "type": "CALL"
+  },
+  {
+    "stack": -1,
+    "type": "BINDING",
+    "var": "param",
+    "var_type": "String"
+  },
+  {
+    "stack": 0,
+    "type": "LITERAL",
+    "value": "param"
+  },
+  {
+    "stack": 0,
+    "type": "LITERAL",
+    "value": "org.owasp.benchmark.helpers.Utils.testfileDir"
+  },
+  {
+    "stack_0": -1,
+    "stack_1": -2,
+    "type": "ADD"
+  },
+  {
+    "stack": -1,
+    "type": "BINDING",
+    "var": "fileName",
+    "var_type": "String"
+  },
+  {
+    "symbol": "fileName",
+    "type": "LOOKUP"
+  },
+  {
+    "class_type": "java.io.File",
+    "stack": -1,
+    "type": "CLASS_INSTANTIATION"
+  },
+  {
+    "class_type": "java.io.FileInputStream",
+    "stack": -1,
+    "type": "CLASS_INSTANTIATION"
+  },
+  {
+    "stack": -1,
+    "type": "BINDING",
+    "var": "fis",
+    "var_type": "java.io.FileInputStream"
+  }
+]

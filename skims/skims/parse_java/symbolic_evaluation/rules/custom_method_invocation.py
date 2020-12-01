@@ -45,7 +45,7 @@ def evaluate(
             args = []
 
         ctx['statements'].append({
-            'args': args,
+            'stack': args,
             'method': method,
             'type': 'CALL',
         })

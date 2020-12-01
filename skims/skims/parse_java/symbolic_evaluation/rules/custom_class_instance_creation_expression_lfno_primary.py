@@ -50,7 +50,7 @@ def evaluate(
             args = args_ctx['statements']
 
         ctx['statements'].append({
-            'args': args,
+            'stack': args,
             'class_type': graph.nodes[match['CustomIdentifier']]['label_text'],
             'type': 'CLASS_INSTANTIATION',
         })
