@@ -24,7 +24,7 @@ export interface IFindingAttr {
   treatment: string;
   type: string;
   verified: boolean;
-  vulnerabilities: Array<{ where: string }>;
+  vulnerabilities: Array<{ historicTreatment: IHistoricTreatment[]; where: string  }>;
 }
 
 export interface IRequestProjectReportResult {

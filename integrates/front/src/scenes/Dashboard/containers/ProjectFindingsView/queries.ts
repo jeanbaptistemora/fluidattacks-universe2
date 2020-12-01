@@ -18,6 +18,11 @@ export const GET_FINDINGS: DocumentNode = gql`
         remediated
         verified
         vulnerabilities(state: "open") {
+          historicTreatment {
+            date
+            user
+            treatment
+          }
           where
         }
         historicTreatment

@@ -19,7 +19,7 @@ import { useHistory } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { limitFormatter, statusFormatter } from "components/DataTableNext/formatters";
+import { limitFormatter, statusFormatter, treatmentFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal/index";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -257,6 +257,15 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       }),
       formatter: statusFormatter, header: "Status", onSort: onSortState, visible: checkedItems.state, width: "7%",
       wrapped: true,
+    },
+    {
+      align: "left",
+      dataField: "treatment",
+      formatter: treatmentFormatter,
+      header: translate.t("search_findings.tab_description.treatment.title"),
+      onSort: onSortState,
+      visible: checkedItems.treatment,
+      width: "8%",
     },
     {
       align: "center", dataField: "remediated",
