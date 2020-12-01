@@ -32,7 +32,7 @@ resource "aws_route53_record" "changelog" {
   name    = "news.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["headwayapp.co"]
+  records = ["cname.announcekit.app"]
 }
 
 resource "aws_route53_record" "zd1_domainkey" {
