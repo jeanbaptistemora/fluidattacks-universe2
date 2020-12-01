@@ -7,7 +7,7 @@ public class Test {
     response.setContentType("text/html;charset=UTF-8");
 
     // Vuln
-    javax.servlet.http.Cookie[] theCookies = request.getCookies();
+    javax.servlet.http.Cookie[] theCookie = request.getCookies();
     String param = java.net.URLDecoder.decode(theCookie.getValue(), "UTF-8");
     String fileName = org.owasp.benchmark.helpers.Utils.testfileDir + param;
     java.io.FileInputStream fis = new java.io.FileInputStream(new java.io.File(fileName));

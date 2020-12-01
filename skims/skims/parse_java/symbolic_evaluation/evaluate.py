@@ -33,6 +33,7 @@ NON_RECURSIVE = {
     'LITERAL',
     'LOOKUP',
 }
+ALL_TYPES = NON_RECURSIVE | RECURSIVE
 
 # Typing
 Assertion = Dict[str, Dict[str, Any]]
@@ -79,7 +80,7 @@ def _is_linear_or_flatten_one_level(statements: List[Statement]) -> bool:
                 for arg in statement[stack_name]:
                     arg_type = arg['type']
 
-                    if arg_type in NON_RECURSIVE | RECURSIVE:
+                    if arg_type in ALL_TYPES:
                         statements.insert(statement_index, arg)
                         statement_index += 1
                         stack += 1

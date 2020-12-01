@@ -620,12 +620,12 @@
       "label_c": 32,
       "label_l": 10,
       "label_parent_ast": "150",
-      "label_text": "theCookies",
+      "label_text": "theCookie",
       "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "154": {
-      "label_c": 43,
+      "label_c": 42,
       "label_l": 10,
       "label_parent_ast": "150",
       "label_text": "=",
@@ -641,14 +641,14 @@
       "label_type_index": "0"
     },
     "174": {
-      "label_c": 45,
+      "label_c": 44,
       "label_l": 10,
       "label_parent_ast": "150",
       "label_type": "CustomMethodInvocation_lfno_primary",
       "label_type_index": "0"
     },
     "177": {
-      "label_c": 45,
+      "label_c": 44,
       "label_l": 10,
       "label_parent_ast": "174",
       "label_text": "request.getCookies",
@@ -656,7 +656,7 @@
       "label_type_index": "0"
     },
     "181": {
-      "label_c": 63,
+      "label_c": 62,
       "label_l": 10,
       "label_parent_ast": "174",
       "label_text": "(",
@@ -664,7 +664,7 @@
       "label_type_index": "0"
     },
     "182": {
-      "label_c": 64,
+      "label_c": 63,
       "label_l": 10,
       "label_parent_ast": "174",
       "label_text": ")",
@@ -672,7 +672,7 @@
       "label_type_index": "0"
     },
     "183": {
-      "label_c": 65,
+      "label_c": 64,
       "label_l": 10,
       "label_parent_ast": "125",
       "label_text": ";",

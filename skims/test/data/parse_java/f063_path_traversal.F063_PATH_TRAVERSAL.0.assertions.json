@@ -29,7 +29,7 @@
   {
     "stack": -1,
     "type": "BINDING",
-    "var": "theCookies",
+    "var": "theCookie",
     "var_type": "javax.servlet.http.Cookie[]"
   },
   {
