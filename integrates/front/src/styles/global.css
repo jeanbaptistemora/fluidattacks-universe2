@@ -128,10 +128,6 @@ label {
   height: 40px;
 }
 
-:global .btn-loginInfo {
-  height: 42px;
-}
-
 :global .btn-microsoftLoginInfo {
   background-color: #007BFF;
   border-color: #007BFF;

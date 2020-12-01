@@ -220,29 +220,6 @@ const FormGroup: StyledComponent<
   className: "mb4 w-100",
 })``;
 
-const InfoButtonBitbucket: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className:
-    "dim w-100 db ba br0 outline-0 btn-loginInfo btn-bitbucketLoginInfo",
-})``;
-
-const InfoButtonGoogle: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className: "dim w-100 db ba br0 outline-0 btn-loginInfo btn-googleLoginInfo",
-})``;
-
-const InfoButtonMicrosoft: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className:
-    "dim w-100 db ba br0 outline-0 btn-loginInfo btn-microsoftLoginInfo",
-})``;
-
 const Label: StyledComponent<
   "span",
   Record<string, unknown>
@@ -423,33 +400,6 @@ const NavSplitButtonContainer: StyledComponent<
   className: string;
 }>({
   className: "split-button",
-})``;
-
-const Notification2FaCol: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "fl w-100 w-third-ns pa2",
-})``;
-
-const Notification2FaGrid: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "mw9 center pa2-ns",
-})``;
-
-const Notification2FaRow: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "cf flex pa1-ns",
 })``;
 
 const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
@@ -652,9 +602,6 @@ export {
   FindingHeaderLabel,
   Flex,
   FormGroup,
-  InfoButtonBitbucket,
-  InfoButtonGoogle,
-  InfoButtonMicrosoft,
   Label,
   LastProjectSetting,
   LoginButtonBitbucket,
@@ -677,9 +624,6 @@ export {
   NavBarHeader,
   NavItem,
   NavSplitButtonContainer,
-  Notification2FaCol,
-  Notification2FaGrid,
-  Notification2FaRow,
   Panel,
   PanelBody,
   ProgressBar,

@@ -11,9 +11,6 @@ import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
 import {
   Col100,
-  InfoButtonBitbucket,
-  InfoButtonGoogle,
-  InfoButtonMicrosoft,
   LoginButtonBitbucket,
   LoginButtonGoogle,
   LoginButtonMicrosoft,
@@ -22,11 +19,9 @@ import {
   LoginDeploymentDate,
   LoginGrid,
   LoginRow,
-  Notification2FaCol,
-  Notification2FaGrid,
-  Notification2FaRow,
 } from "styles/styledComponents";
 import { Slide, toast } from "react-toastify";
+import { TwoFaButton, TwoFacol } from "./components";
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -56,36 +51,36 @@ export const Login: React.FC = (): JSX.Element => {
   // Show 2FA Notification
   React.useEffect((): void => {
     toast.info(
-      <Notification2FaGrid>
-        <Notification2FaRow>
+      <div className={"pa2-ns"}>
+        <div className={"flex"}>
           <Col100>
             <p>{t("login.2fa")}</p>
           </Col100>
-        </Notification2FaRow>
-        <Notification2FaRow>
-          <Notification2FaCol>
-            <InfoButtonGoogle onClick={handleNotificationGoogle}>
-              <span>
-                <FontAwesome name={"google"} size={"2x"} />
-              </span>
-            </InfoButtonGoogle>
-          </Notification2FaCol>
-          <Notification2FaCol>
-            <InfoButtonMicrosoft onClick={handleNotificationMicrosoft}>
-              <span>
-                <FontAwesome name={"windows"} size={"2x"} />
-              </span>
-            </InfoButtonMicrosoft>
-          </Notification2FaCol>
-          <Notification2FaCol>
-            <InfoButtonBitbucket onClick={handleNotificationBitbucket}>
-              <span>
-                <FontAwesome name={"bitbucket"} size={"2x"} />
-              </span>
-            </InfoButtonBitbucket>
-          </Notification2FaCol>
-        </Notification2FaRow>
-      </Notification2FaGrid>,
+        </div>
+        <div className={"flex"}>
+          <TwoFacol>
+            <TwoFaButton
+              className={"btn-google"}
+              fontAwesomeName={"google"}
+              onClick={handleNotificationGoogle}
+            />
+          </TwoFacol>
+          <TwoFacol>
+            <TwoFaButton
+              className={"btn-azure"}
+              fontAwesomeName={"windows"}
+              onClick={handleNotificationMicrosoft}
+            />
+          </TwoFacol>
+          <TwoFacol>
+            <TwoFaButton
+              className={"btn-bitbucket"}
+              fontAwesomeName={"bitbucket"}
+              onClick={handleNotificationBitbucket}
+            />
+          </TwoFacol>
+        </div>
+      </div>,
       { autoClose: false, className: style.twofactor, transition: Slide }
     );
   }, [t]);
