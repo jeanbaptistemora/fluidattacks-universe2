@@ -6,9 +6,7 @@ import json
 import logging
 import os
 import string
-import traceback
 from typing import (
-    NamedTuple,
     Union,
 )
 
@@ -29,7 +27,6 @@ from PIL import (
 )
 
 from starlette.responses import Response
-from starlette.templating import Jinja2Templates
 
 # Local libraries
 from backend.dal import (
@@ -54,40 +51,16 @@ from backend.utils.encodings import (
     safe_encode,
 )
 from backend import util
+from backend.typing import (
+    GraphicsForEntityParameters,
+    GraphicParameters,
+    ReportParameters
+)
 from fluidintegrates.settings import LOGGING
 
-from backend_new import settings
+from backend_new.app import views as templates
 
 logging.config.dictConfig(LOGGING)
-
-# Containers
-GraphicParameters = NamedTuple(
-    'GraphicParameters',
-    [
-        ('document_name', str),
-        ('document_type', str),
-        ('entity', str),
-        ('generator_name', str),
-        ('generator_type', str),
-        ('height', int),
-        ('subject', str),
-        ('width', int)
-    ]
-)
-GraphicsForEntityParameters = NamedTuple(
-    'GraphicsForEntityParameters',
-    [
-        ('entity', str),
-        ('subject', str),
-    ]
-)
-ReportParameters = NamedTuple(
-    'ReportParameters',
-    [
-        ('entity', str),
-        ('subject', str),
-    ]
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -283,38 +256,9 @@ async def handle_graphic_request(request: HttpRequest) -> Response:
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = \
-            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
-                name='graphic-error.html',
-                context=dict(
-                    request=request,
-                    debug=settings.DEBUG,
-                    traceback=traceback.format_exc()
-                )
-            )
+        response = templates.graphic_error(request)
     else:
-        response = \
-            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
-                name='graphic.html',
-                context=dict(
-                    request=request,
-                    args=dict(
-                        data=json.dumps(document),
-                        height=params.height,
-                        width=params.width,
-                    ),
-                    generator_src=(
-                        f'graphics/'
-                        f'generators/'
-                        f'{params.generator_type}/'
-                        f'{params.generator_name}.js'
-                    ),
-                    c3js=f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.js',
-                    c3css=(
-                        f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.css'
-                    )
-                )
-            )
+        response = templates.graphic_view(request, document, params)
         response.headers['x-frame-options'] = 'SAMEORIGIN'
 
     return response
@@ -339,33 +283,9 @@ async def handle_graphics_for_entity_request(
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = response = \
-            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
-                name='graphic-error.html',
-                context=dict(
-                    request=request,
-                    debug=settings.DEBUG,
-                    traceback=traceback.format_exc()
-                )
-            )
+        response = templates.graphic_error(request)
     else:
-        response = \
-            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
-                name='graphics-for-entity.html',
-                context=dict(
-                    request=request,
-                    debug=settings.DEBUG,
-                    entity=entity.title(),
-                    js=(
-                        f'{settings.STATIC_URL}/dashboard/'
-                        f'graphicsFor{entity}-bundle.min.js'
-                    ),
-                    css=(
-                        f'{settings.STATIC_URL}/dashboard/'
-                        f'graphicsFor{entity}-style.min.css'
-                    )
-                )
-            )
+        response = templates.graphics_for_entity_view(request, entity)
 
     return response
 
@@ -394,15 +314,7 @@ async def handle_graphics_report_request(
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = response = \
-            Jinja2Templates(directory=settings.TEMPLATES_DIR).TemplateResponse(
-                name='graphic-error.html',
-                context=dict(
-                    request=request,
-                    debug=settings.DEBUG,
-                    traceback=traceback.format_exc()
-                )
-            )
+        response = templates.graphic_error(request)
     else:
         response = Response(report, media_type='image/png')
 

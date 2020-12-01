@@ -185,3 +185,32 @@ URLRoot = NamedTuple('URLRoot', [
     ('protocol', str)
 ])
 Root = Union[GitRoot, IPRoot, URLRoot]
+
+# Analytics
+GraphicParameters = NamedTuple(
+    'GraphicParameters',
+    [
+        ('document_name', str),
+        ('document_type', str),
+        ('entity', str),
+        ('generator_name', str),
+        ('generator_type', str),
+        ('height', int),
+        ('subject', str),
+        ('width', int)
+    ]
+)
+GraphicsForEntityParameters = NamedTuple(
+    'GraphicsForEntityParameters',
+    [
+        ('entity', str),
+        ('subject', str),
+    ]
+)
+ReportParameters = NamedTuple(
+    'ReportParameters',
+    [
+        ('entity', str),
+        ('subject', str),
+    ]
+)

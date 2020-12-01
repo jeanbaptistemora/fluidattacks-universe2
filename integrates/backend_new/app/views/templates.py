@@ -1,11 +1,17 @@
 # Starlette templates renders
 
+# Standard library
+import json
+import traceback
+
 # Third party libraries
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
 # Local libraries
+from backend.typing import GraphicParameters
+
 from backend_new import settings
 
 
@@ -13,12 +19,10 @@ TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
 
 def error500(request: Request) -> HTMLResponse:
-    response = TEMPLATING_ENGINE.TemplateResponse(
+    return TEMPLATING_ENGINE.TemplateResponse(
         name='HTTP500.html',
         context={'request': request}
     )
-    response.headers = {'x-frame-options': 'SAMEORIGIN'}
-    return response
 
 
 def error401(request: Request) -> HTMLResponse:
@@ -67,4 +71,62 @@ def main_app(request: Request) -> HTMLResponse:
             'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
             'delighted': f'{settings.STATIC_URL}/app/delighted.js'
         }
+    )
+
+
+def graphic_error(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='graphic-error.html',
+        context=dict(
+            request=request,
+            debug=settings.DEBUG,
+            traceback=traceback.format_exc()
+        )
+    )
+
+
+def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='graphics-for-entity.html',
+        context=dict(
+            request=request,
+            debug=settings.DEBUG,
+            entity=entity.title(),
+            js=(
+                f'{settings.STATIC_URL}/dashboard/'
+                f'graphicsFor{entity}-bundle.min.js'
+            ),
+            css=(
+                f'{settings.STATIC_URL}/dashboard/'
+                f'graphicsFor{entity}-style.min.css'
+            )
+        )
+    )
+
+
+def graphic_view(
+    request: Request,
+    document: object,
+    params: GraphicParameters
+) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='graphic.html',
+        context=dict(
+            request=request,
+            args=dict(
+                data=json.dumps(document),
+                height=params.height,
+                width=params.width,
+            ),
+            generator_src=(
+                f'graphics/'
+                f'generators/'
+                f'{params.generator_type}/'
+                f'{params.generator_name}.js'
+            ),
+            c3js=f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.js',
+            c3css=(
+                f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.css'
+            )
+        )
     )
