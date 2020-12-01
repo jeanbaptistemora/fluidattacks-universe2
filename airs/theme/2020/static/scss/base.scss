@@ -252,7 +252,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mw-1366 { max-width: 1366px; }
 .ph-body { padding: 0 1.875rem; }
 .pl-body { padding-left: 1.875rem; }
-.fheader { font-size: 3.3rem; }
+.fheader { font-size: 6rem; }
 .w-footer-form { width: 19rem; }
 .sqr-card { min-height: 400px; width: 400px; }
 .w-benefit { width: 400px; }
@@ -341,6 +341,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
+  .fheader { font-size: 3.5rem; }
   .nt-menu { margin-top: -.125rem; }
   .two-columns-m { column-count: 2; }
   .mr-5-m { margin-right: 4rem; }
