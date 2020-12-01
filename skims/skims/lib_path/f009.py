@@ -22,7 +22,6 @@ from jose.exceptions import JOSEError
 
 # Third party libraries
 from aioextensions import (
-    resolve,
     in_process,
 )
 
@@ -43,9 +42,6 @@ from parse_java_properties import (
 )
 from state.cache import (
     CACHE_ETERNALLY,
-)
-from state.ephemeral import (
-    EphemeralStore,
 )
 from utils.model import (
     FindingEnum,
@@ -336,8 +332,8 @@ async def analyze(  # pylint: disable=too-many-arguments
     file_extension: str,
     file_name: str,
     path: str,
-    store: EphemeralStore,
-) -> None:
+    **_: None,
+) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in {
@@ -374,6 +370,4 @@ async def analyze(  # pylint: disable=too-many-arguments
             path=path,
         ))
 
-    for results in resolve(coroutines, worker_greediness=1):
-        for result in await results:
-            await store.store(result)
+    return coroutines

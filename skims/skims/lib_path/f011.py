@@ -19,7 +19,6 @@ from more_itertools import (
 
 # Third party libraries
 from aioextensions import (
-    resolve,
     in_process,
 )
 
@@ -35,9 +34,6 @@ from parse_json import (
 )
 from state.cache import (
     CACHE_ETERNALLY,
-)
-from state.ephemeral import (
-    EphemeralStore,
 )
 from utils.model import (
     FindingEnum,
@@ -319,8 +315,8 @@ async def analyze(
     file_name: str,
     file_extension: str,
     path: str,
-    store: EphemeralStore,
-) -> None:
+    **_: None,
+) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if (file_name, file_extension) == ('build', 'gradle'):
@@ -344,6 +340,4 @@ async def analyze(
             path=path,
         ))
 
-    for results in resolve(coroutines, worker_greediness=1):
-        for result in await results:
-            await store.store(result)
+    return coroutines

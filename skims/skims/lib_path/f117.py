@@ -7,11 +7,6 @@ from typing import (
     Tuple,
 )
 
-# Third party libraries
-from aioextensions import (
-    resolve,
-)
-
 # Local libraries
 from lib_path.common import (
     blocking_get_vulnerabilities_from_iterator,
@@ -19,9 +14,6 @@ from lib_path.common import (
 )
 from state.cache import (
     CACHE_ETERNALLY,
-)
-from state.ephemeral import (
-    EphemeralStore,
 )
 from utils.model import (
     FindingEnum,
@@ -66,8 +58,8 @@ async def analyze(
     file_extension: str,
     path: str,
     raw_content_generator: Callable[[], Awaitable[bytes]],
-    store: EphemeralStore,
-) -> None:
+    **_: None,
+) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in {
@@ -91,6 +83,4 @@ async def analyze(
             raw_content=await raw_content_generator(),
         ))
 
-    for results in resolve(coroutines, worker_greediness=1):
-        for result in await results:
-            await store.store(result)
+    return coroutines

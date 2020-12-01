@@ -78,107 +78,33 @@ async def analyze_one_path(
     file_name, file_extension = splitext(file)
     file_extension = file_extension[1:]
 
-    await collect((
-        f001_jpa.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F001_JPA],
-        ),
-        f009.analyze(
+    for finding, analyzer in (
+        (FindingEnum.F001_JPA, f001_jpa.analyze),
+        (FindingEnum.F009, f009.analyze),
+        (FindingEnum.F011, f011.analyze),
+        (FindingEnum.F022, f022.analyze),
+        (FindingEnum.F031_AWS, f031_aws.analyze),
+        (FindingEnum.F031_CWE378, f031_cwe378.analyze),
+        (FindingEnum.F037, f037.analyze),
+        (FindingEnum.F047_AWS, f047_aws.analyze),
+        (FindingEnum.F052, f052.analyze),
+        (FindingEnum.F055_AWS, f055_aws.analyze),
+        (FindingEnum.F060, f060.analyze),
+        (FindingEnum.F061, f061.analyze),
+        (FindingEnum.F063_PATH_TRAVERSAL, f063_path_traversal.analyze),
+        (FindingEnum.F073, f073.analyze),
+        (FindingEnum.F085, f085.analyze),
+        (FindingEnum.F117, f117.analyze),
+    ):
+        for vulnerabilities in await analyzer(  # type: ignore
             content_generator=file_content_generator,
             file_extension=file_extension,
             file_name=file_name,
-            path=path,
-            store=stores[FindingEnum.F009],
-        ),
-        f011.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            file_name=file_name,
-            path=path,
-            store=stores[FindingEnum.F011],
-        ),
-        f022.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F022],
-        ),
-        f031_aws.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F031_AWS],
-        ),
-        f037.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F037],
-        ),
-        f031_cwe378.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F031_CWE378],
-        ),
-        f047_aws.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F047_AWS],
-        ),
-        f052.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F052],
-        ),
-        f055_aws.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F055_AWS],
-        ),
-        f060.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F060],
-        ),
-        f061.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F061],
-        ),
-        f063_path_traversal.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F060],
-        ),
-        f073.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F073],
-        ),
-        f085.analyze(
-            content_generator=file_content_generator,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F085],
-        ),
-        f117.analyze(
-            file_name=file_name,
-            file_extension=file_extension,
             path=path,
             raw_content_generator=file_raw_content_generator,
-            store=stores[FindingEnum.F117],
-        ),
-    ))
+        ):
+            for vulnerability in await vulnerabilities:
+                await stores[finding].store(vulnerability)
 
 
 async def resolve_paths(
