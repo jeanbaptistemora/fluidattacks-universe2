@@ -882,6 +882,29 @@
                   "finding_id" : {
                      "S" : "422286126"
                   },
+                  "historic_treatment": {
+                    "L": [
+                      {
+                        "M": {
+                          "date": {
+                            "S": "2020-01-03 12:46:10"
+                          },
+                          "justification": {
+                            "S": "test justification"
+                          },
+                          "treatment": {
+                            "S": "IN PROGRESS"
+                          },
+                          "user": {
+                            "S": "integratesuser@gmail.com"
+                          },
+                          "treatmentManager": {
+                            "S": "integratescustomer@gmail.com"
+                          }
+                        }
+                      }
+                    ]
+                  },
                   "historic_state" : {
                      "L" : [
                         {

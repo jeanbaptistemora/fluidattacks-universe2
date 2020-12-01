@@ -48,7 +48,7 @@ async def mutate(
         group_name=group_name,
     )
     if success:
-        util.queue_cache_invalidation(
+        await util.invalidate_cache(
             f'vuln*{finding_id}',
             f'vuln*{group_name}',
             *[f'vuln*{vuln}' for vuln in vulnerabilities]

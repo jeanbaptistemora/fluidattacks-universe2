@@ -943,21 +943,21 @@ async def get_total_treatment(
         for finding, validate_finding in zip(findings, validate_findings)
         if validate_finding
     ]
-    total_vulns = await collect(
-        total_vulnerabilities(str(finding['finding_id']))
-        for finding in validated_findings
-    )
-    for finding, total_vuln in zip(validated_findings, total_vulns):
-        fin_treatment = cast(
+    vulns = await vuln_domain.list_vulnerabilities_async([
+        str(finding['finding_id']) for finding in validated_findings
+    ])
+    for vuln in vulns:
+        vuln_treatment = cast(
             List[Dict[str, str]],
-            finding.get('historic_treatment', [{}])
+            vuln.get('historic_treatment', [{}])
         )[-1].get('treatment')
-        open_vulns = int(total_vuln.get('openVulnerabilities', ''))
-        if fin_treatment == 'ACCEPTED':
+        current_state = vuln_domain.get_last_status(vuln)
+        open_vulns: int = 1 if current_state == 'open' else 0
+        if vuln_treatment == 'ACCEPTED':
             accepted_vuln += open_vulns
-        elif fin_treatment == 'ACCEPTED_UNDEFINED':
+        elif vuln_treatment == 'ACCEPTED_UNDEFINED':
             indefinitely_accepted_vuln += open_vulns
-        elif fin_treatment == 'IN PROGRESS':
+        elif vuln_treatment == 'IN PROGRESS':
             in_progress_vuln += open_vulns
         else:
             undefined_treatment += open_vulns
