@@ -11,7 +11,6 @@ from backend.api.resolvers.new.query import (
     finding,
     forces_execution,
     forces_executions,
-    forces_executions_new,
     group,
     groups,
     internal_names,
@@ -35,7 +34,6 @@ QUERY.set_field('events', events.resolve)
 QUERY.set_field('finding', finding.resolve)
 QUERY.set_field('forcesExecution', forces_execution.resolve)
 QUERY.set_field('forcesExecutions', forces_executions.resolve)
-QUERY.set_field('forcesExecutionsNew', forces_executions_new.resolve)
 QUERY.set_field('internalNames', internal_names.resolve)
 QUERY.set_field('me', me.resolve)
 QUERY.set_field('organization', organization.resolve)

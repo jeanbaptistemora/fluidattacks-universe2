@@ -132,7 +132,7 @@ const modalExecution: React.FC<IExecution> = (
       }));
     };
 
-  const headersCompromisedToeTable: () => IHeaderConfig[] = () => [
+  const headersCompromisedToeTable: IHeaderConfig[] = [
         {
           dataField: "exploitability",
           filter: selectFilter({
@@ -243,7 +243,7 @@ const modalExecution: React.FC<IExecution> = (
             dataset={getDatasetFromVulnerabilities(execution.vulnerabilities)}
             exportCsv={false}
             search={true}
-            headers={headersCompromisedToeTable()}
+            headers={headersCompromisedToeTable}
             id="tblCompromisedToe"
             pageSize={100}
             columnToggle={true}

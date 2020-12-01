@@ -75,21 +75,8 @@ async def get_executions(
     group_name: str,
     to_date: datetime,
 ) -> List[ForcesExecutionType]:
-    return [
-        match_fields(execution)
-        async for execution in forces_dal.yield_executions(
-            project_name=group_name, from_date=from_date, to_date=to_date)
-    ]
-
-
-async def get_executions_new(
-    *,
-    from_date: datetime,
-    group_name: str,
-    to_date: datetime,
-) -> List[ForcesExecutionType]:
     result = []
-    async for execution in forces_dal.yield_executions_new(
+    async for execution in forces_dal.yield_executions(
             project_name=group_name,
             from_date=from_date,
             to_date=to_date,

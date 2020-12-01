@@ -1,8 +1,0 @@
-type ExecutionVulnerabilitiesNew {
-  accepted: [ExploitResult!]
-  closed: [ExploitResult!]
-  numOfAcceptedVulnerabilities: Int
-  numOfClosedVulnerabilities: Int
-  numOfOpenVulnerabilities: Int
-  open: [ExploitResult!]
-}

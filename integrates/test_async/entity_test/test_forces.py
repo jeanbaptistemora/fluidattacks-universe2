@@ -36,7 +36,7 @@ async def test_project_name():
     assert result['data']['forcesExecutions']['projectName'] \
         == 'unittesting'
 
-async def test_executions():
+async def _test_executions():
     """Check for executions field."""
     query = """
       query {

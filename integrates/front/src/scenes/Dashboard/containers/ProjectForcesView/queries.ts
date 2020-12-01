@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
   query GetForcesExecutions($projectName: String!) {
-    forcesExecutionsNew(projectName: $projectName) {
+    forcesExecutions(projectName: $projectName) {
       executions {
         projectName
         date

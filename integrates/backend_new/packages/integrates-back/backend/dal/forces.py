@@ -31,14 +31,14 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-TABLE_NAME = 'bb_executions'
-TABLE_NAME_NEW_FORCES = 'FI_forces'
+TABLE_NAME = 'FI_forces'
 
 
 async def yield_executions(
-        project_name: str,
-        from_date: datetime,
-        to_date: datetime) -> AsyncIterator:
+    project_name: str,
+    from_date: datetime,
+    to_date: datetime,
+) -> AsyncIterator:
     """ Lazy iterator over the executions of a project """
     key_condition_expresion = \
         Key('subscription').eq(project_name)
@@ -49,42 +49,6 @@ async def yield_executions(
 
     async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)
-        results = await table.query(
-            KeyConditionExpression=key_condition_expresion,
-            FilterExpression=filter_expression
-        )
-
-        for result in results['Items']:
-            if 'accepted_exploits' not in result['vulnerabilities']:
-                result['vulnerabilities']['accepted_exploits'] = []
-            if 'integrates_exploits' not in result['vulnerabilities']:
-                result['vulnerabilities']['integrates_exploits'] = []
-            if 'exploits' not in result['vulnerabilities']:
-                result['vulnerabilities']['exploits'] = []
-            result['project_name'] = result.get('subscription')
-            yield result
-
-        while results.get('LastEvaluatedKey'):
-            results = await table.query(
-                KeyConditionExpression=key_condition_expresion,
-                FilterExpression=filter_expression,
-                ExclusiveStartKey=results['LastEvaluatedKey'])
-            for result in results['Items']:
-                yield result
-
-
-async def yield_executions_new(project_name: str, from_date: datetime,
-                               to_date: datetime) -> AsyncIterator:
-    """ Lazy iterator over the executions of a project """
-    key_condition_expresion = \
-        Key('subscription').eq(project_name)
-
-    filter_expression = \
-        Attr('date').gte(from_date.isoformat()) \
-        & Attr('date').lte(to_date.isoformat())
-
-    async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
-        table = await resource.Table(TABLE_NAME_NEW_FORCES)
         query_params = {'KeyConditionExpression': key_condition_expresion,
                         'FilterExpression': filter_expression}
         has_more = True
@@ -112,7 +76,7 @@ async def get_execution(project_name: str, execution_id: str) -> Any:
         'execution_id').eq(execution_id) & Key('subscription').eq(project_name)
 
     async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
-        table = await resource.Table(TABLE_NAME_NEW_FORCES)
+        table = await resource.Table(TABLE_NAME)
         results = await table.query(
             KeyConditionExpression=key_condition_expresion,)
         if results:
@@ -174,7 +138,7 @@ async def create_execution(project_name: str,
         )
         execution_attributes['subscription'] = project_name
         execution_attributes = dynamodb.serialize(execution_attributes)
-        success = await dynamodb.async_put_item(TABLE_NAME_NEW_FORCES,
+        success = await dynamodb.async_put_item(TABLE_NAME,
                                                 execution_attributes)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})

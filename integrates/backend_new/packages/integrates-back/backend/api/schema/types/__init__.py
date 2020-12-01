@@ -11,13 +11,10 @@ from .consult import CONSULT
 from .entity_report_subscription import ENTITY_REPORT_SUBSCRIPTION
 from .event import EVENT
 from .execution_vulnerabilities import EXECUTION_VULNERABILITIES
-from .execution_vulnerabilities_new import EXECUTION_VULNERABILITIES_NEW
 from .exploit_result import EXPLOIT_RESULT
 from .finding import FINDING
 from .forces_execution import FORCES_EXECUTION
-from .forces_execution_new import FORCES_EXECUTION_NEW
 from .forces_executions import FORCES_EXECUTIONS
-from .forces_executions_new import FORCES_EXECUTIONS_NEW
 from .group import GROUP
 from .internal_name import INTERNAL_NAME
 from .me import ME
@@ -39,13 +36,10 @@ TYPES: Tuple[ObjectType, ...] = (
     CONSULT,
     ENTITY_REPORT_SUBSCRIPTION,
     EVENT,
-    EXECUTION_VULNERABILITIES_NEW,
     EXECUTION_VULNERABILITIES,
     EXPLOIT_RESULT,
     FINDING,
-    FORCES_EXECUTION_NEW,
     FORCES_EXECUTION,
-    FORCES_EXECUTIONS_NEW,
     FORCES_EXECUTIONS,
     GROUP,
     INTERNAL_NAME,

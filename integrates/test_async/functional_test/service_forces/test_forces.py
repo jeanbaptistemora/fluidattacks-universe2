@@ -95,7 +95,7 @@ async def test_forces():
 
     query = f"""
         query {{
-            forcesExecutionsNew(
+            forcesExecutions(
                 projectName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
@@ -150,9 +150,9 @@ async def test_forces():
     data = {'query': query}
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
-    assert result['data']['forcesExecutionsNew']['fromDate'] == '2020-02-01 00:00:00+00:00'
-    assert result['data']['forcesExecutionsNew']['toDate'] == '2020-02-28 23:59:59+00:00'
-    executions = result['data']['forcesExecutionsNew']['executions']
+    assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
+    assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
+    executions = result['data']['forcesExecutions']['executions']
     execution = [execution for execution in executions if execution['execution_id'] == execution_id][0]
     assert execution['projectName'] == group_name
     assert execution['date'] == '2020-02-20T00:00:00+00:00'

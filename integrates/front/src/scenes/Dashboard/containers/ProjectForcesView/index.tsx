@@ -239,7 +239,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             return <React.Fragment />;
           }
 
-          const executions: IExecution[] = data.forcesExecutionsNew.executions
+          const executions: IExecution[] = data.forcesExecutions.executions
             .map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string =

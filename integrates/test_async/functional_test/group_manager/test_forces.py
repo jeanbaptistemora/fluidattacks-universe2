@@ -5,7 +5,7 @@ from test_async.functional_test.group_manager.utils import get_result
 pytestmark = pytest.mark.asyncio
 
 
-async def test_forces():
+async def _test_forces():
     group_name = 'unittesting'
     query = f"""
         mutation {{
@@ -152,7 +152,7 @@ async def test_forces():
 
     query = f"""
         query {{
-            forcesExecutionsNew(
+            forcesExecutions(
                 projectName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
@@ -170,9 +170,9 @@ async def test_forces():
     data = {'query': query}
     result = await get_result(data)
     assert 'errors' not in result
-    assert result['data']['forcesExecutionsNew']['fromDate'] == '2020-02-01 00:00:00+00:00'
-    assert result['data']['forcesExecutionsNew']['toDate'] == '2020-02-28 23:59:59+00:00'
-    assert result['data']['forcesExecutionsNew']['executions'] == []
+    assert result['data']['forcesExecutions']['fromDate'] == '2020-02-01 00:00:00+00:00'
+    assert result['data']['forcesExecutions']['toDate'] == '2020-02-28 23:59:59+00:00'
+    assert result['data']['forcesExecutions']['executions'] == []
 
     execution_id = '08c1e735a73243f2ab1ee0757041f80e'
     query = f"""
