@@ -46,3 +46,9 @@ Object.defineProperty(window, "matchMedia", {
   ),
   writable: true,
 });
+
+/**
+ * Mock announcekit
+ * @see https://github.com/announcekitapp/announcekit-react/issues/8
+ */
+jest.mock("announcekit-react", (): React.ReactNode => "mocked");

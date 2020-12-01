@@ -455,11 +455,6 @@ label {
   }
 }
 
-:global .HW_badge_cont {
-  display: inline-block !important;
-  position: absolute !important;
-}
-
 /* Custom functions */
 
 :global .a-bg-white a {
