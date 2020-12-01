@@ -363,7 +363,8 @@ export const enTranslations: ResourceKey = {
         wrong_file_type:
           "Evidence files must have .pdf, .zip or .csv extension",
         wrong_image_type:
-          "Evidence images must have .gif, .jpg, or .png extension",
+          "Evidence images must have .gif/.png extension for animation" +
+          "/exploitation and .png for evidences",
       },
       new: "New Event",
       success_create: "Event created successfully",
