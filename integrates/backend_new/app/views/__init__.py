@@ -13,6 +13,9 @@ from .charts import (
     graphics_for_portfolio,
     graphics_report
 )
+from .evidence import (
+    get_evidence
+)
 from .templates import (
     error401,
     error500,
@@ -31,6 +34,9 @@ __all__ = [
     'graphics_for_organization',
     'graphics_for_portfolio',
     'graphics_report',
+
+    # evidence
+    'get_evidence',
 
     # templates
     'error401',

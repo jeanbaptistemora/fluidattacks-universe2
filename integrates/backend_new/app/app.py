@@ -108,6 +108,12 @@ STARLETTE_APP = Starlette(
         Route('/new/dglogin', views.do_google_login),
         Route('/new/dalogin', views.do_azure_login),
         Route('/new/dblogin', views.do_bitbucket_login),
+        Route(
+            '/new/orgs/{org_name:str}/groups/'
+            '{group_name:str}/{evidence_type:str}/'
+            '{finding_id:str}/{_:str}/{file_id:str}',
+            views.get_evidence
+        ),
         Route('/logout', logout),
         Route('/new/{full_path:path}', app),
         Route('/', app),
