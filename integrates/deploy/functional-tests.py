@@ -458,19 +458,19 @@ class ViewTestCase(unittest.TestCase):
         else:
             forces_elem = WebDriverWait(selenium, self.delay).until(
                 expected.presence_of_element_located(
-                    (By.XPATH, "//*[contains(text(), 'SAST')]")))
+                    (By.XPATH, "//td[contains(text(),'08c1e735a73243f2ab1ee0757041f80e')]")))
             selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
 
             forces_elem.click()
             WebDriverWait(selenium, self.delay).until(
                 expected.presence_of_element_located(
-                    (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
+                    (By.XPATH, "//p[contains(text(),'Vulnerable')]")))
             selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
 
             log_element = selenium.find_element_by_xpath(
                 '//*[@id="forcesExecutionLogTab"]/a')
             self.__click(log_element)
-            assert 'Running Fluid Asserts' in selenium.page_source
+            assert 'findings' in selenium.page_source
 
     # Temporarily disabled while we grant a user access to this project
     def _test_17_pending_to_delete(self):

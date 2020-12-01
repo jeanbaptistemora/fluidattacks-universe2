@@ -37,15 +37,7 @@ export interface IExploitResult {
   where: string;
   who: string;
 }
-
 export interface IFoundVulnerabilities {
-  accepted: number;
-  exploitable: number;
-  notExploitable: number;
-  total: number;
-}
-
-export interface IFoundVulnerabilitiesNew {
   accepted: number;
   closed: number;
   open: number;
@@ -53,15 +45,6 @@ export interface IFoundVulnerabilitiesNew {
 }
 
 export interface IVulnerabilities {
-  acceptedExploits: IExploitResult[];
-  exploits: IExploitResult[];
-  integratesExploits: IExploitResult[];
-  numOfVulnerabilitiesInAcceptedExploits: number;
-  numOfVulnerabilitiesInExploits: number;
-  numOfVulnerabilitiesInIntegratesExploits: number;
-}
-
-export interface IVulnerabilitiesNew {
   accepted: IExploitResult[];
   closed: IExploitResult[];
   numOfAcceptedVulnerabilities: number;
@@ -74,14 +57,14 @@ export interface IExecution {
   date: string;
   execution_id: string;
   exitCode: string;
-  foundVulnerabilities: IFoundVulnerabilities | IFoundVulnerabilitiesNew;
+  foundVulnerabilities: IFoundVulnerabilities;
   gitRepo: string;
   kind: string;
   log?: string;
   projectName?: string;
   status: string;
   strictness: string;
-  vulnerabilities: IVulnerabilities | IVulnerabilitiesNew;
+  vulnerabilities: IVulnerabilities;
 }
 
 const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: ForcesViewProps): JSX.Element => {
@@ -93,8 +76,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     exitCode: "",
     foundVulnerabilities: {
       accepted: 0,
-      exploitable: 0,
-      notExploitable: 0,
+      closed: 0,
+      open: 0,
       total: 0,
     },
     gitRepo: "",
@@ -103,12 +86,12 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     status: "",
     strictness: "",
     vulnerabilities: {
-      acceptedExploits: [],
-      exploits: [],
-      integratesExploits: [],
-      numOfVulnerabilitiesInAcceptedExploits: 0,
-      numOfVulnerabilitiesInExploits: 0,
-      numOfVulnerabilitiesInIntegratesExploits: 0,
+      accepted: [],
+      closed: [],
+      numOfAcceptedVulnerabilities: 0,
+      numOfClosedVulnerabilities: 0,
+      numOfOpenVulnerabilities: 0,
+      open: [],
     },
   };
 
@@ -256,8 +239,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             return <React.Fragment />;
           }
 
-          const executions: IExecution[] = data.forcesExecutions.executions
-            .concat(data.forcesExecutionsNew.executions)
+          const executions: IExecution[] = data.forcesExecutionsNew.executions
             .map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string =
@@ -267,13 +249,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   execution.strictness === "lax"
                     ? "group.forces.strictness.tolerant"
                     : "group.forces.strictness.strict"));
-              const vulnerabilities: IVulnerabilities | IVulnerabilitiesNew =
+              const vulnerabilities: IVulnerabilities =
                 execution.vulnerabilities;
-              const foundVulnerabilities:
-                | IFoundVulnerabilitiesNew
-                | IFoundVulnerabilities =
-                "numOfAcceptedVulnerabilities" in vulnerabilities
-                  ? {
+              const foundVulnerabilities: IFoundVulnerabilities = {
                     accepted: vulnerabilities.numOfAcceptedVulnerabilities,
                     closed: vulnerabilities.numOfClosedVulnerabilities,
                     open: vulnerabilities.numOfOpenVulnerabilities,
@@ -281,23 +259,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                       vulnerabilities.numOfAcceptedVulnerabilities +
                       vulnerabilities.numOfOpenVulnerabilities +
                       vulnerabilities.numOfClosedVulnerabilities,
-                  }
-                  : {
-                    accepted:
-                      vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
-                    exploitable:
-                      vulnerabilities.numOfVulnerabilitiesInExploits,
-                    notExploitable:
-                      vulnerabilities.numOfVulnerabilitiesInIntegratesExploits,
-                    total:
-                      vulnerabilities.numOfVulnerabilitiesInExploits +
-                      vulnerabilities.numOfVulnerabilitiesInIntegratesExploits +
-                      vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
                   };
               const status: string = translate.t(
-                ("open" in foundVulnerabilities
-                  ? foundVulnerabilities.open === 0
-                  : foundVulnerabilities.exploitable === 0)
+                foundVulnerabilities.open === 0
                   ? "group.forces.status.secure"
                   : "group.forces.status.vulnerable");
 

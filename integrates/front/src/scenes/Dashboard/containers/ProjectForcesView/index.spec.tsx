@@ -48,7 +48,7 @@ describe("ForcesView", () => {
       },
       result: {
         data: {
-          forcesExecutions: {
+          forcesExecutionsNew: {
             executions: [
               {
                 date: "2020-02-19T19:31:18+00:00",
@@ -60,7 +60,7 @@ describe("ForcesView", () => {
                 projectName: "unittesting",
                 strictness: "strict",
                 vulnerabilities: {
-                  acceptedExploits: [
+                  accepted: [
                     {
                       exploitability: "Unproven",
                       kind: "DAST",
@@ -69,7 +69,7 @@ describe("ForcesView", () => {
                       who: "https://test.com/test",
                     },
                   ],
-                  exploits: [
+                  closed: [
                     {
                       exploitability: "Functional",
                       kind: "DAST",
@@ -78,7 +78,10 @@ describe("ForcesView", () => {
                       who: "https://test.com/test",
                     },
                   ],
-                  integratesExploits: [
+                  numOfAcceptedVulnerabilities: 1,
+                  numOfClosedVulnerabilities: 1,
+                  numOfOpenVulnerabilities: 1,
+                  open: [
                     {
                       exploitability: "Unproven",
                       kind: "DAST",
@@ -87,15 +90,8 @@ describe("ForcesView", () => {
                       who: "https://test.com/test",
                     },
                   ],
-                  numOfVulnerabilitiesInAcceptedExploits: 1,
-                  numOfVulnerabilitiesInExploits: 1,
-                  numOfVulnerabilitiesInIntegratesExploits: 1,
                 },
               },
-            ],
-          },
-          forcesExecutionsNew: {
-            executions: [
             ],
           },
         },
@@ -180,6 +176,6 @@ describe("ForcesView", () => {
     row.simulate("click");
     expect(wrapper
       .find("span"))
-      .toHaveLength(53);
+      .toHaveLength(35);
   });
 });

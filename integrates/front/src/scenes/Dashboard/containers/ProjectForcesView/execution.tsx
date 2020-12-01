@@ -23,9 +23,7 @@ import {
   IExecution,
   IExploitResult,
   IFoundVulnerabilities,
-  IFoundVulnerabilitiesNew,
   IVulnerabilities,
-  IVulnerabilitiesNew,
 } from "scenes/Dashboard/containers/ProjectForcesView";
 import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
@@ -98,27 +96,10 @@ const modalExecution: React.FC<IExecution> = (
   };
 
   const getVulnerabilitySummaries: (
-    foundVulnerabilities: IFoundVulnerabilities | IFoundVulnerabilitiesNew,
+    foundVulnerabilities: IFoundVulnerabilities,
   ) => string = (
-    foundVulnerabilities: IFoundVulnerabilities | IFoundVulnerabilitiesNew,
+    foundVulnerabilities: IFoundVulnerabilities,
     ): string => {
-      if ("exploitable" in foundVulnerabilities) {
-        const exploitableTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.exploitable");
-        const acceptedTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.accepted");
-        const notExploitableTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.not_exploitable");
-        const totalTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.total");
-
-        const exploitableStr: string = `${foundVulnerabilities.exploitable} ${exploitableTrans}`;
-        const acceptedStr: string = `${foundVulnerabilities.accepted} ${acceptedTrans}`;
-        const notExploitableStr: string = `${foundVulnerabilities.notExploitable} ${notExploitableTrans}`;
-        const totalStr: string = `${foundVulnerabilities.total} ${totalTrans}`;
-
-        return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
-      } else {
         const openTrans: string = translate.t(
           "group.forces.found_vulnerabilities_new.open");
         const acceptedTrans: string = translate.t(
@@ -134,24 +115,16 @@ const modalExecution: React.FC<IExecution> = (
         const totalStr: string = `${foundVulnerabilities.total} ${totalTrans}`;
 
         return `${openStr}, ${acceptedStr}, ${closedStr}, ${totalStr}`;
-      }
     };
 
   const getDatasetFromVulnerabilities: (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
+    vulnerabilities: IVulnerabilities,
   ) => Dictionary[] = (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
+    vulnerabilities: IVulnerabilities,
     ): Dictionary[] => {
-      const vulns: IExploitResult[] =
-        "exploits" in vulnerabilities
-          ? vulnerabilities.exploits.concat(
-            vulnerabilities.acceptedExploits.concat(
-              vulnerabilities.integratesExploits,
-            ),
-          )
-          : vulnerabilities.open.concat(
+      const vulns: IExploitResult[] = vulnerabilities.open.concat(
             vulnerabilities.closed.concat(vulnerabilities.accepted),
-          );
+        );
 
       return vulns.map((elem: IExploitResult) => ({
         ...elem,
@@ -159,39 +132,31 @@ const modalExecution: React.FC<IExecution> = (
       }));
     };
 
-  const headersCompromisedToeTable: (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
-  ) => IHeaderConfig[] = (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
-    ) => [
-        ...("open" in vulnerabilities
-          ? [
-            {
-              dataField: "exploitability",
-              filter: selectFilter({
-                defaultValue: _.get(sessionStorage, "exploitabilityForcesFilter"),
-                onFilter: onFilterExploitability,
-                options: selectOptionsExploitability,
-              }),
-              formatter: formatText,
-              header: translate.t("group.forces.compromised_toe.exploitability"),
-              width: "15%",
-              wrapped: true,
-            },
-            {
-              dataField: "state",
-              filter: selectFilter({
-                defaultValue: _.get(sessionStorage, "statusExecutionFilter"),
-                onFilter: onFilterStatus,
-                options: selectOptionsStatus,
-              }),
-              formatter: statusFormatter,
-              header: translate.t("group.forces.compromised_toe.status"),
-              width: "10%",
-              wrapped: true,
-            },
-          ]
-          : []),
+  const headersCompromisedToeTable: () => IHeaderConfig[] = () => [
+        {
+          dataField: "exploitability",
+          filter: selectFilter({
+            defaultValue: _.get(sessionStorage, "exploitabilityForcesFilter"),
+            onFilter: onFilterExploitability,
+            options: selectOptionsExploitability,
+          }),
+          formatter: formatText,
+          header: translate.t("group.forces.compromised_toe.exploitability"),
+          width: "15%",
+          wrapped: true,
+        },
+        {
+          dataField: "state",
+          filter: selectFilter({
+            defaultValue: _.get(sessionStorage, "statusExecutionFilter"),
+            onFilter: onFilterStatus,
+            options: selectOptionsStatus,
+          }),
+          formatter: statusFormatter,
+          header: translate.t("group.forces.compromised_toe.status"),
+          width: "10%",
+          wrapped: true,
+        },
         {
           dataField: "kind",
           filter: selectFilter({
@@ -278,7 +243,7 @@ const modalExecution: React.FC<IExecution> = (
             dataset={getDatasetFromVulnerabilities(execution.vulnerabilities)}
             exportCsv={false}
             search={true}
-            headers={headersCompromisedToeTable(execution.vulnerabilities)}
+            headers={headersCompromisedToeTable()}
             id="tblCompromisedToe"
             pageSize={100}
             columnToggle={true}
