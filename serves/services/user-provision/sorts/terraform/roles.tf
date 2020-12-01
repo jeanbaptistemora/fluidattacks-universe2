@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "sorts_sagemaker" {
+data "aws_iam_policy_document" "sorts_sagemaker_assume_policy" {
   statement {
     sid    = "SageMakerAssumeRolePolicy"
     effect = "Allow"
@@ -14,7 +14,9 @@ data "aws_iam_policy_document" "sorts_sagemaker" {
       "sts:AssumeRole",
     ]
   }
+}
 
+data "aws_iam_policy_document" "sorts_sagemaker_policy" {
   statement {
     effect = "Allow"
     actions = [
@@ -31,11 +33,17 @@ data "aws_iam_policy_document" "sorts_sagemaker" {
 
 resource "aws_iam_role" "sorts_sagemaker" {
   name = "sorts_sagemaker"
-  assume_role_policy = data.aws_iam_policy_document.sorts_sagemaker.json
+  assume_role_policy = data.aws_iam_policy_document.sorts_sagemaker_assume_policy.json
 
   tags = {
     "Name"               = "sorts_sagemaker"
     "management:type"    = "production"
     "management:product" = "serves"
   }
+}
+
+resource "aws_iam_role_policy" "sorts_sagemaker_policy" {
+  name = "sorts_sagemaker_policy"
+  policy = data.aws_iam_policy_document.sorts_sagemaker_policy.json
+  role = aws_iam_role.sorts_sagemaker.id
 }
