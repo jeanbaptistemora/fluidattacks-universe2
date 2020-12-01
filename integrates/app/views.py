@@ -24,7 +24,6 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from jose import jwt
 from magic import Magic
 
@@ -34,12 +33,8 @@ from backend.dal.helpers.s3 import (
     download_file,
     list_files,
 )
-from backend.domain import (
-    analytics as analytics_domain
-)
 from backend.decorators import (
-    cache_content,
-    require_login,
+    cache_content
 )
 from backend.services import (
     has_access_to_finding,
@@ -119,65 +114,6 @@ def mobile(request: HttpRequest) -> HttpResponse:
     """Small devices view"""
     parameters: Dict[str, Any] = {}
     return render(request, 'mobile.html', parameters)
-
-
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
-@require_login  # type: ignore
-async def graphics_for_group(request: HttpRequest) -> HttpResponse:
-    return await _graphics_for_entity('group', request)
-
-
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
-@require_login  # type: ignore
-async def graphics_for_organization(request: HttpRequest) -> HttpResponse:
-    return await _graphics_for_entity('organization', request)
-
-
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
-@require_login  # type: ignore
-async def graphics_for_portfolio(request: HttpRequest) -> HttpResponse:
-    return await _graphics_for_entity('portfolio', request)
-
-
-async def _graphics_for_entity(
-    entity: str,
-    request: HttpRequest,
-) -> HttpResponse:
-    request_data = await util.get_jwt_content(request)
-
-    response = await analytics_domain.handle_graphics_for_entity_request(
-        entity=entity,
-        request=request,
-    )
-
-    set_session_cookie_in_response(
-        response=response,
-        token=await create_session_token(
-            email=request_data['user_email'],
-            first_name=request_data['first_name'],
-            last_name=request_data['last_name'],
-        ),
-    )
-
-    return response
-
-
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
-@require_login  # type: ignore
-async def graphics_report(request: HttpRequest) -> HttpResponse:
-    return await analytics_domain.handle_graphics_report_request(request)
 
 
 @never_cache  # type: ignore

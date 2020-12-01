@@ -17,23 +17,6 @@ handler500 = 'app.views.error500'
 urlpatterns = [
     url(r'^$', RedirectView.as_view(pattern_name='new')),
     url(r'^new/?$', views.index, name='new'),
-    # Principal process.
-    url(
-        r'^graphics-for-group/?$',
-        views.graphics_for_group,
-        name='graphics_for_group'
-    ),
-    url(
-        r'^graphics-for-organization/?$',
-        views.graphics_for_organization,
-        name='graphics_for_organization'
-    ),
-    url(
-        r'^graphics-for-portfolio/?$',
-        views.graphics_for_portfolio,
-        name='graphics_for_portfolio'
-    ),
-    url(r'^graphics-report/?$', views.graphics_report, name='graphics_report'),
 
     url(r'^mobile/?$', views.mobile, name='mobile'),
 
