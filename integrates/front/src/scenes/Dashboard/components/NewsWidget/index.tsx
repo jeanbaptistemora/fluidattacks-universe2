@@ -10,7 +10,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
     <NavItem>
       <AnnounceKit
         user={{ id: userEmail }}
-        widget={"https://changelog.fluidattacks.com/widgets/v2/ZmEGk"}
+        widget={"https://news.fluidattacks.com/widgets/v2/ZmEGk"}
         widgetStyle={{ position: "absolute", top: "25px" }}
       >
         <Glyphicon glyph={"bullhorn"} />
