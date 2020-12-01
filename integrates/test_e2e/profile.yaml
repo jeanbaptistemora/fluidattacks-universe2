@@ -1,0 +1,10 @@
+strictness: veryhigh
+test-warnings: true
+doc-warnings: false
+
+pep8:
+  full: true
+
+pylint:
+  disable:
+    - redefined-outer-name

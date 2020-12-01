@@ -23,6 +23,16 @@ function job_integrates_lint_back {
   || return 1
 }
 
+function job_integrates_lint_e2e {
+
+      pushd integrates/test_e2e \
+    &&  env_prepare_python_packages \
+    &&  mypy --config-file settings.cfg . \
+    &&  prospector --profile profile.yaml . \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_lint_front {
         pushd "${STARTDIR}/integrates/front" \
     &&  npm install \
