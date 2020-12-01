@@ -14,6 +14,19 @@ data "aws_iam_policy_document" "sorts_sagemaker" {
       "sts:AssumeRole",
     ]
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:Get*",
+      "s3:List*"
+    ]
+    resources = [
+      "arn:aws:s3:::sorts",
+      "arn:aws:s3:::sorts/training",
+      "arn:aws:s3:::sorts/training/*"
+    ]
+  }
 }
 
 resource "aws_iam_role" "sorts_sagemaker" {
