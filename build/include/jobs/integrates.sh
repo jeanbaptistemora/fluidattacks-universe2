@@ -1029,6 +1029,29 @@ function job_integrates_test_mobile {
   ||  return 1
 }
 
+function job_integrates_test_e2e {
+  local args_pytest=(
+    --capture tee-sys
+    --disable-pytest-warnings
+    --exitfirst
+    --maxfail 20
+    --show-capture no
+    --verbose
+  )
+
+      pushd integrates \
+    &&  env_prepare_python_packages \
+    &&  helper_integrates_aws_login 'development' \
+    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+          BROWSERSTACK_USER \
+          BROWSERSTACK_KEY \
+    &&  pushd test_e2e \
+      &&  pytest "${args_pytest[@]}" < /dev/null \
+    &&  popd \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_deploy_back_ephemeral {
   local DATE
   local DEPLOYMENT_NAME
