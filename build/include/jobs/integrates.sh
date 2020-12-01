@@ -430,7 +430,6 @@ function job_integrates_reset {
     'mobile/google-services.json'
     'skims/coverage'
     'TEMP_FD'
-    'test_async/dynamo_data/bb_executions.json.now'
     'version.txt'
     '*.xlsx'
     '.tmp'

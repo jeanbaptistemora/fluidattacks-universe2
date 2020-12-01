@@ -224,20 +224,6 @@ aws dynamodb create-table \
     --endpoint-url \
         http://localhost:8022 \
     --table-name \
-        bb_executions \
-    --attribute-definitions \
-        AttributeName=subscription,AttributeType=S \
-        AttributeName=execution_id,AttributeType=S \
-    --key-schema \
-        AttributeName=subscription,KeyType=HASH \
-        AttributeName=execution_id,KeyType=RANGE \
-    --provisioned-throughput \
-        ReadCapacityUnits=1,WriteCapacityUnits=1
-
-aws dynamodb create-table \
-    --endpoint-url \
-        http://localhost:8022 \
-    --table-name \
         FI_forces \
     --attribute-definitions \
         AttributeName=subscription,AttributeType=S \
@@ -281,26 +267,13 @@ iso_date_now=$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)
 
 # This will insert two extra rows with current date-time
 # This rows are always visible in the front-end :)
-sed "s/2020-02-19.*/${iso_date_now}\"/g" \
-  < 'test_async/dynamo_data/bb_executions.json' \
-  | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
-  | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
-  > test_async/dynamo_data/bb_executions.json.now
-
-echo '[INFO] Writing data from: test_async/dynamo_data/bb_executions.json.now'
-aws dynamodb batch-write-item \
-  --endpoint-url 'http://localhost:8022' \
-  --request-items 'file://test_async/dynamo_data/bb_executions.json.now'
-
-# This will insert two extra rows with current date-time
-# This rows are always visible in the front-end :)
 sed "s/2020-09-04.*/${iso_date_now}\"/g" \
   < 'test_async/dynamo_data/FI_forces.json' \
   | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
   | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
   > test_async/dynamo_data/FI_forces.json.now
 
-echo '[INFO] Writing data from: test_async/dynamo_data/bb_executions.json.now'
+echo '[INFO] Writing data from: test_async/dynamo_data/FI_forces.json.now'
 aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/FI_forces.json.now'
