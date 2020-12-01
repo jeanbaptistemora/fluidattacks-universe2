@@ -7,6 +7,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "7.1.2"
+singer-io = {path = "../../common/singer_io"}
 
 [tool.poetry.dev-dependencies]
 pytest = "6.1.2"

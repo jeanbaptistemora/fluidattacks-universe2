@@ -1,10 +1,28 @@
+# Standard libraries
 import csv
-import json
-from typing import Any, IO
+import tempfile
+from typing import (
+    Any,
+    IO, NamedTuple, Optional,
+)
+# Third party libraries
+# Local libraries
+from tap_csv import utils
+from singer_io import factory
+from singer_io.singer import (
+    SingerRecord,
+    SingerSchema,
+)
 
 
-# Type aliases that improve clarity
+LOG = utils.get_log(__name__)
 JSON = Any
+
+
+class MetadataRows(NamedTuple):
+    field_names_row: int
+    field_types_row: int
+    pkeys_row: Optional[int] = None
 
 
 def translate_types(raw_field_type: JSON) -> JSON:
@@ -46,7 +64,17 @@ def translate_values(field__type: JSON, field__value: JSON) -> JSON:
     return new_field__value
 
 
-def to_singer(csv_file: IO[str], stream: str) -> None:
+def adjust_csv(file: IO[str]) -> IO[str]:
+    # temporal interface
+    return file
+
+
+def to_singer(
+    csv_file: IO[str],
+    stream: str,
+    special_rows: MetadataRows,
+    quote_nonnum: bool,
+) -> None:
     # ==== TAP ================================================================
     # line 1, primary field(s)
     # line 2, field names
@@ -57,48 +85,36 @@ def to_singer(csv_file: IO[str], stream: str) -> None:
     # line >3, records
     # finally:
     #           - use "null" value with "string" type for empty cells
-    reader = csv.reader(csv_file, delimiter=",", quotechar="\"")
+    procesed_csv: IO[str] = adjust_csv(csv_file) if quote_nonnum else csv_file
+    reader = csv.reader(procesed_csv, delimiter=",", quotechar="\"")
 
     head_pos = 0
-    field_main = []
-    field_list = []
-    field__type = {}
-    field_jsontype_map = {}
-
+    pkeys = []
+    field_names = []
+    name_type_map = {}
     for record in reader:
         head_pos += 1
-        if head_pos == 1:
-            field_main = record
-        elif head_pos == 2:
-            field_list = record
-        elif head_pos == 3:
-            field__type = dict(zip(field_list, record))
-            field_jsontype_map = translate_types(field__type)
-
-            singer_schema: JSON = {
-                "type": "SCHEMA",
-                "stream": stream,
-                "key_properties": field_main,
-                "schema": {
-                    "properties": field_jsontype_map
-                }
-            }
-            print(json.dumps(singer_schema))
+        if head_pos in frozenset(special_rows):
+            if head_pos == special_rows.pkeys_row:
+                pkeys = record
+            if head_pos == special_rows.field_names_row:
+                field_names = record
+            if head_pos == special_rows.field_types_row:
+                name_type_map = dict(zip(field_names, record))
+                singer_schema: SingerSchema = SingerSchema(
+                    stream=stream,
+                    schema={
+                        "properties": translate_types(name_type_map)
+                    },
+                    key_properties=frozenset(pkeys)
+                )
+                factory.emit(singer_schema)
         else:
-            field__value = {}
-
-            index = 0
-            for field_value in record:
-                if not field_value == "null":
-                    field__value[field_list[index]] = field_value
-                index += 1
-
-            field__value = translate_values(
-                field__type, field__value)
-
-            singer_record: JSON = {
-                "type": "RECORD",
-                "stream": stream,
-                "record": field__value
-            }
-            print(json.dumps(singer_record))
+            name_value_map = dict(zip(field_names, record))
+            singer_record: SingerRecord = SingerRecord(
+                stream=stream,
+                record=translate_values(
+                    name_type_map, name_value_map
+                )
+            )
+            factory.emit(singer_record)

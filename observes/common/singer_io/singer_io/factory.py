@@ -1,8 +1,10 @@
 # Standard libraries
 import json
+import sys
 from typing import (
     Any,
     Dict,
+    IO,
     Optional,
     Union,
 )
@@ -10,6 +12,7 @@ from typing import (
 # Local libraries
 from singer_io.singer import (
     InvalidType,
+    SingerMessage,
     SingerRecord,
     SingerSchema,
 )
@@ -27,3 +30,14 @@ def deserialize(singer_msg: str) -> Union[SingerRecord, SingerSchema]:
     raise InvalidType(
         f'Deserialize singer failed. Unknown or missing type \'{data_type}\''
     )
+
+
+def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
+    msg_dict: Dict[str, Any] = singer_msg._asdict()
+    mapper = {
+        SingerRecord: 'RECORD',
+        SingerSchema: 'SCHEMA',
+    }
+    msg_dict['type'] = mapper[type(singer_msg)]
+    msg = json.dumps(msg_dict)
+    print(msg, file=target, flush=True)
