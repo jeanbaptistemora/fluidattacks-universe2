@@ -90,6 +90,18 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sorts*"
     ]
   }
+
+  # CloudWatch logs access
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:*"
+    ]
+    resources = [
+      "arn:aws:logs::${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs",
+      "arn:aws:logs::${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "sorts_prod_policy" {

@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
       "s3:PutObject"
     ]
     resources = [
-      "arn:aws:s3:::sorts/sorts_training*/*"
+      "arn:aws:s3:::sorts/sorts-training*/*"
     ]
   }
 }
