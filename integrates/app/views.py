@@ -8,8 +8,6 @@
 import logging
 from datetime import datetime, timedelta
 from typing import (
-    Any,
-    Dict,
     List,
     Sequence,
     cast
@@ -108,12 +106,6 @@ def index(request: HttpRequest) -> HttpResponse:
         return render(request, 'index.html', parameters)
 
     return HttpResponseRedirect('new/')
-
-
-def mobile(request: HttpRequest) -> HttpResponse:
-    """Small devices view"""
-    parameters: Dict[str, Any] = {}
-    return render(request, 'mobile.html', parameters)
 
 
 @never_cache  # type: ignore

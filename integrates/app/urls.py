@@ -18,8 +18,6 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(pattern_name='new')),
     url(r'^new/?$', views.index, name='new'),
 
-    url(r'^mobile/?$', views.mobile, name='mobile'),
-
     # Evidences
     url(
         (r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
