@@ -21,6 +21,7 @@ export interface IVulnRow {
   severity: string;
   specific: string;
   tag: string;
+  treatment: string;
   treatmentManager: string;
   verification: string;
   vulnType: string;

@@ -198,6 +198,10 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             translate.t("group_alerts.organization_policies.maxium_number_of_acceptations"))
           ) {
             msgError(translate.t("search_findings.tab_vuln.alerts.maximum_number_of_acceptations"));
+          } else if (_.includes(
+            String(updateError),
+            translate.t("group_alerts.organization_policies.exceeds_acceptance_date"))) {
+            msgError(translate.t("group_alerts.organization_policies.exceeds_acceptance_date"));
           } else {
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred updating vuln treatment", updateError);

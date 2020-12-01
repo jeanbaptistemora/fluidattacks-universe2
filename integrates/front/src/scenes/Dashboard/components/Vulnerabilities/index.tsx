@@ -35,6 +35,7 @@ import { UploadVulnerabilites } from "scenes/Dashboard/components/Vulnerabilitie
 import { RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { formatDropdownField } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -129,6 +130,9 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         tag: Array.from(new Set(line.map(getTag)))
           .filter(Boolean)
           .join(", "),
+        treatment: line.every((row: IVulnRow) => row.treatment === line[0].treatment)
+          ? line[0].treatment
+          : "",
         treatmentManager: Array.from(new Set(line.map(getTreatmentManager)))
           .filter(Boolean)
           .join(", "),
@@ -146,6 +150,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
       ({
         ...line,
         severity: getSeverity(line),
+        treatment: translate.t(formatDropdownField(getLastTreatment(line.historicTreatment).treatment)),
         treatmentManager: getLastTreatment(line.historicTreatment).treatmentManager as string,
         verification: line.verification === "Verified"
           ? `${line.verification} (${line.currentState})`
@@ -456,6 +461,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               },
               {
                 align: "left",
+                dataField: "treatment",
+                header: translate.t("search_findings.tab_description.treatment.title"),
+                onSort: onSortInputs,
+              },
+              {
+                align: "left",
                 dataField: "treatmentManager",
                 header: translate.t("search_findings.tab_description.treatment_mgr"),
                 onSort: onSortInputs,
@@ -493,6 +504,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               },
               {
                 align: "left",
+                dataField: "treatment",
+                header: translate.t("search_findings.tab_description.treatment.title"),
+                onSort: onSortLines,
+              },
+              {
+                align: "left",
                 dataField: "treatmentManager",
                 header: translate.t("search_findings.tab_description.treatment_mgr"),
                 onSort: onSortLines,
@@ -526,6 +543,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 dataField: "severity",
                 header: translate.t("search_findings.tab_description.business_criticality"),
                 headerFormatter: proFormatter,
+                onSort: onSortPorts,
+              },
+              {
+                align: "left",
+                dataField: "treatment",
+                header: translate.t("search_findings.tab_description.treatment.title"),
                 onSort: onSortPorts,
               },
               {

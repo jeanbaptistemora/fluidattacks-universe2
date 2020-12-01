@@ -483,7 +483,7 @@ describe("Vulnerabilities view", () => {
     expect(inputSeverities.text())
       .toEqual("-1, 2");
     const inputTreatmentManagers: ReactWrapper = inputsVulns
-      .find({columnIndex: 6});
+      .find({columnIndex: 7});
     expect(inputTreatmentManagers.text())
       .toEqual("treatment-manager-1, treatment-manager-2");
     const linesVulns: ReactWrapper = wrapper
@@ -506,7 +506,7 @@ describe("Vulnerabilities view", () => {
     expect(linesSeverities.text())
       .toEqual("1, 2");
     const linesTreatmentManagers: ReactWrapper = linesVulns
-      .find({columnIndex: 6});
+      .find({columnIndex: 7});
     expect(linesTreatmentManagers.text())
       .toEqual("treatment-manager-3, treatment-manager-4");
   });
