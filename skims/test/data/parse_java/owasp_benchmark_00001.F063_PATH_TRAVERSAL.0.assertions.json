@@ -1,70 +1,84 @@
 [
   {
+    "__danger__": true,
     "stack": 0,
     "type": "BINDING",
     "var": "request",
     "var_type": "HttpServletRequest"
   },
   {
+    "__danger__": false,
     "stack": 0,
     "type": "BINDING",
     "var": "response",
     "var_type": "HttpServletResponse"
   },
   {
+    "__danger__": false,
     "stack": 0,
     "type": "LITERAL",
     "value": "\"text/html;charset=UTF-8\""
   },
   {
+    "__danger__": false,
     "method": "response.setContentType",
     "stack": -1,
     "type": "CALL"
   },
   {
+    "__danger__": true,
     "method": "request.getCookies",
     "stack": 0,
     "type": "CALL"
   },
   {
+    "__danger__": true,
     "stack": -1,
     "type": "BINDING",
     "var": "theCookies",
     "var_type": "javax.servlet.http.Cookie[]"
   },
   {
+    "__danger__": false,
     "stack": 0,
     "type": "LITERAL",
     "value": "\"noCookieValueSupplied\""
   },
   {
+    "__danger__": false,
     "stack": -1,
     "type": "BINDING",
     "var": "param",
     "var_type": "String"
   },
   {
+    "__danger__": false,
     "stack": 0,
     "type": "BINDING",
     "var": "fileName",
     "var_type": "String"
   },
   {
+    "__danger__": false,
     "stack": 0,
     "type": "BINDING",
     "var": "fis",
     "var_type": "java.io.FileInputStream"
   },
   {
+    "__danger__": null,
     "symbol": "fileName",
     "type": "LOOKUP"
   },
   {
+    "__danger__": null,
     "class_type": "java.io.File",
+    "sink": "F063_PATH_TRAVERSAL",
     "stack": -1,
     "type": "CLASS_INSTANTIATION"
   },
   {
+    "__danger__": null,
     "class_type": "java.io.FileInputStream",
     "stack": -1,
     "type": "CLASS_INSTANTIATION"

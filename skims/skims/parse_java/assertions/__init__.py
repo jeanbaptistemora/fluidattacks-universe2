@@ -60,7 +60,7 @@ def _call(statements: List[Statement], index: int) -> None:
     statement['__danger__'] = args_danger or call_danger
 
 
-def get(statements: List[Statement]) -> None:
+def get(statements: List[Statement]) -> List[Statement]:
     for index, statement in enumerate(statements):
         statement['__danger__'] = None
         statement_type = statement['type']
@@ -82,3 +82,5 @@ def get(statements: List[Statement]) -> None:
 
     # Debugging information, only visible with skims --debug
     blocking_log('debug', '%s', json.dumps(statements, indent=2))
+
+    return statements

@@ -6,6 +6,9 @@ from typing import (
     Optional,
 )
 
+# Third party libraries
+import networkx as nx
+
 # Local libraries
 from utils.function import (
     get_id,
@@ -41,6 +44,12 @@ def mark_seen(ctx: Context, n_id: str) -> Context:
 
 def ensure_context(ctx: OptionalContext) -> Context:
     return _build_empty_context() if ctx is None else ctx
+
+
+def mark_if_sink(graph: nx.DiGraph, n_id: str, ctx: Context) -> None:
+    if statements := ctx['statements']:
+        if label := graph.nodes[n_id].get('label_sink_type'):
+            statements[-1]['sink'] = label
 
 
 def merge_contexts(target: Context, source: Context) -> None:

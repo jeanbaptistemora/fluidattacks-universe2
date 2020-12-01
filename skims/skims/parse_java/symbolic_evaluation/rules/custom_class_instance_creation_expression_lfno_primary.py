@@ -54,6 +54,7 @@ def evaluate(
             'class_type': graph.nodes[match['CustomIdentifier']]['label_text'],
             'type': 'CLASS_INSTANTIATION',
         })
+        common.mark_if_sink(graph, n_id, ctx)
     else:
         common.not_implemented(evaluate, n_id, ctx=ctx)
 

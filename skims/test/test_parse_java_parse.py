@@ -14,6 +14,9 @@ from parse_java.symbolic_evaluation.evaluate import (
 from parse_java.parse import (
     parse_from_content,
 )
+from parse_java.assertions import (
+    get as get_assertions,
+)
 from parse_java.graph.sinks import (
     SINKS,
 )
@@ -90,11 +93,12 @@ async def test_graph_generation(path: str, name: str) -> None:
         for index, path in enumerate(  # type: ignore
             sorted(g.flows(graph, sink_type=sink)),
         ):
-            assertions = evaluate(
+            statements = evaluate(
                 graph,
                 path,  # type: ignore
                 allow_incomplete=True,
             )
+            assertions = get_assertions(statements if statements else [])
             assertions_as_json = json.dumps(assertions, indent=2, sort_keys=True)
 
             with open(f'test/data/parse_java/{name}.{sink}.{index}.assertions.json') as handle:
