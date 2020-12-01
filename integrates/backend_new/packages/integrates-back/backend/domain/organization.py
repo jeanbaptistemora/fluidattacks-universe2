@@ -524,3 +524,30 @@ async def get_by_name(name: str) -> OrganizationType:
         return format_organization(organization)
 
     raise OrganizationNotFound()
+
+
+async def get_pending_deletion_date(organization_id: str) -> str:
+    result = cast(
+        Dict[str, str],
+        await org_dal.get_by_id(organization_id, ['pending_deletion_date'])
+    )
+
+    return result.get('pending_deletion_date', datetime_utils.DEFAULT_STR)
+
+
+async def update_pending_deletion_date(
+    organization_id: str,
+    organization_name: str,
+    pending_deletion_date: Optional[str]
+) -> bool:
+    """ Update pending deletion date """
+    values: OrganizationType = {
+        'pending_deletion_date': pending_deletion_date
+    }
+    success = await org_dal.update(
+        organization_id,
+        organization_name,
+        values
+    )
+
+    return success

@@ -928,3 +928,37 @@ def scheduler_send_mail(
     schedule(
         send_mail_function(mail_to, mail_context)
     )
+
+
+async def integrates_delete_obsolete_orgs() -> None:
+    """ Delete obsolete organizations """
+    msg = '[scheduler]: integrates_delete_obsolete_orgs is running'
+    LOGGER.info(msg, **NOEXTRA)
+    today = datetime_utils.get_now().date()
+    default_date = datetime_utils.get_from_str(datetime_utils.DEFAULT_STR)
+    async for org_id, org_name in org_domain.iterate_organizations():
+        org_pending_deletion_date = datetime_utils.get_from_str(
+            await org_domain.get_pending_deletion_date(org_id)
+        )
+        org_users = await org_domain.get_users(org_id)
+        org_groups = await org_domain.get_groups(org_id)
+        if len(org_users) <= 1 or len(org_groups) == 0:
+            if org_pending_deletion_date.date() >= today:
+                msg = f'- organization: {org_name} will be deleted'
+                LOGGER.info(msg, **NOEXTRA)
+                await org_domain.delete_organization(org_id)
+            elif org_pending_deletion_date == default_date:
+                org_pending_deletion_date_str = datetime_utils.get_as_str(
+                    datetime_utils.get_now_plus_delta(days=60)
+                )
+                await org_domain.update_pending_deletion_date(
+                    org_id,
+                    org_name,
+                    org_pending_deletion_date_str
+                )
+        else:
+            await org_domain.update_pending_deletion_date(
+                org_id,
+                org_name,
+                None
+            )

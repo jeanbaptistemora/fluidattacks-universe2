@@ -127,6 +127,12 @@ integrates_analytics_make_snapshots_prod_schedule:
     refs: [schedules]
     variables: [$analytics]
 
+integrates_delete_obsolete_orgs:
+  <<: *integrates_scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$integrates_delete_obsolete_orgs]
+
 integrates_subscriptions_trigger_user_to_entity_report_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
