@@ -410,6 +410,25 @@ function job_observes_code_test {
   ||  return 1
 }
 
+function job_observes_singer_io_lint {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./common/singer_io/singer_io" 1 \
+    &&  helper_observes_lint_generic_package "./common/singer_io/tests" 1 \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_singer_io_test {
+  local python="${SingerIO}"/bin/python
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_test_generic_package "./common/singer_io" "${python} -m" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_observes_gitlab_streamer_lint {
 
       pushd observes \
