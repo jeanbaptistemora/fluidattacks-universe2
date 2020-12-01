@@ -2,14 +2,16 @@
   "complete": true,
   "statements": [
     {
-      "target": "request",
-      "target_type": "HttpServletRequest",
-      "type": "BINDING"
+      "source": null,
+      "type": "BINDING",
+      "var": "request",
+      "var_type": "HttpServletRequest"
     },
     {
-      "target": "response",
-      "target_type": "HttpServletResponse",
-      "type": "BINDING"
+      "source": null,
+      "type": "BINDING",
+      "var": "response",
+      "var_type": "HttpServletResponse"
     },
     {
       "args": [

@@ -106,9 +106,10 @@ def _formal_parameter(
 
         # Add the variable to the mapping
         ctx['statements'].append({
+            'source': None,
             'type': 'BINDING',
-            'target': var_attrs_label_text,
-            'target_type': type_attrs_label_text,
+            'var': var_attrs_label_text,
+            'var_type': type_attrs_label_text,
         })
 
     else:

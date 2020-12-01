@@ -20,6 +20,9 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     SHIELD,
 )
+from parse_java.assertions import (
+    get as get_assertions,
+)
 from parse_java.parse import (
     parse_from_content as java_parse_from_content,
 )
@@ -55,6 +58,7 @@ def _java_path_traversal(
         for path in g.flows(graph, sink_type='F063_PATH_TRAVERSAL'):
             context = evaluate(graph, path)
             if context['complete']:
+                get_assertions(context['statements'])
                 # This is never going to happen
                 # I'm adding it to early test the functionality
                 if '__never__' in context:
