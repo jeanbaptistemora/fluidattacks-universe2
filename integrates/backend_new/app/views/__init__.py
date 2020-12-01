@@ -19,6 +19,7 @@ from .evidence import (
 from .templates import (
     error401,
     error500,
+    graphic_error,
     graphic_view,
     graphics_for_entity_view,
     invalid_invitation,
@@ -41,6 +42,7 @@ __all__ = [
     # templates
     'error401',
     'error500',
+    'graphic_error',
     'graphic_view',
     'graphics_for_entity_view',
     'invalid_invitation',
