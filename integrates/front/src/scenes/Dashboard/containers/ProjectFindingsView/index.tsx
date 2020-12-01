@@ -259,15 +259,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       wrapped: true,
     },
     {
-      align: "center", dataField: "treatment",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "treatmentFilter"),
-        onFilter: onFilterTreatment,
-        options: optionTreatment,
-      }),
-      header: "Treatment", onSort: onSortState, visible: checkedItems.treatment, width: "8%", wrapped: true,
-    },
-    {
       align: "center", dataField: "remediated",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "verificationFilter"),
