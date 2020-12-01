@@ -25,7 +25,7 @@ def identity(obj: Any) -> Any:
     return obj
 
 
-def translate_types(field__type: JSON) -> JSON:
+def translate_types(raw_field_type: JSON) -> JSON:
     """Translates type names into JSON SCHEMA types.
     """
 
@@ -46,8 +46,8 @@ def translate_types(field__type: JSON) -> JSON:
         "datetime": type_datetime
     }
 
-    field__type = {f: dictionary[t] for f, t in field__type.items()}
-    return field__type
+    field_type = {f: dictionary[t] for f, t in raw_field_type.items()}
+    return field_type
 
 
 def translate_values(field__type: JSON, field__value: JSON) -> JSON:
