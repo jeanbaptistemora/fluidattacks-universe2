@@ -7,8 +7,11 @@ import { GitRootsModal } from "./modal";
 import { Glyphicon } from "react-bootstrap";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
+import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
+import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
 import { ADD_GIT_ROOT, UPDATE_GIT_ROOT } from "../query";
@@ -25,6 +28,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   onUpdate,
   roots,
 }: IGitRootsProps): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
   // State management
@@ -66,31 +70,78 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
-  const [updateGitRoot] = useMutation(UPDATE_GIT_ROOT);
+  const [updateGitRoot] = useMutation(UPDATE_GIT_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+      closeModal();
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
+          case "Exception - Error empty value is not valid":
+            msgError(t("group.scope.git.errors.invalid"));
+            break;
+          default:
+            msgError(t("group_alerts.error_textsad"));
+            Logger.error("Couldn't update git root", error);
+        }
+      });
+    },
+  });
 
   // Event handlers
   const handleRowClick: (
     event: React.MouseEvent<HTMLTableRowElement>,
     row: IGitRootAttr
-  ) => void = (): void => undefined;
+  ) => void = React.useCallback(
+    (_event, row): void => {
+      if (permissions.can("backend_api_mutations_update_git_root_mutate")) {
+        setModalValues({
+          ...row,
+          filter:
+            row.filter === null ? { paths: [""], policy: "NONE" } : row.filter,
+        });
+        openModal();
+      }
+    },
+    [openModal, permissions]
+  );
 
   const handleSubmit: (
     values: IGitFormAttr
   ) => Promise<void> = React.useCallback(
     async (values): Promise<void> => {
       if (modalValues === undefined) {
+        const {
+          branch,
+          environment,
+          filter,
+          includesHealthCheck,
+          url,
+        } = values;
         await addGitRoot({
           variables: {
-            ...values,
-            filter: values.filter.policy === "NONE" ? undefined : values.filter,
+            branch,
+            environment,
+            filter: filter.policy === "NONE" ? undefined : values.filter,
             groupName,
+            includesHealthCheck,
+            url,
           },
         });
       } else {
+        const {
+          environment,
+          filter: { paths, policy },
+          id,
+          includesHealthCheck,
+        } = values;
         await updateGitRoot({
           variables: {
-            ...values,
-            filter: values.filter.policy === "NONE" ? undefined : values.filter,
+            environment,
+            filter: policy === "NONE" ? undefined : { paths, policy },
+            id,
+            includesHealthCheck,
           },
         });
       }

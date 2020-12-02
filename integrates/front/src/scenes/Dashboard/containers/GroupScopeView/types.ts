@@ -36,6 +36,7 @@ interface IGitFormAttr {
     paths: string[];
     policy: "EXCLUDE" | "INCLUDE" | "NONE";
   };
+  id: string;
   includesHealthCheck: boolean;
   url: string;
 }

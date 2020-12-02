@@ -15,7 +15,7 @@ export const Dropdown: React.FC<WrappedFieldProps & FormControlProps> = (
 ): JSX.Element => {
   const { input, meta, children } = props;
   const { initial, touched, error } = meta;
-  const { onChange } = input;
+  const { name, onChange } = input;
 
   function handleDropdownChange(event: React.FormEvent<FormControl>): void {
     onChange((event.target as HTMLInputElement).value);
@@ -27,6 +27,7 @@ export const Dropdown: React.FC<WrappedFieldProps & FormControlProps> = (
         className={style.formControl}
         componentClass={"select"}
         defaultValue={initial}
+        name={name}
         onChange={handleDropdownChange}
       >
         {children}

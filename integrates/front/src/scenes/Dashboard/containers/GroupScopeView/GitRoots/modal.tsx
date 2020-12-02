@@ -27,6 +27,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
     branch: "",
     environment: "",
     filter: { paths: [""], policy: "NONE" },
+    id: "",
     includesHealthCheck: false,
     url: "",
   },

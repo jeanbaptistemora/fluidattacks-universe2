@@ -15,7 +15,7 @@ export const Text: React.FC<WrappedFieldProps & FormControlProps> = (
   props: Readonly<WrappedFieldProps & FormControlProps>
 ): JSX.Element => {
   const { disabled, id, max, min, input, placeholder, type, meta } = props;
-  const { onBlur, onChange, value } = input;
+  const { name, onBlur, onChange, value } = input;
 
   return (
     <React.Fragment>
@@ -25,6 +25,7 @@ export const Text: React.FC<WrappedFieldProps & FormControlProps> = (
         id={id}
         max={max}
         min={min}
+        name={name}
         onBlur={onBlur}
         onChange={onChange}
         placeholder={placeholder}

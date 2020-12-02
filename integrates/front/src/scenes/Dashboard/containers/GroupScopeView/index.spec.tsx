@@ -193,7 +193,7 @@ describe("GroupScopeView", (): void => {
     await act(
       async (): Promise<void> => {
         wrapper.find("form").simulate("submit");
-        const delay: number = 50;
+        const delay: number = 200;
         await wait(delay);
         wrapper.update();
       }
@@ -208,9 +208,7 @@ describe("GroupScopeView", (): void => {
     );
   });
 
-  // Will enable next MR
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should update git roots", async (): Promise<void> => {
+  it("should update git roots", async (): Promise<void> => {
     expect.hasAssertions();
 
     const initialQueryMock: MockedResponse = {
