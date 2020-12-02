@@ -1,13 +1,14 @@
 # Standard libraries
-from typing import Any, Dict
+from typing import Dict
 
 # Third party libraries
+from selenium.webdriver import Remote
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
 
 def login_bitbucket(
-        driver: Any,
+        driver: Remote,
         bitbucket_credentials: Dict[str, str]) -> None:
     driver.get('https://id.atlassian.com/login')
 

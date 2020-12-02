@@ -4,6 +4,8 @@ from typing import Dict
 
 # Third party libraries
 import pytest
+from _pytest.fixtures import FixtureRequest
+from selenium.webdriver import Remote
 
 
 @pytest.fixture(autouse=True, scope='session')
@@ -14,12 +16,13 @@ def browserstack_url() -> str:
 
 
 @pytest.fixture(autouse=True, scope='session')
-def browserstack_cap() -> Dict[str, str]:
+def browserstack_cap(request: FixtureRequest) -> Dict[str, str]:
     return {
         'os': 'Windows',
         'os_version': '10',
         'browser': 'Chrome',
         'browser_version': '80',
+        'name': request.node.name,
     }
 
 
@@ -53,3 +56,11 @@ def endpoint(branch: str, is_ci: bool) -> str:
     else:
         url = 'https://localhost:8080/new'
     return url
+
+
+@pytest.fixture(autouse=True, scope='function')
+def driver(browserstack_cap: Dict[str, str], browserstack_url: str) -> Remote:
+    return Remote(
+        command_executor=browserstack_url,
+        desired_capabilities=browserstack_cap
+    )
