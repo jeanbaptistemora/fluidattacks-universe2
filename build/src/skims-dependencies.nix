@@ -3,6 +3,7 @@ pkgs: rec {
     pkgs.awscli
     pkgs.gnutar
     pkgs.gradle
+    pkgs.parallel
     pkgs.python38Packages.poetry
   ];
 

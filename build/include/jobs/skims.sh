@@ -237,17 +237,23 @@ function job_skims_lint {
     --strictness veryhigh
     --test-warnings
   )
+  local pkgs="${TEMP_FILE1}"
 
       helper_skims_install_dependencies \
   &&  pushd skims \
+    &&  rm "${pkgs}" \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do
-              echo "[INFO] Checking static typing: ${pkg}" \
-          &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
-          &&  echo "[INFO] Linting: ${pkg}" \
-          &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \
-          ||  return 1
+          echo "${pkg}" >> "${pkgs}"
         done \
+    &&  echo "[INFO] Checking static typing" \
+    &&  parallel -j 8 -I% --max-args 1 \
+          poetry run mypy "${args_mypy[@]}" \
+          < "${pkgs}" \
+    &&  echo "[INFO] Running linters" \
+    &&  parallel -j 8 -I% --max-args 1 \
+          poetry run prospector "${args_prospector[@]}" \
+          < "${pkgs}" \
   &&  popd \
   ||  return 1
 }
