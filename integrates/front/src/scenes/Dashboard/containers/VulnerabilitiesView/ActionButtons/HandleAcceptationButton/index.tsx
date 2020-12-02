@@ -1,50 +1,45 @@
-
-/* tslint:disable:jsx-no-multiline-js
- *
- * jsx-no-multiline-js: Necessary for using conditional rendering
- */
-
-import _ from "lodash";
-import React from "react";
-
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
-
-import type {
-  IHandleAcceptationButtonProps,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/HandleAcceptationButton/types";
-
 import { Can } from "utils/authz/Can";
-import { translate } from "utils/translations/translate";
+import { FluidIcon } from "components/FluidIcon";
+import type { IHandleAcceptationButtonProps } from "./types";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { useTranslation } from "react-i18next";
 
-const handleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = (
-  props: IHandleAcceptationButtonProps,
-): JSX.Element => {
-
-  const { openHandleAcceptation } = props;
+const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
+  canHandleAcceptation,
+  isEditing,
+  isRequestingReattack,
+  isVerifying,
+  isRequestingZeroRisk,
+  isRejectingZeroRisk,
+  openHandleAcceptation,
+}: IHandleAcceptationButtonProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const shouldRenderHandleAcceptationBtn: boolean =
     !(
-      props.isEditing
-      || props.isRequestingReattack
-      || props.isVerifying
-      || props.isRequestingZeroRisk
-      || props.isRejectingZeroRisk
-    )
-    && props.canHandleAcceptation;
+      isEditing ||
+      isRequestingReattack ||
+      isVerifying ||
+      isRequestingZeroRisk ||
+      isRejectingZeroRisk
+    ) && canHandleAcceptation;
 
   return (
-    <Can do="backend_api_mutations_handle_vulns_acceptation_mutate">
+    <Can do={"backend_api_mutations_handle_vulns_acceptation_mutate"}>
       {shouldRenderHandleAcceptationBtn ? (
         <TooltipWrapper
-          message={translate.t("search_findings.tab_vuln.buttons_tooltip.handle_acceptation")}
-          placement="top"
+          message={t(
+            "search_findings.tab_vuln.buttons_tooltip.handle_acceptation"
+          )}
+          placement={"top"}
         >
           <Button onClick={openHandleAcceptation}>
             <React.Fragment>
-              <FluidIcon icon="verified" />&nbsp;
-              {translate.t("search_findings.tab_vuln.buttons.handle_acceptation")}
+              <FluidIcon icon={"verified"} />
+              &nbsp;
+              {t("search_findings.tab_vuln.buttons.handle_acceptation")}
             </React.Fragment>
           </Button>
         </TooltipWrapper>
@@ -53,4 +48,4 @@ const handleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = (
   );
 };
 
-export { handleAcceptationButton as HandleAcceptationButton };
+export { HandleAcceptationButton };

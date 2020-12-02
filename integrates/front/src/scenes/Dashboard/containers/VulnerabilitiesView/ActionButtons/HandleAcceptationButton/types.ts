@@ -6,5 +6,5 @@ export interface IHandleAcceptationButtonProps {
   isRequestingReattack: boolean;
   isRequestingZeroRisk: boolean;
   isVerifying: boolean;
-  openHandleAcceptation(): void;
+  openHandleAcceptation: () => void;
 }
