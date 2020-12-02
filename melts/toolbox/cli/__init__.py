@@ -19,7 +19,6 @@ from toolbox import (
 from .misc import misc_management
 from .integrates import integrates_management
 from .resources import resources_management
-from .reports import reports_management
 
 
 def _valid_integrates_token(ctx, param, value):
@@ -61,7 +60,6 @@ entrypoint.add_command(integrates_management)
 entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
-entrypoint.add_command(reports_management)
 entrypoint.add_command(upgrade_management)
 
 

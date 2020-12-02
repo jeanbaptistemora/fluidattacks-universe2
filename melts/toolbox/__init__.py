@@ -4,7 +4,6 @@ from toolbox import (
     utils,
     constants,
     logger,
-    reports,
     toolbox,
     drills,
 )
@@ -14,7 +13,6 @@ assert api
 assert utils
 assert constants
 assert logger
-assert reports
 assert toolbox
 assert drills
 

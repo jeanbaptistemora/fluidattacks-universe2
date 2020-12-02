@@ -57,10 +57,8 @@ distutils.core.setup(
         'toolbox.api',
         'toolbox.cli',
         'toolbox.drills',
-        'toolbox.forces',
         'toolbox.generic',
         'toolbox.utils',
-        'toolbox.reports'
     ],
     install_requires=get_install_requires(),
     entry_points={

@@ -1,13 +1,9 @@
 # Standard library
-import os
-import sys
 
 # Third parties imports
-import pytest
 
 # Local libraries
 from toolbox import (
-    forces,
     toolbox,
     utils
 )
@@ -20,25 +16,8 @@ FAILURE: int = 1
 FINDING: str = '720412598'
 
 
-def test_toolbox_statefull_functions(relocate_to_cloned_repo):
-    """Test functions that modify files."""
-    # This tests need to be run in a pristine environment
-    assert not os.system('git reset --hard HEAD')
-
-    try:
-        # Secrets management
-        assert forces.secrets.decrypt(SUBS)
-        assert forces.secrets.encrypt(SUBS)
-
-        # Deployment phase
-        assert toolbox.fill_with_iexps(subs_glob=SUBS, create_files=True)
-        assert toolbox.generate_exploits(subs_glob=SUBS)
-    finally:
-        os.system('git reset --hard HEAD')
-
 def test_toolbox_reporting_cycle(relocate):
     """Test reporting cycle."""
-    assert forces.sync.are_exploits_synced(SUBS, exp_name=None)
     assert toolbox.run_static_exploits(SUBS, exp_name=None)
     assert toolbox.run_dynamic_exploits(SUBS, exp_name=None)
     assert toolbox.get_vulnerabilities_yaml(SUBS)
