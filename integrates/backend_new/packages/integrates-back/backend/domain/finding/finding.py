@@ -657,10 +657,10 @@ async def mask_finding(finding_id: str) -> bool:
     return success
 
 
-def _format_finding(finding: Dict[str, Any]) -> FindingType:
+def _format_finding(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     """Returns the data in the format expected by default resolvers"""
 
-    return cast(FindingType, {
+    return cast(Dict[str, FindingType], {
         'id': finding.get('finding_id', ''),
         'project_name': finding.get('project_name', ''),
         'release_date': finding.get('release_date', ''),
@@ -670,21 +670,71 @@ def _format_finding(finding: Dict[str, Any]) -> FindingType:
     })
 
 
-async def get_findings_by_group(group_name: str) -> List[FindingType]:
+def filter_no_deleted_findings(
+        findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    no_deleted_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'DELETED'
+    ]
+
+    return no_deleted_findings
+
+
+def filter_approved_findings(
+        findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    approved_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') == 'APPROVED'
+    ]
+
+    return approved_findings
+
+
+def filter_no_approved_findings(
+        findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    no_approved_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'APPROVED'
+    ]
+
+    return no_approved_findings
+
+
+async def get_findings_by_group(
+        group_name: str
+) -> List[Dict[str, FindingType]]:
     findings = await finding_dal.get_findings_by_group(group_name)
+    findings = filter_approved_findings(findings)
 
     return [
         _format_finding(finding)
         for finding in findings
-        if finding.get('historic_state', [{}])[-1].get('state') != 'DELETED'
     ]
 
 
-async def get_drafts_by_group(group_name: str) -> List[FindingType]:
-    drafts = await finding_dal.get_drafts_by_group(group_name)
+async def get_drafts_by_group(
+    group_name: str
+) -> List[Dict[str, FindingType]]:
+    findings = await finding_dal.get_findings_by_group(group_name)
+    findings = filter_no_deleted_findings(findings)
+    findings = filter_no_approved_findings(findings)
 
     return [
-        _format_finding(draft)
-        for draft in drafts
-        if draft.get('historic_state', [{}])[-1].get('state') != 'DELETED'
+        _format_finding(finding)
+        for finding in findings
     ]
