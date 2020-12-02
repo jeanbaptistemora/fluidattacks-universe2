@@ -98,8 +98,8 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "logs:*"
     ]
     resources = [
-      "arn:aws:logs::${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs",
-      "arn:aws:logs::${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*"
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs",
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*"
     ]
   }
 }
