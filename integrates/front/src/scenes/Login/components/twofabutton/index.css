@@ -1,17 +1,17 @@
 :global .btn-bitbucket {
-  background-color: #0747A6;
-  border-color: #0747A6;
+  background-color: #0747a6;
+  border-color: #0747a6;
   height: 42px;
 }
-  
+
 :global .btn-google {
-  background-color: #CC0000;
-  border-color: #AA0000;
+  background-color: #cc0000;
+  border-color: #aa0000;
   height: 42px;
 }
 
 :global .btn-azure {
-  background-color: #007BFF;
-  border-color: #007BFF;
+  background-color: #007bff;
+  border-color: #007bff;
   height: 42px;
 }

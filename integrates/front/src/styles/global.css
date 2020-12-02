@@ -112,27 +112,6 @@ label {
   border-color: #c5c5c5;
 }
 
-:global .btn-bitbucketLoginInfo {
-  background-color: #0747A6;
-  border-color: #0747A6;
-}
-
-:global .btn-googleLoginInfo {
-  background-color: #CC0000;
-  border-color: #AA0000;
-}
-
-:global .btn-login {
-  border-width: 1px;
-  font-size: 18px;
-  height: 40px;
-}
-
-:global .btn-microsoftLoginInfo {
-  background-color: #007BFF;
-  border-color: #007BFF;
-}
-
 :global .commit {
   bottom: 8px;
   right: 16px;
@@ -590,7 +569,7 @@ label {
 }
 
 :global .bottom-9 {
-  bottom: 9rem;  
+  bottom: 9rem;
 }
 
 :global .bottom-15 {

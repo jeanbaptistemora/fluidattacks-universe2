@@ -2,7 +2,6 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import FontAwesome from "react-fontawesome";
 import React from "react";
 import _ from "lodash";
 import logo from "resources/integrates.svg";
@@ -11,17 +10,14 @@ import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
 import {
   Col100,
-  LoginButtonBitbucket,
-  LoginButtonGoogle,
-  LoginButtonMicrosoft,
   LoginCommit,
   LoginContainer,
   LoginDeploymentDate,
   LoginGrid,
   LoginRow,
 } from "styles/styledComponents";
+import { LoginButton, TwoFaButton, TwoFacol } from "./components";
 import { Slide, toast } from "react-toastify";
-import { TwoFaButton, TwoFacol } from "./components";
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -110,18 +106,24 @@ export const Login: React.FC = (): JSX.Element => {
           <p>{t("login.newuser")}</p>
         </LoginRow>
         <LoginRow>
-          <LoginButtonGoogle onClick={handleGoogleLogin}>
-            <FontAwesome name={"google"} size={"2x"} />
-            {t("login.google")}
-          </LoginButtonGoogle>
-          <LoginButtonMicrosoft onClick={handleMicrosoftLogin}>
-            <FontAwesome name={"windows"} size={"2x"} />
-            {t("login.microsoft")}
-          </LoginButtonMicrosoft>
-          <LoginButtonBitbucket onClick={handleBitbucketLogin}>
-            <FontAwesome name={"bitbucket"} size={"2x"} />
-            {t("login.bitbucket")}
-          </LoginButtonBitbucket>
+          <LoginButton
+            className={"btn-lgoogle"}
+            fontAwesomeName={"google"}
+            onClick={handleGoogleLogin}
+            text={t("login.google")}
+          />
+          <LoginButton
+            className={"btn-lazure"}
+            fontAwesomeName={"windows"}
+            onClick={handleMicrosoftLogin}
+            text={t("login.microsoft")}
+          />
+          <LoginButton
+            className={"btn-lbitbucket"}
+            fontAwesomeName={"bitbucket"}
+            onClick={handleBitbucketLogin}
+            text={t("login.bitbucket")}
+          />
         </LoginRow>
       </LoginGrid>
       <LoginDeploymentDate>

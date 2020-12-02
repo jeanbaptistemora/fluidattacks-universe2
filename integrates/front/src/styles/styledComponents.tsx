@@ -236,30 +236,6 @@ const LastProjectSetting: StyledComponent<
   className: "mb10",
 })``;
 
-const LoginButtonBitbucket: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className:
-    "dim w-100 flex ba br0 pa3 mt2 outline-0 justify-between items-center btn-login btn-bitbucketLoginInfo",
-})``;
-
-const LoginButtonGoogle: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className:
-    "dim w-100 flex ba br0 pa3 mt5 outline-0 justify-between items-center btn-login btn-googleLoginInfo",
-})``;
-
-const LoginButtonMicrosoft: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className:
-    "dim w-100 flex ba br0 pa3 mt2 outline-0 justify-between items-center btn-login btn-microsoftLoginInfo",
-})``;
-
 const LoginCommit: StyledComponent<
   "div",
   Record<string, unknown>
@@ -604,9 +580,6 @@ export {
   FormGroup,
   Label,
   LastProjectSetting,
-  LoginButtonBitbucket,
-  LoginButtonGoogle,
-  LoginButtonMicrosoft,
   LoginCommit,
   LoginContainer,
   LoginDeploymentDate,

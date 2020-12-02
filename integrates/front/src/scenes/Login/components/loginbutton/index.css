@@ -1,0 +1,21 @@
+:global .btn-lbitbucket {
+    background-color: #0747a6;
+    border-color: #0747a6;
+}
+
+:global .btn-lgoogle {
+  background-color: #cc0000;
+  border-color: #aa0000;
+  margin-top: 4rem !important;
+}
+
+:global .btn-login {
+  border-width: 1px;
+  font-size: 18px;
+  height: 40px;
+}
+
+:global .btn-lazure {
+  background-color: #007bFF;
+  border-color: #007bFF;
+}
