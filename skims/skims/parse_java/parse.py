@@ -43,7 +43,7 @@ from utils.model import (
 )
 
 
-def from_antlr_model(model: Any) -> nx.DiGraph:
+def _graph_from_antlr_model(model: Any) -> nx.DiGraph:
     graph = antlr_graph.from_model(model)
 
     reduce_graph(graph)
@@ -56,7 +56,7 @@ def from_antlr_model(model: Any) -> nx.DiGraph:
 
 
 @CACHE_1SEC
-async def parse_from_content(
+async def get_graph(
     grammar: Grammar,
     *,
     content: bytes,
@@ -72,7 +72,7 @@ async def parse_from_content(
         with open(f'{output}.model.json', 'w') as handle:
             json.dump(model, handle, indent=2, sort_keys=True)
 
-    graph = await in_process(from_antlr_model, model)
+    graph = await in_process(_graph_from_antlr_model, model)
 
     if debug:
         await to_svg(graph, output)

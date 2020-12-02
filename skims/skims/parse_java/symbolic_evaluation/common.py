@@ -2,8 +2,9 @@
 from typing import (
     Any,
     Callable,
-    Dict,
     Optional,
+    List,
+    TypedDict,
 )
 
 # Third party libraries
@@ -18,22 +19,12 @@ from utils.logs import (
 )
 
 # Types
-Context = Dict[str, Any]
+Context = TypedDict('Context', {
+    'complete': bool,
+    'seen': set,
+    'statements': List[Any],
+})
 OptionalContext = Optional[Context]
-
-
-def _build_empty_context() -> Context:
-    ctx: Context = {
-        'complete': True,
-        'seen': set(),
-        'statements': [],
-    }
-
-    return ctx
-
-
-def already_seen(ctx: Context, n_id: str) -> bool:
-    return n_id in ctx['seen']
 
 
 def mark_seen(ctx: Context, n_id: str) -> Context:
@@ -42,8 +33,15 @@ def mark_seen(ctx: Context, n_id: str) -> Context:
     return ctx
 
 
-def ensure_context(ctx: OptionalContext) -> Context:
-    return _build_empty_context() if ctx is None else ctx
+def ensure_context(ctx: OptionalContext = None) -> Context:
+    if ctx is None:
+        return {
+            'complete': True,
+            'seen': set(),
+            'statements': [],
+        }
+
+    return ctx
 
 
 def mark_if_sink(graph: nx.DiGraph, n_id: str, ctx: Context) -> None:

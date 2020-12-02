@@ -12,7 +12,7 @@ from parse_java.symbolic_evaluation.evaluate import (
     evaluate,
 )
 from parse_java.parse import (
-    parse_from_content,
+    get_graph,
 )
 from parse_java.assertions import (
     get as get_assertions,
@@ -78,7 +78,7 @@ async def test_graph_generation(path: str, name: str) -> None:
     content = await get_file_raw_content(path)
 
     # New way, comprised
-    graph = await parse_from_content(Grammar.JAVA9, content=content, path=path)
+    graph = await get_graph(Grammar.JAVA9, content=content, path=path)
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
 
@@ -110,7 +110,7 @@ async def test_graph_generation(path: str, name: str) -> None:
 @run_decorator
 async def test_control_flow_1() -> None:
     path = 'test/data/parse_java/TestCFG.java'
-    graph = await parse_from_content(
+    graph = await get_graph(
         Grammar.JAVA9,
         content=await get_file_raw_content(path),
         path=path,
@@ -178,7 +178,7 @@ async def test_control_flow_1() -> None:
 @run_decorator
 async def test_control_flow_2() -> None:
     path = 'test/data/lib_path/f063_path_traversal/Test.java'
-    graph = await parse_from_content(
+    graph = await get_graph(
         Grammar.JAVA9,
         content=await get_file_raw_content(path),
         path=path,

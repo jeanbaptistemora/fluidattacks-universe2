@@ -33,7 +33,8 @@ def evaluate(
 ) -> common.Context:
     ctx = common.ensure_context(ctx)
 
-    if common.already_seen(ctx, n_id):
+    # Check if we already extracted context from this node
+    if n_id in ctx['seen']:
         return common.mark_seen(ctx, n_id)
 
     n_attrs_label_type = graph.nodes[n_id]['label_type']

@@ -4,7 +4,6 @@ from typing import (
     Any,
     Dict,
     List,
-    Optional,
     Tuple,
 )
 
@@ -36,7 +35,6 @@ NON_RECURSIVE = {
 ALL_TYPES = NON_RECURSIVE | RECURSIVE
 
 # Typing
-Assertion = Dict[str, Dict[str, Any]]
 Statement = Dict[str, Any]
 
 
@@ -49,9 +47,6 @@ def _analyze_context(
     # Walk the path and mine the nodes in order to increase the context
     for n_id in path:
         generic.evaluate(graph, n_id, ctx=ctx)
-
-    # Remove temporal state
-    ctx.pop('seen')
 
     return ctx
 
@@ -115,7 +110,7 @@ def evaluate(
     path: Tuple[str, ...],
     *,
     allow_incomplete: bool = False,
-) -> Optional[List[Statement]]:
+) -> List[Statement]:
     ctx = _analyze_context(graph, path)
 
     if ctx['complete'] or allow_incomplete:
@@ -126,4 +121,4 @@ def evaluate(
 
         return statements
 
-    return None
+    return []

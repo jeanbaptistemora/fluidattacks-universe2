@@ -23,7 +23,7 @@ from parse_babel import (
     parse as parse_babel,
 )
 from parse_java.parse import (
-    parse_from_content as java_parse_from_content,
+    get_graph as java_get_graph,
 )
 from lib_path.common import (
     EXTENSIONS_CSHARP,
@@ -241,7 +241,7 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_JAVA:
         content = await content_generator()
-        graph = await java_parse_from_content(
+        graph = await java_get_graph(
             Grammar.JAVA9,
             content=content.encode(),
             path=path,
