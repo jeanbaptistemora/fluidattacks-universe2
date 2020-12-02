@@ -152,7 +152,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
-    (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
+    (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
       mixpanel.track("ReadFinding", { User: userName });
       push(`/groups/${projectName}/vulns/${rowInfo.id}/vulns`);
     };
@@ -304,19 +304,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
           return <React.Fragment />;
         }
-
-        data.project.findings = data.project.findings.map((finding: IFindingAttr) => {
-          if (finding.historicTreatment.length > 0) {
-            finding.treatment = finding.historicTreatment[finding.historicTreatment.length - 1].treatment;
-            const acceptationApproval: string | undefined =
-              _.get(finding.historicTreatment[finding.historicTreatment.length - 1], "acceptance_status");
-            if (acceptationApproval !== undefined && acceptationApproval === "SUBMITTED") {
-              finding.treatment += " pending";
-            }
-          }
-
-          return finding;
-        });
 
         const handleRequestProjectReport: ((event: React.MouseEvent<HTMLElement | ButtonType>) => void) =
         (event: React.MouseEvent<HTMLElement | ButtonType>): void => {

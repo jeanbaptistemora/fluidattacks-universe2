@@ -25,7 +25,6 @@ describe("Finding Description", () => {
     compromisedRecords: 204,
     cweUrl: "94",
     description: "It's possible to execute shell commands from the site",
-    historicTreatment: [],
     id: "413372600",
     openVulnerabilities: 0,
     recommendation: "Use good security practices and standards",

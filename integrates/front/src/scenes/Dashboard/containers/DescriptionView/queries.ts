@@ -16,7 +16,6 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       compromisedRecords
       cweUrl
       description
-      historicTreatment
       id
       openVulnerabilities
       recommendation

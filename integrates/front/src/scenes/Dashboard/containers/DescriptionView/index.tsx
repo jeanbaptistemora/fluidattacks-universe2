@@ -76,29 +76,13 @@ const descriptionView: React.FC = (): JSX.Element => {
 
   const isDescriptionPristine: boolean = useSelector((state: {}) =>
     isPristine("editDescription")(state));
-  const isTreatmentPristine: boolean = useSelector((state: {}) =>
-    isPristine("editTreatment")(state));
 
   const [isEditing, setEditing] = React.useState(false);
   const toggleEdit: (() => void) = (): void => {
     if (!isDescriptionPristine) {
       dispatch(reset("editDescription"));
     }
-    if (!isTreatmentPristine) {
-      dispatch(reset("editTreatment"));
-    }
     setEditing(!isEditing);
-  };
-
-  const [approvalModalConfig, setApprovalModalConfig] = React.useState({ open: false, type: "" });
-  const openApproveModal: (() => void) = (): void => {
-    setApprovalModalConfig({ open: true, type: "APPROVED" });
-  };
-  const openRejectModal: (() => void) = (): void => {
-    setApprovalModalConfig({ open: true, type: "REJECTED" });
-  };
-  const closeApprovalModal: (() => void) = (): void => {
-    setApprovalModalConfig({ open: false, type: "" });
   };
 
   // GraphQL operations
@@ -161,9 +145,6 @@ const descriptionView: React.FC = (): JSX.Element => {
     if (!isDescriptionPristine) {
       dispatch(submit("editDescription"));
     }
-    if (!isTreatmentPristine) {
-      dispatch(submit("editTreatment"));
-    }
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -171,19 +152,14 @@ const descriptionView: React.FC = (): JSX.Element => {
   }
 
   const dataset: IFinding = data.finding;
-  const lastTreatment: IHistoricTreatment = getLastTreatment(dataset.historicTreatment);
 
   return (
     <React.StrictMode>
       <ActionButtons
         isEditing={isEditing}
-        isPristine={isDescriptionPristine && isTreatmentPristine}
-        lastTreatment={lastTreatment}
-        onApproveAcceptation={openApproveModal}
+        isPristine={isDescriptionPristine}
         onEdit={toggleEdit}
-        onRejectAcceptation={openRejectModal}
         onUpdate={handleSubmit}
-        state={dataset.state}
       />
       <br />
       <GenericForm name="editDescription" initialValues={dataset} onSubmit={handleDescriptionSubmit}>

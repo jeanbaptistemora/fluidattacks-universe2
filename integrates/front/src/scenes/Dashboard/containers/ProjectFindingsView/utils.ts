@@ -48,7 +48,6 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
 ): IFindingAttr[] =>
   dataset.map((finding: IFindingAttr): IFindingAttr & {
     where: string;
-    historicTreatment: IHistoricTreatment[];
   } => {
     const stateParameters: Record<string, string> = {
       closed: "search_findings.status.closed",

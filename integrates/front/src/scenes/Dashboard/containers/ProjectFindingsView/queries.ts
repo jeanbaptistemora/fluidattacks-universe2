@@ -25,7 +25,6 @@ export const GET_FINDINGS: DocumentNode = gql`
           }
           where
         }
-        historicTreatment
       }
     }
   }`;

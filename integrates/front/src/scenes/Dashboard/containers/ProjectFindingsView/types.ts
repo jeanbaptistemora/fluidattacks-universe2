@@ -12,7 +12,6 @@ export interface IProjectFindingsAttr {
 export interface IFindingAttr {
   age: number;
   description: string;
-  historicTreatment: IHistoricTreatment[];
   id: string;
   isExploitable: string;
   lastVulnerability: number;

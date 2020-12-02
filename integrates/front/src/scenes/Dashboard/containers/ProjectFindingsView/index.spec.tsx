@@ -52,7 +52,6 @@ describe("ProjectFindingsView", () => {
               __typename: "Finding",
               age: 252,
               description: "This is a test description",
-              historicTreatment: [{date: "", treatment: "", user: ""}],
               id: "438679960",
               isExploitable: true,
               lastVulnerability: 33,

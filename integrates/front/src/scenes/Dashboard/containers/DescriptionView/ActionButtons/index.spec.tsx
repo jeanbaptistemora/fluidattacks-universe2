@@ -9,19 +9,8 @@ describe("ActionButtons", () => {
   const baseMockedProps: IActionButtonsProps = {
     isEditing: false,
     isPristine: false,
-    lastTreatment: {
-      acceptanceDate: "",
-      acceptanceStatus: "",
-      date: "",
-      justification: "",
-      treatment: "",
-      user: "",
-    },
-    onApproveAcceptation: jest.fn(),
     onEdit: jest.fn(),
-    onRejectAcceptation: jest.fn(),
     onUpdate: jest.fn(),
-    state: "open",
   };
 
   it("should return a function", () => {

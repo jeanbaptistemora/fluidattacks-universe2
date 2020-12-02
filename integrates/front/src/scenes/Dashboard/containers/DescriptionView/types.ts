@@ -27,7 +27,6 @@ export interface IFinding {
   compromisedRecords: number;
   cweUrl: string;
   description: string;
-  historicTreatment: IHistoricTreatment[];
   id: string;
   openVulnerabilities: number;
   recommendation: string;

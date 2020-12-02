@@ -10,7 +10,6 @@ import { Glyphicon } from "react-bootstrap";
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
@@ -18,34 +17,15 @@ import { translate } from "utils/translations/translate";
 export interface IActionButtonsProps {
   isEditing: boolean;
   isPristine: boolean;
-  lastTreatment: IHistoricTreatment;
-  state: "open" | "closed";
-  onApproveAcceptation(): void;
   onEdit(): void;
-  onRejectAcceptation(): void;
   onUpdate(): void;
 }
 
 const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
-  const { onApproveAcceptation, onEdit, onRejectAcceptation, onUpdate } = props;
-
-  const shouldRenderApprovalBtns: boolean = false;
+  const { onEdit, onUpdate } = props;
 
   return (
     <ButtonToolbarRow>
-      <Can do="backend_api_resolvers_finding__do_handle_acceptation">
-        {shouldRenderApprovalBtns ? (
-          <React.Fragment>
-            <Button onClick={onApproveAcceptation}>
-              <FluidIcon icon="verified" />&nbsp;
-            {translate.t("search_findings.acceptation_buttons.approve")}
-            </Button>
-            <Button onClick={onRejectAcceptation}>
-              {translate.t("search_findings.acceptation_buttons.reject")}
-            </Button>
-          </React.Fragment>
-        ) : undefined}
-      </Can>
       <Can do="backend_api_resolvers_finding__do_update_description">
       {props.isEditing ? (
         <TooltipWrapper message={translate.t("search_findings.tab_description.save.tooltip")}>
