@@ -13,7 +13,6 @@ from backend.utils import datetime, validations
 
 
 def format_root(root: Dict[str, Any]) -> Root:
-    assert root['kind'] in {'Git', 'IP', 'URL'}
     root_state: Dict[str, Any] = root['historic_state'][-1]
 
     if root['kind'] == 'Git':
@@ -22,7 +21,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
             filter=root_state.get('filter'),
-            id=root['id'],
+            id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             url=root['url']
         )
@@ -30,13 +29,13 @@ def format_root(root: Dict[str, Any]) -> Root:
     if root['kind'] == 'IP':
         return IPRoot(
             address=root_state['address'],
-            id=root['id'],
+            id=root['sk'],
             port=root_state['port']
         )
 
     return URLRoot(
         host=root_state['host'],
-        id=root['id'],
+        id=root['sk'],
         path=root_state['path'],
         port=root_state['port'],
         protocol=root_state['protocol']
@@ -50,19 +49,19 @@ async def get_root_by_id(root_id: str) -> Dict[str, Any]:
         return {
             **root,
             'group_name': root['sk'].split('GROUP#')[-1],
-            'id': root['pk']
         }
     raise RootNotFound()
 
 
 async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
-    roots = await root_dal.get_roots_by_group(group_name)
+    roots: Tuple[Dict[str, Any], ...] = await root_dal.get_roots_by_group(
+        group_name
+    )
 
     return tuple(
         {
             **root,
             'group_name': root['pk'].split('GROUP#')[-1],
-            'id': root['sk']
         }
         for root in roots
     )
@@ -71,25 +70,24 @@ async def get_roots_by_group(group_name: str) -> Tuple[Dict[str, Any], ...]:
 def _matches_root(
     kind: str,
     root: Dict[str, Any],
-    new_root: Dict[str, str]
+    new_root: Dict[str, Any]
 ) -> bool:
-    assert kind in {'Git', 'IP', 'URL'}
     current_state: Dict[str, str] = root['historic_state'][-1]
 
     if kind == root['kind'] == 'Git':
-        return (
+        return bool(
             root['url'] == new_root['url']
             and root['branch'] == new_root['branch']
         )
 
     if kind == root['kind'] == 'IP':
-        return (
+        return bool(
             current_state['address'] == new_root['address']
             and current_state['port'] == new_root['port']
         )
 
     if kind == root['kind'] == 'URL':
-        return (
+        return bool(
             current_state['host'] == new_root['host']
             and current_state['path'] == new_root['path']
             and current_state['port'] == new_root['port']
@@ -220,10 +218,10 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
 
 
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
-    root_id: str = kwargs['root_id']
+    root_id: str = kwargs['id']
     root: Dict[str, Any] = await get_root_by_id(root_id)
     is_valid: bool = (
-        is_valid_git_repo(kwargs['url'], kwargs['branch'])
+        is_valid_git_repo(root['url'], root['branch'])
         and root['kind'] == 'Git'
     )
 

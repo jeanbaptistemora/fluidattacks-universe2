@@ -23,8 +23,8 @@ async def get_root_by_id(root_id: str) -> Optional[Dict[str, Any]]:
     results = await dynamodb.async_query(
         TABLE_NAME,
         {
-            'IndexName': 'roots-index',
-            'KeyConditionExpression': Key('pk').eq(f'ROOT#{root_id}')
+            'IndexName': 'roots_index',
+            'KeyConditionExpression': Key('sk').eq(root_id)
         }
     )
     return results[0] if results else None

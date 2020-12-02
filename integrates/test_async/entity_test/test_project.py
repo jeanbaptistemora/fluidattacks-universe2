@@ -33,6 +33,7 @@ async def _get_result_async(data, user='integratesmanager@gmail.com'):
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 
+
 async def test_project():
     """Check for project mutation."""
     query = '''
@@ -102,6 +103,7 @@ async def test_project():
     assert len(result['data']['project']['events']) == 5
     assert result['data']['project']['consulting'][0]['content'] == 'Now we can post comments on projects'
 
+
 async def test_project_filtered():
     """Check for project mutation."""
     query = '''
@@ -119,6 +121,7 @@ async def test_project_filtered():
     assert len(result['data']['project']['findings']) == 1
     assert result['data']['project']['findings'][0]['id'] == "463461507"
 
+
 async def test_project_filter_not_match():
     """Check for project mutation."""
     query = '''
@@ -134,6 +137,7 @@ async def test_project_filter_not_match():
     result = await _get_result_async(data)
     assert 'errors' not in result
     assert len(result['data']['project']['findings']) == 0
+
 
 async def test_alive_projects():
     """Check for projects mutation."""
@@ -153,6 +157,7 @@ async def test_alive_projects():
     result = await _get_result_async(data)
     assert 'errors' not in result
     assert result['data']['projects'] == expected_projects
+
 
 @pytest.mark.changes_db
 async def test_create_project():
@@ -177,6 +182,7 @@ async def test_create_project():
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
 
+
 @pytest.mark.changes_db
 async def test_reject_request_remove_denied():
     """Check for rejectRemoveProject mutation."""
@@ -196,6 +202,7 @@ async def test_reject_request_remove_denied():
     assert 'errors' in result
     assert result['errors'][0]['message'] == str(PermissionDenied())
 
+
 @pytest.mark.changes_db
 async def test_reject_request_remove_not_pending():
     """Check for rejectRemoveProject mutation."""
@@ -214,6 +221,7 @@ async def test_reject_request_remove_not_pending():
     result = await _get_result_async(data)
     assert 'errors' in result
     assert result['errors'][0]['message'] == str(NotPendingDeletion())
+
 
 @pytest.mark.changes_db
 async def test_add_tags():
@@ -236,6 +244,7 @@ async def test_add_tags():
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
+
 
 @pytest.mark.changes_db
 async def test_remove_tag():
@@ -260,6 +269,7 @@ async def test_remove_tag():
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
 
+
 @pytest.mark.changes_db
 async def test_add_project_consult_parent_zero():
     """Check for addProjectConsult mutation."""
@@ -280,6 +290,7 @@ async def test_add_project_consult_parent_zero():
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
+
 
 @pytest.mark.changes_db
 async def test_add_project_consult_parent_non_zero():
@@ -766,3 +777,42 @@ async def test_add_url_root_uniqueness() -> None:
 
     assert 'errors' in result
     assert 'One or more values already exist' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_update_git_root() -> None:
+    query = '''
+      mutation {
+        updateGitRoot(
+          environment: "staging"
+          groupName: "unittesting"
+          id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          includesHealthCheck: false
+        ) {
+          success
+        }
+      }
+    '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['updateGitRoot']['success']
+
+
+async def test_update_git_root_nonexistent() -> None:
+    query = '''
+      mutation {
+        updateGitRoot(
+          environment: "Test"
+          groupName: "unittesting"
+          id: "ROOT#some-thing"
+          includesHealthCheck: false
+        ) {
+          success
+        }
+      }
+    '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' in result
+    assert 'root not found' in result['errors'][0]['message']

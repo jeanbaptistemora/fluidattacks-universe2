@@ -387,6 +387,19 @@ type Mutation {
         url: String!
     ): SimplePayload!
 
+    updateGitRoot(
+        "Kind of environment to test. E.g. production, QA, etc."
+        environment: String!
+        "Preferences for filtering directories"
+        filter: GitRootFilterInput
+        "Name of the group the root is associated with"
+        groupName: String!
+        "ID of the root"
+        id: ID!
+        "Analyze already existing code"
+        includesHealthCheck: Boolean!
+    ): SimplePayload!
+
     addIpRoot(
         "IP address of the environment to test"
         address: String!

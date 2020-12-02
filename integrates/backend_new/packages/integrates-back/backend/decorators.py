@@ -24,6 +24,7 @@ from rediscluster.nodemanager import RedisClusterException
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
+    root as root_domain,
     vulnerability as vuln_domain
 )
 from backend.services import (
@@ -164,6 +165,11 @@ async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
     return await _resolve_from_finding_id(context, data['finding_id'])
 
 
+async def _resolve_from_root_id(root_id: str) -> str:
+    root: Dict[str, str] = await root_domain.get_root_by_id(root_id)
+    return root['group_name']
+
+
 async def resolve_group_name(  # noqa: MC0001
     context: Any,
     args: Any,
@@ -189,6 +195,8 @@ async def resolve_group_name(  # noqa: MC0001
         name = await _resolve_from_event_id(context, kwargs['event_id'])
     elif 'vuln_uuid' in kwargs:
         name = await _resolve_from_vuln_id(context, kwargs['vuln_uuid'])
+    elif 'root_id' in kwargs:
+        name = await _resolve_from_root_id(kwargs['root_id'])
     elif settings.DEBUG:
         raise Exception('Unable to identify project')
     else:

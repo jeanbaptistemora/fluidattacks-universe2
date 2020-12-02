@@ -37,6 +37,7 @@ from backend.api.mutations import (
     update_evidence_description,
     update_evidence,
     update_forces_access_token,
+    update_git_root,
     update_organization_policies,
     update_severity,
     update_vulns_treatment,
@@ -97,6 +98,7 @@ MUTATION.set_field(
     'updateForcesAccessToken',
     update_forces_access_token.mutate
 )
+MUTATION.set_field('updateGitRoot', update_git_root.mutate)
 MUTATION.set_field(
     'updateOrganizationPolicies',
     update_organization_policies.mutate
