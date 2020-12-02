@@ -138,6 +138,9 @@
     "mockdate": "3.0.2",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "prettier": "2.1.2",
+    "stylelint": "13.8.0",
+    "stylelint-config-standard": "20.0.0",
+    "stylelint-config-css-modules": "2.2.0",
     "terser-webpack-plugin": "4.2.3",
     "ts-jest": "26.4.4",
     "ts-loader": "8.0.11",
@@ -160,6 +163,7 @@
     "plot": "ts-node src/graphics/cli.ts",
     "start": "ts-node devserver.ts",
     "test": "npm run css && jest",
-    "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe"
+    "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
+    "lint:stylelint": "stylelint '**/*.css' --output-file"
   }
 }

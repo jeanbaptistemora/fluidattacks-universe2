@@ -43,6 +43,15 @@ function job_integrates_lint_front {
     ||  return 1
 }
 
+function job_integrates_lint_styles {
+        pushd "${STARTDIR}/integrates/front" \
+    &&  npm install \
+    &&  echo "[INFO] Running Stylelint to lint CSS files" \
+    &&  npm run lint:stylelint \
+    &&  popd \
+    ||  return 1
+}
+
 function job_integrates_lint_graphics {
       env_prepare_node_modules \
   &&  pushd "${STARTDIR}/integrates/app/static/graphics" \
