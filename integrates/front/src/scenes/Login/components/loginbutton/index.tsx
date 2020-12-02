@@ -11,6 +11,7 @@ import "./index.css";
 interface ILoginButtonProps {
   className: string;
   fontAwesomeName: string;
+  id: string;
   onClick: () => void;
   text: string;
 }
@@ -26,10 +27,10 @@ const StyledLoginButton: StyledComponent<
 const LoginButton: React.FC<ILoginButtonProps> = (
   props: Readonly<ILoginButtonProps>
 ): JSX.Element => {
-  const { className, fontAwesomeName, onClick, text } = props;
+  const { className, fontAwesomeName, id, onClick, text } = props;
 
   return (
-    <StyledLoginButton className={className} onClick={onClick}>
+    <StyledLoginButton className={className} id={id} onClick={onClick}>
       <FontAwesome name={fontAwesomeName} size={"2x"} />
       {text}
     </StyledLoginButton>

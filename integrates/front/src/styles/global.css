@@ -112,24 +112,9 @@ label {
   border-color: #c5c5c5;
 }
 
-:global .commit {
-  bottom: 8px;
-  right: 16px;
-}
-
-:global .deploymentDate {
-  bottom: 32px;
-  right: 16px;
-}
-
 :global .dropdown-menu > li > a:hover {
   background-color: #ff3435;
   color: #fff;
-}
-
-:global .login-grid {
-  height: 400px;
-  width: 405px;
 }
 
 :global .navbar {
@@ -192,13 +177,6 @@ label {
 @media (min-width: 768px) {
   :global .nav-collapse {
     float: right !important;
-  }
-}
-
-@media (max-width: 450px) {
-  :global .login-grid {
-    height: unset;
-    width: unset;
   }
 }
 

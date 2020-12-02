@@ -2,6 +2,7 @@
   -------
   We need className to override default styles from react-boostrap.
 */
+import { Col100 } from "styles/styledComponents";
 import React from "react";
 import _ from "lodash";
 import logo from "resources/integrates.svg";
@@ -9,14 +10,15 @@ import mixpanel from "mixpanel-browser";
 import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
 import {
-  Col100,
+  LoginButton,
   LoginCommit,
   LoginContainer,
   LoginDeploymentDate,
   LoginGrid,
   LoginRow,
-} from "styles/styledComponents";
-import { LoginButton, TwoFaButton, TwoFacol } from "./components";
+  TwoFaButton,
+  TwoFacol,
+} from "./components";
 import { Slide, toast } from "react-toastify";
 
 export const Login: React.FC = (): JSX.Element => {
@@ -109,18 +111,21 @@ export const Login: React.FC = (): JSX.Element => {
           <LoginButton
             className={"btn-lgoogle"}
             fontAwesomeName={"google"}
+            id={"login-google"}
             onClick={handleGoogleLogin}
             text={t("login.google")}
           />
           <LoginButton
             className={"btn-lazure"}
             fontAwesomeName={"windows"}
+            id={"login-microsoft"}
             onClick={handleMicrosoftLogin}
             text={t("login.microsoft")}
           />
           <LoginButton
             className={"btn-lbitbucket"}
             fontAwesomeName={"bitbucket"}
+            id={"login-bitbucket"}
             onClick={handleBitbucketLogin}
             text={t("login.bitbucket")}
           />

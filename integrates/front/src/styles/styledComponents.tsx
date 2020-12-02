@@ -236,51 +236,6 @@ const LastProjectSetting: StyledComponent<
   className: "mb10",
 })``;
 
-const LoginCommit: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "absolute commit",
-})``;
-
-const LoginContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "items-center flex flex-row white h-100",
-})``;
-
-const LoginDeploymentDate: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "absolute deploymentDate",
-})``;
-
-const LoginGrid: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "login-grid center pa2",
-})``;
-
-const LoginRow: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "cf pa1-ns content-center tc",
-})``;
-
 const Meter: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
     className: "bg-light-gray br3 h2 meter-shadow relative",
@@ -580,11 +535,6 @@ export {
   FormGroup,
   Label,
   LastProjectSetting,
-  LoginCommit,
-  LoginContainer,
-  LoginDeploymentDate,
-  LoginGrid,
-  LoginRow,
   Meter,
   ModalBody,
   ModalFooter,
