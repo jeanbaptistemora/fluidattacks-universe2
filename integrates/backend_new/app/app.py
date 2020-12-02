@@ -14,7 +14,11 @@ from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse
+from starlette.responses import (
+    HTMLResponse,
+    RedirectResponse,
+    Response
+)
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
@@ -26,13 +30,19 @@ from backend.domain import (
     organization as org_domain,
     user as user_domain
 )
+from backend.exceptions import (
+    ConcurrentSession,
+    ExpiredToken
+)
 from backend.api.schema import SCHEMA
+from backend.utils.encodings import safe_encode
 
 from backend_new.app.middleware import CustomRequestMiddleware
 from backend_new.app import utils, views
 from backend_new import settings
 
 from __init__ import (
+    FI_ENVIRONMENT,
     FI_STARLETTE_TEST_KEY
 )
 
@@ -45,18 +55,33 @@ async def app(*request_args: Request) -> HTMLResponse:
     """ View for authenticated users"""
     request = utils.get_starlette_request(request_args)
     email = request.session.get('username')
+    try:
+        if FI_ENVIRONMENT == 'production':
+            await util.check_concurrent_sessions(
+                safe_encode(email),
+                request.session['session_key']
+            )
 
-    if email:
-        if not await org_domain.get_user_organizations(email):
-            response = views.unauthorized(request)
+        if email:
+            if not await org_domain.get_user_organizations(email):
+                response = views.unauthorized(request)
+            else:
+                response = views.main_app(request)
+
+                jwt_token = utils.create_session_token(request.session)
+                utils.set_token_in_response(response, jwt_token)
         else:
-            response = views.main_app(request)
-
-            jwt_token = utils.create_session_token(request.session)
-            utils.set_token_in_response(response, jwt_token)
-    else:
-        response = views.unauthorized(request)
-        response.delete_cookie(key=settings.JWT_COOKIE_NAME)
+            response = views.unauthorized(request)
+            response.delete_cookie(key=settings.JWT_COOKIE_NAME)
+    except ConcurrentSession:
+        response = Response(
+            '<script> '
+            'localStorage.setItem("concurrentSession","1"); '
+            'location.assign("/new/registration"); '
+            '</script>'
+        )
+    except ExpiredToken:
+        response = RedirectResponse('/new')
 
     return response
 

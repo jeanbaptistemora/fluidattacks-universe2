@@ -2,6 +2,7 @@
 
 # Standard library
 from typing import Dict
+import uuid
 import aiohttp
 
 # Third party libraries
@@ -13,6 +14,9 @@ from authlib.integrations.starlette_client import OAuth
 from authlib.common.security import generate_token
 
 # Local libraries
+from backend import util
+from backend.utils.encodings import safe_encode
+
 import backend_new.app.utils as utils
 from backend_new.settings.auth import (
     azure,
@@ -39,9 +43,19 @@ def get_azure_client(request: Request) -> OAuth:
 
 
 async def handle_user(request: Request, user: Dict[str, str]) -> Request:
-    request.session['username'] = user['email'].lower()
+    user_email = user['email'].lower()
+    session_key = str(uuid.uuid4())
+
+    request.session['username'] = user_email
     request.session['first_name'] = user.get('given_name', '')
     request.session['last_name'] = user.get('family_name', '')
+    request.session['session_key'] = session_key
+
+    await util.save_session_token(
+        f'fi_session:{safe_encode(user_email)}',
+        f'web:{session_key}',
+        'exists'
+    )
     await utils.create_user(user)
 
     return request
