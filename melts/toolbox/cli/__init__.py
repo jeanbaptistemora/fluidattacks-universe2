@@ -17,7 +17,6 @@ from toolbox import (
 )
 
 from .misc import misc_management
-from .integrates import integrates_management
 from .resources import resources_management
 
 
@@ -56,7 +55,6 @@ def entrypoint():
 
 
 entrypoint.add_command(resources_management)
-entrypoint.add_command(integrates_management)
 entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
