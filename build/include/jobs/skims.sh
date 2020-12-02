@@ -43,8 +43,13 @@ function job_skims_documentation {
           --output-dir docs/ \
           --template-dir docs/templates/ \
           skims \
-    &&  aws s3 sync docs/skims/ "${bucket_path}" --delete \
-    &&  rm -rf docs/skims/ \
+    &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+        then
+              echo '[INFO] Deploying' \
+          &&  aws s3 sync docs/skims/ "${bucket_path}" --delete \
+          &&  rm -rf docs/skims/ \
+
+        fi \
   &&  popd \
   ||  return 1
 }
