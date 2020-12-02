@@ -145,7 +145,6 @@ async def test_finding():
             currentState
             currentApprovalStatus
             analyst
-            treatmentManager
             source
             vulnType
             zeroRisk

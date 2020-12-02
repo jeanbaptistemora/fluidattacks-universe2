@@ -64,7 +64,6 @@ async def _batch_load_fn(
                 )[-1].get('status') == 'REQUESTED',
                 severity=cast(str, vuln.get('severity', '')),
                 tag=', '.join(cast(List[str], vuln.get('tag', []))),
-                treatment_manager=cast(str, vuln.get('treatment_manager', '')),
                 verification=cast(
                     HistoricType,
                     vuln.get(

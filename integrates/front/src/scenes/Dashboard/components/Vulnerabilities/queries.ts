@@ -39,7 +39,6 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     findingId
     severity
     tag
-    treatmentManager
     remediated
     verification
     zeroRisk

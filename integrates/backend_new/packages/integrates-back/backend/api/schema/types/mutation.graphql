@@ -61,7 +61,6 @@ type Mutation {
 
     updateTreatmentVuln(
         findingId: String!
-        treatmentManager: String
         vulnerabilities: [String]!
         severity: Int
         tag: String
