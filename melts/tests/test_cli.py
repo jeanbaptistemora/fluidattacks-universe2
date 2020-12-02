@@ -26,9 +26,3 @@ def test_resources_1(relocate, cli_runner):
 def test_resources_3(relocate, cli_runner):
     result = cli_runner(f'resources --read-dev {GROUP}'.split())
     assert result.exit_code == 0
-
-
-def test_integrates_1(relocate, cli_runner):
-    result = cli_runner(
-        f'integrates --get-static-dict all all {GROUP}'.split())
-    assert result.exit_code == 0
