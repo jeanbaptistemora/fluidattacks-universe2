@@ -24,10 +24,14 @@ function job_integrates_lint_back {
 }
 
 function job_integrates_lint_e2e {
+  local modules=(
+    src/
+    src/tests/
+  )
 
       pushd integrates/test_e2e \
     &&  env_prepare_python_packages \
-    &&  mypy --config-file settings.cfg . \
+    &&  mypy --config-file settings.cfg "${modules[@]}" \
     &&  prospector --profile profile.yaml . \
   &&  popd \
   ||  return 1

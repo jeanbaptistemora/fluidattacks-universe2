@@ -10,8 +10,8 @@ from selenium.webdriver import Remote
 
 @pytest.fixture(autouse=True, scope='session')
 def browserstack_url() -> str:
-    user = os.environ['BROWSERSTACK_USER']
-    key = os.environ['BROWSERSTACK_KEY']
+    user: str = os.environ['BROWSERSTACK_USER']
+    key: str = os.environ['BROWSERSTACK_KEY']
     return f'https://{user}:{key}@hub-cloud.browserstack.com/wd/hub'
 
 
@@ -38,9 +38,9 @@ def is_ci() -> bool:
 
 @pytest.fixture(autouse=True, scope='session')
 def azure_credentials() -> Dict[str, str]:
-    user = os.environ['TEST_E2E_AZURE_USER']
-    password = os.environ['TEST_E2E_AZURE_PASS']
-    seed = os.environ['TEST_E2E_AZURE_SEED']
+    user: str = os.environ['TEST_E2E_AZURE_USER']
+    password: str = os.environ['TEST_E2E_AZURE_PASS']
+    seed: str = os.environ['TEST_E2E_AZURE_SEED']
     return {
         'user': user,
         'password': password,
