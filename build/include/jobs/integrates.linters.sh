@@ -48,12 +48,20 @@ function job_integrates_lint_front {
 }
 
 function job_integrates_lint_styles {
+  local err_count
         pushd "${STARTDIR}/integrates/front" \
-    &&  npm install \
-    &&  echo "[INFO] Running Stylelint to lint CSS files" \
-    &&  npm run lint:stylelint \
-    &&  popd \
-    ||  return 1
+      &&  npm install \
+      &&  echo "[INFO] Running Stylelint to lint CSS files" \
+      &&  if npm run lint:stylelint
+          then
+            echo '[INFO] All styles are ok!'
+          else
+                err_count="$(npx stylelint '**/*.css' | wc -l || true)" \
+            &&  echo "[ERROR] ${err_count} errors found in styles!" \
+            &&  return 1
+          fi \
+    && popd \
+    || return 1
 }
 
 function job_integrates_lint_graphics {
