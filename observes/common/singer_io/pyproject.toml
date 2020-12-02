@@ -6,6 +6,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+packaging = "20.4"
 
 [tool.poetry.dev-dependencies]
 mypy = "0.790"

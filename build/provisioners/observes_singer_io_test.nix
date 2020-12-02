@@ -12,7 +12,7 @@ in
       ];
 
       SingerIO = pkgs.poetry2nix.mkPoetryEnv {
-        projectDir = ../../observes/common/postgres_client;
+        projectDir = ../../observes/common/singer_io;
         python = pkgs.python38;
       };
 
