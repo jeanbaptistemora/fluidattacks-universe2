@@ -76,20 +76,20 @@
     "value": "org.owasp.benchmark.helpers.Utils.testfileDir"
   },
   {
-    "__danger__": null,
+    "__danger__": true,
     "stack_0": -1,
     "stack_1": -2,
     "type": "ADD"
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "stack": -1,
     "type": "BINDING",
     "var": "fileName",
     "var_type": "String"
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "symbol": "fileName",
     "type": "LOOKUP"
   },

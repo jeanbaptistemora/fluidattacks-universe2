@@ -16,8 +16,13 @@ Assertion = Dict[str, Dict[str, Any]]
 Statement = Dict[str, Any]
 
 
-def _read_stack(statements: List[Statement], index: int) -> List[Statement]:
-    return statements[index + statements[index]['stack']:index]
+def _read_stack(
+    statements: List[Statement],
+    index: int,
+    *,
+    label: str = 'stack'
+) -> List[Statement]:
+    return statements[index + statements[index][label]:index]
 
 
 def _read_stack_symbols(
@@ -29,6 +34,19 @@ def _read_stack_symbols(
         for statement in statements[0:index]
         if statement['type'] == 'BINDING'
     ]
+
+
+def _add(statements: List[Statement], index: int) -> None:
+    statement = statements[index]
+
+    # Analyze the arguments involved in the addition
+    left = _read_stack(statements, index, label='stack_0')
+    right = _read_stack(statements, index, label='stack_1')
+    left_danger = any(arg['__danger__'] for arg in left)
+    right_danger = any(arg['__danger__'] for arg in right)
+
+    # Local context
+    statement['__danger__'] = left_danger or right_danger
 
 
 def _binding(statements: List[Statement], index: int) -> None:
@@ -97,7 +115,7 @@ def get(statements: List[Statement]) -> List[Statement]:
         statement_type = statement['type']
 
         if statement_type == 'ADD':
-            pass
+            _add(statements, index)
         elif statement_type == 'BINDING':
             _binding(statements, index)
         elif statement_type == 'CALL':
