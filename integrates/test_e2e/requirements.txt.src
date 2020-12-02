@@ -3,3 +3,4 @@ prospector==1.3.0
 pytest==6.1.2
 pytest-xdist==2.1.0
 selenium==3.141.0
+pyotp==2.4.1

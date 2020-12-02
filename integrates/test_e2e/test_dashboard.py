@@ -10,6 +10,8 @@ import utils
 
 def test_dashboard(
         driver: Remote,
-        bitbucket_credentials: Dict[str, str]) -> None:
-    utils.login_bitbucket(driver, bitbucket_credentials)
+        azure_credentials: Dict[str, str],
+        endpoint: str) -> None:
+    utils.login_azure(driver, azure_credentials)
+    utils.login_integrates_azure(driver, endpoint)
     driver.quit()

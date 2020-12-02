@@ -15,7 +15,7 @@ def browserstack_url() -> str:
     return f'https://{user}:{key}@hub-cloud.browserstack.com/wd/hub'
 
 
-@pytest.fixture(autouse=True, scope='session')
+@pytest.fixture(autouse=True, scope='function')
 def browserstack_cap(request: FixtureRequest) -> Dict[str, str]:
     return {
         'os': 'Windows',
@@ -37,12 +37,14 @@ def is_ci() -> bool:
 
 
 @pytest.fixture(autouse=True, scope='session')
-def bitbucket_credentials() -> Dict[str, str]:
-    user = os.environ['BITBUCKET_USER']
-    password = os.environ['BITBUCKET_PASS']
+def azure_credentials() -> Dict[str, str]:
+    user = os.environ['TEST_E2E_AZURE_USER']
+    password = os.environ['TEST_E2E_AZURE_PASS']
+    seed = os.environ['TEST_E2E_AZURE_SEED']
     return {
         'user': user,
-        'password': password
+        'password': password,
+        'seed': seed,
     }
 
 

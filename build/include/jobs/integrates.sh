@@ -1045,8 +1045,9 @@ function job_integrates_test_e2e {
     &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
           BROWSERSTACK_USER \
           BROWSERSTACK_KEY \
-          BITBUCKET_USER \
-          BITBUCKET_PASS \
+          TEST_E2E_AZURE_SEED \
+          TEST_E2E_AZURE_USER \
+          TEST_E2E_AZURE_PASS \
     &&  pushd test_e2e \
       &&  pytest "${args_pytest[@]}" < /dev/null \
     &&  popd \
