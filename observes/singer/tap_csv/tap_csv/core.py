@@ -86,7 +86,7 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
             dest_writer = csv.DictWriter(
                 destination,
                 field_names,
-                quoting=csv.QUOTE_NONNUMERIC \
+                quoting=csv.QUOTE_NONNUMERIC
                 if options.quote_nonnum else csv.QUOTE_MINIMAL
             )
             types_row: int = 3 if options.pkeys_present else 2
