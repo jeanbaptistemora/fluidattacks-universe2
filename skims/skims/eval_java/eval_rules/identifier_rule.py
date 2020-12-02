@@ -7,7 +7,9 @@ from eval_java.eval_rules import (
 )
 from eval_java.model import (
     Context,
+    get_default_statement_meta,
     OptionalContext,
+    StatementLookup,
 )
 
 
@@ -19,9 +21,9 @@ def evaluate(
 ) -> Context:
     ctx = common.ensure_context(ctx)
 
-    ctx['statements'].append({
-        'symbol': graph.nodes[n_id]['label_text'],
-        'type': 'LOOKUP',
-    })
+    ctx.statements.append(StatementLookup(
+        meta=get_default_statement_meta(),
+        symbol=graph.nodes[n_id]['label_text'],
+    ))
 
     return common.mark_seen(ctx, n_id)

@@ -12,20 +12,20 @@ def taint(statements: Statements, index: int) -> None:
 
     # Analyze if the arguments involved in the function are dangerous
     args = common.read_stack(statements, index)
-    args_danger = any(arg['__danger__'] for arg in args)
+    args_danger = any(arg.meta.danger for arg in args)
 
     # Analyze if the call itself is sensitive
-    method = statement['method']
+    method = statement.method
     call_danger = any((
         # Known function to return user controlled data
         method.endswith('.getCookies'),
         # Use of a method from a dangerous symbol
         any(
-            method_start.startswith(symbol['var'])
+            method_start.startswith(symbol.var)
             for method_start in [method.split('.')[0]]
             for symbol in common.read_stack_symbols(statements, index)
         )
     ))
 
     # Local context
-    statement['__danger__'] = args_danger or call_danger
+    statement.meta.danger = args_danger or call_danger

@@ -71,6 +71,8 @@ async def analyze_one_path(
     :param path: Path to the file who's object of analysis
     :type path: str
     """
+    await log('info', 'Analyzing path: %s', path)
+
     file_content_generator = generate_file_content(path, size=MAX_READ)
     file_raw_content_generator = generate_file_raw_content(path, size=MAX_READ)
 

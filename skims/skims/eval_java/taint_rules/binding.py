@@ -9,11 +9,11 @@ from eval_java.taint_rules import (
 
 def taint(statements: Statements, index: int) -> None:
     statement = statements[index]
-    var_type = statement['var_type']
+    var_type = statement.var_type
 
     # Analyze the arguments involved in the assignment
     args = common.read_stack(statements, index)
-    args_danger = any(arg['__danger__'] for arg in args)
+    args_danger = any(arg.meta.danger for arg in args)
 
     # Analyze if the binding itself is sensitive
     bind_danger = any((
@@ -22,4 +22,4 @@ def taint(statements: Statements, index: int) -> None:
     ))
 
     # Local context
-    statement['__danger__'] = bind_danger or args_danger
+    statement.meta.danger = bind_danger or args_danger

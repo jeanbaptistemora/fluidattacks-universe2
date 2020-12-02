@@ -1,8 +1,11 @@
-# Standard library
-import json
-
 # Local libraries
 from eval_java.model import (
+    StatementAdd,
+    StatementBinding,
+    StatementClassInstantiation,
+    StatementCustomMethodInvocation,
+    StatementLiteral,
+    StatementLookup,
     Statements,
 )
 from eval_java.taint_rules import (
@@ -13,30 +16,23 @@ from eval_java.taint_rules import (
     literal,
     lookup,
 )
-from utils.logs import (
-    blocking_log,
-)
 
 
 def taint(statements: Statements) -> None:
     for index, statement in enumerate(statements):
-        statement['__danger__'] = None
-        statement_type = statement['type']
+        statement.meta.danger = False
 
-        if statement_type == 'ADD':
+        if isinstance(statement, StatementAdd):
             add.taint(statements, index)
-        elif statement_type == 'BINDING':
+        elif isinstance(statement, StatementBinding):
             binding.taint(statements, index)
-        elif statement_type == 'CALL':
+        elif isinstance(statement, StatementCustomMethodInvocation):
             call.taint(statements, index)
-        elif statement_type == 'CLASS_INSTANTIATION':
+        elif isinstance(statement, StatementClassInstantiation):
             class_instantiation.taint(statements, index)
-        elif statement_type == 'LITERAL':
+        elif isinstance(statement, StatementLiteral):
             literal.taint(statement)
-        elif statement_type == 'LOOKUP':
+        elif isinstance(statement, StatementLookup):
             lookup.taint(statements, index)
         else:
-            raise NotImplementedError(statement_type)
-
-    # Debugging information, only visible with skims --debug
-    blocking_log('debug', '%s', json.dumps(statements, indent=2))
+            raise NotImplementedError()

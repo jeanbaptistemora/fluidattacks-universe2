@@ -1,5 +1,6 @@
 # Local libraries
 from eval_java.model import (
+    StatementBinding,
     Statements,
 )
 
@@ -7,10 +8,11 @@ from eval_java.model import (
 def read_stack(
     statements: Statements,
     index: int,
-    *,
-    label: str = 'stack'
 ) -> Statements:
-    return statements[index + statements[index][label]:index]
+    return statements[
+        index + statements[index].meta.stack:
+        index
+    ]
 
 
 def read_stack_symbols(
@@ -20,5 +22,5 @@ def read_stack_symbols(
     return [
         statement
         for statement in statements[0:index]
-        if statement['type'] == 'BINDING'
+        if isinstance(statement, StatementBinding)
     ]

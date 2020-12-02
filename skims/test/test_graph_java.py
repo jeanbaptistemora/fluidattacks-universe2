@@ -1,6 +1,3 @@
-# Standard library
-import json
-
 # Third party libraries
 from aioextensions import (
     run_decorator,
@@ -27,6 +24,9 @@ from graph_java.transformations.control_flow import (
 )
 from utils import (
     graph as g,
+)
+from utils.encodings import (
+    json_dumps,
 )
 from utils.fs import (
     get_file_raw_content,
@@ -77,7 +77,7 @@ async def test_graph_generation(path: str, name: str) -> None:
     # New way, comprised
     graph = await java_get_graph(Grammar.JAVA9, content=content, path=path)
     graph_as_json = export_graph_as_json(graph)
-    graph_as_json_str = json.dumps(graph_as_json, indent=2, sort_keys=True)
+    graph_as_json_str = json_dumps(graph_as_json, indent=2, sort_keys=True)
 
     assert await to_svg(graph, f'test/outputs/{name}.graph')
 
@@ -95,7 +95,7 @@ async def test_graph_generation(path: str, name: str) -> None:
                 path,  # type: ignore
                 allow_incomplete=True,
             )
-            statements_as_json = json.dumps(statements, indent=2, sort_keys=True)
+            statements_as_json = json_dumps(statements, indent=2, sort_keys=True)
 
             with open(f'test/data/parse_java/{name}.{sink}.{index}.statements.json') as handle:
                 expected = handle.read()

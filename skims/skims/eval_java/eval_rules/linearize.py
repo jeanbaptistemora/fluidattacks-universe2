@@ -3,57 +3,36 @@ from eval_java.model import (
     Statements,
 )
 
-# Constants
-RECURSIVE = {
-    'ADD',
-    'BINDING',
-    'CALL',
-    'CLASS_INSTANTIATION',
-}
-NON_RECURSIVE = {
-    'LITERAL',
-    'LOOKUP',
-}
-
 
 def _is_linear_or_flatten_one_level(statements: Statements) -> bool:
     finished: bool = True
     statement_index = -1
 
+    # pylint: disable=too-many-nested-blocks
     for statement in statements.copy():
         statement_index += 1
-        statement_type = statement['type']
 
         # Already linearized this statement
-        if '__linear__' in statement:
+        if statement.meta.linear:
             continue
 
-        if statement_type in NON_RECURSIVE:
-            statement['__linear__'] = True
-            statement['stack'] = 0
-        elif statement_type in RECURSIVE:
+        if statement.recursive:
             stack = 0
             for stack_name in ('stack', 'stack_0', 'stack_1'):
-                if stack_name not in statement:
-                    continue
-
-                for arg in statement[stack_name]:
-                    arg_type = arg['type']
-
-                    if arg_type in RECURSIVE or arg_type in NON_RECURSIVE:
+                if stack_list := getattr(statement, stack_name, []):
+                    for arg in stack_list:
                         statements.insert(statement_index, arg)
                         statement_index += 1
                         stack += 1
-                    else:
-                        raise NotImplementedError(arg_type)
 
-                    if arg_type in RECURSIVE:
-                        finished = False
+                        if statement.recursive:
+                            finished = False
 
-                statement[stack_name] = -1 * stack
-                statement['__linear__'] = True
+                    statement.meta.stack = -1 * stack
+                    statement.meta.linear = True
         else:
-            raise NotImplementedError(statement_type)
+            statement.meta.linear = True
+            statement.meta.stack = 0
 
     return finished
 
@@ -63,8 +42,9 @@ def linearize(statements: Statements) -> Statements:
     while not _is_linear_or_flatten_one_level(statements):
         pass
 
-    # Remove temporary meta data
     for statement in statements:
-        statement.pop('__linear__', None)
+        for stack_name in ('stack', 'stack_0', 'stack_1'):
+            if stack_list := getattr(statement, stack_name, []):
+                stack_list.clear()
 
     return statements

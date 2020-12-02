@@ -7,7 +7,9 @@ from eval_java.eval_rules import (
 )
 from eval_java.model import (
     Context,
+    get_default_statement_meta,
     OptionalContext,
+    StatementBinding,
 )
 from utils import (
     graph as g,
@@ -109,12 +111,12 @@ def _formal_parameter(
         var_attrs_label_text = var_attrs['label_text']
 
         # Add the variable to the mapping
-        ctx['statements'].append({
-            'stack': [],
-            'type': 'BINDING',
-            'var': var_attrs_label_text,
-            'var_type': type_attrs_label_text,
-        })
+        ctx.statements.append(StatementBinding(
+            meta=get_default_statement_meta(),
+            stack=[],
+            var=var_attrs_label_text,
+            var_type=type_attrs_label_text,
+        ))
 
     else:
         common.not_implemented(_formal_parameter, n_id, ctx=ctx)

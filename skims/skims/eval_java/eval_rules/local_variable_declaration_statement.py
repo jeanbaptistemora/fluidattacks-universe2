@@ -8,7 +8,9 @@ from eval_java.eval_rules import (
 )
 from eval_java.model import (
     Context,
+    get_default_statement_meta,
     OptionalContext,
+    StatementBinding,
 )
 from utils import (
     graph as g,
@@ -86,18 +88,18 @@ def _variable_declarator(
     if (
         match['IdentifierRule']
         and match['ASSIGN']
-        and (src_id := match['__0__'])
+        and (src_id := match.get('__0__'))
     ):
         src_ctx = generic.evaluate(graph, src_id, ctx=None)
         common.merge_contexts(ctx, src_ctx)
 
         # Add the variable to the mapping
-        ctx['statements'].append({
-            'stack': src_ctx['statements'],
-            'type': 'BINDING',
-            'var': graph.nodes[match['IdentifierRule']]['label_text'],
-            'var_type': type_attrs_label_text,
-        })
+        ctx.statements.append(StatementBinding(
+            meta=get_default_statement_meta(),
+            stack=src_ctx.statements,
+            var=graph.nodes[match['IdentifierRule']]['label_text'],
+            var_type=type_attrs_label_text,
+        ))
     else:
         common.not_implemented(_local_variable_declaration, n_id, ctx=ctx)
 

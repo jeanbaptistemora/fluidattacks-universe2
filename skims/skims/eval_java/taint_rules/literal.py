@@ -6,4 +6,4 @@ from eval_java.model import (
 
 def taint(statement: Statement) -> None:
     # A literal is constant, no danger there
-    statement['__danger__'] = False
+    statement.meta.danger = False

@@ -8,6 +8,8 @@ from eval_java.eval_rules import (
 )
 from eval_java.model import (
     Context,
+    get_default_statement_meta,
+    StatementAdd,
     OptionalContext,
 )
 from utils import (
@@ -27,19 +29,19 @@ def evaluate(
 
     if (
         match['ADD']
-        and (left_id := match['__0__'])
-        and (right_id := match['__1__'])
+        and (left_id := match.get('__0__'))
+        and (right_id := match.get('__1__'))
     ):
         l_ctx = generic.evaluate(graph, left_id, ctx=None)
         r_ctx = generic.evaluate(graph, right_id, ctx=None)
         common.merge_contexts(ctx, l_ctx)
         common.merge_contexts(ctx, r_ctx)
 
-        ctx['statements'].append({
-            'stack_0': r_ctx['statements'],
-            'stack_1': l_ctx['statements'],
-            'type': 'ADD',
-        })
+        ctx.statements.append(StatementAdd(
+            meta=get_default_statement_meta(),
+            stack_0=r_ctx.statements,
+            stack_1=l_ctx.statements,
+        ))
     else:
         common.not_implemented(evaluate, n_id, ctx=ctx)
 

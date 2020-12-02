@@ -12,9 +12,9 @@ def taint(statements: Statements, index: int) -> None:
 
     # Lookup the symbol in the stack
     for symbol in common.read_stack_symbols(statements, index):
-        if symbol['var'] == statement['symbol']:
-            statement['__danger__'] = symbol['__danger__']
+        if symbol.var == statement.symbol:
+            statement.meta.danger = symbol.meta.danger
             return
 
     # Not found
-    statement['__danger__'] = False
+    statement.meta.danger = False

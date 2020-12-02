@@ -1,115 +1,218 @@
 [
   {
-    "__danger__": true,
-    "stack": 0,
-    "type": "BINDING",
+    "meta": {
+      "danger": true,
+      "linear": false,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementBinding",
     "var": "request",
     "var_type": "HttpServletRequest"
   },
   {
-    "__danger__": false,
-    "stack": 0,
-    "type": "BINDING",
+    "meta": {
+      "danger": false,
+      "linear": false,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementBinding",
     "var": "response",
     "var_type": "HttpServletResponse"
   },
   {
-    "__danger__": false,
-    "stack": 0,
-    "type": "LITERAL",
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
+    "type": "StatementLiteral",
     "value": "\"text/html;charset=UTF-8\""
   },
   {
-    "__danger__": true,
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
     "method": "response.setContentType",
-    "stack": -1,
-    "type": "CALL"
+    "recursive": true,
+    "stack": [],
+    "type": "StatementCustomMethodInvocation"
   },
   {
-    "__danger__": true,
+    "meta": {
+      "danger": true,
+      "linear": false,
+      "sink": null,
+      "stack": 0
+    },
     "method": "request.getCookies",
-    "stack": 0,
-    "type": "CALL"
+    "recursive": true,
+    "stack": [],
+    "type": "StatementCustomMethodInvocation"
   },
   {
-    "__danger__": true,
-    "stack": -1,
-    "type": "BINDING",
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementBinding",
     "var": "theCookie",
     "var_type": "javax.servlet.http.Cookie[]"
   },
   {
-    "__danger__": true,
+    "meta": {
+      "danger": true,
+      "linear": false,
+      "sink": null,
+      "stack": 0
+    },
     "method": "theCookie.getValue",
-    "stack": 0,
-    "type": "CALL"
+    "recursive": true,
+    "stack": [],
+    "type": "StatementCustomMethodInvocation"
   },
   {
-    "__danger__": false,
-    "stack": 0,
-    "type": "LITERAL",
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
+    "type": "StatementLiteral",
     "value": "\"UTF-8\""
   },
   {
-    "__danger__": true,
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -2
+    },
     "method": "java.net.URLDecoder.decode",
-    "stack": -2,
-    "type": "CALL"
+    "recursive": true,
+    "stack": [],
+    "type": "StatementCustomMethodInvocation"
   },
   {
-    "__danger__": true,
-    "stack": -1,
-    "type": "BINDING",
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementBinding",
     "var": "param",
     "var_type": "String"
   },
   {
-    "__danger__": true,
-    "stack": 0,
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
     "symbol": "param",
-    "type": "LOOKUP"
+    "type": "StatementLookup"
   },
   {
-    "__danger__": false,
-    "stack": 0,
-    "type": "LITERAL",
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
+    "type": "StatementLiteral",
     "value": "org.owasp.benchmark.helpers.Utils.testfileDir"
   },
   {
-    "__danger__": true,
-    "stack_0": -1,
-    "stack_1": -2,
-    "type": "ADD"
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -2
+    },
+    "recursive": true,
+    "stack_0": [],
+    "stack_1": [],
+    "type": "StatementAdd"
   },
   {
-    "__danger__": true,
-    "stack": -1,
-    "type": "BINDING",
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementBinding",
     "var": "fileName",
     "var_type": "String"
   },
   {
-    "__danger__": true,
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
     "symbol": "fileName",
-    "type": "LOOKUP"
+    "type": "StatementLookup"
   },
   {
-    "__danger__": true,
     "class_type": "java.io.File",
-    "sink": "F063_PATH_TRAVERSAL",
-    "stack": -1,
-    "type": "CLASS_INSTANTIATION"
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": "F063_PATH_TRAVERSAL",
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementClassInstantiation"
   },
   {
-    "__danger__": false,
     "class_type": "java.io.FileInputStream",
-    "stack": -1,
-    "type": "CLASS_INSTANTIATION"
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementClassInstantiation"
   },
   {
-    "__danger__": false,
-    "stack": -1,
-    "type": "BINDING",
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementBinding",
     "var": "fis",
     "var_type": "java.io.FileInputStream"
   }

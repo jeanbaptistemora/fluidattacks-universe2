@@ -1,4 +1,5 @@
 # Standard library
+import dataclasses
 from enum import Enum
 import json
 from typing import (
@@ -12,39 +13,37 @@ from aioextensions import (
 )
 
 
-async def simplify(obj: Any) -> Any:
+def simplify(obj: Any) -> Any:
+    simplified_obj: Any
+    if hasattr(obj, '_fields'):
+        # NamedTuple
+        simplified_obj = dict(zip(
+            simplify(obj._fields),
+            simplify(tuple(obj)),
+        ))
+    elif isinstance(obj, Enum):
+        simplified_obj = obj.value
+    elif isinstance(obj, dict):
+        simplified_obj = dict(zip(
+            simplify(tuple(obj.keys())),
+            simplify(tuple(obj.values())),
+        ))
+    elif isinstance(obj, (list, tuple, set)):
+        simplified_obj = tuple(map(simplify, obj))
+    elif dataclasses.is_dataclass(obj):
+        simplified_obj = simplify(dataclasses.asdict(obj))
+    else:
+        simplified_obj = obj
 
-    def _simplify(_obj: Any) -> Any:
-        simplified_obj: Any
-        if hasattr(_obj, '_fields'):
-            # NamedTuple
-            simplified_obj = dict(zip(
-                _simplify(_obj._fields),
-                _simplify(tuple(_obj)),
-            ))
-        elif isinstance(_obj, Enum):
-            simplified_obj = _obj.value
-        elif isinstance(_obj, dict):
-            simplified_obj = dict(zip(
-                _simplify(tuple(_obj.keys())),
-                _simplify(tuple(_obj.values())),
-            ))
-        elif isinstance(_obj, (list, tuple, set)):
-            simplified_obj = tuple(map(_simplify, _obj))
-        else:
-            simplified_obj = _obj
-
-        return simplified_obj
-
-    return await in_thread(_simplify, obj)
+    return simplified_obj
 
 
-async def json_dumps(element: object, **kwargs: Any) -> str:
-    return await in_thread(json.dumps, await simplify(element), **kwargs)
+def json_dumps(element: object, **kwargs: Any) -> str:
+    return json.dumps(simplify(element), **kwargs)
 
 
 async def yaml_dumps(element: object, **kwargs: Any) -> str:
-    element = await simplify(element)
+    element = simplify(element)
 
     return await in_thread(
         yaml.safe_dump,  # type: ignore

@@ -21,30 +21,30 @@ from utils.logs import (
 
 
 def mark_seen(ctx: Context, n_id: str) -> Context:
-    ctx['seen'].add(n_id)
+    ctx.seen.add(n_id)
 
     return ctx
 
 
 def ensure_context(ctx: OptionalContext = None) -> Context:
     if ctx is None:
-        return {
-            'complete': True,
-            'seen': set(),
-            'statements': [],
-        }
+        return Context(
+            complete=True,
+            seen=set(),
+            statements=[],
+        )
 
     return ctx
 
 
 def mark_if_sink(graph: nx.DiGraph, n_id: str, ctx: Context) -> None:
-    if statements := ctx['statements']:
+    if statements := ctx.statements:
         if label := graph.nodes[n_id].get('label_sink_type'):
-            statements[-1]['sink'] = label
+            statements[-1].meta.sink = label
 
 
 def merge_contexts(target: Context, source: Context) -> None:
-    target['seen'].update(source['seen'])
+    target.seen.update(source.seen)
 
 
 def not_implemented(
@@ -60,4 +60,4 @@ def not_implemented(
         n_id,
     )
 
-    ctx['complete'] = False
+    ctx.complete = False

@@ -1,5 +1,4 @@
 # Standard library
-import json
 from typing import (
     Tuple,
 )
@@ -19,6 +18,9 @@ from eval_java.model import (
 from eval_java.taint_rules import (
     generic as generic_taint,
 )
+from utils.encodings import (
+    json_dumps,
+)
 from utils.logs import (
     blocking_log,
 )
@@ -36,14 +38,17 @@ def evaluate(
     for n_id in path:
         generic_eval.evaluate(graph, n_id, ctx=ctx)
 
-    if ctx['complete'] or allow_incomplete:
-        statements = linearize.linearize(ctx['statements'])
+    # Debugging information, only visible with skims --debug
+    blocking_log('debug', '%s', json_dumps(ctx, indent=2))
+
+    if ctx.complete or allow_incomplete:
+        statements = linearize.linearize(ctx.statements)
 
         # Analyze how data is propagated across statements
         generic_taint.taint(statements)
 
         # Debugging information, only visible with skims --debug
-        blocking_log('debug', '%s', json.dumps(statements, indent=2))
+        blocking_log('debug', '%s', json_dumps(statements, indent=2))
 
         return statements
 
@@ -58,11 +63,11 @@ def is_vulnerable(
     sink_type: str,
 ) -> bool:
     return any(
-        statement.get('sink') == sink_type
+        statement.meta.sink == sink_type
         for statement in evaluate(
             graph,
             path,
             allow_incomplete=allow_incomplete,
         )
-        if statement['__danger__']
+        if statement.meta.danger
     )
