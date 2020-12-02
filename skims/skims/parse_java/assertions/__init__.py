@@ -20,6 +20,17 @@ def _read_stack(statements: List[Statement], index: int) -> List[Statement]:
     return statements[index + statements[index]['stack']:index]
 
 
+def _read_stack_symbols(
+    statements: List[Statement],
+    index: int,
+) -> List[Statement]:
+    return [
+        statement
+        for statement in statements[0:index]
+        if statement['type'] == 'BINDING'
+    ]
+
+
 def _binding(statements: List[Statement], index: int) -> None:
     statement = statements[index]
     var_type = statement['var_type']
@@ -43,6 +54,19 @@ def _literal(statement: Statement) -> None:
     statement['__danger__'] = False
 
 
+def _lookup(statements: List[Statement], index: int) -> None:
+    statement = statements[index]
+
+    # Lookup the symbol in the stack
+    for symbol in _read_stack_symbols(statements, index):
+        if symbol['var'] == statement['symbol']:
+            statement['__danger__'] = symbol['__danger__']
+            return
+
+    # Not found
+    statement['__danger__'] = False
+
+
 def _call(statements: List[Statement], index: int) -> None:
     statement = statements[index]
 
@@ -53,7 +77,14 @@ def _call(statements: List[Statement], index: int) -> None:
     # Analyze if the call itself is sensitive
     method = statement['method']
     call_danger = any((
+        # Known function to return user controlled data
         method.endswith('.getCookies'),
+        # Use of a method from a dangerous symbol
+        any(
+            method_start.startswith(symbol['var'])
+            for method_start in [method.split('.')[0]]
+            for symbol in _read_stack_symbols(statements, index)
+        )
     ))
 
     # Local context
@@ -76,7 +107,7 @@ def get(statements: List[Statement]) -> List[Statement]:
         elif statement_type == 'LITERAL':
             _literal(statement)
         elif statement_type == 'LOOKUP':
-            pass
+            _lookup(statements, index)
         else:
             raise NotImplementedError(statement_type)
 

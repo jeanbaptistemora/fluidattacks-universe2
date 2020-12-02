@@ -37,17 +37,9 @@ def evaluate(
         and (arg_id := match['__0__'])
         and match['RPAREN']
     ):
-        arg_attrs_label_type = graph.nodes[arg_id]['label_type']
-
-        if arg_attrs_label_type == 'IdentifierRule':
-            args = [{
-                'symbol': graph.nodes[arg_id]['label_text'],
-                'type': 'LOOKUP',
-            }]
-        else:
-            args_ctx = generic.evaluate(graph, arg_id, ctx=None)
-            common.merge_contexts(ctx, args_ctx)
-            args = args_ctx['statements']
+        args_ctx = generic.evaluate(graph, arg_id, ctx=None)
+        common.merge_contexts(ctx, args_ctx)
+        args = args_ctx['statements']
 
         ctx['statements'].append({
             'stack': args,

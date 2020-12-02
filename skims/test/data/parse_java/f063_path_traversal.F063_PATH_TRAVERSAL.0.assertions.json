@@ -20,7 +20,7 @@
     "value": "\"text/html;charset=UTF-8\""
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "method": "response.setContentType",
     "stack": -1,
     "type": "CALL"
@@ -39,7 +39,7 @@
     "var_type": "javax.servlet.http.Cookie[]"
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "method": "theCookie.getValue",
     "stack": 0,
     "type": "CALL"
@@ -51,23 +51,23 @@
     "value": "\"UTF-8\""
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "method": "java.net.URLDecoder.decode",
     "stack": -2,
     "type": "CALL"
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "stack": -1,
     "type": "BINDING",
     "var": "param",
     "var_type": "String"
   },
   {
-    "__danger__": false,
+    "__danger__": true,
     "stack": 0,
-    "type": "LITERAL",
-    "value": "param"
+    "symbol": "param",
+    "type": "LOOKUP"
   },
   {
     "__danger__": false,
@@ -89,7 +89,7 @@
     "var_type": "String"
   },
   {
-    "__danger__": null,
+    "__danger__": false,
     "symbol": "fileName",
     "type": "LOOKUP"
   },
