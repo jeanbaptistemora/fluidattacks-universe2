@@ -39,14 +39,14 @@ const editButton: React.FC<IEditButtonProps> = (props: IEditButtonProps): JSX.El
       {shouldRenderEditBtn ? (
         <TooltipWrapper
           message={props.isEditing
-            ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
+            ? translate.t("search_findings.tab_description.save.tooltip")
             : translate.t("search_findings.tab_vuln.buttons_tooltip.edit")
           }
         >
           <Button onClick={onEdit} disabled={props.isRequestingReattack || props.isVerifying}>
             {props.isEditing ? (
               <React.Fragment>
-                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
+                <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_description.save.text")}
               </React.Fragment>
             ) : (
               <React.Fragment>
