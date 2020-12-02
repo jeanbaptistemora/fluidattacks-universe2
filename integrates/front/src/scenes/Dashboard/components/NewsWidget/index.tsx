@@ -9,7 +9,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
   return (
     <NavItem>
       <AnnounceKit
-        user={{ id: userEmail }}
+        user={{ email: userEmail, id: userEmail }}
         widget={"https://news.fluidattacks.com/widgets/v2/ZmEGk"}
         widgetStyle={{ position: "absolute", top: "25px" }}
       >
