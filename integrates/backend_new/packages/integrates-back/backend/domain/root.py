@@ -48,7 +48,7 @@ async def get_root_by_id(root_id: str) -> Dict[str, Any]:
     if root:
         return {
             **root,
-            'group_name': root['sk'].split('GROUP#')[-1],
+            'group_name': root['pk'].split('GROUP#')[-1],
         }
     raise RootNotFound()
 

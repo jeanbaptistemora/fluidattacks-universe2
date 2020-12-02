@@ -481,6 +481,7 @@ export const enTranslations: ResourceKey = {
     scope: {
       common: {
         add: "Add new root",
+        edit: "Edit root",
         errors: {
           duplicate: "The root already exists within the organization",
         },

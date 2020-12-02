@@ -785,7 +785,6 @@ async def test_update_git_root() -> None:
       mutation {
         updateGitRoot(
           environment: "staging"
-          groupName: "unittesting"
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
           includesHealthCheck: false
         ) {
@@ -804,7 +803,6 @@ async def test_update_git_root_nonexistent() -> None:
       mutation {
         updateGitRoot(
           environment: "Test"
-          groupName: "unittesting"
           id: "ROOT#some-thing"
           includesHealthCheck: false
         ) {

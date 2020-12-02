@@ -77,7 +77,11 @@ describe("GitRoots", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider>
-          <GitRootsModal onClose={handleClose} onSubmit={handleSubmit} />
+          <GitRootsModal
+            initialValues={undefined}
+            onClose={handleClose}
+            onSubmit={handleSubmit}
+          />
         </MockedProvider>
       </Provider>
     );

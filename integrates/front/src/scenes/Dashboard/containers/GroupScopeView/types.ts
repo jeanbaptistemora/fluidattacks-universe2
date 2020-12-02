@@ -2,11 +2,11 @@ interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
   environment: string;
-  filter?: {
+  filter: {
     paths: string[];
     policy: "EXCLUDE" | "INCLUDE";
-  };
-  includeHealthCheck: boolean;
+  } | null;
+  includesHealthCheck: boolean;
   id: string;
   url: string;
 }
@@ -36,7 +36,7 @@ interface IGitFormAttr {
     paths: string[];
     policy: "EXCLUDE" | "INCLUDE" | "NONE";
   };
-  includeHealthCheck: boolean;
+  includesHealthCheck: boolean;
   url: string;
 }
 

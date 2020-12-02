@@ -392,8 +392,6 @@ type Mutation {
         environment: String!
         "Preferences for filtering directories"
         filter: GitRootFilterInput
-        "Name of the group the root is associated with"
-        groupName: String!
         "ID of the root"
         id: ID!
         "Analyze already existing code"

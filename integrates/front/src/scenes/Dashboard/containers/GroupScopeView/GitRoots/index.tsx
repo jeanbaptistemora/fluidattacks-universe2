@@ -1,4 +1,3 @@
-import { ADD_GIT_ROOT } from "../query";
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { ButtonToolbarRow } from "styles/styledComponents";
@@ -12,6 +11,7 @@ import React from "react";
 import { msgError } from "utils/notifications";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
+import { ADD_GIT_ROOT, UPDATE_GIT_ROOT } from "../query";
 import type { IGitFormAttr, IGitRootAttr } from "../types";
 
 interface IGitRootsProps {
@@ -30,11 +30,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // State management
   const [isModalOpen, setModalOpen] = React.useState(false);
 
+  const [modalValues, setModalValues] = React.useState<
+    IGitFormAttr | undefined
+  >(undefined);
+
   const openModal: () => void = React.useCallback((): void => {
     setModalOpen(true);
   }, []);
 
   const closeModal: () => void = React.useCallback((): void => {
+    setModalValues(undefined);
     setModalOpen(false);
   }, []);
 
@@ -61,20 +66,36 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
+  const [updateGitRoot] = useMutation(UPDATE_GIT_ROOT);
+
   // Event handlers
+  const handleRowClick: (
+    event: React.MouseEvent<HTMLTableRowElement>,
+    row: IGitRootAttr
+  ) => void = (): void => undefined;
+
   const handleSubmit: (
     values: IGitFormAttr
   ) => Promise<void> = React.useCallback(
     async (values): Promise<void> => {
-      await addGitRoot({
-        variables: {
-          ...values,
-          filter: values.filter.policy === "NONE" ? undefined : values.filter,
-          groupName,
-        },
-      });
+      if (modalValues === undefined) {
+        await addGitRoot({
+          variables: {
+            ...values,
+            filter: values.filter.policy === "NONE" ? undefined : values.filter,
+            groupName,
+          },
+        });
+      } else {
+        await updateGitRoot({
+          variables: {
+            ...values,
+            filter: values.filter.policy === "NONE" ? undefined : values.filter,
+          },
+        });
+      }
     },
-    [addGitRoot, groupName]
+    [addGitRoot, groupName, modalValues, updateGitRoot]
   );
 
   return (
@@ -103,11 +124,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         ]}
         id={"tblGitRoots"}
         pageSize={15}
+        rowEvents={{ onClick: handleRowClick }}
         search={true}
         striped={true}
       />
       {isModalOpen ? (
-        <GitRootsModal onClose={closeModal} onSubmit={handleSubmit} />
+        <GitRootsModal
+          initialValues={modalValues}
+          onClose={closeModal}
+          onSubmit={handleSubmit}
+        />
       ) : undefined}
     </React.Fragment>
   );

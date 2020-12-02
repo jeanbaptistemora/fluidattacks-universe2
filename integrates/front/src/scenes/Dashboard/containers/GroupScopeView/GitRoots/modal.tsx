@@ -17,19 +17,33 @@ import { Field, FormSection, formValueSelector } from "redux-form";
 import { checked, required } from "utils/validations";
 
 interface IGitRootsModalProps {
+  initialValues: IGitFormAttr | undefined;
   onClose: () => void;
   onSubmit: (values: IGitFormAttr) => Promise<void>;
 }
 
 const GitRootsModal: React.FC<IGitRootsModalProps> = ({
+  initialValues = {
+    branch: "",
+    environment: "",
+    filter: { paths: [""], policy: "NONE" },
+    includesHealthCheck: false,
+    url: "",
+  },
   onClose,
   onSubmit,
 }: IGitRootsModalProps): JSX.Element => {
+  const isEditing: boolean = initialValues.url !== "";
+
   const { t } = useTranslation();
 
   // State management
-  const [hasCode, setHasCode] = React.useState(false);
-  const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(false);
+  const [hasCode, setHasCode] = React.useState(
+    initialValues.includesHealthCheck
+  );
+  const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(
+    initialValues.includesHealthCheck
+  );
 
   const selector: (
     state: Record<string, unknown>,
@@ -40,12 +54,12 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
   );
 
   return (
-    <Modal headerTitle={t("group.scope.common.add")} open={true}>
+    <Modal
+      headerTitle={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
+      open={true}
+    >
       <GenericForm
-        initialValues={{
-          filter: { paths: [""], policy: "NONE" },
-          includesHealthCheck: false,
-        }}
+        initialValues={initialValues}
         name={"gitRoot"}
         onSubmit={onSubmit}
       >
@@ -64,6 +78,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                     </ControlLabel>
                     <Field
                       component={Text}
+                      disabled={isEditing}
                       name={"url"}
                       type={"text"}
                       validate={[required]}
@@ -76,6 +91,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                     </ControlLabel>
                     <Field
                       component={Text}
+                      disabled={isEditing}
                       name={"branch"}
                       type={"text"}
                       validate={[required]}
@@ -105,7 +121,6 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                 <div className={"flex"}>
                   <div className={"w-100"}>
                     <ControlLabel>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
                       {t("group.scope.git.healthCheck.hasCode")}
                     </ControlLabel>
                     <SwitchButton
@@ -120,7 +135,6 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                   <div className={"flex"}>
                     <div className={"w-100"}>
                       <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
                         {t("group.scope.git.healthCheck.confirm")}
                       </ControlLabel>
                       <SwitchButton

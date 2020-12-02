@@ -13,6 +13,7 @@ const GET_ROOTS: DocumentNode = gql`
             policy
           }
           id
+          includesHealthCheck
           url
         }
         ... on IPRoot {
@@ -54,4 +55,22 @@ const ADD_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
-export { GET_ROOTS, ADD_GIT_ROOT };
+const UPDATE_GIT_ROOT: DocumentNode = gql`
+  mutation UpdateGitRoot(
+    $environment: String!
+    $filter: GitRootFilterInput
+    $id: ID!
+    $includesHealthCheck: Boolean!
+  ) {
+    updateGitRoot(
+      environment: $environment
+      filter: $filter
+      id: $id
+      includesHealthCheck: $includesHealthCheck
+    ) {
+      success
+    }
+  }
+`;
+
+export { GET_ROOTS, ADD_GIT_ROOT, UPDATE_GIT_ROOT };
