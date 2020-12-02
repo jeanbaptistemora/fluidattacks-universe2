@@ -518,6 +518,49 @@
           "severity_scope": {
             "N": "0"
           },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
+          },
           "historic_treatment": {
             "L": [
               {
@@ -959,6 +1002,49 @@
           "severity_scope": {
             "N": "1"
           },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
+          },
           "historic_treatment": {
             "L": [
               {
@@ -1267,6 +1353,49 @@
           },
           "severity_scope": {
             "N": "0"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
           },
           "historic_treatment": {
             "L": [
@@ -1791,7 +1920,7 @@
               {
                 "M": {
                   "date": {
-                    "S": "2018-11-20 19:43:18"
+                    "S": "2019-04-07 19:43:18"
                   },
                   "analyst": {
                     "S":"integratesmanager@gmail.com"
@@ -1804,13 +1933,26 @@
               {
                 "M": {
                   "date": {
-                    "S": "2018-12-17"
+                    "S": "2019-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesanalyst@fluidattacks.com"
+                    "S":"integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S": "APPROVED"
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
                   }
                 }
               }
@@ -2068,6 +2210,49 @@
           },
           "exploitability": {
             "N": "0.94"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
           },
           "historic_treatment": {
             "L": [
@@ -2807,6 +2992,49 @@
           },
           "exploitability": {
             "N": "0.94"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-04-07 19:45:15"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
           },
           "historic_treatment": {
             "L": [
