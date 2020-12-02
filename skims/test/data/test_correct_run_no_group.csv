@@ -20,6 +20,7 @@ cwe,title,what,where
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,36
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,45
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,6
+22,SKIMS.S.063. Test - please delete,test/data/lib_path/f063_path_traversal/Test.java,13
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,8

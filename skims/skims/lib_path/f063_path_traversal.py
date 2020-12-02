@@ -21,6 +21,7 @@ from lib_path.common import (
 )
 from parse_java.assertions import (
     get as get_assertions,
+    is_vulnerable,
 )
 from parse_java.parse import (
     parse_from_content as java_parse_from_content,
@@ -53,11 +54,9 @@ def _java_path_traversal(
     def iterator() -> Iterator[g.NAttrs]:
         for path in g.flows(graph, sink_type='F063_PATH_TRAVERSAL'):
             if statements := evaluate(graph, path):
-                get_assertions(statements)
-                # This is never going to happen
-                # I'm adding it to early test the functionality
-                if '__never__' in locals():
-                    yield {}
+                assertions = get_assertions(statements)
+                if is_vulnerable(assertions, 'F063_PATH_TRAVERSAL'):
+                    yield graph.nodes[path[-1]]
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,

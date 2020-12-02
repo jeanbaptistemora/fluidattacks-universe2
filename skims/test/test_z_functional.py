@@ -512,6 +512,9 @@ async def test_correct_assert(
             ('test/data/lib_path/f061/swift.swift', '6'),
             ('test/data/lib_path/f061/swift.swift', '7'),
         )),
+        ('F063_PATH_TRAVERSAL', 'SUBMITTED', (
+            ('test/data/lib_path/f063_path_traversal/Test.java', '13'),
+        )),
         ('F073', 'APPROVED', (
             ('test/data/lib_path/f073/Test.cs', '20'),
             ('test/data/lib_path/f073/Test.cs', '3'),
@@ -570,6 +573,7 @@ async def test_correct_nothing_to_do_assert(
         ('F055_AWS', 'SUBMITTED', ()),
         ('F060', 'APPROVED', ()),
         ('F061', 'APPROVED', ()),
+        ('F063_PATH_TRAVERSAL', 'SUBMITTED', ()),
         ('F073', 'APPROVED', ()),
         ('F085', 'APPROVED', ()),
         ('F117', 'APPROVED', ()),

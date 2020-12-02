@@ -71,14 +71,14 @@
     "type": "LOOKUP"
   },
   {
-    "__danger__": null,
+    "__danger__": false,
     "class_type": "java.io.File",
     "sink": "F063_PATH_TRAVERSAL",
     "stack": -1,
     "type": "CLASS_INSTANTIATION"
   },
   {
-    "__danger__": null,
+    "__danger__": false,
     "class_type": "java.io.FileInputStream",
     "stack": -1,
     "type": "CLASS_INSTANTIATION"

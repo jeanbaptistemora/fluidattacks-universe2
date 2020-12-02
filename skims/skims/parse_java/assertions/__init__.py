@@ -109,6 +109,25 @@ def _call(statements: List[Statement], index: int) -> None:
     statement['__danger__'] = args_danger or call_danger
 
 
+def _class_instantiation(statements: List[Statement], index: int) -> None:
+    statement = statements[index]
+
+    # Analyze if the arguments involved in the function are dangerous
+    args = _read_stack(statements, index)
+    args_danger = any(arg['__danger__'] for arg in args)
+
+    # Analyze if the instantiation itself is sensitive
+    call_danger = any((
+        all((
+            statement['class_type'] in {'java.io.File'},
+            statement.get('sink') == 'F063_PATH_TRAVERSAL',
+        )),
+    ))
+
+    # Local context
+    statement['__danger__'] = call_danger and args_danger
+
+
 def get(statements: List[Statement]) -> List[Statement]:
     for index, statement in enumerate(statements):
         statement['__danger__'] = None
@@ -121,7 +140,7 @@ def get(statements: List[Statement]) -> List[Statement]:
         elif statement_type == 'CALL':
             _call(statements, index)
         elif statement_type == 'CLASS_INSTANTIATION':
-            pass
+            _class_instantiation(statements, index)
         elif statement_type == 'LITERAL':
             _literal(statement)
         elif statement_type == 'LOOKUP':
@@ -133,3 +152,11 @@ def get(statements: List[Statement]) -> List[Statement]:
     blocking_log('debug', '%s', json.dumps(statements, indent=2))
 
     return statements
+
+
+def is_vulnerable(assertions: List[Statement], sink_type: str) -> bool:
+    return any(
+        assertion.get('sink') == sink_type
+        for assertion in assertions
+        if assertion['__danger__']
+    )
