@@ -1858,6 +1858,10 @@ export const enTranslations: ResourceKey = {
         handle_acceptation: "Approve/Reject indefinite acceptation treatment",
       },
       closed: "Closed",
+      exceptions: {
+        severity_out_of_range:
+          "cannot be accepted, severity outside of the acceptance range set by the organization",
+      },
       info: {
         text: "Please select vulnerabilities to reattack",
         title: "Info",

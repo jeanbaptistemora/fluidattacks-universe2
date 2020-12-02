@@ -203,6 +203,16 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             String(updateError),
             translate.t("group_alerts.organization_policies.exceeds_acceptance_date"))) {
             msgError(translate.t("group_alerts.organization_policies.exceeds_acceptance_date"));
+          } else if (_.includes(
+            String(updateError),
+            translate.t("group_alerts.organization_policies.exceeds_acceptance_date"))
+          ) {
+            msgError(translate.t("group_alerts.organization_policies.exceeds_acceptance_date"));
+          } else if (_.includes(
+            String(updateError),
+            translate.t("search_findings.tab_vuln.exceptions.severity_out_of_range"))
+          ) {
+            msgError(translate.t("group_alerts.organization_policies.severity_out_of_range"));
           } else {
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred updating vuln treatment", updateError);
