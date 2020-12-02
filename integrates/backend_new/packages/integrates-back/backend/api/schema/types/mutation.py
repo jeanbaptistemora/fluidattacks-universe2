@@ -21,6 +21,7 @@ from backend.api.mutations import (
     delete_vulnerability,
     download_event_file,
     edit_stakeholder_organization,
+    edit_finding_comment_scope,
     execute_skims,
     grant_stakeholder_organization_access,
     handle_vulns_acceptation,
@@ -148,3 +149,5 @@ MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
 MUTATION.set_field('updateVulnsTreatment', update_vulns_treatment.mutate)
+MUTATION.set_field('editFindingCommentScope',
+                   edit_finding_comment_scope.mutate)

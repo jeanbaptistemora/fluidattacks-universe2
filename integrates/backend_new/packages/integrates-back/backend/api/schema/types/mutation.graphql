@@ -402,4 +402,10 @@ type Mutation {
         "Name of the group the root is associated with"
         groupName: String!
     ): SimplePayload!
+
+    editFindingCommentScope(
+        findingId: String!
+        commentId: String!
+        commentScope: CommentScope!
+    ): SimplePayload!
 }

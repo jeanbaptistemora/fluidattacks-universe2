@@ -467,6 +467,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_download_event_file_mutate',
             'backend_api_mutations_reject_zero_risk_vuln_mutate',
             'backend_api_resolvers_new_query_event_resolve',
+            'backend_api_mutations_edit_finding_comment_scope_mutate',
             'backend_api_resolvers_new_query_events_resolve',
             'backend_api_resolvers_finding__do_add_finding_consult',
             'backend_api_mutations_approve_draft_mutate',

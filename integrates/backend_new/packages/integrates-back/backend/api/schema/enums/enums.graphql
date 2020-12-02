@@ -40,6 +40,11 @@ enum AuthProvider {
   MICROSOFT
 }
 
+enum CommentScope {
+  EXTERNAL
+  INTERNAL
+}
+
 enum CallerOrigin {
   API
   FRONT
