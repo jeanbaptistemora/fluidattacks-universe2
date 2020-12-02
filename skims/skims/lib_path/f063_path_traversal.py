@@ -14,6 +14,9 @@ from aioextensions import (
 import networkx as nx
 
 # Local libraries
+from graph_java.get import (
+    get as java_get_graph,
+)
 from lib_path.common import (
     blocking_get_vulnerabilities_from_n_attrs_iterator,
     EXTENSIONS_JAVA,
@@ -22,9 +25,6 @@ from lib_path.common import (
 from parse_java.assertions import (
     get as get_assertions,
     is_vulnerable,
-)
-from parse_java.parse import (
-    get_graph as java_get_graph,
 )
 from parse_java.symbolic_evaluation.evaluate import (
     evaluate,

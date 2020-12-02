@@ -27,6 +27,7 @@ packages = [
   { include = "cli", from = "skims" },
   { include = "config", from = "skims" },
   { include = "core", from = "skims" },
+  { include = "graph_java", from = "skims"},
   { include = "integrates", from = "skims" },
   { include = "lib_path", from = "skims" },
   { include = "nvd", from = "skims" },

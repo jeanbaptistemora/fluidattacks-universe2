@@ -16,14 +16,14 @@ from aioextensions import (
 import networkx as nx
 
 # Local libraries
+from graph_java.get import (
+    get as java_get_graph,
+)
 from parse_antlr.parse import (
     parse as parse_antlr,
 )
 from parse_babel import (
     parse as parse_babel,
-)
-from parse_java.parse import (
-    get_graph as java_get_graph,
 )
 from lib_path.common import (
     EXTENSIONS_CSHARP,

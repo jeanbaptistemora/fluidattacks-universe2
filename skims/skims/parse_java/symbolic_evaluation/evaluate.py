@@ -68,7 +68,7 @@ def _is_linear_or_flatten_one_level(statements: List[Statement]) -> bool:
             statement['stack'] = 0
         elif statement_type in RECURSIVE:
             stack = 0
-            for stack_name in {'stack', 'stack_0', 'stack_1'}:
+            for stack_name in ('stack', 'stack_0', 'stack_1'):
                 if stack_name not in statement:
                     continue
 

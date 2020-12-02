@@ -6,6 +6,7 @@ declare -Arx SKIMS_GLOBAL_PKGS=(
   [cli]=skims/cli
   [config]=skims/config
   [core]=skims/core
+  [graph_java]=skims/graph_java
   [integrates]=skims/integrates
   [lib_path]=skims/lib_path
   [nvd]=skims/nvd

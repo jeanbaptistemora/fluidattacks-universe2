@@ -22,6 +22,9 @@ from pyparsing import (
 )
 
 # Local libraries
+from graph_java.get import (
+    get as java_get_graph,
+)
 from lib_path.common import (
     blocking_get_vulnerabilities,
     blocking_get_vulnerabilities_from_iterator,
@@ -35,9 +38,6 @@ from lib_path.common import (
     SHIELD,
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
-)
-from parse_java.parse import (
-    get_graph as java_get_graph,
 )
 from state.cache import (
     CACHE_ETERNALLY,
