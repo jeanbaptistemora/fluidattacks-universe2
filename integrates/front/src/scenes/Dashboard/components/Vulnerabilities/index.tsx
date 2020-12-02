@@ -32,6 +32,7 @@ import {
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/index";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { UploadVulnerabilites } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -146,16 +147,25 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
 };
 
 const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => (
-    _.map(lines, (line: IVulnType[0]) =>
-      ({
+    _.map(lines, (line: IVulnType[0]) => {
+      const lastTreatment: IHistoricTreatment = getLastTreatment(line.historicTreatment);
+      const isPendingToApproval: boolean = lastTreatment.treatment === "ACCEPTED_UNDEFINED"
+        && lastTreatment.acceptanceStatus !== "APPROVED";
+      const treatmentLabel: string = translate.t(formatDropdownField(lastTreatment.treatment)) +
+        (isPendingToApproval
+        ? translate.t("search_findings.tab_description.treatment.pending_approval")
+        : "");
+
+      return ({
         ...line,
         severity: getSeverity(line),
-        treatment: translate.t(formatDropdownField(getLastTreatment(line.historicTreatment).treatment)),
-        treatmentManager: getLastTreatment(line.historicTreatment).treatmentManager as string,
+        treatment: treatmentLabel,
+        treatmentManager: lastTreatment.treatmentManager as string,
         verification: line.verification === "Verified"
           ? `${line.verification} (${line.currentState})`
           : line.verification,
-      })));
+      });
+    }));
 
 const getVulnByRow: (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]) =>
   IVulnDataType[] = (selectedRowId: string, categoryVuln: IVulnRow[], vulnData: IVulnDataType[]):

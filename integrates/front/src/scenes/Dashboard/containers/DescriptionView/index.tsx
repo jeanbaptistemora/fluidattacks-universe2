@@ -26,15 +26,13 @@ import {
   GET_FINDING_DESCRIPTION,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/containers/DescriptionView/queries";
-import { TreatmentView } from "scenes/Dashboard/containers/DescriptionView/TreatmentView";
 import {
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
-  IHistoricTreatment,
 } from "scenes/Dashboard/containers/DescriptionView/types";
 import {
-  formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
+  formatCompromisedRecords, formatCweUrl, formatFindingType,
 } from "scenes/Dashboard/containers/DescriptionView/utils";
 import {
   Col100,
