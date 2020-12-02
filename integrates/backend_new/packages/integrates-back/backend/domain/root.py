@@ -18,13 +18,13 @@ def format_root(root: Dict[str, Any]) -> Root:
 
     if root['kind'] == 'Git':
         return GitRoot(
-            branch=root_state['branch'],
+            branch=root['branch'],
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
             filter=root_state.get('filter'),
             id=root['id'],
             includes_health_check=root_state['includes_health_check'],
-            url=root_state['url']
+            url=root['url']
         )
 
     if root['kind'] == 'IP':
@@ -78,8 +78,8 @@ def _matches_root(
 
     if kind == root['kind'] == 'Git':
         return (
-            current_state['url'] == new_root['url']
-            and current_state['branch'] == new_root['branch']
+            root['url'] == new_root['url']
+            and root['branch'] == new_root['branch']
         )
 
     if kind == root['kind'] == 'IP':
@@ -104,7 +104,6 @@ async def _is_unique_in_org(
     kind: str,
     new_root: Dict[str, Any]
 ) -> bool:
-    assert kind in {'Git', 'IP', 'URL'}
     org_groups: Tuple[str, ...] = await org_domain.get_groups(org_id)
 
     for group_name in org_groups:
@@ -137,20 +136,20 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         kind: str = 'Git'
         org_id: str = await org_domain.get_id_for_group(group_name)
         initial_state: Dict[str, Any] = {
-            'branch': kwargs['branch'],
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
             'filter': kwargs.get('filter'),
             'includes_health_check': kwargs['includes_health_check'],
-            'url': kwargs['url'],
             'user': user_email
         }
+        root_attributes: Dict[str, Any] = {
+            'branch': kwargs['branch'],
+            'historic_state': [initial_state],
+            'kind': kind,
+            'url': kwargs['url'],
+        }
 
-        if await _is_unique_in_org(org_id, kind, initial_state):
-            root_attributes: Dict[str, Any] = {
-                'historic_state': [initial_state],
-                'kind': kind
-            }
+        if await _is_unique_in_org(org_id, kind, root_attributes):
             await root_dal.create(group_name, root_attributes)
         else:
             raise RepeatedValues()
@@ -230,24 +229,13 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
 
     if is_valid:
         group_name: str = root['group_name']
-        kind: str = 'Git'
-        org_id: str = await org_domain.get_id_for_group(group_name)
         new_state: Dict[str, Any] = {
-            'branch': kwargs['branch'],
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
             'filter': kwargs.get('filter'),
             'includes_health_check': kwargs['includes_health_check'],
-            'url': kwargs['url'],
             'user': user_email
         }
-
-        if (
-            new_state['branch'] != root['branch']
-            or new_state['url'] != root['url']
-            and not _is_unique_in_org(org_id, kind, new_state)
-        ):
-            raise RepeatedValues()
 
         await root_dal.update(
             group_name,

@@ -6,11 +6,12 @@
           "pk": { "S": "GROUP#unittesting" },
           "sk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
           "kind": { "S": "Git" },
+          "branch": { "S": "master" },
+          "url": { "S": "https://gitlab.com/fluidattacks/product" },
           "historic_state": {
             "L": [
               {
                 "M": {
-                  "branch": { "S": "master" },
                   "date": { "S": "2020-11-19 08:37:10" },
                   "filter": {
                     "M": {
@@ -28,7 +29,6 @@
                     "L": [{ "S": "https://integrates.fluidattacks.com" }]
                   },
                   "includes_health_check": { "BOOL": true },
-                  "url": { "S": "https://gitlab.com/fluidattacks/product" },
                   "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
@@ -43,16 +43,16 @@
           "pk": { "S": "GROUP#unittesting" },
           "sk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
           "kind": { "S": "Git" },
+          "branch": { "S": "develop" },
+          "url": { "S": "https://gitlab.com/fluidattacks/integrates" },
           "historic_state": {
             "L": [
               {
                 "M": {
-                  "branch": { "S": "develop" },
                   "date": { "S": "2020-11-19 08:39:56" },
                   "filter": { "NULL": true },
                   "environment": { "S": "QA" },
                   "includes_health_check": { "BOOL": false },
-                  "url": { "S": "https://gitlab.com/fluidattacks/integrates" },
                   "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
