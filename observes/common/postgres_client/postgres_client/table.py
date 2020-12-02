@@ -140,7 +140,7 @@ def exist(db_client: Client, table_id: TableID) -> bool:
     action.act()
     f_action = db_client.fetchone()
     result = tuple(f_action.act())
-    return result[0]
+    return bool(result[0])
 
 
 def retrieve(db_client: Client, table_id: TableID) -> Optional[Table]:

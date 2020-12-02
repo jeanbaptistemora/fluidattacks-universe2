@@ -117,12 +117,32 @@ observes_gitlab_etl_test:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes_postgres_client_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes_postgres_client_test:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 observes_singer_io_lint:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: lint-code
 
 observes_singer_io_test:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-code
+
+observes_tap_csv_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes_tap_csv_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code

@@ -98,6 +98,6 @@ def sql_id_purifier_builder(sql_lib: Any = postgres_sql) -> SQLidPurifier:
             for key, value in args.identifiers.items():
                 format_input[key] = sql_lib.Identifier(value)
         if format_input:
-            return raw_sql.format(**format_input)
+            return str(raw_sql.format(**format_input))
         return statement
     return purifier

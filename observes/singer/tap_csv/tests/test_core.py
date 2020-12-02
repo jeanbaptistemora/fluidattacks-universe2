@@ -1,4 +1,4 @@
-from postgres_client import __version__
+from tap_csv import __version__
 
 
 def test_version() -> None:
