@@ -2,12 +2,10 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.symbolic_evaluation import (
-    common,
-)
-from parse_java.symbolic_evaluation.rules import (
+from eval_java.eval_rules import (
     additive_expression,
     argument_list,
+    common,
     custom_class_instance_creation_expression_lfno_primary,
     custom_method_invocation,
     expression_statement,
@@ -15,6 +13,10 @@ from parse_java.symbolic_evaluation.rules import (
     local_variable_declaration_statement,
     method_declaration,
     string_literal,
+)
+from eval_java.model import (
+    Context,
+    OptionalContext,
 )
 
 # Constants
@@ -29,8 +31,8 @@ def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # Check if we already extracted context from this node

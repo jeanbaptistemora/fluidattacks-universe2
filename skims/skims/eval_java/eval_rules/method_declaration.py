@@ -2,8 +2,12 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.symbolic_evaluation import (
+from eval_java.eval_rules import (
     common,
+)
+from eval_java.model import (
+    Context,
+    OptionalContext,
 )
 from utils import (
     graph as g,
@@ -14,8 +18,8 @@ def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # methodDeclaration = methodModifier* methodHeader methodBody
@@ -32,8 +36,8 @@ def _method_header(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # methodHeader
@@ -52,8 +56,8 @@ def _method_declarator(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # methodDeclarator = identifier '(' formalParameterList? ')' dims?
@@ -70,8 +74,8 @@ def _formal_parameter_list(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     for c_id in g.filter_nodes(
@@ -88,8 +92,8 @@ def _formal_parameter(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     c_ids = g.adj_ast(graph, n_id)

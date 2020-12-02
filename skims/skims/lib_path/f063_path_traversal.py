@@ -22,12 +22,8 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     SHIELD,
 )
-from parse_java.assertions import (
-    get as get_assertions,
+from eval_java.evaluate import (
     is_vulnerable,
-)
-from parse_java.symbolic_evaluation.evaluate import (
-    evaluate,
 )
 from state.cache import (
     CACHE_1SEC,
@@ -53,10 +49,8 @@ def _java_path_traversal(
 
     def iterator() -> Iterator[g.NAttrs]:
         for path in g.flows(graph, sink_type='F063_PATH_TRAVERSAL'):
-            if statements := evaluate(graph, path):
-                assertions = get_assertions(statements)
-                if is_vulnerable(assertions, 'F063_PATH_TRAVERSAL'):
-                    yield graph.nodes[path[-1]]
+            if is_vulnerable(graph, path, sink_type='F063_PATH_TRAVERSAL'):
+                yield graph.nodes[path[-1]]
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,

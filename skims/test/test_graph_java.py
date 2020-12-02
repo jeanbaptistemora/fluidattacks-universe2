@@ -11,11 +11,8 @@ import pytest
 from graph_java.get import (
     get as java_get_graph,
 )
-from parse_java.symbolic_evaluation.evaluate import (
+from eval_java.evaluate import (
     evaluate,
-)
-from parse_java.assertions import (
-    get as get_assertions,
 )
 from graph_java.transformations.sinks import (
     SINKS,
@@ -98,13 +95,12 @@ async def test_graph_generation(path: str, name: str) -> None:
                 path,  # type: ignore
                 allow_incomplete=True,
             )
-            assertions = get_assertions(statements if statements else [])
-            assertions_as_json = json.dumps(assertions, indent=2, sort_keys=True)
+            statements_as_json = json.dumps(statements, indent=2, sort_keys=True)
 
-            with open(f'test/data/parse_java/{name}.{sink}.{index}.assertions.json') as handle:
+            with open(f'test/data/parse_java/{name}.{sink}.{index}.statements.json') as handle:
                 expected = handle.read()
 
-            assert assertions_as_json == expected
+            assert statements_as_json == expected
 
 
 @run_decorator

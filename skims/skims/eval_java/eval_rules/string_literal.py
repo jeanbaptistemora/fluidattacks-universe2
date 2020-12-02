@@ -2,8 +2,12 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.symbolic_evaluation import (
+from eval_java.eval_rules import (
     common,
+)
+from eval_java.model import (
+    Context,
+    OptionalContext,
 )
 
 
@@ -11,8 +15,8 @@ def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     ctx['statements'].append({

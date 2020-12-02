@@ -2,11 +2,13 @@
 import networkx as nx
 
 # Local libraries
-from parse_java.symbolic_evaluation import (
+from eval_java.eval_rules import (
     common,
-)
-from parse_java.symbolic_evaluation.rules import (
     generic,
+)
+from eval_java.model import (
+    Context,
+    OptionalContext,
 )
 from utils import (
     graph as g,
@@ -17,8 +19,8 @@ def evaluate(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # localVariableDeclarationStatement = localVariableDeclaration ';'
@@ -35,8 +37,8 @@ def _local_variable_declaration(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
-) -> common.Context:
+    ctx: OptionalContext,
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # variableModifier* unannType variableDeclaratorList
@@ -73,9 +75,9 @@ def _variable_declarator(
     graph: nx.DiGraph,
     n_id: str,
     *,
-    ctx: common.OptionalContext,
+    ctx: OptionalContext,
     type_attrs_label_text: str,
-) -> common.Context:
+) -> Context:
     ctx = common.ensure_context(ctx)
 
     # variableDeclaratorId ('=' variableInitializer)?

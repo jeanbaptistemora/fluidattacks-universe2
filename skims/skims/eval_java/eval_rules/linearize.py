@@ -1,24 +1,6 @@
-# Standard library
-import json
-from typing import (
-    Any,
-    Dict,
-    List,
-    Tuple,
-)
-
-# Third party libraries
-import networkx as nx
-
 # Local libraries
-from parse_java.symbolic_evaluation import (
-    common,
-)
-from parse_java.symbolic_evaluation.rules import (
-    generic,
-)
-from utils.logs import (
-    blocking_log,
+from eval_java.model import (
+    Statements,
 )
 
 # Constants
@@ -32,26 +14,9 @@ NON_RECURSIVE = {
     'LITERAL',
     'LOOKUP',
 }
-ALL_TYPES = NON_RECURSIVE | RECURSIVE
-
-# Typing
-Statement = Dict[str, Any]
 
 
-def _analyze_context(
-    graph: nx.DiGraph,
-    path: Tuple[str, ...],
-) -> common.Context:
-    ctx = common.ensure_context(None)
-
-    # Walk the path and mine the nodes in order to increase the context
-    for n_id in path:
-        generic.evaluate(graph, n_id, ctx=ctx)
-
-    return ctx
-
-
-def _is_linear_or_flatten_one_level(statements: List[Statement]) -> bool:
+def _is_linear_or_flatten_one_level(statements: Statements) -> bool:
     finished: bool = True
     statement_index = -1
 
@@ -75,7 +40,7 @@ def _is_linear_or_flatten_one_level(statements: List[Statement]) -> bool:
                 for arg in statement[stack_name]:
                     arg_type = arg['type']
 
-                    if arg_type in ALL_TYPES:
+                    if arg_type in RECURSIVE or arg_type in NON_RECURSIVE:
                         statements.insert(statement_index, arg)
                         statement_index += 1
                         stack += 1
@@ -93,7 +58,7 @@ def _is_linear_or_flatten_one_level(statements: List[Statement]) -> bool:
     return finished
 
 
-def _linearize_statements(statements: List[Statement]) -> List[Statement]:
+def linearize(statements: Statements) -> Statements:
     # Linearize one level until it's absolutely flattened
     while not _is_linear_or_flatten_one_level(statements):
         pass
@@ -103,22 +68,3 @@ def _linearize_statements(statements: List[Statement]) -> List[Statement]:
         statement.pop('__linear__', None)
 
     return statements
-
-
-def evaluate(
-    graph: nx.DiGraph,
-    path: Tuple[str, ...],
-    *,
-    allow_incomplete: bool = False,
-) -> List[Statement]:
-    ctx = _analyze_context(graph, path)
-
-    if ctx['complete'] or allow_incomplete:
-        statements = _linearize_statements(ctx['statements'])
-
-        # Debugging information, only visible with skims --debug
-        blocking_log('debug', '%s', json.dumps(statements, indent=2))
-
-        return statements
-
-    return []

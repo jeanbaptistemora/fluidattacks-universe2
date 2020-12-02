@@ -2,29 +2,22 @@
 from typing import (
     Any,
     Callable,
-    Optional,
-    List,
-    TypedDict,
 )
 
 # Third party libraries
 import networkx as nx
 
 # Local libraries
+from eval_java.model import (
+    Context,
+    OptionalContext,
+)
 from utils.function import (
     get_id,
 )
 from utils.logs import (
     blocking_log,
 )
-
-# Types
-Context = TypedDict('Context', {
-    'complete': bool,
-    'seen': set,
-    'statements': List[Any],
-})
-OptionalContext = Optional[Context]
 
 
 def mark_seen(ctx: Context, n_id: str) -> Context:
