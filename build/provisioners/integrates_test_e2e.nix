@@ -16,6 +16,9 @@ in
         pkgs.python37
       ];
 
+      pkgGeckoDriver = pkgs.geckodriver;
+      pkgFirefox = pkgs.firefox;
+
       pyPkgE2erequirements = builders.pythonRequirements ../../integrates/test_e2e/requirements.txt;
     })
   )

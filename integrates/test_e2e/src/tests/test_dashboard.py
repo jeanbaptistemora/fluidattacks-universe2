@@ -2,14 +2,14 @@
 from typing import Dict
 
 # Third party libraries
-from selenium.webdriver import Remote
+from selenium.webdriver.remote.webdriver import WebDriver
 
 # Local libraries
 import utils
 
 
 def test_dashboard(
-        driver: Remote,
+        driver: WebDriver,
         azure_credentials: Dict[str, str],
         endpoint: str) -> None:
     utils.login_azure(driver, azure_credentials)

@@ -5,7 +5,9 @@ from typing import Dict
 # Third party libraries
 import pytest
 from _pytest.fixtures import FixtureRequest
-from selenium.webdriver import Remote
+from selenium.webdriver import Firefox, Remote
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.firefox.options import Options
 
 
 @pytest.fixture(autouse=True, scope='session')
@@ -56,13 +58,32 @@ def endpoint(branch: str, is_ci: bool) -> str:
     elif is_ci:
         url = f'https://{branch}.integrates.fluidattacks.com/new'
     else:
-        url = 'https://localhost:8080/new'
+        url = 'https://localhost:8081/new'
     return url
 
 
 @pytest.fixture(autouse=True, scope='function')
-def driver(browserstack_cap: Dict[str, str], browserstack_url: str) -> Remote:
-    return Remote(
-        command_executor=browserstack_url,
-        desired_capabilities=browserstack_cap
-    )
+def driver(
+        browserstack_cap: Dict[str, str],
+        browserstack_url: str,
+        is_ci: bool) -> WebDriver:
+    driver: WebDriver = None
+    if is_ci:
+        driver = Remote(
+            command_executor=browserstack_url,
+            desired_capabilities=browserstack_cap
+        )
+    else:
+        geckodriver: str = f'{os.environ["pkgGeckoDriver"]}/bin/geckodriver'
+        firefox: str = f'{os.environ["pkgFirefox"]}/bin/firefox'
+        options = Options()
+        options.add_argument('--width=1366')
+        options.add_argument('--height=768')
+        options.binary_location = firefox
+        options.headless = True
+        driver = Firefox(
+            executable_path=geckodriver,
+            firefox_binary=firefox,
+            options=options
+        )
+    return driver

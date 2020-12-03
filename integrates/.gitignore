@@ -43,3 +43,6 @@ analytics/**/*.jpg
 analytics/**/*.json
 analytics/**/*.html
 analytics/**/*.png
+
+# Tests E2E
+test_e2e/geckodriver.log
