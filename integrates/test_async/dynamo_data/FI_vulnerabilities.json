@@ -15,12 +15,6 @@
           "where": {
             "S": "https://10.1.1.1/"
           },
-          "treatment": {
-            "S": "IN PROGRESS"
-          },
-          "treatment_manager": {
-            "S": "integratesuser@gmail.com"
-          },
           "finding_id": {
             "S": "457497316"
           },
@@ -118,9 +112,6 @@
                "specific" : {
                   "S" : "123345"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "lines"
                },
@@ -158,9 +149,6 @@
                },
                "specific" : {
                   "S" : "564"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -227,9 +215,6 @@
                "specific" : {
                   "S" : "333"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -268,6 +253,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 17:00:56" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "historic_verification": {
                   "L" : [
                     {
@@ -284,9 +279,6 @@
                 },
                "specific" : {
                   "S" : "1111"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "ports"
@@ -329,9 +321,6 @@
                "specific" : {
                   "S" : "333"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -372,9 +361,6 @@
                },
                "specific" : {
                   "S" : "1111"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "ports"
@@ -433,9 +419,6 @@
                "specific" : {
                   "S" : "4444"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -492,9 +475,6 @@
                },
                "specific" : {
                   "S" : "333"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "ports"
@@ -553,9 +533,6 @@
                "specific" : {
                   "S" : "333"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -596,9 +573,6 @@
                },
                "specific" : {
                   "S" : "888"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "ports"
@@ -657,9 +631,6 @@
                "specific" : {
                   "S" : "333"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -701,9 +672,6 @@
                "specific" : {
                   "S" : "333"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -739,11 +707,18 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-08-30 09:30:13" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "asserts"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "inputs"
@@ -786,9 +761,6 @@
                "specific" : {
                   "S" : "1111"
                },
-               "treatment" : {
-                  "S" : "NEW"
-               },
                "vuln_type" : {
                   "S" : "ports"
                },
@@ -827,11 +799,18 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2020-10-13 12:46:10" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "333"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "ports"
@@ -881,6 +860,19 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2020-11-23 12:46:10" },
+                           "justification": { "S": "This is a treatment justification" },
+                           "treatment": { "S": "IN PROGRESS" },
+                           "treatment_manager" : { "S" : "integratesuser@gmail.com" },
+                           "user": { "S": "integratescustomer@gmail.com" }
+                        }
+                     }
+                  ]
+               },
                "historic_zero_risk" : {
                   "L" : [
                      {
@@ -908,15 +900,6 @@
                "specific" : {
                   "S" : "phone"
                },
-               "treatment" : {
-                  "S" : "IN PROGRESS"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
-               },
                "vuln_type" : {
                   "S" : "inputs"
                },
@@ -938,6 +921,20 @@
                "finding_id" : {
                   "S" : "463558592"
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "acceptance_date": { "S": "2021-01-16 12:46:10" },
+                           "date": { "S": "2020-10-13 12:46:10" },
+                           "justification": { "S": "This is a treatment justification test" },
+                           "treatment": { "S": "ACCEPTED" },
+                           "treatment_manager" : { "S" : "integratesuser@gmail.com" },
+                           "user": { "S": "integratesuser@gmail.com"}
+                        }
+                     }
+                  ]
+               },
                "historic_state" : {
                   "L" : [
                      {
@@ -957,15 +954,6 @@
                },
                "specific" : {
                   "S" : "12"
-               },
-               "treatment" : {
-                  "S" : "ACCEPTED"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1020,15 +1008,6 @@
                },
                "specific" : {
                   "S" : "12456"
-               },
-               "treatment" : {
-                  "S" : "ACCEPTED"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1099,15 +1078,6 @@
                "specific" : {
                   "S" : "345"
                },
-               "treatment" : {
-                  "S" : "ACCEPTED"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
-               },
                "vuln_type" : {
                   "S" : "lines"
                },
@@ -1146,6 +1116,20 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "acceptance_date": { "S": "2021-01-16 12:46:10" },
+                           "date": { "S": "2020-10-13 12:46:10" },
+                           "justification": { "S": "This is a treatment justification test" },
+                           "treatment": { "S": "ACCEPTED" },
+                           "treatment_manager" : { "S" : "integratesuser@gmail.com" },
+                           "user": { "S": "integratesuser@gmail.com" }
+                        }
+                     }
+                  ]
+               },
                "historic_zero_risk" : {
                   "L" : [
                      {
@@ -1162,15 +1146,6 @@
                },
                "specific" : {
                   "S" : "564"
-               },
-               "treatment" : {
-                  "S" : "ACCEPTED"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1233,6 +1208,20 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "acceptance_date": { "S": "2021-01-16 12:46:10" },
+                           "date": { "S": "2020-10-13 12:46:10" },
+                           "justification": { "S": "This is a treatment justification test" },
+                           "treatment": { "S": "ACCEPTED" },
+                           "treatment_manager" : { "S" : "integratesuser@gmail.com" },
+                           "user": { "S": "integratesuser@gmail.com" }
+                        }
+                     }
+                  ]
+               },
                "historic_zero_risk" : {
                   "L" : [
                      {
@@ -1249,15 +1238,6 @@
                },
                "specific" : {
                   "S" : "123345"
-               },
-               "treatment" : {
-                  "S" : "ACCEPTED"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1311,6 +1291,20 @@
                     }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "acceptance_date": { "S": "2021-01-16 12:46:10" },
+                           "date": { "S": "2020-10-13 12:46:10" },
+                           "justification": { "S": "This is a treatment justification test" },
+                           "treatment": { "S": "ACCEPTED" },
+                           "treatment_manager" : { "S" : "integratesuser@gmail.com" },
+                           "user": { "S": "integratesuser@gmail.com" }
+                        }
+                     }
+                  ]
+              },
                "historic_zero_risk" : {
                   "L" : [
                      {
@@ -1327,15 +1321,6 @@
                },
                "specific" : {
                   "S" : "123"
-               },
-               "treatment" : {
-                  "S" : "ACCEPTED"
-               },
-               "treatment_justification" : {
-                  "S" : "This is a treatment justification test"
-               },
-               "treatment_manager" : {
-                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1451,9 +1436,6 @@
                },
                "specific" : {
                   "S" : "3636"
-               },
-               "treatment" : {
-                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "ports"

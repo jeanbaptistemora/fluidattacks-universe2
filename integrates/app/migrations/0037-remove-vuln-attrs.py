@@ -4,8 +4,8 @@
 This migration aims to remove unnecessary attributes
 from vulnerability
 
-Execution Time:
-Finalization Time:
+Execution Time:    2020-12-03 06:45:53 UTC-5
+Finalization Time: 2020-12-03 07:38:29 UTC-5
 """
 # Standard library
 from itertools import chain

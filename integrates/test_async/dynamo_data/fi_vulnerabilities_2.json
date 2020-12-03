@@ -925,15 +925,6 @@
                   "specific" : {
                      "S" : "12"
                   },
-                  "treatment" : {
-                     "S" : "ACCEPTED"
-                  },
-                  "treatment_justification" : {
-                     "S" : "This is a treatment justification test"
-                  },
-                  "treatment_manager" : {
-                     "S" : "integratesuser@gmail.com"
-                  },
                   "vuln_type" : {
                      "S" : "lines"
                   },

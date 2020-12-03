@@ -217,7 +217,7 @@ async def test_get_total_treatment():
     )
     test_data = await get_total_treatment(findings)
     expected_output = \
-        {'inProgress': 1, 'accepted': 0, 'acceptedUndefined': 0, 'undefined': 1}
+        {'inProgress': 1, 'accepted': 1, 'acceptedUndefined': 0, 'undefined': 0}
     assert test_data == expected_output
 
 async def test_list_drafts():
