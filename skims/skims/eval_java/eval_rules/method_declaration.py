@@ -9,7 +9,7 @@ from eval_java.model import (
     Context,
     get_default_statement_meta,
     OptionalContext,
-    StatementBinding,
+    StatementDeclaration,
 )
 from utils import (
     graph as g,
@@ -111,7 +111,7 @@ def _formal_parameter(
         var_attrs_label_text = var_attrs['label_text']
 
         # Add the variable to the mapping
-        ctx.statements.append(StatementBinding(
+        ctx.statements.append(StatementDeclaration(
             meta=get_default_statement_meta(),
             stack=[],
             var=var_attrs_label_text,

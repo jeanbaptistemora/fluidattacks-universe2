@@ -41,16 +41,6 @@ class StatementAdd(NamedTuple):
     type: str = 'StatementAdd'
 
 
-class StatementBinding(NamedTuple):
-    stack: Statements
-    var: str
-    var_type: str
-    meta: StatementMeta
-
-    recursive: bool = True
-    type: str = 'StatementBinding'
-
-
 class StatementClassInstantiation(NamedTuple):
     class_type: str
     stack: Statements
@@ -67,6 +57,16 @@ class StatementCustomMethodInvocation(NamedTuple):
 
     recursive: bool = True
     type: str = 'StatementCustomMethodInvocation'
+
+
+class StatementDeclaration(NamedTuple):
+    stack: Statements
+    var: str
+    var_type: str
+    meta: StatementMeta
+
+    recursive: bool = True
+    type: str = 'StatementDeclaration'
 
 
 class StatementLookup(NamedTuple):

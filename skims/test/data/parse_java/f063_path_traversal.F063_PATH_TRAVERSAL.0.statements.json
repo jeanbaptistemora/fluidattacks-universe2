@@ -8,7 +8,7 @@
     },
     "recursive": true,
     "stack": [],
-    "type": "StatementBinding",
+    "type": "StatementDeclaration",
     "var": "request",
     "var_type": "HttpServletRequest"
   },
@@ -21,7 +21,7 @@
     },
     "recursive": true,
     "stack": [],
-    "type": "StatementBinding",
+    "type": "StatementDeclaration",
     "var": "response",
     "var_type": "HttpServletResponse"
   },
@@ -69,7 +69,7 @@
     },
     "recursive": true,
     "stack": [],
-    "type": "StatementBinding",
+    "type": "StatementDeclaration",
     "var": "theCookie",
     "var_type": "javax.servlet.http.Cookie[]"
   },
@@ -117,7 +117,7 @@
     },
     "recursive": true,
     "stack": [],
-    "type": "StatementBinding",
+    "type": "StatementDeclaration",
     "var": "param",
     "var_type": "String"
   },
@@ -164,7 +164,7 @@
     },
     "recursive": true,
     "stack": [],
-    "type": "StatementBinding",
+    "type": "StatementDeclaration",
     "var": "fileName",
     "var_type": "String"
   },
@@ -212,7 +212,7 @@
     },
     "recursive": true,
     "stack": [],
-    "type": "StatementBinding",
+    "type": "StatementDeclaration",
     "var": "fis",
     "var_type": "java.io.FileInputStream"
   }

@@ -10,7 +10,7 @@ from eval_java.model import (
     Context,
     get_default_statement_meta,
     OptionalContext,
-    StatementBinding,
+    StatementDeclaration,
 )
 from utils import (
     graph as g,
@@ -94,7 +94,7 @@ def _variable_declarator(
         common.merge_contexts(ctx, src_ctx)
 
         # Add the variable to the mapping
-        ctx.statements.append(StatementBinding(
+        ctx.statements.append(StatementDeclaration(
             meta=get_default_statement_meta(),
             stack=src_ctx.statements,
             var=graph.nodes[match['IdentifierRule']]['label_text'],
