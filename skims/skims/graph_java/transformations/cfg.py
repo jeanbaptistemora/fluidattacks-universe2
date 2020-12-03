@@ -3,6 +3,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
 )
 
 # Third party libraries
@@ -32,15 +33,39 @@ Frame = Any  # will add types once I discover the pattern
 Stack = List[Frame]
 
 
+def _get_next_id(stack: Stack) -> Optional[str]:
+    # Stack[-2] is the parent level
+    next_id: Optional[str] = stack[-2].get('next_id')
+
+    return next_id
+
+
+def _set_next_id(stack: Stack, n_id: str) -> None:
+    # Stack[-1] is the current level
+    stack[-1]['next_id'] = n_id
+
+
+def _propagate_next_id_from_parent(
+    stack: Stack,
+    default_id: Optional[str] = None,
+) -> None:
+    # Propagate next id from parent if available
+    if next_id := _get_next_id(stack):
+        _set_next_id(stack, next_id)
+    elif default_id:
+        _set_next_id(stack, default_id)
+
+
 def _block(
     graph: nx.DiGraph,
     n_id: str,
     stack: Stack,
 ) -> None:
-    c_id = g.adj(graph, n_id)[1]
+    c_id = g.adj_ast(graph, n_id)[1]
     graph.add_edge(n_id, c_id, **ALWAYS)
 
     # Recurse
+    _propagate_next_id_from_parent(stack)
     _generic(graph, c_id, stack, edge_attrs=ALWAYS)
 
 
@@ -50,7 +75,7 @@ def _block_statements(
     stack: Stack,
 ) -> None:
     # Statements = step1 step2 ...
-    stmt_ids = g.adj(graph, n_id)
+    stmt_ids = g.adj_ast(graph, n_id)
 
     # Walk the Statements
     for first, last, (stmt_a_id, stmt_b_id) in mark_ends(pairwise(stmt_ids)):
@@ -58,12 +83,15 @@ def _block_statements(
             # Link Block to first Statement
             graph.add_edge(n_id, stmt_a_id, **ALWAYS)
 
-        if last and stack[-2].get('next_id'):
-            stack[-1]['next_id'] = stack[-2]['next_id']
-        else:
-            stack[-1]['next_id'] = stmt_b_id
-
+        # Mark as next_id the next statement in chain
+        _set_next_id(stack, stmt_b_id)
         _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
+
+        # Follow the parent next_id if exists
+        if last:
+            if _get_next_id(stack):
+                _propagate_next_id_from_parent(stack)
+            _generic(graph, stmt_b_id, stack, edge_attrs=ALWAYS)
 
 
 def _expression_statements(
@@ -72,6 +100,20 @@ def _expression_statements(
     stack: Stack,
 ) -> None:
     _block_statements(graph, n_id, stack)
+
+
+def _for_statement(
+    graph: nx.DiGraph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    # Link to the statements
+    c_id = g.adj_ast(graph, n_id)[-1]
+    graph.add_edge(n_id, c_id, **ALWAYS)
+
+    # Recurse
+    _propagate_next_id_from_parent(stack)
+    _generic(graph, c_id, stack, edge_attrs=ALWAYS)
 
 
 def _if_statement(
@@ -90,14 +132,11 @@ def _if_statement(
     )
 
     if then_id := match['__1__']:
-        # Propagate next id from parent if available
-        if stack[-2].get('next_id'):
-            stack[-1]['next_id'] = stack[-2]['next_id']
-
         # Link `if` to `then` statement
         graph.add_edge(n_id, then_id, **ALWAYS)
 
         # Link whatever is inside the `then` to the next statement in chain
+        _propagate_next_id_from_parent(stack)
         _generic(graph, then_id, stack, edge_attrs=TRUE)
 
 
@@ -106,7 +145,8 @@ def _method_declaration(
     n_id: str,
     stack: Stack,
 ) -> None:
-    c_id = g.adj(graph, n_id)[-1]
+    # Link directly to the child statements
+    c_id = g.adj_ast(graph, n_id)[-1]
     graph.add_edge(n_id, c_id, **ALWAYS)
 
     # Recurse
@@ -131,11 +171,13 @@ def _generic(
         _block_statements(graph, n_id, stack)
     elif n_attrs_label_type == 'ExpressionStatements':
         _expression_statements(graph, n_id, stack)
+    elif n_attrs_label_type == 'EnhancedForStatement':
+        _for_statement(graph, n_id, stack)
     elif n_attrs_label_type == 'IfThenStatement':
         _if_statement(graph, n_id, stack)
     elif n_attrs_label_type == 'MethodDeclaration':
         _method_declaration(graph, n_id, stack)
-    elif next_id := stack[-2].get('next_id'):
+    elif next_id := stack[-2].pop('next_id', None):
         graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
