@@ -141,7 +141,7 @@ STARLETTE_APP = Starlette(
         ),
         Route('/logout', logout),
         Route('/new/{full_path:path}', app),
-        Route('/', app),
+        Route('/', lambda _request: RedirectResponse(url='/new')),
         Mount(
             '/static',
             StaticFiles(directory=f'{settings.TEMPLATES_DIR}/static'),
