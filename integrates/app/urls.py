@@ -16,25 +16,5 @@ handler500 = 'app.views.error500'
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(pattern_name='new')),
-    url(r'^new/?$', views.index, name='new'),
-
-    # Evidences
-    url(
-        (r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
-         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
-        views.get_evidence
-    ),
-    # intentionally duplicate to give support to old evidence url
-    url(
-        (r'^groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
-         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
-        views.get_evidence
-    ),
-    # New group URL format including organization
-    url(
-        r'^orgs/[a-zA-Z]+/groups/(?P<project>[A-Za-z0-9]+)/'
-        r'(?P<evidence_type>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/'
-        r'(?P<fileid>[\w\.-]+)?$',
-        views.get_evidence
-    )
+    url(r'^new/?$', views.index, name='new')
 ]
