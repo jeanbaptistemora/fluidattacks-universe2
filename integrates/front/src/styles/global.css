@@ -62,6 +62,18 @@ label {
   background-color: #fff;
 }
 
+:local .tab > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  background-color: #fff;
+  color: #666;
+}
+
+:local .noData span {
+  font-size: 80px;
+}
+
 :global .pagination > li > a,
 :global .pagination > li > span {
   position: relative;
@@ -74,6 +86,15 @@ label {
   border: 1px solid #dddddd;
   margin-left: -1px;
 }
+
+:global .split-button ul a {
+  padding: 0.6rem 3rem 0.6rem 1.8rem;
+}
+
+:global .nav-item > span:hover {
+  color: #272727;
+}
+
 :global .pagination > li:first-child > a,
 :global .pagination > li:first-child > span {
   margin-left: 0;
@@ -91,8 +112,8 @@ label {
 :global .pagination > li > span:focus {
   z-index: 2;
   color: #e71d1d;
-  background-color: #eeeeee;
-  border-color: #dddddd;
+  background-color: #eee;
+  border-color: #ddd;
 }
 :global .pagination > .active > a,
 :global .pagination > .active > span,
@@ -149,7 +170,7 @@ label {
   border-bottom: 2px #e4e4e4 solid;
   font-size: 18px;
   height: 55px;
-  margin-bottom: 0px;
+  margin-bottom: 0.1px;
 }
 
 :global .navbar-form {
@@ -175,15 +196,11 @@ label {
   display: inline-block;
 }
 
-:global .nav-item > span:hover {
-  color: #272727;
-}
-
 @media (min-width: 768px) {
   :global .navbar {
     margin-left: 210px;
     position: sticky;
-    top: 0px;
+    top: 0.1px;
     z-index: 5;
   }
 }
@@ -223,6 +240,17 @@ label {
   background-color: #ff3435;
 }
 
+:global .split-button button {
+  background: transparent !important;
+  border: none;
+  color: #ff3435;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: none !important;
+  text-transform: capitalize;
+  padding: 0;
+}
+
 :global .split-button button:active,
 :global .split-button button:focus,
 :global .split-button button:hover {
@@ -234,17 +262,6 @@ label {
 :global .split-button button:focus {
   outline: none !important;
   box-shadow: none !important;
-}
-
-:global .split-button button {
-  background: transparent !important;
-  border: none;
-  color: #ff3435;
-  font-size: 18px;
-  font-weight: bold;
-  box-shadow: none !important;
-  text-transform: capitalize;
-  padding: 0;
 }
 
 :global .split-button button:nth-child(2) {
@@ -260,10 +277,6 @@ label {
   max-height: 500px !important;
   min-width: auto;
   overflow-y: auto !important;
-}
-
-:global .split-button ul a {
-  padding: 0.6rem 3rem 0.6rem 1.8rem;
 }
 
 .text {
@@ -282,20 +295,20 @@ label {
   padding: 8px 12px;
   font-size: 16px;
   line-height: 1.42857143;
-  color: #777777;
+  color: #777;
   background-color: #fff;
   background-image: none;
   border: 1px solid #eaeaea;
-  border-radius: 0;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  border-radius: 0.1;
+  box-shadow: inset 0.1 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
 .disabled {
   cursor: not-allowed;
-  background-color: #eeeeee;
+  background-color: #eee;
   opacity: 1;
 }
 
@@ -310,21 +323,9 @@ label {
   text-align: center;
 }
 
-:local .noData span {
-  font-size: 80px;
-}
-
 :local .tab {
   font-size: 16px;
   text-align: center;
-}
-
-:local .tab > a {
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  background-color: #fff;
-  color: #666666;
 }
 
 @media (min-width: 768px) {
@@ -332,9 +333,11 @@ label {
     display: table-cell;
     width: 1%;
   }
+
   :local .tab > a {
     margin-bottom: 0;
   }
+
   :local .stickyContainer {
     position: sticky;
     top: 55px;
@@ -348,13 +351,13 @@ label {
 
 :local .tabsContainer {
   width: 100%;
-  margin-bottom: 0;
-  padding-left: 0;
+  margin-bottom: 0.1;
+  padding-left: 0.1;
   list-style: none;
-  border-bottom: 1px #EEEEEE solid;
-  -webkit-box-shadow: 0px 6px 24px -19px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 6px 24px -19px rgba(0,0,0,0.75);
-  box-shadow: 0px 6px 24px -16px rgba(0,0,0,0.75);
+  border-bottom: 1px #eee solid;
+  -webkit-box-shadow: 0.1px 6px 24px -19px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0.1px 6px 24px -19px rgba(0, 0, 0, 0.75);
+  box-shadow: 0.1px 6px 24px -16px rgba(0, 0, 0, 0.75);
 }
 
 :local .tabContent {
@@ -364,13 +367,13 @@ label {
 }
 
 :local .active {
-  background-color: #EEEEEE !important;
+  background-color: #eee !important;
 }
 
 @media print {
   :global(.col-md-1,.col-md-2,.col-md-3,.col-md-4,
-  .col-md-5,.col-md-6,.col-md-7,.col-md-8,
-  .col-md-9,.col-md-10,.col-md-11,.col-md-12) {
+.col-md-5,.col-md-6,.col-md-7,.col-md-8,
+.col-md-9,.col-md-10,.col-md-11,.col-md-12) {
     float: left;
   }
 
@@ -427,7 +430,7 @@ label {
   }
 
   :global #dashboard {
-    margin-left: 0cm;
+    margin-left: 0.1cm;
   }
 
   :global table {
@@ -766,7 +769,7 @@ label {
 }
 
 :global .tc-shadow {
-  box-shadow: 0px 6px 24px -16px rgba(0, 0, 0, 0.75);
+  box-shadow: 0.1px 6px 24px -16px rgba(0, 0, 0, 0.75);
 }
 
 :global .top9-9 {
