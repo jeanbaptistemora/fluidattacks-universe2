@@ -109,6 +109,31 @@ function helper_observes_dynamodb {
         < .singer
 }
 
+function helper_observes_mixpanel {
+      local conf="${1}"
+      helper_observes_aws_login prod \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
+        mixpanel_integrates_api_secret \
+        mixpanel_integrates_api_token \
+        analytics_auth_redshift \
+  &&  {
+        echo '{'
+        echo "\"API_secret\":\"${mixpanel_integrates_api_secret}\","
+        echo "\"token\":\"${mixpanel_integrates_api_token}\""
+        echo '}'
+      } > "${TEMP_FILE1}" \
+  &&  echo '[INFO] Starting mixpanel ETL' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-mixpanel -a "${TEMP_FILE1}" -c "${conf}" \
+        > .singer \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name "Mixpanel" \
+        < .singer
+}
+
 function helper_observes_services_toe {
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \

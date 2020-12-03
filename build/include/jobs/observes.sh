@@ -83,6 +83,13 @@ function job_observes_timedoctor {
   ||  return 1
 }
 
+function job_observes_mixpanel {
+      helper_common_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_observes_mixpanel "./observes/conf/mixpanel.json"\
+  ||  return 1
+}
+
 function job_observes_zoho {
       helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
@@ -442,6 +449,15 @@ function job_observes_gitlab_etl_test {
       pushd observes \
     &&  env_prepare_python_packages \
     &&  helper_observes_test_generic_package "./etl/dif_gitlab_etl" "${python} -m" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_observes_mixpanel_etl_lint {
+
+      pushd observes \
+    &&  env_prepare_python_packages \
+    &&  helper_observes_lint_generic_package "./singer/tap_mixpanel/mixpanel" 1 \
   &&  popd \
   ||  return 1
 }
