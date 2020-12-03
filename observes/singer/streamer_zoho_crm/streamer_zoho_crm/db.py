@@ -16,7 +16,7 @@ from postgres_client.cursor import (
     CursorExeAction,
     DynamicSQLargs,
 )
-from zoho_crm_etl.api import BulkJob, ModuleName
+from streamer_zoho_crm.api import BulkJob, ModuleName
 
 
 class Client(NamedTuple):

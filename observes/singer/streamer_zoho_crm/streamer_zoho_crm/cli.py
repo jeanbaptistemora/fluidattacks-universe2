@@ -7,8 +7,8 @@ from typing import (
 import click
 # Local libraries
 from postgres_client.connection import ConnectionID
-from zoho_crm_etl import auth, etl
-from zoho_crm_etl.auth import Credentials
+from streamer_zoho_crm import auth, etl
+from streamer_zoho_crm.auth import Credentials
 
 
 @click.command()

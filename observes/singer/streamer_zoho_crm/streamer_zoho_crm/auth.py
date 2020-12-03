@@ -12,7 +12,7 @@ from typing import (
 import requests
 # Local libraries
 from postgres_client.connection import ConnectionID
-from zoho_crm_etl import utils
+from streamer_zoho_crm import utils
 
 
 ACCOUNTS_URL = 'https://accounts.zoho.com'  # for US region

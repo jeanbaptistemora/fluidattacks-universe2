@@ -13,8 +13,8 @@ from zipfile import ZipFile
 import requests
 from ratelimiter import RateLimiter
 # Local libraries
-from zoho_crm_etl import auth, utils
-from zoho_crm_etl.auth import Credentials
+from streamer_zoho_crm import auth, utils
+from streamer_zoho_crm.auth import Credentials
 
 
 JSONstr = str

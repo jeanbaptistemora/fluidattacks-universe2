@@ -3,8 +3,8 @@ import json
 import tempfile
 # Third party libraries
 import pytest
-from zoho_crm_etl import auth
-from zoho_crm_etl.auth import Credentials
+from streamer_zoho_crm import auth
+from streamer_zoho_crm.auth import Credentials
 # Local libraries
 
 

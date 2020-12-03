@@ -521,21 +521,21 @@ function job_observes_tredshift_test {
   ||  return 1
 }
 
-function job_observes_zoho_crm_lint {
+function job_observes_streamer_zoho_crm_lint {
 
       pushd observes \
     &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/zoho_crm_etl" 1 \
-    &&  helper_observes_lint_generic_package "./etl/zoho_crm_etl/tests" 1 \
+    &&  helper_observes_lint_generic_package "./singer/streamer_zoho_crm/streamer_zoho_crm" 1 \
+    &&  helper_observes_lint_generic_package "./singer/streamer_zoho_crm/tests" 1 \
   &&  popd \
   ||  return 1
 }
 
-function job_observes_zoho_crm_test {
-  local python="${TargetRedshift}"/bin/python
+function job_observes_streamer_zoho_crm_test {
+  local python="${StreamerZoho}"/bin/python
       pushd observes \
     &&  env_prepare_python_packages \
-    &&  helper_observes_test_generic_package "./etl/zoho_crm_etl" "${python} -m" \
+    &&  helper_observes_test_generic_package "./singer/streamer_zoho_crm" "${python} -m" \
   &&  popd \
   ||  return 1
 }

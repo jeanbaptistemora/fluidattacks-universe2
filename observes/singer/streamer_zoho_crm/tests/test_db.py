@@ -14,8 +14,8 @@ from postgres_client.cursor import (
     DynamicSQLargs,
     FetchAction,
 )
-from zoho_crm_etl import db
-from zoho_crm_etl.api import BulkJob, ModuleName
+from streamer_zoho_crm import db
+from streamer_zoho_crm.api import BulkJob, ModuleName
 
 postgresql_my_proc = factories.postgresql_proc(
     port=None, unixsocketdir='/var/run/postgresql')

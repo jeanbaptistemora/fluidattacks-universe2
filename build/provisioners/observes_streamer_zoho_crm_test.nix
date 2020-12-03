@@ -4,7 +4,7 @@ in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
     // (rec {
-      name = "zoho_crm_test";
+      name = "streamer_zoho_crm_test";
 
       buildInputs = [
         pkgs.git
@@ -13,8 +13,8 @@ in
         pkgs.python38Packages.setuptools
       ];
 
-      TargetRedshift = pkgs.poetry2nix.mkPoetryEnv {
-        projectDir = ../../observes/etl/zoho_crm_etl;
+      StreamerZoho = pkgs.poetry2nix.mkPoetryEnv {
+        projectDir = ../../observes/singer/streamer_zoho_crm;
         python = pkgs.python38;
       };
 

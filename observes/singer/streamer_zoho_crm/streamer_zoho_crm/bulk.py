@@ -7,14 +7,14 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from zoho_crm_etl import utils
-from zoho_crm_etl.api import (
+from streamer_zoho_crm import utils
+from streamer_zoho_crm.api import (
     ApiClient,
     BulkData,
     BulkJob,
     ModuleName,
 )
-from zoho_crm_etl.db import Client as DbClient
+from streamer_zoho_crm.db import Client as DbClient
 
 
 LOG = utils.get_log(__name__)

@@ -10,21 +10,21 @@ from typing import (
 from postgres_client.connection import ConnectionID
 from singer_io import factory
 from singer_io.singer import SingerRecord
-from zoho_crm_etl import (
+from streamer_zoho_crm import (
     api,
     bulk,
     db,
     utils,
 )
-from zoho_crm_etl.api import (
+from streamer_zoho_crm.api import (
     ApiClient,
     BulkData,
     BulkJob,
     ModuleName,
 )
-from zoho_crm_etl.auth import Credentials
-from zoho_crm_etl.bulk import BulkUtils
-from zoho_crm_etl.db import Client as DbClient
+from streamer_zoho_crm.auth import Credentials
+from streamer_zoho_crm.bulk import BulkUtils
+from streamer_zoho_crm.db import Client as DbClient
 
 
 ALL_MODULES = frozenset(ModuleName)
