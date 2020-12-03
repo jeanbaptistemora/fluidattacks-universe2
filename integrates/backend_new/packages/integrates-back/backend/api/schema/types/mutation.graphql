@@ -419,4 +419,10 @@ type Mutation {
         commentId: String!
         commentScope: CommentScope!
     ): SimplePayload!
+
+    editEventCommentScope(
+        eventId: String!
+        commentId: String!
+        commentScope: CommentScope!
+    ): SimplePayload!
 }

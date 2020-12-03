@@ -23,7 +23,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     comment_id: str,
     comment_scope: str,
-    finding_id: str
+    event_id: str
 ) -> SimplePayloadType:
     success = False
 
@@ -31,7 +31,7 @@ async def mutate(
         success = await comment_domain.edit_scope(
             comment_id,
             comment_scope,
-            finding_id
+            event_id
         )
     except PermissionDenied:
         util.cloudwatch_log(

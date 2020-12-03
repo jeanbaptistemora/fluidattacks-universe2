@@ -207,9 +207,8 @@ async def edit_scope(
     comment_scope: str,
     element_id: str,
 ) -> bool:
-    success = await comment_dal.edit_scope(
+    return await comment_dal.edit_scope(
         int(comment_id),
         comment_scope,
         int(element_id)
     )
-    return success
