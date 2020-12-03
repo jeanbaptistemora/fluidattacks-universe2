@@ -42,6 +42,15 @@ def create_jobs(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
     etl.creation_phase(crm_creds, db_creds)
 
 
+@click.command()
+@click.argument('crm_auth_file', type=click.File('r'))
+@click.argument('db_auth_file', type=click.File('r'))
+def stream(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
+    crm_creds: Credentials = auth.to_credentials(crm_auth_file)
+    db_creds: ConnectionID = auth.to_db_credentials(db_auth_file)
+    etl.start_streamer(crm_creds, db_creds)
+
+
 @click.group()
 def main() -> None:
     pass
@@ -51,3 +60,4 @@ main.add_command(create_jobs)
 main.add_command(gen_refresh_token)
 main.add_command(init_db)
 main.add_command(revoke_token)
+main.add_command(stream)

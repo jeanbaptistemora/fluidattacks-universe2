@@ -11,6 +11,7 @@ requests = "2.25.0"
 click = "7.1.2"
 postgres-client = {path = "../../common/postgres_client"}
 ratelimiter = "1.2.0"
+singer-io = {path = "../../common/singer_io"}
 
 [tool.poetry.dev-dependencies]
 pytest = "5.2"

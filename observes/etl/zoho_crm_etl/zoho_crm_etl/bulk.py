@@ -3,11 +3,17 @@ from typing import (
     Callable,
     FrozenSet,
     NamedTuple,
+    Tuple,
 )
 # Third party libraries
 # Local libraries
 from zoho_crm_etl import utils
-from zoho_crm_etl.api import ApiClient, BulkJob, ModuleName
+from zoho_crm_etl.api import (
+    ApiClient,
+    BulkData,
+    BulkJob,
+    ModuleName,
+)
 from zoho_crm_etl.db import Client as DbClient
 
 
@@ -18,6 +24,7 @@ class BulkUtils(NamedTuple):
     create: Callable[[ModuleName, int], None]
     update_all: Callable[[], None]
     get_all: Callable[[], FrozenSet[BulkJob]]
+    extract_data: Callable[[FrozenSet[str]], FrozenSet[BulkData]]
 
 
 def create_bulk_job(
@@ -42,9 +49,25 @@ def update_all(
     updated_jobs: FrozenSet[BulkJob] = frozenset(
         map(lambda job: api_client.get_bulk_job(job.id), jobs)
     )
-    need_update: FrozenSet[BulkJob] = updated_jobs - jobs
+    current_status = frozenset(map(lambda j: (j.id, j.state), jobs))
+    updated_status = frozenset(map(lambda j: (j.id, j.state), updated_jobs))
+
+    need_update: FrozenSet[Tuple[str, str]] = updated_status - current_status
+    need_update_ids: FrozenSet[str] = frozenset([id for id, s in need_update])
     LOG.info('Updating %s jobs status', len(need_update))
-    list(map(db_client.update_bulk_job, need_update))
+    list(
+        map(
+            db_client.update_bulk_job,
+            frozenset(filter(lambda job: job.id in need_update_ids, jobs))
+        )
+    )
+
+
+def get_bulk_data(
+    api_client: ApiClient,
+    jobs_id: FrozenSet[str]
+) -> FrozenSet[BulkData]:
+    return frozenset(map(api_client.download_result, jobs_id))
 
 
 def new_bulk_utils(
@@ -58,8 +81,12 @@ def new_bulk_utils(
     def update_bulks() -> None:
         update_all(api_client, db_client)
 
+    def extract(jobs_id: FrozenSet[str]) -> FrozenSet[BulkData]:
+        return get_bulk_data(api_client, jobs_id)
+
     return BulkUtils(
         create=create_bulk,
         update_all=update_bulks,
         get_all=db_client.get_bulk_jobs,
+        extract_data=extract
     )

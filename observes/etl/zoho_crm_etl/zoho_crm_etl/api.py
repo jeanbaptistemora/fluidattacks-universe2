@@ -60,6 +60,7 @@ class BulkJob(NamedTuple):
 
 
 class BulkData(NamedTuple):
+    job_id: str
     file: IO[str]
 
 
@@ -152,7 +153,7 @@ def download_result(token: str, job_id: str) -> BulkData:
         with open(tmp_zipdir + f'/{files[0]}', 'r') as unzipped:
             file_unzip.write(unzipped.read())
         LOG.debug('Unzipped size: %s', file_unzip.tell())
-        return BulkData(file=file_unzip)
+        return BulkData(job_id=job_id, file=file_unzip)
 
 
 class ApiClient(NamedTuple):
