@@ -6,11 +6,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: integrates1
-      port: 80
-      targetPort: 8000
-      protocol: TCP
-    - name: integrates2
+    - name: integrates
       port: 81
       targetPort: 8001
       protocol: TCP

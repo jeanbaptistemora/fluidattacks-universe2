@@ -53,9 +53,9 @@ def login_azure(
     )
 
 
-def login_integrates_azure(driver: Remote, endpoint: str) -> None:
+def login_integrates_azure(driver: Remote, integrates_endpoint: str) -> None:
     # Load login page
-    driver.get(endpoint)
+    driver.get(integrates_endpoint)
 
     # Login with microsoft
     btn_login = driver.find_element_by_id('login-microsoft')
@@ -63,5 +63,5 @@ def login_integrates_azure(driver: Remote, endpoint: str) -> None:
 
     # Wait for home
     WebDriverWait(driver, 10).until(
-        ec.url_contains(f'{endpoint}/orgs/')
+        ec.url_contains(f'{integrates_endpoint}/orgs/')
     )

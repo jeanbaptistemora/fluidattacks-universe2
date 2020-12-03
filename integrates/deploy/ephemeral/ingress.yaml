@@ -25,55 +25,7 @@ spec:
             backend:
               serviceName: ssl-redirect
               servicePort: use-annotation
-          - path: /confirm_access
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /error401
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /error500
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /invalid_invitation
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /graphic
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /graphics-for-organization
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /graphics-for-group
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /graphics-for-portfolio
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /graphics-report
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /logout
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /new/*
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
-          - path: /static/*
-            backend:
-              serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 81
           - path: /*
             backend:
               serviceName: integrates-__DEPLOYMENT_NAME__
-              servicePort: 80
+              servicePort: 81

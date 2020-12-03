@@ -16,58 +16,7 @@ spec:
       nodeSelector:
         worker_group: ephemeral
       containers:
-        - name: integrates1
-          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
-          imagePullPolicy: Always
-          command: [bash]
-          args:
-            - build.sh
-            - integrates_serve_components
-            - development
-            - http/development/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/3/0.0.0.0/8000/127.0.0.1
-          resources:
-            requests:
-              cpu: 900m
-              memory: 4000Mi
-            limits:
-              cpu: 1000m
-              memory: 4000Mi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
-          envFrom:
-            - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
-          ports:
-            - containerPort: 8000
-          readinessProbe:
-            exec:
-              command:
-                - bash
-                - build.sh
-                - integrates_probes_readiness
-                - integrates-dev
-                - http://localhost:8000
-            initialDelaySeconds: 0
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 40
-            timeoutSeconds: 30
-          livenessProbe:
-            exec:
-              command:
-                - bash
-                - build.sh
-                - integrates_probes_liveness
-                - integrates-dev
-                - http://localhost:8000
-                - https://__CI_COMMIT_REF_NAME__.integrates.fluidattacks.com
-            initialDelaySeconds: 0
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 40
-            timeoutSeconds: 30
-        - name: integrates2
+        - name: integrates
           image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
           command: [bash]
@@ -79,11 +28,11 @@ spec:
             - minio
           resources:
             requests:
-              cpu: 900m
-              memory: 4000Mi
+              cpu: 800m
+              memory: 1500Mi
             limits:
               cpu: 1000m
-              memory: 4000Mi
+              memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -130,11 +79,11 @@ spec:
             - dynamo
           resources:
             requests:
-              cpu: 700m
-              memory: 2000Mi
+              cpu: 500m
+              memory: 1000Mi
             limits:
-              cpu: 800m
-              memory: 2000Mi
+              cpu: 1000m
+              memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
@@ -153,10 +102,10 @@ spec:
           resources:
             requests:
               cpu: 400m
-              memory: 2000Mi
+              memory: 1000Mi
             limits:
               cpu: 500m
-              memory: 2000Mi
+              memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
