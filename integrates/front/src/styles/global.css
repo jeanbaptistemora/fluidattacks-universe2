@@ -35,6 +35,33 @@ label {
 :global .pagination > li {
   display: inline;
 }
+
+:global .a-relative a {
+  position: relative;
+}
+
+:global .a-pv a {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+:global .a-ph a {
+  padding-left: 0.15rem;
+  padding-right: 0.15rem;
+}
+
+:global .a-gray a {
+  color: #666;
+}
+
+:global .a-db a {
+  display: block;
+}
+
+:global .a-bg-white a {
+  background-color: #fff;
+}
+
 :global .pagination > li > a,
 :global .pagination > li > span {
   position: relative;
@@ -43,7 +70,7 @@ label {
   line-height: 1.42857143;
   text-decoration: none;
   color: #ff3435;
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid #dddddd;
   margin-left: -1px;
 }
@@ -75,7 +102,7 @@ label {
 :global .pagination > .active > span:focus {
   background-color: #ff3435;
   z-index: 3;
-  color: #ffffff;
+  color: #fff;
   border-color: #ff3435;
   cursor: default;
 }
@@ -185,7 +212,7 @@ label {
 }
 
 .lightBg {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .darkBg {
@@ -256,7 +283,7 @@ label {
   font-size: 16px;
   line-height: 1.42857143;
   color: #777777;
-  background-color: #ffffff;
+  background-color: #fff;
   background-image: none;
   border: 1px solid #eaeaea;
   border-radius: 0;
@@ -296,7 +323,7 @@ label {
   position: relative;
   display: block;
   padding: 10px 15px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   color: #666666;
 }
 
@@ -331,7 +358,7 @@ label {
 }
 
 :local .tabContent {
-  background: #ffffff;
+  background: #fff;
   padding: 20px;
   margin-bottom: 40px;
 }
@@ -346,55 +373,72 @@ label {
   .col-md-9,.col-md-10,.col-md-11,.col-md-12) {
     float: left;
   }
+
   :global .col-md-offset-1 {
     margin-left: 8%;
   }
+
   :global .col-md-1 {
     width: 8%;
   }
+
   :global .col-md-2 {
     width: 16%;
   }
+
   :global .col-md-3 {
     width: 25%;
   }
+
   :global .col-md-4 {
     width: 33%;
   }
+
   :global .col-md-5 {
     width: 42%;
   }
+
   :global .col-md-6 {
     width: 50%;
   }
+
   :global .col-md-7 {
     width: 58%;
   }
+
   :global .col-md-8 {
     width: 66%;
   }
+
   :global .col-md-9 {
     width: 75%;
   }
+
   :global .col-md-10 {
     width: 83%;
   }
+
   :global .col-md-11 {
     width: 92%;
   }
+
   :global .col-md-12 {
     width: 100%;
   }
+
   :global #dashboard {
     margin-left: 0cm;
   }
+
   :global table {
     page-break-inside: avoid;
   }
+
   :global(h1, h2, h3, h4, h5, h6) {
     page-break-after: avoid;
     page-break-inside: avoid;
   }
+
   :global .alert,
   :global .btn,
   :global .bm-menu-wrap,
@@ -403,6 +447,7 @@ label {
   :global #scroll-up {
     display: none;
   }
+
   @page {
     margin: 1cm;
   }
@@ -410,35 +455,9 @@ label {
 
 /* Custom functions */
 
-:global .a-bg-white a {
-  background-color: #FFFFFF;
-}
-
-:global .a-db a {
-  display: block;
-}
-
-:global .a-gray a {
-  color: #666666;
-}
-
-:global .a-ph a {
-  padding-left: 0.15rem;
-  padding-right: 0.15rem;
-}
-
-:global .a-pv a {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-}
-
-:global .a-relative a {
-  position: relative;
-}
-
 :global .b--bd[disabled],
 :global .b--bd[disabled]:hover {
-  border-color: #DFDFDF;
+  border-color: #dfdfdf;
 }
 
 :global .b--bd[disabled] svg path {
@@ -451,23 +470,23 @@ label {
 }
 
 :global .b--bh:hover {
-  border-color: #FF3435;
+  border-color: #ff3435;
 }
 
 :global .b--bh:hover:not([disabled]) svg path {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 :global .b--bh:hover svg circle {
-  stroke: #FFFFFF !important;
+  stroke: #fff !important;
 }
 
 :global .b--orgred {
-  border-color: #FF3435;
+  border-color: #ff3435;
 }
 
-:global .b--salmon{
+:global .b--salmon {
   border-color: #f2dede;
 }
 
@@ -479,20 +498,20 @@ label {
 }
 
 :global .b--switch {
-  border-color: #D9534F;
+  border-color: #d9534f;
 }
 
 :global .b--switch:hover {
-  border-color: #AC2925;
+  border-color: #ac2925;
 }
 
 :global .bg-bd[disabled],
 :global .bg-bd[disabled]:hover {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
 :global .bg-bh:hover {
-  background-color: #FF3435;
+  background-color: #ff3435;
 }
 
 :global .bg-lbl-gray {
@@ -504,23 +523,23 @@ label {
 }
 
 :global .bg-lbl-red {
-  background-color: #FF2222;
+  background-color: #f22;
 }
 
 :global .bg-lbl-yellow {
-  background-color: #FFBF00;
+  background-color: #ffbf00;
 }
 
 :global .bg-ns {
-  background-color: #525A5C !important;
+  background-color: #525a5c !important;
 }
 
 :global .bg-ne {
-  background-color: #FF3435 !important;
+  background-color: #ff3435 !important;
 }
 
 :global .bg-orgred {
-  background-color: #FF3435;
+  background-color: #ff3435;
 }
 
 :global .bg-salmon {
@@ -539,11 +558,11 @@ label {
 }
 
 :global .bg-switch {
-  background-color: #D9534F;
+  background-color: #d9534f;
 }
 
 :global .bg-switch:hover {
-  background-color: #C9302C;
+  background-color: #c9302c;
 }
 
 :global .bottom-9 {
@@ -564,7 +583,7 @@ label {
 }
 
 :global .color-ah:hover {
-  color: #FFFFFF;
+  color: #fff;
 }
 
 :global .color-bd[disabled],
@@ -573,7 +592,7 @@ label {
 }
 
 :global .color-bh:hover {
-  color: #FFFFFF;
+  color: #fff;
 }
 
 :global .f2-5 {
@@ -593,7 +612,7 @@ label {
   left: 50%;
 }
 
-:global .left--100{
+:global .left--100 {
   left: -100%;
 }
 
@@ -601,16 +620,16 @@ label {
   left: 5rem;
 }
 
-:global .mb10{
+:global .mb10 {
   margin-bottom: 10rem;
 }
 
 :global .menu-grid {
-  grid-template-columns: repeat( auto-fit, minmax(12rem, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 }
 
 :global .meter-shadow {
-  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 :global .ml40 {
@@ -618,11 +637,11 @@ label {
 }
 
 :global .modalh-bb {
-  border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 :global .modalf-bt {
-  border-top: 1px solid #E5E5E5;
+  border-top: 1px solid #e5e5e5;
 }
 
 :global .montserrat {
@@ -634,7 +653,7 @@ label {
 }
 
 :global .nav-active-bg {
-  background-color: #EEEEEE !important;
+  background-color: #eee !important;
 }
 
 :global .noresize {
@@ -647,7 +666,7 @@ label {
 }
 
 :global .orgred {
-  color: #FF3435;
+  color: #ff3435;
 }
 
 :global .pa1-5 {
@@ -655,20 +674,21 @@ label {
 }
 
 :global .pb-animation {
-  animation: progress-bar-stripes 2s linear infinite
+  animation: progress-bar-stripes 2s linear infinite;
 }
 
 :global .pb-bi {
-  background-image: linear-gradient(
-    45deg,
-    rgba(255,255,255,.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255,255,255,.15) 50%,
-    rgba(255,255,255,.15) 75%,
-    transparent 75%,
-    transparent
-  );
+  background-image:
+    linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
 }
 
 :global .ph1-5 {
@@ -677,8 +697,8 @@ label {
 }
 
 :global .pb-transition {
-  -webkit-transition: width .6s ease;
-  transition: width .6s ease;
+  -webkit-transition: width 0.6s ease;
+  transition: width 0.6s ease;
 }
 
 :global .pv2-5 {
@@ -687,7 +707,7 @@ label {
 }
 
 :global .r-50 {
-  right:50%;
+  right: 50%;
 }
 
 :global .right3 {
@@ -733,7 +753,7 @@ label {
 }
 
 :global .switch-mh {
-  min-height: calc(1.5em + .75rem + 2px);
+  min-height: calc(1.5em + 0.75rem + 2px);
 }
 
 :global .switch-transition {
@@ -742,11 +762,11 @@ label {
 }
 
 :global .tc-bb {
-  border-bottom: 1px #EEEEEE solid
+  border-bottom: 1px #eee solid;
 }
 
 :global .tc-shadow {
-  box-shadow: 0px 6px 24px -16px rgba(0,0,0,0.75);
+  box-shadow: 6px 24px -16px rgba(0, 0, 0, 0.75);
 }
 
 :global .top9-9 {
@@ -780,37 +800,38 @@ label {
 
 /* Custom media */
 
-@media(min-width: 768px){
+@media (min-width: 768px) {
   :global .sticky {
     position: sticky;
   }
+
   :global .w-45-ns {
     width: 45%;
   }
+
   :global .w-85-ns {
     width: 85%;
   }
 }
 
-@media(min-width: 903px){
+@media (min-width: 903px) {
   :global .top5-5 {
     top: 5.5rem !important;
   }
 }
 
-@media(min-width: 992px){
+@media (min-width: 992px) {
   :global .sticky-find {
     position: sticky;
   }
 }
 
-@media(min-width: 1149px){
+@media (min-width: 1149px) {
   :global .top5-5-find {
     top: 5.5rem !important;
   }
 }
 
-
 :global .b--mid-light-gray {
-  border-color: #DDDDDD;
+  border-color: #ddd;
 }
