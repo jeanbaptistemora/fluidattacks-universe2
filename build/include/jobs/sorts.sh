@@ -30,9 +30,11 @@ function job_sorts_lint_code {
     &&  echo '[INFO] Checking static typing' \
     &&  poetry run mypy "${args_mypy[@]}" sorts/ \
     &&  poetry run mypy "${args_mypy[@]}" test/ \
+    &&  poetry run mypy "${args_mypy[@]}" training/ \
     &&  echo "[INFO] Linting" \
     &&  poetry run prospector "${args_prospector[@]}" sorts/ \
     &&  poetry run prospector "${args_prospector[@]}" test/ \
+    &&  poetry run prospector "${args_prospector[@]}" training/ \
   &&  popd \
   ||  return 1
 }
