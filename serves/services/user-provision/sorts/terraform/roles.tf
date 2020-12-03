@@ -25,8 +25,7 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
     ]
     resources = [
       "arn:aws:s3:::sorts",
-      "arn:aws:s3:::sorts/training",
-      "arn:aws:s3:::sorts/training/*"
+      "arn:aws:s3:::sorts/*"
     ]
   }
 
@@ -36,7 +35,32 @@ data "aws_iam_policy_document" "sorts_sagemaker_policy" {
       "s3:PutObject"
     ]
     resources = [
-      "arn:aws:s3:::sorts/sorts-training*/*"
+      "arn:aws:s3:::sorts/sorts-training*/*",
+      "arn:aws:s3:::sorts/training-output/*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "cloudwatch:PutMetricData"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:CreateLogGroup",
+      "logs:DescribeLogStreams"
+    ]
+    resources = [
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs",
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*"
     ]
   }
 }
