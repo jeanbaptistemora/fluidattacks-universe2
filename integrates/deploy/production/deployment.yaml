@@ -22,62 +22,7 @@ spec:
       nodeSelector:
         worker_group: production
       containers:
-        - name: integrates1
-          image: registry.gitlab.com/fluidattacks/product/app:master
-          imagePullPolicy: Always
-          command: [bash]
-          args:
-            - build.sh
-            - integrates_serve_components
-            - production
-            - http/production/fluidintegrates.asgi:APP/fluidintegrates.asgi.IntegratesWorker/5/0.0.0.0/8000/127.0.0.1
-          resources:
-            requests:
-              cpu: 1500m
-              memory: 4Gi
-            limits:
-              cpu: 2000m
-              memory: 4Gi
-          env:
-            - name: DEPLOYMENT_DATE
-              value: "__DATE__"
-            - name: INSTANA_AGENT_HOST
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - secretRef:
-                name: integrates-master
-          ports:
-            - containerPort: 8000
-          readinessProbe:
-            exec:
-              command:
-                - bash
-                - build.sh
-                - integrates_probes_readiness
-                - integrates-prod
-                - http://localhost:8000
-            initialDelaySeconds: 0
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 40
-            timeoutSeconds: 30
-          livenessProbe:
-            exec:
-              command:
-                - bash
-                - build.sh
-                - integrates_probes_liveness
-                - integrates-prod
-                - http://localhost:8000
-                - https://integrates.fluidattacks.com
-            initialDelaySeconds: 0
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 40
-            timeoutSeconds: 30
-        - name: integrates2
+        - name: integrates
           image: registry.gitlab.com/fluidattacks/product/app:master
           imagePullPolicy: Always
           command: [bash]
@@ -89,10 +34,10 @@ spec:
           resources:
             requests:
               cpu: 1500m
-              memory: 4Gi
+              memory: 4000Mi
             limits:
               cpu: 2000m
-              memory: 4Gi
+              memory: 7000Mi
           env:
             - name: DEPLOYMENT_DATE
               value: "__DATE__"
