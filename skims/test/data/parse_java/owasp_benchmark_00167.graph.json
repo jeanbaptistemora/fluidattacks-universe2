@@ -5448,6 +5448,7 @@
       "label_c": 3,
       "label_l": 93,
       "label_parent_ast": "2172",
+      "label_sink_type": "F034_INSECURE_RANDOMS",
       "label_type": "CustomMethodInvocation",
       "label_type_index": "0"
     },
@@ -7547,6 +7548,7 @@
     },
     "929": {
       "label_c": 2,
+      "label_input_type": "insecure_random",
       "label_l": 59,
       "label_parent_ast": "389",
       "label_type": "LocalVariableDeclarationStatement",

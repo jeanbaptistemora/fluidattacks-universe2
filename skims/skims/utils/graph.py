@@ -183,6 +183,15 @@ def pred_ast(
     return tuple(pred_lazy(graph, n_id, depth, label_ast='AST', **edge_attrs))
 
 
+def pred_ast_lazy(
+    graph: nx.DiGraph,
+    n_id: str,
+    depth: int = 1,
+    **edge_attrs: str,
+) -> Iterator[str]:
+    yield from pred_lazy(graph, n_id, depth, label_ast='AST', **edge_attrs)
+
+
 def paths(
     graph: nx.DiGraph,
     s_id: str,
