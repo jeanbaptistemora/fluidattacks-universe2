@@ -12,6 +12,12 @@ from eval_java.model import (
     StatementLiteral,
 )
 
+# Constants
+LITERAL_TYPES_MAPPING = {
+    'NullLiteral': 'null',
+    'StringLiteral': 'string',
+}
+
 
 def evaluate(
     graph: nx.DiGraph,
@@ -21,9 +27,17 @@ def evaluate(
 ) -> Context:
     ctx = common.ensure_context(ctx)
 
+    n_attrs = graph.nodes[n_id]
+    n_attrs_label_text = n_attrs['label_text']
+    n_attrs_label_type = n_attrs['label_type']
+
     ctx.statements.append(StatementLiteral(
         meta=get_default_statement_meta(),
-        value=graph.nodes[n_id]['label_text'],
+        value_type=LITERAL_TYPES_MAPPING.get(
+            n_attrs_label_type,
+            n_attrs_label_type,
+        ),
+        value=n_attrs_label_text,
     ))
 
     return common.mark_seen(ctx, n_id)

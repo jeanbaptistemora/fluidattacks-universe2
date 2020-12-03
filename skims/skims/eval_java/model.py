@@ -79,6 +79,7 @@ class StatementLookup(NamedTuple):
 
 class StatementLiteral(NamedTuple):
     value: str
+    value_type: str
     meta: StatementMeta
 
     recursive: bool = False

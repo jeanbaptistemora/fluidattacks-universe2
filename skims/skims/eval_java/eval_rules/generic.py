@@ -10,9 +10,9 @@ from eval_java.eval_rules import (
     custom_method_invocation,
     expression_statement,
     identifier_rule,
+    literal,
     local_variable_declaration_statement,
     method_declaration,
-    string_literal,
 )
 from eval_java.model import (
     Context,
@@ -23,7 +23,9 @@ from eval_java.model import (
 _UNINTERESTING_NODES = {
     'Block',
     'BlockStatements',
+    'IfThenStatement',
     'SEMI',
+    'TryStatement',
 }
 
 
@@ -58,13 +60,14 @@ def evaluate(
          expression_statement.evaluate),
         ({'IdentifierRule'},
          identifier_rule.evaluate),
+        ({'CustomExpressionName',
+          'NullLiteral',
+          'StringLiteral'},
+         literal.evaluate),
         ({'LocalVariableDeclarationStatement'},
          local_variable_declaration_statement.evaluate),
         ({'MethodDeclaration'},
          method_declaration.evaluate),
-        ({'CustomExpressionName',
-          'StringLiteral'},
-         string_literal.evaluate),
     ):
         if n_attrs_label_type in types:
             evaluator(graph, n_id, ctx=ctx)
