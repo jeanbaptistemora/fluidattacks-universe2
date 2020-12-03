@@ -3,7 +3,7 @@
 
 import collections
 import os
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 import binascii
 import functools
 import logging
@@ -136,30 +136,6 @@ async def assert_uploaded_file_mime(
         allowed_mimes: List[str]) -> bool:
     mime_type = await get_uploaded_file_mime(file_instance)
     return mime_type in allowed_mimes
-
-
-def has_release(finding: Dict[str, str]) -> bool:
-    return "releaseDate" in finding
-
-
-def get_last_vuln(finding: Dict[str, str]) -> date:
-    """Gets last release of a finding"""
-    finding_last_vuln_date = datetime_utils.get_from_str(
-        finding["releaseDate"].split(" ")[0],
-        date_format='%Y-%m-%d'
-    ).date()
-    return finding_last_vuln_date
-
-
-def validate_release_date(finding: Dict[str, str]) -> bool:
-    """Validate if a finding has a valid relese date."""
-    if has_release(finding):
-        last_vuln = get_last_vuln(finding)
-        today_day = datetime_utils.get_now().date()
-        result = last_vuln <= today_day
-    else:
-        result = False
-    return result
 
 
 def cloudwatch_log_sync(request, msg: str) -> None:

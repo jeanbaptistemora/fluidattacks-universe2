@@ -6,7 +6,10 @@ from typing import Dict, List, cast, Union
 from pyexcelerate import Workbook
 
 from backend.dal import project as project_dal
-from backend.domain import vulnerability as vuln_domain
+from backend.domain import (
+    finding as finding_domain,
+    vulnerability as vuln_domain,
+)
 from backend.reports.typing import (
     AllVulnsReportHeaderFindings,
     AllVulnsReportHeaderMasked,
@@ -103,7 +106,7 @@ async def generate_all_vulns_xlsx(
 
     for project in projects:
         if project not in TEST_PROJECTS:
-            findings = await project_dal.get_released_findings(
+            findings = await finding_domain.get_findings_by_group(
                 project.get('project_name', ''))
         else:
             findings = []

@@ -3,6 +3,8 @@
 from .draft import (
     approve_draft,
     create_draft,
+    get_drafts_by_group,
+    list_drafts,
     reject_draft,
     submit_draft
 )
@@ -20,7 +22,6 @@ from .finding import (
     delete_finding,
     get,
     get_age_finding,
-    get_drafts_by_group,
     get_finding,
     get_findings_async,
     get_findings_by_group,
@@ -29,6 +30,7 @@ from .finding import (
     handle_acceptation,
     is_deleted,
     is_pending_verification,
+    list_findings,
     mask_finding,
     save_severity,
     send_comment_mail,
@@ -48,7 +50,6 @@ __all__ = [
     'delete_finding',
     'get',
     'get_age_finding',
-    'get_drafts_by_group',
     'get_finding',
     'get_findings_async',
     'get_findings_by_group',
@@ -57,6 +58,7 @@ __all__ = [
     'handle_acceptation',
     'is_deleted',
     'is_pending_verification',
+    'list_findings',
     'mask_finding',
     'save_severity',
     'send_comment_mail',
@@ -70,6 +72,8 @@ __all__ = [
     # drafts
     'approve_draft',
     'create_draft',
+    'get_drafts_by_group',
+    'list_drafts',
     'reject_draft',
     'submit_draft',
 

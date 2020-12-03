@@ -14,7 +14,8 @@ from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, update_treatment,
     handle_acceptation, validate_evidence, mask_finding,
-    approve_draft, compare_historic_treatments
+    approve_draft, compare_historic_treatments, list_findings,
+    list_drafts
 )
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.domain.organization import get_max_acceptance_days
@@ -344,3 +345,29 @@ def test_compare_historic_treatments():
     test_new_state_date['acceptance_date'] = '2020-02-03 12:46:10'
     assert compare_historic_treatments(test_last_state, test_new_state)
     assert compare_historic_treatments(test_last_state, test_new_state_date)
+
+
+async def test_list_findings() -> None:
+    project_name = 'unittesting'
+    test_data = await list_findings([project_name])
+    expected_output = [
+        '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
+    ]
+    assert expected_output == test_data[0]
+
+
+async def test_list_drafts() -> None:
+    project_name = 'unittesting'
+    test_data = await list_drafts([project_name])
+    expected_output = ['560175507']
+    assert expected_output == test_data[0]
+
+
+async def test_list_drafts_deleted() -> None:
+    projects_name = ['continuoustesting']
+    test_data = await list_drafts(projects_name)
+    expected_output = ['818828206', '836530833', '475041524']
+    assert sorted(expected_output) == sorted(test_data[0])
+    test_data = await list_drafts(projects_name, include_deleted=True)
+    expected_output = ['818828206', '836530833', '475041524', '991607942']
+    assert sorted(expected_output) == sorted(test_data[0])

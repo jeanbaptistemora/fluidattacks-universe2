@@ -17,8 +17,8 @@ from backend.domain.project import (
     is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     get_users, get_description, get_pending_verification_findings,
-    list_drafts, list_comments, get_active_projects, get_managers, list_events,
-    get_alive_projects, list_findings, get_pending_to_delete,
+    list_comments, get_active_projects, get_managers, list_events,
+    get_alive_projects, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
     create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
@@ -220,12 +220,6 @@ async def test_get_total_treatment():
         {'inProgress': 1, 'accepted': 1, 'acceptedUndefined': 0, 'undefined': 0}
     assert test_data == expected_output
 
-async def test_list_drafts():
-    project_name = 'unittesting'
-    test_data = await list_drafts([project_name])
-    expected_output = ['560175507']
-    assert expected_output == test_data[0]
-
 async def test_list_comments():
     project_name = 'unittesting'
     test_data = await list_comments(project_name, 'admin')
@@ -269,23 +263,6 @@ async def test_get_alive_projects():
     test_data = await get_alive_projects()
     expected_output = ['suspendedtest', 'oneshottest', 'unittesting', 'continuoustesting']
     assert sorted(test_data) == sorted(expected_output)
-
-async def test_list_findings():
-    project_name = 'unittesting'
-    test_data = await list_findings([project_name])
-    expected_output = [
-        '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
-    ]
-    assert expected_output == test_data[0]
-
-async def test_list_drafts_deleted():
-    projects_name = ['continuoustesting']
-    test_data = await list_drafts(projects_name)
-    expected_output = ['818828206', '836530833', '475041524']
-    assert sorted(expected_output) == sorted(test_data[0])
-    test_data = await list_drafts(projects_name, should_list_deleted=True)
-    expected_output = ['818828206', '836530833', '475041524', '991607942']
-    assert sorted(expected_output) == sorted(test_data[0])
 
 async def test_list_events():
     project_name = 'unittesting'

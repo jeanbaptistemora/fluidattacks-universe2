@@ -23,7 +23,7 @@ import json
 from backend.exceptions import ExpiredToken
 from backend.util import (
     response, ord_asc_by_criticality,
-    assert_file_mime, has_release, get_last_vuln, validate_release_date,
+    assert_file_mime,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
     calculate_hash_token, remove_token, save_token,
@@ -74,24 +74,6 @@ def test_assert_file_mime():
     allowed_mimes = ['text/plain']
     assert assert_file_mime(filename, allowed_mimes)
     assert not assert_file_mime(non_included_filename, allowed_mimes)
-
-def test_has_release():
-    test_dict = {'releaseDate': 'date'}
-    test_dict_with_no_release_date = {'noReleaseDate': 'date'}
-    assert has_release(test_dict)
-    assert not has_release(test_dict_with_no_release_date)
-
-async def test_get_last_vuln():
-    finding = await get_finding('422286126')
-    test_data = get_last_vuln(finding)
-    expected_output = datetime(2018, 7, 9).date()
-    assert test_data == expected_output
-
-async def test_validate_release_date():
-    finding = await get_finding('422286126')
-    unreleased_finding = await get_finding('560175507')
-    assert validate_release_date(finding)
-    assert not validate_release_date(unreleased_finding)
 
 async def test_payload_encode_decode():
     payload = {

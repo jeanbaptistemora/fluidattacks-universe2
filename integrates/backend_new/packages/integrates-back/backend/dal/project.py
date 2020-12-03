@@ -14,23 +14,15 @@ from aioextensions import collect
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Attr, Key
 
-from backend import authz, util
+from backend import authz
 from backend.dal.event import TABLE_NAME as EVENTS_TABLE_NAME
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
-    Finding as FindingType,
     Project as ProjectType
 )
-from backend.dal.finding import (
-    get_finding,
-    TABLE_NAME as FINDINGS_TABLE_NAME
-)
 from backend.dal.user import get_user_name
-from backend.utils import (
-    datetime as datetime_utils,
-)
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -137,75 +129,6 @@ async def get_group(
         table: aioboto3.session.Session.client) -> ProjectType:
     response = await table.get_item(Key={'project_name': group_name})
     return response.get('Item', {})
-
-
-async def list_drafts(
-        project_name: str,
-        table: aioboto3.session.Session.client,
-        should_list_deleted: bool = False) -> List[str]:
-    key_exp = Key('project_name').eq(project_name)
-    today = datetime_utils.get_as_str(
-        datetime_utils.get_now()
-    )
-    filter_exp = Attr('releaseDate').not_exists() \
-        | Attr('releaseDate').gt(today)
-    query_attrs = {
-        'KeyConditionExpression': key_exp,
-        'FilterExpression': filter_exp,
-        'IndexName': 'project_findings',
-        'ProjectionExpression': 'finding_id, historic_state'
-    }
-    response = await table.query(**query_attrs)
-    drafts = response.get('Items', [])
-    while response.get('LastEvaluatedKey'):
-        query_attrs.update(
-            {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
-        )
-        response = await table.query(**query_attrs)
-        drafts += response.get('Items', [])
-
-    return [
-        draft['finding_id'] for draft in drafts
-        if draft.get('historic_state', [{}])[-1].get('state') != 'DELETED'
-        or should_list_deleted
-    ]
-
-
-async def list_findings(
-        project_name: str,
-        table: aioboto3.session.Session.client,
-        should_list_deleted: bool = False) -> List[str]:
-    key_exp = Key('project_name').eq(project_name)
-    today = datetime_utils.get_as_str(
-        datetime_utils.get_now()
-    )
-    filter_exp = (
-        Attr('releaseDate').exists() &
-        Attr('releaseDate').lte(today)
-    )
-    query_attrs = {
-        'KeyConditionExpression': key_exp,
-        'FilterExpression': filter_exp,
-        'IndexName': 'project_findings',
-        'ProjectionExpression': 'finding_id, historic_state'
-    }
-    response = await table.query(**query_attrs)
-    findings = response.get('Items', [])
-    while response.get('LastEvaluatedKey'):
-        query_attrs.update(
-            {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
-        )
-        response = await table.query(**query_attrs)
-        findings += response.get('Items', [])
-
-    return [
-        finding['finding_id']
-        for finding in findings
-        if finding.get(
-            'historic_state', [{}]
-        )[-1].get('state') != 'DELETED' or
-        should_list_deleted
-    ]
 
 
 async def list_events(project_name: str) -> List[str]:
@@ -434,38 +357,6 @@ async def add_comment(
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
-
-
-async def get_released_findings(
-        project_name: str,
-        attrs: str = '') -> List[Dict[str, FindingType]]:
-    """Get all the findings that has been released."""
-    key_expression = Key('project_name').eq(project_name.lower())
-    filtering_exp = Attr('releaseDate').exists()
-    query_attrs = {
-        'FilterExpression': filtering_exp,
-        'IndexName': 'project_findings',
-        'KeyConditionExpression': key_expression
-    }
-    if attrs and 'releaseDate' not in attrs:
-        query_attrs['ProjectionExpression'] = attrs + ', releaseDate'
-    if not attrs:
-        query_attrs['ProjectionExpression'] = 'finding_id'
-    response = await dynamodb.async_query(FINDINGS_TABLE_NAME, query_attrs)
-
-    findings = await collect([
-        get_finding(finding.get('finding_id'))
-        for finding in response
-    ])
-    findings_released = [
-        finding
-        for finding in findings
-        if util.validate_release_date(finding) and
-        finding.get(
-            'historic_state', [{}]
-        )[-1].get('state') != 'DELETED'
-    ]
-    return findings_released
 
 
 async def get_comments(project_name: str) -> List[Dict[str, str]]:

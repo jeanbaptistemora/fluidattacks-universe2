@@ -16,7 +16,7 @@ from backend.domain.organization import (
     iterate_organizations,
     update_pending_deletion_date,
 )
-from backend.domain.project import get_released_findings
+from backend.domain.finding import get_findings_by_group
 from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
     is_not_a_fluidattacks_email, remove_fluid_from_recipients,
@@ -104,7 +104,7 @@ def test_get_finding_url():
     assert test_data == expected_output
 
 async def test_get_status_vulns_by_time_range():
-    released_findings = await get_released_findings('UNITTESTING')
+    released_findings = await get_findings_by_group('UNITTESTING')
     first_day = '2019-01-01 12:00:00'
     last_day = '2019-06-30 23:59:59'
     vulns = await list_vulnerabilities_async(
@@ -125,7 +125,7 @@ def test_create_weekly_date():
     assert test_data == expected_output
 
 async def test_get_accepted_vulns():
-    released_findings = await get_released_findings('UNITTESTING')
+    released_findings = await get_findings_by_group('UNITTESTING')
     first_day = '2019-01-01 12:00:00'
     last_day = '2019-06-30 23:59:59'
     vulns = await list_vulnerabilities_async(

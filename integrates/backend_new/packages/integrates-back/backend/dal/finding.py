@@ -1,6 +1,6 @@
 """DAL functions for findings."""
 import logging
-from typing import Any, cast, Dict, List
+from typing import Any, cast, Dict, List, Set
 
 import aioboto3
 from boto3.dynamodb.conditions import Equals, Key
@@ -167,13 +167,19 @@ async def download_evidence(file_name: str, file_path: str):
     )
 
 
-async def get_findings_by_group(group_name: str) -> List[Dict[str, Any]]:
-    key_exp: Equals = Key('project_name').eq(group_name)
+async def get_findings_by_group(
+    group_name: str,
+    attrs: Set[str] = None
+) -> List[Dict[str, Any]]:
+    key_exp: Equals = Key('project_name').eq(group_name.lower())
+    query_attrs = {
+        'IndexName': 'project_findings',
+        'KeyConditionExpression': key_exp
+    }
+    if attrs:
+        query_attrs['ProjectionExpression'] = ','.join(attrs)
 
     return await dynamodb.async_query(
         TABLE_NAME,
-        {
-            'IndexName': 'project_findings',
-            'KeyConditionExpression': key_exp
-        }
+        query_attrs
     )

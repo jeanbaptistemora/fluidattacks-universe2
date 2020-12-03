@@ -9,6 +9,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Union
 )
 
@@ -162,8 +163,8 @@ async def get_tracking_vulnerabilities(
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
-    vulns_filtered = vuln_domain.filter_no_confirmed_zero_risk(vulns_filtered)
-    vulns_filtered = vuln_domain.filter_no_requested_zero_risk(vulns_filtered)
+    vulns_filtered = vuln_domain.filter_non_confirmed_zero_risk(vulns_filtered)
+    vulns_filtered = vuln_domain.filter_non_requested_zero_risk(vulns_filtered)
     vuln_casted = finding_utils.remove_repeated(vulns_filtered)
     open_verification_dates = finding_utils.get_open_verification_dates(
         vulns_filtered
@@ -657,84 +658,45 @@ async def mask_finding(finding_id: str) -> bool:
     return success
 
 
-def _format_finding(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """Returns the data in the format expected by default resolvers"""
-
-    return cast(Dict[str, FindingType], {
-        'id': finding.get('finding_id', ''),
-        'project_name': finding.get('project_name', ''),
-        'release_date': finding.get('release_date', ''),
-        'title': finding.get('finding', ''),
-        'historic_state': finding.get('historic_state', []),
-        'historic_treatment': finding.get('historic_treatment', []),
-    })
-
-
-def filter_no_deleted_findings(
-        findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    no_deleted_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') != 'DELETED'
-    ]
-
-    return no_deleted_findings
-
-
-def filter_approved_findings(
-        findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    approved_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') == 'APPROVED'
-    ]
-
-    return approved_findings
-
-
-def filter_no_approved_findings(
-        findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    no_approved_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') != 'APPROVED'
-    ]
-
-    return no_approved_findings
-
-
 async def get_findings_by_group(
-        group_name: str
+    group_name: str,
+    attrs: Set[str] = None,
+    include_deleted: bool = False
 ) -> List[Dict[str, FindingType]]:
-    findings = await finding_dal.get_findings_by_group(group_name)
-    findings = filter_approved_findings(findings)
+    if attrs and 'historic_state' not in attrs:
+        attrs.add('historic_state')
+    findings = await finding_dal.get_findings_by_group(group_name, attrs)
+    findings = finding_utils.filter_non_created_findings(findings)
+    findings = finding_utils.filter_non_submitted_findings(findings)
+    if not include_deleted:
+        findings = finding_utils.filter_non_deleted_findings(findings)
 
     return [
-        _format_finding(finding)
+        finding_utils.format_finding(finding, attrs)
         for finding in findings
     ]
 
 
-async def get_drafts_by_group(
-    group_name: str
-) -> List[Dict[str, FindingType]]:
-    findings = await finding_dal.get_findings_by_group(group_name)
-    findings = filter_no_deleted_findings(findings)
-    findings = filter_no_approved_findings(findings)
-
-    return [
-        _format_finding(finding)
-        for finding in findings
+async def list_findings(
+    group_names: List[str],
+    include_deleted: bool = False
+) -> List[List[str]]:
+    """Returns a list of the list of finding ids associated with the groups"""
+    attrs = {'finding_id', 'historic_state'}
+    findings = await collect(
+        get_findings_by_group(
+            group_name,
+            attrs,
+            include_deleted
+        )
+        for group_name in group_names
+    )
+    findings = [
+        list(map(
+            lambda finding: finding['finding_id'],
+            group_findings
+        ))
+        for group_findings in findings
     ]
+
+    return cast(List[List[str]], findings)

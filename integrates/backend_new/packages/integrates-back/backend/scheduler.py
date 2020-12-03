@@ -241,7 +241,7 @@ async def create_register_by_week(
     closed = 0
     found = 0
     all_registers = OrderedDict()
-    findings_released = await project_domain.get_released_findings(project)
+    findings_released = await finding_domain.get_findings_by_group(project)
     vulns = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in findings_released]
     )
@@ -347,13 +347,13 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
 async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
     LOGGER.info(msg, extra={'extra': locals()})
-    fin_attrs = 'finding_id, historic_treatment, project_name, finding'
+    fin_attrs = {'finding_id', 'historic_treatment', 'project_name', 'finding'}
     context: MailContentType = {
         'updated_findings': list(),
         'no_treatment_findings': list()
     }
     try:
-        finding_requests = await project_domain.get_released_findings(
+        finding_requests = await finding_domain.get_findings_by_group(
             group_name,
             fin_attrs
         )
@@ -582,7 +582,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         for project in projects
         if project not in test_projects
     ]
-    list_drafts = await project_domain.list_drafts(projects)
+    list_drafts = await finding_domain.list_drafts(projects)
     project_drafts = await collect(
         finding_domain.get_findings_async(drafts)
         for drafts in list_drafts
@@ -652,9 +652,10 @@ async def send_unsolved_to_all() -> None:
 
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
-    findings = await project_domain.get_released_findings(
+    fin_attrs = {'finding_id', 'historic_treatment', 'cvss_temporal'}
+    findings = await finding_domain.get_findings_by_group(
         project,
-        'finding_id, historic_treatment, cvss_temporal'
+        fin_attrs
     )
     last_closing_vuln_days, last_closing_vuln = (
         await project_domain.get_last_closing_vuln_info(findings)
@@ -751,7 +752,7 @@ async def update_organization_indicators(
         )
         for group in groups
     )
-    groups_findings = await project_domain.list_findings(groups)
+    groups_findings = await finding_domain.list_findings(groups)
     groups_findings_attrs = await collect(
         finding_domain.get_findings_async(group_findings)
         for group_findings in groups_findings
@@ -826,7 +827,7 @@ async def reset_group_expired_accepted_findings(
         'Resetting expired accepted findings',
         extra={'extra': locals()}
     )
-    list_findings = await project_domain.list_findings(
+    list_findings = await finding_domain.list_findings(
         [group_name]
     )
     vulns = await vuln_domain.list_vulnerabilities_async(

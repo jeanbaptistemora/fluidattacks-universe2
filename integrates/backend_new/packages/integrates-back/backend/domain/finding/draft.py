@@ -2,7 +2,11 @@
 import re
 import random
 from decimal import Decimal
-from typing import cast, Dict, List, Tuple, Any
+from typing import cast, Dict, List, Tuple, Any, Set
+
+from aioextensions import (
+    collect,
+)
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
@@ -17,10 +21,12 @@ from backend.exceptions import (
     NotSubmitted,
 )
 from backend.typing import (
+    Finding as FindingType,
     User as UserType
 )
 from backend.utils import (
     datetime as datetime_utils,
+    findings as finding_utils,
 )
 from .finding import get_finding
 
@@ -232,3 +238,46 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
         raise AlreadyApproved()
 
     return success
+
+
+async def get_drafts_by_group(
+    group_name: str,
+    attrs: Set[str] = None,
+    include_deleted: bool = False
+) -> List[Dict[str, FindingType]]:
+    if attrs and 'historic_state' not in attrs:
+        attrs.add('historic_state')
+    findings = await finding_dal.get_findings_by_group(group_name, attrs)
+    findings = finding_utils.filter_non_approved_findings(findings)
+    if not include_deleted:
+        findings = finding_utils.filter_non_deleted_findings(findings)
+
+    return [
+        finding_utils.format_finding(finding, attrs)
+        for finding in findings
+    ]
+
+
+async def list_drafts(
+    group_names: List[str],
+    include_deleted: bool = False
+) -> List[List[str]]:
+    """Returns a list the list of finding ids associated with the groups"""
+    attrs = {'finding_id', 'historic_state'}
+    findings = await collect(
+        get_drafts_by_group(
+            group_name,
+            attrs,
+            include_deleted
+        )
+        for group_name in group_names
+    )
+    findings = [
+        list(map(
+            lambda finding: finding['finding_id'],
+            group_findings
+        ))
+        for group_findings in findings
+    ]
+
+    return cast(List[List[str]], findings)

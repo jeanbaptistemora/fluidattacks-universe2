@@ -5,6 +5,7 @@ from typing import Dict, List, Union, cast
 from aiodataloader import DataLoader
 from aioextensions import collect
 from backend.domain import project as project_domain
+from backend.domain import finding as finding_domain
 from backend.typing import Project as ProjectType
 
 
@@ -13,8 +14,8 @@ async def _batch_load_fn(
     """Batch the data load requests within the same execution fragment."""
     projects_data: Dict[str, Union[List[str], ProjectType]] = dict()
 
-    finding_coroutines = project_domain.list_findings(projects)
-    draft_coroutines = project_domain.list_drafts(projects)
+    finding_coroutines = finding_domain.list_findings(projects)
+    draft_coroutines = finding_domain.list_drafts(projects)
     group_coroutines = project_domain.get_many_groups(projects)
     list_groups, list_findings, list_drafts = await collect([
         group_coroutines, finding_coroutines, draft_coroutines

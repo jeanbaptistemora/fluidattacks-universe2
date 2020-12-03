@@ -4,7 +4,6 @@
 from aioextensions import run
 from backend.domain import (
     finding as finding_domain,
-    project as group_domain,
     vulnerability as vulnerability_domain,
 )
 from frozendict import frozendict
@@ -20,7 +19,7 @@ async def generate_one(group: str):
         'nodes': set(),
         'links': set(),
     }
-    findings = await group_domain.list_findings([group])
+    findings = await finding_domain.list_findings([group])
     for finding_id in findings[0]:
         finding = await finding_domain.get_finding(finding_id)
         finding_title = finding['finding']

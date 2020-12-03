@@ -19,7 +19,6 @@ from aioextensions import (
 from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
 from backend.dal import (
-    finding as finding_dal,
     project as project_dal
 )
 from backend.typing import (
@@ -360,11 +359,11 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
 
 async def remove_resources(project_name: str) -> bool:
     are_users_removed = await remove_all_users_access(project_name)
-    group_findings = await list_findings(
-        [project_name], should_list_deleted=True
+    group_findings = await finding_domain.list_findings(
+        [project_name], include_deleted=True
     )
-    group_drafts = await list_drafts(
-        [project_name], should_list_deleted=True
+    group_drafts = await finding_domain.list_drafts(
+        [project_name], include_deleted=True
     )
     findings_and_drafts = (
         group_findings[0] + group_drafts[0]
@@ -553,11 +552,11 @@ async def remove_project(project_name: str) -> NamedTuple:
         project_name, ['project_status'])
     if data.get('project_status') == 'PENDING_DELETION':
         are_users_removed = await remove_all_users_access(project_name)
-        group_findings = await list_findings(
-            [project_name], should_list_deleted=True
+        group_findings = await finding_domain.list_findings(
+            [project_name], include_deleted=True
         )
-        group_drafts = await list_drafts(
-            [project_name], should_list_deleted=True
+        group_drafts = await finding_domain.list_drafts(
+            [project_name], include_deleted=True
         )
         findings_and_drafts = (
             group_findings[0] + group_drafts[0]
@@ -676,7 +675,7 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
 async def get_pending_verification_findings(
         project_name: str) -> List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
-    findings_ids = await list_findings([project_name])
+    findings_ids = await finding_domain.list_findings([project_name])
     are_pending_verifications = await collect(
         map(finding_domain.is_pending_verification, findings_ids[0])
     )
@@ -703,12 +702,6 @@ async def get_pending_closing_check(project: str) -> int:
     pending_closing = len(
         await get_pending_verification_findings(project))
     return pending_closing
-
-
-async def get_released_findings(
-        project_name: str,
-        attrs: str = '') -> List[Dict[str, FindingType]]:
-    return await project_dal.get_released_findings(project_name, attrs)
 
 
 async def get_last_closing_vuln_info(
@@ -884,7 +877,7 @@ async def get_mean_remediate_severity(
         max_severity: float) -> Decimal:
     """Get mean time to remediate."""
     total_days = 0
-    finding_ids = await list_findings([project_name.lower()])
+    finding_ids = await finding_domain.list_findings([project_name.lower()])
     vulns = await vuln_domain.list_vulnerabilities_async([
         str(finding['findingId'])
         for finding in await finding_domain.get_findings_async(finding_ids[0])
@@ -1007,20 +1000,6 @@ async def update(project_name: str, data: ProjectType) -> bool:
     return await project_dal.update(project_name, data)
 
 
-async def list_drafts(
-        groups_name: List[str],
-        should_list_deleted: bool = False) -> List[List[str]]:
-    """Returns a list the list of finding ids associated with the groups"""
-    async with AsyncExitStack() as stack:
-        resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(finding_dal.TABLE_NAME)
-        drafts = await collect(
-            project_dal.list_drafts(group_name, table, should_list_deleted)
-            for group_name in groups_name
-        )
-    return cast(List[List[str]], drafts)
-
-
 async def list_comments(
         project_name: str,
         user_email: str) -> List[CommentType]:
@@ -1042,20 +1021,6 @@ async def get_alive_projects() -> List[str]:
     projects = await project_dal.get_alive_projects()
 
     return projects
-
-
-async def list_findings(
-        groups_name: List[str],
-        should_list_deleted: bool = False) -> List[List[str]]:
-    """Returns a list of the list of finding ids associated with the groups"""
-    async with AsyncExitStack() as stack:
-        resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(finding_dal.TABLE_NAME)
-        findings = await collect(
-            project_dal.list_findings(group_name, table, should_list_deleted)
-            for group_name in groups_name
-        )
-    return cast(List[List[str]], findings)
 
 
 async def list_events(project_name: str) -> List[str]:
@@ -1118,7 +1083,7 @@ async def get_managers(project_name: str) -> List[str]:
 
 
 async def get_open_vulnerabilities(project_name: str) -> int:
-    findings = await list_findings([project_name])
+    findings = await finding_domain.list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
@@ -1132,7 +1097,7 @@ async def get_open_vulnerabilities(project_name: str) -> int:
 
 
 async def get_closed_vulnerabilities(project_name: str) -> int:
-    findings = await list_findings([project_name])
+    findings = await finding_domain.list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     last_approved_status = await collect([
         in_process(vuln_domain.get_last_status, vuln)
@@ -1146,7 +1111,7 @@ async def get_closed_vulnerabilities(project_name: str) -> int:
 
 
 async def get_open_finding(project_name: str) -> int:
-    findings = await list_findings([project_name])
+    findings = await finding_domain.list_findings([project_name])
     vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     finding_vulns_dict = defaultdict(list)
     for vuln in vulns:

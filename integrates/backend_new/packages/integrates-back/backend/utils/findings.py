@@ -3,7 +3,7 @@ import io
 import itertools
 import logging
 from decimal import Decimal
-from typing import Dict, List, Union, cast, Tuple, Optional
+from typing import Dict, List, Union, cast, Tuple, Optional, Set
 
 from aioextensions import (
     collect,
@@ -817,3 +817,89 @@ async def validate_treatment_change(
             validate_number_acceptations_coroutine
         ])
     )
+
+
+def format_finding(
+    finding: Dict[str, FindingType],
+    attrs: Set[str] = None
+) -> Dict[str, FindingType]:
+    """Returns the data in the format expected by default resolvers"""
+    formated_finding = finding.copy()
+    if not attrs or 'finding_id' in attrs:
+        formated_finding['id'] = finding['finding_id']
+    if not attrs or 'finding' in attrs:
+        formated_finding['title'] = finding['finding']
+    if not attrs or 'release_date' in attrs:
+        formated_finding['release_date'] = (
+            finding.get('release_date', '')
+        )
+    if not attrs or 'historic_state' in attrs:
+        formated_finding['historic_state'] = (
+            finding.get('historic_state', [])
+        )
+    if not attrs or 'historic_treatment' in attrs:
+        formated_finding['historic_treatment'] = (
+            finding.get('historic_treatment', [])
+        )
+
+    return formated_finding
+
+
+def filter_non_approved_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    no_approved_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'APPROVED'
+    ]
+
+    return no_approved_findings
+
+
+def filter_non_created_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    non_submited_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'CREATED'
+    ]
+
+    return non_submited_findings
+
+
+def filter_non_deleted_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    no_deleted_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'DELETED'
+    ]
+
+    return no_deleted_findings
+
+
+def filter_non_submitted_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    non_submitted_findings = [
+        finding
+        for finding in findings
+        if cast(
+            HistoricType,
+            finding.get('historic_state', [{}])
+        )[-1].get('state', '') != 'SUBMITTED'
+    ]
+
+    return non_submitted_findings

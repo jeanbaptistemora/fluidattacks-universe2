@@ -5,7 +5,7 @@ from pyexcelerate import Workbook
 
 # Local libraries
 from backend.domain import (
-    project as project_domain,
+    finding as finding_domain,
     vulnerability as vuln_domain
 )
 from backend.reports.typing import CompleteReportHeader
@@ -23,8 +23,10 @@ async def generate(
     sheet_values: List[Union[List[str], List[List[str]]]] = [header]
 
     for project in projects:
-        findings = await project_domain.get_released_findings(
-            project, 'finding_id, finding, historic_treatment'
+        attrs = {'finding_id', 'finding', 'historic_treatment'}
+        findings = await finding_domain.get_findings_by_group(
+            project,
+            attrs
         )
         for finding in findings:
             vulns = await vuln_domain.list_vulnerabilities_async(
