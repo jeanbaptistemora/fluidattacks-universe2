@@ -25,10 +25,9 @@ spec:
             - integrates_serve_components
             - development
             - http/development/backend_new.app.app:APP/backend_new.settings.uvicorn.IntegratesWorker/3/0.0.0.0/8001/*
-            - minio
           resources:
             requests:
-              cpu: 800m
+              cpu: 400m
               memory: 1500Mi
             limits:
               cpu: 1000m
@@ -79,8 +78,8 @@ spec:
             - dynamo
           resources:
             requests:
-              cpu: 500m
-              memory: 1000Mi
+              cpu: 400m
+              memory: 500Mi
             limits:
               cpu: 1000m
               memory: 1000Mi
@@ -102,9 +101,31 @@ spec:
           resources:
             requests:
               cpu: 400m
-              memory: 1000Mi
+              memory: 500Mi
             limits:
-              cpu: 500m
+              cpu: 1000m
+              memory: 1000Mi
+          env:
+            - name: DEPLOYMENT_DATE
+              value: "__DATE__"
+          envFrom:
+            - secretRef:
+                name: integrates-__DEPLOYMENT_NAME__
+        - name: minio
+          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
+          imagePullPolicy: Always
+          command: [bash]
+          args:
+            - build.sh
+            - integrates_serve_components
+            - development
+            - minio
+          resources:
+            requests:
+              cpu: 400m
+              memory: 500Mi
+            limits:
+              cpu: 1000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE

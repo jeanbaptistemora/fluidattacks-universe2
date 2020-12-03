@@ -25,8 +25,8 @@ module "eks" {
   worker_groups = [
     {
       name                 = "ephemeral"
-      instance_type        = "m5a.xlarge"
-      asg_min_size         = 10
+      instance_type        = "m5a.large"
+      asg_min_size         = 5
       asg_desired_capacity = 10
       asg_max_size         = 10
       root_volume_type     = "gp2"
@@ -35,8 +35,8 @@ module "eks" {
     },
     {
       name                 = "production"
-      instance_type        = "m5a.xlarge"
-      asg_min_size         = 10
+      instance_type        = "m5a.large"
+      asg_min_size         = 5
       asg_desired_capacity = 10
       asg_max_size         = 10
       root_volume_type     = "gp2"
