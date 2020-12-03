@@ -425,4 +425,10 @@ type Mutation {
         commentId: String!
         commentScope: CommentScope!
     ): SimplePayload!
+
+    editProjectCommentScope(
+        projectName: String!
+        commentId: String!
+        commentScope: CommentScope!
+    ): SimplePayload!
 }

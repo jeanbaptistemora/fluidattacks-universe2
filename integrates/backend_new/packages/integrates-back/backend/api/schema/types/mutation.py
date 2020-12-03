@@ -23,6 +23,7 @@ from backend.api.mutations import (
     edit_stakeholder_organization,
     edit_event_comment_scope,
     edit_finding_comment_scope,
+    edit_project_comment_scope,
     execute_skims,
     grant_stakeholder_organization_access,
     handle_vulns_acceptation,
@@ -156,3 +157,5 @@ MUTATION.set_field('editFindingCommentScope',
                    edit_finding_comment_scope.mutate)
 MUTATION.set_field('editEventCommentScope',
                    edit_event_comment_scope.mutate)
+MUTATION.set_field('editProjectCommentScope',
+                   edit_project_comment_scope.mutate)
