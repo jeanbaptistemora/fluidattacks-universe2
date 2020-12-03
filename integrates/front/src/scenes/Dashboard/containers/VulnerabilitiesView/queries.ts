@@ -7,7 +7,6 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
     $groupName: String!
   ) {
     finding(identifier: $findingId) {
-      historicTreatment
       id
       newRemediated
       state

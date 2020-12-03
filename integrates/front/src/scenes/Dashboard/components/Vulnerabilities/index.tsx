@@ -945,7 +945,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 { modalHidden ?
                   <UpdateTreatmentModal
                     findingId={props.findingId}
-                    lastTreatment={props.lastTreatment}
                     projectName={props.projectName}
                     vulnerabilities={vulnerabilitiesList}
                     vulnerabilitiesChunk={100}

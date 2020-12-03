@@ -5,7 +5,6 @@ interface IProject {
 }
 
 interface IFinding {
-  historicTreatment: IHistoricTreatment[];
   id: string;
   newRemediated: boolean;
   state: "open" | "closed";

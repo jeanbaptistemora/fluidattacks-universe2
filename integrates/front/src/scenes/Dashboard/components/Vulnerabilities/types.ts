@@ -68,14 +68,12 @@ export interface IVulnDataType {
 
 export interface IVulnerabilitiesViewProps {
   editMode: boolean;
-  editModePending?: boolean;
   findingId: string;
   isConfirmingZeroRisk?: boolean;
   isRejectingZeroRisk?: boolean;
   isRequestingZeroRisk?: boolean;
   isRequestVerification?: boolean;
   isVerifyRequest?: boolean;
-  lastTreatment?: IHistoricTreatment;
   projectName?: string;
   separatedRow?: boolean;
   state: "open" | "closed";
