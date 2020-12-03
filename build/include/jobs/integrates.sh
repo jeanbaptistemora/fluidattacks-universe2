@@ -978,9 +978,8 @@ function job_integrates_test_back {
   )
   local extra_args=()
   local markers=(
-    'not (changes_db or changes_sessions)'
+    'not changes_db'
     'changes_db'
-    'changes_sessions'
   )
 
   # shellcheck disable=SC2015
