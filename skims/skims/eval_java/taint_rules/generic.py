@@ -1,6 +1,7 @@
 # Local libraries
 from eval_java.model import (
     StatementAdd,
+    StatementAssignment,
     StatementClassInstantiation,
     StatementCustomMethodInvocation,
     StatementDeclaration,
@@ -10,6 +11,7 @@ from eval_java.model import (
 )
 from eval_java.taint_rules import (
     add,
+    assignment,
     call,
     class_instantiation,
     declaration,
@@ -24,6 +26,8 @@ def taint(statements: Statements) -> None:
 
         if isinstance(statement, StatementAdd):
             add.taint(statements, index)
+        elif isinstance(statement, StatementAssignment):
+            assignment.taint(statements, index)
         elif isinstance(statement, StatementCustomMethodInvocation):
             call.taint(statements, index)
         elif isinstance(statement, StatementClassInstantiation):

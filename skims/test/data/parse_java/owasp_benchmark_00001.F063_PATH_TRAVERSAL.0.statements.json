@@ -157,6 +157,53 @@
       "stack": 0
     },
     "recursive": false,
+    "symbol": "param",
+    "type": "StatementLookup"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
+    "type": "StatementLiteral",
+    "value": "org.owasp.benchmark.helpers.Utils.testfileDir",
+    "value_type": "CustomExpressionName"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -2
+    },
+    "recursive": true,
+    "stack_0": [],
+    "stack_1": [],
+    "type": "StatementAdd"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementAssignment",
+    "var": "fileName"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
     "symbol": "fileName",
     "type": "StatementLookup"
   },
@@ -183,5 +230,17 @@
     "recursive": true,
     "stack": [],
     "type": "StatementClassInstantiation"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementAssignment",
+    "var": "fis"
   }
 ]

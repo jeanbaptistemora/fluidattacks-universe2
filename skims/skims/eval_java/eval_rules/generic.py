@@ -5,6 +5,7 @@ import networkx as nx
 from eval_java.eval_rules import (
     additive_expression,
     argument_list,
+    assignment,
     common,
     custom_class_instance_creation_expression_lfno_primary,
     custom_method_invocation,
@@ -51,6 +52,8 @@ def evaluate(
          additive_expression.evaluate),
         ({'ArgumentList'},
          argument_list.evaluate),
+        ({'Assignment'},
+         assignment.evaluate),
         ({'CustomClassInstanceCreationExpression_lfno_primary'},
          custom_class_instance_creation_expression_lfno_primary.evaluate),
         ({'CustomMethodInvocation',
