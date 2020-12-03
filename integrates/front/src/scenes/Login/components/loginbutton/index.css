@@ -1,11 +1,11 @@
 :global .btn-lbitbucket {
-    background-color: #0747a6;
-    border-color: #0747a6;
+  background-color: #0747a6;
+  border-color: #0747a6;
 }
 
 :global .btn-lgoogle {
-  background-color: #cc0000;
-  border-color: #aa0000;
+  background-color: #c00;
+  border-color: #a00;
   margin-top: 4rem !important;
 }
 
@@ -16,6 +16,6 @@
 }
 
 :global .btn-lazure {
-  background-color: #007bFF;
-  border-color: #007bFF;
+  background-color: #007bff;
+  border-color: #007bff;
 }

@@ -7,36 +7,36 @@
 
 :local .button,
 .button:focus {
-  background-color: #FFFFFF;
-  border-color: #FF3435;
-  color: #FF3435;
+  background-color: #fff;
+  border-color: #ff3435;
+  color: #ff3435;
   outline: none;
 }
 
 :local .button:hover,
 .button:active:hover {
-  background-color: #FF3435;
-  border-color: #FF3435;
-  color: #FFFFFF;
+  background-color: #ff3435;
+  border-color: #ff3435;
+  color: #fff;
 }
 
 :local .button:active,
 .button:active:focus {
-  background-color: #8E1616;
-  border-color: #8E1616;
-  color: #FFFFFF;
+  background-color: #8e1616;
+  border-color: #8e1616;
+  color: #fff;
   outline: none;
 }
 
 :local .button:active svg path {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 :local .button[disabled],
 .button[disabled]:hover {
-  background-color: #FAFAFA;
-  border-color: #DFDFDF;
+  background-color: #fafafa;
+  border-color: #dfdfdf;
   color: #919191;
   opacity: 1;
 }
@@ -52,8 +52,8 @@
 }
 
 :local .button:hover:not([disabled]) svg path {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 :local .button[disabled] svg circle {
@@ -61,5 +61,5 @@
 }
 
 :local .button:hover:not([disabled]) svg circle {
-  stroke: #FFFFFF !important;
+  stroke: #fff !important;
 }

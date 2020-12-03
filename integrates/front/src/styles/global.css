@@ -1,4 +1,6 @@
-html, body, :global(#root) {
+html,
+body,
+:global(#root) {
   height: 100%;
 }
 
@@ -7,7 +9,12 @@ body {
   font-size: 16px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: Montserrat, sans-serif;
   font-weight: bold;
 }
@@ -17,7 +24,8 @@ a {
   text-decoration: none;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   text-decoration: none;
   outline: none;
 }
@@ -32,6 +40,7 @@ label {
   margin: 18px 0;
   border-radius: 0;
 }
+
 :global .pagination > li {
   display: inline;
 }
@@ -83,7 +92,7 @@ label {
   text-decoration: none;
   color: #ff3435;
   background-color: #fff;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   margin-left: -1px;
 }
 
@@ -101,11 +110,13 @@ label {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
+
 :global .pagination > li:last-child > a,
 :global .pagination > li:last-child > span {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
+
 :global .pagination > li > a:hover,
 :global .pagination > li > span:hover,
 :global .pagination > li > a:focus,
@@ -115,6 +126,7 @@ label {
   background-color: #eee;
   border-color: #ddd;
 }
+
 :global .pagination > .active > a,
 :global .pagination > .active > span,
 :global .pagination > .active > a:hover,

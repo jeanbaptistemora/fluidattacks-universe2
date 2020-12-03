@@ -7,36 +7,36 @@
 
 :local .dropdownButton,
 .dropdownButton:focus {
-  background-color: #FFFFFF;
-  border-color: #FF3435;
-  color: #FF3435;
+  background-color: #fff;
+  border-color: #ff3435;
+  color: #ff3435;
   outline: none;
 }
 
 :local .dropdownButton:hover,
 .dropdownButton:active:hover {
-  background-color: #FF3435;
-  border-color: #FF3435;
-  color: #FFFFFF;
+  background-color: #ff3435;
+  border-color: #ff3435;
+  color: #fff;
 }
 
 :local .dropdownButton:active,
 .dropdownButton:active:focus {
-  background-color: #8E1616;
-  border-color: #8E1616;
-  color: #FFFFFF;
+  background-color: #8e1616;
+  border-color: #8e1616;
+  color: #fff;
   outline: none;
 }
 
 :local .dropdownButton:active svg path {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 :local .dropdownButton[disabled],
 .dropdownButton[disabled]:hover {
-  background-color: #FAFAFA;
-  border-color: #DFDFDF;
+  background-color: #fafafa;
+  border-color: #dfdfdf;
   color: #919191;
   opacity: 1;
 }
@@ -52,8 +52,8 @@
 }
 
 :local .dropdownButton:hover:not([disabled]) svg path {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: #fff !important;
+  stroke: #fff !important;
 }
 
 :local .dropdownButton[disabled] svg circle {
@@ -61,5 +61,5 @@
 }
 
 :local .dropdownButton:hover:not([disabled]) svg circle {
-  stroke: #FFFFFF !important;
+  stroke: #fff !important;
 }

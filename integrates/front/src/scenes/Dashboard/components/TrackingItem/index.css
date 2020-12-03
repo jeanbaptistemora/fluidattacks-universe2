@@ -1,13 +1,13 @@
 :local .content {
-  background-color: #FFFFFF;
+  background-color: #fff;
   border-radius: 3px;
   min-height: 70px;
-  padding: 28px 25px 0px 5px;
+  padding: 28px 25px 0 5px;
   position: relative;
 }
 
-:local .content:before {
-  background-color: #FFFFFF;
+:local .content::before {
+  background-color: #fff;
   content: "";
   height: 10px;
   left: -5px;
@@ -15,11 +15,10 @@
   top: 37.5px;
   width: 10px;
   -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-       -o-transform: rotate(45deg);
-          transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
-
 
 :local .date {
   display: block;
@@ -40,9 +39,9 @@
   text-align: left !important;
 }
 
-:local .container:before {
-  background-color: #EDEDED;
-  border: 2px solid #CCCCCC;
+:local .container::before {
+  background-color: #ededed;
+  border: 2px solid #ccc;
   border-radius: 50px;
   content: '';
   height: 16px;
@@ -52,9 +51,10 @@
   width: 16px;
 }
 
-:local .red:before {
-  border-color: #EF6262;
+:local .red::before {
+  border-color: #ef6262;
 }
-:local .green:before {
-  border-color: #7ACCBE;
+
+:local .green::before {
+  border-color: #7accbe;
 }

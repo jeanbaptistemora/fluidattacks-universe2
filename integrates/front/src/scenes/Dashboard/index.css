@@ -1,6 +1,6 @@
 
 :local .container {
-  padding: 0px 15px 0px;
+  padding: 0 15px 0;
 }
 
 @media (min-width: 768px) {

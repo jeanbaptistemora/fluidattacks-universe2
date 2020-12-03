@@ -12,7 +12,7 @@
   position: relative;
 }
 
-:local .timelineContainer:before {
+:local .timelineContainer::before {
   content: '';
   position: absolute;
   top: 40px;
@@ -24,7 +24,7 @@
 }
 
 :local .track_title {
-  color: #555555;
+  color: #555;
   font-weight: bold;
 }
 

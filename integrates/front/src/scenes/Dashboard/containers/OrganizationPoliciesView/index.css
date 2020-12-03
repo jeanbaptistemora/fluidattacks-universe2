@@ -1,5 +1,5 @@
 :local .recommended {
-  margin: 10px 0 0 0 ;
+  margin: 10px 0 0 0;
   text-align: center;
   white-space: pre;
 }
@@ -12,7 +12,7 @@
   text-align: center !important;
 }
 
-@media(min-width: 1000px) {
+@media (min-width: 1000px) {
   .severityRow {
     align-items: center !important;
     display: flex !important;

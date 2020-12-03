@@ -1,6 +1,6 @@
 :local .header {
-  composes: primaryBg from '../../styles/global.css';
-  composes: lightFg from '../../styles/global.css';
+  composes: primarybg from '../../styles/global.css';
+  composes: lightfg from '../../styles/global.css';
   padding: 20px 15px;
 }
 
@@ -17,7 +17,7 @@
   text-align: center;
 }
 
-:global .modal:before {
+:global .modal::before {
   content: "";
   display: inline-block;
   height: 100%;

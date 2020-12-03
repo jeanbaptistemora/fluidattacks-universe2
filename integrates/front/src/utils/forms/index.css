@@ -5,80 +5,80 @@
 }
 
 :local .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 :local .inputfile + label {
-    max-width: 100%;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-    display: inline-block;
-    overflow: hidden;
-    padding: 0.625rem 1.25rem;
+  max-width: 100%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.625rem 1.25rem;
 }
 
 :local .inputfile:focus + label,
 .inputfile.has_focus + label {
-    outline: 1px dotted #000000;
-    outline: -webkit-focus-ring-color auto 5px;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
 :local .inputfile + label svg {
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
-    fill: currentColor;
-    margin-top: -0.25em;
-    margin-right: 0.25em;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  margin-right: 0.25em;
 }
 
 :local .inputfile_evidence + label {
-    color: #FF3435;
-    border: 1px solid #FF3435;
-    background-color: #F5AD99;
-    padding: 0;
+  color: #ff3435;
+  border: 1px solid #ff3435;
+  background-color: #f5ad99;
+  padding: 0;
 }
 
 :local .inputfile_evidence:focus + label,
 .inputfile_evidence.has_focus + label,
 .inputfile_evidence + label:hover {
-    border-color: #8E1616;
+  border-color: #8e1616;
 }
 
 :local .inputfile_evidence + label > span,
 .inputfile_evidence + label > strong {
-    padding: 0.625rem 1.25rem;
+  padding: 0.625rem 1.25rem;
 }
 
 :local .inputfile_evidence + label > span {
-    width: 130px;
-    min-height: 2em;
-    display: inline-block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: top;
+  width: 130px;
+  min-height: 2em;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: top;
 }
 
 :local .inputfile_evidence + label > strong {
-    height: 100%;
-    color: #FFFFFF;
-    background-color: #FF3435;
-    display: inline-block;
+  height: 100%;
+  color: #fff;
+  background-color: #ff3435;
+  display: inline-block;
 }
 
 :local .inputfile_evidence:focus + label > strong,
 .inputfile_evidence.has_focus + label > strong,
 .inputfile_evidence + label:hover > strong {
-    background-color: #8E1616;
+  background-color: #8e1616;
 }
 
 @media screen and (max-width: 50em) {
@@ -88,7 +88,7 @@
 }
 
 :local .text_center {
-    text-align: center;
+  text-align: center;
 }
 
 .formControl {
@@ -99,25 +99,26 @@
   padding: 10px 12px;
   font-size: 16px !important;
   line-height: 1.42857143;
-  color: #777777;
-  background-color: #FFFFFF;
+  color: #777;
+  background-color: #fff;
   background-image: none;
-  border: 2px solid #EAEAEA !important;
+  border: 2px solid #eaeaea !important;
   border-radius: 0 !important;
   box-shadow: none;
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
 .formControl:focus {
-  border-color: #D1D1D1;
+  border-color: #d1d1d1;
   box-shadow: none;
   outline: none;
 }
 
-.formControl[disabled], .formControl[readonly] {
-  background-color: #EEEEEE;
+.formControl[disabled],
+.formControl[readonly] {
+  background-color: #eee;
   opacity: 1;
 }
 
@@ -131,23 +132,23 @@
   padding: 3px 7px;
   font-size: 16px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #fff;
   line-height: 1;
   vertical-align: middle;
   white-space: nowrap;
   text-align: center;
-  background-color: #777777;
+  background-color: #777;
   border-radius: 10px;
 }
 
 .suggestionList {
-  border-color: #000000;
+  border-color: #000;
   border-style: solid;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0 1px 1px 1px;
   list-style-type: none;
   max-height: 300px;
   overflow-y: scroll;
-  padding-inline-start: 0px;
+  padding-inline-start: 0;
 }
 
 .suggestionList li {
@@ -156,8 +157,8 @@
 }
 
 .suggestionList li:hover {
-  background-color: #FF3435;
-  color: #FFFFFF;
+  background-color: #ff3435;
+  color: #fff;
 }
 
 .suggestionList button {
@@ -184,7 +185,7 @@
 }
 
 :local .tagRemove {
-  color: #FF3435;
+  color: #ff3435;
   margin-left: 4px;
   cursor: pointer;
   font-size: 16px;
