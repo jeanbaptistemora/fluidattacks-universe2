@@ -3,8 +3,8 @@
 """
 This migration dumps group repos to the new roots table
 
-Execution Time:
-Finalization Time:
+Execution Time: 2020-12-04 10:59:58 UTC-5
+Finalization Time: 2020-12-04 11:01:55 UTC-5
 """
 # Standard
 import os
