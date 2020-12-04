@@ -81,7 +81,7 @@ async def test_format_data():
     test_data = list(format_data(finding_to_test).keys())
     expected_keys = [
         'context', 'modifiedSeverityScope', 'availabilityRequirement',
-        'evidence', 'releaseDate', 'availabilityImpact','exploit',
+        'evidence', 'availabilityImpact','exploit',
         'modifiedPrivilegesRequired', 'historicTreatment',
         'modifiedAttackVector', 'testType', 'id', 'affectedSystems',
         'attackVectorDesc', 'requirements', 'severity', 'cvssBasescore',
@@ -94,7 +94,7 @@ async def test_format_data():
         'clientProject', 'compromisedAttrs', 'findingType', 'historicState',
         'exploitable', 'confidentialityRequirement', 'records',
         'recordsNumber', 'modifiedAttackComplexity', 'severityScope',
-        'cvssVersion', 'analyst', 'subscription', 'reportDate',
+        'cvssVersion', 'analyst', 'subscription',
         'effectSolution', 'reportLevel', 'scenario',
         'severityCvss', 'modifiedAvailabilityImpact', 'vulnerability',
         'findingId', 'threat', 'lastVulnerability', 'integrityImpact',

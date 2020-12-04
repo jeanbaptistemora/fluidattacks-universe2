@@ -72,9 +72,6 @@
           "availability_requirement": {
             "N": "0.5"
           },
-          "report_date": {
-            "S": "2019-02-04 12:46:10"
-          },
           "attack_complexity": {
             "N": "0.44"
           },
@@ -331,9 +328,6 @@
           },
           "exploitability": {
             "N": "0"
-          },
-          "report_date": {
-            "S": "2019-11-22 15:07:57"
           }
         }
       }
@@ -382,9 +376,6 @@
           },
           "availability_requirement": {
             "N": "1"
-          },
-          "report_date": {
-            "S": "2018-07-09 07:23:14"
           },
           "attack_complexity": {
             "N": "0.77"
@@ -630,9 +621,6 @@
           "requirements": {
             "S": "R359. Avoid using generic exceptions."
           },
-          "releaseDate": {
-            "S": "2018-07-09 00:00:00"
-          },
           "modified_confidentiality_impact": {
             "N": "0"
           },
@@ -749,9 +737,6 @@
           },
           "availability_requirement": {
             "N": "1"
-          },
-          "report_date": {
-            "S": "2019-11-22 15:10:04"
           },
           "attack_complexity": {
             "N": "0.77"
@@ -883,9 +868,6 @@
           },
           "availability_requirement": {
             "N": "1.5"
-          },
-          "report_date": {
-            "S": "2018-09-06 14:23:09"
           },
           "attack_complexity": {
             "N": "0.44"
@@ -1170,9 +1152,6 @@
           "requirements": {
             "S": "REQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
           },
-          "releaseDate": {
-            "S": "2019-04-08 00:00:00"
-          },
           "modified_confidentiality_impact": {
             "N": "0"
           },
@@ -1268,9 +1247,6 @@
           },
           "availability_requirement": {
             "N": "1"
-          },
-          "report_date": {
-            "S": "2018-12-17 10:58:23"
           },
           "attack_complexity": {
             "N": "0.44"
@@ -1468,9 +1444,6 @@
           },
           "requirements": {
             "S": "REQ.0173. El sistema debe descartar toda la informacion potencialmente insegura que sea recibida por entradas de datos."
-          },
-          "releaseDate": {
-            "S": "2019-01-10 00:00:00"
           },
           "modified_confidentiality_impact": {
             "N": "0.22"
@@ -1741,9 +1714,6 @@
           "availability_requirement": {
             "N": "1"
           },
-          "report_date": {
-            "S": "2018-12-17 15:32:25"
-          },
           "attack_complexity": {
             "N": "0.44"
           },
@@ -1971,9 +1941,6 @@
               }
             ]
           },
-          "releaseDate": {
-            "S": "2018-12-17 00:00:00"
-          },
           "modified_confidentiality_impact": {
             "N": "0.56"
           },
@@ -2096,9 +2063,6 @@
           },
           "exploitability": {
             "N": "0"
-          },
-          "report_date": {
-            "S": "2019-11-22 15:08:03"
           }
         }
       }
@@ -2144,9 +2108,6 @@
           },
           "availability_requirement": {
             "N": "1"
-          },
-          "report_date": {
-            "S": "2018-11-27 14:53:36"
           },
           "attack_complexity": {
             "N": "0.44"
@@ -2317,9 +2278,6 @@
           "requirements": {
             "S": "REQ.0077. La aplicación no debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.\r\nREQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
           },
-          "releaseDate": {
-            "S": "2018-11-27 00:00:00"
-          },
           "modified_confidentiality_impact": {
             "N": "0.22"
           },
@@ -2426,9 +2384,6 @@
           },
           "availability_requirement": {
             "N": "0.5"
-          },
-          "report_date": {
-            "S": "2019-02-04 12:46:10"
           },
           "attack_complexity": {
             "N": "0.44"
@@ -2671,9 +2626,6 @@
           "availability_requirement": {
             "N": "0.5"
           },
-          "report_date": {
-            "S": "2019-02-04 12:46:10"
-          },
           "attack_complexity": {
             "N": "0.44"
           },
@@ -2914,9 +2866,6 @@
           "availability_requirement": {
             "N": "1"
           },
-          "report_date": {
-            "S": "2018-11-29 14:53:36"
-          },
           "attack_complexity": {
             "N": "0.44"
           },
@@ -3099,9 +3048,6 @@
           "requirements": {
             "S": "REQ.0077. La aplicación no debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.\r\nREQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
           },
-          "releaseDate": {
-            "S": "2018-11-29 00:00:00"
-          },
           "modified_confidentiality_impact": {
             "N": "0.22"
           },
@@ -3232,9 +3178,6 @@
           "availability_requirement": {
             "N": "0.5"
           },
-          "report_date": {
-            "S":"2019-04-07 19:45:11"
-          },
           "attack_complexity": {
             "N": "0.77"
           },
@@ -3246,9 +3189,6 @@
           },
           "effect_solution": {
             "S": "-"
-          },
-          "releaseDate": {
-            "S": "2019-04-07 19:45:15"
           },
           "modified_confidentiality_impact": {
             "N": "0"
