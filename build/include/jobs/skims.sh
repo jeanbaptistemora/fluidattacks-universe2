@@ -321,6 +321,8 @@ function job_skims_test {
     --reruns 10
     --show-capture no
     --verbose
+    --verbose
+    --verbose
   )
 
       helper_skims_compile_parsers \

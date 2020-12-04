@@ -20,6 +20,7 @@ cwe,title,what,where
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,36
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,45
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,6
+22,SKIMS.S.063. Test - please delete,test/data/benchmark/owasp/BenchmarkTest00001.java,71
 22,SKIMS.S.063. Test - please delete,test/data/lib_path/f063_path_traversal/Test.java,13
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6
@@ -177,6 +178,7 @@ cwe,title,what,where
 377,FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.class,1
 377,FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.jar,1
 378,FIN.S.031. Excessive privileges - Temporary files,test/data/lib_path/f031_cwe378/Test.java,6
+390,FIN.H.061. Errors without traceability,test/data/benchmark/owasp/BenchmarkTest00001.java,89
 390,FIN.H.061. Errors without traceability,test/data/lib_path/f031_cwe378/Test.java,7
 390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/csharp.cs,2
 390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/java.java,2
@@ -187,6 +189,8 @@ cwe,title,what,where
 390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/swift.swift,5
 390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/swift.swift,6
 390,FIN.H.061. Errors without traceability,test/data/lib_path/f061/swift.swift,7
+396,FIN.H.060. Insecure exceptions,test/data/benchmark/owasp/BenchmarkTest00001.java,78
+396,FIN.H.060. Insecure exceptions,test/data/benchmark/owasp/BenchmarkTest00001.java,89
 396,FIN.H.060. Insecure exceptions,test/data/lib_path/f031_cwe378/Test.java,7
 396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/csharp.cs,2
 396,FIN.H.060. Insecure exceptions,test/data/lib_path/f060/csharp.cs,3

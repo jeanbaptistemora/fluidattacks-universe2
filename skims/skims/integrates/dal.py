@@ -118,12 +118,6 @@ async def _execute(
                     'Login required',
                 ),
             ),
-            ErrorMapping(
-                exception=StopRetrying('Access denied'),
-                messages=(
-                    'Access denied',
-                ),
-            ),
         ),
         query=query,
         variables=variables,

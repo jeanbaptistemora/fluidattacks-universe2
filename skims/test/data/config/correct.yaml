@@ -2,6 +2,7 @@ language: EN
 output: test/outputs/results.csv
 path:
   include:
+    - glob(test/data/benchmark/*)
     - glob(test/data/lib_path/*)
     - skims/
   exclude:

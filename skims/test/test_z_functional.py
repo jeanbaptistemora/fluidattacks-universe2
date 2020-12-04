@@ -478,6 +478,8 @@ async def test_correct_assert(
             ('test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf', '1'),
         )),
         ('F060', 'APPROVED', (
+            ('test/data/benchmark/owasp/BenchmarkTest00001.java', '78'),
+            ('test/data/benchmark/owasp/BenchmarkTest00001.java', '89'),
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),
             ('test/data/lib_path/f060/Test.java', '11'),
             ('test/data/lib_path/f060/Test.java', '12'),
@@ -504,6 +506,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f061/swift.swift', '7'),
         )),
         ('F061', 'APPROVED', (
+            ('test/data/benchmark/owasp/BenchmarkTest00001.java', '89'),
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),
             ('test/data/lib_path/f061/csharp.cs', '2'),
             ('test/data/lib_path/f061/java.java', '2'),
@@ -516,6 +519,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f061/swift.swift', '7'),
         )),
         ('F063_PATH_TRAVERSAL', 'SUBMITTED', (
+            ('test/data/benchmark/owasp/BenchmarkTest00001.java', '71'),
             ('test/data/lib_path/f063_path_traversal/Test.java', '13'),
         )),
         ('F073', 'APPROVED', (
