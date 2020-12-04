@@ -42,9 +42,9 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     )
     status = history[-1].get('state')
     success = False
-    is_finding_released = finding_filters.is_released(draft_data)
+    is_finding_approved = finding_filters.is_approved(draft_data)
 
-    if not is_finding_released:
+    if not is_finding_approved:
         if status == 'SUBMITTED':
             rejection_date = datetime_utils.get_as_str(
                 datetime_utils.get_now()
@@ -77,9 +77,9 @@ async def approve_draft(
     )
     release_date: str = ''
     success = False
-    is_finding_released = finding_filters.is_released(draft_data)
+    is_finding_approved = finding_filters.is_approved(draft_data)
 
-    if (not is_finding_released and
+    if (not is_finding_approved and
             submission_history[-1].get('state') != 'DELETED'):
         vulns = await vuln_domain.list_vulnerabilities_async([draft_id])
         has_vulns = [
@@ -87,7 +87,8 @@ async def approve_draft(
             if vuln_domain.filter_deleted_status(vuln)
         ]
         if has_vulns:
-            if 'reportDate' in draft_data:
+            is_finding_submited = finding_filters.is_submitted(draft_data)
+            if is_finding_submited:
                 release_date = datetime_utils.get_as_str(
                     datetime_utils.get_now()
                 )
@@ -179,9 +180,9 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
         List[Dict[str, str]],
         finding.get('historicState')
     )
-    is_finding_released = finding_filters.is_released(finding)
+    is_finding_approved = finding_filters.is_approved(finding)
 
-    if (not is_finding_released and
+    if (not is_finding_approved and
             submission_history[-1].get('state') != 'DELETED'):
         is_submitted = submission_history[-1].get('state') == 'SUBMITTED'
         if not is_submitted:

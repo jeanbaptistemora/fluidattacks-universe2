@@ -81,30 +81,80 @@ def filter_non_submitted_findings(
     return non_submitted_findings
 
 
-def get_release_date(finding: Dict[str, FindingType]) -> str:
-    """Get release date from the historic state"""
-    release_date = ''
-    current_state_info = {}
+def get_historic_state(finding: Dict[str, FindingType]) -> HistoricType:
+    historic_state = []
     if 'historic_state' in finding:
-        current_state_info = cast(
+        historic_state = cast(
             HistoricType,
             finding['historic_state']
-        )[-1]
+        )
     elif 'historicState' in finding:
-        current_state_info = cast(
+        historic_state = cast(
             HistoricType,
             finding['historicState']
-        )[-1]
-    if current_state_info.get('state', '') == 'APPROVED':
-        release_date = current_state_info['date']
+        )
 
-    return release_date
+    return historic_state
 
 
-def is_released(finding: Dict[str, FindingType]) -> bool:
-    """Determine if a finding is released from the historic state"""
-    is_finding_released = False
-    if get_release_date(finding):
-        is_finding_released = True
+def get_creation_date(finding: Dict[str, FindingType]) -> str:
+    """Get creation date from the historic state"""
+    creation_date = ''
+    historic_state = get_historic_state(finding)
+    if historic_state:
+        creation_info = list(filter(
+            lambda state_info: state_info['state'] == 'CREATED',
+            historic_state
+        ))
+    if creation_info:
+        creation_date = creation_info[-1]['date']
 
-    return is_finding_released
+    return creation_date
+
+
+def is_created(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is created from the historic state"""
+
+    return bool(get_creation_date(finding))
+
+
+def get_submission_date(finding: Dict[str, FindingType]) -> str:
+    """Get submission date from the historic state"""
+    submission_date = ''
+    historic_state = get_historic_state(finding)
+    if historic_state:
+        submission_info = list(filter(
+            lambda state_info: state_info['state'] == 'SUBMITTED',
+            historic_state
+        ))
+    if submission_info:
+        submission_date = submission_info[-1]['date']
+
+    return submission_date
+
+
+def is_submitted(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is submitted from the historic state"""
+
+    return bool(get_submission_date(finding))
+
+
+def get_approval_date(finding: Dict[str, FindingType]) -> str:
+    """Get approval date from the historic state"""
+    approval_date = ''
+    historic_state = get_historic_state(finding)
+    if historic_state:
+        approval_info = list(filter(
+            lambda state_info: state_info['state'] == 'APPROVED',
+            historic_state
+        ))
+    if approval_info:
+        approval_date = approval_info[-1]['date']
+
+    return approval_date
+
+
+def is_approved(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is approved from the historic state"""
+
+    return bool(get_approval_date(finding))

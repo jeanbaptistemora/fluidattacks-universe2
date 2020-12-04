@@ -34,14 +34,27 @@
             "L": [
               {
                 "M": {
-                  "analyst": {
-                    "S": "unittest@fluidattacks.com"
+                  "date": {
+                    "S": "2018-04-07 19:43:18"
                   },
-                  "creation_date": {
-                    "S": "2019-02-04 12:46:10"
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S": "CREATED"
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-04-07 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
                   }
                 }
               }
@@ -1544,7 +1557,7 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
-                  "creation_date": {
+                  "date": {
                     "S": "2019-02-04 12:46:10"
                   },
                   "state": {
@@ -2392,7 +2405,7 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
-                  "creation_date": {
+                  "date": {
                     "S": "2019-02-04 12:46:10"
                   },
                   "state": {
@@ -2636,7 +2649,7 @@
                   "analyst": {
                     "S": "unittest@fluidattacks.com"
                   },
-                  "creation_date": {
+                  "date": {
                     "S": "2019-02-04 12:46:10"
                   },
                   "state": {

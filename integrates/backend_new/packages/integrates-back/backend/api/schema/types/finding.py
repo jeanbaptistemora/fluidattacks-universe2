@@ -21,6 +21,7 @@ from backend.api.resolvers.new.finding import (
     ports_vulns,
     records,
     release_date,
+    report_date,
     sorts,
     state,
     tracking,
@@ -46,6 +47,7 @@ FINDING.set_field('openVulnerabilities', open_vulnerabilities.resolve)
 FINDING.set_field('portsVulns', ports_vulns.resolve)
 FINDING.set_field('records', records.resolve)
 FINDING.set_field('releaseDate', release_date.resolve)
+FINDING.set_field('reportDate', report_date.resolve)
 FINDING.set_field('sorts', sorts.resolve)
 FINDING.set_field('state', state.resolve)
 FINDING.set_field('tracking', tracking.resolve)

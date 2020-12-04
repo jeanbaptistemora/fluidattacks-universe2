@@ -39,7 +39,7 @@ async def resolve(
     finding_loader: DataLoader = info.context.loaders['finding']
     finding: Finding = await finding_loader.load(finding_id)
 
-    is_draft = not finding_filters.is_released(
+    is_draft = not finding_filters.is_approved(
         cast(Dict[str, Finding], finding)
     )
 

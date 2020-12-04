@@ -17,17 +17,15 @@ from backend.filters import finding as finding_filters
 
 @get_entity_cache_async
 async def resolve(
-    parent: Finding,
+    parent: Dict[str, Finding],
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> int:
-    finding_id: str = cast(Dict[str, str], parent)['id']
-    release_date = finding_filters.get_release_date(
-        cast(Dict[str, Finding], parent)
-    )
+    finding_id: str = cast(str, parent['id'])
+    release_date = finding_filters.get_approval_date(parent)
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
     vulns = vuln_domain.filter_zero_risk(vulns)
 
-    return finding_domain.get_age_finding(vulns, cast(str, release_date))
+    return finding_domain.get_age_finding(vulns, release_date)

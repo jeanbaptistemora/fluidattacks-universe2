@@ -16,18 +16,16 @@ from backend.typing import (
 
 @get_entity_cache_async
 async def resolve(
-    parent: Finding,
+    parent: Dict[str, Finding],
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[TrackingItem]:
-    finding_id: str = cast(Dict[str, str], parent)['id']
-    is_finding_released = finding_filters.is_released(
-        cast(Dict[str, Finding], parent)
-    )
+    finding_id: str = cast(str, parent['id'])
+    is_finding_approved = finding_filters.is_approved(parent)
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
 
-    if is_finding_released:
+    if is_finding_approved:
         vulns = await finding_vulns_loader.load(finding_id)
 
         return finding_domain.get_tracking_vulnerabilities(vulns)

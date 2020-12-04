@@ -108,7 +108,7 @@ async def test_finding():
         'type': 'SECURITY',
         'is_exploitable': False,
         'severity_score': 4.3,
-        'report_date': '2018-12-17 15:32:25',
+        'report_date': '2018-04-07 19:45:11',
         'current_state': 'APPROVED',
         'new_remediated': False,
         'verified': True,

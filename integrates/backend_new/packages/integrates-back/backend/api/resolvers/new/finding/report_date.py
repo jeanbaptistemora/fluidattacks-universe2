@@ -16,6 +16,13 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> str:
-    release_date = finding_filters.get_approval_date(parent)
+    report_date = ''
+    is_finding_submitted = finding_filters.is_submitted(parent)
+    is_finding_created = finding_filters.is_created(parent)
 
-    return release_date
+    if is_finding_submitted:
+        report_date = finding_filters.get_submission_date(parent)
+    elif is_finding_created:
+        report_date = finding_filters.get_creation_date(parent)
+
+    return report_date

@@ -516,7 +516,7 @@ async def create_msj_finding_pending(
         if vuln['current_state'] == 'open'
     ]
     if historic_treatment[-1].get('treatment', 'NEW') == 'NEW' and open_vulns:
-        release_date = finding_filters.get_release_date(act_finding)
+        release_date = finding_filters.get_approval_date(act_finding)
         days = finding_domain.get_age_finding(
             cast(List[VulnerabilityType], open_vulns),
             release_date,
@@ -595,8 +595,8 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         if project not in test_projects:
             try:
                 for finding in finding_requests:
-                    is_finding_released = finding_filters.is_released(finding)
-                    if not is_finding_released:
+                    is_finding_approved = finding_filters.is_approved(finding)
+                    if not is_finding_approved:
                         org_id = await org_domain.get_id_for_group(project)
                         org_name = await org_domain.get_name_by_id(org_id)
                         submission = finding.get('historicState')
