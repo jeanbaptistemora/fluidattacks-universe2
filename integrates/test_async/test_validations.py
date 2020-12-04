@@ -63,7 +63,7 @@ def test_validate_file_name():
 
 def test_is_valid_url() -> None:
     assert is_valid_url('https://fluidattacks.com/')
-    assert not is_valid_url('https://fluidattacks.com:65536/')
+    assert is_valid_url('ssh://git@ssh.dev.azure.com:v3/company/project/')
     assert not is_valid_url('randomstring')
 
 

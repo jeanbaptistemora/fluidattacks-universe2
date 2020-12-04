@@ -1,12 +1,11 @@
 import re
 from ipaddress import ip_address
 from typing import List
+from urllib.parse import urlparse, ParseResult
 
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from git import Git, GitCommandError
-from urllib3.exceptions import LocationParseError
-from urllib3.util.url import parse_url, Url
 
 from backend import authz
 from backend.exceptions import (
@@ -148,12 +147,9 @@ def validate_phone_field(phone_field: str) -> bool:
 
 
 def is_valid_url(url: str) -> bool:
-    try:
-        url_attributes: Url = parse_url(url)
+    url_attributes: ParseResult = urlparse(url)
 
-        return bool(url_attributes.netloc and url_attributes.scheme)
-    except LocationParseError:
-        return False
+    return bool(url_attributes.netloc and url_attributes.scheme)
 
 
 def is_valid_git_branch(branch_name: str) -> bool:

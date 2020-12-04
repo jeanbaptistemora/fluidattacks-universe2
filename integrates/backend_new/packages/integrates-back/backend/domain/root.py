@@ -2,6 +2,7 @@
 from typing import Any, Dict, Optional, Tuple
 
 # Third party
+from urllib.parse import unquote
 from urllib3.util.url import parse_url, Url
 
 # Local
@@ -129,8 +130,9 @@ def is_valid_git_repo(url: str, branch: str) -> bool:
 
 async def add_git_root(user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
+    url: str = unquote(kwargs['url'])
 
-    if is_valid_git_repo(kwargs['url'], kwargs['branch']):
+    if is_valid_git_repo(url, kwargs['branch']):
         kind: str = 'Git'
         org_id: str = await org_domain.get_id_for_group(group_name)
         initial_state: Dict[str, Any] = {
@@ -144,7 +146,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
             'branch': kwargs['branch'],
             'historic_state': [initial_state],
             'kind': kind,
-            'url': kwargs['url'],
+            'url': url,
         }
 
         if await _is_unique_in_org(org_id, kind, root_attributes):
