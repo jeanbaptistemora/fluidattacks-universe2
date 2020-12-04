@@ -65,19 +65,28 @@ def setup_cursor(postgresql: Any) -> Cursor:
 
 
 def setup_db(cursor: Cursor) -> None:
-    create_schema = cursor.execute('CREATE SCHEMA \"super-schema\"')
-    create_table = cursor.execute("""
-        CREATE TABLE \"super-schema\".bulk_jobs (
-            operation VARCHAR,
-            created_by VARCHAR,
-            created_time VARCHAR,
-            state VARCHAR,
-            id VARCHAR,
-            module VARCHAR,
-            page INTEGER,
-            result VARCHAR DEFAULT NULL
-        );
-    """)
+    schema = 'super-schema'
+    create_schema = cursor.execute(
+        'CREATE SCHEMA {schema_name}',
+        DynamicSQLargs(identifiers={'schema_name': schema})
+    )
+    create_table = cursor.execute(
+        """
+            CREATE TABLE {schema_name}.bulk_jobs (
+                operation VARCHAR,
+                created_by VARCHAR,
+                created_time VARCHAR,
+                state VARCHAR,
+                id VARCHAR,
+                module VARCHAR,
+                page INTEGER,
+                result VARCHAR DEFAULT NULL
+            );
+        """,
+        DynamicSQLargs(
+            identifiers={'schema_name': schema}
+        )
+    )
     create_schema.act()
     create_table.act()
 

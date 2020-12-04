@@ -91,13 +91,13 @@ def make_fetch_action_builder(cursor: Cursor) -> MakeFetchAction:
 def sql_id_purifier_builder(sql_lib: Any = postgres_sql) -> SQLidPurifier:
     def purifier(
         statement: str, args: Optional[DynamicSQLargs] = None
-    ) -> str:
+    ) -> Any:
         raw_sql = sql_lib.SQL(statement)
         format_input = {}
         if args:
             for key, value in args.identifiers.items():
                 format_input[key] = sql_lib.Identifier(value)
         if format_input:
-            return str(raw_sql.format(**format_input))
+            return raw_sql.format(**format_input)
         return statement
     return purifier
