@@ -14,7 +14,7 @@ from eval_java.evaluate import (
 from graph_java.transformations.sinks import (
     SINKS,
 )
-from graph_java.transformations.control_flow import (
+from graph_java.transformations.cfg import (
     ALWAYS,
     BREAK,
     CONTINUE,
@@ -112,63 +112,35 @@ async def test_control_flow_1() -> None:
         path=path,
     )
 
-    # Check IfThenStatement
-    assert has_labels(graph['346']['392'], **TRUE)
-
-    # Check IfThenElseStatement
-    assert has_labels(graph['1075']['1122'], **TRUE)
-    assert has_labels(graph['1075']['1135'], **FALSE)
-
-    # Check BlockStatement
-    assert has_labels(graph['3138']['3140'], **ALWAYS)
-    assert has_labels(graph['3140']['3144'], **ALWAYS)
-    assert has_labels(graph['3144']['3193'], **ALWAYS)
-    assert has_labels(graph['3279']['3316'], **ALWAYS)
-    assert has_labels(graph['3316']['3561'], **FALSE)
-    assert has_labels(graph['3561']['3193'], **ALWAYS)
-    assert has_labels(graph['3193']['3056'], **ALWAYS)
-
-    # Check WhileStatement
-    assert has_labels(graph['816']['853'], **TRUE)
-    assert has_labels(graph['1266']['816'], **ALWAYS)
-
-    # Check DoWhileStatement
-    assert has_labels(graph['2985']['3648'], **ALWAYS)
-    assert has_labels(graph['3056']['2985'], **TRUE)
-    assert has_labels(graph['3056']['3648'], **FALSE)
-
-    # Check BreakStatement
-    assert has_labels(graph['1128']['1216'], **BREAK)
-    assert has_labels(graph['1663']['2100'], **BREAK)  # break in switch
-    assert has_labels(graph['4440']['4495'], **BREAK)  # break in for
-    assert has_labels(graph['4658']['4725'], **BREAK)  # break in while
-
-    # Check ContinueStatement
-    assert has_labels(graph['3553']['3316'], **CONTINUE)  # continue in nested loop for-for-while
-    assert has_labels(graph['1141']['920'], **CONTINUE)  # continue in nested loop while-for
-    assert has_labels(graph['5138']['4971'], **CONTINUE)
-
-    # Check ForStatement
-    assert has_labels(graph['920']['1002'], **TRUE)
-    assert has_labels(graph['920']['1216'], **FALSE)
-    assert has_labels(graph['1148']['920'], **ALWAYS)
-
-    # Check SwitchStatement
-    assert has_labels(graph['1568']['1591'], **ALWAYS)
-    assert has_labels(graph['1593']['1619'], **TRUE)
-    assert has_labels(graph['1591']['1973'], **ALWAYS)  # Break
-    assert has_labels(graph['1591']['1666'], **ALWAYS)  # no Break
-
-    # TryStatement
-    assert has_labels(graph['168']['170'], **ALWAYS)  # try -> block
-    assert has_labels(graph['170']['329'], **MAYBE)  # block -> catch
-
-    assert has_labels(graph['5950']['5952'], **ALWAYS)  # try -> block
-    assert has_labels(graph['5952']['5993'], **MAYBE)  # block -> catch
-    assert has_labels(graph['5952']['6041'], **MAYBE)  # block -> catch
-
-    assert has_labels(graph['6097']['6099'], **ALWAYS)  # try -> block
-    assert has_labels(graph['6099']['6103'], **ALWAYS)  # block -> finally
+    for s_id, t_id, edge_attrs in (
+        # MethodDeclaration
+        (61, 91, ALWAYS),
+        # Block
+        (91, 93, ALWAYS),
+        # BlockStatements
+        (93, 95, ALWAYS),
+        (95, 129, ALWAYS),
+        (129, 168, ALWAYS),
+        # TryStatement
+        (168, 170, ALWAYS),  # try
+        (170, 172, ALWAYS),  # {}
+        (170, 329, MAYBE),  # catch
+        # IfThenStatement
+        (454, 479, ALWAYS),
+        # IfThenElseStatement
+        (663, 1307, ALWAYS),
+        # SwitchStatement
+        (2153, 2433, ALWAYS),
+        # WhileStatement
+        (2844, 2947, ALWAYS),
+        # DoStatement
+        (2985, 3648, ALWAYS),
+        # BasicForStatement
+        (3648, 3784, ALWAYS),
+        # EnhancedForStatement
+        (3876, 3911, ALWAYS),
+    ):
+        assert has_labels(graph[str(s_id)][str(t_id)], **edge_attrs), (s_id, t_id)
 
 
 @run_decorator
@@ -181,5 +153,5 @@ async def test_control_flow_2() -> None:
     )
 
     assert sorted(g.flows(graph, sink_type='F063_PATH_TRAVERSAL')) == [
-        ('30', '85', '87', '91', '125', '185', '286', '351', '352', '368', '392', '422'),
+        ('30', '85', '87', '91', '125', '185', '286', '351'),
     ]

@@ -102,6 +102,54 @@
   {
     "meta": {
       "danger": false,
+      "linear": false,
+      "sink": null,
+      "stack": 0
+    },
+    "method": "theCookie.getValue",
+    "recursive": true,
+    "stack": [],
+    "type": "StatementCustomMethodInvocation"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
+    "type": "StatementLiteral",
+    "value": "\"UTF-8\"",
+    "value_type": "string"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -2
+    },
+    "method": "java.net.URLDecoder.decode",
+    "recursive": true,
+    "stack": [],
+    "type": "StatementCustomMethodInvocation"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementAssignment",
+    "var": "param"
+  },
+  {
+    "meta": {
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": 0

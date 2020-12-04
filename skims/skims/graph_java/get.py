@@ -12,7 +12,7 @@ from parse_antlr import (
     model as antlr_model,
 )
 from graph_java.transformations import (
-    control_flow,
+    cfg,
     inputs,
     reducers,
     sinks,
@@ -56,7 +56,7 @@ async def get(
     reducers.reduce(graph)
     inputs.mark(graph)
     sinks.mark(graph)
-    control_flow.analyze(graph)
+    cfg.analyze(graph)
     styles.stylize(graph)
 
     if debug:
