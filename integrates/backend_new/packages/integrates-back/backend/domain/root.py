@@ -6,9 +6,15 @@ from urllib.parse import unquote
 from urllib3.util.url import parse_url, Url
 
 # Local
+from backend import authz
 from backend.dal import root as root_dal
 from backend.domain import organization as org_domain
-from backend.exceptions import InvalidParameter, RepeatedValues, RootNotFound
+from backend.exceptions import (
+    InvalidParameter,
+    PermissionDenied,
+    RepeatedValues,
+    RootNotFound
+)
 from backend.typing import GitRoot, IPRoot, URLRoot, Root
 from backend.utils import datetime, validations
 
@@ -132,6 +138,13 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
     url: str = unquote(kwargs['url'])
 
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if (
+        kwargs.get('filter')
+        and not enforcer(group_name, 'update_git_root_filter')
+    ):
+        raise PermissionDenied()
+
     if is_valid_git_repo(url, kwargs['branch']):
         kind: str = 'Git'
         org_id: str = await org_domain.get_id_for_group(group_name)
@@ -226,6 +239,13 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         is_valid_git_repo(root['url'], root['branch'])
         and root['kind'] == 'Git'
     )
+
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if (
+        kwargs.get('filter') != root['historic_state'][-1].get('filter')
+        and not enforcer(root['group_name'], 'update_git_root_filter')
+    ):
+        raise PermissionDenied()
 
     if is_valid:
         group_name: str = root['group_name']

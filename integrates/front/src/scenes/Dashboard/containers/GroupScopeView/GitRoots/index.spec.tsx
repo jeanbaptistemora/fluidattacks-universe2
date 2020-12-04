@@ -76,13 +76,17 @@ describe("GitRoots", (): void => {
     const handleSubmit: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider>
-          <GitRootsModal
-            initialValues={undefined}
-            onClose={handleClose}
-            onSubmit={handleSubmit}
-          />
-        </MockedProvider>
+        <authzPermissionsContext.Provider
+          value={new PureAbility([{ action: "update_git_root_filter" }])}
+        >
+          <MockedProvider>
+            <GitRootsModal
+              initialValues={undefined}
+              onClose={handleClose}
+              onSubmit={handleSubmit}
+            />
+          </MockedProvider>
+        </authzPermissionsContext.Provider>
       </Provider>
     );
 

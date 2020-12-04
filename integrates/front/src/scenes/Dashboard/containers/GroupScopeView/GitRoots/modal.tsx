@@ -1,4 +1,5 @@
 import { Button } from "components/Button";
+import { Can } from "utils/authz/Can";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IGitFormAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
@@ -159,50 +160,52 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                   </div>
                 ) : undefined}
               </fieldset>
-              <FormSection name={"filter"}>
-                <fieldset>
-                  <legend className={"f3 b"}>
-                    {t("group.scope.git.filter.title")}
-                  </legend>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {t("group.scope.git.filter.policy")}
-                  </ControlLabel>
-                  <Field
-                    component={Dropdown}
-                    name={"policy"}
-                    validate={[required]}
-                  >
-                    <option value={"NONE"}>
-                      {t("group.scope.git.filter.none")}
-                    </option>
-                    <option value={"INCLUDE"}>
-                      {t("group.scope.git.filter.include")}
-                    </option>
-                    <option value={"EXCLUDE"}>
-                      {t("group.scope.git.filter.exclude")}
-                    </option>
-                  </Field>
-                  {filterPolicy === "NONE" ? undefined : (
-                    <React.Fragment>
-                      <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t("group.scope.git.filter.paths")}
-                      </ControlLabel>
-                      <ArrayField initialValue={""} name={"paths"}>
-                        {(fieldName: string): JSX.Element => (
-                          <Field
-                            component={Text}
-                            name={fieldName}
-                            type={"text"}
-                            validate={[required]}
-                          />
-                        )}
-                      </ArrayField>
-                    </React.Fragment>
-                  )}
-                </fieldset>
-              </FormSection>
+              <Can do={"update_git_root_filter"}>
+                <FormSection name={"filter"}>
+                  <fieldset>
+                    <legend className={"f3 b"}>
+                      {t("group.scope.git.filter.title")}
+                    </legend>
+                    <ControlLabel>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t("group.scope.git.filter.policy")}
+                    </ControlLabel>
+                    <Field
+                      component={Dropdown}
+                      name={"policy"}
+                      validate={[required]}
+                    >
+                      <option value={"NONE"}>
+                        {t("group.scope.git.filter.none")}
+                      </option>
+                      <option value={"INCLUDE"}>
+                        {t("group.scope.git.filter.include")}
+                      </option>
+                      <option value={"EXCLUDE"}>
+                        {t("group.scope.git.filter.exclude")}
+                      </option>
+                    </Field>
+                    {filterPolicy === "NONE" ? undefined : (
+                      <React.Fragment>
+                        <ControlLabel>
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                          {t("group.scope.git.filter.paths")}
+                        </ControlLabel>
+                        <ArrayField initialValue={""} name={"paths"}>
+                          {(fieldName: string): JSX.Element => (
+                            <Field
+                              component={Text}
+                              name={fieldName}
+                              type={"text"}
+                              validate={[required]}
+                            />
+                          )}
+                        </ArrayField>
+                      </React.Fragment>
+                    )}
+                  </fieldset>
+                </FormSection>
+              </Can>
             </React.Fragment>
             <ButtonToolbar>
               <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>

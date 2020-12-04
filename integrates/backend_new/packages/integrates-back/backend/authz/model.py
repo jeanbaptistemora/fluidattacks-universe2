@@ -99,7 +99,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:group_manager',
             'grant_group_level_role:resourcer',
             'grant_group_level_role:reviewer',
-            'post_finding_observation'
+            'post_finding_observation',
+            'update_git_root_filter'
         },
         tags=set(),
     ),
@@ -249,6 +250,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
             'valid_treatment_manager',
+            'update_git_root_filter'
         },
         tags=set(),
     ),
@@ -435,6 +437,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:resourcer',
             'post_finding_observation',
             'valid_treatment_manager',
+            'update_git_root_filter'
         },
         tags=set(),
     ),

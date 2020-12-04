@@ -193,7 +193,7 @@ describe("GroupScopeView", (): void => {
     await act(
       async (): Promise<void> => {
         wrapper.find("form").simulate("submit");
-        const delay: number = 200;
+        const delay: number = 50;
         await wait(delay);
         wrapper.update();
       }
@@ -290,6 +290,7 @@ describe("GroupScopeView", (): void => {
               new PureAbility([
                 { action: "backend_api_mutations_add_git_root_mutate" },
                 { action: "backend_api_mutations_update_git_root_mutate" },
+                { action: "update_git_root_filter" },
               ])
             }
           >
