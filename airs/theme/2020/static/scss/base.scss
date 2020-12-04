@@ -22,15 +22,15 @@ $middleblack: rgba(85, 85, 85, 1);
 $greenyellow: rgba(173, 255, 47, 1);
 $button-hover: rgba(255, 52, 53, 1);
 $button-red: rgba(191, 38, 38, 1);
-$shadowblack: rgba(0, 0, 0, .2);
-$graybar: rgba(0, 0, 0, .8);
+$shadowblack: rgba(0, 0, 0, 0.2);
+$graybar: rgba(0, 0, 0, 0.8);
 $nearwhite: rgba(246, 246, 246, 1);
 $headergray: rgba(230, 228, 228, 1);
-$bordertable: rgba(0, 0, 0, .1);
+$bordertable: rgba(0, 0, 0, 0.1);
 $warningyellow: rgba(255, 200, 44, 1);
 $noteblue: rgba(224, 230, 237, 1);
-$grayshadow: rgba(176,176,176,0.1);
-$darkshadow: rgba(176,176,176,0.3);
+$grayshadow: rgba(176, 176, 176, 0.1);
+$darkshadow: rgba(176, 176, 176, 0.3);
 //Monokai theme colors
 $codeblack: rgba(39, 40, 43, 1);
 $codebrown: rgba(117, 113, 94, 1);
@@ -107,14 +107,14 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-maxcontent { width: max-content; }
 .mt8 { margin-top: 20rem; }
 .bannerbt { background-color: $button-red; }
-.bt-pd { padding: .625rem 2.5rem; }
-.bt-trans { transition: all .3s ease;}
-.menu-txt-trans { transition: color .2s; }
+.bt-pd { padding: 0.625rem 2.5rem; }
+.bt-trans { transition: all 0.3s ease;}
+.menu-txt-trans { transition: color 0.2s; }
 .ptdemo { padding-top: 6rem; }
-.rep-bd { border: .063rem solid $fluid-light-gray; }
-.rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
-.wr-bdr { border-bottom-right-radius: .938rem; }
-.wr-bdl { border-top-left-radius: .938rem; }
+.rep-bd { border: 0.063rem solid $fluid-light-gray; }
+.rep-shadow { box-shadow: -0.188rem -0.125rem 0.3rem $fluid-light-gray; }
+.wr-bdr { border-bottom-right-radius: 0.938rem; }
+.wr-bdl { border-top-left-radius: 0.938rem; }
 .wr-sz { height: 5.625rem; width: 5.625rem; }
 .accordion-item h4:not(:active) ~ .accordion-content { display: none; }
 .ch-w { max-width: 95ch; }
@@ -162,30 +162,50 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-menu-products { background-image: url('../../images/menu/bg-menu-products.png'); }
 .bg-menu-solutions { background-image: url('../../images/menu/bg-menu-solutions.png'); }
 .bg-menu-aboutus { background-image: url('../../images/menu/bg-menu-aboutus.png'); }
-.bg-card1 { background-image: url('../../images/resources/card1.png'); height: 200px;}
-.bg-card3 { background-image: url('../../images/resources/card3.png'); height: 200px;}
-.bg-card8 { background-image: url('../../images/resources/card8.png'); height: 200px;}
-.bg-card9 { background-image: url('../../images/resources/card9.png'); height: 200px;}
+
+.bg-card1 {
+  background-image: url('../../images/resources/card1.png');
+  height: 200px;
+}
+
+.bg-card3 {
+  background-image: url('../../images/resources/card3.png');
+  height: 200px;
+}
+
+.bg-card8 {
+  background-image: url('../../images/resources/card8.png');
+  height: 200px;
+}
+
+.bg-card9 {
+  background-image: url('../../images/resources/card9.png');
+  height: 200px;
+}
 .bg-faq { background-image: url('../../images/faq/cover-faq.png'); }
 .bg-compliance { background-image: url('../../images/compliance/cover-compliance.png'); }
 .bg-compliance-internal { background-image: url('../../images/compliance/cover-internal-compliance.png'); }
 .bg-systems { background-image: url('../../images/systems/cover-systems.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
-.lower-img { &:hover { transform: scale(1.1);
-    transition: transform .25s ease-in-out; } }
+
+.lower-img {&:hover { transform: scale(1.1);
+    transition: transform 0.25s ease-in-out; } }
+
 .scale-all { &:hover { transform: scale(1.1);
-    transition: transform .25s ease-in-out;} }
+    transition: transform 0.25s ease-in-out;} }
 .pointer {cursor: pointer; }
 .z-100 { z-index: 100; }
+
 .menu-txt { &:hover {color: $fluid-black; }
   &:focus { color: $fluid-black; } }
+
 .menu-trans { transform: translateY(-25%) rotateX(35deg);
-  transition: transform .5s, opacity .5s; }
+  transition: transform 0.5s, opacity 0.5s; }
 .t-50 { top: 50%; }
 .ty-50 { transform: translateY(-50%); }
 .mt-menu { margin-top: 1.25rem; }
-.f-small { font-size: .8rem; }
+.f-small { font-size: 0.8rem; }
 .w2-5 { width: 2.25rem; }
 .f-footer { font-size: 1.65rem; }
 .lh-2 { line-height: 2; }
@@ -193,25 +213,19 @@ $codeyellow: rgba(230, 219, 116, 1);
 .fw-max { font-weight: 999; }
 .line-menu { display: none; }
 .w-image { width: 37em; }
-.fadein { animation: fadein .5s; }
-.mt-menu-bt { margin-top: .1rem; }
+.fadein { animation: fadein 0.5s; }
+.mt-menu-bt { margin-top: 0.1rem; }
 .item-carousel { width: 24rem; }
-.h-small { height: .5rem; }
-.h-cont-bar { height: .6rem; }
-.h-bar { height: .5rem; }
+.h-small { height: 0.5rem; }
+.h-cont-bar { height: 0.6rem; }
+.h-bar { height: 0.5rem; }
 .mirror-img { transform: scaleX(-1); }
-.feature-button-l { &:hover { transform: translateX(-1rem);
-  transition: all ease-in-out .5s; } }
-.feature-button-r { &:hover { transform: translateX(1rem);
-  transition: all ease-in-out .5s; } }
-.download-btn { &:hover { transform: translateY(.6em);
-  transition: all ease .3s; } }
 .f-sub { font-size: 1.9rem; }
-.right-small { right: .6rem; }
-.nbs {margin-bottom: -.15rem; }
+.right-small { right: 0.6rem; }
+.nbs {margin-bottom: -0.15rem; }
 .banner-height { height: 350px; }
 .lh3 { line-height: 3rem; }
-.w-small {width: .5rem; }
+.w-small {width: 0.5rem; }
 .hv-svg-red { &:hover { fill: $button-hover; } }
 .mb-products { margin-bottom: 6.25rem; }
 .f-benefits { font-size: 2.375rem; }
@@ -219,17 +233,30 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-key-features { font-size: 1.125rem; }
 .lh-key-features { line-height: 2.25rem; }
 .bb-form { border-bottom: 1px solid $lightblack; }
-.h-slide-bt { height: .25rem; }
+.h-slide-bt { height: 0.25rem; }
 .slide-bt-trans { transition: background-color 0.6s ease; }
-.ph-bt { padding-left: 4.25rem; padding-right: 4.25rem; }
-.pv-bt { padding-top: .75rem; padding-bottom: .75rem; }
+
+.ph-bt {
+  padding-left: 4.25rem;
+  padding-right: 4.25rem;
+}
+
+.pv-bt {
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
 .h-maxcontent { height: max-content; }
 .mw-banner { max-width: 56.25rem; }
-.shadowbox-blog { box-shadow: 0px 10px 10px $grayshadow;}
+.shadowbox-blog { box-shadow: 0 10px 10px $grayshadow;}
+
 .hover-card { &:hover {
-  box-shadow: 0px 20px 20px $darkshadow; } }
+    box-shadow: 0 20px 20px $darkshadow; } }
 .mh-100 { max-height: 100%; }
-.ph-10 {padding-right: 10%; padding-left: 10%; }
+
+.ph-10 {
+  padding-left: 10%;
+  padding-right: 10%;
+}
 .w-search-icon { width: 1rem; }
 .minw-menu { min-width: 14rem; }
 .f-error { font-size: 10rem; }
@@ -237,10 +264,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .display-none { display: none; }
 .w-card { width: 21.875rem; }
 .h30-em { height: 30em; }
-.shadow-menu { box-shadow: 0 5px 5px 0 rgb(176,176,176,0.2); }
+.shadow-menu { box-shadow: 0 5px 5px 0 rgb(176, 176, 176, 0.2); }
 .h-logo { height: 5rem; }
 .h-navbar { height: 6.5rem; }
-.t-all-5 { transition: all .5s; }
+.t-all-5 { transition: all 0.5s; }
 .mt-body { margin-top: 6.5rem; }
 .nt-landing { margin-top: -110px;}
 .title-sols { text-align: center; }
@@ -254,23 +281,32 @@ $codeyellow: rgba(230, 219, 116, 1);
 .pl-body { padding-left: 1.875rem; }
 .fheader { font-size: 6rem; }
 .w-footer-form { width: 19rem; }
-.sqr-card { min-height: 400px; width: 400px; }
+
+.sqr-card {
+  min-height: 400px;
+  width: 400px;
+}
 .w-benefit { width: 400px; }
-.services-features  { .sect2 { min-height: 720px !important; } }
+.services-features { .sect2 { min-height: 720px !important; } }
 .mw-1200 { max-width: 1200px; }
 .h-form-field { height: 3rem; }
 .top-50 { top: 50%; }
+
 .contact-modal {
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1199px) {
   .w-footer-links { width: auto; }
-  .w-footer-phrase { width: 50% ; }
+  .w-footer-phrase { width: 50%; }
   .d-ml { display: block; }
-  .mh-ml { margin-left: auto; margin-right: auto; }
+
+  .mh-ml {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .text-center-ml { text-align: center; }
   .bg-ebook { background-image: url('../../images/bg-ebook-l.png'); }
   .asap-bg { background-image: url('../../images/team-l.png'); }
