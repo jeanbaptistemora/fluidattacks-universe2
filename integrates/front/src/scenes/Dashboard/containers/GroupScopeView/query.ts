@@ -73,4 +73,12 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
-export { GET_ROOTS, ADD_GIT_ROOT, UPDATE_GIT_ROOT };
+const UPDATE_ROOT_STATE: DocumentNode = gql`
+  mutation UpdateRootState($id: ID!, $state: ResourceState!) {
+    updateRootState(id: $id, state: $state) {
+      success
+    }
+  }
+`;
+
+export { GET_ROOTS, ADD_GIT_ROOT, UPDATE_GIT_ROOT, UPDATE_ROOT_STATE };

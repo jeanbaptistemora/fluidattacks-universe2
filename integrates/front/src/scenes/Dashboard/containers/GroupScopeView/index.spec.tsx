@@ -1,3 +1,5 @@
+import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { GroupScopeView } from ".";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
@@ -11,7 +13,12 @@ import { getCache } from "utils/apollo";
 import { mount } from "enzyme";
 import store from "store";
 import wait from "waait";
-import { ADD_GIT_ROOT, GET_ROOTS, UPDATE_GIT_ROOT } from "./query";
+import {
+  ADD_GIT_ROOT,
+  GET_ROOTS,
+  UPDATE_GIT_ROOT,
+  UPDATE_ROOT_STATE,
+} from "./query";
 import { MemoryRouter, Route } from "react-router";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
@@ -357,6 +364,144 @@ describe("GroupScopeView", (): void => {
 
     expect(getfirstTableRow().text()).toStrictEqual(
       ["https://gitlab.com/fluidattacks/product", "master", "staging"].join("")
+    );
+  });
+
+  // Will enable next MR
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip("should update root state", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const initialQueryMock: MockedResponse = {
+      request: {
+        query: GET_ROOTS,
+        variables: { groupName: "unittesting" },
+      },
+      result: {
+        data: {
+          group: {
+            __typename: "Project",
+            roots: [
+              {
+                __typename: "GitRoot",
+                branch: "master",
+                environment: "production",
+                environmentUrls: [],
+                filter: null,
+                id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                includesHealthCheck: false,
+                state: "ACTIVE",
+                url: "https://gitlab.com/fluidattacks/product",
+              },
+            ],
+          },
+        },
+      },
+    };
+    const mutationMock: MockedResponse = {
+      request: {
+        query: UPDATE_ROOT_STATE,
+        variables: {
+          id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+          state: "INACTIVE",
+        },
+      },
+      result: {
+        data: {
+          updateRootState: { __typename: "SimplePayload", success: true },
+        },
+      },
+    };
+    const finalQueryMock: MockedResponse = {
+      request: {
+        query: GET_ROOTS,
+        variables: { groupName: "unittesting" },
+      },
+      result: {
+        data: {
+          group: {
+            __typename: "Project",
+            roots: [
+              {
+                __typename: "GitRoot",
+                branch: "master",
+                environment: "production",
+                environmentUrls: [],
+                filter: null,
+                id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                includesHealthCheck: false,
+                state: "INACTIVE",
+                url: "https://gitlab.com/fluidattacks/product",
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <authzGroupContext.Provider
+          value={new PureAbility([{ action: "has_drills_white" }])}
+        >
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                { action: "backend_api_mutations_update_root_state_mutate" },
+              ])
+            }
+          >
+            <MemoryRouter
+              initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+            >
+              <MockedProvider
+                cache={getCache()}
+                mocks={[initialQueryMock, mutationMock, finalQueryMock]}
+              >
+                <Route
+                  component={GroupScopeView}
+                  path={"/orgs/:organizationName/groups/:projectName/scope"}
+                />
+              </MockedProvider>
+            </MemoryRouter>
+          </authzPermissionsContext.Provider>
+        </authzGroupContext.Provider>
+      </Provider>
+    );
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const getfirstTableRow: () => ReactWrapper = (): ReactWrapper =>
+      wrapper.find("tr").at(1) as ReactWrapper;
+
+    const stateSwitch: ReactWrapper = getfirstTableRow().find("td").last();
+    stateSwitch.simulate("click");
+
+    const proceedButton: ReactWrapper = wrapper
+      .find(ConfirmDialog)
+      .find(Button)
+      .at(1);
+    proceedButton.simulate("click");
+
+    await act(
+      async (): Promise<void> => {
+        const delay: number = 50;
+        await wait(delay);
+        wrapper.update();
+      }
+    );
+
+    expect(getfirstTableRow().text()).toStrictEqual(
+      [
+        "https://gitlab.com/fluidattacks/product",
+        "master",
+        "production",
+        "Inactive",
+      ].join("")
     );
   });
 });
