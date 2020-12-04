@@ -24,4 +24,4 @@ requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.poetry.scripts]
-zoho-crm-etl = 'streamer_zoho_crm.cli:main'
+streamer-zoho-crm = 'streamer_zoho_crm.cli:main'

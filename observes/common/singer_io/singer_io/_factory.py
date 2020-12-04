@@ -1,5 +1,6 @@
 # Standard libraries
 import json
+from json.encoder import JSONEncoder
 from typing import (
     Any,
     Dict,
@@ -54,3 +55,10 @@ def deserialize_record(raw_singer_record: str) -> SingerRecord:
             time_extracted=raw_json.get('time_extracted', None)
         )
     raise InvalidType(f'Expected "RECORD" not "{raw_json["type"]}"')
+
+
+class CustomJsonEncoder(JSONEncoder):
+    def default(self: JSONEncoder, o: Any) -> Any:
+        if isinstance(o, frozenset):
+            return list(o)
+        return JSONEncoder.default(self, o)

@@ -73,8 +73,15 @@ def emit_data(
         bdata.file.seek(0)
         persistent_file.write(bdata.file.read())
         record = SingerRecord(
-            stream=id_job_map[bdata.job_id].module,
-            record={'file_name': persistent_file.name}
+            stream=id_job_map[bdata.job_id].module.value,
+            record={
+                'csv_path': persistent_file.name,
+                'options': {
+                    'quote_nonnum': True,
+                    'add_default_types': True,
+                    'pkeys_present': False,
+                }
+            }
         )
         factory.emit(record)
     list(map(emit_bulk_data, data))

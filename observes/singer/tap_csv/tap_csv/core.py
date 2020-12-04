@@ -81,6 +81,7 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
     field_names: Optional[Sequence[str]] = source_reader.fieldnames
     if not field_names:
         raise Exception()
+    LOG.debug('field names: %s', field_names)
     with tempfile.TemporaryDirectory() as temp_dir:
         with open(temp_dir + '/data.csv', 'w+') as destination:
             dest_writer = csv.DictWriter(
@@ -93,7 +94,7 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
             dest_writer.writeheader()
             row_num = 1
             for row in source_reader:
-                if row_num == types_row and options.add_default_types:
+                if row_num == types_row - 1 and options.add_default_types:
                     field_types = dict(
                         zip(
                             field_names,
@@ -107,7 +108,6 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
         output = tempfile.NamedTemporaryFile('w+')
         with open(temp_dir + '/data.csv', 'r') as destination:
             output.write(destination.read())
-    output.flush()
     LOG.debug('output: %s', output.read()[0:2000])
     return output
 
@@ -117,6 +117,7 @@ def to_singer(
     stream: str,
     options: AdjustCsvOptions,
 ) -> None:
+    LOG.debug('csv file: %s', csv_file)
     # ==== TAP ================================================================
     # line 1, field names
     # line 2, primary field(s)
@@ -128,12 +129,14 @@ def to_singer(
     # finally:
     #           - use "null" value with "string" type for empty cells
     procesed_csv: IO[str] = adjust_csv(csv_file, options)
+    procesed_csv.seek(0)
     reader = csv.reader(procesed_csv, delimiter=",", quotechar="\"")
     meta_rows = MetadataRows(
         field_names_row=1,
         field_types_row=3 if options.pkeys_present else 2,
         pkeys_row=2 if options.pkeys_present else None
     )
+    LOG.debug('rows: %s', meta_rows)
     row_num = 0
     pkeys = []
     field_names = []

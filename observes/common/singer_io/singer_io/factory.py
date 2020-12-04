@@ -39,5 +39,5 @@ def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
         SingerSchema: 'SCHEMA',
     }
     msg_dict['type'] = mapper[type(singer_msg)]
-    msg = json.dumps(msg_dict)
+    msg = json.dumps(msg_dict, cls=_factory.CustomJsonEncoder)
     print(msg, file=target, flush=True)
