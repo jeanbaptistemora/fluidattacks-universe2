@@ -30,18 +30,6 @@ export const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   }
 `;
 
-export const HANDLE_ACCEPTATION: DocumentNode = gql
-  `mutation HandleAcceptation($findingId: String!, $observations: String!, $projectName: String!, $response: String!) {
-    handleAcceptation(
-      findingId: $findingId,
-      observations: $observations,
-      projectName: $projectName,
-      response: $response
-    ) {
-      success
-    }
-  }`;
-
 export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
     $actor: String!,
