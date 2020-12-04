@@ -13,8 +13,7 @@
   outline: none;
 }
 
-:local .dropdownButton:hover,
-.dropdownButton:active:hover {
+:local .dropdownButton:hover {
   background-color: #ff3435;
   border-color: #ff3435;
   color: #fff;
@@ -26,6 +25,12 @@
   border-color: #8e1616;
   color: #fff;
   outline: none;
+}
+
+:local .dropdownButton:active:hover {
+  background-color: #ff3435;
+  border-color: #ff3435;
+  color: #fff;
 }
 
 :local .dropdownButton:active svg path {
