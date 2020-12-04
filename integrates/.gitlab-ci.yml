@@ -498,7 +498,6 @@ integrates_lint_styles:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: lint-code
-  allow_failure: true
 
 integrates_test_back:
   <<: *with_nix
