@@ -136,6 +136,19 @@ def adj_ast(
     )
 
 
+def adj_cfg(
+    graph: nx.DiGraph,
+    n_id: str,
+    depth: int = 1,
+    **n_attrs: str,
+) -> Tuple[Any, ...]:
+    return tuple(
+        c_id
+        for c_id in adj(graph, n_id, depth, label_cfg='CFG')
+        if has_labels(graph.nodes[c_id], **n_attrs)
+    )
+
+
 def pred_lazy(
     graph: nx.DiGraph,
     n_id: str,
@@ -180,7 +193,7 @@ def pred_ast(
     depth: int = 1,
     **edge_attrs: str,
 ) -> Tuple[str, ...]:
-    return tuple(pred_lazy(graph, n_id, depth, label_ast='AST', **edge_attrs))
+    return tuple(pred_ast_lazy(graph, n_id, depth, **edge_attrs))
 
 
 def pred_ast_lazy(
@@ -190,6 +203,24 @@ def pred_ast_lazy(
     **edge_attrs: str,
 ) -> Iterator[str]:
     yield from pred_lazy(graph, n_id, depth, label_ast='AST', **edge_attrs)
+
+
+def pred_cfg(
+    graph: nx.DiGraph,
+    n_id: str,
+    depth: int = 1,
+    **edge_attrs: str,
+) -> Tuple[str, ...]:
+    return tuple(pred_cfg_lazy(graph, n_id, depth, **edge_attrs))
+
+
+def pred_cfg_lazy(
+    graph: nx.DiGraph,
+    n_id: str,
+    depth: int = 1,
+    **edge_attrs: str,
+) -> Iterator[str]:
+    yield from pred_lazy(graph, n_id, depth, label_cfg='CFG', **edge_attrs)
 
 
 def paths(
