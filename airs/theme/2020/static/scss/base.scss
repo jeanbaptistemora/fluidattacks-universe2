@@ -1,3 +1,12 @@
+// stylelint-disable selector-max-id
+// stylelint-disable selector-class-pattern
+// Disabling these rules is necessary due to tipue_search plugin
+
+
+// stylelint-disable max-nesting-depth
+// stylelint-disable selector-max-compound-selectors
+// Disabling this rule is necessary due to some needed styles
+
 $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
 $fluid-black: rgba(39, 39, 39, 1);
@@ -115,7 +124,11 @@ $codeyellow: rgba(230, 219, 116, 1);
 .rep-shadow { box-shadow: -0.188rem -0.125rem 0.3rem $fluid-light-gray; }
 .wr-bdr { border-bottom-right-radius: 0.938rem; }
 .wr-bdl { border-top-left-radius: 0.938rem; }
-.wr-sz { height: 5.625rem; width: 5.625rem; }
+
+.wr-sz {
+  height: 5.625rem;
+  width: 5.625rem;
+}
 .accordion-item h4:not(:active) ~ .accordion-content { display: none; }
 .ch-w { max-width: 95ch; }
 .anchor-pos { top: -50vh; }
@@ -601,6 +614,8 @@ $codeyellow: rgba(230, 219, 116, 1);
     padding: 5px;
   }
 
+  // Disabling this rule is necessary due to stylelint not recognizing the element as valid
+  // stylelint-disable-next-line selector-no-qualifying-type
   code.hljs {
     font-family: monospace;
     font-size: 16px;
@@ -651,6 +666,7 @@ $codeyellow: rgba(230, 219, 116, 1);
     padding-top: 0.5rem;
     text-decoration: none;
     transition: all 0.3s ease;
+
     &:hover {
       background-color: $button-hover;
       color: #fff;
@@ -698,6 +714,7 @@ $codeyellow: rgba(230, 219, 116, 1);
     thead {
       background-color: $headergray;
       font-size: 1.125rem;
+
       th {
         padding: 2rem;
         text-align: center;
@@ -806,6 +823,7 @@ video {
     border-style: none !important;
     color: #fff !important;
     text-decoration: none !important;
+
     &:hover {
       color: #fff !important;
     }
@@ -816,7 +834,7 @@ video {
   background-color: #fff;
   border: solid 1px;
   border-color: $button-red;
-  border-radius: 0.25rem ;
+  border-radius: 0.25rem;
   color: $button-red;
   cursor: pointer;
   font-weight: 800;
@@ -843,21 +861,16 @@ video {
   }
 }
 
-// stylelint-disable-next-line selector-max-id
 #tipue_search_input {
   width: 13rem;
 }
 
-// stylelint-disable-next-line selector-max-id
 #tipue_search_input,
 #tipue_search_foot_boxes {
   font: 400 18px/1 'Roboto', sans-serif;
   padding-left: 10px;
 }
 
-// stylelint-disable selector-max-id
-// stylelint-disable selector-class-pattern
-// Disabling these rules is necessary due to tipue_search plugin
 #tipue_search_results_count,
 #tipue_search_warning,
 .tipue_search_content_url,
@@ -922,16 +935,16 @@ video {
 }
 
 .tipue_search_content_text {
-  background-color: white;
+  background-color: #fff;
   border: solid 1px #ccc;
-  border-top: none;
+  border-top-style: none;
   color: $fluid-black;
   font-size: 18px;
   hyphens: auto;
-  padding: 1rem 2rem 2rem;
   margin-left: auto;
   margin-right: auto;
   max-width: 56.25rem;
+  padding: 1rem 2rem 2rem;
   text-align: left;
   word-wrap: break-word;
 }
@@ -979,6 +992,7 @@ video {
     list-style: none;
     margin: 1rem;
     padding-bottom: 1rem;
+
     &.current {
       @include foot-box;
       margin: 1rem;
@@ -987,39 +1001,43 @@ video {
   }
 }
 
-#products-title:checked~.products-list {
-  animation: fadein .5s;
+.products-title:checked~.products-list {
+  animation: fadein 0.5s;
   display: block;
 }
 
-#usecases-title:checked~.usecases-list {
-  animation: fadein .5s;
+.usecases-title:checked~.usecases-list {
+  animation: fadein 0.5s;
   display: block;
 }
 
-#solutions-title:checked~.solutions-list {
-  animation: fadein .5s;
+.solutions-title:checked~.solutions-list {
+  animation: fadein 0.5s;
   display: block;
 }
 
-#aboutus-title:checked~.aboutus-list {
-  animation: fadein .5s;
+.aboutus-title:checked~.aboutus-list {
+  animation: fadein 0.5s;
   display: block;
 }
 
-.usecases-content, .products-content, .solutions-content {
+.usecases-content,
+.products-content,
+.solutions-content {
+  background-color: #fff;
+  box-shadow: 0 20px 20px $darkshadow;
   display: none;
-  position: absolute;
-  background-color: white;
   min-width: 160px;
-  box-shadow: 0px 20px 20px $darkshadow;
+  position: absolute;
+
   a {
-    float: none;
     color: $fluid-black;
-    padding: 12px 16px;
-    text-decoration: none;
     display: block;
+    float: none;
+    padding: 12px 16px;
     text-align: left;
+    text-decoration: none;
+
     &:hover {
       color: $fluid-red;
     }
@@ -1040,39 +1058,43 @@ video {
 
 .paginator {
   a:not(.current) {
+    background-color: #fff;
     padding: 12px 18px;
-    background-color: white;
+
     &:hover {
       background-color: $fluid-red;
-      color: white;
+      color: #fff;
     }
   }
 }
 
 .current {
-  padding: 12px 18px;
   background-color: $fluid-red;
-  color: white;
+  color: #fff;
+  padding: 12px 18px;
 }
 
 .link-hvred {
+  color: $fluid-black;
   font-weight: 600;
   text-decoration: none;
-  color: $fluid-black;
+
   &:hover {
     color: $fluid-red;
   }
 }
 
-.cardgrid{
+.cardgrid {
   .accordion {
     min-height: 350px;
+
     img {
       max-height: 150px;
     }
   }
-  .panel{
-      height: 0;
+
+  .panel {
+    height: 0;
   }
 }
 
@@ -1084,11 +1106,13 @@ video {
     padding: 0 2rem;
     vertical-align: top;
     width: 400px;
+
     h3 {
       color: $fluid-black;
       font-size: 24px;
       font-weight: 700;
     }
+
     p {
       color: $fluid-black;
       font-size: 18px;
@@ -1099,10 +1123,10 @@ video {
 }
 
 .solution-benefits .sect2 h3::after {
-  content: "";
+  border-bottom: 4px solid $button-hover;
+  content: '';
   display: block;
   width: 30%;
-  border-bottom: 4px solid $button-hover;
 }
 
 .counter-container {
@@ -1111,11 +1135,11 @@ video {
 }
 
 .solution-link::after {
-  content: "";
-  display: block;
-  width: 30%;
   border-bottom: 4px solid $button-hover;
-  transition: width .5s;
+  content: '';
+  display: block;
+  transition: width 0.5s;
+  width: 30%;
 }
 
 .solution-link:hover::after {
@@ -1123,11 +1147,11 @@ video {
 }
 
 .menulink::after {
-  content: "";
-  display: block;
-  width: 0;
   border-bottom: 1px solid $white;
-  transition: width .5s;
+  content: '';
+  display: block;
+  transition: width 0.5s;
+  width: 0;
 }
 
 .menulink:hover::after {
@@ -1145,11 +1169,13 @@ video {
     min-height: 300px;
     padding: 0 2rem;
     vertical-align: top;
+
     h3 {
       color: $fluid-black;
       font-size: 24px;
       font-weight: 700;
     }
+
     p {
       color: $fluid-black;
       font-size: 18px;
@@ -1160,10 +1186,10 @@ video {
 }
 
 .product-features .sect2 h3::after {
-  content: "";
+  border-bottom: 4px solid $button-hover;
+  content: '';
   display: block;
   width: 30%;
-  border-bottom: 4px solid $button-hover;
 }
 
 .other-features.product-features {
@@ -1176,11 +1202,12 @@ video {
   .accordion-item:first-child {
     border-top-width: 1px !important;
   }
+
   .accordion-item {
+    border-color: #ccc;
     border-style: solid;
     border-width: 1px;
     border-top-width: 0;
-    border-color: #ccc;
     display: none;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -1189,14 +1216,17 @@ video {
       display: flex;
     }
 
-    h3, p, ol {
+    h3,
+    p,
+    ol {
       margin: 0;
     }
+
     p {
       padding-bottom: 1rem;
     }
-
   }
+
   accordion-item:active h3 .accordion-arrow {
     transform: rotate(180deg);
   }
@@ -1214,21 +1244,24 @@ video {
   .sect2 {
     h3 { font-size: 2.25rem; }
   }
+
   .sect3 {
     h4 { font-size: 1.5rem; }
+
     h4::after {
-      content: "";
+      border-bottom: 4px solid $button-hover;
+      content: '';
       display: block;
       width: 30%;
-      border-bottom: 4px solid $button-hover;
     }
   }
+
   .sect1:last-child {
     .sectionbody {
+      align-items: center;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
     }
   }
 }
