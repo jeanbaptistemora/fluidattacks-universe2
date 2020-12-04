@@ -1,3 +1,14 @@
+:global(.btn:active, .btn.active) {
+  outline: 0;
+  box-shadow: none;
+}
+
+:global(.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default) {
+  color: #555;
+  background-color: #ededed;
+  border-color: #c5c5c5;
+}
+
 html,
 body,
 :global(#root) {
@@ -104,6 +115,15 @@ label {
   color: #272727;
 }
 
+:global .pagination > .active > a,
+:global .pagination > .active > span {
+  background-color: #ff3435;
+  z-index: 3;
+  color: #fff;
+  border-color: #ff3435;
+  cursor: default;
+}
+
 :global .pagination > li:first-child > a,
 :global .pagination > li:first-child > span {
   margin-left: 0;
@@ -127,8 +147,17 @@ label {
   border-color: #ddd;
 }
 
-:global .pagination > .active > a,
-:global .pagination > .active > span,
+:global .dropdown-menu > li > a:hover {
+  background-color: #ff3435;
+  color: #fff;
+}
+
+:global .breadcrumb > li + li > a:active,
+:global .breadcrumb > li + li > a:focus,
+:global .breadcrumb > li + li > a:hover {
+  color: #272727 !important;
+}
+
 :global .pagination > .active > a:hover,
 :global .pagination > .active > span:hover,
 :global .pagination > .active > a:focus,
@@ -151,30 +180,8 @@ label {
   padding: 0 2px;
 }
 
-:global .breadcrumb > li + li > a:active,
-:global .breadcrumb > li + li > a:focus,
-:global .breadcrumb > li + li > a:hover {
-  color: #272727 !important;
-}
-
 :global .btn {
   border-radius: 0;
-}
-
-:global(.btn:active, .btn.active) {
-  outline: 0;
-  box-shadow: none;
-}
-
-:global(.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default) {
-  color: #555;
-  background-color: #ededed;
-  border-color: #c5c5c5;
-}
-
-:global .dropdown-menu > li > a:hover {
-  background-color: #ff3435;
-  color: #fff;
 }
 
 :global .navbar {
@@ -380,92 +387,6 @@ label {
 
 :local .active {
   background-color: #eee !important;
-}
-
-@media print {
-  :global(.col-md-1,.col-md-2,.col-md-3,.col-md-4,
-.col-md-5,.col-md-6,.col-md-7,.col-md-8,
-.col-md-9,.col-md-10,.col-md-11,.col-md-12) {
-    float: left;
-  }
-
-  :global .col-md-offset-1 {
-    margin-left: 8%;
-  }
-
-  :global .col-md-1 {
-    width: 8%;
-  }
-
-  :global .col-md-2 {
-    width: 16%;
-  }
-
-  :global .col-md-3 {
-    width: 25%;
-  }
-
-  :global .col-md-4 {
-    width: 33%;
-  }
-
-  :global .col-md-5 {
-    width: 42%;
-  }
-
-  :global .col-md-6 {
-    width: 50%;
-  }
-
-  :global .col-md-7 {
-    width: 58%;
-  }
-
-  :global .col-md-8 {
-    width: 66%;
-  }
-
-  :global .col-md-9 {
-    width: 75%;
-  }
-
-  :global .col-md-10 {
-    width: 83%;
-  }
-
-  :global .col-md-11 {
-    width: 92%;
-  }
-
-  :global .col-md-12 {
-    width: 100%;
-  }
-
-  :global #dashboard {
-    margin-left: 0.1cm;
-  }
-
-  :global table {
-    page-break-inside: avoid;
-  }
-
-  :global(h1, h2, h3, h4, h5, h6) {
-    page-break-after: avoid;
-    page-break-inside: avoid;
-  }
-
-  :global .alert,
-  :global .btn,
-  :global .bm-menu-wrap,
-  :global nav,
-  :global #navbar,
-  :global #scroll-up {
-    display: none;
-  }
-
-  @page {
-    margin: 1cm;
-  }
 }
 
 /* Custom functions */
