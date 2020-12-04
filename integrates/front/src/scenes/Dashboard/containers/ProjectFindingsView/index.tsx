@@ -333,7 +333,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     <TooltipWrapper
                       message={translate.t("group.findings.report.btn.tooltip")}
                     >
-                      <Button onClick={openReportsModal}>
+                      <Button onClick={openReportsModal} id={"reports"}>
                         {translate.t("group.findings.report.btn.text")}
                       </Button>
                     </TooltipWrapper>
@@ -388,15 +388,15 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     <Row>
                       <Col md={12} className={style.downloadButtonsContainer}>
                         <ButtonToolbar>
-                          <Button onClick={handleRequestProjectReport}>
+                          <Button onClick={handleRequestProjectReport} id={"report-pdf"}>
                             <FontAwesome name="file-pdf-o" />
                               {translate.t("group.findings.report.pdf")}
                           </Button>
-                          <Button onClick={handleRequestProjectReport}>
+                          <Button onClick={handleRequestProjectReport} id={"report-excel"}>
                             <FontAwesome name="file-excel-o" />
                               {translate.t("group.findings.report.xls")}
                           </Button>
-                          <Button onClick={handleRequestProjectReport}>
+                          <Button onClick={handleRequestProjectReport} id={"report-zip"}>
                             <FontAwesome name="file-zip-o" />
                             {translate.t("group.findings.report.data")}
                           </Button>
