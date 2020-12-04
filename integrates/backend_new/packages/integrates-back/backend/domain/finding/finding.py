@@ -15,7 +15,6 @@ from typing import (
 
 from aioextensions import (
     collect,
-    in_process,
     schedule,
 )
 import aioboto3
@@ -56,6 +55,7 @@ from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
+    Tracking as TrackingItem,
 )
 
 
@@ -153,16 +153,16 @@ def get_age_finding(
     return age
 
 
-async def get_tracking_vulnerabilities(
+def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
-) -> List[Dict[str, Union[int, str]]]:
+) -> List[TrackingItem]:
     """get tracking vulnerabilities dictionary"""
-    filter_deleted_status = await collect(
-        in_process(vuln_domain.filter_deleted_status, vuln)
+    filter_deleted_status = [
+        vuln_domain.filter_deleted_status(vuln)
         for vuln in vulnerabilities
-    )
+    ]
     vulns_filtered = [
-        vuln
+        finding_utils.clean_deleted_state(vuln)
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
@@ -179,7 +179,10 @@ async def get_tracking_vulnerabilities(
         tracking_grouped, open_verification_dates
     )
     tracking_casted = finding_utils.cast_tracking(open_verification_tracking)
-    return tracking_casted
+    new_tracked = finding_utils.add_treatment_to_tracking(
+        tracking_casted, vulnerabilities
+    )
+    return new_tracked
 
 
 async def handle_acceptation(

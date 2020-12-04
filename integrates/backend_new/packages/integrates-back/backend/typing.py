@@ -5,9 +5,22 @@
 from datetime import datetime
 from decimal import Decimal
 from typing import Any, List, Dict, Union, Set, NamedTuple, Optional
+from typing_extensions import TypedDict
 
 from boto3.dynamodb.conditions import Key
 
+Datetime = datetime
+Tracking = TypedDict('Tracking', {
+    'cycle': int,
+    'open': int,
+    'closed': int,
+    'effectiveness': int,
+    'date': str,
+    'new': int,
+    'in_progress': int,
+    'accepted': int,
+    'accepted_undefined': int,
+}, total=False)
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]
 Finding = Union[

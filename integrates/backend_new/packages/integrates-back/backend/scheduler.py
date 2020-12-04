@@ -450,7 +450,7 @@ async def calculate_vulnerabilities(
     vulns = await vuln_domain.list_vulnerabilities_async(
         [str(act_finding['finding_id'])]
     )
-    all_tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
+    all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     # Remove last duplicate cycles who are added by approving an open vuln
     if len(all_tracking) > 1:

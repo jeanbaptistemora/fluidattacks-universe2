@@ -270,7 +270,10 @@ async def test_finding():
     assert result['data']['finding']['releaseDate'] == today
     assert result['data']['finding']['openVulnerabilities'] == 1
     assert result['data']['finding']['closedVulnerabilities'] == 2
-    assert result['data']['finding']['tracking'] == [{'closed': 2, 'cycle': 0, 'date': today, 'effectiveness': 66, 'open': 1}]
+    assert result['data']['finding']['tracking'] == [{
+        'cycle': 0, 'open': 1, 'closed': 2, 'effectiveness': 66, 'date': today,
+        'new': 1, 'in_progress': 0, 'accepted': 0, 'accepted_undefined': 0
+    }]
     assert result['data']['finding']['records'] == '[]'
     assert result['data']['finding']['severity'] == {
         'attackComplexity': 0.77,

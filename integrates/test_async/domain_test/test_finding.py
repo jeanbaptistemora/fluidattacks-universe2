@@ -52,9 +52,10 @@ async def test_get_email_recipients():
 async def test_get_tracking_vulnerabilities():
     finding_id = '436992569'
     vulnerabilities = await list_vulnerabilities_async([finding_id])
-    test_data = await get_tracking_vulnerabilities(vulnerabilities)
+    test_data = get_tracking_vulnerabilities(vulnerabilities)
     expected_output = {'date': '2019-08-30', 'effectiveness': 0,
-                        'open': 1, 'closed': 0, 'cycle': 0}
+                        'open': 1, 'closed': 0, 'cycle': 0, 'accepted': 0,
+                        'accepted_undefined': 0, 'in_progress': 0, 'new': 1,}
     assert test_data[0] == expected_output
 
 @pytest.mark.changes_db

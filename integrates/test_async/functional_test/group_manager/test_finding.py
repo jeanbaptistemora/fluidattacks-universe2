@@ -25,7 +25,11 @@ async def test_finding():
                 'open': 1,
                 'closed': 1,
                 'effectiveness': 50,
-                'date': '2019-01-15'
+                'date': '2019-01-15',
+                'in_progress': 0,
+                'new': 0,
+                'accepted': 0,
+                'accepted_undefined': 0
             }
         ],
         'records': '[]',

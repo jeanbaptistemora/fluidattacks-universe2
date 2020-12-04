@@ -13,6 +13,9 @@ from backend.domain.finding import (
     get_findings_by_group,
     get_tracking_vulnerabilities,
 )
+from backend.typing import (
+    Tracking as TrackingItem,
+)
 
 # Local libraries
 from analytics import (
@@ -23,9 +26,9 @@ from analytics.colors import (
 )
 
 
-async def generate_one(finding_id: str) -> List[Dict[str, Union[int, str]]]:
+async def generate_one(finding_id: str) -> List[TrackingItem]:
     vulns = await FindingVulnsLoader().load(finding_id)
-    tracking = await get_tracking_vulnerabilities(vulns)
+    tracking = get_tracking_vulnerabilities(vulns)
     return tracking[-12:]
 
 

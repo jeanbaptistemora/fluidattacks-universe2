@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 import bisect
 import io
 import itertools
@@ -40,7 +42,9 @@ from backend.filters import (
 from backend.typing import (
     Finding as FindingType,
     MailContent as MailContentType,
-    Historic as HistoricType
+    Historic as HistoricType,
+    Tracking as TrackingItem,
+    Datetime
 )
 from backend.utils import (
     cvss,
@@ -145,7 +149,7 @@ async def append_records_to_file(
 
 def cast_tracking(
     tracking: List[Tuple[str, Dict[str, int]]]
-) -> List[Dict[str, Union[int, str]]]:
+) -> List[TrackingItem]:
     """Cast tracking in accordance to schema."""
     cycle = 0
     tracking_casted = []
@@ -155,7 +159,7 @@ def cast_tracking(
                 int(value['closed']) / float(value['open'] + value['closed'])
             ) * 100
         )
-        closing_cicle: Dict[str, Union[int, str]] = {
+        closing_cicle: TrackingItem = {
             'cycle': cycle,
             'open': value['open'],
             'closed': value['closed'],
@@ -222,6 +226,131 @@ async def get_exploit_from_file(
     return file_content
 
 
+def clean_deleted_state(
+    vuln: Dict[str, FindingType]
+) -> Dict[str, FindingType]:
+    historic_state = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_state', [])
+    )
+    new_historic = list(filter(
+        lambda historic: historic.get('state') != 'DELETED',
+        historic_state
+    ))
+    vuln['historic_state'] = new_historic
+    return vuln
+
+
+def get_item_date(
+    item
+) -> Datetime:
+    return datetime_utils.get_from_str(
+        item['date'].split(' ')[0],
+        '%Y-%m-%d'
+    )
+
+
+def filter_by_date(
+    historic_items: List[Dict[str, str]],
+    cycle_date: Datetime
+) -> List[Dict[str, str]]:
+    return list(filter(
+        lambda historic:
+            historic.get('date') and get_item_date(historic) <= cycle_date,
+        historic_items
+    ))
+
+
+def last_treatment_before_cycle_date(
+    historic_treatment: List[Dict[str, str]],
+    historic_state: List[Dict[str, str]],
+    cycle_date: Datetime
+) -> str:
+    result: str = ''
+    historic_treat = filter_by_date(historic_treatment, cycle_date)
+    states = filter_by_date(historic_state, cycle_date)
+    # This handles when the vuln was created after the cycle
+    if not historic_treat or not states:
+        result = 'after_cycle_date'
+
+    # This handles when the vuln was closed on that cycle
+    elif states[-1].get('state') == 'closed':
+        result = 'closed'
+
+    # This handles when the vuln has open state on that cycle
+    else:
+        result = historic_treat[-1].get('treatment', 'new').lower()
+
+    return result.replace(' ', '_')
+
+
+def sort_historic_by_date(
+    historic
+) -> HistoricType:
+    historic_sort = sorted(historic, key=lambda i: i['date'])
+    return historic_sort
+
+
+def build_tracking_dict(
+    treatment: Dict[str, int],
+    cycle: TrackingItem
+) -> TrackingItem:
+    tracking = TrackingItem(
+        cycle=cycle['cycle'],
+        open=cycle['open'],
+        closed=cycle['closed'],
+        effectiveness=cycle['effectiveness'],
+        date=cycle['date'],
+        new=treatment['new'],
+        in_progress=treatment['in_progress'],
+        accepted=treatment['accepted'],
+        accepted_undefined=treatment['accepted_undefined'],
+    )
+    return tracking
+
+
+def add_treatment_to_tracking(
+    tracking: List[TrackingItem],
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> List[TrackingItem]:
+    new_tracking: List[TrackingItem] = []
+    for track in tracking:
+        cycle_date = get_item_date(track)
+        treatment = {
+            'new': 0,
+            'in_progress': 0,
+            'accepted': 0,
+            'accepted_undefined': 0,
+        }
+        allowed_treatments = {
+            'new', 'in_progress', 'accepted', 'accepted_undefined'
+        }
+        for vuln in vulnerabilities:
+            historic_treatment = cast(
+                List[Dict[str, str]],
+                vuln.get('historic_treatment', [])
+            )
+            historic_state = cast(
+                List[Dict[str, str]],
+                vuln.get('historic_state', [])
+            )
+            historic_verification = cast(
+                List[Dict[str, str]],
+                vuln.get('historic_verification', [])
+            )
+            historic = historic_state + historic_verification
+            sorted_historic = sort_historic_by_date(historic)
+            sorted_treatment = sort_historic_by_date(historic_treatment)
+            treat = last_treatment_before_cycle_date(
+                sorted_treatment, sorted_historic, cycle_date
+            )
+            if treat in allowed_treatments:
+                treatment[treat] += 1
+        new_tracking.append(build_tracking_dict(treatment, track))
+
+    return new_tracking
+
+
 def get_open_verification_dates(
         vulnerabilities: List[Dict[str, FindingType]]) -> List[str]:
     """Get dates when open vulns were verified."""
@@ -237,7 +366,7 @@ def get_open_verification_dates(
             vuln.get('historic_verification', [])
         )
         historic = historic_state + historic_verification
-        sorted_historic = sorted(historic, key=lambda i: i['date'])
+        sorted_historic = sort_historic_by_date(historic)
         for index in range(1, len(sorted_historic)):
             prev_milestone = sorted_historic[index - 1]
             milestone = sorted_historic[index]
