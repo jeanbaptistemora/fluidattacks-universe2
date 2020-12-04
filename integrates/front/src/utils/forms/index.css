@@ -25,6 +25,13 @@
   padding: 0.625rem 1.25rem;
 }
 
+:local .inputfile_evidence + label {
+  color: #ff3435;
+  border: 1px solid #ff3435;
+  background-color: #f5ad99;
+  padding: 0;
+}
+
 :local .inputfile:focus + label,
 .inputfile.has_focus + label {
   outline: 1px dotted #000;
@@ -38,13 +45,6 @@
   fill: currentColor;
   margin-top: -0.25em;
   margin-right: 0.25em;
-}
-
-:local .inputfile_evidence + label {
-  color: #ff3435;
-  border: 1px solid #ff3435;
-  background-color: #f5ad99;
-  padding: 0;
 }
 
 :local .inputfile_evidence:focus + label,
