@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -.- coding: utf-8 -.-
 
 from sagemaker.sklearn import SKLearn
 from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
@@ -16,10 +15,10 @@ if __name__ == '__main__':
         metric_definitions=[
             {'Name': 'precision', 'Regex': 'Precision: (.*?)%'},
             {'Name': 'recall', 'Regex': 'Recall: (.*?)%'},
-            {'Name': 'fscore', 'Regex': 'F1-Score: (.*?)%'}
+            {'Name': 'fscore', 'Regex': 'F1-Score: (.*?)%'},
+            {'Name': 'overfit', 'Regex': 'Overfit: (.*?)%'}
         ]
     )
     sklearn_estimator.fit({
-        'train': 's3://sorts/training/training_data.csv',
-        'test': 's3://sorts/training/validation_data.csv'
+        'train': 's3://sorts/training/full_training_data.csv'
     })

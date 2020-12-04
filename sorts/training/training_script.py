@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -.- coding: utf-8 -.-
 
 # Standard Libraries
 import argparse
@@ -14,11 +13,35 @@ import joblib
 import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.model_selection import (
+    cross_validate,
+    learning_curve
+)
 from sklearn.neural_network import MLPClassifier
 
 
 ScoreType = Tuple[float, float, float, None]
+
+
+def is_overfit(train_scores: ndarray, test_scores: ndarray) -> float:
+    train_scores_means: ndarray = train_scores.mean(axis=1)
+    test_scores_means: ndarray = test_scores.mean(axis=1)
+    perc_diff: ndarray = (
+        (train_scores_means - test_scores_means) / train_scores_means
+    )
+    row: int = 0
+    tolerance: float = 0.002
+    goal: int = 4
+    for i in range(len(perc_diff) - 1):
+        progress: float = abs(perc_diff[i + 1] - perc_diff[i])
+        if progress < tolerance:
+            row += 1
+        else:
+            row = 0
+        if row == goal:
+            min_overfit: ndarray = perc_diff[i - row - 1:i]
+            return float(min_overfit.mean())
+    return float(perc_diff.mean())
 
 
 if __name__ == '__main__':
@@ -39,11 +62,6 @@ if __name__ == '__main__':
         '--train',
         type=str,
         default=os.environ['SM_CHANNEL_TRAIN']
-    )
-    parser.add_argument(
-        '--test',
-        type=str,
-        default=os.environ['SM_CHANNEL_TEST']
     )
 
     args = parser.parse_args()
@@ -66,30 +84,28 @@ if __name__ == '__main__':
     clf = MLPClassifier(random_state=42)
     clf.fit(train_x, train_y)
 
-    # Take the set of test files and read them into a single pandas dataframe
-    test_files: List[str] = [
-        os.path.join(args.test, file) for file in os.listdir(args.test)
-    ]
-    raw_data = [
-        pd.read_csv(file, engine="python") for file in test_files
-    ]
-    test_data: DataFrame = pd.concat(raw_data)
-
-    # Separate the labels from the features in the test data
-    test_y: DataFrame = test_data.iloc[:, 0]
-    test_x: DataFrame = test_data.iloc[:, 1:]
-    test_x = test_x.drop(columns=['extension'])
-
-    # Get performance scores
-    pred: ndarray = clf.predict(test_x)
-    performance: ScoreType = precision_recall_fscore_support(
-        test_y,
-        pred,
-        average='binary'
+    scores = cross_validate(
+        clf,
+        train_x,
+        train_y,
+        scoring=['precision', 'recall', 'f1'],
+        n_jobs=-1
     )
-    print(f'Precision: {performance[0]}%')
-    print(f'Recall: {performance[1]}%')
-    print(f'F1-Score: {performance[2]}%')
+
+    _, train_results, test_results = learning_curve(
+        clf,
+        train_x,
+        train_y,
+        scoring='f1',
+        n_jobs=-1,
+        random_state=42
+    )
+    overfit = is_overfit(train_results, test_results)
+
+    print(f"Precision: {scores['test_precision'].mean()}%")
+    print(f"Recall: {scores['test_recall'].mean()}%")
+    print(f"F1-Score: {scores['test_f1'].mean()}%")
+    print(f"Overfit: {overfit*100:.0f}%")
 
     # Export the trained model to S3
     joblib.dump(clf, os.path.join(args.model_dir, "model.joblib"))

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -.- coding: utf-8 -.-
 
 # Standard Libraries
 import os
@@ -16,7 +15,7 @@ if __name__ == '__main__':
     s3_bucket = s3.Bucket('sorts')
     with tempfile.TemporaryDirectory() as tmpdir:
         for obj in s3_bucket.objects.filter(Prefix='features'):
-            filename: str = obj.key.split('/')[-1]
+            filename: str = os.path.basename(obj.key)
             s3_bucket.download_file(obj.key, os.path.join(tmpdir, filename))
         complete_filename: str = 'all_features.csv'
         complete_path: str = os.path.join(tmpdir, complete_filename)
