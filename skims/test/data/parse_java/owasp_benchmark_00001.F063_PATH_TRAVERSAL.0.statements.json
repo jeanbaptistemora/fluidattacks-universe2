@@ -101,7 +101,31 @@
   },
   {
     "meta": {
-      "danger": false,
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": 0
+    },
+    "recursive": false,
+    "symbol": "theCookies",
+    "type": "StatementLookup"
+  },
+  {
+    "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": -1
+    },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementDeclaration",
+    "var": "theCookie",
+    "var_type": "javax.servlet.http.Cookie"
+  },
+  {
+    "meta": {
+      "danger": true,
       "linear": false,
       "sink": null,
       "stack": 0
@@ -125,7 +149,7 @@
   },
   {
     "meta": {
-      "danger": false,
+      "danger": true,
       "linear": true,
       "sink": null,
       "stack": -2
@@ -137,7 +161,7 @@
   },
   {
     "meta": {
-      "danger": false,
+      "danger": true,
       "linear": true,
       "sink": null,
       "stack": -1

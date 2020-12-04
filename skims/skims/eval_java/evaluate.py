@@ -35,6 +35,7 @@ def evaluate(
     path: str,
     *,
     allow_incomplete: bool = False,
+    index: int,
 ) -> Statements:
     ctx = common.ensure_context(None)
 
@@ -43,7 +44,7 @@ def evaluate(
         generic_eval.evaluate(graph, n_id, ctx=ctx)
 
     if CTX.debug:
-        with open(f'{get_debug_path(path)}.ctx.json', 'w') as handle:
+        with open(f'{get_debug_path(path)}.ctx.{index}.json', 'w') as handle:
             json_dump(ctx, handle, indent=2)
 
     if ctx.complete or allow_incomplete:
@@ -55,7 +56,7 @@ def evaluate(
         statements = []
 
     if CTX.debug:
-        with open(f'{get_debug_path(path)}.statements.json', 'w') as handle:
+        with open(f'{get_debug_path(path)}.stmt.{index}.json', 'w') as handle:
             json_dump(statements, handle, indent=2)
 
     return statements
@@ -67,6 +68,7 @@ def is_vulnerable(
     path: str,
     *,
     allow_incomplete: bool = False,
+    index: int,
     sink_type: str,
 ) -> bool:
     return any(
@@ -76,6 +78,7 @@ def is_vulnerable(
             graph_path,
             path,
             allow_incomplete=allow_incomplete,
+            index=index,
         )
         if statement.meta.danger
     )

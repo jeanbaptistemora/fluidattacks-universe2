@@ -49,12 +49,13 @@ def _java_path_traversal(
     sink_type = 'F063_PATH_TRAVERSAL'
 
     def iterator() -> Iterator[g.NAttrs]:
-        for graph_path in g.flows(graph, sink_type=sink_type):
+        for index, graph_path in g.flows(graph, sink_type=sink_type):
             if is_vulnerable(
                 graph,
                 graph_path,
                 path,
                 sink_type=sink_type,
+                index=index,
             ):
                 yield graph.nodes[graph_path[-1]]
 

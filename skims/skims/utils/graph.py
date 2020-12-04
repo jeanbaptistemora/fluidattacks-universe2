@@ -250,9 +250,9 @@ def match_ast(
     index: int = 0
     nodes: Dict[str, Optional[str]] = dict.fromkeys(label_type)
 
-    for c_id in adj(graph, n_id, label_ast='AST'):
+    for c_id in adj_ast(graph, n_id):
         c_type = graph.nodes[c_id]['label_type']
-        if c_type in nodes:
+        if c_type in nodes and nodes[c_type] is None:
             nodes[c_type] = c_id
         else:
             nodes[f'__{index}__'] = c_id
@@ -264,7 +264,7 @@ def match_ast(
 def flows(
     graph: nx.DiGraph,
     sink_type: str,
-) -> Tuple[Tuple[str, ...], ...]:
+) -> Tuple[Tuple[int, Tuple[str, ...]], ...]:
 
     def lookup_first_cfg_parent(n_id: str) -> str:
         # Has child/parent CFG edges
@@ -279,7 +279,7 @@ def flows(
         # Base case, pass through
         return n_id
 
-    return tuple(
+    return tuple(enumerate(sorted(
         path
         for s_id, t_id in product(
             # Inputs
@@ -296,7 +296,7 @@ def flows(
             )),
         )
         for path in paths(graph, s_id, t_id, label_cfg='CFG')
-    )
+    )))
 
 
 def import_graph_from_json(model: Any) -> nx.DiGraph:

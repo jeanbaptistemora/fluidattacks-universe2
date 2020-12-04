@@ -123,18 +123,14 @@ def _java_switch_without_default(
         )):
             match = g.match_ast(graph, n_id, 'SwitchBlock')
             if c_id := match['SwitchBlock']:
+                default_ids = g.filter_nodes(
+                    graph,
+                    g.adj_ast(graph, c_id, depth=4),
+                    g.pred_has_labels(label_type='DEFAULT'),
+                )
 
-                match = g.match_ast(graph, c_id, 'SwitchBlockStatementGroup')
-                if c_id := match['SwitchBlockStatementGroup']:
-
-                    default_ids = g.filter_nodes(
-                        graph,
-                        g.adj_ast(graph, c_id, depth=3),
-                        g.pred_has_labels(label_type='DEFAULT'),
-                    )
-
-                    if len(default_ids) == 0:
-                        yield graph.nodes[n_id]
+                if len(default_ids) == 0:
+                    yield graph.nodes[n_id]
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,
