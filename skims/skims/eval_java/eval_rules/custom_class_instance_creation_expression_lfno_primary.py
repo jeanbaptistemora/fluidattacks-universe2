@@ -38,12 +38,13 @@ def evaluate(
         match['NEW']
         and match['CustomIdentifier']
         and match['LPAREN']
-        and (arg_id := match.get('__0__'))
         and match['RPAREN']
     ):
-        args_ctx = generic.evaluate(graph, arg_id, ctx=None)
-        common.merge_contexts(ctx, args_ctx)
-        args = args_ctx.statements
+        args = []
+        if arg_id := match.get('__0__'):
+            args_ctx = generic.evaluate(graph, arg_id, ctx=None)
+            common.merge_contexts(ctx, args_ctx)
+            args = args_ctx.statements
 
         ctx.statements.append(StatementClassInstantiation(
             class_type=graph.nodes[match['CustomIdentifier']]['label_text'],

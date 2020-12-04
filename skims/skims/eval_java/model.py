@@ -94,6 +94,14 @@ class StatementLiteral(NamedTuple):
     type: str = 'StatementLiteral'
 
 
+class Primary(NamedTuple):
+    stacks: List[Statements]
+    meta: StatementMeta
+
+    recursive: bool = True
+    type: str = 'Primary'
+
+
 @dataclass
 class Context:
     complete: bool

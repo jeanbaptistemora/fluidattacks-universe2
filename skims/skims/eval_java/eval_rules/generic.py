@@ -15,6 +15,7 @@ from eval_java.eval_rules import (
     literal,
     local_variable_declaration_statement,
     method_declaration,
+    primary,
 )
 from eval_java.model import (
     Context,
@@ -64,7 +65,8 @@ def evaluate(
           'StringLiteral'},
          literal.evaluate),
         ({'CustomMethodInvocation',
-          'CustomMethodInvocation_lfno_primary'},
+          'CustomMethodInvocation_lfno_primary',
+          'CustomMethodInvocation_lf_primary'},
          custom_method_invocation.evaluate),
         ({'EnhancedForStatement'},
          enhanced_for_statement.evaluate),
@@ -76,6 +78,8 @@ def evaluate(
          local_variable_declaration_statement.evaluate),
         ({'MethodDeclaration'},
          method_declaration.evaluate),
+        ({'Primary'},
+         primary.evaluate),
     ):
         if n_attrs_label_type in types:
             evaluator(graph, n_id, ctx=ctx)

@@ -1,5 +1,6 @@
 # Local libraries
 from eval_java.model import (
+    Primary,
     StatementAdd,
     StatementAssignment,
     StatementClassInstantiation,
@@ -17,6 +18,7 @@ from eval_java.taint_rules import (
     declaration,
     literal,
     lookup,
+    primary
 )
 
 
@@ -38,5 +40,7 @@ def taint(statements: Statements) -> None:
             literal.taint(statement)
         elif isinstance(statement, StatementLookup):
             lookup.taint(statements, index)
+        elif isinstance(statement, Primary):
+            primary.taint(statements, index)
         else:
             raise NotImplementedError()
