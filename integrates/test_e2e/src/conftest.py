@@ -24,13 +24,15 @@ def browserstack_url() -> str:
 
 
 @pytest.fixture(autouse=True, scope='function')
-def browserstack_cap(request: FixtureRequest) -> BrowserStackCapacity:
+def browserstack_cap(
+        branch: str,
+        request: FixtureRequest) -> BrowserStackCapacity:
     return BrowserStackCapacity(
         os='Windows',
         os_version='10',
         browser='Chrome',
         browser_version='80',
-        name=request.node.name,
+        name=f'{branch}::{request.node.name}',
     )
 
 

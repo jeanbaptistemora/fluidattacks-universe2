@@ -8,7 +8,7 @@ from model import (
 )
 
 
-def test_finding(
+def test_severity(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
@@ -26,17 +26,16 @@ def test_finding(
     )
     finding.click()
 
-    # Enter finding description
-    description = utils.wait_for_id(
+    # Enter finding severity
+    severity = utils.wait_for_id(
         driver,
-        'infoItem',
+        'cssv2Item',
         timeout,
     )
-    description.click()
+    severity.click()
     utils.wait_for_text(
         driver,
-        'R359. Avoid using generic exceptions.',
+        'Confidentiality Impact',
         timeout,
     )
-    assert 'The source code uses generic ' \
-        'exceptions to handle unexpected errors' in driver.page_source
+    assert 'Confidentiality Impact' in driver.page_source
