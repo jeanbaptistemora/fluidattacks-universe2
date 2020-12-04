@@ -28,7 +28,7 @@ async def main() -> None:
     if ENVIRONMENT == 'development':
         findings = ['560175507']  # Mock data on JSON for test
     else:
-        unmask = open("app/migrations/unmasked.csv", "r")
+        unmask = open("backend_new/migrations/unmasked.csv", "r")
         vulns = unmask.read().split("\n")
         unmask.close()
         findings = list(set(map(lambda x: x.split(",")[1], vulns[1:-1])))
