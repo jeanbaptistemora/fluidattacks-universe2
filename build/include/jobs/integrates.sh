@@ -1035,6 +1035,7 @@ function job_integrates_test_e2e {
     --maxfail 20
     --show-capture no
     --verbose
+    --reruns 3
     -n 2
   )
 

@@ -18,7 +18,8 @@ def otp_azure(azure_credentials: AzureCredentials) -> str:
 
 def login_azure(
         driver: Remote,
-        azure_credentials: AzureCredentials) -> None:
+        azure_credentials: AzureCredentials,
+        timeout: int) -> None:
     # Load login page
     driver.get('https://login.microsoftonline.com/')
 
@@ -29,7 +30,7 @@ def login_azure(
     btn_next.click()
 
     # Input password and click login
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, timeout).until(
         ec.visibility_of_element_located((By.ID, 'i0118'))
     )
     input_password = driver.find_element_by_id('i0118')
@@ -39,7 +40,7 @@ def login_azure(
     btn_login.click()
 
     # Input otp and click verify
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, timeout).until(
         ec.visibility_of_element_located((By.ID, 'idTxtBx_SAOTCC_OTC'))
     )
     input_otp = driver.find_element_by_id('idTxtBx_SAOTCC_OTC')
@@ -48,12 +49,15 @@ def login_azure(
     btn_verify.click()
 
     # Wait for home
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, timeout).until(
         ec.url_contains('office.com')
     )
 
 
-def login_integrates_azure(driver: Remote, integrates_endpoint: str) -> None:
+def login_integrates_azure(
+        driver: Remote,
+        integrates_endpoint: str,
+        timeout: int) -> None:
     # Load login page
     driver.get(integrates_endpoint)
 
@@ -62,6 +66,6 @@ def login_integrates_azure(driver: Remote, integrates_endpoint: str) -> None:
     btn_login.click()
 
     # Wait for home
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, timeout).until(
         ec.url_contains(f'{integrates_endpoint}/orgs/')
     )

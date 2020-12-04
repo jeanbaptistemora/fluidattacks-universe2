@@ -11,13 +11,14 @@ from model import (
 )
 
 
-def test_dashboard(
+def test_analytics(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/')
     WebDriverWait(driver, timeout).until(ec.presence_of_element_located((
         By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]"
     )))
