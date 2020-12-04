@@ -29,6 +29,7 @@
                     "L": [{ "S": "https://integrates.fluidattacks.com" }]
                   },
                   "includes_health_check": { "BOOL": true },
+                  "state": { "S": "ACTIVE" },
                   "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }
@@ -53,6 +54,7 @@
                   "filter": { "NULL": true },
                   "environment": { "S": "QA" },
                   "includes_health_check": { "BOOL": false },
+                  "state": { "S": "ACTIVE" },
                   "user": { "S": "jdoe@fluidattacks.com" }
                 }
               }

@@ -41,6 +41,7 @@ from backend.api.mutations import (
     update_forces_access_token,
     update_git_root,
     update_organization_policies,
+    update_root_state,
     update_severity,
     update_vulns_treatment,
     upload_file
@@ -105,6 +106,7 @@ MUTATION.set_field(
     'updateOrganizationPolicies',
     update_organization_policies.mutate
 )
+MUTATION.set_field('updateRootState', update_root_state.mutate)
 MUTATION.set_field('updateSeverity', update_severity.mutate)
 MUTATION.set_field('uploadFile', upload_file.mutate)
 

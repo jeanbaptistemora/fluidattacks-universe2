@@ -398,6 +398,13 @@ type Mutation {
         includesHealthCheck: Boolean!
     ): SimplePayload!
 
+    updateRootState(
+        "ID of the root"
+        id: ID!
+        "Whether the root is active or not"
+        state: ResourceState!
+    ): SimplePayload!
+
     addIpRoot(
         "IP address of the environment to test"
         address: String!

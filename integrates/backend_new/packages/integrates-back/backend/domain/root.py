@@ -30,6 +30,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             filter=root_state.get('filter'),
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
+            state=root_state['state'],
             url=root['url']
         )
 
@@ -47,6 +48,11 @@ def format_root(root: Dict[str, Any]) -> Root:
         port=root_state['port'],
         protocol=root_state['protocol']
     )
+
+
+def _is_active(root: Dict[str, Any]) -> bool:
+    state: str = root['historic_state'][-1]['state']
+    return state == 'ACTIVE'
 
 
 async def get_root_by_id(root_id: str) -> Dict[str, Any]:
@@ -153,6 +159,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
             'environment': kwargs['environment'],
             'filter': kwargs.get('filter'),
             'includes_health_check': kwargs['includes_health_check'],
+            'state': 'ACTIVE',
             'user': user_email
         }
         root_attributes: Dict[str, Any] = {
@@ -236,7 +243,8 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['id']
     root: Dict[str, Any] = await get_root_by_id(root_id)
     is_valid: bool = (
-        is_valid_git_repo(root['url'], root['branch'])
+        _is_active(root)
+        and is_valid_git_repo(root['url'], root['branch'])
         and root['kind'] == 'Git'
     )
 
@@ -254,6 +262,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             'environment': kwargs['environment'],
             'filter': kwargs.get('filter'),
             'includes_health_check': kwargs['includes_health_check'],
+            'state': 'ACTIVE',
             'user': user_email
         }
 
@@ -264,3 +273,22 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         )
     else:
         raise InvalidParameter()
+
+
+async def update_root_state(user_email: str, root_id: str, state: str) -> None:
+    root: Dict[str, Any] = await get_root_by_id(root_id)
+    last_state: Dict[str, Any] = root['historic_state'][-1]
+
+    if last_state['state'] != state:
+        new_state: Dict[str, Any] = {
+            **last_state,
+            'date': datetime.get_as_str(datetime.get_now()),
+            'state': state,
+            'user': user_email
+        }
+
+        await root_dal.update(
+            root['group_name'],
+            root_id,
+            {'historic_state': [*root['historic_state'], new_state]}
+        )

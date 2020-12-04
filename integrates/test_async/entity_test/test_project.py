@@ -814,3 +814,38 @@ async def test_update_git_root_nonexistent() -> None:
 
     assert 'errors' in result
     assert 'root not found' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_update_root_state() -> None:
+    query = '''
+      mutation {
+        updateRootState(
+          id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          state: INACTIVE
+        ) {
+          success
+        }
+      }
+    '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['updateRootState']['success']
+
+
+async def test_update_root_state_nonexistent() -> None:
+    query = '''
+      mutation {
+        updateRootState(
+          id: "ROOT#some-thing"
+          state: INACTIVE
+        ) {
+          success
+        }
+      }
+    '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' in result
+    assert 'root not found' in result['errors'][0]['message']
