@@ -903,3 +903,15 @@ def filter_non_submitted_findings(
     ]
 
     return non_submitted_findings
+
+
+def filter_non_draft_findings(
+    findings: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    non_draft_findings = [
+        finding
+        for finding in findings
+        if finding.get('releaseDate')
+    ]
+
+    return non_draft_findings

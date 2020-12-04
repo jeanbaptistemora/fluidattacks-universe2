@@ -20,7 +20,9 @@ class GroupFindingsLoader(DataLoader):  # type: ignore
         return cast(
             List[List[Finding]],
             await collect(
-                finding_domain.get_findings_by_group(group_name)
+                finding_domain.get_findings_by_group(
+                    group_name, include_drafts=False
+                )
                 for group_name in group_names
             )
         )

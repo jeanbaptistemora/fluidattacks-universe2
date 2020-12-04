@@ -661,13 +661,16 @@ async def mask_finding(finding_id: str) -> bool:
 async def get_findings_by_group(
     group_name: str,
     attrs: Set[str] = None,
-    include_deleted: bool = False
+    include_deleted: bool = False,
+    include_drafts: bool = True
 ) -> List[Dict[str, FindingType]]:
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
     findings = await finding_dal.get_findings_by_group(group_name, attrs)
     findings = finding_utils.filter_non_created_findings(findings)
     findings = finding_utils.filter_non_submitted_findings(findings)
+    if not include_drafts:
+        findings = finding_utils.filter_non_draft_findings(findings)
     if not include_deleted:
         findings = finding_utils.filter_non_deleted_findings(findings)
 
