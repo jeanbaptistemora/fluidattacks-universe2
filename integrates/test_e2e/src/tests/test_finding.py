@@ -8,7 +8,7 @@ from model import (
 )
 
 
-def test_findings(
+def test_finding(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
@@ -17,11 +17,26 @@ def test_findings(
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
-    # Get findings
+    # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
-    utils.wait_for_text(
+    finding = utils.wait_for_text(
         driver,
         'FIN.H.060. Insecure exceptions',
         timeout,
     )
-    assert 'FIN.H.060. Insecure exceptions' in driver.page_source
+    finding.click()
+
+    # Enter finding description
+    description = utils.wait_for_text(
+        driver,
+        'Description',
+        timeout,
+    )
+    description.click()
+    utils.wait_for_text(
+        driver,
+        'R359. Avoid using generic exceptions.',
+        timeout,
+    )
+    assert 'The source code uses generic ' \
+        'exceptions to handle unexpected errors' in driver.page_source

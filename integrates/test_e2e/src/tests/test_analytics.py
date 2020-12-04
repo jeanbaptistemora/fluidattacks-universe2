@@ -1,8 +1,5 @@
 # Third party libraries
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import By
 
 # Local libraries
 import utils
@@ -16,11 +13,15 @@ def test_analytics(
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
         timeout: int) -> None:
+    # Login
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Get Analytics
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/')
-    WebDriverWait(driver, timeout).until(ec.presence_of_element_located((
-        By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]"
-    )))
+    utils.wait_for_text(
+        driver,
+        'Vulnerabilities over time',
+        timeout,
+    )
     assert 'Vulnerabilities over time' in driver.page_source
-    driver.quit()

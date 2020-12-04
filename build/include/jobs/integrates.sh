@@ -1036,7 +1036,7 @@ function job_integrates_test_e2e {
     --show-capture no
     --verbose
     --reruns 3
-    -n 2
+    -n 3
   )
 
       pushd integrates \

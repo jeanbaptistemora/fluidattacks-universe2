@@ -1,5 +1,6 @@
 # Standard libraries
 import os
+from typing import Iterable
 
 # Third party libraries
 import pytest
@@ -76,7 +77,7 @@ def integrates_endpoint(branch: str, is_ci: bool) -> str:
 def driver(
         browserstack_cap: BrowserStackCapacity,
         browserstack_url: str,
-        is_ci: bool) -> WebDriver:
+        is_ci: bool) -> Iterable[WebDriver]:
     driver: WebDriver = None
     if is_ci:
         driver = Remote(
@@ -96,4 +97,7 @@ def driver(
             firefox_binary=firefox,
             options=options
         )
-    return driver
+    try:
+        yield driver
+    finally:
+        driver.quit()
