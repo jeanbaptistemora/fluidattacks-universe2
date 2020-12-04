@@ -25,7 +25,7 @@ export const Date: React.FC<IDateProps> = (
   return (
     <React.Fragment>
       <FormControl
-        className={style.formControl}
+        className={style["form-control"]}
         disabled={disabled}
         id={id}
         onBlur={onBlur}

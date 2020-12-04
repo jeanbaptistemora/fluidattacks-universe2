@@ -1,5 +1,5 @@
 :local .container {
-  composes: darkbg from '../../../../styles/global.css';
+  composes: dark-bg from '../../../../styles/global.css';
   height: 100%;
   text-align: center;
 }

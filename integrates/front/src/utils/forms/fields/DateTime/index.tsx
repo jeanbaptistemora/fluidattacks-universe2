@@ -18,7 +18,7 @@ export const DateTime: React.FC<WrappedFieldProps & FormControlProps> = (
   return (
     <React.Fragment>
       <Datetime
-        inputProps={{ className: style.formControl }}
+        inputProps={{ className: style["form-control"] }}
         utc={false}
         // Best way to pass down props.
         // eslint-disable-next-line react/jsx-props-no-spreading

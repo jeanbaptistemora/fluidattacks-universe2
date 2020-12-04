@@ -20,7 +20,7 @@ export const PhoneNumber: React.FC<WrappedFieldProps & FormControlProps> = (
   return (
     <PhoneInput
       country={"co"}
-      inputClass={style.formControl}
+      inputClass={style["form-control"]}
       masks={{ co: "(...) ... ...." }}
       onChange={handlePhoneChange}
       value={reduxFormValue}

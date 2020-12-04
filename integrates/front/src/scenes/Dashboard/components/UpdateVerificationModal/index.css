@@ -1,7 +1,7 @@
 :local .tableHeader {
-  composes: tableheader from '../Vulnerabilities/index.css';
+  composes: table-header from '../Vulnerabilities/index.css';
 }
 
 :local .tableBody {
-  composes: tablebody from '../Vulnerabilities/index.css';
+  composes: table-body from '../Vulnerabilities/index.css';
 }

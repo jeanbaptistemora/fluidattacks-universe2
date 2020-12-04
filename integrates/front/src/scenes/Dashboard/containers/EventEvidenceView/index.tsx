@@ -158,7 +158,7 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
         </ButtonToolbarRow>
         <br />
         {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
-          <div className={globalStyle.noData}>
+          <div className={globalStyle["no-data"]}>
             <Glyphicon glyph="picture" />
             <p>{translate.t("group.events.evidence.no_data")}</p>
           </div>

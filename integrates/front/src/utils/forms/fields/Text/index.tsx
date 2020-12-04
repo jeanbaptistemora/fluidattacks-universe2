@@ -20,7 +20,7 @@ export const Text: React.FC<WrappedFieldProps & FormControlProps> = (
   return (
     <React.Fragment>
       <FormControl
-        className={style.formControl}
+        className={style["form-control"]}
         disabled={disabled}
         id={id}
         max={max}

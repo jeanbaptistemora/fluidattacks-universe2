@@ -79,7 +79,7 @@ label {
   color: #666;
 }
 
-:local .noData span {
+:local .no-data span {
   font-size: 80px;
 }
 
@@ -236,7 +236,7 @@ label {
   }
 }
 
-.lightFg {
+.light-fg {
   color: #fff;
 }
 
@@ -244,11 +244,11 @@ label {
   background-color: #fff;
 }
 
-.darkBg {
+.dark-bg {
   background-color: #272727;
 }
 
-.primaryBg {
+.primary-bg {
   background-color: #ff3435;
 }
 
@@ -329,7 +329,7 @@ label {
   min-height: 100px !important;
 }
 
-:local .noData {
+:local .no-data {
   color: lightgray;
   font-size: 40px;
   text-align: center;

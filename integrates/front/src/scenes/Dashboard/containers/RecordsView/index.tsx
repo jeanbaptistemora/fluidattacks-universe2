@@ -168,7 +168,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
               ) : undefined}
               <Row>
                 {_.isEmpty(JSON.parse(data.finding.records)) ? (
-                  <div className={globalStyle.noData}>
+                  <div className={globalStyle["no-data"]}>
                     <Glyphicon glyph="list" />
                     <p>{translate.t("group.findings.records.no_data")}</p>
                   </div>

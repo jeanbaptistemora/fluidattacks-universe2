@@ -45,7 +45,7 @@
 }
 
 :local .searchBar {
-  composes: formcontrol from "../../utils/forms/index.css";
+  composes: form-control from "../../utils/forms/index.css";
   height: 30px;
 }
 

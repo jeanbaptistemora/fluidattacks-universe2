@@ -30,7 +30,7 @@ export const TextArea: React.FC<ITextAreaProps> = (
         componentClass={"textarea"}
         {...props}
         {...input}
-        className={`${style.formControl} ${
+        className={`${style["form-control"]} ${
           _.isUndefined(className) ? "" : className
         }`}
       />

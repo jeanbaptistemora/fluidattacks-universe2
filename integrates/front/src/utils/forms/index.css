@@ -91,7 +91,7 @@
   text-align: center;
 }
 
-.formControl {
+.form-control {
   display: block;
   width: 100% !important;
   resize: none;
@@ -110,19 +110,19 @@
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
-.formControl:focus {
+.form-control:focus {
   border-color: #d1d1d1;
   box-shadow: none;
   outline: none;
 }
 
-.formControl[disabled],
-.formControl[readonly] {
+.form-control[disabled],
+.form-control[readonly] {
   background-color: #eee;
   opacity: 1;
 }
 
-.formControl[disabled] {
+.form-control[disabled] {
   cursor: not-allowed;
 }
 

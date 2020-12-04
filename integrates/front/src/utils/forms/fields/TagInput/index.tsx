@@ -85,7 +85,7 @@ export const TagInput: React.FC<ITagInputProps> = (
     remove: style.tagRemove,
     tag: style.inputTags,
     tagInput: style.tagInput,
-    tagInputField: style.formControl,
+    tagInputField: style["form-control"],
   };
 
   return (

@@ -24,7 +24,7 @@ export const Dropdown: React.FC<WrappedFieldProps & FormControlProps> = (
   return (
     <React.Fragment>
       <FormControl
-        className={style.formControl}
+        className={style["form-control"]}
         componentClass={"select"}
         defaultValue={initial}
         name={name}

@@ -35,7 +35,7 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
     <React.Fragment>
       <FormControl
         autoComplete={"off"}
-        className={style.formControl}
+        className={style["form-control"]}
         disabled={disabled}
         id={id}
         placeholder={placeholder}

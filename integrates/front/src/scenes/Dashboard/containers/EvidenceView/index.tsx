@@ -167,7 +167,7 @@ const evidenceView: React.FC = (): JSX.Element => {
       <br />
       {_.isEmpty(evidenceList)
         ? (
-          <div className={globalStyle.noData}>
+          <div className={globalStyle["no-data"]}>
             <Glyphicon glyph="picture" />
             <p>{translate.t("group.findings.evidence.no_data")}</p>
           </div>

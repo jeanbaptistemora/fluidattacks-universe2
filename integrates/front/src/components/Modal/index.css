@@ -1,6 +1,6 @@
 :local .header {
-  composes: primarybg from '../../styles/global.css';
-  composes: lightfg from '../../styles/global.css';
+  composes: primary-bg from '../../styles/global.css';
+  composes: light-fg from '../../styles/global.css';
   padding: 20px 15px;
 }
 
