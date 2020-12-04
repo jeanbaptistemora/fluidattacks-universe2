@@ -27,12 +27,12 @@ def test_tracking(
     finding.click()
 
     # Enter finding tracking
-    severity = utils.wait_for_id(
+    tracking = utils.wait_for_id(
         driver,
         'trackingItem',
         timeout,
     )
-    severity.click()
+    tracking.click()
     utils.wait_for_text(
         driver,
         '2020-09-09',

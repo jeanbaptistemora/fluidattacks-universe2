@@ -17,7 +17,7 @@ def test_analytics(
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
-    # Get Analytics
+    # Enter Analytics
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/')
     utils.wait_for_text(
         driver,

@@ -8,7 +8,7 @@ from model import (
 )
 
 
-def test_findings(
+def test_event(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
@@ -17,11 +17,17 @@ def test_findings(
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
-    # Get findings
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
-    utils.wait_for_text(
+    # Enter event
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/events')
+    event = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'This is an eventuality with evidence',
         timeout,
     )
-    assert 'FIN.H.060. Insecure exceptions' in driver.page_source
+    event.click()
+    utils.wait_for_text(
+        driver,
+        'unittest@fluidattacks.com',
+        timeout,
+    )
+    assert 'unittest@fluidattacks.com' in driver.page_source

@@ -27,12 +27,12 @@ def test_comments(
     finding.click()
 
     # Enter finding comments
-    severity = utils.wait_for_id(
+    comments = utils.wait_for_id(
         driver,
         'commentItem',
         timeout,
     )
-    severity.click()
+    comments.click()
     utils.wait_for_text(
         driver,
         'This is a comenting test',

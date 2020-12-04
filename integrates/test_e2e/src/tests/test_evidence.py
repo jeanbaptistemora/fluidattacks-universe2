@@ -27,12 +27,12 @@ def test_evidence(
     finding.click()
 
     # Enter finding evidences
-    severity = utils.wait_for_id(
+    evidences = utils.wait_for_id(
         driver,
         'evidenceItem',
         timeout,
     )
-    severity.click()
+    evidences.click()
     utils.wait_for_text(
         driver,
         'exception',

@@ -17,7 +17,7 @@ def test_dashboard(
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
-    # Get dashboard
+    # Enter dashboard
     utils.wait_for_text(
         driver,
         'Vulnerabilities over time',

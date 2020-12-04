@@ -9,7 +9,7 @@ def test_login_screen(
         driver: WebDriver,
         integrates_endpoint: str,
         timeout: int) -> None:
-    # Get login screen
+    # Enter login screen
     driver.get(integrates_endpoint)
     utils.wait_for_text(
         driver,

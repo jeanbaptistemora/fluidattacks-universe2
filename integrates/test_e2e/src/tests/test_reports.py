@@ -8,7 +8,7 @@ from model import (
 )
 
 
-def test_pdf(
+def test_reports(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
@@ -17,7 +17,7 @@ def test_pdf(
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
-    # Get reports
+    # Enter reports
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     reports = utils.wait_for_id(
         driver,
@@ -25,8 +25,6 @@ def test_pdf(
         timeout,
     )
     reports.click()
-
-    # Get reports popup
     utils.wait_for_text(
         driver,
         'Reports are created on-demand',
