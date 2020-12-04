@@ -35,6 +35,9 @@ from backend.exceptions import (
     InvalidDraftTitle,
     PermissionDenied
 )
+from backend.filters import (
+    finding as finding_filters,
+)
 from backend.utils import (
     cvss,
     datetime as datetime_utils,
@@ -661,18 +664,17 @@ async def mask_finding(finding_id: str) -> bool:
 async def get_findings_by_group(
     group_name: str,
     attrs: Set[str] = None,
-    include_deleted: bool = False,
-    include_drafts: bool = True
+    include_deleted: bool = False
 ) -> List[Dict[str, FindingType]]:
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
     findings = await finding_dal.get_findings_by_group(group_name, attrs)
-    findings = finding_utils.filter_non_created_findings(findings)
-    findings = finding_utils.filter_non_submitted_findings(findings)
-    if not include_drafts:
-        findings = finding_utils.filter_non_draft_findings(findings)
+    findings = finding_filters.filter_non_created_findings(findings)
+    findings = finding_filters.filter_non_rejected_findings(findings)
+    findings = finding_filters.filter_non_submitted_findings(findings)
+
     if not include_deleted:
-        findings = finding_utils.filter_non_deleted_findings(findings)
+        findings = finding_filters.filter_non_deleted_findings(findings)
 
     return [
         finding_utils.format_finding(finding, attrs)

@@ -8,6 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend.decorators import get_entity_cache_async
 from backend.domain import finding as finding_domain
 from backend.typing import Finding
+from backend.filters import finding as finding_filters
 
 
 @get_entity_cache_async
@@ -17,11 +18,13 @@ async def resolve(
     **_kwargs: None
 ) -> List[Dict[str, Union[str, int]]]:
     finding_id: str = cast(Dict[str, str], parent)['id']
-    release_date: str = cast(Dict[str, str], parent)['release_date']
+    is_finding_released = finding_filters.is_released(
+        cast(Dict[str, Finding], parent)
+    )
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
 
-    if release_date:
+    if is_finding_released:
         vulns = await finding_vulns_loader.load(finding_id)
 
         return await finding_domain.get_tracking_vulnerabilities(vulns)

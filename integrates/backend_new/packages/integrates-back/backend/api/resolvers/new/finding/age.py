@@ -1,5 +1,4 @@
 # Standard
-from datetime import datetime
 from typing import cast, Dict, List
 
 # Third party
@@ -13,6 +12,7 @@ from backend.domain import (
     vulnerability as vuln_domain,
 )
 from backend.typing import Finding, Vulnerability
+from backend.filters import finding as finding_filters
 
 
 @get_entity_cache_async
@@ -22,7 +22,9 @@ async def resolve(
     **_kwargs: None
 ) -> int:
     finding_id: str = cast(Dict[str, str], parent)['id']
-    release_date: datetime = cast(Dict[str, datetime], parent)['release_date']
+    release_date = finding_filters.get_release_date(
+        cast(Dict[str, Finding], parent)
+    )
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)

@@ -34,6 +34,9 @@ from backend.exceptions import (
     InvalidFileStructure,
     InvalidNumberAcceptations
 )
+from backend.filters import (
+    finding as finding_filters,
+)
 from backend.typing import (
     Finding as FindingType,
     MailContent as MailContentType,
@@ -328,7 +331,7 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         for attribute in finding
     }
 
-    is_draft = 'releaseDate' not in finding
+    is_draft = not finding_filters.is_released(finding)
     if is_draft:
         finding['cvssVersion'] = finding.get('cvssVersion', '2')
 
@@ -829,10 +832,6 @@ def format_finding(
         formated_finding['id'] = finding['finding_id']
     if not attrs or 'finding' in attrs:
         formated_finding['title'] = finding['finding']
-    if not attrs or 'release_date' in attrs:
-        formated_finding['release_date'] = (
-            finding.get('release_date', '')
-        )
     if not attrs or 'historic_state' in attrs:
         formated_finding['historic_state'] = (
             finding.get('historic_state', [])
@@ -843,75 +842,3 @@ def format_finding(
         )
 
     return formated_finding
-
-
-def filter_non_approved_findings(
-    findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    no_approved_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') != 'APPROVED'
-    ]
-
-    return no_approved_findings
-
-
-def filter_non_created_findings(
-    findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    non_submited_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') != 'CREATED'
-    ]
-
-    return non_submited_findings
-
-
-def filter_non_deleted_findings(
-    findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    no_deleted_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') != 'DELETED'
-    ]
-
-    return no_deleted_findings
-
-
-def filter_non_submitted_findings(
-    findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    non_submitted_findings = [
-        finding
-        for finding in findings
-        if cast(
-            HistoricType,
-            finding.get('historic_state', [{}])
-        )[-1].get('state', '') != 'SUBMITTED'
-    ]
-
-    return non_submitted_findings
-
-
-def filter_non_draft_findings(
-    findings: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    non_draft_findings = [
-        finding
-        for finding in findings
-        if finding.get('releaseDate')
-    ]
-
-    return non_draft_findings

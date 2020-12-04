@@ -40,7 +40,6 @@ async def _batch_load_fn(
             project_name=finding.get('projectName', ''),
             recommendation=finding.get('effectSolution', ''),
             records=finding.get('records', {}),  # type: ignore
-            release_date=finding.get('releaseDate', ''),
             remediated=finding.get('remediated', False),
             report_date=finding.get('reportDate', ''),
             requirements=finding.get('requirements', ''),

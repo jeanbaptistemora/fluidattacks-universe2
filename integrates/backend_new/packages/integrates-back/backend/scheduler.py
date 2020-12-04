@@ -28,6 +28,9 @@ from backend.domain import (
     vulnerability as vuln_domain,
     event as event_domain
 )
+from backend.filters import (
+    finding as finding_filters,
+)
 from backend.typing import (
     Event as EventType,
     Finding as FindingType,
@@ -513,9 +516,10 @@ async def create_msj_finding_pending(
         if vuln['current_state'] == 'open'
     ]
     if historic_treatment[-1].get('treatment', 'NEW') == 'NEW' and open_vulns:
+        release_date = finding_filters.get_release_date(act_finding)
         days = finding_domain.get_age_finding(
             cast(List[VulnerabilityType], open_vulns),
-            str(act_finding.get('releaseDate', '')),
+            release_date,
         )
         finding_name = f'{act_finding["finding"]} -{days} day(s)-'
         result = finding_name
@@ -591,7 +595,8 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         if project not in test_projects:
             try:
                 for finding in finding_requests:
-                    if 'releaseDate' not in finding:
+                    is_finding_released = finding_filters.is_released(finding)
+                    if not is_finding_released:
                         org_id = await org_domain.get_id_for_group(project)
                         org_name = await org_domain.get_name_by_id(org_id)
                         submission = finding.get('historicState')

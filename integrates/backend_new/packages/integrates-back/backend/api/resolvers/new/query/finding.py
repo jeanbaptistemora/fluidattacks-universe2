@@ -14,6 +14,7 @@ from backend.decorators import (
     require_login,
 )
 from backend.typing import Finding
+from backend.filters import finding as finding_filters
 
 
 @enforce_group_level_auth_async
@@ -38,7 +39,9 @@ async def resolve(
     finding_loader: DataLoader = info.context.loaders['finding']
     finding: Finding = await finding_loader.load(finding_id)
 
-    is_draft: bool = not cast(Dict[str, str], finding)['release_date']
+    is_draft = not finding_filters.is_released(
+        cast(Dict[str, Finding], finding)
+    )
 
     if is_draft:
         return await _get_draft(finding, info)

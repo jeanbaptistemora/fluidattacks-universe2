@@ -28,6 +28,9 @@ from backend.domain import (
     project as project_domain,
     user as user_domain
 )
+from backend.filters import (
+    finding as finding_filters,
+)
 from backend.dal.comment import CommentType
 from backend.typing import (
     Event as EventType,
@@ -312,11 +315,11 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
 
         email_context['finding_id'] = str(finding.get('id', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
-
+        is_finding_released = finding_filters.is_released(finding)
         comment_url = (
             BASE_URL +
             f'/orgs/{org_name}/groups/{project_name}/' +
-            ('vulns' if 'releaseDate' in finding else 'drafts') +
+            ('vulns' if is_finding_released else 'drafts') +
             '/' + str(finding.get('id', '')) + '/' +
             ('consulting' if comment_type == 'comment' else 'observations')
         )

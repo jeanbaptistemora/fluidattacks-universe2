@@ -20,6 +20,9 @@ from backend.exceptions import (
     InvalidDraftTitle,
     NotSubmitted,
 )
+from backend.filters import (
+    finding as finding_filters,
+)
 from backend.typing import (
     Finding as FindingType,
     User as UserType
@@ -39,8 +42,9 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     )
     status = history[-1].get('state')
     success = False
+    is_finding_released = finding_filters.is_released(draft_data)
 
-    if 'releaseDate' not in draft_data:
+    if not is_finding_released:
         if status == 'SUBMITTED':
             rejection_date = datetime_utils.get_as_str(
                 datetime_utils.get_now()
@@ -73,8 +77,9 @@ async def approve_draft(
     )
     release_date: str = ''
     success = False
+    is_finding_released = finding_filters.is_released(draft_data)
 
-    if ('releaseDate' not in draft_data and
+    if (not is_finding_released and
             submission_history[-1].get('state') != 'DELETED'):
         vulns = await vuln_domain.list_vulnerabilities_async([draft_id])
         has_vulns = [
@@ -174,8 +179,9 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
         List[Dict[str, str]],
         finding.get('historicState')
     )
+    is_finding_released = finding_filters.is_released(finding)
 
-    if ('releaseDate' not in finding and
+    if (not is_finding_released and
             submission_history[-1].get('state') != 'DELETED'):
         is_submitted = submission_history[-1].get('state') == 'SUBMITTED'
         if not is_submitted:
@@ -248,9 +254,9 @@ async def get_drafts_by_group(
     if attrs and 'historic_state' not in attrs:
         attrs.add('historic_state')
     findings = await finding_dal.get_findings_by_group(group_name, attrs)
-    findings = finding_utils.filter_non_approved_findings(findings)
+    findings = finding_filters.filter_non_approved_findings(findings)
     if not include_deleted:
-        findings = finding_utils.filter_non_deleted_findings(findings)
+        findings = finding_filters.filter_non_deleted_findings(findings)
 
     return [
         finding_utils.format_finding(finding, attrs)
