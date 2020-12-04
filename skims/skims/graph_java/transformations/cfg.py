@@ -131,6 +131,11 @@ def _if_statement(
         '__1__',
     )
 
+    # Link whatever is inside the `then` to the next statement in chain
+    if next_id := _get_next_id(stack):
+        # Link `if` to the next statement after the `if`
+        graph.add_edge(n_id, next_id, **FALSE)
+
     if then_id := match['__1__']:
         # Link `if` to `then` statement
         graph.add_edge(n_id, then_id, **ALWAYS)

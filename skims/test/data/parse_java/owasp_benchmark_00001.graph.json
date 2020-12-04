@@ -96,6 +96,10 @@
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_cfg_always": "cfg_always"
+      },
+      "1255": {
+        "label_cfg": "CFG",
+        "label_cfg_false": "cfg_false"
       }
     },
     "109": {
@@ -2556,6 +2560,10 @@
         "label_ast": "AST",
         "label_cfg": "CFG",
         "label_cfg_always": "cfg_always"
+      },
+      "1255": {
+        "label_cfg": "CFG",
+        "label_cfg_false": "cfg_false"
       },
       "989": {
         "index": 0,
