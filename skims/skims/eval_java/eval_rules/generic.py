@@ -24,6 +24,8 @@ from eval_java.model import (
 _UNINTERESTING_NODES = {
     'Block',
     'BlockStatements',
+    'BreakStatement',
+    'EnhancedForStatement',
     'IfThenStatement',
     'SEMI',
     'TryStatement',

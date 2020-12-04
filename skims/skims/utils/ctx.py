@@ -17,7 +17,7 @@ from typing import (
 
 # Constants
 MANAGER: SyncManager = Manager()
-NAMESPACE: Any = MANAGER.Namespace()
+CTX: Any = MANAGER.Namespace()
 ROOT: str = abspath(dirname(dirname(dirname(__file__))))
 
 

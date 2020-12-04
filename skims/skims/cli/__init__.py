@@ -14,6 +14,9 @@ from aioextensions import (
 import click
 
 # Local libraries
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     shield,
 )
@@ -68,11 +71,13 @@ def dispatch(
     token: Optional[str],
 ) -> None:
     """Read the execution flags from the CLI and dispatch them to Skims."""
+    CTX.debug = debug
+    CTX.current_locale = None
+
     start_time: float = time()
     success: bool = run(
         main_wrapped(
             config=config,
-            debug=debug,
             group=group,
             token=token,
         ),
@@ -91,7 +96,6 @@ def dispatch(
 @shield(on_error_return=False)
 async def main_wrapped(
     config: str,
-    debug: bool,
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
@@ -117,7 +121,6 @@ async def main_wrapped(
     success: bool = await core.entrypoint.main(
         config=config,
         group=group,
-        debug=debug,
         token=token,
     )
 

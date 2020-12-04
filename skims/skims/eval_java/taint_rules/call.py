@@ -24,6 +24,7 @@ def taint(statements: Statements, index: int) -> None:
             method_start.startswith(symbol.var)
             for method_start in [method.split('.')[0]]
             for symbol in common.read_stack_symbols(statements, index)
+            if symbol.meta.danger
         )
     ))
 

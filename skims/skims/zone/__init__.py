@@ -13,7 +13,7 @@ from ruamel import yaml
 # Local libraries
 from utils.ctx import (
     get_artifact,
-    NAMESPACE,
+    CTX,
 )
 from utils.model import (
     LocalesEnum,
@@ -48,10 +48,6 @@ def load_translations() -> Dict[str, Dict[str, str]]:
 TRANSLATIONS: Dict[str, Dict[str, str]] = load_translations()
 
 
-def set_locale(locale: LocalesEnum) -> None:
-    NAMESPACE.current_locale = locale.value
-
-
 IGNORED_CHARS = str.maketrans('', '', ''.join({
     '+',
     '^',
@@ -61,5 +57,5 @@ IGNORED_CHARS = str.maketrans('', '', ''.join({
 
 
 def t(key: str, **kwargs: Any) -> str:  # pylint: disable=invalid-name
-    translation = TRANSLATIONS[key][NAMESPACE.current_locale].format(**kwargs)
+    translation = TRANSLATIONS[key][CTX.current_locale.value].format(**kwargs)
     return translation.translate(IGNORED_CHARS)

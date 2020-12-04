@@ -46,11 +46,17 @@ def _java_path_traversal(
     graph: nx.DiGraph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
+    sink_type = 'F063_PATH_TRAVERSAL'
 
     def iterator() -> Iterator[g.NAttrs]:
-        for path in g.flows(graph, sink_type='F063_PATH_TRAVERSAL'):
-            if is_vulnerable(graph, path, sink_type='F063_PATH_TRAVERSAL'):
-                yield graph.nodes[path[-1]]
+        for graph_path in g.flows(graph, sink_type=sink_type):
+            if is_vulnerable(
+                graph,
+                graph_path,
+                path,
+                sink_type=sink_type,
+            ):
+                yield graph.nodes[graph_path[-1]]
 
     return blocking_get_vulnerabilities_from_n_attrs_iterator(
         content=content,

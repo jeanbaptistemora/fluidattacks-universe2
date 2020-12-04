@@ -38,8 +38,12 @@ def simplify(obj: Any) -> Any:
     return simplified_obj
 
 
-def json_dumps(element: object, **kwargs: Any) -> str:
-    return json.dumps(simplify(element), **kwargs)
+def json_dump(element: object, *args: Any, **kwargs: Any) -> None:
+    json.dump(simplify(element), *args, **kwargs)
+
+
+def json_dumps(element: object, *args: Any, **kwargs: Any) -> str:
+    return json.dumps(simplify(element), *args, **kwargs)
 
 
 async def yaml_dumps(element: object, **kwargs: Any) -> str:

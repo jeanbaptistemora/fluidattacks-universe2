@@ -18,46 +18,53 @@ from eval_java.model import (
 from eval_java.taint_rules import (
     generic as generic_taint,
 )
-from utils.encodings import (
-    json_dumps,
+from utils.ctx import (
+    CTX,
 )
-from utils.logs import (
-    blocking_log,
+from utils.encodings import (
+    json_dump,
+)
+from utils.string import (
+    get_debug_path,
 )
 
 
 def evaluate(
     graph: nx.DiGraph,
-    path: Tuple[str, ...],
+    graph_path: Tuple[str, ...],
+    path: str,
     *,
     allow_incomplete: bool = False,
 ) -> Statements:
     ctx = common.ensure_context(None)
 
     # Walk the path and mine the nodes in order to increase the context
-    for n_id in path:
+    for n_id in graph_path:
         generic_eval.evaluate(graph, n_id, ctx=ctx)
 
-    # Debugging information, only visible with skims --debug
-    blocking_log('debug', '%s', json_dumps(ctx, indent=2))
+    if CTX.debug:
+        with open(f'{get_debug_path(path)}.ctx.json', 'w') as handle:
+            json_dump(ctx, handle, indent=2)
 
     if ctx.complete or allow_incomplete:
         statements = linearize.linearize(ctx.statements)
 
         # Analyze how data is propagated across statements
         generic_taint.taint(statements)
+    else:
+        statements = []
 
-        # Debugging information, only visible with skims --debug
-        blocking_log('debug', '%s', json_dumps(statements, indent=2))
+    if CTX.debug:
+        with open(f'{get_debug_path(path)}.statements.json', 'w') as handle:
+            json_dump(statements, handle, indent=2)
 
-        return statements
-
-    return []
+    return statements
 
 
 def is_vulnerable(
     graph: nx.DiGraph,
-    path: Tuple[str, ...],
+    graph_path: Tuple[str, ...],
+    path: str,
     *,
     allow_incomplete: bool = False,
     sink_type: str,
@@ -66,6 +73,7 @@ def is_vulnerable(
         statement.meta.sink == sink_type
         for statement in evaluate(
             graph,
+            graph_path,
             path,
             allow_incomplete=allow_incomplete,
         )

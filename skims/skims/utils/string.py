@@ -9,6 +9,7 @@ from itertools import (
     chain,
     repeat,
 )
+import os
 from typing import (
     List,
     Tuple,
@@ -180,3 +181,10 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
 
 async def to_png(*, string: str) -> BytesIO:
     return await in_process(_to_png, string=string)
+
+
+def get_debug_path(path: str) -> str:
+    return os.path.join(
+        'test/outputs',
+        os.path.relpath(path).replace('/', '__'),
+    )

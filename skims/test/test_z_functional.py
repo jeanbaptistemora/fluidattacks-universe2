@@ -33,6 +33,9 @@ from integrates.dal import (
 from state.ephemeral import (
     EphemeralStore,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.logs import (
     configure,
 )
@@ -43,13 +46,13 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from zone import (
-    set_locale,
     t,
 )
 
 
 # Side effects
-set_locale(LocalesEnum.EN)
+CTX.current_locale = LocalesEnum.EN
+CTX.debug = True
 
 
 def skims(*args: str) -> Tuple[int, str, str]:

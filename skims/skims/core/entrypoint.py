@@ -40,6 +40,9 @@ from state.ephemeral import (
     get_ephemeral_store,
     reset as reset_ephemeral_state,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.hardware import (
     get_max_memory_usage,
 )
@@ -52,7 +55,6 @@ from utils.model import (
     SkimsConfig,
 )
 from zone import (
-    set_locale,
     t,
 )
 
@@ -175,18 +177,17 @@ async def notify_findings_as_csv(
 
 async def main(
     config: str,
-    debug: bool,
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
     monitor_task: Task[None] = create_task(monitor())
 
-    if debug:
+    if CTX.debug:
         set_level(logging.DEBUG)
 
     try:
         config_obj: SkimsConfig = await load(group, config)
-        set_locale(config_obj.language)
+        CTX.current_locale = config_obj.language
         await reset_ephemeral_state()
         await adjust_working_dir(config_obj)
         return await execute_skims(config_obj, token)

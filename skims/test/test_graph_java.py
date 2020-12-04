@@ -87,12 +87,13 @@ async def test_graph_generation(path: str, name: str) -> None:
     assert graph_as_json_str == expected
 
     for sink in SINKS:
-        for index, path in enumerate(  # type: ignore
+        for index, graph_path in enumerate(
             sorted(g.flows(graph, sink_type=sink)),
         ):
             statements = evaluate(
                 graph,
-                path,  # type: ignore
+                graph_path,
+                path,
                 allow_incomplete=True,
             )
             statements_as_json = json_dumps(statements, indent=2, sort_keys=True)

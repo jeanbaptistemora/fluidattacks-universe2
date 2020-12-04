@@ -39,7 +39,7 @@
   },
   {
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": -1

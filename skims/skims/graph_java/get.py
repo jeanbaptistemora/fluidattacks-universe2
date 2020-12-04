@@ -1,6 +1,5 @@
 # Standard library
 import json
-import os
 
 # Third party libraries
 import networkx as nx
@@ -27,13 +26,12 @@ from utils.graph import (
 from utils.model import (
     Grammar,
 )
-
-
-def _get_debug_path(path: str) -> str:
-    return os.path.join(
-        'test/outputs',
-        os.path.relpath(path).replace('/', '__'),
-    )
+from utils.ctx import (
+    CTX,
+)
+from utils.string import (
+    get_debug_path,
+)
 
 
 @CACHE_1SEC
@@ -41,14 +39,13 @@ async def get(
     grammar: Grammar,
     *,
     content: bytes,
-    debug: bool = False,
     path: str,
 ) -> nx.DiGraph:
     parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
     model = antlr_model.from_parse_tree(parse_tree)
 
-    if debug:
-        output = _get_debug_path(path)
+    if CTX.debug:
+        output = get_debug_path(path)
         with open(f'{output}.model.json', 'w') as handle:
             json.dump(model, handle, indent=2, sort_keys=True)
 
@@ -59,8 +56,8 @@ async def get(
     cfg.analyze(graph)
     styles.stylize(graph)
 
-    if debug:
-        output = _get_debug_path(path)
+    if CTX.debug:
+        output = get_debug_path(path)
         await to_svg(graph, output)
 
     return graph
