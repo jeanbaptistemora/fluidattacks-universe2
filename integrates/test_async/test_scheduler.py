@@ -99,8 +99,7 @@ def test_extract_info_from_event_dict():
 def test_get_finding_url():
     dumb_finding_dict = {'project_name': 'test', 'finding_id': 'test'}
     test_data = get_finding_url(dumb_finding_dict)
-    expected_output = 'https://integrates.fluidattacks.com/new' \
-                        '/groups/test/test/description'
+    expected_output = 'https://integrates.fluidattacks.com/groups/test/test/description'
     assert test_data == expected_output
 
 async def test_get_status_vulns_by_time_range():

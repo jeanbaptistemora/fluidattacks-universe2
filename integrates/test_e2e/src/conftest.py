@@ -67,11 +67,11 @@ def azure_credentials() -> AzureCredentials:
 def integrates_endpoint(branch: str, is_ci: bool) -> str:
     url: str = ''
     if branch == 'master':
-        url = 'https://integrates.fluidattacks.com/new'
+        url = 'https://integrates.fluidattacks.com'
     elif is_ci:
-        url = f'https://{branch}.integrates.fluidattacks.com/new'
+        url = f'https://{branch}.integrates.fluidattacks.com'
     else:
-        url = 'https://localhost:8081/new'
+        url = 'https://localhost:8081'
     return url
 
 

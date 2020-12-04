@@ -86,15 +86,15 @@ export const Login: React.FC = (): JSX.Element => {
   // Event handlers
   function handleBitbucketLogin(): void {
     mixpanel.track("Login Bitbucket");
-    window.location.assign("/new/dblogin");
+    window.location.assign("/dblogin");
   }
   function handleGoogleLogin(): void {
     mixpanel.track("Login Google");
-    window.location.assign("/new/dglogin");
+    window.location.assign("/dglogin");
   }
   function handleMicrosoftLogin(): void {
     mixpanel.track("Login Azure");
-    window.location.assign("/new/dalogin");
+    window.location.assign("/dalogin");
   }
 
   return (

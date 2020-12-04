@@ -77,11 +77,11 @@ async def app(*request_args: Request) -> HTMLResponse:
         response = Response(
             '<script> '
             'localStorage.setItem("concurrentSession","1"); '
-            'location.assign("/new/registration"); '
+            'location.assign("/registration"); '
             '</script>'
         )
     except ExpiredToken:
-        response = RedirectResponse('/new')
+        response = RedirectResponse('/')
 
     return response
 
@@ -90,7 +90,7 @@ def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
     request.session.clear()
 
-    response = RedirectResponse('/new')
+    response = RedirectResponse('/')
     response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
     return response
@@ -98,7 +98,7 @@ def logout(request: Request) -> HTMLResponse:
 
 async def confirm_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get('url_token')
-    redir = '/new'
+    redir = '/'
     token_exists = await util.token_exists(f'fi_urltoken:{url_token}')
 
     if token_exists:
@@ -115,7 +115,15 @@ async def confirm_access(request: Request) -> HTMLResponse:
 STARLETTE_APP = Starlette(
     debug=settings.DEBUG,
     routes=[
+        Route('/', views.login),
         Route('/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route('/authz_azure', views.authz_azure),
+        Route('/authz_bitbucket', views.authz_bitbucket),
+        Route('/authz_google', views.authz_google),
+        Route('/confirm_access/{url_token:path}', confirm_access),
+        Route('/dglogin', views.do_google_login),
+        Route('/dalogin', views.do_azure_login),
+        Route('/dblogin', views.do_bitbucket_login),
         Route('/error401', views.error401),
         Route('/error500', views.error500),
         Route('/graphic', views.graphic),
@@ -124,29 +132,19 @@ STARLETTE_APP = Starlette(
         Route('/graphics-for-portfolio', views.graphics_for_portfolio),
         Route('/graphics-report', views.graphics_report),
         Route('/invalid_invitation', views.invalid_invitation),
-        Route('/new/', views.login),
-        Route('/new/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
-        Route('/new/authz_google', views.authz_google),
-        Route('/new/authz_azure', views.authz_azure),
-        Route('/new/authz_bitbucket', views.authz_bitbucket),
-        Route('/new/confirm_access/{url_token:path}', confirm_access),
-        Route('/new/dglogin', views.do_google_login),
-        Route('/new/dalogin', views.do_azure_login),
-        Route('/new/dblogin', views.do_bitbucket_login),
+        Route('/logout', logout),
         Route(
-            '/new/orgs/{org_name:str}/groups/'
+            '/orgs/{org_name:str}/groups/'
             '{group_name:str}/{evidence_type:str}/'
             '{finding_id:str}/{_:str}/{file_id:str}',
             views.get_evidence
         ),
-        Route('/logout', logout),
-        Route('/new/{full_path:path}', app),
-        Route('/', lambda _request: RedirectResponse(url='/new')),
         Mount(
             '/static',
             StaticFiles(directory=f'{settings.TEMPLATES_DIR}/static'),
             name='static'
-        )
+        ),
+        Route('/{full_path:path}', app)
     ],
     middleware=[
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_TEST_KEY),

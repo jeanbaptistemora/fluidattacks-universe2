@@ -89,7 +89,7 @@ async def authz_google(request: Request) -> HTMLResponse:
     user = await utils.get_jwt_userinfo(client, request, token)
     request = await handle_user(request, user)
 
-    return RedirectResponse(url='/new/home')
+    return RedirectResponse(url='/home')
 
 
 async def authz_azure(request: Request) -> HTMLResponse:
@@ -108,7 +108,7 @@ async def authz_azure(request: Request) -> HTMLResponse:
         ) as user:
             request = await handle_user(request, await user.json())
 
-    return RedirectResponse(url='/new/home')
+    return RedirectResponse(url='/home')
 
 
 async def authz_bitbucket(request: Request) -> HTMLResponse:
@@ -117,4 +117,4 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
     user = await utils.get_bitbucket_oauth_userinfo(client, token)
     request = await handle_user(request, user)
 
-    return RedirectResponse(url='/new/home')
+    return RedirectResponse(url='/home')

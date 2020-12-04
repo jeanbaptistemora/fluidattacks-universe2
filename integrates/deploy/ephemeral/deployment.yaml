@@ -47,7 +47,7 @@ spec:
                 - build.sh
                 - integrates_probes_readiness
                 - integrates-dev
-                - http://localhost:8001/new/
+                - http://localhost:8001/
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -60,8 +60,8 @@ spec:
                 - build.sh
                 - integrates_probes_liveness
                 - integrates-dev
-                - http://localhost:8001/new/
-                - https://__CI_COMMIT_REF_NAME__.integrates.fluidattacks.com/new/
+                - http://localhost:8001/
+                - https://__CI_COMMIT_REF_NAME__.integrates.fluidattacks.com/
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1

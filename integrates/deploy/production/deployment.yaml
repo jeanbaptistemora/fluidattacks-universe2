@@ -57,7 +57,7 @@ spec:
                 - build.sh
                 - integrates_probes_readiness
                 - integrates-prod
-                - http://localhost:8001/new/
+                - http://localhost:8001/
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
@@ -70,8 +70,8 @@ spec:
                 - build.sh
                 - integrates_probes_liveness
                 - integrates-prod
-                - http://localhost:8001/new/
-                - https://integrates.fluidattacks.com/new/
+                - http://localhost:8001/
+                - https://integrates.fluidattacks.com/
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
