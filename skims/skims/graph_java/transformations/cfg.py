@@ -153,6 +153,49 @@ def _method_declaration(
     _generic(graph, c_id, stack, edge_attrs=ALWAYS)
 
 
+def _try_statement(
+    graph: nx.DiGraph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    # Strain the childs over the following node types
+    childs = g.match_ast(
+        graph,
+        n_id,
+        # Components in order
+        'TRY',
+        'Block',
+        'CatchClause',
+        'Finally_',
+    )
+
+    # Declare blocks that actually exists
+    childs_stack = [
+        (c_id, edge_attrs)
+        for c_id, edge_attrs in [
+            (childs['Block'], ALWAYS),
+            (childs['CatchClause'], MAYBE),
+            (childs['Finally_'], ALWAYS),
+        ]
+        if c_id
+    ]
+
+    # Walk the existing blocks and link them recursively
+    p_id = n_id
+    for _, last, (c_id, edge_attrs) in mark_ends(childs_stack):
+        graph.add_edge(p_id, c_id, **edge_attrs)
+        p_id = c_id
+
+        # Link child block recursively
+        _generic(graph, c_id, stack, edge_attrs=edge_attrs)
+
+        # If this is the last block and we should link to a next_id, do it
+        if last:
+            if _get_next_id(stack):
+                _propagate_next_id_from_parent(stack)
+            _generic(graph, c_id, stack, edge_attrs=edge_attrs)
+
+
 def _generic(
     graph: nx.DiGraph,
     n_id: str,
@@ -177,6 +220,8 @@ def _generic(
         _if_statement(graph, n_id, stack)
     elif n_attrs_label_type == 'MethodDeclaration':
         _method_declaration(graph, n_id, stack)
+    elif n_attrs_label_type == 'TryStatement':
+        _try_statement(graph, n_id, stack)
     elif next_id := stack[-2].pop('next_id', None):
         graph.add_edge(n_id, next_id, **edge_attrs)
 
