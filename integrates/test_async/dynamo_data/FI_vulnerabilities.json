@@ -926,7 +926,7 @@
                      {
                         "M": {
                            "acceptance_date": { "S": "2021-01-16 12:46:10" },
-                           "date": { "S": "2020-10-13 12:46:10" },
+                           "date": { "S": "2019-01-15 10:43:39" },
                            "justification": { "S": "This is a treatment justification test" },
                            "treatment": { "S": "ACCEPTED" },
                            "treatment_manager" : { "S" : "integratesuser@gmail.com" },
@@ -1415,17 +1415,11 @@
                    "L": [
                        {
                            "M": {
-                                "acceptance_date": {
-                                    "S": "2021-01-16 12:46:10"
-                                },
                                 "date": {
-                                    "S": "2020-11-13 12:46:10"
-                                },
-                                "justification": {
-                                    "S": "accepted justification"
+                                    "S": "2019-09-13 09:58:38"
                                 },
                                 "treatment": {
-                                    "S": "ACCEPTED"
+                                    "S": "NEW"
                                 },
                                 "user": {
                                     "S": "integratesuser@gmail.com"

@@ -53,10 +53,158 @@ async def test_get_tracking_vulnerabilities():
     finding_id = '436992569'
     vulnerabilities = await list_vulnerabilities_async([finding_id])
     test_data = get_tracking_vulnerabilities(vulnerabilities)
-    expected_output = {'date': '2019-08-30', 'effectiveness': 0,
-                        'open': 1, 'closed': 0, 'cycle': 0, 'accepted': 0,
-                        'accepted_undefined': 0, 'in_progress': 0, 'new': 1,}
-    assert test_data[0] == expected_output
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2019-08-30",
+            "new": 1,
+            "in_progress": 0,
+            "accepted": 0,
+            "accepted_undefined": 0
+        },
+        {
+            "cycle": 1,
+            "open": 16,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2019-09-12",
+            "new": 1,
+            "in_progress": 0,
+            "accepted": 0,
+            "accepted_undefined": 0
+        },
+        {
+            "cycle": 2,
+            "open": 22,
+            "closed": 4,
+            "effectiveness": 15,
+            "date": "2019-09-13",
+            "new": 2,
+            "in_progress": 0,
+            "accepted": 0,
+            "accepted_undefined": 0
+        },
+        {
+            "cycle": 3,
+            "open": 24,
+            "closed": 4,
+            "effectiveness": 14,
+            "date": "2019-09-16",
+            "new": 2,
+            "in_progress": 0,
+            "accepted": 0,
+            "accepted_undefined": 0
+        },
+        {
+            "cycle": 4,
+            "open": 24,
+            "closed": 4,
+            "effectiveness": 14,
+            "date": "2020-02-19",
+            "new": 2,
+            "in_progress": 0,
+            "accepted": 0,
+            "accepted_undefined": 0
+        }
+    ]
+    assert test_data == expected_output
+
+    finding_id = '463461507'
+    vulnerabilities = await list_vulnerabilities_async([finding_id])
+    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2019-09-12",
+            "new": 0,
+            "in_progress": 1,
+            "accepted": 0,
+            "accepted_undefined": 0
+        },
+        {
+            "cycle": 1,
+            "open": 2,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2019-09-13",
+            "new": 1,
+            "in_progress": 0,
+            "accepted": 1,
+            "accepted_undefined": 0
+        }
+    ]
+    assert test_data == expected_output
+
+    finding_id = '463461507'
+    vulnerabilities = await list_vulnerabilities_async([finding_id])
+    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2019-09-12",
+            "new": 0,
+            "in_progress": 1,
+            "accepted": 0,
+            "accepted_undefined": 0
+        },
+        {
+            "cycle": 1,
+            "open": 2,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2019-09-13",
+            "new": 1,
+            "in_progress": 0,
+            "accepted": 1,
+            "accepted_undefined": 0
+        }
+    ]
+    assert test_data == expected_output
+
+    finding_id = '422286126'
+    vulnerabilities = await list_vulnerabilities_async([finding_id])
+    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "effectiveness": 0,
+            "date": "2020-09-09",
+            "new": 0,
+            "in_progress": 1,
+            "accepted": 0,
+            "accepted_undefined": 0
+        }
+    ]
+    assert test_data == expected_output
+
+    finding_id = '463558592'
+    vulnerabilities = await list_vulnerabilities_async([finding_id])
+    test_data = get_tracking_vulnerabilities(vulnerabilities)
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 1,
+            "effectiveness": 50,
+            "date": "2019-01-15",
+            "new": 0,
+            "in_progress": 0,
+            "accepted": 1,
+            "accepted_undefined": 0
+        }
+    ]
+    assert test_data == expected_output
 
 @pytest.mark.changes_db
 async def test_update_treatment():

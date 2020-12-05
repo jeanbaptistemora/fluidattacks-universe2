@@ -600,11 +600,24 @@
                         "L": [
                             {
                                 "M": {
+                                    "date": {
+                                        "S": "2019-09-12 08:45:48"
+                                    },
+                                    "treatment": {
+                                        "S": "IN_PROGRESS"
+                                    },
+                                    "user": {
+                                        "S": "integratesuser@gmail.com"
+                                    }
+                                }
+                            },
+                            {
+                                "M": {
                                     "acceptance_date": {
                                         "S": "2021-01-16 12:46:10"
                                     },
                                     "date": {
-                                        "S": "2020-11-13 12:46:10"
+                                        "S": "2019-09-13 08:45:48"
                                     },
                                     "justification": {
                                         "S": "accepted justification"

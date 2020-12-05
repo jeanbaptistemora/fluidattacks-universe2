@@ -27,7 +27,7 @@ async def test_finding():
                 'date': '2019-01-15',
                 'in_progress': 0,
                 'new': 0,
-                'accepted': 0,
+                'accepted': 1,
                 'accepted_undefined': 0
             }
         ],

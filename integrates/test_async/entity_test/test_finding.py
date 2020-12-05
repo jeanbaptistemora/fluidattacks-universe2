@@ -75,6 +75,17 @@ async def test_finding():
       'vulnType': 'inputs',
       'zeroRisk': 'Confirmed'
     }
+    expected_tracking = [{
+      "cycle": 0,
+      "open": 1,
+      "closed": 0,
+      "effectiveness": 0,
+      "date": "2020-09-09",
+      "new": 0,
+      "in_progress": 1,
+      "accepted": 0,
+      "accepted_undefined": 0
+    }]
     query = '''{
       finding(identifier: "422286126"){
           id
@@ -169,11 +180,7 @@ async def test_finding():
     assert result['data']['finding']['openVulnerabilities'] == 1
     assert result['data']['finding']['closedVulnerabilities'] == 0
     assert result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
-    assert result['data']['finding']['tracking'][0]['cycle'] == 0
-    assert result['data']['finding']['tracking'][0]['open'] == 1
-    assert result['data']['finding']['tracking'][0]['closed'] == 0
-    assert result['data']['finding']['tracking'][0]['effectiveness'] == 0
-    assert result['data']['finding']['tracking'][0]['date'] == '2020-09-09'
+    assert result['data']['finding']['tracking'] == expected_tracking
     assert 'records' in result['data']['finding']
     assert result['data']['finding']['severity']['attackComplexity'] == 0.77
     assert result['data']['finding']['severity']['remediationLevel'] == 0.97
