@@ -578,38 +578,6 @@ async def test_submit_draft():
     assert result['errors'][0]['message'] == expected_error
 
 @pytest.mark.changes_db
-async def test_handle_acceptation():
-    """Check for handleAcceptation mutation."""
-    query = '''
-        mutation HandleAcceptationMutation(
-            $findingId: String!,
-            $observations: String!,
-            $projectName: String!,
-            $response: String!
-            ) {
-            handleAcceptation(
-            findingId: $findingId,
-            observations: $observations,
-            projectName: $projectName,
-            response: $response
-            ) {
-            success
-            }
-        }
-    '''
-    variables = {
-        'findingId': '475041513',
-        'observations': 'Test observations',
-        'projectName': 'oneshottest',
-        'response': 'IN PROGRESS'
-    }
-    data = {'query': query, 'variables': variables}
-    result = await _get_result(data, user='continuoushacking@gmail.com')
-    assert 'errors' not in result
-    assert 'success' in result['data']['handleAcceptation']
-    assert result['data']['handleAcceptation']['success']
-
-@pytest.mark.changes_db
 async def test_filter_deleted_findings():
     """Check if vuln of deleted vulns are filter out."""
     mutation = '''

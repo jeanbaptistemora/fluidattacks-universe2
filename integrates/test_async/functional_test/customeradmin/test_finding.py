@@ -291,24 +291,6 @@ async def test_finding():
     assert 'success' in result['data']['updateClientDescription']
     assert result['data']['updateClientDescription']['success']
 
-    query = f'''
-        mutation {{
-            handleAcceptation(
-                findingId: "{finding_id}",
-                observations: "Test observations",
-                projectName: "{group_name}",
-                response: "IN PROGRESS"
-            ) {{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['handleAcceptation']
-    assert result['data']['handleAcceptation']['success']
-
     expected_output =  {
         'consulting': {
             'content': consult_content
@@ -334,13 +316,6 @@ async def test_finding():
                 'treatment': 'ACCEPTED_UNDEFINED',
                 'user': 'integratesuser@gmail.com'
             },
-            {
-                'acceptance_status': 'IN PROGRESS',
-                'date': today,
-                'justification': 'Test observations',
-                'treatment': 'ACCEPTED_UNDEFINED',
-                'user': 'integratesuser@gmail.com'
-            },
         ],
     }
     query = f'''{{
@@ -360,8 +335,5 @@ async def test_finding():
     )
     result['data']['finding']['historicTreatment'][2]['date'] = (
         result['data']['finding']['historicTreatment'][2]['date'][:-9]
-    )
-    result['data']['finding']['historicTreatment'][3]['date'] = (
-        result['data']['finding']['historicTreatment'][3]['date'][:-9]
     )
     assert result['data']['finding']['historicTreatment'] == expected_output.get('historic_treatment')

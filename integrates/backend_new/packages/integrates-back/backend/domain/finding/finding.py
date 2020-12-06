@@ -185,38 +185,6 @@ def get_tracking_vulnerabilities(
     return new_tracked
 
 
-async def handle_acceptation(
-        finding_id: str,
-        observations: str,
-        user_mail: str,
-        response: str) -> bool:
-    today = datetime_utils.get_as_str(
-        datetime_utils.get_now()
-    )
-    new_state = {
-        'acceptance_status': response,
-        'treatment': 'ACCEPTED_UNDEFINED',
-        'justification': observations,
-        'user': user_mail,
-        'date': today
-    }
-    findind_attr = await finding_utils.get_attributes(
-        finding_id,
-        ['historic_treatment']
-    )
-    historic_treatment = cast(
-        List[Dict[str, str]],
-        findind_attr.get('historic_treatment', [])
-    )
-    historic_treatment.append(new_state)
-    if response == 'REJECTED':
-        historic_treatment.append({'treatment': 'NEW', 'date': today})
-    return await finding_dal.update(
-        finding_id,
-        {'historic_treatment': historic_treatment}
-    )
-
-
 async def update_description(
         finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
     validations.validate_fields(

@@ -7,7 +7,6 @@ from typing import Any, Union, cast
 # Third party libraries
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
-from graphql import GraphQLError
 
 from backend.decorators import (
     concurrent_decorators,
@@ -165,58 +164,6 @@ async def _do_add_finding_consult(
         )
     ret = AddConsultPayloadType(success=success, comment_id=str(comment_id))
     return ret
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-async def _do_handle_acceptation(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: Any) -> SimplePayloadType:
-    """Resolve handle_acceptation mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    user_mail = user_info['user_email']
-    project_name = parameters.get('project_name', '')
-    finding_id = parameters.get('finding_id', '')
-    finding_loader = info.context.loaders['finding']
-    finding_data = await finding_loader.load(finding_id)
-    historic_treatment = finding_data.get('historic_treatment', [{}])
-    if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
-        raise GraphQLError(
-            'It cant be approved/rejected a finding'
-            'definite assumption without being requested'
-        )
-    success = await finding_domain.handle_acceptation(
-        finding_id,
-        str(parameters.get('observations')),
-        user_mail,
-        str(parameters.get('response'))
-    )
-    if success:
-        attrs_to_clean = {
-            'historic_treatment': finding_id,
-            'current_state': finding_id,
-            'open_vulnerabilities': project_name,
-            'drafts': project_name,
-            'open_findings': project_name,
-            'max*severity': project_name,
-            'mean_remediate': project_name,
-            'total_findings': project_name,
-            'total_treatment': project_name
-        }
-        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        util.queue_cache_invalidation(*to_clean)
-        util.forces_trigger_deployment(parameters.get('project_name', ''))
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Verified a request '
-             f'in finding_id: {finding_id}')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

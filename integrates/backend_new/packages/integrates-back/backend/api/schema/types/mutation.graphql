@@ -232,13 +232,6 @@ type Mutation {
 
     rejectRemoveProject(projectName: String!): SimplePayload!
 
-    handleAcceptation(
-        findingId: String!
-        observations: String!
-        projectName: String!
-        response: String!
-    ): SimplePayload!
-
     updateDescription(
         actor: String!
         affectedSystems: String!

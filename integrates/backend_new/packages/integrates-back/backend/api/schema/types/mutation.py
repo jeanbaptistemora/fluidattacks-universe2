@@ -142,7 +142,6 @@ MUTATION.set_field('updateDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateClientDescription',
                    finding.resolve_finding_mutation)
-MUTATION.set_field('handleAcceptation', finding.resolve_finding_mutation)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',

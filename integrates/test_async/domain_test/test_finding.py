@@ -13,7 +13,7 @@ from backend import mailer
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, update_treatment,
-    handle_acceptation, validate_evidence, mask_finding,
+    validate_evidence, mask_finding,
     approve_draft, compare_historic_treatments, list_findings,
     list_drafts
 )
@@ -326,22 +326,6 @@ async def test_add_comment():
         finding_id,
         'unittesting'
     )
-
-@pytest.mark.changes_db
-async def test_handle_acceptation():
-    finding_id = '463461507'
-    observations = 'Test observations'
-    user_mail = 'unittest@fluidattacks.com'
-    response = 'REJECTED'
-    test_data = await handle_acceptation(
-        finding_id,
-        observations,
-        user_mail,
-        response
-    )
-    expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
 
 @pytest.mark.changes_db
 async def test_mask_finding():

@@ -281,42 +281,6 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
-    query = f'''
-        mutation {{
-            updateClientDescription (
-                findingId: "{finding_id}",
-                treatment: ACCEPTED_UNDEFINED,
-                justification: "This is a treatment justification test",
-                acceptanceDate: ""
-            ) {{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateClientDescription']
-    assert result['data']['updateClientDescription']['success']
-
-    query = f'''
-        mutation {{
-            handleAcceptation(
-                findingId: "{finding_id}",
-                observations: "Test observations",
-                projectName: "{group_name}",
-                response: "IN PROGRESS"
-            ) {{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['handleAcceptation']
-    assert result['data']['handleAcceptation']['success']
-
     expected_output =  {
         'consulting': {
             'content': consult_content
@@ -341,27 +305,6 @@ async def test_finding():
                 'justification': 'This is a treatment justification test',
                 'treatment': 'ACCEPTED_UNDEFINED',
                 'user': 'integratesuser@gmail.com'
-            },
-            {
-                'acceptance_status': 'IN PROGRESS',
-                'date': today,
-                'justification': 'Test observations',
-                'treatment': 'ACCEPTED_UNDEFINED',
-                'user': 'integratesuser@gmail.com'
-            },
-            {
-                'acceptance_status': 'SUBMITTED',
-                'date': today,
-                'justification': 'This is a treatment justification test',
-                'treatment': 'ACCEPTED_UNDEFINED',
-                'user': 'unittest2@fluidattacks.com'
-            },
-            {
-                'acceptance_status': 'IN PROGRESS',
-                'date': today,
-                'justification': 'Test observations',
-                'treatment': 'ACCEPTED_UNDEFINED',
-                'user': 'unittest2@fluidattacks.com'
             },
         ],
         'observations':  [
