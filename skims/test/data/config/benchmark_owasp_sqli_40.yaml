@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_sqli_40.csv
+path:
+  include:
+  - BenchmarkTest02276.java
+  - BenchmarkTest02277.java
+  - BenchmarkTest02278.java
+  - BenchmarkTest02279.java
+  - BenchmarkTest02280.java
+  - BenchmarkTest02281.java
+  - BenchmarkTest02282.java
+  - BenchmarkTest02283.java
+  - BenchmarkTest02284.java
+  - BenchmarkTest02285.java

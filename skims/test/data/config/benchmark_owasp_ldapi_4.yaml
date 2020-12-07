@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_ldapi_4.csv
+path:
+  include:
+  - BenchmarkTest01909.java
+  - BenchmarkTest02025.java
+  - BenchmarkTest02036.java
+  - BenchmarkTest02037.java
+  - BenchmarkTest02104.java
+  - BenchmarkTest02114.java
+  - BenchmarkTest02115.java
+  - BenchmarkTest02116.java
+  - BenchmarkTest02196.java
+  - BenchmarkTest02208.java

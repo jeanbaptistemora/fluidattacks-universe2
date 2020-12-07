@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_crypto_18.csv
+path:
+  include:
+  - BenchmarkTest01828.java
+  - BenchmarkTest01829.java
+  - BenchmarkTest01830.java
+  - BenchmarkTest01895.java
+  - BenchmarkTest01896.java
+  - BenchmarkTest01897.java
+  - BenchmarkTest01898.java
+  - BenchmarkTest01899.java
+  - BenchmarkTest01900.java
+  - BenchmarkTest01901.java

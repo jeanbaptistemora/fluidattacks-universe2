@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_weakrand_14.csv
+path:
+  include:
+  - BenchmarkTest00747.java
+  - BenchmarkTest00748.java
+  - BenchmarkTest00749.java
+  - BenchmarkTest00750.java
+  - BenchmarkTest00751.java
+  - BenchmarkTest00752.java
+  - BenchmarkTest00753.java
+  - BenchmarkTest00817.java
+  - BenchmarkTest00818.java
+  - BenchmarkTest00819.java

@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_securecookie_5.csv
+path:
+  include:
+  - BenchmarkTest02006.java
+  - BenchmarkTest02064.java
+  - BenchmarkTest02065.java
+  - BenchmarkTest02066.java
+  - BenchmarkTest02142.java
+  - BenchmarkTest02143.java
+  - BenchmarkTest02144.java
+  - BenchmarkTest02247.java
+  - BenchmarkTest02248.java
+  - BenchmarkTest02339.java

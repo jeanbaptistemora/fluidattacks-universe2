@@ -1,0 +1,17 @@
+title,what,where,cwe
+FIN.H.060. Insecure exceptions,BenchmarkTest02380.java,60,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02380.java,68,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02381.java,66,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02382.java,60,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02382.java,68,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02383.java,60,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02383.java,68,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02465.java,63,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02465.java,74,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02466.java,63,396
+FIN.H.060. Insecure exceptions,BenchmarkTest02466.java,74,396
+FIN.H.061. Errors without traceability,BenchmarkTest02380.java,68,390
+FIN.H.061. Errors without traceability,BenchmarkTest02382.java,68,390
+FIN.H.061. Errors without traceability,BenchmarkTest02383.java,68,390
+FIN.H.061. Errors without traceability,BenchmarkTest02465.java,74,390
+FIN.H.061. Errors without traceability,BenchmarkTest02466.java,74,390

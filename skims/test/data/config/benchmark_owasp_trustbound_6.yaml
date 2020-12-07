@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_trustbound_6.csv
+path:
+  include:
+  - BenchmarkTest01300.java
+  - BenchmarkTest01374.java
+  - BenchmarkTest01375.java
+  - BenchmarkTest01376.java
+  - BenchmarkTest01377.java
+  - BenchmarkTest01454.java
+  - BenchmarkTest01455.java
+  - BenchmarkTest01456.java
+  - BenchmarkTest01457.java
+  - BenchmarkTest01458.java

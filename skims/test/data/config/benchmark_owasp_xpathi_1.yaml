@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_xpathi_1.csv
+path:
+  include:
+  - BenchmarkTest01013.java
+  - BenchmarkTest01014.java
+  - BenchmarkTest01223.java
+  - BenchmarkTest01224.java
+  - BenchmarkTest01225.java
+  - BenchmarkTest01316.java
+  - BenchmarkTest01397.java
+  - BenchmarkTest01478.java
+  - BenchmarkTest01479.java
+  - BenchmarkTest01561.java

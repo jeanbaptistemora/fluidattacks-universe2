@@ -1,0 +1,10 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_hash_23.csv
+path:
+  include:
+  - BenchmarkTest02673.java
+  - BenchmarkTest02674.java
+  - BenchmarkTest02675.java
+  - BenchmarkTest02676.java
+  - BenchmarkTest02677.java
+  - BenchmarkTest02678.java

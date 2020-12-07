@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_xss_37.csv
+path:
+  include:
+  - BenchmarkTest02327.java
+  - BenchmarkTest02328.java
+  - BenchmarkTest02329.java
+  - BenchmarkTest02330.java
+  - BenchmarkTest02331.java
+  - BenchmarkTest02332.java
+  - BenchmarkTest02394.java
+  - BenchmarkTest02395.java
+  - BenchmarkTest02396.java
+  - BenchmarkTest02397.java

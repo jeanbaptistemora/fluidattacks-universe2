@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_pathtraver_3.csv
+path:
+  include:
+  - BenchmarkTest00264.java
+  - BenchmarkTest00265.java
+  - BenchmarkTest00359.java
+  - BenchmarkTest00360.java
+  - BenchmarkTest00361.java
+  - BenchmarkTest00362.java
+  - BenchmarkTest00363.java
+  - BenchmarkTest00364.java
+  - BenchmarkTest00365.java
+  - BenchmarkTest00366.java

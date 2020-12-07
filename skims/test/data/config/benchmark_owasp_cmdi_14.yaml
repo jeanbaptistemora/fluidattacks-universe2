@@ -1,0 +1,14 @@
+chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+output: test/outputs/benchmark_owasp_cmdi_14.csv
+path:
+  include:
+  - BenchmarkTest01531.java
+  - BenchmarkTest01532.java
+  - BenchmarkTest01533.java
+  - BenchmarkTest01600.java
+  - BenchmarkTest01601.java
+  - BenchmarkTest01606.java
+  - BenchmarkTest01607.java
+  - BenchmarkTest01608.java
+  - BenchmarkTest01609.java
+  - BenchmarkTest01610.java

@@ -46,12 +46,18 @@ def json_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     return json.dumps(simplify(element), *args, **kwargs)
 
 
-async def yaml_dumps(element: object, **kwargs: Any) -> str:
+def blocking_yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
-    return await in_thread(
-        yaml.safe_dump,  # type: ignore
+    return yaml.safe_dump(  # type: ignore
         element,
+        *args,
         default_flow_style=False,
         **kwargs,
     )
+
+
+async def yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
+    element = simplify(element)
+
+    return await in_thread(blocking_yaml_dumps, element, *args, **kwargs)
