@@ -18,12 +18,11 @@ import {
   ACCEPT_LEGAL_MUTATION,
   GET_USER_AUTHORIZATION,
 } from "scenes/Registration/containers/WelcomeView/queries";
-import { Col, Row } from "react-bootstrap";
+import { Col100, Row } from "styles/styledComponents";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 export const WelcomeView: React.FC = (): JSX.Element => {
-  const { userEmail, userName } = window as typeof window &
-    Record<string, string>;
+  const { userName } = window as typeof window & Record<string, string>;
 
   // Load on last visited url
   const savedUrl: string = _.get(localStorage, "start_url", "/home");
@@ -85,35 +84,17 @@ export const WelcomeView: React.FC = (): JSX.Element => {
             {"!"}
           </h1>
         </div>
-        {localStorage.getItem("showAlreadyLoggedin") === "1" ? (
+        {localStorage.getItem("concurrentSession") === "1" ? (
           <div>
-            <Row className={style.row}>
-              <h3>{translate.t("registration.logged_in_title")}</h3>
-            </Row>
             <Row>
-              <Col md={12}>
-                <p>{translate.t("registration.logged_in_message")}</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <Button onClick={loadDashboard}>
-                  {translate.t("registration.continue_as_btn")} {userEmail}
-                </Button>
-              </Col>
-            </Row>
-          </div>
-        ) : localStorage.getItem("concurrentSession") === "1" ? (
-          <div>
-            <Row className={style.row}>
               <h3>{translate.t("registration.concurrent_session_message")}</h3>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col100>
                 <Button onClick={loadDashboard}>
                   {translate.t("registration.continue_btn")}
                 </Button>
-              </Col>
+              </Col100>
             </Row>
           </div>
         ) : (

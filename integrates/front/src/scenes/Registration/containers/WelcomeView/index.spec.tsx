@@ -64,23 +64,9 @@ describe("Welcome view", (): void => {
     );
   });
 
-  it("should render already logged in", (): void => {
-    expect.hasAssertions();
-
-    localStorage.setItem("showAlreadyLoggedin", "1");
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider>
-        <WelcomeView />
-      </MockedProvider>
-    );
-
-    expect(wrapper.find("h3").text()).toContain("You are already logged in");
-  });
-
   it("should render concurrent session", (): void => {
     expect.hasAssertions();
 
-    localStorage.setItem("showAlreadyLoggedin", "0");
     localStorage.setItem("concurrentSession", "1");
     const wrapper: ReactWrapper = mount(
       <MockedProvider>
@@ -104,7 +90,6 @@ describe("Welcome view", (): void => {
         },
       },
     ];
-    localStorage.setItem("showAlreadyLoggedin", "1");
     localStorage.setItem(
       "start_url",
       "/project/BWAPP/vulns/413372600/consulting"
@@ -119,7 +104,6 @@ describe("Welcome view", (): void => {
 
     wrapper.find("Button").simulate("click");
 
-    expect(_.get(localStorage, "showAlreadyLoggedin")).toBeUndefined();
     expect(_.get(localStorage, "start_url")).toBeUndefined();
   });
 });
