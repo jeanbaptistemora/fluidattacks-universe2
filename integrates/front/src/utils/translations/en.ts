@@ -1799,16 +1799,22 @@ export const enTranslations: ResourceKey = {
       },
     },
     tab_tracking: {
+      accepted: "Temporally accepted",
+      accepted_undefined: "Eternally accepted",
       closed: "Closed",
       cycle: "Cycle",
       effectiveness: "Effectiveness",
       found: "Found",
+      in_progress: "In progress",
+      new: "New",
       open: "Open",
       pending: "Pending",
+      status: "Status",
       tab_title: "Tracking",
       tooltip:
         "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
         "and effectiveness of the solution in reattacks",
+      treatment: "Treatment",
     },
     tab_users: {
       add_button: {

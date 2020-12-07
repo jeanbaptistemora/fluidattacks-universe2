@@ -17,6 +17,10 @@ describe("TrackingItem", () => {
         date="2019-01-17"
         effectiveness={0}
         open={1}
+        new={0}
+        in_progress={1}
+        accepted={0}
+        accepted_undefined={0}
       />,
     );
     expect(wrapper)
@@ -24,7 +28,15 @@ describe("TrackingItem", () => {
     expect(wrapper.text())
       .toContain("2019-01-17");
     expect(wrapper.text())
-      .toContain("Cycle: 1,\u00a0Open: 1,\u00a0Closed: 0, Effectiveness: 0%");
+      .toContain("Cycle: 1,");
+    expect(wrapper.text())
+      .toContain("Status:");
+    expect(wrapper.text())
+      .toContain("Open: 1,\u00a0Closed: 0, Effectiveness: 0%");
+    expect(wrapper.text())
+      .toContain("Treatment:");
+    expect(wrapper.text())
+      .toContain("New: 0,\u00a0In progress: 1,\u00a0Temporally accepted: 0,\u00a0Eternally accepted: 0");
   });
 
   it("should render root item", async () => {
@@ -35,10 +47,20 @@ describe("TrackingItem", () => {
         date="2019-01-17"
         effectiveness={0}
         open={1}
+        new={1}
+        in_progress={0}
+        accepted={0}
+        accepted_undefined={0}
       />,
     );
     expect(wrapper.text())
-      .toContain("Found,\u00a0Open: 1,\u00a0Closed: 0");
+      .toContain("2019-01-17");
+    expect(wrapper.text())
+      .toContain("Found");
+    expect(wrapper.text())
+      .toContain("Status:");
+    expect(wrapper.text())
+      .toContain("Open: 1,\u00a0Closed: 0");
   });
 
   it("should render closed item", async () => {
@@ -49,6 +71,10 @@ describe("TrackingItem", () => {
         date="2019-01-17"
         effectiveness={100}
         open={0}
+        new={0}
+        in_progress={0}
+        accepted={0}
+        accepted_undefined={0}
       />,
     );
     expect(wrapper.find("li")

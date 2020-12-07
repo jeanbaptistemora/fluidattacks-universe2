@@ -13,19 +13,21 @@ import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 
 import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
-import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities/index";
 import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 export interface IClosing {
+  accepted?: number;
+  accepted_undefined?: number;
   closed: number;
   cycle: number;
   date: string;
   effectiveness: number;
+  in_progress?: number;
+  new?: number;
   open: number;
 }
 
@@ -63,6 +65,10 @@ const trackingView: React.FC = (): JSX.Element => {
                   effectiveness={closing.effectiveness}
                   key={index}
                   open={closing.open}
+                  new={closing.new}
+                  in_progress={closing.in_progress}
+                  accepted={closing.accepted}
+                  accepted_undefined={closing.accepted_undefined}
                 />
               ))}
             </ul>

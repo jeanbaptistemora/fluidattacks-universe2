@@ -25,7 +25,12 @@ describe("FindingExploitView", (): void => {
           id: "422286126",
           tracking: [
             { closed: 0, cycle: 0, date: "2018-09-28", effectiveness: 0, open: 1 },
-            { closed: 1, cycle: 1, date: "2019-01-08", effectiveness: 100, open: 0 },
+            {
+              accepted: 0, accepted_undefined: 0, closed: 1,
+              cycle: 1, date: "2019-01-08", effectiveness: 100,
+              in_progress: 0, new: 1,  open: 2,
+            },
+            { closed: 2, cycle: 2, date: "2019-01-08", effectiveness: 100, open: 0 },
           ],
         },
       },
@@ -71,6 +76,6 @@ describe("FindingExploitView", (): void => {
     expect(wrapper.find("ul"))
       .toHaveLength(1);
     expect(wrapper.find("li"))
-      .toHaveLength(2);
+      .toHaveLength(3);
   });
 });
