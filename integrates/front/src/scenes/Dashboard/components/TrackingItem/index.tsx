@@ -8,12 +8,12 @@ import { translate } from "utils/translations/translate";
 
 interface ITrackingItemProps {
   accepted?: number;
-  accepted_undefined?: number;
+  acceptedUndefined?: number;
   closed: number;
   cycle: number;
   date: string;
   effectiveness: number;
-  in_progress?: number;
+  inProgress?: number;
   new?: number;
   open: number;
 }
@@ -38,19 +38,16 @@ const trackingItem: React.FC<ITrackingItemProps> = (props: ITrackingItemProps): 
             ? `, ${translate.t("search_findings.tab_tracking.effectiveness")}: ${props.effectiveness}%`
             : undefined}
           <br/>
-          {props.cycle > 0 && props.open > 0
-            ? `${translate.t("search_findings.tab_tracking.treatment")}:`
-            : undefined}
-          <br/>
-          {props.cycle > 0 && props.open > 0
-            ? `${translate.t("search_findings.tab_tracking.new")}: ${props.new},` : undefined}&nbsp;
-          {props.cycle > 0 && props.open > 0
-            ? `${translate.t("search_findings.tab_tracking.in_progress")}: ${props.in_progress},` : undefined}&nbsp;
-          {props.cycle > 0 && props.open > 0
-            ? `${translate.t("search_findings.tab_tracking.accepted")}: ${props.accepted},` : undefined}&nbsp;
-          {props.cycle > 0 && props.open > 0
-            ? `${translate.t("search_findings.tab_tracking.accepted_undefined")}: ${props.accepted_undefined}`
-            : undefined}
+          {props.cycle > 0 && props.open > 0 ? (
+            <React.Fragment>
+              {`${translate.t("search_findings.tab_tracking.treatment")}:`}
+              <br/>
+              {`${translate.t("search_findings.tab_tracking.new")}: ${props.new},`}&nbsp;
+              {`${translate.t("search_findings.tab_tracking.inProgress")}: ${props.inProgress},`}&nbsp;
+              {`${translate.t("search_findings.tab_tracking.accepted")}: ${props.accepted},`}&nbsp;
+              {`${translate.t("search_findings.tab_tracking.acceptedUndefined")}: ${props.acceptedUndefined}`}
+            </React.Fragment>
+          ) : undefined}
         </p>
       </div>
     </li>

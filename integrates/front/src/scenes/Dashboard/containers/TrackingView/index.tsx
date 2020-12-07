@@ -66,9 +66,9 @@ const trackingView: React.FC = (): JSX.Element => {
                   key={index}
                   open={closing.open}
                   new={closing.new}
-                  in_progress={closing.in_progress}
+                  inProgress={closing.in_progress}
                   accepted={closing.accepted}
-                  accepted_undefined={closing.accepted_undefined}
+                  acceptedUndefined={closing.accepted_undefined}
                 />
               ))}
             </ul>

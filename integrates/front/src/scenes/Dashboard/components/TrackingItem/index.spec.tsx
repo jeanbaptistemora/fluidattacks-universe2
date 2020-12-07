@@ -18,9 +18,9 @@ describe("TrackingItem", () => {
         effectiveness={0}
         open={1}
         new={0}
-        in_progress={1}
+        inProgress={1}
         accepted={0}
-        accepted_undefined={0}
+        acceptedUndefined={0}
       />,
     );
     expect(wrapper)
@@ -48,9 +48,9 @@ describe("TrackingItem", () => {
         effectiveness={0}
         open={1}
         new={1}
-        in_progress={0}
+        inProgress={0}
         accepted={0}
-        accepted_undefined={0}
+        acceptedUndefined={0}
       />,
     );
     expect(wrapper.text())
@@ -72,9 +72,9 @@ describe("TrackingItem", () => {
         effectiveness={100}
         open={0}
         new={0}
-        in_progress={0}
+        inProgress={0}
         accepted={0}
-        accepted_undefined={0}
+        acceptedUndefined={0}
       />,
     );
     expect(wrapper.find("li")
