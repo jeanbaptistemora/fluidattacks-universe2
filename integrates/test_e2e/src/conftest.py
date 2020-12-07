@@ -1,5 +1,6 @@
 # Standard libraries
 import os
+from time import sleep
 from typing import Iterable
 
 # Third party libraries
@@ -8,6 +9,7 @@ from _pytest.fixtures import FixtureRequest
 from selenium.webdriver import Firefox, Remote
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import WebDriverException
 
 # Local libraries
 from model import (
@@ -80,12 +82,20 @@ def driver(
         browserstack_cap: BrowserStackCapacity,
         browserstack_url: str,
         is_ci: bool) -> Iterable[WebDriver]:
+    attempt_number: int = 120
+    wait_time: int = 5
     driver: WebDriver = None
     if is_ci:
-        driver = Remote(
-            command_executor=browserstack_url,
-            desired_capabilities=browserstack_cap._asdict()
-        )
+        for _ in range(attempt_number):
+            try:
+                driver = Remote(
+                    command_executor=browserstack_url,
+                    desired_capabilities=browserstack_cap._asdict()
+                )
+            except WebDriverException:
+                sleep(wait_time)
+            else:
+                break
     else:
         geckodriver: str = f'{os.environ["pkgGeckoDriver"]}/bin/geckodriver'
         firefox: str = f'{os.environ["pkgFirefox"]}/bin/firefox'

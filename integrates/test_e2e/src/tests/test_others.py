@@ -8,6 +8,20 @@ from model import (
 )
 
 
+def test_login_screen(
+        driver: WebDriver,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Enter login screen
+    driver.get(integrates_endpoint)
+    utils.wait_for_text(
+        driver,
+        'Please authenticate to proceed.',
+        timeout,
+    )
+    assert 'FluidIntegrates' in driver.page_source
+
+
 def test_dashboard(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
