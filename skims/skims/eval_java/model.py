@@ -94,12 +94,12 @@ class StatementLiteral(NamedTuple):
     type: str = 'StatementLiteral'
 
 
-class Primary(NamedTuple):
+class StatementPrimary(NamedTuple):
     stacks: List[Statements]
     meta: StatementMeta
 
     recursive: bool = True
-    type: str = 'Primary'
+    type: str = 'StatementPrimary'
 
 
 @dataclass

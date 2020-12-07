@@ -2498,24 +2498,6 @@
         "label_ast": "AST"
       }
     },
-    "299": {
-      "302": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "303": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "323": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "324": {
-        "index": 3,
-        "label_ast": "AST"
-      }
-    },
     "2991": {
       "2995": {
         "index": 0,
@@ -11388,7 +11370,8 @@
       "label_c": 25,
       "label_l": 11,
       "label_parent_ast": "268",
-      "label_type": "ArrayAccess_lfno_primary",
+      "label_text": "myNumbers[10]",
+      "label_type": "CustomArrayAccess_lfno_primary",
       "label_type_index": "0"
     },
     "2990": {
@@ -11443,27 +11426,11 @@
       "label_type": "LPAREN",
       "label_type_index": "0"
     },
-    "302": {
-      "label_c": 25,
-      "label_l": 11,
-      "label_parent_ast": "299",
-      "label_text": "myNumbers",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
     "3021": {
       "label_c": 27,
       "label_l": 122,
       "label_parent_ast": "2997",
       "label_type": "AdditiveExpression",
-      "label_type_index": "0"
-    },
-    "303": {
-      "label_c": 34,
-      "label_l": 11,
-      "label_parent_ast": "299",
-      "label_text": "[",
-      "label_type": "LBRACK",
       "label_type_index": "0"
     },
     "3030": {
@@ -11867,28 +11834,12 @@
       "label_type": "IntegerLiteral",
       "label_type_index": "0"
     },
-    "323": {
-      "label_c": 35,
-      "label_l": 11,
-      "label_parent_ast": "299",
-      "label_text": "10",
-      "label_type": "IntegerLiteral",
-      "label_type_index": "0"
-    },
     "3230": {
       "label_c": 23,
       "label_l": 126,
       "label_parent_ast": "3193",
       "label_text": ";",
       "label_type": "SEMI",
-      "label_type_index": "0"
-    },
-    "324": {
-      "label_c": 37,
-      "label_l": 11,
-      "label_parent_ast": "299",
-      "label_text": "]",
-      "label_type": "RBRACK",
       "label_type_index": "0"
     },
     "3240": {

@@ -172,6 +172,15 @@ def _package_or_type_name(graph: nx.DiGraph) -> None:
     ))
 
 
+def _array_access_lfno_primary(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'ArrayAccess_lfno_primary', (
+        'IdentifierRule',
+        'LBRACK',
+        'IntegerLiteral',
+        'RBRACK',
+    ))
+
+
 def _array_type(graph: nx.DiGraph) -> None:
     _concatenate_child_texts(graph, 'ArrayType', (
         'IdentifierRule',
@@ -353,6 +362,7 @@ def _method_invocations(graph: nx.DiGraph) -> None:
 def reduce(graph: nx.DiGraph) -> None:
     _patch_node_types(graph)
     _dims(graph)
+    _array_access_lfno_primary(graph)
     _array_type(graph)
     _type_arguments_list(graph)
     _type_arguments(graph)

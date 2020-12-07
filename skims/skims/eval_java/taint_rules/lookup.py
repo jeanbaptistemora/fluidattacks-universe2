@@ -12,7 +12,10 @@ def taint(statements: Statements, index: int) -> None:
 
     # Lookup the symbol in the stack
     for symbol in common.read_stack_symbols(statements, index):
-        if symbol.var == statement.symbol:
+        symbol_var_no_index = symbol.var.split('[', maxsplit=1)[0]
+        statement_var_no_index = statement.symbol.split('[', maxsplit=1)[0]
+
+        if symbol_var_no_index == statement_var_no_index:
             statement.meta.danger = symbol.meta.danger
             return
 
