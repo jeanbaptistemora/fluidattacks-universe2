@@ -16,6 +16,7 @@ from eval_java.eval_rules import (
     local_variable_declaration_statement,
     method_declaration,
     primary,
+    resource_specification,
 )
 from eval_java.model import (
     Context,
@@ -29,7 +30,6 @@ _UNINTERESTING_NODES = {
     'BreakStatement',
     'IfThenElseStatement',
     'IfThenStatement',
-    'ResourceSpecification',
     'SEMI',
     'TryStatement',
 }
@@ -83,6 +83,8 @@ def evaluate(
          method_declaration.evaluate),
         ({'Primary'},
          primary.evaluate),
+        ({'ResourceSpecification'},
+         resource_specification.evaluate),
     ):
         if n_attrs_label_type in types:
             evaluator(graph, n_id, ctx=ctx)
