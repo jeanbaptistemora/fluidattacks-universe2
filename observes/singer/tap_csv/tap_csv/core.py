@@ -1,25 +1,34 @@
 # Standard libraries
 import csv
 import tempfile
+from enum import Enum
 from typing import (
     Any,
+    Callable,
+    Dict,
     IO,
+    Iterable,
     NamedTuple,
     Optional,
     Sequence,
 )
 # Third party libraries
 # Local libraries
-from tap_csv import utils
 from singer_io import factory
 from singer_io.singer import (
     SingerRecord,
     SingerSchema,
 )
+from tap_csv import utils
 
 
 LOG = utils.get_log(__name__)
-JSON = Any
+
+
+class ColumnType(Enum):
+    STRING = 'string'
+    NUMBER = 'number'
+    DATE_TIME = 'datetime'
 
 
 class MetadataRows(NamedTuple):
@@ -32,45 +41,63 @@ class AdjustCsvOptions(NamedTuple):
     quote_nonnum: bool = False
     add_default_types: bool = False
     pkeys_present: bool = False
+    file_schema: Dict[str, str] = {}
 
 
-def translate_types(raw_field_type: JSON) -> JSON:
+def translate_types(
+    raw_field_type: Dict[str, ColumnType]
+) -> Dict[str, Dict[str, str]]:
     """Translates type names into JSON SCHEMA types."""
-    type_string: JSON = {
-        "type": "string"
-    }
-    type_number: JSON = {
-        "type": "number"
-    }
-    type_datetime: JSON = {
+    type_string: Dict[str, str] = {"type": "string"}
+    type_number: Dict[str, str] = {"type": "number"}
+    type_datetime: Dict[str, str] = {
         "type": "string",
         "format": "date-time"
     }
-    dictionary: JSON = {
-        "string": type_string,
-        "number": type_number,
-        "datetime": type_datetime
+    transform: Dict[ColumnType, Dict[str, str]] = {
+        ColumnType.STRING: type_string,
+        ColumnType.NUMBER: type_number,
+        ColumnType.DATE_TIME: type_datetime
     }
-    field_type = {f: dictionary[t] for f, t in raw_field_type.items()}
-    return field_type
+    field_type = map(
+        lambda x: (x[0], transform[x[1]]),
+        raw_field_type.items()
+    )
+    return dict(field_type)
 
 
-def translate_values(field__type: JSON, field__value: JSON) -> JSON:
-    """Translates type names into JSON SCHEMA value.
-    """
-
-    dictionary: JSON = {
-        "string": lambda x: x,
-        "number": float,
-        "datetime": lambda x: x
+def translate_values(
+    field_type: Dict[str, ColumnType],
+    field_value: Dict[str, str]
+) -> Dict[str, Any]:
+    """Translates type names into JSON SCHEMA value."""
+    transform: Dict[ColumnType, Callable[[str], Any]] = {
+        ColumnType.STRING: lambda x: x,
+        ColumnType.NUMBER: float,
+        ColumnType.DATE_TIME: lambda x: x
     }
+    new_field_value = map(
+        lambda x: (x[0], transform[field_type[x[0]]](x[1])),
+        field_value.items()
+    )
+    return dict(new_field_value)
 
-    new_field__value: JSON = {}
-    for field_name, field_value in field__value.items():
-        field_type: str = field__type[field_name]
-        new_field__value[field_name] = dictionary[field_type](field_value)
 
-    return new_field__value
+def add_default_types(
+    field_names: Iterable[str],
+    options: AdjustCsvOptions
+) -> Dict[str, str]:
+    field_types = map(
+        lambda name: (
+            name,
+            options.file_schema.get(
+                name,
+                ColumnType.STRING.value
+            )
+        ),
+        field_names
+    )
+    return dict(field_types)
 
 
 def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
@@ -95,12 +122,7 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
             row_num = 1
             for row in source_reader:
                 if row_num == types_row - 1 and options.add_default_types:
-                    field_types = dict(
-                        zip(
-                            field_names,
-                            ['string' for _ in range(len(field_names))]
-                        )
-                    )
+                    field_types = add_default_types(field_names, options)
                     dest_writer.writerow(field_types)
                     row_num = row_num + 1
                 dest_writer.writerow(row)
@@ -140,7 +162,8 @@ def to_singer(
     row_num = 0
     pkeys = []
     field_names = []
-    name_type_map = {}
+    name_type_map: Dict[str, ColumnType] = {}
+    name_value_map: Dict[str, str] = {}
     for record in reader:
         row_num += 1
         if row_num in frozenset(meta_rows):
@@ -149,7 +172,12 @@ def to_singer(
             if row_num == meta_rows.pkeys_row:
                 pkeys = record
             if row_num == meta_rows.field_types_row:
-                name_type_map = dict(zip(field_names, record))
+                name_type_map = dict(
+                    map(
+                        lambda x: (x[0], ColumnType(x[1])),
+                        zip(field_names, record)
+                    )
+                )
                 singer_schema: SingerSchema = SingerSchema(
                     stream=stream,
                     schema={
