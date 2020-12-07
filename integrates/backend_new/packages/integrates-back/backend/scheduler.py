@@ -595,8 +595,8 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         if project not in test_projects:
             try:
                 for finding in finding_requests:
-                    is_finding_approved = finding_filters.is_approved(finding)
-                    if not is_finding_approved:
+                    is_finding_released = finding_filters.is_released(finding)
+                    if not is_finding_released:
                         org_id = await org_domain.get_id_for_group(project)
                         org_name = await org_domain.get_name_by_id(org_id)
                         submission = finding.get('historicState')

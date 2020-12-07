@@ -21,11 +21,11 @@ async def resolve(
     **_kwargs: None
 ) -> List[TrackingItem]:
     finding_id: str = cast(str, parent['id'])
-    is_finding_approved = finding_filters.is_approved(parent)
+    is_finding_released = finding_filters.is_released(parent)
 
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
 
-    if is_finding_approved:
+    if is_finding_released:
         vulns = await finding_vulns_loader.load(finding_id)
 
         return finding_domain.get_tracking_vulnerabilities(vulns)

@@ -112,12 +112,6 @@ def get_creation_date(finding: Dict[str, FindingType]) -> str:
     return creation_date
 
 
-def is_created(finding: Dict[str, FindingType]) -> bool:
-    """Determine if a finding is created from the historic state"""
-
-    return bool(get_creation_date(finding))
-
-
 def get_submission_date(finding: Dict[str, FindingType]) -> str:
     """Get submission date from the historic state"""
     submission_date = ''
@@ -131,12 +125,6 @@ def get_submission_date(finding: Dict[str, FindingType]) -> str:
         submission_date = submission_info[-1]['date']
 
     return submission_date
-
-
-def is_submitted(finding: Dict[str, FindingType]) -> bool:
-    """Determine if a finding is submitted from the historic state"""
-
-    return bool(get_submission_date(finding))
 
 
 def get_approval_date(finding: Dict[str, FindingType]) -> str:
@@ -156,5 +144,33 @@ def get_approval_date(finding: Dict[str, FindingType]) -> str:
 
 def is_approved(finding: Dict[str, FindingType]) -> bool:
     """Determine if a finding is approved from the historic state"""
+    historic_state = get_historic_state(finding)
+
+    return bool(historic_state and historic_state[-1]['state'] == 'APPROVED')
+
+
+def is_created(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is created from the historic state"""
+    historic_state = get_historic_state(finding)
+
+    return bool(historic_state and historic_state[-1]['state'] == 'CREATED')
+
+
+def is_deleted(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is deleted from the historic state"""
+    historic_state = get_historic_state(finding)
+
+    return bool(historic_state and historic_state[-1]['state'] == 'DELETED')
+
+
+def is_released(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is released from the historic state"""
 
     return bool(get_approval_date(finding))
+
+
+def is_submitted(finding: Dict[str, FindingType]) -> bool:
+    """Determine if a finding is submitted from the historic state"""
+    historic_state = get_historic_state(finding)
+
+    return bool(historic_state and historic_state[-1]['state'] == 'SUBMITTED')

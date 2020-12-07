@@ -460,7 +460,7 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         for attribute in finding
     }
 
-    is_draft = not finding_filters.is_approved(finding)
+    is_draft = not finding_filters.is_released(finding)
     if is_draft:
         finding['cvssVersion'] = finding.get('cvssVersion', '2')
 

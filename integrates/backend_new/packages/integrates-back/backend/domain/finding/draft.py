@@ -40,12 +40,13 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
         List[Dict[str, str]],
         draft_data.get('historicState', [{}])
     )
-    status = history[-1].get('state')
     success = False
     is_finding_approved = finding_filters.is_approved(draft_data)
+    is_finding_deleted = finding_filters.is_deleted(draft_data)
+    is_finding_submitted = finding_filters.is_submitted(draft_data)
 
-    if not is_finding_approved:
-        if status == 'SUBMITTED':
+    if (not is_finding_approved and not is_finding_deleted):
+        if is_finding_submitted:
             rejection_date = datetime_utils.get_as_str(
                 datetime_utils.get_now()
             )
@@ -71,24 +72,20 @@ async def approve_draft(
         draft_id: str,
         reviewer_email: str) -> Tuple[bool, str]:
     draft_data = await get_finding(draft_id)
-    submission_history = cast(
-        List[Dict[str, str]],
-        draft_data.get('historicState')
-    )
     release_date: str = ''
     success = False
     is_finding_approved = finding_filters.is_approved(draft_data)
+    is_finding_deleted = finding_filters.is_deleted(draft_data)
+    is_finding_submitted = finding_filters.is_submitted(draft_data)
 
-    if (not is_finding_approved and
-            submission_history[-1].get('state') != 'DELETED'):
+    if (not is_finding_approved and not is_finding_deleted):
         vulns = await vuln_domain.list_vulnerabilities_async([draft_id])
         has_vulns = [
             vuln for vuln in vulns
             if vuln_domain.filter_deleted_status(vuln)
         ]
         if has_vulns:
-            is_finding_submited = finding_filters.is_submitted(draft_data)
-            if is_finding_submited:
+            if is_finding_submitted:
                 release_date = datetime_utils.get_as_str(
                     datetime_utils.get_now()
                 )
@@ -176,16 +173,12 @@ async def create_draft(
 async def submit_draft(finding_id: str, analyst_email: str) -> bool:
     success = False
     finding = await get_finding(finding_id)
-    submission_history = cast(
-        List[Dict[str, str]],
-        finding.get('historicState')
-    )
     is_finding_approved = finding_filters.is_approved(finding)
+    is_finding_deleted = finding_filters.is_deleted(finding)
+    is_finding_submitted = finding_filters.is_submitted(finding)
 
-    if (not is_finding_approved and
-            submission_history[-1].get('state') != 'DELETED'):
-        is_submitted = submission_history[-1].get('state') == 'SUBMITTED'
-        if not is_submitted:
+    if (not is_finding_approved and not is_finding_deleted):
+        if not is_finding_submitted:
             finding_evidence = cast(
                 Dict[str, Dict[str, str]],
                 finding['evidence']

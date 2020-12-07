@@ -201,6 +201,18 @@ async def test_finding():
 
     query = f'''
         mutation {{
+            submitDraft(findingId: "{draft_id}") {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesanalyst@fluidattacks.com')
+    assert 'errors' not in result
+    assert result['data']['submitDraft']['success']
+
+    query = f'''
+        mutation {{
             approveDraft(draftId: "{draft_id}") {{
                 success
             }}
@@ -380,6 +392,11 @@ async def test_finding():
             'analyst': 'integratesreviewer@fluidattacks.com',
             'date': today,
             'state': 'REJECTED'
+        },
+        {
+            'analyst': 'integratesanalyst@fluidattacks.com',
+            'date': today,
+            'state': 'SUBMITTED'
         },
         {
             'analyst': 'integratesreviewer@fluidattacks.com',

@@ -17,12 +17,11 @@ async def resolve(
     **_kwargs: None
 ) -> str:
     report_date = ''
-    is_finding_submitted = finding_filters.is_submitted(parent)
     is_finding_created = finding_filters.is_created(parent)
 
-    if is_finding_submitted:
-        report_date = finding_filters.get_submission_date(parent)
-    elif is_finding_created:
+    if is_finding_created:
         report_date = finding_filters.get_creation_date(parent)
+    else:
+        report_date = finding_filters.get_submission_date(parent)
 
     return report_date
