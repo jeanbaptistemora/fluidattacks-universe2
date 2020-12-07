@@ -15,7 +15,7 @@ botocore==1.16.26
 bugsnag==4.0.1
 channels==3.0.0
 cloudmersive_virus_api_client==2.0.6
-cryptography==2.9.2
+cryptography==3.2.1
 jwcrypto==0.8
 django==3.0.7
 django-analytical==2.6.0
@@ -31,7 +31,7 @@ frozendict==1.2
 gitpython==3.1.11
 graphql-core==3.0.3
 gunicorn==20.0.4
-httpx==0.13.3
+httpx==0.16.1
 httplib2==0.18.1
 hyperlink==19.0.0
 idna==2.9
@@ -64,6 +64,6 @@ starlette==0.13.8
 social-auth-app-django==3.1.0
 sqreen==1.25.1
 tracers==20.7.1645
-uvicorn==0.11.5
+uvicorn[standard]==0.12.3
 watchtower==0.7.3
 zenpy==2.0.20

@@ -30,7 +30,7 @@ click==7.1.2
 cloudmersive-virus-api-client==2.0.6
 colorama==0.4.3
 constantly==15.1.0
-cryptography==2.9.2
+cryptography==3.2.1
 cycler==0.10.0
 daphne==3.0.1
 defusedxml==0.7.0rc1
@@ -51,15 +51,11 @@ gitdb==4.0.5
 GitPython==3.1.11
 graphql-core==3.0.3
 gunicorn==20.0.4
-h11==0.9.0
-h2==3.2.0
-hpack==3.0.0
-hstspreload==2020.11.21
-httpcore==0.9.1
+h11==0.11.0
+httpcore==0.12.2
 httplib2==0.18.1
 httptools==0.1.1
-httpx==0.13.3
-hyperframe==5.2.0
+httpx==0.16.1
 hyperlink==19.0.0
 idna==2.9
 incremental==17.5.0
@@ -94,6 +90,7 @@ pyparsing==2.4.7
 PyPDF4==1.27.0
 python3-openid==3.2.0
 python-dateutil==2.8.1
+python-dotenv==0.15.0
 python-jose==3.1.0
 python-magic==0.4.18
 python-multipart==0.0.5
@@ -123,8 +120,9 @@ Twisted==20.3.0
 txaio==20.4.1
 typing-extensions==3.7.4.3
 urllib3==1.25.11
-uvicorn==0.11.5
+uvicorn==0.12.3
 uvloop==0.14.0
+watchgod==0.6
 watchtower==0.7.3
 WebOb==1.8.6
 websockets==8.1
