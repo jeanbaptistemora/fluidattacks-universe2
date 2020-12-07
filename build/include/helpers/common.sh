@@ -74,6 +74,7 @@ function helper_common_use_pristine_workdir {
 function helper_common_use_repo {
   local source="${1}"
   local target="${2}"
+  local rev="${3:-HEAD}"
 
   if test -e "${target}"
   then
@@ -81,12 +82,13 @@ function helper_common_use_repo {
     &&  pushd "${target}" \
       &&  git remote set-url origin "${source}" \
       &&  git fetch \
-      &&  git reset --hard HEAD \
+      &&  git reset --hard "${rev}" \
     ||  return 1
   else
         echo "[INFO] Creating local repository copy at: ${target}" \
     &&  git clone --depth 1 --single-branch "${source}" "${target}" \
     &&  pushd "${target}" \
+      &&  git reset --hard "${rev}" \
     ||  return 1
   fi
 }

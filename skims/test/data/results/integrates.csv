@@ -1,0 +1,3 @@
+title,what,where,cwe
+FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.class,1,377
+FIN.S.117. Unverifiable files,test/data/lib_path/f117/MyJar.jar,1,377

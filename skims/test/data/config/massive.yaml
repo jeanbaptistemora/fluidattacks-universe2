@@ -1,5 +1,4 @@
 chdir: ../../services/groups/xxx/fusion
-language: EN
 path:
   include:
     - glob(*)

@@ -324,8 +324,17 @@ function job_skims_test {
     --verbose
     --verbose
   )
+  local benchmark_remote_repo='https://github.com/OWASP/Benchmark.git'
+  local benchmark_local_repo="${STARTDIR}/../owasp_benchmark"
+  local benchmark_rev='fa09d91046a01ab3e230fb810071e2573b923fc6'
 
-      helper_skims_compile_parsers \
+      echo '[INFO] Setting up OWASP Benchmark repository' \
+  &&  helper_common_use_repo \
+        "${benchmark_remote_repo}" \
+        "${benchmark_local_repo}" \
+        "${benchmark_rev}" \
+  &&  popd \
+  &&  helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"

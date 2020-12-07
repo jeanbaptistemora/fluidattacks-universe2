@@ -1,0 +1,11 @@
+language: EN
+output: test/outputs/lib_path.csv
+path:
+  include:
+    - test/data/lib_path
+
+    # Include and exclude skims to test the filter
+    - skims/
+  exclude:
+    - glob(skims/**/*)
+timeout: 900

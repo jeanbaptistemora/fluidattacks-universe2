@@ -154,7 +154,7 @@ async def notify_findings_as_csv(
     stores: Dict[FindingEnum, EphemeralStore],
     output: str,
 ) -> None:
-    headers = ('cwe', 'title', 'what', 'where')
+    headers = ('title', 'what', 'where', 'cwe')
     rows = [
         {
             'cwe': ' + '.join(sorted(result.skims_metadata.cwe)),
@@ -186,12 +186,14 @@ async def main(
         set_level(logging.DEBUG)
 
     try:
+        startdir: str = getcwd()
         config_obj: SkimsConfig = await load(group, config)
         CTX.current_locale = config_obj.language
         await reset_ephemeral_state()
         await adjust_working_dir(config_obj)
         return await execute_skims(config_obj, token)
     finally:
+        chdir(startdir)
         await reset_ephemeral_state()
         await log('info', 'Max memory usage: %s GB', get_max_memory_usage())
         monitor_task.cancel()

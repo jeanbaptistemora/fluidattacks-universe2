@@ -1,5 +1,4 @@
 chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
-language: EN
 output: test/outputs/results.csv
 path:
   include:
@@ -2754,4 +2753,3 @@ path:
     # - BenchmarkTest02695.java
     # - BenchmarkTest02696.java
     # - BenchmarkTest02712.java
-  exclude: []

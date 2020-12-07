@@ -50,10 +50,10 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
         skims_config: SkimsConfig = SkimsConfig(
             chdir=config.pop('chdir', None),
             group=group,
-            language=LocalesEnum(config.pop('language')),
+            language=LocalesEnum(config.pop('language', 'EN')),
             output=output,
             path=SkimsPathConfig(
-                exclude=config_path.pop('exclude'),
+                exclude=config_path.pop('exclude', []),
                 include=config_path.pop('include'),
             ) if config_path else None,
             timeout=config.pop('timeout', None),

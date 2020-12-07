@@ -1,5 +1,4 @@
 chdir: ../../
-language: EN
 output: test/outputs/results.csv
 path:
   include:

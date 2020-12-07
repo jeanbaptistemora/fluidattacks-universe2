@@ -396,7 +396,7 @@ async def terraform_public_buckets(
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 async def cnf_unrestricted_cidrs(
     content: str,
