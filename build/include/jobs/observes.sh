@@ -97,6 +97,14 @@ function job_observes_zoho {
   ||  return 1
 }
 
+function job_observes_zoho_crm_prepare {
+  export PATH="${PATH}:${StreamerZoho}/bin"
+      helper_common_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_observes_zoho_crm_prepare \
+  ||  return 1
+}
+
 function job_observes_code_upload_all_groups_on_aws {
   local groups_file="${TEMP_FILE1}"
 
