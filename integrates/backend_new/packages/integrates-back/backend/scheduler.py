@@ -504,18 +504,18 @@ def format_vulnerabilities(
 async def create_msj_finding_pending(
         act_finding: Dict[str, FindingType]) -> str:
     """Validate if a finding has treatment."""
-    historic_treatment = cast(
-        List[Dict[str, str]],
-        act_finding.get('historic_treatment', [{}])
-    )
     open_vulns = [
         vuln
         for vuln in await vuln_domain.list_vulnerabilities_async(
             [str(act_finding['finding_id'])]
         )
         if vuln['current_state'] == 'open'
+        and cast(
+            List[Dict[str, str]],
+            vuln.get('historic_treatment', [{}])
+        )[-1].get('treatment', 'NEW') == 'NEW'
     ]
-    if historic_treatment[-1].get('treatment', 'NEW') == 'NEW' and open_vulns:
+    if open_vulns:
         release_date = finding_filters.get_approval_date(act_finding)
         days = finding_domain.get_age_finding(
             cast(List[VulnerabilityType], open_vulns),
