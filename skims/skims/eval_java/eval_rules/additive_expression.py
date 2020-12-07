@@ -39,8 +39,10 @@ def evaluate(
 
         ctx.statements.append(StatementAdd(
             meta=get_default_statement_meta(),
-            stack_0=r_ctx.statements,
-            stack_1=l_ctx.statements,
+            stacks=[
+                r_ctx.statements,
+                l_ctx.statements,
+            ],
         ))
     else:
         common.not_implemented(evaluate, n_id, ctx=ctx)

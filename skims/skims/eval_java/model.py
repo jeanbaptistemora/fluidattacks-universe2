@@ -33,9 +33,8 @@ Statements = List[Statement]
 
 
 class StatementAdd(NamedTuple):
-    stack_0: Statements
-    stack_1: Statements
     meta: StatementMeta
+    stacks: List[Statements]
 
     recursive: bool = True
     type: str = 'StatementAdd'

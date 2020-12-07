@@ -252,8 +252,7 @@
       "stack": -2
     },
     "recursive": true,
-    "stack_0": [],
-    "stack_1": [],
+    "stacks": [],
     "type": "StatementAdd"
   },
   {
