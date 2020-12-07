@@ -33,17 +33,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   // State management
   const [isModalOpen, setModalOpen] = React.useState(false);
-
-  const [modalValues, setModalValues] = React.useState<
-    IGitFormAttr | undefined
-  >(undefined);
+  const [currentRow, setCurrentRow] = React.useState<IGitFormAttr | undefined>(
+    undefined
+  );
 
   const openModal: () => void = React.useCallback((): void => {
     setModalOpen(true);
   }, []);
 
   const closeModal: () => void = React.useCallback((): void => {
-    setModalValues(undefined);
+    setCurrentRow(undefined);
     setModalOpen(false);
   }, []);
 
@@ -90,28 +89,22 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   // Event handlers
-  const handleRowClick: (
-    event: React.MouseEvent<HTMLTableRowElement>,
-    row: IGitRootAttr
-  ) => void = React.useCallback(
-    (_event, row): void => {
-      if (permissions.can("backend_api_mutations_update_git_root_mutate")) {
-        setModalValues({
-          ...row,
-          filter:
-            row.filter === null ? { paths: [""], policy: "NONE" } : row.filter,
-        });
-        openModal();
-      }
+  const handleRowSelect: (row: IGitRootAttr) => void = React.useCallback(
+    (row): void => {
+      setCurrentRow({
+        ...row,
+        filter:
+          row.filter === null ? { paths: [""], policy: "NONE" } : row.filter,
+      });
     },
-    [openModal, permissions]
+    []
   );
 
   const handleSubmit: (
     values: IGitFormAttr
   ) => Promise<void> = React.useCallback(
     async (values): Promise<void> => {
-      if (modalValues === undefined) {
+      if (currentRow === undefined) {
         const {
           branch,
           environment,
@@ -146,7 +139,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         });
       }
     },
-    [addGitRoot, groupName, modalValues, updateGitRoot]
+    [addGitRoot, currentRow, groupName, updateGitRoot]
   );
 
   return (
@@ -157,6 +150,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             <Button onClick={openModal}>
               <Glyphicon glyph={"plus"} />
               &nbsp;{t("group.scope.common.add")}
+            </Button>
+          </div>
+        </Can>
+        <Can do={"backend_api_mutations_update_git_root_mutate"}>
+          <div className={"mb3"}>
+            <Button disabled={currentRow === undefined} onClick={openModal}>
+              <Glyphicon glyph={"plus"} />
+              &nbsp;{t("group.scope.common.update")}
             </Button>
           </div>
         </Can>
@@ -175,13 +176,20 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         ]}
         id={"tblGitRoots"}
         pageSize={15}
-        rowEvents={{ onClick: handleRowClick }}
         search={true}
+        selectionMode={{
+          clickToSelect: false,
+          hideSelectColumn: permissions.cannot(
+            "backend_api_mutations_update_git_root_mutate"
+          ),
+          mode: "radio",
+          onSelect: handleRowSelect,
+        }}
         striped={true}
       />
       {isModalOpen ? (
         <GitRootsModal
-          initialValues={modalValues}
+          initialValues={currentRow}
           onClose={closeModal}
           onSubmit={handleSubmit}
         />

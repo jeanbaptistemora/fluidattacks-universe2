@@ -183,7 +183,9 @@ describe("GroupScopeView", (): void => {
       }
     );
 
-    wrapper.find("button").simulate("click");
+    const addButton: ReactWrapper = wrapper.find("button").at(0);
+    addButton.simulate("click");
+
     const url: ReactWrapper = wrapper.find({ name: "url" }).find("input");
     url.simulate("change", {
       target: { value: "https://gitlab.com/fluidattacks/product" },
@@ -325,10 +327,13 @@ describe("GroupScopeView", (): void => {
         wrapper.update();
       }
     );
-    const getfirstTableRow: () => ReactWrapper = (): ReactWrapper =>
+    const getFirstTableRow: () => ReactWrapper = (): ReactWrapper =>
       wrapper.find("tr").at(1) as ReactWrapper;
 
-    getfirstTableRow().simulate("click");
+    getFirstTableRow().find("td").at(0).simulate("click");
+
+    const editButton: ReactWrapper = wrapper.find("button").at(1);
+    editButton.simulate("click");
 
     const environment: ReactWrapper = wrapper
       .find({ name: "environment" })
@@ -362,7 +367,7 @@ describe("GroupScopeView", (): void => {
       }
     );
 
-    expect(getfirstTableRow().text()).toStrictEqual(
+    expect(getFirstTableRow().text()).toStrictEqual(
       ["https://gitlab.com/fluidattacks/product", "master", "staging"].join("")
     );
   });

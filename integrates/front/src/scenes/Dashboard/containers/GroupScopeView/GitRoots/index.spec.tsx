@@ -44,6 +44,7 @@ describe("GitRoots", (): void => {
             value={
               new PureAbility([
                 { action: "backend_api_mutations_add_git_root_mutate" },
+                { action: "backend_api_mutations_update_git_root_mutate" },
               ])
             }
           >
@@ -59,9 +60,15 @@ describe("GitRoots", (): void => {
       wrapper.update();
     });
 
-    const addButton: ReactWrapper = wrapper.find("button");
+    const addButton: ReactWrapper = wrapper.find("button").at(0);
 
     expect(addButton).toHaveLength(1);
+
+    const editButton: ReactWrapper = wrapper.find("button").at(1);
+
+    expect(editButton).toHaveLength(1);
+    expect(editButton.prop("disabled")).toStrictEqual(true);
+
     expect(wrapper.find(GitRootsModal)).toHaveLength(0);
 
     addButton.simulate("click");
