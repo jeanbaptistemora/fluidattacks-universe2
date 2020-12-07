@@ -1,3 +1,9 @@
+"""
+This migration remove releaseDate and report_date from findings
+
+Execution Time: 2020-12-07 16:00:25 UTC-5
+Finalization Time: 2020-12-07 16:28:09 UTC-5
+"""
 # Standard library
 from asyncio import run
 import os
