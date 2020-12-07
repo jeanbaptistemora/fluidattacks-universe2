@@ -50,30 +50,45 @@ def _local_variable_declaration(
     # - IdentifierRule VariableDeclarator
     c_ids = g.adj_ast(graph, n_id)
 
-    if (
-        len(c_ids) == 2
-        # Type
-        and graph.nodes[c_ids[0]]['label_type'] in {
-            'CustomUnannArrayType',
-            'CustomUnannClassOrInterfaceType',
-            'IdentifierRule',
-            'BOOLEAN',
-            'BYTE',
-            'CHAR',
-            'DOUBLE',
-            'FLOAT',
-            'INT',
-            'LONG'
-        }
-        # Binding
-        and graph.nodes[c_ids[1]]['label_type'] == 'VariableDeclarator'
-    ):
-        _variable_declarator(
-            graph,
-            c_ids[1],
-            ctx=ctx,
-            type_attrs_label_text=graph.nodes[c_ids[0]]['label_text'],
-        )
+    if len(c_ids := g.adj_ast(graph, n_id)) == 2:
+        var_attrs = graph.nodes[c_ids[1]]
+        type_attrs = graph.nodes[c_ids[0]]
+
+        if (
+            type_attrs['label_type'] in {
+                'CustomUnannArrayType',
+                'CustomUnannClassOrInterfaceType',
+                'IdentifierRule',
+                'BOOLEAN',
+                'BYTE',
+                'CHAR',
+                'DOUBLE',
+                'FLOAT',
+                'INT',
+                'LONG'
+            }
+            # Binding
+            and var_attrs['label_type'] == 'VariableDeclarator'
+        ):
+            _variable_declarator(
+                graph,
+                c_ids[1],
+                ctx=ctx,
+                type_attrs_label_text=graph.nodes[c_ids[0]]['label_text'],
+            )
+        elif (
+            var_attrs['label_type'] == 'IdentifierRule'
+            and type_attrs['label_type'] == 'IdentifierRule'
+        ):
+            # Add the variable to the mapping
+            ctx.statements.append(StatementDeclaration(
+                meta=get_default_statement_meta(),
+                stack=[],
+                var=var_attrs['label_text'],
+                var_type=type_attrs['label_text'],
+            ))
+        else:
+            common.not_implemented(_local_variable_declaration, n_id, ctx=ctx)
     else:
         common.not_implemented(_local_variable_declaration, n_id, ctx=ctx)
 
