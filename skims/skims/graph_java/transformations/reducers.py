@@ -172,6 +172,14 @@ def _package_or_type_name(graph: nx.DiGraph) -> None:
     ))
 
 
+def _type_arguments(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'TypeArguments', (
+        'LT',
+        'IdentifierRule',
+        'GT',
+    ))
+
+
 def _type_names(graph: nx.DiGraph) -> None:
     _concatenate_child_texts(graph, 'TypeName', (
         'IdentifierRule',
@@ -180,6 +188,21 @@ def _type_names(graph: nx.DiGraph) -> None:
     ))
     _concatenate_child_texts(graph, 'TypeName', (
         'CustomPackageOrTypeName',
+        'DOT',
+        'IdentifierRule',
+    ))
+
+
+def _unann_class_type_lf_unann_class_or_interface_type(
+    graph: nx.DiGraph,
+) -> None:
+    parent_label_type = 'UnannClassType_lf_unannClassOrInterfaceType'
+    _concatenate_child_texts(graph, parent_label_type, (
+        'DOT',
+        'IdentifierRule',
+        'CustomTypeArguments',
+    ))
+    _concatenate_child_texts(graph, parent_label_type, (
         'DOT',
         'IdentifierRule',
     ))
@@ -291,6 +314,8 @@ def _method_invocations(graph: nx.DiGraph) -> None:
 
 def reduce(graph: nx.DiGraph) -> None:
     _patch_node_types(graph)
+    _type_arguments(graph)
+
     _concatenate_child_texts(graph, 'ClassType_lf_classOrInterfaceType', (
         'DOT',
         'IdentifierRule',
@@ -306,12 +331,7 @@ def reduce(graph: nx.DiGraph) -> None:
     ))
     _replace_with_child(graph, 'ExceptionTypeList', 'ExceptionType')
 
-    _concatenate_child_texts(
-        graph, 'UnannClassType_lf_unannClassOrInterfaceType', (
-            'DOT',
-            'IdentifierRule',
-        ),
-    )
+    _unann_class_type_lf_unann_class_or_interface_type(graph)
     _concatenate_child_texts(graph, 'Dims', ('LBRACK', 'RBRACK'))
     _concatenate_child_texts(graph, 'UnannClassOrInterfaceType', (
         'IdentifierRule',
