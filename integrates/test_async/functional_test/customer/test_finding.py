@@ -281,44 +281,10 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
-    query = f'''
-        mutation {{
-            updateClientDescription (
-            findingId: "{finding_id}",
-            treatment: IN_PROGRESS,
-            justification: "This is a treatment justification test",
-            acceptanceDate: ""
-            ) {{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateClientDescription']
-    assert result['data']['updateClientDescription']['success']
-
     expected_output =  {
         'consulting': {
             'content': consult_content
         },
-        'historic_treatment': [
-            {
-                'date': '2020-01-03 12:46:10',
-                'treatment': 'ACCEPTED',
-                'justification': 'test justification',
-                'acceptance_date': '2020-01-06 12:46:10',
-                'user': 'unittest@fluidattacks.com'
-            },
-            {
-                'date': today,
-                'justification': 'This is a treatment justification test',
-                'treatment': 'IN PROGRESS',
-                'user': 'integratescustomer@gmail.com'
-            }
-
-        ],
     }
     query = f'''{{
         finding(identifier: "{finding_id}"){{
@@ -332,7 +298,3 @@ async def test_finding():
     result = await get_result(data)
     assert 'errors' not in result
     assert  expected_output.get('consulting') in result['data']['finding']['consulting']
-    result['data']['finding']['historicTreatment'][1]['date'] = (
-        result['data']['finding']['historicTreatment'][1]['date'][:-9]
-    )
-    assert result['data']['finding']['historicTreatment'] == expected_output.get('historic_treatment')

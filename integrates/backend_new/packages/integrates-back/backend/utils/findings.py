@@ -24,7 +24,6 @@ from backend.dal import (
     project as project_dal
 )
 from backend.domain import (
-    finding as finding_domain,
     organization as org_domain,
     project as project_domain
 )
@@ -708,44 +707,6 @@ async def send_remediation_email(
     )
 
 
-async def send_accepted_email(
-        finding_id: str,
-        finding: Dict[str, FindingType],
-        justification: str) -> None:
-    project_name = str(finding.get('projectName', ''))
-    finding_name = str(finding.get('finding', ''))
-    org_id = await org_domain.get_id_for_group(project_name)
-    org_name = await org_domain.get_name_by_id(org_id)
-    last_historic_treatment = cast(
-        List[Dict[str, str]],
-        finding.get('historicTreatment')
-    )[-1]
-    recipients = await project_domain.get_users_to_notify(
-        project_name
-    )
-    treatment = 'Temporarily accepted'
-    if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
-        treatment = 'Eternally accepted'
-    schedule(
-        mailer.send_mail_accepted_finding(
-            recipients,
-            {
-                'finding_name': finding_name,
-                'finding_id': finding_id,
-                'organization': org_name,
-                'project': project_name.capitalize(),
-                'justification': justification,
-                'user_email': last_historic_treatment['user'],
-                'treatment': treatment,
-                'finding_url': (
-                    f'{BASE_URL}/groups/{project_name}/vulns/'
-                    f'{finding_id}/description'
-                ),
-            }
-        )
-    )
-
-
 async def send_draft_reject_mail(
         draft_id: str,
         finding_name: str,
@@ -799,23 +760,6 @@ async def send_new_draft_mail(
     schedule(
         mailer.send_mail_new_draft(recipients, email_context)
     )
-
-
-async def should_send_mail(
-        finding_id: str,
-        updated_values: Dict[str, str]) -> None:
-    finding = await finding_domain.get_finding(finding_id)
-    if updated_values['treatment'] == 'ACCEPTED':
-        await send_accepted_email(
-            finding_id, finding, str(updated_values.get('justification', ''))
-        )
-    if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        await send_accepted_email(
-            finding_id,
-            finding,
-            ('Treatment state approval is pending '
-             f'for finding {finding.get("finding", "")}')
-        )
 
 
 def validate_acceptance_date(values: Dict[str, str]) -> bool:

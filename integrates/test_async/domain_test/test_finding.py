@@ -11,10 +11,10 @@ from starlette.datastructures import UploadFile
 
 from backend import mailer
 from backend.domain.finding import (
-    add_comment, get_age_finding, update_client_description,
-    get_tracking_vulnerabilities, update_treatment,
+    add_comment, get_age_finding,
+    get_tracking_vulnerabilities,
     validate_evidence, mask_finding,
-    approve_draft, compare_historic_treatments, list_findings,
+    approve_draft, list_findings,
     list_drafts
 )
 from backend.domain.vulnerability import list_vulnerabilities_async
@@ -30,6 +30,7 @@ from backend.exceptions import (
 )
 from backend.utils import (
     datetime as datetime_utils,
+    findings as findings_utils,
 )
 
 from backend_new import settings
@@ -207,91 +208,6 @@ async def test_get_tracking_vulnerabilities():
     assert test_data == expected_output
 
 @pytest.mark.changes_db
-async def test_update_treatment():
-    finding_id = '463461507'
-    date = datetime.now() + timedelta(days=181)
-    date = date.strftime('%Y-%m-%d %H:%M:%S')
-    values_in_progress = {'justification': 'This is a test treatment justification',
-                            'treatment': 'IN PROGRESS', 'acceptance_date': date}
-    test_in_progress = await update_treatment(
-        finding_id,
-        values_in_progress,
-        'integratesuser@gmail.com'
-    )
-    assert test_in_progress is True
-    values_new = {'treatment': 'NEW'}
-    test_new = await update_treatment(finding_id, values_new, '')
-    assert test_new is True
-
-@pytest.mark.changes_db
-async def test_update_client_description():
-    finding_id = '463461507'
-    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
-    info_to_check = {
-        'historic_treatment': [{
-                'date': '2020-01-01 12:00:00',
-                'treatment': 'NEW',
-                'user': 'unittest@fluidattacks.com'
-            }],
-        'severity': 5
-    }
-    acceptance_date = datetime_utils.get_as_str(
-        datetime_utils.get_now_plus_delta(days=10)
-    )
-    values_accepted = {
-        'justification': 'This is a test treatment justification',
-        'bts_url': '',
-        'treatment': 'ACCEPTED',
-        'acceptance_date': acceptance_date
-    }
-    test_accepted = await update_client_description(
-        finding_id,
-        values_accepted,
-        org_id,
-        info_to_check,
-        'unittesting@fluidattacks.com',
-    )
-    assert test_accepted is True
-
-    max_acceptance_days = await get_max_acceptance_days(org_id)
-    assert max_acceptance_days == 60
-    acceptance_date = datetime_utils.get_as_str(
-        datetime_utils.get_now_plus_delta(days=65)
-    )
-    values_accepted_date_error = {
-        'justification': 'This is a test treatment justification',
-        'bts_url': '',
-        'treatment': 'ACCEPTED',
-        'acceptance_date': acceptance_date
-    }
-    with pytest.raises(InvalidAcceptanceDays):
-        assert await update_client_description(
-            finding_id,
-            values_accepted_date_error,
-            org_id,
-            info_to_check,
-            'unittesting@fluidattacks.com'
-        )
-
-    acceptance_date = (
-        datetime.now() + timedelta(days=10)
-    ).strftime('%Y/%m/%d %H:%M:%S')
-    values_accepted_format_error = {
-        'justification': 'This is a test treatment justification',
-        'bts_url': '',
-        'treatment': 'ACCEPTED',
-        'acceptance_date': acceptance_date
-    }
-    with pytest.raises(InvalidDateFormat):
-        assert await update_client_description(
-            finding_id,
-            values_accepted_format_error,
-            org_id,
-            info_to_check,
-            'unittesting@fluidattacks.com'
-        )
-
-@pytest.mark.changes_db
 async def test_add_comment():
     request = await create_dummy_session('unittest@fluidattacks.com')
     info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
@@ -383,7 +299,6 @@ async def test_validate_evidence_records_invalid_type():
             await validate_evidence(evidence_id, uploaded_file)
 
 async def test_validate_acceptance_severity():
-    finding_id = '463461507'
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
     info_to_check = {
         'historic_treatment': [{
@@ -403,16 +318,13 @@ async def test_validate_acceptance_severity():
         'acceptance_date': acceptance_date
     }
     with pytest.raises(InvalidAcceptanceSeverity):
-        assert await update_client_description(
-            finding_id,
-            values_accepted,
-            org_id,
+        assert await findings_utils.validate_treatment_change(
             info_to_check,
-            'unittesting@fluidattacks.com'
+            org_id,
+            values_accepted,
         )
 
 async def test_validate_number_acceptations():
-    finding_id = '463461507'
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
     info_to_check = {
         'historic_treatment': [
@@ -441,12 +353,10 @@ async def test_validate_number_acceptations():
         'acceptance_date': acceptance_date
     }
     with pytest.raises(InvalidNumberAcceptations):
-        assert await update_client_description(
-            finding_id,
-            values_accepted,
-            org_id,
+        assert await findings_utils.validate_treatment_change(
             info_to_check,
-            'unittesting@fluidattacks.com'
+            org_id,
+            values_accepted,
         )
 
 @pytest.mark.changes_db
@@ -462,23 +372,6 @@ async def test_approve_draft():
     assert isinstance(test_success, bool)
     assert isinstance(test_date, str)
     assert test_success, test_date[-3] == expected_output
-
-def test_compare_historic_treatments():
-    test_last_state = {
-        'treatment': 'ACCEPTED',
-        'date': '2020-01-03 12:46:10',
-        'acceptance_date': '2020-01-03 12:46:10',
-        'acceptance_status': 'SUBMITTED',
-    }
-    test_new_state = {
-        'treatment': 'IN PROGRESS',
-        'date': '2020-01-03 12:46:10',
-    }
-    test_new_state_date = test_last_state.copy()
-    test_new_state_date['acceptance_date'] = '2020-02-03 12:46:10'
-    assert compare_historic_treatments(test_last_state, test_new_state)
-    assert compare_historic_treatments(test_last_state, test_new_state_date)
-
 
 async def test_list_findings() -> None:
     project_name = 'unittesting'

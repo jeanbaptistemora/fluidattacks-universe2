@@ -16,7 +16,6 @@ from backend.decorators import (
 )
 from backend.domain import (
     finding as finding_domain,
-    organization as org_domain,
 )
 from backend.exceptions import PermissionDenied
 from backend.typing import (
@@ -195,63 +194,6 @@ async def _do_update_description(
             info.context,
             ('Security: Attempted to update '
              f'description in finding {finding_id}')  # pragma: no cover
-        )
-    finding = await info.context.loaders['finding'].load(finding_id)
-    return SimpleFindingPayloadType(finding=finding, success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-async def _do_update_client_description(
-    _: Any,
-    info: GraphQLResolveInfo,
-    finding_id: str,
-    **parameters: Any
-) -> SimpleFindingPayloadType:
-    """
-    Perform update_client_description mutation.
-    """
-    finding_loader = info.context.loaders['finding']
-    finding = await finding_loader.load(finding_id)
-    project_name = finding['project_name']
-    organization = await org_domain.get_id_for_group(project_name)
-    user_info = await util.get_jwt_content(info.context)
-    user_mail = user_info['user_email']
-    finding_info_to_check = {
-        'historic_treatment': finding['historic_treatment'],
-        'severity': finding['severity_score']
-    }
-    success = await finding_domain.update_client_description(
-        finding_id,
-        {**parameters},
-        organization,
-        finding_info_to_check,
-        user_mail
-    )
-    if success:
-        attrs_to_clean = {attribute: finding_id for attribute in parameters}
-        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        await util.invalidate_cache(*to_clean)
-        finding_domain.send_finding_mail(
-            finding_utils.should_send_mail,
-            finding_id,
-            util.update_treatment_values(parameters)
-        )
-        util.forces_trigger_deployment(project_name)
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Updated treatment in '
-             f'finding {finding_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to update '
-             f'treatment in finding {finding_id}')  # pragma: no cover
         )
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)

@@ -18,7 +18,6 @@ from .evidence import (
 from .finding import (
     add_comment,
     cast_new_vulnerabilities,
-    compare_historic_treatments,
     delete_finding,
     get,
     get_age_finding,
@@ -35,9 +34,6 @@ from .finding import (
     send_comment_mail,
     send_finding_mail,
     update_description,
-    update_treatment_in_vuln,
-    update_client_description,
-    update_treatment,
     validate_finding,
 )
 
@@ -45,7 +41,6 @@ __all__ = [
     # finding-related
     'add_comment',
     'cast_new_vulnerabilities',
-    'compare_historic_treatments',
     'delete_finding',
     'get',
     'get_age_finding',
@@ -62,9 +57,6 @@ __all__ = [
     'send_comment_mail',
     'send_finding_mail',
     'update_description',
-    'update_treatment_in_vuln',
-    'update_client_description',
-    'update_treatment',
     'validate_finding',
 
     # drafts

@@ -293,19 +293,6 @@ async def test_finding():
                 'acceptance_date': '2020-01-06 12:46:10',
                 'user': 'unittest@fluidattacks.com'
             },
-            {
-                'date': today,
-                'justification': 'This is a treatment justification test',
-                'treatment': 'IN PROGRESS',
-                'user': 'integratescustomer@gmail.com'
-            },
-            {
-                'acceptance_status': 'SUBMITTED',
-                'date': today,
-                'justification': 'This is a treatment justification test',
-                'treatment': 'ACCEPTED_UNDEFINED',
-                'user': 'integratesuser@gmail.com'
-            },
         ],
         'observations':  [
             {

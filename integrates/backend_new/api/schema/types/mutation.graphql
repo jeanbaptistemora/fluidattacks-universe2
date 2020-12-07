@@ -239,14 +239,6 @@ type Mutation {
         findingType: String
     ): SimpleFindingPayload!
 
-    updateClientDescription(
-        acceptanceDate: String
-        findingId: String!
-        treatment: UpdateClientDescriptionTreatment!
-        justification: String!
-        acceptanceStatus: String
-    ): SimpleFindingPayload!
-
     approveDraft(draftId: String!): ApproveDraftPayload!
 
     createDraft(

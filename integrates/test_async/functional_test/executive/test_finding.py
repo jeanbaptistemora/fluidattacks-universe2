@@ -404,23 +404,6 @@ async def test_finding():
     tomorrow = datetime_utils.get_as_str(
         tomorrow_date
     )
-    query = f'''
-        mutation {{
-            updateClientDescription (
-                findingId: "{finding_id}",
-                treatment: ACCEPTED,
-                justification: "This is a treatment justification test",
-                acceptanceDate: "{tomorrow}"
-            ) {{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateClientDescription']
-    assert result['data']['updateClientDescription']['success']
 
     tomorrow = datetime_utils.get_as_str(
         tomorrow_date,
@@ -443,30 +426,6 @@ async def test_finding():
         {
             'content': consult_content,
             'email': 'integratesexecutive@gmail.com'
-        }
-    ]
-    historic_treatment = result['data']['finding']['historicTreatment']
-    for index in range(len(historic_treatment)):
-        historic_treatment[index]['date'] = (
-            historic_treatment[index]['date'][:-9]
-        )
-        if 'acceptance_date' in historic_treatment[index]:
-            historic_treatment[index]['acceptance_date'] = (
-                historic_treatment[index]['acceptance_date'][:-9]
-            )
-
-    assert historic_treatment == [
-        {
-            'date': today,
-            'treatment': 'NEW',
-            'user': 'integratesanalyst@fluidattacks.com'
-        },
-        {
-            'acceptance_date': tomorrow,
-            'date': today,
-            'justification': 'This is a treatment justification test',
-            'treatment': 'ACCEPTED',
-            'user': 'integratesexecutive@gmail.com'
         }
     ]
 

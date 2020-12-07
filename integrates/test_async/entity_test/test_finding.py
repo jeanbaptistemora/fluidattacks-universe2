@@ -439,33 +439,6 @@ async def test_update_description():
     assert result['data']['updateDescription']['success']
 
 @pytest.mark.changes_db
-async def test_update_client_description():
-    """Check for updateClientDescription mutation."""
-    acceptance_date = (
-      datetime.now() + timedelta(days=5)
-    ).strftime('%Y-%m-%d %H:%M:%S')
-    query = f'''
-        mutation {{
-            updateClientDescription (
-            findingId: "463558592",
-            treatment: ACCEPTED,
-            justification: "This is a treatment justification test",
-            acceptanceDate: "{acceptance_date}"
-            ) {{
-            success
-            finding {{
-                historicTreatment
-            }}
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await _get_result(data, user='integratesuser@gmail.com')
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateClientDescription']
-    assert result['data']['updateClientDescription']['success']
-
-@pytest.mark.changes_db
 async def test_reject_draft():
     """Check for rejectDraft mutation."""
     query = '''
