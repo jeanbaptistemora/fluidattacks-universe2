@@ -465,7 +465,7 @@ function job_observes_mixpanel_etl_lint {
 
       pushd observes \
     &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/tap_mixpanel/mixpanel" 1 \
+    &&  helper_observes_lint_generic_package "./singer/tap_mixpanel/tap_mixpanel" 1 \
   &&  popd \
   ||  return 1
 }

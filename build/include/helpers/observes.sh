@@ -110,7 +110,7 @@ function helper_observes_dynamodb {
 }
 
 function helper_observes_mixpanel {
-      local conf="${1}"
+  local conf="${1}"
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
         mixpanel_integrates_api_secret \
@@ -130,7 +130,7 @@ function helper_observes_mixpanel {
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
-        --schema-name "Mixpanel" \
+        --schema-name "mixpanel" \
         < .singer
 }
 
