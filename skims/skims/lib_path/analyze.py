@@ -63,15 +63,24 @@ MAX_READ: int = 64 * MEBIBYTE
 
 
 async def analyze_one_path(
+    *,
+    index: int,
     path: str,
     stores: Dict[FindingEnum, EphemeralStore],
+    unique_paths_count: int,
 ) -> None:
     """Execute all findings against the provided file.
 
     :param path: Path to the file who's object of analysis
     :type path: str
     """
-    await log('info', 'Analyzing path: %s', path)
+    await log(
+        'info',
+        'Analyzing path %s of %s: %s',
+        index,
+        unique_paths_count,
+        path,
+    )
 
     file_content_generator = generate_file_content(path, size=MAX_READ)
     file_raw_content_generator = generate_file_raw_content(path, size=MAX_READ)
@@ -164,8 +173,14 @@ async def analyze(
         exclude=paths_to_exclude,
         include=paths_to_include,
     )
+    unique_paths_count: int = len(unique_paths)
 
-    await collect(
-        (analyze_one_path(path, stores) for path in unique_paths),
-        workers=CPU_CORES,
-    )
+    await collect((
+        analyze_one_path(
+            index=index,
+            path=path,
+            stores=stores,
+            unique_paths_count=unique_paths_count,
+        )
+        for index, path in enumerate(unique_paths)
+    ), workers=CPU_CORES)
