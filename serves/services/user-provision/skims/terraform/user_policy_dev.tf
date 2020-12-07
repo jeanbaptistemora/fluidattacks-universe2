@@ -68,6 +68,7 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
     actions = [
       "s3:Get*",
       "s3:ListBucket",
+      "s3:PutObject",
     ]
     resources = [
       "arn:aws:s3:::skims.*"

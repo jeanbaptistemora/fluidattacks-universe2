@@ -73,11 +73,13 @@ function job_skims_benchmark_owasp {
   &&  popd \
   &&  helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
+  &&  helper_skims_cache_pull \
   &&  pushd skims \
     &&  echo '[INFO] Computing score...' \
     &&  poetry run skims test/data/config/benchmark_owasp.yaml \
     &&  poetry run python3 skims/benchmark/__init__.py \
   &&  popd \
+  &&  helper_skims_cache_push \
   ||  return 1
 }
 
@@ -336,6 +338,7 @@ function job_skims_test {
   &&  popd \
   &&  helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
+  &&  helper_skims_cache_pull \
   &&  pushd skims \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do
@@ -343,6 +346,7 @@ function job_skims_test {
         done \
     &&  poetry run pytest "${args_pytest[@]}" < /dev/null \
   &&  popd \
+  &&  helper_skims_cache_push \
   ||  return 1
 }
 

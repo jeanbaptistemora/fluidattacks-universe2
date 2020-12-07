@@ -23,6 +23,35 @@ function helper_skims_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
+function helper_skims_cache_pull {
+  local cache_remote="s3://skims.data/cache/${CI_COMMIT_REF_NAME}"
+  local cache_local="${HOME}/.skims"
+  local flags=()
+
+      helper_skims_aws_login dev \
+  &&  if test -n "${CI}"
+      then
+        flags+=( --quiet )
+      fi \
+  &&  echo "[INFO] Moving skims state from ${cache_remote} to ${cache_local}" \
+  &&  aws s3 sync "${flags[@]}" "${cache_remote}" "${cache_local}" \
+
+}
+
+function helper_skims_cache_push {
+  local cache_remote="s3://skims.data/cache/${CI_COMMIT_REF_NAME}"
+  local cache_local="${HOME}/.skims"
+  local flags=()
+
+      echo "[INFO] Moving skims state from ${cache_local} to ${cache_remote}" \
+  &&  if test -n "${CI}"
+      then
+        flags+=( --quiet )
+      fi \
+  &&  aws s3 sync "${flags[@]}" "${cache_local}" "${cache_remote}"  \
+
+}
+
 function helper_skims_compile_parsers {
   export CLASSPATH
   export srcExternalANTLR4
