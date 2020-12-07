@@ -175,7 +175,7 @@ const eventEvidenceView: React.FC = (): JSX.Element => {
               ) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
-                  acceptedMimes="image/jpeg,image/gif,image/png"
+                  acceptedMimes="image/gif,image/png"
                   content={showEmpty ? <div /> : `${location.href}/${data.event.evidence}`}
                   description="Evidence"
                   isDescriptionEditable={false}
