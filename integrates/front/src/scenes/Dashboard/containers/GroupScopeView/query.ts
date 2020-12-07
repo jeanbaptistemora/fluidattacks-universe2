@@ -14,6 +14,7 @@ const GET_ROOTS: DocumentNode = gql`
           }
           id
           includesHealthCheck
+          state
           url
         }
         ... on IPRoot {

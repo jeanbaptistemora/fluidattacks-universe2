@@ -21,7 +21,7 @@ export const changeFormatter: (
 
   return (
     <BootstrapSwitchButton
-      checked={!("state" in row) || row.state !== "Inactive"}
+      checked={!("state" in row) || row.state.toUpperCase() !== "INACTIVE"}
       offlabel={"Inactive"}
       onChange={handleOnChange}
       onlabel={"Active"}

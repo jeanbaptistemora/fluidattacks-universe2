@@ -1,6 +1,7 @@
 import type { Label } from "react-bootstrap";
 import React from "react";
 import type { StyledComponent } from "styled-components";
+import _ from "lodash";
 import styled from "styled-components";
 
 const StatusFormatter: StyledComponent<
@@ -51,11 +52,12 @@ const getBgColor: (value: string) => string = (value: string): string => {
 export const statusFormatter: (value: string) => React.ReactElement<Label> = (
   value: string
 ): React.ReactElement<Label> => {
-  const bgColor: string = getBgColor(value);
+  const capitalizedValue: string = _.capitalize(value);
+  const bgColor: string = getBgColor(capitalizedValue);
 
   return (
     // Need it to override default background color
     // eslint-disable-next-line react/forbid-component-props
-    <StatusFormatter className={bgColor}>{value}</StatusFormatter>
+    <StatusFormatter className={bgColor}>{capitalizedValue}</StatusFormatter>
   );
 };

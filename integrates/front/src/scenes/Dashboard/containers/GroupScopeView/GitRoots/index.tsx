@@ -2,10 +2,12 @@ import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
 import { GitRootsModal } from "./modal";
 import { Glyphicon } from "react-bootstrap";
 import type { GraphQLError } from "graphql";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
@@ -14,8 +16,12 @@ import { msgError } from "utils/notifications";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
-import { ADD_GIT_ROOT, UPDATE_GIT_ROOT } from "../query";
+import { ADD_GIT_ROOT, UPDATE_GIT_ROOT, UPDATE_ROOT_STATE } from "../query";
 import type { IGitFormAttr, IGitRootAttr } from "../types";
+import {
+  changeFormatter,
+  statusFormatter,
+} from "components/DataTableNext/formatters";
 
 interface IGitRootsProps {
   groupName: string;
@@ -84,6 +90,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             msgError(t("group_alerts.error_textsad"));
             Logger.error("Couldn't update git root", error);
         }
+      });
+    },
+  });
+
+  const [updateRootState] = useMutation(UPDATE_ROOT_STATE, {
+    onCompleted: (): void => {
+      onUpdate();
+    },
+    onError: (asd: ApolloError): void => {
+      msgError(t("group_alerts.error_textsad"));
+      asd.graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't update root state", error);
       });
     },
   });
@@ -162,31 +180,64 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           </div>
         </Can>
       </ButtonToolbarRow>
-      <DataTableNext
-        bordered={true}
-        dataset={roots}
-        exportCsv={false}
-        headers={[
-          { dataField: "url", header: t("group.scope.git.repo.url") },
-          { dataField: "branch", header: t("group.scope.git.repo.branch") },
-          {
-            dataField: "environment",
-            header: t("group.scope.git.repo.environment"),
-          },
-        ]}
-        id={"tblGitRoots"}
-        pageSize={15}
-        search={true}
-        selectionMode={{
-          clickToSelect: false,
-          hideSelectColumn: permissions.cannot(
-            "backend_api_mutations_update_git_root_mutate"
-          ),
-          mode: "radio",
-          onSelect: handleRowSelect,
+      <ConfirmDialog title={t("group.scope.common.confirmStateChange")}>
+        {(confirm: IConfirmFn): React.ReactNode => {
+          const handleStateUpdate: (row: Record<string, string>) => void = (
+            row
+          ): void => {
+            confirm((): void => {
+              void updateRootState({
+                variables: {
+                  id: row.id,
+                  state: row.state === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+                },
+              });
+            });
+          };
+
+          return (
+            <DataTableNext
+              bordered={true}
+              dataset={roots}
+              exportCsv={false}
+              headers={[
+                { dataField: "url", header: t("group.scope.git.repo.url") },
+                {
+                  dataField: "branch",
+                  header: t("group.scope.git.repo.branch"),
+                },
+                {
+                  dataField: "environment",
+                  header: t("group.scope.git.repo.environment"),
+                },
+                {
+                  align: "center",
+                  changeFunction: handleStateUpdate,
+                  dataField: "state",
+                  formatter: permissions.can(
+                    "backend_api_mutations_update_root_state_mutate"
+                  )
+                    ? changeFormatter
+                    : statusFormatter,
+                  header: t("group.scope.common.state"),
+                },
+              ]}
+              id={"tblGitRoots"}
+              pageSize={15}
+              search={true}
+              selectionMode={{
+                clickToSelect: false,
+                hideSelectColumn: permissions.cannot(
+                  "backend_api_mutations_update_git_root_mutate"
+                ),
+                mode: "radio",
+                onSelect: handleRowSelect,
+              }}
+              striped={true}
+            />
+          );
         }}
-        striped={true}
-      />
+      </ConfirmDialog>
       {isModalOpen ? (
         <GitRootsModal
           initialValues={currentRow}

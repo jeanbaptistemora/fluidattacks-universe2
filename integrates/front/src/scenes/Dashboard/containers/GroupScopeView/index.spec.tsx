@@ -1,3 +1,4 @@
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { GroupScopeView } from ".";
@@ -53,6 +54,7 @@ describe("GroupScopeView", (): void => {
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
+                state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
             ],
@@ -88,9 +90,12 @@ describe("GroupScopeView", (): void => {
     const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
 
     expect(firstTableRow.text()).toStrictEqual(
-      ["https://gitlab.com/fluidattacks/product", "master", "production"].join(
-        ""
-      )
+      [
+        "https://gitlab.com/fluidattacks/product",
+        "master",
+        "production",
+        "Active",
+      ].join("")
     );
   });
 
@@ -138,6 +143,7 @@ describe("GroupScopeView", (): void => {
                 filter: null,
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
+                state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
             ],
@@ -211,9 +217,12 @@ describe("GroupScopeView", (): void => {
     const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
 
     expect(firstTableRow.text()).toStrictEqual(
-      ["https://gitlab.com/fluidattacks/product", "master", "production"].join(
-        ""
-      )
+      [
+        "https://gitlab.com/fluidattacks/product",
+        "master",
+        "production",
+        "Active",
+      ].join("")
     );
   });
 
@@ -238,6 +247,7 @@ describe("GroupScopeView", (): void => {
                 filter: null,
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
+                state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
             ],
@@ -281,6 +291,7 @@ describe("GroupScopeView", (): void => {
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
+                state: "ACTIVE",
                 url: "https://gitlab.com/fluidattacks/product",
               },
             ],
@@ -368,13 +379,16 @@ describe("GroupScopeView", (): void => {
     );
 
     expect(getFirstTableRow().text()).toStrictEqual(
-      ["https://gitlab.com/fluidattacks/product", "master", "staging"].join("")
+      [
+        "https://gitlab.com/fluidattacks/product",
+        "master",
+        "staging",
+        "Active",
+      ].join("")
     );
   });
 
-  // Will enable next MR
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should update root state", async (): Promise<void> => {
+  it("should update root state", async (): Promise<void> => {
     expect.hasAssertions();
 
     const initialQueryMock: MockedResponse = {
@@ -480,11 +494,16 @@ describe("GroupScopeView", (): void => {
         wrapper.update();
       }
     );
-    const getfirstTableRow: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("tr").at(1) as ReactWrapper;
 
-    const stateSwitch: ReactWrapper = getfirstTableRow().find("td").last();
-    stateSwitch.simulate("click");
+    const getStateSwitch: () => ReactWrapper = (): ReactWrapper => {
+      const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
+
+      return firstTableRow.find(BootstrapSwitchButton) as ReactWrapper;
+    };
+
+    expect(getStateSwitch().prop("checked")).toStrictEqual(true);
+
+    getStateSwitch().simulate("click");
 
     const proceedButton: ReactWrapper = wrapper
       .find(ConfirmDialog)
@@ -500,13 +519,6 @@ describe("GroupScopeView", (): void => {
       }
     );
 
-    expect(getfirstTableRow().text()).toStrictEqual(
-      [
-        "https://gitlab.com/fluidattacks/product",
-        "master",
-        "production",
-        "Inactive",
-      ].join("")
-    );
+    expect(getStateSwitch().prop("checked")).toStrictEqual(false);
   });
 });
