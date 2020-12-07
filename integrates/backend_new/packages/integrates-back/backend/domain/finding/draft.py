@@ -57,7 +57,6 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
             })
 
             success = await finding_dal.update(draft_id, {
-                'release_date': None,
                 'historic_state': history
             })
         else:
@@ -100,7 +99,6 @@ async def approve_draft(
                 })
                 success = await finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
-                    'releaseDate': release_date,
                     'treatment': 'NEW',
                     'historic_state': history
                 })
