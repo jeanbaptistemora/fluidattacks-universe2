@@ -154,7 +154,6 @@ async def create_draft(
         'exploitability': 0,
         'files': [],
         'finding': title,
-        'report_date': creation_date,
         'historic_state': [submission_history],
         'historic_treatment': [{
             'treatment': 'NEW',
@@ -218,7 +217,6 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
                 })
 
                 success = await finding_dal.update(finding_id, {
-                    'report_date': report_date,
                     'historic_state': history
                 })
             else:
