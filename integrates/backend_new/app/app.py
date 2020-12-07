@@ -6,6 +6,7 @@ import os
 # Third party libraries
 import bugsnag
 import newrelic.agent
+import sqreen
 
 from aioextensions import in_thread
 from asgiref.sync import async_to_sync
@@ -153,6 +154,7 @@ STARLETTE_APP = Starlette(
 )
 
 newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
+sqreen.start()
 APP = newrelic.agent.ASGIApplicationWrapper(
     STARLETTE_APP,
     framework=('Starlette', '0.13.8')

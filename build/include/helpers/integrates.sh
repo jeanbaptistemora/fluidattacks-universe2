@@ -348,6 +348,7 @@ function helper_integrates_sops_vars {
     NEW_RELIC_ENVIRONMENT \
     PRODUCT_PIPELINE_TOKEN \
     REDIS_SERVER \
+    SQREEN_TOKEN \
     SQS_QUEUE_URL \
     STARLETTE_TEST_KEY \
     TEST_PROJECTS \
