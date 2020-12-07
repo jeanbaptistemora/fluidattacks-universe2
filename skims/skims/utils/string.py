@@ -186,5 +186,5 @@ async def to_png(*, string: str) -> BytesIO:
 def get_debug_path(path: str) -> str:
     return os.path.join(
         'test/outputs',
-        os.path.relpath(path).replace('/', '__'),
+        os.path.relpath(path).replace('/', '__').replace('.', '_'),
     )

@@ -3530,16 +3530,6 @@
         "label_ast": "AST"
       }
     },
-    "3788": {
-      "3792": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "3793": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "3797": {
       "3800": {
         "index": 0,
@@ -6918,16 +6908,6 @@
         "label_ast": "AST"
       },
       "813": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
-    "78": {
-      "82": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "83": {
         "index": 1,
         "label_ast": "AST"
       }
@@ -13146,23 +13126,8 @@
       "label_c": 4,
       "label_l": 149,
       "label_parent_ast": "3785",
-      "label_type": "UnannArrayType",
-      "label_type_index": "0"
-    },
-    "3792": {
-      "label_c": 4,
-      "label_l": 149,
-      "label_parent_ast": "3788",
-      "label_text": "String",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "3793": {
-      "label_c": 10,
-      "label_l": 149,
-      "label_parent_ast": "3788",
-      "label_text": "[]",
-      "label_type": "CustomDims",
+      "label_text": "String[]",
+      "label_type": "CustomUnannArrayType",
       "label_type_index": "0"
     },
     "3797": {
@@ -18718,7 +18683,8 @@
       "label_c": 26,
       "label_l": 6,
       "label_parent_ast": "75",
-      "label_type": "UnannArrayType",
+      "label_text": "String[]",
+      "label_type": "CustomUnannArrayType",
       "label_type_index": "0"
     },
     "780": {
@@ -18806,27 +18772,11 @@
       "label_type": "LPAREN",
       "label_type_index": "0"
     },
-    "82": {
-      "label_c": 26,
-      "label_l": 6,
-      "label_parent_ast": "78",
-      "label_text": "String",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
     "828": {
       "label_c": 12,
       "label_l": 35,
       "label_parent_ast": "816",
       "label_type": "RelationalExpression",
-      "label_type_index": "0"
-    },
-    "83": {
-      "label_c": 32,
-      "label_l": 6,
-      "label_parent_ast": "78",
-      "label_text": "[]",
-      "label_type": "CustomDims",
       "label_type_index": "0"
     },
     "838": {

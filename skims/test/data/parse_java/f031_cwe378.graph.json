@@ -198,16 +198,6 @@
         "label_ast": "AST"
       }
     },
-    "47": {
-      "51": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "52": {
-        "index": 1,
-        "label_ast": "AST"
-      }
-    },
     "60": {
       "177": {
         "index": 2,
@@ -625,7 +615,8 @@
       "label_c": 28,
       "label_l": 4,
       "label_parent_ast": "44",
-      "label_type": "UnannArrayType",
+      "label_text": "String[]",
+      "label_type": "CustomUnannArrayType",
       "label_type_index": "0"
     },
     "5": {
@@ -634,22 +625,6 @@
       "label_parent_ast": "4",
       "label_text": "import",
       "label_type": "IMPORT",
-      "label_type_index": "0"
-    },
-    "51": {
-      "label_c": 28,
-      "label_l": 4,
-      "label_parent_ast": "47",
-      "label_text": "String",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "52": {
-      "label_c": 34,
-      "label_l": 4,
-      "label_parent_ast": "47",
-      "label_text": "[]",
-      "label_type": "CustomDims",
       "label_type_index": "0"
     },
     "57": {

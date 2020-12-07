@@ -172,11 +172,38 @@ def _package_or_type_name(graph: nx.DiGraph) -> None:
     ))
 
 
+def _array_type(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'ArrayType', (
+        'IdentifierRule',
+        'CustomDims',
+    ))
+
+
+def _dims(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'Dims', (
+        'LBRACK',
+        'RBRACK',
+    ))
+
+
 def _type_arguments(graph: nx.DiGraph) -> None:
     _concatenate_child_texts(graph, 'TypeArguments', (
         'LT',
         'IdentifierRule',
         'GT',
+    ))
+    _concatenate_child_texts(graph, 'TypeArguments', (
+        'LT',
+        'CustomTypeArgumentList',
+        'GT',
+    ))
+
+
+def _type_arguments_list(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'TypeArgumentList', (
+        'IdentifierRule',
+        'COMMA',
+        'CustomArrayType',
     ))
 
 
@@ -190,6 +217,17 @@ def _type_names(graph: nx.DiGraph) -> None:
         'CustomPackageOrTypeName',
         'DOT',
         'IdentifierRule',
+    ))
+
+
+def _unann_array_type(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'UnannArrayType', (
+        'CustomUnannClassOrInterfaceType',
+        'CustomDims',
+    ))
+    _concatenate_child_texts(graph, 'UnannArrayType', (
+        'IdentifierRule',
+        'CustomDims',
     ))
 
 
@@ -314,6 +352,9 @@ def _method_invocations(graph: nx.DiGraph) -> None:
 
 def reduce(graph: nx.DiGraph) -> None:
     _patch_node_types(graph)
+    _dims(graph)
+    _array_type(graph)
+    _type_arguments_list(graph)
     _type_arguments(graph)
 
     _concatenate_child_texts(graph, 'ClassType_lf_classOrInterfaceType', (
@@ -332,7 +373,6 @@ def reduce(graph: nx.DiGraph) -> None:
     _replace_with_child(graph, 'ExceptionTypeList', 'ExceptionType')
 
     _unann_class_type_lf_unann_class_or_interface_type(graph)
-    _concatenate_child_texts(graph, 'Dims', ('LBRACK', 'RBRACK'))
     _concatenate_child_texts(graph, 'UnannClassOrInterfaceType', (
         'IdentifierRule',
         'CustomUnannClassType_lf_unannClassOrInterfaceType',
@@ -355,10 +395,7 @@ def reduce(graph: nx.DiGraph) -> None:
         'CustomUnannClassType_lf_unannClassOrInterfaceType',
         'CustomUnannClassType_lf_unannClassOrInterfaceType',
     ))
-    _concatenate_child_texts(graph, 'UnannArrayType', (
-        'CustomUnannClassOrInterfaceType',
-        'CustomDims',
-    ))
+    _unann_array_type(graph)
 
     _reduce_ordered(
         graph,
