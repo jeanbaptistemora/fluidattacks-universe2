@@ -83,7 +83,6 @@ Projection="{ProjectionType=INCLUDE,NonKeyAttributes=[
       "historic_verification",
       "cvss_temporal",
       "historic_state",
-      "releaseDate",
       "finding"
     ]}",\
 ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
@@ -515,9 +514,6 @@ then
               "availability_requirement": {
                 "N": "0.5"
               },
-              "report_date": {
-                "S":"2019-04-07 19:45:11"
-              },
               "attack_complexity": {
                 "N": "0.77"
               },
@@ -529,9 +525,6 @@ then
               },
               "effect_solution": {
                 "S": "-"
-              },
-              "releaseDate": {
-                "S": "2019-04-07 19:45:15"
               },
               "modified_confidentiality_impact": {
                 "N": "0"
