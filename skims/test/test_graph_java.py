@@ -126,9 +126,11 @@ async def test_control_flow_1() -> None:
         (170, 172, ALWAYS),  # {}
         (170, 329, MAYBE),  # catch
         # IfThenStatement
-        (454, 479, ALWAYS),
+        (454, 479, TRUE),  # then
+        (454, 663, FALSE),  # pass through
         # IfThenElseStatement
-        (663, 1307, ALWAYS),
+        (663, 688, TRUE),  # then
+        (663, 735, FALSE),  # else
         # SwitchStatement
         (2153, 2433, ALWAYS),
         # WhileStatement

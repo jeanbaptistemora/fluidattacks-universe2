@@ -95,7 +95,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_cfg_always": "cfg_always"
+        "label_cfg_true": "cfg_true"
       },
       "1255": {
         "label_cfg": "CFG",
@@ -2559,7 +2559,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_cfg_always": "cfg_always"
+        "label_cfg_true": "cfg_true"
       },
       "1255": {
         "label_cfg": "CFG",

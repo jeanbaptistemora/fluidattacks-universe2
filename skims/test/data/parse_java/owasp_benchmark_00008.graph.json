@@ -873,7 +873,7 @@
         "index": 4,
         "label_ast": "AST",
         "label_cfg": "CFG",
-        "label_cfg_always": "cfg_always"
+        "label_cfg_true": "cfg_true"
       },
       "600": {
         "label_cfg": "CFG",

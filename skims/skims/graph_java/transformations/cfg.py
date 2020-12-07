@@ -129,20 +129,30 @@ def _if_statement(
         '__0__',
         'RPAREN',
         '__1__',
+        'ELSE',
+        '__2__',
     )
-
-    # Link whatever is inside the `then` to the next statement in chain
-    if next_id := _get_next_id(stack):
-        # Link `if` to the next statement after the `if`
-        graph.add_edge(n_id, next_id, **FALSE)
 
     if then_id := match['__1__']:
         # Link `if` to `then` statement
-        graph.add_edge(n_id, then_id, **ALWAYS)
+        graph.add_edge(n_id, then_id, **TRUE)
 
         # Link whatever is inside the `then` to the next statement in chain
         _propagate_next_id_from_parent(stack)
-        _generic(graph, then_id, stack, edge_attrs=TRUE)
+        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
+
+    if then_id := match['__2__']:
+        # Link `if` to `else` statement
+        graph.add_edge(n_id, then_id, **FALSE)
+
+        # Link whatever is inside the `then` to the next statement in chain
+        _propagate_next_id_from_parent(stack)
+        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
+
+    # Link whatever is inside the `then` to the next statement in chain
+    elif next_id := _get_next_id(stack):
+        # Link `if` to the next statement after the `if`
+        graph.add_edge(n_id, next_id, **FALSE)
 
 
 def _method_declaration(
@@ -221,7 +231,10 @@ def _generic(
         _expression_statements(graph, n_id, stack)
     elif n_attrs_label_type == 'EnhancedForStatement':
         _for_statement(graph, n_id, stack)
-    elif n_attrs_label_type == 'IfThenStatement':
+    elif n_attrs_label_type in {
+        'IfThenStatement',
+        'IfThenElseStatement',
+    }:
         _if_statement(graph, n_id, stack)
     elif n_attrs_label_type == 'MethodDeclaration':
         _method_declaration(graph, n_id, stack)
