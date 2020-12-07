@@ -3,7 +3,6 @@ import React, { TextareaHTMLAttributes } from "react";
 import { BaseFieldProps, Field } from "redux-form";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { default as style } from "scenes/Dashboard/components/EditableField/index.css";
 import {
   Col50,
   ControlLabel,
