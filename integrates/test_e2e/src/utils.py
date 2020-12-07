@@ -40,6 +40,15 @@ def wait_for_url(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     )
 
 
+def wait_for_name(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
+    return WebDriverWait(driver, timeout).until(
+        ec.presence_of_element_located((
+            By.NAME,
+            text,
+        ))
+    )
+
+
 def login_azure(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
@@ -48,24 +57,45 @@ def login_azure(
     driver.get('https://login.microsoftonline.com/')
 
     # Input user and click next
-    input_user = driver.find_element_by_id('i0116')
+    input_user = wait_for_id(
+        driver,
+        'i0116',
+        timeout,
+    )
     input_user.send_keys(azure_credentials.user)
-    btn_next = driver.find_element_by_id('idSIButton9')
+    btn_next = wait_for_id(
+        driver,
+        'idSIButton9',
+        timeout,
+    )
     btn_next.click()
 
     # Input password and click login
-    wait_for_id(driver, 'i0118', timeout)
-    input_password = driver.find_element_by_id('i0118')
+    input_password = wait_for_id(
+        driver,
+        'i0118',
+        timeout,
+    )
     input_password.send_keys(azure_credentials.password)
-
-    btn_login = driver.find_element_by_id('idSIButton9')
+    btn_login = wait_for_id(
+        driver,
+        'idSIButton9',
+        timeout,
+    )
     btn_login.click()
 
     # Input otp and click verify
-    wait_for_id(driver, 'idTxtBx_SAOTCC_OTC', timeout)
-    input_otp = driver.find_element_by_id('idTxtBx_SAOTCC_OTC')
+    input_otp = wait_for_id(
+        driver,
+        'idTxtBx_SAOTCC_OTC',
+        timeout,
+    )
     input_otp.send_keys(otp_azure(azure_credentials))
-    btn_verify = driver.find_element_by_id('idSubmit_SAOTCC_Continue')
+    btn_verify = wait_for_id(
+        driver,
+        'idSubmit_SAOTCC_Continue',
+        timeout,
+    )
     btn_verify.click()
 
     # Wait for home
@@ -80,7 +110,11 @@ def login_integrates_azure(
     driver.get(integrates_endpoint)
 
     # Login with microsoft
-    btn_login = driver.find_element_by_id('login-microsoft')
+    btn_login = wait_for_id(
+        driver,
+        'login-microsoft',
+        timeout,
+    )
     btn_login.click()
 
     # Wait for home

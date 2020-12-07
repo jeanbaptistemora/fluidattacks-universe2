@@ -1,5 +1,6 @@
 # Third party libraries
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support.ui import Select
 
 # Local libraries
 import utils
@@ -143,3 +144,48 @@ def test_group_forces(
     )
     assert 'title: FIN.S.0007. Cross site request forgery' \
         in driver.page_source
+
+
+def test_group_scope_repositories(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Add repo
+    driver.get(
+        f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
+    add_repo = utils.wait_for_id(
+        driver,
+        'repository-add',
+        timeout,
+    )
+    add_repo.click()
+    name = utils.wait_for_name(
+        driver,
+        'resources[0].urlRepo',
+        timeout
+    )
+    branch = utils.wait_for_name(
+        driver,
+        'resources[0].branch',
+        timeout,
+    )
+    protocol = Select(utils.wait_for_name(
+        driver,
+        'resources[0].protocol',
+        timeout,
+    ))
+    protocol.select_by_value('HTTPS')
+    name.send_keys('test-repo')
+    branch.send_keys('master')
+    proceed = utils.wait_for_id(
+        driver,
+        'repository-add-proceed',
+        timeout,
+    )
+    proceed.click()
+    assert 'test-repo' in driver.page_source

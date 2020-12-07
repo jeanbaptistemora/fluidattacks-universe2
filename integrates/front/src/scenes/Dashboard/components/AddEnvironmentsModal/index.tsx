@@ -34,10 +34,14 @@ const AddEnvironmentsModal: React.FC<IAddEnvironmentsModalProps> = (
           <React.Fragment>
             <FieldArray component={EnvironmentFields} name={"resources"} />
             <ButtonToolbar>
-              <Button onClick={onClose}>
+              <Button id={"environment-add-cancel"} onClick={onClose}>
                 {translate.t("confirmmodal.cancel")}
               </Button>
-              <Button disabled={pristine} type={"submit"}>
+              <Button
+                disabled={pristine}
+                id={"environment-add-proceed"}
+                type={"submit"}
+              >
                 {translate.t("confirmmodal.proceed")}
               </Button>
             </ButtonToolbar>

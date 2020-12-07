@@ -220,7 +220,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                 message={translate.t("search_findings.tab_resources.files.btn_tooltip")}
                 placement="top"
               >
-                <Button onClick={openAddModal}>
+                <Button onClick={openAddModal} id={"file-add"}>
                   <Glyphicon glyph="plus" />&nbsp;
                   {translate.t("search_findings.tab_resources.add_repository")}
                 </Button>

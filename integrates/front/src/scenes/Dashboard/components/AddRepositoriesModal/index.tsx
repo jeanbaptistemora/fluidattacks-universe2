@@ -149,10 +149,10 @@ const addRepositoriesModal: React.FC<IAddRepositoriesModalProps> = (props: IAddR
             <React.Fragment>
               <FieldArray name="resources" component={renderReposFields} />
               <ButtonToolbar>
-                <Button onClick={onClose}>
+                <Button onClick={onClose} id={"repository-add-cancel"}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
-                <Button type="submit" disabled={pristine}>
+                <Button type="submit" disabled={pristine} id={"repository-add-proceed"}>
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>

@@ -142,7 +142,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
                 message={translate.t("search_findings.tab_resources.repositories.add_tooltip")}
                 placement="top"
               >
-                <Button onClick={openAddModal}>
+                <Button onClick={openAddModal} id={"repository-add"}>
                   <Glyphicon glyph="plus" />&nbsp;
                 {translate.t("search_findings.tab_resources.add_repository")}
                 </Button>

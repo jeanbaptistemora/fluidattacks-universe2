@@ -82,10 +82,10 @@ const addTagsModal: React.FC<IAddTagsModalProps> = (props: IAddTagsModalProps): 
             <React.Fragment>
               <FieldArray name="tags" component={renderTagsFields} />
               <ButtonToolbar>
-                <Button onClick={onClose}>
+                <Button onClick={onClose} id={"portfolio-add-cancel"}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
-                <Button type="submit" disabled={pristine}>
+                <Button type="submit" disabled={pristine} id={"portfolio-add-proceed"}>
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>

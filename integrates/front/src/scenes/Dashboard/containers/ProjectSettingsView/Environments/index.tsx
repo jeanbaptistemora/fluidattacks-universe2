@@ -144,7 +144,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
                 message={translate.t("search_findings.tab_resources.environment.btn_tooltip")}
                 placement="top"
               >
-                <Button onClick={openAddModal}>
+                <Button onClick={openAddModal} id={"environment-add"}>
                   <Glyphicon glyph="plus" />&nbsp;
                 {translate.t("search_findings.tab_resources.add_repository")}
                 </Button>

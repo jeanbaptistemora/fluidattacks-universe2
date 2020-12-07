@@ -64,10 +64,10 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
           )
         )}
         <ButtonToolbar>
-          <Button onClick={handleClose}>
+          <Button id={"confirmmodal-cancel"} onClick={handleClose}>
             {translate.t("confirmmodal.cancel")}
           </Button>
-          <Button onClick={handleProceed}>
+          <Button id={"confirmmodal-proceed"} onClick={handleProceed}>
             {translate.t("confirmmodal.proceed")}
           </Button>
         </ButtonToolbar>

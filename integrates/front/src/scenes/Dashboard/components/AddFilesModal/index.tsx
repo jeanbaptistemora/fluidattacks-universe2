@@ -75,10 +75,18 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
               {isUploading ? renderUploadBar(props) : undefined}
               <br />
               <ButtonToolbar>
-                <Button disabled={isUploading} onClick={onClose}>
+                <Button
+                  disabled={isUploading}
+                  id={"file-add-cancel"}
+                  onClick={onClose}
+                >
                   {translate.t("confirmmodal.cancel")}
                 </Button>
-                <Button disabled={pristine || isUploading} type={"submit"}>
+                <Button
+                  disabled={pristine || isUploading}
+                  id={"file-add-proceed"}
+                  type={"submit"}
+                >
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>

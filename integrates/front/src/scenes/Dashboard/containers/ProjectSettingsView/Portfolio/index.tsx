@@ -153,7 +153,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                 message={translate.t("search_findings.tab_resources.tags.add_tooltip")}
                 placement="top"
               >
-                <Button onClick={openAddModal}>
+                <Button onClick={openAddModal} id={"portfolio-add"}>
                   <Glyphicon glyph="plus" />&nbsp;
                 {translate.t("search_findings.tab_resources.add_repository")}
                 </Button>
@@ -164,7 +164,11 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                 message={translate.t("search_findings.tab_resources.tags.remove_tooltip")}
                 placement="top"
               >
-                <Button onClick={handleRemoveTag} disabled={_.isEmpty(currentRow) || removing}>
+                <Button
+                  onClick={handleRemoveTag}
+                  disabled={_.isEmpty(currentRow) || removing}
+                  id={"portfolio-remove"}
+                >
                   <Glyphicon glyph="minus" />&nbsp;
                 {translate.t("search_findings.tab_resources.remove_repository")}
                 </Button>

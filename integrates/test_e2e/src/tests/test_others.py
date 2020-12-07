@@ -8,7 +8,7 @@ from model import (
 )
 
 
-def test_login_screen(
+def test_others_login_screen(
         driver: WebDriver,
         integrates_endpoint: str,
         timeout: int) -> None:
@@ -22,7 +22,7 @@ def test_login_screen(
     assert 'FluidIntegrates' in driver.page_source
 
 
-def test_dashboard(
+def test_others_dashboard(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
