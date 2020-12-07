@@ -187,6 +187,7 @@ FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissiv
 FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5,250
 FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250
 FIN.S.031. Excessive privileges - Temporary files,test/data/lib_path/f031_cwe378/Test.java,6,378
+FIN.S.034. Insecure random number generation,test/data/lib_path/f034/Test.java,11,330
 FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,2,310 + 327
 FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3,310 + 327
 FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5,310 + 327

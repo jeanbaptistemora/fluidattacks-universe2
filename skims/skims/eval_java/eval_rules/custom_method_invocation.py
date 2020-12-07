@@ -53,6 +53,7 @@ def evaluate(
             method=method,
             stack=args,
         ))
+        common.mark_if_sink(graph, n_id, ctx)
     else:
         common.not_implemented(evaluate, n_id, ctx=ctx)
 
