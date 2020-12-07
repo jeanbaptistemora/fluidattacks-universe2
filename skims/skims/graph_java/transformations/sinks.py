@@ -1,9 +1,6 @@
 """Mark graph nodes as sinks and map them to a vulnerability type."""
 
 # Standard library
-from itertools import (
-    chain,
-)
 from typing import (
     Set,
 )
@@ -23,23 +20,30 @@ SINKS: Set[str] = {
 
 
 def _path_traversal(graph: nx.DiGraph) -> None:
+    # Class instantiations of given type
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CustomClassInstanceCreationExpression_lfno_primary',
     )):
+        pattern = ('NEW', 'CustomIdentifier', 'LPAREN', '__0__', 'RPAREN')
+        match = g.match_ast(graph, n_id, *pattern)
+
         # Filter childs of CustomIdentifier type
-        for _ in chain.from_iterable(
-            g.filter_nodes(
-                graph,
-                nodes=g.adj(graph, n_id),
-                predicate=g.pred_has_labels(
-                    label_type='CustomIdentifier',
-                    label_text=label_text,
-                ),
-            )
-            for label_text in ('java.io.File', 'io.File', 'File')
+        if (
+            match['NEW']
+            and (c_id := match['CustomIdentifier'])
+            and match['LPAREN']
+            and match['RPAREN']
+            and graph.nodes[c_id]['label_text'] in {
+                'java.io.File',
+                'io.File',
+                'File',
+
+                'java.io.FileOutputStream',
+                'io.FileOutputStream',
+                'FileOutputStream',
+            }
         ):
             graph.nodes[n_id]['label_sink_type'] = 'F063_PATH_TRAVERSAL'
-            break
 
 
 def _insecure_randoms(graph: nx.DiGraph) -> None:
