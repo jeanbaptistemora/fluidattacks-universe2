@@ -39,7 +39,14 @@ from backend.api.schema import SCHEMA
 from backend.utils.encodings import safe_encode
 
 from backend_new.app.middleware import CustomRequestMiddleware
-from backend_new.app import utils, views
+from backend_new.app import utils
+from backend_new.app.views import (
+    auth,
+    charts,
+    evidence,
+    templates
+)
+
 from backend_new import settings
 
 from __init__ import (
@@ -65,14 +72,14 @@ async def app(*request_args: Request) -> HTMLResponse:
 
         if email:
             if not await org_domain.get_user_organizations(email):
-                response = views.unauthorized(request)
+                response = templates.unauthorized(request)
             else:
-                response = views.main_app(request)
+                response = templates.main_app(request)
 
                 jwt_token = utils.create_session_token(request.session)
                 utils.set_token_in_response(response, jwt_token)
         else:
-            response = views.unauthorized(request)
+            response = templates.unauthorized(request)
             response.delete_cookie(key=settings.JWT_COOKIE_NAME)
     except ConcurrentSession:
         response = Response(
@@ -116,29 +123,29 @@ async def confirm_access(request: Request) -> HTMLResponse:
 STARLETTE_APP = Starlette(
     debug=settings.DEBUG,
     routes=[
-        Route('/', views.login),
+        Route('/', templates.login),
         Route('/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
-        Route('/authz_azure', views.authz_azure),
-        Route('/authz_bitbucket', views.authz_bitbucket),
-        Route('/authz_google', views.authz_google),
+        Route('/authz_azure', auth.authz_azure),
+        Route('/authz_bitbucket', auth.authz_bitbucket),
+        Route('/authz_google', auth.authz_google),
         Route('/confirm_access/{url_token:path}', confirm_access),
-        Route('/dglogin', views.do_google_login),
-        Route('/dalogin', views.do_azure_login),
-        Route('/dblogin', views.do_bitbucket_login),
-        Route('/error401', views.error401),
-        Route('/error500', views.error500),
-        Route('/graphic', views.graphic),
-        Route('/graphics-for-group', views.graphics_for_group),
-        Route('/graphics-for-organization', views.graphics_for_organization),
-        Route('/graphics-for-portfolio', views.graphics_for_portfolio),
-        Route('/graphics-report', views.graphics_report),
-        Route('/invalid_invitation', views.invalid_invitation),
+        Route('/dglogin', auth.do_google_login),
+        Route('/dalogin', auth.do_azure_login),
+        Route('/dblogin', auth.do_bitbucket_login),
+        Route('/error401', templates.error401),
+        Route('/error500', templates.error500),
+        Route('/graphic', charts.graphic),
+        Route('/graphics-for-group', charts.graphics_for_group),
+        Route('/graphics-for-organization', charts.graphics_for_organization),
+        Route('/graphics-for-portfolio', charts.graphics_for_portfolio),
+        Route('/graphics-report', charts.graphics_report),
+        Route('/invalid_invitation', templates.invalid_invitation),
         Route('/logout', logout),
         Route(
             '/orgs/{org_name:str}/groups/'
             '{group_name:str}/{evidence_type:str}/'
             '{finding_id:str}/{_:str}/{file_id:str}',
-            views.get_evidence
+            evidence.get_evidence
         ),
         Mount(
             '/static',

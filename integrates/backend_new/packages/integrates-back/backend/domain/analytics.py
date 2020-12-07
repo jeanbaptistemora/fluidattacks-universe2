@@ -58,7 +58,7 @@ from backend.typing import (
 )
 from fluidintegrates.settings import LOGGING
 
-from backend_new.app import views as templates
+from backend_new.app.views import templates
 
 logging.config.dictConfig(LOGGING)
 

@@ -15,7 +15,6 @@ from aioextensions import (
 )
 from django.core.cache import cache
 from django.http import HttpRequest
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from rediscluster.nodemanager import RedisClusterException
@@ -41,6 +40,7 @@ from backend.utils import (
 )
 
 from backend_new import settings
+from backend_new.app.views import templates
 
 from fluidintegrates.settings import LOGGING
 
@@ -57,21 +57,6 @@ UNAUTHORIZED_ROLE_MSG = (
 )
 
 
-def authenticate_jwt(func: TFun) -> TFun:
-
-    @functools.wraps(func)
-    async def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
-        request = args[0]
-        request_data = await util.get_jwt_content(request)
-
-        if request_data.get('user_email') is None:
-            return render(request, 'unauthorized.html', {})
-
-        return await func(*args, **kwargs)
-
-    return cast(TFun, authenticate_and_call)
-
-
 def authenticate_session(func: TFun) -> TFun:
 
     @functools.wraps(func)
@@ -79,7 +64,7 @@ def authenticate_session(func: TFun) -> TFun:
         request = args[0]
         if 'username' not in request.session or \
                 request.session['username'] is None:
-            return render(request, 'unauthorized.html', {})
+            return templates.unauthorized(request)
         return func(*args, **kwargs)
 
     return cast(TFun, authenticate_and_call)
