@@ -8,6 +8,14 @@ from typing import (
     Tuple,
     Union,
 )
+from ipaddress import (
+    AddressValueError,
+    IPv4Network,
+    IPv6Network,
+)
+from contextlib import (
+    suppress,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -41,6 +49,7 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_ec2_instances,
+    iter_ec2_ingress_egress,
     iter_ec2_security_groups,
     iter_s3_buckets,
     iterate_resources,
@@ -60,6 +69,26 @@ def _iter_ec2_volumes(template: Node) -> Iterator[Node]:
         'AWS::EC2::Volume',
         exact=True,
     ))
+
+
+def _cidr_iter_vulnerabilities(
+        rules_iterator: Iterator[Node]) -> Iterator[Node]:
+    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = IPv6Network('::/0')
+    for rule in rules_iterator:
+        rule_raw = rule.raw
+        with suppress(AddressValueError, KeyError):
+            if IPv4Network(
+                    rule_raw['CidrIp'],
+                    strict=False,
+            ) == unrestricted_ipv4:
+                yield rule.inner['CidrIp']
+        with suppress(AddressValueError, KeyError):
+            if IPv6Network(
+                    rule_raw['CidrIpv6'],
+                    strict=False,
+            ) == unrestricted_ipv6:
+                yield rule.inner['CidrIpv6']
 
 
 def _instances_without_role_iter_vulns(
@@ -201,6 +230,24 @@ def _cfn_groups_without_egress(
         statements_iterator=_groups_without_egress_iter_vulnerabilities(
             groups_iterators=iter_ec2_security_groups(template=template)),
     )
+
+
+def _cnf_unrestricted_cidrs(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return blocking_get_vulnerabilities_from_aws_iterator(
+        content=content,
+        description_key='src.lib_path.f055_aws.unrestricted_cidrs',
+        finding=FindingEnum.F055_AWS,
+        path=path,
+        statements_iterator=_cidr_iter_vulnerabilities(
+            rules_iterator=iter_ec2_ingress_egress(
+                template=template,
+                ingress=True,
+                egress=True,
+            )))
 
 
 def _terraform_unencrypted_buckets(
@@ -349,6 +396,24 @@ async def terraform_public_buckets(
     )
 
 
+# @CACHE_ETERNALLY
+@SHIELD
+async def cnf_unrestricted_cidrs(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cnf_nag W2 Security Groups found with cidr open to world on ingress
+    # cnf_nag W5 Security Groups found with cidr open to world on egress
+    # cnf_nag W9 Security Groups found with ingress cidr that is not /32
+    return await in_process(
+        _cnf_unrestricted_cidrs,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -378,6 +443,11 @@ async def analyze(
                 template=template,
             ))
             coroutines.append(cfn_instances_without_profile(
+                content=content,
+                path=path,
+                template=template,
+            ))
+            coroutines.append(cnf_unrestricted_cidrs(
                 content=content,
                 path=path,
                 template=template,

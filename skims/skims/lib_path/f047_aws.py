@@ -62,26 +62,6 @@ def _protocol_iter_vulnerabilities(
                 yield rule.inner['IpProtocol']
 
 
-def _cidr_iter_vulnerabilities(
-        rules_iterator: Iterator[Node]) -> Iterator[Node]:
-    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
-    unrestricted_ipv6 = IPv6Network('::/0')
-    for rule in rules_iterator:
-        rule_raw = rule.raw
-        with suppress(AddressValueError, KeyError):
-            if IPv4Network(
-                    rule_raw['CidrIp'],
-                    strict=False,
-            ) == unrestricted_ipv4:
-                yield rule.inner['CidrIp']
-        with suppress(AddressValueError, KeyError):
-            if IPv6Network(
-                    rule_raw['CidrIpv6'],
-                    strict=False,
-            ) == unrestricted_ipv6:
-                yield rule.inner['CidrIpv6']
-
-
 def _cfn_iter_vulnerable_admin_ports(
     rules_iterator: Iterator[Node],
 ) -> Iterator[Node]:
@@ -170,24 +150,6 @@ def _cfn_unrestricted_ip_protocols(
             )))
 
 
-def _cnf_unrestricted_cidrs(
-    content: str,
-    path: str,
-    template: Any,
-) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
-        content=content,
-        description_key='src.lib_path.f047_aws.unrestricted_cidrs',
-        finding=FindingEnum.F047_AWS,
-        path=path,
-        statements_iterator=_cidr_iter_vulnerabilities(
-            rules_iterator=iter_ec2_ingress_egress(
-                template=template,
-                ingress=True,
-                egress=True,
-            )))
-
-
 def _cfn_allows_anyone_to_admin_ports(
     content: str,
     path: str,
@@ -214,24 +176,6 @@ async def cfn_allows_anyone_to_admin_ports(
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
         _cfn_allows_anyone_to_admin_ports,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-async def cnf_unrestricted_cidrs(
-    content: str,
-    path: str,
-    template: Any,
-) -> Tuple[Vulnerability, ...]:
-    # cnf_nag W2 Security Groups found with cidr open to world on ingress
-    # cnf_nag W5 Security Groups found with cidr open to world on egress
-    # cnf_nag W9 Security Groups found with ingress cidr that is not /32
-    return await in_process(
-        _cnf_unrestricted_cidrs,
         content=content,
         path=path,
         template=template,
@@ -288,11 +232,6 @@ async def analyze(
         async for template in load_templates(content=content,
                                              fmt=file_extension):
             coroutines.append(cnf_unrestricted_ports(
-                content=content,
-                path=path,
-                template=template,
-            ))
-            coroutines.append(cnf_unrestricted_cidrs(
                 content=content,
                 path=path,
                 template=template,

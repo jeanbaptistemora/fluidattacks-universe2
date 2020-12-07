@@ -1,4 +1,10 @@
 cwe,title,what,where
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,24
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,31
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,36
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,47
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,8
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16
@@ -13,6 +19,18 @@ cwe,title,what,where
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,24
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,29
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,36
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,45
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,54
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,6
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,36
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,44
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,55
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,67
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,79
+16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,8
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24
 16,FIN.S.055. Insecure service configuration - AWS,test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.tf,1
 200 + 209,FIN.H.037. Technical information leak,test/data/lib_path/f037/javascript.js,20
@@ -73,23 +91,17 @@ cwe,title,what,where
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5
 250,FIN.S.031. Excessive privileges - AWS,test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,24
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,25
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,27
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,31
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,32
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,38
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,7
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,9
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,11
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,36
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,37
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,39
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,47
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,48
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,56
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,8
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,9
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,26
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,31
@@ -105,26 +117,6 @@ cwe,title,what,where
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,60
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,72
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,99
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,24
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,25
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,27
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,29
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,36
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,45
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,54
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,55
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,6
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml,61
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,36
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,37
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,39
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,44
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,55
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,67
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,79
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,8
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,80
-275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_cidrs.yaml.json,88
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,37
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,41
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,55
@@ -141,6 +133,14 @@ cwe,title,what,where
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,80
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,88
 275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,9
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,25
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,27
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,55
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,61
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,37
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,39
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,80
+275,FIN.H.047. Automatic information enumeration - AWS,test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,88
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,2
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,3
 310 + 327,FIN.S.052. Insecure encryption algorithm,test/data/lib_path/f052/csharp.cs,5
