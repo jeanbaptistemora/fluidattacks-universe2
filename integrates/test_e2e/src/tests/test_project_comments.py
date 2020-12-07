@@ -8,7 +8,7 @@ from model import (
 )
 
 
-def test_comments(
+def test_project_comments(
         driver: WebDriver,
         azure_credentials: AzureCredentials,
         integrates_endpoint: str,
@@ -17,25 +17,12 @@ def test_comments(
     utils.login_azure(driver, azure_credentials, timeout)
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
-    # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
-    finding = utils.wait_for_text(
-        driver,
-        'FIN.H.060. Insecure exceptions',
-        timeout,
-    )
-    finding.click()
-
-    # Enter finding comments
-    comments = utils.wait_for_id(
-        driver,
-        'commentItem',
-        timeout,
-    )
-    comments.click()
+    # Enter project comments
+    driver.get(
+        f'{integrates_endpoint}/orgs/okada/groups/unittesting/consulting')
     utils.wait_for_text(
         driver,
-        'This is a comenting test',
+        'Now we can post comments on projects',
         timeout,
     )
-    assert 'This is a comenting test' in driver.page_source
+    assert 'Now we can post comments on projects' in driver.page_source

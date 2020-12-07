@@ -14,5 +14,6 @@ in
       builder = ./builder.sh;
       propagatedBuildInputs = [
         pkgs.ruby
+        pkgs.cacert
       ];
     }
