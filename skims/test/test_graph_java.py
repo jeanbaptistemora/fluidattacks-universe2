@@ -156,4 +156,5 @@ async def test_control_flow_2() -> None:
 
     assert g.flows(graph, sink_type='F063_PATH_TRAVERSAL') == (
         (0, ('30', '85', '87', '91', '125', '185', '286', '351')),
+        (1, ('30', '85', '87', '91', '125', '185', '286', '351')),
     )

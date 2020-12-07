@@ -26,6 +26,10 @@ def taint(statements: Statements, index: int) -> None:
                 'java.io.FileOutputStream',
                 'io.FileOutputStream',
                 'FileOutputStream',
+
+                'java.io.FileInputStream',
+                'io.FileInputStream',
+                'FileInputStream',
             },
             statement.meta.sink == 'F063_PATH_TRAVERSAL',
         )),

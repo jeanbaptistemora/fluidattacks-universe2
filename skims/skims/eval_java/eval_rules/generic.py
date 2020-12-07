@@ -27,7 +27,9 @@ _UNINTERESTING_NODES = {
     'Block',
     'BlockStatements',
     'BreakStatement',
+    'IfThenElseStatement',
     'IfThenStatement',
+    'ResourceSpecification',
     'SEMI',
     'TryStatement',
 }

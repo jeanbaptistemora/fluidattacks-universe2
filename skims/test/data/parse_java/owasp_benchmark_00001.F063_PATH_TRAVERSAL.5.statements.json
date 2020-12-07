@@ -101,78 +101,6 @@
   },
   {
     "meta": {
-      "danger": true,
-      "linear": true,
-      "sink": null,
-      "stack": 0
-    },
-    "recursive": false,
-    "symbol": "theCookies",
-    "type": "StatementLookup"
-  },
-  {
-    "meta": {
-      "danger": true,
-      "linear": true,
-      "sink": null,
-      "stack": -1
-    },
-    "recursive": true,
-    "stack": [],
-    "type": "StatementDeclaration",
-    "var": "theCookie",
-    "var_type": "javax.servlet.http.Cookie"
-  },
-  {
-    "meta": {
-      "danger": true,
-      "linear": false,
-      "sink": null,
-      "stack": 0
-    },
-    "method": "theCookie.getValue",
-    "recursive": true,
-    "stack": [],
-    "type": "StatementCustomMethodInvocation"
-  },
-  {
-    "meta": {
-      "danger": false,
-      "linear": true,
-      "sink": null,
-      "stack": 0
-    },
-    "recursive": false,
-    "type": "StatementLiteral",
-    "value": "\"UTF-8\"",
-    "value_type": "string"
-  },
-  {
-    "meta": {
-      "danger": true,
-      "linear": true,
-      "sink": null,
-      "stack": -2
-    },
-    "method": "java.net.URLDecoder.decode",
-    "recursive": true,
-    "stack": [],
-    "type": "StatementCustomMethodInvocation"
-  },
-  {
-    "meta": {
-      "danger": true,
-      "linear": true,
-      "sink": null,
-      "stack": -1
-    },
-    "recursive": true,
-    "stack": [],
-    "type": "StatementAssignment",
-    "var": "param"
-  },
-  {
-    "meta": {
       "danger": false,
       "linear": true,
       "sink": null,
@@ -223,7 +151,7 @@
   },
   {
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": 0
@@ -246,7 +174,7 @@
   },
   {
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": -2
@@ -257,7 +185,7 @@
   },
   {
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": -1
@@ -269,7 +197,7 @@
   },
   {
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": 0
@@ -281,7 +209,7 @@
   {
     "class_type": "java.io.File",
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": "F063_PATH_TRAVERSAL",
       "stack": -1
@@ -293,7 +221,7 @@
   {
     "class_type": "java.io.FileInputStream",
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": "F063_PATH_TRAVERSAL",
       "stack": -1
@@ -304,7 +232,7 @@
   },
   {
     "meta": {
-      "danger": true,
+      "danger": false,
       "linear": true,
       "sink": null,
       "stack": -1

@@ -1020,6 +1020,7 @@
       "label_c": 34,
       "label_l": 13,
       "label_parent_ast": "368",
+      "label_sink_type": "F063_PATH_TRAVERSAL",
       "label_type": "CustomClassInstanceCreationExpression_lfno_primary",
       "label_type_index": "0"
     },

@@ -179,6 +179,7 @@ def _try_statement(
         n_id,
         # Components in order
         'TRY',
+        'ResourceSpecification',
         'Block',
         'CatchClause',
         'Finally_',
@@ -188,6 +189,7 @@ def _try_statement(
     childs_stack = [
         (c_id, edge_attrs)
         for c_id, edge_attrs in [
+            (childs['ResourceSpecification'], ALWAYS),
             (childs['Block'], ALWAYS),
             (childs['CatchClause'], MAYBE),
             (childs['Finally_'], ALWAYS),

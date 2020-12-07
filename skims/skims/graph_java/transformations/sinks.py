@@ -41,6 +41,10 @@ def _path_traversal(graph: nx.DiGraph) -> None:
                 'java.io.FileOutputStream',
                 'io.FileOutputStream',
                 'FileOutputStream',
+
+                'java.io.FileInputStream',
+                'io.FileInputStream',
+                'FileInputStream',
             }
         ):
             graph.nodes[n_id]['label_sink_type'] = 'F063_PATH_TRAVERSAL'
