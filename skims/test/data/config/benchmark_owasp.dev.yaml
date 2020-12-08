@@ -2753,3 +2753,4 @@ path:
     # - BenchmarkTest02695.java
     # - BenchmarkTest02696.java
     # - BenchmarkTest02712.java
+timeout: 14400

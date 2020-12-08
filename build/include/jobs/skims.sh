@@ -104,6 +104,32 @@ function job_skims_benchmark_upload {
         < '.singer'
 }
 
+function job_skims_benchmark {
+      job_skims_benchmark_owasp \
+  &&  job_skims_benchmark_upload \
+
+}
+
+function job_skims_benchmark_on_aws {
+  local vcpus='2'
+  local memory='7200'
+  local attempts='10'
+  local timeout='18000'
+  local group="${1}"
+  local jobqueue='default-uninterruptible'
+
+      helper_skims_aws_login prod \
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        "${jobname}" \
+        "${jobqueue}" \
+        'skims_benchmark' \
+
+}
+
 function job_skims_process_group {
   local group="${1}"
 
