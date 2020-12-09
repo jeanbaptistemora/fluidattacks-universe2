@@ -5,4 +5,4 @@ from datetime import (
 
 
 def get_utc_timestamp() -> float:
-    return datetime.utcnow().timestamp()
+    return datetime.now().timestamp()

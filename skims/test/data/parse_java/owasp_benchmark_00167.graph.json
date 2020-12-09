@@ -2657,14 +2657,6 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "844": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "846": {
-        "index": 2,
-        "label_ast": "AST"
-      },
       "847": {
         "index": 3,
         "label_ast": "AST"
@@ -2678,59 +2670,9 @@
         "label_ast": "AST"
       }
     },
-    "821": {
-      "822": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "841": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "843": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "822": {
-      "823": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "838": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "840": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "823": {
-      "824": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "835": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "837": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
     "867": {
       "868": {
         "index": 0,
-        "label_ast": "AST"
-      },
-      "891": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "893": {
-        "index": 2,
         "label_ast": "AST"
       },
       "894": {
@@ -2743,48 +2685,6 @@
       },
       "923": {
         "index": 5,
-        "label_ast": "AST"
-      }
-    },
-    "868": {
-      "869": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "888": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "890": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "869": {
-      "870": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "885": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "887": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "870": {
-      "871": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "882": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "884": {
-        "index": 2,
         "label_ast": "AST"
       }
     },
@@ -7093,100 +6993,15 @@
       "label_c": 21,
       "label_l": 54,
       "label_parent_ast": "796",
-      "label_type": "MethodInvocation_lfno_primary",
+      "label_type": "CustomMethodInvocation_lfno_primary",
       "label_type_index": "0"
     },
     "821": {
       "label_c": 21,
       "label_l": 54,
       "label_parent_ast": "820",
-      "label_type": "TypeName",
-      "label_type_index": "0"
-    },
-    "822": {
-      "label_c": 21,
-      "label_l": 54,
-      "label_parent_ast": "821",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "823": {
-      "label_c": 21,
-      "label_l": 54,
-      "label_parent_ast": "822",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "824": {
-      "label_c": 21,
-      "label_l": 54,
-      "label_parent_ast": "823",
-      "label_text": "org.apache.commons",
-      "label_type": "CustomPackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "835": {
-      "label_c": 39,
-      "label_l": 54,
-      "label_parent_ast": "823",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "837": {
-      "label_c": 40,
-      "label_l": 54,
-      "label_parent_ast": "823",
-      "label_text": "codec",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "838": {
-      "label_c": 45,
-      "label_l": 54,
-      "label_parent_ast": "822",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "840": {
-      "label_c": 46,
-      "label_l": 54,
-      "label_parent_ast": "822",
-      "label_text": "binary",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "841": {
-      "label_c": 52,
-      "label_l": 54,
-      "label_parent_ast": "821",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "843": {
-      "label_c": 53,
-      "label_l": 54,
-      "label_parent_ast": "821",
-      "label_text": "Base64",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "844": {
-      "label_c": 59,
-      "label_l": 54,
-      "label_parent_ast": "820",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "846": {
-      "label_c": 60,
-      "label_l": 54,
-      "label_parent_ast": "820",
-      "label_text": "decodeBase64",
-      "label_type": "IdentifierRule",
+      "label_text": "org.apache.commons.codec.binary.Base64.decodeBase64",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "847": {
@@ -7201,36 +7016,15 @@
       "label_c": 3,
       "label_l": 55,
       "label_parent_ast": "820",
-      "label_type": "MethodInvocation_lfno_primary",
+      "label_type": "CustomMethodInvocation_lfno_primary",
       "label_type_index": "0"
     },
     "868": {
       "label_c": 3,
       "label_l": 55,
       "label_parent_ast": "867",
-      "label_type": "TypeName",
-      "label_type_index": "0"
-    },
-    "869": {
-      "label_c": 3,
-      "label_l": 55,
-      "label_parent_ast": "868",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "870": {
-      "label_c": 3,
-      "label_l": 55,
-      "label_parent_ast": "869",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "871": {
-      "label_c": 3,
-      "label_l": 55,
-      "label_parent_ast": "870",
-      "label_text": "org.apache.commons",
-      "label_type": "CustomPackageOrTypeName",
+      "label_text": "org.apache.commons.codec.binary.Base64.encodeBase64",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "88": {
@@ -7239,70 +7033,6 @@
       "label_parent_ast": "71",
       "label_text": ";",
       "label_type": "SEMI",
-      "label_type_index": "0"
-    },
-    "882": {
-      "label_c": 21,
-      "label_l": 55,
-      "label_parent_ast": "870",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "884": {
-      "label_c": 22,
-      "label_l": 55,
-      "label_parent_ast": "870",
-      "label_text": "codec",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "885": {
-      "label_c": 27,
-      "label_l": 55,
-      "label_parent_ast": "869",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "887": {
-      "label_c": 28,
-      "label_l": 55,
-      "label_parent_ast": "869",
-      "label_text": "binary",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "888": {
-      "label_c": 34,
-      "label_l": 55,
-      "label_parent_ast": "868",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "890": {
-      "label_c": 35,
-      "label_l": 55,
-      "label_parent_ast": "868",
-      "label_text": "Base64",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "891": {
-      "label_c": 41,
-      "label_l": 55,
-      "label_parent_ast": "867",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "893": {
-      "label_c": 42,
-      "label_l": 55,
-      "label_parent_ast": "867",
-      "label_text": "encodeBase64",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "894": {

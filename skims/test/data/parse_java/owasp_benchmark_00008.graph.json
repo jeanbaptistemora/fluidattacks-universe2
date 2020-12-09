@@ -1269,48 +1269,12 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "812": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "814": {
-        "index": 2,
-        "label_ast": "AST"
-      },
       "815": {
         "index": 3,
         "label_ast": "AST"
       },
       "816": {
         "index": 4,
-        "label_ast": "AST"
-      }
-    },
-    "793": {
-      "794": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "809": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "811": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "794": {
-      "795": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "806": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "808": {
-        "index": 2,
         "label_ast": "AST"
       }
     },
@@ -1455,48 +1419,12 @@
         "index": 0,
         "label_ast": "AST"
       },
-      "967": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "969": {
-        "index": 2,
-        "label_ast": "AST"
-      },
       "970": {
         "index": 3,
         "label_ast": "AST"
       },
       "971": {
         "index": 4,
-        "label_ast": "AST"
-      }
-    },
-    "948": {
-      "949": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "964": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "966": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
-    "949": {
-      "950": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "961": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "963": {
-        "index": 2,
         "label_ast": "AST"
       }
     },
@@ -3544,77 +3472,15 @@
       "label_c": 45,
       "label_l": 57,
       "label_parent_ast": "768",
-      "label_type": "MethodInvocation_lfno_primary",
+      "label_type": "CustomMethodInvocation_lfno_primary",
       "label_type_index": "0"
     },
     "793": {
       "label_c": 45,
       "label_l": 57,
       "label_parent_ast": "792",
-      "label_type": "TypeName",
-      "label_type_index": "0"
-    },
-    "794": {
-      "label_c": 45,
-      "label_l": 57,
-      "label_parent_ast": "793",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "795": {
-      "label_c": 45,
-      "label_l": 57,
-      "label_parent_ast": "794",
-      "label_text": "org.owasp.benchmark",
-      "label_type": "CustomPackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "806": {
-      "label_c": 64,
-      "label_l": 57,
-      "label_parent_ast": "794",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "808": {
-      "label_c": 65,
-      "label_l": 57,
-      "label_parent_ast": "794",
-      "label_text": "helpers",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "809": {
-      "label_c": 72,
-      "label_l": 57,
-      "label_parent_ast": "793",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "811": {
-      "label_c": 73,
-      "label_l": 57,
-      "label_parent_ast": "793",
-      "label_text": "DatabaseHelper",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "812": {
-      "label_c": 87,
-      "label_l": 57,
-      "label_parent_ast": "792",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "814": {
-      "label_c": 88,
-      "label_l": 57,
-      "label_parent_ast": "792",
-      "label_text": "getSqlConnection",
-      "label_type": "IdentifierRule",
+      "label_text": "org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "815": {
@@ -3859,77 +3725,15 @@
       "label_c": 12,
       "label_l": 60,
       "label_parent_ast": "945",
-      "label_type": "MethodInvocation",
+      "label_type": "CustomMethodInvocation",
       "label_type_index": "0"
     },
     "948": {
       "label_c": 12,
       "label_l": 60,
       "label_parent_ast": "947",
-      "label_type": "TypeName",
-      "label_type_index": "0"
-    },
-    "949": {
-      "label_c": 12,
-      "label_l": 60,
-      "label_parent_ast": "948",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "950": {
-      "label_c": 12,
-      "label_l": 60,
-      "label_parent_ast": "949",
-      "label_text": "org.owasp.benchmark",
-      "label_type": "CustomPackageOrTypeName",
-      "label_type_index": "0"
-    },
-    "961": {
-      "label_c": 31,
-      "label_l": 60,
-      "label_parent_ast": "949",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "963": {
-      "label_c": 32,
-      "label_l": 60,
-      "label_parent_ast": "949",
-      "label_text": "helpers",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "964": {
-      "label_c": 39,
-      "label_l": 60,
-      "label_parent_ast": "948",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "966": {
-      "label_c": 40,
-      "label_l": 60,
-      "label_parent_ast": "948",
-      "label_text": "DatabaseHelper",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "967": {
-      "label_c": 54,
-      "label_l": 60,
-      "label_parent_ast": "947",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
-    "969": {
-      "label_c": 55,
-      "label_l": 60,
-      "label_parent_ast": "947",
-      "label_text": "printResults",
-      "label_type": "IdentifierRule",
+      "label_text": "org.owasp.benchmark.helpers.DatabaseHelper.printResults",
+      "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
     "970": {

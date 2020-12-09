@@ -20,7 +20,7 @@ from utils.crypto import (
 )
 
 
-async def get_obj_id(obj: Any) -> bytes:
+def get_obj_id(obj: Any) -> bytes:
     """Compute an unique identifier from a Python object.
 
     :param obj: The object to identify
@@ -28,7 +28,7 @@ async def get_obj_id(obj: Any) -> bytes:
     :return: An unique object identifier
     :rtype: bytes
     """
-    return await get_hash(await py_dumps(obj))
+    return get_hash(py_dumps(obj))
 
 
 async def read_blob(obj_location: str) -> Any:
@@ -36,7 +36,7 @@ async def read_blob(obj_location: str) -> Any:
         obj_location, mode='rb',
     ) as obj_store:
         obj_stream: bytes = await obj_store.read()
-        return await py_loads(obj_stream)
+        return py_loads(obj_stream)
 
 
 async def retrieve_object(folder: str, key: Any) -> Any:
@@ -49,7 +49,7 @@ async def retrieve_object(folder: str, key: Any) -> Any:
     :return: The value that is hold under the specified key
     :rtype: Any
     """
-    obj_id: bytes = await get_obj_id(key)
+    obj_id: bytes = get_obj_id(key)
     obj_location: str = join(folder, obj_id.hex())
 
     return await read_blob(obj_location)
@@ -72,8 +72,8 @@ async def store_object(
     :param ttl: Time to live in seconds, defaults to None
     :type ttl: Optional[int], optional
     """
-    obj_id: bytes = await get_obj_id(key)
-    obj_stream: bytes = await py_dumps(value, ttl=ttl)
+    obj_id: bytes = get_obj_id(key)
+    obj_stream: bytes = py_dumps(value, ttl=ttl)
     obj_location: str = join(folder, obj_id.hex())
 
     async with aiofiles.open(  # type: ignore

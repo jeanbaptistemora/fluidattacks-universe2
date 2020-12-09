@@ -55,16 +55,24 @@ async def log(level: str, msg: str, *args: Any, **kwargs: Any) -> None:
     await in_thread(blocking_log, level, msg, *args, **kwargs)
 
 
-async def log_exception(
+def blocking_log_exception(
     level: str,
     exception: BaseException,
     **meta_data: str,
 ) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
-    await log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
+    blocking_log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
     if level in ('warning', 'error', 'critical'):
-        await log_to_remote(exception, **meta_data)
+        blocking_log_to_remote(exception, **meta_data)
+
+
+async def log_exception(
+    level: str,
+    exception: BaseException,
+    **meta_data: str,
+) -> None:
+    await in_thread(blocking_log_exception, level, exception, **meta_data)
 
 
 def blocking_log_to_remote(exception: BaseException, **meta_data: str) -> None:

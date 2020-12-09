@@ -33,9 +33,18 @@ def taint(statements: Statements, index: int) -> None:
             },
             statement.meta.sink == 'F063_PATH_TRAVERSAL',
         )),
-        statement.class_type in {'java.util.Random', 'util.Random', 'Random'},
+        all((
+            statement.class_type in {
+                'java.util.Random',
+                'util.Random',
+                'Random',
+            },
+            statement.meta.sink == 'F034_INSECURE_RANDOMS',
+        )),
     ))
 
     # Local context
-    statement.meta.danger = (call_danger and args_danger
-                             if args else call_danger)
+    if call_danger:
+        statement.meta.danger = args_danger if args else True
+    else:
+        statement.meta.danger = args_danger

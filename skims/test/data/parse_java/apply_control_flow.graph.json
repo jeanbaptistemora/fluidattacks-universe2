@@ -2386,20 +2386,6 @@
         "label_ast": "AST"
       }
     },
-    "29": {
-      "30": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "45": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "47": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
     "2913": {
       "2922": {
         "index": 0,
@@ -2559,20 +2545,6 @@
       },
       "3039": {
         "index": 5,
-        "label_ast": "AST"
-      }
-    },
-    "30": {
-      "31": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "42": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "44": {
-        "index": 2,
         "label_ast": "AST"
       }
     },
@@ -6116,20 +6088,6 @@
         "label_ast": "AST"
       }
     },
-    "6": {
-      "22": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "24": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "7": {
-        "index": 0,
-        "label_ast": "AST"
-      }
-    },
     "6005": {
       "6006": {
         "index": 0,
@@ -6833,20 +6791,6 @@
       },
       "729": {
         "index": 5,
-        "label_ast": "AST"
-      }
-    },
-    "7": {
-      "19": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "21": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "8": {
-        "index": 0,
         "label_ast": "AST"
       }
     },
@@ -9247,14 +9191,6 @@
       "label_type": "RelationalExpression",
       "label_type_index": "0"
     },
-    "19": {
-      "label_c": 25,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
     "190": {
       "label_c": 12,
       "label_l": 10,
@@ -9715,14 +9651,6 @@
       "label_type": "RBRACE",
       "label_type_index": "0"
     },
-    "21": {
-      "label_c": 26,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_text": "log4j",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
     "2100": {
       "label_c": 4,
       "label_l": 89,
@@ -9912,14 +9840,6 @@
       "label_parent_ast": "2180",
       "label_text": "case",
       "label_type": "CASE",
-      "label_type_index": "0"
-    },
-    "22": {
-      "label_c": 31,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_text": ".",
-      "label_type": "DOT",
       "label_type_index": "0"
     },
     "2202": {
@@ -10249,14 +10169,6 @@
       "label_parent_ast": "2390",
       "label_text": "System.out.println",
       "label_type": "CustomIdentifier",
-      "label_type_index": "0"
-    },
-    "24": {
-      "label_c": 32,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_text": "Logger",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "2401": {
@@ -11227,7 +11139,8 @@
       "label_c": 7,
       "label_l": 2,
       "label_parent_ast": "27",
-      "label_type": "TypeName",
+      "label_text": "org.apache.logging.log4j.LogManager",
+      "label_type": "CustomTypeName",
       "label_type_index": "0"
     },
     "2900": {
@@ -11459,13 +11372,6 @@
       "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
-    "30": {
-      "label_c": 7,
-      "label_l": 2,
-      "label_parent_ast": "29",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
     "3008": {
       "label_c": 26,
       "label_l": 122,
@@ -11634,14 +11540,6 @@
       "label_parent_ast": "3056",
       "label_text": ";",
       "label_type": "SEMI",
-      "label_type_index": "0"
-    },
-    "31": {
-      "label_c": 7,
-      "label_l": 2,
-      "label_parent_ast": "30",
-      "label_text": "org.apache.logging",
-      "label_type": "CustomPackageOrTypeName",
       "label_type_index": "0"
     },
     "3103": {
@@ -13848,14 +13746,6 @@
       "label_type": "LPAREN",
       "label_type_index": "0"
     },
-    "42": {
-      "label_c": 25,
-      "label_l": 2,
-      "label_parent_ast": "30",
-      "label_text": ".",
-      "label_type": "DOT",
-      "label_type_index": "0"
-    },
     "4203": {
       "label_c": 35,
       "label_l": 158,
@@ -14325,14 +14215,6 @@
       "label_type": "BlockStatements",
       "label_type_index": "0"
     },
-    "44": {
-      "label_c": 26,
-      "label_l": 2,
-      "label_parent_ast": "30",
-      "label_text": "log4j",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
     "4400": {
       "label_c": 6,
       "label_l": 168,
@@ -14546,14 +14428,6 @@
       "label_l": 174,
       "label_parent_ast": "4495",
       "label_type": "LocalVariableDeclaration",
-      "label_type_index": "0"
-    },
-    "45": {
-      "label_c": 31,
-      "label_l": 2,
-      "label_parent_ast": "29",
-      "label_text": ".",
-      "label_type": "DOT",
       "label_type_index": "0"
     },
     "450": {
@@ -14930,14 +14804,6 @@
       "label_l": 181,
       "label_parent_ast": "4667",
       "label_type": "AdditiveExpression",
-      "label_type_index": "0"
-    },
-    "47": {
-      "label_c": 32,
-      "label_l": 2,
-      "label_parent_ast": "29",
-      "label_text": "LogManager",
-      "label_type": "IdentifierRule",
       "label_type_index": "0"
     },
     "4700": {
@@ -17390,7 +17256,8 @@
       "label_c": 7,
       "label_l": 1,
       "label_parent_ast": "4",
-      "label_type": "TypeName",
+      "label_text": "org.apache.logging.log4j.Logger",
+      "label_type": "CustomTypeName",
       "label_type_index": "0"
     },
     "6000": {
@@ -18517,13 +18384,6 @@
       "label_type": "CustomIdentifier",
       "label_type_index": "0"
     },
-    "7": {
-      "label_c": 7,
-      "label_l": 1,
-      "label_parent_ast": "6",
-      "label_type": "PackageOrTypeName",
-      "label_type_index": "0"
-    },
     "707": {
       "label_c": 23,
       "label_l": 29,
@@ -18722,14 +18582,6 @@
       "label_parent_ast": "787",
       "label_text": "=",
       "label_type": "ASSIGN",
-      "label_type_index": "0"
-    },
-    "8": {
-      "label_c": 7,
-      "label_l": 1,
-      "label_parent_ast": "7",
-      "label_text": "org.apache.logging",
-      "label_type": "CustomPackageOrTypeName",
       "label_type_index": "0"
     },
     "812": {

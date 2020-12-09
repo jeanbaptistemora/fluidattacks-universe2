@@ -24,15 +24,11 @@ _CIPHER_SUITES_OPEN_SSL: Dict[str, bool] = {}
 """Mapping from OpenSSL cipher suites to boolean indicating cipher safety."""
 
 
-def _get_hash(stream: bytes) -> bytes:
+def get_hash(stream: bytes) -> bytes:
     digestor = HASH()
     digestor.update(stream)
 
     return digestor.digest()
-
-
-async def get_hash(stream: bytes) -> bytes:
-    return await in_process(_get_hash, stream)
 
 
 def _get_hmac(key: bytes, stream: bytes) -> bytes:

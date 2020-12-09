@@ -165,11 +165,12 @@ def _package_or_type_name(graph: nx.DiGraph) -> None:
         'DOT',
         'IdentifierRule',
     ))
-    _concatenate_child_texts(graph, 'PackageOrTypeName', (
-        'CustomPackageOrTypeName',
-        'DOT',
-        'IdentifierRule',
-    ))
+    for _ in range(5):
+        _concatenate_child_texts(graph, 'PackageOrTypeName', (
+            'CustomPackageOrTypeName',
+            'DOT',
+            'IdentifierRule',
+        ))
 
 
 def _array_access_lfno_primary(graph: nx.DiGraph) -> None:
