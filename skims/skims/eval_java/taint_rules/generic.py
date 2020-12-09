@@ -1,5 +1,6 @@
 # Local libraries
 from eval_java.model import (
+    ExpressionConditional,
     StatementAdd,
     StatementAssignment,
     StatementCast,
@@ -8,6 +9,7 @@ from eval_java.model import (
     StatementDeclaration,
     StatementLiteral,
     StatementLookup,
+    StatementPass,
     StatementPrimary,
     Statements,
 )
@@ -18,6 +20,8 @@ from eval_java.taint_rules import (
     cast,
     class_instantiation,
     declaration,
+    expression_conditional,
+    ignore,
     literal,
     lookup,
     primary,
@@ -25,6 +29,7 @@ from eval_java.taint_rules import (
 
 
 TAINTERS = {
+    ExpressionConditional: expression_conditional.taint,
     StatementAdd: add.taint,
     StatementAssignment: assignment.taint,
     StatementCast: cast.taint,
@@ -33,6 +38,7 @@ TAINTERS = {
     StatementDeclaration: declaration.taint,
     StatementLiteral: literal.taint,
     StatementLookup: lookup.taint,
+    StatementPass: ignore.taint,
     StatementPrimary: primary.taint,
 }
 

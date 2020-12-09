@@ -1,7 +1,31 @@
+# Third party libraries
+from typing import (
+    List,
+)
+
 # Local libraries
 from eval_java.model import (
+    get_default_statement_meta,
+    Statement,
+    StatementPass,
     Statements,
 )
+
+
+def _get_stack_lists_from_statement(statement: Statement) -> List[Statements]:
+    if hasattr(statement, 'stack'):
+        stack_lists = [getattr(statement, 'stack')]
+    elif hasattr(statement, 'stacks'):
+        stack_lists = getattr(statement, 'stacks')
+        for stack_list in stack_lists:
+            if stack_list == []:
+                stack_list.append(StatementPass(
+                    meta=get_default_statement_meta(),
+                ))
+    else:
+        stack_lists = []
+
+    return stack_lists
 
 
 def _is_linear_or_flatten_one_level(statements: Statements) -> bool:
@@ -19,14 +43,7 @@ def _is_linear_or_flatten_one_level(statements: Statements) -> bool:
         if statement.recursive:
             stack = 0
 
-            if elem := getattr(statement, 'stack', None):
-                stack_lists = [elem]
-            elif elem := getattr(statement, 'stacks', None):
-                stack_lists = elem
-            else:
-                stack_lists = []
-
-            if stack_lists:
+            if stack_lists := _get_stack_lists_from_statement(statement):
                 for stack_list in stack_lists:
                     for arg in stack_list:
                         statements.insert(statement_index, arg)

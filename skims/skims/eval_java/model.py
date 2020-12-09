@@ -32,6 +32,14 @@ Statement = Any
 Statements = List[Statement]
 
 
+class ExpressionConditional(NamedTuple):
+    meta: StatementMeta
+    stacks: List[Statements]
+
+    recursive: bool = True
+    type: str = 'ExpressionConditional'
+
+
 class StatementAdd(NamedTuple):
     meta: StatementMeta
     stacks: List[Statements]
@@ -101,6 +109,13 @@ class StatementLiteral(NamedTuple):
 
     recursive: bool = False
     type: str = 'StatementLiteral'
+
+
+class StatementPass(NamedTuple):
+    meta: StatementMeta
+
+    recursive: bool = False
+    type: str = 'StatementPass'
 
 
 class StatementPrimary(NamedTuple):

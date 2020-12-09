@@ -2,7 +2,7 @@
   {
     "meta": {
       "danger": true,
-      "linear": false,
+      "linear": true,
       "sink": null,
       "stack": 0
     },
@@ -15,7 +15,7 @@
   {
     "meta": {
       "danger": false,
-      "linear": false,
+      "linear": true,
       "sink": null,
       "stack": 0
     },
@@ -52,7 +52,7 @@
   {
     "meta": {
       "danger": true,
-      "linear": false,
+      "linear": true,
       "sink": null,
       "stack": 0
     },
@@ -126,7 +126,7 @@
   {
     "meta": {
       "danger": true,
-      "linear": false,
+      "linear": true,
       "sink": null,
       "stack": 0
     },
