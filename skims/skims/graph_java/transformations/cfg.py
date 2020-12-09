@@ -107,11 +107,24 @@ def _for_statement(
     n_id: str,
     stack: Stack,
 ) -> None:
-    # Link to the statements
-    c_id = g.adj_ast(graph, n_id)[-1]
-    graph.add_edge(n_id, c_id, **ALWAYS)
+    _while_statement(graph, n_id, stack)
 
-    # Recurse
+
+def _while_statement(
+    graph: nx.DiGraph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    # If there is a next node, link it as `false`, this means
+    # the predicate of the for did not hold
+    if next_id := _get_next_id(stack):
+        graph.add_edge(n_id, next_id, **FALSE)
+
+    # If the predicate holds as `true` then enter into the block
+    c_id = g.adj_ast(graph, n_id)[-1]
+    graph.add_edge(n_id, c_id, **TRUE)
+
+    # Recurse into the for block
     _propagate_next_id_from_parent(stack)
     _generic(graph, c_id, stack, edge_attrs=ALWAYS)
 
@@ -242,6 +255,8 @@ def _generic(
         _method_declaration(graph, n_id, stack)
     elif n_attrs_label_type == 'TryStatement':
         _try_statement(graph, n_id, stack)
+    elif n_attrs_label_type == 'WhileStatement':
+        _while_statement(graph, n_id, stack)
     elif next_id := stack[-2].pop('next_id', None):
         graph.add_edge(n_id, next_id, **edge_attrs)
 

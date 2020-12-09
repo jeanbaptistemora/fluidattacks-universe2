@@ -134,13 +134,15 @@ async def test_control_flow_1() -> None:
         # SwitchStatement
         (2153, 2433, ALWAYS),
         # WhileStatement
-        (2844, 2947, ALWAYS),
+        (2844, 2881, TRUE),
+        (2844, 2947, FALSE),
         # DoStatement
         (2985, 3648, ALWAYS),
         # BasicForStatement
         (3648, 3784, ALWAYS),
         # EnhancedForStatement
-        (3876, 3911, ALWAYS),
+        (3876, 3911, TRUE),
+        (3876, 4269, FALSE),
     ):
         assert has_labels(graph[str(s_id)][str(t_id)], **edge_attrs), (s_id, t_id)
 
