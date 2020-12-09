@@ -635,7 +635,6 @@ async def check_concurrent_sessions(email: str, session_key: str) -> None:
     user_session_key = f'fi_session:{email}'
     user_session = await session_dal.hgetall_element(user_session_key)
     user_session_keys = list(user_session.keys())
-
     if len(user_session_keys) > 1:
         await session_dal.hdel_element(user_session_key, user_session_keys[0])
         raise ConcurrentSession()
@@ -647,8 +646,14 @@ async def save_token(key: str, token: str, time: int) -> None:
     await session_dal.add_element(key, token, time)
 
 
-async def save_session_token(key: str, token: str, name: str) -> None:
+async def save_session_token(
+    key: str,
+    token: str,
+    name: str,
+    ttl: int
+) -> None:
     await session_dal.hset_element(key, token, name)
+    await session_dal.set_element_ttl(name, ttl)
 
 
 async def remove_token(key: str) -> None:

@@ -13,6 +13,10 @@ async def hset_element(name: str, key: str, value: str) -> None:
     await AREDIS_CLIENT.hset(name, key, value)
 
 
+async def set_element_ttl(name: str, ttl: int) -> None:
+    await AREDIS_CLIENT.expire(name, ttl)
+
+
 async def hgetall_element(name: str) -> Dict[str, str]:
     return await AREDIS_CLIENT.hgetall(name)
 
