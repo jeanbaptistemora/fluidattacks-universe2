@@ -1,9 +1,13 @@
 # Standard libraries
+import os
+import json
 import tempfile
 from typing import (
     FrozenSet,
+    Iterable,
     Mapping,
     Tuple,
+    TypedDict,
 )
 # Third party libraries
 # Local libraries
@@ -27,8 +31,13 @@ from streamer_zoho_crm.bulk import BulkUtils
 from streamer_zoho_crm.db import Client as DbClient
 
 
-ALL_MODULES = frozenset(ModuleName)
+ALL_MODULES = frozenset({ModuleName.CONTACTS})
 LOG = utils.get_log(__name__)
+
+
+class TypeFieldDict(TypedDict):
+    field: str
+    data_type: str
 
 
 def initialize(db_auth: ConnectionID) -> None:
@@ -66,20 +75,31 @@ def jobs_map(bulk_utils: BulkUtils) -> Mapping[str, BulkJob]:
 
 def emit_data(
     data: FrozenSet[BulkData],
-    id_job_map: Mapping[str, BulkJob]
+    id_job_map: Mapping[str, BulkJob],
+    module_schema_map: Mapping[str, Iterable[TypeFieldDict]]
 ) -> None:
+    LOG.debug('module schema map: %s', module_schema_map)
+
     def emit_bulk_data(bdata: BulkData) -> None:
         persistent_file = tempfile.NamedTemporaryFile('w+', delete=False)
         bdata.file.seek(0)
         persistent_file.write(bdata.file.read())
+        module_name: str = id_job_map[bdata.job_id].module.value
+        module_schema: FrozenSet[Tuple[str, str]] = frozenset(
+            map(
+                lambda x: (x['field'], x['data_type']),
+                module_schema_map.get(module_name, {})
+            )
+        )
         record = SingerRecord(
-            stream=id_job_map[bdata.job_id].module.value,
+            stream=module_name,
             record={
                 'csv_path': persistent_file.name,
                 'options': {
                     'quote_nonnum': True,
                     'add_default_types': True,
                     'pkeys_present': False,
+                    'file_schema': dict(module_schema)
                 }
             }
         )
@@ -94,7 +114,10 @@ def extraction_phase(
     data: FrozenSet[BulkData] = bulk_utils.extract_data(
         frozenset(id_job_map.keys())
     )
-    emit_data(data, id_job_map)
+    script_dir = os.path.dirname(__file__)
+    schemas_path = 'conf/module_schemas.json'
+    with open(os.path.join(script_dir, schemas_path), 'r') as schemas:
+        emit_data(data, id_job_map, json.load(schemas))
 
 
 def start_streamer(

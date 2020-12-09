@@ -103,10 +103,10 @@ def init_db(db_auth: ConnectionID) -> None:
     db_connection: DbConnection = connection.make_access_point(db_auth)
     db_client: DbClient = client.new_client(db_connection)
     create_schema = f"""
-        CREATE SCHEMA {SCHEMA};
+        CREATE SCHEMA IF NOT EXISTS {SCHEMA};
     """
     create_table = f"""
-        CREATE TABLE {SCHEMA}.bulk_jobs (
+        CREATE TABLE IF NOT EXISTS {SCHEMA}.bulk_jobs (
             operation VARCHAR,
             created_by VARCHAR,
             created_time VARCHAR,

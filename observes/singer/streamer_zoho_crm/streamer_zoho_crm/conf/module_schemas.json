@@ -1,0 +1,646 @@
+{
+    "Accounts": [
+        {
+            "data_type": "integer",
+            "field": "annual_revenue"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "integer",
+            "field": "employees"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_touch__point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_score"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time_"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "float",
+            "field": "touch_point_score"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        }
+    ],
+    "Calls": [
+        {
+            "data_type": "datetime",
+            "field": "call_start_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "bool",
+            "field": "scheduled_in_crm"
+        }
+    ],
+    "Campaigns": [
+        {
+            "data_type": "integer",
+            "field": "actual_cost"
+        },
+        {
+            "data_type": "integer",
+            "field": "actual_cost_in_campaign"
+        },
+        {
+            "data_type": "integer",
+            "field": "budgeted_cost"
+        },
+        {
+            "data_type": "integer",
+            "field": "budgeted_cost_in_campain"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "end_date"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "integer",
+            "field": "expected_response"
+        },
+        {
+            "data_type": "integer",
+            "field": "num_sent"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        },
+        {
+            "data_type": "integer",
+            "field": "budgeted_cost"
+        }
+    ],
+    "Contacts": [
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_activity_time"
+        },
+        {
+            "data_type": "float",
+            "field": "score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "lead_score"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_sent_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_action_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time_"
+        },
+        {
+            "data_type": "bool",
+            "field": "is_record_duplicate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "mailchimp0_mailchimp_contact_created_by"
+        },
+        {
+            "data_type": "datetime",
+            "field": "first_visited_time"
+        },
+        {
+            "data_type": "float",
+            "field": "visitor_score"
+        },
+        {
+            "data_type": "float",
+            "field": "average_time_spent_minutes"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_visited_time"
+        },
+        {
+            "data_type": "integer",
+            "field": "number_of_chats"
+        },
+        {
+            "data_type": "integer",
+            "field": "days_visited"
+        }
+    ],
+    "Deals": [
+        {
+            "data_type": "datetime",
+            "field": "closing_date"
+        },
+        {
+            "data_type": "float",
+            "field": "probability"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "integer",
+            "field": "expected_revenue"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_activity_time"
+        },
+        {
+            "data_type": "integer",
+            "field": "sales_cycle_duration"
+        },
+        {
+            "data_type": "integer",
+            "field": "overall_sales_duration"
+        },
+        {
+            "data_type": "float",
+            "field": "score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "prediction_score"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_action_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "expectativa_de_atenci_n"
+        }
+    ],
+    "Leads": [
+        {
+            "data_type": "number",
+            "field": "no_of_employees"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_activity_time"
+        },
+        {
+            "data_type": "float",
+            "field": "score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_score"
+        },
+        {
+            "data_type": "float",
+            "field": "positive_touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "negative_touch_point_score"
+        },
+        {
+            "data_type": "float",
+            "field": "prediction_score"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_sent_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "last_action_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "converted_datetime"
+        },
+        {
+            "data_type": "datetime",
+            "field": "lead_conversion_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "unsuscribe_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "fecha_inicio_de_gestion"
+        },
+        {
+            "data_type": "datetime",
+            "field": "fecha_estimada_conversi_n"
+        }
+    ],
+    "Price_Books": [
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        }
+    ],
+    "Products": [
+        {
+            "data_type": "datetime",
+            "field": "sales_start_date"
+        },
+        {
+            "data_type": "datetime",
+            "field": "sales_end_date"
+        },
+        {
+            "data_type": "datetime",
+            "field": "support_start_date"
+        },
+        {
+            "data_type": "datetime",
+            "field": "support_expity_date"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "qty_ordered"
+        },
+        {
+            "data_type": "float",
+            "field": "qty_in_stock"
+        },
+        {
+            "data_type": "float",
+            "field": "reorder_level"
+        },
+        {
+            "data_type": "float",
+            "field": "qty_in_demand"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        }
+    ],
+    "Purchase_Orders": [
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        }
+    ],
+    "Quotes": [
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "sub_total"
+        },
+        {
+            "data_type": "float",
+            "field": "tax"
+        },
+        {
+            "data_type": "float",
+            "field": "adjustment"
+        },
+        {
+            "data_type": "float",
+            "field": "grand_total"
+        },
+        {
+            "data_type": "float",
+            "field": "discount"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "expiration_date"
+        }
+    ],
+    "Sales_Orders": [
+        {
+            "data_type": "datetime",
+            "field": "due_date"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "sub_total"
+        },
+        {
+            "data_type": "float",
+            "field": "tax"
+        },
+        {
+            "data_type": "float",
+            "field": "adjustment"
+        },
+        {
+            "data_type": "float",
+            "field": "grand_total"
+        },
+        {
+            "data_type": "float",
+            "field": "discount"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        }
+    ],
+    "Tasks": [
+        {
+            "data_type": "datetime",
+            "field": "due_date"
+        },
+        {
+            "data_type": "datetime",
+            "field": "created_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "modified_time"
+        },
+        {
+            "data_type": "float",
+            "field": "exchange_rate"
+        },
+        {
+            "data_type": "datetime",
+            "field": "closed_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_modified_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "user_related_activity_time"
+        },
+        {
+            "data_type": "datetime",
+            "field": "system_modified_time"
+        }
+    ]
+}
