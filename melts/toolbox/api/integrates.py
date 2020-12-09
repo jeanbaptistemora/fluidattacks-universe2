@@ -245,7 +245,6 @@ class Queries:
                     attackVectorDesc
                     closedVulnerabilities @include(if: $withVulns)
                     description
-                    historicTreatment
                     openVulnerabilities @include(if: $withVulns)
                     projectName
                     recommendation
@@ -255,6 +254,11 @@ class Queries:
                     title
                     vulnerabilities @include(if: $withVulns) {
                         historicState @include(if: $withVulns)
+                        historicTreatment {
+                            date
+                            treatment
+                            user
+                        }
                         id @include(if: $withVulns)
                         vulnType @include(if: $withVulns)
                         where @include(if: $withVulns)
