@@ -19,7 +19,9 @@ SINKS: Set[str] = {
 }
 
 
-def _path_traversal(graph: nx.DiGraph) -> None:
+def _pathtraver_custom_class_instance_creation_expression_lfno_primary(
+    graph: nx.DiGraph,
+) -> None:
     # Class instantiations of given type
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CustomClassInstanceCreationExpression_lfno_primary',
@@ -45,6 +47,29 @@ def _path_traversal(graph: nx.DiGraph) -> None:
                 'java.io.FileInputStream',
                 'io.FileInputStream',
                 'FileInputStream',
+            }
+        ):
+            graph.nodes[n_id]['label_sink_type'] = 'F063_PATH_TRAVERSAL'
+
+
+def _pathtraver_custom_method_invocation_lfno_primary(
+    graph: nx.DiGraph,
+) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='CustomMethodInvocation_lfno_primary',
+    )):
+        match = g.match_ast(graph, n_id, '__0__', 'LPAREN', '__1__', 'RPAREN')
+
+        if (
+            (method_id := match['__0__'])
+            and match['LPAREN']
+            and match['RPAREN']
+            and graph.nodes[method_id]['label_text'] in {
+                'java.nio.file.Files.newInputStream',
+                'nio.file.Files.newInputStream',
+                'file.Files.newInputStream',
+                'Files.newInputStream',
+                'newInputStream',
             }
         ):
             graph.nodes[n_id]['label_sink_type'] = 'F063_PATH_TRAVERSAL'
@@ -76,5 +101,9 @@ def _insecure_randoms(graph: nx.DiGraph) -> None:
 
 
 def mark(graph: nx.DiGraph) -> None:
-    _path_traversal(graph)
-    _insecure_randoms(graph)
+    for marker in (
+        _insecure_randoms,
+        _pathtraver_custom_class_instance_creation_expression_lfno_primary,
+        _pathtraver_custom_method_invocation_lfno_primary,
+    ):
+        marker(graph)

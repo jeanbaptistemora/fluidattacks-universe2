@@ -49,6 +49,15 @@ class StatementAssignment(NamedTuple):
     type: str = 'StatementAssignment'
 
 
+class StatementCast(NamedTuple):
+    class_type: str
+    stack: Statements
+    meta: StatementMeta
+
+    recursive: bool = True
+    type: str = 'StatementCast'
+
+
 class StatementClassInstantiation(NamedTuple):
     class_type: str
     stack: Statements

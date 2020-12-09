@@ -1,9 +1,11 @@
 # Local libraries
 from eval_java.model import (
-    Statement,
+    Statements,
 )
 
 
-def taint(statement: Statement) -> None:
+def taint(statements: Statements, index: int) -> None:
+    statement = statements[index]
+
     # A literal is constant, no danger there
     statement.meta.danger = False
