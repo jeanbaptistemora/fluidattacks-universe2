@@ -33,13 +33,11 @@ def test_finding_description(
         timeout,
     )
     description.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'R359. Avoid using generic exceptions.',
         timeout,
     )
-    assert 'The source code uses generic ' \
-        'exceptions to handle unexpected errors' in driver.page_source
 
 
 def test_finding_comments(
@@ -67,12 +65,11 @@ def test_finding_comments(
         timeout,
     )
     comments.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'This is a comenting test',
         timeout,
     )
-    assert 'This is a comenting test' in driver.page_source
 
 
 def test_finding_exploit(
@@ -100,12 +97,11 @@ def test_finding_exploit(
         timeout,
     )
     exploit.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'It works',
         timeout,
     )
-    assert 'It works' in driver.page_source
 
 
 def test_finding_evidence(
@@ -133,12 +129,11 @@ def test_finding_evidence(
         timeout,
     )
     evidences.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'exception',
         timeout,
     )
-    assert 'exception' in driver.page_source
 
 
 def test_finding_severity(
@@ -166,12 +161,11 @@ def test_finding_severity(
         timeout,
     )
     severity.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'Confidentiality Impact',
         timeout,
     )
-    assert 'Confidentiality Impact' in driver.page_source
 
 
 def test_finding_tracking(
@@ -199,9 +193,8 @@ def test_finding_tracking(
         timeout,
     )
     tracking.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         '2020-09-09',
         timeout,
     )
-    assert '2020-09-09' in driver.page_source

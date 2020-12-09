@@ -34,6 +34,7 @@ def browserstack_cap(
         os_version='10',
         browser='Chrome',
         browser_version='80',
+        resolution='1920x1080',
         name=f'{branch}::{request.node.name}',
     )
 
@@ -100,16 +101,15 @@ def driver(
         geckodriver: str = f'{os.environ["pkgGeckoDriver"]}/bin/geckodriver'
         firefox: str = f'{os.environ["pkgFirefox"]}/bin/firefox'
         options = Options()
-        options.add_argument('--width=1366')
-        options.add_argument('--height=768')
         options.binary_location = firefox
-        options.headless = True
+        options.headless = False
         driver = Firefox(
             executable_path=geckodriver,
             firefox_binary=firefox,
             options=options
         )
     try:
+        driver.maximize_window()
         yield driver
     finally:
         driver.quit()

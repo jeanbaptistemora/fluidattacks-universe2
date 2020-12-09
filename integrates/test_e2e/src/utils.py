@@ -1,6 +1,7 @@
 # Third party libraries
 from pyotp import TOTP
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
@@ -46,6 +47,13 @@ def wait_for_name(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
             By.NAME,
             text,
         ))
+    )
+
+
+def move_to_element(driver: WebDriver, element: WebElement) -> None:
+    driver.execute_script(
+        'arguments[0].scrollIntoView({block: "center"});',
+        element,
     )
 
 

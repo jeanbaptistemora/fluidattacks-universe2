@@ -1,3 +1,6 @@
+# Standard libraries
+from random import randint
+
 # Third party libraries
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
@@ -21,12 +24,11 @@ def test_group_consulting(
     # Enter group consulting
     driver.get(
         f'{integrates_endpoint}/orgs/okada/groups/unittesting/consulting')
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'Now we can post comments on projects',
         timeout,
     )
-    assert 'Now we can post comments on projects' in driver.page_source
 
 
 def test_group_reports(
@@ -46,12 +48,11 @@ def test_group_reports(
         timeout,
     )
     reports.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'Reports are created on-demand',
         timeout,
     )
-    assert 'Reports are created on-demand' in driver.page_source
 
 
 def test_group_events(
@@ -71,12 +72,11 @@ def test_group_events(
         timeout,
     )
     event.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'unittest@fluidattacks.com',
         timeout,
     )
-    assert 'unittest@fluidattacks.com' in driver.page_source
 
 
 def test_group_analytics(
@@ -91,12 +91,11 @@ def test_group_analytics(
     # Enter Analytics
     driver.get(
         f'{integrates_endpoint}/orgs/okada/groups/unittesting/analytics')
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'Vulnerabilities over time',
         timeout,
     )
-    assert 'Vulnerabilities over time' in driver.page_source
 
 
 def test_group_forces(
@@ -137,13 +136,11 @@ def test_group_forces(
         timeout,
     )
     log.click()
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'title: FIN.S.0007. Cross site request forgery',
         timeout,
     )
-    assert 'title: FIN.S.0007. Cross site request forgery' \
-        in driver.page_source
 
 
 def test_group_scope_repositories(
@@ -156,6 +153,7 @@ def test_group_scope_repositories(
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
     # Add repo
+    repo_name: str = f'test-repo-{randint(0, 1000)}'
     driver.get(
         f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
     add_repo = utils.wait_for_id(
@@ -179,13 +177,74 @@ def test_group_scope_repositories(
         'resources[0].protocol',
         timeout,
     ))
-    protocol.select_by_value('HTTPS')
-    name.send_keys('test-repo')
+    name.send_keys(repo_name)
     branch.send_keys('master')
+    protocol.select_by_value('HTTPS')
     proceed = utils.wait_for_id(
         driver,
         'repository-add-proceed',
         timeout,
     )
     proceed.click()
-    assert 'test-repo' in driver.page_source
+    assert utils.wait_for_text(
+        driver,
+        repo_name,
+        timeout,
+    )
+
+
+def test_group_scope_environments(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Add environment
+    environment_name: str = f'test-environment-{randint(0, 1000)}'
+    driver.get(
+        f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
+    add_environment = utils.wait_for_id(
+        driver,
+        'environment-add',
+        timeout,
+    )
+    add_environment.click()
+    environment = utils.wait_for_name(
+        driver,
+        'resources[0].urlEnv',
+        timeout
+    )
+    environment.send_keys(environment_name)
+    proceed = utils.wait_for_id(
+        driver,
+        'environment-add-proceed',
+        timeout,
+    )
+    proceed.click()
+    assert utils.wait_for_text(
+        driver,
+        environment_name,
+        timeout,
+    )
+
+
+def test_group_scope_files(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Enter Scope
+    driver.get(
+        f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
+    assert utils.wait_for_text(
+        driver,
+        'test.zip',
+        timeout,
+    )

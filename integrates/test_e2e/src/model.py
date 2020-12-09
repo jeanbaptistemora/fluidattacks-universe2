@@ -7,6 +7,7 @@ class BrowserStackCapacity(NamedTuple):
     os_version: str
     browser: str
     browser_version: str
+    resolution: str
     name: str
 
 

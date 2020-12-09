@@ -14,12 +14,11 @@ def test_others_login_screen(
         timeout: int) -> None:
     # Enter login screen
     driver.get(integrates_endpoint)
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'Please authenticate to proceed.',
         timeout,
     )
-    assert 'FluidIntegrates' in driver.page_source
 
 
 def test_others_dashboard(
@@ -32,9 +31,8 @@ def test_others_dashboard(
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
     # Enter dashboard
-    utils.wait_for_text(
+    assert utils.wait_for_text(
         driver,
         'Vulnerabilities over time',
         timeout,
     )
-    assert 'Vulnerabilities over time' in driver.page_source
