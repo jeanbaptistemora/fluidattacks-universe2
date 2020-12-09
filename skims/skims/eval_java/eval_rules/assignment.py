@@ -26,11 +26,30 @@ def evaluate(
     ctx = common.ensure_context(ctx)
 
     # variableDeclaratorId ('=' variableInitializer)?
-    match = g.match_ast(graph, n_id, 'IdentifierRule', 'ASSIGN', '__0__')
-
+    assigns = {
+        'ASSIGN',
+        'ADD_ASSIGN',
+        'SUB_ASSIGN',
+        'MUL_ASSIGN',
+        'DIV_ASSIGN',
+        'AND_ASSIGN',
+        'OR_ASSIGN',
+        'XOR_ASSIGN',
+        'MOD_ASSIGN',
+        'LSHIFT_ASSIGN',
+        'RSHIFT_ASSIGN',
+        'URSHIFT_ASSIGN',
+    }
+    match = g.match_ast(
+        graph,
+        n_id,
+        'IdentifierRule',
+        '__0__',
+        *assigns,
+    )
     if (
         match['IdentifierRule']
-        and match['ASSIGN']
+        and any(match.get(assign) for assign in assigns)
         and (src_id := match['__0__'])
     ):
         src_ctx = generic.evaluate(graph, src_id, ctx=None)

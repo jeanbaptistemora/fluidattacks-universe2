@@ -25,7 +25,13 @@ def taint(statements: Statements, index: int) -> None:
             for method_start in [method.split('.')[0]]
             for symbol in common.read_stack_symbols(statements, index)
             if symbol.meta.danger
-        )
+        ),
+        method in {
+            'java.lang.Math.random',
+            'lang.Math.random',
+            'Math.random',
+            'random',
+        }
     ))
 
     # Local context

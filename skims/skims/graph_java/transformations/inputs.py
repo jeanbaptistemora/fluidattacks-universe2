@@ -1,12 +1,22 @@
 """Modify in-place sub-trees of the graph in order to simplify it."""
 
 # Third party libraries
+from typing import (
+    Optional,
+)
 import networkx as nx
 
 # Local libraries
 from utils import (
     graph as g,
 )
+
+
+def _search_parent_statement(graph: nx.DiGraph, n_id: str) -> Optional[str]:
+    for parent in g.pred_ast_lazy(graph, n_id, depth=-1):
+        if graph.nodes[parent]['label_type'].endswith('Statement'):
+            return parent
+    return None
 
 
 def _mark_methods(graph: nx.DiGraph) -> None:
@@ -19,21 +29,41 @@ def _mark_randoms(graph: nx.DiGraph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CustomClassInstanceCreationExpression_lfno_primary',
     )):
-        if g.filter_nodes(
-            graph,
-            nodes=g.adj(graph, n_id),
-            predicate=lambda n_attrs: n_attrs['label_type'] ==
-            'CustomIdentifier' and n_attrs['label_text'] in {
+        pattern_util = ('NEW', 'CustomIdentifier', 'LPAREN', 'RPAREN')
+        match = g.match_ast(graph, n_id, *pattern_util)
+
+        if (
+            match['NEW']
+            and (c_id := match['CustomIdentifier'])
+            and match['LPAREN']
+            and match['RPAREN']
+            and graph.nodes[c_id]['label_text'] in {
                 'java.util.Random',
                 'util.Random',
                 'Random',
-            },
+            }
         ):
+            if parent := _search_parent_statement(graph, n_id):
+                graph.nodes[parent]['label_input_type'] = 'insecure_random'
 
-            for parent in g.pred_ast_lazy(graph, n_id, depth=-1):
-                if graph.nodes[parent]['label_type'].endswith('Statement'):
-                    graph.nodes[parent]['label_input_type'] = 'insecure_random'
-                    break
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='CustomMethodInvocation_lfno_primary',
+    )):
+        pattern_math = ('CustomIdentifier', 'LPAREN', 'RPAREN')
+        match = g.match_ast(graph, n_id, *pattern_math)
+        if (
+            (c_id := match['CustomIdentifier'])
+            and match['LPAREN']
+            and match['RPAREN']
+            and graph.nodes[c_id]['label_text'] in {
+                'java.lang.Math.random',
+                'lang.Math.random',
+                'Math.random',
+                'random',
+            }
+        ):
+            if parent := _search_parent_statement(graph, n_id):
+                graph.nodes[parent]['label_input_type'] = 'insecure_random'
 
 
 def mark(graph: nx.DiGraph) -> None:
