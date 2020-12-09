@@ -76,7 +76,6 @@ async def get_vulnerabilities(
     query = """
         query ForcesDoGetFindingVulnerabilities($finding_id: String!){
           finding(identifier: $finding_id) {
-            historicTreatment
             vulnerabilities {
               findingId
               currentState
