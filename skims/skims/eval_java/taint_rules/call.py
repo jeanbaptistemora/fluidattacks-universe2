@@ -19,6 +19,7 @@ def taint(statements: Statements, index: int) -> None:
     call_danger = any((
         # Known function to return user controlled data
         method.endswith('.getCookies'),
+        method.endswith('.getSession'),
         # Use of a method from a dangerous symbol
         any(
             method_start.startswith(symbol.var)
