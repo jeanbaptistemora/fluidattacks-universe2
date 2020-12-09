@@ -283,6 +283,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   <FormGroup>
                                     <Field
                                       component={Text}
+                                      id={"add-group-description"}
                                       name={"description"}
                                       type={"text"}
                                       validate={[
@@ -423,11 +424,15 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                           )}
                           <br />
                           <ButtonToolbar>
-                            <Button onClick={closeNewProjectModal}>
+                            <Button
+                              id={"add-group-cancel"}
+                              onClick={closeNewProjectModal}
+                            >
                               {translate.t("confirmmodal.cancel")}
                             </Button>
                             <Button
                               disabled={pristine || submitting}
+                              id={"add-group-proceed"}
                               type={"submit"}
                             >
                               {translate.t("confirmmodal.proceed")}

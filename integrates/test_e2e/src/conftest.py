@@ -34,7 +34,7 @@ def browserstack_cap(
         os_version='10',
         browser='Chrome',
         browser_version='80',
-        resolution='1920x1080',
+        resolution='1366x768',
         name=f'{branch}::{request.node.name}',
     )
 

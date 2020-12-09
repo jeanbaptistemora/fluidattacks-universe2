@@ -1,3 +1,6 @@
+# Standard libraries
+from random import randint
+
 # Third party libraries
 from pyotp import TOTP
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -55,6 +58,10 @@ def move_to_element(driver: WebDriver, element: WebElement) -> None:
         'arguments[0].scrollIntoView({block: "center"});',
         element,
     )
+
+
+def rand_name(prefix: str) -> str:
+    return f'{prefix}-{randint(0, 1000)}'
 
 
 def login_azure(

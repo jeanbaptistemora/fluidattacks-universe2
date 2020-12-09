@@ -114,7 +114,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
           <Can do="backend_api_resolvers_project__do_create_project">
             <ButtonToolbarCenter>
               <TooltipWrapper message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}>
-                <Button onClick={openNewProjectModal}>
+                <Button id={"add-group"} onClick={openNewProjectModal}>
                   <Glyphicon glyph="plus" />&nbsp;{translate.t("organization.tabs.groups.newGroup.new.text")}
                 </Button>
               </TooltipWrapper>

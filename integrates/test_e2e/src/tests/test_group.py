@@ -1,6 +1,3 @@
-# Standard libraries
-from random import randint
-
 # Third party libraries
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -152,7 +149,7 @@ def test_group_scope_repositories(
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
     # Add repo
-    repo_url: str = f'https://gitlab.com/fluidattacks/test-{randint(0, 1000)}'
+    repo_url: str = utils.rand_name('https://gitlab.com/fluidattacks/test')
     driver.get(
         f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
     add_repo = utils.wait_for_id(
@@ -202,7 +199,7 @@ def test_group_scope_environments(
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
     # Add environment
-    environment_name: str = f'test-environment-{randint(0, 1000)}'
+    environment_name: str = utils.rand_name('test-environment')
     driver.get(
         f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
     add_environment = utils.wait_for_id(
@@ -245,5 +242,43 @@ def test_group_scope_files(
     assert utils.wait_for_text(
         driver,
         'test.zip',
+        timeout,
+    )
+
+
+def test_group_scope_portfolio(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Add tag
+    tag_name: str = utils.rand_name('test-portfolio')
+    driver.get(
+        f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
+    add_tag = utils.wait_for_id(
+        driver,
+        'portfolio-add',
+        timeout,
+    )
+    add_tag.click()
+    tags = utils.wait_for_name(
+        driver,
+        'tags[0]',
+        timeout
+    )
+    tags.send_keys(tag_name)
+    proceed = utils.wait_for_id(
+        driver,
+        'portfolio-add-proceed',
+        timeout,
+    )
+    proceed.click()
+    assert utils.wait_for_text(
+        driver,
+        tag_name,
         timeout,
     )
