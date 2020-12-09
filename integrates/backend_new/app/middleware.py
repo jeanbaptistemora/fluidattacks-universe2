@@ -29,7 +29,7 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
         url = str(request.url)
         traceback = url.split(BASE_URL)[-1]
         if url != traceback:
-            newrelic.agent.set_transaction_name(f'api:{traceback}')
+            newrelic.agent.set_transaction_name(traceback)
         request.state.store = defaultdict(lambda: None)
         if request.session.get('username'):
             sqreen.identify({'username': request.session['username']})

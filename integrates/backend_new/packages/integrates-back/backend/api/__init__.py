@@ -20,6 +20,10 @@ from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
+from backend_new import settings
+
+newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
+
 
 def apply_context_attrs(context: Request) -> Request:
     setattr(context, 'loaders', {

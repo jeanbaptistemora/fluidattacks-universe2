@@ -160,7 +160,6 @@ STARLETTE_APP = Starlette(
     ]
 )
 
-newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 sqreen.start()
 APP = newrelic.agent.ASGIApplicationWrapper(
     STARLETTE_APP,
