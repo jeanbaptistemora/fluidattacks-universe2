@@ -3,3 +3,4 @@ output: test/outputs/results.csv
 path:
   include:
     - glob(*.java)
+timeout: 14400

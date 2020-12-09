@@ -86,7 +86,7 @@ function helper_common_use_repo {
     ||  return 1
   else
         echo "[INFO] Creating local repository copy at: ${target}" \
-    &&  git clone --depth 1 --single-branch "${source}" "${target}" \
+    &&  git clone --single-branch "${source}" "${target}" \
     &&  pushd "${target}" \
       &&  git reset --hard "${rev}" \
     ||  return 1

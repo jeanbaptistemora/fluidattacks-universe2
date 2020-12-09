@@ -115,7 +115,6 @@ function job_skims_benchmark_on_aws {
   local memory='7200'
   local attempts='10'
   local timeout='18000'
-  local group="${1}"
   local jobqueue='default-uninterruptible'
 
       helper_skims_aws_login prod \
