@@ -1,5 +1,3 @@
-import { RouteComponentProps } from "react-router";
-
 export interface IProjectTagsAttr {
   project: {
     deletionDate: string;
@@ -101,5 +99,3 @@ export interface IGetProjectData {
     deletionDate: string;
   };
 }
-
-export type ISettingsViewProps = RouteComponentProps<{ projectName: string }>;

@@ -3,7 +3,6 @@ from random import randint
 
 # Third party libraries
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.ui import Select
 
 # Local libraries
 import utils
@@ -153,42 +152,42 @@ def test_group_scope_repositories(
     utils.login_integrates_azure(driver, integrates_endpoint, timeout)
 
     # Add repo
-    repo_name: str = f'test-repo-{randint(0, 1000)}'
+    repo_url: str = f'https://gitlab.com/fluidattacks/test-{randint(0, 1000)}'
     driver.get(
         f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
     add_repo = utils.wait_for_id(
         driver,
-        'repository-add',
+        'git-root-add',
         timeout,
     )
     add_repo.click()
-    name = utils.wait_for_name(
+    url = utils.wait_for_name(
         driver,
-        'resources[0].urlRepo',
+        'url',
         timeout
     )
     branch = utils.wait_for_name(
         driver,
-        'resources[0].branch',
+        'branch',
         timeout,
     )
-    protocol = Select(utils.wait_for_name(
+    environment = utils.wait_for_name(
         driver,
-        'resources[0].protocol',
+        'environment',
         timeout,
-    ))
-    name.send_keys(repo_name)
+    )
+    url.send_keys(repo_url)
     branch.send_keys('master')
-    protocol.select_by_value('HTTPS')
+    environment.send_keys('production')
     proceed = utils.wait_for_id(
         driver,
-        'repository-add-proceed',
+        'git-root-add-proceed',
         timeout,
     )
     proceed.click()
     assert utils.wait_for_text(
         driver,
-        repo_name,
+        repo_url,
         timeout,
     )
 

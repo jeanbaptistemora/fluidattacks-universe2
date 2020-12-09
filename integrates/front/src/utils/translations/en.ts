@@ -481,10 +481,12 @@ export const enTranslations: ResourceKey = {
     scope: {
       common: {
         add: "Add new root",
+        confirm: "Confirm state change",
         edit: "Edit root",
         errors: {
           duplicate: "The root already exists within the organization",
         },
+        state: "State",
       },
       git: {
         errors: {
@@ -511,6 +513,7 @@ export const enTranslations: ResourceKey = {
           title: "Git repository",
           url: "URL",
         },
+        title: "Git Roots",
       },
     },
     tabs: {

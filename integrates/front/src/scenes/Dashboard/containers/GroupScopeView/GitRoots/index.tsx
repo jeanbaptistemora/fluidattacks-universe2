@@ -4,6 +4,7 @@ import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
+import { FluidIcon } from "components/FluidIcon";
 import { GitRootsModal } from "./modal";
 import { Glyphicon } from "react-bootstrap";
 import type { GraphQLError } from "graphql";
@@ -162,10 +163,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   return (
     <React.Fragment>
+      <h3>{t("group.scope.git.title")}</h3>
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>
-            <Button onClick={openModal}>
+            <Button id={"git-root-add"} onClick={openModal}>
               <Glyphicon glyph={"plus"} />
               &nbsp;{t("group.scope.common.add")}
             </Button>
@@ -174,13 +176,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <Can do={"backend_api_mutations_update_git_root_mutate"}>
           <div className={"mb3"}>
             <Button disabled={currentRow === undefined} onClick={openModal}>
-              <Glyphicon glyph={"plus"} />
-              &nbsp;{t("group.scope.common.update")}
+              <FluidIcon icon={"edit"} />
+              &nbsp;{t("group.scope.common.edit")}
             </Button>
           </div>
         </Can>
       </ButtonToolbarRow>
-      <ConfirmDialog title={t("group.scope.common.confirmStateChange")}>
+      <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm: IConfirmFn): React.ReactNode => {
           const handleStateUpdate: (row: Record<string, string>) => void = (
             row

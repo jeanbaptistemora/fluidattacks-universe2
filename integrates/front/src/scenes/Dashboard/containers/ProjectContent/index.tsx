@@ -10,7 +10,6 @@ import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView
 import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView/index";
 import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView/index";
 import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
-import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView/index";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
 import { default as globalStyle } from "styles/global.css";
 import { StickyContainer, TabsContainer } from "styles/styledComponents";
@@ -113,8 +112,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/devsecops`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
-                  <Route path={`${props.match.path}/scope`} component={ProjectSettingsView} exact={true} />
-                  <Route path={`${props.match.path}/scopev2`} component={GroupScopeView} exact={true} />
+                  <Route path={`${props.match.path}/scope`} component={GroupScopeView} exact={true} />
                   <Route path={`${props.match.path}/stakeholders`} component={ProjectStakeholdersView} exact={true} />
                   <Route path={`${props.match.path}/consulting`} component={ProjectConsultingView} exact={true} />
                   {/* Necessary to support old resources URLs */}

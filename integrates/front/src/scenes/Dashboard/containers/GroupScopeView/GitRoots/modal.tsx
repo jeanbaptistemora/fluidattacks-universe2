@@ -209,7 +209,11 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
             </React.Fragment>
             <ButtonToolbar>
               <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
-              <Button disabled={pristine || submitting} type={"submit"}>
+              <Button
+                disabled={pristine || submitting}
+                id={"git-root-add-proceed"}
+                type={"submit"}
+              >
                 {t("confirmmodal.proceed")}
               </Button>
             </ButtonToolbar>

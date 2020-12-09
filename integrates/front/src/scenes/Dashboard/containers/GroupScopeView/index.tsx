@@ -4,6 +4,7 @@ import { GitRoots } from "./GitRoots";
 import type { GraphQLError } from "graphql";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
+import { ProjectSettingsView } from "../ProjectSettingsView";
 import React from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
@@ -28,12 +29,16 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
   const roots: Root[] = data === undefined ? [] : data.group.roots;
 
   return (
-    <Have I={"has_drills_white"}>
-      <GitRoots
-        groupName={groupName}
-        onUpdate={refetch}
-        roots={roots.filter(isGitRoot)}
-      />
-    </Have>
+    <React.Fragment>
+      <Have I={"has_drills_white"}>
+        <GitRoots
+          groupName={groupName}
+          onUpdate={refetch}
+          roots={roots.filter(isGitRoot)}
+        />
+      </Have>
+      <hr />
+      <ProjectSettingsView />
+    </React.Fragment>
   );
 };

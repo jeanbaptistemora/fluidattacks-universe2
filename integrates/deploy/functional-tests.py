@@ -377,23 +377,11 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url + f'/orgs/okada/groups/unittesting/scope')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Repositories')]")))
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Environments')]")))
         selenium.save_screenshot(SCR_PATH + '14-01-resources.png')
 
-        add_repos = selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[1]/div[2]/div/button')
-        self.__click(add_repos)
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Add repository')]")))
-        selenium.save_screenshot(SCR_PATH + '14-02-resources.png')
-        self.__cancel_modal()
-
         add_envs = selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[3]/div[2]/div/button')
+            '//*[@id="resources"]/div[1]/div[2]/div/button')
         self.__click(add_envs)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -412,7 +400,7 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '14-04-resources.png')
 
         add_files = selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[5]/div[2]/div/button')
+            '//*[@id="resources"]/div[3]/div[2]/div/button')
         self.__click(add_files)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -421,7 +409,7 @@ class ViewTestCase(unittest.TestCase):
         self.__cancel_modal()
 
         add_tags = selenium.find_element_by_xpath(
-            '//*[@id="resources"]/div[7]/div[2]/div/button[1]')
+            '//*[@id="resources"]/div[5]/div[2]/div/button[1]')
         self.__click(add_tags)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
