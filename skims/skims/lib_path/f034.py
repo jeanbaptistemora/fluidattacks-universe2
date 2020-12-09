@@ -49,7 +49,11 @@ def _java_use_of_util_random(
     sink_type = 'F034_INSECURE_RANDOMS'
 
     def iterator() -> Iterator[g.NAttrs]:
-        for index, graph_path in g.flows(graph, sink_type=sink_type):
+        for index, graph_path in g.flows(
+                graph,
+                sink_type=sink_type,
+                input_type='insecure_random',
+        ):
             if is_vulnerable(
                 graph,
                 graph_path,

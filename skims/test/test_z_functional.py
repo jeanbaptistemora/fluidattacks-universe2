@@ -208,6 +208,9 @@ def test_bad_integrates_api_token(test_group: str) -> None:
     'benchmark_owasp_pathtraver_24',
     'benchmark_owasp_pathtraver_25',
     'benchmark_owasp_pathtraver_26',
+    'benchmark_owasp_weakrand_0',
+    'benchmark_owasp_weakrand_1',
+    'benchmark_owasp_weakrand_2',
 ])
 def test_run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))

@@ -264,6 +264,7 @@ def match_ast(
 def flows(
     graph: nx.DiGraph,
     sink_type: str,
+    input_type: str = 'function'
 ) -> Tuple[Tuple[int, Tuple[str, ...]], ...]:
 
     def lookup_first_cfg_parent(n_id: str) -> str:
@@ -286,7 +287,7 @@ def flows(
             map(lookup_first_cfg_parent, filter_nodes(
                 graph,
                 graph.nodes,
-                lambda n_attrs: 'label_input_type' in n_attrs,
+                pred_has_labels(label_input_type=input_type),
             )),
             # Sinks
             map(lookup_first_cfg_parent, filter_nodes(

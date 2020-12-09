@@ -1,0 +1,9 @@
+title,what,where,cwe
+FIN.S.034. Insecure random number generation,BenchmarkTest00161.java,95,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00162.java,88,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00163.java,89,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00164.java,94,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00165.java,91,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00166.java,89,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00167.java,93,330
+FIN.S.034. Insecure random number generation,BenchmarkTest00168.java,95,330
