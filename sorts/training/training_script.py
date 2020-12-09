@@ -56,7 +56,7 @@ def get_model_metrics(
         scores['test_precision'].mean(),
         scores['test_recall'].mean(),
         scores['test_f1'].mean(),
-        round(is_overfit(train_results, test_results) * 100, 0)
+        is_overfit(train_results, test_results)
     )
 
 
@@ -80,7 +80,7 @@ def get_training_data(
         [
             features_df.loc[:, feature_list],
             # Include all extensions
-            features_df.loc[:, '4th':]  # type: ignore
+            features_df.loc[:, 'extension_0':]  # type: ignore
         ],
         axis=1)
     return features_df, labels
@@ -158,4 +158,4 @@ if __name__ == '__main__':
         print(f'Precision: {precision}%')
         print(f'Recall: {recall}%')
         print(f'F1-Score: {f1}%')
-        print(f'Overfit: {overfit:.0f}%')
+        print(f'Overfit: {overfit}%')

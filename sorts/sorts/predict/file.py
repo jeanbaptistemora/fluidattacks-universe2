@@ -18,11 +18,9 @@ from utils.static import (
 
 
 FILE_PREDICT_FEATURES = [
-    'num_commits',
-    'num_unique_authors',
-    'file_age',
-    'risky_commits',
+    'seldom_contributors',
     'num_lines',
+    'commit_frequency'
 ]
 
 
@@ -59,9 +57,14 @@ def prioritize(subscription_path: str) -> bool:
         predict_df: DataFrame = get_subscription_files_df(fusion_path)
         success = extract_features(predict_df)
         if success:
+            extensions: List[str] = get_extensions_list()
+            num_bits: int = len(bin(len(extensions))[2:])
             predict_vuln_prob(
                 predict_df,
-                FILE_PREDICT_FEATURES + get_extensions_list(),
+                (
+                    FILE_PREDICT_FEATURES +
+                    [f'extension_{num}' for num in range(num_bits + 1)]
+                ),
                 group,
                 'file'
             )

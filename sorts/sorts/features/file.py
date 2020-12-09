@@ -11,13 +11,13 @@ from typing import (
 )
 
 # Third-party libraries
+import pandas as pd
 import pytz
-from numpy import ndarray
+from category_encoders import BinaryEncoder
 from pandas import (
     DataFrame,
     Series,
 )
-from sklearn.preprocessing import OneHotEncoder
 from tqdm import tqdm
 
 # Local libraries
@@ -63,13 +63,13 @@ class FileFeatures(NamedTuple):
 
 def encode_extensions(training_df: DataFrame) -> None:
     extensions: List[str] = get_extensions_list()
-    encoder: OneHotEncoder = OneHotEncoder()
-    encoder.categories_ = [extensions]
-    encoder.drop_idx_ = None
-    encoded_extensions: ndarray = encoder.transform(
-        training_df[['extension']]
-    ).toarray()
-    training_df[extensions] = encoded_extensions
+    extensions_df: DataFrame = pd.DataFrame(extensions, columns=['extension'])
+    encoder: BinaryEncoder = BinaryEncoder(cols=['extension'], return_df=True)
+    encoder.fit(extensions_df)
+    encoded_extensions = encoder.transform(training_df[['extension']])
+    training_df[encoded_extensions.columns.tolist()] = (
+        encoded_extensions.values.tolist()
+    )
 
 
 def get_features(row: Series, logs_dir: str) -> FileFeatures:

@@ -20,5 +20,5 @@ if __name__ == '__main__':
         ]
     )
     sklearn_estimator.fit({
-        'train': 's3://sorts/training/full_training_data.csv'
+        'train': 's3://sorts/training/binary_encoded_training_data.csv'
     })

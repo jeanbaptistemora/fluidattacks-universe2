@@ -180,37 +180,24 @@ def test_extract_file_features(test_clone_repo: str) -> None:
     ]
 
 def test_encode_extensions() -> None:
-    extensions_df: DataFrame = pd.DataFrame(
+    training_df: DataFrame = pd.DataFrame(
         ['py', 'java', 'md', 'cs', 'go'],
         columns=['extension']
     )
-    encode_extensions(extensions_df)
-    assert extensions_df.loc[0].py == 1
-    assert extensions_df.loc[0].java == 0
-    assert extensions_df.loc[0].md == 0
-    assert extensions_df.loc[0].cs == 0
-    assert extensions_df.loc[0].go == 0
+    encode_extensions(training_df)
+    assert training_df.loc[0].values.tolist() == [
+        'py', 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0
+    ]
+    assert training_df.loc[1].values.tolist() == [
+        'java', 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0
+    ]
+    assert training_df.loc[2].values.tolist() == [
+        'md', 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0
+    ]
+    assert training_df.loc[3].values.tolist() == [
+        'cs', 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1
+    ]
+    assert training_df.loc[4].values.tolist() == [
+        'go', 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1
+    ]
 
-    assert extensions_df.loc[1].py == 0
-    assert extensions_df.loc[1].java == 1
-    assert extensions_df.loc[1].md == 0
-    assert extensions_df.loc[1].cs == 0
-    assert extensions_df.loc[1].go == 0
-
-    assert extensions_df.loc[2].py == 0
-    assert extensions_df.loc[2].java == 0
-    assert extensions_df.loc[2].md == 1
-    assert extensions_df.loc[2].cs == 0
-    assert extensions_df.loc[2].go == 0
-
-    assert extensions_df.loc[3].py == 0
-    assert extensions_df.loc[3].java == 0
-    assert extensions_df.loc[3].md == 0
-    assert extensions_df.loc[3].cs == 1
-    assert extensions_df.loc[3].go == 0
-
-    assert extensions_df.loc[4].py == 0
-    assert extensions_df.loc[4].java == 0
-    assert extensions_df.loc[4].md == 0
-    assert extensions_df.loc[4].cs == 0
-    assert extensions_df.loc[4].go == 1
