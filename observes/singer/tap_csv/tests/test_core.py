@@ -15,10 +15,7 @@ def test_translate_types() -> None:
     # Assert
     expected = {
         'field1': {"type": "string"},
-        'field2': {"type": "number"},
-        'field3': {
-            "type": "string",
-            "format": "date-time"
-        }
+        'field2': {"type": ["number", "null"]},
+        'field3': {"type": ["string", "null"]}
     }
     assert result == expected

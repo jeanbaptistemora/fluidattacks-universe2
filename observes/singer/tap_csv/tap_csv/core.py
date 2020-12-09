@@ -8,6 +8,7 @@ from typing import (
     Dict,
     IO,
     Iterable,
+    List,
     NamedTuple,
     Optional,
     Sequence,
@@ -26,9 +27,12 @@ LOG = utils.get_log(__name__)
 
 
 class ColumnType(Enum):
+    FLOAT = 'float'
     STRING = 'string'
     NUMBER = 'number'
     DATE_TIME = 'datetime'
+    INT = 'integer'
+    BOOL = 'bool'
 
 
 class MetadataRows(NamedTuple):
@@ -46,18 +50,20 @@ class AdjustCsvOptions(NamedTuple):
 
 def translate_types(
     raw_field_type: Dict[str, ColumnType]
-) -> Dict[str, Dict[str, str]]:
+) -> Dict[str, Dict[str, Any]]:
     """Translates type names into JSON SCHEMA types."""
     type_string: Dict[str, str] = {"type": "string"}
-    type_number: Dict[str, str] = {"type": "number"}
-    type_datetime: Dict[str, str] = {
-        "type": "string",
-        "format": "date-time"
-    }
-    transform: Dict[ColumnType, Dict[str, str]] = {
+    type_number: Dict[str, List[str]] = {"type": ["number", "null"]}
+    type_bool: Dict[str, str] = {"type": "boolean"}
+    type_int: Dict[str, List[str]] = {"type": ["integer", "null"]}
+    type_datetime: Dict[str, Any] = {"type": ["string", "null"]}
+    transform: Dict[ColumnType, Dict[str, Any]] = {
         ColumnType.STRING: type_string,
         ColumnType.NUMBER: type_number,
-        ColumnType.DATE_TIME: type_datetime
+        ColumnType.DATE_TIME: type_datetime,
+        ColumnType.FLOAT: type_number,
+        ColumnType.BOOL: type_bool,
+        ColumnType.INT: type_int,
     }
     field_type = map(
         lambda x: (x[0], transform[x[1]]),
@@ -73,8 +79,11 @@ def translate_values(
     """Translates type names into JSON SCHEMA value."""
     transform: Dict[ColumnType, Callable[[str], Any]] = {
         ColumnType.STRING: lambda x: x,
-        ColumnType.NUMBER: float,
-        ColumnType.DATE_TIME: lambda x: x
+        ColumnType.NUMBER: lambda x: float(x) if x else None,
+        ColumnType.DATE_TIME: lambda x: x,
+        ColumnType.FLOAT: lambda x: float(x) if x else None,
+        ColumnType.BOOL: lambda x: bool(x) if x else None,
+        ColumnType.INT: lambda x: int(x) if x else None,
     }
     new_field_value = map(
         lambda x: (x[0], transform[field_type[x[0]]](x[1])),
@@ -91,13 +100,15 @@ def add_default_types(
         lambda name: (
             name,
             options.file_schema.get(
-                name,
+                name.lower(),
                 ColumnType.STRING.value
             )
         ),
         field_names
     )
-    return dict(field_types)
+    result = dict(field_types)
+    LOG.debug('added types: %s', result)
+    return result
 
 
 def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
@@ -123,6 +134,7 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
             for row in source_reader:
                 if row_num == types_row - 1 and options.add_default_types:
                     field_types = add_default_types(field_names, options)
+                    LOG.debug('Write row: %s', field_types)
                     dest_writer.writerow(field_types)
                     row_num = row_num + 1
                 dest_writer.writerow(row)
@@ -130,7 +142,6 @@ def adjust_csv(source: IO[str], options: AdjustCsvOptions) -> IO[str]:
         output = tempfile.NamedTemporaryFile('w+')
         with open(temp_dir + '/data.csv', 'r') as destination:
             output.write(destination.read())
-    LOG.debug('output: %s', output.read()[0:2000])
     return output
 
 
@@ -172,6 +183,7 @@ def to_singer(
             if row_num == meta_rows.pkeys_row:
                 pkeys = record
             if row_num == meta_rows.field_types_row:
+                LOG.debug('name_type_map: %s', tuple(zip(field_names, record)))
                 name_type_map = dict(
                     map(
                         lambda x: (x[0], ColumnType(x[1])),
