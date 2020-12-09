@@ -835,6 +835,7 @@ export const enTranslations: ResourceKey = {
       },
       title: "Delete Finding",
     },
+    discoveryDateLabel: "Discovery date",
     draft_approved: "This finding was approved",
     draft_status: {
       created: "Created",
@@ -857,7 +858,6 @@ export const enTranslations: ResourceKey = {
     medium_severity: "Medium",
     none_severity: "None",
     openVulnsLabel: "Open vulnerabilities",
-    reportDateLabel: "Discovery date",
     repositories_table: {
       branch: "Branch",
       protocol: "Protocol",

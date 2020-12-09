@@ -13,12 +13,8 @@ export interface IHeaderQueryResult {
     id: string;
     openVulns: number;
     releaseDate: string;
-    reportDate: string;
     severityScore: number;
     state: "open" | "closed" | "default";
     title: string;
-    tracking: Array<{
-      closed: number; cycle: number; date: string; effectiveness: number; open: number;
-    }>;
   };
 }

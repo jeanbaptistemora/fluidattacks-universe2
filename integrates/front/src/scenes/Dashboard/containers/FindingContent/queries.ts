@@ -10,11 +10,9 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
       id
       openVulns: openVulnerabilities
       releaseDate
-      reportDate
       severityScore
       state
       title
-      tracking
       historicState @include(if: $canGetHistoricState)
     }
   }

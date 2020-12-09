@@ -21,8 +21,8 @@ import {
 import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
+  discoveryDate: string;
   openVulns: number;
-  reportDate: string;
   severity: number;
   status: "open" | "closed" | "default";
 }
@@ -107,9 +107,9 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
               </FindingHeaderDetail>
               <FindingHeaderDetail>
                 <FindingHeaderLabel>
-                  {translate.t("search_findings.reportDateLabel")}
+                  {translate.t("search_findings.discoveryDateLabel")}
                 </FindingHeaderLabel>
-                <FindingHeaderIndicator>{props.reportDate}</FindingHeaderIndicator>
+                <FindingHeaderIndicator>{props.discoveryDate}</FindingHeaderIndicator>
               </FindingHeaderDetail>
             </div>
           </FindingHeaderGrid>

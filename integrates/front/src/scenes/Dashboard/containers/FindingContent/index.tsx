@@ -211,7 +211,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const hasSubmission: boolean = hasHistory
     ? headerData.finding.historicState.slice(-1)[0].state === "SUBMITTED"
     : false;
-  const hasTracking: boolean = !_.isEmpty(headerData.finding.tracking);
+  const hasReleaseDate: boolean = !_.isEmpty(headerData.finding.releaseDate);
 
   return (
     <React.StrictMode>
@@ -240,7 +240,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               <StickyContainerFinding>
                 <FindingHeader
                   openVulns={headerData.finding.openVulns}
-                  reportDate={hasTracking ? headerData.finding.tracking[0].date.split(" ")[0] : "-"}
+                  discoveryDate={hasReleaseDate ? headerData.finding.releaseDate.split(" ")[0] : "-"}
                   severity={headerData.finding.severityScore}
                   status={headerData.finding.state}
                 />
