@@ -30,11 +30,13 @@ _UNINTERESTING_NODES = {
     'Block',
     'BlockStatements',
     'BreakStatement',
+    'ContinueStatement',
     'IfThenElseStatement',
     'IfThenStatement',
     'RelationalExpression',
     'SEMI',
     'TryStatement',
+    'WhileStatement',
 }
 
 
