@@ -35,5 +35,9 @@ async def mutate(
     user_email: str = user_info['user_email']
 
     await root_domain.update_git_root(user_email, **kwargs)
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Updated root {kwargs["id"].lower()}'
+    )
 
     return SimplePayload(success=True)

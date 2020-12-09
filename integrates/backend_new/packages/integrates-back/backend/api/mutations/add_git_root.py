@@ -32,5 +32,9 @@ async def mutate(
     user_email: str = user_info['user_email']
 
     await root_domain.add_git_root(user_email, **kwargs)
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Added a root in {kwargs["group_name"].lower()}'
+    )
 
     return SimplePayload(success=True)

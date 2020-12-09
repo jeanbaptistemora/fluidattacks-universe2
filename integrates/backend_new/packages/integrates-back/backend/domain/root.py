@@ -1,4 +1,5 @@
 # Standard
+import re
 from typing import Any, Dict, Optional, Tuple
 
 # Third party
@@ -140,9 +141,23 @@ def is_valid_git_repo(url: str, branch: str) -> bool:
     )
 
 
+def format_git_repo_url(raw_url: str) -> str:
+    is_ssh: bool = (
+        raw_url.startswith('ssh://')
+        or bool(re.match(r'^\w+@.*', raw_url))
+    )
+    url = (
+        f'ssh://{raw_url}'
+        if is_ssh and not raw_url.startswith('ssh://')
+        else raw_url
+    )
+
+    return unquote(url)
+
+
 async def add_git_root(user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
-    url: str = unquote(kwargs['url'])
+    url: str = format_git_repo_url(kwargs['url'])
 
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
@@ -166,7 +181,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
             'branch': kwargs['branch'],
             'historic_state': [initial_state],
             'kind': kind,
-            'url': url,
+            'url': url
         }
 
         if await _is_unique_in_org(org_id, kind, root_attributes):
