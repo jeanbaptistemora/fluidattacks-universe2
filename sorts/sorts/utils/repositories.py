@@ -92,45 +92,6 @@ def get_commit_stats(git_repo: Git, commit: str) -> str:
     return stats
 
 
-def get_git_log_metrics(
-    git_repo: Git,
-    file: str,
-    metrics: List[str]
-) -> Dict[str, List[str]]:
-    """Fetches multiple metrics in one git log command"""
-    git_metrics: Dict[str, List[str]] = {}
-    metrics_git_format: str = translate_metrics_to_git_format(metrics)
-    try:
-        if 'stats' in metrics:
-            git_log = git_repo.log(
-                '--no-merges',
-                '--follow',
-                '--shortstat',
-                f'--pretty={metrics_git_format}',
-                file
-            ).replace('\n\n ', ',').replace(', ', '--').split('\n')
-        else:
-            git_log = git_repo.log(
-                '--no-merges',
-                '--follow',
-                f'--pretty={metrics_git_format}',
-                file
-            ).split('\n')
-        for idx, metric in enumerate(metrics):
-            metric_log: List[str] = []
-            for record in git_log:
-                metric_log.append(record.split(',')[idx])
-            git_metrics.update({metric: metric_log})
-    except (
-        GitCommandError,
-        GitCommandNotFound,
-    ):
-        # Triggered when searching for a file that does not exist in the
-        # version current
-        pass
-    return git_metrics
-
-
 def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the author of every commit that modified a file"""
     author_history: str = git_repo.log(

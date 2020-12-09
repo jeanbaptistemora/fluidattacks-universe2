@@ -73,10 +73,17 @@ def get_commit_files_authors(git_repo: Git, commit: str) -> List[int]:
         try:
             authors: Set[str] = set(get_file_authors_history(git_repo, file))
             files_authors.append(len(authors))
-        except GitCommandError:
+        except GitCommandError as exc:
             # This is triggered when a file that was modified in the commit
             # does not exist in the current version of the repository
-            pass
+            log_exception(
+                'warning',
+                exc,
+                message=(
+                    f'File {os.path.join(git_repo.working_dir, file)} '
+                    'has no git history'
+                )
+            )
     return files_authors
 
 
