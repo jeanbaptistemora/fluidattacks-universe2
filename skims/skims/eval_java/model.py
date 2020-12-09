@@ -84,6 +84,15 @@ class StatementCustomMethodInvocation(NamedTuple):
     type: str = 'StatementCustomMethodInvocation'
 
 
+class StatementCustomMethodInvocationChain(NamedTuple):
+    meta: StatementMeta
+    method: str
+    stacks: List[Statements]
+
+    recursive: bool = True
+    type: str = 'StatementCustomMethodInvocationChain'
+
+
 class StatementDeclaration(NamedTuple):
     stack: Statements
     var: str

@@ -2,6 +2,7 @@
 from typing import (
     Any,
     Callable,
+    Tuple,
 )
 
 # Third party libraries
@@ -20,6 +21,10 @@ from utils.logs import (
 )
 
 
+class NotHandled(Exception):
+    pass
+
+
 def mark_seen(ctx: Context, n_id: str) -> Context:
     ctx.seen.add(n_id)
 
@@ -35,6 +40,29 @@ def ensure_context(ctx: OptionalContext = None) -> Context:
         )
 
     return ctx
+
+
+def evaluate_until_handled(
+    graph: nx.DiGraph,
+    n_id: str,
+    *,
+    ctx: OptionalContext,
+    evaluate: Callable[..., Context],
+    evaluators: Tuple[Callable[..., Context], ...],
+) -> Context:
+    ctx = ensure_context(ctx)
+
+    for evaluator in evaluators:
+        try:
+            ctx = evaluator(graph, n_id, ctx=ctx)
+        except NotHandled:
+            continue
+        else:
+            break
+    else:
+        not_implemented(evaluate, n_id, ctx=ctx)
+
+    return mark_seen(ctx, n_id)
 
 
 def mark_if_sink(graph: nx.DiGraph, n_id: str, ctx: Context) -> None:
