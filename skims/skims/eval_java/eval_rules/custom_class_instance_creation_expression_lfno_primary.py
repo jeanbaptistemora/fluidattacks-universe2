@@ -41,7 +41,6 @@ def evaluate(
         match['NEW']
         and (class_type_id := match['__0__'])
         and match['LPAREN']
-        and (arg_id := match['__1__'])
         and match['RPAREN']
         and graph.nodes[class_type_id]['label_type'] in {
             'CustomIdentifier',
@@ -49,7 +48,7 @@ def evaluate(
         }
     ):
         args = []
-        if arg_id:
+        if arg_id := match['__1__']:
             args_ctx = generic.evaluate(graph, arg_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
             args = args_ctx.statements

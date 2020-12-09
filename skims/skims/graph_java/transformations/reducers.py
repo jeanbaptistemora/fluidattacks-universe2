@@ -213,6 +213,11 @@ def _type_arguments_list(graph: nx.DiGraph) -> None:
     _concatenate_child_texts(graph, 'TypeArgumentList', (
         'IdentifierRule',
         'COMMA',
+        'IdentifierRule',
+    ))
+    _concatenate_child_texts(graph, 'TypeArgumentList', (
+        'IdentifierRule',
+        'COMMA',
         'CustomArrayType',
     ))
 
@@ -413,7 +418,11 @@ def reduce(graph: nx.DiGraph) -> None:
         parent_label_type='ClassInstanceCreationExpression_lfno_primary',
         rules=(
             ('NEW', {'NEW'}),
-            ('CustomIdentifier', {'DOT', 'IdentifierRule'}),
+            ('CustomIdentifier', {
+                'DOT',
+                'IdentifierRule',
+                'CustomTypeArguments',
+            }),
             ('LPAREN', {'LPAREN'}),
             ('__idem__', {'__any__'}),
             ('RPAREN', {'RPAREN'}),
