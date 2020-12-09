@@ -3,12 +3,12 @@
  * readability of the code that renders the form
  */
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { Field, FormSection, Validator } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
 import { default as style } from "scenes/Dashboard/components/EvidenceImage/index.css";
+import { Col33, Row } from "styles/styledComponents";
 import { FileInput, TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { validEvidenceDescription, validTextField } from "utils/validations";
@@ -62,7 +62,7 @@ export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceIma
   // Add replace to handle the new route until starlette is finished
   return (
     <React.StrictMode>
-      <Col md={4} sm={6} xs={12}>
+      <Col33>
         <div>
           <div className={style.imgContainer}>
             {typeof (props.content) === "string"
@@ -78,7 +78,7 @@ export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceIma
             </Row>
           </div>
         </div>
-      </Col>
+      </Col33>
     </React.StrictMode>
   );
 };
