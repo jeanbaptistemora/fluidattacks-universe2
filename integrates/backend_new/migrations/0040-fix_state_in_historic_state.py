@@ -1,3 +1,9 @@
+"""
+This migration fix the attribute state for historic_state of findings
+
+Execution Time: 2020-12-09 15:29:18 UTC-5
+Finalization Time: 2020-12-09 15:46:37 UTC-5
+"""
 # Standard library
 from asyncio import run
 import copy
