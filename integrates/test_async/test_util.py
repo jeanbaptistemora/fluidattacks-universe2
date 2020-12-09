@@ -126,7 +126,7 @@ async def test_get_jwt_content():
         algorithm='HS512',
         key=settings.JWT_SECRET,
     )
-    request.COOKIES[settings.JWT_COOKIE_NAME] = token
+    request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
     expected_output = {
@@ -151,7 +151,7 @@ async def test_valid_token():
         algorithm='HS512',
         key=settings.JWT_SECRET,
     )
-    request.COOKIES[settings.JWT_COOKIE_NAME] = token
+    request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
     expected_output = {
@@ -177,7 +177,7 @@ async def test_valid_api_token():
         algorithm='HS512',
         key=settings.JWT_SECRET_API,
     )
-    request.COOKIES[settings.JWT_COOKIE_NAME] = token
+    request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
     expected_output = {
@@ -203,7 +203,7 @@ async def test_expired_token():
         algorithm='HS512',
         key=settings.JWT_SECRET,
     )
-    request.COOKIES[settings.JWT_COOKIE_NAME] = token
+    request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, 5)
     time.sleep(6)
     with pytest.raises(ExpiredToken):
@@ -223,7 +223,7 @@ async def test_revoked_token():
         algorithm='HS512',
         key=settings.JWT_SECRET,
     )
-    request.COOKIES[settings.JWT_COOKIE_NAME] = token
+    request.cookies[settings.JWT_COOKIE_NAME] = token
     redis_token_name = f'fi_jwt:{payload["jti"]}'
     await save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
     await remove_token(redis_token_name)
