@@ -5,9 +5,6 @@ import os
 import pytest
 
 from ariadne import graphql
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
 from graphql import GraphQLError
 from jose import jwt
 from starlette.datastructures import UploadFile

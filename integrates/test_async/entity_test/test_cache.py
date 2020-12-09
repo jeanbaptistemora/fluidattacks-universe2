@@ -2,9 +2,6 @@ from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
 from jose import jwt
 from backend import util
 from backend.api.schema import SCHEMA

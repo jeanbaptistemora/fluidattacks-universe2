@@ -4,10 +4,6 @@ import pytest
 from PyPDF4 import PdfFileWriter
 
 from ariadne import graphql_sync, graphql
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.conf import settings
 from jose import jwt
 from backend import util
 from backend.api.dataloaders.group_findings import GroupFindingsLoader

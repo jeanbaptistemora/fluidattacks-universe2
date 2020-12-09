@@ -3,9 +3,6 @@ import pytest
 from collections import OrderedDict
 from decimal import Decimal
 
-from asgiref.sync import async_to_sync
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
 from freezegun import freeze_time
 from jose import jwt
 
@@ -32,6 +29,8 @@ from backend.scheduler import (
 from backend.utils import datetime as datetime_utils
 
 from backend_new import settings
+
+from test_async.utils import create_dummy_simple_session
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -70,18 +69,7 @@ def test_is_a_unsolved_event():
     assert not is_a_unsolved_event(dumb_solved_event)
 
 async def test_get_unsolved_events():
-    request = RequestFactory().get('/')
-    middleware = SessionMiddleware()
-    middleware.process_request(request)
-    request.session.save()
-    request.session['username'] = 'unittest'
-    request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-        {
-            'user_email': 'unittest',
-        },
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    request = create_dummy_simple_session('unittest')
     project_name = 'unittesting'
     test_data = await get_unsolved_events(project_name)
     assert isinstance(test_data, list)

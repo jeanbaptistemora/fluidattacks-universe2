@@ -3,9 +3,6 @@ from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql_sync, graphql
-from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.conf import settings
 from jose import jwt
 from starlette.datastructures import UploadFile
 
