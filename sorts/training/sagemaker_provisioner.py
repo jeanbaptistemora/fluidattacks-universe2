@@ -7,7 +7,7 @@ if __name__ == '__main__':
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point='training_script.py',
         framework_version='0.23-1',
-        instance_type="ml.m5.xlarge",
+        instance_type="ml.m5.2xlarge",
         instance_count=1,
         role='arn:aws:iam::205810638802:role/sorts_sagemaker',
         output_path='s3://sorts/training-output',

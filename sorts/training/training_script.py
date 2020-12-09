@@ -3,13 +3,14 @@
 # Standard Libraries
 import argparse
 import os
+import time
+from itertools import combinations
 from typing import (
     List,
     Tuple
 )
 
 # Third-party Libraries
-import joblib
 import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
@@ -23,11 +24,74 @@ from sklearn.neural_network import MLPClassifier
 ScoreType = Tuple[float, float, float, None]
 
 
-def is_overfit(train_scores: ndarray, test_scores: ndarray) -> float:
-    train_scores_means: ndarray = train_scores.mean(axis=1)
-    test_scores_means: ndarray = test_scores.mean(axis=1)
+def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
+    feature_combinations: List[Tuple[str, ...]] = []
+    for idx in range(len(features) + 1):
+        feature_combinations += list(combinations(features, idx))
+    return feature_combinations
+
+
+def get_model_metrics(
+    model: MLPClassifier,
+    features: DataFrame,
+    labels: DataFrame
+) -> Tuple[float, float, float, float]:
+    """Get performance metrics to compare different models"""
+    scores = cross_validate(
+        model,
+        features,
+        labels,
+        scoring=['precision', 'recall', 'f1'],
+        n_jobs=-1
+    )
+    _, train_results, test_results = learning_curve(
+        model,
+        features,
+        labels,
+        scoring='f1',
+        n_jobs=-1,
+        random_state=42
+    )
+    return (
+        scores['test_precision'].mean(),
+        scores['test_recall'].mean(),
+        scores['test_f1'].mean(),
+        round(is_overfit(train_results, test_results) * 100, 0)
+    )
+
+
+def get_training_data(
+    training_dir: str,
+    feature_list: Tuple[str, ...]
+) -> Tuple[DataFrame, DataFrame]:
+    """Read the training data in two DataFrames for training purposes"""
+    input_files: List[str] = [
+        os.path.join(training_dir, file) for file in os.listdir(training_dir)
+    ]
+    raw_data: List[DataFrame] = [
+        pd.read_csv(file, engine="python") for file in input_files
+    ]
+    train_data: DataFrame = pd.concat(raw_data)
+
+    # Separate the labels from the features in the training data
+    labels: DataFrame = train_data.iloc[:, 0]
+    features_df: DataFrame = train_data.iloc[:, 1:]
+    features_df = pd.concat(
+        [
+            features_df.loc[:, feature_list],
+            # Include all extensions
+            features_df.loc[:, '4th':]  # type: ignore
+        ],
+        axis=1)
+    return features_df, labels
+
+
+def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
+    """Calculate how much the model got biased by the training data"""
+    train_results_means: ndarray = train_results.mean(axis=1)
+    test_results_means: ndarray = test_results.mean(axis=1)
     perc_diff: ndarray = (
-        (train_scores_means - test_scores_means) / train_scores_means
+        (train_results_means - test_results_means) / train_results_means
     )
     row: int = 0
     tolerance: float = 0.002
@@ -63,49 +127,35 @@ if __name__ == '__main__':
         type=str,
         default=os.environ['SM_CHANNEL_TRAIN']
     )
-
     args = parser.parse_args()
 
-    # Take the set of files and read them into a single pandas dataframe
-    input_files: List[str] = [
-        os.path.join(args.train, file) for file in os.listdir(args.train)
-    ]
-    raw_data: List[DataFrame] = [
-        pd.read_csv(file, engine="python") for file in input_files
-    ]
-    train_data: DataFrame = pd.concat(raw_data)
-
-    # Separate the labels from the features in the training data
-    train_y: DataFrame = train_data.iloc[:, 0]
-    train_x: DataFrame = train_data.iloc[:, 1:]
-    train_x = train_x.drop(columns=['extension'])
+    features_dict = {
+        'num_commits': 'CM',
+        'num_unique_authors': 'AU',
+        'file_age': 'FA',
+        'midnight_commits': 'MC',
+        'risky_commits': 'RC',
+        'seldom_contributors': 'SC',
+        'num_lines': 'LC',
+        'busy_file': 'BF',
+        'commit_frequency': 'CF'
+    }
+    all_combinations = get_features_combinations(list(features_dict.keys()))
 
     # Train the model
-    clf = MLPClassifier(random_state=42)
-    clf.fit(train_x, train_y)
+    for combination in all_combinations:
+        start_time: float = time.time()
+        train_x, train_y = get_training_data(args.train, combination)
+        clf = MLPClassifier(random_state=42)
+        precision, recall, f1, overfit = get_model_metrics(
+            clf,
+            train_x,
+            train_y
+        )
 
-    scores = cross_validate(
-        clf,
-        train_x,
-        train_y,
-        scoring=['precision', 'recall', 'f1'],
-        n_jobs=-1
-    )
-
-    _, train_results, test_results = learning_curve(
-        clf,
-        train_x,
-        train_y,
-        scoring='f1',
-        n_jobs=-1,
-        random_state=42
-    )
-    overfit = is_overfit(train_results, test_results)
-
-    print(f"Precision: {scores['test_precision'].mean()}%")
-    print(f"Recall: {scores['test_recall'].mean()}%")
-    print(f"F1-Score: {scores['test_f1'].mean()}%")
-    print(f"Overfit: {overfit*100:.0f}%")
-
-    # Export the trained model to S3
-    joblib.dump(clf, os.path.join(args.model_dir, "model.joblib"))
+        print(f'Training time: {time.time() - start_time:.2f}')
+        print(f'Features: {combination}')
+        print(f'Precision: {precision}%')
+        print(f'Recall: {recall}%')
+        print(f'F1-Score: {f1}%')
+        print(f'Overfit: {overfit:.0f}%')
