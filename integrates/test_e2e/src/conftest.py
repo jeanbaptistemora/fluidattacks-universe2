@@ -1,42 +1,27 @@
 # Standard libraries
 import os
-from time import sleep
 from typing import Iterable
 
 # Third party libraries
 import pytest
-from _pytest.fixtures import FixtureRequest
-from selenium.webdriver import Firefox, Remote
+from selenium.webdriver import Firefox
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.firefox.options import Options
-from selenium.common.exceptions import WebDriverException
 
 # Local libraries
 from model import (
     AzureCredentials,
-    BrowserStackCapacity,
 )
 
 
 @pytest.fixture(autouse=True, scope='session')
-def browserstack_url() -> str:
-    user: str = os.environ['BROWSERSTACK_USER']
-    key: str = os.environ['BROWSERSTACK_KEY']
-    return f'https://{user}:{key}@hub-cloud.browserstack.com/wd/hub'
+def path_geckodriver() -> str:
+    return f'{os.environ["pkgGeckoDriver"]}/bin/geckodriver'
 
 
-@pytest.fixture(autouse=True, scope='function')
-def browserstack_cap(
-        branch: str,
-        request: FixtureRequest) -> BrowserStackCapacity:
-    return BrowserStackCapacity(
-        os='Windows',
-        os_version='10',
-        browser='Chrome',
-        browser_version='80',
-        resolution='1366x768',
-        name=f'{branch}::{request.node.name}',
-    )
+@pytest.fixture(autouse=True, scope='session')
+def path_firefox() -> str:
+    return f'{os.environ["pkgFirefox"]}/bin/firefox'
 
 
 @pytest.fixture(autouse=True, scope='session')
@@ -80,34 +65,17 @@ def integrates_endpoint(branch: str, is_ci: bool) -> str:
 
 @pytest.fixture(autouse=True, scope='function')
 def driver(
-        browserstack_cap: BrowserStackCapacity,
-        browserstack_url: str,
+        path_geckodriver: str,
+        path_firefox: str,
         is_ci: bool) -> Iterable[WebDriver]:
-    attempt_number: int = 120
-    wait_time: int = 5
-    driver: WebDriver = None
-    if is_ci:
-        for _ in range(attempt_number):
-            try:
-                driver = Remote(
-                    command_executor=browserstack_url,
-                    desired_capabilities=browserstack_cap._asdict()
-                )
-            except WebDriverException:
-                sleep(wait_time)
-            else:
-                break
-    else:
-        geckodriver: str = f'{os.environ["pkgGeckoDriver"]}/bin/geckodriver'
-        firefox: str = f'{os.environ["pkgFirefox"]}/bin/firefox'
-        options = Options()
-        options.binary_location = firefox
-        options.headless = False
-        driver = Firefox(
-            executable_path=geckodriver,
-            firefox_binary=firefox,
-            options=options
-        )
+    options = Options()
+    options.binary_location = path_firefox
+    options.headless = is_ci
+    driver: WebDriver = Firefox(
+        executable_path=path_geckodriver,
+        firefox_binary=path_firefox,
+        options=options
+    )
     try:
         driver.maximize_window()
         yield driver

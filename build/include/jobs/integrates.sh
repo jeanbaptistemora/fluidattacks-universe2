@@ -1036,7 +1036,9 @@ function job_integrates_test_e2e {
     --show-capture no
     --verbose
     --reruns 3
-    -n 5
+    --test-group-count "${CI_NODE_TOTAL}"
+    --test-group "${CI_NODE_INDEX}"
+    -n 2
   )
 
       pushd integrates \
