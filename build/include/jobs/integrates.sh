@@ -321,19 +321,6 @@ function job_integrates_deploy_permissions_matrix {
   ||  return 1
 }
 
-function job_integrates_django_console {
- export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
-
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  env_prepare_ruby_modules \
-  &&  env_prepare_node_modules \
-  &&  helper_integrates_set_dev_secrets \
-  &&  ./manage.py shell \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_functional_tests_back {
   local common_args=(
     --ds 'fluidintegrates.settings'
@@ -538,30 +525,6 @@ function job_integrates_kill_components {
       helper_common_kill_pid_listening_on_port "${port}"
     done
   fi
-}
-
-function job_integrates_cron_show {
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
-
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  python3 manage.py crontab add \
-  &&  python3 manage.py crontab show \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_cron_run {
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
-  local cron_job="${1}"
-
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  python3 manage.py crontab run "${cron_job}" \
-  &&  popd \
-  ||  return 1
 }
 
 function _job_integrates_make_migration {
