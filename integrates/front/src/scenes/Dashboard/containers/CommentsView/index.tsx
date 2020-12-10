@@ -10,6 +10,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import {
@@ -29,6 +30,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const commentsView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const params: { findingId: string; type: string } = useParams();
   const findingId: string = params.findingId;
   let type: string = params.type;
@@ -65,7 +67,12 @@ const commentsView: React.FC = (): JSX.Element => {
             const comments: ICommentStructure[] = type === "consult"
               ? data.finding.consulting
               : data.finding.observations;
-            callbackFn(comments.map((comment: ICommentStructure) => ({
+            const commentsFiltered: ICommentStructure[] = comments.filter((comment: ICommentStructure): boolean => (
+              comment.content !== t("group.tabs.comments.scope.external") &&
+                comment.content !== t("group.tabs.comments.scope.internal")
+            ));
+
+            callbackFn(commentsFiltered.map((comment: ICommentStructure) => ({
               ...comment,
               created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(comment.id),

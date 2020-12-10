@@ -526,6 +526,10 @@ export const enTranslations: ResourceKey = {
         tooltip: "People that have contributed to your group",
       },
       comments: {
+        scope: {
+          external: "#external",
+          internal: "#internal",
+        },
         text: "Consulting",
         tooltip:
           "Space where all interested parties can share information about the group",

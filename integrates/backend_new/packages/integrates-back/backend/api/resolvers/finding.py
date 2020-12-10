@@ -109,6 +109,7 @@ async def _do_add_finding_consult(
     finding_loader = info.context.loaders['finding']
     finding = await finding_loader.load(finding_id)
     group = finding.get('project_name')
+    content = parameters.get('content')
 
     user_email = user_data['user_email']
     comment_id = int(round(time() * 1000))
@@ -118,7 +119,7 @@ async def _do_add_finding_consult(
     comment_data = {
         'user_id': comment_id,
         'comment_type': param_type if param_type != 'consult' else 'comment',
-        'content': parameters.get('content'),
+        'content': content,
         'fullname': ' '.join(
             [user_data['first_name'], user_data['last_name']]
         ),
@@ -145,11 +146,13 @@ async def _do_add_finding_consult(
             f'{param_type}*{finding_id}',
             f'comment*{finding_id}'
         )
-        finding_domain.send_comment_mail(
-            user_email,
-            comment_data,
-            finding
-        )
+        if content not in {'#external', '#internal'}:
+            finding_domain.send_comment_mail(
+                user_email,
+                comment_data,
+                finding
+            )
+
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment in '
