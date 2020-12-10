@@ -4,6 +4,7 @@
 import base64
 from contextlib import contextmanager
 import os
+import stat
 import sys
 import json
 import platform
@@ -31,6 +32,8 @@ from alive_progress import alive_bar, config_handler
 # Local libraries
 from toolbox import logger
 from toolbox import utils
+from toolbox.constants import API_TOKEN
+from toolbox.api import integrates
 
 config_handler.set_global(length=25)
 
@@ -77,10 +80,10 @@ def setup_ssh_key(baseurl: str) -> Iterator[str]:
         key = base64.b64decode(credentials).decode('utf-8')
 
         with tempfile.NamedTemporaryFile(delete=False) as keyfile:
-            os.chmod(keyfile.name, 600)
+            os.chmod(keyfile.name, stat.S_IREAD | stat.S_IWRITE)
             keyfile.write(key.encode())
 
-        os.chmod(keyfile.name, 400)
+        os.chmod(keyfile.name, stat.S_IREAD)
 
         # Avoid ssh warning prompt:
         host = baseurl.split('@')[1].split(':')[0]
@@ -401,6 +404,80 @@ def repo_cloning(subs: str) -> bool:
             print(f'Repository: {problem["repo"]}')
             print(f'Description: {problem["problem"]}')
         has_vpn(repo, subs)
+    os.chdir(original_dir)
+
+    return success
+
+
+def repo_cloning_2(subs: str) -> bool:
+    """ cloning or updated a repository"""
+
+    success = True
+    problems: list = []
+    original_dir: str = os.getcwd()
+    destination_folder = f'groups/{subs}/fusion'
+
+    os.makedirs(destination_folder, exist_ok=True)
+    os.chdir(destination_folder)
+
+    repo_request = integrates.Queries.git_roots(
+        API_TOKEN,
+        subs,
+    )
+    if not repo_request.ok:
+        logger.error(repo_request.errors)
+        return False
+
+    repositories: List[Dict[str, str]] = repo_request.data['project']['roots']
+
+    repos_fusion = os.listdir('.')
+
+    repo_names: list = [repo['url'].split('/')[-1] for repo in repositories]
+
+    repo_difference = set(repos_fusion).difference(set(repo_names))
+
+    # delete repositories of fusion that are not in the config
+    for repo_dif in repo_difference:
+        logger.info(f'Deleting {repo_dif}')
+        shutil.rmtree(repo_dif)
+
+    utils.generic.aws_login('continuous-admin')
+
+    with alive_bar(len(repositories), enrich_print=False) as progress_bar:
+
+        def action(git_root: Dict[str, str]) -> None:
+            repo_type = 'ssh' if git_root['url'].startswith('ssh') else 'https'
+            problem: Optional[Dict[str, str]] = None
+
+            # check if current repo is active
+            if git_root['state'] != 'ACTIVE':
+                return
+
+            if repo_type == 'ssh':
+                problem = _ssh_repo_cloning(git_root)
+            elif repo_type == 'https':
+                problem = _http_repo_cloning(git_root)
+            else:
+                logger.info("Invalid git-type on group %s", subs)
+                problem = {
+                    'repo': git_root['url'],
+                    'problem': f'Invalid git-type on group {subs}'
+                }
+            if problem:
+                problems.append(problem)
+            else:
+                progress_bar()
+
+        with ThreadPool(processes=cpu_count()) as worker:
+            worker.map(action, repositories)
+
+    if problems:
+        logger.error("Some problems occured: \n")
+
+        for problem in problems:
+            print(f'Repository: {problem["repo"]}')
+            print(f'Description: {problem["problem"]}')
+        success = False
     os.chdir(original_dir)
 
     return success

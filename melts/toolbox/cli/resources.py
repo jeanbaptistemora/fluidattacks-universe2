@@ -32,6 +32,11 @@ SUBS_METAVAR = '[GROUP]'
     is_flag=True,
     help='clone the repositories of a group')
 @option(
+    '--clone-from-customer-git2',
+    'clone_2',
+    is_flag=True,
+    help='clone the repositories of a group')
+@option(
     '--fingerprint',
     is_flag=True,
     help='get the fingerprint of a group')
@@ -48,6 +53,7 @@ def resources_management(
     group,
     check_repos,
     clone,
+    clone_2,
     fingerprint,
     login,
     edit_dev,
@@ -60,6 +66,8 @@ def resources_management(
 
     if clone:
         success = resources.repo_cloning(group)
+    elif clone_2:
+        success = resources.repo_cloning_2(group)
     elif fingerprint:
         success = resources.get_fingerprint(group)
     elif edit_dev:
