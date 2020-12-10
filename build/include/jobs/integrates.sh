@@ -212,10 +212,9 @@ function job_integrates_build_container_app {
 function job_integrates_deploy_front {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  env_prepare_django_static_external \
+  &&  env_prepare_static_external \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
-  &&  ./manage.py collectstatic --no-input \
   &&  popd \
   ||  return 1
 }

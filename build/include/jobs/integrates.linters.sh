@@ -9,7 +9,6 @@ function job_integrates_lint_back {
   &&  mypy --strict --ignore-missing-imports backend_new/migrations/ \
   &&  mypy --strict --ignore-missing-imports backend_new \
   &&  prospector -F -s veryhigh analytics/ \
-  &&  prospector -F -s veryhigh -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules backend_new \
   &&  prospector -F -s veryhigh -u django -i node_modules backend_new/packages/integrates-back \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
@@ -66,7 +65,7 @@ function job_integrates_lint_styles {
 
 function job_integrates_lint_graphics {
       env_prepare_node_modules \
-  &&  pushd "${STARTDIR}/integrates/app/static/graphics" \
+  &&  pushd "${STARTDIR}/integrates/backend_new/app/templates/static/graphics" \
         &&  eslint --config .eslintrc --fix . \
   &&  popd \
   ||  return 1

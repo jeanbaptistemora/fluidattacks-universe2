@@ -153,10 +153,10 @@ function env_prepare_minio_local {
   ||  return 1
 }
 
-function env_prepare_django_static_external {
+function env_prepare_static_external {
       echo '[INFO] Unzipping C3 local' \
-  &&  mkdir -p 'app/static/external/C3' \
-  &&  pushd 'app/static/external/C3' \
+  &&  mkdir -p 'backend_new/app/templates/static/external/C3' \
+  &&  pushd 'backend_new/app/templates/static/external/C3' \
     &&  unzip -ou "${srcExternalC3}" \
   && popd \
   ||  return 1
