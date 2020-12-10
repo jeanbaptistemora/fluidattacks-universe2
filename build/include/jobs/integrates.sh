@@ -215,6 +215,12 @@ function job_integrates_deploy_front {
   &&  env_prepare_static_external \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
+  &&  mkdir -p 'app/static' \
+  &&  mkdir -p 'app/static/app' \
+  &&  mkdir -p 'app/static/img' \
+  &&  mkdir -p 'app/static/styles' \
+  &&  mkdir -p 'app/static/graphics' \
+  &&  ./manage.py collectstatic --no-input \
   &&  popd \
   ||  return 1
 }
