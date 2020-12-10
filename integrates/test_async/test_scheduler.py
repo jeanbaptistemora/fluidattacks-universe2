@@ -100,9 +100,9 @@ async def test_get_status_vulns_by_time_range():
         include_requested_zero_risk=True
     )
     test_data = get_status_vulns_by_time_range(
-        vulns, first_day, last_day, released_findings
+        vulns, first_day, last_day
     )
-    expected_output = {'found': 8, 'accepted': 5, 'closed': 2}
+    expected_output = {'found': 8, 'accepted': 4, 'closed': 2}
     assert test_data == expected_output
 
 def test_create_weekly_date():
@@ -121,18 +121,17 @@ async def test_get_accepted_vulns():
         include_requested_zero_risk=True
     )
     test_data = get_accepted_vulns(
-        released_findings, vulns, first_day, last_day
+        vulns, first_day, last_day
     )
-    expected_output = 5
+    expected_output = 4
     assert test_data == expected_output
 
 async def test_get_by_time_range():
-    finding = await get_finding('422286126')
     first_day = '2019-01-01 12:00:00'
     last_day = '2020-09-07 23:59:59'
     vuln = await get_vuln('80d6a69f-a376-46be-98cd-2fdedcffdcc0')
     test_data = get_by_time_range(
-        finding, vuln[0], first_day, last_day
+        vuln[0], first_day, last_day
     )
     expected_output = 0
     assert test_data == expected_output

@@ -154,8 +154,7 @@ def get_finding_url(finding: Dict[str, FindingType]) -> str:
 def get_status_vulns_by_time_range(
         vulns: List[Dict[str, FindingType]],
         first_day: str,
-        last_day: str,
-        findings_released: List[Dict[str, FindingType]]) -> Dict[str, int]:
+        last_day: str) -> Dict[str, int]:
     """Get total closed and found vulnerabilities by time range"""
     resp: Dict[str, int] = defaultdict(int)
     for vuln in vulns:
@@ -172,8 +171,7 @@ def get_status_vulns_by_time_range(
                     resp['found'] += 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
-    resp['accepted'] = get_accepted_vulns(
-        findings_released, vulns, first_day, last_day)
+    resp['accepted'] = get_accepted_vulns(vulns, first_day, last_day)
     return resp
 
 
@@ -195,45 +193,36 @@ def create_weekly_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-        findings_released: List[Dict[str, FindingType]],
         vulns: List[Dict[str, FindingType]],
         first_day: str, last_day: str) -> int:
     """Get all vulnerabilities accepted by time range"""
     accepted = 0
     accepted_treatments = ['ACCEPTED', 'ACCEPTED_UNDEFINED']
-    for finding in findings_released:
+    for vuln in vulns:
         historic_treatment = cast(
             List[Dict[str, str]],
-            finding.get('historic_treatment', [{}])
+            vuln.get('historic_treatment', [{}])
         )
         if historic_treatment[-1].get('treatment') in accepted_treatments:
-            for vuln in vulns:
-                accepted += get_by_time_range(
-                    finding, vuln, first_day, last_day
-                )
+            accepted += get_by_time_range(vuln, first_day, last_day)
     return accepted
 
 
 def get_by_time_range(
-        finding: Dict[str, FindingType],
         vuln: Dict[str, FindingType],
         first_day: str,
         last_day: str) -> int:
-    """Accepted vulnerability of finding."""
+    """Accepted vulnerability"""
     count = 0
-    if finding['finding_id'] == vuln['finding_id']:
-
-        history = vuln_domain.get_last_approved_state(vuln)
-        if (history and
-                first_day <= history['date'] <= last_day and
-                history['state'] == 'open'):
-            count += 1
-        else:
-            # date of vulnerabilities outside of time_range or state not open
-            pass
+    history = vuln_domain.get_last_approved_state(vuln)
+    if (history and
+            first_day <= history['date'] <= last_day and
+            history['state'] == 'open'):
+        count += 1
     else:
-        # vulnerabilities is from finding
+        # date of vulnerabilities outside of time_range or state not open
         pass
+
     return count
 
 
@@ -253,9 +242,10 @@ async def create_register_by_week(
         first_day_last_week = get_date_last_vulns(vulns)
         while first_day <= first_day_last_week:
             result_vulns_by_week = get_status_vulns_by_time_range(
-                vulns, first_day,
+                vulns,
+                first_day,
                 last_day,
-                findings_released)
+            )
             accepted += result_vulns_by_week.get('accepted', 0)
             closed += result_vulns_by_week.get('closed', 0)
             found += result_vulns_by_week.get('found', 0)
