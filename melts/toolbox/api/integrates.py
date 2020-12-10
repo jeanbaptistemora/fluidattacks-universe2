@@ -292,6 +292,28 @@ class Queries:
         }
         return request(api_token, body, params, operation='MeltsGetResources')
 
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def git_roots(api_token: str, project_name: str) -> Response:
+        """Get project git roots"""
+        query = """
+            query MeltsGetGitRoots($projectName: String!) {
+              project(projectName: $projectName){
+                roots {
+                  ...on GitRoot{
+                    branch
+                    url
+                    state
+                  }
+                }
+              }
+            }
+        """
+        params: dict = {
+            'projectName': project_name
+        }
+        return request(api_token, query, params, operation='MeltsGetGitRoots')
+
 
 class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""
