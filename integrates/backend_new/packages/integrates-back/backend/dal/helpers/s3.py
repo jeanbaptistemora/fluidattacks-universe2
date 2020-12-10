@@ -13,7 +13,7 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.utils import apm
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY,
     FI_ENVIRONMENT, FI_MINIO_LOCAL_ENABLED

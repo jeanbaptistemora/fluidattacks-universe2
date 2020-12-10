@@ -7,7 +7,7 @@ from typing import Iterable, List, Dict, Union, cast
 from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import InvalidRange
 from backend.typing import Finding as FindingType
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

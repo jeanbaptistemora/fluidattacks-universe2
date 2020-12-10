@@ -36,7 +36,8 @@ from backend.utils import (
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
-from fluidintegrates.settings import (
+
+from backend_new.settings import (
     LOGGING,
     NOEXTRA
 )

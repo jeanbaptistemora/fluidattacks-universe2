@@ -21,7 +21,7 @@ from backend.dal.helpers import dynamodb, s3
 from backend.utils import (
     datetime as datetime_utils,
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 from __init__ import (
     FI_AWS_S3_FORCES_BUCKET,
 )

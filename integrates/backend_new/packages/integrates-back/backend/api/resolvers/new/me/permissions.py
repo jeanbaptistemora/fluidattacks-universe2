@@ -10,7 +10,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend import authz
 from backend.exceptions import InvalidParameter
 from backend.typing import Me
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

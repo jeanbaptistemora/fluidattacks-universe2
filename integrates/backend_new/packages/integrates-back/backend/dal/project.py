@@ -23,7 +23,7 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.dal.user import get_user_name
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

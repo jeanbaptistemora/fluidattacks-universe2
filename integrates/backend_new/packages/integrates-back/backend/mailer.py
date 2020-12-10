@@ -38,7 +38,7 @@ from backend.typing import (
     MailContent as MailContentType,
     Project as ProjectType
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 from __init__ import (
     BASE_URL,

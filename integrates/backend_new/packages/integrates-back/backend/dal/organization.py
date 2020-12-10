@@ -32,7 +32,7 @@ from backend.typing import (
     DynamoQuery as DynamoQueryType,
     Organization as OrganizationType
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

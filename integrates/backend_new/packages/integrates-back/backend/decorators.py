@@ -42,7 +42,7 @@ from backend.utils import (
 from backend_new import settings
 from backend_new.app.views import templates
 
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

@@ -72,10 +72,6 @@ from backend.utils import (
 
 from backend_new import settings
 
-from fluidintegrates.settings import (
-    LOGGING,
-    NOEXTRA
-)
 from __init__ import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -85,7 +81,7 @@ from __init__ import (
     FI_JWT_ENCRYPTION_KEY
 )
 
-logging.config.dictConfig(LOGGING)
+logging.config.dictConfig(settings.LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -152,7 +148,7 @@ def cloudwatch_log_sync(request, msg: str) -> None:
             info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    LOGGER_TRANSACTIONAL.info(':'.join(info), **NOEXTRA)
+    LOGGER_TRANSACTIONAL.info(':'.join(info), **settings.NOEXTRA)
 
 
 def cloudwatch_log(request, msg: str) -> None:
@@ -165,7 +161,11 @@ async def cloudwatch_log_async(request, msg: str) -> None:
     info.append(FI_ENVIRONMENT)
     info.append(msg)
     schedule(
-        in_thread(LOGGER_TRANSACTIONAL.info, ':'.join(info), **NOEXTRA))
+        in_thread(
+            LOGGER_TRANSACTIONAL.info, ':'.join(info),
+            **settings.NOEXTRA
+        )
+    )
 
 
 def encrypt_jwt_payload(payload: dict) -> dict:
@@ -255,11 +255,11 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
-        LOGGER.info('Security: Invalid token claims', **NOEXTRA)
+        LOGGER.info('Security: Invalid token claims', **settings.NOEXTRA)
         LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except JWTError as ex:
-        LOGGER.info('Security: Invalid token', **NOEXTRA)
+        LOGGER.info('Security: Invalid token', **settings.NOEXTRA)
         LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
     else:

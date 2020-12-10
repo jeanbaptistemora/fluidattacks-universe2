@@ -14,7 +14,7 @@ import time
 from backend.dal.helpers import s3
 from backend.utils import apm
 from botocore.exceptions import ClientError
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 )

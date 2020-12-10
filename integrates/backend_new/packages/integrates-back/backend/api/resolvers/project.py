@@ -37,7 +37,7 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from backend.api.resolvers.user import _create_new_user
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

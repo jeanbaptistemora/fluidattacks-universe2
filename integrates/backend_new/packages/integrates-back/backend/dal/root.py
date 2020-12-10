@@ -10,7 +10,7 @@ from botocore.exceptions import ClientError
 # Local
 from backend.dal.helpers import dynamodb
 from backend.exceptions import UnavailabilityError
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 
 # Constants

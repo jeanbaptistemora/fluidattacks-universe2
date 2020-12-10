@@ -39,7 +39,7 @@ from backend_new.settings.auth import (
     GOOGLE_ARGS
 )
 
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

@@ -15,7 +15,7 @@ from backend.decorators import (
 )
 from backend.domain import finding as finding_domain
 from backend.typing import SimplePayload
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

@@ -8,7 +8,7 @@ from botocore.exceptions import ClientError
 
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Event as EventType
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 from __init__ import (
     FI_AWS_S3_BUCKET,

@@ -56,7 +56,7 @@ from backend.typing import (
     GraphicParameters,
     ReportParameters
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 from backend_new.app.views import templates
 

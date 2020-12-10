@@ -18,7 +18,7 @@ from backend.domain import user as user_domain
 from backend.exceptions import InvalidParameter, RequestedReportError
 from backend.reports import report
 from backend.typing import Report
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

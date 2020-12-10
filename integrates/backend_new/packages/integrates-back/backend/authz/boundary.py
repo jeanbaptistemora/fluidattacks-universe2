@@ -5,7 +5,7 @@ from typing import (
     Tuple,
 )
 
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 # Local libraries
 from .enforcer import (

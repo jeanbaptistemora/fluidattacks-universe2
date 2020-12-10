@@ -15,7 +15,7 @@ from backend.decorators import (
 )
 from backend.domain import user as user_domain
 from backend.typing import AddStakeholderPayload, MailContent
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

@@ -6,7 +6,7 @@ from cloudmersive_virus_api_client.rest import ApiException
 from starlette.datastructures import UploadFile
 
 from backend.exceptions import FileInfected
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 from __init__ import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT

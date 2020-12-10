@@ -33,7 +33,8 @@ from backend.utils import (
     datetime as datetime_utils,
     validations,
 )
-from fluidintegrates.settings import (
+
+from backend_new.settings import (
     LOGGING,
     NOEXTRA
 )

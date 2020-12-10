@@ -11,7 +11,7 @@ from botocore.exceptions import ClientError
 # local imports
 from backend.exceptions import EmptyPoolName
 from backend.dal.helpers import dynamodb
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

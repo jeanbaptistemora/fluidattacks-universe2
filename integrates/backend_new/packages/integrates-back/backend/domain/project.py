@@ -57,7 +57,7 @@ from backend.utils import (
     validations
 )
 from backend import authz, mailer
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

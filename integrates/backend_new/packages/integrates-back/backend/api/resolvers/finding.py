@@ -29,7 +29,7 @@ from backend.utils import (
     findings as finding_utils,
 )
 from backend import util
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

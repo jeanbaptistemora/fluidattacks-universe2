@@ -27,7 +27,7 @@ from backend import util
 
 from backend_new import settings
 
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

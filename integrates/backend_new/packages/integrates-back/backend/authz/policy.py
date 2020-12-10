@@ -28,7 +28,7 @@ from backend.utils import (
 from backend.utils.encodings import (
     safe_encode,
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 from .model import (
     USER_LEVEL_ROLES,
     GROUP_LEVEL_ROLES,

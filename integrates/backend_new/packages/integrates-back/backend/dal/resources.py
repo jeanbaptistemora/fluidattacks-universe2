@@ -3,7 +3,7 @@ from typing import List
 from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.dal import project as project_dal
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 from __init__ import (
     FI_AWS_S3_RESOURCES_BUCKET,

@@ -16,7 +16,7 @@ from zenpy.lib.exception import ZenpyException
 from zenpy.lib.api_objects import Ticket, User
 
 # Local imports
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 from __init__ import (
     FI_ZENDESK_EMAIL,
     FI_ZENDESK_SUBDOMAIN,

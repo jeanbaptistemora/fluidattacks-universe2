@@ -36,7 +36,7 @@ from backend.typing import Organization as OrganizationType
 from backend.utils import (
     datetime as datetime_utils,
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 

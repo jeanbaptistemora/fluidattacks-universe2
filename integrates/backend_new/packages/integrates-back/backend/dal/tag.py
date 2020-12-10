@@ -12,7 +12,7 @@ from backend.typing import (
     DynamoQuery as DynamoQueryType,
     Tag as TagType
 )
-from fluidintegrates.settings import LOGGING
+from backend_new.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
 
