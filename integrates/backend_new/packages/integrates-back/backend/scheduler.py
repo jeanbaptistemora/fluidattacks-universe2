@@ -37,7 +37,6 @@ from backend.typing import (
     Historic as HistoricType,
     MailContent as MailContentType,
     Project as ProjectType,
-    Vulnerability as VulnerabilityType,
 )
 from backend.utils import (
     datetime as datetime_utils,
@@ -507,10 +506,7 @@ async def create_msj_finding_pending(
     ]
     if open_vulns:
         release_date = finding_filters.get_approval_date(act_finding)
-        days = finding_domain.get_age_finding(
-            cast(List[VulnerabilityType], open_vulns),
-            release_date,
-        )
+        days = finding_domain.get_age_finding(release_date)
         finding_name = f'{act_finding["finding"]} -{days} day(s)-'
         result = finding_name
     else:
