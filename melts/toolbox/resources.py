@@ -2,6 +2,7 @@
 
 # Standard library
 import base64
+from contextlib import contextmanager
 import os
 import sys
 import json
@@ -13,7 +14,14 @@ import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from subprocess import DEVNULL, Popen, PIPE, check_output
-from typing import Dict, List, Tuple
+import tempfile
+from typing import (
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Tuple,
+)
 
 # Third parties imports
 import ruamel.yaml as yaml
@@ -61,7 +69,32 @@ def has_vpn(code, subs):
         logger.info("Make sure to run your VPN software before cloning.\n")
 
 
-def repo_url(baseurl, repo):
+@contextmanager
+def setup_ssh_key(baseurl: str) -> Iterator[str]:
+    try:
+        credentials = utils.generic.get_sops_secret(
+            'repo_key', '../config/secrets-prod.yaml', 'continuous-admin')
+        key = base64.b64decode(credentials).decode('utf-8')
+
+        with tempfile.NamedTemporaryFile(delete=False) as keyfile:
+            os.chmod(keyfile.name, 600)
+            keyfile.write(key.encode())
+
+        os.chmod(keyfile.name, 400)
+
+        # Avoid ssh warning prompt:
+        host = baseurl.split('@')[1].split(':')[0]
+        subprocess.getstatusoutput(
+            f"ssh-keyscan -H {host} >> ~/.ssh/known_hosts")
+        yield keyfile.name
+    finally:
+        cmd_execute([
+            'ssh-agent', 'sh', '-c', ';'.join(
+                ('ssh-add -D', f'rm -f {shq(keyfile.name)}'))
+        ])
+
+
+def repo_url(baseurl: str, repo: Optional[str] = None):
     """ return the repo url """
     for user, passw in ['repo_user', 'repo_pass'], \
                        ['repo_user_2', 'repo_pass_2']:
@@ -81,7 +114,7 @@ def repo_url(baseurl, repo):
                 )
                 repo_user = urllib.parse.quote_plus(repo_user)
                 repo_pass = urllib.parse.quote_plus(repo_pass)
-        uri = baseurl + "/" + repo
+        uri = f'{baseurl}/{repo}' if repo else baseurl
         uri = uri.replace('<user>', repo_user)
         uri = uri.replace('<pass>', repo_pass)
         # check if the user has permissions in the repo
@@ -89,6 +122,100 @@ def repo_url(baseurl, repo):
         if 'fatal' not in cmd[1]:
             return uri
     return cmd[1]
+
+
+def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
+    """ cloning or updated a repository ssh """
+    baseurl = git_root['url']
+    if 'source.developers.google' not in baseurl:
+        baseurl = baseurl.replace('ssh://', '')
+    branch = urllib.parse.unquote(git_root['branch'])
+
+    # handle urls special chars in branch names
+    repo_name = baseurl.split('/')[-1]
+    folder = repo_name
+    with setup_ssh_key(baseurl) as keyfile:
+        if os.path.isdir(folder):
+            # Update already existing repo
+            command = [
+                'ssh-agent',
+                'sh',
+                '-c',
+                ';'.join((
+                    f"ssh-add {shq(keyfile)}",
+                    f"git pull origin {shq(branch)}",
+                )),
+            ]
+
+            cmd = cmd_execute(command, folder)
+            if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+                logger.error(f'{repo_name}/{branch} failed')
+                logger.error(cmd[1])
+                return {'repo': repo_name, 'problem': cmd[1]}
+
+            logger.info(f'{repo_name}/{branch} updated')
+            return None
+
+        # Clone repo:
+        command = [
+            'ssh-agent',
+            'sh',
+            '-c',
+            ';'.join((f"ssh-add {shq(keyfile)}", f"git clone -b {shq(branch)} "
+                      f"--single-branch {shq(baseurl)}")),
+        ]
+
+        cmd = cmd_execute(command)
+        if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+            logger.error(f'{repo_name}/{branch} failed')
+            logger.error(cmd[1])
+            return {'repo': repo_name, 'problem': cmd[1]}
+
+        logger.info(f'{repo_name}/{branch} cloned')
+        return None
+
+
+def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
+    """ cloning or updated a repository https """
+    # script does not support vpns atm
+    baseurl = git_root['url']
+    repo_name = baseurl.split('/')[-1]
+    branch = git_root['branch']
+
+    # check if user has access to current repository
+    baseurl = repo_url(git_root['url'])
+    if 'fatal:' in baseurl:
+        logger.error(f'{repo_name}/{branch} failed')
+        logger.error(baseurl)
+        return {'repo': repo_name, 'problem': baseurl}
+
+    branch = git_root['branch']
+    folder = repo_name
+    if os.path.isdir(folder):
+        # Update already existing repo
+        cmd = cmd_execute(['git', 'pull', 'origin', branch], folder)
+        if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+            logger.error(f'{repo_name}/{branch} failed')
+            logger.error(cmd[1:])
+            return {'repo': repo_name, 'problem': cmd[1:]}
+
+        logger.info(f'{repo_name}/{branch} updated')
+        return None
+
+    cmd = cmd_execute([
+        'git',
+        'clone',
+        '-b',
+        branch,
+        '--single-branch',
+        baseurl,
+    ])
+    if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+        logger.error(f'{repo_name}/{branch} failed')
+        return {'repo': repo_name, 'problem': cmd[1:]}
+
+    logger.info(f'{repo_name}/{branch} cloned')
+    return None
 
 
 def ssh_repo_cloning(code) -> list:
