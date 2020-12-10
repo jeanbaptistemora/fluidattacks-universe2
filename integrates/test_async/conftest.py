@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import pytest
-from django.conf import settings
+from backend_new import settings
 
 from backend import authz
 

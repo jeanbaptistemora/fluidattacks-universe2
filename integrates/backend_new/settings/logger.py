@@ -1,11 +1,13 @@
 # Settings logger-related configs
 
 import os
+import json
 import logging.config
 from logging import LogRecord
 from typing import Any
 from boto3.session import Session
 import bugsnag
+import requests
 from graphql import GraphQLError
 from backend.exceptions import (
     DocumentNotFound,
@@ -15,6 +17,8 @@ from backend.exceptions import (
 from backend_new import settings
 
 from __init__ import (
+    CI_COMMIT_AUTHOR,
+    CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
     FI_AWS_CLOUDWATCH_SECRET_KEY,
@@ -119,6 +123,22 @@ bugsnag.configure(
     release_stage=FI_ENVIRONMENT,
     send_environment=True
 )
+
+if FI_ENVIRONMENT == 'production':
+    URL = 'https://build.bugsnag.com'
+    HEADERS = {'Content-Type': 'application/json', 'server': 'None'}
+    PAYLOAD = {
+        'apiKey': FI_BUGSNAG_ACCESS_TOKEN,
+        'appVersion': CI_COMMIT_SHORT_SHA,
+        'builderName': CI_COMMIT_AUTHOR,
+        'releaseStage': FI_ENVIRONMENT,
+        'sourceControl': {
+            'provider': 'gitlab',
+            'repository': 'https://gitlab.com/fluidattacks/product.git',
+            'revision': f'{CI_COMMIT_SHA}/integrates/backend_new/packages',
+        },
+    }
+    requests.post(URL, headers=HEADERS, data=json.dumps(PAYLOAD))
 
 
 def customize_bugsnag_error_reports(notification: Any) -> None:

@@ -41,7 +41,8 @@ from backend.typing import (
 from backend.utils import (
     datetime as datetime_utils,
 )
-from fluidintegrates.settings import (
+
+from backend_new.settings import (
     LOGGING,
     NOEXTRA
 )
