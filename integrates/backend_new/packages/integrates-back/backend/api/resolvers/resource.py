@@ -40,7 +40,6 @@ def _clean_resources_cache(project_name: str) -> None:
         # resource entity related
         f'environments*{project_name}',
         f'files*{project_name}',
-        f'repositories*{project_name}',
         # project entity related
         f'has*{project_name}',
         f'deletion*{project_name}',
@@ -62,48 +61,6 @@ async def resolve_resources_mutation(
         Union[SimplePayloadType, DownloadFilePayloadType],
         await resolver_func(obj, info, **parameters)
     )
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_add_repositories(
-        _: Any,
-        info: GraphQLResolveInfo,
-        repos: List[Dict[str, str]],
-        project_name: str) -> SimplePayloadType:
-    """Resolve add_repositories mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    new_repos = util.camel_case_list_dict(repos)
-    success = await resources.create_repositories(
-        new_repos, project_name, user_email
-    )
-
-    if success:
-        _clean_resources_cache(project_name)
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Added repos to '
-             f'{project_name} project successfully')  # pragma: no cover
-        )
-        await resources.send_mail(
-            project_name,
-            user_email,
-            new_repos,
-            'added',
-            'repository'
-        )
-    else:
-        LOGGER.error('Couldn\'t add repositories', extra={'extra': locals()})
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to add '
-             f'repos to {project_name} project')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

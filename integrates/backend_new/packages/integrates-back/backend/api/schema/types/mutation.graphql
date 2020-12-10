@@ -14,11 +14,6 @@ type Mutation {
         envs: [EnvironmentInput]!
     ): SimplePayload!
 
-    addRepositories(
-        projectName: String!
-        repos: [RepositoryInput]!
-    ): SimplePayload!
-
     createOrganization(name: String!): CreateOrganizationPayload!
 
     updateEnvironment(

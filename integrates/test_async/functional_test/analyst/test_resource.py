@@ -69,23 +69,6 @@ async def test_resource():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    url_repo = 'https://gitlab.com/fluidattacks/url_repo3.git'
-    query = f'''mutation {{
-        addRepositories(projectName: "{group_name}", repos: [
-            {{
-                urlRepo: "{url_repo}",
-                branch: "master",
-                protocol: HTTPS
-            }}
-        ]) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
-
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:

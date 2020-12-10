@@ -49,36 +49,6 @@ async def test_get_resources():
         result['data']['resources']['environments']
 
 @pytest.mark.changes_db
-async def test_add_repositories():
-    """Check for addRepositories mutation."""
-    query = '''mutation {
-      addRepositories(projectName: "unittesting", repos: [
-        {
-          urlRepo: "https://gitlab.com/fluidattacks/new_repo1.git",
-          branch: "master",
-          protocol: HTTPS
-        },
-        {
-          urlRepo: "git@gitlab.com:fluidattacks/new_repo2.git",
-          branch: "master",
-          protocol: SSH
-        },
-        {
-          urlRepo: "https://gitlab.com/fluidattacks/new_repo3.git",
-          branch: "master",
-          protocol: HTTPS
-        }
-      ]) {
-        success
-      }
-    }'''
-    data = {'query': query}
-    result = await _get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addRepositories']
-    assert result['data']['addRepositories']['success']
-
-@pytest.mark.changes_db
 async def test_add_environments():
     """Check for addEnvironments mutation."""
     query = '''mutation {

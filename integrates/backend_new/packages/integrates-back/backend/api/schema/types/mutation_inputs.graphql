@@ -25,15 +25,6 @@ input ExploitResultInput {
   who: String
 }
 
-input RepositoryInput {
-  "Repository branch"
-  branch: String!
-  "Repository protocol for cloning"
-  protocol: RepoProtocol!
-  "Repository URL"
-  urlRepo: String!
-}
-
 input GitRootFilterInput {
   "Paths to be filtered"
   paths: [String!]!

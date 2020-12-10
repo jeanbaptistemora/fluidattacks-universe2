@@ -202,13 +202,6 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
-        'RepoProtocol',
-        {
-            'HTTPS': 'HTTPS',
-            'SSH': 'SSH'
-        }
-    ),
-    EnumType(
         'ReportLang',
         {
             'EN': 'en'

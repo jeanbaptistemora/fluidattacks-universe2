@@ -80,14 +80,6 @@ export const ADD_ENVIRONMENTS_MUTATION: DocumentNode = gql`
   }
 `;
 
-export const ADD_REPOSITORIES_MUTATION: DocumentNode = gql`
-  mutation AddRepositoriesMutation($projectName: String!, $repos: [RepositoryInput]!) {
-    addRepositories(projectName: $projectName, repos: $repos) {
-      success
-    }
-  }
-`;
-
 export const GET_ENVIRONMENTS: DocumentNode = gql`
 query GetEnvironmentsQuery($projectName: String!) {
   resources (projectName: $projectName) {

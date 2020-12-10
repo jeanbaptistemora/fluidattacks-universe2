@@ -153,11 +153,6 @@ enum OrganizationRole {
   GROUP_MANAGER
 }
 
-enum RepoProtocol {
-  HTTPS
-  SSH
-}
-
 enum ReportLang {
   EN
 }

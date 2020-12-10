@@ -35,23 +35,6 @@ async def test_resource():
     assert 'success' in result['data']['addEnvironments']
     assert result['data']['addEnvironments']['success']
 
-    url_repo = 'https://gitlab.com/fluidattacks/url_repo2.git'
-    query = f'''mutation {{
-        addRepositories(projectName: "{group_name}", repos: [
-            {{
-                urlRepo: "{url_repo}",
-                branch: "master",
-                protocol: HTTPS
-            }}
-        ]) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addRepositories']
-    assert result['data']['addRepositories']['success']
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
