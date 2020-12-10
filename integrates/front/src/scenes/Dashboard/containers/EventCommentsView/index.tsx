@@ -9,6 +9,7 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import {
   Comments,
@@ -26,6 +27,7 @@ import { translate } from "utils/translations/translate";
 
 const eventCommentsView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{eventId: string}>();
+  const { t } = useTranslation();
 
   const handleErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,
@@ -44,7 +46,14 @@ const eventCommentsView: React.FC = (): JSX.Element => {
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            callbackFn(data.event.consulting.map((comment: ICommentStructure) => ({
+            const commentsFiltered: ICommentStructure[] = data.event.consulting.filter(
+              (comment: ICommentStructure): boolean => (
+                comment.content !== t("group.tabs.comments.scope.external") &&
+                  comment.content !== t("group.tabs.comments.scope.internal")
+              ),
+            );
+
+            callbackFn(commentsFiltered.map((comment: ICommentStructure) => ({
               ...comment,
               created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(comment.id),

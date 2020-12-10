@@ -51,11 +51,13 @@ async def mutate(
             f'consulting*{event_id}',
             f'comment*{event_id}'
         )
-        event_domain.send_comment_mail(
-            user_email,
-            comment_data,
-            await info.context.loaders['event'].load(event_id)
-        )
+        if content not in {'#external', '#internal'}:
+            event_domain.send_comment_mail(
+                user_email,
+                comment_data,
+                await info.context.loaders['event'].load(event_id)
+            )
+
         util.cloudwatch_log(
             info.context,
             f'Security: Added comment to event {event_id} successfully'

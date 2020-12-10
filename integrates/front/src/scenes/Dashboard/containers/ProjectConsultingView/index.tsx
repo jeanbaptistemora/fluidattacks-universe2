@@ -10,6 +10,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { RouteComponentProps } from "react-router";
 import {
   Comments,
@@ -30,6 +31,7 @@ type IProjectConsultingViewProps = RouteComponentProps<{ projectName: string }>;
 const projectConsultingView: React.FC<IProjectConsultingViewProps> =
   (props: IProjectConsultingViewProps): JSX.Element => {
   const { projectName } = props.match.params;
+  const { t } = useTranslation();
   const onMount: (() => void) = (): void => {
     mixpanel.track("ProjectComments", {
       User: (window as typeof window & { userName: string }).userName,
@@ -73,7 +75,14 @@ const projectConsultingView: React.FC<IProjectConsultingViewProps> =
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
+            const commentsFiltered: ICommentStructure[] = data.project.consulting.filter(
+              (comment: ICommentStructure): boolean => (
+                comment.content !== t("group.tabs.comments.scope.external") &&
+                  comment.content !== t("group.tabs.comments.scope.internal")
+              ),
+            );
+
+            callbackFn(commentsFiltered.map((consult: ICommentStructure) => ({
               ...consult,
               created_by_current_user: consult.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(consult.id),

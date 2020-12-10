@@ -219,9 +219,10 @@ async def _do_add_project_consult(
         datetime_utils.get_now()
     )
     comment_id = int(round(time.time() * 1000))
+    content = parameters.get('content')
     comment_data = {
         'user_id': comment_id,
-        'content': parameters.get('content'),
+        'content': content,
         'created': current_time,
         'fullname': str.join(
             ' ',
@@ -240,11 +241,13 @@ async def _do_add_project_consult(
             f'consulting*{project_name}',
             f'comment*{project_name}'
         )
-        project_domain.send_comment_mail(
-            user_email,
-            comment_data,
-            project_name
-        )
+        if content not in {'#external', '#internal'}:
+            project_domain.send_comment_mail(
+                user_email,
+                comment_data,
+                project_name
+            )
+
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
             f'{project_name} project successfully'  # pragma: no cover
