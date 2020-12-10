@@ -1044,8 +1044,6 @@ function job_integrates_test_e2e {
     &&  env_prepare_python_packages \
     &&  helper_integrates_aws_login 'development' \
     &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-          BROWSERSTACK_USER \
-          BROWSERSTACK_KEY \
           TEST_E2E_AZURE_SEED \
           TEST_E2E_AZURE_USER \
           TEST_E2E_AZURE_PASS \

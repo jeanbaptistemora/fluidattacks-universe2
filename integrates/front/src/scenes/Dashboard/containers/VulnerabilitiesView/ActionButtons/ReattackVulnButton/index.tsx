@@ -49,7 +49,11 @@ const reattackVulnButton: React.FC<IReattackVulnButtonProps> = (props: IReattack
   return (
     <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
       {props.isRequestingReattack ? (
-        <Button onClick={openModal} disabled={!props.areVulnsSelected}>
+        <Button
+          id={"confirm-reattack"}
+          onClick={openModal}
+          disabled={!props.areVulnsSelected}
+        >
           <FluidIcon icon="verified" />&nbsp;
           {translate.t("search_findings.tab_vuln.buttons.reattack")}
         </Button>
@@ -59,7 +63,7 @@ const reattackVulnButton: React.FC<IReattackVulnButtonProps> = (props: IReattack
           ? translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
           : translate.t("search_findings.tab_description.request_verify.tooltip")
         }>
-          <Button onClick={onRequestReattack} disabled={props.isReattackRequestedInAllVuln}>
+          <Button id={"start-reattack"} onClick={onRequestReattack} disabled={props.isReattackRequestedInAllVuln}>
             {props.isRequestingReattack ? (
               <React.Fragment>
                 <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.cancel_verify")}

@@ -198,3 +198,56 @@ def test_finding_tracking(
         '2020-09-09',
         timeout,
     )
+
+
+def test_finding_reattack(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Enter finding
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    finding = utils.wait_for_text(
+        driver,
+        'FIN.H.060. Insecure exceptions',
+        timeout,
+    )
+    finding.click()
+
+    # Reattack all vulnerabilities
+    start_reattack = utils.wait_for_id(
+        driver,
+        'start-reattack',
+        timeout,
+    )
+    start_reattack.click()
+    checkboxes = driver.find_elements_by_css_selector(
+        "#linesVulns input[type='checkbox']")
+    for checkbox in checkboxes:
+        if not checkbox.is_selected():
+            checkbox.click()
+    confirm_reattack = utils.wait_for_id(
+        driver,
+        'confirm-reattack',
+        timeout,
+    )
+    confirm_reattack.click()
+
+    # Cancel reattack
+    treatment = utils.wait_for_name(
+        driver,
+        'treatmentJustification',
+        timeout,
+    )
+    cancel_reattack = utils.wait_for_id(
+        driver,
+        'cancel-remediation',
+        timeout,
+    )
+    assert 'Which was the applied solution?' in driver.page_source
+    treatment.send_keys('test-justification')
+    cancel_reattack.click()

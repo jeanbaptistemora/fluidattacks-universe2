@@ -282,3 +282,30 @@ def test_group_scope_portfolio(
         tag_name,
         timeout,
     )
+
+
+def test_group_pending_to_delete(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    expected_text: str = 'Group pending to delete'
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Enter group home
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/pendingproject')
+    assert utils.wait_for_text(
+        driver,
+        expected_text,
+        timeout,
+    )
+
+    # Enter group vulnerabilities
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/pendingproject/vulns')
+    assert utils.wait_for_text(
+        driver,
+        expected_text,
+        timeout,
+    )
