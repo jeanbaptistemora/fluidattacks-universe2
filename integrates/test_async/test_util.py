@@ -28,12 +28,12 @@ from backend.util import (
     list_to_dict, camelcase_to_snakecase, is_valid_format,
     calculate_hash_token, remove_token, save_token,
     get_field_parameters, get_requested_fields,
-    decrypt_jwt_payload, encrypt_jwt_payload
 )
 from backend.utils import (
     encodings,
     datetime as datetime_utils,
     decodings,
+    token as token_helper
 )
 from backend.dal.finding import get_finding
 from backend_new import settings
@@ -97,7 +97,9 @@ async def test_payload_encrypt_decrypt():
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    result = decrypt_jwt_payload(encrypt_jwt_payload(payload))
+    result = token_helper.decrypt_jwt_payload(
+        token_helper.encrypt_jwt_payload(payload)
+    )
     assert payload == result
 
 async def test_decrypt_temp_support_for_nonencrypted():
@@ -109,7 +111,7 @@ async def test_decrypt_temp_support_for_nonencrypted():
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    result = decrypt_jwt_payload(payload)
+    result = token_helper.decrypt_jwt_payload(payload)
     assert payload == result
 
 async def test_get_jwt_content():

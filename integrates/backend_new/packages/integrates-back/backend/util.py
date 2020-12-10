@@ -26,8 +26,6 @@ from aioextensions import (
     schedule,
 )
 from asgiref.sync import async_to_sync
-from jwcrypto.jwe import JWE
-from jwcrypto.jwk import JWK
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
@@ -66,8 +64,7 @@ from backend.utils import (
     apm,
     datetime as datetime_utils,
     function,
-    encodings,
-    decodings
+    token as token_helper,
 )
 
 from backend_new import settings
@@ -78,7 +75,6 @@ from __init__ import (
     FORCES_TRIGGER_URL,
     FORCES_TRIGGER_REF,
     FORCES_TRIGGER_TOKEN,
-    FI_JWT_ENCRYPTION_KEY
 )
 
 logging.config.dictConfig(settings.LOGGING)
@@ -168,35 +164,6 @@ async def cloudwatch_log_async(request, msg: str) -> None:
     )
 
 
-def encrypt_jwt_payload(payload: dict) -> dict:
-    serialized_payload = encodings.jwt_payload_encode(payload)
-    key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    claims = JWE(
-        algs=[
-            'A256GCM',
-            'A256GCMKW',
-        ],
-        plaintext=serialized_payload.encode('utf-8'),
-        protected={
-            'alg': 'A256GCMKW',
-            'enc': 'A256GCM',
-        },
-        recipient=key,
-    ).serialize()
-    return decodings.jwt_payload_decode(claims)
-
-
-def decrypt_jwt_payload(payload: dict) -> dict:
-    if 'ciphertext' not in payload:
-        return payload
-    serialized_payload = encodings.jwt_payload_encode(payload)
-    key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    result = JWE()
-    result.deserialize(serialized_payload.encode('utf-8'))
-    result.decrypt(key)
-    return decodings.jwt_payload_decode(result.payload.decode('utf-8'))
-
-
 async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
     context_store_key = function.get_id(get_jwt_content)
 
@@ -227,21 +194,21 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
             raise InvalidAuthorization()
 
         payload = jwt.get_unverified_claims(token)
-        payload = decrypt_jwt_payload(payload)
+        payload = token_helper.decrypt_jwt_payload(payload)
         if is_api_token(payload):
             content = jwt.decode(
                 token=token,
                 key=settings.JWT_SECRET_API,
                 algorithms='HS512'
             )
-            content = decrypt_jwt_payload(content)
+            content = token_helper.decrypt_jwt_payload(content)
         else:
             content = jwt.decode(
                 token=token,
                 key=settings.JWT_SECRET,
                 algorithms='HS512'
             )
-            content = decrypt_jwt_payload(content)
+            content = token_helper.decrypt_jwt_payload(content)
             jti = content.get('jti')
             if (content.get('sub') == 'django_session' and
                     not await token_exists(f'fi_jwt:{jti}')):
