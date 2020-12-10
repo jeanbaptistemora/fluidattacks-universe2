@@ -43,7 +43,11 @@ const editButton: React.FC<IEditButtonProps> = (props: IEditButtonProps): JSX.El
             : translate.t("search_findings.tab_vuln.buttons_tooltip.edit")
           }
         >
-          <Button onClick={onEdit} disabled={props.isRequestingReattack || props.isVerifying}>
+          <Button
+            id={"vulnerabilities-edit"}
+            onClick={onEdit}
+            disabled={props.isRequestingReattack || props.isVerifying}
+          >
             {props.isEditing ? (
               <React.Fragment>
                 <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_description.save.text")}

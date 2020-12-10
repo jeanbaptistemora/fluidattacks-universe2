@@ -251,3 +251,37 @@ def test_finding_reattack(
     assert 'Which was the applied solution?' in driver.page_source
     treatment.send_keys('test-justification')
     cancel_reattack.click()
+
+
+def test_finding_vulnerabilities(
+        driver: WebDriver,
+        azure_credentials: AzureCredentials,
+        integrates_endpoint: str,
+        timeout: int) -> None:
+    # Login
+    utils.login_azure(driver, azure_credentials, timeout)
+    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+
+    # Enter finding
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    finding = utils.wait_for_text(
+        driver,
+        'FIN.H.060. Insecure exceptions',
+        timeout,
+    )
+    finding.click()
+
+    # Edit vulnerabilities
+    edit_vulns = utils.wait_for_id(
+        driver,
+        'vulnerabilities-edit',
+        timeout,
+    )
+    edit_vulns.click()
+    checkboxes = driver.find_elements_by_css_selector(
+        "#linesVulns input[type='checkbox']")
+    for checkbox in checkboxes:
+        if not checkbox.is_selected():
+            checkbox.click()
+    assert 'test/data/lib_path/f060/csharp.cs' in driver.page_source
+    edit_vulns.click()
