@@ -77,8 +77,8 @@ const projectConsultingView: React.FC<IProjectConsultingViewProps> =
           ): void => {
             const commentsFiltered: ICommentStructure[] = data.project.consulting.filter(
               (comment: ICommentStructure): boolean => (
-                comment.content !== t("group.tabs.comments.scope.external") &&
-                  comment.content !== t("group.tabs.comments.scope.internal")
+                comment.content.trim() !== t("group.tabs.comments.scope.external") &&
+                  comment.content.trim() !== t("group.tabs.comments.scope.internal")
               ),
             );
 

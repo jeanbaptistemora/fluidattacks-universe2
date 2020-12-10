@@ -51,7 +51,7 @@ async def mutate(
             f'consulting*{event_id}',
             f'comment*{event_id}'
         )
-        if content not in {'#external', '#internal'}:
+        if content.strip() not in {'#external', '#internal'}:
             event_domain.send_comment_mail(
                 user_email,
                 comment_data,

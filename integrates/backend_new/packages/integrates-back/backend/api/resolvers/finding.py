@@ -109,7 +109,7 @@ async def _do_add_finding_consult(
     finding_loader = info.context.loaders['finding']
     finding = await finding_loader.load(finding_id)
     group = finding.get('project_name')
-    content = parameters.get('content')
+    content = parameters['content']
 
     user_email = user_data['user_email']
     comment_id = int(round(time() * 1000))
@@ -146,7 +146,7 @@ async def _do_add_finding_consult(
             f'{param_type}*{finding_id}',
             f'comment*{finding_id}'
         )
-        if content not in {'#external', '#internal'}:
+        if content.strip() not in {'#external', '#internal'}:
             finding_domain.send_comment_mail(
                 user_email,
                 comment_data,

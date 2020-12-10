@@ -219,7 +219,7 @@ async def _do_add_project_consult(
         datetime_utils.get_now()
     )
     comment_id = int(round(time.time() * 1000))
-    content = parameters.get('content')
+    content = parameters['content']
     comment_data = {
         'user_id': comment_id,
         'content': content,
@@ -241,7 +241,7 @@ async def _do_add_project_consult(
             f'consulting*{project_name}',
             f'comment*{project_name}'
         )
-        if content not in {'#external', '#internal'}:
+        if content.strip() not in {'#external', '#internal'}:
             project_domain.send_comment_mail(
                 user_email,
                 comment_data,

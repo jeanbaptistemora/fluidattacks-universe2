@@ -48,8 +48,8 @@ const eventCommentsView: React.FC = (): JSX.Element => {
           ): void => {
             const commentsFiltered: ICommentStructure[] = data.event.consulting.filter(
               (comment: ICommentStructure): boolean => (
-                comment.content !== t("group.tabs.comments.scope.external") &&
-                  comment.content !== t("group.tabs.comments.scope.internal")
+                comment.content.trim() !== t("group.tabs.comments.scope.external") &&
+                  comment.content.trim() !== t("group.tabs.comments.scope.internal")
               ),
             );
 

@@ -68,8 +68,8 @@ const commentsView: React.FC = (): JSX.Element => {
               ? data.finding.consulting
               : data.finding.observations;
             const commentsFiltered: ICommentStructure[] = comments.filter((comment: ICommentStructure): boolean => (
-              comment.content !== t("group.tabs.comments.scope.external") &&
-                comment.content !== t("group.tabs.comments.scope.internal")
+              comment.content.trim() !== t("group.tabs.comments.scope.external") &&
+                comment.content.trim() !== t("group.tabs.comments.scope.internal")
             ));
 
             callbackFn(commentsFiltered.map((comment: ICommentStructure) => ({
