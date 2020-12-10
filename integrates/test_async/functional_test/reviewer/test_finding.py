@@ -275,7 +275,6 @@ async def test_finding():
             isExploitable
             severityScore
             reportDate
-            historicTreatment
             historicState
             currentState
             newRemediated

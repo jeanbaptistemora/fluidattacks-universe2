@@ -108,15 +108,6 @@ async def test_finding():
         'is_exploitable': False,
         'severity_score': 4.3,
         'report_date': '2018-04-07 19:45:11',
-        'historic_treatment': [
-            {
-                'date': '2020-01-03 12:46:10',
-                'treatment': 'ACCEPTED',
-                'justification': 'test justification',
-                'acceptance_date': '2020-01-06 12:46:10',
-                'user': 'unittest@fluidattacks.com'
-            }
-        ],
         'current_state': 'APPROVED',
         'new_remediated': False,
         'verified': True,
@@ -199,7 +190,6 @@ async def test_finding():
             isExploitable
             severityScore
             reportDate
-            historicTreatment
             currentState
             newRemediated
             verified
@@ -252,7 +242,6 @@ async def test_finding():
     assert result['data']['finding']['isExploitable'] == expected_output.get('is_exploitable')
     assert result['data']['finding']['severityScore'] == expected_output.get('severity_score')
     assert result['data']['finding']['reportDate'] == expected_output.get('report_date')
-    assert result['data']['finding']['historicTreatment'] == expected_output.get('historic_treatment')
     assert result['data']['finding']['currentState'] == expected_output.get('current_state')
     assert result['data']['finding']['newRemediated'] == expected_output.get('new_remediated')
     assert result['data']['finding']['verified'] == expected_output.get('verified')
@@ -291,7 +280,6 @@ async def test_finding():
             consulting {{
                 content
             }}
-            historicTreatment
         }}
     }}'''
     data = {'query': query}

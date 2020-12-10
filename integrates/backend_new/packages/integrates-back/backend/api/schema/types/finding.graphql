@@ -17,7 +17,6 @@ type Finding {
   evidence: GenericScalar
   exploit: String
   historicState: [GenericScalar]
-  historicTreatment: [GenericScalar]
   id: String
   inputsVulns: [Vulnerability]
   isExploitable: Boolean

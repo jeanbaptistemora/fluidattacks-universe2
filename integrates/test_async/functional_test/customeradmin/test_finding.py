@@ -192,7 +192,6 @@ async def test_finding():
             isExploitable
             severityScore
             reportDate
-            historicTreatment
             currentState
             newRemediated
             verified
@@ -283,7 +282,6 @@ async def test_finding():
             consulting {{
                 content
             }}
-            historicTreatment
         }}
     }}'''
     data = {'query': query}

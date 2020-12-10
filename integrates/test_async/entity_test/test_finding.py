@@ -128,7 +128,6 @@ async def test_finding():
           severityScore
           reportDate
           analyst
-          historicTreatment
           currentState
           newRemediated
           verified
@@ -209,7 +208,6 @@ async def test_finding():
     assert 'severityScore' in result['data']['finding']
     assert 'reportDate' in result['data']['finding']
     assert 'analyst' in result['data']['finding']
-    assert 'historicTreatment' in result['data']['finding']
     assert 'currentState' in result['data']['finding']
     assert 'newRemediated' in result['data']['finding']
     assert 'verified' in result['data']['finding']

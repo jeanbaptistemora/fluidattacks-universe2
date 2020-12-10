@@ -909,9 +909,5 @@ def format_finding(
         formated_finding['historic_state'] = (
             finding.get('historic_state', [])
         )
-    if not attrs or 'historic_treatment' in attrs:
-        formated_finding['historic_treatment'] = (
-            finding.get('historic_treatment', [])
-        )
 
     return formated_finding

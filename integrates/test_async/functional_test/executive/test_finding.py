@@ -224,7 +224,6 @@ async def test_finding():
             isExploitable
             severityScore
             reportDate
-            historicTreatment
             currentState
             newRemediated
             verified
@@ -315,18 +314,6 @@ async def test_finding():
     assert result['data']['finding']['currentState'] == 'APPROVED'
     assert result['data']['finding']['newRemediated'] == False
     assert result['data']['finding']['verified'] == True
-    historic_treatment = result['data']['finding']['historicTreatment']
-    for index in range(len(historic_treatment)):
-        historic_treatment[index]['date'] = (
-            historic_treatment[index]['date'][:-9]
-        )
-    assert historic_treatment == [
-        {
-            'date': today,
-            'treatment': 'NEW',
-            'user': 'integratesanalyst@fluidattacks.com'
-        }
-    ]
 
     actor = 'ANYONE_INTERNET'
     affected_systems = 'Server bWAPP'
@@ -415,7 +402,6 @@ async def test_finding():
                 content
                 email
             }}
-            historicTreatment
             __typename
         }}
     }}'''

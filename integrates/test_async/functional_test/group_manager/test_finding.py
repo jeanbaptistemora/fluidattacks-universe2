@@ -7,12 +7,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_finding():
-    today = datetime_utils.get_as_str(
-        datetime_utils.get_now(),
-        date_format='%Y-%m-%d'
-    )
     finding_id = '463558592'
-    group_name = 'unittesting'
     expected_output =  {
         'id': finding_id,
         'project_name': 'unittesting',
@@ -193,7 +188,6 @@ async def test_finding():
             isExploitable
             severityScore
             reportDate
-            historicTreatment
             currentState
             newRemediated
             verified
@@ -285,15 +279,6 @@ async def test_finding():
         'consulting': {
             'content': consult_content
         },
-        'historic_treatment': [
-            {
-                'date': '2020-01-03 12:46:10',
-                'treatment': 'ACCEPTED',
-                'justification': 'test justification',
-                'acceptance_date': '2020-01-06 12:46:10',
-                'user': 'unittest@fluidattacks.com'
-            },
-        ],
         'observations':  [
             {
                 'content': consult_content,
@@ -306,7 +291,6 @@ async def test_finding():
             consulting {{
                 content
             }}
-            historicTreatment
             observations{{
                 content
                 email
@@ -317,10 +301,4 @@ async def test_finding():
     result = await get_result(data)
     assert 'errors' not in result
     assert  expected_output.get('consulting') not in result['data']['finding']['consulting']
-    historic_treatment = result['data']['finding']['historicTreatment']
-    for index in range(1, len(historic_treatment)):
-        historic_treatment[index]['date'] = (
-            historic_treatment[index]['date'][:-9]
-        )
-    assert result['data']['finding']['historicTreatment'] == expected_output.get('historic_treatment')
     assert result['data']['finding']['observations'] == expected_output.get('observations')
