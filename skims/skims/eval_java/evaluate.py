@@ -18,6 +18,9 @@ from eval_java.model import (
 from eval_java.taint_rules import (
     generic as generic_taint,
 )
+from utils import (
+    graph as g,
+)
 from utils.ctx import (
     CTX,
 )
@@ -81,4 +84,28 @@ def is_vulnerable(
             index=index,
         )
         if statement.meta.danger
+    )
+
+
+def traverse_vulns(
+    graph: nx.DiGraph,
+    path: str,
+    *,
+    input_type: str,
+    sink_type: str,
+) -> Tuple[g.NAttrs, ...]:
+    return tuple(
+        graph.nodes[graph_path[-1]]
+        for index, graph_path in g.flows(
+            graph,
+            input_type=input_type,
+            sink_type=sink_type,
+        )
+        if is_vulnerable(
+            graph,
+            graph_path,
+            path,
+            sink_type=sink_type,
+            index=index,
+        )
     )

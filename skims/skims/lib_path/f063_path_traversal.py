@@ -2,7 +2,6 @@
 from typing import (
     Awaitable,
     Callable,
-    Iterator,
     List,
     Tuple,
 )
@@ -18,18 +17,15 @@ from graph_java.get import (
     get as java_get_graph,
 )
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_n_attrs_iterator,
+    blocking_get_vulnerabilities_from_n_attrs_iterable,
     EXTENSIONS_JAVA,
     SHIELD,
 )
 from eval_java.evaluate import (
-    is_vulnerable,
+    traverse_vulns,
 )
 from state.cache import (
     CACHE_1SEC,
-)
-from utils import (
-    graph as g,
 )
 from utils.model import (
     Grammar,
@@ -41,38 +37,6 @@ from zone import (
 )
 
 
-def _java_path_traversal(
-    content: str,
-    graph: nx.DiGraph,
-    path: str,
-) -> Tuple[Vulnerability, ...]:
-    sink_type = 'F063_PATH_TRAVERSAL'
-
-    def iterator() -> Iterator[g.NAttrs]:
-        for index, graph_path in g.flows(graph, sink_type=sink_type):
-            if is_vulnerable(
-                graph,
-                graph_path,
-                path,
-                sink_type=sink_type,
-                index=index,
-            ):
-                yield graph.nodes[graph_path[-1]]
-
-    return blocking_get_vulnerabilities_from_n_attrs_iterator(
-        content=content,
-        cwe={'22'},
-        description=t(
-            key='src.lib_path.f063_path_traversal.description',
-            lang='Java',
-            path=path,
-        ),
-        finding=FindingEnum.F063_PATH_TRAVERSAL,
-        n_attrs_iterator=iterator(),
-        path=path,
-    )
-
-
 @CACHE_1SEC
 @SHIELD
 async def java_path_traversal(
@@ -81,9 +45,21 @@ async def java_path_traversal(
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        _java_path_traversal,
+        blocking_get_vulnerabilities_from_n_attrs_iterable,
         content=content,
-        graph=graph,
+        cwe={'22'},
+        description=t(
+            key='src.lib_path.f063_path_traversal.description',
+            lang='Java',
+            path=path,
+        ),
+        finding=FindingEnum.F063_PATH_TRAVERSAL,
+        n_attrs_iterable=traverse_vulns(
+            graph=graph,
+            path=path,
+            input_type='function',
+            sink_type='F063_PATH_TRAVERSAL',
+        ),
         path=path,
     )
 

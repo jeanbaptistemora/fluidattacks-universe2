@@ -4,6 +4,7 @@ import math
 from typing import (
     Any,
     Callable,
+    Iterable,
     Iterator,
     Set,
     Tuple,
@@ -172,13 +173,13 @@ def blocking_get_vulnerabilities_from_iterator(
     return results
 
 
-def blocking_get_vulnerabilities_from_n_attrs_iterator(
+def blocking_get_vulnerabilities_from_n_attrs_iterable(
     content: str,
     cwe: Set[str],
     description: str,
     finding: FindingEnum,
-    n_attrs_iterator: Iterator[NAttrs],
     path: str,
+    n_attrs_iterable: Iterable[NAttrs],
 ) -> Tuple[Vulnerability, ...]:
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
@@ -187,7 +188,7 @@ def blocking_get_vulnerabilities_from_n_attrs_iterator(
         finding=finding,
         iterator=(
             (int(n_attrs['label_l']), int(n_attrs['label_c']))
-            for n_attrs in n_attrs_iterator
+            for n_attrs in n_attrs_iterable
         ),
         path=path,
     )

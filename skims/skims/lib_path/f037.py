@@ -148,10 +148,10 @@ def _java_logging_exceptions(
     def iterator() -> Iterator[Tuple[int, int]]:
 
         for node in yield_nodes(
-                value=model,
-                key_predicates=('CatchClause'.__eq__, ),
-                pre_extraction=(),
-                post_extraction=(),
+            value=model,
+            key_predicates=('CatchClause'.__eq__, ),
+            pre_extraction=(),
+            post_extraction=(),
         ):
             exc_identifier = tuple(item for item in yield_nodes(
                 value=node,
@@ -191,8 +191,8 @@ def _java_logging_exceptions(
                     #     System.out.println(e);
                     # }
                     for var in _yield_java_var_usage(
-                            call[4]['ArgumentList'],
-                            exc_identifier['text'],
+                        call[4]['ArgumentList'],
+                        exc_identifier['text'],
                     ):
                         yield (var['l'], var['c'])
 

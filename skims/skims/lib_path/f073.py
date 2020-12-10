@@ -31,7 +31,7 @@ from lib_path.common import (
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
     blocking_get_vulnerabilities_from_iterator,
-    blocking_get_vulnerabilities_from_n_attrs_iterator,
+    blocking_get_vulnerabilities_from_n_attrs_iterable,
 )
 from state.cache import (
     CACHE_1SEC,
@@ -132,7 +132,7 @@ def _java_switch_without_default(
                 if len(default_ids) == 0:
                     yield graph.nodes[n_id]
 
-    return blocking_get_vulnerabilities_from_n_attrs_iterator(
+    return blocking_get_vulnerabilities_from_n_attrs_iterable(
         content=content,
         cwe={'478'},
         description=t(
@@ -140,7 +140,7 @@ def _java_switch_without_default(
             path=path,
         ),
         finding=FindingEnum.F073,
-        n_attrs_iterator=iterator(),
+        n_attrs_iterable=tuple(iterator()),
         path=path,
     )
 

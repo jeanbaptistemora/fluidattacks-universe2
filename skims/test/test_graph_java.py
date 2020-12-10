@@ -87,7 +87,11 @@ async def test_graph_generation(path: str, name: str) -> None:
     assert graph_as_json_str == expected
 
     for sink in SINKS:
-        for index, graph_path in g.flows(graph, sink_type=sink):
+        for index, graph_path in g.flows(
+            graph,
+            input_type='function',
+            sink_type=sink,
+        ):
             statements = evaluate(
                 graph,
                 graph_path,
@@ -156,7 +160,11 @@ async def test_control_flow_2() -> None:
         path=path,
     )
 
-    assert g.flows(graph, sink_type='F063_PATH_TRAVERSAL') == (
+    assert g.flows(
+        graph,
+        input_type='function',
+        sink_type='F063_PATH_TRAVERSAL',
+    ) == (
         (0, ('30', '85', '87', '91', '125', '185', '286', '351')),
         (1, ('30', '85', '87', '91', '125', '185', '286', '351')),
     )

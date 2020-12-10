@@ -263,8 +263,9 @@ def match_ast(
 
 def flows(
     graph: nx.DiGraph,
+    *,
+    input_type: str,
     sink_type: str,
-    input_type: str = 'function'
 ) -> Tuple[Tuple[int, Tuple[str, ...]], ...]:
 
     def lookup_first_cfg_parent(n_id: str) -> str:

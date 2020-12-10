@@ -28,7 +28,7 @@ from graph_java.get import (
 from lib_path.common import (
     blocking_get_vulnerabilities,
     blocking_get_vulnerabilities_from_iterator,
-    blocking_get_vulnerabilities_from_n_attrs_iterator,
+    blocking_get_vulnerabilities_from_n_attrs_iterable,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
@@ -249,7 +249,7 @@ def _java_declaration_of_throws_for_generic_exception(
                         if c_c_attrs['label_text'] in generics:
                             yield c_c_attrs
 
-    return blocking_get_vulnerabilities_from_n_attrs_iterator(
+    return blocking_get_vulnerabilities_from_n_attrs_iterable(
         content=content,
         cwe={'397'},
         description=t(
@@ -258,7 +258,7 @@ def _java_declaration_of_throws_for_generic_exception(
             path=path,
         ),
         finding=FindingEnum.F060,
-        n_attrs_iterator=iterator(),
+        n_attrs_iterable=tuple(iterator()),
         path=path,
     )
 

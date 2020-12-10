@@ -18,7 +18,7 @@ from graph_java.transformations import (
     styles,
 )
 from state.cache import (
-    CACHE_1SEC,
+    CACHE_ETERNALLY,
 )
 from utils.graph import (
     to_svg,
@@ -34,12 +34,15 @@ from utils.string import (
 )
 
 
-@CACHE_1SEC
+@CACHE_ETERNALLY
 async def get(
     grammar: Grammar,
     *,
     content: bytes,
     path: str,
+    # Update this number to indicate a new graph version
+    # This also invalidates the cache
+    _: int = 0,
 ) -> nx.DiGraph:
     parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
     model = antlr_model.from_parse_tree(parse_tree)
