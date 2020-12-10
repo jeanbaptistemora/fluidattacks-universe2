@@ -54,6 +54,9 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
           case "Exception - Vulnerability not found":
             msgError(translate.t("group_alerts.no_found"));
             break;
+          case "Exception - Invalid characters":
+            msgError(translate.t("validations.invalid_char"));
+            break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
             Logger.warning("An error occurred handling acceptation", error);
