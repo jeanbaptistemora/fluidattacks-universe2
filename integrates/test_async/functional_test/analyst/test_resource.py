@@ -15,7 +15,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            repositories
             environments
             files
             __typename
@@ -28,10 +27,6 @@ async def test_resource():
     assert 'shell.exe' in result['data']['resources']['files']
     assert 'shell2.exe' in result['data']['resources']['files']
     assert 'asdasd.py' in result['data']['resources']['files']
-    assert 'https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F' in \
-        result['data']['resources']['repositories']
-    assert 'https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest' in \
-        result['data']['resources']['repositories']
     assert 'https%3A%2F%2Fsomeoneatfluid.integrates.env.' in \
         result['data']['resources']['environments']
     assert 'https%3A%2F%2Fsomeoneatfluid2.integrates.env.' in \
@@ -41,7 +36,6 @@ async def test_resource():
     assert 'https%3A%2F%2Funittesting.fluidattacks.com%2F' in \
         result['data']['resources']['environments']
     environments = json.loads(result['data']['resources']['environments'])
-    repositories = json.loads(result['data']['resources']['repositories'])
     files = json.loads(result['data']['resources']['files'])
 
     query = f'''
@@ -135,20 +129,6 @@ async def test_resource():
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    query = f'''mutation {{
-        updateRepository(projectName: "{group_name}", state: INACTIVE, repo: {{
-            urlRepo: "{url_repo}",
-            branch: "master",
-            protocol: HTTPS
-        }}) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
-
     query = '''
         mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
@@ -173,7 +153,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            repositories
             environments
             files
             __typename
@@ -182,5 +161,4 @@ async def test_resource():
     data = {'query': query}
     result = await get_result(data)
     assert json.loads(result['data']['resources']['environments']) == environments
-    assert json.loads(result['data']['resources']['repositories']) == repositories
     assert json.loads(result['data']['resources']['files']) == files

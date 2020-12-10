@@ -36,12 +36,6 @@ type Mutation {
         organizationName: String!
     ): SimplePayload!
 
-    updateRepository(
-        projectName: String!
-        repo: RepositoryInput!
-        state: ResourceState!
-    ): SimplePayload!
-
     addFiles(
         file: Upload!
         filesData: JSONString!

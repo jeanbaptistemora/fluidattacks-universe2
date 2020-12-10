@@ -12,7 +12,6 @@ import { MemoryRouter, Route } from "react-router";
 import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView";
 import {
   GET_ENVIRONMENTS,
-  GET_REPOSITORIES,
   GET_TAGS,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import store from "store";
@@ -30,27 +29,6 @@ describe("ProjectSettingsView", () => {
         data: {
           project: {
             tags: ["test"],
-          },
-        },
-      },
-  };
-
-  const mocksRepositories: Readonly<MockedResponse> = {
-      request: {
-        query: GET_REPOSITORIES,
-        variables: {
-          projectName: "TEST",
-        },
-      },
-      result: {
-        data: {
-          resources: {
-            repositories: JSON.stringify([{
-              branch: "test",
-              historic_state: [{ state: "ACTIVE" }],
-              protocol: "HTTPS",
-              urlRepo: "https://gitlab.com/fluidattacks/integrates",
-            }]),
           },
         },
       },

@@ -49,7 +49,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   }, []);
 
   const closeModal: () => void = React.useCallback((): void => {
-    setCurrentRow(undefined);
     setModalOpen(false);
   }, []);
 
@@ -80,6 +79,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     onCompleted: (): void => {
       onUpdate();
       closeModal();
+      setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {

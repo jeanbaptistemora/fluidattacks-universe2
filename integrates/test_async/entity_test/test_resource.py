@@ -27,7 +27,6 @@ async def test_get_resources():
     query = '''{
       resources(projectName: "unittesting"){
         projectName
-        repositories
         environments
         files
         __typename
@@ -46,8 +45,6 @@ async def test_get_resources():
     assert 'shell.exe' in result['data']['resources']['files']
     assert 'shell2.exe' in result['data']['resources']['files']
     assert 'asdasd.py' in result['data']['resources']['files']
-    assert 'https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F' in \
-        result['data']['resources']['repositories']
     assert 'https%3A%2F%2Ffluidattacks.com%2F' in \
         result['data']['resources']['environments']
 
@@ -180,24 +177,6 @@ async def test_remove_files():
     assert 'errors' not in result
     assert 'success' in result['data']['removeFiles']
     assert result['data']['removeFiles']['success']
-
-@pytest.mark.changes_db
-async def test_update_repository():
-    """Check for updateRepository mutation."""
-    query = '''mutation {
-      updateRepository(projectName: "unittesting", state: INACTIVE, repo: {
-        urlRepo: "https://gitlab.com/fluidsignal/unittest",
-        branch: "master",
-        protocol: HTTPS
-      }) {
-        success
-      }
-    }'''
-    data = {'query': query}
-    result = await _get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateRepository']
-    assert result['data']['updateRepository']['success']
 
 @pytest.mark.changes_db
 async def test_update_environment():

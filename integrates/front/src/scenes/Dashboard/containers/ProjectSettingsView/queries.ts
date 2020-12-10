@@ -64,25 +64,9 @@ export const ADD_TAGS_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const GET_REPOSITORIES: DocumentNode = gql`
-  query GetRepositoriesQuery($projectName: String!) {
-    resources (projectName: $projectName) {
-      repositories
-    }
-  }
-  `;
-
 export const UPDATE_ENVIRONMENT_MUTATION: DocumentNode = gql`
   mutation UpdateEnvironmentMutation($projectName: String!, $env: EnvironmentInput!, $state: ResourceState!) {
     updateEnvironment(projectName: $projectName, env: $env, state: $state) {
-      success
-    }
-  }
-`;
-
-export const UPDATE_REPOSITORY_MUTATION: DocumentNode = gql`
-  mutation UpdateRespositoryMutation($projectName: String!, $repo: RepositoryInput!, $state: ResourceState!) {
-    updateRepository(projectName: $projectName, repo: $repo, state: $state) {
       success
     }
   }

@@ -36,5 +36,4 @@ async def resolve(
         'environments': cast(List[Resource], group.get('environments', [])),
         'files': cast(List[Resource], group.get('files', [])),
         'project_name': group_name,
-        'repositories': cast(List[Resource], group.get('repositories', []))
     }

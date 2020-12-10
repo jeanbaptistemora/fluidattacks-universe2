@@ -88,7 +88,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            repositories
             environments
             files
             __typename
@@ -101,13 +100,6 @@ async def test_resource():
     assert today in env['historic_state'][0]['date']
     assert env['historic_state'][0]['state'] == 'ACTIVE'
     assert env['historic_state'][0]['user'] == 'unittest2@fluidattacks.com'
-    repositories = json.loads(result['data']['resources']['repositories'])
-    repo = [repo for repo in repositories if repo['urlRepo'] == quote(url_repo, safe='')][0]
-    assert repo['branch'] == 'master'
-    assert today in repo['historic_state'][0]['date']
-    assert repo['historic_state'][0]['state'] == 'ACTIVE'
-    assert repo['historic_state'][0]['user'] == 'unittest2@fluidattacks.com'
-    assert repo['protocol'] == 'HTTPS'
     files = json.loads(result['data']['resources']['files'])
     file = [file for file in files if file['uploadDate'][:-6] == today][0]
     assert file['uploader'] == 'unittest2@fluidattacks.com'
@@ -143,20 +135,6 @@ async def test_resource():
     assert 'success' in result['data']['updateEnvironment']
     assert result['data']['updateEnvironment']['success']
 
-    query = f'''mutation {{
-        updateRepository(projectName: "{group_name}", state: INACTIVE, repo: {{
-            urlRepo: "{url_repo}",
-            branch: "master",
-            protocol: HTTPS
-        }}) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateRepository']
-
     query = '''
         mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
@@ -182,7 +160,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            repositories
             environments
             files
             __typename
@@ -195,13 +172,6 @@ async def test_resource():
     assert state_today in env['historic_state'][1]['date']
     assert env['historic_state'][1]['state'] == 'INACTIVE'
     assert env['historic_state'][1]['user'] == 'unittest2@fluidattacks.com'
-    repositories = json.loads(result['data']['resources']['repositories'])
-    repo = [repo for repo in repositories if repo['urlRepo'] == quote(url_repo, safe='')][0]
-    assert repo['branch'] == 'master'
-    assert state_today in repo['historic_state'][1]['date']
-    assert repo['historic_state'][1]['state'] == 'INACTIVE'
-    assert repo['historic_state'][1]['user'] == 'unittest2@fluidattacks.com'
-    assert repo['protocol'] == 'HTTPS'
     files = json.loads(result['data']['resources']['files'])
     today_files = [file for file in files if file['uploadDate'][:-6] == today]
     assert today_files == []

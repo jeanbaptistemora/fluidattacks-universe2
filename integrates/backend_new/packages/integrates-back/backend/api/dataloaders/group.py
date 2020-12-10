@@ -61,7 +61,6 @@ def format_group(group: Group) -> Group:
         'name': group['project_name'],
         'open_findings': group.get('open_findings', 0),
         'open_vulnerabilities': group.get('open_vulnerabilities', 0),
-        'repositories': group.get('repositories', []),
         'subscription': historic_configuration[-1]['type'],
         'tags': group.get('tag', []),
         'total_treatment': group.get('total_treatment', {}),
