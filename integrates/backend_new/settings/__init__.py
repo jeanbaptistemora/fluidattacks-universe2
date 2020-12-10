@@ -1,3 +1,8 @@
+from .various import (
+    BASE_DIR,
+    DEBUG,
+    TIME_ZONE
+)
 from .analytics import (
     MIXPANEL_API_TOKEN,
     NEW_RELIC_CONF_FILE
@@ -23,10 +28,6 @@ from .statics import (
     STATIC_URL,
     TEMPLATES_DIR
 )
-from .various import (
-    DEBUG,
-    TIME_ZONE
-)
 
 __all__ = [
     'MIXPANEL_API_TOKEN',
@@ -42,6 +43,7 @@ __all__ = [
     'SESSION_COOKIE_AGE',
     'STATIC_URL',
     'TEMPLATES_DIR',
+    'BASE_DIR',
     'DEBUG',
     'TIME_ZONE'
 ]

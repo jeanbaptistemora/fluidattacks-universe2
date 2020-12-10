@@ -1,5 +1,7 @@
 import os
 
+from backend_new import settings
+
 from __init__ import (
     FI_MIXPANEL_API_TOKEN
 )
@@ -7,7 +9,4 @@ from __init__ import (
 
 MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
 
-BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.dirname((os.path.abspath(__file__))))
-)
-NEW_RELIC_CONF_FILE = os.path.join(BASE_DIR, 'newrelic.ini')
+NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
