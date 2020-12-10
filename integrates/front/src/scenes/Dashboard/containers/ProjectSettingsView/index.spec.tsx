@@ -113,49 +113,6 @@ describe("ProjectSettingsView", () => {
       .toHaveLength(1);
   });
 
-  // Will be removed next MR
-  it.skip("should render repositories component", async () => {
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_update_repository" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={[mocksRepositories]} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectSettingsView />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
-    );
-    await act(async () => { await wait(500); wrapper.update(); });
-    const onerow: ReactWrapper = wrapper
-      .find("BootstrapTable")
-      .find("RowPureContent")
-      .find("Cell");
-    const statuschecked: boolean | undefined = wrapper
-      .find("BootstrapTable")
-      .find("RowPureContent")
-      .find("Cell")
-      .at(4)
-      .find("e")
-      .prop("checked");
-    const protocol: string = wrapper
-      .find("BootstrapTable")
-      .find("RowPureContent")
-      .find("Cell")
-      .at(0)
-      .find("td")
-      .text();
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(onerow)
-      .toHaveLength(5);
-    expect(statuschecked)
-      .toEqual(true || false);
-    expect(protocol)
-      .toMatch(/^(HTTPS|SSH)$/);
-  });
-
   it("should render environments component", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_resource__do_update_environment" },

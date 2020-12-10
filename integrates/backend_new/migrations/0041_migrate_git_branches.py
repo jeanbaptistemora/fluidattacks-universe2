@@ -3,8 +3,8 @@
 """
 This migration splits the url paths from the branch in git roots
 
-Execution Time:
-Finalization Time:
+Execution Time: 2020-12-10 08:40:00 UTC-5
+Finalization Time: 2020-12-10 08:43:00 UTC-5
 """
 # Standard
 import os

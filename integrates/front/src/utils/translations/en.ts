@@ -863,11 +863,7 @@ export const enTranslations: ResourceKey = {
     none_severity: "None",
     openVulnsLabel: "Open vulnerabilities",
     repositories_table: {
-      branch: "Branch",
-      protocol: "Protocol",
-      repository: "Repository URL",
       state: "State",
-      upload_date: "Since",
     },
     services_table: {
       active: "Active",
@@ -1344,10 +1340,6 @@ export const enTranslations: ResourceKey = {
       remove_repository: "Remove",
       repeated_input: "There are repeated values in the form",
       repeated_item: "One or more items to add exist already.",
-      repositories: {
-        add_tooltip: "Add repositories",
-        title: "Repositories",
-      },
       repository: {
         label: "Repository URL",
         tooltip: "Repository URL according to the protocol",
@@ -1363,7 +1355,6 @@ export const enTranslations: ResourceKey = {
       },
       total_envs: "Total environments: ",
       total_files: "Total files: ",
-      total_repos: "Total repositories: ",
       uploading_progress: "Uploading file...",
       warningMessage:
         "Deleting the group will remove its findings and related vulnerabilities." +

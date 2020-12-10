@@ -99,9 +99,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     onCompleted: (): void => {
       onUpdate();
     },
-    onError: (asd: ApolloError): void => {
+    onError: ({ graphQLErrors }: ApolloError): void => {
       msgError(t("group_alerts.error_textsad"));
-      asd.graphQLErrors.forEach((error: GraphQLError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't update root state", error);
       });
     },
