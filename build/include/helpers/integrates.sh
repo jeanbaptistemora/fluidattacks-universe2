@@ -323,7 +323,7 @@ function helper_integrates_sops_vars {
     REDIS_SERVER \
     SQREEN_TOKEN \
     SQS_QUEUE_URL \
-    STARLETTE_TEST_KEY \
+    STARLETTE_SESSION_KEY \
     TEST_PROJECTS \
     ZENDESK_EMAIL \
     ZENDESK_SUBDOMAIN \

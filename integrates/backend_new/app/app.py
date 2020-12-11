@@ -51,7 +51,7 @@ from backend_new import settings
 
 from __init__ import (
     FI_ENVIRONMENT,
-    FI_STARLETTE_TEST_KEY
+    FI_STARLETTE_SESSION_KEY
 )
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
@@ -155,7 +155,7 @@ STARLETTE_APP = Starlette(
         Route('/{full_path:path}', app)
     ],
     middleware=[
-        Middleware(SessionMiddleware, secret_key=FI_STARLETTE_TEST_KEY),
+        Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
         Middleware(CustomRequestMiddleware)
     ]
 )
