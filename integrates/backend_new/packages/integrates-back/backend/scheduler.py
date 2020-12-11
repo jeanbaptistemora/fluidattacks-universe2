@@ -167,8 +167,9 @@ def get_status_vulns_by_time_range(
             elif last_state['state'] == 'DELETED':
                 resp['found'] -= 1
             elif last_state['state'] == 'open' and len(historic_states) > 1:
-                if historic_states[-2]['state'] == 'closed':
-                    resp['found'] += 1
+                if (historic_states[-2]['state'] == 'closed'
+                        and historic_states[-2]['date'] < first_day):
+                    resp['closed'] -= 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
     resp['accepted'] = get_accepted_vulns(vulns, first_day, last_day)
