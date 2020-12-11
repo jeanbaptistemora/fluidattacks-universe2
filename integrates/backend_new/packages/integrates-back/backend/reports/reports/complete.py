@@ -23,7 +23,7 @@ async def generate(
     sheet_values: List[Union[List[str], List[List[str]]]] = [header]
 
     for project in projects:
-        attrs = {'finding_id', 'finding', 'historic_treatment'}
+        attrs = {'finding_id', 'finding'}
         findings = await finding_domain.get_findings_by_group(
             project,
             attrs
@@ -33,20 +33,19 @@ async def generate(
                 [str(finding['finding_id'])]
             )
             for vuln in vulns:
-                historic_treatment = finding.get('historic_treatment', [{}])
+                historic_treatment = cast(
+                    HistoricType,
+                    vuln.get('historic_treatment', [{}])
+                )
                 sheet_values.append([
                     cast(str, vuln['where']),
                     cast(str, vuln['specific']),
                     (f'{str(finding["finding"]).encode("utf-8")!s} '
                      f'(#{str(finding["finding_id"])})'),
-                    cast(
-                        str,
-                        cast(
-                            HistoricType,
-                            historic_treatment
-                        )[-1].get('treatment', '')
+                    historic_treatment[-1].get('treatment', 'NEW'),
+                    historic_treatment[-1].get(
+                        'treatment_manager', 'Unassigned'
                     ),
-                    cast(str, vuln.get('treatment_manager', 'Unassigned'))
                 ])
 
     username = user_email.split('@')[0]

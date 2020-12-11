@@ -15,7 +15,10 @@ from backend.reports.typing import (
     AllVulnsReportHeaderMasked,
     AllVulnsReportHeaderVulns
 )
-from backend.typing import Finding as FindingType
+from backend.typing import (
+    Finding as FindingType,
+    Historic
+)
 
 from __init__ import FI_TEST_PROJECTS
 
@@ -70,16 +73,12 @@ def _format_vuln(
     vuln: Dict[str, FindingType],
     finding: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
-    if not vuln.get('treatment'):
-        if finding.get('TREATMENT'):
-            vuln['treatment'] = finding.get('TREATMENT')
-        else:
-            vuln['treatment'] = 'NEW'
-
-    historic_state = cast(List[Dict[str, str]], vuln.get('historic_state'))
+    historic_state = cast(Historic, vuln.get('historic_state'))
+    historic_treatment = cast(Historic, vuln.get('historic_treatment', [{}]))
     last_state = historic_state[-1]
     opening_state = historic_state[0]
 
+    vuln['treatment'] = historic_treatment[-1].get('treatment', 'NEW')
     if last_state.get('state') == 'closed':
         vuln['treatment'] = 'CLOSED'
         vuln['closing_date'] = last_state.get('date')
