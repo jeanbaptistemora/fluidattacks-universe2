@@ -382,27 +382,6 @@ function job_integrates_functional_tests_mobile_local {
   ||  return 1
 }
 
-function job_integrates_functional_tests_local {
-      pushd "${STARTDIR}/integrates" \
-  &&  helper_integrates_functional_tests \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_functional_tests_dev {
-      pushd "${STARTDIR}/integrates" \
-  &&  CI='true' helper_integrates_functional_tests \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_functional_tests_prod {
-      pushd "${STARTDIR}/integrates" \
-  &&  CI_COMMIT_REF_NAME='master' helper_integrates_functional_tests "no_prod" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'

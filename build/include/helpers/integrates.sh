@@ -252,33 +252,6 @@ function helper_integrates_probe_curl {
   fi
 }
 
-function helper_integrates_functional_tests {
-  local modifier=""
-  if [ $# -eq 1 ]; then
-      local modifier="not $1"
-  fi
-
-      env_prepare_python_packages \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  echo "[INFO] Firefox: ${pkgFirefox}" \
-  &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
-  &&  echo '[INFO] Exporting vars' \
-  &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
-  &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
-  &&  mkdir -p test/functional/screenshots \
-  &&  pytest \
-        -m "${modifier}" \
-        --ds='fluidintegrates.settings' \
-        --verbose \
-        --exitfirst \
-        --basetemp='build/test' \
-        --reruns 10 \
-        --test-group-count "${CI_NODE_TOTAL}" \
-        --test-group "${CI_NODE_INDEX}" \
-        deploy/functional-tests.py
-}
-
 function helper_integrates_mobile_version_playstore {
   local minutes
   local version
