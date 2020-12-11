@@ -4,18 +4,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 # Local libraries
 import utils
 from model import (
-    AzureCredentials
+    Credentials
 )
 
 
 def test_finding_description(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -42,12 +41,11 @@ def test_finding_description(
 
 def test_finding_comments(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -74,12 +72,11 @@ def test_finding_comments(
 
 def test_finding_exploit(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -106,12 +103,11 @@ def test_finding_exploit(
 
 def test_finding_evidence(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -138,12 +134,11 @@ def test_finding_evidence(
 
 def test_finding_severity(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -170,12 +165,11 @@ def test_finding_severity(
 
 def test_finding_tracking(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -202,12 +196,11 @@ def test_finding_tracking(
 
 def test_finding_reattack(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -255,12 +248,11 @@ def test_finding_reattack(
 
 def test_finding_vulnerabilities(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')

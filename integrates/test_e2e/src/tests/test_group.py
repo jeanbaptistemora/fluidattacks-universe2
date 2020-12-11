@@ -4,18 +4,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 # Local libraries
 import utils
 from model import (
-    AzureCredentials
+    Credentials
 )
 
 
 def test_group_consulting(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter group consulting
     driver.get(
@@ -29,12 +28,11 @@ def test_group_consulting(
 
 def test_group_reports(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter reports
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
@@ -53,12 +51,11 @@ def test_group_reports(
 
 def test_group_events(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter event
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/events')
@@ -77,12 +74,11 @@ def test_group_events(
 
 def test_group_analytics(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter Analytics
     driver.get(
@@ -96,12 +92,11 @@ def test_group_analytics(
 
 def test_group_forces(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter execution summary
     driver.get(
@@ -141,12 +136,11 @@ def test_group_forces(
 
 def test_group_scope_repositories(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Add repo
     repo_url: str = utils.rand_name('https://gitlab.com/fluidattacks/test')
@@ -191,12 +185,11 @@ def test_group_scope_repositories(
 
 def test_group_scope_environments(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Add environment
     environment_name: str = utils.rand_name('test-environment')
@@ -229,12 +222,11 @@ def test_group_scope_environments(
 
 def test_group_scope_files(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter Scope
     driver.get(
@@ -248,12 +240,11 @@ def test_group_scope_files(
 
 def test_group_scope_portfolio(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Add tag
     tag_name: str = utils.rand_name('test-portfolio')
@@ -286,13 +277,12 @@ def test_group_scope_portfolio(
 
 def test_group_pending_to_delete(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     expected_text: str = 'Group pending to delete'
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter group home
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/pendingproject')

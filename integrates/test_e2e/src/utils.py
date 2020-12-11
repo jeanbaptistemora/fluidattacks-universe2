@@ -1,8 +1,11 @@
 # Standard libraries
+import json
+from base64 import b64encode
 from random import randint
+from uuid import uuid4 as uuid
 
 # Third party libraries
-from pyotp import TOTP
+from itsdangerous import TimestampSigner
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,13 +14,8 @@ from selenium.webdriver.common.by import By
 
 # Local libraries
 from model import (
-    AzureCredentials
+    Credentials
 )
-
-
-def otp_azure(azure_credentials: AzureCredentials) -> str:
-    totp: TOTP = TOTP(azure_credentials.seed)
-    return str(totp.now())
 
 
 def wait_for_id(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
@@ -64,73 +62,22 @@ def rand_name(prefix: str) -> str:
     return f'{prefix}-{randint(0, 1000)}'
 
 
-def login_azure(
-        driver: WebDriver,
-        azure_credentials: AzureCredentials,
-        timeout: int) -> None:
-    # Load login page
-    driver.get('https://login.microsoftonline.com/')
-
-    # Input user and click next
-    input_user = wait_for_id(
-        driver,
-        'i0116',
-        timeout,
-    )
-    input_user.send_keys(azure_credentials.user)
-    btn_next = wait_for_id(
-        driver,
-        'idSIButton9',
-        timeout,
-    )
-    btn_next.click()
-
-    # Input password and click login
-    input_password = wait_for_id(
-        driver,
-        'i0118',
-        timeout,
-    )
-    input_password.send_keys(azure_credentials.password)
-    btn_login = wait_for_id(
-        driver,
-        'idSIButton9',
-        timeout,
-    )
-    btn_login.click()
-
-    # Input otp and click verify
-    input_otp = wait_for_id(
-        driver,
-        'idTxtBx_SAOTCC_OTC',
-        timeout,
-    )
-    input_otp.send_keys(otp_azure(azure_credentials))
-    btn_verify = wait_for_id(
-        driver,
-        'idSubmit_SAOTCC_Continue',
-        timeout,
-    )
-    btn_verify.click()
-
-    # Wait for home
-    wait_for_url(driver, 'office.com', timeout)
-
-
-def login_integrates_azure(
+def login(
         driver: WebDriver,
         integrates_endpoint: str,
-        timeout: int) -> None:
-    # Load login page
+        credentials: Credentials) -> None:
     driver.get(integrates_endpoint)
+    signer = TimestampSigner(credentials.key)
 
-    # Login with microsoft
-    btn_login = wait_for_id(
-        driver,
-        'login-microsoft',
-        timeout,
-    )
-    btn_login.click()
+    session_cookie = signer.sign(b64encode(json.dumps({
+        'username': credentials.user,
+        'first_name': '',
+        'last_name': '',
+        'session_key': uuid().hex,
+    }).encode())).decode()
 
-    # Wait for home
-    wait_for_url(driver, f'{integrates_endpoint}/orgs/', timeout)
+    driver.add_cookie({
+        'name': 'session',
+        'domain': integrates_endpoint.replace('https://', ''),
+        'value': session_cookie,
+    })

@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.options import Options
 
 # Local libraries
 from model import (
-    AzureCredentials,
+    Credentials,
 )
 
 
@@ -40,14 +40,12 @@ def timeout() -> int:
 
 
 @pytest.fixture(autouse=True, scope='session')
-def azure_credentials() -> AzureCredentials:
-    user: str = os.environ['TEST_E2E_AZURE_USER']
-    password: str = os.environ['TEST_E2E_AZURE_PASS']
-    seed: str = os.environ['TEST_E2E_AZURE_SEED']
-    return AzureCredentials(
+def credentials() -> Credentials:
+    user: str = os.environ['TEST_E2E_USER']
+    key: str = os.environ['STARLETTE_SESSION_KEY']
+    return Credentials(
         user=user,
-        password=password,
-        seed=seed,
+        key=key,
     )
 
 

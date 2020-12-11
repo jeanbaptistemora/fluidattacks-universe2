@@ -2,7 +2,6 @@
 from typing import NamedTuple
 
 
-class AzureCredentials(NamedTuple):
+class Credentials(NamedTuple):
     user: str
-    password: str
-    seed: str
+    key: str

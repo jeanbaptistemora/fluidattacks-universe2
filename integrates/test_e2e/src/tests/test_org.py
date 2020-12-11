@@ -7,18 +7,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 # Local libraries
 import utils
 from model import (
-    AzureCredentials
+    Credentials
 )
 
 
 def test_org_analytics(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter Analytics
     driver.get(
@@ -32,12 +31,11 @@ def test_org_analytics(
 
 def test_org_groups(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Add group
     group_description: str = 'test-group-description'
@@ -69,7 +67,7 @@ def test_org_groups(
 
 def test_org_portfolios(
         driver: WebDriver,
-        azure_credentials: AzureCredentials,
+        credentials: Credentials,
         integrates_endpoint: str,
         timeout: int) -> None:
     expected_charts: List[str] = [
@@ -88,8 +86,7 @@ def test_org_portfolios(
         'Mean time to remediate',
     ]
     # Login
-    utils.login_azure(driver, azure_credentials, timeout)
-    utils.login_integrates_azure(driver, integrates_endpoint, timeout)
+    utils.login(driver, integrates_endpoint, credentials)
 
     # Enter portfolio
     driver.get(f'{integrates_endpoint}/orgs/okada/portfolios')

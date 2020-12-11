@@ -985,16 +985,15 @@ function job_integrates_test_e2e {
     --reruns 3
     --test-group-count "${CI_NODE_TOTAL}"
     --test-group "${CI_NODE_INDEX}"
-    -n 2
+    -n 4
   )
 
       pushd integrates \
     &&  env_prepare_python_packages \
     &&  helper_integrates_aws_login 'development' \
     &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-          TEST_E2E_AZURE_SEED \
-          TEST_E2E_AZURE_USER \
-          TEST_E2E_AZURE_PASS \
+          TEST_E2E_USER \
+          STARLETTE_SESSION_KEY \
     &&  pushd test_e2e \
       &&  pytest "${args_pytest[@]}" < /dev/null \
     &&  popd \
