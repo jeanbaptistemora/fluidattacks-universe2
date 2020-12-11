@@ -59,7 +59,6 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
       <ReattackVulnButton {...props}/>
       <ConfirmZeroRiskVulnButton {...props}/>
       <RejectZeroRiskVulnButton {...props}/>
-      <RequestZeroRiskVulnButton {...props}/>
       <EditButton {...props}/>
     </ButtonToolbarRow>
   );

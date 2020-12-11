@@ -28,11 +28,13 @@ import {
 import { IUpdateTreatmentVulnAttr, IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
   DELETE_TAGS_MUTATION,
+  REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import {
   IDeleteTagAttr,
   IDeleteTagResult,
+  IRequestZeroRiskVulnResult,
   IUpdateTreatmentModal,
   IUpdateVulnDescriptionResult,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
@@ -49,8 +51,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { formatDropdownField } from "utils/formatHelpers";
 import { Date, Dropdown, TagInput, Text, TextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -65,6 +66,7 @@ import {
   validTextField,
   validUrlField,
 } from "utils/validations";
+import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 
 const maxBtsLength: ConfigurableValidator = maxLength(80);
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
@@ -73,7 +75,13 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
 ): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const { handleCloseModal } = props;
+  const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_new_finding_analyst_resolve");
+  const canGetHistoricState: boolean = permissions.can("backend_api_resolvers_new_finding_historic_state_resolve");
+  const canRequestZeroRiskVuln: boolean = permissions.can("backend_api_mutations_request_zero_risk_vuln_mutate");
+  const canUpdateVulnsTreatment: boolean = permissions.can("backend_api_mutations_update_vulns_treatment_mutate");
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
+  const canGetExploit: boolean = groupPermissions.can("has_forces");
+  const { handleClearSelected, handleCloseModal } = props;
   const [isRunning, setRunning] = React.useState(false);
 
   const vulnsTags: string[][] = props.vulnerabilities.map((vuln: IVulnDataType) => sortTags(vuln.tag));
@@ -247,6 +255,36 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
     }});
   };
 
+  const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
+    REQUEST_ZERO_RISK_VULN, {
+    onCompleted: (requestZeroRiskVulnResult: IRequestZeroRiskVulnResult): void => {
+      if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
+        msgSuccess(
+          translate.t("group_alerts.requested_zero_risk_success"),
+          translate.t("group_alerts.updated_title"),
+        );
+        handleClearSelected();
+        handleCloseModal();
+      }
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
+          case "Exception - Zero risk vulnerability is already requested":
+            msgError(translate.t("group_alerts.zero_risk_already_requested"));
+            break;
+          default:
+            msgError(translate.t("group_alerts.error_textsad"));
+            Logger.warning("An error occurred requesting zero risk vuln", error);
+        }
+      });
+    },
+    refetchQueries: [
+      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_FINDING_HEADER, variables: { canGetExploit, canGetHistoricState, findingId: props.findingId } },
+    ],
+  });
+
   const userEmails: string[] = (_.isUndefined(data) || _.isEmpty(data))
     ? [userEmail]
     : data.project.stakeholders.map((stakeholder: Dictionary<string>): string => stakeholder.email);
@@ -259,6 +297,10 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
   const formValues: Dictionary<string> = useSelector((state: {}) =>
     formValueSelector("editTreatmentVulnerability")(state, "treatment", ""));
 
+  const isInProgressSelected: boolean = formValues.treatment === "IN_PROGRESS";
+  const isAcceptedSelected: boolean = formValues.treatment === "ACCEPTED";
+  const isAcceptedUndefinedSelected: boolean = formValues.treatment === "ACCEPTED_UNDEFINED";
+  const isLastTreatmentAcceptanceStatusApproved: boolean = lastTreatment.acceptanceStatus === "APPROVED";
   const isAcceptedUndefinedPendingToApproved: boolean = lastTreatment.treatment === "ACCEPTED_UNDEFINED"
     && lastTreatment.acceptanceStatus !== "APPROVED";
   const treatmentLabel: string = translate.t(formatDropdownField(lastTreatment.treatment)) +
@@ -277,14 +319,24 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
           title={translate.t("search_findings.tab_description.approval_title")}
         >
         {(confirm: IConfirmFn): JSX.Element => {
-          const confirmUndefined: ((values: IUpdateTreatmentVulnAttr) => void) = (
+          const handleSubmit: ((values: IUpdateTreatmentVulnAttr) => void) = (
             values: IUpdateTreatmentVulnAttr,
           ): void => {
+            const changedToZeroRisk: boolean =
+              values.treatment === "ZERO_RISK";
             const changedToUndefined: boolean =
               values.treatment === "ACCEPTED_UNDEFINED"
               && lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
-            if (changedToUndefined) {
+            if (changedToZeroRisk) {
+              void requestZeroRisk({
+                variables: {
+                  findingId: props.findingId,
+                  justification: values.justification,
+                  vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
+                },
+              });
+            } else if (changedToUndefined) {
               confirm((): void => { handleUpdateTreatmentVuln(values); });
             } else {
               handleUpdateTreatmentVuln(values);
@@ -295,7 +347,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             <React.Fragment>
         <GenericForm
           name="editTreatmentVulnerability"
-          onSubmit={confirmUndefined}
+          onSubmit={handleSubmit}
           initialValues={{
             ...lastTreatment,
             externalBts: groupExternalBts(props.vulnerabilities),
@@ -305,167 +357,176 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
         >
           <Row>
             <Col50>
-              <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={Dropdown}
-                    currentValue={treatmentLabel}
-                    label={translate.t("search_findings.tab_description.treatment.title")}
-                    name="treatment"
-                    renderAsEditable={canEdit}
-                    type="text"
-                    validate={isTreatmentPristine ? [] : required}
-                    visibleWhileEditing={canEdit}
-                  >
-                    <option value="" />
-                    <option value="IN_PROGRESS">
-                      {translate.t("search_findings.tab_description.treatment.in_progress")}
+              <EditableField
+                component={Dropdown}
+                currentValue={treatmentLabel}
+                label={translate.t("search_findings.tab_description.treatment.title")}
+                name="treatment"
+                renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
+                type="text"
+                validate={isTreatmentPristine ? [] : required}
+              >
+                <option value="" />
+                { canUpdateVulnsTreatment
+                  ? <React.Fragment>
+                      <option value="IN_PROGRESS">
+                        {translate.t("search_findings.tab_description.treatment.in_progress")}
+                      </option>
+                      <option value="ACCEPTED">
+                        {translate.t("search_findings.tab_description.treatment.accepted")}
+                      </option>
+                      <option value="ACCEPTED_UNDEFINED">
+                        {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
+                      </option>
+                    </React.Fragment>
+                  : undefined
+                }
+                { canRequestZeroRiskVuln
+                  ? <option value="ZERO_RISK">
+                      {translate.t("search_findings.tab_description.treatment.zero_risk")}
                     </option>
-                    <option value="ACCEPTED">
-                      {translate.t("search_findings.tab_description.treatment.accepted")}
-                    </option>
-                    <option value="ACCEPTED_UNDEFINED">
-                      {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
-                    </option>
-                  </EditableField>
-                )}
-              </Can>
+                  : undefined
+                }
+              </EditableField>
             </Col50>
-            {lastTreatment.acceptanceStatus === "APPROVED" ? (
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>
-                    <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
-                  </ControlLabel>
-                  <p>{lastTreatment.user}</p>
-                </FormGroup>
-              </Col50>
-            ) : undefined}
+            { isLastTreatmentAcceptanceStatusApproved
+              ? <Col50>
+                  <FormGroup>
+                    <ControlLabel>
+                      <b>{translate.t("search_findings.tab_description.acceptation_user")}</b>
+                    </ControlLabel>
+                    <p>{lastTreatment.user}</p>
+                  </FormGroup>
+                </Col50>
+              : undefined
+            }
           </Row>
-          {formValues.treatment === "IN_PROGRESS" ? (
-          <Row>
-            <Col50>
-              <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
-                {(canEdit: boolean): JSX.Element => (
+          { isInProgressSelected
+            ? <Row>
+                <Col50>
                   <EditableField
                     component={Dropdown}
                     currentValue={_.get(lastTreatment, "treatmentManager", "")}
                     label={translate.t("search_findings.tab_description.treatment_mgr")}
                     name="treatmentManager"
-                    renderAsEditable={canEdit}
+                    renderAsEditable={canUpdateVulnsTreatment}
                     type="text"
-                    visibleWhileEditing={canEdit}
                   >
                     <option value="" />
                     {userEmails.map((email: string, index: number): JSX.Element => (
                       <option key={index} value={email}>{email}</option>
                     ))}
                   </EditableField>
-                )}
-              </Can>
-            </Col50>
-          </Row>
-          ) : undefined}
+                </Col50>
+              </Row>
+            : undefined
+          }
           <Row>
             <Col100>
-              <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={TextArea}
-                    currentValue={lastTreatment.justification as string}
-                    label={translate.t("search_findings.tab_description.treatment_just")}
-                    name="justification"
-                    renderAsEditable={canEdit}
-                    type="text"
-                    validate={isTreatmentPristine ? [] : [required, validTextField, maxTreatmentJustificationLength]}
-                    visibleWhileEditing={canEdit}
-                  />
-                )}
-              </Can>
+              <EditableField
+                component={TextArea}
+                currentValue={lastTreatment.justification as string}
+                label={translate.t("search_findings.tab_description.treatment_just")}
+                name="justification"
+                renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
+                type="text"
+                validate={
+                  isTreatmentPristine
+                  ? undefined
+                  : [required, validTextField, maxTreatmentJustificationLength]
+                }
+              />
             </Col100>
           </Row>
-          {formValues.treatment === "ACCEPTED" ? (
-            <Row>
-              <Col50>
-                <Can do="backend_api_mutations_update_vulns_treatment_mutate" passThrough={true}>
-                  {(canEdit: boolean): JSX.Element => (
+          { isAcceptedSelected
+            ? <Row>
+                <Col50>
+                  <EditableField
+                    component={Date}
+                    currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
+                    label={translate.t("search_findings.tab_description.acceptance_date")}
+                    name="acceptanceDate"
+                    renderAsEditable={canUpdateVulnsTreatment}
+                    type="date"
+                    validate={[required, isLowerDate]}
+                  />
+                </Col50>
+              </Row>
+            : undefined
+          }
+          { isInProgressSelected
+            || isAcceptedSelected
+            || isAcceptedUndefinedSelected
+            ? <React.Fragment>
+                <Row>
+                  <Col100>
                     <EditableField
-                      component={Date}
-                      currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
-                      label={translate.t("search_findings.tab_description.acceptance_date")}
-                      name="acceptanceDate"
-                      renderAsEditable={canEdit}
-                      type="date"
-                      validate={[required, isLowerDate]}
-                      visibleWhileEditing={canEdit}
+                      component={Text}
+                      currentValue={groupExternalBts(props.vulnerabilities)}
+                      label={translate.t("search_findings.tab_description.bts")}
+                      name="externalBts"
+                      placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
+                      renderAsEditable={canUpdateVulnsTreatment}
+                      type="text"
+                      validate={[maxBtsLength, validUrlField]}
                     />
-                  )}
-                </Can>
-              </Col50>
-            </Row>
-          ) : undefined}
-          <Row>
-            <Col100>
-              <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln" passThrough={true}>
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={Text}
-                    currentValue={groupExternalBts(props.vulnerabilities)}
-                    label={translate.t("search_findings.tab_description.bts")}
-                    name="externalBts"
-                    placeholder={translate.t("search_findings.tab_description.bts_placeholder")}
-                    renderAsEditable={canEdit}
-                    type="text"
-                    validate={[maxBtsLength, validUrlField]}
-                  />
-                )}
-              </Can>
-            </Col100>
-          </Row>
-          <Row>
-            <Col100>
-              <FormGroup>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_description.tag")}</b>
-                </ControlLabel>
-                <Field component={TagInput} name="tag" onDeletion={handleDeletion} type="text" />
-              </FormGroup>
-            </Col100>
-            <Col50>
-              <FormGroup>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
-                </ControlLabel>
-                <Field
-                  component={Text}
-                  name="severity"
-                  type="number"
-                  validate={[isValidVulnSeverity, numeric]}
-                />
-              </FormGroup>
-            </Col50>
-          </Row>
-          <Row>
-            <Col50>
-              <Button onClick={handleDeleteTag}>
-                <Glyphicon glyph="minus" />&nbsp;
-                {translate.t("search_findings.tab_description.deleteTags")}
-              </Button>
-            </Col50>
-          </Row>
+                  </Col100>
+                </Row>
+                <Row>
+                  <Col100>
+                    <FormGroup>
+                      <ControlLabel>
+                        <b>{translate.t("search_findings.tab_description.tag")}</b>
+                      </ControlLabel>
+                      <Field component={TagInput} name="tag" onDeletion={handleDeletion} type="text" />
+                    </FormGroup>
+                  </Col100>
+                  <Col50>
+                    <FormGroup>
+                      <ControlLabel>
+                        <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
+                      </ControlLabel>
+                      <Field
+                        component={Text}
+                        name="severity"
+                        type="number"
+                        validate={[isValidVulnSeverity, numeric]}
+                      />
+                    </FormGroup>
+                  </Col50>
+                </Row>
+                <Row>
+                  <Col50>
+                    <Button onClick={handleDeleteTag}>
+                      <Glyphicon glyph="minus" />&nbsp;
+                      {translate.t("search_findings.tab_description.deleteTags")}
+                    </Button>
+                  </Col50>
+                </Row>
+              </React.Fragment>
+            : undefined
+          }
         </GenericForm>
         <ButtonToolbar className="pull-right">
           <Button onClick={handleCloseModal}>
             {translate.t("group.findings.report.modal_close")}
           </Button>
-          <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
-            <Button
-              disabled={updatingVuln || deletingTag || isRunning || (isEditPristine && isTreatmentPristine)}
-              onClick={handleEditTreatment}
-            >
-              {translate.t("confirmmodal.proceed")}
-            </Button>
-          </Can>
+            { canRequestZeroRiskVuln
+              || canUpdateVulnsTreatment
+              ? <Button
+                  disabled={
+                    requestingZeroRisk
+                    || updatingVuln
+                    || deletingTag
+                    || isRunning
+                    || (isEditPristine && isTreatmentPristine)
+                  }
+                  onClick={handleEditTreatment}
+                >
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              : undefined
+            }
         </ButtonToolbar>
         </React.Fragment>
           );

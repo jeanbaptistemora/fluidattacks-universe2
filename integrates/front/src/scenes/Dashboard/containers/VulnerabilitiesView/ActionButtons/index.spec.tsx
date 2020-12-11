@@ -121,7 +121,7 @@ describe("ActionButtons", () => {
       .toHaveLength(0);
   });
 
-  it("should render request zero risk", async () => {
+  it.skip("should render request zero risk", async () => {
     const requestZeroRiskMockProps: IActionButtonsProps = {
       ...baseMockedProps,
     };

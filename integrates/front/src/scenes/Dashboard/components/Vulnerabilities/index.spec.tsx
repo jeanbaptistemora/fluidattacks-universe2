@@ -512,6 +512,7 @@ describe("Vulnerabilities view", () => {
   });
 
   it("should render update treatment", async () => {
+    const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResult = { updateTreatmentVuln : { success: true } };
     const mutationVariables: Dictionary<boolean | string | number > = {
@@ -573,6 +574,7 @@ describe("Vulnerabilities view", () => {
               findingId="480857698"
               vulnerabilities={vulns}
               vulnerabilitiesChunk={1}
+              handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
             />
           </authzPermissionsContext.Provider>
@@ -581,12 +583,6 @@ describe("Vulnerabilities view", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
 
-    const externalBts: ReactWrapper = wrapper
-      .find({ name: "externalBts" })
-      .find("input");
-    externalBts
-      .at(0)
-      .simulate("change", { target: { value: "http://test.t" } });
     const treatment: ReactWrapper = wrapper.find({ name: "treatment" })
       .find("select")
       .at(0);
@@ -595,6 +591,12 @@ describe("Vulnerabilities view", () => {
       .at(0);
     treatment.simulate("change", { target: { value: "IN_PROGRESS" }});
     treatmentJustification.simulate("change", { target: { value: "test justification to treatment" }});
+    const externalBts: ReactWrapper = wrapper
+      .find({ name: "externalBts" })
+      .find("input");
+    externalBts
+      .at(0)
+      .simulate("change", { target: { value: "http://test.t" } });
 
     await act(async () => { await wait(0); wrapper.update(); });
     const treatmentManager: ReactWrapper = wrapper
@@ -618,6 +620,7 @@ describe("Vulnerabilities view", () => {
   });
 
   it("should render error update treatment", async () => {
+    const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const mocksError: MockedResponse = {
       request: {
@@ -651,6 +654,7 @@ describe("Vulnerabilities view", () => {
               findingId="480857698"
               vulnerabilities={vulns}
               vulnerabilitiesChunk={100}
+              handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
             />
           </authzPermissionsContext.Provider>

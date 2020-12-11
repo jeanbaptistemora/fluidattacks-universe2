@@ -76,6 +76,7 @@ describe("Update Description component", () => {
 
   it("list editable fields", async () => {
     const handleOnClose: jest.Mock = jest.fn();
+    const handleClearSelected: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={[]} addTypename={false}>
@@ -84,6 +85,7 @@ describe("Update Description component", () => {
               findingId="1"
               vulnerabilities={vulns}
               vulnerabilitiesChunk={1}
+              handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
             />
           </authzPermissionsContext.Provider>
@@ -97,7 +99,7 @@ describe("Update Description component", () => {
         expect(wrapper)
           .toHaveLength(1);
         expect(wrapper.find({ renderAsEditable: true }))
-          .toHaveLength(3);
+          .toHaveLength(2);
 
         const treatment: ReactWrapper = wrapper.find({ name: "treatment" })
           .find("select")

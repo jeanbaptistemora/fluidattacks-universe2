@@ -1103,6 +1103,7 @@ export const enTranslations: ResourceKey = {
         pending_approval: " (Pending approval)",
         rejected: "Rejected",
         title: "Treatment",
+        zero_risk: "Zero risk",
       },
       treatment_date: "Treatment Date",
       treatment_historic: "Historic Treatment",

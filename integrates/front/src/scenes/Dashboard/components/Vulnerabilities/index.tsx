@@ -212,6 +212,8 @@ interface ICalculateRowsSelected {
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
     const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+    const canRequestZeroRiskVuln: boolean = permissions.can("backend_api_mutations_request_zero_risk_vuln_mutate");
+    const canUpdateVulnsTreatment: boolean = permissions.can("backend_api_mutations_update_vulns_treatment_mutate");
 
     // State management
     const [allVulns, setAllVulns] = useState<IVulnRow[][]>([]);
@@ -948,19 +950,17 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     projectName={props.projectName}
                     vulnerabilities={vulnerabilitiesList}
                     vulnerabilitiesChunk={100}
+                    handleClearSelected={clearSelectedRows}
                     handleCloseModal={handleCloseTableSetClick}
                   />
-                : undefined }
-                {props.editMode ? (
-                  <React.Fragment>
-                    <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
-                      {renderButtonUpdateVuln()}
-                    </Can>
-                    <Can do="backend_api_mutations_upload_file_mutate">
-                      <UploadVulnerabilites {...props} />
-                    </Can>
-                  </React.Fragment>
-                ) : undefined}
+                  : undefined}
+                { props.editMode ?
+                    canUpdateVulnsTreatment
+                    || canRequestZeroRiskVuln
+                    ? renderButtonUpdateVuln()
+                    : undefined
+                  : undefined
+                }
               </React.StrictMode>
             );
           } else { return <React.Fragment />; }

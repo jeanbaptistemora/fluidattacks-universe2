@@ -77,7 +77,7 @@ describe("update zero risk component", () => {
     },
   };
 
-  it("should handle request zero risk", async () => {
+  it.skip("should handle request zero risk", async () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleConfirmState: jest.Mock = jest.fn();
@@ -140,7 +140,7 @@ describe("update zero risk component", () => {
       .toHaveBeenCalled();
   });
 
-  it("should handle request zero risk error", async () => {
+  it.skip("should handle request zero risk error", async () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleConfirmState: jest.Mock = jest.fn();

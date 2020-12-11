@@ -5,6 +5,7 @@ interface IUpdateTreatmentModal {
   projectName?: string;
   vulnerabilities: IVulnDataType[];
   vulnerabilitiesChunk: number;
+  handleClearSelected(): void;
   handleCloseModal(): void;
 }
 
@@ -29,9 +30,16 @@ interface IUpdateVulnDescriptionResult {
   };
 }
 
+interface IRequestZeroRiskVulnResult {
+  requestZeroRiskVuln: {
+    success: boolean;
+  };
+}
+
 export {
   IDeleteTagAttr,
   IDeleteTagResult,
+  IRequestZeroRiskVulnResult,
   IUpdateTreatmentModal,
   IUpdateVulnDescriptionResult,
 };

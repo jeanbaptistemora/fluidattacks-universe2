@@ -45,4 +45,11 @@ const DELETE_TAGS_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { DELETE_TAGS_MUTATION, UPDATE_DESCRIPTION_MUTATION };
+const REQUEST_ZERO_RISK_VULN: DocumentNode = gql`
+mutation RequestZeroRiskVuln ($findingId: String!, $justification: String!, $vulnerabilities: [String]!){
+  requestZeroRiskVuln(findingId: $findingId, justification: $justification, vulnerabilities: $vulnerabilities) {
+    success
+  }
+}`;
+
+export { DELETE_TAGS_MUTATION, REQUEST_ZERO_RISK_VULN, UPDATE_DESCRIPTION_MUTATION };
