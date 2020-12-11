@@ -341,7 +341,7 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
 async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
     LOGGER.info(msg, extra={'extra': locals()})
-    fin_attrs = {'finding_id', 'historic_treatment', 'project_name', 'finding'}
+    fin_attrs = {'finding_id', 'project_name', 'finding'}
     context: MailContentType = {
         'updated_findings': list(),
         'no_treatment_findings': list()
@@ -645,7 +645,7 @@ async def send_unsolved_to_all() -> None:
 
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
-    fin_attrs = {'finding_id', 'historic_treatment', 'cvss_temporal'}
+    fin_attrs = {'finding_id', 'cvss_temporal'}
     findings = await finding_domain.get_findings_by_group(
         project,
         fin_attrs

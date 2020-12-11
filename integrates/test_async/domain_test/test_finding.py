@@ -252,7 +252,7 @@ async def test_mask_finding():
     assert test_data == expected_output
 
     finding = await finding_dal.get_finding(finding_id)
-    assert finding.get('historic_treatment', [{}])[-1].get('user') == 'Masked'
+    assert finding.get('historic_state', [{}])[-1].get('analyst') == 'Masked'
 
 async def test_validate_evidence_exploit():
     evidence_id = 'exploit'

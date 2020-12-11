@@ -82,7 +82,7 @@ async def test_format_data():
     expected_keys = [
         'context', 'modifiedSeverityScope', 'availabilityRequirement',
         'evidence', 'availabilityImpact','exploit',
-        'modifiedPrivilegesRequired', 'historicTreatment',
+        'modifiedPrivilegesRequired',
         'modifiedAttackVector', 'testType', 'id', 'affectedSystems',
         'attackVectorDesc', 'requirements', 'severity', 'cvssBasescore',
         'userInteraction', 'actor', 'cvssEnv', 'privilegesRequired',

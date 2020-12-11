@@ -380,10 +380,6 @@ async def is_pending_verification(finding_id: str) -> bool:
 async def mask_finding(finding_id: str) -> bool:
     finding = await finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)
-    historic_treatment = cast(
-        List[Dict[str, str]],
-        finding.get('historicTreatment', [])
-    )
     historic_verification = cast(
         List[Dict[str, str]],
         finding.get('historicVerification', [])
@@ -404,10 +400,6 @@ async def mask_finding(finding_id: str) -> bool:
             attr: 'Masked'
             for attr in attrs_to_mask
         })
-    )
-
-    mask_finding_coroutines.append(
-        finding_utils.mask_treatment(finding_id, historic_treatment)
     )
 
     mask_finding_coroutines.append(

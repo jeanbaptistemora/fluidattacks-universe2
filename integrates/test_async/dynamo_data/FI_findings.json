@@ -141,42 +141,6 @@
           "severity_scope": {
             "N": "0"
           },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "treatment": {
-                    "S": "NEW"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "date": {
-                    "S": "2019-04-07 19:59:06"
-                  },
-                  "treatment": {
-                    "S": "ACCEPTED_UNDEFINED"
-                  },
-                  "justification": {
-                    "S": "test justification eternally accepted"
-                  },
-                  "user": {
-                    "S": "continuoushacking@gmail.com"
-                  },
-                  "acceptance_status": {
-                    "S": "SUBMITTED"
-                  }
-                }
-              }
-            ]
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -560,26 +524,6 @@
                   },
                   "state": {
                     "S":"APPROVED"
-                  }
-                }
-              }
-            ]
-          },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "justification": {
-                    "S": "test justification"
-                  },
-                  "treatment": {
-                    "S": "IN PROGRESS"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
                   }
                 }
               }
@@ -1040,23 +984,6 @@
               }
             ]
           },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "treatment": {
-                    "S": "NEW"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              }
-            ]
-          },
           "historic_verification": {
             "L" : [
               {
@@ -1381,29 +1308,6 @@
                   },
                   "state": {
                     "S":"APPROVED"
-                  }
-                }
-              }
-            ]
-          },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "acceptance_date": {
-                    "S": "2020-01-06 12:46:10"
-                  },
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "justification": {
-                    "S": "test justification"
-                  },
-                  "treatment": {
-                    "S": "ACCEPTED"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
                   }
                 }
               }
@@ -1819,29 +1723,6 @@
           "severity_scope": {
             "N": "0"
           },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "acceptance_date": {
-                    "S": "2020-01-06 12:46:10"
-                  },
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "justification": {
-                    "S": "test justification"
-                  },
-                  "treatment": {
-                    "S": "ACCEPTED"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              }
-            ]
-          },
           "historic_verification": {
             "L" : [
               {
@@ -2228,26 +2109,6 @@
               }
             ]
           },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "justification": {
-                    "S": "test justification"
-                  },
-                  "treatment": {
-                    "S": "IN PROGRESS"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              }
-            ]
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -2453,23 +2314,6 @@
           },
           "severity_scope": {
             "N": "0"
-          },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "treatment": {
-                    "S": "NEW"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              }
-            ]
           },
           "report_level": {
             "S": "GENERAL"
@@ -2694,39 +2538,6 @@
           },
           "severity_scope": {
             "N": "0"
-          },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "treatment": {
-                    "S": "NEW"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-04 12:46:10"
-                  },
-                  "justification": {
-                    "S": "test justification"
-                  },
-                  "treatment": {
-                    "S": "IN PROGRESS"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              }
-            ]
           },
           "report_level": {
             "S": "GENERAL"
@@ -2998,26 +2809,6 @@
               }
             ]
           },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2020-01-03 12:46:10"
-                  },
-                  "justification": {
-                    "S": "test justification"
-                  },
-                  "treatment": {
-                    "S": "IN PROGRESS"
-                  },
-                  "user": {
-                    "S": "unittest@fluidattacks.com"
-                  }
-                }
-              }
-            ]
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -3237,58 +3028,6 @@
           },
           "user_interaction": {
             "N": "0.85"
-          },
-          "historic_treatment": {
-            "L": [
-              {
-                "M": {
-                  "date": {
-                    "S": "2019-04-07 19:43:18"
-                  },
-                  "treatment": {
-                    "S": "NEW"
-                  },
-                  "user": {
-                    "S": "integratesmanager@gmail.com"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "date": {
-                    "S": "2019-04-07 19:59:06"
-                  },
-                  "treatment": {
-                    "S": "ACCEPTED_UNDEFINED"
-                  },
-                  "justification": {
-                    "S": "test justification eternally accepted"
-                  },
-                  "user": {
-                    "S": "integratesuser@gmail.com"
-                  },
-                  "acceptance_status": {
-                    "S": "SUBMITTED"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "treatment": {
-                    "S": "ACCEPTED_UNDEFINED"
-                  },
-                  "justification": {
-                    "S": "Observations about eternally accepted finding and its vulns"
-                  },
-                  "user": {
-                    "S": "integratesuser@gmail.com"
-                  },
-                  "acceptance_status": {
-                    "S": "APPROVED"
-                  }
-                }
-              }
-            ]
           },
           "cvss_basescore": {
             "N": "7.3"

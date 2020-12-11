@@ -153,11 +153,6 @@ async def create_draft(
         'files': [],
         'finding': title,
         'historic_state': [submission_history],
-        'historic_treatment': [{
-            'treatment': 'NEW',
-            'date': creation_date,
-            'user': analyst_email
-        }]
     })
 
     if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', title):

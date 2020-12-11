@@ -1,8 +1,8 @@
 """
 This migration aims to delete historic_treatment from finding
 
-Execution Time:
-Finalization Time:
+Execution Time:    2020-12-11 11:47:27 UTC-5
+Finalization Time: 2020-12-11 11:49:21 UTC-5
 """
 # Standard library
 from itertools import chain
