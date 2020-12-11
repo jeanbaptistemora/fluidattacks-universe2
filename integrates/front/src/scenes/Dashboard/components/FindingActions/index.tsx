@@ -5,12 +5,12 @@
 
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";
 
@@ -31,7 +31,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
   const canApprove: boolean = props.hasVulns && props.hasSubmission;
 
   return (
-    <ButtonToolbar className="pull-right">
+    <ButtonToolbar>
       {props.isDraft ? (
         <React.Fragment>
           <Can do="backend_api_mutations_submit_draft_mutate">

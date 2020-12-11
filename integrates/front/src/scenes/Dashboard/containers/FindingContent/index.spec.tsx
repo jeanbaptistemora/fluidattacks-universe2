@@ -306,7 +306,7 @@ describe("FindingContent", () => {
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
-    const submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
+    const submitButton: ReactWrapper = wrapper.find("findingContent")
       .at(0)
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.text()
@@ -400,7 +400,7 @@ describe("FindingContent", () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        const submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
+        const submitButton: ReactWrapper = wrapper.find("findingContent")
           .at(0)
           .find("Button")
           .filterWhere((element: ReactWrapper) => element.text()
@@ -409,7 +409,7 @@ describe("FindingContent", () => {
       });
     });
     await act(async () => { await wait(0); });
-    const submitButtonAfterSubmit: ReactWrapper = wrapper.find("ButtonToolbar")
+    const submitButtonAfterSubmit: ReactWrapper = wrapper.find("findingContent")
       .at(0)
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.text()
@@ -457,7 +457,7 @@ describe("FindingContent", () => {
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
-    const submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
+    const submitButton: ReactWrapper = wrapper.find("findingContent")
       .at(0)
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.text()
@@ -508,7 +508,7 @@ describe("FindingContent", () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        const approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
+        const approveButton: ReactWrapper = wrapper.find("findingContent")
           .at(0)
           .find("Button")
           .filterWhere((element: ReactWrapper) => element.text()
@@ -529,7 +529,7 @@ describe("FindingContent", () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        const approveButtonAfterProceed: ReactWrapper = wrapper.find("ButtonToolbar")
+        const approveButtonAfterProceed: ReactWrapper = wrapper.find("findingContent")
           .at(0)
           .find("Button")
           .filterWhere((element: ReactWrapper) => element.text()
@@ -579,7 +579,7 @@ describe("FindingContent", () => {
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
-    const approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
+    const approveButton: ReactWrapper = wrapper.find("findingContent")
       .at(0)
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.text()
@@ -640,7 +640,7 @@ describe("FindingContent", () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        const rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
+        const rejectButton: ReactWrapper = wrapper.find("findingContent")
           .at(0)
           .find("Button")
           .filterWhere((element: ReactWrapper) => element.text()
@@ -661,7 +661,7 @@ describe("FindingContent", () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        const rejectButtonAfterProceed: ReactWrapper = wrapper.find("ButtonToolbar")
+        const rejectButtonAfterProceed: ReactWrapper = wrapper.find("findingContent")
           .at(0)
           .find("Button")
           .filterWhere((element: ReactWrapper) => element.text()
@@ -710,7 +710,7 @@ describe("FindingContent", () => {
       </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
-    const rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
+    const rejectButton: ReactWrapper = wrapper.find("findingContent")
       .at(0)
       .find("Button")
       .filterWhere((element: ReactWrapper) => element.text()

@@ -38,7 +38,7 @@ import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index
 import {
   ButtonToolbar,
   Col100,
-  Col80,
+  Col60,
   ControlLabel,
   FormGroup,
   Row,
@@ -54,6 +54,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
+import { ButtonCol } from "./components/buttoncol";
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
@@ -220,10 +221,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           <Col100>
             <React.Fragment>
               <Row>
-                <Col80>
+                <Col60>
                   <h2>{headerData.finding.title}</h2>
-                </Col80>
-                <div>
+                </Col60>
+                <ButtonCol>
                   <FindingActions
                     isDraft={isDraft}
                     hasVulns={hasVulns}
@@ -234,7 +235,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     onReject={rejectDraft}
                     onSubmit={submitDraft}
                   />
-                </div>
+                </ButtonCol>
               </Row>
               <hr />
               <StickyContainerFinding>
