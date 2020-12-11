@@ -23,10 +23,6 @@ SUBS_METAVAR = '[GROUP]'
     default=utils.generic.get_current_group(),
     callback=utils.generic.is_valid_group)
 @option(
-    '--check-repos',
-    default=utils.generic.get_current_group(),
-    metavar=SUBS_METAVAR)
-@option(
     '--clone-from-customer-git',
     'clone',
     is_flag=True,
@@ -51,7 +47,6 @@ SUBS_METAVAR = '[GROUP]'
     '--read-prod', is_flag=True, help='read the prod secrets of a group')
 def resources_management(
     group,
-    check_repos,
     clone,
     clone_2,
     fingerprint,
@@ -80,7 +75,5 @@ def resources_management(
         success = resources.read_secrets(group, 'prod', 'continuous-admin')
     elif login:
         success = utils.generic.okta_aws_login(f'continuous-{group}')
-    elif check_repos != 'unspecified-subs':
-        success = resources.check_repositories(check_repos)
 
     sys.exit(0 if success else 1)

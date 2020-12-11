@@ -3,7 +3,6 @@ import os
 from typing import List
 
 # Third party libraries
-import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox.drills import generic as drills_generic
@@ -12,6 +11,8 @@ from toolbox import (
     logger,
     utils,
 )
+from toolbox.constants import API_TOKEN
+from toolbox.api import integrates
 
 
 def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
@@ -33,15 +34,17 @@ def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
 
 def delete_out_of_scope_files(group: str) -> bool:
     path_to_fusion: str = os.path.join('groups', group, 'fusion')
-    path_to_config: str = os.path.join('groups', group, 'config', 'config.yml')
 
-    with open(path_to_config) as config_handle:
-        config_obj: dict = yaml.safe_load(config_handle)
-
-    include_regexps = tuple(
-        rule['regex'] for rule in config_obj['coverage']['lines']['include'])
-    exclude_regexps = tuple(
-        rule['regex'] for rule in config_obj['coverage']['lines']['exclude'])
+    filter_request = integrates.Queries.git_roots_filter(API_TOKEN, group)
+    if not filter_request.ok:
+        logger.error(filter_request.errors)
+        return False
+    filters = tuple(rule['filter']
+                    for rule in filter_request.data['project']['roots'])
+    include_regexps = tuple(rule for root in filters for rule in root['paths']
+                            if root['policy'] == 'INCLUDE')
+    exclude_regexps = tuple(rule for root in filters for rule in root['paths']
+                            if root['policy'] == 'EXCLUDE')
 
     non_matching_files_iterator = utils.file.iter_non_matching_files(
         path=path_to_fusion,

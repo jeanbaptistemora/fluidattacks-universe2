@@ -21,7 +21,6 @@ from typing import (
     Iterator,
     List,
     Optional,
-    Tuple,
 )
 
 # Third parties imports
@@ -554,66 +553,6 @@ def get_fingerprint(subs: str) -> bool:
     return True
 
 
-def get_active_missing_repos(subs):
-    """ Get inactive and missing repositories in the config file """
-    path: str = f"groups/{subs}"
-    repos: Tuple = (None, None)
-    config_file: str = f'groups/{subs}/config/config.yml'
-    if not os.path.exists(path):
-        logger.error(f"There is no project with the name: {subs}")
-        return repos
-
-    with open(config_file) as config_handle:
-        config = yaml.safe_load(config_handle.read())
-        if 'code' not in config:
-            return repos
-
-    repositories: List[Dict] = utils.integrates.get_project_repos(subs)
-    integrates_active: List[str] = []
-    # Filter active repositories
-    for repo in repositories:
-        repo_full_url = repo.get('urlRepo', None)
-        repo_branch = repo.get('branch', None)
-        if not repo_full_url or not repo_branch:
-            continue
-        if 'historic_state' not in repo \
-                or repo['historic_state'][-1:][0]['state'] == 'ACTIVE':
-            integrates_active.append(f'{repo_full_url}/{repo_branch}')
-
-    if not os.path.isfile(config_file):
-        logger.error("No config file in the current directory")
-        return repos
-
-    with open(config_file) as config_handle:
-        config = yaml.safe_load(config_handle.read())
-        repos_config: List[Dict] = config.get('code', []) or []
-        repo_names: List[str] = []
-        for repo in repos_config:
-            repo_names.extend(
-                ''.join(
-                    i.split('/')[-2])
-                for i in repo.get('branches') or [])
-        inactive_repos: List[str] = []
-        missing_repos: List[str] = []
-        for repo in repo_names:
-            is_inactive = next((
-                False
-                for active in integrates_active
-                if repo in active), True)
-            if is_inactive:
-                inactive_repos.append(repo)
-        for active in integrates_active:
-            is_missing = next((
-                False
-                for repo in repo_names
-                if repo in active), True)
-            if is_missing:
-                missing_repos.append(active)
-        if missing_repos or inactive_repos:
-            repos = (inactive_repos, missing_repos)
-    return repos
-
-
 def print_inactive_missing_repos(group, inactive_repos,
                                  missing_repos) -> None:
     print(json.dumps({
@@ -624,20 +563,6 @@ def print_inactive_missing_repos(group, inactive_repos,
             'missing': missing_repos,
         }
     }))
-
-
-def check_repositories(subs) -> bool:
-    projects = os.listdir('groups')
-    if subs != 'all':
-        projects = [subs]
-    for project in projects:
-        inactive_repos, missing_repos = get_active_missing_repos(project)
-        if inactive_repos or missing_repos:
-            print_inactive_missing_repos(project, inactive_repos,
-                                         missing_repos)
-        elif subs != 'all':
-            return False
-    return True
 
 
 def fluidcounts(path):

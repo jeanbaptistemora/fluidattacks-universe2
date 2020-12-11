@@ -28,9 +28,3 @@ def test_toolbox_get_fingerprint(relocate):
     assert not resources.get_fingerprint('testfinger')
     os.rmdir(os.path.join('groups/testfinger', "fusion"))
     os.rmdir(os.path.join('groups', "testfinger"))
-
-
-def test_toolbox_check_repositories(relocate):
-    """Run required toolbox commands."""
-    assert resources.check_repositories(SUBS)
-    assert not resources.check_repositories(SUBS_BAD)
