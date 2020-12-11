@@ -11,8 +11,10 @@ from toolbox import (
     logger,
     utils,
 )
-from toolbox.constants import API_TOKEN
-from toolbox.api import integrates
+from toolbox.utils.integrates import (
+    get_include_rules,
+    get_exclude_rules,
+)
 
 
 def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
@@ -35,16 +37,8 @@ def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
 def delete_out_of_scope_files(group: str) -> bool:
     path_to_fusion: str = os.path.join('groups', group, 'fusion')
 
-    filter_request = integrates.Queries.git_roots_filter(API_TOKEN, group)
-    if not filter_request.ok:
-        logger.error(filter_request.errors)
-        return False
-    filters = tuple(rule['filter']
-                    for rule in filter_request.data['project']['roots'])
-    include_regexps = tuple(rule for root in filters for rule in root['paths']
-                            if root['policy'] == 'INCLUDE')
-    exclude_regexps = tuple(rule for root in filters for rule in root['paths']
-                            if root['policy'] == 'EXCLUDE')
+    include_regexps = get_include_rules(group)
+    exclude_regexps = get_exclude_rules(group)
 
     non_matching_files_iterator = utils.file.iter_non_matching_files(
         path=path_to_fusion,

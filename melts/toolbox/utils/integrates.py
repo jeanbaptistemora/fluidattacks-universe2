@@ -2,6 +2,7 @@
 import json
 from typing import (
     List,
+    Tuple,
 )
 
 # Local imports
@@ -22,3 +23,25 @@ def get_project_repos(project: str) -> List:
         logger.error(response.errors)
 
     return repositories
+
+
+def get_include_rules(group: str) -> Tuple[str, ...]:
+    filter_request = api.integrates.Queries.git_roots_filter(API_TOKEN, group)
+    if not filter_request.ok:
+        logger.error(filter_request.errors)
+        return tuple()
+    filters = tuple(rule['filter']
+                    for rule in filter_request.data['project']['roots'])
+    return tuple(rule for root in filters for rule in root['paths']
+                 if root['policy'] == 'INCLUDE')
+
+
+def get_exclude_rules(group: str) -> Tuple[str, ...]:
+    filter_request = api.integrates.Queries.git_roots_filter(API_TOKEN, group)
+    if not filter_request.ok:
+        logger.error(filter_request.errors)
+        return tuple()
+    filters = tuple(rule['filter']
+                    for rule in filter_request.data['project']['roots'])
+    return tuple(rule for root in filters for rule in root['paths']
+                 if root['policy'] == 'EXCLUDE')

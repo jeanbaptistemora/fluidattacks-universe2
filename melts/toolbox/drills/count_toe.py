@@ -1,11 +1,9 @@
 # Standard library
 import os
 import csv
-import glob
 from datetime import datetime
 
 # Third party libraries
-import ruamel.yaml as yaml
 import boto3
 from botocore.exceptions import ClientError
 
@@ -15,20 +13,10 @@ from toolbox import (
     utils,
 )
 from toolbox.utils.function import shield
-
-# Constants
-INCLUDES_BY_SUBS: dict = {
-    config['name']:
-    tuple(rule['regex'] for rule in config['coverage']['lines']['include'])
-    for config_path in glob.glob('groups/*/config/config.yml')
-    for config in (yaml.safe_load(open(config_path)),)
-}
-EXCLUDES_BY_SUBS: dict = {
-    config['name']:
-    tuple(rule['regex'] for rule in config['coverage']['lines']['exclude'])
-    for config_path in glob.glob('groups/*/config/config.yml')
-    for config in (yaml.safe_load(open(config_path)),)
-}
+from toolbox.utils.integrates import (
+    get_include_rules,
+    get_exclude_rules,
+)
 
 
 def get_dynamodb_resource():
@@ -52,8 +40,8 @@ def count_lines(subs, file_csv):
             filename: str = row[0]
             if not utils.file.is_covered(
                     path=filename,
-                    include_regexps=INCLUDES_BY_SUBS[subs],
-                    exclude_regexps=EXCLUDES_BY_SUBS[subs]):
+                    include_regexps=get_include_rules(subs),
+                    exclude_regexps=get_exclude_rules(subs)):
                 skipped += int(row[1]) if row[1] else 0
                 continue
 
