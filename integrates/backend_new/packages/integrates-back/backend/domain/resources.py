@@ -51,11 +51,7 @@ def format_resource(resource_list: List[ResourceType], resource_type: str) -> \
         List[Dict[str, str]]:
     resource_description = []
     for resource_item in resource_list:
-        if resource_type == 'repository':
-            repo_url = resource_item.get('urlRepo')
-            repo_branch = resource_item.get('branch')
-            resource_text = f'Repository: {repo_url} Branch: {repo_branch}'
-        elif resource_type == 'environment':
+        if resource_type == 'environment':
             resource_text = str(resource_item.get('urlEnv', ''))
         elif resource_type == 'file':
             resource_text = str(resource_item.get('fileName', ''))
@@ -75,9 +71,7 @@ async def send_mail(
     resource_description = format_resource(resource_list, resource_type)
     org_id = await org_domain.get_id_for_group(project_name)
     org_name = await org_domain.get_name_by_id(org_id)
-    if resource_type == 'repository' and len(resource_list) > 1:
-        resource_type = 'repositories'
-    elif len(resource_list) > 1:
+    if len(resource_list) > 1:
         resource_type = '{}s'.format(resource_type)
     else:
         # resource_type is the same
@@ -218,42 +212,6 @@ def has_repeated_envs(
     return has_repeated_inputs or has_repeated_existing
 
 
-def has_repeated_repos(
-        project_name: str,
-        existing_repos: List[ResourceType],
-        repos: List[ResourceType]) -> bool:
-    unique_inputs = list({
-        (repo['urlRepo'], repo['branch'], repo.get('protocol', '')): repo
-        for repo in repos
-    }.values())
-    has_repeated_inputs = len(repos) != len(unique_inputs)
-
-    all_repos = [
-        {
-            'urlRepo': repo['urlRepo'],
-            'branch': repo['branch'],
-            'protocol': repo.get('protocol', '')
-        }
-        for repo in existing_repos
-    ] + repos
-
-    unique_repos = list({
-        (repo['urlRepo'], repo['branch'], repo.get('protocol')): repo
-        for repo in all_repos
-    }.values())
-    has_repeated_existing = len(all_repos) != len(unique_repos)
-
-    if has_repeated_existing:
-        for repository in unique_repos:
-            if all_repos.count(repository) > 1 and repository not in repos:
-                LOGGER.warning(
-                    "Duplicated repository",
-                    extra=dict(repo=repository, project=project_name)
-                )
-
-    return has_repeated_inputs or has_repeated_existing
-
-
 def encode_resources(res_data: List[Dict[str, str]]) -> List[ResourceType]:
     return [
         {
@@ -272,45 +230,6 @@ def create_initial_state(user_email: str) -> Dict[str, str]:
         ),
         'state': 'ACTIVE'
     }
-
-
-async def create_repositories(
-        res_data: List[Dict[str, str]],
-        project_name: str,
-        user_email: str) -> bool:
-
-    project_name = project_name.lower()
-
-    repositories = await project_dal.get_attributes(
-        project_name.lower(), ['repositories']
-    )
-    existing_repos = cast(
-        List[ResourceType], repositories.get('repositories', [])
-    )
-
-    res_data_enc = encode_resources(res_data)
-    if has_repeated_repos(project_name, existing_repos, res_data_enc):
-        raise RepeatedValues()
-
-    json_data: List[ResourceType] = []
-    for res in res_data_enc:
-        url_repo = str(res.get('urlRepo', ''))
-        branch = str(res.get('branch', ''))
-        validations.validate_field_length(url_repo, 300)
-        validations.validate_field_length(unquote(branch), 40)
-        res_object: ResourceType = {
-            'urlRepo': url_repo,
-            'branch': branch,
-            'protocol': res.get('protocol', 'HTTPS'),
-            'historic_state': [create_initial_state(user_email)],
-        }
-        json_data.append(res_object)
-
-    existing_repos.extend(json_data)
-
-    return await project_dal.update(
-        project_name, {'repositories': existing_repos}
-    )
 
 
 async def create_environments(
@@ -353,17 +272,10 @@ async def update_resource(
         user_email: str) -> bool:
     res_list: List[ResourceType] = []
     project_info = await project_dal.get_attributes(
-        project_name.lower(), ['environments', 'repositories']
+        project_name.lower(), ['environments']
     )
 
-    if res_type == 'repository':
-        res_list = cast(
-            List[ResourceType],
-            project_info.get('repositories', [])
-        )
-        res_id = 'urlRepo'
-        res_name = 'repositories'
-    elif res_type == 'environment':
+    if res_type == 'environment':
         res_list = cast(
             List[ResourceType],
             project_info.get('environments', [])
@@ -373,13 +285,7 @@ async def update_resource(
 
     resource_exists = False
     for resource in res_list:
-        if res_type == 'repository':
-            matches = (
-                unquote(cast(str, resource['branch'])),
-                resource.get('protocol', ''),
-                unquote(cast(str, resource['urlRepo']))
-            ) == tuple(res_data.values())
-        elif res_type == 'environment':
+        if res_type == 'environment':
             src_url_env = unquote(cast(str, resource['urlEnv']))
             matches = src_url_env == res_data['urlEnv']
 
