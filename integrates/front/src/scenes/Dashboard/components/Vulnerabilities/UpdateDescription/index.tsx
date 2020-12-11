@@ -10,7 +10,7 @@ import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Glyphicon } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { Field, formValueSelector, isPristine, submit } from "redux-form";
@@ -45,6 +45,7 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import {
+  ButtonToolbar,
   Col100,
   Col50,
   ControlLabel,
@@ -507,7 +508,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
             : undefined
           }
         </GenericForm>
-        <ButtonToolbar className="pull-right">
+        <ButtonToolbar>
           <Button onClick={handleCloseModal}>
             {translate.t("group.findings.report.modal_close")}
           </Button>
