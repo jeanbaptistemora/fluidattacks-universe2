@@ -46,14 +46,7 @@ const eventCommentsView: React.FC = (): JSX.Element => {
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            const commentsFiltered: ICommentStructure[] = data.event.consulting.filter(
-              (comment: ICommentStructure): boolean => (
-                comment.content.trim() !== t("group.tabs.comments.scope.external") &&
-                  comment.content.trim() !== t("group.tabs.comments.scope.internal")
-              ),
-            );
-
-            callbackFn(commentsFiltered.map((comment: ICommentStructure) => ({
+            callbackFn(data.event.consulting.map((comment: ICommentStructure) => ({
               ...comment,
               created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(comment.id),

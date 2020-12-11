@@ -67,12 +67,7 @@ const commentsView: React.FC = (): JSX.Element => {
             const comments: ICommentStructure[] = type === "consult"
               ? data.finding.consulting
               : data.finding.observations;
-            const commentsFiltered: ICommentStructure[] = comments.filter((comment: ICommentStructure): boolean => (
-              comment.content.trim() !== t("group.tabs.comments.scope.external") &&
-                comment.content.trim() !== t("group.tabs.comments.scope.internal")
-            ));
-
-            callbackFn(commentsFiltered.map((comment: ICommentStructure) => ({
+            callbackFn(comments.map((comment: ICommentStructure) => ({
               ...comment,
               created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(comment.id),

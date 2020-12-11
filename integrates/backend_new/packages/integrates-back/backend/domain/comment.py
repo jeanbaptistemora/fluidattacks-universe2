@@ -77,6 +77,24 @@ async def get_comments(
     return comments
 
 
+def _filter_scope(comment: CommentType):
+    return str(comment['content']).strip() not in {'#external', '#internal'}
+
+
+async def get_finding_comments_without_scope(
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    comments = await get_comments(
+        project_name,
+        finding_id,
+        user_email,
+    )
+
+    new_comments = filter(_filter_scope, comments)
+    return list(new_comments)
+
+
 async def get_event_comments(
         project_name: str,
         finding_id: str,
@@ -89,6 +107,21 @@ async def get_event_comments(
     )
 
     return comments
+
+
+async def get_event_comments_without_scope(
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    comments = await get_event_comments(
+        project_name,
+        finding_id,
+        user_email
+    )
+
+    new_comments = filter(_filter_scope, comments)
+
+    return list(new_comments)
 
 
 async def get_fullname(
@@ -169,6 +202,20 @@ async def get_observations(
     )
 
     return observations
+
+
+async def get_observations_without_scope(
+        project_name: str,
+        finding_id: str,
+        user_email: str) -> List[CommentType]:
+    observations = await get_observations(
+        project_name,
+        finding_id,
+        user_email
+    )
+
+    new_observations = filter(_filter_scope, observations)
+    return list(new_observations)
 
 
 async def create(

@@ -5,7 +5,10 @@ from typing import cast, Dict, List
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
+from backend import (
+    authz,
+    util
+)
 from backend.decorators import get_entity_cache_async
 from backend.domain import comment as comment_domain
 from backend.typing import Comment, Finding
@@ -22,8 +25,18 @@ async def resolve(
 
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
+    is_reviewer: bool = await authz.get_user_level_role(
+        user_email
+    ) == 'reviewer'
 
-    return await comment_domain.get_comments(
+    if is_reviewer:
+        return await comment_domain.get_comments(
+            group_name,
+            finding_id,
+            user_email
+        )
+
+    return await comment_domain.get_finding_comments_without_scope(
         group_name,
         finding_id,
         user_email
