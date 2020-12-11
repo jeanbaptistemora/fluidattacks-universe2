@@ -212,11 +212,33 @@ async def test_create_msj_finding_pending():
     assert expected_output in test_data
 
 async def test_get_project_indicators():
-    project_name = 'unittesting'
-    test_data = await get_project_indicators(project_name)
+    group_name = 'unittesting'
+    findings = await get_findings_by_group(group_name)
+    vulns = await list_vulnerabilities_async(
+        [finding['finding_id'] for finding in findings]
+    )
+    test_data = await get_project_indicators(group_name)
+    over_time = [element[-12:] for element in test_data['remediated_over_time']]
+    found = over_time[0][-1]['y']
+    closed = over_time[1][-1]['y']
+    accepted = over_time[2][-1]['y']
+
     assert isinstance(test_data, dict)
     assert len(test_data) == 14
     assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))
+    assert found == len(
+        [vuln for vuln in vulns if vuln['historic_state'][-1].get('state') != 'DELETED']
+    )
+    assert accepted == len(
+        [vuln for vuln in vulns
+         if vuln.get('historic_treatment', [{}])[-1].get(
+             'treatment'
+         ) in {'ACCEPTED', 'ACCEPTED_UNDEFINED'}
+         and vuln['historic_state'][-1].get('state') == 'open']
+    )
+    assert closed == len(
+        [vuln for vuln in vulns if vuln['historic_state'][-1].get('state') == 'closed']
+    )
 
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
