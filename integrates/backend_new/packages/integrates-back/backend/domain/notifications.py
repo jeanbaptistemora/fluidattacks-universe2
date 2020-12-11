@@ -253,3 +253,51 @@ async def new_password_protected_report(
             }
         )
     ))
+
+
+async def request_health_check(
+    requester_email: str,
+    group_name: str,
+    repo_url: str,
+    branch: str
+) -> None:
+    await in_thread(
+        notifications_dal.create_ticket,
+        subject=f'[Integrates] Health Check requested: {group_name}',
+        description=f"""
+            You are receiving this email because you have requested a health
+            check for a repository through Integrates by Fluid Attacks.
+
+            Here are the details of the repository:
+            - URL: {repo_url}
+            - branch: {branch}
+
+            If you require any further information,
+            do not hesitate to contact us.
+        """,
+        requester_email=requester_email,
+    )
+
+
+async def cancel_health_check(
+    requester_email: str,
+    group_name: str,
+    repo_url: str,
+    branch: str
+) -> None:
+    await in_thread(
+        notifications_dal.create_ticket,
+        subject=f'[Integrates] Health Check canceled: {group_name}',
+        description=f"""
+            You are receiving this email because you have canceled a health
+            check for a repository through Integrates by Fluid Attacks.
+
+            Here are the details of the repository:
+            - URL: {repo_url}
+            - branch: {branch}
+
+            If you require any further information,
+            do not hesitate to contact us.
+        """,
+        requester_email=requester_email,
+    )

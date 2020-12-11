@@ -11,7 +11,10 @@ from urllib3.util.url import parse_url, Url
 # Local
 from backend import authz
 from backend.dal import root as root_dal
-from backend.domain import organization as org_domain
+from backend.domain import (
+    notifications as notifications_domain,
+    organization as org_domain
+)
 from backend.exceptions import (
     InvalidParameter,
     PermissionDenied,
@@ -143,6 +146,13 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
 
         if await _is_git_unique_in_org(org_id, url, branch):
             await root_dal.create(group_name, root_attributes)
+            if kwargs['includes_health_check']:
+                await notifications_domain.request_health_check(
+                    requester_email=user_email,
+                    group_name=group_name,
+                    repo_url=url,
+                    branch=branch
+                )
         else:
             raise RepeatedValues()
     else:
@@ -269,11 +279,13 @@ def _is_active(root: Dict[str, Any]) -> bool:
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
     root_id: str = kwargs['id']
     root: Dict[str, Any] = await get_root_by_id(root_id)
+    last_state: Dict[str, Any] = root['historic_state'][-1]
     is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
+    filter_changed: bool = kwargs.get('filter') != last_state.get('filter')
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
-        kwargs.get('filter') != root['historic_state'][-1].get('filter')
+        filter_changed
         and not enforcer(root['group_name'], 'update_git_root_filter')
     ):
         raise PermissionDenied()
@@ -294,6 +306,25 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             root_id,
             {'historic_state': [*root['historic_state'], new_state]}
         )
+        health_check_changed: bool = (
+            kwargs['includes_health_check']
+            != last_state['includes_health_check']
+        )
+        if health_check_changed:
+            if kwargs['includes_health_check']:
+                await notifications_domain.request_health_check(
+                    requester_email=user_email,
+                    group_name=group_name,
+                    repo_url=root['url'],
+                    branch=root['branch']
+                )
+            else:
+                await notifications_domain.cancel_health_check(
+                    requester_email=user_email,
+                    group_name=group_name,
+                    repo_url=root['url'],
+                    branch=root['branch']
+                )
     else:
         raise InvalidParameter()
 
@@ -315,3 +346,18 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
             root_id,
             {'historic_state': [*root['historic_state'], new_state]}
         )
+        if last_state['includes_health_check']:
+            if state == 'ACTIVE':
+                await notifications_domain.request_health_check(
+                    requester_email=user_email,
+                    group_name=root['group_name'],
+                    repo_url=root['url'],
+                    branch=root['branch']
+                )
+            else:
+                await notifications_domain.cancel_health_check(
+                    requester_email=user_email,
+                    group_name=root['group_name'],
+                    repo_url=root['url'],
+                    branch=root['branch']
+                )
