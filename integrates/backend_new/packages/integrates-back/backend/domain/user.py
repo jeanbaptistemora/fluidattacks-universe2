@@ -8,7 +8,6 @@ import json
 import bugsnag
 import aioboto3
 from aioextensions import collect
-from jose import jwt
 
 # Local libraries
 from backend.dal.helpers import dynamodb
@@ -34,11 +33,10 @@ from backend.utils.validations import (
 from backend.utils import (
     apm,
     datetime as datetime_utils,
+    token as token_helper,
 )
 from backend import authz
 from backend import util
-
-from backend_new import settings
 from __init__ import FI_DEFAULT_ORG
 
 
@@ -134,7 +132,7 @@ async def update_access_token(
 
     if util.is_valid_expiration_time(expiration_time):
         iat = int(datetime.utcnow().timestamp())
-        session_jwt = jwt.encode(
+        session_jwt = token_helper.new_encoded_jwt(
             {
                 'user_email': email,
                 'jti': token_data['jti'],
@@ -143,8 +141,8 @@ async def update_access_token(
                 'sub': 'api_token',
                 **kwargs_token
             },
-            algorithm='HS512',
-            key=settings.JWT_SECRET_API)
+            api=True
+        )
         access_token = {
             'iat': iat,
             'jti': token_data['jti_hashed'],

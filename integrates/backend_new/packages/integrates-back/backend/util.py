@@ -196,19 +196,9 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         payload = jwt.get_unverified_claims(token)
         payload = token_helper.decrypt_jwt_payload(payload)
         if is_api_token(payload):
-            content = jwt.decode(
-                token=token,
-                key=settings.JWT_SECRET_API,
-                algorithms='HS512'
-            )
-            content = token_helper.decrypt_jwt_payload(content)
+            content = token_helper.decode_jwt(token, api=True)
         else:
-            content = jwt.decode(
-                token=token,
-                key=settings.JWT_SECRET,
-                algorithms='HS512'
-            )
-            content = token_helper.decrypt_jwt_payload(content)
+            content = token_helper.decode_jwt(token)
             jti = content.get('jti')
             if (content.get('sub') == 'django_session' and
                     not await token_exists(f'fi_jwt:{jti}')):

@@ -10,7 +10,6 @@ from aioextensions import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-from jose import jwt
 from mixpanel import Mixpanel
 
 from graphql.type.definition import GraphQLResolveInfo
@@ -30,7 +29,7 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from backend import util
-
+from backend.utils import token as token_helper
 from backend_new import settings
 from backend_new.app import utils
 from backend_new.settings.auth import (
@@ -165,7 +164,7 @@ async def _do_sign_in(
     if user:
         await utils.create_user(user)
         email = user['email'].lower()
-        session_jwt = jwt.encode(
+        session_jwt = token_helper.new_encoded_jwt(
             {
                 'user_email': email,
                 'first_name': user.get('given_name'),
@@ -174,9 +173,7 @@ async def _do_sign_in(
                     seconds=settings.MOBILE_SESSION_AGE
                 ),
                 'sub': 'session_token',
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
+            }
         )
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
         await in_thread(

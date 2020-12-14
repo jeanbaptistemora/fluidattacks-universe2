@@ -9,6 +9,7 @@ from starlette.responses import Response
 from jose import jwt
 from backend import util
 from backend.api import apply_context_attrs
+from backend.utils import token as token_helper
 from backend_new import settings
 
 
@@ -41,14 +42,10 @@ async def create_dummy_session(
         'sub': 'django_session',
         'jti': util.calculate_hash_token()['jti'],
     }
-    token = jwt.encode(
-        payload,
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    token = token_helper.new_encoded_jwt(payload)
     if session_jwt:
         request.headers['Authorization'] = f'Bearer {session_jwt}'
-    else: 
+    else:
         request.cookies[settings.JWT_COOKIE_NAME] = token
         await util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
 

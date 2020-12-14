@@ -123,11 +123,7 @@ async def test_get_jwt_content():
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    token = jwt.encode(
-        payload,
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
@@ -148,11 +144,7 @@ async def test_valid_token():
         'sub': 'session_token',
         'jti': calculate_hash_token()['jti'],
     }
-    token = jwt.encode(
-        payload,
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
@@ -174,11 +166,7 @@ async def test_valid_api_token():
         'sub': 'api_token',
         'jti': calculate_hash_token()['jti'],
     }
-    token = jwt.encode(
-        payload,
-        algorithm='HS512',
-        key=settings.JWT_SECRET_API,
-    )
+    token = token_helper.new_encoded_jwt(payload, api=True)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
@@ -200,11 +188,7 @@ async def test_expired_token():
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    token = jwt.encode(
-        payload,
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     await save_token(f'fi_jwt:{payload["jti"]}', token, 5)
     time.sleep(6)
@@ -220,11 +204,7 @@ async def test_revoked_token():
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    token = jwt.encode(
-        payload,
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
-    )
+    token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     redis_token_name = f'fi_jwt:{payload["jti"]}'
     await save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))

@@ -1,7 +1,6 @@
 # Standard library
 from datetime import datetime, timedelta
-from typing import Any, cast, Dict
-from jose import jwt
+from typing import Any, Dict
 
 # Third party libraries
 import sqreen
@@ -17,7 +16,9 @@ from authlib.integrations.starlette_client import OAuth
 # Local libraries
 from backend.domain import user as user_domain
 from backend import authz, mailer, util
-
+from backend.utils import (
+    token as token_helper,
+)
 from backend_new import settings
 
 from __init__ import (
@@ -29,7 +30,7 @@ from __init__ import (
 
 def create_session_token(user: Dict[str, str]) -> str:
     jti = util.calculate_hash_token()['jti']
-    jwt_token = jwt.encode(
+    jwt_token: str = token_helper.new_encoded_jwt(
         dict(
             user_email=user['username'],
             first_name=user['first_name'],
@@ -40,12 +41,10 @@ def create_session_token(user: Dict[str, str]) -> str:
             ),
             sub='starlette_session',
             jti=jti,
-        ),
-        algorithm='HS512',
-        key=settings.JWT_SECRET,
+        )
     )
 
-    return cast(str, jwt_token)
+    return jwt_token
 
 
 def set_token_in_response(response: HTMLResponse, token: str) -> HTMLResponse:
