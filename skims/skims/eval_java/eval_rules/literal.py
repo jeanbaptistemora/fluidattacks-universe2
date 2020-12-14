@@ -15,9 +15,10 @@ from eval_java.model import (
 # Constants
 LITERAL_TYPES_MAPPING = {
     'BooleanLiteral': 'bool',
+    'CustomNumericLiteral': 'number',
+    'IntegerLiteral': 'number',
     'NullLiteral': 'null',
     'StringLiteral': 'string',
-    'CustomNumericLiteral': 'number',
 }
 
 

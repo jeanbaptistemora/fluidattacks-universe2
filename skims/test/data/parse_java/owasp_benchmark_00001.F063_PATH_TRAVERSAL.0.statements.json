@@ -4,7 +4,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -17,7 +18,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -30,7 +32,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "type": "StatementLiteral",
@@ -42,7 +45,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "method": "response.setContentType",
     "recursive": true,
@@ -54,7 +58,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "method": "request.getCookies",
     "recursive": true,
@@ -66,7 +71,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -79,7 +85,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "type": "StatementLiteral",
@@ -91,7 +98,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -104,7 +112,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "symbol": "theCookies",
@@ -115,7 +124,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -128,7 +138,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "method": "theCookie.getValue",
     "recursive": true,
@@ -140,7 +151,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "type": "StatementLiteral",
@@ -152,7 +164,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -2
+      "stack": -2,
+      "value": null
     },
     "method": "java.net.URLDecoder.decode",
     "recursive": true,
@@ -164,7 +177,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -176,7 +190,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "type": "StatementLiteral",
@@ -188,7 +203,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -201,7 +217,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "type": "StatementLiteral",
@@ -213,7 +230,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -226,7 +244,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "symbol": "param",
@@ -237,7 +256,8 @@
       "danger": false,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "type": "StatementLiteral",
@@ -249,7 +269,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -2
+      "stack": -2,
+      "value": null
     },
     "recursive": true,
     "sign": "+",
@@ -261,7 +282,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -273,7 +295,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": 0
+      "stack": 0,
+      "value": null
     },
     "recursive": false,
     "symbol": "fileName",
@@ -285,7 +308,8 @@
       "danger": true,
       "linear": true,
       "sink": "F063_PATH_TRAVERSAL",
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -297,7 +321,8 @@
       "danger": true,
       "linear": true,
       "sink": "F063_PATH_TRAVERSAL",
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],
@@ -308,7 +333,8 @@
       "danger": true,
       "linear": true,
       "sink": null,
-      "stack": -1
+      "stack": -1,
+      "value": null
     },
     "recursive": true,
     "stack": [],

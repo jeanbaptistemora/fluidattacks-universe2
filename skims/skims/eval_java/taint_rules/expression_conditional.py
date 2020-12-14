@@ -11,7 +11,11 @@ def taint(statements: Statements, index: int) -> None:
     statement = statements[index]
 
     # Analyze the arguments involved in the expression
-    _, true, false = common.read_stack(statements, index)
+    predicate, true, false = common.read_stack(statements, index)
 
-    # Local context
-    statement.meta.danger = true.meta.danger or false.meta.danger
+    if predicate.meta.value is True:
+        statement.meta.danger = true.meta.danger
+    elif predicate.meta.value is False:
+        statement.meta.danger = false.meta.danger
+    else:
+        statement.meta.danger = False

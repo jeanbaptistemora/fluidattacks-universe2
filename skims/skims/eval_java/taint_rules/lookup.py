@@ -17,6 +17,7 @@ def taint(statements: Statements, index: int) -> None:
 
         if symbol_var_no_index == statement_var_no_index:
             statement.meta.danger = symbol.meta.danger
+            statement.meta.value = symbol.meta.value
             return
 
     # Not found

@@ -17,6 +17,7 @@ class StatementMeta:
     linear: bool
     sink: Optional[str]
     stack: int
+    value: Optional[Any]
 
 
 def get_default_statement_meta() -> StatementMeta:
@@ -25,6 +26,7 @@ def get_default_statement_meta() -> StatementMeta:
         linear=False,
         sink=None,
         stack=0,
+        value=None,
     )
 
 

@@ -20,10 +20,12 @@ from eval_java.taint_rules import (
     assignment,
     call,
     call_chain,
+    common,
     cast,
     class_instantiation,
     declaration,
     expression_conditional,
+    expression_relational,
     ignore,
     literal,
     lookup,
@@ -33,7 +35,7 @@ from eval_java.taint_rules import (
 
 TAINTERS = {
     ExpressionConditional: expression_conditional.taint,
-    ExpressionRelational: ignore.taint,
+    ExpressionRelational: expression_relational.taint,
     StatementAdd: add.taint,
     StatementAssignment: assignment.taint,
     StatementCast: cast.taint,
@@ -51,4 +53,10 @@ TAINTERS = {
 def taint(statements: Statements) -> None:
     for index, statement in enumerate(statements):
         statement.meta.danger = False
+
+        # Default value propagation
+        stack = common.read_stack(statements, index)
+        if len(stack) == 1:
+            statement.meta.value = stack[0].meta.value
+
         TAINTERS[type(statement)](statements, index)
