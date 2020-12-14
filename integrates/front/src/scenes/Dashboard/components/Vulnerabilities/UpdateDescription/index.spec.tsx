@@ -1,6 +1,7 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper } from "enzyme";
+import { GraphQLError } from "graphql";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -15,7 +16,7 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgSuccess } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import waitForExpect from "wait-for-expect";
 import { EditableField } from "../../EditableField";
 import { GET_VULNERABILITIES } from "../queries";
@@ -238,6 +239,75 @@ describe("Update Description component", () => {
     expect(handleOnClose)
       .toHaveBeenCalled();
     expect(msgSuccess)
+      .toHaveBeenCalled();
+  });
+
+  it("should handle request zero risk error", async () => {
+    const handleOnClose: jest.Mock = jest.fn();
+    const handleClearSelected: jest.Mock = jest.fn();
+    const mocksMutation: MockedResponse[] = [
+    {
+      request: {
+        query: REQUEST_ZERO_RISK_VULN,
+        variables: {
+            findingId: "422286126",
+            justification: "This is a commenting test of a request zero risk in vulns",
+            vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
+        },
+      },
+      result: {
+        errors: [
+          new GraphQLError("Exception - Zero risk vulnerability is already requested"),
+        ],
+      },
+    }];
+    const wrapperRequest: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksMutation} addTypename={false}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <UpdateTreatmentModal
+              findingId="422286126"
+              vulnerabilities={vulns}
+              vulnerabilitiesChunk={1}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </Provider>,
+    );
+
+    const treatmentFieldSelect: ReactWrapper = wrapperRequest
+      .find(EditableField)
+      .filter({ name: "treatment" })
+      .find("select");
+    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" }});
+
+    const justificationFieldTextArea: ReactWrapper = wrapperRequest
+      .find(EditableField)
+      .filter({ name: "justification" })
+      .find("textarea");
+    justificationFieldTextArea.simulate(
+      "change",
+      { target: { value: "This is a commenting test of a request zero risk in vulns" } },
+    );
+    await act(async () => { await wait(0); wrapperRequest.update(); });
+
+    const form: ReactWrapper = wrapperRequest.find("form");
+    form
+      .at(0)
+      .simulate("submit");
+    await act(async () => { await wait(0); wrapperRequest.update(); });
+
+    expect(wrapperRequest)
+      .toHaveLength(1);
+    expect(handleClearSelected)
+      .not
+      .toHaveBeenCalled();
+    expect(handleOnClose)
+      .not
+      .toHaveBeenCalled();
+    expect(msgError)
       .toHaveBeenCalled();
   });
 });
