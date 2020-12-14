@@ -906,6 +906,30 @@ function job_integrates_infra_firewall_test {
   || return 1
 }
 
+function job_integrates_infra_front_deploy {
+  local target='deploy/front/terraform'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
+  &&  helper_common_terraform_apply "${target}" \
+  &&  popd \
+  || return 1
+}
+
+function job_integrates_infra_front_test {
+  local target='deploy/front/terraform'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
+  &&  popd \
+  || return 1
+}
+
 function job_integrates_test_back {
   local common_args=(
     -n auto
