@@ -3,7 +3,7 @@
 from eval_java.model import (
     Statements,
 )
-from eval_java.taint_rules import (
+from eval_java.eval_rules import (
     common,
 )
 

@@ -15,7 +15,7 @@ from eval_java.model import (
     StatementPrimary,
     Statements,
 )
-from eval_java.taint_rules import (
+from eval_java.eval_rules import (
     add,
     assignment,
     call,

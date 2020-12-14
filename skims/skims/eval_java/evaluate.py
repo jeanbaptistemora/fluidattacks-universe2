@@ -15,7 +15,7 @@ from eval_java.extract_rules import (
 from eval_java.model import (
     Statements,
 )
-from eval_java.taint_rules import (
+from eval_java.eval_rules import (
     generic as generic_taint,
 )
 from utils import (
