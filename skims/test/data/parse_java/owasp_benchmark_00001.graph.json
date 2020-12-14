@@ -1842,20 +1842,6 @@
         "label_ast": "AST"
       }
     },
-    "443": {
-      "451": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "452": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "459": {
-        "index": 2,
-        "label_ast": "AST"
-      }
-    },
     "465": {
       "467": {
         "index": 0,
@@ -5542,30 +5528,7 @@
       "label_c": 23,
       "label_l": 38,
       "label_parent_ast": "422",
-      "label_type": "MultiplicativeExpression",
-      "label_type_index": "0"
-    },
-    "451": {
-      "label_c": 23,
-      "label_l": 38,
-      "label_parent_ast": "443",
-      "label_text": "60",
-      "label_type": "IntegerLiteral",
-      "label_type_index": "0"
-    },
-    "452": {
-      "label_c": 25,
-      "label_l": 38,
-      "label_parent_ast": "443",
-      "label_text": "*",
-      "label_type": "MUL",
-      "label_type_index": "0"
-    },
-    "459": {
-      "label_c": 26,
-      "label_l": 38,
-      "label_parent_ast": "443",
-      "label_text": "3",
+      "label_text": 180,
       "label_type": "IntegerLiteral",
       "label_type_index": "0"
     },

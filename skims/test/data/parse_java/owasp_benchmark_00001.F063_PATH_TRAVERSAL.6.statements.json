@@ -180,6 +180,7 @@
       "stack": -2
     },
     "recursive": true,
+    "sign": "+",
     "stacks": [],
     "type": "StatementAdd"
   },

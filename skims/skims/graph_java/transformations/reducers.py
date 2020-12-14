@@ -379,6 +379,52 @@ def _method_invocations(graph: nx.DiGraph) -> None:
     )
 
 
+def _multiplicative_expression(graph: nx.DiGraph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='MultiplicativeExpression',
+    )):
+        match = g.match_ast(graph, n_id, '__0__', 'MUL', '__1__')
+        n_attrs = graph.nodes[n_id]
+
+        if (
+            (left_id := match['__0__'])
+            and (op_id := match['MUL'])
+            and (right_id := match['__1__'])
+        ):
+            left_attrs = graph.nodes[left_id]
+            right_attrs = graph.nodes[right_id]
+
+            if (
+                left_attrs['label_type'] == 'IntegerLiteral'
+                and right_attrs['label_type'] == 'IntegerLiteral'
+            ):
+                n_attrs['label_type'] = 'IntegerLiteral'
+                n_attrs['label_text'] = (
+                    int(left_attrs['label_text'])
+                    * int(right_attrs['label_text'])
+                )
+
+                graph.remove_nodes_from((left_id, op_id, right_id))
+
+
+def _primary_no_new_array_lfno_primary(graph: nx.DiGraph) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type='PrimaryNoNewArray_lfno_primary',
+    )):
+        match = g.match_ast(graph, n_id, 'LPAREN', 'IntegerLiteral', 'RPAREN')
+
+        if (
+            len(match) == 3
+            and match['LPAREN']
+            and (c_id := match['IntegerLiteral'])
+            and match['RPAREN']
+        ):
+            p_id = graph.nodes[n_id]['label_parent_ast']
+            graph.nodes[c_id]['label_parent_ast'] = p_id
+            graph.add_edge(p_id, c_id, **graph[p_id][n_id])
+            graph.remove_node(n_id)
+
+
 def reduce(graph: nx.DiGraph) -> None:
     _patch_node_types(graph)
     _dims(graph)
@@ -453,3 +499,5 @@ def reduce(graph: nx.DiGraph) -> None:
     _method_invocations(graph)
     _unary_expression(graph)
     _rename_node_type(graph, 'CustomUnaryExpression', 'CustomNumericLiteral')
+    _multiplicative_expression(graph)
+    _primary_no_new_array_lfno_primary(graph)

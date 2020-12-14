@@ -42,6 +42,7 @@ class ExpressionConditional(NamedTuple):
 
 class StatementAdd(NamedTuple):
     meta: StatementMeta
+    sign: str
     stacks: List[Statements]
 
     recursive: bool = True

@@ -81,7 +81,7 @@ def dispatch(
             group=group,
             token=token,
         ),
-        debug=debug,
+        debug=False,
     )
 
     blocking_log('info', 'Success: %s', success)

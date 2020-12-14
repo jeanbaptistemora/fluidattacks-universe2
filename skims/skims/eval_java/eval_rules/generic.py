@@ -37,6 +37,7 @@ _UNINTERESTING_NODES = {
     'RelationalExpression',
     'ReturnStatement',
     'SEMI',
+    'SwitchStatement',
     'TryStatement',
     'WhileStatement',
 }
