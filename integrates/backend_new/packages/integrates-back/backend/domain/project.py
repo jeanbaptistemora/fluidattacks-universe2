@@ -187,12 +187,6 @@ async def create_project(  # pylint: disable=too-many-arguments
                 # Admins are not granted access to the project
                 # they are omnipresent
                 if not is_user_admin:
-                    user_role = {
-                        # Internal managers are turned into group_managers
-                        'internal_manager': 'group_manager'
-                        # Other roles are turned into customeradmins
-                    }.get(user_role, 'customeradmin')
-
                     success = success and all(await collect((
                         user_domain.update_project_access(
                             user_email,
@@ -201,7 +195,7 @@ async def create_project(  # pylint: disable=too-many-arguments
                         ),
                         authz.grant_group_level_role(
                             user_email, project_name,
-                            user_role
+                            'group_manager'
                         )))
                     )
 
