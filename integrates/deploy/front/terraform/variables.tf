@@ -9,10 +9,10 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable bucket-origin-id-dev {
-  default = "integrates.front.dev.origin"
+variable bucket-origin-id-development {
+  default = "integrates.front.development.origin"
 }
 
-variable bucket-origin-id-prod {
-  default = "integrates.front.prod.origin"
+variable bucket-origin-id-production {
+  default = "integrates.front.production.origin"
 }

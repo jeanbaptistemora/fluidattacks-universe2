@@ -1,7 +1,7 @@
 
 # Bucket
 resource "aws_s3_bucket" "production" {
-  bucket = "integrates.front.prod.fluidattacks.com"
+  bucket = "integrates.front.production.fluidattacks.com"
   acl    = "private"
   region = var.region
 
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "production" {
   }
 
   tags = {
-    "Name"               = "integrates.front.prod.fluidattacks.com"
+    "Name"               = "integrates.front.production.fluidattacks.com"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "production" {
 
 data "aws_iam_policy_document" "production" {
     statement {
-    sid    = "integrates-front-prod"
+    sid    = "integrates-front-production"
     effect = "Allow"
 
     principals {
@@ -39,8 +39,8 @@ data "aws_iam_policy_document" "production" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::integrates.front.prod.fluidattacks.com/*",
-      "arn:aws:s3:::integrates.front.prod.fluidattacks.com",
+      "arn:aws:s3:::integrates.front.production.fluidattacks.com/*",
+      "arn:aws:s3:::integrates.front.production.fluidattacks.com",
     ]
   }
 }
@@ -54,7 +54,7 @@ resource "aws_s3_bucket_policy" "production" {
 # Certificate
 
 resource "aws_acm_certificate" "production" {
-  domain_name       = "integrates.front.prod.fluidattacks.com"
+  domain_name       = "integrates.front.production.fluidattacks.com"
   validation_method = "DNS"
 
   lifecycle {
@@ -62,7 +62,7 @@ resource "aws_acm_certificate" "production" {
   }
 
   tags = {
-    "Name"               = "integrates-front-prod-certificate"
+    "Name"               = "integrates-front-production-certificate"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -86,7 +86,7 @@ resource "aws_acm_certificate_validation" "production-validation" {
 resource "aws_cloudfront_distribution" "production" {
   origin {
     domain_name = aws_s3_bucket.production.bucket_domain_name
-    origin_id   = var.bucket-origin-id-prod
+    origin_id   = var.bucket-origin-id-production
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.production.cloudfront_access_identity_path
@@ -96,12 +96,12 @@ resource "aws_cloudfront_distribution" "production" {
   enabled             = true
   default_root_object = "index.html"
 
-  aliases = ["integrates.front.prod.fluidattacks.com"]
+  aliases = ["integrates.front.production.fluidattacks.com"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = var.bucket-origin-id-prod
+    target_origin_id = var.bucket-origin-id-production
 
     forwarded_values {
       query_string = false
@@ -132,7 +132,7 @@ resource "aws_cloudfront_distribution" "production" {
   }
 
   tags = {
-    "Name"               = "integrates-front-prod-distribution"
+    "Name"               = "integrates-front-production-distribution"
     "management:type"    = "production"
     "management:product" = "integrates"
   }
@@ -147,7 +147,7 @@ resource "aws_cloudfront_origin_access_identity" "production" {
 
 resource "aws_route53_record" "production" {
   zone_id = data.aws_route53_zone.fluidattacks.id
-  name    = "integrates.front.prod.fluidattacks.com"
+  name    = "integrates.front.production.fluidattacks.com"
   type    = "A"
 
   alias {

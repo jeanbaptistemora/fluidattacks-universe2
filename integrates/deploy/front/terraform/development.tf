@@ -1,7 +1,7 @@
 # Bucket
 
 resource "aws_s3_bucket" "development" {
-  bucket = "integrates.front.dev.fluidattacks.com"
+  bucket = "integrates.front.development.fluidattacks.com"
   acl    = "private"
   region = var.region
 
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "development" {
   }
 
   tags = {
-    "Name"               = "integrates.front.dev.fluidattacks.com"
+    "Name"               = "integrates.front.development.fluidattacks.com"
     "management:type"    = "development"
     "management:product" = "integrates"
   }
@@ -39,8 +39,8 @@ data "aws_iam_policy_document" "development" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::integrates.front.dev.fluidattacks.com/*",
-      "arn:aws:s3:::integrates.front.dev.fluidattacks.com",
+      "arn:aws:s3:::integrates.front.development.fluidattacks.com/*",
+      "arn:aws:s3:::integrates.front.development.fluidattacks.com",
     ]
   }
 }
@@ -54,7 +54,7 @@ resource "aws_s3_bucket_policy" "development" {
 # Certificate
 
 resource "aws_acm_certificate" "development" {
-  domain_name       = "integrates.front.dev.fluidattacks.com"
+  domain_name       = "integrates.front.development.fluidattacks.com"
   validation_method = "DNS"
 
   lifecycle {
@@ -62,7 +62,7 @@ resource "aws_acm_certificate" "development" {
   }
 
   tags = {
-    "Name"               = "integrates-front-dev-certificate"
+    "Name"               = "integrates-front-development-certificate"
     "management:type"    = "development"
     "management:product" = "integrates"
   }
@@ -87,7 +87,7 @@ resource "aws_acm_certificate_validation" "development-validation" {
 resource "aws_cloudfront_distribution" "development" {
   origin {
     domain_name = aws_s3_bucket.development.bucket_domain_name
-    origin_id   = var.bucket-origin-id-dev
+    origin_id   = var.bucket-origin-id-development
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.development.cloudfront_access_identity_path
@@ -97,12 +97,12 @@ resource "aws_cloudfront_distribution" "development" {
   enabled             = true
   default_root_object = "index.html"
 
-  aliases = ["integrates.front.dev.fluidattacks.com"]
+  aliases = ["integrates.front.development.fluidattacks.com"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = var.bucket-origin-id-dev
+    target_origin_id = var.bucket-origin-id-development
 
     forwarded_values {
       query_string = false
@@ -133,7 +133,7 @@ resource "aws_cloudfront_distribution" "development" {
   }
 
   tags = {
-    "Name"               = "integrates-front-dev-distribution"
+    "Name"               = "integrates-front-development-distribution"
     "management:type"    = "development"
     "management:product" = "integrates"
   }
@@ -147,7 +147,7 @@ resource "aws_cloudfront_origin_access_identity" "development" {
 
 resource "aws_route53_record" "development" {
   zone_id = data.aws_route53_zone.fluidattacks.id
-  name    = "integrates.front.dev.fluidattacks.com"
+  name    = "integrates.front.development.fluidattacks.com"
   type    = "A"
 
   alias {
