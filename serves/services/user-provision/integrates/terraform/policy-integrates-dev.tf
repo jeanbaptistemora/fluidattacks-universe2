@@ -7,6 +7,8 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     resources = [
       "arn:aws:s3:::fluidintegrates*/*",
       "arn:aws:s3:::fluidintegrates*",
+      "arn:aws:s3:::integrates*/*",
+      "arn:aws:s3:::integrates*",
     ]
   }
   statement {

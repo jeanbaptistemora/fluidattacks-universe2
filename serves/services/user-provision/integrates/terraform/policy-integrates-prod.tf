@@ -6,7 +6,9 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions = ["s3:*"]
     resources = [
       "arn:aws:s3:::fluidintegrates*/*",
-      "arn:aws:s3:::fluidintegrates*"
+      "arn:aws:s3:::fluidintegrates*",
+      "arn:aws:s3:::integrates*/*",
+      "arn:aws:s3:::integrates*",
     ]
   }
   statement {
