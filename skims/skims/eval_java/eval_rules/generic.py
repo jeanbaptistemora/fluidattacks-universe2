@@ -19,6 +19,7 @@ from eval_java.eval_rules import (
     local_variable_declaration_statement,
     method_declaration,
     primary,
+    relational_expression,
     resource_specification,
 )
 from eval_java.model import (
@@ -34,7 +35,6 @@ _UNINTERESTING_NODES = {
     'ContinueStatement',
     'IfThenElseStatement',
     'IfThenStatement',
-    'RelationalExpression',
     'ReturnStatement',
     'SEMI',
     'SwitchStatement',
@@ -102,6 +102,8 @@ def evaluate(
          method_declaration.evaluate),
         ({'Primary'},
          primary.evaluate),
+        ({'RelationalExpression'},
+         relational_expression.evaluate),
         ({'ResourceSpecification'},
          resource_specification.evaluate),
     ):

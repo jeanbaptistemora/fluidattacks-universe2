@@ -40,6 +40,15 @@ class ExpressionConditional(NamedTuple):
     type: str = 'ExpressionConditional'
 
 
+class ExpressionRelational(NamedTuple):
+    meta: StatementMeta
+    operator: str
+    stacks: List[Statements]
+
+    recursive: bool = True
+    type: str = 'ExpressionRelational'
+
+
 class StatementAdd(NamedTuple):
     meta: StatementMeta
     sign: str

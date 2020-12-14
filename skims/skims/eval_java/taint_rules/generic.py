@@ -1,6 +1,7 @@
 # Local libraries
 from eval_java.model import (
     ExpressionConditional,
+    ExpressionRelational,
     StatementAdd,
     StatementAssignment,
     StatementCast,
@@ -32,6 +33,7 @@ from eval_java.taint_rules import (
 
 TAINTERS = {
     ExpressionConditional: expression_conditional.taint,
+    ExpressionRelational: ignore.taint,
     StatementAdd: add.taint,
     StatementAssignment: assignment.taint,
     StatementCast: cast.taint,
