@@ -4,6 +4,8 @@ interface IGitRootAttr {
   environment: string;
   environmentUrls: string[];
   filter: {
+    exclude: string[];
+    include: string[];
     paths: string[];
     policy: "EXCLUDE" | "INCLUDE";
   } | null;

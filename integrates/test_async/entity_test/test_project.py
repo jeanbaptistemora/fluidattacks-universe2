@@ -451,8 +451,8 @@ async def test_get_roots() -> None:
                 environment
                 environmentUrls
                 filter {
-                  paths
-                  policy
+                  exclude
+                  include
                 }
                 id
                 includesHealthCheck
@@ -492,8 +492,11 @@ async def test_get_roots() -> None:
             'environment': 'production',
             'environmentUrls': ['https://integrates.fluidattacks.com'],
             'filter': {
-                'paths': ['^.*/bower_components/.*$', '^.*/node_modules/.*$'],
-                'policy': 'EXCLUDE'
+                'exclude': [
+                    '^.*/bower_components/.*$',
+                    '^.*/node_modules/.*$'
+                ],
+                'include': ['^.*$']
             },
             'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
             'includesHealthCheck': True,
@@ -504,7 +507,10 @@ async def test_get_roots() -> None:
             'branch': 'develop',
             'environment': 'QA',
             'environmentUrls': [],
-            'filter': None,
+            'filter': {
+                'exclude': [],
+                'include': ['^.*$']
+            },
             'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             'includesHealthCheck': False,
             'url': 'https://gitlab.com/fluidattacks/integrates'

@@ -168,36 +168,53 @@ ExecuteSkimsPayload = NamedTuple('ExecuteSkimsPayload', [
     ('success', bool),
     ('pipeline_url', str),
 ])
-GitRootFilter = NamedTuple('GitRootFilter', [
-    ('paths', List[str]),
-    ('policy', str)
-])
-IntegrationEnvironment = NamedTuple('IntegrationEnvironment', [
-    ('kind', str),
-    ('url', Optional[str])
-])
-GitRoot = NamedTuple('GitRoot', [
-    ('branch', str),
-    ('environment', str),
-    ('environment_urls', List[str]),
-    ('filter', Optional[GitRootFilter]),
-    ('id', str),
-    ('includes_health_check', bool),
-    ('state', str),
-    ('url', str)
-])
-IPRoot = NamedTuple('IPRoot', [
-    ('address', str),
-    ('id', str),
-    ('port', int)
-])
-URLRoot = NamedTuple('URLRoot', [
-    ('host', str),
-    ('id', str),
-    ('path', str),
-    ('port', int),
-    ('protocol', str)
-])
+GitRootFilter = NamedTuple(
+    'GitRootFilter',
+    [
+        ('exclude', List[str]),
+        ('include', List[str]),
+        ('paths', List[str]),
+        ('policy', str)
+    ]
+)
+IntegrationEnvironment = NamedTuple(
+    'IntegrationEnvironment',
+    [
+        ('kind', str),
+        ('url', Optional[str])
+    ]
+)
+GitRoot = NamedTuple(
+    'GitRoot',
+    [
+        ('branch', str),
+        ('environment', str),
+        ('environment_urls', List[str]),
+        ('filter', Optional[GitRootFilter]),
+        ('id', str),
+        ('includes_health_check', bool),
+        ('state', str),
+        ('url', str)
+    ]
+)
+IPRoot = NamedTuple(
+    'IPRoot',
+    [
+        ('address', str),
+        ('id', str),
+        ('port', int)
+    ]
+)
+URLRoot = NamedTuple(
+    'URLRoot',
+    [
+        ('host', str),
+        ('id', str),
+        ('path', str),
+        ('port', int),
+        ('protocol', str)
+    ]
+)
 Root = Union[GitRoot, IPRoot, URLRoot]
 
 # Analytics

@@ -10,6 +10,8 @@ const GET_ROOTS: DocumentNode = gql`
           environment
           environmentUrls
           filter {
+            exclude
+            include
             paths
             policy
           }

@@ -49,6 +49,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
+                  exclude: [],
+                  include: [],
                   paths: ["^.*/bower_components/.*$", "^.*/node_modules/.*$"],
                   policy: "EXCLUDE",
                 },
@@ -286,6 +288,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
+                  exclude: [],
+                  include: [],
                   paths: ["node_modules/"],
                   policy: "EXCLUDE",
                 },

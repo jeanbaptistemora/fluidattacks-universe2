@@ -15,6 +15,15 @@
                   "date": { "S": "2020-11-19 08:37:10" },
                   "filter": {
                     "M": {
+                      "exclude": {
+                        "L": [
+                          { "S": "^.*/bower_components/.*$" },
+                          { "S": "^.*/node_modules/.*$" }
+                        ]
+                      },
+                      "include": {
+                        "L": [{ "S": "^.*$" }]
+                      },
                       "paths": {
                         "L": [
                           { "S": "^.*/bower_components/.*$" },
@@ -51,7 +60,20 @@
               {
                 "M": {
                   "date": { "S": "2020-11-19 08:39:56" },
-                  "filter": { "NULL": true },
+                  "filter": {
+                    "M": {
+                      "exclude": {
+                        "L": []
+                      },
+                      "include": {
+                        "L": [{ "S": "^.*$" }]
+                      },
+                      "paths": {
+                        "L": []
+                      },
+                      "policy": { "S": "EXCLUDE" }
+                    }
+                  },
                   "environment": { "S": "QA" },
                   "includes_health_check": { "BOOL": false },
                   "state": { "S": "ACTIVE" },
