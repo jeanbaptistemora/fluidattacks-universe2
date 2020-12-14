@@ -29,7 +29,6 @@ describe("HandleAcceptationButtons", (): void => {
         isEditing={true}
         isRejectingZeroRisk={false}
         isRequestingReattack={false}
-        isRequestingZeroRisk={false}
         isVerifying={false}
         openHandleAcceptation={openHandleAcceptation}
       />,

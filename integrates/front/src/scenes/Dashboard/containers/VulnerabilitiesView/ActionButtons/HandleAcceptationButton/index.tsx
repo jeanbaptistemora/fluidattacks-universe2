@@ -11,7 +11,6 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
   isEditing,
   isRequestingReattack,
   isVerifying,
-  isRequestingZeroRisk,
   isRejectingZeroRisk,
   openHandleAcceptation,
 }: IHandleAcceptationButtonProps): JSX.Element => {
@@ -22,7 +21,6 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
       isEditing ||
       isRequestingReattack ||
       isVerifying ||
-      isRequestingZeroRisk ||
       isRejectingZeroRisk
     ) && canHandleAcceptation;
 

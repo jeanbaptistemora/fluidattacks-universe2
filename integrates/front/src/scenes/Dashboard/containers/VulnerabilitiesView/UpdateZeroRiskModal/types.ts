@@ -9,9 +9,3 @@ export interface IRejectZeroRiskVulnResult {
     success: boolean;
   };
 }
-
-export interface IRequestZeroRiskVulnResult {
-  requestZeroRiskVuln: {
-    success: boolean;
-  };
-}

@@ -20,7 +20,6 @@ export interface IReattackVulnButtonProps {
   isReattackRequestedInAllVuln: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
-  isRequestingZeroRisk: boolean;
   isVerifying: boolean;
   state: "open" | "closed";
   subscription: string;
@@ -43,7 +42,6 @@ const reattackVulnButton: React.FC<IReattackVulnButtonProps> = (props: IReattack
           || props.isVerifying
           || props.isConfirmingZeroRisk
           || props.isRejectingZeroRisk
-          || props.isRequestingZeroRisk
         );
 
   return (

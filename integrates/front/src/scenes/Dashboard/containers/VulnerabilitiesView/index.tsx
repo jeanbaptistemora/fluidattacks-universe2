@@ -81,10 +81,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function toggleRejectZeroRisk(): void {
     setRejectingZeroRisk(!isRejectingZeroRisk);
   }
-  const [isRequestingZeroRisk, setRequestingZeroRisk] = React.useState(false);
-  function toggleRequestZeroRisk(): void {
-    setRequestingZeroRisk(!isRequestingZeroRisk);
-  }
   const [isRequestingVerify, setRequestingVerify] = React.useState(false);
   function toggleRequestVerify(): void {
     setRequestingVerify(!isRequestingVerify);
@@ -128,14 +124,12 @@ export const VulnsView: React.FC = (): JSX.Element => {
           isReattackRequestedInAllVuln={data.finding.newRemediated}
           isRejectingZeroRisk={isRejectingZeroRisk}
           isRequestingReattack={isRequestingVerify}
-          isRequestingZeroRisk={isRequestingZeroRisk}
           isVerified={data.finding.verified}
           isVerifying={isVerifying}
           onConfirmZeroRisk={toggleConfirmZeroRisk}
           onEdit={toggleEdit}
           onRejectZeroRisk={toggleRejectZeroRisk}
           onRequestReattack={toggleRequestVerify}
-          onRequestZeroRisk={toggleRequestZeroRisk}
           onVerify={toggleVerify}
           openHandleAcceptation={toggleHandleAcceptationModal}
           openModal={toggleModal}
@@ -157,7 +151,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   isConfirmingZeroRisk={isConfirmingZeroRisk}
                   isRejectingZeroRisk={isRejectingZeroRisk}
                   isRequestVerification={isRequestingVerify}
-                  isRequestingZeroRisk={isRequestingZeroRisk}
                   isVerifyRequest={isVerifying}
                   projectName={projectName}
                   separatedRow={true}
@@ -204,11 +197,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
             handleCloseModal={toggleUpdateZeroRiskModal}
             isConfirmingZeroRisk={isConfirmingZeroRisk}
             isRejectingZeroRisk={isRejectingZeroRisk}
-            isRequestingZeroRisk={isRequestingZeroRisk}
             refetchData={refetch}
             setConfirmState={toggleConfirmZeroRisk}
             setRejectState={toggleRejectZeroRisk}
-            setRequestState={toggleRequestZeroRisk}
             vulns={remediationModalConfig.vulnerabilities}
           />
         ) : undefined}

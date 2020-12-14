@@ -981,7 +981,6 @@ export const enTranslations: ResourceKey = {
       business_criticality: "Level",
       cancel_confirming_zero_risk: "Cancel",
       cancel_rejecting_zero_risk: "Cancel",
-      cancel_requesting_zero_risk: "Cancel",
       cancel_verified: "Cancel",
       cancel_verify: "Cancel",
       compromised_attrs: {
@@ -1049,10 +1048,6 @@ export const enTranslations: ResourceKey = {
         text: "Reattack",
         tooltip:
           "Request a new reattack cycle when the vulnerability is solved",
-      },
-      request_zero_risk: {
-        text: "Request zero risk",
-        tooltip: "Request a zero risk vulnerability",
       },
       requirements: {
         text: "Requirements",
@@ -1122,9 +1117,6 @@ export const enTranslations: ResourceKey = {
         reject_justification: "Why is the zero risk vulnerability rejected?",
         reject_message:
           "Zero risk will be rejected for {{vulns}} vulnerabilities",
-        request_justification: "Why is it a zero risk vulnerability?",
-        request_message:
-          "Zero risk will be requested for {{vulns}} vulnerabilities",
         title: "Justification",
       },
       verification: "Verification",

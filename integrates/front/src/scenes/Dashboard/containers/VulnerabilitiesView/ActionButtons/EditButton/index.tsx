@@ -17,7 +17,6 @@ export interface IEditButtonProps {
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
-  isRequestingZeroRisk: boolean;
   isVerifying: boolean;
   onEdit(): void;
 }
@@ -31,7 +30,6 @@ const editButton: React.FC<IEditButtonProps> = (props: IEditButtonProps): JSX.El
     || props.isVerifying
     || props.isConfirmingZeroRisk
     || props.isRejectingZeroRisk
-    || props.isRequestingZeroRisk
   );
 
   return (

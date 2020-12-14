@@ -14,7 +14,6 @@ import { EditButton } from "./EditButton";
 import { HandleAcceptationButton } from "./HandleAcceptationButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { RejectZeroRiskVulnButton } from "./RejectZeroRiskVulnButton";
-import { RequestZeroRiskVulnButton } from "./RequestZeroRiskVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 
 export interface IActionButtonsProps {
@@ -25,7 +24,6 @@ export interface IActionButtonsProps {
   isReattackRequestedInAllVuln: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
-  isRequestingZeroRisk: boolean;
   isVerified: boolean;
   isVerifying: boolean;
   state: "open" | "closed";
@@ -34,7 +32,6 @@ export interface IActionButtonsProps {
   onEdit(): void;
   onRejectZeroRisk(): void;
   onRequestReattack(): void;
-  onRequestZeroRisk(): void;
   onVerify(): void;
   openHandleAcceptation(): void;
   openModal(): void;

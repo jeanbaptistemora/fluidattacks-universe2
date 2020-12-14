@@ -71,7 +71,6 @@ export interface IVulnerabilitiesViewProps {
   findingId: string;
   isConfirmingZeroRisk?: boolean;
   isRejectingZeroRisk?: boolean;
-  isRequestingZeroRisk?: boolean;
   isRequestVerification?: boolean;
   isVerifyRequest?: boolean;
   projectName?: string;

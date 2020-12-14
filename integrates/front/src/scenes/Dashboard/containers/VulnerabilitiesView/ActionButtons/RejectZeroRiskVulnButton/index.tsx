@@ -19,7 +19,6 @@ export interface IRejectZeroRiskVulnButtonProps {
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
-  isRequestingZeroRisk: boolean;
   isVerifying: boolean;
   onRejectZeroRisk(): void;
   openUpdateZeroRiskModal(): void;
@@ -36,7 +35,6 @@ const rejectZeroRiskVulnButton: React.FC<IRejectZeroRiskVulnButtonProps> =
       || props.isRequestingReattack
       || props.isVerifying
       || props.isConfirmingZeroRisk
-      || props.isRequestingZeroRisk
     );
 
   return (

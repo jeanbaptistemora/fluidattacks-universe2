@@ -19,7 +19,6 @@ export interface IVerifyVunButtonProps {
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
-  isRequestingZeroRisk: boolean;
   isVerified: boolean;
   isVerifying: boolean;
   onVerify(): void;
@@ -37,7 +36,6 @@ const verifyVunButton: React.FC<IVerifyVunButtonProps> = (props: IVerifyVunButto
           || props.isRequestingReattack
           || props.isConfirmingZeroRisk
           || props.isRejectingZeroRisk
-          || props.isRequestingZeroRisk
         );
 
   return (

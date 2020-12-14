@@ -229,7 +229,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const isEditing: boolean = props.editMode
       || props.isConfirmingZeroRisk === true
       || props.isRejectingZeroRisk === true
-      || props.isRequestingZeroRisk === true
       || props.isRequestVerification === true
       || props.isVerifyRequest === true;
 
@@ -726,9 +725,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isRejectingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     _.includes(inputRequestedZeroRiskVulns, indexFilter));
-                } else if (props.isRequestingZeroRisk === true) {
-                  newArray = newArray.filter((indexFilter: number) =>
-                    !_.includes(inputRequestedZeroRiskVulns, indexFilter));
                 }
                 const newSetInputs: Set<number> = new Set([...selectRowsInputs, ...newArray]);
                 setSelectRowsInputs(Array.from(newSetInputs));
@@ -771,9 +767,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isRejectingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                   _.includes(lineRequestedZeroRiskVulns, indexFilter));
-                } else if (props.isRequestingZeroRisk === true) {
-                  newArray = newArray.filter((indexFilter: number) =>
-                    !_.includes(lineRequestedZeroRiskVulns, indexFilter));
                 }
                 const newSetLines: Set<number> = new Set([...selectRowsLines, ...newArray]);
                 setSelectRowsLines(Array.from(newSetLines));
@@ -816,9 +809,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 } else if (props.isRejectingZeroRisk === true) {
                   newArray = newArray.filter((indexFilter: number) =>
                     _.includes(portRequestedZeroRiskVulns, indexFilter));
-                } else if (props.isRequestingZeroRisk === true) {
-                  newArray = newArray.filter((indexFilter: number) =>
-                    !_.includes(portRequestedZeroRiskVulns, indexFilter));
                 }
                 const newSetPorts: Set<number> = new Set([...selectRowsPorts, ...newArray]);
                 setSelectRowsPorts(Array.from(newSetPorts));
@@ -837,7 +827,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 props.isVerifyRequest === true ? inputVulnsVerified :
                 props.isConfirmingZeroRisk === true ? inputNoRequestedZeroRiskVulns :
                 props.isRejectingZeroRisk === true ? inputNoRequestedZeroRiskVulns :
-                props.isRequestingZeroRisk === true ? inputRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectInputs,
               onSelectAll: handleOnSelectAllInputs,
@@ -851,7 +840,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 props.isVerifyRequest === true ? lineVulnsVerified :
                 props.isConfirmingZeroRisk === true ? lineNoRequestedZeroRiskVulns :
                 props.isRejectingZeroRisk === true ? lineNoRequestedZeroRiskVulns :
-                props.isRequestingZeroRisk === true ? lineRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectLines,
               onSelectAll: handleOnSelectAllLines,
@@ -865,7 +853,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 props.isVerifyRequest === true ? portVulnsVerified :
                 props.isConfirmingZeroRisk === true ? portNoRequestedZeroRiskVulns :
                 props.isRejectingZeroRisk === true ? portNoRequestedZeroRiskVulns :
-                props.isRequestingZeroRisk === true ? portRequestedZeroRiskVulns :
                 undefined,
               onSelect: handleOnSelectPorts,
               onSelectAll: handleOnSelectAllPorts,
