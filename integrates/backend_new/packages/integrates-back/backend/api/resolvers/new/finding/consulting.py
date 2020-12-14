@@ -25,8 +25,9 @@ async def resolve(
 
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
-    is_reviewer: bool = await authz.get_user_level_role(
-        user_email
+    is_reviewer: bool = await authz.get_group_level_role(
+        user_email,
+        group_name
     ) == 'reviewer'
 
     if is_reviewer:

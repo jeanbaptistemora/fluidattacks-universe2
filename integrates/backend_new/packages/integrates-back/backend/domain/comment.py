@@ -77,7 +77,7 @@ async def get_comments(
     return comments
 
 
-def _filter_scope(comment: CommentType):
+def _is_scope_comment(comment: CommentType):
     return str(comment['content']).strip() not in {'#external', '#internal'}
 
 
@@ -91,7 +91,7 @@ async def get_finding_comments_without_scope(
         user_email,
     )
 
-    new_comments = filter(_filter_scope, comments)
+    new_comments = filter(_is_scope_comment, comments)
     return list(new_comments)
 
 
@@ -119,7 +119,7 @@ async def get_event_comments_without_scope(
         user_email
     )
 
-    new_comments = filter(_filter_scope, comments)
+    new_comments = filter(_is_scope_comment, comments)
 
     return list(new_comments)
 
@@ -214,7 +214,7 @@ async def get_observations_without_scope(
         user_email
     )
 
-    new_observations = filter(_filter_scope, observations)
+    new_observations = filter(_is_scope_comment, observations)
     return list(new_observations)
 
 
