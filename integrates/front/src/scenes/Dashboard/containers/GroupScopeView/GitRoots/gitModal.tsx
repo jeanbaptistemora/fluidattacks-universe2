@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
 import { Can } from "utils/authz/Can";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { IGitFormAttr } from "../types";
+import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
@@ -17,24 +17,26 @@ import {
 import { Field, FormSection, formValueSelector } from "redux-form";
 import { checked, required } from "utils/validations";
 
-interface IGitRootsModalProps {
-  initialValues: IGitFormAttr | undefined;
+interface IGitModalProps {
+  initialValues: IGitRootAttr | undefined;
   onClose: () => void;
-  onSubmit: (values: IGitFormAttr) => Promise<void>;
+  onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
 
-const GitRootsModal: React.FC<IGitRootsModalProps> = ({
+const GitModal: React.FC<IGitModalProps> = ({
   initialValues = {
+    __typename: "GitRoot",
     branch: "",
     environment: "",
-    filter: { paths: [""], policy: "NONE" },
+    environmentUrls: [],
+    filter: null,
     id: "",
     includesHealthCheck: false,
     url: "",
   },
   onClose,
   onSubmit,
-}: IGitRootsModalProps): JSX.Element => {
+}: IGitModalProps): JSX.Element => {
   const isEditing: boolean = initialValues.url !== "";
 
   const { t } = useTranslation();
@@ -55,15 +57,41 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
     (state: Record<string, unknown>): string => selector(state, "filter.policy")
   );
 
+  const formatAndSubmit: (
+    values: IGitRootAttr
+  ) => Promise<void> = React.useCallback(
+    async (values): Promise<void> => {
+      interface IFormFilterAttr {
+        paths: string[];
+        policy: "EXCLUDE" | "INCLUDE" | "NONE";
+      }
+
+      await onSubmit({
+        ...values,
+        filter:
+          (values.filter as IFormFilterAttr).policy === "NONE"
+            ? null
+            : values.filter,
+      });
+    },
+    [onSubmit]
+  );
+
   return (
     <Modal
       headerTitle={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
       open={true}
     >
       <GenericForm
-        initialValues={initialValues}
+        initialValues={{
+          ...initialValues,
+          filter:
+            initialValues.filter === null
+              ? { paths: [""], policy: "NONE" }
+              : initialValues.filter,
+        }}
         name={"gitRoot"}
-        onSubmit={onSubmit}
+        onSubmit={formatAndSubmit}
       >
         {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
@@ -83,7 +111,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                       disabled={isEditing}
                       name={"url"}
                       type={"text"}
-                      validate={[required]}
+                      validate={required}
                     />
                   </div>
                   <div className={"w-30"}>
@@ -96,7 +124,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                       disabled={isEditing}
                       name={"branch"}
                       type={"text"}
-                      validate={[required]}
+                      validate={required}
                     />
                   </div>
                 </div>
@@ -111,7 +139,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                       name={"environment"}
                       placeholder={t("group.scope.git.repo.environmentHint")}
                       type={"text"}
-                      validate={[required]}
+                      validate={required}
                     />
                   </div>
                 </div>
@@ -150,7 +178,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                           component={Checkbox}
                           name={"includesHealthCheck"}
                           type={"checkbox"}
-                          validate={[checked]}
+                          validate={checked}
                         >
                           <RequiredField>{"*"}&nbsp;</RequiredField>
                           {t("group.scope.git.healthCheck.accept")}
@@ -173,7 +201,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                     <Field
                       component={Dropdown}
                       name={"policy"}
-                      validate={[required]}
+                      validate={required}
                     >
                       <option value={"NONE"}>
                         {t("group.scope.git.filter.none")}
@@ -197,7 +225,7 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
                               component={Text}
                               name={fieldName}
                               type={"text"}
-                              validate={[required]}
+                              validate={required}
                             />
                           )}
                         </ArrayField>
@@ -224,4 +252,4 @@ const GitRootsModal: React.FC<IGitRootsModalProps> = ({
   );
 };
 
-export { GitRootsModal };
+export { GitModal };

@@ -5,10 +5,11 @@ import { Can } from "utils/authz/Can";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
 import { FluidIcon } from "components/FluidIcon";
-import { GitRootsModal } from "./modal";
+import { GitModal } from "./gitModal";
 import { Glyphicon } from "react-bootstrap";
 import type { GraphQLError } from "graphql";
 import type { IConfirmFn } from "components/ConfirmDialog";
+import type { IGitRootAttr } from "../types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
@@ -18,7 +19,6 @@ import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
 import { ADD_GIT_ROOT, UPDATE_GIT_ROOT, UPDATE_ROOT_STATE } from "../query";
-import type { IGitFormAttr, IGitRootAttr } from "../types";
 import {
   changeFormatter,
   statusFormatter,
@@ -39,18 +39,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const { t } = useTranslation();
 
   // State management
-  const [isModalOpen, setModalOpen] = React.useState(false);
-  const [currentRow, setCurrentRow] = React.useState<IGitFormAttr | undefined>(
-    undefined
-  );
-
+  const [isManagingRoot, setManagingRoot] = React.useState(false);
   const openModal: () => void = React.useCallback((): void => {
-    setModalOpen(true);
+    setManagingRoot(true);
   }, []);
 
   const closeModal: () => void = React.useCallback((): void => {
-    setModalOpen(false);
+    setManagingRoot(false);
   }, []);
+
+  const [currentRow, setCurrentRow] = React.useState<IGitRootAttr | undefined>(
+    undefined
+  );
 
   // GraphQL operations
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
@@ -108,19 +108,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   // Event handlers
-  const handleRowSelect: (row: IGitRootAttr) => void = React.useCallback(
-    (row): void => {
-      setCurrentRow({
-        ...row,
-        filter:
-          row.filter === null ? { paths: [""], policy: "NONE" } : row.filter,
-      });
-    },
-    []
-  );
+  const handleRowSelect: (
+    row: IGitRootAttr
+  ) => void = React.useCallback(setCurrentRow, [setCurrentRow]);
 
-  const handleSubmit: (
-    values: IGitFormAttr
+  const handleEditSubmit: (
+    values: IGitRootAttr
   ) => Promise<void> = React.useCallback(
     async (values): Promise<void> => {
       if (currentRow === undefined) {
@@ -135,23 +128,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           variables: {
             branch,
             environment,
-            filter: filter.policy === "NONE" ? undefined : values.filter,
+            filter,
             groupName,
             includesHealthCheck,
             url,
           },
         });
       } else {
-        const {
-          environment,
-          filter: { paths, policy },
-          id,
-          includesHealthCheck,
-        } = values;
+        const { environment, filter, id, includesHealthCheck } = values;
         await updateGitRoot({
           variables: {
             environment,
-            filter: policy === "NONE" ? undefined : { paths, policy },
+            filter,
             id,
             includesHealthCheck,
           },
@@ -240,11 +228,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           );
         }}
       </ConfirmDialog>
-      {isModalOpen ? (
-        <GitRootsModal
+      {isManagingRoot ? (
+        <GitModal
           initialValues={currentRow}
           onClose={closeModal}
-          onSubmit={handleSubmit}
+          onSubmit={handleEditSubmit}
         />
       ) : undefined}
     </React.Fragment>

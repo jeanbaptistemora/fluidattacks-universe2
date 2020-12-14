@@ -1,5 +1,5 @@
+import { GitModal } from "./gitModal";
 import { GitRoots } from ".";
-import { GitRootsModal } from "./modal";
 import { MockedProvider } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
@@ -69,11 +69,11 @@ describe("GitRoots", (): void => {
     expect(editButton).toHaveLength(1);
     expect(editButton.prop("disabled")).toStrictEqual(true);
 
-    expect(wrapper.find(GitRootsModal)).toHaveLength(0);
+    expect(wrapper.find(GitModal)).toHaveLength(0);
 
     addButton.simulate("click");
 
-    expect(wrapper.find(GitRootsModal)).toHaveLength(1);
+    expect(wrapper.find(GitModal)).toHaveLength(1);
   });
 
   it("should render modal", (): void => {
@@ -87,7 +87,7 @@ describe("GitRoots", (): void => {
           value={new PureAbility([{ action: "update_git_root_filter" }])}
         >
           <MockedProvider>
-            <GitRootsModal
+            <GitModal
               initialValues={undefined}
               onClose={handleClose}
               onSubmit={handleSubmit}

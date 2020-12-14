@@ -8,6 +8,7 @@ const GET_ROOTS: DocumentNode = gql`
         ... on GitRoot {
           branch
           environment
+          environmentUrls
           filter {
             paths
             policy

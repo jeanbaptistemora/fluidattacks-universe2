@@ -2,6 +2,7 @@ interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
   environment: string;
+  environmentUrls: string[];
   filter: {
     paths: string[];
     policy: "EXCLUDE" | "INCLUDE";
@@ -29,16 +30,4 @@ interface IURLRootAttr {
 
 type Root = IGitRootAttr | IIPRootAttr | IURLRootAttr;
 
-interface IGitFormAttr {
-  branch: string;
-  environment: string;
-  filter: {
-    paths: string[];
-    policy: "EXCLUDE" | "INCLUDE" | "NONE";
-  };
-  id: string;
-  includesHealthCheck: boolean;
-  url: string;
-}
-
-export type { Root, IGitRootAttr, IGitFormAttr, IIPRootAttr, IURLRootAttr };
+export type { Root, IGitRootAttr, IIPRootAttr, IURLRootAttr };

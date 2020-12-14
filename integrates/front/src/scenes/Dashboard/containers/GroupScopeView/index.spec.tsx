@@ -115,7 +115,7 @@ describe("GroupScopeView", (): void => {
         variables: {
           branch: "master",
           environment: "production",
-          filter: undefined,
+          filter: null,
           groupName: "unittesting",
           includesHealthCheck: false,
           url: "https://gitlab.com/fluidattacks/product",
