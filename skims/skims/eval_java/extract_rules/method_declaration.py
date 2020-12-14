@@ -2,7 +2,7 @@
 import networkx as nx
 
 # Local libraries
-from eval_java.eval_rules import (
+from eval_java.extract_rules import (
     common,
 )
 from eval_java.model import (

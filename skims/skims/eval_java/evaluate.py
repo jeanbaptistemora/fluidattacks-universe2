@@ -7,7 +7,7 @@ from typing import (
 import networkx as nx
 
 # Local libraries
-from eval_java.eval_rules import (
+from eval_java.extract_rules import (
     common,
     generic as generic_eval,
     linearize,
