@@ -15,11 +15,14 @@ const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
   ? process.env.CI_COMMIT_SHA
   : "";
 const bugsnagApiKey: string = "99a64555a50340cfa856f6623c6bf35d";
-const bucketName: string = "fluidintegrates-static";
 const branchName: string =
   process.env.CI_COMMIT_REF_NAME === undefined
     ? "master"
     : process.env.CI_COMMIT_REF_NAME;
+const bucketName: string =
+  branchName == "master"
+    ? "integrates.front.production.fluidattacks.com"
+    : "integrates.front.development.fluidattacks.com";
 
 const prodConfig: webpack.Configuration = {
   ...commonConfig,
@@ -38,7 +41,7 @@ const prodConfig: webpack.Configuration = {
             options: {
               name: "[hash].[ext]",
               outputPath: "img/",
-              publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/static/dashboard/img/`,
+              publicPath: `https://${bucketName}/${branchName}/static/dashboard/img/`,
             },
           },
         ],
@@ -70,7 +73,7 @@ const prodConfig: webpack.Configuration = {
       apiKey: bugsnagApiKey,
       appVersion,
       overwrite: true,
-      publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/static/dashboard/`,
+      publicPath: `https://${bucketName}/${branchName}/static/dashboard/`,
     }),
     new BugsnagBuildReporterPlugin({
       apiKey: bugsnagApiKey,

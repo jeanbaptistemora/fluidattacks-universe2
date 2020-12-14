@@ -85,12 +85,13 @@ class IntegratesWorker(UvicornWorker):
             [
                 'Content-Security-Policy',
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval' "
-                'localhost:* *.amazonaws.com *.cloudfront.net '
+                'localhost:* *.amazonaws.com cdn.headwayapp.co '
                 '*.cloudflare.com *.cookiebot.com *.zdassets.com '
                 '*.newrelic.com *.mxpnl.com *.pingdom.net '
-                'https://d2yyd1h5u9mauk.cloudfront.net bam.nr-data.net '
-                'js-agent.nr-assets.net cdn.jsdelivr.net/npm/ '
-                'cdn.headwayapp.co;'
+                'integrates.front.development.fluidattacks.com '
+                'integrates.front.production.fluidattacks.com '
+                'bam.nr-data.net js-agent.nr-assets.net '
+                'cdn.jsdelivr.net/npm/;'
             ],
             [
                 'Accept-Encoding',

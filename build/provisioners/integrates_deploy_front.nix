@@ -1,6 +1,5 @@
 let
   pkgs = import ../pkgs/integrates.nix;
-  builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -13,15 +12,6 @@ in
         pkgs.git
         pkgs.unzip
         pkgs.awscli
-        pkgs.curl
-        pkgs.sops
-        pkgs.jq
-        pkgs.python37
       ];
-
-      pyPkgIntegratesBack =
-        import ../../integrates/backend_new/packages/integrates-back pkgs;
-      pyPkgReqsApp =
-        builders.pythonRequirements ../../integrates/deploy/dependencies/prod-requirements.txt;
     })
   )
