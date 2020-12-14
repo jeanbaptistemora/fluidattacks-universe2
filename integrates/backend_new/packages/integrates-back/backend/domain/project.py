@@ -1000,15 +1000,34 @@ async def update(project_name: str, data: ProjectType) -> bool:
     return await project_dal.update(project_name, data)
 
 
+def _is_scope_comment(comment: CommentType):
+    return str(comment['content']).strip() not in {'#external', '#internal'}
+
+
 async def list_comments(
         project_name: str,
         user_email: str) -> List[CommentType]:
+    enforcer = await authz.get_group_level_enforcer(user_email)
+
     comments = await collect([
         comment_domain.fill_comment_data(project_name, user_email, comment)
         for comment in await project_dal.get_comments(project_name)
     ])
 
-    return cast(List[CommentType], comments)
+    new_comments: List[CommentType] = []
+
+    if enforcer(project_name, 'see_comment_scope'):
+        new_comments = cast(
+            List[CommentType],
+            comments
+        )
+    else:
+        new_comments = cast(
+            List[CommentType],
+            list(filter(_is_scope_comment, comments))
+        )
+
+    return cast(List[CommentType], new_comments)
 
 
 async def get_active_projects() -> List[str]:

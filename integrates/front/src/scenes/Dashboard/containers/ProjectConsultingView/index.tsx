@@ -75,14 +75,7 @@ const projectConsultingView: React.FC<IProjectConsultingViewProps> =
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            const commentsFiltered: ICommentStructure[] = data.project.consulting.filter(
-              (comment: ICommentStructure): boolean => (
-                comment.content.trim() !== t("group.tabs.comments.scope.external") &&
-                  comment.content.trim() !== t("group.tabs.comments.scope.internal")
-              ),
-            );
-
-            callbackFn(commentsFiltered.map((consult: ICommentStructure) => ({
+            callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
               ...consult,
               created_by_current_user: consult.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(consult.id),
