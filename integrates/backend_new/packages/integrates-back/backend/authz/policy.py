@@ -12,9 +12,7 @@ import logging
 # Third party library
 from aioextensions import (
     collect,
-    in_thread,
 )
-from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
 
 # Local imports
@@ -28,6 +26,8 @@ from backend.utils import (
 from backend.utils.encodings import (
     safe_encode,
 )
+from backend import util
+
 from backend_new.settings import LOGGING
 from .model import (
     USER_LEVEL_ROLES,
@@ -57,24 +57,31 @@ async def get_cached_group_service_attributes_policies(
 
     try:
         # Attempt to retrieve data from the cache
-        ret = await in_thread(cache.get, cache_key)
+        ret = await util.get_redis_element(cache_key)
     except RedisClusterException:
         ret = None
 
     if ret is None:
         # Let's fetch the data from the database
-        ret = tuple(
+        policies = tuple(
             policy.service
             for policy in await project_dal.get_service_policies(group)
             if policy.group == group
         )
+
         try:
             # Put the data in the cache
-            await in_thread(cache.set, cache_key, ret, timeout=86400)
+            await util.set_redis_element(
+                cache_key,
+                policies,
+                ttl=86400
+            )
         except RedisClusterException as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
+    else:
+        policies = cast(Tuple[str, ...], ret)
 
-    return cast(Tuple[str, ...], ret)
+    return policies
 
 
 async def get_cached_subject_policies(
@@ -99,38 +106,39 @@ async def get_cached_subject_policies(
 
         try:
             # Attempt to retrieve data from the cache
-            ret = await in_thread(cache.get, cache_key)
+            ret = await util.get_redis_element(cache_key)
         except RedisClusterException:
             ret = None
 
         if ret is None:
             # Let's fetch the data from the database
-            ret = tuple(
+            policies = tuple(
                 (policy.level, policy.object, policy.role)
                 for policy in await user_dal.get_subject_policies(subject)
                 if policy.subject == subject
             )
+
             try:
                 # Put the data in the cache
-                await in_thread(
-                    cache.set,
+                await util.set_redis_element(
                     cache_key,
-                    ret,
-                    timeout=300
+                    policies,
+                    ttl=300
                 )
             except RedisClusterException as ex:
                 LOGGER.exception(ex, extra={'extra': locals()})
-
-        context_store[context_store_key] = ret
-        return cast(Tuple[Tuple[str, str, str], ...], ret)
+        else:
+            policies = cast(Tuple[Tuple[str, str, str], ...], ret)
+        context_store[context_store_key] = policies
+        return policies
     # Let's fetch the data from the database
-    ret = tuple(
+    policies = tuple(
         (policy.level, policy.object, policy.role)
         for policy in await user_dal.get_subject_policies(subject)
         if policy.subject == subject
     )
 
-    return cast(Tuple[Tuple[str, str, str], ...], ret)
+    return policies
 
 
 async def get_group_level_role(email: str, group: str) -> str:
@@ -262,7 +270,7 @@ async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     cache_key: str = get_group_cache_key(group)
 
     # Delete the cache key from the cache
-    await in_thread(cache.delete_pattern, f'*{cache_key}*')
+    await util.del_redis_element(f'*{cache_key}*')
 
     # Refresh the cache key as the user is probably going to use it soon :)
     await get_cached_group_service_attributes_policies(group)
@@ -275,7 +283,7 @@ async def revoke_cached_subject_policies(subject: str) -> bool:
     cache_key: str = get_subject_cache_key(subject)
 
     # Delete the cache key from the cache
-    await in_thread(cache.delete_pattern, f'*{cache_key}*')
+    await util.del_redis_element(f'*{cache_key}*')
 
     # Refresh the cache key as the user is probably going to use it soon :)
     await get_cached_subject_policies(subject)

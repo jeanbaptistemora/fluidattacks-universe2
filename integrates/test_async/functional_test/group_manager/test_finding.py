@@ -6,6 +6,7 @@ from test_async.functional_test.group_manager.utils import get_result
 pytestmark = pytest.mark.asyncio
 
 
+@pytest.mark.priority
 async def test_finding():
     finding_id = '463558592'
     expected_output =  {
@@ -253,7 +254,7 @@ async def test_finding():
     assert result['data']['finding']['inputsVulns'] == expected_output.get('inputs_vulns')
     assert result['data']['finding']['linesVulns'] == expected_output.get('lines_vulns')
     assert result['data']['finding']['analyst'] == expected_output.get('analyst')
-    assert result['data']['finding']['observations'] == []
+    assert result['data']['finding']['observations'] == expected_output.get('observations')
 
     consult_content = "This is a observation test"
     query = f'''
@@ -275,7 +276,7 @@ async def test_finding():
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
 
-    expected_output =  {
+    expected_output = {
         'consulting': {
             'content': consult_content
         },

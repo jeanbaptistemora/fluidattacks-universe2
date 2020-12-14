@@ -1,4 +1,5 @@
-from typing import Dict
+from typing import Any, Dict
+import simplejson as json
 
 from backend.dal.helpers.redis import (
     AREDIS_CLIENT,
@@ -25,8 +26,8 @@ async def hdel_element(name: str, keys: str) -> None:
     return await AREDIS_CLIENT.hdel(name, keys)
 
 
-async def add_element(key: str, value: str, time: int):
-    await AREDIS_CLIENT.setex(key, time, value)
+async def add_element(key: str, value: Dict[str, Any], time: int):
+    await AREDIS_CLIENT.setex(key, time, json.dumps(value))
 
 
 async def remove_element(key: str):

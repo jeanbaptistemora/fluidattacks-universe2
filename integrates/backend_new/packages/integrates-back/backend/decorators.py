@@ -10,10 +10,8 @@ from typing import Any, Callable, cast, Dict, TypeVar
 # Third party libraries
 from aioextensions import (
     collect,
-    in_thread,
     schedule,
 )
-from django.core.cache import cache
 from django.http import HttpRequest
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
@@ -227,7 +225,6 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
                 })
 
         enforcer = await authz.get_group_level_enforcer(subject, store)
-
         if not enforcer(object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
@@ -465,7 +462,7 @@ def cache_content(func: TVar) -> TVar:
     _func = cast(Callable[..., Any], func)
 
     @functools.wraps(_func)
-    def decorated(*args: Any, **kwargs: Any) -> Any:
+    async def decorated(*args: Any, **kwargs: Any) -> Any:
         """Get cached content from a django view with a request object."""
         req = args[0]
         assert isinstance(req, HttpRequest)
@@ -512,11 +509,13 @@ def cache_content(func: TVar) -> TVar:
             f'{_func.__qualname__}_{uniq_id}'
         )
         try:
-            ret = cache.get(key_name)
+            ret = await util.get_redis_element(key_name)
             if ret:
                 return ret
+
             ret = _func(*args, **kwargs)
-            cache.set(key_name, ret, timeout=settings.CACHE_TTL)
+            await util.set_redis_element(key_name, cast(str, ret))
+
             return ret
         except RedisClusterException as ex:
             LOGGER.exception(ex, extra=dict(extra=locals()))
@@ -548,14 +547,12 @@ def get_entity_cache_async(func: TVar) -> TVar:
         ]).replace('.', '_').lower()
 
         try:
-            ret = await in_thread(cache.get, key_name)
-
+            ret = await util.get_redis_element(key_name)
             if ret is None:
                 ret = await _func(*args, **kwargs)
 
-                await in_thread(
-                    cache.set, key_name, ret, timeout=settings.CACHE_TTL,
-                )
+                await util.set_redis_element(key_name, ret)
+
             return ret
         except RedisClusterException as ex:
             LOGGER.exception(ex, extra=dict(extra=locals()))
@@ -606,14 +603,12 @@ def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
             cache_key = f'{cache_key_from_func}:{cache_key_from_args}'
 
             try:
-                ret = await in_thread(cache.get, cache_key)
+                ret = await util.get_redis_element(cache_key)
 
                 if ret is None:
                     ret = await _func(*args, **kwargs)
 
-                    await in_thread(
-                        cache.set, cache_key, ret, timeout=ttl,
-                    )
+                    await util.set_redis_element(cache_key, ret, ttl=ttl)
                 return ret
             except RedisClusterException as ex:
                 LOGGER.exception(ex, extra=dict(extra=locals()))

@@ -1,10 +1,16 @@
 # Standard Libraries
 import re
 from datetime import datetime
-from typing import Any, List, Union, cast, Awaitable
+from typing import (
+    Any,
+    Awaitable,
+    cast,
+    Dict,
+    List,
+    Union
+)
 
 # Third libraries
-import json
 import bugsnag
 import aioboto3
 from aioextensions import collect
@@ -280,28 +286,32 @@ async def get_organizations(email: str) -> List[str]:
 
 
 async def complete_user_register(urltoken: str) -> bool:
-    info_json = await util.get_token(f'fi_urltoken:{urltoken}')
-    info = json.loads(info_json)
+    info = cast(
+        Dict[str, Any],
+        await util.get_token(f'fi_urltoken:{urltoken}')
+    )
 
     success = True
 
     if info.get('is_used'):
-        bugsnag.notify(Exception("Token already used"), severity='warning')
+        bugsnag.notify(Exception('Token already used'), severity='warning')
     else:
         coroutines: List[Awaitable[bool]] = []
+        user_email = info['user_email']
+        group = info['group']
         coroutines.append(
             project_dal.update_access(
-                info.get('user_email'),
-                info.get('group'),
+                user_email,
+                group,
                 'responsibility',
-                info.get('responsibility')
+                info['responsibility']
             )
         )
 
         coroutines.append(
             update_project_access(
-                info.get('user_email'),
-                info.get('group'),
+                user_email,
+                group,
                 True
             )
         )
@@ -312,7 +322,7 @@ async def complete_user_register(urltoken: str) -> bool:
 
         await util.save_token(
             f'fi_urltoken:{urltoken}',
-            json.dumps(info),
+            info,
             int(token_ttl)
         )
         success = all(await collect(coroutines))

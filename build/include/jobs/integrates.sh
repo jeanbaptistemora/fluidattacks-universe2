@@ -339,6 +339,10 @@ function job_integrates_functional_tests_back {
     --cov-report 'annotate:build/coverage/functional/annotate'
     --disable-warnings
   )
+  local markers=(
+    'priority'
+    'not priority'
+  )
 
   # shellcheck disable=SC2015
       pushd "${STARTDIR}/integrates" \
@@ -348,10 +352,15 @@ function job_integrates_functional_tests_back {
   &&  helper_integrates_serve_minio \
   &&  sleep 10 \
   &&  helper_integrates_serve_redis \
-  &&  pytest \
-        "${common_args[@]}" \
-        'test_async/functional_test' \
-  ||  return 1 \
+  &&  for marker in "${markers[@]}"
+      do
+            echo "[INFO] Running marker: ${marker}" \
+        &&  pytest \
+              -m "${marker}" \
+              "${common_args[@]}" \
+              'test_async/functional_test' \
+        ||  return 1
+      done \
   &&  popd \
   ||  return 1
 }

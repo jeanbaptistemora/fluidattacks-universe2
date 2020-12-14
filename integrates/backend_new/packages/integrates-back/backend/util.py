@@ -9,15 +9,16 @@ import functools
 import logging
 import re
 import secrets
-import json
 from typing import (
     Any,
     cast,
     Dict,
     Iterator,
     List,
-    Union,
+    Optional,
+    Union
 )
+import simplejson as json
 import httpx
 import magic
 from aioextensions import (
@@ -29,7 +30,6 @@ from asgiref.sync import async_to_sync
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from django.core.cache import cache
 from django.http import JsonResponse
 from django.http.request import HttpRequest
 from graphql.language.ast import (
@@ -240,7 +240,7 @@ async def create_confirm_access_token(
 
     await save_token(
         f'fi_urltoken:{urltoken}',
-        json.dumps(token),
+        token,
         int(token_lifetime.total_seconds())
     )
 
@@ -317,7 +317,7 @@ async def invalidate_cache(*keys_pattern: str) -> int:
     This is a very expensive operation so do not use directly.
     """
     entries_deleted: int = sum(await collect(
-        in_thread(cache.delete_pattern, f'*{key_pattern.lower()}*')
+        del_redis_element(f'*{key_pattern.lower()}*')
         for key_pattern in keys_pattern
     ))
 
@@ -597,7 +597,7 @@ async def check_concurrent_sessions(email: str, session_key: str) -> None:
         raise ExpiredToken
 
 
-async def save_token(key: str, token: str, time: int) -> None:
+async def save_token(key: str, token: Dict[str, Any], time: int) -> None:
     await session_dal.add_element(key, token, time)
 
 
@@ -615,8 +615,8 @@ async def remove_token(key: str) -> None:
     await session_dal.remove_element(key)
 
 
-async def get_token(key: str) -> str:
-    return await AREDIS_CLIENT.get(key)
+async def get_token(key: str) -> Optional[str]:
+    return await get_redis_element(key)
 
 
 async def token_exists(key: str) -> bool:
@@ -625,6 +625,28 @@ async def token_exists(key: str) -> bool:
 
 async def get_ttl_token(key: str) -> int:
     return await AREDIS_CLIENT.ttl(key)
+
+
+async def set_redis_element(
+    key: str,
+    value: Any,
+    ttl: int = settings.CACHE_TTL
+) -> None:
+    await AREDIS_CLIENT.setex(key, ttl, json.dumps(value))
+
+
+async def get_redis_element(key: str) -> Optional[Any]:
+    element = await AREDIS_CLIENT.get(key)
+    if element is not None:
+        element = json.loads(element)
+    return element
+
+
+async def del_redis_element(pattern: str) -> int:
+    keys = [key async for key in AREDIS_CLIENT.scan_iter(match=pattern)]
+    if keys:
+        await AREDIS_CLIENT.delete(*keys)
+    return len(keys)
 
 
 async def get_file_size(file_object: UploadFile) -> int:
