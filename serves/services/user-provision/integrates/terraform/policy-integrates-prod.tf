@@ -203,6 +203,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "acm:DescribeCertificate",
       "acm:ListTagsForCertificate",
       "acm:AddTagsToCertificate",
+      "acm:DeleteCertificate",
     ]
     resources = [
       "*",
