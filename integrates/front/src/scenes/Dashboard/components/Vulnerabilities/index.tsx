@@ -615,21 +615,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               formattedDataInputs = groupSpecific(dataInputs);
             }
 
-            const renderButtonUpdateVuln: (() => JSX.Element) =
-            (): JSX.Element => (
-                  <React.Fragment>
-                    <RowCenter>
-                      <Button
-                        onClick={handleOpenVulnSetClick}
-                        disabled={arraySelectedRows.length === 0}
-                      >
-                        <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
-                      </Button>
-                    </RowCenter>
-                    <br/>
-                </React.Fragment>
-            );
-
             const calculateRowsSelected: () => ICalculateRowsSelected = (): ICalculateRowsSelected  => {
               const arrayVulnCategory: IVulnRow[][] = [
                 data.finding.inputsVulns,
@@ -941,11 +926,28 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     handleCloseModal={handleCloseTableSetClick}
                   />
                   : undefined}
-                { props.editMode ?
-                    canUpdateVulnsTreatment
-                    || canRequestZeroRiskVuln
-                    ? renderButtonUpdateVuln()
-                    : undefined
+                { props.editMode
+                  ? <React.Fragment>
+                      {
+                        canUpdateVulnsTreatment
+                        || canRequestZeroRiskVuln
+                        ? <React.Fragment>
+                            <RowCenter>
+                              <Button
+                                onClick={handleOpenVulnSetClick}
+                                disabled={arraySelectedRows.length === 0}
+                              >
+                                <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
+                              </Button>
+                            </RowCenter>
+                            <br/>
+                          </React.Fragment>
+                        : undefined
+                      }
+                      <Can do="backend_api_mutations_upload_file_mutate">
+                        <UploadVulnerabilites {...props} />
+                      </Can>
+                    </React.Fragment>
                   : undefined
                 }
               </React.StrictMode>
