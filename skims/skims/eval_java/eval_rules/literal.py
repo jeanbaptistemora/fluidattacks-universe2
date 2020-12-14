@@ -17,6 +17,7 @@ LITERAL_TYPES_MAPPING = {
     'BooleanLiteral': 'bool',
     'NullLiteral': 'null',
     'StringLiteral': 'string',
+    'CustomNumericLiteral': 'number',
 }
 
 

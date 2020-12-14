@@ -19,6 +19,13 @@ from utils import (
 )
 
 
+def _rename_node_type(graph: nx.DiGraph, before: str, after: str) -> None:
+    for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
+        label_type=before,
+    )):
+        graph.nodes[n_id]['label_type'] = after
+
+
 def _patch_node_types(graph: nx.DiGraph) -> None:
     for n_attrs in graph.nodes.values():
         label_type: str = n_attrs['label_type']
@@ -261,6 +268,13 @@ def _unann_class_type_lf_unann_class_or_interface_type(
     ))
 
 
+def _unary_expression(graph: nx.DiGraph) -> None:
+    _concatenate_child_texts(graph, 'UnaryExpression', (
+        'SUB',
+        'IntegerLiteral',
+    ))
+
+
 def _ambiguous_names(graph: nx.DiGraph) -> None:
     _concatenate_child_texts(graph, 'AmbiguousName', (
         'IdentifierRule',
@@ -437,3 +451,5 @@ def reduce(graph: nx.DiGraph) -> None:
     _package_or_type_name(graph)
     _type_names(graph)
     _method_invocations(graph)
+    _unary_expression(graph)
+    _rename_node_type(graph, 'CustomUnaryExpression', 'CustomNumericLiteral')

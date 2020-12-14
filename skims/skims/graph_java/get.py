@@ -34,15 +34,30 @@ from utils.string import (
 )
 
 
-@CACHE_ETERNALLY
-async def get(
+def get(
     grammar: Grammar,
     *,
     content: bytes,
     path: str,
     # Update this number to indicate a new graph version
     # This also invalidates the cache
-    _: int = 0,
+    graph_version: int = 0,
+) -> nx.DiGraph:
+    return _get(
+        grammar,
+        content=content,
+        path=path,
+        _=graph_version,
+    )
+
+
+@CACHE_ETERNALLY
+async def _get(
+    grammar: Grammar,
+    *,
+    content: bytes,
+    path: str,
+    _: int,
 ) -> nx.DiGraph:
     parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
     model = antlr_model.from_parse_tree(parse_tree)

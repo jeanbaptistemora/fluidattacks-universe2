@@ -105,12 +105,12 @@ def _variable_declarator(
     ctx = common.ensure_context(ctx)
 
     # variableDeclaratorId ('=' variableInitializer)?
-    match = g.match_ast(graph, n_id, 'IdentifierRule', 'ASSIGN')
+    match = g.match_ast(graph, n_id, 'IdentifierRule', 'ASSIGN', '__0__')
 
     if (
         match['IdentifierRule']
         and match['ASSIGN']
-        and (src_id := match.get('__0__'))
+        and (src_id := match['__0__'])
     ):
         src_ctx = generic.evaluate(graph, src_id, ctx=None)
         common.merge_contexts(ctx, src_ctx)
