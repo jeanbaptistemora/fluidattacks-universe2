@@ -1,3 +1,6 @@
+import { Button } from "components/Button";
+import { ButtonToolbar } from "styles/styledComponents";
+import { EnvsModal } from "./envsModal";
 import { GitModal } from "./gitModal";
 import { GitRoots } from ".";
 import { MockedProvider } from "@apollo/react-testing";
@@ -76,7 +79,7 @@ describe("GitRoots", (): void => {
     expect(wrapper.find(GitModal)).toHaveLength(1);
   });
 
-  it("should render modal", (): void => {
+  it("should render git modal", (): void => {
     expect.hasAssertions();
 
     const handleClose: jest.Mock = jest.fn();
@@ -86,13 +89,11 @@ describe("GitRoots", (): void => {
         <authzPermissionsContext.Provider
           value={new PureAbility([{ action: "update_git_root_filter" }])}
         >
-          <MockedProvider>
-            <GitModal
-              initialValues={undefined}
-              onClose={handleClose}
-              onSubmit={handleSubmit}
-            />
-          </MockedProvider>
+          <GitModal
+            initialValues={undefined}
+            onClose={handleClose}
+            onSubmit={handleSubmit}
+          />
         </authzPermissionsContext.Provider>
       </Provider>
     );
@@ -140,5 +141,53 @@ describe("GitRoots", (): void => {
     });
 
     expect(wrapper.find({ name: "paths" })).toHaveLength(0);
+  });
+
+  it("should render envs modal", (): void => {
+    expect.hasAssertions();
+
+    const handleClose: jest.Mock = jest.fn();
+    const handleSubmit: jest.Mock = jest.fn();
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <EnvsModal
+          initialValues={{ environmentUrls: [""] }}
+          onClose={handleClose}
+          onSubmit={handleSubmit}
+        />
+      </Provider>
+    );
+
+    expect(wrapper).toHaveLength(1);
+
+    const firstInput: ReactWrapper = wrapper
+      .find({ name: "environmentUrls" })
+      .find("input")
+      .at(0);
+
+    expect(firstInput).toHaveLength(1);
+
+    firstInput.simulate("change", {
+      target: { value: "https://integrates.fluidattacks.com/" },
+    });
+
+    wrapper.find("form").simulate("submit");
+
+    expect(handleSubmit).toHaveBeenCalledWith(
+      {
+        environmentUrls: ["https://integrates.fluidattacks.com/"],
+      },
+      expect.anything(),
+      expect.anything()
+    );
+
+    const cancelButton: ReactWrapper = wrapper
+      .find(ButtonToolbar)
+      .find(Button)
+      .at(0);
+
+    cancelButton.simulate("click");
+
+    expect(handleClose).toHaveBeenCalledWith(expect.anything());
   });
 });
