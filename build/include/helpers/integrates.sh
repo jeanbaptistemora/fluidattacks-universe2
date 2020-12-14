@@ -343,3 +343,14 @@ function helper_integrates_terraform_plan {
       config="$(readlink -f ../.tflint.hcl)" \
   &&  helper_common_terraform_plan_new "${target}" "${config}"
 }
+
+function helper_install_c3 {
+  local path="${1}"
+
+      echo '[INFO] Unzipping C3 local' \
+  &&  mkdir -p "${path}/C3" \
+  &&  pushd "${path}/C3" \
+    &&  unzip -ou "${srcExternalC3}" \
+  && popd \
+  ||  return 1
+}

@@ -210,17 +210,23 @@ function job_integrates_build_container_app {
 }
 
 function job_integrates_deploy_front {
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  env_prepare_static_external \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
-  &&  mkdir -p 'app/static' \
-  &&  mkdir -p 'app/static/app' \
-  &&  mkdir -p 'app/static/img' \
-  &&  mkdir -p 'app/static/styles' \
-  &&  mkdir -p 'app/static/graphics' \
-  &&  ./manage.py collectstatic --no-input \
+  local source='app/'
+
+      pushd integrates \
+    &&  env_prepare_python_packages \
+    &&  helper_install_c3 "${source}/static/external" \
+    &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
+    &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
+    &&  mkdir -p 'app/static' \
+    &&  mkdir -p 'app/static/app' \
+    &&  mkdir -p 'app/static/img' \
+    &&  mkdir -p 'app/static/styles' \
+    &&  mkdir -p 'app/static/graphics' \
+    &&  ./manage.py collectstatic --no-input \
+    &&  cp -r backend_new/app/templates/static/* app/ \
+    &&  aws s3 sync --delete \
+          "${source}" \
+          "s3://integrates.front.${ENVIRONMENT_NAME}.fluidattacks.com/${CI_COMMIT_REF_NAME}/" \
   &&  popd \
   ||  return 1
 }
