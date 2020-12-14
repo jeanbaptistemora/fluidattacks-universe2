@@ -24,6 +24,32 @@ resource "aws_s3_bucket" "production" {
   }
 }
 
+data "aws_iam_policy_document" "production" {
+    statement {
+    sid    = "integrates-front-prod"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.production.iam_arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::integrates.front.prod.fluidattacks.com/*",
+      "arn:aws:s3:::integrates.front.prod.fluidattacks.com",
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "production" {
+  bucket = aws_s3_bucket.production.id
+  policy = data.aws_iam_policy_document.production.json
+}
+
 
 # Certificate
 
@@ -114,4 +140,19 @@ resource "aws_cloudfront_distribution" "production" {
 
 resource "aws_cloudfront_origin_access_identity" "production" {
   comment = "Integrates Front Production"
+}
+
+
+# DNS
+
+resource "aws_route53_record" "production" {
+  zone_id = data.aws_route53_zone.fluidattacks.id
+  name    = "integrates.front.prod.fluidattacks.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.production.domain_name
+    zone_id                = aws_cloudfront_distribution.production.hosted_zone_id
+    evaluate_target_health = false
+  }
 }

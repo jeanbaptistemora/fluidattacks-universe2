@@ -24,6 +24,32 @@ resource "aws_s3_bucket" "development" {
   }
 }
 
+data "aws_iam_policy_document" "development" {
+    statement {
+    sid    = "integrates-front-prod"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.development.iam_arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::integrates.front.dev.fluidattacks.com/*",
+      "arn:aws:s3:::integrates.front.dev.fluidattacks.com",
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "development" {
+  bucket = aws_s3_bucket.development.id
+  policy = data.aws_iam_policy_document.development.json
+}
+
 
 # Certificate
 
@@ -115,4 +141,18 @@ resource "aws_cloudfront_distribution" "development" {
 
 resource "aws_cloudfront_origin_access_identity" "development" {
   comment = "Integrates Front Development"
+}
+
+# DNS
+
+resource "aws_route53_record" "development" {
+  zone_id = data.aws_route53_zone.fluidattacks.id
+  name    = "integrates.front.dev.fluidattacks.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.development.domain_name
+    zone_id                = aws_cloudfront_distribution.development.hosted_zone_id
+    evaluate_target_health = false
+  }
 }
