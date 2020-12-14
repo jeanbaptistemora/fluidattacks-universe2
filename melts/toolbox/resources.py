@@ -7,7 +7,6 @@ import os
 import stat
 import sys
 import json
-import platform
 from shlex import quote as shq
 import shutil
 import subprocess
@@ -24,7 +23,6 @@ from typing import (
 )
 
 # Third parties imports
-import ruamel.yaml as yaml
 from alive_progress import alive_bar, config_handler
 
 
@@ -96,7 +94,7 @@ def setup_ssh_key(baseurl: str) -> Iterator[str]:
         ])
 
 
-def repo_url(baseurl: str, repo: Optional[str] = None):
+def repo_url(baseurl: str):
     """ return the repo url """
     for user, passw in ['repo_user', 'repo_pass'], \
                        ['repo_user_2', 'repo_pass_2']:
@@ -116,8 +114,7 @@ def repo_url(baseurl: str, repo: Optional[str] = None):
                 )
                 repo_user = urllib.parse.quote_plus(repo_user)
                 repo_pass = urllib.parse.quote_plus(repo_pass)
-        uri = f'{baseurl}/{repo}' if repo else baseurl
-        uri = uri.replace('<user>', repo_user)
+        uri = baseurl.replace('<user>', repo_user)
         uri = uri.replace('<pass>', repo_pass)
         # check if the user has permissions in the repo
         cmd = cmd_execute(['git', 'ls-remote', uri])
@@ -220,195 +217,7 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
     return None
 
 
-def ssh_repo_cloning(code) -> list:
-    """ cloning or updated a repository ssh """
-    problems: list = []
-    credentials = utils.generic.get_sops_secret(
-        'repo_key',
-        '../config/secrets-prod.yaml',
-        'continuous-admin'
-    )
-    key = base64.b64decode(credentials).decode('utf-8')
-    # Improve compatibility with windows
-    if 'Windows' in platform.system():
-        keyfile = 'key'
-    else:
-        keyfile = os.popen('mktemp').read()[:-1]
-        cmd_execute(['chmod', '600', keyfile])
-    file = open(keyfile, 'w+')
-    file.write(key)
-    file.close()
-    cmd_execute(['chmod', '0400', keyfile])
-    baseurl = code.get('url')[0]
-    if 'source.developers.google' not in baseurl:
-        baseurl = baseurl.replace('ssh://', '')
-    branches = code.get('branches')
-    # Avoid ssh warning prompt:
-    host = baseurl.split('@')[1].split(':')[0]
-    subprocess.getstatusoutput(
-        "ssh-keyscan -H " + host + " >> ~/.ssh/known_hosts")
-
-    with alive_bar(len(branches)) as progress_bar:
-
-        def action(repo_br):
-            repo = '/'.join(repo_br.split('/')[0:-1])
-            branch = repo_br.split('/')[-1]
-            # handle urls special chars in branch names
-            branch = (urllib.parse.unquote(branch)
-                      ) if "%2" in branch else branch
-            uri = baseurl + repo
-            folder = repo.split('/')[-1]
-            if os.path.isdir(folder):
-                # Update already existing repo
-                command = [
-                    'ssh-agent', 'sh', '-c', ';'.join((
-                        f"ssh-add {shq(keyfile)}",
-                        f"git pull origin {shq(branch)}",
-                    )),
-                ]
-
-                cmd = cmd_execute(command, folder)
-                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                    print(f'{repo_br} failed')
-                    problems.append({'repo': repo_br, 'problem': cmd[1]})
-                else:
-                    print(f'{repo_br} updated')
-                    progress_bar()
-
-            else:
-                # Clone repo:
-                command = [
-                    'ssh-agent', 'sh', '-c', ';'.join((
-                        f"ssh-add {shq(keyfile)}",
-                        f"git clone -b {shq(branch)} "
-                        f"--single-branch {shq(uri)}"
-                    )),
-                ]
-
-                cmd = cmd_execute(command)
-                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                    print(f'{repo_br} failed')
-                    problems.append({'repo': repo_br, 'problem': cmd[1]})
-                else:
-                    print(f'{repo_br} cloned')
-                    progress_bar()
-
-        with ThreadPool(processes=cpu_count()) as worker:
-            worker.map(action, branches)
-
-    # Remove identities and keys
-    cmd_execute([
-        'ssh-agent', 'sh', '-c', ';'.join((
-            'ssh-add -D',
-            f'rm -f {shq(keyfile)}'
-        ))
-    ])
-    return problems
-
-
-def http_repo_cloning(code) -> list:
-    """ cloning or updated a repository https """
-    problems: list = []
-    # script does not support vpns atm
-    baseurl = code.get('url')[0]
-    branches = code.get('branches')
-    with alive_bar(len(branches)) as progress_bar:
-
-        def action(repo_br):
-            repo = '/'.join(repo_br.split('/')[0:-1])
-            uri = repo_url(baseurl, repo)
-            branch = repo_br.split('/')[-1]
-            folder = repo.split('/')[-1]
-            if os.path.isdir(folder):
-                # Update already existing repo
-                cmd = cmd_execute(['git', 'pull', 'origin', branch], folder)
-
-                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                    print(f'{repo_br} failed')
-                    problems.append({'repo': repo_br, 'problem': cmd[1]})
-                else:
-                    print(f'{repo_br} updated')
-                    progress_bar()
-            else:
-                cmd = cmd_execute([
-                    'git', 'clone', '-b', branch, '--single-branch', uri,
-                ])
-                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                    print(f'{repo_br} failed')
-                    problems.append({'repo': repo_br, 'problem': cmd[1]})
-                else:
-                    print(f'{repo_br} cloned')
-                    progress_bar()
-
-        with ThreadPool(processes=cpu_count()) as worker:
-            worker.map(action, branches)
-
-    return problems
-
-
 def repo_cloning(subs: str) -> bool:
-    """ cloning or updated a repository"""
-
-    success = True
-    problems: list = []
-    original_dir: str = os.getcwd()
-    config_file = f'groups/{subs}/config/config.yml'
-    destination_folder = f'groups/{subs}/fusion'
-
-    if not os.path.isfile(config_file):
-        logger.error("No config file in the current directory")
-        success = False
-    else:
-        with open(config_file) as config_handle:
-            config = yaml.safe_load(config_handle.read())
-
-        if platform.system() == 'Windows' \
-                and os.path.isdir(destination_folder):
-            shutil.rmtree(destination_folder)
-
-        os.makedirs(destination_folder, exist_ok=True)
-        os.chdir(destination_folder)
-
-        repos_config = config.get('code', [])
-        repos_fusion = os.listdir('.')
-
-        repo_names: list = []
-        for repo in repos_config:
-            repo_names.extend(
-                ''.join(i.split('/')[-2:-1]) for i in repo['branches'])
-
-        repo_difference = set(repos_fusion).difference(set(repo_names))
-
-        # delete repositories of fusion that are not in the config
-        for repo_dif in repo_difference:
-            logger.info(f'Deleting {repo_dif}')
-            shutil.rmtree(repo_dif)
-
-        utils.generic.aws_login('continuous-admin')
-
-        for repo in repos_config:
-            repo_type = repo.get('git-type')
-            if repo_type == 'ssh':
-                problems.extend(ssh_repo_cloning(repo))
-            elif repo_type == 'https':
-                problems.extend(http_repo_cloning(repo))
-            else:
-                logger.info(f"Invalid git-type on group {subs}")
-                success = False
-
-    if problems:
-        logger.error("Some problems occured: \n")
-
-        for problem in problems:
-            print(f'Repository: {problem["repo"]}')
-            print(f'Description: {problem["problem"]}')
-        has_vpn(repo, subs)
-    os.chdir(original_dir)
-
-    return success
-
-
-def repo_cloning_2(subs: str) -> bool:
     """ cloning or updated a repository"""
 
     success = True
