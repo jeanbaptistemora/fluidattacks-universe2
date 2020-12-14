@@ -193,9 +193,7 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         if not token:
             raise InvalidAuthorization()
 
-        payload = jwt.get_unverified_claims(token)
-        payload = token_helper.decrypt_jwt_payload(payload)
-        if is_api_token(payload):
+        if token_helper.jwt_has_api_token(token):
             content = token_helper.decode_jwt(token, api=True)
         else:
             content = token_helper.decode_jwt(token)

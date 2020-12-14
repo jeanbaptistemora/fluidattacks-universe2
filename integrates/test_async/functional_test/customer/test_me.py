@@ -130,7 +130,9 @@ async def test_me():
     ]
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'customer'
-    assert result['data']['me']['sessionExpiration'] == str(expiration_time)
+    assert result['data']['me']['sessionExpiration'] == str(
+        datetime.fromtimestamp(expiration_time)
+    )
     assert result['data']['me']['subscriptionsToEntityReport'] == [
         {
             'entity': entity,

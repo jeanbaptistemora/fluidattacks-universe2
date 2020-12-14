@@ -7,7 +7,6 @@ from jwcrypto.jwk import JWK
 # Local libraries
 from backend.utils import (
     encodings,
-    decodings
 )
 from backend_new import settings
 
@@ -16,7 +15,7 @@ from __init__ import (
 )
 
 
-def encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     """Creates a JWE from a payload"""
     serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
@@ -32,10 +31,10 @@ def encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         },
         recipient=key,
     ).serialize()
-    return decodings.jwt_payload_decode(claims)
+    return encodings.jwt_payload_decode(claims)
 
 
-def decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     """Returns the decrypted payload of a JWE"""
     if 'ciphertext' not in payload:
         return payload
@@ -44,16 +43,16 @@ def decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     result = JWE()
     result.deserialize(serialized_payload.encode('utf-8'))
     result.decrypt(key)
-    return decodings.jwt_payload_decode(result.payload.decode('utf-8'))
+    return encodings.jwt_payload_decode(result.payload.decode('utf-8'))
 
 
 def new_encoded_jwt(
     payload: Dict[str, Any],
     api: bool = False,
-    encrypt: bool = False
+    encrypt: bool = True
 ) -> str:
     """Encrypts the payload into a jwt token and returns its encoded version"""
-    processed_payload = encrypt_jwt_payload(payload) if encrypt else payload
+    processed_payload = _encrypt_jwt_payload(payload) if encrypt else payload
     secret = settings.JWT_SECRET_API if api else settings.JWT_SECRET
     token: str = jwt.encode(
         processed_payload,
@@ -74,4 +73,14 @@ def decode_jwt(
         key=secret,
         algorithms=['HS512']
     )
-    return decrypt_jwt_payload(content)
+    return _decrypt_jwt_payload(content)
+
+
+def jwt_has_api_token(token: str) -> bool:
+    payload = jwt.get_unverified_claims(token)
+    payload = _decrypt_jwt_payload(payload)
+    return payload.get('sub') == (
+        'api_token'
+        if 'sub' in payload
+        else 'jti' in payload
+    )

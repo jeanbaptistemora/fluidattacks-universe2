@@ -128,7 +128,9 @@ async def test_me():
     assert len(result['data']['me']['projects']) == 5
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'group_manager'
-    assert result['data']['me']['sessionExpiration'] == str(expiration_time)
+    assert result['data']['me']['sessionExpiration'] == str(
+        datetime.fromtimestamp(expiration_time)
+    )
     assert result['data']['me']['subscriptionsToEntityReport'] == [
         {
             'entity': entity,
@@ -142,7 +144,7 @@ async def test_me():
             'projects': [
                 {
                     'name': 'unittesting'
-                }, 
+                },
                 {
                     'name': 'oneshottest'
                 }
@@ -153,7 +155,7 @@ async def test_me():
             'projects': [
                 {
                     'name': 'unittesting'
-                }, 
+                },
                 {
                     'name': 'oneshottest'
                 }

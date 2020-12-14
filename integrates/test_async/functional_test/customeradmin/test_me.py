@@ -132,7 +132,9 @@ async def test_me():
     assert len(result['data']['me']['projects']) == 22
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'customeradmin'
-    assert result['data']['me']['sessionExpiration'] == str(expiration_time)
+    assert result['data']['me']['sessionExpiration'] == str(
+        datetime.fromtimestamp(expiration_time)
+    )
     assert result['data']['me']['subscriptionsToEntityReport'] == [
         {
             'entity': entity,

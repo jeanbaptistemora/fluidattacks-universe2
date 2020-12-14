@@ -2,7 +2,7 @@
 import json
 from datetime import datetime
 from typing import (
-    Dict,
+    Any, Dict,
 )
 
 from backend.utils import (
@@ -53,7 +53,7 @@ def key_to_mapping(key: str) -> Dict[str, str]:
     }
 
 
-def jwt_payload_encode(payload: dict) -> str:
+def jwt_payload_encode(payload: Dict[str, Any]) -> str:
     def hook(obj: object) -> str:
         # special cases where json encoder does not handle the object type
         # or a special format is needed
@@ -66,3 +66,19 @@ def jwt_payload_encode(payload: dict) -> str:
         return json.JSONEncoder().default(obj)
     encoder = json.JSONEncoder(default=hook)
     return encoder.encode(payload)
+
+
+def jwt_payload_decode(payload: str) -> Dict[str, Any]:
+    def hook(jwt_payload: Dict[str, Any]) -> Dict[str, Any]:
+        if 'exp' in jwt_payload:
+            exp = jwt_payload['exp']
+            if isinstance(exp, int):
+                exp = datetime.fromtimestamp(exp)
+            else:
+                exp = datetime.strptime(
+                    exp, '%Y-%m-%dT%H:%M:%S.%f'
+                )
+            jwt_payload['exp'] = exp
+        return jwt_payload
+    decoder = json.JSONDecoder(object_hook=hook)
+    return decoder.decode(payload)

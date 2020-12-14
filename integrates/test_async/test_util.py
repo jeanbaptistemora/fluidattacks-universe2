@@ -32,7 +32,6 @@ from backend.util import (
 from backend.utils import (
     encodings,
     datetime as datetime_utils,
-    decodings,
     token as token_helper
 )
 from backend.dal.finding import get_finding
@@ -78,27 +77,25 @@ def test_assert_file_mime():
 async def test_payload_encode_decode():
     payload = {
         'user_email': 'unittest',
-        'exp': datetime_utils.get_now_plus_delta(
-            seconds=settings.SESSION_COOKIE_AGE
-        ),
+        'exp': datetime.utcnow() +
+        timedelta(seconds=settings.SESSION_COOKIE_AGE),
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    result = decodings.jwt_payload_decode(
+    result = encodings.jwt_payload_decode(
         encodings.jwt_payload_encode(payload))
     assert payload == result
 
 async def test_payload_encrypt_decrypt():
     payload = {
         'user_email': 'unittest',
-        'exp': datetime_utils.get_now_plus_delta(
-            seconds=settings.SESSION_COOKIE_AGE
-        ),
+        'exp': datetime.utcnow() +
+        timedelta(seconds=settings.SESSION_COOKIE_AGE),
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    result = token_helper.decrypt_jwt_payload(
-        token_helper.encrypt_jwt_payload(payload)
+    result = token_helper._decrypt_jwt_payload(
+        token_helper._encrypt_jwt_payload(payload)
     )
     assert payload == result
 
@@ -111,7 +108,7 @@ async def test_decrypt_temp_support_for_nonencrypted():
         'sub': 'django_session',
         'jti': calculate_hash_token()['jti'],
     }
-    result = token_helper.decrypt_jwt_payload(payload)
+    result = token_helper._decrypt_jwt_payload(payload)
     assert payload == result
 
 async def test_get_jwt_content():
