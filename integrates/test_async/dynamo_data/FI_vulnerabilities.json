@@ -6,9 +6,6 @@
           "specific": {
             "S": "userToken"
           },
-          "treatment_justification": {
-            "S": "Hemos decidido asumir el hallazgo para probar si es posible"
-          },
           "vuln_type": {
             "S": "inputs"
           },

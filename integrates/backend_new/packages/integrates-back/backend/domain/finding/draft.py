@@ -99,7 +99,6 @@ async def approve_draft(
                 })
                 success = await finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
-                    'treatment': 'NEW',
                     'historic_state': history
                 })
             else:

@@ -574,23 +574,6 @@ then
               "user_interaction": {
                 "N": "0.85"
               },
-              "historic_treatment": {
-                "L": [
-                  {
-                    "M": {
-                      "date": {
-                        "S": "2019-04-07 19:43:18"
-                      },
-                      "treatment": {
-                        "S": "NEW"
-                      },
-                      "user": {
-                        "S": "integratesmanager@gmail.com"
-                      }
-                    }
-                  }
-                ]
-              },
               "cvss_basescore": {
                 "N": "7.3"
               },

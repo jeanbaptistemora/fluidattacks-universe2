@@ -96,13 +96,10 @@ async def test_get_last_closing_date():
         'specific': 'phone',
         'finding_id': '422286126',
         'UUID': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
-        'treatment_manager': 'manager@test.com',
         'historic_state': [
             {'date': '2018-09-28 10:32:58', 'state': 'open'},
             {'date': '2019-01-08 16:01:26', 'state': 'closed'}],
-        'treatment_justification': 'Test 123',
         'vuln_type': 'inputs',
-        'treatment': 'IN PROGRESS',
         'where': 'https://example.com',
         'analyst': 'testanalyst@test.com'
     }
@@ -123,13 +120,10 @@ async def test_is_vulnerability_closed():
         'specific': 'phone',
         'finding_id': '422286126',
         'UUID': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
-        'treatment_manager': 'manager@test.com',
         'historic_state': [
             {'date': '2018-09-28 10:32:58', 'state': 'open'},
             {'date': '2019-01-08 16:01:26', 'state': 'closed'}],
-        'treatment_justification': 'Test 123',
         'vuln_type': 'inputs',
-        'treatment': 'IN PROGRESS',
         'where': 'https://example.com',
         'analyst': 'testanalyst@test.com'
     }
@@ -171,13 +165,10 @@ async def test_get_open_vulnerability_date():
         'specific': 'phone',
         'finding_id': '422286126',
         'UUID': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
-        'treatment_manager': 'manager@test.test',
         'historic_state': [
             {'date': '2019-01-08 16:01:26', 'state': 'closed'}
         ],
-        'treatment_justification': 'Test 123',
         'vuln_type': 'inputs',
-        'treatment': 'IN PROGRESS',
         'where': 'https://example.com',
         'analyst': 'testanalyst@test.com'
     }
