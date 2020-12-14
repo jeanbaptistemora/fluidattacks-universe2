@@ -28,6 +28,7 @@ professionals in their projects. This guide, with a link:https://owasp.org/www-p
 lists the ten most common and critical security risks in web applications and
 provides practical information for their prevention or remediation.
 
+[role="fw3 f3 lh-2"]
 The idea with this ranking is to help reduce the presence of flaws in web
 applications that can be easily exploited and generate terrible impact.
 Organizations should always be careful not to bring into production applications
