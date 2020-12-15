@@ -1,0 +1,54 @@
+:slug: advisories/prine/
+:description: Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
+:keywords: Fluid Attacks, Security, Vulnerabilities, Dup Scout
+:banner: asserts-bg
+
+= Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
+
+== Summary
+
+- Name: Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
+- Product: Dup Scout Enterprise
+- Versions: 10.0.18
+- Fixed versions: 13.2.24
+- Release date: 2020-12-15 14:00 COT
+
+== Vulnerability
+
+- Kind: Stack Buffer Overflow
+- Rule: link:https://fluidattacks.com/products/rules/list/345/[R345. Establish protections against overflows]
+- Remote: Yes
+- Exploit available: Yes
+- Exploit URL: https://www.exploit-db.com/exploits/49217
+- CVE ID(s): link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659[CVE-2020-29659]
+
+== Description
+
+A stack buffer overflow was found in the `sid` `GET` parameter of 
+several requests of Dup Scout Enterprise 10.0.18 which can be exploited 
+by an unauthenticated, remote user to gain `NT AUTHORITY\SYSTEM` privileges 
+on the server serving the affected software.
+
+== Exploit
+
+A first version of the exploit was published at 
+link:https://www.exploit-db.com/exploits/49217[Exploit DB]
+and an updated exploit can be found link:prine-exploit.py[here].
+
+
+== Mitigation
+
+An updated version of Dup Scout Enterprise is available at 
+the vendor page.
+
+== Credits
+
+The vulnerability was discovered by Andrés Roldán from the 
+Offensive Team of Fluid Attacks.
+
+== References
+
+- CVE: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659
+- Exploit: https://www.exploit-db.com/exploits/49217
+- Updated exploit: link:prine-exploit.py[prine-exploit.py]
+- Vendor page: https://www.dupscout.com/
