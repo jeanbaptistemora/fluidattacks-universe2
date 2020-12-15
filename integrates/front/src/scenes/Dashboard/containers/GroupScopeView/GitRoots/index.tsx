@@ -24,6 +24,10 @@ import {
   statusFormatter,
 } from "components/DataTableNext/formatters";
 
+const getGlobFromRegex: (regexExpression: string) => string = (
+  regexExpression
+): string => regexExpression.slice(1, -1).replace(/\.\*/gu, "*");
+
 interface IGitRootsProps {
   groupName: string;
   onUpdate: () => void;
@@ -35,6 +39,17 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   onUpdate,
   roots,
 }: IGitRootsProps): JSX.Element => {
+  // Constants
+  const dataset: IGitRootAttr[] = roots.map(
+    (root: IGitRootAttr): IGitRootAttr => ({
+      ...root,
+      filter: {
+        exclude: root.filter.exclude.map(getGlobFromRegex),
+        include: root.filter.include.map(getGlobFromRegex),
+      },
+    })
+  );
+
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
@@ -112,7 +127,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     row: IGitRootAttr
   ) => void = React.useCallback(setCurrentRow, [setCurrentRow]);
 
-  const handleEditSubmit: (
+  const handleGitSubmit: (
     values: IGitRootAttr
   ) => Promise<void> = React.useCallback(
     async (values): Promise<void> => {
@@ -128,7 +143,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           variables: {
             branch,
             environment,
-            filter,
+            filter: {
+              exclude: filter.exclude.filter(
+                (glob: string): boolean => glob.trim() !== ""
+              ),
+              include: filter.include,
+            },
             groupName,
             includesHealthCheck,
             url,
@@ -188,7 +208,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           return (
             <DataTableNext
               bordered={true}
-              dataset={roots}
+              dataset={dataset}
               exportCsv={false}
               headers={[
                 { dataField: "url", header: t("group.scope.git.repo.url") },
@@ -232,7 +252,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <GitModal
           initialValues={currentRow}
           onClose={closeModal}
-          onSubmit={handleEditSubmit}
+          onSubmit={handleGitSubmit}
         />
       ) : undefined}
     </React.Fragment>

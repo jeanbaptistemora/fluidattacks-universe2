@@ -26,8 +26,8 @@ input ExploitResultInput {
 }
 
 input GitRootFilterInput {
-  "Paths to be filtered"
-  paths: [String!]!
-  "Filter policy for the specified paths"
-  policy: GitRootFilterPolicy!
+  "Repository paths to be excluded"
+  exclude: [String!] = []
+  "Repository paths to be included"
+  include: [String!] = ["*"]
 }

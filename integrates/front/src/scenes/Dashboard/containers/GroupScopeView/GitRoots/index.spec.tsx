@@ -116,31 +116,17 @@ describe("GitRoots", (): void => {
     ).toHaveLength(1);
 
     // Filters
-    const policyDropdown: ReactWrapper = wrapper
-      .find({ name: "policy" })
-      .find("select");
+    const includeFields: ReactWrapper = wrapper
+      .find({ name: "filter.include" })
+      .find("input");
 
-    expect(policyDropdown).toHaveLength(1);
+    expect(includeFields).toHaveLength(1);
 
-    expect(wrapper.find({ name: "paths" })).toHaveLength(0);
+    const excludeFields: ReactWrapper = wrapper
+      .find({ name: "filter.exclude" })
+      .find("input");
 
-    policyDropdown.simulate("change", {
-      target: { value: "INCLUDE" },
-    });
-
-    expect(wrapper.find({ name: "paths" }).find("input")).toHaveLength(1);
-
-    policyDropdown.simulate("change", {
-      target: { value: "EXCLUDE" },
-    });
-
-    expect(wrapper.find({ name: "paths" }).find("input")).toHaveLength(1);
-
-    policyDropdown.simulate("change", {
-      target: { value: "NONE" },
-    });
-
-    expect(wrapper.find({ name: "paths" })).toHaveLength(0);
+    expect(excludeFields).toHaveLength(1);
   });
 
   it("should render envs modal", (): void => {

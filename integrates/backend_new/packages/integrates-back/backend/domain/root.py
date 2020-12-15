@@ -33,7 +33,7 @@ def format_root(root: Dict[str, Any]) -> Root:
             branch=root['branch'],
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
-            filter=root_state.get('filter'),
+            filter=root_state['filter'],
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             state=root_state['state'],
@@ -111,6 +111,15 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url)
 
 
+def _get_regex_from_glob(glob_expression: str) -> str:
+    regex_expression: str = r'.*'.join([
+        re.escape(pattern)
+        for pattern in glob_expression.split('*')
+    ])
+
+    return f'^{regex_expression}$'
+
+
 async def add_git_root(user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
     url: str = _format_git_repo_url(kwargs['url'])
@@ -120,9 +129,13 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         and validations.is_valid_git_branch(branch)
     )
 
+    filter_changed: bool = (
+        kwargs['filter']['exclude'] != []
+        and kwargs['filter']['include'] != ['*']
+    )
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
-        kwargs.get('filter')
+        filter_changed
         and not enforcer(group_name, 'update_git_root_filter')
     ):
         raise PermissionDenied()
@@ -132,7 +145,16 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         initial_state: Dict[str, Any] = {
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
-            'filter': kwargs.get('filter'),
+            'filter': {
+                'exclude': [
+                    _get_regex_from_glob(path)
+                    for path in kwargs['filter']['exclude']
+                ],
+                'include': [
+                    _get_regex_from_glob(path)
+                    for path in kwargs['filter']['include']
+                ],
+            },
             'includes_health_check': kwargs['includes_health_check'],
             'state': 'ACTIVE',
             'user': user_email
@@ -282,7 +304,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     last_state: Dict[str, Any] = root['historic_state'][-1]
     is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
-    filter_changed: bool = kwargs.get('filter') != last_state.get('filter')
+    filter_changed: bool = kwargs['filter'] != last_state['filter']
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
         filter_changed
@@ -295,7 +317,16 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         new_state: Dict[str, Any] = {
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
-            'filter': kwargs.get('filter'),
+            'filter': {
+                'exclude': [
+                    _get_regex_from_glob(path)
+                    for path in kwargs['filter']['exclude']
+                ],
+                'include': [
+                    _get_regex_from_glob(path)
+                    for path in kwargs['filter']['include']
+                ],
+            },
             'includes_health_check': kwargs['includes_health_check'],
             'state': 'ACTIVE',
             'user': user_email

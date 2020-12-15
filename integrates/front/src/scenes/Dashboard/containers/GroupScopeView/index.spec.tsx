@@ -49,10 +49,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
-                  exclude: [],
-                  include: [],
-                  paths: ["^.*/bower_components/.*$", "^.*/node_modules/.*$"],
-                  policy: "EXCLUDE",
+                  exclude: ["^.*/bower_components/.*$", "^.*/node_modules/.*$"],
+                  include: ["^.*$"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
@@ -117,7 +115,7 @@ describe("GroupScopeView", (): void => {
         variables: {
           branch: "master",
           environment: "production",
-          filter: null,
+          filter: { exclude: [], include: ["*"] },
           groupName: "unittesting",
           includesHealthCheck: false,
           url: "https://gitlab.com/fluidattacks/product",
@@ -142,7 +140,11 @@ describe("GroupScopeView", (): void => {
                 branch: "master",
                 environment: "production",
                 environmentUrls: [],
-                filter: null,
+                filter: {
+                  __typename: "GitRootFilter",
+                  exclude: [],
+                  include: ["^.*$"],
+                },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "ACTIVE",
@@ -246,7 +248,11 @@ describe("GroupScopeView", (): void => {
                 branch: "master",
                 environment: "production",
                 environmentUrls: [],
-                filter: null,
+                filter: {
+                  __typename: "GitRootFilter",
+                  exclude: [],
+                  include: ["^.*$"],
+                },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "ACTIVE",
@@ -262,7 +268,7 @@ describe("GroupScopeView", (): void => {
         query: UPDATE_GIT_ROOT,
         variables: {
           environment: "staging",
-          filter: { paths: ["node_modules/"], policy: "EXCLUDE" },
+          filter: { exclude: ["node_modules/*"], include: ["*"] },
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
           includesHealthCheck: true,
         },
@@ -288,10 +294,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
-                  exclude: [],
-                  include: [],
-                  paths: ["node_modules/"],
-                  policy: "EXCLUDE",
+                  exclude: ["^node_modules/.*$"],
+                  include: ["^.*$"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
@@ -363,15 +367,10 @@ describe("GroupScopeView", (): void => {
       .find("input");
     includesHealthCheck.simulate("change", { target: { value: true } });
 
-    const policy: ReactWrapper = wrapper
-      .find({ name: "filter.policy" })
-      .find("select");
-    policy.simulate("change", { target: { value: "EXCLUDE" } });
-
     const path1: ReactWrapper = wrapper
-      .find({ name: "filter.paths[0]" })
+      .find({ name: "filter.exclude[0]" })
       .find("input");
-    path1.simulate("change", { target: { value: "node_modules/" } });
+    path1.simulate("change", { target: { value: "node_modules/*" } });
 
     await act(
       async (): Promise<void> => {
@@ -410,7 +409,11 @@ describe("GroupScopeView", (): void => {
                 branch: "master",
                 environment: "production",
                 environmentUrls: [],
-                filter: null,
+                filter: {
+                  __typename: "GitRootFilter",
+                  exclude: [],
+                  include: ["^.*$"],
+                },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "ACTIVE",
@@ -450,7 +453,11 @@ describe("GroupScopeView", (): void => {
                 branch: "master",
                 environment: "production",
                 environmentUrls: [],
-                filter: null,
+                filter: {
+                  __typename: "GitRootFilter",
+                  exclude: [],
+                  include: ["^.*$"],
+                },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "INACTIVE",

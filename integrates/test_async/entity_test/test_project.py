@@ -524,6 +524,7 @@ async def test_add_git_root_black() -> None:
         addGitRoot(
           branch: "master"
           environment: "Test"
+          filter: { exclude: [], include: ["*"] }
           groupName: "oneshottest"
           includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/integrates"
@@ -545,6 +546,7 @@ async def test_add_git_root_white() -> None:
         addGitRoot(
           branch: "master"
           environment: "production"
+          filter: { exclude: [], include: ["*"] }
           groupName: "unittesting"
           includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/integrates"
@@ -565,6 +567,7 @@ async def test_add_git_root_invalid_branch() -> None:
         addGitRoot(
           branch: "( ͡° ͜ʖ ͡°)"
           environment: "Test"
+          filter: { exclude: [], include: ["*"] }
           groupName: "unittesting"
           includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/integrates"
@@ -585,6 +588,7 @@ async def test_add_git_root_invalid_url() -> None:
         addGitRoot(
           branch: "master"
           environment: "Test"
+          filter: { exclude: [], include: ["*"] }
           groupName: "unittesting"
           includesHealthCheck: false
           url: "randomstring"
@@ -606,6 +610,7 @@ async def test_add_git_root_uniqueness() -> None:
         addGitRoot(
           branch: "unique"
           environment: "unique"
+          filter: { exclude: [], include: ["*"] }
           groupName: "unittesting"
           includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/unique.git"
@@ -791,6 +796,7 @@ async def test_update_git_root() -> None:
       mutation {
         updateGitRoot(
           environment: "staging"
+          filter: { exclude: [], include: ["*"] }
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
           includesHealthCheck: false
         ) {
@@ -809,6 +815,7 @@ async def test_update_git_root_nonexistent() -> None:
       mutation {
         updateGitRoot(
           environment: "Test"
+          filter: { exclude: [], include: ["*"] }
           id: "ROOT#some-thing"
           includesHealthCheck: false
         ) {

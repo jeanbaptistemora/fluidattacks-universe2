@@ -6,15 +6,14 @@ import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
-import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { ArrayField, Checkbox, Dropdown, Text } from "utils/forms/fields";
+import { ArrayField, Checkbox, Text } from "utils/forms/fields";
 import {
   ButtonToolbar,
   ControlLabel,
   RequiredField,
 } from "styles/styledComponents";
-import { Field, FormSection, formValueSelector } from "redux-form";
+import { Field, FormSection } from "redux-form";
 import { checked, required } from "utils/validations";
 
 interface IGitModalProps {
@@ -29,7 +28,7 @@ const GitModal: React.FC<IGitModalProps> = ({
     branch: "",
     environment: "",
     environmentUrls: [],
-    filter: null,
+    filter: { exclude: [""], include: ["*"] },
     id: "",
     includesHealthCheck: false,
     url: "",
@@ -49,34 +48,6 @@ const GitModal: React.FC<IGitModalProps> = ({
     initialValues.includesHealthCheck
   );
 
-  const selector: (
-    state: Record<string, unknown>,
-    field1: string
-  ) => string = formValueSelector("gitRoot");
-  const filterPolicy: string = useSelector(
-    (state: Record<string, unknown>): string => selector(state, "filter.policy")
-  );
-
-  const formatAndSubmit: (
-    values: IGitRootAttr
-  ) => Promise<void> = React.useCallback(
-    async (values): Promise<void> => {
-      interface IFormFilterAttr {
-        paths: string[];
-        policy: "EXCLUDE" | "INCLUDE" | "NONE";
-      }
-
-      await onSubmit({
-        ...values,
-        filter:
-          (values.filter as IFormFilterAttr).policy === "NONE"
-            ? null
-            : values.filter,
-      });
-    },
-    [onSubmit]
-  );
-
   return (
     <Modal
       headerTitle={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
@@ -85,13 +56,16 @@ const GitModal: React.FC<IGitModalProps> = ({
       <GenericForm
         initialValues={{
           ...initialValues,
-          filter:
-            initialValues.filter === null
-              ? { paths: [""], policy: "NONE" }
-              : initialValues.filter,
+          filter: {
+            exclude:
+              initialValues.filter.exclude.length === 0
+                ? [""]
+                : initialValues.filter.exclude,
+            include: initialValues.filter.include,
+          },
         }}
         name={"gitRoot"}
-        onSubmit={formatAndSubmit}
+        onSubmit={onSubmit}
       >
         {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
@@ -196,41 +170,31 @@ const GitModal: React.FC<IGitModalProps> = ({
                     </legend>
                     <ControlLabel>
                       <RequiredField>{"*"}&nbsp;</RequiredField>
-                      {t("group.scope.git.filter.policy")}
+                      {t("group.scope.git.filter.include")}
                     </ControlLabel>
-                    <Field
-                      component={Dropdown}
-                      name={"policy"}
-                      validate={required}
-                    >
-                      <option value={"NONE"}>
-                        {t("group.scope.git.filter.none")}
-                      </option>
-                      <option value={"INCLUDE"}>
-                        {t("group.scope.git.filter.include")}
-                      </option>
-                      <option value={"EXCLUDE"}>
-                        {t("group.scope.git.filter.exclude")}
-                      </option>
-                    </Field>
-                    {filterPolicy === "NONE" ? undefined : (
-                      <React.Fragment>
-                        <ControlLabel>
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                          {t("group.scope.git.filter.paths")}
-                        </ControlLabel>
-                        <ArrayField initialValue={""} name={"paths"}>
-                          {(fieldName: string): JSX.Element => (
-                            <Field
-                              component={Text}
-                              name={fieldName}
-                              type={"text"}
-                              validate={required}
-                            />
-                          )}
-                        </ArrayField>
-                      </React.Fragment>
-                    )}
+                    <ArrayField initialValue={""} name={"include"}>
+                      {(fieldName: string): JSX.Element => (
+                        <Field
+                          component={Text}
+                          name={fieldName}
+                          type={"text"}
+                          validate={required}
+                        />
+                      )}
+                    </ArrayField>
+                    <ControlLabel>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t("group.scope.git.filter.exclude")}
+                    </ControlLabel>
+                    <ArrayField initialValue={""} name={"exclude"}>
+                      {(fieldName: string): JSX.Element => (
+                        <Field
+                          component={Text}
+                          name={fieldName}
+                          type={"text"}
+                        />
+                      )}
+                    </ArrayField>
                   </fieldset>
                 </FormSection>
               </Can>

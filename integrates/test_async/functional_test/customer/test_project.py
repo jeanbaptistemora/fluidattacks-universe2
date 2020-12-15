@@ -196,6 +196,7 @@ async def test_project():
         addGitRoot(
           branch: "master"
           environment: "production"
+          filter: {{ exclude: [], include: ["*"] }}
           groupName: "{group_name}"
           includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/test2"
@@ -218,8 +219,8 @@ async def test_project():
                 environment
                 environmentUrls
                 filter {{
-                  paths
-                  policy
+                  exclude
+                  include
                 }}
                 includesHealthCheck
                 url
@@ -235,7 +236,7 @@ async def test_project():
         'branch': 'master',
         'environment': 'production',
         'environmentUrls': [],
-        'filter': None,
+        'filter': {'exclude': [], 'include': ['^.*$']},
         'includesHealthCheck': True,
         'url': 'https://gitlab.com/fluidattacks/test2'
     } in result['data']['group']['roots']

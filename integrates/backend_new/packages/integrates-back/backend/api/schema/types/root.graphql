@@ -8,9 +8,9 @@ type GitRootFilter {
   "Repository paths to be included"
   include: [String!]!
   "Paths to be filtered"
-  paths: [String!]!
+  paths: [String!]
   "Filter policy for the specified paths"
-  policy: GitRootFilterPolicy!
+  policy: GitRootFilterPolicy
 }
 
 type GitRoot implements IRoot {

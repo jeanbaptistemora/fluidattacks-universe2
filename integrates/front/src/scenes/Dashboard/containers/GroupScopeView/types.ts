@@ -6,9 +6,7 @@ interface IGitRootAttr {
   filter: {
     exclude: string[];
     include: string[];
-    paths: string[];
-    policy: "EXCLUDE" | "INCLUDE";
-  } | null;
+  };
   includesHealthCheck: boolean;
   id: string;
   url: string;

@@ -12,8 +12,6 @@ const GET_ROOTS: DocumentNode = gql`
           filter {
             exclude
             include
-            paths
-            policy
           }
           id
           includesHealthCheck
@@ -41,7 +39,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
   mutation AddGitRoot(
     $branch: String!
     $environment: String!
-    $filter: GitRootFilterInput
+    $filter: GitRootFilterInput!
     $groupName: String!
     $includesHealthCheck: Boolean!
     $url: String!
@@ -62,7 +60,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $environment: String!
-    $filter: GitRootFilterInput
+    $filter: GitRootFilterInput!
     $id: ID!
     $includesHealthCheck: Boolean!
   ) {
