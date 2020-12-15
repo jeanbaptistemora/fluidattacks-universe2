@@ -73,8 +73,18 @@ async def get_comments(
             for comment in comments
             for verification in verified
         ]
+    enforcer = await authz.get_group_level_enforcer(user_email)
 
-    return comments
+    new_comments: List[CommentType] = []
+
+    if enforcer(project_name, 'see_comment_scope'):
+        new_comments = comments
+    else:
+        new_comments = list(
+            filter(_is_scope_comment, comments)
+        )
+
+    return new_comments
 
 
 def _is_scope_comment(comment: CommentType):
@@ -106,22 +116,18 @@ async def get_event_comments(
         user_email
     )
 
-    return comments
+    enforcer = await authz.get_group_level_enforcer(user_email)
 
+    new_comments: List[CommentType] = []
 
-async def get_event_comments_without_scope(
-        project_name: str,
-        finding_id: str,
-        user_email: str) -> List[CommentType]:
-    comments = await get_event_comments(
-        project_name,
-        finding_id,
-        user_email
-    )
+    if enforcer(project_name, 'see_comment_scope'):
+        new_comments = comments
+    else:
+        new_comments = list(
+            filter(_is_scope_comment, comments)
+        )
 
-    new_comments = filter(_is_scope_comment, comments)
-
-    return list(new_comments)
+    return new_comments
 
 
 async def get_fullname(
