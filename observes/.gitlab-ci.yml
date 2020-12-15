@@ -204,6 +204,15 @@ observes_zoho_crm_prepare:
     variables: [$observes_zoho_crm_prepare]
   interruptible: false
 
+observes_zoho_crm:
+  <<: *with_nix
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_zoho_crm]
+  interruptible: false
+
 observes_git_process:
   <<: *with_nix_serial
   image: "${CI_REGISTRY_IMAGE}/nix:observes_git_process"

@@ -289,7 +289,7 @@ function helper_observes_zoho_crm {
       } > "${TEMP_FILE1}" \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  streamer-zoho-crm stream "${TEMP_FILE1}" "${TEMP_FILE2}" \
-        | tap-csv > .singer \
+        | tap-csv | tap-json > .singer \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --schema-name 'zoho_crm' \

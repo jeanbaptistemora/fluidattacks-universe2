@@ -14,6 +14,8 @@ in
         pkgs.sops
         pkgs.jq
         pkgs.python38Packages.psycopg2
+        TapCsv
+        TapJson
       ];
       StreamerZoho = pkgs.poetry2nix.mkPoetryApplication {
         projectDir = ../../observes/singer/streamer_zoho_crm;
@@ -21,6 +23,10 @@ in
       };
       TapCsv = pkgs.poetry2nix.mkPoetryApplication {
         projectDir = ../../observes/singer/tap_csv;
+        python = pkgs.python38;
+      };
+      TapJson = pkgs.poetry2nix.mkPoetryApplication {
+        projectDir = ../../observes/singer/tap_json;
         python = pkgs.python38;
       };
       pyPkgTargetRedshift = builders.pythonPackageLocal {

@@ -107,7 +107,7 @@ def try_cast(cast: Callable[[str], Any], data: str) -> Any:
 
 def auto_cast(data: str) -> Any:
     test_casts: List[Callable[[str], Any]] = [
-        int,
+        lambda x: str(x) if int(x) > pow(10, 12) else int(x),
         float,
         lambda x: x.lower() == 'true'
         if x.lower() == 'false' or x.lower() == 'true' else None,

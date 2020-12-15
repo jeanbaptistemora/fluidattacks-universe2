@@ -107,7 +107,6 @@ function job_observes_zoho_crm_prepare {
 
 function job_observes_zoho_crm {
   export PATH="${PATH}:${StreamerZoho}/bin"
-  export PATH="${PATH}:${TapCsv}/bin"
 
       helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
