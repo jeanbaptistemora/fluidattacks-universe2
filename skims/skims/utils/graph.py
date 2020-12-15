@@ -242,6 +242,17 @@ def paths(
     yield from (tuple(path) for path in paths_iterator)
 
 
+def get_node_cfg_condition(graph: nx.DiGraph, n_id: str) -> str:
+    p_id = graph.nodes[n_id]['label_parent_ast']
+    val: str
+
+    for key, val in graph[p_id][n_id].items():
+        if key.startswith('label_cfg_'):
+            return val
+
+    return 'cfg_never'
+
+
 def match_ast(
     graph: nx.DiGraph,
     n_id: str,

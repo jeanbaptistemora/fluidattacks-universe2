@@ -2,6 +2,9 @@
 from typing import (
     Tuple,
 )
+from more_itertools import (
+    pairwise,
+)
 
 # Third party libraries
 import networkx as nx
@@ -41,6 +44,7 @@ def evaluate(
     index: int,
 ) -> Statements:
     ctx = common.ensure_context(None)
+    ctx.path_edges = dict(pairwise(graph_path))
 
     # Walk the path and mine the nodes in order to increase the context
     for n_id in graph_path:

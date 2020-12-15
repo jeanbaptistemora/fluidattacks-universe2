@@ -35,6 +35,7 @@ def ensure_context(ctx: OptionalContext = None) -> Context:
     if ctx is None:
         return Context(
             complete=True,
+            path_edges={},
             seen=set(),
             statements=[],
         )

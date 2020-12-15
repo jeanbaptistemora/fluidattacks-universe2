@@ -146,6 +146,7 @@
     "type": "ExpressionRelational"
   },
   {
+    "cfg_condition": "cfg_true",
     "meta": {
       "danger": false,
       "linear": true,
@@ -235,6 +236,7 @@
     "type": "StatementPrimary"
   },
   {
+    "cfg_condition": "cfg_true",
     "meta": {
       "danger": false,
       "linear": true,

@@ -146,6 +146,7 @@
     "type": "ExpressionRelational"
   },
   {
+    "cfg_condition": "cfg_never",
     "meta": {
       "danger": false,
       "linear": true,

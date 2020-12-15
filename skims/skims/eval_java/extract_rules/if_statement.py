@@ -30,6 +30,7 @@ def extract(
     common.merge_contexts(ctx, predicate_ctx)
 
     ctx.statements.append(StatementIf(
+        cfg_condition=g.get_node_cfg_condition(graph, ctx.path_edges[n_id]),
         meta=get_default_statement_meta(),
         stack=predicate_ctx.statements,
     ))

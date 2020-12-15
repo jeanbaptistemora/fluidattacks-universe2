@@ -4,11 +4,16 @@ from dataclasses import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     NamedTuple,
     Optional,
     Set,
 )
+
+
+class StopEvaluation(Exception):
+    pass
 
 
 @dataclass
@@ -125,6 +130,7 @@ class StatementDeclaration(NamedTuple):
 
 
 class StatementIf(NamedTuple):
+    cfg_condition: str
     stack: Statements
     meta: StatementMeta
 
@@ -167,6 +173,7 @@ class StatementPrimary(NamedTuple):
 @dataclass
 class Context:
     complete: bool
+    path_edges: Dict[str, str]
     seen: Set[str]
     statements: Statements
 
