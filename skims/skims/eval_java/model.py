@@ -51,6 +51,15 @@ class ExpressionRelational(NamedTuple):
     type: str = 'ExpressionRelational'
 
 
+class ExpressionUnary(NamedTuple):
+    meta: StatementMeta
+    operator: str
+    stack: Statements
+
+    recursive: bool = True
+    type: str = 'ExpressionUnary'
+
+
 class StatementAdd(NamedTuple):
     meta: StatementMeta
     sign: str

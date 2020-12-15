@@ -2,6 +2,7 @@
 from eval_java.model import (
     ExpressionConditional,
     ExpressionRelational,
+    ExpressionUnary,
     StatementAdd,
     StatementAssignment,
     StatementCast,
@@ -37,6 +38,7 @@ from eval_java.eval_rules import (
 EVALUATORS = {
     ExpressionConditional: expression_conditional.evaluate,
     ExpressionRelational: expression_relational.evaluate,
+    ExpressionUnary: ignore.evaluate,
     StatementAdd: add.evaluate,
     StatementAssignment: assignment.evaluate,
     StatementCast: cast.evaluate,

@@ -22,6 +22,7 @@ from eval_java.extract_rules import (
     primary,
     relational_expression,
     resource_specification,
+    unary_expression,
 )
 from eval_java.model import (
     Context,
@@ -108,6 +109,8 @@ def extract(
          relational_expression.extract),
         ({'ResourceSpecification'},
          resource_specification.extract),
+        ({'UnaryExpressionNotPlusMinus'},
+         unary_expression.extract)
     ):
         if n_attrs_label_type in types:
             evaluator(graph, n_id, ctx=ctx)
