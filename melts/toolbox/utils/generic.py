@@ -7,7 +7,6 @@ import sys
 import subprocess
 import contextlib
 import textwrap
-from glob import glob
 from datetime import datetime
 from functools import lru_cache
 from configparser import ConfigParser
@@ -20,12 +19,8 @@ from typing import (
 
 # Third party libraries
 import boto3
-import requests
 import dateutil.parser
 from click import BadParameter
-from ruamel.yaml import YAML, safe_load
-from pykwalify.core import Core
-from pykwalify.errors import SchemaError
 from botocore.exceptions import ClientError
 
 # Local libraries
@@ -142,87 +137,6 @@ def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
         raise BadParameter(msg)
     go_back_to_services()
     return subs
-
-
-def _load_vulns_schema():
-    url = ('https://gitlab.com/fluidattacks/integrates/-/raw/6a6d743f3dfbd3c'
-           'b5b41f7bdce7c194d89f7acd3/django-apps/integrates-back/backend/'
-           'entity/schema.yaml')
-    response = requests.get(url)
-    yaml = YAML()
-    return yaml.load(response.text)
-
-
-def validate_vulns_file_schema(file_url: str) -> bool:
-    """Validate if a vulnerabilities file has the correct schema."""
-    core = Core(source_file=file_url, schema_data=_load_vulns_schema())
-    is_valid = False
-    try:
-        core.validate(raise_exception=True)
-        with open(file_url, 'r') as reader:
-            first_line = reader.readline()
-            if any(map(lambda x: x in first_line, ['{}', '-'])):
-                is_valid = False
-                logger.error(file_url)
-                logger.error('Empty schema.')
-            else:
-                is_valid = True
-    except SchemaError:
-        logger.error('An error occurred validating vulnerabilities file.')
-
-    return is_valid
-
-
-def iter_vulns_path(subs: str, vulns_name: str, run_kind: str = 'all'):
-    """
-    Create a interable for vulns path and exploit path of a group.
-
-    yields (vulns_path, exploit_path).
-    """
-    for vulns_path in sorted(glob(
-            f'groups/{subs}/forces/*/exploits/*.exp.vulns.yml')):
-
-        kind = vulns_path.split('/')[3]
-        if not run_kind == kind and run_kind != 'all':
-            continue
-
-        exploit_path = vulns_path.replace('.vulns.yml', '')
-
-        if not (vulns_name or '') in vulns_path:
-            logger.info(f'skipped: {vulns_path}')
-            continue
-
-        if os.stat(vulns_path).st_size == 0:
-            logger.info(vulns_path)
-            logger.info('  ', 'Empty')
-            continue
-        if not validate_vulns_file_schema(vulns_path):
-            continue
-
-        yield (vulns_path, exploit_path)
-
-
-def iter_exploit_paths(group: str):
-    """
-    Create a generator for the exploits of a group.
-
-    :parameter group: group name.
-
-    yields exploit_path.
-    """
-    for exploit_path in glob(
-            f'groups/{group}/forces/*/*/*.exp'):
-        yield exploit_path
-
-
-def iter_subscritions_config():
-    """
-    Create a generator for config of groups.
-
-    yields group_configuration.
-    """
-    for config_path in sorted(glob('groups/*/config/config.yml')):
-        yield safe_load(open(config_path))
 
 
 @contextlib.contextmanager
