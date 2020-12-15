@@ -54,9 +54,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const { t } = useTranslation();
 
   // State management
-  const [isManagingRoot, setManagingRoot] = React.useState(false);
-  const openModal: () => void = React.useCallback((): void => {
-    setManagingRoot(true);
+  const [isManagingRoot, setManagingRoot] = React.useState<
+    { mode: "ADD" | "EDIT" } | false
+  >(false);
+
+  const openAddModal: () => void = React.useCallback((): void => {
+    setManagingRoot({ mode: "ADD" });
+  }, []);
+
+  const openEditModal: () => void = React.useCallback((): void => {
+    setManagingRoot({ mode: "EDIT" });
   }, []);
 
   const closeModal: () => void = React.useCallback((): void => {
@@ -176,7 +183,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       <ButtonToolbarRow>
         <Can do={"backend_api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>
-            <Button id={"git-root-add"} onClick={openModal}>
+            <Button id={"git-root-add"} onClick={openAddModal}>
               <Glyphicon glyph={"plus"} />
               &nbsp;{t("group.scope.common.add")}
             </Button>
@@ -184,7 +191,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         </Can>
         <Can do={"backend_api_mutations_update_git_root_mutate"}>
           <div className={"mb3"}>
-            <Button disabled={currentRow === undefined} onClick={openModal}>
+            <Button disabled={currentRow === undefined} onClick={openEditModal}>
               <FluidIcon icon={"edit"} />
               &nbsp;{t("group.scope.common.edit")}
             </Button>
@@ -237,7 +244,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               pageSize={15}
               search={true}
               selectionMode={{
-                clickToSelect: false,
+                clickToSelect: true,
                 hideSelectColumn: permissions.cannot(
                   "backend_api_mutations_update_git_root_mutate"
                 ),
@@ -249,13 +256,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           );
         }}
       </ConfirmDialog>
-      {isManagingRoot ? (
+      {isManagingRoot === false ? undefined : (
         <GitModal
-          initialValues={currentRow}
+          initialValues={
+            isManagingRoot.mode === "EDIT" ? currentRow : undefined
+          }
           onClose={closeModal}
           onSubmit={handleGitSubmit}
         />
-      ) : undefined}
+      )}
     </React.Fragment>
   );
 };

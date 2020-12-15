@@ -304,7 +304,17 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     last_state: Dict[str, Any] = root['historic_state'][-1]
     is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
-    filter_changed: bool = kwargs['filter'] != last_state['filter']
+    filter_config = {
+        'exclude': [
+            _get_regex_from_glob(path)
+            for path in kwargs['filter']['exclude']
+        ],
+        'include': [
+            _get_regex_from_glob(path)
+            for path in kwargs['filter']['include']
+        ],
+    }
+    filter_changed: bool = filter_config != last_state['filter']
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
         filter_changed
@@ -317,16 +327,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         new_state: Dict[str, Any] = {
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
-            'filter': {
-                'exclude': [
-                    _get_regex_from_glob(path)
-                    for path in kwargs['filter']['exclude']
-                ],
-                'include': [
-                    _get_regex_from_glob(path)
-                    for path in kwargs['filter']['include']
-                ],
-            },
+            'filter': filter_config,
             'includes_health_check': kwargs['includes_health_check'],
             'state': 'ACTIVE',
             'user': user_email
