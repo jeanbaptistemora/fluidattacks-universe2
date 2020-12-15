@@ -1,39 +1,42 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper } from "enzyme";
+import { EditableField } from "../../EditableField";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_VULNERABILITIES } from "../queries";
 import { GraphQLError } from "graphql";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { MockedResponse } from "@apollo/react-testing";
+import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
+import { REQUEST_ZERO_RISK_VULN } from "./queries";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
+import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
+import { mount } from "enzyme";
+import store from "store";
+import waitForExpect from "wait-for-expect";
+import { MockedProvider, wait } from "@apollo/react-testing";
 import {
   getLastTreatment,
   groupLastHistoricTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import store from "store";
-import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
-import waitForExpect from "wait-for-expect";
-import { EditableField } from "../../EditableField";
-import { GET_VULNERABILITIES } from "../queries";
-import { REQUEST_ZERO_RISK_VULN } from "./queries";
 
-jest.mock("../../../../../utils/notifications", () => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
-  mockedNotifications.msgError = jest.fn();
-  mockedNotifications.msgSuccess = jest.fn();
+jest.mock(
+  "../../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+      "../../../../../utils/notifications"
+    );
+    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-  return mockedNotifications;
-});
+    return mockedNotifications;
+  }
+);
 
-describe("Update Description component", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+describe("Update Description component", (): void => {
   const vulns: IVulnDataType[] = [
     {
       currentState: "",
@@ -99,7 +102,9 @@ describe("Update Description component", () => {
     { action: "backend_api_mutations_update_vulns_treatment_mutate" },
   ]);
 
-  it("should group last treatment", async () => {
+  it("should group last treatment", (): void => {
+    expect.hasAssertions();
+
     const treatment: IHistoricTreatment = {
       date: "",
       justification: "test justification",
@@ -132,51 +137,62 @@ describe("Update Description component", () => {
       },
     ];
 
-    const lastTreatment: IHistoricTreatment = groupLastHistoricTreatment(vulnerabilities);
+    const lastTreatment: IHistoricTreatment = groupLastHistoricTreatment(
+      vulnerabilities
+    );
 
-    expect(lastTreatment)
-      .toEqual(getLastTreatment([treatment]));
+    expect(lastTreatment).toStrictEqual(getLastTreatment([treatment]));
   });
 
-  it("list editable fields", async () => {
+  it("list editable fields", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={[]} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={[]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
-              findingId="1"
-              vulnerabilities={vulns}
-              vulnerabilitiesChunk={1}
+              findingId={"1"}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
+              vulnerabilities={vulns}
+              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find({ renderAsEditable: true }))
-          .toHaveLength(2);
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        const treatment: ReactWrapper = wrapper.find({ name: "treatment" })
-          .find("select")
-          .at(0);
-        treatment.simulate("change", { target: { value: "IN_PROGRESS" }});
-        wrapper.update();
-        expect(wrapper.find({ renderAsEditable: true }))
-          .toHaveLength(4);
-      });
-    });
+          expect(wrapper).toHaveLength(1);
+          expect(wrapper.find({ renderAsEditable: true })).toHaveLength(2);
+
+          const treatment: ReactWrapper = wrapper
+            .find({ name: "treatment" })
+            .find("select")
+            .at(0);
+          treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
+          wrapper.update();
+
+          expect(wrapper.find({ renderAsEditable: true })).toHaveLength(4);
+        });
+      }
+    );
   });
 
-  it("should handle request zero risk", async () => {
+  it("should handle request zero risk", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -185,129 +201,151 @@ describe("Update Description component", () => {
           query: REQUEST_ZERO_RISK_VULN,
           variables: {
             findingId: "422286126",
-            justification: "This is a commenting test of a request zero risk in vulns",
+            justification:
+              "This is a commenting test of a request zero risk in vulns",
             vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
           },
         },
-        result: { data: { requestZeroRiskVuln : { success: true } } },
+        result: { data: { requestZeroRiskVuln: { success: true } } },
       },
       mocksVulns,
       mocksFindingHeader,
     ];
     const wrapperRequest: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
-              findingId="422286126"
-              vulnerabilities={vulns}
-              vulnerabilitiesChunk={1}
+              findingId={"422286126"}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
+              vulnerabilities={vulns}
+              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
     const treatmentFieldSelect: ReactWrapper = wrapperRequest
       .find(EditableField)
       .filter({ name: "treatment" })
       .find("select");
-    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" }});
+    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" } });
 
     const justificationFieldTextArea: ReactWrapper = wrapperRequest
       .find(EditableField)
       .filter({ name: "justification" })
       .find("textarea");
-    justificationFieldTextArea.simulate(
-      "change",
-      { target: { value: "This is a commenting test of a request zero risk in vulns" } },
+    justificationFieldTextArea.simulate("change", {
+      target: {
+        value: "This is a commenting test of a request zero risk in vulns",
+      },
+    });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapperRequest.update();
+      }
     );
-    await act(async () => { await wait(0); wrapperRequest.update(); });
 
     const form: ReactWrapper = wrapperRequest.find("form");
-    form
-      .at(0)
-      .simulate("submit");
-    await act(async () => { await wait(0); wrapperRequest.update(); });
+    form.at(0).simulate("submit");
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapperRequest.update();
+      }
+    );
 
-    expect(wrapperRequest)
-      .toHaveLength(1);
-    expect(handleClearSelected)
-      .toHaveBeenCalled();
-    expect(handleOnClose)
-      .toHaveBeenCalled();
-    expect(msgSuccess)
-      .toHaveBeenCalled();
+    expect(wrapperRequest).toHaveLength(1);
+    expect(handleClearSelected).toHaveBeenCalledWith();
+    expect(handleOnClose).toHaveBeenCalledWith();
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "Zero risk vulnerability has been requested",
+      "Correct!"
+    );
   });
 
-  it("should handle request zero risk error", async () => {
+  it("should handle request zero risk error", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
-    {
-      request: {
-        query: REQUEST_ZERO_RISK_VULN,
-        variables: {
+      {
+        request: {
+          query: REQUEST_ZERO_RISK_VULN,
+          variables: {
             findingId: "422286126",
-            justification: "This is a commenting test of a request zero risk in vulns",
+            justification:
+              "This is a commenting test of a request zero risk in vulns",
             vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError(
+              "Exception - Zero risk vulnerability is already requested"
+            ),
+          ],
         },
       },
-      result: {
-        errors: [
-          new GraphQLError("Exception - Zero risk vulnerability is already requested"),
-        ],
-      },
-    }];
+    ];
     const wrapperRequest: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
-              findingId="422286126"
-              vulnerabilities={vulns}
-              vulnerabilitiesChunk={1}
+              findingId={"422286126"}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
+              vulnerabilities={vulns}
+              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
     const treatmentFieldSelect: ReactWrapper = wrapperRequest
       .find(EditableField)
       .filter({ name: "treatment" })
       .find("select");
-    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" }});
+    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" } });
 
     const justificationFieldTextArea: ReactWrapper = wrapperRequest
       .find(EditableField)
       .filter({ name: "justification" })
       .find("textarea");
-    justificationFieldTextArea.simulate(
-      "change",
-      { target: { value: "This is a commenting test of a request zero risk in vulns" } },
+    justificationFieldTextArea.simulate("change", {
+      target: {
+        value: "This is a commenting test of a request zero risk in vulns",
+      },
+    });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapperRequest.update();
+      }
     );
-    await act(async () => { await wait(0); wrapperRequest.update(); });
 
     const form: ReactWrapper = wrapperRequest.find("form");
-    form
-      .at(0)
-      .simulate("submit");
-    await act(async () => { await wait(0); wrapperRequest.update(); });
+    form.at(0).simulate("submit");
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapperRequest.update();
+      }
+    );
 
-    expect(wrapperRequest)
-      .toHaveLength(1);
-    expect(handleClearSelected)
-      .not
-      .toHaveBeenCalled();
-    expect(handleOnClose)
-      .not
-      .toHaveBeenCalled();
-    expect(msgError)
-      .toHaveBeenCalled();
+    expect(wrapperRequest).toHaveLength(1);
+    expect(handleClearSelected).not.toHaveBeenCalled();
+    expect(handleOnClose).not.toHaveBeenCalled();
+    expect(msgError).toHaveBeenCalledWith(
+      "Zero risk vulnerability already requested"
+    );
   });
 });
