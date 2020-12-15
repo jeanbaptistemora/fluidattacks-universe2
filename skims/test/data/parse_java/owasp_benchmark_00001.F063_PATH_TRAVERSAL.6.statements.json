@@ -115,6 +115,18 @@
       "stack": 0,
       "value": null
     },
+    "recursive": true,
+    "stack": [],
+    "type": "StatementIf"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": 0,
+      "value": null
+    },
     "recursive": false,
     "type": "StatementLiteral",
     "value": "null",

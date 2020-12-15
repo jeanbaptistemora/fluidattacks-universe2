@@ -115,6 +115,14 @@ class StatementDeclaration(NamedTuple):
     type: str = 'StatementDeclaration'
 
 
+class StatementIf(NamedTuple):
+    stack: Statements
+    meta: StatementMeta
+
+    recursive: bool = True
+    type: str = 'StatementIf'
+
+
 class StatementLookup(NamedTuple):
     symbol: str
     meta: StatementMeta
