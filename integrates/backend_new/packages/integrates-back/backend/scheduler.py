@@ -41,6 +41,10 @@ from backend.typing import (
 from backend.utils import (
     datetime as datetime_utils,
 )
+from backend.utils.findings import (
+    sort_historic_by_date,
+    filter_by_date,
+)
 
 from backend_new.settings import (
     LOGGING,
@@ -172,7 +176,9 @@ def get_status_vulns_by_time_range(
                     resp['closed'] -= 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
-    resp['accepted'] = get_accepted_vulns(vulns, first_day, last_day)
+    resp['accepted'] = sum([
+        get_accepted_vulns(vuln, last_day) for vuln in vulns
+    ])
     return resp
 
 
@@ -194,37 +200,36 @@ def create_weekly_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-        vulns: List[Dict[str, FindingType]],
-        first_day: str, last_day: str) -> int:
-    """Get all vulnerabilities accepted by time range"""
-    accepted = 0
-    accepted_treatments = ['ACCEPTED', 'ACCEPTED_UNDEFINED']
-    for vuln in vulns:
-        historic_treatment = cast(
-            List[Dict[str, str]],
-            vuln.get('historic_treatment', [{}])
-        )
-        if historic_treatment[-1].get('treatment') in accepted_treatments:
-            accepted += get_by_time_range(vuln, first_day, last_day)
-    return accepted
+    vuln: Dict[str, FindingType],
+    last_day: str,
+) -> int:
+    accepted_treatments = {'ACCEPTED', 'ACCEPTED_UNDEFINED'}
+    sorted_treatment = sort_historic_by_date(
+        vuln.get('historic_treatment', [])
+    )
+    treatments = filter_by_date(
+        sorted_treatment, datetime_utils.get_from_str(last_day)
+    )
+    if (treatments and
+            treatments[-1].get('treatment') in accepted_treatments):
+        return get_by_time_range(vuln, last_day)
+
+    return 0
 
 
 def get_by_time_range(
         vuln: Dict[str, FindingType],
-        first_day: str,
         last_day: str) -> int:
     """Accepted vulnerability"""
-    count = 0
-    history = vuln_domain.get_last_approved_state(vuln)
-    if (history and
-            first_day <= history['date'] <= last_day and
-            history['state'] == 'open'):
-        count += 1
-    else:
-        # date of vulnerabilities outside of time_range or state not open
-        pass
+    historic_state = sort_historic_by_date(vuln['historic_state'])
+    states = filter_by_date(
+        historic_state, datetime_utils.get_from_str(last_day)
+    )
+    if (states and
+            states[-1]['date'] <= last_day and states[-1]['state'] == 'open'):
+        return 1
 
-    return count
+    return 0
 
 
 async def create_register_by_week(
@@ -247,7 +252,7 @@ async def create_register_by_week(
                 first_day,
                 last_day,
             )
-            accepted += result_vulns_by_week.get('accepted', 0)
+            accepted = result_vulns_by_week.get('accepted', 0)
             closed += result_vulns_by_week.get('closed', 0)
             found += result_vulns_by_week.get('found', 0)
             if any(status_vuln

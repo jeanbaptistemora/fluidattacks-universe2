@@ -102,7 +102,7 @@ async def test_get_status_vulns_by_time_range():
     test_data = get_status_vulns_by_time_range(
         vulns, first_day, last_day
     )
-    expected_output = {'found': 8, 'accepted': 4, 'closed': 2}
+    expected_output = {'found': 8, 'accepted': 2, 'closed': 2}
     assert test_data == expected_output
 
 def test_create_weekly_date():
@@ -113,27 +113,23 @@ def test_create_weekly_date():
 
 async def test_get_accepted_vulns():
     released_findings = await get_findings_by_group('UNITTESTING')
-    first_day = '2019-01-01 12:00:00'
     last_day = '2019-06-30 23:59:59'
     vulns = await list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in released_findings],
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True
     )
-    test_data = get_accepted_vulns(
-        vulns, first_day, last_day
-    )
-    expected_output = 4
+    test_data = sum([get_accepted_vulns(vuln, last_day) for vuln in vulns])
+    expected_output = 2
     assert test_data == expected_output
 
 async def test_get_by_time_range():
-    first_day = '2019-01-01 12:00:00'
     last_day = '2020-09-07 23:59:59'
     vuln = await get_vuln('80d6a69f-a376-46be-98cd-2fdedcffdcc0')
     test_data = get_by_time_range(
-        vuln[0], first_day, last_day
+        vuln[0], last_day
     )
-    expected_output = 0
+    expected_output = 1
     assert test_data == expected_output
 
 async def test_create_register_by_week():
