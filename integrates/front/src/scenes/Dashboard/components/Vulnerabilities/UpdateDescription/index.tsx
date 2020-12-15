@@ -33,10 +33,10 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import {
   IDeleteTagAttr,
-  IDeleteTagResult,
-  IRequestZeroRiskVulnResult,
-  IUpdateTreatmentModal,
-  IUpdateVulnDescriptionResult,
+  IDeleteTagResultAttr,
+  IRequestZeroRiskVulnResultAttr,
+  IUpdateTreatmentModalProps,
+  IUpdateVulnDescriptionResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import {
   groupExternalBts,
@@ -71,8 +71,8 @@ import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 
 const maxBtsLength: ConfigurableValidator = maxLength(80);
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
-const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
-  props: IUpdateTreatmentModal,
+const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
+  props: IUpdateTreatmentModalProps,
 ): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -101,16 +101,17 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
   );
 
   const dispatch: Dispatch = useDispatch();
-  const [updateVuln, {loading: updatingVuln}] = useMutation<IUpdateVulnDescriptionResult>(UPDATE_DESCRIPTION_MUTATION, {
-    refetchQueries: [
-      { query: GET_VULNERABILITIES,
-        variables: {
-          analystField: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
-          identifier: props.findingId,
+  const [updateVuln, {loading: updatingVuln}] =
+    useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
+      refetchQueries: [
+        { query: GET_VULNERABILITIES,
+          variables: {
+            analystField: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
+            identifier: props.findingId,
+          },
         },
-      },
-    ],
-  });
+      ],
+    });
 
   const { data } = useQuery(GET_PROJECT_USERS, {
     skip: permissions.cannot("backend_api_resolvers_project__get_users"),
@@ -119,9 +120,9 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
     },
   });
 
-  const [deleteTagVuln, {loading: deletingTag}] = useMutation<IDeleteTagResult, IDeleteTagAttr>
+  const [deleteTagVuln, {loading: deletingTag}] = useMutation<IDeleteTagResultAttr, IDeleteTagAttr>
   (DELETE_TAGS_MUTATION, {
-    onCompleted: async (result: IDeleteTagResult): Promise<void> => {
+    onCompleted: async (result: IDeleteTagResultAttr): Promise<void> => {
       if (!_.isUndefined(result)) {
         if (result.deleteTags.success) {
           msgSuccess(
@@ -153,7 +154,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
       } else {
         try {
           setRunning(true);
-          const results: Array<ExecutionResult<IUpdateVulnDescriptionResult>> = await Promise.all(
+          const results: Array<ExecutionResult<IUpdateVulnDescriptionResultAttr>> = await Promise.all(
             _.chunk(props.vulnerabilities, props.vulnerabilitiesChunk)
               .map((vulnsChuncked: IVulnDataType[]) => (
                 updateVuln({variables: {
@@ -175,7 +176,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
               )));
 
           const areAllMutationValid: boolean[] = results.map((
-            result: ExecutionResult<IUpdateVulnDescriptionResult>,
+            result: ExecutionResult<IUpdateVulnDescriptionResultAttr>,
           ) => {
             if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
               const updateInfoSuccess: boolean =
@@ -258,7 +259,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModal> = (
 
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
     REQUEST_ZERO_RISK_VULN, {
-    onCompleted: (requestZeroRiskVulnResult: IRequestZeroRiskVulnResult): void => {
+    onCompleted: (requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr): void => {
       if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
         msgSuccess(
           translate.t("group_alerts.requested_zero_risk_success"),

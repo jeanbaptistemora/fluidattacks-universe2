@@ -1,12 +1,12 @@
-import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 
-interface IUpdateTreatmentModal {
+interface IUpdateTreatmentModalProps {
   findingId: string;
   projectName?: string;
   vulnerabilities: IVulnDataType[];
   vulnerabilitiesChunk: number;
-  handleClearSelected(): void;
-  handleCloseModal(): void;
+  handleClearSelected: () => void;
+  handleCloseModal: () => void;
 }
 
 interface IDeleteTagAttr {
@@ -15,13 +15,35 @@ interface IDeleteTagAttr {
   vulnerabilities: string[];
 }
 
-interface IDeleteTagResult {
+interface IDeleteTagResultAttr {
   deleteTags: {
     success: boolean;
   };
 }
 
-interface IUpdateVulnDescriptionResult {
+interface IProjectUsersAttr {
+  project: {
+    stakeholders: IStakeholderAttr[];
+  };
+}
+
+interface IRequestZeroRiskVulnResultAttr {
+  requestZeroRiskVuln: {
+    success: boolean;
+  };
+}
+
+interface IRequestZeroRiskVulnResultAttr {
+  requestZeroRiskVuln: {
+    success: boolean;
+  };
+}
+
+interface IStakeholderAttr {
+  email: string;
+}
+
+interface IUpdateVulnDescriptionResultAttr {
   updateTreatmentVuln?: {
     success: boolean;
   };
@@ -30,16 +52,12 @@ interface IUpdateVulnDescriptionResult {
   };
 }
 
-interface IRequestZeroRiskVulnResult {
-  requestZeroRiskVuln: {
-    success: boolean;
-  };
-}
-
 export {
   IDeleteTagAttr,
-  IDeleteTagResult,
-  IRequestZeroRiskVulnResult,
-  IUpdateTreatmentModal,
-  IUpdateVulnDescriptionResult,
+  IDeleteTagResultAttr,
+  IProjectUsersAttr,
+  IRequestZeroRiskVulnResultAttr,
+  IStakeholderAttr,
+  IUpdateTreatmentModalProps,
+  IUpdateVulnDescriptionResultAttr,
 };

@@ -13,7 +13,7 @@ import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities
 import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/index";
 import { UPDATE_DESCRIPTION_MUTATION } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import { IUpdateVulnDescriptionResult } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
+import { IUpdateVulnDescriptionResultAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgSuccess } from "utils/notifications";
@@ -514,7 +514,7 @@ describe("Vulnerabilities view", () => {
   it("should render update treatment", async () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
-    const updateTreatment: IUpdateVulnDescriptionResult = { updateTreatmentVuln : { success: true } };
+    const updateTreatment: IUpdateVulnDescriptionResultAttr = { updateTreatmentVuln : { success: true } };
     const mutationVariables: Dictionary<boolean | string | number > = {
       acceptanceDate: "",
       externalBts: "http://test.t",
