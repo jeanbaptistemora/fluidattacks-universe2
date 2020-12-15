@@ -482,10 +482,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   @include menu-font;
 }
 
-.op11:checked~.datasheet-tag {
-  @include menu-font;
-}
-
 .gall:checked~.tag-all {
   @include menu-font;
 }

@@ -29,13 +29,13 @@ const contentHome: (() => void) = (): void => {
     .on("change", () => {
       if ($("#op7")
         .prop("checked")) {
-          $(".report, .webinar, .datasheet, .ebook")
+          $(".report, .webinar, .ebook")
             .removeClass("dn")
             .addClass("dt-ns");
         }
       if ($("#op8")
         .prop("checked")) {
-          $(".report, .webinar, .datasheet")
+          $(".report, .webinar")
             .removeClass("dt-ns")
             .addClass("dn");
           $(".ebook")
@@ -44,7 +44,7 @@ const contentHome: (() => void) = (): void => {
         }
       if ($("#op9")
         .prop("checked")) {
-          $(".webinar, .datasheet, .ebook")
+          $(".webinar, .ebook")
             .removeClass("dt-ns")
             .addClass("dn");
           $(".report")
@@ -53,19 +53,10 @@ const contentHome: (() => void) = (): void => {
         }
       if ($("#op10")
         .prop("checked")) {
-          $(".report, .datasheet, .ebook")
+          $(".report, .ebook")
             .removeClass("dt-ns")
             .addClass("dn");
           $(".webinar")
-            .removeClass("dn")
-            .addClass("dt-ns");
-        }
-      if ($("#op11")
-        .prop("checked")) {
-          $(".report, .webinar, .ebook")
-            .removeClass("dt-ns")
-            .addClass("dn");
-          $(".datasheet")
             .removeClass("dn")
             .addClass("dt-ns");
         }
