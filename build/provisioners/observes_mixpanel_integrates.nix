@@ -21,6 +21,10 @@ in
       pyPkgTapMixpanel = builders.pythonPackageLocal {
         path = ../../observes/singer/tap_mixpanel;
       };
+
+      pyPkgTapjson = builders.pythonPackageLocal {
+        path = ../../observes/singer/tap_json;
+      };
       
       pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../observes/singer/target_redshift; };
     })

@@ -1,0 +1,30 @@
+{
+  "tables": [
+    "AddProjectFiles",
+    "AddProjectTags",
+    "AddUserAccess",
+    "AddUserOrganzationAccess",
+    "DeleteVulnerability",
+    "EditUserAccess",
+    "EditUserOrganizationAccess",
+    "Error401",
+    "Error500",
+    "EventDescription",
+    "EventEvidence",
+    "FindingComments",
+    "FindingDescription",
+    "FindingEvidence",
+    "FindingExploit",
+    "FindingObservations",
+    "FindingRecords",
+    "FindingSeverity",
+    "FindingTracking",
+    "FindingVulnerabilities",
+    "HandleAcceptation",
+    "Logged In",
+    "Login Azure",
+    "Login Bitbucket",
+    "Login Google"
+  ]
+}
+

@@ -109,7 +109,7 @@ function helper_observes_dynamodb {
         < .singer
 }
 
-function helper_observes_mixpanel {
+function helper_observes_mixpanel_integrates {
   local conf="${1}"
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
@@ -125,12 +125,12 @@ function helper_observes_mixpanel {
   &&  echo '[INFO] Starting mixpanel ETL' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running tap' \
-  &&  tap-mixpanel -a "${TEMP_FILE1}" -c "${conf}" \
+  &&  tap-mixpanel -a "${TEMP_FILE1}" -c "${conf}" | tap-json \
         > .singer \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
-        --schema-name "mixpanel" \
+        --schema-name "mixpanel_integrates" \
         < .singer
 }
 

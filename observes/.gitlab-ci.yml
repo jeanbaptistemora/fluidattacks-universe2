@@ -117,6 +117,11 @@ observes_gitlab_etl_test:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes_mixpanel_etl_lint:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes_postgres_client_lint:
   <<: *with_nix
   <<: *observes_in_dev_branch
@@ -211,6 +216,15 @@ observes_zoho_crm:
   only:
     refs: [schedules]
     variables: [$observes_zoho_crm]
+  interruptible: false
+
+observes_mixpanel_integrates:
+  <<: *with_nix
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_mixpanel_integrates]
   interruptible: false
 
 observes_git_process:

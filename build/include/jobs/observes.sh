@@ -83,10 +83,10 @@ function job_observes_timedoctor {
   ||  return 1
 }
 
-function job_observes_mixpanel {
+function job_observes_mixpanel_integrates {
       helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \
-  &&  helper_observes_mixpanel "./observes/conf/mixpanel.json"\
+  &&  helper_observes_mixpanel_integrates "./observes/conf/mixpanel_integrates.json"\
   ||  return 1
 }
 
