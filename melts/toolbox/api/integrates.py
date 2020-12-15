@@ -324,8 +324,8 @@ class Queries:
                 roots {
                   ...on GitRoot{
                     filter{
-                      paths
-                      policy
+                      include
+                      exclude
                     }
                   }
                 }

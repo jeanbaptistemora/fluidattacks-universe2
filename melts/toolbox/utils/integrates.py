@@ -32,9 +32,7 @@ def get_include_rules(group: str) -> Tuple[str, ...]:
         return tuple()
     filters = tuple(rule['filter']
                     for rule in filter_request.data['project']['roots'])
-    regexps = tuple(rule for root in filters for rule in root['paths']
-                    if root['policy'] == 'INCLUDE')
-    return regexps or ('^.*$', )
+    return tuple(rule for root in filters for rule in root['include'])
 
 
 def get_exclude_rules(group: str) -> Tuple[str, ...]:
@@ -44,5 +42,4 @@ def get_exclude_rules(group: str) -> Tuple[str, ...]:
         return tuple()
     filters = tuple(rule['filter']
                     for rule in filter_request.data['project']['roots'])
-    return tuple(rule for root in filters for rule in root['paths']
-                 if root['policy'] == 'EXCLUDE')
+    return tuple(rule for root in filters for rule in root['exclude'])
