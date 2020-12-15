@@ -45,6 +45,7 @@ class AdjustCsvOptions(NamedTuple):
     quote_nonnum: bool = False
     add_default_types: bool = False
     pkeys_present: bool = False
+    only_records: bool = False
     file_schema: Dict[str, str] = {}
 
 
@@ -74,7 +75,8 @@ def translate_types(
 
 def translate_values(
     field_type: Dict[str, ColumnType],
-    field_value: Dict[str, str]
+    field_value: Dict[str, str],
+    auto_type: bool = False
 ) -> Dict[str, Any]:
     """Translates type names into JSON SCHEMA value."""
     transform: Dict[ColumnType, Callable[[str], Any]] = {
@@ -85,11 +87,39 @@ def translate_values(
         ColumnType.BOOL: lambda x: bool(x) if x else None,
         ColumnType.INT: lambda x: int(x) if x else None,
     }
+    cast_function: Callable[[str, str], Any] = (
+        lambda _, y: auto_cast(y) if auto_type
+        else lambda x, y: transform[field_type[x]](y)
+    )
     new_field_value = map(
-        lambda x: (x[0], transform[field_type[x[0]]](x[1])),
+        lambda x: (x[0], cast_function(x[0], x[1])),
         field_value.items()
     )
     return dict(new_field_value)
+
+
+def try_cast(cast: Callable[[str], Any], data: str) -> Any:
+    try:
+        return cast(data)
+    except ValueError:
+        return None
+
+
+def auto_cast(data: str) -> Any:
+    test_casts: List[Callable[[str], Any]] = [
+        int,
+        float,
+        lambda x: x.lower() == 'true'
+        if x.lower() == 'false' or x.lower() == 'true' else None,
+    ]
+    cast: Callable[[Callable[[str], Any]], Any] = lambda c: try_cast(c, data)
+    return next(
+        filter(
+            lambda x: x is not None,
+            map(cast, test_casts)
+        ),
+        data
+    )
 
 
 def add_default_types(
@@ -190,20 +220,23 @@ def to_singer(
                         zip(field_names, record)
                     )
                 )
-                singer_schema: SingerSchema = SingerSchema(
-                    stream=stream,
-                    schema={
-                        "properties": translate_types(name_type_map)
-                    },
-                    key_properties=frozenset(pkeys)
-                )
-                factory.emit(singer_schema)
+                if not options.only_records:
+                    singer_schema: SingerSchema = SingerSchema(
+                        stream=stream,
+                        schema={
+                            "properties": translate_types(name_type_map)
+                        },
+                        key_properties=frozenset(pkeys)
+                    )
+                    factory.emit(singer_schema)
         else:
             name_value_map = dict(zip(field_names, record))
             singer_record: SingerRecord = SingerRecord(
                 stream=stream,
                 record=translate_values(
-                    name_type_map, name_value_map
+                    name_type_map,
+                    name_value_map,
+                    auto_type=options.only_records
                 )
             )
             factory.emit(singer_record)

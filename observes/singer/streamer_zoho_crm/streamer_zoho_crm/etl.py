@@ -1,10 +1,7 @@
 # Standard libraries
-import os
-import json
 import tempfile
 from typing import (
     FrozenSet,
-    Iterable,
     Mapping,
     Tuple,
     TypedDict,
@@ -31,7 +28,7 @@ from streamer_zoho_crm.bulk import BulkUtils
 from streamer_zoho_crm.db import Client as DbClient
 
 
-ALL_MODULES = frozenset({ModuleName.CONTACTS})
+ALL_MODULES = frozenset(ModuleName)
 LOG = utils.get_log(__name__)
 
 
@@ -76,21 +73,13 @@ def jobs_map(bulk_utils: BulkUtils) -> Mapping[str, BulkJob]:
 def emit_data(
     data: FrozenSet[BulkData],
     id_job_map: Mapping[str, BulkJob],
-    module_schema_map: Mapping[str, Iterable[TypeFieldDict]]
 ) -> None:
-    LOG.debug('module schema map: %s', module_schema_map)
 
     def emit_bulk_data(bdata: BulkData) -> None:
         persistent_file = tempfile.NamedTemporaryFile('w+', delete=False)
         bdata.file.seek(0)
         persistent_file.write(bdata.file.read())
         module_name: str = id_job_map[bdata.job_id].module.value
-        module_schema: FrozenSet[Tuple[str, str]] = frozenset(
-            map(
-                lambda x: (x['field'], x['data_type']),
-                module_schema_map.get(module_name, {})
-            )
-        )
         record = SingerRecord(
             stream=module_name,
             record={
@@ -99,7 +88,7 @@ def emit_data(
                     'quote_nonnum': True,
                     'add_default_types': True,
                     'pkeys_present': False,
-                    'file_schema': dict(module_schema)
+                    'only_records': True
                 }
             }
         )
@@ -114,10 +103,7 @@ def extraction_phase(
     data: FrozenSet[BulkData] = bulk_utils.extract_data(
         frozenset(id_job_map.keys())
     )
-    script_dir = os.path.dirname(__file__)
-    schemas_path = 'conf/module_schemas.json'
-    with open(os.path.join(script_dir, schemas_path), 'r') as schemas:
-        emit_data(data, id_job_map, json.load(schemas))
+    emit_data(data, id_job_map)
 
 
 def start_streamer(
