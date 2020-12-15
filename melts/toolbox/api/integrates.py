@@ -342,6 +342,26 @@ class Queries:
             operation='MeltsGetGitRootsFilter',
         )
 
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def has_forces(api_token: str, project_name: str) -> Response:
+        query = """
+            query MeltsHasForces($projectName: String!) {
+              project(projectName: $projectName){
+                hasForces
+              }
+            }
+        """
+        params: dict = {
+            'projectName': project_name
+        }
+        return request(
+            api_token,
+            query,
+            params,
+            operation='MeltsHasForces',
+        )
+
 
 class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""

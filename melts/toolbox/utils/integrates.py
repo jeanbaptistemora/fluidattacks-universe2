@@ -43,3 +43,13 @@ def get_exclude_rules(group: str) -> Tuple[str, ...]:
     filters = tuple(rule['filter']
                     for rule in filter_request.data['project']['roots'])
     return tuple(rule for root in filters for rule in root['exclude'])
+
+
+def has_forces(group: str) -> bool:
+    response = api.integrates.Queries.has_forces(API_TOKEN, group)
+    success = False
+    if response.ok:
+        success = response.data['project']['hasForces']
+    else:
+        logger.error(response.errors[0])
+    return success
