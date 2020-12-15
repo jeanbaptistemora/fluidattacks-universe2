@@ -91,20 +91,6 @@ def _is_scope_comment(comment: CommentType):
     return str(comment['content']).strip() not in {'#external', '#internal'}
 
 
-async def get_finding_comments_without_scope(
-        project_name: str,
-        finding_id: str,
-        user_email: str) -> List[CommentType]:
-    comments = await get_comments(
-        project_name,
-        finding_id,
-        user_email,
-    )
-
-    new_comments = filter(_is_scope_comment, comments)
-    return list(new_comments)
-
-
 async def get_event_comments(
         project_name: str,
         finding_id: str,
@@ -207,21 +193,18 @@ async def get_observations(
         finding_id, user_email
     )
 
-    return observations
+    enforcer = await authz.get_group_level_enforcer(user_email)
 
+    new_observations: List[CommentType] = []
 
-async def get_observations_without_scope(
-        project_name: str,
-        finding_id: str,
-        user_email: str) -> List[CommentType]:
-    observations = await get_observations(
-        project_name,
-        finding_id,
-        user_email
-    )
+    if enforcer(project_name, 'see_comment_scope'):
+        new_observations = observations
+    else:
+        new_observations = list(
+            filter(_is_scope_comment, observations)
+        )
 
-    new_observations = filter(_is_scope_comment, observations)
-    return list(new_observations)
+    return new_observations
 
 
 async def create(

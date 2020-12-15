@@ -5,10 +5,7 @@ from typing import cast, Dict, List
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import (
-    authz,
-    util
-)
+from backend import util
 from backend.decorators import (
     enforce_group_level_auth_async,
     get_entity_cache_async
@@ -29,18 +26,8 @@ async def resolve(
 
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
-    is_reviewer: bool = await authz.get_user_level_role(
-        user_email
-    ) == 'reviewer'
 
-    if is_reviewer:
-        return await comment_domain.get_observations(
-            group_name,
-            finding_id,
-            user_email
-        )
-
-    return await comment_domain.get_observations_without_scope(
+    return await comment_domain.get_observations(
         group_name,
         finding_id,
         user_email
