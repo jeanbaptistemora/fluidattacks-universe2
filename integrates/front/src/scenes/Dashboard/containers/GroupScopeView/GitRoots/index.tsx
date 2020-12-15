@@ -24,6 +24,19 @@ import {
   statusFormatter,
 } from "components/DataTableNext/formatters";
 
+const formatFilter: (globs: string[]) => JSX.Element = (globs): JSX.Element => (
+  <p>
+    {globs.map(
+      (glob: string): JSX.Element => (
+        <React.Fragment key={glob}>
+          {glob}
+          <br />
+        </React.Fragment>
+      )
+    )}
+  </p>
+);
+
 const getGlobFromRegex: (regexExpression: string) => string = (
   regexExpression
 ): string => regexExpression.slice(1, -1).replace(/\.\*/gu, "*");
@@ -227,6 +240,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 {
                   dataField: "environment",
                   header: t("group.scope.git.repo.environment"),
+                },
+                {
+                  dataField: "filter.include",
+                  formatter: formatFilter,
+                  header: t("group.scope.git.filter.include"),
+                },
+                {
+                  dataField: "filter.exclude",
+                  formatter: formatFilter,
+                  header: t("group.scope.git.filter.exclude"),
                 },
                 {
                   align: "center",

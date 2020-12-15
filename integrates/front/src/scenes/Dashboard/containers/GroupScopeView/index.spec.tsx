@@ -91,9 +91,18 @@ describe("GroupScopeView", (): void => {
 
     expect(firstTableRow.text()).toStrictEqual(
       [
+        // url
         "https://gitlab.com/fluidattacks/product",
+        // branch
         "master",
+        // environment
         "production",
+        // include
+        "*",
+        // exclude
+        "*/bower_components/*",
+        "*/node_modules/*",
+        // state
         "Active",
       ].join("")
     );
@@ -222,9 +231,15 @@ describe("GroupScopeView", (): void => {
 
     expect(firstTableRow.text()).toStrictEqual(
       [
+        // url
         "https://gitlab.com/fluidattacks/product",
+        // branch
         "master",
+        // environment
         "production",
+        // include
+        "*",
+        // state
         "Active",
       ].join("")
     );
@@ -383,9 +398,17 @@ describe("GroupScopeView", (): void => {
 
     expect(getFirstTableRow().text()).toStrictEqual(
       [
+        // url
         "https://gitlab.com/fluidattacks/product",
+        // branch
         "master",
+        // environment
         "staging",
+        // include
+        "*",
+        // exclude
+        "node_modules/*",
+        // state
         "Active",
       ].join("")
     );
