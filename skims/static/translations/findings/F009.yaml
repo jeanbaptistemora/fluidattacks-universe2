@@ -54,5 +54,5 @@ utils.model.finding.enum.f009.threat:
   es: >
     Atacante con acceso al código fuente desde Internet.
 utils.model.finding.enum.f009.title:
-  en: FIN.S.009. Sensitive information in source code
-  es: FIN.S.009. Información sensible almacenada en el código fuente
+  en: F009. Sensitive information in source code
+  es: F009. Información sensible almacenada en el código fuente

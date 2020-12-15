@@ -1,17 +1,17 @@
 title,what,where,cwe
-FIN.H.060. Insecure exceptions,BenchmarkTest00219.java,82,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00219.java,93,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00220.java,89,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00220.java,97,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00221.java,81,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00221.java,89,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00222.java,102,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00222.java,94,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00263.java,88,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00263.java,99,396
-FIN.H.061. Errors without traceability,BenchmarkTest00219.java,93,390
-FIN.H.061. Errors without traceability,BenchmarkTest00220.java,97,390
-FIN.H.061. Errors without traceability,BenchmarkTest00221.java,89,390
-FIN.H.061. Errors without traceability,BenchmarkTest00222.java,102,390
-FIN.H.061. Errors without traceability,BenchmarkTest00263.java,99,390
-SKIMS.S.063. Test - please delete,BenchmarkTest00216.java,70,22
+F060. Insecure exceptions,BenchmarkTest00219.java,82,396
+F060. Insecure exceptions,BenchmarkTest00219.java,93,396
+F060. Insecure exceptions,BenchmarkTest00220.java,89,396
+F060. Insecure exceptions,BenchmarkTest00220.java,97,396
+F060. Insecure exceptions,BenchmarkTest00221.java,81,396
+F060. Insecure exceptions,BenchmarkTest00221.java,89,396
+F060. Insecure exceptions,BenchmarkTest00222.java,102,396
+F060. Insecure exceptions,BenchmarkTest00222.java,94,396
+F060. Insecure exceptions,BenchmarkTest00263.java,88,396
+F060. Insecure exceptions,BenchmarkTest00263.java,99,396
+F061. Errors without traceability,BenchmarkTest00219.java,93,390
+F061. Errors without traceability,BenchmarkTest00220.java,97,390
+F061. Errors without traceability,BenchmarkTest00221.java,89,390
+F061. Errors without traceability,BenchmarkTest00222.java,102,390
+F061. Errors without traceability,BenchmarkTest00263.java,99,390
+F063. Test - please delete,BenchmarkTest00216.java,70,22

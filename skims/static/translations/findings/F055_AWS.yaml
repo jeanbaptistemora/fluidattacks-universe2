@@ -58,5 +58,5 @@ utils.model.finding.enum.F055_AWS.threat:
   en: Internal attacker with access to the configuration.
   es: Atacante intnterno con acceso a la configuración.
 utils.model.finding.enum.F055_AWS.title:
-  en: FIN.S.055. Insecure service configuration - AWS
-  es: FIN.S.055. Configuración insegura del servicio - AWS
+  en: F055. Insecure service configuration - AWS
+  es: F055. Configuración insegura del servicio - AWS

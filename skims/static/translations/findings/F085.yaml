@@ -34,5 +34,5 @@ utils.model.finding.enum.f085.threat:
   es: >
     Atacante con acceso físico o virtual al navegador de la víctima.
 utils.model.finding.enum.f085.title:
-  en: FIN.S.085. Sensitive data stored in the client-side storage
-  es: FIN.S.085. Almacenamiento inseguro de información sensible en el client-side storage
+  en: F085. Sensitive data stored in the client-side storage
+  es: F085. Almacenamiento inseguro de información sensible en el client-side storage

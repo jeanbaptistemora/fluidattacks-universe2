@@ -37,5 +37,5 @@ utils.model.finding.enum.f060.threat:
   es: >
     Atacante autenticado desde Internet.
 utils.model.finding.enum.f060.title:
-  en: FIN.H.060. Insecure exceptions
-  es: FIN.H.060. Excepciones inseguras
+  en: F060. Insecure exceptions
+  es: F060. Excepciones inseguras

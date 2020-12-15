@@ -35,5 +35,5 @@ utils.model.finding.enum.f061.threat:
   es: >
     Atacante autenticado desde Internet.
 utils.model.finding.enum.f061.title:
-  en: FIN.H.061. Errors without traceability
-  es: FIN.H.061. Errores sin trazabilidad
+  en: F061. Errors without traceability
+  es: F061. Errores sin trazabilidad

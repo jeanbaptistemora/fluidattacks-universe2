@@ -52,5 +52,5 @@ utils.model.finding.enum.F052.threat:
   es: >
     Atacante anónimo desde red interna ejecutando un MITM.
 utils.model.finding.enum.F052.title:
-  en: FIN.S.052. Insecure encryption algorithm
-  es: FIN.S.052. Algoritmo de cifrado inseguro
+  en: F052. Insecure encryption algorithm
+  es: F052. Algoritmo de cifrado inseguro

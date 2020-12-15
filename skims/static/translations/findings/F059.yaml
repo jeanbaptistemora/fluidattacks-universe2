@@ -27,5 +27,5 @@ utils.model.finding.enum.f059.threat:
   es: >
     Atacante local autorizado con acceso a los logs.
 utils.model.finding.enum.f059.title:
-  en: FIN.S.059. Sensitive information stored in logs
-  es: FIN.S.059. Información sensible almacenada en bitácoras
+  en: F059. Sensitive information stored in logs
+  es: F059. Información sensible almacenada en bitácoras

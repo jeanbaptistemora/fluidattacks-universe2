@@ -1,18 +1,18 @@
 title,what,where,cwe
-FIN.H.060. Insecure exceptions,BenchmarkTest00866.java,62,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00866.java,70,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00867.java,75,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00867.java,86,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00953.java,82,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00954.java,82,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00955.java,82,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00956.java,82,396
-FIN.H.061. Errors without traceability,BenchmarkTest00866.java,70,390
-FIN.H.061. Errors without traceability,BenchmarkTest00867.java,86,390
-SKIMS.S.063. Test - please delete,BenchmarkTest00866.java,57,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00949.java,65,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00950.java,65,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00953.java,67,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00954.java,67,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00955.java,67,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00956.java,67,22
+F060. Insecure exceptions,BenchmarkTest00866.java,62,396
+F060. Insecure exceptions,BenchmarkTest00866.java,70,396
+F060. Insecure exceptions,BenchmarkTest00867.java,75,396
+F060. Insecure exceptions,BenchmarkTest00867.java,86,396
+F060. Insecure exceptions,BenchmarkTest00953.java,82,396
+F060. Insecure exceptions,BenchmarkTest00954.java,82,396
+F060. Insecure exceptions,BenchmarkTest00955.java,82,396
+F060. Insecure exceptions,BenchmarkTest00956.java,82,396
+F061. Errors without traceability,BenchmarkTest00866.java,70,390
+F061. Errors without traceability,BenchmarkTest00867.java,86,390
+F063. Test - please delete,BenchmarkTest00866.java,57,22
+F063. Test - please delete,BenchmarkTest00949.java,65,22
+F063. Test - please delete,BenchmarkTest00950.java,65,22
+F063. Test - please delete,BenchmarkTest00953.java,67,22
+F063. Test - please delete,BenchmarkTest00954.java,67,22
+F063. Test - please delete,BenchmarkTest00955.java,67,22
+F063. Test - please delete,BenchmarkTest00956.java,67,22

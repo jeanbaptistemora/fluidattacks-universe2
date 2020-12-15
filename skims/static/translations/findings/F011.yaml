@@ -31,5 +31,5 @@ utils.model.finding.enum.f011.threat:
   es: >
     Atacante autenticado desde Internet.
 utils.model.finding.enum.f011.title:
-  en: FIN.S.011. Use of software with known vulnerabilities
-  es: FIN.S.011. Uso de componentes con vulnerabilidades conocidas
+  en: F011. Use of software with known vulnerabilities
+  es: F011. Uso de componentes con vulnerabilidades conocidas

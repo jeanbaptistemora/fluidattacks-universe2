@@ -31,15 +31,15 @@ utils.model.finding.enum.f037.recommendation:
     conocimiento de la superficie de ataque.
 utils.model.finding.enum.f037.requirements:
   en: >
-    REQ.077 The application must not disclose internal system information
+    R077 The application must not disclose internal system information
     such as stack traces, SQL sentence fragments, database names or table names.
   es: >
-    REQ.077 La aplicación no debe revelar información interna del sistema, como
+    R077 La aplicación no debe revelar información interna del sistema, como
     stack traces, fragmentos de sentencias SQL, nombres de bases de
     datos o nombres de tablas.
 utils.model.finding.enum.f037.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
 utils.model.finding.enum.f037.title:
-  en: FIN.H.037. Technical information leak
-  es: FIN.H.037. Fuga de información técnica
+  en: F037. Technical information leak
+  es: F037. Fuga de información técnica

@@ -20,5 +20,5 @@ utils.model.finding.enum.F055_CORS.threat:
   en: Unauthorized attacker from the Internet.
   es: Atacante sin autorización desde Internet.
 utils.model.finding.enum.F055_CORS.title:
-  en: FIN.S.0055. Insecure service configuration - CORS
-  es: FIN.S.0055. Configuración insegura del servicio - CORS
+  en: F055. Insecure service configuration - CORS
+  es: F055. Configuración insegura del servicio - CORS

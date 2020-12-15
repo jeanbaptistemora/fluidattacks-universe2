@@ -41,5 +41,5 @@ utils.model.finding.enum.f047.threat:
   en: Anonymous attacker from the internet
   es: Atacante anónimo desde internet.
 utils.model.finding.enum.f047.title:
-  en: FIN.H.047. Automatic information enumeration - AWS
-  es: FIN.H.047. Enumeración automática de información - AWS
+  en: F047. Automatic information enumeration - AWS
+  es: F047. Enumeración automática de información - AWS

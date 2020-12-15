@@ -44,5 +44,5 @@ utils.model.finding.enum.f034.threat:
   es: >
     Atacante autenticado desde Internet.
 utils.model.finding.enum.f034.title:
-  en: FIN.S.034. Insecure random number generation
-  es: FIN.S.034. Generación de números aleatorios inseguros
+  en: F034. Insecure random number generation
+  es: F034. Generación de números aleatorios inseguros

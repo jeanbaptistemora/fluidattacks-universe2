@@ -46,5 +46,5 @@ utils.model.finding.enum.f117.threat:
   es: >
     Atacante autenticado desde Internet.
 utils.model.finding.enum.f117.title:
-  en: FIN.S.117. Unverifiable files
-  es: FIN.S.117. Archivos no auditables
+  en: F117. Unverifiable files
+  es: F117. Archivos no auditables

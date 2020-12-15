@@ -1,26 +1,26 @@
 title,what,where,cwe
-FIN.H.060. Insecure exceptions,BenchmarkTest01115.java,73,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01115.java,81,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01116.java,79,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01117.java,79,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01118.java,77,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01118.java,88,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01158.java,69,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01158.java,77,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01159.java,69,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01159.java,77,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01160.java,66,396
-FIN.H.060. Insecure exceptions,BenchmarkTest01160.java,74,396
-FIN.H.061. Errors without traceability,BenchmarkTest01115.java,81,390
-FIN.H.061. Errors without traceability,BenchmarkTest01118.java,88,390
-FIN.H.061. Errors without traceability,BenchmarkTest01158.java,77,390
-FIN.H.061. Errors without traceability,BenchmarkTest01159.java,77,390
-FIN.H.061. Errors without traceability,BenchmarkTest01160.java,74,390
-SKIMS.S.063. Test - please delete,BenchmarkTest01115.java,68,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01116.java,64,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01117.java,64,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01118.java,67,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01155.java,55,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01158.java,60,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01159.java,60,22
-SKIMS.S.063. Test - please delete,BenchmarkTest01160.java,61,22
+F060. Insecure exceptions,BenchmarkTest01115.java,73,396
+F060. Insecure exceptions,BenchmarkTest01115.java,81,396
+F060. Insecure exceptions,BenchmarkTest01116.java,79,396
+F060. Insecure exceptions,BenchmarkTest01117.java,79,396
+F060. Insecure exceptions,BenchmarkTest01118.java,77,396
+F060. Insecure exceptions,BenchmarkTest01118.java,88,396
+F060. Insecure exceptions,BenchmarkTest01158.java,69,396
+F060. Insecure exceptions,BenchmarkTest01158.java,77,396
+F060. Insecure exceptions,BenchmarkTest01159.java,69,396
+F060. Insecure exceptions,BenchmarkTest01159.java,77,396
+F060. Insecure exceptions,BenchmarkTest01160.java,66,396
+F060. Insecure exceptions,BenchmarkTest01160.java,74,396
+F061. Errors without traceability,BenchmarkTest01115.java,81,390
+F061. Errors without traceability,BenchmarkTest01118.java,88,390
+F061. Errors without traceability,BenchmarkTest01158.java,77,390
+F061. Errors without traceability,BenchmarkTest01159.java,77,390
+F061. Errors without traceability,BenchmarkTest01160.java,74,390
+F063. Test - please delete,BenchmarkTest01115.java,68,22
+F063. Test - please delete,BenchmarkTest01116.java,64,22
+F063. Test - please delete,BenchmarkTest01117.java,64,22
+F063. Test - please delete,BenchmarkTest01118.java,67,22
+F063. Test - please delete,BenchmarkTest01155.java,55,22
+F063. Test - please delete,BenchmarkTest01158.java,60,22
+F063. Test - please delete,BenchmarkTest01159.java,60,22
+F063. Test - please delete,BenchmarkTest01160.java,61,22

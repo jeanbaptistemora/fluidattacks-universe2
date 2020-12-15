@@ -30,14 +30,14 @@ utils.model.finding.enum.F031_AWS.recommendation:
     el principio del mínimo privilegio.
 utils.model.finding.enum.F031_AWS.requirements:
   en: |
-    REQ.186. Use the principle of least privilege
+    R186. Use the principle of least privilege
   es: |
-    REQ.186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
+    R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
 utils.model.finding.enum.F031_AWS.threat:
   en: >
     Attacker from the internet with access to any of the misconfigured roles.
   es: >
     Atacante desde internet con acceso a cualquiera de los roles mal configurados.
 utils.model.finding.enum.F031_AWS.title:
-  en: FIN.S.031. Excessive privileges - AWS
-  es: FIN.S.031. Permisos excesivos - AWS
+  en: F031. Excessive privileges - AWS
+  es: F031. Permisos excesivos - AWS

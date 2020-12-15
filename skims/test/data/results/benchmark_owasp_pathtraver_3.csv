@@ -1,31 +1,31 @@
 title,what,where,cwe
-FIN.H.060. Insecure exceptions,BenchmarkTest00264.java,75,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00264.java,86,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00265.java,78,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00265.java,86,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00360.java,66,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00360.java,77,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00361.java,83,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00361.java,91,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00362.java,61,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00362.java,69,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00363.java,67,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00364.java,71,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00364.java,79,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00365.java,71,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00365.java,82,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00366.java,84,396
-FIN.H.060. Insecure exceptions,BenchmarkTest00366.java,95,396
-FIN.H.061. Errors without traceability,BenchmarkTest00264.java,86,390
-FIN.H.061. Errors without traceability,BenchmarkTest00265.java,86,390
-FIN.H.061. Errors without traceability,BenchmarkTest00360.java,77,390
-FIN.H.061. Errors without traceability,BenchmarkTest00361.java,91,390
-FIN.H.061. Errors without traceability,BenchmarkTest00362.java,69,390
-FIN.H.061. Errors without traceability,BenchmarkTest00364.java,79,390
-FIN.H.061. Errors without traceability,BenchmarkTest00365.java,82,390
-FIN.H.061. Errors without traceability,BenchmarkTest00366.java,95,390
-SKIMS.S.063. Test - please delete,BenchmarkTest00264.java,68,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00359.java,56,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00360.java,59,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00362.java,56,22
-SKIMS.S.063. Test - please delete,BenchmarkTest00363.java,52,22
+F060. Insecure exceptions,BenchmarkTest00264.java,75,396
+F060. Insecure exceptions,BenchmarkTest00264.java,86,396
+F060. Insecure exceptions,BenchmarkTest00265.java,78,396
+F060. Insecure exceptions,BenchmarkTest00265.java,86,396
+F060. Insecure exceptions,BenchmarkTest00360.java,66,396
+F060. Insecure exceptions,BenchmarkTest00360.java,77,396
+F060. Insecure exceptions,BenchmarkTest00361.java,83,396
+F060. Insecure exceptions,BenchmarkTest00361.java,91,396
+F060. Insecure exceptions,BenchmarkTest00362.java,61,396
+F060. Insecure exceptions,BenchmarkTest00362.java,69,396
+F060. Insecure exceptions,BenchmarkTest00363.java,67,396
+F060. Insecure exceptions,BenchmarkTest00364.java,71,396
+F060. Insecure exceptions,BenchmarkTest00364.java,79,396
+F060. Insecure exceptions,BenchmarkTest00365.java,71,396
+F060. Insecure exceptions,BenchmarkTest00365.java,82,396
+F060. Insecure exceptions,BenchmarkTest00366.java,84,396
+F060. Insecure exceptions,BenchmarkTest00366.java,95,396
+F061. Errors without traceability,BenchmarkTest00264.java,86,390
+F061. Errors without traceability,BenchmarkTest00265.java,86,390
+F061. Errors without traceability,BenchmarkTest00360.java,77,390
+F061. Errors without traceability,BenchmarkTest00361.java,91,390
+F061. Errors without traceability,BenchmarkTest00362.java,69,390
+F061. Errors without traceability,BenchmarkTest00364.java,79,390
+F061. Errors without traceability,BenchmarkTest00365.java,82,390
+F061. Errors without traceability,BenchmarkTest00366.java,95,390
+F063. Test - please delete,BenchmarkTest00264.java,68,22
+F063. Test - please delete,BenchmarkTest00359.java,56,22
+F063. Test - please delete,BenchmarkTest00360.java,59,22
+F063. Test - please delete,BenchmarkTest00362.java,56,22
+F063. Test - please delete,BenchmarkTest00363.java,52,22

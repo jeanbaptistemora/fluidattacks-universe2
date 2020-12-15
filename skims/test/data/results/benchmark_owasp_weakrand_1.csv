@@ -1,8 +1,8 @@
 title,what,where,cwe
-FIN.S.034. Insecure random number generation,BenchmarkTest00082.java,101,330
-FIN.S.034. Insecure random number generation,BenchmarkTest00083.java,106,330
-FIN.S.034. Insecure random number generation,BenchmarkTest00084.java,101,330
-FIN.S.034. Insecure random number generation,BenchmarkTest00085.java,106,330
-FIN.S.034. Insecure random number generation,BenchmarkTest00086.java,107,330
-FIN.S.034. Insecure random number generation,BenchmarkTest00140.java,100,330
-FIN.S.034. Insecure random number generation,BenchmarkTest00160.java,94,330
+F034. Insecure random number generation,BenchmarkTest00082.java,101,330
+F034. Insecure random number generation,BenchmarkTest00083.java,106,330
+F034. Insecure random number generation,BenchmarkTest00084.java,101,330
+F034. Insecure random number generation,BenchmarkTest00085.java,106,330
+F034. Insecure random number generation,BenchmarkTest00086.java,107,330
+F034. Insecure random number generation,BenchmarkTest00140.java,100,330
+F034. Insecure random number generation,BenchmarkTest00160.java,94,330
