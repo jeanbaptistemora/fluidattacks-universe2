@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Grid, Panel } from "react-bootstrap";
+import { Panel } from "react-bootstrap";
 import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
@@ -270,7 +270,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
       </div>
       {doesEntityMatch("portfolio") ? (
         <React.Fragment>
-          <Grid fluid={true}>
+          <div className={"center"}>
             <RowCenter>
               <Col100>
                 <Graphic
@@ -481,16 +481,15 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col25>
             </RowCenter>
-          </Grid>
+          </div>
         </React.Fragment>
       ) : undefined}
       {doesEntityMatch("group") ? (
         <React.Fragment>
           <hr />
-          <Grid fluid={true}>
+          <div className={"center"}>
             <RowCenter>
-              <Col
-                md={12}
+              <Col100
                 onMouseEnter={forcesPanelOnEnter}
                 onMouseLeave={forcesPanelOnLeave}
               >
@@ -513,11 +512,11 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                     </Panel.Body>
                   </Panel.Collapse>
                 </Panel>
-              </Col>
+              </Col100>
             </RowCenter>
             <div className={styles.separatorTitleFromCharts} />
             <RowCenter>
-              <Col md={3}>
+              <Col25>
                 <Graphic
                   bsHeight={80}
                   documentName="forcesStatus"
@@ -529,8 +528,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesStatus.title")}
                 />
-              </Col>
-              <Col md={3}>
+              </Col25>
+              <Col25>
                 <Graphic
                   bsHeight={80}
                   documentName="forcesUsage"
@@ -545,8 +544,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesUsage.title")}
                 />
-              </Col>
-              <Col md={3}>
+              </Col25>
+              <Col25>
                 <Graphic
                   bsHeight={80}
                   documentName="forcesAutomatizedVulns"
@@ -561,8 +560,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesAutomatizedVulns.title")}
                 />
-              </Col>
-              <Col md={3}>
+              </Col25>
+              <Col25>
                 <Graphic
                   bsHeight={80}
                   documentName="forcesRepositoriesAndBranches"
@@ -577,10 +576,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesRepositoriesAndBranches.title")}
                 />
-              </Col>
+              </Col25>
             </RowCenter>
             <RowCenter>
-              <Col md={6}>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="forcesSecurityCommitment"
@@ -602,8 +601,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.gauge.forcesSecurityCommitment.title")}
                 />
-              </Col>
-              <Col md={6}>
+              </Col50>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="forcesBuildsRisk"
@@ -624,9 +623,9 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.gauge.forcesBuildsRisk.title")}
                 />
-              </Col>
+              </Col50>
             </RowCenter>
-          </Grid>
+          </div>
         </React.Fragment>
       ) : undefined}
       {reportMode ? undefined :
