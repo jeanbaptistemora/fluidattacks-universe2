@@ -27,8 +27,8 @@ module "eks" {
       name                 = "ephemeral"
       instance_type        = "m5a.large"
       asg_min_size         = 5
-      asg_desired_capacity = 10
-      asg_max_size         = 10
+      asg_desired_capacity = 11
+      asg_max_size         = 11
       root_volume_type     = "gp2"
       root_volume_size     = "50"
       kubelet_extra_args   = "--node-labels=worker_group=ephemeral"
@@ -37,8 +37,8 @@ module "eks" {
       name                 = "production"
       instance_type        = "m5a.large"
       asg_min_size         = 5
-      asg_desired_capacity = 10
-      asg_max_size         = 10
+      asg_desired_capacity = 11
+      asg_max_size         = 11
       root_volume_type     = "gp2"
       root_volume_size     = "50"
       kubelet_extra_args   = "--node-labels=worker_group=production"
