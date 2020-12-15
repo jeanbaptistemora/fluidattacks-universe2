@@ -199,14 +199,16 @@ function job_integrates_build_container_app {
   local dockerfile='integrates/deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
   local use_cache='false'
-  local provisioner='build/provisioners/integrates_serve_components.nix'
+  local base_image='registry.gitlab.com/fluidattacks/product/nix:integrates_serve_components'
+  local base_provisioner='build/provisioners/integrates_serve_components.nix'
 
   helper_common_docker_build_and_push \
     "${tag}" \
     "${context}" \
     "${dockerfile}" \
     "${use_cache}" \
-    'PROVISIONER' "${provisioner}"
+    'PROVISIONER' "${base_provisioner}" \
+    'BASE' "${base_image}"
 }
 
 function job_integrates_deploy_front {

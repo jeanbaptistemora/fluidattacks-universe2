@@ -1,7 +1,6 @@
 let
   pkgs = import ../pkgs/integrates.nix;
   builders.nodeJsModule = import ../builders/nodejs-module pkgs;
-  builders.pythonRequirements = import ../builders/python-requirements pkgs;
   builders.rubyGem = import ../builders/ruby-gem pkgs;
 in
   pkgs.stdenv.mkDerivation (
@@ -38,9 +37,6 @@ in
 
       pyPkgIntegratesBack =
         import ../../integrates/backend_new/packages/integrates-back pkgs;
-
-      pyPkgReqsApp =
-        builders.pythonRequirements ../../integrates/deploy/dependencies/prod-requirements.txt;
 
       rubyGemAsciiDoctor =
         builders.rubyGem "asciidoctor:2.0.10";
