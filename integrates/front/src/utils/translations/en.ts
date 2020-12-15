@@ -495,9 +495,6 @@ export const enTranslations: ResourceKey = {
         filter: {
           exclude: "Exclude",
           include: "Include",
-          none: "None",
-          paths: "Paths",
-          policy: "Policy",
           title: "Filters",
         },
         healthCheck: {

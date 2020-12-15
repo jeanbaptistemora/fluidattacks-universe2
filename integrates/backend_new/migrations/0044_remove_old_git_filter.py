@@ -1,10 +1,10 @@
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
 """
-This migration copies filter configs to a new format in git roots
+This migration removes old paths and policy attributes from filter configs
 
-Execution Time: 2020-12-14 20:48:48 UTC-5
-Finalization Time: 2020-12-14 20:51:42 UTC-5
+Execution Time:
+ 2020-12-14 20:51:42 UTC-5
 """
 # Standard
 import os
@@ -21,26 +21,6 @@ STAGE: str = os.environ['STAGE']
 SERVICES_REPO_DIR: str = f'{os.getcwd()}/services'
 
 
-def format_new_filter(filter_config: Dict[str, Any]) -> Dict[str, List[str]]:
-    if filter_config:
-        if filter_config['policy'] == 'EXCLUDE':
-            return {
-                **filter_config,
-                'exclude': filter_config['paths'],
-                'include': ['^.*$']
-            }
-
-        # INCLUDE
-        return {
-            **filter_config,
-            'exclude': [],
-            'include': filter_config['paths']
-        }
-
-    # NONE
-    return {'exclude': [], 'include': ['^.*$']}
-
-
 async def update_filter(
     group_name: str,
     root: Dict[str, Any]
@@ -48,7 +28,10 @@ async def update_filter(
     states_to_update = [
         {
             **state,
-            'filter': format_new_filter(state.get('filter'))
+            'filter': {
+                'exclude': state['filter']['exclude'],
+                'include': state['filter']['include']
+            }
         }
         for state in root['historic_state']
     ]

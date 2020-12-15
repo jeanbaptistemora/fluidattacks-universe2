@@ -131,14 +131,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     values: IGitRootAttr
   ) => Promise<void> = React.useCallback(
     async (values): Promise<void> => {
+      const {
+        branch,
+        environment,
+        filter,
+        id,
+        includesHealthCheck,
+        url,
+      } = values;
+
       if (currentRow === undefined) {
-        const {
-          branch,
-          environment,
-          filter,
-          includesHealthCheck,
-          url,
-        } = values;
         await addGitRoot({
           variables: {
             branch,
@@ -155,7 +157,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           },
         });
       } else {
-        const { environment, filter, id, includesHealthCheck } = values;
         await updateGitRoot({
           variables: {
             environment,
