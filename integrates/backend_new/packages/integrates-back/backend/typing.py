@@ -20,6 +20,7 @@ Tracking = TypedDict('Tracking', {
     'in_progress': int,
     'accepted': int,
     'accepted_undefined': int,
+    'manager': str,
 }, total=False)
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]

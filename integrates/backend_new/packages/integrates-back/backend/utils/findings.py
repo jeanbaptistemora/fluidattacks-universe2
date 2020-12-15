@@ -260,6 +260,29 @@ def filter_by_date(
     ))
 
 
+def get_treatments_before_cycle_date(
+    historic_treatment: List[Dict[str, str]],
+    historic_state: List[Dict[str, str]],
+    cycle_date: str
+) -> Tuple[str, str]:
+    default_manager: str = ''
+    max_date = datetime_utils.get_from_str(cycle_date, '%Y-%m-%d')
+    historic_treat = filter_by_date(historic_treatment, max_date)
+    states = filter_by_date(historic_state, max_date)
+    # This handles when the vuln was created after the cycle
+    if not historic_treat or not states:
+        return 'after_cycle_date', default_manager
+
+    # This handles when the vuln was closed on that cycle
+    if states[-1].get('state') == 'closed':
+        return 'closed', default_manager
+
+    # This handles when the vuln has open state on that cycle
+    result = historic_treat[-1].get('treatment', 'new').lower()
+    manager = historic_treat[-1].get('treatment_manager', '').lower()
+    return result.replace(' ', '_'), manager
+
+
 def last_treatment_before_cycle_date(
     historic_treatment: List[Dict[str, str]],
     historic_state: List[Dict[str, str]],
@@ -308,6 +331,26 @@ def build_tracking_dict(
     return tracking
 
 
+def build_tracking_new(
+    track: TrackingItem,
+    treat: Dict[str, int],
+    manager: str,
+) -> TrackingItem:
+    tracking = TrackingItem(
+        cycle=track['cycle'],
+        open=treat['open'],
+        closed=treat['closed'],
+        effectiveness=treat['effectiveness'],
+        date=track['date'],
+        new=treat['new'],
+        in_progress=treat['in_progress'],
+        accepted=treat['accepted'],
+        accepted_undefined=treat['accepted_undefined'],
+        manager=manager
+    )
+    return tracking
+
+
 def add_treatment_to_tracking(
     tracking: List[TrackingItem],
     vulnerabilities: List[Dict[str, FindingType]]
@@ -348,6 +391,29 @@ def add_treatment_to_tracking(
         new_tracking.append(build_tracking_dict(treatment, track))
 
     return new_tracking
+
+
+def get_sorted_historics(
+    vuln: Dict[str, FindingType]
+) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
+    historic_treatment = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_treatment', [])
+    )
+    historic_state = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_state', [])
+    )
+    historic_verification = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_verification', [])
+    )
+
+    historic = historic_state + historic_verification
+    sorted_historic = sort_historic_by_date(historic)
+    sorted_treatment = sort_historic_by_date(historic_treatment)
+
+    return sorted_historic, sorted_treatment
 
 
 def get_open_verification_dates(
@@ -438,8 +504,9 @@ def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> \
     return unique_dict
 
 
-def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> \
-        Dict[str, Dict[str, int]]:
+def group_by_state(
+    tracking_dict: Dict[str, Dict[str, str]]
+) -> Dict[str, Dict[str, int]]:
     """Group vulnerabilities by state."""
     tracking: Dict[str, Dict[str, int]] = {}
     for tracking_date, status in list(tracking_dict.items()):
@@ -637,6 +704,62 @@ async def send_finding_verified_email(
             }
         )
     )
+
+
+def get_date_with_format(
+    item: Dict[str, str]
+) -> str:
+    return str(item.get('date', '')).split(' ')[0]
+
+
+def get_first_historic_item_date(
+    historic: List[Dict[str, str]]
+) -> str:
+    if historic:
+        return get_date_with_format(historic[0])
+    return ''
+
+
+def get_historic_dates(
+    vuln: Dict[str, FindingType]
+) -> List[str]:
+    historic_treatment = cast(
+        List[Dict[str, str]], vuln['historic_treatment']
+    )
+    historic_state = cast(List[Dict[str, str]], vuln['historic_state'])
+    first_treatment_date = get_first_historic_item_date(historic_treatment)
+    first_state_date = get_first_historic_item_date(historic_state)
+    if first_treatment_date <= first_state_date:
+        treatment_dates = [
+            get_date_with_format(treatment)
+            for treatment in historic_treatment
+        ]
+        state_dates = [
+            get_date_with_format(state)
+            for state in historic_state
+        ]
+        return treatment_dates + state_dates
+    return []
+
+
+def get_tracking_dates(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> List[str]:
+    """Remove vulnerabilities that changes in the same day."""
+    vuln_casted: List[List[str]] = [
+        get_historic_dates(vuln)
+        for vuln in vulnerabilities
+    ]
+
+    new_casted: List[str] = sorted(list(
+        {
+            date
+            for dates in vuln_casted
+            for date in dates
+        }
+    ))
+
+    return new_casted
 
 
 def remove_repeated(
