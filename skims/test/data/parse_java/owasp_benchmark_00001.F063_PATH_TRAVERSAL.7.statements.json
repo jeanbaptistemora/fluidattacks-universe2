@@ -109,10 +109,48 @@
   },
   {
     "meta": {
+      "danger": true,
+      "linear": true,
+      "sink": null,
+      "stack": 0,
+      "value": null
+    },
+    "recursive": false,
+    "symbol": "theCookies",
+    "type": "StatementLookup"
+  },
+  {
+    "meta": {
       "danger": false,
       "linear": true,
       "sink": null,
       "stack": 0,
+      "value": null
+    },
+    "recursive": false,
+    "type": "StatementLiteral",
+    "value": "null",
+    "value_type": "null"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -2,
+      "value": null
+    },
+    "operator": "!=",
+    "recursive": true,
+    "stacks": [],
+    "type": "ExpressionRelational"
+  },
+  {
+    "meta": {
+      "danger": false,
+      "linear": true,
+      "sink": null,
+      "stack": -1,
       "value": null
     },
     "recursive": true,

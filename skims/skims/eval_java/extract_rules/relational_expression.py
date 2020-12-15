@@ -38,6 +38,7 @@ def extract(
             'INSTANCEOF',
             'LE',
             'LT',
+            'NOTEQUAL',
         }
         and (right_id := match['__2__'])
     ):
