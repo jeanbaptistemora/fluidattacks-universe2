@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Grid, Panel } from "react-bootstrap";
-import { Col100, Col33, Col50 } from "./components/ChartCols";
+import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
@@ -272,7 +272,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
         <React.Fragment>
           <Grid fluid={true}>
             <RowCenter>
-              <Col md={12}>
+              <Col100>
                 <Graphic
                   bsHeight={320}
                   documentName="remediatedGroup"
@@ -284,10 +284,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.remediated_vuln")}
                 />
-              </Col>
+              </Col100>
             </RowCenter>
             <RowCenter>
-              <Col md={12}>
+              <Col100>
                 <Graphic
                   bsHeight={320}
                   documentName="remediatedAcceptedGroup"
@@ -299,10 +299,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.remediated_accepted_vuln")}
                 />
-              </Col>
+              </Col100>
             </RowCenter>
             <RowCenter>
-              <Col md={12}>
+              <Col100>
                 <Graphic
                   bsHeight={320}
                   documentName="findings"
@@ -314,10 +314,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.findings_group")}
                 />
-              </Col>
+              </Col100>
             </RowCenter>
             <RowCenter>
-              <Col md={12}>
+              <Col100>
                 <Graphic
                   bsHeight={320}
                   documentName="openFindings"
@@ -329,10 +329,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.open_findings_group")}
                 />
-              </Col>
+              </Col100>
             </RowCenter>
             <RowCenter>
-              <Col md={6}>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="status"
@@ -347,8 +347,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.pieChart.status.title")}
                 />
-              </Col>
-              <Col md={6}>
+              </Col50>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="treatment"
@@ -371,10 +371,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.pieChart.treatment.title")}
                 />
-              </Col>
+              </Col50>
             </RowCenter>
             <RowCenter>
-              <Col md={6}>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="totalVulnerabilitiesStatus"
@@ -386,8 +386,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.vulns_groups")}
                 />
-              </Col>
-              <Col md={6}>
+              </Col50>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="openVulnerabilitiesStatus"
@@ -399,10 +399,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.open_vulns_groups")}
                 />
-              </Col>
+              </Col50>
             </RowCenter>
             <RowCenter>
-              <Col md={12}>
+              <Col100>
                 <Graphic
                   bsHeight={160}
                   documentName="meanTimeToRemediate"
@@ -414,10 +414,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.mean_remediate")}
                 />
-              </Col>
+              </Col100>
             </RowCenter>
             <RowCenter>
-              <Col md={6}>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="vulnsWithUndefinedTreatment"
@@ -429,8 +429,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("tag_indicator.undefined_title")}
                 />
-              </Col>
-              <Col md={6}>
+              </Col50>
+              <Col50>
                 <Graphic
                   bsHeight={160}
                   documentName="severity"
@@ -445,10 +445,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.gauge.severity.title")}
                 />
-              </Col>
+              </Col50>
             </RowCenter>
             <RowCenter>
-              <Col md={3}>
+              <Col25>
                 <Graphic
                   bsHeight={80}
                   documentName="daysSinceLastRemediation"
@@ -463,8 +463,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
                 />
-              </Col>
-              <Col md={3}>
+              </Col25>
+              <Col25>
                 <Graphic
                   bsHeight={80}
                   documentName="meanTimeToRemediate"
@@ -479,7 +479,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
                 />
-              </Col>
+              </Col25>
             </RowCenter>
           </Grid>
         </React.Fragment>
