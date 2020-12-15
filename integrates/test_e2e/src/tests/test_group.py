@@ -129,7 +129,7 @@ def test_group_forces(
     log.click()
     assert utils.wait_for_text(
         driver,
-        'title: FIN.S.0007. Cross site request forgery',
+        'Cross site request forgery',
         timeout,
     )
 

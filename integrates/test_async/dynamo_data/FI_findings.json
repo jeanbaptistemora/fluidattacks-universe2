@@ -94,7 +94,7 @@
             "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
           },
           "finding": {
-            "S": "FIN.S.0081. Ausencia de doble factor de autenticación"
+            "S": "F081. Ausencia de doble factor de autenticación"
           },
           "attack_vector": {
             "N": "0.2"
@@ -256,7 +256,7 @@
             "S": "SECURITY"
           },
           "finding": {
-            "S": "FIN.S.0001. Inyección SQL"
+            "S": "F001. Inyección SQL"
           },
           "project_name": {
             "S": "continuoustesting"
@@ -360,7 +360,7 @@
             "S": "The source code uses generic exceptions to handle unexpected errors. Catching generic exceptions obscures the problem that caused the error and promotes a generic way to handle different categories or sources of error. This may cause security vulnerabilities to materialize, as some special flows go unnoticed."
           },
           "finding": {
-            "S": "FIN.H.060. Insecure exceptions"
+            "S": "F060. Insecure exceptions"
           },
           "attack_vector": {
             "N": "0.62"
@@ -713,7 +713,7 @@
             "S": "Se ejecutan comandos en la consola del servidor gracias a peticiones mal configuradas, software desactualizado, funciones inseguras."
           },
           "finding": {
-            "S": "FIN.S.0004. Ejecución remota de comandos"
+            "S": "F004. Ejecución remota de comandos"
           },
           "finding_type": {
             "S": "SECURITY"
@@ -835,7 +835,7 @@
             "S": "Se obtiene información de negocio, como:\r\n- Lista de usuarios\r\n- Información estratégica\r\n- Información de empleados\r\n- Información de clientes\r\n- Información de proveedores"
           },
           "finding": {
-            "S": "FIN.S.0038. Fuga de información de negocio"
+            "S": "F038. Fuga de información de negocio"
           },
           "attack_vector": {
             "N": "0.62"
@@ -1197,7 +1197,7 @@
             "S": "La aplicaciofectada permite la inyeccio de coo XML que es ejecutado de forma remota y permite la exfiltracio de archivos o ejecucioemota de comandos en el servidor."
           },
           "finding": {
-            "S": "FIN.S.0083. Inyeccion  (XXE)"
+            "S": "F083. Inyeccion  (XXE)"
           },
           "attack_vector": {
             "N": "0.62"
@@ -1478,7 +1478,7 @@
             "S": "La aplicación afectada permite la inyeccio de coo XML que es ejecutado de forma remota y permite la exfiltracio de archivos o ejecucioemota de comandos en el servidor."
           },
           "finding": {
-            "S": "FIN.S.0012. Acceso a recursos protegidos sin autenticación"
+            "S": "F012. Acceso a recursos protegidos sin autenticación"
           },
           "attack_vector": {
             "N": "0.62"
@@ -1637,7 +1637,7 @@
             "S": "La aplicación permite engañar a un usuario autenticado por medio de links manipulados para ejecutar acciones sobre la aplicación sin su consentimiento.."
           },
           "finding": {
-            "S": "FIN.S.0007. Cross site request forgery"
+            "S": "F007. Cross site request forgery"
           },
           "attack_vector": {
             "N": "0.62"
@@ -1886,7 +1886,7 @@
             "S": "Se genera la caída del servidor como resultado de ataques de amplificación, en donde una petición genera múltiples respuestas."
           },
           "finding": {
-            "S": "FIN.S.0002. Denegación de servicio asimétrica"
+            "S": "F002. Denegación de servicio asimétrica"
           },
           "finding_type": {
             "S": "SECURITY"
@@ -2009,7 +2009,7 @@
             "S": "Descripción de fuga de información técnica"
           },
           "finding": {
-            "S": "FIN.H.0037. Fuga de información técnica"
+            "S": "F037. Fuga de información técnica"
           },
           "attack_vector": {
             "N": "0.62"
@@ -2268,7 +2268,7 @@
             "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
           },
           "finding": {
-            "S": "FIN.S.0081. Ausencia de doble factor de autenticación"
+            "S": "F081. Ausencia de doble factor de autenticación"
           },
           "attack_vector": {
             "N": "0.2"
@@ -2492,7 +2492,7 @@
             "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
           },
           "finding": {
-            "S": "FIN.S.0081. Ausencia de doble factor de autenticación"
+            "S": "F081. Ausencia de doble factor de autenticación"
           },
           "attack_vector": {
             "N": "0.2"
@@ -2696,7 +2696,7 @@
             "S": "Descripción de fuga de información técnica"
           },
           "finding": {
-            "S": "FIN.H.0037. Fuga de información técnica"
+            "S": "F037. Fuga de información técnica"
           },
           "attack_vector": {
             "N": "0.62"
@@ -3000,7 +3000,7 @@
             "S": "Funcionalidad insegura description"
           },
           "finding": {
-            "S": "FIN.S.0014. Funcionalidad insegura"
+            "S": "F014. Funcionalidad insegura"
           },
           "finding_type": {
             "S": "SECURITY"

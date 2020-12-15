@@ -178,7 +178,7 @@ const validEmail: Validator = matchesPattern(
 const validDraftTitle: (title: string) => string | undefined = (
   title: string
 ): string | undefined => {
-  if (/^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+/gu.test(title)) {
+  if (/^F[0-9]{3}\. .+/gu.test(title)) {
     return undefined;
   }
 

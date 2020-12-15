@@ -89,7 +89,7 @@ async def test_finding():
             }
         },
         'state': 'open',
-        'title': 'FIN.S.0007. Cross site request forgery',
+        'title': 'F007. Cross site request forgery',
         'scenario': 'AUTHORIZED_USER_EXTRANET',
         'actor': 'ANY_COSTUMER',
         'description': 'La aplicación permite engañar a un usuario autenticado por medio de links manipulados para ejecutar acciones sobre la aplicación sin su consentimiento..',

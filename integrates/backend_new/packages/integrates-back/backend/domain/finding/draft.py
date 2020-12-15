@@ -154,7 +154,7 @@ async def create_draft(
         'historic_state': [submission_history],
     })
 
-    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', title):
+    if re.match(r'^F[0-9]{3}\. .+', title):
 
         return await finding_dal.create(
             finding_id, project_name, finding_attrs)

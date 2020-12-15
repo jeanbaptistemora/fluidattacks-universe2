@@ -191,8 +191,8 @@ async def update_description(
         for k in updated_values
     }
 
-    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+',
-                 str(updated_values.get('finding', ''))):
+    if re.match(r'^F[0-9]{3}\. .+',
+                str(updated_values.get('finding', ''))):
         return await finding_dal.update(finding_id, updated_values)
 
     raise InvalidDraftTitle()

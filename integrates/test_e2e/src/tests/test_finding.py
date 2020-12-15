@@ -20,7 +20,7 @@ def test_finding_description(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -51,7 +51,7 @@ def test_finding_comments(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -82,7 +82,7 @@ def test_finding_exploit(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -113,7 +113,7 @@ def test_finding_evidence(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -144,7 +144,7 @@ def test_finding_severity(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -175,7 +175,7 @@ def test_finding_tracking(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -206,7 +206,7 @@ def test_finding_reattack(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()
@@ -258,7 +258,7 @@ def test_finding_vulnerabilities(
     driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
     finding = utils.wait_for_text(
         driver,
-        'FIN.H.060. Insecure exceptions',
+        'F060. Insecure exceptions',
         timeout,
     )
     finding.click()

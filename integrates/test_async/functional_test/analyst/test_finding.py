@@ -21,7 +21,7 @@ async def test_finding():
     requirements = 'REQ.0001. Apply filters'
     risk = 'This is pytest created draft'
     threat = 'Attacker'
-    title = 'FIN.S.0001. Very serious vulnerability'
+    title = 'F001. Very serious vulnerability'
     draft_type = 'SECURITY'
     query = f'''
         mutation {{
@@ -420,7 +420,7 @@ async def test_finding():
     requirements = 'REQ.0132. Passwords (phrase type) must be at least 3 words long.'
     scenario = 'UNAUTHORIZED_USER_EXTRANET'
     threat = 'Updated threat'
-    title = 'FIN.S.0051. Weak passwords reversed'
+    title = 'F051. Weak passwords reversed'
     finding_type = 'SECURITY'
     query = f'''
         mutation {{

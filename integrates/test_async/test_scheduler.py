@@ -184,7 +184,7 @@ async def test_format_vulnerabilities():
     negative_delta = -1
 
     test_data = format_vulnerabilities(positive_delta, act_finding)
-    expected_output = 'FIN.H.060. Insecure exceptions (+1)'
+    expected_output = 'F060. Insecure exceptions (+1)'
     assert test_data == expected_output
 
     test_data = format_vulnerabilities(neutral_delta, act_finding)
@@ -192,7 +192,7 @@ async def test_format_vulnerabilities():
     assert test_data == expected_output
 
     test_data = format_vulnerabilities(negative_delta, act_finding)
-    expected_output = 'FIN.H.060. Insecure exceptions (-1)'
+    expected_output = 'F060. Insecure exceptions (-1)'
     assert test_data == expected_output
 
 async def test_create_msj_finding_pending():
@@ -204,7 +204,7 @@ async def test_create_msj_finding_pending():
     assert test_data == expected_output
 
     test_data = await create_msj_finding_pending(new_treatment_finding)
-    expected_output = u'FIN.S.0038. Fuga de información de negocio'
+    expected_output = u'F038. Fuga de información de negocio'
     assert expected_output in test_data
 
 async def test_get_project_indicators():
