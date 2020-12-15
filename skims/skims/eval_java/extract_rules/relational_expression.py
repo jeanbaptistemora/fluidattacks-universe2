@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -41,9 +41,9 @@ def evaluate(
         }
         and (right_id := match['__2__'])
     ):
-        left_ctx = generic.evaluate(graph, left_id, ctx=None)
+        left_ctx = generic.extract(graph, left_id, ctx=None)
         common.merge_contexts(ctx, left_ctx)
-        right_ctx = generic.evaluate(graph, right_id, ctx=None)
+        right_ctx = generic.extract(graph, right_id, ctx=None)
         common.merge_contexts(ctx, right_ctx)
 
         ctx.statements.append(ExpressionRelational(
@@ -55,6 +55,6 @@ def evaluate(
             ],
         ))
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

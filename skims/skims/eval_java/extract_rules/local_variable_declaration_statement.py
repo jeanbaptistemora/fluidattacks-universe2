@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -30,7 +30,7 @@ def evaluate(
     if c_id := match['LocalVariableDeclaration']:
         _local_variable_declaration(graph, c_id, ctx=ctx)
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -112,7 +112,7 @@ def _variable_declarator(
         and match['ASSIGN']
         and (src_id := match['__0__'])
     ):
-        src_ctx = generic.evaluate(graph, src_id, ctx=None)
+        src_ctx = generic.extract(graph, src_id, ctx=None)
         common.merge_contexts(ctx, src_ctx)
 
         # Add the variable to the mapping

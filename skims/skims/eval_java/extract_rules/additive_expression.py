@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -32,8 +32,8 @@ def evaluate(
         and (left_id := match.get('__0__'))
         and (right_id := match.get('__1__'))
     ):
-        l_ctx = generic.evaluate(graph, left_id, ctx=None)
-        r_ctx = generic.evaluate(graph, right_id, ctx=None)
+        l_ctx = generic.extract(graph, left_id, ctx=None)
+        r_ctx = generic.extract(graph, right_id, ctx=None)
         common.merge_contexts(ctx, l_ctx)
         common.merge_contexts(ctx, r_ctx)
 
@@ -54,6 +54,6 @@ def evaluate(
             ],
         ))
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

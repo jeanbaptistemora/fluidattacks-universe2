@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -49,7 +49,7 @@ def evaluate(
     ):
         args = []
         if arg_id := match['__1__']:
-            args_ctx = generic.evaluate(graph, arg_id, ctx=None)
+            args_ctx = generic.extract(graph, arg_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
             args = args_ctx.statements
 
@@ -60,6 +60,6 @@ def evaluate(
         ))
         common.mark_if_sink(graph, n_id, ctx)
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

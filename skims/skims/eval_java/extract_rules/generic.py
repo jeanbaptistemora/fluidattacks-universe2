@@ -43,7 +43,7 @@ _UNINTERESTING_NODES = {
 }
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -62,13 +62,13 @@ def evaluate(
 
     for types, evaluator in (
         ({'AdditiveExpression'},
-         additive_expression.evaluate),
+         additive_expression.extract),
         ({'ArgumentList'},
-         argument_list.evaluate),
+         argument_list.extract),
         ({'Assignment'},
-         assignment.evaluate),
+         assignment.extract),
         ({'BasicForStatement'},
-         basic_for_statement.evaluate),
+         basic_for_statement.extract),
         ({'BooleanLiteral',
           'CharacterLiteral',
           'CustomExpressionName',
@@ -78,38 +78,38 @@ def evaluate(
           'NullLiteral',
           'StringLiteral',
           'THIS'},
-         literal.evaluate),
+         literal.extract),
         ({'CastExpression'},
-         cast_expression.evaluate),
+         cast_expression.extract),
         ({'ConditionalExpression'},
-         conditional_expression.evaluate),
+         conditional_expression.extract),
         ({'CustomClassInstanceCreationExpression_lfno_primary'},
-         custom_class_instance_creation_expression_lfno_primary.evaluate),
+         custom_class_instance_creation_expression_lfno_primary.extract),
         ({'CustomArrayAccess_lfno_primary',
           'IdentifierRule'},
-         identifier_rule.evaluate),
+         identifier_rule.extract),
         ({'CustomMethodInvocation',
           'CustomMethodInvocation_lfno_primary',
           'CustomMethodInvocation_lf_primary'},
-         custom_method_invocation.evaluate),
+         custom_method_invocation.extract),
         ({'EnhancedForStatement'},
-         enhanced_for_statement.evaluate),
+         enhanced_for_statement.extract),
         ({'ExpressionStatement'},
-         expression_statement.evaluate),
+         expression_statement.extract),
         ({'LocalVariableDeclarationStatement'},
-         local_variable_declaration_statement.evaluate),
+         local_variable_declaration_statement.extract),
         ({'MethodDeclaration'},
-         method_declaration.evaluate),
+         method_declaration.extract),
         ({'Primary'},
-         primary.evaluate),
+         primary.extract),
         ({'RelationalExpression'},
-         relational_expression.evaluate),
+         relational_expression.extract),
         ({'ResourceSpecification'},
-         resource_specification.evaluate),
+         resource_specification.extract),
     ):
         if n_attrs_label_type in types:
             evaluator(graph, n_id, ctx=ctx)
             return common.mark_seen(ctx, n_id)
 
-    common.not_implemented(evaluate, n_id, ctx=ctx)
+    common.not_implemented(extract, n_id, ctx=ctx)
     return common.mark_seen(ctx, n_id)

@@ -22,7 +22,7 @@ LITERAL_TYPES_MAPPING = {
 }
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,

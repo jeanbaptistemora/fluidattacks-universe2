@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -30,7 +30,7 @@ def evaluate(
     if c_id := match['Resource']:
         _resource(graph, c_id, ctx=ctx)
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 
@@ -58,7 +58,7 @@ def _resource(
         and match['ASSIGN']
         and (src_id := match['__2__'])
     ):
-        src_ctx = generic.evaluate(graph, src_id, ctx=None)
+        src_ctx = generic.extract(graph, src_id, ctx=None)
         common.merge_contexts(ctx, src_ctx)
 
         var_attrs = graph.nodes[var_id]
@@ -72,6 +72,6 @@ def _resource(
             var_type=type_attrs['label_text'],
         ))
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

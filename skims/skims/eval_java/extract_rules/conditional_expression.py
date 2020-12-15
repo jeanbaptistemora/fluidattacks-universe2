@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -41,11 +41,11 @@ def evaluate(
         and match['COLON']
         and (false_id := match['__2__'])
     ):
-        pred_ctx = generic.evaluate(graph, pred_id, ctx=None)
+        pred_ctx = generic.extract(graph, pred_id, ctx=None)
         common.merge_contexts(ctx, pred_ctx)
-        true_ctx = generic.evaluate(graph, true_id, ctx=None)
+        true_ctx = generic.extract(graph, true_id, ctx=None)
         common.merge_contexts(ctx, true_ctx)
-        false_ctx = generic.evaluate(graph, false_id, ctx=None)
+        false_ctx = generic.extract(graph, false_id, ctx=None)
         common.merge_contexts(ctx, false_ctx)
 
         ctx.statements.append(ExpressionConditional(
@@ -57,6 +57,6 @@ def evaluate(
             ],
         ))
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

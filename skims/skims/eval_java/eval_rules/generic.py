@@ -33,24 +33,24 @@ from eval_java.eval_rules import (
 )
 
 
-TAINTERS = {
-    ExpressionConditional: expression_conditional.taint,
-    ExpressionRelational: expression_relational.taint,
-    StatementAdd: add.taint,
-    StatementAssignment: assignment.taint,
-    StatementCast: cast.taint,
-    StatementClassInstantiation: class_instantiation.taint,
-    StatementCustomMethodInvocation: call.taint,
-    StatementCustomMethodInvocationChain: call_chain.taint,
-    StatementDeclaration: declaration.taint,
-    StatementLiteral: literal.taint,
-    StatementLookup: lookup.taint,
-    StatementPass: ignore.taint,
-    StatementPrimary: primary.taint,
+EVALUATORS = {
+    ExpressionConditional: expression_conditional.evaluate,
+    ExpressionRelational: expression_relational.evaluate,
+    StatementAdd: add.evaluate,
+    StatementAssignment: assignment.evaluate,
+    StatementCast: cast.evaluate,
+    StatementClassInstantiation: class_instantiation.evaluate,
+    StatementCustomMethodInvocation: call.evaluate,
+    StatementCustomMethodInvocationChain: call_chain.evaluate,
+    StatementDeclaration: declaration.evaluate,
+    StatementLiteral: literal.evaluate,
+    StatementLookup: lookup.evaluate,
+    StatementPass: ignore.evaluate,
+    StatementPrimary: primary.evaluate,
 }
 
 
-def taint(statements: Statements) -> None:
+def evaluate(statements: Statements) -> None:
     for index, statement in enumerate(statements):
         statement.meta.danger = False
 
@@ -59,4 +59,4 @@ def taint(statements: Statements) -> None:
         if len(stack) == 1:
             statement.meta.value = stack[0].meta.value
 
-        TAINTERS[type(statement)](statements, index)
+        EVALUATORS[type(statement)](statements, index)

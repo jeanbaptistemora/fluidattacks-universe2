@@ -18,25 +18,25 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
     ctx: OptionalContext,
 ) -> Context:
-    return common.evaluate_until_handled(
+    return common.extract_until_handled(
         graph,
         n_id,
         ctx=ctx,
-        evaluate=evaluate,
+        extract=extract,
         evaluators=(
-            _evaluate_case_1,
-            _evaluate_case_2,
+            _extract_case_1,
+            _extract_case_2,
         )
     )
 
 
-def _evaluate_case_1(
+def _extract_case_1(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -55,7 +55,7 @@ def _evaluate_case_1(
         }
     ):
         if args_id := match['__1__']:
-            args_ctx = generic.evaluate(graph, args_id, ctx=None)
+            args_ctx = generic.extract(graph, args_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
             args = args_ctx.statements
         else:
@@ -73,7 +73,7 @@ def _evaluate_case_1(
     return ctx
 
 
-def _evaluate_case_2(
+def _extract_case_2(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -99,11 +99,11 @@ def _evaluate_case_2(
         and match['LPAREN']
         and match['RPAREN']
     ):
-        chain_ctx = generic.evaluate(graph, chain_id, ctx=None)
+        chain_ctx = generic.extract(graph, chain_id, ctx=None)
         common.merge_contexts(ctx, chain_ctx)
 
         if args_id := match['__1__']:
-            args_ctx = generic.evaluate(graph, args_id, ctx=None)
+            args_ctx = generic.extract(graph, args_id, ctx=None)
             common.merge_contexts(ctx, args_ctx)
             args = args_ctx.statements
         else:

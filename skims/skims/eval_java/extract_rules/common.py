@@ -42,12 +42,12 @@ def ensure_context(ctx: OptionalContext = None) -> Context:
     return ctx
 
 
-def evaluate_until_handled(
+def extract_until_handled(
     graph: nx.DiGraph,
     n_id: str,
     *,
     ctx: OptionalContext,
-    evaluate: Callable[..., Context],
+    extract: Callable[..., Context],
     evaluators: Tuple[Callable[..., Context], ...],
 ) -> Context:
     ctx = ensure_context(ctx)
@@ -60,7 +60,7 @@ def evaluate_until_handled(
         else:
             break
     else:
-        not_implemented(evaluate, n_id, ctx=ctx)
+        not_implemented(extract, n_id, ctx=ctx)
 
     return mark_seen(ctx, n_id)
 

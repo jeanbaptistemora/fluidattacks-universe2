@@ -9,14 +9,14 @@ import networkx as nx
 # Local libraries
 from eval_java.extract_rules import (
     common,
-    generic as generic_eval,
+    generic as generic_extract,
     linearize,
 )
 from eval_java.model import (
     Statements,
 )
 from eval_java.eval_rules import (
-    generic as generic_taint,
+    generic as generic_evaluate,
 )
 from utils import (
     graph as g,
@@ -44,7 +44,7 @@ def evaluate(
 
     # Walk the path and mine the nodes in order to increase the context
     for n_id in graph_path:
-        generic_eval.evaluate(graph, n_id, ctx=ctx)
+        generic_extract.extract(graph, n_id, ctx=ctx)
 
     if CTX.debug:
         with open(f'{get_debug_path(path)}.ctx.{index}.json', 'w') as handle:
@@ -54,7 +54,7 @@ def evaluate(
         statements = linearize.linearize(ctx.statements)
 
         # Analyze how data is propagated across statements
-        generic_taint.taint(statements)
+        generic_evaluate.evaluate(statements)
     else:
         statements = []
 

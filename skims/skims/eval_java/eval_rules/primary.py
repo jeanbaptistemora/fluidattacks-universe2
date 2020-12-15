@@ -7,7 +7,7 @@ from eval_java.eval_rules import (
 )
 
 
-def taint(statements: Statements, index: int) -> None:
+def evaluate(statements: Statements, index: int) -> None:
     statement = statements[index]
     calls = common.read_stack(statements, index)
     # is vulnerable if any of the calls is

@@ -4,6 +4,6 @@ from eval_java.model import (
 )
 
 
-def taint(statements: Statements, index: int) -> None:
+def evaluate(statements: Statements, index: int) -> None:
     statement = statements[index]
     statement.meta.danger = False

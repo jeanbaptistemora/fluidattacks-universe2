@@ -15,7 +15,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -47,14 +47,14 @@ def evaluate(
         and match['RPAREN']
         and match['Block']
     ):
-        # evaluate LocalVariableDeclaration
-        src_ctx = generic.local_variable_declaration_statement.evaluate(
+        # extract LocalVariableDeclaration
+        src_ctx = generic.local_variable_declaration_statement.extract(
             graph,
             n_id,
             ctx=None,
         )
         common.merge_contexts(ctx, src_ctx)
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

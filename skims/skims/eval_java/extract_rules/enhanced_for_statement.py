@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -46,7 +46,7 @@ def evaluate(
         and (src := match['__0__'])
         and match['RPAREN']
     ):
-        src_ctx = generic.evaluate(graph, src, ctx=None)
+        src_ctx = generic.extract(graph, src, ctx=None)
         common.merge_contexts(ctx, src_ctx)
 
         # Add the variable to the mapping
@@ -57,6 +57,6 @@ def evaluate(
             var_type=graph.nodes[var_type]['label_text'],
         ))
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)

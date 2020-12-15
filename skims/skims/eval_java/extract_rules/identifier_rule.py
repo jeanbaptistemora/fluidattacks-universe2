@@ -13,7 +13,7 @@ from eval_java.model import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,

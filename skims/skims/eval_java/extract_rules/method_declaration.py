@@ -16,7 +16,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -29,7 +29,7 @@ def evaluate(
     if c_id := match['MethodHeader']:
         _method_header(graph, c_id, ctx=ctx)
     else:
-        common.not_implemented(evaluate, n_id, ctx=ctx)
+        common.not_implemented(extract, n_id, ctx=ctx)
 
     return common.mark_seen(ctx, n_id)
 

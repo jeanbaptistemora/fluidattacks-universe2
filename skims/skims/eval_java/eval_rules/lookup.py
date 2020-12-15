@@ -7,7 +7,7 @@ from eval_java.eval_rules import (
 )
 
 
-def taint(statements: Statements, index: int) -> None:
+def evaluate(statements: Statements, index: int) -> None:
     statement = statements[index]
 
     # Lookup the symbol in the stack

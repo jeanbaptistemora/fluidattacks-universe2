@@ -17,7 +17,7 @@ from utils import (
 )
 
 
-def evaluate(
+def extract(
     graph: nx.DiGraph,
     n_id: str,
     *,
@@ -28,7 +28,7 @@ def evaluate(
     statement_ids = g.adj_ast(graph, n_id)
     context_statements = []
     for s_id in statement_ids:
-        n_ctx = generic.evaluate(graph, s_id, ctx=None)
+        n_ctx = generic.extract(graph, s_id, ctx=None)
         common.merge_contexts(ctx, n_ctx)
         context_statements.append(n_ctx.statements)
 
