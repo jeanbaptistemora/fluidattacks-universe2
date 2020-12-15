@@ -3,6 +3,7 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
+import { useTranslation } from "react-i18next";
 import { ActionButtons, IActionButtonsProps } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -54,6 +55,7 @@ describe("ActionButtons", () => {
   });
 
   it("should render request verification", async () => {
+    const { t } = useTranslation();
     const requestMockProps: IActionButtonsProps = {
       ...baseMockedProps,
       isEditing: false,
@@ -83,7 +85,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes("Reattack"));
+          .includes(t("search_findings.tab_description.request_verify.tex")));
 
     expect(requestButton)
       .toHaveLength(1);
@@ -108,7 +110,7 @@ describe("ActionButtons", () => {
     .filterWhere((button: ReactWrapper): boolean =>
     button
     .text()
-    .includes("Cancel"));
+    .includes(t("search_findings.tab_description.cancel_verify")));
     expect(requestButton)
       .toHaveLength(1);
     expect(buttons

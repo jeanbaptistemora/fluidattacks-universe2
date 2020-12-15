@@ -1,19 +1,13 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * jsx-no-multiline-js: Necessary for using conditional rendering
- */
-
-import _ from "lodash";
-import React from "react";
-import { Glyphicon } from "react-bootstrap";
-
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { Can } from "utils/authz/Can";
-import { translate } from "utils/translations/translate";
+import { FluidIcon } from "components/FluidIcon";
+import { Glyphicon } from "react-bootstrap";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
-export interface IReattackVulnButtonProps {
+interface IReattackVulnButtonProps {
   areVulnsSelected: boolean;
   isConfirmingZeroRisk: boolean;
   isEditing: boolean;
@@ -23,53 +17,74 @@ export interface IReattackVulnButtonProps {
   isVerifying: boolean;
   state: "open" | "closed";
   subscription: string;
-  onRequestReattack(): void;
-  openModal(): void;
+  onRequestReattack: () => void;
+  openModal: () => void;
 }
 
-const reattackVulnButton: React.FC<IReattackVulnButtonProps> = (props: IReattackVulnButtonProps): JSX.Element => {
-
-  const { onRequestReattack, openModal } = props;
+const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
+  areVulnsSelected,
+  isConfirmingZeroRisk,
+  isEditing,
+  isReattackRequestedInAllVuln,
+  isRejectingZeroRisk,
+  isRequestingReattack,
+  isVerifying,
+  state,
+  subscription,
+  onRequestReattack,
+  openModal,
+}: IReattackVulnButtonProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const isContinuous: boolean = _.includes(
-    ["continuous", "continua", "concurrente", "si"], props.subscription.toLowerCase());
+    ["continuous", "continua", "concurrente", "si"],
+    subscription.toLowerCase()
+  );
 
   const shouldRenderRequestVerifyBtn: boolean =
-    isContinuous
-    && props.state === "open"
-    && !(
-          props.isEditing
-          || props.isVerifying
-          || props.isConfirmingZeroRisk
-          || props.isRejectingZeroRisk
-        );
+    isContinuous &&
+    state === "open" &&
+    !(isEditing || isVerifying || isConfirmingZeroRisk || isRejectingZeroRisk);
 
   return (
-    <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
-      {props.isRequestingReattack ? (
+    <Can
+      do={"backend_api_resolvers_vulnerability__do_request_verification_vuln"}
+    >
+      {isRequestingReattack ? (
         <Button
+          disabled={!areVulnsSelected}
           id={"confirm-reattack"}
           onClick={openModal}
-          disabled={!props.areVulnsSelected}
         >
-          <FluidIcon icon="verified" />&nbsp;
-          {translate.t("search_findings.tab_vuln.buttons.reattack")}
+          <FluidIcon icon={"verified"} />
+          &nbsp;
+          {t("search_findings.tab_vuln.buttons.reattack")}
         </Button>
       ) : undefined}
       {shouldRenderRequestVerifyBtn ? (
-        <TooltipWrapper message={props.isRequestingReattack
-          ? translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
-          : translate.t("search_findings.tab_description.request_verify.tooltip")
-        }>
-          <Button id={"start-reattack"} onClick={onRequestReattack} disabled={props.isReattackRequestedInAllVuln}>
-            {props.isRequestingReattack ? (
+        <TooltipWrapper
+          message={
+            isRequestingReattack
+              ? t("search_findings.tab_vuln.buttons_tooltip.cancel")
+              : t("search_findings.tab_description.request_verify.tooltip")
+          }
+        >
+          <Button
+            disabled={isReattackRequestedInAllVuln}
+            id={"start-reattack"}
+            onClick={onRequestReattack}
+          >
+            {isRequestingReattack ? (
               <React.Fragment>
-                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.cancel_verify")}
+                <Glyphicon glyph={"remove"} />
+                &nbsp;
+                {t("search_findings.tab_description.cancel_verify")}
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <FluidIcon icon="verified" />&nbsp;
-                {translate.t("search_findings.tab_description.request_verify.text")}
+                <FluidIcon icon={"verified"} />
+                &nbsp;
+                {t("search_findings.tab_description.request_verify.text")}
               </React.Fragment>
             )}
           </Button>
@@ -79,4 +94,4 @@ const reattackVulnButton: React.FC<IReattackVulnButtonProps> = (props: IReattack
   );
 };
 
-export { reattackVulnButton as ReattackVulnButton };
+export { IReattackVulnButtonProps, ReattackVulnButton };
