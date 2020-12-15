@@ -3,8 +3,8 @@
 """
 This migration removes old paths and policy attributes from filter configs
 
-Execution Time:
- 2020-12-14 20:51:42 UTC-5
+Execution Time: 2020-12-15 10:10:30 UTC-5
+Finalization Time: 2020-12-15 10:13:23 UTC-5
 """
 # Standard
 import os

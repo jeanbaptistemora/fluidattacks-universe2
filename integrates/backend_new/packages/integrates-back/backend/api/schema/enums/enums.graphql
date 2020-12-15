@@ -223,8 +223,3 @@ enum URLProtocol {
   HTTP
   HTTPS
 }
-
-enum GitRootFilterPolicy {
-  EXCLUDE
-  INCLUDE
-}

@@ -173,9 +173,7 @@ GitRootFilter = NamedTuple(
     'GitRootFilter',
     [
         ('exclude', List[str]),
-        ('include', List[str]),
-        ('paths', List[str]),
-        ('policy', str)
+        ('include', List[str])
     ]
 )
 IntegrationEnvironment = NamedTuple(
