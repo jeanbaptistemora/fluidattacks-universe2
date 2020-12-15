@@ -7,14 +7,12 @@
 
 == Summary
 
-,===
-*Name*, Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
-*Code name*, link:https://en.wikipedia.org/wiki/John_Prine[Prine]
-*Product*, Dup Scout Enterprise
-*Versions*, 10.0.18
-*Fixed versions*, 13.2.24
-*Release date*, 2020-12-15 14:00 COT
-,===
+- *Name:* Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
+- *Code name:* link:https://en.wikipedia.org/wiki/John_Prine[Prine]
+- *Product:* Dup Scout Enterprise
+- *Versions:* 10.0.18
+- *Fixed versions:* 13.2.24
+- *Release date:* 2020-12-15 14:00 COT
 
 == Vulnerability
 
