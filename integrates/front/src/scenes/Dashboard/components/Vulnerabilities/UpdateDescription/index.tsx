@@ -12,8 +12,8 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { TreatmentField } from "./TreatmentField";
 import _ from "lodash";
-import { formatDropdownField } from "utils/formatHelpers";
 import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
@@ -409,16 +409,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
     formValues.treatment === "ACCEPTED_UNDEFINED";
   const isLastTreatmentAcceptanceStatusApproved: boolean =
     lastTreatment.acceptanceStatus === "APPROVED";
-  const isAcceptedUndefinedPendingToApproved: boolean =
-    lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
-    lastTreatment.acceptanceStatus !== "APPROVED";
-  const treatmentLabel: string =
-    translate.t(formatDropdownField(lastTreatment.treatment)) +
-    (isAcceptedUndefinedPendingToApproved
-      ? translate.t(
-          "search_findings.tab_description.treatment.pending_approval"
-        )
-      : "");
 
   return (
     <React.StrictMode>
@@ -434,13 +424,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         >
           {(confirm: IConfirmFn): JSX.Element => {
             function handleSubmit(values: IUpdateTreatmentVulnAttr): void {
-              const changedToZeroRisk: boolean =
-                values.treatment === "ZERO_RISK";
+              const changedToRequestZeroRisk: boolean =
+                values.treatment === "REQUEST_ZERO_RISK";
               const changedToUndefined: boolean =
                 values.treatment === "ACCEPTED_UNDEFINED" &&
                 lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
-              if (changedToZeroRisk) {
+              if (changedToRequestZeroRisk) {
                 void requestZeroRisk({
                   variables: {
                     findingId: findingId,
@@ -474,47 +464,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                 >
                   <Row>
                     <Col50>
-                      <EditableField
-                        component={Dropdown}
-                        currentValue={treatmentLabel}
-                        label={translate.t(
-                          "search_findings.tab_description.treatment.title"
-                        )}
-                        name={"treatment"}
-                        renderAsEditable={
-                          canUpdateVulnsTreatment || canRequestZeroRiskVuln
-                        }
-                        type={"text"}
-                        validate={isTreatmentPristine ? [] : required}
-                      >
-                        <option value={""} />
-                        {canUpdateVulnsTreatment ? (
-                          <React.Fragment>
-                            <option value={"IN_PROGRESS"}>
-                              {translate.t(
-                                "search_findings.tab_description.treatment.in_progress"
-                              )}
-                            </option>
-                            <option value={"ACCEPTED"}>
-                              {translate.t(
-                                "search_findings.tab_description.treatment.accepted"
-                              )}
-                            </option>
-                            <option value={"ACCEPTED_UNDEFINED"}>
-                              {translate.t(
-                                "search_findings.tab_description.treatment.accepted_undefined"
-                              )}
-                            </option>
-                          </React.Fragment>
-                        ) : undefined}
-                        {canRequestZeroRiskVuln ? (
-                          <option value={"ZERO_RISK"}>
-                            {translate.t(
-                              "search_findings.tab_description.treatment.zero_risk"
-                            )}
-                          </option>
-                        ) : undefined}
-                      </EditableField>
+                      <TreatmentField
+                        isTreatmentPristine={isTreatmentPristine}
+                        lastTreatment={lastTreatment}
+                      />
                     </Col50>
                     {isLastTreatmentAcceptanceStatusApproved ? (
                       <Col50>

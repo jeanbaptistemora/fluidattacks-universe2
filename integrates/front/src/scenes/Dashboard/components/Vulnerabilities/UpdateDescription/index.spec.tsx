@@ -237,7 +237,9 @@ describe("Update Description component", (): void => {
       .find(EditableField)
       .filter({ name: "treatment" })
       .find("select");
-    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" } });
+    treatmentFieldSelect.simulate("change", {
+      target: { value: "REQUEST_ZERO_RISK" },
+    });
 
     const justificationFieldTextArea: ReactWrapper = wrapperRequest
       .find(EditableField)
@@ -320,7 +322,9 @@ describe("Update Description component", (): void => {
       .find(EditableField)
       .filter({ name: "treatment" })
       .find("select");
-    treatmentFieldSelect.simulate("change", { target: { value: "ZERO_RISK" } });
+    treatmentFieldSelect.simulate("change", {
+      target: { value: "REQUEST_ZERO_RISK" },
+    });
 
     const justificationFieldTextArea: ReactWrapper = wrapperRequest
       .find(EditableField)
