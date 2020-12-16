@@ -1,8 +1,8 @@
 """
 This migration aims to standardize findings names
 
-Execution Time:
-Finalization Time:
+Execution Time:    2020-12-15 at 22:57:50 UTC-05
+Finalization Time: 2020-12-15 at 23:00:25 UTC-05
 """
 # Standard library
 from itertools import chain
@@ -35,14 +35,18 @@ async def _standardize_finding_name(
 ) -> None:
     finding_id: str = str(finding['finding_id'])
     finding_title = finding.get('title', '').strip()
-    regex_old = r'^FIN\..+([0-9]+)\.'
+    regex_old = r'^F.+\.([0-9]+)\.'
     regex_new = r'^F[0-9]{3}\. .+'
     is_old = re.search(regex_old, finding_title)
     is_compliant = re.match(regex_new, finding_title)
     if finding_title and is_old:
         finding_num = is_old.group(1)
-        if len(finding_num) == 4:
-            finding_num = finding_num[1:]
+        while len(finding_num) != 3:
+            num_chars = len(finding_num)
+            if num_chars >= 4:
+                finding_num = finding_num[1:]
+            else:
+                finding_num = f'0{finding_num}'
         replace_val = f'F{finding_num}.'
         new_title = finding_title.replace(is_old.group(), replace_val)
         if STAGE == 'apply':
@@ -53,8 +57,9 @@ async def _standardize_finding_name(
             )
         else:
             print('[INFO]')
-            print(f'old title: {finding_title}')
-            print(f'new title: {new_title}')
+            print(f'fiding_id: {finding_id}')
+            print(f'old_title: {finding_title}')
+            print(f'new_title: {new_title}')
     elif is_compliant:
         print(f'[INFO] finding with id {finding_id} is compliant')
     else:
