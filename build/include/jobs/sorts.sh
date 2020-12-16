@@ -14,8 +14,10 @@ declare -Arx SORTS_GLOBAL_TEST_PKGS=(
 )
 
 function job_sorts_lint_code {
+  export MYPYPATH="${PWD}/sorts/sorts"
+
   local args_mypy=(
-    --config-file 'settings.cfg'
+    --config-file "${PWD}/sorts/settings.cfg"
   )
   local args_prospector=(
     # Some day when sorts has https://readthedocs.org

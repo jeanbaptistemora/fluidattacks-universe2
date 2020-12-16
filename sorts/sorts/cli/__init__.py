@@ -51,7 +51,7 @@ from utils.version import check_version_is_latest
     help='Integrates API token.',
     show_envvar=True,
 )
-@shield(on_error_return=False)  # type: ignore
+@shield(on_error_return=False)
 def execute_sorts(
     subscription: str,
     get_commit_data: bool,

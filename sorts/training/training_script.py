@@ -2,10 +2,12 @@
 
 # Standard Libraries
 import argparse
+import csv
 import os
 import time
 from itertools import combinations
 from typing import (
+    Dict,
     List,
     Tuple
 )
@@ -135,7 +137,7 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    features_dict = {
+    features_dict: Dict[str, str] = {
         'num_commits': 'CM',
         'num_unique_authors': 'AU',
         'file_age': 'FA',
@@ -146,10 +148,19 @@ if __name__ == '__main__':
         'busy_file': 'BF',
         'commit_frequency': 'CF'
     }
-    all_combinations = get_features_combinations(list(features_dict.keys()))
+    result_headers: List[str] = [
+        'Model',
+        'Features',
+        'Precision',
+        'Recall',
+        'F1',
+        'Overfit'
+    ]
 
+    all_combinations = get_features_combinations(list(features_dict.keys()))
     training_data: DataFrame = load_training_data(args.train)
-    training_output: List[str] = []
+    training_output: List[List[str]] = [result_headers]
+
     # Train the model
     for combination in filter(None, all_combinations):
         start_time: float = time.time()
@@ -167,18 +178,17 @@ if __name__ == '__main__':
         print(f'Recall: {recall}%')
         print(f'F1-Score: {f1}%')
         print(f'Overfit: {overfit}%')
-        training_output.append(
-            ','.join([
-                clf.__class__.__name__,
-                ' '.join(features_dict[x] for x in combination),
-                f'{precision:.1f}',
-                f'{recall:.1f}',
-                f'{f1:.1f}',
-                f'{overfit:.1f}'
-            ])
-        )
-    with open('model_results.csv', 'w') as results_file:
-        results_file.writelines(f'{result}\n' for result in training_output)
+        training_output.append([
+            clf.__class__.__name__,
+            ' '.join(features_dict[x] for x in combination),
+            f'{precision:.1f}',
+            f'{recall:.1f}',
+            f'{f1:.1f}',
+            f'{overfit:.1f}'
+        ])
+    with open('model_results.csv', 'w', newline='') as results_file:
+        csv_writer = csv.writer(results_file)
+        csv_writer.writerows(training_output)
     boto3.Session().resource('s3').Bucket('sorts')\
         .Object('training-output/model_results.csv')\
         .upload_file('model_results.csv')
