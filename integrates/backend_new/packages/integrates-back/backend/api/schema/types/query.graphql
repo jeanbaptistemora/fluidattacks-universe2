@@ -1,67 +1,61 @@
 "Main Query object"
 type Query {
-    "Get event"
-    event(identifier: String!): Event
+  "Get event"
+  event(identifier: String!): Event
 
-    "List of events of a project"
-    events(projectName: String!): [Event]
+  "List of events of a project"
+  events(projectName: String!): [Event]
 
-    "Finding entity"
-    finding(identifier: String!): Finding
+  "Finding entity"
+  finding(identifier: String!): Finding
 
-    "Vulnerability entity"
-    vulnerability(uuid: String!): Vulnerability
+  "Get Forces execution"
+  forcesExecution(projectName: String!, executionId: String!): ForcesExecution
 
-    "InternalNames entity"
-    internalNames(entity: NameEntity!): InternalName
+  "Get Forces executions"
+  forcesExecutions(
+    projectName: String!
+    fromDate: DateTime
+    toDate: DateTime
+  ): ForcesExecutions
 
-    "Get resources from project"
-    resources(projectName: String!): Resource
+  "InternalNames entity"
+  internalNames(entity: NameEntity!): InternalName
 
-    "Get user info from project"
-    stakeholder(
-        entity: StakeholderEntity!
-        organizationId: String
-        projectName: String
-        userEmail: String!
-    ): Stakeholder
+  "Me entity"
+  me(callerOrigin: String): Me
 
-    "List projects a user is subscribed to"
-    userListProjects(userEmail: String!): [Project]
+  "Organization entity"
+  organization(organizationId: String!): Organization
 
-    "Organization entity"
-    organization(organizationId: String!): Organization
-    organizationId(organizationName: String!): Organization
+  organizationId(organizationName: String!): Organization
 
-    "Project entity"
-    project(projectName: String!): Project
+  "Project entity"
+  project(projectName: String!): Project
 
-    "Get Forces executions"
-    forcesExecutions(
-        projectName: String!
-        fromDate: DateTime
-        toDate: DateTime
-    ): ForcesExecutions
+  "List of alive projects"
+  projects: [String]
 
-    "Get Forces execution"
-    forcesExecution(
-        projectName: String!
-        executionId: String!
-    ): ForcesExecution
+  "Report entity"
+  report(reportType: ReportType!, projectName: String, lang: ReportLang): Report
 
-    "Me entity"
-    me(callerOrigin: String): Me
+  "Get resources from project"
+  resources(projectName: String!): Resource
 
-    "Tag entity"
-    tag(tag: String!): Tag
+  "Get user info from project"
+  stakeholder(
+    entity: StakeholderEntity!
+    organizationId: String
+    projectName: String
+    userEmail: String!
+  ): Stakeholder
 
-    "Report entity"
-    report(
-        reportType: ReportType!
-        projectName: String
-        lang: ReportLang
-    ): Report
+  "Tag entity"
+  tag(tag: String!): Tag
 
-    "List of alive projects"
-    projects: [String]
+  "List projects a user is subscribed to"
+  userListProjects(userEmail: String!): [Project]
+
+  "Vulnerability entity"
+  vulnerability(uuid: String!): Vulnerability
 }

@@ -1,77 +1,77 @@
 interface Payload {
-    success: Boolean!
+  success: Boolean!
 }
 
 type SimplePayload implements Payload {
-    success: Boolean!
+  success: Boolean!
 }
 
 type CreateOrganizationPayload implements Payload {
-    success: Boolean!
-    organization: Organization
+  organization: Organization
+  success: Boolean!
 }
 
 type UpdateAccessTokenPayload implements Payload {
-    success: Boolean!
-    sessionJwt: String
+  sessionJwt: String
+  success: Boolean!
 }
 
 type ResourcesPayload implements Payload {
-    success: Boolean!
-    resources: Resource
+  resources: Resource
+  success: Boolean!
 }
 
 type DownloadFilePayload implements Payload {
-    success: Boolean!
-    url: String
+  success: Boolean!
+  url: String
 }
 
 type GrantStakeholderAccessPayload implements Payload {
-    success: Boolean!
-    grantedStakeholder: Stakeholder
+  grantedStakeholder: Stakeholder
+  success: Boolean!
 }
 
 type RemoveStakeholderAccessPayload implements Payload {
-    success: Boolean!
-    removedEmail: String
+  removedEmail: String
+  success: Boolean!
 }
 
 type EditStakeholderPayload implements Payload {
-    success: Boolean!
-    modifiedStakeholder: Stakeholder
+  modifiedStakeholder: Stakeholder
+  success: Boolean!
 }
 
 type AddStakeholderPayload implements Payload {
-    success: Boolean!
-    email: String
+  email: String
+  success: Boolean!
 }
 
 type SimpleFindingPayload implements Payload {
-    success: Boolean!
-    finding: Finding
+  finding: Finding
+  success: Boolean!
 }
 
 type AddConsultPayload implements Payload {
-    success: Boolean!
-    commentId: String
+  commentId: String
+  success: Boolean!
 }
 
 type ApproveDraftPayload implements Payload {
-    success: Boolean!
-    releaseDate: String
+  releaseDate: String
+  success: Boolean!
 }
 
 type SimpleProjectPayload implements Payload {
-    success: Boolean!
-    project: Project
+  project: Project
+  success: Boolean!
 }
 
 type SignInPayload implements Payload {
-    success: Boolean!
-    sessionJwt: String
+  sessionJwt: String
+  success: Boolean!
 }
 
 type ExecuteSkimsPayload implements Payload {
-    success: Boolean!
-    pipelineUrl: String
+  pipelineUrl: String
+  success: Boolean!
 }
