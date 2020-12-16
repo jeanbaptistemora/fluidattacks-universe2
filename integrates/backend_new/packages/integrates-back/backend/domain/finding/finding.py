@@ -36,6 +36,7 @@ from backend.filters import (
     finding as finding_filters,
 )
 from backend.utils import (
+    comments as comment_utils,
     cvss,
     datetime as datetime_utils,
     findings as finding_utils,
@@ -63,7 +64,16 @@ async def add_comment(
     project_name: str
 ) -> bool:
     param_type = comment_data.get('comment_type')
-    parent = str(comment_data.get('parent'))
+    parent = str(comment_data['parent'])
+    content = str(comment_data['content'])
+
+    await comment_utils.validate_handle_comment_scope(
+        content,
+        user_email,
+        project_name,
+        parent,
+        info.context.store
+    )
 
     if param_type == 'observation':
         enforcer = await authz.get_group_level_enforcer(

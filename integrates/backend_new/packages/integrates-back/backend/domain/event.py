@@ -8,6 +8,7 @@ from aioextensions import (
     schedule,
 )
 import pytz
+from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 from backend import authz, mailer, util
@@ -37,6 +38,7 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from backend.utils import (
+    comments as comment_utils,
     datetime as datetime_utils,
     events as event_utils,
     validations
@@ -301,12 +303,26 @@ async def get_events(event_ids: List[str]) -> List[EventType]:
 
 
 async def add_comment(
+    info: GraphQLResolveInfo,
     user_email: str,
     comment_data: CommentType,
     event_id: str,
-    parent: str
+    parent: str,
 ) -> Tuple[Union[int, None], bool]:
     parent = str(parent)
+    content = str(comment_data['content'])
+    event_loader = info.context.loaders['event']
+    event = await event_loader.load(event_id)
+    project_name = event['project_name']
+
+    await comment_utils.validate_handle_comment_scope(
+        content,
+        user_email,
+        project_name,
+        parent,
+        info.context.store
+    )
+
     if parent != '0':
         event_comments = [
             str(comment.get('user_id'))

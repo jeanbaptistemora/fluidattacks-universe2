@@ -41,6 +41,7 @@ async def mutate(
         'user_id': random_comment_id
     }
     comment_id, success = await event_domain.add_comment(
+        info,
         user_email,
         comment_data,
         event_id,

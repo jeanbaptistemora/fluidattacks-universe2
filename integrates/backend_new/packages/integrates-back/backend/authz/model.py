@@ -515,7 +515,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_upload_file_mutate',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
             'post_finding_observation',
-            'see_comment_scope',
+            'handle_comment_scope',
         },
         tags={
             'drills',

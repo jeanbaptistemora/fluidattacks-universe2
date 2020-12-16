@@ -14,6 +14,8 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
 )
+from test_async.utils import create_dummy_session
+from graphql.type import GraphQLResolveInfo
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -99,6 +101,8 @@ async def test_add_comment():
     user_email = 'integratesmanager@gmail.com'
     comment_id = int(round(time() * 1000))
     parent = '0'
+    request = await create_dummy_session('unittest@fluidattacks.com')
+    info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
     comment_data = {
         'comment_type': 'event',
         'parent': parent,
@@ -106,6 +110,7 @@ async def test_add_comment():
         'user_id': comment_id
     }
     comment_id, success = await event_domain.add_comment(
+        info,
         user_email,
         comment_data,
         event_id,
@@ -118,6 +123,7 @@ async def test_add_comment():
     comment_data['parent'] = str(comment_id)
     comment_data['user_id'] = int(round(time() * 1000))
     comment_id, success = await event_domain.add_comment(
+        info,
         user_email,
         comment_data,
         event_id,
@@ -130,6 +136,7 @@ async def test_add_comment():
         comment_data['parent'] = str(comment_id + 1)
         comment_data['user_id'] = int(round(time() * 1000))
         assert await event_domain.add_comment(
+            info,
             user_email,
             comment_data,
             event_id,
@@ -171,7 +178,10 @@ async def test_validate_evidence_invalid_file_size():
 @pytest.mark.changes_db
 async def test_mask_event():
     event_id = '418900971'
+    parent = '0'
     comment_id = int(round(time() * 1000))
+    request = await create_dummy_session('unittest@fluidattacks.com')
+    info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
     comment_data = {
         'comment_type': 'event',
         'parent': '0',
@@ -179,10 +189,11 @@ async def test_mask_event():
         'user_id': comment_id
     }
     comment_id, success = await event_domain.add_comment(
+        info,
         'integratesmanager@gmail.com',
         comment_data,
         event_id,
-        parent='0'
+        parent
     )
     evidence_type = 'records'
     filename = os.path.dirname(os.path.abspath(__file__))

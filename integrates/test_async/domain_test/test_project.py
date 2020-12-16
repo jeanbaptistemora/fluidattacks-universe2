@@ -35,6 +35,8 @@ from backend.dal import (
 )
 
 from backend_new import settings
+from test_async.utils import create_dummy_session
+from graphql.type import GraphQLResolveInfo
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -226,10 +228,12 @@ async def test_list_comments():
     assert test_data[0] == expected_output
 
 @pytest.mark.changes_db
-def test_add_comment():
+async def test_add_comment():
     project_name = 'unittesting'
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))
+    request = await create_dummy_session('unittest@fluidattacks.com')
+    info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
     comment_data = {
         'user_id': comment_id,
         'content': 'Test comment',
@@ -238,13 +242,13 @@ def test_add_comment():
         'modified': current_time,
         'parent': '0'
     }
-    assert add_comment(project_name, 'unittest@fluidattacks.com', comment_data)
+    assert await add_comment(info, project_name, 'unittest@fluidattacks.com', comment_data)
 
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_data['created'] = current_time
     comment_data['modified'] = current_time
     comment_data['parent'] = str(comment_id)
-    assert add_comment(project_name, 'unittest@fluidattacks.com', comment_data)
+    assert await add_comment(info, project_name, 'unittest@fluidattacks.com', comment_data)
 
 async def test_get_active_projects():
     test_data = await get_active_projects()

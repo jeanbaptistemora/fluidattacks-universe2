@@ -232,6 +232,7 @@ async def _do_add_project_consult(
         'parent': parameters.get('parent')
     }
     success = await project_domain.add_comment(
+        info,
         project_name,
         user_email,
         comment_data

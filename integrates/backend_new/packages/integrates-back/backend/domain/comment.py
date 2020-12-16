@@ -77,7 +77,7 @@ async def get_comments(
 
     new_comments: List[CommentType] = []
 
-    if enforcer(project_name, 'see_comment_scope'):
+    if enforcer(project_name, 'handle_comment_scope'):
         new_comments = comments
     else:
         new_comments = list(
@@ -106,7 +106,7 @@ async def get_event_comments(
 
     new_comments: List[CommentType] = []
 
-    if enforcer(project_name, 'see_comment_scope'):
+    if enforcer(project_name, 'handle_comment_scope'):
         new_comments = comments
     else:
         new_comments = list(
@@ -197,7 +197,7 @@ async def get_observations(
 
     new_observations: List[CommentType] = []
 
-    if enforcer(project_name, 'see_comment_scope'):
+    if enforcer(project_name, 'handle_comment_scope'):
         new_observations = observations
     else:
         new_observations = list(

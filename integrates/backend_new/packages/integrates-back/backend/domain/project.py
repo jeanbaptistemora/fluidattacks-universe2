@@ -15,6 +15,7 @@ from aioextensions import (
     in_process,
     schedule,
 )
+from graphql.type.definition import GraphQLResolveInfo
 
 from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
@@ -52,6 +53,7 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.utils import (
+    comments as comment_utils,
     datetime as datetime_utils,
     findings as finding_utils,
     validations
@@ -66,11 +68,21 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def add_comment(
-        project_name: str,
-        email: str,
-        comment_data: CommentType) -> bool:
+    info: GraphQLResolveInfo,
+    project_name: str,
+    email: str,
+    comment_data: CommentType
+) -> bool:
     """Add comment in a project."""
-    parent = str(comment_data.get('parent'))
+    parent = str(comment_data['parent'])
+    content = str(comment_data['content'])
+    await comment_utils.validate_handle_comment_scope(
+        content,
+        email,
+        project_name,
+        parent,
+        info.context.store
+    )
     if parent != '0':
         project_comments = [
             str(comment.get('user_id'))
@@ -1010,7 +1022,7 @@ async def list_comments(
 
     new_comments: List[CommentType] = []
 
-    if enforcer(project_name, 'see_comment_scope'):
+    if enforcer(project_name, 'handle_comment_scope'):
         new_comments = cast(
             List[CommentType],
             comments
