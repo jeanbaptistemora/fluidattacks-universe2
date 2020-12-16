@@ -23,6 +23,7 @@ function job_sorts_lint_code {
     --full-pep8
     --strictness veryhigh
     --test-warnings
+    --no-autodetect
   )
 
       helper_sorts_install_dependencies \
@@ -160,4 +161,14 @@ function job_sorts_extract_features {
         echo '[INFO] Please set the first argument to the group name' \
     &&  return 1
   fi
+}
+
+function job_sorts_train_model_on_aws {
+      helper_sorts_install_dependencies \
+  &&  pushd sorts \
+    &&  helper_sorts_aws_login prod \
+    &&  echo "[INFO] Initializing training..." \
+    &&  poetry run python3 training/sagemaker_provisioner.py \
+  &&  popd \
+  ||  return 1
 }

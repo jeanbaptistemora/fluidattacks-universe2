@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/skims.nix;
+  pkgs = import ../pkgs/sorts.nix;
   sortsDependencies = import ../src/sorts-dependencies.nix pkgs;
 in
   pkgs.stdenv.mkDerivation (

@@ -4,6 +4,7 @@ pkgs: {
   ];
 
   runtime = [
+    pkgs.awscli
     pkgs.git
     pkgs.python38
   ];

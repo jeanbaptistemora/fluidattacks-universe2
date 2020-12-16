@@ -5,7 +5,7 @@ from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 
 if __name__ == '__main__':
     sklearn_estimator: SKLearnEstimator = SKLearn(
-        entry_point='training_script.py',
+        entry_point='training/training_script.py',
         framework_version='0.23-1',
         instance_type="ml.m5.2xlarge",
         instance_count=1,

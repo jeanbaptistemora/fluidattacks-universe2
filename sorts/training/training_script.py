@@ -151,7 +151,7 @@ if __name__ == '__main__':
     training_data: DataFrame = load_training_data(args.train)
     training_output: List[str] = []
     # Train the model
-    for combination in list(filter(None, all_combinations)):
+    for combination in filter(None, all_combinations):
         start_time: float = time.time()
         train_x, train_y = split_training_data(training_data, combination)
         clf = MLPClassifier(random_state=42)
@@ -170,7 +170,7 @@ if __name__ == '__main__':
         training_output.append(
             ','.join([
                 clf.__class__.__name__,
-                ' '.join([features_dict[x] for x in combination]),
+                ' '.join(features_dict[x] for x in combination),
                 f'{precision:.1f}',
                 f'{recall:.1f}',
                 f'{f1:.1f}',
@@ -178,7 +178,7 @@ if __name__ == '__main__':
             ])
         )
     with open('model_results.csv', 'w') as results_file:
-        results_file.write('\n'.join(training_output))
+        results_file.writelines(f'{result}\n' for result in training_output)
     boto3.Session().resource('s3').Bucket('sorts')\
         .Object('training-output/model_results.csv')\
         .upload_file('model_results.csv')
