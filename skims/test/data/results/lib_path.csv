@@ -244,7 +244,6 @@ F061. Errors without traceability,test/data/lib_path/f061/python.py,21,390
 F061. Errors without traceability,test/data/lib_path/f061/swift.swift,5,390
 F061. Errors without traceability,test/data/lib_path/f061/swift.swift,6,390
 F061. Errors without traceability,test/data/lib_path/f061/swift.swift,7,390
-F063. Test - please delete,test/data/lib_path/f063_path_traversal/Test.java,13,22
 F073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,20,478
 F073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,3,478
 F073. Conditional statement without a default option,test/data/lib_path/f073/Test.cs,41,478
