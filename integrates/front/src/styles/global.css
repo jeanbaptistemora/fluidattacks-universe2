@@ -259,6 +259,29 @@ label {
   background-color: #ff3435;
 }
 
+:global .panel-c {
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-color: #ddd;
+  box-shadow: 0.1px 6px 24px -16px rgba(0, 0, 0, 0.75);
+  height: 98px;
+}
+
+:global .panel-c:hover {
+  height: auto;
+}
+
+:global .panel-cb {
+  border-color: #ddd;
+}
+
+:global .panel-ch {
+  color: #333;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid transparent;
+  border-color: #ddd;
+}
+
 :global .split-button button {
   background: transparent !important;
   border: none;

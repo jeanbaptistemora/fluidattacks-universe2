@@ -1,13 +1,12 @@
 import _ from "lodash";
 import React from "react";
-import { Panel } from "react-bootstrap";
 import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import { EntityType, IChartsGenericViewProps } from "scenes/Dashboard/containers/ChartsGenericView/types";
-import {  RowCenter } from "styles/styledComponents";
+import {  PanelCollapse, PanelCollapseBody, PanelCollapseHeader, RowCenter } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
@@ -493,25 +492,21 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 onMouseEnter={forcesPanelOnEnter}
                 onMouseLeave={forcesPanelOnLeave}
               >
-                <Panel expanded={isForcesDescriptionExpanded}>
-                  <Panel.Heading>
-                    <Panel.Title>
-                      <h1 className={styles.centerTitle}>
-                        {translate.t("analytics.sections.forces.title")}
-                      </h1>
-                    </Panel.Title>
-                  </Panel.Heading>
-                  <Panel.Collapse>
-                    <Panel.Body>
-                      <p>{translate.t("analytics.textBox.forcesStatus.footer.intro")}</p>
-                      <ul>
-                        <li>{translate.t("analytics.textBox.forcesStatus.footer.smart")}</li>
-                        <li>{translate.t("analytics.textBox.forcesStatus.footer.breaks")}</li>
-                        <li>{translate.t("analytics.textBox.forcesStatus.footer.stats")}</li>
-                      </ul>
-                    </Panel.Body>
-                  </Panel.Collapse>
-                </Panel>
+                <PanelCollapse aria-expanded={isForcesDescriptionExpanded}>
+                  <PanelCollapseHeader>
+                    <h1 className={styles.centerTitle}>
+                      {translate.t("analytics.sections.forces.title")}
+                    </h1>
+                  </PanelCollapseHeader>
+                  <PanelCollapseBody>
+                    <p>{translate.t("analytics.textBox.forcesStatus.footer.intro")}</p>
+                    <ul>
+                      <li>{translate.t("analytics.textBox.forcesStatus.footer.smart")}</li>
+                      <li>{translate.t("analytics.textBox.forcesStatus.footer.breaks")}</li>
+                      <li>{translate.t("analytics.textBox.forcesStatus.footer.stats")}</li>
+                    </ul>
+                  </PanelCollapseBody>
+                </PanelCollapse>
               </Col100>
             </RowCenter>
             <div className={styles.separatorTitleFromCharts} />

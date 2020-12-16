@@ -346,6 +346,27 @@ const PanelBody: StyledComponent<
   className: "pa1-5",
 })``;
 
+const PanelCollapse: StyledComponent<
+  "div",
+  Record<string, boolean>
+> = styled.div.attrs({
+  className: "mb4 items-center hide-child panel-c",
+})``;
+
+const PanelCollapseBody: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "child pa4 items-center panel-cb",
+})``;
+
+const PanelCollapseHeader: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "pb3 pl4 pt3 pr4 items-center panel-ch",
+})``;
+
 const ProgressBar: StyledComponent<
   "div",
   Record<string, unknown>
@@ -549,6 +570,9 @@ export {
   NavSplitButtonContainer,
   Panel,
   PanelBody,
+  PanelCollapse,
+  PanelCollapseBody,
+  PanelCollapseHeader,
   ProgressBar,
   ProjectScopeText,
   RemoveItem,
