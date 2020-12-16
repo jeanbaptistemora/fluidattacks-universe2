@@ -165,17 +165,14 @@ def get_status_vulns_by_time_range(
         historic_states = cast(List[Dict[str, str]], vuln['historic_state'])
         last_state = vuln_domain.get_last_approved_state(vuln)
 
-        if last_state and first_day <= last_state['date'] <= last_day:
-            if last_state['state'] == 'closed':
-                resp['closed'] += 1
-            elif last_state['state'] == 'DELETED':
-                resp['found'] -= 1
-            elif last_state['state'] == 'open' and len(historic_states) > 1:
-                if (historic_states[-2]['state'] == 'closed'
-                        and historic_states[-2]['date'] < first_day):
-                    resp['closed'] -= 1
+        if (last_state and first_day <= last_state['date'] <= last_day and
+                last_state['state'] == 'DELETED'):
+            resp['found'] -= 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
+    resp['closed'] = sum([
+        get_closed_vulns(vuln, last_day) for vuln in vulns
+    ])
     resp['accepted'] = sum([
         get_accepted_vulns(vuln, last_day) for vuln in vulns
     ])
@@ -197,6 +194,21 @@ def create_weekly_date(first_date: str) -> str:
     else:
         date = '{0:%b} {0.day} - {1.day}, {1.year}'
     return date.format(begin, end)
+
+
+def get_closed_vulns(
+    vuln: Dict[str, FindingType],
+    last_day: str,
+) -> int:
+    historic_state = sort_historic_by_date(vuln['historic_state'])
+    states = filter_by_date(
+        historic_state, datetime_utils.get_from_str(last_day)
+    )
+    if (states and states[-1]['date'] <= last_day and
+            states[-1]['state'] == 'closed'):
+        return 1
+
+    return 0
 
 
 def get_accepted_vulns(
@@ -253,7 +265,7 @@ async def create_register_by_week(
                 last_day,
             )
             accepted = result_vulns_by_week.get('accepted', 0)
-            closed += result_vulns_by_week.get('closed', 0)
+            closed = result_vulns_by_week.get('closed', 0)
             found += result_vulns_by_week.get('found', 0)
             if any(status_vuln
                    for status_vuln in list(result_vulns_by_week.values())):
