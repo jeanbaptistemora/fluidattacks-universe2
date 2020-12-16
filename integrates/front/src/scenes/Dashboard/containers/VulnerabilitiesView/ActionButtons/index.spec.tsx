@@ -148,7 +148,7 @@ describe("ActionButtons", () => {
     .filterWhere((button: ReactWrapper): boolean =>
       button
         .text()
-        .includes("Confirm zero risk"));
+        .includes(t("search_findings.tab_description.confirm_zero_risk.text")));
     expect(confirmZeroRiskButton)
       .toHaveLength(1);
 
@@ -179,7 +179,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
         .text()
-        .includes("Confirm zero risk"));
+        .includes(t("search_findings.tab_description.confirm_zero_risk.text")));
     expect(confirmZeroRiskButton)
       .toHaveLength(1);
 
@@ -187,7 +187,7 @@ describe("ActionButtons", () => {
     .filterWhere((button: ReactWrapper): boolean =>
       button
       .text()
-      .includes("Cancel"));
+      .includes(t("search_findings.tab_description.cancel_confirming_zero_risk")));
     expect(cancelButton)
       .toHaveLength(1);
   });

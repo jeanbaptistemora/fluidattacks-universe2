@@ -1,67 +1,72 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * jsx-no-multiline-js: Necessary for using conditional rendering
- */
-
-import _ from "lodash";
-import React from "react";
-import { Glyphicon } from "react-bootstrap";
-
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { Can } from "utils/authz/Can";
-import { translate } from "utils/translations/translate";
+import { FluidIcon } from "components/FluidIcon";
+import { Glyphicon } from "react-bootstrap";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { useTranslation } from "react-i18next";
 
-export interface IConfirmZeroRiskVulnButtonProps {
+interface IConfirmZeroRiskVulnButtonProps {
   areVulnsSelected: boolean;
   isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
-  onConfirmZeroRisk(): void;
-  openUpdateZeroRiskModal(): void;
+  onConfirmZeroRisk: () => void;
+  openUpdateZeroRiskModal: () => void;
 }
 
-const confirmZeroRiskVulnButton: React.FC<IConfirmZeroRiskVulnButtonProps> =
-    (props: IConfirmZeroRiskVulnButtonProps): JSX.Element => {
+const ConfirmZeroRiskVulnButton: React.FC<IConfirmZeroRiskVulnButtonProps> = ({
+  areVulnsSelected,
+  isConfirmingZeroRisk,
+  isEditing,
+  isRejectingZeroRisk,
+  isRequestingReattack,
+  isVerifying,
+  onConfirmZeroRisk,
+  openUpdateZeroRiskModal,
+}: IConfirmZeroRiskVulnButtonProps): JSX.Element => {
+  const { t } = useTranslation();
 
-  const { onConfirmZeroRisk, openUpdateZeroRiskModal } = props;
-
-  const shouldRenderConfirmZeroRiskBtn: boolean =
-    !(
-      props.isEditing
-      || props.isRequestingReattack
-      || props.isVerifying
-      || props.isRejectingZeroRisk
-    );
+  const shouldRenderConfirmZeroRiskBtn: boolean = !(
+    isEditing ||
+    isRequestingReattack ||
+    isVerifying ||
+    isRejectingZeroRisk
+  );
 
   return (
-    <Can do="backend_api_mutations_confirm_zero_risk_vuln_mutate">
-      {props.isConfirmingZeroRisk ? (
-        <Button onClick={openUpdateZeroRiskModal} disabled={!props.areVulnsSelected}>
-          <FluidIcon icon="verified" />&nbsp;
-          {translate.t("search_findings.tab_description.confirm_zero_risk.text")}
+    <Can do={"backend_api_mutations_confirm_zero_risk_vuln_mutate"}>
+      {isConfirmingZeroRisk ? (
+        <Button disabled={!areVulnsSelected} onClick={openUpdateZeroRiskModal}>
+          <FluidIcon icon={"verified"} />
+          &nbsp;{t("search_findings.tab_description.confirm_zero_risk.text")}
         </Button>
       ) : undefined}
       {shouldRenderConfirmZeroRiskBtn ? (
         <TooltipWrapper
-          message={props.isConfirmingZeroRisk
-            ? translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
-            : translate.t("search_findings.tab_description.confirm_zero_risk.tooltip")
+          message={
+            isConfirmingZeroRisk
+              ? t("search_findings.tab_vuln.buttons_tooltip.cancel")
+              : t("search_findings.tab_description.confirm_zero_risk.tooltip")
           }
-          placement="top"
+          placement={"top"}
         >
           <Button onClick={onConfirmZeroRisk}>
-            {props.isConfirmingZeroRisk ? (
+            {isConfirmingZeroRisk ? (
               <React.Fragment>
-                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.cancel_confirming_zero_risk")}
+                <Glyphicon glyph={"remove"} />
+                &nbsp;
+                {t(
+                  "search_findings.tab_description.cancel_confirming_zero_risk"
+                )}
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <FluidIcon icon="verified" />&nbsp;
-                {translate.t("search_findings.tab_description.confirm_zero_risk.text")}
+                <FluidIcon icon={"verified"} />
+                &nbsp;
+                {t("search_findings.tab_description.confirm_zero_risk.text")}
               </React.Fragment>
             )}
           </Button>
@@ -71,4 +76,4 @@ const confirmZeroRiskVulnButton: React.FC<IConfirmZeroRiskVulnButtonProps> =
   );
 };
 
-export { confirmZeroRiskVulnButton as ConfirmZeroRiskVulnButton };
+export { ConfirmZeroRiskVulnButton, IConfirmZeroRiskVulnButtonProps };

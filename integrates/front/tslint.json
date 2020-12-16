@@ -31,6 +31,7 @@
       "src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx",
       "src/scenes/Dashboard/containers/GroupScopeView/**",
       "src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**",
+      "src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/ConfirmZeroRiskVulnButton/**",
       "src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/EditButton/**",
       "src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/HandleAcceptationButton/**",
       "src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/ReattackVulnButton/**",
