@@ -16,6 +16,7 @@ from eval_java.model import (
     StatementPass,
     StatementPrimary,
     Statements,
+    StopEvaluation,
 )
 from eval_java.eval_rules import (
     add,
@@ -28,6 +29,7 @@ from eval_java.eval_rules import (
     declaration,
     expression_conditional,
     expression_relational,
+    if_,
     ignore,
     literal,
     lookup,
@@ -46,7 +48,7 @@ EVALUATORS = {
     StatementCustomMethodInvocation: call.evaluate,
     StatementCustomMethodInvocationChain: call_chain.evaluate,
     StatementDeclaration: declaration.evaluate,
-    StatementIf: ignore.evaluate,
+    StatementIf: if_.evaluate,
     StatementLiteral: literal.evaluate,
     StatementLookup: lookup.evaluate,
     StatementPass: ignore.evaluate,
@@ -63,4 +65,7 @@ def evaluate(statements: Statements) -> None:
         if len(stack) == 1:
             statement.meta.value = stack[0].meta.value
 
-        EVALUATORS[type(statement)](statements, index)
+        try:
+            EVALUATORS[type(statement)](statements, index)
+        except StopEvaluation:
+            break
