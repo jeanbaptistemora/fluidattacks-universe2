@@ -13,6 +13,7 @@ import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { TreatmentField } from "./TreatmentField";
+import { TreatmentManagerField } from "./TreatmentManagerField";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
@@ -30,7 +31,7 @@ import {
   REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import { Date, Dropdown, TagInput, Text, TextArea } from "utils/forms/fields";
+import { Date, TagInput, Text, TextArea } from "utils/forms/fields";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import { Field, formValueSelector, isPristine, submit } from "redux-form";
 import {
@@ -484,35 +485,15 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       </Col50>
                     ) : undefined}
                   </Row>
-                  {isInProgressSelected ? (
-                    <Row>
-                      <Col50>
-                        <EditableField
-                          component={Dropdown}
-                          currentValue={_.get(
-                            lastTreatment,
-                            "treatmentManager",
-                            ""
-                          )}
-                          label={translate.t(
-                            "search_findings.tab_description.treatment_mgr"
-                          )}
-                          name={"treatmentManager"}
-                          renderAsEditable={canUpdateVulnsTreatment}
-                          type={"text"}
-                        >
-                          <option value={""} />
-                          {userEmails.map(
-                            (email: string): JSX.Element => (
-                              <option key={email} value={email}>
-                                {email}
-                              </option>
-                            )
-                          )}
-                        </EditableField>
-                      </Col50>
-                    </Row>
-                  ) : undefined}
+                  <Row>
+                    <Col50>
+                      <TreatmentManagerField
+                        isInProgressSelected={isInProgressSelected}
+                        lastTreatment={lastTreatment}
+                        userEmails={userEmails}
+                      />
+                    </Col50>
+                  </Row>
                   <Row>
                     <Col100>
                       <EditableField
