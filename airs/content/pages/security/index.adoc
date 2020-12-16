@@ -71,7 +71,7 @@ Monitoring checks run on North American and European servers
 every minute for all applications.
 They send HTTP GET requests,
 and this information is real-time and available on our
-link:http://status.fluidattacks.com/[Status Site].
+link:https://status.fluidattacks.com/[Status Site].
 
 
 == 2. Confidentiality
