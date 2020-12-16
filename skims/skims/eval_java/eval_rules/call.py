@@ -14,6 +14,8 @@ from eval_java.eval_rules import (
 # Constants
 DANGER_METHODS_BY_ARGS_PROPAGATION = {
     'java.net.URLDecoder.decode',
+    'java.nio.file.Files.newInputStream',
+    'java.nio.file.Paths.get',
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
 }

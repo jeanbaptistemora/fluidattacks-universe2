@@ -39,6 +39,7 @@ async def parse(
     *,
     content: bytes,
     path: str,
+    _: int = 0,
 ) -> Dict[str, Any]:
     for memory in iterate_host_memory_levels():
         async with get_memory_semaphore().acquire_many(memory):

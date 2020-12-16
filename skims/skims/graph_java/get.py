@@ -41,13 +41,13 @@ def get(
     path: str,
     # Update this number to indicate a new graph version
     # This also invalidates the cache
-    graph_version: int = 1,
+    graph_version: int = 2,
 ) -> nx.DiGraph:
     return _get(
         grammar,
         content=content,
+        graph_version=graph_version,
         path=path,
-        _=graph_version,
     )
 
 
@@ -56,10 +56,15 @@ async def _get(
     grammar: Grammar,
     *,
     content: bytes,
+    graph_version: int,
     path: str,
-    _: int,
 ) -> nx.DiGraph:
-    parse_tree = await antlr_parse.parse(grammar, content=content, path=path)
+    parse_tree = await antlr_parse.parse(
+        grammar,
+        content=content,
+        path=path,
+        _=graph_version,
+    )
     model = antlr_model.from_parse_tree(parse_tree)
 
     if CTX.debug:
