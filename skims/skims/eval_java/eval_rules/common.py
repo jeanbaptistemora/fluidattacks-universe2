@@ -1,5 +1,11 @@
+# Standard library
+from typing import (
+    Optional,
+)
+
 # Local libraries
 from eval_java.model import (
+    Statement,
     StatementAssignment,
     StatementDeclaration,
     Statements,
@@ -28,6 +34,18 @@ def read_stack_symbols(
             StatementDeclaration,
         ))
     )))
+
+
+def read_stack_var(
+    statements: Statements,
+    index: int,
+    var: str,
+) -> Optional[Statement]:
+    for symbol in read_stack_symbols(statements, index):
+        if symbol.var == var:
+            return symbol
+
+    return None
 
 
 def read_stack_var_type(

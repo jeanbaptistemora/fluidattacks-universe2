@@ -15,6 +15,11 @@ from eval_java.eval_rules import (
 DANGER_METHODS_BY_ARGS_PROPAGATION = {
     'java.net.URLDecoder.decode',
 }
+DANGER_METHODS_BY_OBJ = {
+    'java.util.Enumeration<String>': {
+        'nextElement',
+    },
+}
 DANGER_METHODS_BY_TYPE = {
     'HttpServletRequest': {
         'getCookies',
@@ -55,21 +60,32 @@ def evaluate(statements: Statements, index: int) -> None:
     # Analyze if the call itself is sensitive
     method = statement.method
     method_var, method_path = _split_var_from_method(method)
+    method_var_stmt = common.read_stack_var(
+        statements, index, method_var,
+    )
     method_var_type = common.read_stack_var_type(
         statements, index, method_var,
     )
 
     # Local context
-    statement.meta.danger = any((
+    statement.meta.danger = (
         # Known function to return user controlled data
-        method_path in DANGER_METHODS_BY_TYPE.get(method_var_type, {}),
+        method_path in DANGER_METHODS_BY_TYPE.get(method_var_type, {})
+    ) or (
+        # Know functions that propagate danger if object is dangerous
+        method_path in DANGER_METHODS_BY_OBJ.get(method_var_type, {})
+        and method_var_stmt
+        and method_var_stmt.meta.danger
+    ) or (
         # Known functions that propagate args danger
-        method in DANGER_METHODS_BY_ARGS_PROPAGATION and args_danger,
+        method in DANGER_METHODS_BY_ARGS_PROPAGATION
+        and args_danger
+    ) or (
         # Insecure methods
         method in {
             'java.lang.Math.random',
             'lang.Math.random',
             'Math.random',
             'random',
-        },
-    ))
+        }
+    )

@@ -1,5 +1,6 @@
 # Local libraries
 from eval_java.model import (
+    ExpressionBinary,
     ExpressionConditional,
     ExpressionRelational,
     ExpressionUnary,
@@ -38,6 +39,7 @@ from eval_java.eval_rules import (
 
 
 EVALUATORS = {
+    ExpressionBinary: ignore.evaluate,
     ExpressionConditional: expression_conditional.evaluate,
     ExpressionRelational: expression_relational.evaluate,
     ExpressionUnary: ignore.evaluate,

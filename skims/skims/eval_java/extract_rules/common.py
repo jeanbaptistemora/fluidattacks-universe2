@@ -2,6 +2,7 @@
 from typing import (
     Any,
     Callable,
+    Dict,
     Tuple,
 )
 
@@ -90,3 +91,15 @@ def not_implemented(
     )
 
     ctx.complete = False
+
+
+def translate_match(
+    graph: nx.DiGraph,
+    op_id: str,
+    translations: Dict[str, str],
+) -> str:
+    for key, val in translations.items():
+        if graph.nodes[op_id]['label_type'] == key:
+            return val
+
+    raise NotImplementedError()

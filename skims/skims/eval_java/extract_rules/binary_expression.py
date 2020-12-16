@@ -9,8 +9,8 @@ from eval_java.extract_rules import (
 from eval_java.model import (
     Context,
     get_default_statement_meta,
-    StatementAdd,
     OptionalContext,
+    ExpressionBinary,
 )
 from utils import (
     graph as g,
@@ -33,20 +33,19 @@ def extract(
         and (op_id := match['__1__'])
         and (right_id := match['__2__'])
     ):
-        l_ctx = generic.extract(graph, left_id, ctx=None)
-        r_ctx = generic.extract(graph, right_id, ctx=None)
-        common.merge_contexts(ctx, l_ctx)
-        common.merge_contexts(ctx, r_ctx)
+        left_ctx = generic.extract(graph, left_id, ctx=None)
+        common.merge_contexts(ctx, left_ctx)
+        right_ctx = generic.extract(graph, right_id, ctx=None)
+        common.merge_contexts(ctx, right_ctx)
 
-        ctx.statements.append(StatementAdd(
+        ctx.statements.append(ExpressionBinary(
             meta=get_default_statement_meta(),
-            sign=common.translate_match(graph, op_id, {
-                'ADD': '+',
-                'SUB': '-',
+            operator=common.translate_match(graph, op_id, {
+                'AND': '&&',
             }),
             stacks=[
-                r_ctx.statements,
-                l_ctx.statements,
+                left_ctx.statements,
+                right_ctx.statements,
             ],
         ))
     else:

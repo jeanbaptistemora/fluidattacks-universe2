@@ -65,6 +65,15 @@ class ExpressionUnary(NamedTuple):
     type: str = 'ExpressionUnary'
 
 
+class ExpressionBinary(NamedTuple):
+    meta: StatementMeta
+    operator: str
+    stacks: List[Statements]
+
+    recursive: bool = True
+    type: str = 'ExpressionBinary'
+
+
 class StatementAdd(NamedTuple):
     meta: StatementMeta
     sign: str
