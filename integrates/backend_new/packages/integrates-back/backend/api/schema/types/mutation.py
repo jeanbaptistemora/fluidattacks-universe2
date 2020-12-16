@@ -42,6 +42,7 @@ from backend.api.mutations import (
     update_git_environments,
     update_git_root,
     update_organization_policies,
+    update_root_cloning_status,
     update_root_state,
     update_severity,
     update_vulns_treatment,
@@ -109,6 +110,8 @@ MUTATION.set_field(
     update_organization_policies.mutate
 )
 MUTATION.set_field('updateRootState', update_root_state.mutate)
+MUTATION.set_field('updateRootCloningStatus',
+                   update_root_cloning_status.mutate)
 MUTATION.set_field('updateSeverity', update_severity.mutate)
 MUTATION.set_field('uploadFile', upload_file.mutate)
 

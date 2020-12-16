@@ -1,6 +1,11 @@
 # Standard
 import re
-from typing import Any, Dict, Optional, Tuple
+from typing import (
+    Any,
+    Dict,
+    Optional,
+    Tuple,
+)
 from urllib.parse import unquote
 
 # Third party
@@ -272,18 +277,26 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
         port: int = url_attributes.port or default_port
         protocol: str = url_attributes.scheme.upper()
         org_id: str = await org_domain.get_id_for_group(group_name)
+
+        now_date = datetime.get_as_str(datetime.get_now())
         initial_state: Dict[str, Any] = {
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': now_date,
             'host': host,
             'path': path,
             'port': port,
             'protocol': protocol,
             'user': user_email
         }
+        initial_cloning_status: Dict[str, Any] = {
+            'date': now_date,
+            'status': 'UNKNOWN',
+            'message': 'root created'
+        }
 
         if await _is_url_unique_in_org(org_id, host, path, port, protocol):
             root_attributes: Dict[str, Any] = {
                 'historic_state': [initial_state],
+                'historic_cloning_status': [initial_cloning_status],
                 'kind': 'URL'
             }
             await root_dal.create(group_name, root_attributes)
@@ -401,7 +414,7 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
             **last_state,
             'date': datetime.get_as_str(datetime.get_now()),
             'state': state,
-            'user': user_email
+            'user': user_email,
         }
 
         await root_dal.update(
@@ -415,12 +428,35 @@ async def update_root_state(user_email: str, root_id: str, state: str) -> None:
                     requester_email=user_email,
                     group_name=root['group_name'],
                     repo_url=root['url'],
-                    branch=root['branch']
+                    branch=root['branch'],
                 )
             else:
                 await notifications_domain.cancel_health_check(
                     requester_email=user_email,
                     group_name=root['group_name'],
                     repo_url=root['url'],
-                    branch=root['branch']
+                    branch=root['branch'],
                 )
+
+
+async def update_root_cloning_status(
+    root_id: str,
+    status: str,
+    message: str,
+) -> None:
+    validations.validate_field_length(message, 400)
+    root: Dict[str, Any] = await get_root_by_id(root_id)
+    last_status = root['historic_cloning_status'][-1]
+
+    if last_status['status'] != status:
+        new_status: Dict[str, Any] = {
+            'status': status,
+            'date': datetime.get_as_str(datetime.get_now()),
+            'message': message,
+        }
+
+        await root_dal.update(
+            root['group_name'], root_id, {
+                'historic_cloning_status':
+                [*root['historic_cloning_status'], new_status]
+            })

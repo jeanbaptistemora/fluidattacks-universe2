@@ -376,6 +376,15 @@ type Mutation {
     organizationName: String!
   ): SimplePayload!
 
+  updateRootCloningStatus(
+      "ID of the root"
+      id: ID!
+      "Whether the root is cloning or not"
+      status: CloningStatus!
+      "Message when cloning is finished"
+      message: String!
+  ): SimplePayload!
+
   updateRootState(
     "ID of the root"
     id: ID!

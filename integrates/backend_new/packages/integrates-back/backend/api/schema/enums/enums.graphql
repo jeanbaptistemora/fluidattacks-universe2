@@ -50,6 +50,12 @@ enum CallerOrigin {
   FRONT
 }
 
+enum CloningStatus {
+  FAILED
+  OK
+  UNKNOWN
+}
+
 enum DeleteFindingJustification {
   DUPLICATED
   FALSE_POSITIVE
