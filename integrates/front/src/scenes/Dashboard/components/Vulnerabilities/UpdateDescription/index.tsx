@@ -8,6 +8,7 @@ import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
@@ -31,7 +32,7 @@ import {
   REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import { Date, TagInput, Text, TextArea } from "utils/forms/fields";
+import { Date, TagInput, Text } from "utils/forms/fields";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import { Field, formValueSelector, isPristine, submit } from "redux-form";
 import {
@@ -65,7 +66,6 @@ import {
   maxLength,
   numeric,
   required,
-  validTextField,
   validUrlField,
 } from "utils/validations";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -73,11 +73,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const MAX_BTS_LENGTH: number = 80;
-const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 200;
 const maxBtsLength: ConfigurableValidator = maxLength(MAX_BTS_LENGTH);
-const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
-  MAX_TREATMENT_JUSTIFICATION_LENGTH
-);
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   props: IUpdateTreatmentModalProps
 ): JSX.Element => {
@@ -496,26 +492,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                   </Row>
                   <Row>
                     <Col100>
-                      <EditableField
-                        component={TextArea}
-                        currentValue={lastTreatment.justification as string}
-                        label={translate.t(
-                          "search_findings.tab_description.treatment_just"
-                        )}
-                        name={"justification"}
-                        renderAsEditable={
-                          canUpdateVulnsTreatment || canRequestZeroRiskVuln
-                        }
-                        type={"text"}
-                        validate={
-                          isTreatmentPristine
-                            ? undefined
-                            : [
-                                required,
-                                validTextField,
-                                maxTreatmentJustificationLength,
-                              ]
-                        }
+                      <JustificationField
+                        isTreatmentPristine={isTreatmentPristine}
+                        lastTreatment={lastTreatment}
                       />
                     </Col100>
                   </Row>
