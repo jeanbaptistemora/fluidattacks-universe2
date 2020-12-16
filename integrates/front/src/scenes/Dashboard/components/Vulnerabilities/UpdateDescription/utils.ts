@@ -86,9 +86,26 @@ const groupLastHistoricTreatment: (
     : emptyTreatment;
 };
 
+const groupVulnLevel: (vulnerabilities: IVulnDataType[]) => string = (
+  vulnerabilities: IVulnDataType[]
+): string => {
+  const vulnLevel: string = vulnerabilities.reduce(
+    (acc: string, vuln: IVulnDataType): string =>
+      _.isEmpty(vuln.severity) ? acc : vuln.severity,
+    ""
+  );
+
+  return vulnerabilities.every((row: IVulnDataType): boolean =>
+    _.isEmpty(row.severity) ? true : row.severity === vulnLevel
+  )
+    ? vulnLevel
+    : "";
+};
+
 export {
   getLastTreatment,
   groupExternalBts,
   groupLastHistoricTreatment,
+  groupVulnLevel,
   sortTags,
 };

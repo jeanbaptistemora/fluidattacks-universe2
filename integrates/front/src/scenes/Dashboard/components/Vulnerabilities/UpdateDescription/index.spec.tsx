@@ -43,7 +43,7 @@ describe("Update Description component", (): void => {
       externalBts: "",
       historicTreatment: [],
       id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
-      severity: "",
+      severity: "2",
       specific: "",
       tag: "one",
       treatmentManager: "",
@@ -182,7 +182,13 @@ describe("Update Description component", (): void => {
           treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
           wrapper.update();
 
+          const severityInput: ReactWrapper = wrapper
+            .find({ name: "severity" })
+            .at(0)
+            .find("input");
+
           expect(wrapper.find({ renderAsEditable: true })).toHaveLength(4);
+          expect(severityInput.prop("value")).toStrictEqual(vulns[0].severity);
         });
       }
     );

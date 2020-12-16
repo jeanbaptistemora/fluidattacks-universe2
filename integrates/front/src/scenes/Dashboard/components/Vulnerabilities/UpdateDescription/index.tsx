@@ -10,7 +10,6 @@ import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Glyphicon } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { Field, formValueSelector, isPristine, submit } from "redux-form";
@@ -41,6 +40,7 @@ import {
 import {
   groupExternalBts,
   groupLastHistoricTreatment,
+  groupVulnLevel,
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
@@ -233,18 +233,6 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
       }
   };
 
-  const handleDeleteTag: (() => void) = (): void => {
-    if (props.vulnerabilities.length === 0) {
-      msgError(translate.t("search_findings.tab_resources.no_selection"));
-    } else {
-      deleteTagVuln({variables: {
-        findingId: props.findingId,
-        vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-      }});
-      handleCloseModal();
-    }
-  };
-
   const handleEditTreatment: (() => void) = (): void => {
     dispatch(submit("editTreatmentVulnerability"));
   };
@@ -353,6 +341,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
           initialValues={{
             ...lastTreatment,
             externalBts: groupExternalBts(props.vulnerabilities),
+            severity: groupVulnLevel(props.vulnerabilities),
             tag: _.join((_.intersection(...vulnsTags)), ","),
             treatment: lastTreatment.treatment.replace("NEW", ""),
           }}
@@ -495,14 +484,6 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         validate={[isValidVulnSeverity, numeric]}
                       />
                     </FormGroup>
-                  </Col50>
-                </Row>
-                <Row>
-                  <Col50>
-                    <Button onClick={handleDeleteTag}>
-                      <Glyphicon glyph="minus" />&nbsp;
-                      {translate.t("search_findings.tab_description.deleteTags")}
-                    </Button>
                   </Col50>
                 </Row>
               </React.Fragment>
