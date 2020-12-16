@@ -38,6 +38,7 @@ describe("ActionButtons", () => {
   });
 
   it("should render a component", async () => {
+    const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <ActionButtons {...baseMockedProps} />,
     );
@@ -50,7 +51,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes("Edit")))
+          .includes(t("search_findings.tab_description.editable.text"))))
       .toHaveLength(1);
   });
 
@@ -93,7 +94,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes("Edit")))
+          .includes(t("search_findings.tab_description.editable.text"))))
       .toHaveLength(1);
 
     requestButton.simulate("click");
@@ -122,6 +123,7 @@ describe("ActionButtons", () => {
   });
 
   it("should render confirm zero risk", async () => {
+    const { t } = useTranslation();
     const confirmZeroRiskMockProps: IActionButtonsProps = {
       ...baseMockedProps,
     };
@@ -154,7 +156,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
         .text()
-        .includes("Edit"));
+        .includes(t("search_findings.tab_description.editable.text")));
     expect(editButton)
       .toHaveLength(1);
 
@@ -191,6 +193,7 @@ describe("ActionButtons", () => {
   });
 
   it("should render reject zero risk", async () => {
+    const { t } = useTranslation();
     const rejectZeroRiskMockProps: IActionButtonsProps = {
       ...baseMockedProps,
     };
@@ -215,7 +218,7 @@ describe("ActionButtons", () => {
     .filterWhere((button: ReactWrapper): boolean =>
       button
         .text()
-        .includes("Reject zero risk"));
+        .includes(t("search_findings.tab_description.reject_zero_risk.text")));
     expect(rejectZeroRiskButton)
       .toHaveLength(1);
 
@@ -223,7 +226,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
         .text()
-        .includes("Edit"));
+        .includes(t("search_findings.tab_description.editable.text")));
     expect(editButton)
       .toHaveLength(1);
 
@@ -246,7 +249,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
         .text()
-        .includes("Reject zero risk"));
+        .includes(t("search_findings.tab_description.reject_zero_risk.text")));
     expect(rejectZeroRiskButton)
       .toHaveLength(1);
 
@@ -254,7 +257,7 @@ describe("ActionButtons", () => {
     .filterWhere((button: ReactWrapper): boolean =>
       button
       .text()
-      .includes("Cancel"));
+      .includes(t("search_findings.tab_description.cancel_rejecting_zero_risk")));
     expect(cancelButton)
       .toHaveLength(1);
   });

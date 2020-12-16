@@ -1,65 +1,66 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * jsx-no-multiline-js: Necessary for using conditional rendering
- */
-
-import _ from "lodash";
-import React from "react";
-import { Glyphicon } from "react-bootstrap";
-
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
+import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { translate } from "utils/translations/translate";
+import { useTranslation } from "react-i18next";
 
-export interface IEditButtonProps {
+interface IEditButtonProps {
   isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
-  onEdit(): void;
+  onEdit: () => void;
 }
 
-const editButton: React.FC<IEditButtonProps> = (props: IEditButtonProps): JSX.Element => {
-
-  const { onEdit} = props;
+const EditButton: React.FC<IEditButtonProps> = ({
+  isConfirmingZeroRisk,
+  isEditing,
+  isRejectingZeroRisk,
+  isRequestingReattack,
+  isVerifying,
+  onEdit,
+}: IEditButtonProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const shouldRenderEditBtn: boolean = !(
-    props.isRequestingReattack
-    || props.isVerifying
-    || props.isConfirmingZeroRisk
-    || props.isRejectingZeroRisk
+    isRequestingReattack ||
+    isVerifying ||
+    isConfirmingZeroRisk ||
+    isRejectingZeroRisk
   );
 
   return (
-    <React.Fragment>
+    <React.StrictMode>
       {shouldRenderEditBtn ? (
         <TooltipWrapper
-          message={props.isEditing
-            ? translate.t("search_findings.tab_description.save.tooltip")
-            : translate.t("search_findings.tab_vuln.buttons_tooltip.edit")
+          message={
+            isEditing
+              ? t("search_findings.tab_description.save.tooltip")
+              : t("search_findings.tab_vuln.buttons_tooltip.edit")
           }
         >
           <Button
+            disabled={isRequestingReattack || isVerifying}
             id={"vulnerabilities-edit"}
             onClick={onEdit}
-            disabled={props.isRequestingReattack || props.isVerifying}
           >
-            {props.isEditing ? (
+            {isEditing ? (
               <React.Fragment>
-                <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_description.save.text")}
+                <FluidIcon icon={"loading"} />
+                &nbsp;{t("search_findings.tab_description.save.text")}
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
+                <FluidIcon icon={"edit"} />
+                &nbsp;{t("search_findings.tab_description.editable.text")}
               </React.Fragment>
             )}
           </Button>
         </TooltipWrapper>
-        ) : undefined}
-    </React.Fragment>
+      ) : undefined}
+    </React.StrictMode>
   );
 };
 
-export { editButton as EditButton };
+export { EditButton, IEditButtonProps };
