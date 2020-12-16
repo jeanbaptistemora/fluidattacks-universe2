@@ -4,7 +4,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { useParams } from "react-router";
 
 import { Button } from "components/Button";
@@ -27,6 +27,7 @@ import {
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -207,10 +208,10 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
     <React.StrictMode>
       <div id="users" className="tab-pane cont active" >
         <Row>
-          <Col md={12} sm={12} xs={12}>
+          <Col100>
             <Row>
-              <Col md={12} sm={12}>
-                <ButtonToolbar className="pull-right md-12 sm-12">
+              <Col100>
+                <ButtonToolbar>
                     <TooltipWrapper
                       message={translate.t("organization.tabs.users.addButton.tooltip")}
                     >
@@ -240,11 +241,11 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                       </Button>
                     </TooltipWrapper>
                 </ButtonToolbar>
-              </Col>
+              </Col100>
             </Row>
             <br />
             <Row>
-              <Col md={12} sm={12}>
+              <Col100>
                 <DataTableNext
                   id="tblUsers"
                   bordered={true}
@@ -260,9 +261,9 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                     onSelect: setCurrentRow,
                   }}
                 />
-              </Col>
+              </Col100>
             </Row>
-          </Col>
+          </Col100>
         </Row>
         <AddUserModal
           action={stakeholderModalAction}
