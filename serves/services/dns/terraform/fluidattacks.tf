@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "fs_maindomain" {
-  name    = var.domain
+  name    = "fluidattacks.com"
   comment = "Dominio principal de FLUID"
 
   tags = {
@@ -99,30 +99,6 @@ resource "aws_route53_record" "mail" {
   records = ["ghs.googlehosted.com"]
 }
 
-resource "aws_route53_record" "sendgrid" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "6002333.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["sendgrid.net"]
-}
-
-resource "aws_route53_record" "env_cname" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "*.env.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["fluidattacks.com"]
-}
-
-resource "aws_route53_record" "emailmkt" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "emailmkt.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["u6002333.wl084.sendgrid.net"]
-}
-
 resource "aws_route53_record" "go_fluid" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "go.${aws_route53_zone.fs_maindomain.name}"
@@ -139,92 +115,12 @@ resource "aws_route53_record" "k1_domainkey" {
   records = ["dkim.mcsv.net"]
 }
 
-resource "aws_route53_record" "kb_fluid" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "kb.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["fluid.knowledgeowl.com"]
-}
-
-resource "aws_route53_record" "mailguntracking" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "mailguntracking.mailgun.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["mailgun.org"]
-}
-
-resource "aws_route53_record" "marketing_fluid" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "marketing.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["u6002333.wl084.sendgrid.net"]
-}
-
-resource "aws_route53_record" "s1_domainkey" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "s1._domainkey.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["s1.domainkey.u6002333.wl084.sendgrid.net"]
-}
-
-resource "aws_route53_record" "s2_domainkey" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "s2._domainkey.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["s2.domainkey.u6002333.wl084.sendgrid.net"]
-}
-
-resource "aws_route53_record" "t_emailmkt" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "t.emailmkt.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["sendgrid.net"]
-}
-
-resource "aws_route53_record" "t_marketing" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "t.marketing.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["sendgrid.net"]
-}
-
-resource "aws_route53_record" "track" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "track.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["mandrillapp.com"]
-}
-
-resource "aws_route53_record" "customerio" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "customerio.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["e.customeriomail.com"]
-}
-
 resource "aws_route53_record" "discourse" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "community.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
   records = ["fluidattacks.hosted-by-discourse.com"]
-}
-
-resource "aws_route53_record" "mattermost" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "chat.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["fluidattacks.com"]
 }
 
 # MX Records
@@ -311,20 +207,4 @@ resource "aws_route53_record" "smtp_domainkey" {
   type    = "TXT"
   ttl     = "300"
   records = ["k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWWMDVpf8LmPSxAzXN6maN9tmYF37+LNKt0ClL6xin8F5D6icNdvViPAFuZDUU8aAQPYacWHUPY0ay+95wt2XiGbpZsa7k4EPFYTdL2hfMNwaidDJKgL58kzBcfvR1r/VX3MPmiP0d6cQKqoDi+THtpqd2w270pgCCBKiYvujHmQIDAQAB"]
-}
-
-resource "aws_route53_record" "customerio_ownership" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "46393._cio.${aws_route53_zone.fs_maindomain.name}"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["c4ae35cc23959de2ef5f0d9e036c2cc23ec79777"]
-}
-
-resource "aws_route53_record" "customerio_dkim" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "smtpapi._domainkey.${aws_route53_zone.fs_maindomain.name}"
-  type    = "TXT"
-  ttl     = "300"
-  records = ["k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPtW5iwpXVPiH5FzJ7Nrl8USzuY9zqqzjE0D1r04xDN6qwziDnmgcFNNfMewVKN2D1O+2J9N14hRprzByFwfQW76yojh54Xu3uSbQ3JP0A7k8o8GutRF8zbFUA8n0ZH2y0cIEjMliXY4W4LwPA7m4q0ObmvSjhd63O9d8z1XkUBwIDAQAB"]
 }
