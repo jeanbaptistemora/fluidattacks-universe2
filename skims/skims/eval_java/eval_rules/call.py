@@ -14,6 +14,8 @@ from eval_java.eval_rules import (
 # Constants
 DANGER_METHODS_BY_ARGS_PROPAGATION = {
     'java.net.URLDecoder.decode',
+    'org.apache.commons.codec.binary.Base64.decodeBase64',
+    'org.apache.commons.codec.binary.Base64.encodeBase64',
 }
 DANGER_METHODS_BY_OBJ = {
     'java.util.Enumeration': {
@@ -21,6 +23,9 @@ DANGER_METHODS_BY_OBJ = {
     },
     'java.util.Map': {
         'get',
+    },
+    'String': {
+        'getBytes',
     },
 }
 DANGER_METHODS_BY_TYPE = {
