@@ -16,10 +16,22 @@ def read_stack(
     statements: Statements,
     index: int,
 ) -> Statements:
-    return statements[
-        index + statements[index].meta.stack:
-        index
-    ]
+    stacks: Statements = []
+    stacks_expected_length: int = -statements[index].meta.stack
+
+    stack_depth: int = 0
+
+    while len(stacks) < stacks_expected_length:
+        index -= 1
+
+        if stack_depth:
+            stack_depth += 1
+        else:
+            stacks.append(statements[index])
+
+        stack_depth += statements[index].meta.stack
+
+    return list(reversed(stacks))
 
 
 def read_stack_symbols(

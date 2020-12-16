@@ -225,7 +225,7 @@
   },
   {
     "meta": {
-      "danger": false,
+      "danger": true,
       "linear": true,
       "sink": null,
       "stack": -2,
