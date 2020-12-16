@@ -494,7 +494,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               >
                 <PanelCollapse aria-expanded={isForcesDescriptionExpanded}>
                   <PanelCollapseHeader>
-                    <h1 className={styles.centerTitle}>
+                    <h1>
                       {translate.t("analytics.sections.forces.title")}
                     </h1>
                   </PanelCollapseHeader>

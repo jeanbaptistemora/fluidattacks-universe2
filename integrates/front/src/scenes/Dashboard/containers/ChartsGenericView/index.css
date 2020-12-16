@@ -1,7 +1,3 @@
-:local .centerTitle {
-  text-align: center;
-}
-
 :local .separatorTitleFromCharts {
   padding-top: 35px;
 }

@@ -364,7 +364,7 @@ const PanelCollapseHeader: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "pb3 pl4 pt3 pr4 items-center panel-ch",
+  className: "pb3 pl4 pt3 pr4 items-center tc panel-ch",
 })``;
 
 const ProgressBar: StyledComponent<
