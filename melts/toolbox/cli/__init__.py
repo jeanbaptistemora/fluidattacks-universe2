@@ -13,7 +13,7 @@ from toolbox import (
     drills,
     utils,
     constants,
-    logger
+    logger,
 )
 
 from .misc import misc_management
@@ -24,27 +24,16 @@ def _valid_integrates_token(ctx, param, value):
     assert constants
 
 
-@click.command(name='upgrade', short_help='Get last CLI version')
-def upgrade_management():
-    click.echo("Updating..")
-    if utils.version.upgrade():
-        click.echo("Successful")
-
-
 class ForceUpgrade(click.Group):
     def parse_args(self, ctx, args):
-        command: str = ''
-
-        if args:
-            command = args[0]
-
-        if command != 'upgrade' \
-                and not utils.generic.is_env_ci() \
-                and not utils.generic.is_dev_mode() \
-                and check_new_version():
-
-            logger.info("There is a new version, please upgrade melts ")
+        if (not utils.generic.is_env_ci() and not utils.generic.is_dev_mode()
+                and check_new_version()):
+            click.echo('There is a new version')
+            click.echo('Updating..')
+            if utils.version.upgrade():
+                click.echo("Melts updated successfully")
             self.invoke = lambda ctx: None
+            logger.info('Try the command again')
         else:
             click.Group.parse_args(self, ctx, args)
 
@@ -58,7 +47,6 @@ entrypoint.add_command(resources_management)
 entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
-entrypoint.add_command(upgrade_management)
 
 
 def retry_debugging_on_failure(func):
