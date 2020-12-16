@@ -11,6 +11,8 @@ from typing import (
 )
 
 # Third-party Libraries
+import boto3
+import numpy as np
 import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
@@ -49,41 +51,16 @@ def get_model_metrics(
         features,
         labels,
         scoring='f1',
+        train_sizes=np.linspace(0.1, 1, 30),
         n_jobs=-1,
         random_state=42
     )
     return (
-        scores['test_precision'].mean(),
-        scores['test_recall'].mean(),
-        scores['test_f1'].mean(),
-        is_overfit(train_results, test_results)
+        scores['test_precision'].mean() * 100,
+        scores['test_recall'].mean() * 100,
+        scores['test_f1'].mean() * 100,
+        is_overfit(train_results, test_results) * 100
     )
-
-
-def get_training_data(
-    training_dir: str,
-    feature_list: Tuple[str, ...]
-) -> Tuple[DataFrame, DataFrame]:
-    """Read the training data in two DataFrames for training purposes"""
-    input_files: List[str] = [
-        os.path.join(training_dir, file) for file in os.listdir(training_dir)
-    ]
-    raw_data: List[DataFrame] = [
-        pd.read_csv(file, engine="python") for file in input_files
-    ]
-    train_data: DataFrame = pd.concat(raw_data)
-
-    # Separate the labels from the features in the training data
-    labels: DataFrame = train_data.iloc[:, 0]
-    features_df: DataFrame = train_data.iloc[:, 1:]
-    features_df = pd.concat(
-        [
-            features_df.loc[:, feature_list],
-            # Include all extensions
-            features_df.loc[:, 'extension_0':]  # type: ignore
-        ],
-        axis=1)
-    return features_df, labels
 
 
 def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
@@ -106,6 +83,35 @@ def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
             min_overfit: ndarray = perc_diff[i - row - 1:i]
             return float(min_overfit.mean())
     return float(perc_diff.mean())
+
+
+def load_training_data(training_dir: str) -> DataFrame:
+    """Load a DataFrame with the training data in CSV format stored in S3"""
+    input_files: List[str] = [
+        os.path.join(training_dir, file) for file in os.listdir(training_dir)
+    ]
+    raw_data: List[DataFrame] = [
+        pd.read_csv(file, engine="python") for file in input_files
+    ]
+    return pd.concat(raw_data)
+
+
+def split_training_data(
+    training_df: DataFrame,
+    feature_list: Tuple[str, ...]
+) -> Tuple[DataFrame, DataFrame]:
+    """Read the training data in two DataFrames for training purposes"""
+    # Separate the labels from the features in the training data
+    labels: DataFrame = training_df.iloc[:, 0]
+    features_df: DataFrame = training_df.iloc[:, 1:]
+    features_df = pd.concat(
+        [
+            features_df.loc[:, feature_list],
+            # Include all extensions
+            features_df.loc[:, 'extension_0':]  # type: ignore
+        ],
+        axis=1)
+    return features_df, labels
 
 
 if __name__ == '__main__':
@@ -142,10 +148,12 @@ if __name__ == '__main__':
     }
     all_combinations = get_features_combinations(list(features_dict.keys()))
 
+    training_data: DataFrame = load_training_data(args.train)
+    training_output: List[str] = []
     # Train the model
-    for combination in all_combinations:
+    for combination in list(filter(None, all_combinations)):
         start_time: float = time.time()
-        train_x, train_y = get_training_data(args.train, combination)
+        train_x, train_y = split_training_data(training_data, combination)
         clf = MLPClassifier(random_state=42)
         precision, recall, f1, overfit = get_model_metrics(
             clf,
@@ -159,3 +167,18 @@ if __name__ == '__main__':
         print(f'Recall: {recall}%')
         print(f'F1-Score: {f1}%')
         print(f'Overfit: {overfit}%')
+        training_output.append(
+            ','.join([
+                clf.__class__.__name__,
+                ' '.join([features_dict[x] for x in combination]),
+                f'{precision:.1f}',
+                f'{recall:.1f}',
+                f'{f1:.1f}',
+                f'{overfit:.1f}'
+            ])
+        )
+    with open('model_results.csv', 'w') as results_file:
+        results_file.write('\n'.join(training_output))
+    boto3.Session().resource('s3').Bucket('sorts')\
+        .Object('training-output/model_results.csv')\
+        .upload_file('model_results.csv')
