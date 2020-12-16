@@ -361,6 +361,37 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
 
+async def update_git_environments(
+    user_email: str,
+    root_id: str,
+    environment_urls: Tuple[str, ...]
+) -> None:
+    root: Dict[str, Any] = await get_root_by_id(root_id)
+    last_state: Dict[str, Any] = root['historic_state'][-1]
+    is_valid: bool = (
+        _is_active(root)
+        and root['kind'] == 'Git'
+        and all(validations.is_valid_url(url) for url in environment_urls)
+    )
+
+    if is_valid:
+        group_name: str = root['group_name']
+        new_state: Dict[str, Any] = {
+            **last_state,
+            'date': datetime.get_as_str(datetime.get_now()),
+            'environment_urls': environment_urls,
+            'user': user_email
+        }
+
+        await root_dal.update(
+            group_name,
+            root_id,
+            {'historic_state': [*root['historic_state'], new_state]}
+        )
+    else:
+        raise InvalidParameter()
+
+
 async def update_root_state(user_email: str, root_id: str, state: str) -> None:
     root: Dict[str, Any] = await get_root_by_id(root_id)
     last_state: Dict[str, Any] = root['historic_state'][-1]

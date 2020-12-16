@@ -34,10 +34,14 @@ async def mutate(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    await root_domain.update_git_root(user_email, **kwargs)
+    await root_domain.update_git_environments(
+        user_email,
+        kwargs['id'],
+        kwargs['environment_urls']
+    )
     util.cloudwatch_log(
         info.context,
-        f'Security: Updated root {kwargs["id"]}'
+        f'Security: Updated git envs for root {kwargs["id"]}'
     )
 
     return SimplePayload(success=True)

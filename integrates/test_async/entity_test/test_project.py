@@ -830,6 +830,24 @@ async def test_update_git_root_nonexistent() -> None:
 
 
 @pytest.mark.changes_db  # type: ignore
+async def test_update_git_environments() -> None:
+    query = '''
+      mutation {
+        updateGitEnvironments(
+          id: "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          environmentUrls: ["https://integrates.fluidattacks.com/"]
+        ) {
+          success
+        }
+      }
+    '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['updateGitEnvironments']['success']
+
+
+@pytest.mark.changes_db  # type: ignore
 async def test_update_root_state() -> None:
     query = '''
       mutation {

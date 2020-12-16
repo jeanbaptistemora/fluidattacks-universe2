@@ -361,6 +361,13 @@ type Mutation {
         url: String!
     ): SimplePayload!
 
+    updateGitEnvironments(
+        "ID of the root"
+        id: ID!
+        "URLs to access the environment"
+        environmentUrls: [String!]!
+    ): SimplePayload!
+
     updateGitRoot(
         "Kind of environment to test. E.g. production, QA, etc."
         environment: String!

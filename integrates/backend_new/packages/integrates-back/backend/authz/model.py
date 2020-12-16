@@ -67,6 +67,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_resolvers_new_query_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
+            'backend_api_mutations_update_git_environments_mutate',
             'backend_api_resolvers_resource__do_add_files',
             'backend_api_mutations_add_git_root_mutate',
             'backend_api_mutations_update_git_root_mutate',
@@ -231,6 +232,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_group_service_attributes_resolve',
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_resolvers_resource__do_add_environments',
+            'backend_api_mutations_update_git_environments_mutate',
             'backend_api_resolvers_resource__do_add_files',
             'backend_api_mutations_add_git_root_mutate',
             'backend_api_mutations_update_git_root_mutate',
@@ -286,6 +288,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_resolvers_new_query_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
+            'backend_api_mutations_update_git_environments_mutate',
             'backend_api_resolvers_resource__do_add_files',
             'backend_api_mutations_add_git_root_mutate',
             'backend_api_mutations_update_git_root_mutate',
@@ -335,6 +338,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_group_service_attributes_resolve',
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_resolvers_resource__do_add_environments',
+            'backend_api_mutations_update_git_environments_mutate',
             'backend_api_resolvers_resource__do_add_files',
             'backend_api_mutations_add_git_root_mutate',
             'backend_api_mutations_update_git_root_mutate',
@@ -390,6 +394,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_resolvers_new_query_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
+            'backend_api_mutations_update_git_environments_mutate',
             'backend_api_resolvers_resource__do_add_files',
             'backend_api_mutations_add_git_root_mutate',
             'backend_api_mutations_update_git_root_mutate',
@@ -452,6 +457,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_resources_resolve',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
+            'backend_api_mutations_update_git_root_mutate',
+            'update_git_root_filter'
         },
         tags={
             'drills',
