@@ -114,6 +114,15 @@ const Col80: StyledComponent<
   className: "ph1-5 w-80",
 })``;
 
+const Col33L: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "w-33-l",
+})``;
+
 const Container: StyledComponent<
   "div",
   Record<string, unknown>
@@ -539,6 +548,7 @@ export {
   Col50,
   Col60,
   Col80,
+  Col33L,
   Container,
   ControlLabel,
   EditableFieldContent,

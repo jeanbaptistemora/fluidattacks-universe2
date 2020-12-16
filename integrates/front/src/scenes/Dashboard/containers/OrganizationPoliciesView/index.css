@@ -3,18 +3,3 @@
   text-align: center;
   white-space: pre;
 }
-
-:local .severityGrid {
-  padding: 0 !important;
-}
-
-:local .severityRow {
-  text-align: center !important;
-}
-
-@media (min-width: 1000px) {
-  .severityRow {
-    align-items: center !important;
-    display: flex !important;
-  }
-}

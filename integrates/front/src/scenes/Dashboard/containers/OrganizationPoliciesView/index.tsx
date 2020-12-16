@@ -4,7 +4,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Grid, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
@@ -19,6 +18,7 @@ import {
   UPDATE_ORGANIZATION_POLICIES,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import { IOrganizationPolicies, IPoliciesFormData } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Text } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -142,27 +142,27 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
       ),
       value: (
         <React.Fragment>
-          <Grid className={style.severityGrid} fluid={true}>
-            <Row className={style.severityRow}>
-              <Col md={5} lg={5}>
+          <div>
+            <RowCenter>
+              <Col33L>
                 <Field
                   component={Text}
                   name="minAcceptanceSeverity"
                   type="text"
                 />
-              </Col>
-              <Col md={2} lg={2}>
+              </Col33L>
+              <Col33L className={"tc"}>
                 <p>-</p>
-              </Col>
-              <Col md={5} lg={5}>
+              </Col33L>
+              <Col33L>
                 <Field
                   component={Text}
                   name="maxAcceptanceSeverity"
                   type="text"
                 />
-              </Col>
-            </Row>
-          </Grid>
+              </Col33L>
+            </RowCenter>
+          </div>
         </React.Fragment>
       ),
     },
@@ -225,7 +225,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
             />
             <Can do="backend_api_mutations_update_organization_policies_mutate">
               {pristine || loadingPolicies || savingPolicies ? undefined : (
-                <ButtonToolbar className="pull-right">
+                <ButtonToolbar>
                   <Button onClick={handleSubmit}>
                     {translate.t("organization.tabs.policies.save")}
                   </Button>
