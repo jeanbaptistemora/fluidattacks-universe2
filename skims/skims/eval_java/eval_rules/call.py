@@ -16,8 +16,11 @@ DANGER_METHODS_BY_ARGS_PROPAGATION = {
     'java.net.URLDecoder.decode',
 }
 DANGER_METHODS_BY_OBJ = {
-    'java.util.Enumeration<String>': {
+    'java.util.Enumeration': {
         'nextElement',
+    },
+    'java.util.Map': {
+        'get',
     },
 }
 DANGER_METHODS_BY_TYPE = {
@@ -50,6 +53,14 @@ def _split_var_from_method(method: str) -> Tuple[str, str]:
     return tokens[0], ''
 
 
+def _split_diamond_from_var_type(method: str) -> Tuple[str, str]:
+    tokens = method.rsplit('<', maxsplit=1)
+    if len(tokens) == 2:
+        return tokens[0], tokens[1][0:-1]
+
+    return tokens[0], ''
+
+
 def evaluate(statements: Statements, index: int) -> None:
     statement = statements[index]
 
@@ -63,8 +74,10 @@ def evaluate(statements: Statements, index: int) -> None:
     method_var_stmt = common.read_stack_var(
         statements, index, method_var,
     )
-    method_var_type = common.read_stack_var_type(
-        statements, index, method_var,
+    method_var_type, _ = _split_diamond_from_var_type(
+        common.read_stack_var_type(
+            statements, index, method_var,
+        ),
     )
 
     # Local context
