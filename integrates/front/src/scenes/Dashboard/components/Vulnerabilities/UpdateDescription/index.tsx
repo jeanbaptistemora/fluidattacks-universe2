@@ -1,52 +1,22 @@
-/* tslint:disable:jsx-no-multiline-js
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
- * readability of the code in graphql queries
- */
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
-import { ApolloError } from "apollo-client";
-import { ExecutionResult, GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
-import { Field, formValueSelector, isPristine, submit } from "redux-form";
-import { ConfigurableValidator } from "revalidate";
-
+import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
-import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
-import { Modal } from "components/Modal";
+import type { ConfigurableValidator } from "revalidate";
+import { ConfirmDialog } from "components/ConfirmDialog";
+import type { Dispatch } from "redux";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import {
-  GET_PROJECT_USERS,
-  GET_VULNERABILITIES,
-} from "scenes/Dashboard/components/Vulnerabilities/queries";
-import {
-  IUpdateTreatmentVulnAttr,
-  IVulnDataType,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
-import {
-  DELETE_TAGS_MUTATION,
-  REQUEST_ZERO_RISK_VULN,
-  UPDATE_DESCRIPTION_MUTATION,
-} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import {
-  IDeleteTagAttr,
-  IDeleteTagResultAttr,
-  IRequestZeroRiskVulnResultAttr,
-  IUpdateTreatmentModalProps,
-  IUpdateVulnDescriptionResultAttr,
-} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
-import {
-  groupExternalBts,
-  groupLastHistoricTreatment,
-  groupVulnLevel,
-  sortTags,
-} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { Logger } from "utils/logger";
+import { Modal } from "components/Modal";
+import type { PureAbility } from "@casl/ability";
+import React from "react";
+import _ from "lodash";
+import { formatDropdownField } from "utils/formatHelpers";
+import mixpanel from "mixpanel-browser";
+import { translate } from "utils/translations/translate";
+import { useAbility } from "@casl/react";
 import {
   ButtonToolbar,
   Col100,
@@ -55,12 +25,39 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { formatDropdownField } from "utils/formatHelpers";
+import {
+  DELETE_TAGS_MUTATION,
+  REQUEST_ZERO_RISK_VULN,
+  UPDATE_DESCRIPTION_MUTATION,
+} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import { Date, Dropdown, TagInput, Text, TextArea } from "utils/forms/fields";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
+import type { ExecutionResult, GraphQLError } from "graphql";
+import { Field, formValueSelector, isPristine, submit } from "redux-form";
+import {
+  GET_PROJECT_USERS,
+  GET_VULNERABILITIES,
+} from "scenes/Dashboard/components/Vulnerabilities/queries";
+
+import type {
+  IDeleteTagAttr,
+  IDeleteTagResultAttr,
+  IProjectUsersAttr,
+  IRequestZeroRiskVulnResultAttr,
+  IStakeholderAttr,
+  IUpdateTreatmentModalProps,
+  IUpdateVulnDescriptionResultAttr,
+} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
+import type {
+  IUpdateTreatmentVulnAttr,
+  IVulnDataType,
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import {
+  groupExternalBts,
+  groupLastHistoricTreatment,
+  groupVulnLevel,
+  sortTags,
+} from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import {
   isLowerDate,
   isValidVulnSeverity,
@@ -70,47 +67,61 @@ import {
   validTextField,
   validUrlField,
 } from "utils/validations";
-import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
+import { msgError, msgSuccess } from "utils/notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const maxBtsLength: ConfigurableValidator = maxLength(80);
-const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
-const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
-  props: IUpdateTreatmentModalProps,
+const MAX_BTS_LENGTH: number = 80;
+const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 200;
+const maxBtsLength: ConfigurableValidator = maxLength(MAX_BTS_LENGTH);
+const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
+  MAX_TREATMENT_JUSTIFICATION_LENGTH
+);
+const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
+  props: IUpdateTreatmentModalProps
 ): JSX.Element => {
+  const {
+    findingId,
+    projectName,
+    vulnerabilities,
+    vulnerabilitiesChunk,
+  } = props;
+  const { handleClearSelected, handleCloseModal } = props;
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDisplayAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_new_finding_analyst_resolve",
+    "backend_api_resolvers_new_finding_analyst_resolve"
   );
   const canGetHistoricState: boolean = permissions.can(
-    "backend_api_resolvers_new_finding_historic_state_resolve",
+    "backend_api_resolvers_new_finding_historic_state_resolve"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_request_zero_risk_vuln_mutate",
+    "backend_api_mutations_request_zero_risk_vuln_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "backend_api_mutations_update_vulns_treatment_mutate",
+    "backend_api_mutations_update_vulns_treatment_mutate"
   );
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const canGetExploit: boolean = groupPermissions.can("has_forces");
-  const { handleClearSelected, handleCloseModal } = props;
   const [isRunning, setRunning] = React.useState(false);
 
-  const vulnsTags: string[][] = props.vulnerabilities.map(
-    (vuln: IVulnDataType) => sortTags(vuln.tag),
+  const vulnsTags: string[][] = vulnerabilities.map(
+    (vuln: IVulnDataType): string[] => sortTags(vuln.tag)
   );
-  const isEditPristine: boolean = useSelector((state: {}) =>
-    isPristine("editTreatmentVulnerability")(
-      state,
-      ...["externalBts", "tag", "severity"],
-    ),
+  const isEditPristine: boolean = useSelector(
+    (state: Record<string, unknown>): boolean =>
+      isPristine("editTreatmentVulnerability")(
+        state,
+        ...["externalBts", "tag", "severity"]
+      )
   );
 
-  const isTreatmentPristine: boolean = useSelector((state: {}) =>
-    isPristine("editTreatmentVulnerability")(
-      state,
-      ...["acceptanceDate", "treatment", "treatmentManager", "justification"],
-    ),
+  const isTreatmentPristine: boolean = useSelector(
+    (state: Record<string, unknown>): boolean =>
+      isPristine("editTreatmentVulnerability")(
+        state,
+        ...["acceptanceDate", "treatment", "treatmentManager", "justification"]
+      )
   );
 
   const dispatch: Dispatch = useDispatch();
@@ -122,18 +133,18 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         query: GET_VULNERABILITIES,
         variables: {
           analystField: permissions.can(
-            "backend_api_resolvers_new_finding_analyst_resolve",
+            "backend_api_resolvers_new_finding_analyst_resolve"
           ),
-          identifier: props.findingId,
+          identifier: findingId,
         },
       },
     ],
   });
 
-  const { data } = useQuery(GET_PROJECT_USERS, {
+  const { data } = useQuery<IProjectUsersAttr>(GET_PROJECT_USERS, {
     skip: permissions.cannot("backend_api_resolvers_project__get_users"),
     variables: {
-      projectName: props.projectName,
+      projectName: projectName,
     },
   });
 
@@ -141,14 +152,14 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
     IDeleteTagResultAttr,
     IDeleteTagAttr
   >(DELETE_TAGS_MUTATION, {
-    onCompleted: async (result: IDeleteTagResultAttr): Promise<void> => {
+    onCompleted: (result: IDeleteTagResultAttr): void => {
       if (!_.isUndefined(result)) {
         if (result.deleteTags.success) {
           msgSuccess(
             translate.t(
-              "search_findings.tab_description.update_vulnerabilities",
+              "search_findings.tab_description.update_vulnerabilities"
             ),
-            translate.t("group_alerts.title_success"),
+            translate.t("group_alerts.title_success")
           );
         }
       }
@@ -164,36 +175,36 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         query: GET_VULNERABILITIES,
         variables: {
           analystField: permissions.can(
-            "backend_api_resolvers_new_finding_analyst_resolve",
+            "backend_api_resolvers_new_finding_analyst_resolve"
           ),
-          identifier: props.findingId,
+          identifier: findingId,
         },
       },
     ],
   });
 
   const handleUpdateTreatmentVuln: (
-    dataTreatment: IUpdateTreatmentVulnAttr,
+    dataTreatment: IUpdateTreatmentVulnAttr
   ) => Promise<void> = async (
-    dataTreatment: IUpdateTreatmentVulnAttr,
+    dataTreatment: IUpdateTreatmentVulnAttr
   ): Promise<void> => {
-    if (props.vulnerabilities.length === 0) {
+    if (vulnerabilities.length === 0) {
       msgError(translate.t("search_findings.tab_resources.no_selection"));
     } else {
       try {
         setRunning(true);
-        const results: Array<ExecutionResult<
+        const results: ExecutionResult<
           IUpdateVulnDescriptionResultAttr
-        >> = await Promise.all(
-          // This comment is going to be removed
-          // tslint:disable-next-line:newline-per-chained-call
-          _.chunk(props.vulnerabilities, props.vulnerabilitiesChunk).map(
-            (vulnsChuncked: IVulnDataType[]) =>
+        >[] = await Promise.all(
+          _.chunk(vulnerabilities, vulnerabilitiesChunk).map(
+            async (
+              vulnsChuncked: IVulnDataType[]
+            ): Promise<ExecutionResult<IUpdateVulnDescriptionResultAttr>> =>
               updateVuln({
                 variables: {
                   acceptanceDate: dataTreatment.acceptanceDate,
                   externalBts: dataTreatment.externalBts,
-                  findingId: props.findingId,
+                  findingId: findingId,
                   isVulnInfoChanged: !isEditPristine,
                   isVulnTreatmentChanged: !isTreatmentPristine,
                   justification: dataTreatment.justification,
@@ -210,23 +221,25 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       ? undefined
                       : dataTreatment.treatmentManager,
                   vulnerabilities: vulnsChuncked.map(
-                    (vuln: IVulnDataType) => vuln.id,
+                    (vuln: IVulnDataType): string => vuln.id
                   ),
                 },
-              }),
-          ),
+              })
+          )
         );
 
         const areAllMutationValid: boolean[] = results.map(
-          (result: ExecutionResult<IUpdateVulnDescriptionResultAttr>) => {
+          (
+            result: ExecutionResult<IUpdateVulnDescriptionResultAttr>
+          ): boolean => {
             if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
               const updateInfoSuccess: boolean = _.isUndefined(
-                result.data.updateTreatmentVuln,
+                result.data.updateTreatmentVuln
               )
                 ? true
                 : result.data.updateTreatmentVuln.success;
               const updateTreatmentSuccess: boolean = _.isUndefined(
-                result.data.updateVulnsTreatment,
+                result.data.updateVulnsTreatment
               )
                 ? true
                 : result.data.updateVulnsTreatment.success;
@@ -235,7 +248,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
             }
 
             return false;
-          },
+          }
         );
 
         if (areAllMutationValid.every(Boolean)) {
@@ -244,72 +257,59 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
           });
           msgSuccess(
             translate.t(
-              "search_findings.tab_description.update_vulnerabilities",
+              "search_findings.tab_description.update_vulnerabilities"
             ),
-            translate.t("group_alerts.title_success"),
+            translate.t("group_alerts.title_success")
           );
           handleCloseModal();
         }
-      } catch (updateError) {
+      } catch (updateError: unknown) {
         if (_.includes(String(updateError), "Invalid treatment manager")) {
           msgError(translate.t("group_alerts.invalid_treatment_mgr"));
         } else if (
           _.includes(
             String(updateError),
             translate.t(
-              "group_alerts.organization_policies.maxium_number_of_acceptations",
-            ),
+              "group_alerts.organization_policies.maxium_number_of_acceptations"
+            )
           )
         ) {
           msgError(
             translate.t(
-              "search_findings.tab_vuln.alerts.maximum_number_of_acceptations",
-            ),
+              "search_findings.tab_vuln.alerts.maximum_number_of_acceptations"
+            )
           );
         } else if (
           _.includes(
             String(updateError),
             translate.t(
-              "group_alerts.organization_policies.exceeds_acceptance_date",
-            ),
+              "group_alerts.organization_policies.exceeds_acceptance_date"
+            )
           )
         ) {
           msgError(
             translate.t(
-              "group_alerts.organization_policies.exceeds_acceptance_date",
-            ),
+              "group_alerts.organization_policies.exceeds_acceptance_date"
+            )
           );
         } else if (
           _.includes(
             String(updateError),
             translate.t(
-              "group_alerts.organization_policies.exceeds_acceptance_date",
-            ),
+              "search_findings.tab_vuln.exceptions.severity_out_of_range"
+            )
           )
         ) {
           msgError(
             translate.t(
-              "group_alerts.organization_policies.exceeds_acceptance_date",
-            ),
-          );
-        } else if (
-          _.includes(
-            String(updateError),
-            translate.t(
-              "search_findings.tab_vuln.exceptions.severity_out_of_range",
-            ),
-          )
-        ) {
-          msgError(
-            translate.t(
-              "group_alerts.organization_policies.severity_out_of_range",
-            ),
+              "group_alerts.organization_policies.severity_out_of_range"
+            )
           );
         } else {
           msgError(translate.t("group_alerts.error_textsad"));
           Logger.warning(
             "An error occurred updating vuln treatment",
-            updateError,
+            updateError
           );
         }
       } finally {
@@ -318,32 +318,32 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
     }
   };
 
-  const handleEditTreatment: () => void = (): void => {
+  function handleEditTreatment(): void {
     dispatch(submit("editTreatmentVulnerability"));
-  };
+  }
 
-  const handleDeletion: (tag: string) => void = (tag: string): void => {
-    deleteTagVuln({
+  function handleDeletion(tag: string): void {
+    void deleteTagVuln({
       variables: {
-        findingId: props.findingId,
+        findingId: findingId,
         tag,
-        vulnerabilities: props.vulnerabilities.map(
-          (vuln: IVulnDataType) => vuln.id,
+        vulnerabilities: vulnerabilities.map(
+          (vuln: IVulnDataType): string => vuln.id
         ),
       },
     });
-  };
+  }
 
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
     REQUEST_ZERO_RISK_VULN,
     {
       onCompleted: (
-        requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr,
+        requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr
       ): void => {
         if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
           msgSuccess(
             translate.t("group_alerts.requested_zero_risk_success"),
-            translate.t("group_alerts.updated_title"),
+            translate.t("group_alerts.updated_title")
           );
           handleClearSelected();
           handleCloseModal();
@@ -359,7 +359,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
               msgError(translate.t("group_alerts.error_textsad"));
               Logger.warning(
                 "An error occurred requesting zero risk vuln",
-                error,
+                error
               );
           }
         });
@@ -369,7 +369,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
           query: GET_VULNERABILITIES,
           variables: {
             analystField: canDisplayAnalyst,
-            identifier: props.findingId,
+            identifier: findingId,
           },
         },
         {
@@ -377,27 +377,30 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
           variables: {
             canGetExploit,
             canGetHistoricState,
-            findingId: props.findingId,
+            findingId: findingId,
           },
         },
       ],
-    },
+    }
   );
 
   const userEmails: string[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? [userEmail]
       : data.project.stakeholders.map(
-          (stakeholder: Dictionary<string>): string => stakeholder.email,
+          (stakeholder: IStakeholderAttr): string => stakeholder.email
         );
 
   const lastTreatment: IHistoricTreatment = {
-    ...groupLastHistoricTreatment(props.vulnerabilities),
+    ...groupLastHistoricTreatment(vulnerabilities),
     justification: "",
   };
 
-  const formValues: Dictionary<string> = useSelector((state: {}) =>
-    formValueSelector("editTreatmentVulnerability")(state, "treatment", ""),
+  const formValues: Dictionary<string> = useSelector(
+    (state: Record<string, unknown>): Dictionary<string> =>
+      // It is necessary since formValueSelector returns an any type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      formValueSelector("editTreatmentVulnerability")(state, "treatment", "")
   );
 
   const isInProgressSelected: boolean = formValues.treatment === "IN_PROGRESS";
@@ -413,26 +416,24 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
     translate.t(formatDropdownField(lastTreatment.treatment)) +
     (isAcceptedUndefinedPendingToApproved
       ? translate.t(
-          "search_findings.tab_description.treatment.pending_approval",
+          "search_findings.tab_description.treatment.pending_approval"
         )
       : "");
 
   return (
     <React.StrictMode>
       <Modal
-        open={true}
         headerTitle={translate.t("search_findings.tab_description.editVuln")}
+        open={true}
       >
         <ConfirmDialog
           message={translate.t(
-            "search_findings.tab_description.approval_message",
+            "search_findings.tab_description.approval_message"
           )}
           title={translate.t("search_findings.tab_description.approval_title")}
         >
           {(confirm: IConfirmFn): JSX.Element => {
-            const handleSubmit: (values: IUpdateTreatmentVulnAttr) => void = (
-              values: IUpdateTreatmentVulnAttr,
-            ): void => {
+            function handleSubmit(values: IUpdateTreatmentVulnAttr): void {
               const changedToZeroRisk: boolean =
                 values.treatment === "ZERO_RISK";
               const changedToUndefined: boolean =
@@ -442,34 +443,34 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
               if (changedToZeroRisk) {
                 void requestZeroRisk({
                   variables: {
-                    findingId: props.findingId,
+                    findingId: findingId,
                     justification: values.justification,
-                    vulnerabilities: props.vulnerabilities.map(
-                      (vuln: IVulnDataType) => vuln.id,
+                    vulnerabilities: vulnerabilities.map(
+                      (vuln: IVulnDataType): string => vuln.id
                     ),
                   },
                 });
               } else if (changedToUndefined) {
                 confirm((): void => {
-                  handleUpdateTreatmentVuln(values);
+                  void handleUpdateTreatmentVuln(values);
                 });
               } else {
-                handleUpdateTreatmentVuln(values);
+                void handleUpdateTreatmentVuln(values);
               }
-            };
+            }
 
             return (
               <React.Fragment>
                 <GenericForm
-                  name={"editTreatmentVulnerability"}
-                  onSubmit={handleSubmit}
                   initialValues={{
                     ...lastTreatment,
-                    externalBts: groupExternalBts(props.vulnerabilities),
-                    severity: groupVulnLevel(props.vulnerabilities),
+                    externalBts: groupExternalBts(vulnerabilities),
+                    severity: groupVulnLevel(vulnerabilities),
                     tag: _.join(_.intersection(...vulnsTags), ","),
                     treatment: lastTreatment.treatment.replace("NEW", ""),
                   }}
+                  name={"editTreatmentVulnerability"}
+                  onSubmit={handleSubmit}
                 >
                   <Row>
                     <Col50>
@@ -477,7 +478,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         component={Dropdown}
                         currentValue={treatmentLabel}
                         label={translate.t(
-                          "search_findings.tab_description.treatment.title",
+                          "search_findings.tab_description.treatment.title"
                         )}
                         name={"treatment"}
                         renderAsEditable={
@@ -491,17 +492,17 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                           <React.Fragment>
                             <option value={"IN_PROGRESS"}>
                               {translate.t(
-                                "search_findings.tab_description.treatment.in_progress",
+                                "search_findings.tab_description.treatment.in_progress"
                               )}
                             </option>
                             <option value={"ACCEPTED"}>
                               {translate.t(
-                                "search_findings.tab_description.treatment.accepted",
+                                "search_findings.tab_description.treatment.accepted"
                               )}
                             </option>
                             <option value={"ACCEPTED_UNDEFINED"}>
                               {translate.t(
-                                "search_findings.tab_description.treatment.accepted_undefined",
+                                "search_findings.tab_description.treatment.accepted_undefined"
                               )}
                             </option>
                           </React.Fragment>
@@ -509,7 +510,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         {canRequestZeroRiskVuln ? (
                           <option value={"ZERO_RISK"}>
                             {translate.t(
-                              "search_findings.tab_description.treatment.zero_risk",
+                              "search_findings.tab_description.treatment.zero_risk"
                             )}
                           </option>
                         ) : undefined}
@@ -521,7 +522,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                           <ControlLabel>
                             <b>
                               {translate.t(
-                                "search_findings.tab_description.acceptation_user",
+                                "search_findings.tab_description.acceptation_user"
                               )}
                             </b>
                           </ControlLabel>
@@ -538,10 +539,10 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                           currentValue={_.get(
                             lastTreatment,
                             "treatmentManager",
-                            "",
+                            ""
                           )}
                           label={translate.t(
-                            "search_findings.tab_description.treatment_mgr",
+                            "search_findings.tab_description.treatment_mgr"
                           )}
                           name={"treatmentManager"}
                           renderAsEditable={canUpdateVulnsTreatment}
@@ -549,11 +550,11 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         >
                           <option value={""} />
                           {userEmails.map(
-                            (email: string, index: number): JSX.Element => (
-                              <option key={index} value={email}>
+                            (email: string): JSX.Element => (
+                              <option key={email} value={email}>
                                 {email}
                               </option>
-                            ),
+                            )
                           )}
                         </EditableField>
                       </Col50>
@@ -565,7 +566,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         component={TextArea}
                         currentValue={lastTreatment.justification as string}
                         label={translate.t(
-                          "search_findings.tab_description.treatment_just",
+                          "search_findings.tab_description.treatment_just"
                         )}
                         name={"justification"}
                         renderAsEditable={
@@ -592,10 +593,10 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                           currentValue={_.get(
                             lastTreatment,
                             "acceptanceDate",
-                            "-",
+                            "-"
                           )}
                           label={translate.t(
-                            "search_findings.tab_description.acceptance_date",
+                            "search_findings.tab_description.acceptance_date"
                           )}
                           name={"acceptanceDate"}
                           renderAsEditable={canUpdateVulnsTreatment}
@@ -613,15 +614,13 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         <Col100>
                           <EditableField
                             component={Text}
-                            currentValue={groupExternalBts(
-                              props.vulnerabilities,
-                            )}
+                            currentValue={groupExternalBts(vulnerabilities)}
                             label={translate.t(
-                              "search_findings.tab_description.bts",
+                              "search_findings.tab_description.bts"
                             )}
                             name={"externalBts"}
                             placeholder={translate.t(
-                              "search_findings.tab_description.bts_placeholder",
+                              "search_findings.tab_description.bts_placeholder"
                             )}
                             renderAsEditable={canUpdateVulnsTreatment}
                             type={"text"}
@@ -635,7 +634,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                             <ControlLabel>
                               <b>
                                 {translate.t(
-                                  "search_findings.tab_description.tag",
+                                  "search_findings.tab_description.tag"
                                 )}
                               </b>
                             </ControlLabel>
@@ -652,7 +651,7 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                             <ControlLabel>
                               <b>
                                 {translate.t(
-                                  "search_findings.tab_description.business_criticality",
+                                  "search_findings.tab_description.business_criticality"
                                 )}
                               </b>
                             </ControlLabel>
@@ -696,4 +695,4 @@ const updateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   );
 };
 
-export { updateTreatmentModal as UpdateTreatmentModal };
+export { UpdateTreatmentModal };
