@@ -1,3 +1,4 @@
+namespace: OWASP/securecookie
 output: test/outputs/benchmark_owasp_securecookie_0.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest00242.java
   - BenchmarkTest00300.java
   - BenchmarkTest00348.java
-  namespace: OWASP/securecookie
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

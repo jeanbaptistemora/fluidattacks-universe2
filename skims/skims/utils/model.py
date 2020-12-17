@@ -602,15 +602,15 @@ class NVDVulnerability(NamedTuple):
 class SkimsPathConfig(NamedTuple):
     exclude: Tuple[str, ...]
     include: Tuple[str, ...]
-    namespace: str
 
 
 class SkimsConfig(NamedTuple):
     group: Optional[str]
-    output: Optional[str]
-    path: Optional[SkimsPathConfig]
-    timeout: Optional[float]
     language: LocalesEnum
+    namespace: str
+    output: Optional[str]
+    path: SkimsPathConfig
+    timeout: Optional[float]
     working_dir: str
 
 

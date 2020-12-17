@@ -1,3 +1,4 @@
+namespace: OWASP/xss
 output: test/outputs/benchmark_owasp_xss_4.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest00381.java
   - BenchmarkTest00382.java
   - BenchmarkTest00383.java
-  namespace: OWASP/xss
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

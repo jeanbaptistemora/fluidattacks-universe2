@@ -1,3 +1,4 @@
+namespace: OWASP/hash
 output: test/outputs/benchmark_owasp_hash_9.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest00965.java
   - BenchmarkTest00966.java
   - BenchmarkTest00967.java
-  namespace: OWASP/hash
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

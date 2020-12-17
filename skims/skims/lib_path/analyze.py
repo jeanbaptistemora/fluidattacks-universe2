@@ -46,6 +46,9 @@ from lib_path import (
 from state.ephemeral import (
     EphemeralStore,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.fs import (
     generate_file_content,
     generate_file_raw_content,
@@ -167,13 +170,11 @@ async def resolve_paths(
 
 async def analyze(
     *,
-    paths_to_exclude: Tuple[str, ...],
-    paths_to_include: Tuple[str, ...],
     stores: Dict[FindingEnum, EphemeralStore],
 ) -> None:
     unique_paths: Set[str] = await resolve_paths(
-        exclude=paths_to_exclude,
-        include=paths_to_include,
+        exclude=CTX.config.path.exclude,
+        include=CTX.config.path.include,
     )
     unique_paths_count: int = len(unique_paths)
 

@@ -1,4 +1,5 @@
 output: test/outputs/results.csv
+namespace: namespace
 path:
   include:
     - product/
@@ -7,5 +8,4 @@ path:
     - glob(**/.venv/)
     - glob(**/node_modules/)
     - glob(**/*.pyc)
-  namespace: namespace
 working_dir: ../../

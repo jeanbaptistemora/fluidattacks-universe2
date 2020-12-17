@@ -38,7 +38,7 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
     )
 
     try:
-        config_path = config.pop('path', None)
+        config_path = config.pop('path')
 
         if output := config.pop('output', None):
             output = os.path.abspath(output)
@@ -46,12 +46,12 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
         skims_config: SkimsConfig = SkimsConfig(
             group=group,
             language=LocalesEnum(config.pop('language', 'EN')),
+            namespace=config.pop('namespace'),
             output=output,
             path=SkimsPathConfig(
-                exclude=config_path.pop('exclude', []),
-                include=config_path.pop('include'),
-                namespace=config_path.pop('namespace'),
-            ) if config_path else None,
+                exclude=config_path.pop('exclude', ()),
+                include=config_path.pop('include', ()),
+            ),
             timeout=config.pop('timeout', None),
             working_dir=os.path.abspath(config.pop('working_dir', '.')),
         )

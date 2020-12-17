@@ -1,3 +1,4 @@
+namespace: OWASP/sqli
 output: test/outputs/benchmark_owasp_sqli_39.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest02273.java
   - BenchmarkTest02274.java
   - BenchmarkTest02275.java
-  namespace: OWASP/sqli
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

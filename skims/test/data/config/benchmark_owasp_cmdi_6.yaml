@@ -1,3 +1,4 @@
+namespace: OWASP/cmdi
 output: test/outputs/benchmark_owasp_cmdi_6.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest00739.java
   - BenchmarkTest00740.java
   - BenchmarkTest00741.java
-  namespace: OWASP/cmdi
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

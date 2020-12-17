@@ -1,3 +1,4 @@
+namespace: namespace
 path:
   include:
     - glob(*)
@@ -21,5 +22,4 @@ path:
     - glob(**/*.launch)
     - glob(**/.cproject)
     - glob(**/.buildpath)
-  namespace: namespace
 working_dir: ../../services/groups/xxx/fusion

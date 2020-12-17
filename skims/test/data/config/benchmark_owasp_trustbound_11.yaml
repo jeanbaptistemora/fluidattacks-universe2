@@ -1,3 +1,4 @@
+namespace: OWASP/trustbound
 output: test/outputs/benchmark_owasp_trustbound_11.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest02527.java
   - BenchmarkTest02622.java
   - BenchmarkTest02623.java
-  namespace: OWASP/trustbound
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

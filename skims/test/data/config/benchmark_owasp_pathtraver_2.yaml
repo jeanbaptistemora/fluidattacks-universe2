@@ -1,3 +1,4 @@
+namespace: OWASP/pathtraver
 output: test/outputs/benchmark_owasp_pathtraver_2.csv
 path:
   include:
@@ -11,5 +12,4 @@ path:
   - BenchmarkTest00261.java
   - BenchmarkTest00262.java
   - BenchmarkTest00263.java
-  namespace: OWASP/pathtraver
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
