@@ -63,12 +63,11 @@ function helper_skims_get_group_config_as_json {
   local group="${1}"
 
   jq -e -n -r \
-    --arg 'chdir' "groups/${group}/fusion" \
     --arg 'language' "$(
         yq -r .language < "groups/${group}/config/config.yml"
       )" \
+    --arg 'working_dir' "groups/${group}/fusion" \
     '{
-      chdir: $chdir,
       language: $language,
       path: {
         include: [
@@ -96,6 +95,7 @@ function helper_skims_get_group_config_as_json {
           "glob(**/.buildpath)"
         ]
       },
-      timeout: 14400
+      timeout: 14400,
+      working_dir: $working_dir
     }'
 }

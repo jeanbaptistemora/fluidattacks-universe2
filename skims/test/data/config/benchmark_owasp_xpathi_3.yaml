@@ -1,4 +1,3 @@
-chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
 output: test/outputs/benchmark_owasp_xpathi_3.csv
 path:
   include:
@@ -7,3 +6,4 @@ path:
   - BenchmarkTest02189.java
   - BenchmarkTest02370.java
   - BenchmarkTest02457.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -1,4 +1,3 @@
-chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
 output: test/outputs/benchmark_owasp_trustbound_4.csv
 path:
   include:
@@ -12,3 +11,4 @@ path:
   - BenchmarkTest01081.java
   - BenchmarkTest01082.java
   - BenchmarkTest01142.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -1,4 +1,3 @@
-chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
 output: test/outputs/benchmark_owasp_hash_19.csv
 path:
   include:
@@ -12,3 +11,4 @@ path:
   - BenchmarkTest02217.java
   - BenchmarkTest02218.java
   - BenchmarkTest02219.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

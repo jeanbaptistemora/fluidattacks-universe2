@@ -605,12 +605,12 @@ class SkimsPathConfig(NamedTuple):
 
 
 class SkimsConfig(NamedTuple):
-    chdir: Optional[str]
     group: Optional[str]
     output: Optional[str]
     path: Optional[SkimsPathConfig]
     timeout: Optional[float]
     language: LocalesEnum
+    working_dir: Optional[str]
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

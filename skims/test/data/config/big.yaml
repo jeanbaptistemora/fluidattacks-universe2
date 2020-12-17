@@ -1,4 +1,3 @@
-chdir: ../../
 output: test/outputs/results.csv
 path:
   include:
@@ -8,3 +7,4 @@ path:
     - glob(**/.venv/)
     - glob(**/node_modules/)
     - glob(**/*.pyc)
+working_dir: ../../

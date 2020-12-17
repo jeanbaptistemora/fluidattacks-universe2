@@ -51,9 +51,9 @@ def main() -> None:
             suites.append(suite)
 
             content = blocking_yaml_dumps(dict(
-                chdir=FOLDER,
                 output=f'test/outputs/{suite}.csv',
                 path=dict(include=batch),
+                working_dir=FOLDER,
             ))
 
             with open(f'test/data/config/{suite}.yaml', 'w') as handle:

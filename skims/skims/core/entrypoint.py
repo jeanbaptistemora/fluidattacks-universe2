@@ -72,10 +72,10 @@ async def adjust_working_dir(config: SkimsConfig) -> None:
     :type config: SkimsConfig
     """
     await log('info', 'Startup working dir is: %s', getcwd())
-    if config.chdir is not None:
-        newcwd: str = abspath(config.chdir)
-        await log('info', 'Moving working dir to: %s', newcwd)
-        chdir(newcwd)
+    if config.working_dir is not None:
+        working_dir: str = abspath(config.working_dir)
+        await log('info', 'Moving working dir to: %s', working_dir)
+        chdir(working_dir)
 
 
 async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:

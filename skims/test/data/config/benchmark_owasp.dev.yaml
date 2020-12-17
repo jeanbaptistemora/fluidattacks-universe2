@@ -1,4 +1,3 @@
-chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
 output: test/outputs/results.csv
 path:
   include:
@@ -2754,3 +2753,4 @@ path:
     # - BenchmarkTest02696.java
     # - BenchmarkTest02712.java
 timeout: 14400
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

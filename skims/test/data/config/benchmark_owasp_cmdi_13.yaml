@@ -1,4 +1,3 @@
-chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
 output: test/outputs/benchmark_owasp_cmdi_13.csv
 path:
   include:
@@ -12,3 +11,4 @@ path:
   - BenchmarkTest01528.java
   - BenchmarkTest01529.java
   - BenchmarkTest01530.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

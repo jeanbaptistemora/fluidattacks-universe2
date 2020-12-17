@@ -1,4 +1,3 @@
-chdir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
 output: test/outputs/benchmark_owasp_weakrand_37.csv
 path:
   include:
@@ -12,3 +11,4 @@ path:
   - BenchmarkTest02061.java
   - BenchmarkTest02062.java
   - BenchmarkTest02063.java
+working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -30,7 +30,6 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
 
     config = template.get(
         confuse.Template({
-            'chdir': confuse.String(),
             'language': confuse.Choice(LocalesEnum),
             'output': confuse.String(),
             'path': confuse.Template({
@@ -38,6 +37,7 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
                 'include': confuse.Sequence(confuse.String()),
             }),
             'timeout': confuse.Number(),
+            'working_dir': confuse.String(),
         }),
     )
 
@@ -48,7 +48,6 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
             output = os.path.abspath(output)
 
         skims_config: SkimsConfig = SkimsConfig(
-            chdir=config.pop('chdir', None),
             group=group,
             language=LocalesEnum(config.pop('language', 'EN')),
             output=output,
@@ -57,6 +56,7 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
                 include=config_path.pop('include'),
             ) if config_path else None,
             timeout=config.pop('timeout', None),
+            working_dir=config.pop('working_dir', None),
         )
     except KeyError as exc:
         raise confuse.ConfigError(f'Key: {exc.args[0]} is required')
