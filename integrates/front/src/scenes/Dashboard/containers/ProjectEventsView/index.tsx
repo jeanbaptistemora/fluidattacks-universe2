@@ -9,7 +9,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router";
@@ -26,6 +26,8 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "scenes/Dashboard/containers/ProjectEventsView/queries";
 import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";
 import { default as globalStyle } from "styles/global.css";
+import { ButtonToolbar, ButtonToolbarCenter, Col100, Col50, ControlLabel, FormGroup, Row } from "styles/styledComponents";
+
 import { Can } from "utils/authz/Can";
 import { castEventType } from "utils/formatHelpers";
 import {
@@ -227,8 +229,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
           return (
               <React.StrictMode>
                 <Row>
-                  <Col md={2} mdOffset={5}>
-                    <ButtonToolbar>
+                  <Col100>
+                    <ButtonToolbarCenter>
                       <Can do="backend_api_mutations_create_event_mutate">
                         <TooltipWrapper message={translate.t("group.events.btn.tooltip")}>
                           <Button onClick={openNewEventModal}>
@@ -236,8 +238,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                           </Button>
                         </TooltipWrapper>
                       </Can>
-                    </ButtonToolbar>
-                  </Col>
+                    </ButtonToolbarCenter>
+                  </Col100>
                 </Row>
                 <Modal
                   headerTitle={translate.t("group.events.new")}
@@ -284,7 +286,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                           {({ pristine }: InjectedFormProps): JSX.Element => (
                             <React.Fragment>
                               <Row>
-                                <Col md={5}>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.date")}</ControlLabel>
                                     <Field
@@ -293,8 +295,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       validate={[required, validDatetime, dateTimeBeforeToday]}
                                     />
                                   </FormGroup>
-                                </Col>
-                                <Col md={7}>
+                                </Col50>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.type.title")}</ControlLabel>
                                     <Field component={Dropdown} name="eventType" validate={required}>
@@ -322,10 +324,10 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       </option>
                                     </Field>
                                   </FormGroup>
-                                </Col>
+                                </Col50>
                               </Row>
                               <Row>
-                                <Col md={6}>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.context.title")}</ControlLabel>
                                     <Field component={Dropdown} name="context" validate={required}>
@@ -347,8 +349,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       </option>
                                     </Field>
                                   </FormGroup>
-                                </Col>
-                                <Col md={6}>
+                                </Col50>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>
                                       {translate.t("group.events.form.accessibility.title")}
@@ -362,11 +364,11 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       </Field>
                                     </FormSection>
                                   </FormGroup>
-                                </Col>
+                                </Col50>
                               </Row>
                               {eventType === "INCORRECT_MISSING_SUPPLIES" ?
                                 <Row>
-                                  <Col md={6}>
+                                  <Col50>
                                     <FormGroup>
                                       <ControlLabel>{translate.t("group.events.form.blocking_hours")}</ControlLabel>
                                       <Field
@@ -376,8 +378,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                         validate={[numeric, required]}
                                       />
                                     </FormGroup>
-                                  </Col>
-                                  <Col md={6}>
+                                  </Col50>
+                                  <Col50>
                                     <FormGroup>
                                       <ControlLabel>
                                         {translate.t("group.events.form.components.title")}
@@ -451,11 +453,11 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                         </Field>
                                       </FormSection>
                                     </FormGroup>
-                                  </Col>
+                                  </Col50>
                                 </Row>
                                 : undefined}
                               <Row>
-                                <Col md={12}>
+                                <Col100>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.details")}</ControlLabel>
                                     <Field
@@ -465,10 +467,10 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       validate={[required, validTextField, maxEventDetailsLength]}
                                     />
                                   </FormGroup>
-                                </Col>
+                                </Col100>
                               </Row>
                               <Row>
-                                <Col md={5}>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>
                                       {translate.t("group.events.form.action_before.title")}
@@ -489,8 +491,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       </option>
                                     </Field>
                                   </FormGroup>
-                                </Col>
-                                <Col md={7}>
+                                </Col50>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.action_after.title")}</ControlLabel>
                                     <Field component={Dropdown} name="actionAfterBlocking" validate={required}>
@@ -512,10 +514,10 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       </option>
                                     </Field>
                                   </FormGroup>
-                                </Col>
+                                </Col50>
                               </Row>
                               <Row>
-                                <Col md={6}>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.evidence")}</ControlLabel>
                                     <Field
@@ -526,8 +528,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       validate={[validEvidenceImage, maxFileSize]}
                                     />
                                   </FormGroup>
-                                </Col>
-                                <Col md={6}>
+                                </Col50>
+                                <Col50>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.evidence_file")}</ControlLabel>
                                     <Field
@@ -538,9 +540,9 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       validate={[validEventFile, maxFileSize]}
                                     />
                                   </FormGroup>
-                                </Col>
+                                </Col50>
                               </Row>
-                              <ButtonToolbar className="pull-right">
+                              <ButtonToolbar>
                                 <Button onClick={closeNewEventModal}>
                                   {translate.t("confirmmodal.cancel")}
                                 </Button>
