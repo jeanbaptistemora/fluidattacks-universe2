@@ -301,6 +301,7 @@ class Queries:
               project(projectName: $projectName){
                 roots {
                   ...on GitRoot{
+                    id
                     branch
                     url
                     state
@@ -444,6 +445,40 @@ class Mutations:
                            body,
                            params,
                            operation='MeltsUploadFile')
+
+    @staticmethod
+    def update_cloning_status(
+        api_token: str,
+        root_id: str,
+        status: str,
+        message: str,
+    ) -> Response:
+        query = """
+            mutation MeltsUpdateRootCloningStatus(
+                $rootId: ID!
+                $status: CloningStatus!
+                $message: String!
+            ) {
+              updateRootCloningStatus(
+                id: $rootId
+                status: $status
+                message: $message
+              ) {
+                success
+              }
+            }
+        """
+        params = {
+            'rootId': root_id,
+            'status': status,
+            'message': message,
+        }
+        return request(
+            api_token,
+            query,
+            params,
+            operation='MeltsUpdateRootCloningStatus',
+        )
 
 
 # Metadata

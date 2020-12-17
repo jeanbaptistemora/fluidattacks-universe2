@@ -16,6 +16,7 @@ from multiprocessing.pool import ThreadPool
 from subprocess import DEVNULL, Popen, PIPE, check_output
 import tempfile
 from typing import (
+    Any,
     Dict,
     Iterator,
     List,
@@ -130,6 +131,8 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
         baseurl = baseurl.replace('ssh://', '')
     branch = urllib.parse.unquote(git_root['branch'])
 
+    problem: Optional[Dict[str, Any]] = None
+
     # handle urls special chars in branch names
     repo_name = baseurl.split('/')[-1]
     folder = repo_name
@@ -150,28 +153,37 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
                 logger.error(f'{repo_name}/{branch} failed')
                 logger.error(cmd[1])
-                return {'repo': repo_name, 'problem': cmd[1]}
+                problem = {'repo': repo_name, 'problem': cmd[1]}
+        else:
+            # Clone repo:
+            command = [
+                'ssh-agent',
+                'sh',
+                '-c',
+                ';'.join(
+                    (f"ssh-add {shq(keyfile)}", f"git clone -b {shq(branch)} "
+                     f"--single-branch {shq(baseurl)}")),
+            ]
 
-            logger.info(f'{repo_name}/{branch} updated')
-            return None
+            cmd = cmd_execute(command)
+            if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+                logger.error(f'{repo_name}/{branch} failed')
+                logger.error(cmd[1])
+                problem = {'repo': repo_name, 'problem': cmd[1]}
 
-        # Clone repo:
-        command = [
-            'ssh-agent',
-            'sh',
-            '-c',
-            ';'.join((f"ssh-add {shq(keyfile)}", f"git clone -b {shq(branch)} "
-                      f"--single-branch {shq(baseurl)}")),
-        ]
-
-        cmd = cmd_execute(command)
-        if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-            logger.error(f'{repo_name}/{branch} failed')
-            logger.error(cmd[1])
-            return {'repo': repo_name, 'problem': cmd[1]}
-
-        logger.info(f'{repo_name}/{branch} cloned')
-        return None
+    if problem:
+        utils.integrates.update_root_cloning_status(
+            git_root['id'],
+            'FAILED',
+            problem['problem'],
+        )
+    else:
+        utils.integrates.update_root_cloning_status(
+            git_root['id'],
+            'OK',
+            'Cloned successfully',
+        )
+    return problem
 
 
 def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
@@ -181,12 +193,14 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
     repo_name = baseurl.split('/')[-1]
     branch = git_root['branch']
 
+    problem: Optional[Dict[str, Any]] = None
+
     # check if user has access to current repository
     baseurl = repo_url(git_root['url'])
     if 'fatal:' in baseurl:
         logger.error(f'{repo_name}/{branch} failed')
         logger.error(baseurl)
-        return {'repo': repo_name, 'problem': baseurl}
+        problem = {'repo': repo_name, 'problem': baseurl}
 
     branch = git_root['branch']
     folder = repo_name
@@ -196,25 +210,34 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
         if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
             logger.error(f'{repo_name}/{branch} failed')
             logger.error(cmd[1:])
-            return {'repo': repo_name, 'problem': cmd[1:]}
+            problem = {'repo': repo_name, 'problem': cmd[1:]}
+    # validate if there is no problem with the baseurl
+    elif not problem:
+        cmd = cmd_execute([
+            'git',
+            'clone',
+            '-b',
+            branch,
+            '--single-branch',
+            baseurl,
+        ])
+        if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+            logger.error(f'{repo_name}/{branch} failed')
+            problem = {'repo': repo_name, 'problem': cmd[1:]}
 
-        logger.info(f'{repo_name}/{branch} updated')
-        return None
-
-    cmd = cmd_execute([
-        'git',
-        'clone',
-        '-b',
-        branch,
-        '--single-branch',
-        baseurl,
-    ])
-    if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-        logger.error(f'{repo_name}/{branch} failed')
-        return {'repo': repo_name, 'problem': cmd[1:]}
-
-    logger.info(f'{repo_name}/{branch} cloned')
-    return None
+    if problem:
+        utils.integrates.update_root_cloning_status(
+            git_root['id'],
+            'FAILED',
+            problem['problem'],
+        )
+    else:
+        utils.integrates.update_root_cloning_status(
+            git_root['id'],
+            'OK',
+            'Cloned successfully',
+        )
+    return problem
 
 
 def repo_cloning(subs: str) -> bool:

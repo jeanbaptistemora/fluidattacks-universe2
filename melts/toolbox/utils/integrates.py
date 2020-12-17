@@ -53,3 +53,26 @@ def has_forces(group: str) -> bool:
     else:
         logger.error(response.errors[0])
     return success
+
+
+def update_root_cloning_status(
+    root_id: str,
+    status: str,
+    message: str,
+) -> bool:
+    result = api.integrates.Mutations.update_cloning_status(
+        API_TOKEN,
+        root_id,
+        status,
+        message,
+    )
+    if status not in {'OK', 'FAILED', 'UNKNOWN'}:
+        raise ValueError(f'{status} is an ivalid status')
+
+    if result.errors:
+        logger.error('An error has occurred updating the status: {0}'.format(
+            result.errors[0]['message']))
+        return False
+    if not result.data['updateRootCloningStatus']['success']:
+        logger.error('An error has occurred updating the status')
+    return result.data['updateRootCloningStatus']['success']
