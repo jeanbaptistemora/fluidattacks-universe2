@@ -9,7 +9,7 @@ from jose import jwt
 from backend.dal.finding import get_finding
 from backend.dal.vulnerability import get as get_vuln
 from backend.domain.organization import (
-    get_pending_deletion_date,
+    get_pending_deletion_date_str,
     iterate_organizations,
     update_pending_deletion_date,
 )
@@ -263,5 +263,5 @@ async def test_integrates_delete_obsolete_orgs():
     assert len(new_org_ids) == 7
 
     org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
-    org_pending_deletion_date = await get_pending_deletion_date(org_id)
+    org_pending_deletion_date = await get_pending_deletion_date_str(org_id)
     assert org_pending_deletion_date == '2020-01-29 19:00:00'

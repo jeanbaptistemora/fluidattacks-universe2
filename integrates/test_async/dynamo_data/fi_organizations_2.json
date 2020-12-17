@@ -360,9 +360,6 @@
                     },
                     "sk": {
                         "S": "INFO#himura"
-                    },
-                    "pending_deletion_date": {
-                        "S": "2019-11-22 15:07:57"
                     }
                 }
             }
