@@ -187,6 +187,12 @@ def _array_access_lfno_primary(graph: nx.DiGraph) -> None:
         'IntegerLiteral',
         'RBRACK',
     ))
+    _concatenate_child_texts(graph, 'ArrayAccess_lfno_primary', (
+        'IdentifierRule',
+        'LBRACK',
+        'IdentifierRule',
+        'RBRACK',
+    ))
 
 
 def _array_type(graph: nx.DiGraph) -> None:

@@ -41,7 +41,7 @@ def get(
     path: str,
     # Update this number to indicate a new graph version
     # This also invalidates the cache
-    graph_version: int = 2,
+    graph_version: int = 4,
 ) -> nx.DiGraph:
     return _get(
         grammar,

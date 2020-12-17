@@ -102,15 +102,7 @@ def _expression_statements(
     _block_statements(graph, n_id, stack)
 
 
-def _for_statement(
-    graph: nx.DiGraph,
-    n_id: str,
-    stack: Stack,
-) -> None:
-    _while_statement(graph, n_id, stack)
-
-
-def _while_statement(
+def _loop_statement(
     graph: nx.DiGraph,
     n_id: str,
     stack: Stack,
@@ -238,27 +230,31 @@ def _generic(
 
     stack.append(dict(type=n_attrs_label_type))
 
-    if n_attrs_label_type == 'Block':
-        _block(graph, n_id, stack)
-    elif n_attrs_label_type == 'BlockStatements':
-        _block_statements(graph, n_id, stack)
-    elif n_attrs_label_type == 'ExpressionStatements':
-        _expression_statements(graph, n_id, stack)
-    elif n_attrs_label_type == 'EnhancedForStatement':
-        _for_statement(graph, n_id, stack)
-    elif n_attrs_label_type in {
-        'IfThenStatement',
-        'IfThenElseStatement',
-    }:
-        _if_statement(graph, n_id, stack)
-    elif n_attrs_label_type == 'MethodDeclaration':
-        _method_declaration(graph, n_id, stack)
-    elif n_attrs_label_type == 'TryStatement':
-        _try_statement(graph, n_id, stack)
-    elif n_attrs_label_type == 'WhileStatement':
-        _while_statement(graph, n_id, stack)
-    elif next_id := stack[-2].pop('next_id', None):
-        graph.add_edge(n_id, next_id, **edge_attrs)
+    for types, walker in (
+        ({'BasicForStatement',
+          'EnhancedForStatement',
+          'WhileStatement'},
+         _loop_statement),
+        ({'Block'},
+         _block),
+        ({'BlockStatements'},
+         _block_statements),
+        ({'ExpressionStatements'},
+         _expression_statements),
+        ({'IfThenStatement',
+          'IfThenElseStatement'},
+         _if_statement),
+        ({'MethodDeclaration'},
+         _method_declaration),
+        ({'TryStatement'},
+         _try_statement),
+    ):
+        if n_attrs_label_type in types:
+            walker(graph, n_id, stack)
+            break
+    else:
+        if next_id := stack[-2].pop('next_id', None):
+            graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
 

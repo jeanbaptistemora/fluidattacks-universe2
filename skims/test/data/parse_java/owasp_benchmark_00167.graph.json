@@ -607,11 +607,13 @@
       },
       "1574": {
         "index": 8,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_true": "cfg_true"
       },
       "1854": {
         "label_cfg": "CFG",
-        "label_cfg_always": "cfg_always"
+        "label_cfg_false": "cfg_false"
       }
     },
     "1474": {
@@ -707,7 +709,9 @@
       },
       "1576": {
         "index": 1,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       },
       "1850": {
         "index": 2,
@@ -717,7 +721,9 @@
     "1576": {
       "1578": {
         "index": 0,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       },
       "1651": {
         "index": 1,
@@ -732,6 +738,10 @@
       "1648": {
         "index": 1,
         "label_ast": "AST"
+      },
+      "1651": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "1579": {
@@ -758,24 +768,6 @@
         "label_ast": "AST"
       }
     },
-    "1623": {
-      "1626": {
-        "index": 0,
-        "label_ast": "AST"
-      },
-      "1627": {
-        "index": 1,
-        "label_ast": "AST"
-      },
-      "1646": {
-        "index": 2,
-        "label_ast": "AST"
-      },
-      "1647": {
-        "index": 3,
-        "label_ast": "AST"
-      }
-    },
     "1651": {
       "1652": {
         "index": 0,
@@ -795,7 +787,13 @@
       },
       "1712": {
         "index": 4,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_true": "cfg_true"
+      },
+      "1854": {
+        "label_cfg": "CFG",
+        "label_cfg_false": "cfg_false"
       }
     },
     "1672": {
@@ -847,7 +845,9 @@
       },
       "1717": {
         "index": 1,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       },
       "1849": {
         "index": 2,
@@ -873,7 +873,13 @@
       },
       "1812": {
         "index": 4,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_true": "cfg_true"
+      },
+      "1854": {
+        "label_cfg": "CFG",
+        "label_cfg_false": "cfg_false"
       }
     },
     "173": {
@@ -1015,7 +1021,9 @@
       },
       "1818": {
         "index": 1,
-        "label_ast": "AST"
+        "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       },
       "1848": {
         "index": 2,
@@ -1030,6 +1038,10 @@
       "1847": {
         "index": 1,
         "label_ast": "AST"
+      },
+      "1854": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "1820": {
@@ -4075,23 +4087,8 @@
       "label_c": 39,
       "label_l": 73,
       "label_parent_ast": "1599",
-      "label_type": "ArrayAccess_lfno_primary",
-      "label_type_index": "0"
-    },
-    "1626": {
-      "label_c": 39,
-      "label_l": 73,
-      "label_parent_ast": "1623",
-      "label_text": "cookies",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1627": {
-      "label_c": 46,
-      "label_l": 73,
-      "label_parent_ast": "1623",
-      "label_text": "[",
-      "label_type": "LBRACK",
+      "label_text": "cookies[i]",
+      "label_type": "CustomArrayAccess_lfno_primary",
       "label_type_index": "0"
     },
     "164": {
@@ -4100,22 +4097,6 @@
       "label_parent_ast": "129",
       "label_text": "public",
       "label_type": "PUBLIC",
-      "label_type_index": "0"
-    },
-    "1646": {
-      "label_c": 47,
-      "label_l": 73,
-      "label_parent_ast": "1623",
-      "label_text": "i",
-      "label_type": "IdentifierRule",
-      "label_type_index": "0"
-    },
-    "1647": {
-      "label_c": 48,
-      "label_l": 73,
-      "label_parent_ast": "1623",
-      "label_text": "]",
-      "label_type": "RBRACK",
       "label_type_index": "0"
     },
     "1648": {

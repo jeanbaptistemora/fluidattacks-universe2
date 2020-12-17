@@ -143,7 +143,8 @@ async def test_control_flow_1() -> None:
         # DoStatement
         (2985, 3648, ALWAYS),
         # BasicForStatement
-        (3648, 3784, ALWAYS),
+        (3648, 3730, TRUE),
+        (3648, 3784, FALSE),
         # EnhancedForStatement
         (3876, 3911, TRUE),
         (3876, 4269, FALSE),

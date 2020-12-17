@@ -108,7 +108,7 @@ def _variable_declarator(
     match = g.match_ast(graph, n_id, 'IdentifierRule', 'ASSIGN', '__0__')
 
     if (
-        match['IdentifierRule']
+        (var_id := match['IdentifierRule'])
         and match['ASSIGN']
         and (src_id := match['__0__'])
     ):
@@ -119,7 +119,7 @@ def _variable_declarator(
         ctx.statements.append(StatementDeclaration(
             meta=get_default_statement_meta(),
             stack=src_ctx.statements,
-            var=graph.nodes[match['IdentifierRule']]['label_text'],
+            var=graph.nodes[var_id]['label_text'],
             var_type=type_attrs_label_text,
         ))
     else:
