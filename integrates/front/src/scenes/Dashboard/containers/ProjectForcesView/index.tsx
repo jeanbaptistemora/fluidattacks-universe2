@@ -8,7 +8,6 @@ import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
 import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
 import { RouteComponentProps } from "react-router";
 
@@ -23,6 +22,7 @@ import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { ButtonToolbar } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -300,7 +300,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   onClose={closeSeeExecutionDetailsModal}
               >
                 <Execution {...currentRow} />
-                <ButtonToolbar className="pull-right">
+                <ButtonToolbar>
                   <Button onClick={closeSeeExecutionDetailsModal}>
                     {translate.t("group.forces.execution_details_modal.close")}
                   </Button>
