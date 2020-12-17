@@ -17,6 +17,7 @@ if FI_ENVIRONMENT == 'development':
         db=0,
     )
 else:
+    CLIENT_CONFIG['max_connections'] = 256
     AREDIS_CLIENT = AStrictRedisCluster(
         **CLIENT_CONFIG,
         skip_full_coverage_check=True,
