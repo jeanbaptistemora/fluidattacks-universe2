@@ -9,7 +9,7 @@ CLIENT_CONFIG = {
     'host': FI_REDIS_SERVER,
     'port': 6379,
     'decode_responses': True,
-    'max_connections': 64,
+    'max_connections': 2048,
 }
 if FI_ENVIRONMENT == 'development':
     AREDIS_CLIENT = AStrictRedis(
@@ -17,7 +17,6 @@ if FI_ENVIRONMENT == 'development':
         db=0,
     )
 else:
-    CLIENT_CONFIG['max_connections'] = 256
     AREDIS_CLIENT = AStrictRedisCluster(
         **CLIENT_CONFIG,
         skip_full_coverage_check=True,
