@@ -32,7 +32,7 @@ async def mutate(
     await root_domain.update_root_cloning_status(
         kwargs['id'],
         kwargs['status'],
-        kwargs['reason'],
+        kwargs['message'],
     )
 
     return SimplePayload(success=True)
