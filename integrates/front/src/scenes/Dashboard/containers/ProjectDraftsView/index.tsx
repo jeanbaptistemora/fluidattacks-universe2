@@ -10,7 +10,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory } from "react-router-dom";
 import { Field, InjectedFormProps } from "redux-form";
@@ -25,6 +25,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
 import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
+import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { AutoCompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -201,15 +202,15 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
           return (
               <React.StrictMode>
                 <Row>
-                  <Col md={2} mdOffset={5}>
-                    <ButtonToolbar>
+                  <Col100>
+                    <ButtonToolbarCenter>
                       <TooltipWrapper message={translate.t("group.drafts.btn.tooltip")}>
                         <Button onClick={openNewDraftModal}>
                           <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.btn.text")}
                         </Button>
                       </TooltipWrapper>
-                    </ButtonToolbar>
-                  </Col>
+                    </ButtonToolbarCenter>
+                  </Col100>
                 </Row>
                 <Modal
                   headerTitle={translate.t("group.drafts.new")}
@@ -233,7 +234,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                           {({ pristine }: InjectedFormProps): JSX.Element => (
                             <React.Fragment>
                               <Row>
-                                <Col md={12}>
+                                <Col100>
                                   <label>{translate.t("group.drafts.title")}</label>
                                   <Field
                                     component={AutoCompleteText}
@@ -242,10 +243,10 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                                     type="text"
                                     validate={[required, validDraftTitle]}
                                   />
-                                </Col>
+                                </Col100>
                               </Row>
                               <br />
-                              <ButtonToolbar className="pull-right">
+                              <ButtonToolbar>
                                 <Button onClick={closeNewDraftModal}>
                                   {translate.t("confirmmodal.cancel")}
                                 </Button>
