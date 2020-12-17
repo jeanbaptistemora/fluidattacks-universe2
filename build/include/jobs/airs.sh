@@ -6,6 +6,7 @@ function job_airs_infra_ephemeral_test {
       helper_common_use_pristine_workdir \
   &&  pushd airs \
     &&  helper_airs_aws_login development \
+    &&  helper_airs_cloudflare_login development \
     &&  helper_airs_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
@@ -17,6 +18,7 @@ function job_airs_infra_production_test {
       helper_common_use_pristine_workdir \
   &&  pushd airs \
     &&  helper_airs_aws_login development \
+    &&  helper_airs_cloudflare_login development \
     &&  helper_airs_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
@@ -38,8 +40,9 @@ function job_airs_infra_ephemeral_apply {
 
       helper_common_use_pristine_workdir \
   &&  pushd airs \
-  &&  helper_airs_aws_login production \
-  &&  helper_common_terraform_apply "${dir}" \
+    &&  helper_airs_aws_login production \
+    &&  helper_airs_cloudflare_login production \
+    &&  helper_common_terraform_apply "${dir}" \
   &&  popd \
   ||  return 1
 }
@@ -49,8 +52,9 @@ function job_airs_infra_production_apply {
 
       helper_common_use_pristine_workdir \
   &&  pushd airs \
-  &&  helper_airs_aws_login production \
-  &&  helper_common_terraform_apply "${dir}" \
+    &&  helper_airs_aws_login production \
+    &&  helper_airs_cloudflare_login production \
+    &&  helper_common_terraform_apply "${dir}" \
   &&  popd \
   ||  return 1
 }

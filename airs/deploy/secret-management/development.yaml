@@ -1,0 +1,16 @@
+CLOUDFLARE_EMAIL: ENC[AES256_GCM,data:VjJc0IKZJCKo8BE9u4DMIvVh4M2qxqPEO7mQ,iv:6yn4dimrxfn1FGbhn2Ruuks513QLFaTHV+9ez3Bz1YA=,tag:4E/Y6unbqotvaHs1F7o4AA==,type:str]
+CLOUDFLARE_API_TOKEN: ENC[AES256_GCM,data:fAm+MWNVBFGMRwrJ8zH8JAQsLkphlcTn7Q/UBp8+4Nzt8aqWoZ5Y9A==,iv:7dH7VJXhaUDwFDFbbq7RPllHwG0sJnWcLfGzfByp3WA=,tag:kys4WvamBYU385144GtL1Q==,type:str]
+sops:
+    kms:
+    -   arn: arn:aws:kms:us-east-1:205810638802:alias/web-dev
+        created_at: '2020-12-17T20:14:50Z'
+        enc: AQICAHjbGV5P4a4kB5GUQ4956ed6PhfkZgi57K+M5j3zqwfGNgEzL3nayqEhVhbm0eUvMv63AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMEeqmNxyg78SHhMTDAgEQgDt7RFQj0rf59ZgCqZYtofpSiljtButtN+snrOaoNYjHk8wZJr0QIniGlDYONVIa0rxsx7R6EYTr9BVCuw==
+        aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    lastmodified: '2020-12-17T21:24:51Z'
+    mac: ENC[AES256_GCM,data:ridIvLYKLw3g9r4qxd5/4vZgn4F5lU5Wl/fGj/z6kVmGOC4+3wJmaoMauOpvyZoR2bZCcNah8h+jQ8vtdH6NnDi81HZ4FVbDhI7uqnf2oMGuSXC/WpPW1nQxnKLM/LLyOmugUkjTiXyilg/u3d76rudrDdViDPD9QXuUxzePrkE=,iv:uWOocehbbH4Y0NWhmFztRwQTjuNwAnykVrzyxOQGe6s=,tag:X+fn1abogwH+v6fVBQCSlA==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.6.1

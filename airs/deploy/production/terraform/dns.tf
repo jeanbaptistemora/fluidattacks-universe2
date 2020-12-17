@@ -8,3 +8,12 @@ resource "aws_route53_record" "fluidattacks_com" {
     evaluate_target_health = false
   }
 }
+
+resource "cloudflare_record" "fluidattacks_com" {
+  zone_id = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
+  name    = "web.eph.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
+  type    = "CNAME"
+  value   = aws_s3_bucket.bucket.bucket_domain_name
+  proxied = true
+  ttl     = 1
+}

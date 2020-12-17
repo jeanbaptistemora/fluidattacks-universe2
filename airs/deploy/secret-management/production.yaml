@@ -1,0 +1,16 @@
+CLOUDFLARE_EMAIL: ENC[AES256_GCM,data:jUPvD0dzRsrt3WBe41qYOQrXCDD1ArGghrwA,iv:Ti7hY8Fx9sGrnIa9OdTNFdl5JTQyjpw7wil7f6e7gUw=,tag:6VREGty+Ufpl01A5zfE85w==,type:str]
+CLOUDFLARE_API_TOKEN: ENC[AES256_GCM,data:f7MqQ0s+XtZOiKSNZsiJbEuiLkpjeuHv8gBuJfKXYoYrlUQlYF6zew==,iv:3Vnr/qo6fCjbrryCSWlKLQq7WY1LkDQVxBUzmRb4K84=,tag:eolQMjJ2DNlGBiVp71bA+A==,type:str]
+sops:
+    kms:
+    -   arn: arn:aws:kms:us-east-1:205810638802:alias/web-prod
+        created_at: '2020-12-17T20:14:12Z'
+        enc: AQICAHhVxNo3BmeSQRVOriRPp/oSs7btpKYfYjBqn4CcKkWkRQF3wOsDP/l4X3jmh6XA8HT5AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMl+Cf1FQtTAIch7x5AgEQgDszfOlqR93Zy3h3qyeOsLLYm6oY6rS6IWYJz1xuNmxA6X5he9p6xdVEv/S2Pm3bCOWwht+nGr1UPxftYA==
+        aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    lastmodified: '2020-12-17T21:23:58Z'
+    mac: ENC[AES256_GCM,data:CFJYNAh4xV1hsZfPIwbfxKiTgIDufkcDEiEvp2LSCIZ3B4zxb9THn4yL1L8HP3R/e064w0JTMVRBa4Tr4NptpISSaLMjPCrbpvKTfiNTdqPZ3EmQqZzAZJd9XKwHwtzIl6SXmg2V5OVlQWqFyf0pFrlmC6NJnCYH4I/m/8dGr8U=,iv:tVfFI4kBX6Zw6yQey79aI98yM6Sw5TcBzVsiCb+T3aQ=,tag:L29P3tJ+Du/194D6AgOaPA==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.6.1

@@ -40,6 +40,18 @@ function helper_airs_aws_login {
   &&  aws configure set region 'us-east-1'
 }
 
+function helper_airs_cloudflare_login {
+  local user="${1}"
+  export TF_VAR_cloudflare_email
+  export TF_VAR_cloudflare_api_token
+
+      helper_common_sops_env "deploy/secret-management/${user}.yaml" default \
+        CLOUDFLARE_EMAIL \
+        CLOUDFLARE_API_TOKEN \
+  &&  TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \
+  &&  TF_VAR_cloudflare_api_token="${CLOUDFLARE_API_TOKEN}"
+}
+
 function helper_airs_file_exists {
   local path="${1}"
 

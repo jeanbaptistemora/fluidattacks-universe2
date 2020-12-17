@@ -10,6 +10,10 @@ terraform {
       source  = "hashicorp/archive"
       version = "~> 1.3.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 2.11.0"
+    }
   }
 
   backend "s3" {
@@ -25,4 +29,9 @@ provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
   region     = var.region
+}
+
+provider "cloudflare" {
+  email   = var.cloudflare_email
+  api_token = var.cloudflare_api_token
 }
