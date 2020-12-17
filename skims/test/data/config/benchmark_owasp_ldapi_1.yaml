@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01024.java
   - BenchmarkTest01154.java
   - BenchmarkTest01241.java
+  namespace: OWASP/ldapi
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

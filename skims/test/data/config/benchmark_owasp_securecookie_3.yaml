@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01523.java
   - BenchmarkTest01524.java
   - BenchmarkTest01604.java
+  namespace: OWASP/securecookie
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

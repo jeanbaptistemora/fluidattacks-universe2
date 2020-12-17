@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01293.java
   - BenchmarkTest01294.java
   - BenchmarkTest01295.java
+  namespace: OWASP/weakrand
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -6,4 +6,5 @@ path:
   - BenchmarkTest02189.java
   - BenchmarkTest02370.java
   - BenchmarkTest02457.java
+  namespace: OWASP/xpathi
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

@@ -11,4 +11,5 @@ path:
   - BenchmarkTest02304.java
   - BenchmarkTest02377.java
   - BenchmarkTest02378.java
+  namespace: OWASP/pathtraver
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

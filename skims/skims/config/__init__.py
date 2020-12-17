@@ -7,11 +7,6 @@ from typing import (
 # Third party libraries
 import confuse
 
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-
 # Local libraries
 from utils.model import (
     LocalesEnum,
@@ -19,11 +14,11 @@ from utils.model import (
     SkimsPathConfig,
 )
 from utils.logs import (
-    log,
+    blocking_log,
 )
 
 
-def _load(group: Optional[str], path: str) -> SkimsConfig:
+def load(group: Optional[str], path: str) -> SkimsConfig:
     template = confuse.Configuration('skims', read=False)
     template.set_file(path)
     template.read(user=False, defaults=False)
@@ -35,6 +30,7 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
             'path': confuse.Template({
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
+                'namespace': confuse.String(),
             }),
             'timeout': confuse.Number(),
             'working_dir': confuse.String(),
@@ -54,6 +50,7 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
             path=SkimsPathConfig(
                 exclude=config_path.pop('exclude', []),
                 include=config_path.pop('include'),
+                namespace=config_path.pop('namespace'),
             ) if config_path else None,
             timeout=config.pop('timeout', None),
             working_dir=config.pop('working_dir', None),
@@ -67,12 +64,6 @@ def _load(group: Optional[str], path: str) -> SkimsConfig:
                 f'Some keys were not recognized: {unrecognized_keys}',
             )
 
-    return skims_config
-
-
-async def load(group: Optional[str], path: str) -> SkimsConfig:
-    skims_config: SkimsConfig = await in_process(_load, group, path)
-
-    await log('debug', '%s', skims_config)
+    blocking_log('debug', '%s', skims_config)
 
     return skims_config

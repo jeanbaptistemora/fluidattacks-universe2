@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01020.java
   - BenchmarkTest01021.java
   - BenchmarkTest01022.java
+  namespace: OWASP/crypto
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

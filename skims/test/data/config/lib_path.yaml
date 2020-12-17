@@ -8,4 +8,5 @@ path:
     - skims/
   exclude:
     - glob(skims/**/*)
+  namespace: namespace
 timeout: 900

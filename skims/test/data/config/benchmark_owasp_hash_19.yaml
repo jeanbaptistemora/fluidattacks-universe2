@@ -11,4 +11,5 @@ path:
   - BenchmarkTest02217.java
   - BenchmarkTest02218.java
   - BenchmarkTest02219.java
+  namespace: OWASP/hash
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

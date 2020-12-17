@@ -11,4 +11,5 @@ path:
   - BenchmarkTest00391.java
   - BenchmarkTest00392.java
   - BenchmarkTest00393.java
+  namespace: OWASP/xss
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

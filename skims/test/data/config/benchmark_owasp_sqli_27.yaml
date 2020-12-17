@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01622.java
   - BenchmarkTest01623.java
   - BenchmarkTest01624.java
+  namespace: OWASP/sqli
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

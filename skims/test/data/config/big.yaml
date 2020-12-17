@@ -7,4 +7,5 @@ path:
     - glob(**/.venv/)
     - glob(**/node_modules/)
     - glob(**/*.pyc)
+  namespace: namespace
 working_dir: ../../

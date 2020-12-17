@@ -2,4 +2,5 @@ output: test/outputs/integrates.csv
 path:
   include:
     - test/data/lib_path/f117
+  namespace: namespace
 timeout: 900

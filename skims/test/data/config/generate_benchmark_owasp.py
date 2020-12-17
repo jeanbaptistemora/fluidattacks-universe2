@@ -52,7 +52,7 @@ def main() -> None:
 
             content = blocking_yaml_dumps(dict(
                 output=f'test/outputs/{suite}.csv',
-                path=dict(include=batch),
+                path=dict(include=batch, namespace=f'OWASP/{category}'),
                 working_dir=FOLDER,
             ))
 

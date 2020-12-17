@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01873.java
   - BenchmarkTest01874.java
   - BenchmarkTest01875.java
+  namespace: OWASP/trustbound
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

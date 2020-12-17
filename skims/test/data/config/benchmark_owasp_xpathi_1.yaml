@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01478.java
   - BenchmarkTest01479.java
   - BenchmarkTest01561.java
+  namespace: OWASP/xpathi
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

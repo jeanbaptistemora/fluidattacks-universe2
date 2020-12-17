@@ -11,4 +11,5 @@ path:
   - BenchmarkTest01192.java
   - BenchmarkTest01193.java
   - BenchmarkTest01194.java
+  namespace: OWASP/cmdi
 working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

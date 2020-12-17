@@ -1,9 +1,5 @@
 # Standard library
 from asyncio import (
-    all_tasks,
-    create_task,
-    sleep,
-    Task,
     wait_for,
 )
 import csv
@@ -47,6 +43,7 @@ from utils.hardware import (
     get_max_memory_usage,
 )
 from utils.logs import (
+    blocking_log,
     log,
     set_level,
 )
@@ -59,22 +56,16 @@ from zone import (
 )
 
 
-async def monitor() -> None:
-    while await sleep(10.0, result=True):
-        tasks: int = len(all_tasks())
-        await log('info', 'Still running, %s tasks pending to finish', tasks)
-
-
-async def adjust_working_dir(config: SkimsConfig) -> None:
+def adjust_working_dir(config: SkimsConfig) -> None:
     """Move the skims working directory to the one the user wants.
 
     :param config: Skims configuration object
     :type config: SkimsConfig
     """
-    await log('info', 'Startup working dir is: %s', getcwd())
+    blocking_log('info', 'Startup working dir is: %s', getcwd())
     if config.working_dir is not None:
         working_dir: str = abspath(config.working_dir)
-        await log('info', 'Moving working dir to: %s', working_dir)
+        blocking_log('info', 'Moving working dir to: %s', working_dir)
         chdir(working_dir)
 
 
@@ -180,20 +171,17 @@ async def main(
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
-    monitor_task: Task[None] = create_task(monitor())
-
     if CTX.debug:
         set_level(logging.DEBUG)
 
     try:
         startdir: str = getcwd()
-        config_obj: SkimsConfig = await load(group, config)
+        config_obj: SkimsConfig = load(group, config)
         CTX.current_locale = config_obj.language
         await reset_ephemeral_state()
-        await adjust_working_dir(config_obj)
+        adjust_working_dir(config_obj)
         return await execute_skims(config_obj, token)
     finally:
         chdir(startdir)
         await reset_ephemeral_state()
         await log('info', 'Max memory usage: %s GB', get_max_memory_usage())
-        monitor_task.cancel()
