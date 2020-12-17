@@ -9,6 +9,7 @@ from itertools import combinations
 from typing import (
     Dict,
     List,
+    Optional,
     Tuple,
     Union
 )
@@ -29,12 +30,34 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
 
 
+# Type Constants
 ScoreType = Tuple[float, float, float, None]
 ModelType = Union[
     MLPClassifier,
     RandomForestClassifier,
     LinearSVC,
     KNeighborsClassifier
+]
+
+# Contants
+FEATURES_DICTS: Dict[str, str] = {
+    'num_commits': 'CM',
+    'num_unique_authors': 'AU',
+    'file_age': 'FA',
+    'midnight_commits': 'MC',
+    'risky_commits': 'RC',
+    'seldom_contributors': 'SC',
+    'num_lines': 'LC',
+    'busy_file': 'BF',
+    'commit_frequency': 'CF'
+}
+RESULT_HEADERS: List[str] = [
+    'Model',
+    'Features',
+    'Precision',
+    'Recall',
+    'F1',
+    'Overfit'
 ]
 
 
@@ -126,9 +149,48 @@ def split_training_data(
     return features_df, labels
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+def train_model(model_class: ModelType, training_dir: str) -> List[List[str]]:
+    all_combinations = get_features_combinations(
+        list(FEATURES_DICTS.keys())
+    )
+    training_data: DataFrame = load_training_data(training_dir)
+    training_output: List[List[str]] = [RESULT_HEADERS]
 
+    # Train the model
+    for combination in filter(None, all_combinations):
+        start_time: float = time.time()
+        train_x, train_y = split_training_data(training_data, combination)
+
+        default_args: Dict[str, int] = {}
+        if model_class != KNeighborsClassifier:
+            default_args = {'random_state': 42}
+        model = model_class(**default_args)
+
+        precision, recall, f1_score, overfit = get_model_metrics(
+            model,
+            train_x,
+            train_y
+        )
+
+        print(f'Training time: {time.time() - start_time:.2f}')
+        print(f'Features: {combination}')
+        print(f'Precision: {precision}%')
+        print(f'Recall: {recall}%')
+        print(f'F1-Score: {f1_score}%')
+        print(f'Overfit: {overfit}%')
+        training_output.append([
+            model.__class__.__name__,
+            ' '.join(FEATURES_DICTS[x] for x in combination),
+            f'{precision:.1f}',
+            f'{recall:.1f}',
+            f'{f1_score:.1f}',
+            f'{overfit:.1f}'
+        ])
+    return training_output
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
     # Sagemaker specific arguments. Defaults are set in environment variables.
     parser.add_argument(
         '--output-data-dir',
@@ -145,75 +207,22 @@ if __name__ == '__main__':
         type=str,
         default=os.environ['SM_CHANNEL_TRAIN']
     )
-
     # Model to train sent as a hyperparamenter
-    parser.add_argument('--classifier', type=str, default=None)
-
+    parser.add_argument('--model', type=str, default='')
     args = parser.parse_args()
 
-    classifier: str = args.classifier
-    features_dict: Dict[str, str] = {
-        'num_commits': 'CM',
-        'num_unique_authors': 'AU',
-        'file_age': 'FA',
-        'midnight_commits': 'MC',
-        'risky_commits': 'RC',
-        'seldom_contributors': 'SC',
-        'num_lines': 'LC',
-        'busy_file': 'BF',
-        'commit_frequency': 'CF'
-    }
-    result_headers: List[str] = [
-        'Model',
-        'Features',
-        'Precision',
-        'Recall',
-        'F1',
-        'Overfit'
-    ]
-    result_filename: str = f'{classifier.lower()}_results.csv'
-
-    classifier_class = globals().get(classifier)
-    if classifier_class:
-        all_combinations = get_features_combinations(
-            list(features_dict.keys())
-        )
-        training_data: DataFrame = load_training_data(args.train)
-        training_output: List[List[str]] = [result_headers]
-
-        # Train the model
-        for combination in filter(None, all_combinations):
-            start_time: float = time.time()
-            train_x, train_y = split_training_data(training_data, combination)
-
-            default_args: Dict[str, int] = {}
-            if classifier != 'KNeighborsClassifier':
-                default_args = {'random_state': 42}
-            clf = classifier_class(**default_args)
-
-            precision, recall, f1, overfit = get_model_metrics(
-                clf,
-                train_x,
-                train_y
-            )
-
-            print(f'Training time: {time.time() - start_time:.2f}')
-            print(f'Features: {combination}')
-            print(f'Precision: {precision}%')
-            print(f'Recall: {recall}%')
-            print(f'F1-Score: {f1}%')
-            print(f'Overfit: {overfit}%')
-            training_output.append([
-                clf.__class__.__name__,
-                ' '.join(features_dict[x] for x in combination),
-                f'{precision:.1f}',
-                f'{recall:.1f}',
-                f'{f1:.1f}',
-                f'{overfit:.1f}'
-            ])
-        with open(result_filename, 'w', newline='') as results_file:
+    model: str = args.model
+    model_class: Optional[ModelType] = globals().get(model)
+    if model_class:
+        results_filename: str = f'{model.lower()}_train_results.csv'
+        training_output = train_model(model_class, args.train)
+        with open(results_filename, 'w', newline='') as results_file:
             csv_writer = csv.writer(results_file)
             csv_writer.writerows(training_output)
         boto3.Session().resource('s3').Bucket('sorts')\
-            .Object(f'training-output/{result_filename}')\
-            .upload_file(result_filename)
+            .Object(f'training-output/{results_filename}')\
+            .upload_file(results_filename)
+
+
+if __name__ == '__main__':
+    main()

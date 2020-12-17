@@ -94,3 +94,4 @@ sorts_train_model_on_aws:
   <<: *with_nix
   <<: *sorts_in_master_branch
   stage: external
+  interruptible: false

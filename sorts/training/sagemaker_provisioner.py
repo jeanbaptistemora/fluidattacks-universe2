@@ -21,8 +21,8 @@ def deploy_training_job(model: str, delay: int) -> None:
         instance_count=1,
         role='arn:aws:iam::205810638802:role/sorts_sagemaker',
         output_path='s3://sorts/training-output',
-        base_job_name='sorts-training-test',
-        hyperparameters={'classifier': model},
+        base_job_name=f'sorts-training-test-{model.lower()}',
+        hyperparameters={'model': model},
         metric_definitions=[
             {'Name': 'precision', 'Regex': 'Precision: (.*?)%'},
             {'Name': 'recall', 'Regex': 'Recall: (.*?)%'},
