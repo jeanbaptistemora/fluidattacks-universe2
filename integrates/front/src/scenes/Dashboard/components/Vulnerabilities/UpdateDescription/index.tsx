@@ -1,3 +1,4 @@
+import { AcceptanceDateField } from "./AcceptanceDateField";
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import type { ConfigurableValidator } from "revalidate";
@@ -32,14 +33,12 @@ import {
   REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
-import { Date, TagInput, Text } from "utils/forms/fields";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import { Field, formValueSelector, isPristine, submit } from "redux-form";
 import {
   GET_PROJECT_USERS,
   GET_VULNERABILITIES,
 } from "scenes/Dashboard/components/Vulnerabilities/queries";
-
 import type {
   IDeleteTagAttr,
   IDeleteTagResultAttr,
@@ -53,6 +52,7 @@ import type {
   IUpdateTreatmentVulnAttr,
   IVulnDataType,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { TagInput, Text } from "utils/forms/fields";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import {
   groupExternalBts,
@@ -61,11 +61,9 @@ import {
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import {
-  isLowerDate,
   isValidVulnSeverity,
   maxLength,
   numeric,
-  required,
   validUrlField,
 } from "utils/validations";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -498,27 +496,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       />
                     </Col100>
                   </Row>
-                  {isAcceptedSelected ? (
-                    <Row>
-                      <Col50>
-                        <EditableField
-                          component={Date}
-                          currentValue={_.get(
-                            lastTreatment,
-                            "acceptanceDate",
-                            "-"
-                          )}
-                          label={translate.t(
-                            "search_findings.tab_description.acceptance_date"
-                          )}
-                          name={"acceptanceDate"}
-                          renderAsEditable={canUpdateVulnsTreatment}
-                          type={"date"}
-                          validate={[required, isLowerDate]}
-                        />
-                      </Col50>
-                    </Row>
-                  ) : undefined}
+                  <Row>
+                    <Col50>
+                      <AcceptanceDateField
+                        isAcceptedSelected={isAcceptedSelected}
+                        lastTreatment={lastTreatment}
+                      />
+                    </Col50>
+                  </Row>
                   {isInProgressSelected ||
                   isAcceptedSelected ||
                   isAcceptedUndefinedSelected ? (
