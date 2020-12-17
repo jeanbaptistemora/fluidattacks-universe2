@@ -1,10 +1,9 @@
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
-import type { ConfigurableValidator } from "revalidate";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { Dispatch } from "redux";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { ExternalBtsField } from "./ExternalBtsField";
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IConfirmFn } from "components/ConfirmDialog";
@@ -60,18 +59,11 @@ import {
   groupVulnLevel,
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import {
-  isValidVulnSeverity,
-  maxLength,
-  numeric,
-  validUrlField,
-} from "utils/validations";
+import { isValidVulnSeverity, numeric } from "utils/validations";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const MAX_BTS_LENGTH: number = 80;
-const maxBtsLength: ConfigurableValidator = maxLength(MAX_BTS_LENGTH);
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   props: IUpdateTreatmentModalProps
 ): JSX.Element => {
@@ -504,65 +496,57 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       />
                     </Col50>
                   </Row>
+                  <Row>
+                    <Col100>
+                      <ExternalBtsField
+                        isAcceptedSelected={isAcceptedSelected}
+                        isAcceptedUndefinedSelected={
+                          isAcceptedUndefinedSelected
+                        }
+                        isInProgressSelected={isInProgressSelected}
+                        vulnerabilities={vulnerabilities}
+                      />
+                    </Col100>
+                  </Row>
                   {isInProgressSelected ||
                   isAcceptedSelected ||
                   isAcceptedUndefinedSelected ? (
-                    <React.Fragment>
-                      <Row>
-                        <Col100>
-                          <EditableField
-                            component={Text}
-                            currentValue={groupExternalBts(vulnerabilities)}
-                            label={translate.t(
-                              "search_findings.tab_description.bts"
-                            )}
-                            name={"externalBts"}
-                            placeholder={translate.t(
-                              "search_findings.tab_description.bts_placeholder"
-                            )}
-                            renderAsEditable={canUpdateVulnsTreatment}
+                    <Row>
+                      <Col100>
+                        <FormGroup>
+                          <ControlLabel>
+                            <b>
+                              {translate.t(
+                                "search_findings.tab_description.tag"
+                              )}
+                            </b>
+                          </ControlLabel>
+                          <Field
+                            component={TagInput}
+                            name={"tag"}
+                            onDeletion={handleDeletion}
                             type={"text"}
-                            validate={[maxBtsLength, validUrlField]}
                           />
-                        </Col100>
-                      </Row>
-                      <Row>
-                        <Col100>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>
-                                {translate.t(
-                                  "search_findings.tab_description.tag"
-                                )}
-                              </b>
-                            </ControlLabel>
-                            <Field
-                              component={TagInput}
-                              name={"tag"}
-                              onDeletion={handleDeletion}
-                              type={"text"}
-                            />
-                          </FormGroup>
-                        </Col100>
-                        <Col50>
-                          <FormGroup>
-                            <ControlLabel>
-                              <b>
-                                {translate.t(
-                                  "search_findings.tab_description.business_criticality"
-                                )}
-                              </b>
-                            </ControlLabel>
-                            <Field
-                              component={Text}
-                              name={"severity"}
-                              type={"number"}
-                              validate={[isValidVulnSeverity, numeric]}
-                            />
-                          </FormGroup>
-                        </Col50>
-                      </Row>
-                    </React.Fragment>
+                        </FormGroup>
+                      </Col100>
+                      <Col50>
+                        <FormGroup>
+                          <ControlLabel>
+                            <b>
+                              {translate.t(
+                                "search_findings.tab_description.business_criticality"
+                              )}
+                            </b>
+                          </ControlLabel>
+                          <Field
+                            component={Text}
+                            name={"severity"}
+                            type={"number"}
+                            validate={[isValidVulnSeverity, numeric]}
+                          />
+                        </FormGroup>
+                      </Col50>
+                    </Row>
                   ) : undefined}
                 </GenericForm>
                 <ButtonToolbar>
