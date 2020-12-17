@@ -8,7 +8,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React, { ReactElement } from "react";
-import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 
 // Local imports
@@ -19,6 +18,7 @@ import { IHeaderConfig } from "components/DataTableNext/types";
 import styles from "scenes/Dashboard/containers/ProjectAuthorsView/index.css";
 import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
 import { IBillDeveloper, IData } from "scenes/Dashboard/containers/ProjectAuthorsView/types";
+import { Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -110,18 +110,18 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
   return (
     <React.StrictMode>
       <Row>
-        <Col xs={10}>
+        <Col100 className={"pl0"}>
           <p>{translate.t("group.authors.table_advice")}</p>
-        </Col>
+        </Col100>
       </Row>
       <Row>
-        <Col xs={2} className={styles.dateCol}>
+        <Col100 className={styles.dateCol}>
           <select onChange={handleDateChange} className={styles.selectDate}>
             {dateRange.map((date: Date, index: number): JSX.Element => (
               <option value={date.toISOString()} key={index}>{formatDate(date)}</option>
             ))}
           </select>
-        </Col>
+        </Col100>
       </Row>
       <DataTableNext
         bordered={true}
