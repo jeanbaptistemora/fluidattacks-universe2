@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
@@ -7,7 +8,11 @@ from sagemaker.sklearn import SKLearn
 from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 
 
-def deploy_training_job(model: str) -> None:
+def deploy_training_job(model: str, delay: int) -> None:
+    # Incremental delay since SageMaker does not seem to process some
+    # training jobs when requested near the same time.
+    time.sleep(delay)
+
     print(f'Deploying training job for {model}...')
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point='training/training_script.py',
@@ -38,4 +43,7 @@ if __name__ == '__main__':
         'LinearSVC'
     ]
     with ThreadPoolExecutor(max_workers=len(models_to_train)) as executor:
-        executor.map(deploy_training_job, models_to_train)
+        executor.map(
+            lambda x: deploy_training_job(*x),
+            zip(models_to_train, range(len(models_to_train)))
+        )
