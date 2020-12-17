@@ -102,23 +102,6 @@ async def test_event():
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']['success']
     assert 'commentId' in result['data']['addEventConsult']
-    comment_id = result['data']['addEventConsult']['commentId']
-
-    query = f'''
-        mutation {{
-            editEventCommentScope(
-                commentId: "{comment_id}",
-                commentScope: INTERNAL,
-                eventId: "{event_id}"
-            ){{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['editEventCommentScope']['success']
 
     query = f'''
         mutation {{

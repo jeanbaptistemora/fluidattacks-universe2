@@ -488,32 +488,3 @@ async def update_access(
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals))
         return False
-
-
-async def edit_comment_scope(
-    comment_id: int,
-    comment_scope: str,
-    project_name: str
-) -> bool:
-    success = False
-    try:
-        expression_values = {':cs': comment_scope}
-
-        edited_scope = {
-            'Key': {
-                'project_name': project_name,
-                'user_id': comment_id
-            },
-            'UpdateExpression': 'SET comment_scope = :cs',
-            'ExpressionAttributeValues': expression_values,
-            'ConditionExpression':
-                Attr('user_id').exists() & Attr('project_name').exists()
-        }
-
-        success = await dynamodb.async_update_item(
-            TABLE_GROUP_COMMENTS,
-            edited_scope
-        )
-    except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
-    return success

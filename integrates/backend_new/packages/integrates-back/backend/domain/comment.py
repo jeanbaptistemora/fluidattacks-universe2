@@ -236,15 +236,3 @@ async def create(
     )
 
     return (comment_id if success else None, success)
-
-
-async def edit_scope(
-    comment_id: str,
-    comment_scope: str,
-    element_id: str,
-) -> bool:
-    return await comment_dal.edit_scope(
-        int(comment_id),
-        comment_scope,
-        int(element_id)
-    )

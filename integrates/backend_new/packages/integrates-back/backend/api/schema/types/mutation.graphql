@@ -162,18 +162,6 @@ type Mutation {
 
   downloadVulnFile(findingId: String!): DownloadFilePayload!
 
-  editEventCommentScope(
-    eventId: String!
-    commentId: String!
-    commentScope: CommentScope!
-  ): SimplePayload!
-
-  editFindingCommentScope(
-    findingId: String!
-    commentId: String!
-    commentScope: CommentScope!
-  ): SimplePayload!
-
   editGroup(
     comments: String!
     groupName: String!
@@ -182,12 +170,6 @@ type Mutation {
     hasIntegrates: Boolean!
     reason: EditGroupReason!
     subscription: SubscriptionType!
-  ): SimplePayload!
-
-  editProjectCommentScope(
-    projectName: String!
-    commentId: String!
-    commentScope: CommentScope!
   ): SimplePayload!
 
   editStakeholder(

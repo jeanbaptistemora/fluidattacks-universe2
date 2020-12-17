@@ -1233,15 +1233,3 @@ async def filter_stakeholders(
         if not is_fluid_user(email)
         or await is_manager(email, group_name)
     ]
-
-
-async def edit_comment_scope(
-    comment_id: str,
-    comment_scope: str,
-    project_name: str
-) -> bool:
-    return await project_dal.edit_comment_scope(
-        int(comment_id),
-        comment_scope,
-        project_name
-    )

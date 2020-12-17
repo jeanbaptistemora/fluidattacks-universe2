@@ -496,23 +496,6 @@ async def test_finding():
     assert 'errors' not in result
     assert 'success' in result['data']['addFindingConsult']
     assert result['data']['addFindingConsult']['success']
-    comment_id = result['data']['addFindingConsult']['commentId']
-
-    query = f'''
-        mutation {{
-            editFindingCommentScope(
-                commentId: "{comment_id}",
-                commentScope: EXTERNAL,
-                findingId: "{finding_id}"
-            ){{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['editFindingCommentScope']['success']
 
     query = f'''{{
         finding(identifier: "{finding_id}"){{

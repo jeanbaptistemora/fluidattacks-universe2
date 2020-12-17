@@ -81,24 +81,6 @@ async def test_project():
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
 
-    comment_id = result['data']['addProjectConsult']['commentId']
-
-    query = f'''
-        mutation {{
-            editProjectCommentScope(
-                commentId: "{comment_id}",
-                commentScope: EXTERNAL,
-                projectName: "{group_name}"
-            ){{
-                success
-            }}
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['editProjectCommentScope']['success']
-
     query = '''
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
