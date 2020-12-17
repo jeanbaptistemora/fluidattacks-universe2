@@ -18,7 +18,12 @@ def evaluate(statements: Statements, index: int) -> None:
 
     # Propagate values if possible
     with contextlib.suppress(TypeError):
-        statement.meta.value = left.meta.value + right.meta.value
+        if statement.sign == '+':
+            statement.meta.value = left.meta.value + right.meta.value
+        elif statement.sign == '-':
+            statement.meta.value = left.meta.value - right.meta.value
+        else:
+            raise NotImplementedError()
 
     # Local context
     statement.meta.danger = left.meta.danger or right.meta.danger
