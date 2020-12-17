@@ -3,11 +3,10 @@
 """
 This migration add a default cloning status for roots
 
-Execution Time:
-Finalization Time:
+Execution Time: Thu Dec 17 08:09:46 -05 2020
+Finalization Time: Thu Dec 17 08:14:32 -05 2020
 """
 # Standard
-import os
 from typing import (
     Any,
     Dict,
@@ -23,12 +22,10 @@ from aioextensions import (
 # Local
 from backend.dal import root as root_dal
 from backend.utils import datetime
-
-STAGE: str = os.environ['STAGE']
-SERVICES_REPO_DIR: str = f'{os.getcwd()}/services'
+from backend.domain.project import get_active_projects
 
 
-async def update_root(group_name: str, root_id: str) -> None:
+async def update_root(group_name: str, root_id: Dict[str, Any]) -> None:
     status: Dict[str, Any] = {
         'status': 'UNKNOWN',
         'date': datetime.get_as_str(datetime.get_now()),
@@ -36,18 +33,18 @@ async def update_root(group_name: str, root_id: str) -> None:
     }
     await root_dal.update(
         group_name,
-        root_id,
+        root_id['sk'],
         {'historic_cloning_status': [status]},
     )
 
 
 async def main() -> None:
-    groups: List[str] = os.listdir(os.path.join(SERVICES_REPO_DIR, 'groups'))
+    groups: List[str] = await get_active_projects()
     print(f'[INFO] Found {len(groups)} groups')
 
     for group_name in groups:
-        print(f'[INFO] Working on {group_name}')
         roots = await root_dal.get_roots_by_group(group_name)
+        print(f'[INFO] Working on {group_name} with {len(roots)} roots')
         await collect(update_root(group_name, root) for root in roots)
 
 
