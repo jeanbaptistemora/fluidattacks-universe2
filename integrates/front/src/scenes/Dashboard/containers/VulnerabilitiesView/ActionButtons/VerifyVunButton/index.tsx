@@ -1,19 +1,12 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * jsx-no-multiline-js: Necessary for using conditional rendering
- */
-
-import _ from "lodash";
-import React from "react";
-import { Glyphicon } from "react-bootstrap";
-
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { Can } from "utils/authz/Can";
-import { translate } from "utils/translations/translate";
+import { FluidIcon } from "components/FluidIcon";
+import { Glyphicon } from "react-bootstrap";
+import React from "react";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { useTranslation } from "react-i18next";
 
-export interface IVerifyVunButtonProps {
+interface IVerifyVunButtonProps {
   areVulnsSelected: boolean;
   isConfirmingZeroRisk: boolean;
   isEditing: boolean;
@@ -21,48 +14,59 @@ export interface IVerifyVunButtonProps {
   isRequestingReattack: boolean;
   isVerified: boolean;
   isVerifying: boolean;
-  onVerify(): void;
-  openModal(): void;
+  onVerify: () => void;
+  openModal: () => void;
 }
 
-const verifyVunButton: React.FC<IVerifyVunButtonProps> = (props: IVerifyVunButtonProps): JSX.Element => {
-
-  const { onVerify, openModal } = props;
+const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
+  areVulnsSelected,
+  isConfirmingZeroRisk,
+  isEditing,
+  isRejectingZeroRisk,
+  isRequestingReattack,
+  isVerified,
+  isVerifying,
+  onVerify,
+  openModal,
+}: IVerifyVunButtonProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const shouldRenderVerifyBtn: boolean =
-    !props.isVerified
-    && !(
-          props.isEditing
-          || props.isRequestingReattack
-          || props.isConfirmingZeroRisk
-          || props.isRejectingZeroRisk
-        );
+    !isVerified &&
+    !(
+      isEditing ||
+      isRequestingReattack ||
+      isConfirmingZeroRisk ||
+      isRejectingZeroRisk
+    );
 
   return (
-    <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
-      {props.isVerifying ? (
-        <Button onClick={openModal} disabled={!props.areVulnsSelected}>
-          <FluidIcon icon="verified" />&nbsp;
-          {translate.t("search_findings.tab_description.mark_verified.text")}
+    <Can do={"backend_api_resolvers_vulnerability__do_verify_request_vuln"}>
+      {isVerifying ? (
+        <Button disabled={!areVulnsSelected} onClick={openModal}>
+          <FluidIcon icon={"verified"} />
+          &nbsp;{t("search_findings.tab_description.mark_verified.text")}
         </Button>
       ) : undefined}
       {shouldRenderVerifyBtn ? (
         <TooltipWrapper
-          message={props.isVerifying
-            ? translate.t("search_findings.tab_vuln.buttons_tooltip.cancel")
-            : translate.t("search_findings.tab_description.mark_verified.tooltip")
+          message={
+            isVerifying
+              ? t("search_findings.tab_vuln.buttons_tooltip.cancel")
+              : t("search_findings.tab_description.mark_verified.tooltip")
           }
-          placement="top"
+          placement={"top"}
         >
           <Button onClick={onVerify}>
-            {props.isVerifying ? (
+            {isVerifying ? (
               <React.Fragment>
-                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.cancel_verified")}
+                <Glyphicon glyph={"remove"} />
+                &nbsp;{t("search_findings.tab_description.cancel_verified")}
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <FluidIcon icon="verified" />&nbsp;
-                {translate.t("search_findings.tab_description.mark_verified.text")}
+                <FluidIcon icon={"verified"} />
+                &nbsp;{t("search_findings.tab_description.mark_verified.text")}
               </React.Fragment>
             )}
           </Button>
@@ -72,4 +76,4 @@ const verifyVunButton: React.FC<IVerifyVunButtonProps> = (props: IVerifyVunButto
   );
 };
 
-export { verifyVunButton as VerifyVunButton };
+export { IVerifyVunButtonProps, VerifyVunButton };

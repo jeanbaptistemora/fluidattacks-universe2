@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
   canHandleAcceptation,
+  isConfirmingZeroRisk,
   isEditing,
   isRequestingReattack,
   isVerifying,
@@ -18,6 +19,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
 
   const shouldRenderHandleAcceptationBtn: boolean =
     !(
+      isConfirmingZeroRisk ||
       isEditing ||
       isRequestingReattack ||
       isVerifying ||

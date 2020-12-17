@@ -18,11 +18,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
 !src/scenes/Dashboard/containers/GroupScopeView/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/ConfirmZeroRiskVulnButton/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/EditButton/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/HandleAcceptationButton/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/ReattackVulnButton/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/RejectZeroRiskVulnButton/**
+!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/**
 !src/scenes/Dashboard/containers/VulnerabilitiesView/index.tsx
 src/**/*.css.d.ts
 src/**/*.d.ts

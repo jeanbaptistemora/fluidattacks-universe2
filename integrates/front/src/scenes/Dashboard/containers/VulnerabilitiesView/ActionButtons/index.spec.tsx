@@ -1,264 +1,307 @@
+import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper } from "enzyme";
 import React from "react";
-// tslint:disable-next-line: no-submodule-imports
+import type { ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { useTranslation } from "react-i18next";
-import { ActionButtons, IActionButtonsProps } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { authzPermissionsContext } from "utils/authz/config";
+import { mount } from "enzyme";
+import { useTranslation } from "react-i18next";
 
-describe("ActionButtons", () => {
-  (window as typeof window & { userEmail: string }).userEmail = "test@fluidattacks.com";
-
-  const baseMockedProps: IActionButtonsProps = {
-    areVulnsSelected: false,
-    canHandleAcceptation: false,
-    isConfirmingZeroRisk: false,
-    isEditing: false,
-    isReattackRequestedInAllVuln: false,
-    isRejectingZeroRisk: false,
-    isRequestingReattack: false,
-    isVerified: false,
-    isVerifying: false,
-    onConfirmZeroRisk: jest.fn(),
-    onEdit: jest.fn(),
-    onRejectZeroRisk: jest.fn(),
-    onRequestReattack: jest.fn(),
-    onVerify: jest.fn(),
-    openHandleAcceptation: jest.fn(),
-    openModal: jest.fn(),
-    openUpdateZeroRiskModal: jest.fn(),
-    state: "open",
-    subscription: "",
-  };
-
-  it("should return a function", () => {
-    expect(typeof (ActionButtons))
-      .toEqual("function");
+describe("ActionButtons", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ActionButtons).toStrictEqual("function");
   });
 
-  it("should render a component", async () => {
+  it("should render a component", (): void => {
+    expect.hasAssertions();
+
     const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
-      <ActionButtons {...baseMockedProps} />,
+      <ActionButtons
+        areVulnsSelected={false}
+        canHandleAcceptation={false}
+        isConfirmingZeroRisk={false}
+        isEditing={false}
+        isReattackRequestedInAllVuln={false}
+        isRejectingZeroRisk={false}
+        isRequestingReattack={false}
+        isVerified={false}
+        isVerifying={false}
+        onConfirmZeroRisk={jest.fn()}
+        onEdit={jest.fn()}
+        onRejectZeroRisk={jest.fn()}
+        onRequestReattack={jest.fn()}
+        onVerify={jest.fn()}
+        openHandleAcceptation={jest.fn()}
+        openModal={jest.fn()}
+        openUpdateZeroRiskModal={jest.fn()}
+        state={"open"}
+        subscription={""}
+      />
     );
-    expect(wrapper)
-      .toHaveLength(1);
     const buttons: ReactWrapper = wrapper.find("Button");
-    expect(buttons)
-      .toHaveLength(1);
-    expect(buttons
-      .filterWhere((button: ReactWrapper): boolean =>
+
+    expect(wrapper).toHaveLength(1);
+    expect(buttons).toHaveLength(1);
+    expect(
+      buttons.filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes(t("search_findings.tab_description.editable.text"))))
-      .toHaveLength(1);
+          .includes(t("search_findings.tab_description.editable.text"))
+      )
+    ).toHaveLength(1);
   });
 
-  it("should render request verification", async () => {
+  it("should render request verification", (): void => {
+    expect.hasAssertions();
+
     const { t } = useTranslation();
-    const requestMockProps: IActionButtonsProps = {
-      ...baseMockedProps,
-      isEditing: false,
-      isReattackRequestedInAllVuln: false,
-      isVerified: false,
-      state: "open",
-      subscription: "continuous",
-    };
+    const onRequestReattack: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_vulnerability__do_request_verification_vuln" },
+      {
+        action:
+          "backend_api_resolvers_vulnerability__do_request_verification_vuln",
+      },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons {...requestMockProps} />,
+      <ActionButtons
+        areVulnsSelected={false}
+        canHandleAcceptation={false}
+        isConfirmingZeroRisk={false}
+        isEditing={false}
+        isReattackRequestedInAllVuln={false}
+        isRejectingZeroRisk={false}
+        isRequestingReattack={false}
+        isVerified={false}
+        isVerifying={false}
+        onConfirmZeroRisk={jest.fn()}
+        onEdit={jest.fn()}
+        onRejectZeroRisk={jest.fn()}
+        onRequestReattack={onRequestReattack}
+        onVerify={jest.fn()}
+        openHandleAcceptation={jest.fn()}
+        openModal={jest.fn()}
+        openUpdateZeroRiskModal={jest.fn()}
+        state={"open"}
+        subscription={"continuous"}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
-      },
+      }
+    );
+    const buttons: ReactWrapper = wrapper.find("Button");
+
+    expect(wrapper).toHaveLength(1);
+    expect(buttons).toHaveLength(2);
+
+    const requestButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("search_findings.tab_description.request_verify.tex"))
     );
 
-    expect(wrapper)
-      .toHaveLength(1);
-    let buttons: ReactWrapper = wrapper.find("Button");
-    expect(buttons)
-      .toHaveLength(2);
-
-    let requestButton: ReactWrapper = buttons
-      .filterWhere((button: ReactWrapper): boolean =>
+    expect(requestButton).toHaveLength(1);
+    expect(
+      buttons.filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes(t("search_findings.tab_description.request_verify.tex")));
-
-    expect(requestButton)
-      .toHaveLength(1);
-    expect(buttons
-      .filterWhere((button: ReactWrapper): boolean =>
-        button
-          .text()
-          .includes(t("search_findings.tab_description.editable.text"))))
-      .toHaveLength(1);
+          .includes(t("search_findings.tab_description.editable.text"))
+      )
+    ).toHaveLength(1);
 
     requestButton.simulate("click");
-    act(() => {
+
+    act((): void => {
       wrapper.setProps({ isRequestingReattack: true });
       wrapper.update();
     });
-    const { onRequestReattack } = requestMockProps;
-    expect(onRequestReattack)
-      .toHaveBeenCalled();
 
-    buttons = wrapper.find("Button");
-    requestButton = buttons
-    .filterWhere((button: ReactWrapper): boolean =>
-    button
-    .text()
-    .includes(t("search_findings.tab_description.cancel_verify")));
-    expect(requestButton)
-      .toHaveLength(1);
-    expect(buttons
+    expect(onRequestReattack).toHaveBeenCalledTimes(1);
+
+    const cancelRequestButton: ReactWrapper = wrapper
+      .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes("Edit")))
-      .toHaveLength(0);
+          .includes(t("search_findings.tab_description.cancel_verify"))
+      );
+
+    expect(cancelRequestButton).toHaveLength(1);
+    expect(
+      wrapper
+        .find("Button")
+        .filterWhere((button: ReactWrapper): boolean =>
+          button
+            .text()
+            .includes(t("search_findings.tab_description.editable.text"))
+        )
+    ).toHaveLength(0);
   });
 
-  it("should render confirm zero risk", async () => {
+  it("should render confirm zero risk", (): void => {
+    expect.hasAssertions();
+
     const { t } = useTranslation();
-    const confirmZeroRiskMockProps: IActionButtonsProps = {
-      ...baseMockedProps,
-    };
+    const onConfirmZeroRisk: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons {...confirmZeroRiskMockProps} />,
+      <ActionButtons
+        areVulnsSelected={false}
+        canHandleAcceptation={false}
+        isConfirmingZeroRisk={false}
+        isEditing={false}
+        isReattackRequestedInAllVuln={false}
+        isRejectingZeroRisk={false}
+        isRequestingReattack={false}
+        isVerified={false}
+        isVerifying={false}
+        onConfirmZeroRisk={onConfirmZeroRisk}
+        onEdit={jest.fn()}
+        onRejectZeroRisk={jest.fn()}
+        onRequestReattack={jest.fn()}
+        onVerify={jest.fn()}
+        openHandleAcceptation={jest.fn()}
+        openModal={jest.fn()}
+        openUpdateZeroRiskModal={jest.fn()}
+        state={"open"}
+        subscription={""}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
-      },
+      }
     );
-    expect(wrapper)
-      .toHaveLength(1);
+    const buttons: ReactWrapper = wrapper.find("Button");
 
-    let buttons: ReactWrapper = wrapper.find("Button");
-    expect(buttons)
-      .toHaveLength(2);
+    expect(wrapper).toHaveLength(1);
+    expect(buttons).toHaveLength(2);
 
-    let confirmZeroRiskButton: ReactWrapper = buttons
-    .filterWhere((button: ReactWrapper): boolean =>
-      button
-        .text()
-        .includes(t("search_findings.tab_description.confirm_zero_risk.text")));
-    expect(confirmZeroRiskButton)
-      .toHaveLength(1);
-
-    const editButton: ReactWrapper = buttons
-      .filterWhere((button: ReactWrapper): boolean =>
+    const confirmZeroRiskButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
         button
-        .text()
-        .includes(t("search_findings.tab_description.editable.text")));
-    expect(editButton)
-      .toHaveLength(1);
+          .text()
+          .includes(t("search_findings.tab_description.confirm_zero_risk.text"))
+    );
+
+    expect(confirmZeroRiskButton).toHaveLength(1);
+
+    const editButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("search_findings.tab_description.editable.text"))
+    );
+
+    expect(editButton).toHaveLength(1);
 
     confirmZeroRiskButton.simulate("click");
 
-    act(() => {
+    act((): void => {
       wrapper.setProps({ isConfirmingZeroRisk: true });
       wrapper.update();
     });
 
-    const { onConfirmZeroRisk } = confirmZeroRiskMockProps;
-    expect(onConfirmZeroRisk)
-      .toHaveBeenCalled();
+    expect(onConfirmZeroRisk).toHaveBeenCalledTimes(1);
+    expect(wrapper.find("Button")).toHaveLength(2);
+    expect(confirmZeroRiskButton).toHaveLength(1);
 
-    buttons = wrapper.find("Button");
-    expect(buttons)
-      .toHaveLength(2);
-
-    confirmZeroRiskButton = buttons
-      .filterWhere((button: ReactWrapper): boolean =>
+    const cancelButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
         button
-        .text()
-        .includes(t("search_findings.tab_description.confirm_zero_risk.text")));
-    expect(confirmZeroRiskButton)
-      .toHaveLength(1);
+          .text()
+          .includes(
+            t("search_findings.tab_description.cancel_confirming_zero_risk")
+          )
+    );
 
-    const cancelButton: ReactWrapper = buttons
-    .filterWhere((button: ReactWrapper): boolean =>
-      button
-      .text()
-      .includes(t("search_findings.tab_description.cancel_confirming_zero_risk")));
-    expect(cancelButton)
-      .toHaveLength(1);
+    expect(cancelButton).toHaveLength(1);
   });
 
-  it("should render reject zero risk", async () => {
+  it("should render reject zero risk", (): void => {
+    expect.hasAssertions();
+
     const { t } = useTranslation();
-    const rejectZeroRiskMockProps: IActionButtonsProps = {
-      ...baseMockedProps,
-    };
+    const onRejectZeroRisk: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_reject_zero_risk_vuln_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons {...rejectZeroRiskMockProps} />,
+      <ActionButtons
+        areVulnsSelected={false}
+        canHandleAcceptation={false}
+        isConfirmingZeroRisk={false}
+        isEditing={false}
+        isReattackRequestedInAllVuln={false}
+        isRejectingZeroRisk={false}
+        isRequestingReattack={false}
+        isVerified={false}
+        isVerifying={false}
+        onConfirmZeroRisk={jest.fn()}
+        onEdit={jest.fn()}
+        onRejectZeroRisk={onRejectZeroRisk}
+        onRequestReattack={jest.fn()}
+        onVerify={jest.fn()}
+        openHandleAcceptation={jest.fn()}
+        openModal={jest.fn()}
+        openUpdateZeroRiskModal={jest.fn()}
+        state={"open"}
+        subscription={""}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
-      },
+      }
     );
-    expect(wrapper)
-      .toHaveLength(1);
 
-    let buttons: ReactWrapper = wrapper.find("Button");
-    expect(buttons)
-      .toHaveLength(2);
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find("Button")).toHaveLength(2);
 
-    let rejectZeroRiskButton: ReactWrapper = buttons
-    .filterWhere((button: ReactWrapper): boolean =>
-      button
-        .text()
-        .includes(t("search_findings.tab_description.reject_zero_risk.text")));
-    expect(rejectZeroRiskButton)
-      .toHaveLength(1);
-
-    const editButton: ReactWrapper = buttons
+    const rejectZeroRiskButton: ReactWrapper = wrapper
+      .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
         button
-        .text()
-        .includes(t("search_findings.tab_description.editable.text")));
-    expect(editButton)
-      .toHaveLength(1);
+          .text()
+          .includes(t("search_findings.tab_description.reject_zero_risk.text"))
+      );
+
+    expect(rejectZeroRiskButton).toHaveLength(1);
+
+    const editButton: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("search_findings.tab_description.editable.text"))
+      );
+
+    expect(editButton).toHaveLength(1);
 
     rejectZeroRiskButton.simulate("click");
 
-    act(() => {
+    act((): void => {
       wrapper.setProps({ isRejectingZeroRisk: true });
       wrapper.update();
     });
 
-    const { onRejectZeroRisk } = rejectZeroRiskMockProps;
-    expect(onRejectZeroRisk)
-      .toHaveBeenCalled();
+    expect(onRejectZeroRisk).toHaveBeenCalledTimes(1);
+    expect(wrapper.find("Button")).toHaveLength(2);
+    expect(rejectZeroRiskButton).toHaveLength(1);
 
-    buttons = wrapper.find("Button");
-    expect(buttons)
-      .toHaveLength(2);
-
-    rejectZeroRiskButton = buttons
+    const cancelButton: ReactWrapper = wrapper
+      .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
         button
-        .text()
-        .includes(t("search_findings.tab_description.reject_zero_risk.text")));
-    expect(rejectZeroRiskButton)
-      .toHaveLength(1);
+          .text()
+          .includes(
+            t("search_findings.tab_description.cancel_rejecting_zero_risk")
+          )
+      );
 
-    const cancelButton: ReactWrapper = buttons
-    .filterWhere((button: ReactWrapper): boolean =>
-      button
-      .text()
-      .includes(t("search_findings.tab_description.cancel_rejecting_zero_risk")));
-    expect(cancelButton)
-      .toHaveLength(1);
+    expect(cancelButton).toHaveLength(1);
   });
 });

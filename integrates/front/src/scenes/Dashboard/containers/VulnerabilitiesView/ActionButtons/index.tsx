@@ -1,22 +1,15 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * jsx-no-multiline-js: Necessary for using conditional rendering
- */
-
-import _ from "lodash";
-import React from "react";
-
 import { ButtonToolbarRow } from "styles/styledComponents";
-import { msgInfo } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { ConfirmZeroRiskVulnButton } from "./ConfirmZeroRiskVulnButton";
 import { EditButton } from "./EditButton";
 import { HandleAcceptationButton } from "./HandleAcceptationButton";
+import React from "react";
 import { ReattackVulnButton } from "./ReattackVulnButton";
 import { RejectZeroRiskVulnButton } from "./RejectZeroRiskVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
+import { msgInfo } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
-export interface IActionButtonsProps {
+interface IActionButtonsProps {
   areVulnsSelected: boolean;
   canHandleAcceptation: boolean;
   isConfirmingZeroRisk: boolean;
@@ -28,37 +21,111 @@ export interface IActionButtonsProps {
   isVerifying: boolean;
   state: "open" | "closed";
   subscription: string;
-  onConfirmZeroRisk(): void;
-  onEdit(): void;
-  onRejectZeroRisk(): void;
-  onRequestReattack(): void;
-  onVerify(): void;
-  openHandleAcceptation(): void;
-  openModal(): void;
-  openUpdateZeroRiskModal(): void;
+  onConfirmZeroRisk: () => void;
+  onEdit: () => void;
+  onRejectZeroRisk: () => void;
+  onRequestReattack: () => void;
+  onVerify: () => void;
+  openHandleAcceptation: () => void;
+  openModal: () => void;
+  openUpdateZeroRiskModal: () => void;
 }
 
-const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
-
-  const displayMessage: (() => void) = (): void => {
-      msgInfo(
-        translate.t("search_findings.tab_vuln.info.text"),
-        translate.t("search_findings.tab_vuln.info.title"),
-        !props.isRequestingReattack,
-      );
+const ActionButtons: React.FC<IActionButtonsProps> = ({
+  areVulnsSelected,
+  canHandleAcceptation,
+  isConfirmingZeroRisk,
+  isEditing,
+  isReattackRequestedInAllVuln,
+  isRejectingZeroRisk,
+  isRequestingReattack,
+  isVerified,
+  isVerifying,
+  state,
+  subscription,
+  onConfirmZeroRisk,
+  onEdit,
+  onRejectZeroRisk,
+  onRequestReattack,
+  onVerify,
+  openHandleAcceptation,
+  openModal,
+  openUpdateZeroRiskModal,
+}: IActionButtonsProps): JSX.Element => {
+  const displayMessage: () => void = (): void => {
+    msgInfo(
+      translate.t("search_findings.tab_vuln.info.text"),
+      translate.t("search_findings.tab_vuln.info.title"),
+      !isRequestingReattack
+    );
   };
-  React.useEffect(displayMessage, [props.isRequestingReattack]);
+  React.useEffect(displayMessage, [isRequestingReattack]);
 
   return (
     <ButtonToolbarRow>
-      <HandleAcceptationButton {...props} />
-      <VerifyVunButton {...props}/>
-      <ReattackVulnButton {...props}/>
-      <ConfirmZeroRiskVulnButton {...props}/>
-      <RejectZeroRiskVulnButton {...props}/>
-      <EditButton {...props}/>
+      <HandleAcceptationButton
+        canHandleAcceptation={canHandleAcceptation}
+        isConfirmingZeroRisk={isConfirmingZeroRisk}
+        isEditing={isEditing}
+        isRejectingZeroRisk={isRejectingZeroRisk}
+        isRequestingReattack={isRequestingReattack}
+        isVerifying={isVerifying}
+        openHandleAcceptation={openHandleAcceptation}
+      />
+      <VerifyVunButton
+        areVulnsSelected={areVulnsSelected}
+        isConfirmingZeroRisk={isConfirmingZeroRisk}
+        isEditing={isEditing}
+        isRejectingZeroRisk={isRejectingZeroRisk}
+        isRequestingReattack={isRequestingReattack}
+        isVerified={isVerified}
+        isVerifying={isVerifying}
+        onVerify={onVerify}
+        openModal={openModal}
+      />
+      <ReattackVulnButton
+        areVulnsSelected={areVulnsSelected}
+        isConfirmingZeroRisk={isConfirmingZeroRisk}
+        isEditing={isEditing}
+        isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
+        isRejectingZeroRisk={isRejectingZeroRisk}
+        isRequestingReattack={isRequestingReattack}
+        isVerifying={isVerifying}
+        onRequestReattack={onRequestReattack}
+        openModal={openModal}
+        state={state}
+        subscription={subscription}
+      />
+      <ConfirmZeroRiskVulnButton
+        areVulnsSelected={areVulnsSelected}
+        isConfirmingZeroRisk={isConfirmingZeroRisk}
+        isEditing={isEditing}
+        isRejectingZeroRisk={isRejectingZeroRisk}
+        isRequestingReattack={isRequestingReattack}
+        isVerifying={isVerifying}
+        onConfirmZeroRisk={onConfirmZeroRisk}
+        openUpdateZeroRiskModal={openUpdateZeroRiskModal}
+      />
+      <RejectZeroRiskVulnButton
+        areVulnsSelected={areVulnsSelected}
+        isConfirmingZeroRisk={isConfirmingZeroRisk}
+        isEditing={isEditing}
+        isRejectingZeroRisk={isRejectingZeroRisk}
+        isRequestingReattack={isRequestingReattack}
+        isVerifying={isVerifying}
+        onRejectZeroRisk={onRejectZeroRisk}
+        openUpdateZeroRiskModal={openUpdateZeroRiskModal}
+      />
+      <EditButton
+        isConfirmingZeroRisk={isConfirmingZeroRisk}
+        isEditing={isEditing}
+        isRejectingZeroRisk={isRejectingZeroRisk}
+        isRequestingReattack={isRequestingReattack}
+        isVerifying={isVerifying}
+        onEdit={onEdit}
+      />
     </ButtonToolbarRow>
   );
 };
 
-export { actionButtons as ActionButtons };
+export { ActionButtons, IActionButtonsProps };
