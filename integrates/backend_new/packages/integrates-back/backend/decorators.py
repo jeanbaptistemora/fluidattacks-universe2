@@ -10,6 +10,7 @@ from typing import Any, Callable, cast, Dict, TypeVar
 # Third party libraries
 from aioextensions import (
     collect,
+    in_thread,
     schedule,
 )
 from django.http import HttpRequest
@@ -513,7 +514,7 @@ def cache_content(func: TVar) -> TVar:
             if ret:
                 return ret
 
-            ret = _func(*args, **kwargs)
+            ret = await in_thread(_func, args, **kwargs)
             await util.set_redis_element(key_name, cast(str, ret))
 
             return ret
