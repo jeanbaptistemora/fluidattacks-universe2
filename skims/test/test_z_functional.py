@@ -49,7 +49,6 @@ from zone import (
 
 
 # Side effects
-CTX.current_locale = LocalesEnum.EN
 CTX.debug = True
 
 

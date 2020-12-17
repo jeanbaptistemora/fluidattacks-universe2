@@ -53,7 +53,7 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
                 namespace=config_path.pop('namespace'),
             ) if config_path else None,
             timeout=config.pop('timeout', None),
-            working_dir=config.pop('working_dir', None),
+            working_dir=os.path.abspath(config.pop('working_dir', '.')),
         )
     except KeyError as exc:
         raise confuse.ConfigError(f'Key: {exc.args[0]} is required')

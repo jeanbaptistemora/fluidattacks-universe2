@@ -71,8 +71,8 @@ def dispatch(
     token: Optional[str],
 ) -> None:
     """Read the execution flags from the CLI and dispatch them to Skims."""
+    CTX.config = None
     CTX.debug = debug
-    CTX.current_locale = None
 
     start_time: float = time()
     success: bool = run(

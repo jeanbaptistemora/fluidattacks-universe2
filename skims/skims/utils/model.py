@@ -611,7 +611,7 @@ class SkimsConfig(NamedTuple):
     path: Optional[SkimsPathConfig]
     timeout: Optional[float]
     language: LocalesEnum
-    working_dir: Optional[str]
+    working_dir: str
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

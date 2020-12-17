@@ -8,9 +8,6 @@ from os import (
     chdir,
     getcwd,
 )
-from os.path import (
-    abspath,
-)
 from typing import (
     Dict,
     Optional,
@@ -39,41 +36,21 @@ from state.ephemeral import (
 from utils.ctx import (
     CTX,
 )
-from utils.hardware import (
-    get_max_memory_usage,
-)
 from utils.logs import (
-    blocking_log,
     log,
     set_level,
 )
 from utils.model import (
     FindingEnum,
-    SkimsConfig,
 )
 from zone import (
     t,
 )
 
 
-def adjust_working_dir(config: SkimsConfig) -> None:
-    """Move the skims working directory to the one the user wants.
-
-    :param config: Skims configuration object
-    :type config: SkimsConfig
-    """
-    blocking_log('info', 'Startup working dir is: %s', getcwd())
-    if config.working_dir is not None:
-        working_dir: str = abspath(config.working_dir)
-        blocking_log('info', 'Moving working dir to: %s', working_dir)
-        chdir(working_dir)
-
-
-async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:
+async def execute_skims(token: Optional[str]) -> bool:
     """Execute skims according to the provided config.
 
-    :param config: Skims configuration object
-    :type config: SkimsConfig
     :param token: Integrates API token
     :type token: str
     :raises MemoryError: If not enough memory can be allocated by the runtime
@@ -91,28 +68,28 @@ async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:
         collect((
             analyze_paths(
                 paths_to_exclude=(
-                    config.path.exclude if config.path else ()
+                    CTX.config.path.exclude if CTX.config.path else ()
                 ),
                 paths_to_include=(
-                    config.path.include if config.path else ()
+                    CTX.config.path.include if CTX.config.path else ()
                 ),
                 stores=stores,
             ),
         )),
-        config.timeout,
+        CTX.config.timeout,
     )
 
-    if config.output:
-        await notify_findings_as_csv(stores, config.output)
+    if CTX.config.output:
+        await notify_findings_as_csv(stores, CTX.config.output)
     else:
         await notify_findings_as_snippets(stores)
 
-    if config.group and token:
+    if CTX.config.group and token:
         msg = 'Results will be synced to group: %s'
-        await log('info', msg, config.group)
+        await log('info', msg, CTX.config.group)
 
         success = await persist(
-            group=config.group,
+            group=CTX.config.group,
             stores=stores,
             token=token,
         )
@@ -163,7 +140,7 @@ async def notify_findings_as_csv(
         writer.writeheader()
         writer.writerows(sorted(rows, key=str))
 
-    await log('info', 'An output file has been written: %s', abspath(output))
+    await log('info', 'An output file has been written: %s', output)
 
 
 async def main(
@@ -176,12 +153,12 @@ async def main(
 
     try:
         startdir: str = getcwd()
-        config_obj: SkimsConfig = load(group, config)
-        CTX.current_locale = config_obj.language
+        CTX.config = load(group, config)
         await reset_ephemeral_state()
-        adjust_working_dir(config_obj)
-        return await execute_skims(config_obj, token)
+        await log('info', 'Startup working dir is: %s', startdir)
+        await log('info', 'Moving working dir to: %s', CTX.config.working_dir)
+        chdir(CTX.config.working_dir)
+        return await execute_skims(token)
     finally:
         chdir(startdir)
         await reset_ephemeral_state()
-        await log('info', 'Max memory usage: %s GB', get_max_memory_usage())
