@@ -183,20 +183,10 @@ IntegrationEnvironment = NamedTuple(
         ('url', Optional[str])
     ]
 )
-
-GitRootCloningStatus = NamedTuple(
-    'GitRootCloningStatus',
-    [
-        ('status', str),
-        ('message', str),
-    ],
-)
-
 GitRoot = NamedTuple(
     'GitRoot',
     [
         ('branch', str),
-        ('cloning_status', GitRootCloningStatus),
         ('environment', str),
         ('environment_urls', List[str]),
         ('filter', Optional[GitRootFilter]),

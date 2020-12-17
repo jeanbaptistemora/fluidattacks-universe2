@@ -2,13 +2,6 @@ interface IRoot {
   id: ID!
 }
 
-type GitRootCloningStatus {
-  "Cloning status of GitRoot"
-  status: CloningStatus!
-  "Message after repository cloning"
-  message: String!
-}
-
 type GitRootFilter {
   "Repository paths to be excluded"
   exclude: [String!]!
@@ -19,8 +12,6 @@ type GitRootFilter {
 type GitRoot implements IRoot {
   "Repository branch to be tested"
   branch: String!
-  "Cloning status of GitRoot"
-  cloningStatus: GitRootCloningStatus!
   "Kind of environment to test. E.g. production, QA, etc."
   environment: String!
   "URLs to access the environment"

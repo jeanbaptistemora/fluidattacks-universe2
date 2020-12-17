@@ -26,30 +26,16 @@ from backend.exceptions import (
     RepeatedValues,
     RootNotFound
 )
-from backend.typing import (
-    GitRoot,
-    GitRootCloningStatus,
-    IPRoot,
-    URLRoot,
-    Root,
-)
-from backend.utils import (
-    datetime,
-    validations,
-)
+from backend.typing import GitRoot, IPRoot, URLRoot, Root
+from backend.utils import datetime, validations
 
 
 def format_root(root: Dict[str, Any]) -> Root:
     root_state: Dict[str, Any] = root['historic_state'][-1]
-    root_cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
 
     if root['kind'] == 'Git':
         return GitRoot(
             branch=root['branch'],
-            cloning_status=GitRootCloningStatus(
-                status=root_cloning_status['status'],
-                message=root_cloning_status['message'],
-            ),
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
             filter=root_state['filter'],
