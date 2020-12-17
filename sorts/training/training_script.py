@@ -9,7 +9,8 @@ from itertools import combinations
 from typing import (
     Dict,
     List,
-    Tuple
+    Tuple,
+    Union
 )
 
 # Third-party Libraries
@@ -18,14 +19,23 @@ import numpy as np
 import pandas as pd
 from numpy import ndarray
 from pandas import DataFrame
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import (
     cross_validate,
     learning_curve
 )
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.svm import LinearSVC
 
 
 ScoreType = Tuple[float, float, float, None]
+ModelType = Union[
+    MLPClassifier,
+    RandomForestClassifier,
+    LinearSVC,
+    KNeighborsClassifier
+]
 
 
 def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
@@ -36,7 +46,7 @@ def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
 
 
 def get_model_metrics(
-    model: MLPClassifier,
+    model: ModelType,
     features: DataFrame,
     labels: DataFrame
 ) -> Tuple[float, float, float, float]:
@@ -135,8 +145,13 @@ if __name__ == '__main__':
         type=str,
         default=os.environ['SM_CHANNEL_TRAIN']
     )
+
+    # Model to train sent as a hyperparamenter
+    parser.add_argument('--classifier', type=str, default=None)
+
     args = parser.parse_args()
 
+    classifier: str = args.classifier
     features_dict: Dict[str, str] = {
         'num_commits': 'CM',
         'num_unique_authors': 'AU',
@@ -156,39 +171,49 @@ if __name__ == '__main__':
         'F1',
         'Overfit'
     ]
+    result_filename: str = f'{classifier.lower()}_results.csv'
 
-    all_combinations = get_features_combinations(list(features_dict.keys()))
-    training_data: DataFrame = load_training_data(args.train)
-    training_output: List[List[str]] = [result_headers]
-
-    # Train the model
-    for combination in filter(None, all_combinations):
-        start_time: float = time.time()
-        train_x, train_y = split_training_data(training_data, combination)
-        clf = MLPClassifier(random_state=42)
-        precision, recall, f1, overfit = get_model_metrics(
-            clf,
-            train_x,
-            train_y
+    classifier_class = globals().get(classifier)
+    if classifier_class:
+        all_combinations = get_features_combinations(
+            list(features_dict.keys())
         )
+        training_data: DataFrame = load_training_data(args.train)
+        training_output: List[List[str]] = [result_headers]
 
-        print(f'Training time: {time.time() - start_time:.2f}')
-        print(f'Features: {combination}')
-        print(f'Precision: {precision}%')
-        print(f'Recall: {recall}%')
-        print(f'F1-Score: {f1}%')
-        print(f'Overfit: {overfit}%')
-        training_output.append([
-            clf.__class__.__name__,
-            ' '.join(features_dict[x] for x in combination),
-            f'{precision:.1f}',
-            f'{recall:.1f}',
-            f'{f1:.1f}',
-            f'{overfit:.1f}'
-        ])
-    with open('model_results.csv', 'w', newline='') as results_file:
-        csv_writer = csv.writer(results_file)
-        csv_writer.writerows(training_output)
-    boto3.Session().resource('s3').Bucket('sorts')\
-        .Object('training-output/model_results.csv')\
-        .upload_file('model_results.csv')
+        # Train the model
+        for combination in filter(None, all_combinations):
+            start_time: float = time.time()
+            train_x, train_y = split_training_data(training_data, combination)
+
+            default_args: Dict[str, int] = {}
+            if classifier != 'KNeighborsClassifier':
+                default_args = {'random_state': 42}
+            clf = classifier_class(**default_args)
+
+            precision, recall, f1, overfit = get_model_metrics(
+                clf,
+                train_x,
+                train_y
+            )
+
+            print(f'Training time: {time.time() - start_time:.2f}')
+            print(f'Features: {combination}')
+            print(f'Precision: {precision}%')
+            print(f'Recall: {recall}%')
+            print(f'F1-Score: {f1}%')
+            print(f'Overfit: {overfit}%')
+            training_output.append([
+                clf.__class__.__name__,
+                ' '.join(features_dict[x] for x in combination),
+                f'{precision:.1f}',
+                f'{recall:.1f}',
+                f'{f1:.1f}',
+                f'{overfit:.1f}'
+            ])
+        with open(result_filename, 'w', newline='') as results_file:
+            csv_writer = csv.writer(results_file)
+            csv_writer.writerows(training_output)
+        boto3.Session().resource('s3').Bucket('sorts')\
+            .Object(f'training-output/{result_filename}')\
+            .upload_file(result_filename)
