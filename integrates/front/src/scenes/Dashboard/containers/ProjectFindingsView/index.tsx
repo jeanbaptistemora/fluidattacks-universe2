@@ -11,7 +11,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Button as ButtonType, ButtonToolbar, Col, Row } from "react-bootstrap";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
@@ -25,7 +24,6 @@ import { Modal } from "components/Modal/index";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { default as AppstoreBadge } from "resources/appstore_badge.svg";
 import { default as GoogleplayBadge } from "resources/googleplay_badge.svg";
-import { default as style } from "scenes/Dashboard/containers/ProjectFindingsView/index.css";
 import {
   GET_FINDINGS,
   REQUEST_PROJECT_REPORT,
@@ -36,6 +34,7 @@ import {
   IProjectFindingsProps,
 } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
+import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { formatTreatment } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
@@ -305,8 +304,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
           return <React.Fragment />;
         }
 
-        const handleRequestProjectReport: ((event: React.MouseEvent<HTMLElement | ButtonType>) => void) =
-        (event: React.MouseEvent<HTMLElement | ButtonType>): void => {
+        const handleRequestProjectReport: ((event: React.MouseEvent<HTMLElement>) => void) =
+        (event: React.MouseEvent<HTMLElement>): void => {
           const target: HTMLElement = event.currentTarget as HTMLElement;
           const span: HTMLSpanElement | null = target.querySelector("span");
           if (span !== null) {
@@ -328,8 +327,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
           <React.StrictMode>
             <Can I="backend_api_resolvers_new_query_report__get_url_group_report">
               <Row>
-                <Col md={2} mdOffset={5}>
-                  <ButtonToolbar className={style.reportsBtn}>
+                <Col100>
+                  <ButtonToolbarCenter>
                     <TooltipWrapper
                       message={translate.t("group.findings.report.btn.tooltip")}
                     >
@@ -337,8 +336,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                         {translate.t("group.findings.report.btn.text")}
                       </Button>
                     </TooltipWrapper>
-                  </ButtonToolbar>
-                </Col>
+                  </ButtonToolbarCenter>
+                </Col100>
               </Row>
             </Can>
             <p>{translate.t("group.findings.help_label")}</p>
@@ -363,8 +362,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                 open={isReportsModalOpen}
                 headerTitle={translate.t("group.findings.report.modal_title")}
               >
-                <Row className={style.modalContainer}>
-                  <Col md={12} id="techReport">
+                <Row className={"tc"}>
+                  <Col100>
                     <Trans>
                       <p>{translate.t("group.findings.report.tech_description")}</p>
                     </Trans>
@@ -386,8 +385,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     </p>
                     <br />
                     <Row>
-                      <Col md={12} className={style.downloadButtonsContainer}>
-                        <ButtonToolbar>
+                      <Col100>
+                        <ButtonToolbarCenter>
                           <Button onClick={handleRequestProjectReport} id={"report-pdf"}>
                             <FontAwesome name="file-pdf-o" />
                               {translate.t("group.findings.report.pdf")}
@@ -400,12 +399,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                             <FontAwesome name="file-zip-o" />
                             {translate.t("group.findings.report.data")}
                           </Button>
-                        </ButtonToolbar>
-                      </Col>
+                        </ButtonToolbarCenter>
+                      </Col100>
                     </Row>
-                  </Col>
+                  </Col100>
                 </Row>
-                <ButtonToolbar className="pull-right">
+                <ButtonToolbar>
                   <Button onClick={closeReportsModal}>
                     {translate.t("group.findings.report.modal_close")}
                   </Button>
