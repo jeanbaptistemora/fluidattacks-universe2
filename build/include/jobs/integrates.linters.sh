@@ -4,13 +4,12 @@ function job_integrates_lint_back {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
+      backend_new/migrations/ \
+      backend_new \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         backend_new/packages/integrates-back \
-  &&  mypy --strict --ignore-missing-imports backend_new/migrations/ \
-  &&  mypy --strict --ignore-missing-imports backend_new \
   &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s veryhigh -u django -i node_modules backend_new \
-  &&  prospector -F -s veryhigh -u django -i node_modules backend_new/packages/integrates-back \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
