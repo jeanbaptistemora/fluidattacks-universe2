@@ -384,26 +384,27 @@ function job_serves_rotate_keys_user_provision_asserts {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
@@ -436,32 +437,33 @@ function job_serves_rotate_keys_user_provision_services {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-        "${gitlab_repo_id_2}" \
-        "${dev_gitlab_key_id_name_2}" \
-        "${dev_gitlab_secret_key_name_2}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
-        "${gitlab_repo_id_2}" \
-        "${prod_gitlab_key_id_name_2}" \
-        "${prod_gitlab_secret_key_name_2}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+          "${gitlab_repo_id_2}" \
+          "${dev_gitlab_key_id_name_2}" \
+          "${dev_gitlab_secret_key_name_2}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
+          "${gitlab_repo_id_2}" \
+          "${prod_gitlab_key_id_name_2}" \
+          "${prod_gitlab_secret_key_name_2}" \
   &&  popd \
   ||  return 1
 }
@@ -489,6 +491,7 @@ function job_serves_rotate_keys_user_provision_integrates {
   local prod_gitlab_protected='true'
 
       pushd serves \
+    &&  helper_serves_aws_login production \
     &&  helper_serves_user_provision_rotate_keys \
           "${terraform_dir}" \
           "${dev_resource_to_taint}" \
@@ -540,26 +543,27 @@ function job_serves_rotate_keys_user_provision_skims {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
@@ -587,26 +591,27 @@ function job_serves_rotate_keys_user_provision_sorts {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
@@ -634,26 +639,28 @@ function job_serves_rotate_keys_user_provision_airs {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_cloudflare_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
@@ -670,16 +677,17 @@ function job_serves_rotate_keys_user_provision_serves {
   local gitlab_protected='false'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${resource_to_taint}" \
-        "${output_key_id_name}" \
-        "${output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${gitlab_key_id_name}" \
-        "${gitlab_secret_key_name}" \
-        "${gitlab_masked}" \
-        "${gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${resource_to_taint}" \
+          "${output_key_id_name}" \
+          "${output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${gitlab_key_id_name}" \
+          "${gitlab_secret_key_name}" \
+          "${gitlab_masked}" \
+          "${gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
@@ -707,26 +715,27 @@ function job_serves_rotate_keys_user_provision_melts {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }
@@ -754,26 +763,27 @@ function job_serves_rotate_keys_user_provision_observes {
   local prod_gitlab_protected='true'
 
       pushd serves \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${dev_resource_to_taint}" \
-        "${dev_output_key_id_name}" \
-        "${dev_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${dev_gitlab_key_id_name}" \
-        "${dev_gitlab_secret_key_name}" \
-        "${dev_gitlab_masked}" \
-        "${dev_gitlab_protected}" \
-  &&  helper_serves_user_provision_rotate_keys \
-        "${terraform_dir}" \
-        "${prod_resource_to_taint}" \
-        "${prod_output_key_id_name}" \
-        "${prod_output_secret_key_name}" \
-        "${gitlab_repo_id}" \
-        "${prod_gitlab_key_id_name}" \
-        "${prod_gitlab_secret_key_name}" \
-        "${prod_gitlab_masked}" \
-        "${prod_gitlab_protected}" \
+    &&  helper_serves_aws_login production \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${dev_resource_to_taint}" \
+          "${dev_output_key_id_name}" \
+          "${dev_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${dev_gitlab_key_id_name}" \
+          "${dev_gitlab_secret_key_name}" \
+          "${dev_gitlab_masked}" \
+          "${dev_gitlab_protected}" \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${prod_resource_to_taint}" \
+          "${prod_output_key_id_name}" \
+          "${prod_output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${prod_gitlab_key_id_name}" \
+          "${prod_gitlab_secret_key_name}" \
+          "${prod_gitlab_masked}" \
+          "${prod_gitlab_protected}" \
   &&  popd \
   ||  return 1
 }

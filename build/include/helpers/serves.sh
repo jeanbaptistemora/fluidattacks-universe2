@@ -157,7 +157,6 @@ function helper_serves_user_provision_rotate_keys {
 
       resource_to_taint_number="$( \
         helper_serves_get_resource_to_taint_number)" \
-  &&  helper_serves_aws_login production \
   &&  helper_serves_terraform_taint \
         "${terraform_dir}" \
         "${resource_to_taint}-${resource_to_taint_number}" \
