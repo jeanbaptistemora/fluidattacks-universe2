@@ -10,6 +10,8 @@ in
           buildInputs = [
             pkgs.git
             pkgs.awscli
+            pkgs.sops
+            pkgs.jq
             pkgs.terraform_0_13
             pkgs.tflint
           ];
