@@ -848,6 +848,44 @@ async def test_update_git_environments() -> None:
 
 
 @pytest.mark.changes_db  # type: ignore
+async def test_update_root_cloning_status() -> None:
+    query = '''
+    mutation {
+      updateRootCloningStatus(
+        id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+        status: OK
+        message: "root update test"
+      ) {
+        success
+      }
+    }
+  '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' not in result
+    assert result['data']['updateRootCloningStatus']['success']
+
+
+@pytest.mark.changes_db  # type: ignore
+async def test_update_root_cloning_status_nonexistent() -> None:
+    query = '''
+    mutation {
+      updateRootCloningStatus(
+        id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e199"
+        status: OK
+        message: "root update test"
+      ) {
+        success
+      }
+    }
+  '''
+    result = await _get_result_async({'query': query})
+
+    assert 'errors' in result
+    assert 'root not found' in result['errors'][0]['message']
+
+
+@pytest.mark.changes_db  # type: ignore
 async def test_update_root_state() -> None:
     query = '''
       mutation {
