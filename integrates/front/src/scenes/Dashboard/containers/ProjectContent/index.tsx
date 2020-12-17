@@ -1,6 +1,5 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
@@ -12,7 +11,7 @@ import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindings
 import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
 import { default as globalStyle } from "styles/global.css";
-import { StickyContainer, TabsContainer } from "styles/styledComponents";
+import { Col100, Row, StickyContainer, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 import { translate } from "utils/translations/translate";
@@ -25,7 +24,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
     <React.Fragment>
       <React.Fragment>
         <Row>
-          <Col md={12} sm={12}>
+          <Col100>
             <React.Fragment>
               <StickyContainer>
                 <TabsContainer>
@@ -121,7 +120,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                 </Switch>
               </div>
             </React.Fragment>
-          </Col>
+          </Col100>
         </Row>
       </React.Fragment>
     </React.Fragment>
