@@ -16,8 +16,7 @@ import sys
 
 from typing import (
     Dict,
-    List,
-    Union
+    List
 )
 from boto3.session import Session
 from botocore.exceptions import ClientError
@@ -27,8 +26,7 @@ from __init__ import (
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_DEBUG,
     FI_DJANGO_SECRET_KEY,
-    FI_ENVIRONMENT,
-    FI_REDIS_SERVER,
+    FI_ENVIRONMENT
 )
 
 
@@ -142,31 +140,3 @@ except ClientError as exc:
     if exc.response['Error']['Code'] == 'NoSuchCORSConfiguration':
         S3_CLIENT.put_bucket_cors(Bucket=AWS_STORAGE_BUCKET_NAME,
                                   CORSConfiguration=CORS_CONFIGURATION)
-
-CACHE_OPTIONS: Dict[str, Union[str, int, Dict[str, bool]]] = {}
-
-if FI_ENVIRONMENT == 'development':
-    CACHE_OPTIONS = {
-        "CLIENT_CLASS": "django_redis.client.DefaultClient"
-    }
-else:
-    CACHE_OPTIONS = {
-        'SOCKET_CONNECT_TIMEOUT': 5,
-        'SOCKET_TIMEOUT': 5,
-        'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
-        'REDIS_CLIENT_CLASS': 'rediscluster.RedisCluster',
-        'CONNECTION_POOL_CLASS':
-            'rediscluster.connection.ClusterConnectionPool',
-        'CONNECTION_POOL_KWARGS': {
-            'skip_full_coverage_check': True
-        }
-    }
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://{}:6379'.format(FI_REDIS_SERVER),
-        'OPTIONS': CACHE_OPTIONS,
-        'KEY_PREFIX': 'integrates'
-    }
-}
