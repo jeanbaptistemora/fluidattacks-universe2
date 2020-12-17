@@ -267,7 +267,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
           _.includes(
             String(updateError),
             translate.t(
-              "group_alerts.organization_policies.maxium_number_of_acceptations"
+              "search_findings.tab_vuln.alerts.maximum_number_of_acceptations"
             )
           )
         ) {

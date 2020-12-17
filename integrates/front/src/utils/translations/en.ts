@@ -601,9 +601,6 @@ export const enTranslations: ResourceKey = {
       exceeds_acceptance_date:
         "Chosen date is either in the past or exceeds the maximum number of days allowed " +
         "by the organization",
-      maxium_number_of_acceptations:
-        "Finding has been accepted the maximum number of times allowed " +
-        "by the organization",
       severity_out_of_range:
         "Finding severity outside of the acceptance range set by the organization",
     },
@@ -1855,7 +1852,7 @@ export const enTranslations: ResourceKey = {
       closed: "Closed",
       exceptions: {
         severity_out_of_range:
-          "cannot be accepted, severity outside of the acceptance range set by the organization",
+          "Vulnerability cannot be accepted, severity outside of range set by the organization",
       },
       info: {
         text: "Please select vulnerabilities to reattack",

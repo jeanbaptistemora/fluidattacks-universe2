@@ -62,8 +62,8 @@ class InvalidAcceptanceSeverity(Exception):
     def __init__(self, expr: str = '') -> None:
         if expr:
             msg = (
-                'Exception - Finding cannot be accepted, severity outside of '
-                'range set by the organization'
+                'Exception - Vulnerability cannot be accepted, severity '
+                'outside of range set by the organization'
             )
         else:
             msg = (
@@ -86,8 +86,8 @@ class InvalidNumberAcceptations(Exception):
     def __init__(self, expr: str = '') -> None:
         if expr:
             msg = (
-                'Exception - Finding has been accepted the maximum number of '
-                'times allowed by the organization'
+                'Exception - Vulnerability has been accepted the maximum '
+                'number of times allowed by the organization'
             )
         else:
             msg = (
