@@ -13,7 +13,14 @@ import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 import { Field } from "redux-form";
 
 import { Button } from "components/Button";
@@ -30,7 +37,7 @@ import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER,
   REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
-import { IFindingContentProps, IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
+import { IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
@@ -56,8 +63,9 @@ import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 import { ButtonCol } from "./components/buttoncol";
 
-const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
-  const { findingId, projectName } = props.match.params;
+const findingContent: React.FC = (): JSX.Element => {
+  const { findingId, projectName } = useParams<{ findingId: string; projectName: string}>();
+  const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const { replace } = useHistory();
@@ -249,28 +257,28 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <ContentTab
                     icon="icon pe-7s-menu"
                     id="vulnItem"
-                    link={`${props.match.url}/vulns`}
+                    link={`${url}/vulns`}
                     title={translate.t("search_findings.tab_vuln.tab_title")}
                     tooltip={translate.t("search_findings.tab_vuln.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-note"
                     id="infoItem"
-                    link={`${props.match.url}/description`}
+                    link={`${url}/description`}
                     title={translate.t("search_findings.tab_description.tab_title")}
                     tooltip={translate.t("search_findings.tab_description.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-calculator"
                     id="cssv2Item"
-                    link={`${props.match.url}/severity`}
+                    link={`${url}/severity`}
                     title={translate.t("search_findings.tab_severity.tab_title")}
                     tooltip={translate.t("search_findings.tab_severity.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-photo"
                     id="evidenceItem"
-                    link={`${props.match.url}/evidence`}
+                    link={`${url}/evidence`}
                     title={translate.t("search_findings.tab_evidence.tab_title")}
                     tooltip={translate.t("search_findings.tab_evidence.tooltip")}
                   />
@@ -279,7 +287,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       ? <ContentTab
                           icon="icon pe-7s-file"
                           id="exploitItem"
-                          link={`${props.match.url}/exploit`}
+                          link={`${url}/exploit`}
                           title={translate.t("search_findings.tab_exploit.tab_title")}
                           tooltip={translate.t("search_findings.tab_exploit.tooltip")}
                       />
@@ -288,21 +296,21 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <ContentTab
                     icon="icon pe-7s-graph1"
                     id="trackingItem"
-                    link={`${props.match.url}/tracking`}
+                    link={`${url}/tracking`}
                     title={translate.t("search_findings.tab_tracking.tab_title")}
                     tooltip={translate.t("search_findings.tab_tracking.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-notebook"
                     id="recordsItem"
-                    link={`${props.match.url}/records`}
+                    link={`${url}/records`}
                     title={translate.t("search_findings.tab_records.tab_title")}
                     tooltip={translate.t("search_findings.tab_records.tooltip")}
                   />
                   <ContentTab
                     icon="icon pe-7s-comment"
                     id="commentItem"
-                    link={`${props.match.url}/consulting`}
+                    link={`${url}/consulting`}
                     title={translate.t("search_findings.tab_comments.tab_title")}
                     tooltip={translate.t("search_findings.tab_comments.tooltip")}
                   />
@@ -310,7 +318,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     <ContentTab
                       icon="icon pe-7s-note"
                       id="observationsItem"
-                      link={`${props.match.url}/observations`}
+                      link={`${url}/observations`}
                       title={translate.t("search_findings.tab_observations.tab_title")}
                       tooltip={translate.t("search_findings.tab_observations.tooltip")}
                     />
@@ -319,19 +327,19 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               </StickyContainerFinding>
               <TabContent>
                 <Switch>
-                  <Route path={`${props.match.path}/vulns`} component={VulnsView} exact={true} />
-                  <Route path={`${props.match.path}/description`} component={DescriptionView} exact={true} />
-                  <Route path={`${props.match.path}/severity`} component={SeverityView} exact={true} />
-                  <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />
-                  <Route path={`${props.match.path}/exploit`} component={ExploitView} exact={true} />
-                  <Route path={`${props.match.path}/tracking`} component={TrackingView} exact={true} />
-                  <Route path={`${props.match.path}/records`} component={RecordsView} exact={true} />
+                  <Route path={`${path}/vulns`} component={VulnsView} exact={true} />
+                  <Route path={`${path}/description`} component={DescriptionView} exact={true} />
+                  <Route path={`${path}/severity`} component={SeverityView} exact={true} />
+                  <Route path={`${path}/evidence`} component={EvidenceView} exact={true} />
+                  <Route path={`${path}/exploit`} component={ExploitView} exact={true} />
+                  <Route path={`${path}/tracking`} component={TrackingView} exact={true} />
+                  <Route path={`${path}/records`} component={RecordsView} exact={true} />
                   <Route
-                    path={`${props.match.path}/:type(consulting|observations)`}
+                    path={`${path}/:type(consulting|observations)`}
                     component={CommentsView}
                     exact={true}
                   />
-                  <Redirect to={`${props.match.path}/vulns`} />
+                  <Redirect to={`${path}/vulns`} />
                 </Switch>
               </TabContent>
             </React.Fragment>

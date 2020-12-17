@@ -6,7 +6,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -14,7 +14,6 @@ import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
-import { IFindingContentProps } from "scenes/Dashboard/containers/FindingContent/types";
 import store from "store";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -36,30 +35,6 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("FindingContent", () => {
-
-  const mockProps: IFindingContentProps = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { findingId: "438679960", projectName: "test" },
-      path: "/",
-      url: "",
-    },
-  };
-
   const findingMock: Readonly<MockedResponse> = (
     {
       request: {
@@ -177,9 +152,11 @@ describe("FindingContent", () => {
 
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={[findingMock]} addTypename={false}>
-        <FindingContent {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
+        <MockedProvider mocks={[findingMock]} addTypename={false}>
+          <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -194,12 +171,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+              <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -219,12 +196,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -242,11 +219,11 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -266,12 +243,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -293,12 +270,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -324,12 +301,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -385,12 +362,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitMutationMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -444,12 +421,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitErrorMock, draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -493,12 +470,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -566,12 +543,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -625,12 +602,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -697,12 +674,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -757,12 +734,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -785,7 +762,7 @@ describe("FindingContent", () => {
     expect(msgSuccess)
       .toHaveBeenCalled();
     expect(mockHistoryReplace)
-      .toHaveBeenCalledWith("/groups/test/vulns");
+      .toHaveBeenCalledWith("/groups/TEST/vulns");
   });
 
   it("should handle deletion errors", async () => {
@@ -812,12 +789,12 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <authzGroupContext.Provider value={mockedGroupPermissions}>
-                <FindingContent {...mockProps} />
+                <Route path={"/:projectName/vulns/:findingId/description"} component={FindingContent} />
               </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>

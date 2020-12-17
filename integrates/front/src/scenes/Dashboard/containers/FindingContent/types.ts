@@ -1,7 +1,3 @@
-import { RouteComponentProps } from "react-router";
-
-export type IFindingContentProps = RouteComponentProps<{ findingId: string; projectName: string }>;
-
 export interface IHeaderQueryResult {
   finding: {
     analyst?: string;
