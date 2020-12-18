@@ -22,9 +22,4 @@ in
         pkgs.unixODBC
       ];
     };
-
-    pyPkgUtilities = builders.pythonPackageLocal {
-      path = ../melts/extra-packages/utilities;
-      python = pkgs.python37;
-    };
   }
