@@ -5,7 +5,7 @@ from target_redshift_2.objects import (
     RedshiftField,
     RedshiftSchema,
 )
-from target_redshift_2.singer import SingerRecord
+from singer_io.singer import SingerRecord
 
 
 def test_draft_from_rschema_builder():

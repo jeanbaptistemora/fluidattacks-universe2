@@ -7,8 +7,8 @@ from target_redshift_2.objects import (
     RedshiftRecord,
     RedshiftSchema,
 )
-from target_redshift_2.singer import (
-    SingerObject,
+from singer_io.singer import (
+    SingerMessage,
     SingerRecord,
     SingerSchema,
 )
@@ -29,7 +29,7 @@ def test_process_lines_builder():
     test_record = SingerRecord(stream='stream_1',record={"id": "123"})
     test_record_2 = SingerRecord(stream='stream_2',record={"id": "123"})
 
-    def mock_deserialize(text: str) -> SingerObject:
+    def mock_deserialize(text: str) -> SingerMessage:
         if text == 'json_test_schema':
             return test_schema
         if text == 'json_test_record':

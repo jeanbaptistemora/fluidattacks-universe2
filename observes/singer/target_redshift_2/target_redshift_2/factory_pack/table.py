@@ -11,11 +11,12 @@ from postgres_client.table import (
     TableDraft,
     TableID,
 )
+from singer_io.singer import SingerRecord
 from target_redshift_2.objects import (
     RedshiftSchema,
     RedshiftField,
 )
-from target_redshift_2.singer import SingerRecord
+
 from target_redshift_2.utils import Transform
 
 

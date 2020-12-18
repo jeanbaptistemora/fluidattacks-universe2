@@ -17,7 +17,7 @@ from target_redshift_2.objects import (
     RedshiftRecord,
     RedshiftSchema,
 )
-from target_redshift_2.singer import (
+from singer_io.singer import (
     SingerRecord,
     SingerSchema,
 )

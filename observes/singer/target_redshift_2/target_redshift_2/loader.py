@@ -15,14 +15,14 @@ from postgres_client.table import (
     Table,
     TableID,
 )
+from singer_io.singer import (
+    SingerMessage,
+    SingerRecord,
+    SingerSchema,
+)
 from target_redshift_2.objects import (
     RedshiftRecord,
     RedshiftSchema,
-)
-from target_redshift_2.singer import (
-    SingerObject,
-    SingerRecord,
-    SingerSchema,
 )
 from target_redshift_2.utils import Transform
 
@@ -35,14 +35,14 @@ TidTableMap = Dict[TableID, Table]
 
 
 def process_lines_builder(
-    deserialize: Transform[str, SingerObject]
+    deserialize: Transform[str, SingerMessage]
 ) -> Transform[List[str], ClassifiedSinger]:
-    """Returns clasifier function of `SingerObject`"""
+    """Returns clasifier function of `SingerMessage`"""
     def process(lines: List[str]) -> ClassifiedSinger:
         """Separate `SingerSchema` and `SingerRecord` from lines"""
         s_schemas: List[SingerSchema] = []
         s_records: List[SingerRecord] = []
-        singer_msg: SingerObject
+        singer_msg: SingerMessage
         for line in lines:
             singer_msg = deserialize(line)
             if isinstance(singer_msg, SingerSchema):
