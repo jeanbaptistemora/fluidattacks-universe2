@@ -314,6 +314,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:customeradmin',
             'grant_group_level_role:executive',
             'valid_treatment_manager',
+            'update_git_root_filter',
         },
         tags=set(),
     ),
