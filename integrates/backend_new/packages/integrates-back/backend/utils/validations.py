@@ -3,8 +3,6 @@ from ipaddress import ip_address
 from typing import List
 from urllib.parse import urlparse, ParseResult
 
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from git import Git, GitCommandError
 
 from backend import authz
@@ -57,9 +55,12 @@ def validate_email_address(email: str) -> bool:
     if '+' in email:
         raise InvalidField('email address')
     try:
-        validate_email(email)
+        check_field(
+            email,
+            r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
+        )
         return True
-    except ValidationError:
+    except InvalidChar:
         raise InvalidField('email address')
 
 
