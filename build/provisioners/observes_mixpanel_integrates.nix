@@ -13,17 +13,16 @@ in
         pkgs.awscli
         pkgs.sops
         pkgs.jq
-      ];
-      pyPkgRequests = builders.pythonPackage {
-        requirement = "requests==2.22.0";
-      };      
+        TapMixpanel
+        TapJson
+      ];    
 
-      pyPkgTapMixpanel = builders.pythonPackageLocal {
-        path = ../../observes/singer/tap_mixpanel;
+      TapMixpanel = pkgs.poetry2nix.mkPoetryApplication {
+        projectDir = ../../observes/singer/tap_mixpanel;
       };
 
-      pyPkgTapjson = builders.pythonPackageLocal {
-        path = ../../observes/singer/tap_json;
+      TapJson = pkgs.poetry2nix.mkPoetryApplication {
+        projectDir = ../../observes/singer/tap_json;
       };
       
       pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../observes/singer/target_redshift; };
