@@ -1,19 +1,26 @@
 # disable MyPy due to error "boto module has no attribute client"
 #  type: ignore
 
+# Standard libraries
+import io
 import contextlib
 import logging
 import os
+
+# Third party libraries
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
+
+from aioextensions import in_thread
 
 import aioboto3
 from botocore.exceptions import ClientError
-from django.core.files.base import ContentFile
+
 from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.utils import apm
 from backend_new.settings import LOGGING
+
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY,
     FI_ENVIRONMENT, FI_MINIO_LOCAL_ENABLED
@@ -101,7 +108,6 @@ async def upload_memory_file(
     file_name: str
 ) -> None:
     valid_in_memory_files = (
-        ContentFile,
         TemporaryFileWrapper,
         UploadFile
     )
@@ -109,8 +115,9 @@ async def upload_memory_file(
     success = False
 
     if isinstance(file_object, valid_in_memory_files):
+        bytes_object = io.BytesIO(await in_thread(file_object.file.read))
         success = await _send_to_s3(
-            bucket, file_object.file, file_name.lstrip('/')
+            bucket, bytes_object, file_name.lstrip('/')
         )
     else:
         LOGGER.error(

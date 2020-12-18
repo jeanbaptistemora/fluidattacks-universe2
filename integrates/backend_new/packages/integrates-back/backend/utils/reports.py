@@ -6,7 +6,8 @@ from uuid import uuid4 as uuid
 
 # Third party libraries
 from aioextensions import in_thread
-from django.core.files.base import ContentFile
+
+from starlette.datastructures import UploadFile
 
 # Local libraries
 from backend.dal.helpers import (
@@ -40,9 +41,11 @@ async def sign(path: str, ttl: float) -> str:
 
 async def upload_report(file_name: str) -> str:
     with open(file_name, 'rb') as file:
-        return await upload_report_from_file_descriptor(
-            ContentFile(file.read(), name=file_name),
-        )
+        uploaded_file = UploadFile(filename=file_name)
+        await uploaded_file.write(file.read())
+        await uploaded_file.seek(0)
+        success = await upload_report_from_file_descriptor(uploaded_file)
+        return success
 
 
 async def expose_bytes_as_url(
@@ -56,9 +59,11 @@ async def expose_bytes_as_url(
     if ext:
         file_name += '.' + ext
 
+    uploaded_file = UploadFile(filename=file_name)
+    await uploaded_file.write(content)
     if not await s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_REPORTS_BUCKET,
-        ContentFile(content, name=file_name),
+        uploaded_file,
         file_name,
     ):
         raise ErrorUploadingFileS3()
@@ -67,7 +72,7 @@ async def expose_bytes_as_url(
 
 
 async def upload_report_from_file_descriptor(report) -> str:
-    file_path = report.name
+    file_path = report.filename
     file_name = file_path.split('_')[-1]
 
     if not await s3.upload_memory_file(  # type: ignore

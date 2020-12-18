@@ -14,7 +14,6 @@ from aioextensions import (
     schedule,
 )
 from backports import csv
-from django.core.files.base import ContentFile
 from magic import Magic
 from starlette.datastructures import UploadFile
 
@@ -108,7 +107,7 @@ async def _download_evidence_file(
 
 async def append_records_to_file(
         records: List[Dict[str, str]],
-        new_file: UploadFile) -> ContentFile:
+        new_file: UploadFile) -> UploadFile:
     header = records[0].keys()
     values = [
         list(v)
@@ -141,9 +140,10 @@ async def append_records_to_file(
     buff = io.BytesIO(
         records_str.encode('utf-8').decode('unicode_escape').encode('utf-8')
     )
-    content_file: ContentFile = ContentFile(buff.read())
-    content_file.close()
-    return content_file
+    uploaded_file = UploadFile(filename=new_file.name)
+    await uploaded_file.write(buff.read())
+    await uploaded_file.seek(0)
+    return uploaded_file
 
 
 def cast_tracking(
