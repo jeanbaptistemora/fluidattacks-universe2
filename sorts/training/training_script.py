@@ -20,6 +20,7 @@ import boto3
 import numpy as np
 import pandas as pd
 from botocore.exceptions import ClientError
+from joblib import dump
 from numpy import ndarray
 from pandas import DataFrame
 from sklearn.ensemble import RandomForestClassifier
@@ -69,6 +70,13 @@ def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
     for idx in range(len(features) + 1):
         feature_combinations += list(combinations(features, idx))
     return list(filter(None, feature_combinations))
+
+
+def get_model_instance(model_class: ModelType) -> ModelType:
+    default_args: Dict[str, int] = {}
+    if model_class != KNeighborsClassifier:
+        default_args = {'random_state': 42}
+    return model_class(**default_args)
 
 
 def get_model_metrics(
@@ -170,6 +178,46 @@ def load_training_data(training_dir: str) -> DataFrame:
     return pd.concat(raw_data)
 
 
+def save_best_model_to_s3(
+    model_class: ModelType,
+    training_dir: str,
+    training_results: List[List[str]]
+) -> None:
+    inv_features_dict: Dict[str, str] = {
+        v: k for k, v in FEATURES_DICTS.items()
+    }
+
+    # Sort results in descending order by F1 and Overfit
+    sorted_results: List[List[str]] = sorted(
+        training_results[1:],
+        key=lambda x: (float(x[-2]), float(x[-1])),
+        reverse=True
+    )
+    best_features: Tuple[str, ...] = tuple()
+    for result in sorted_results:
+        if float(result[-1]) < 5:
+            best_features = tuple([
+                inv_features_dict[feature]
+                for feature in result[1].split(' ')
+            ])
+            break
+    if best_features:
+        training_data: DataFrame = load_training_data(training_dir)
+        train_x, train_y = split_training_data(training_data, best_features)
+        model = get_model_instance(model_class)
+        model.fit(train_x, train_y)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            model_name: str = '-'.join(
+                [type(model).__name__.lower()] +
+                [FEATURES_DICTS[feature].lower() for feature in best_features]
+            )
+            local_file: str = os.path.join(tmp_dir, f'{model_name}.joblib')
+            remote_file: str = f'training-output/{model_name}.joblib'
+            dump(model, local_file)
+            S3_BUCKET.Object(remote_file).upload_file(local_file)
+
+
 def split_training_data(
     training_df: DataFrame,
     feature_list: Tuple[str, ...]
@@ -214,11 +262,7 @@ def train_model(
         start_time: float = time.time()
         train_x, train_y = split_training_data(training_data, combination)
 
-        default_args: Dict[str, int] = {}
-        if model_class != KNeighborsClassifier:
-            default_args = {'random_state': 42}
-        model = model_class(**default_args)
-
+        model = get_model_instance(model_class)
         metrics = get_model_metrics(
             model,
             train_x,
@@ -280,6 +324,7 @@ def main() -> None:
         S3_BUCKET\
             .Object(f'training-output/{results_filename}')\
             .upload_file(results_filename)
+        save_best_model_to_s3(model_class, args.train, training_output)
 
 
 if __name__ == '__main__':

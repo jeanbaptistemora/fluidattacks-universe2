@@ -28,7 +28,8 @@ def deploy_training_job(model: str, delay: int) -> None:
             {'Name': 'recall', 'Regex': 'Recall: (.*?)%'},
             {'Name': 'fscore', 'Regex': 'F1-Score: (.*?)%'},
             {'Name': 'overfit', 'Regex': 'Overfit: (.*?)%'}
-        ]
+        ],
+        debugger_hook_config=False
     )
     sklearn_estimator.fit({
         'train': 's3://sorts/training/binary_encoded_training_data.csv'
