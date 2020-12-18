@@ -8,7 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React, { ReactElement } from "react";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router";
 
 // Local imports
 import { GraphQLError } from "graphql";
@@ -23,9 +23,7 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
-
-const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: ForcesViewProps): JSX.Element => {
+const projectAuthorsView: React.FC = (): JSX.Element => {
 
   const now: Date = new Date();
   const thisYear: number = now.getFullYear();
@@ -89,7 +87,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
     },
   ];
 
-  const { projectName } = props.match.params;
+  const { projectName } = useParams<{ projectName: string }>();
 
   const { data } = useQuery(GET_BILL, {
     onError: ({ graphQLErrors }: ApolloError): void => {

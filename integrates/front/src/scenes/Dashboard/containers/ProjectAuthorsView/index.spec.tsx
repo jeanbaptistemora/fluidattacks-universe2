@@ -7,7 +7,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
@@ -24,29 +24,6 @@ describe("AuthorsView", () => {
   afterEach(() => {
     MockDate.reset();
   });
-
-  const mockProps: RouteComponentProps<{ projectName: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "unittesting" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [
     {
@@ -96,11 +73,13 @@ describe("AuthorsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectAuthorsView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <Route path={"/:projectName"} component={ProjectAuthorsView} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("Query")
@@ -110,11 +89,13 @@ describe("AuthorsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectAuthorsView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route path={"/:projectName"} component={ProjectAuthorsView} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -122,11 +103,13 @@ describe("AuthorsView", () => {
 
   it("should render table", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectAuthorsView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route path={"/:projectName"} component={ProjectAuthorsView} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
 
