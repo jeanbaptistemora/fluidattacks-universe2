@@ -2,8 +2,6 @@
 from datetime import datetime, timedelta
 import pytz
 
-from django.utils.timezone import make_aware
-
 from backend_new import settings
 
 DEFAULT_STR = '2000-01-01 00:00:00'
@@ -17,7 +15,7 @@ def get_from_str(
     timezone: str = settings.TIME_ZONE,
 ) -> datetime:
     unaware_datetime = datetime.strptime(date_str, date_format)
-    return make_aware(unaware_datetime, pytz.timezone(timezone), is_dst=False)
+    return pytz.timezone(timezone).localize(unaware_datetime, is_dst=False)
 
 
 def get_as_str(
