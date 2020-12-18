@@ -3,7 +3,6 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { useParams, useRouteMatch } from "react-router";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
@@ -11,7 +10,7 @@ import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPor
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
 import { default as globalStyle } from "styles/global.css";
-import { StickyContainer, TabsContainer } from "styles/styledComponents";
+import { Col100, Row, StickyContainer, TabsContainer } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -40,7 +39,7 @@ const tagContent: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <Row>
-          <Col md={12} sm={12}>
+          <Col100>
             <StickyContainer>
               <TabsContainer>
                   <ContentTab
@@ -68,7 +67,7 @@ const tagContent: React.FC = (): JSX.Element => {
                   <Redirect to={`${path}/analytics`} />
                 </Switch>
               </div>
-          </Col>
+          </Col100>
         </Row>
       </React.Fragment>
     </React.StrictMode>
