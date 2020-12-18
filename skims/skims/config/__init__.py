@@ -26,11 +26,11 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
     config = template.get(
         confuse.Template({
             'language': confuse.Choice(LocalesEnum),
+            'namespace': confuse.String(),
             'output': confuse.String(),
             'path': confuse.Template({
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
-                'namespace': confuse.String(),
             }),
             'timeout': confuse.Number(),
             'working_dir': confuse.String(),
