@@ -13,8 +13,8 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { SeverityField } from "./SeverityField";
 import { TagField } from "./TagField";
-import { Text } from "utils/forms/fields";
 import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
 import _ from "lodash";
@@ -35,7 +35,6 @@ import {
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import type { ExecutionResult, GraphQLError } from "graphql";
-import { Field, formValueSelector, isPristine, submit } from "redux-form";
 import {
   GET_PROJECT_USERS,
   GET_VULNERABILITIES,
@@ -54,13 +53,13 @@ import type {
   IVulnDataType,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { formValueSelector, isPristine, submit } from "redux-form";
 import {
   groupExternalBts,
   groupLastHistoricTreatment,
   groupVulnLevel,
   sortTags,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import { isValidVulnSeverity, numeric } from "utils/validations";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -526,21 +525,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                   isAcceptedUndefinedSelected ? (
                     <Row>
                       <Col50>
-                        <FormGroup>
-                          <ControlLabel>
-                            <b>
-                              {translate.t(
-                                "search_findings.tab_description.business_criticality"
-                              )}
-                            </b>
-                          </ControlLabel>
-                          <Field
-                            component={Text}
-                            name={"severity"}
-                            type={"number"}
-                            validate={[isValidVulnSeverity, numeric]}
-                          />
-                        </FormGroup>
+                        <SeverityField
+                          isAcceptedSelected={isAcceptedSelected}
+                          isAcceptedUndefinedSelected={
+                            isAcceptedUndefinedSelected
+                          }
+                          isInProgressSelected={isInProgressSelected}
+                        />
                       </Col50>
                     </Row>
                   ) : undefined}
