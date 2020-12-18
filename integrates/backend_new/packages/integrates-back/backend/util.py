@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" FluidIntegrates auxiliar functions. """
+""" Integrates auxiliar functions. """
 
 import collections
 import os

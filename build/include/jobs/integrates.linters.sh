@@ -10,7 +10,6 @@ function job_integrates_lint_back {
         backend_new/packages/integrates-back \
   &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s veryhigh -u django -i node_modules backend_new \
-  &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
   &&  npx graphql-schema-linter \

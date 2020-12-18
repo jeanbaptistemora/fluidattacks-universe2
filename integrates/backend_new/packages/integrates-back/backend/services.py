@@ -1,4 +1,4 @@
-""" FluidIntegrates services definition """
+""" Integrates services definition """
 
 from typing import Dict, cast
 from backend.domain import (

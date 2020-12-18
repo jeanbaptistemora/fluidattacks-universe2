@@ -1,4 +1,4 @@
-""" Implementation of custom exceptions for FluidIntegrates. """
+""" Implementation of custom exceptions for Integrates """
 from typing import Sequence
 
 

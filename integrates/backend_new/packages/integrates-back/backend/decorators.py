@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Decorators for FluidIntegrates. """
+""" Decorators for Integrates """
 
 # Standard library
 import functools

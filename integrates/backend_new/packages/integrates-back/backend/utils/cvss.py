@@ -1,6 +1,6 @@
 
 # -*- coding: utf-8 -*-
-""" FluidIntegrates cvss auxiliar functions. """
+""" Integrates cvss auxiliar functions. """
 
 from decimal import Decimal
 import math
