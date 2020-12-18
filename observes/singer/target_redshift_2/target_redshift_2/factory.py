@@ -2,7 +2,9 @@
 # Standard libraries
 import re
 from typing import (
-    Any, Callable, Dict,
+    Any,
+    Callable,
+    Dict,
     FrozenSet,
     NamedTuple,
     Optional,
@@ -12,69 +14,16 @@ from typing import (
 # Third party libraries
 # Local libraries
 from postgres_client.table import DbTypes
+from singer_io.singer import (
+    SingerRecord,
+    SingerSchema,
+)
 from target_redshift_2.objects import (
     RedshiftField,
     RedshiftRecord,
     RedshiftSchema,
 )
-from singer_io.singer import (
-    SingerRecord,
-    SingerSchema,
-)
-
-
-JSON_SCHEMA_TYPES: Dict[DbTypes, Any] = {
-    DbTypes.BOOLEAN: [
-        {"type": "boolean"},
-        {"type": ["boolean", "null"]},
-        {"type": ["null", "boolean"]}
-    ],
-    DbTypes.NUMERIC: [
-        {"type": "integer"},
-        {"type": ["integer", "null"]},
-        {"type": ["null", "integer"]}
-    ],
-    DbTypes.FLOAT: [
-        {"type": "number"},
-        {"type": ["number", "null"]},
-        {"type": ["null", "number"]}
-    ],
-    DbTypes.VARCHAR: [
-        {"type": "string"},
-        {"type": ["string", "null"]},
-        {"type": ["null", "string"]}
-    ],
-    DbTypes.TIMESTAMP: [
-        {"type": "string", "format": "date-time"},
-        {
-            "anyOf": [
-                {"type": "string", "format": "date-time"},
-                {"type": ["string", "null"]},
-            ]
-        },
-        {
-            "anyOf": [
-                {"type": "string", "format": "date-time"},
-                {"type": ["null", "string"]},
-            ]
-        }
-    ]
-}
-
-
-class DbTypesFactory(NamedTuple):
-    """Generator of `DbTypes` objects"""
-    JSON_SCHEMA_TYPES: Dict[DbTypes, Any] = JSON_SCHEMA_TYPES
-
-    def from_dict(
-        self: 'DbTypesFactory', field_type: Dict[str, Any]
-    ) -> Optional[DbTypes]:
-        rtype: Optional[DbTypes] = None
-        for redshift_type, json_schema_types in self.JSON_SCHEMA_TYPES.items():
-            if field_type in json_schema_types:
-                rtype = redshift_type
-                break
-        return rtype
+from target_redshift_2.factory_pack import db_types
 
 
 class RedshiftSchemaFactory(NamedTuple):
@@ -83,7 +32,7 @@ class RedshiftSchemaFactory(NamedTuple):
     # required due to a bug with callable properties
     to_redshift_type: Callable[
         [Dict[str, Any]], Optional[DbTypes]
-    ] = DbTypesFactory().from_dict
+    ] = db_types.from_dict
 
     def from_singer(
         self: 'RedshiftSchemaFactory',

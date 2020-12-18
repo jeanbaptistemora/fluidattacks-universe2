@@ -23,3 +23,7 @@ class RedshiftSchema(NamedTuple):
 class RedshiftRecord(NamedTuple):
     r_schema: RedshiftSchema
     record: FrozenSet[Tuple[str, str]]
+
+
+class AmbiguousType(Exception):
+    pass
