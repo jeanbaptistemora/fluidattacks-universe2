@@ -13,6 +13,7 @@ export const commonConfig: webpack.Configuration = {
     defends: "./static/js/defends.ts",
     dynClasses: "./static/js/dynClasses.ts",
     faqGen: "./static/js/faqGen.ts",
+    fontResizer: "./static/js/fontResizer.ts",
     form: "./static/js/form.ts",
     menu: "./static/js/menu.ts",
     navbar: "./static/js/navbar.ts",

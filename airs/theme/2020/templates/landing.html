@@ -43,7 +43,7 @@
          data-aos-delay="1000"
          data-aos-offset="0"
          data-aos-duration="500">
-      <h1 class="c-fluid-bk fheader fw9 tl tc-m neue lh-solid mt0 mb4">CONTINUOUS HACKING</h1>
+      <h1 class="fheader responsive-text c-fluid-bk fw9 tl tc-m neue lh-solid mt0 mb4">CONTINUOUS<br>HACKING</h1>
       <p class="c-fluid-bk roboto fw3 lh2 f3 ma0 tl tc-m w-auto-ns nt4-ns">
         FOR YOUR SOFTWARE DEVELOPMENT LIFECYCLE
       </p>
@@ -226,3 +226,8 @@
 {% endblock content %}
 <!-- Cookiebot consent message -->
 <script id="CookieDeclaration" src="https://consent.cookiebot.com/9c4480b4-b8ae-44d8-9c6f-6300b86e9094/cd.js" type="text/javascript" async></script>
+
+{% assets output="static/js/fontResizer.min.js", "js/tmp/fontResizer.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
