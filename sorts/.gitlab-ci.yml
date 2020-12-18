@@ -59,6 +59,7 @@
         - "sorts/pyproject.toml"
         - "sorts/static/*"
         - "sorts/sorts/**/*"
+        - "sorts/training/*"
 
 sorts_lint_code:
   <<: *with_nix
@@ -87,11 +88,11 @@ sorts_deploy_to_pypi:
 
 sorts_extract_all_features_on_aws:
   <<: *with_nix
-  <<: *sorts_in_master_branch
+  <<: *sorts_in_master_branch_code_changes
   stage: external
 
 sorts_train_model_on_aws:
   <<: *with_nix
-  <<: *sorts_in_master_branch
+  <<: *sorts_in_master_branch_code_changes
   stage: external
   interruptible: false
