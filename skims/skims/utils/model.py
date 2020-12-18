@@ -586,6 +586,7 @@ class GrammarMatch(NamedTuple):
 
 class IntegratesVulnerabilityMetadata(NamedTuple):
     approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
+    namespace: Optional[str] = None
     source: Optional[VulnerabilitySourceEnum] = None
     uuid: Optional[str] = None
 
@@ -610,6 +611,7 @@ class SkimsConfig(NamedTuple):
     namespace: str
     output: Optional[str]
     path: SkimsPathConfig
+    start_dir: str
     timeout: Optional[float]
     working_dir: str
 
@@ -637,22 +639,15 @@ class Vulnerability(NamedTuple):
     integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
     skims_metadata: Optional[SkimsVulnerabilityMetadata] = None
 
-
-def get_vulnerability_hash(vulnerability: Vulnerability) -> int:
-    """Compute the hash of a Vulnerability according to Integrates rules.
-
-    :param vulnerability: Vulnerability object to hash
-    :type vulnerability: Vulnerability
-    :return: A unique identifier under this runtime, not guaranteed to
-        be the same across executions
-    :rtype: int
-    """
-    return hash((
-        vulnerability.finding,
-        vulnerability.kind,
-        vulnerability.what,
-        vulnerability.where,
-    ))
+    @property
+    def digest(self) -> int:
+        """Hash a Vulnerability according to Integrates rules."""
+        return hash((
+            self.finding,
+            self.kind,
+            self.what,
+            self.where,
+        ))
 
 
 def _fill_finding_enum() -> None:

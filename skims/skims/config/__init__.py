@@ -52,6 +52,7 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),
             ),
+            start_dir=os.getcwd(),
             timeout=config.pop('timeout', None),
             working_dir=os.path.abspath(config.pop('working_dir', '.')),
         )

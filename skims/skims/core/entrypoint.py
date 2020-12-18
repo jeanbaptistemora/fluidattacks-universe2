@@ -4,10 +4,7 @@ from asyncio import (
 )
 import csv
 import logging
-from os import (
-    chdir,
-    getcwd,
-)
+import os
 from typing import (
     Dict,
     Optional,
@@ -144,13 +141,13 @@ async def main(
         set_level(logging.DEBUG)
 
     try:
-        startdir: str = getcwd()
         CTX.config = load(group, config)
         await reset_ephemeral_state()
-        await log('info', 'Startup working dir is: %s', startdir)
+        await log('info', 'Namespace: %s', CTX.config.namespace)
+        await log('info', 'Startup working dir is: %s', CTX.config.start_dir)
         await log('info', 'Moving working dir to: %s', CTX.config.working_dir)
-        chdir(CTX.config.working_dir)
+        os.chdir(CTX.config.working_dir)
         return await execute_skims(token)
     finally:
-        chdir(startdir)
+        os.chdir(CTX.config.start_dir)
         await reset_ephemeral_state()

@@ -35,6 +35,9 @@ from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.logs import (
     log,
 )
@@ -42,7 +45,6 @@ from utils.model import (
     FindingEnum,
     FindingEvidenceIDEnum,
     FindingEvidenceDescriptionIDEnum,
-    get_vulnerability_hash,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -135,6 +137,7 @@ async def upload_evidences(
 async def diff_results(
     skims_store: EphemeralStore,
     integrates_store: EphemeralStore,
+    namespace: str,
 ) -> EphemeralStore:
     """Diff results from Skims and Integrates, closing or creating if needed.
 
@@ -169,13 +172,14 @@ async def diff_results(
 
     # The current state at Integrates
     integrates_hashes: Dict[int, VulnerabilityStateEnum] = {
-        get_vulnerability_hash(result): result.state
+        result.digest: result.state
         async for result in integrates_store.iterate()
-        # Filter integrates results managed by skims
-        if (result.integrates_metadata and
-            result.integrates_metadata.source == (
-                VulnerabilitySourceEnum.SKIMS
-            ))
+        # Filter integrates results
+        if result.integrates_metadata
+        # That are within the same namespace
+        and result.integrates_metadata.namespace == namespace
+        # And managed by skims
+        and result.integrates_metadata.source == VulnerabilitySourceEnum.SKIMS
     }
 
     # The current state to Skims
@@ -183,13 +187,11 @@ async def diff_results(
 
     # Walk all Skims results
     async for result in skims_store.iterate():
-        result_hash = get_vulnerability_hash(result)
-
         # All skims results are part of the new generation
-        skims_hashes[result_hash] = result.state
+        skims_hashes[result.digest] = result.state
 
-        # Check if this result is in the old generation and changed stated
-        if integrates_hashes.get(result_hash) == result.state:
+        # Check if this result is in the old generation and changed state
+        if integrates_hashes.get(result.digest) == result.state:
             # The result exists in the old generation and has not changed state
             pass
         else:
@@ -202,15 +204,13 @@ async def diff_results(
 
     # Walk all integrates results
     async for result in integrates_store.iterate():
-        result_hash = get_vulnerability_hash(result)
-
         if (
             # Ensure this is part of the old generation
-            result_hash in integrates_hashes
+            result.digest in integrates_hashes
             # And his result was not found by Skims
-            and result_hash not in skims_hashes
+            and result.digest not in skims_hashes
             # And this result is OPEN
-            and result.state == VulnerabilityStateEnum.OPEN \
+            and result.state == VulnerabilityStateEnum.OPEN
         ):
             # This result must be CLOSED and persisted to Integrates
             await store.store(prepare_result(
@@ -263,6 +263,7 @@ async def persist_finding(
                 finding_id=finding_id,
             ),
             skims_store=store,
+            namespace=CTX.config.namespace,
         )
 
         success = await do_build_and_upload_vulnerabilities(

@@ -26,6 +26,9 @@ from state.common import (
     retrieve_object,
     store_object,
 )
+from utils.ctx import (
+    CTX,
+)
 
 # Constants
 CACHE_FOLDER: str = join(STATE_FOLDER, 'cache')
@@ -76,7 +79,13 @@ async def cache(
         the cache
     :rtype: TVar
     """
-    cache_key = (function.__module__, function.__name__, args, kwargs)
+    cache_key = (
+        function.__module__,
+        function.__name__,
+        CTX.config.namespace,
+        args,
+        kwargs,
+    )
 
     try:
         cache_value: TVar = await cache_read(cache_key)

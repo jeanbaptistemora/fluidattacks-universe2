@@ -36,6 +36,12 @@ from aws.model import (
     AWSS3Acl,
     AWSS3Bucket,
 )
+from utils.ctx import (
+    CTX,
+)
+from utils.encodings import (
+    serialize_namespace_into_vuln,
+)
 from utils.function import (
     shield,
 )
@@ -121,7 +127,11 @@ def blocking_get_vulnerabilities(
             finding=finding,
             kind=VulnerabilityKindEnum.LINES,
             state=VulnerabilityStateEnum.OPEN,
-            what=path,
+            what=serialize_namespace_into_vuln(
+                kind=VulnerabilityKindEnum.LINES,
+                namespace=CTX.config.namespace,
+                what=path,
+            ),
             where=f'{match.start_line}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
@@ -155,7 +165,11 @@ def blocking_get_vulnerabilities_from_iterator(
             finding=finding,
             kind=VulnerabilityKindEnum.LINES,
             state=VulnerabilityStateEnum.OPEN,
-            what=path,
+            what=serialize_namespace_into_vuln(
+                kind=VulnerabilityKindEnum.LINES,
+                namespace=CTX.config.namespace,
+                what=path,
+            ),
             where=f'{line_no}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),

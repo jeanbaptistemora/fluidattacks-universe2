@@ -35,6 +35,12 @@ from parse_json import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.ctx import (
+    CTX,
+)
+from utils.encodings import (
+    serialize_namespace_into_vuln,
+)
 from utils.model import (
     FindingEnum,
     Platform,
@@ -280,11 +286,15 @@ def translate_dependencies_to_vulnerabilities(
             finding=FindingEnum.F011,
             kind=VulnerabilityKindEnum.LINES,
             state=VulnerabilityStateEnum.OPEN,
-            what=' '.join((
-                path,
-                f'({product["item"]} v{version["item"]})',
-                f'[{cve}]',
-            )),
+            what=serialize_namespace_into_vuln(
+                kind=VulnerabilityKindEnum.LINES,
+                namespace=CTX.config.namespace,
+                what=' '.join((
+                    path,
+                    f'({product["item"]} v{version["item"]})',
+                    f'[{cve}]',
+                )),
+            ),
             where=f'{product["line"]}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 cwe=('937',),
