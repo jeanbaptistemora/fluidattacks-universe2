@@ -1,4 +1,5 @@
 import { AcceptanceDateField } from "./AcceptanceDateField";
+import { AcceptationUserField } from "./AcceptationUserField";
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -21,14 +22,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
-import {
-  ButtonToolbar,
-  Col100,
-  Col50,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import {
   DELETE_TAGS_MUTATION,
   REQUEST_ZERO_RISK_VULN,
@@ -394,8 +388,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   const isAcceptedSelected: boolean = formValues.treatment === "ACCEPTED";
   const isAcceptedUndefinedSelected: boolean =
     formValues.treatment === "ACCEPTED_UNDEFINED";
-  const isLastTreatmentAcceptanceStatusApproved: boolean =
-    lastTreatment.acceptanceStatus === "APPROVED";
 
   return (
     <React.StrictMode>
@@ -456,20 +448,16 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                         lastTreatment={lastTreatment}
                       />
                     </Col50>
-                    {isLastTreatmentAcceptanceStatusApproved ? (
-                      <Col50>
-                        <FormGroup>
-                          <ControlLabel>
-                            <b>
-                              {translate.t(
-                                "search_findings.tab_description.acceptation_user"
-                              )}
-                            </b>
-                          </ControlLabel>
-                          <p>{lastTreatment.user}</p>
-                        </FormGroup>
-                      </Col50>
-                    ) : undefined}
+                    <Col50>
+                      <AcceptationUserField
+                        isAcceptedSelected={isAcceptedSelected}
+                        isAcceptedUndefinedSelected={
+                          isAcceptedUndefinedSelected
+                        }
+                        isInProgressSelected={isInProgressSelected}
+                        lastTreatment={lastTreatment}
+                      />
+                    </Col50>
                   </Row>
                   <Row>
                     <Col50>
@@ -520,21 +508,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       />
                     </Col100>
                   </Row>
-                  {isInProgressSelected ||
-                  isAcceptedSelected ||
-                  isAcceptedUndefinedSelected ? (
-                    <Row>
-                      <Col50>
-                        <SeverityField
-                          isAcceptedSelected={isAcceptedSelected}
-                          isAcceptedUndefinedSelected={
-                            isAcceptedUndefinedSelected
-                          }
-                          isInProgressSelected={isInProgressSelected}
-                        />
-                      </Col50>
-                    </Row>
-                  ) : undefined}
+                  <Row>
+                    <Col50>
+                      <SeverityField
+                        isAcceptedSelected={isAcceptedSelected}
+                        isAcceptedUndefinedSelected={
+                          isAcceptedUndefinedSelected
+                        }
+                        isInProgressSelected={isInProgressSelected}
+                      />
+                    </Col50>
+                  </Row>
                 </GenericForm>
                 <ButtonToolbar>
                   <Button onClick={handleCloseModal}>
