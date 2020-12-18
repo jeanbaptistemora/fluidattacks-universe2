@@ -12,7 +12,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { formValueSelector, InjectedFormProps } from "redux-form";
@@ -22,7 +21,6 @@ import { FluidIcon } from "components/FluidIcon";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm/index";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { default as style } from "scenes/Dashboard/containers/SeverityView/index.css";
 import {
   GET_SEVERITY,
   UPDATE_SEVERITY_MUTATION,
@@ -33,6 +31,7 @@ import {
   IUpdateSeverityAttr,
 } from "scenes/Dashboard/containers/SeverityView/types";
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
+import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { calcCVSSv3 } from "utils/cvss";
@@ -73,7 +72,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
   return (
     <React.StrictMode>
       <Row>
-        <Col md={12} sm={12} xs={12}>
+        <Col100>
           <Query query={GET_SEVERITY} variables={{ identifier: findingId }} onError={handleErrors}>
             {({ client, data, refetch }: QueryResult<ISeverityAttr>): JSX.Element => {
               if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
@@ -108,13 +107,11 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
               return (
                 <React.Fragment>
                   <Can do="backend_api_mutations_update_severity_mutate">
-                    <Row>
-                      <Col md={2} mdOffset={10}>
-                        <Button onClick={handleEditClick}>
-                          <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
-                        </Button>
-                      </Col>
-                    </Row>
+                    <ButtonToolbarRow>
+                      <Button onClick={handleEditClick}>
+                        <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
+                      </Button>
+                    </ButtonToolbarRow>
                   </Can>
                   <br />
                   <Mutation
@@ -161,14 +158,12 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                             <React.Fragment>
                               {isEditing ? (
                                 <React.Fragment>
-                                  <Row>
-                                    <Col md={2} mdOffset={10}>
-                                      <Button type="submit" disabled={pristine || mutationRes.loading}>
-                                        <FluidIcon icon="loading" />
-                                        {translate.t("search_findings.tab_severity.update")}
-                                      </Button>
-                                    </Col>
-                                  </Row>
+                                  <ButtonToolbarRow>
+                                    <Button type="submit" disabled={pristine || mutationRes.loading}>
+                                      <FluidIcon icon="loading" />
+                                      {translate.t("search_findings.tab_severity.update")}
+                                    </Button>
+                                  </ButtonToolbarRow>
                                   <Row>
                                     <EditableField
                                         style={"background-color: 000;" as React.CSSProperties}
@@ -191,7 +186,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                   const currentOption: string = field.options[field.currentValue];
 
                                   return (
-                                    <Row className={style.row} key={index}>
+                                    <Row key={index}>
                                       <EditableField
                                         style={"background-color: 000;" as React.CSSProperties}
                                         alignField="horizontal"
@@ -224,7 +219,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
               );
             }}
           </Query>
-        </Col>
+        </Col100>
       </Row>
     </React.StrictMode>
   );
