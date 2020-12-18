@@ -40,8 +40,6 @@ in
           requirement = "localstack==0.11.0.5";
       };
 
-      pyPkgAsserts = import ../../asserts pkgs;
-
       pyPkgMelts = import ../../melts pkgs;
 
     })

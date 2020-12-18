@@ -1,6 +1,5 @@
 let
   pkgs = import ../build/pkgs/melts.nix;
-  asserts_pkgs = import ./asserts.nix;
   builders.pythonPackage = import ../build/builders/python-package pkgs;
   builders.pythonPackageLocal = import ../build/builders/python-package-local pkgs;
 in
@@ -14,8 +13,6 @@ in
       pkgs.jq
       pkgs.python38Packages.psycopg2
     ];
-
-    pyPkgAsserts = asserts_pkgs.pyPkgAsserts;
 
     pyPkgMelts = builders.pythonPackageLocal {
       path = ../melts;
