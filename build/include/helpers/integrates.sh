@@ -27,6 +27,18 @@ function helper_integrates_aws_login {
   &&  aws configure set region 'us-east-1'
 }
 
+function helper_integrates_cloudflare_login {
+  local user="${1}"
+  export TF_VAR_cloudflare_email
+  export TF_VAR_cloudflare_api_token
+
+      helper_common_sops_env "secrets-${user}.yaml" default \
+        CLOUDFLARE_EMAIL \
+        CLOUDFLARE_API_TOKEN \
+  &&  TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \
+  &&  TF_VAR_cloudflare_api_token="${CLOUDFLARE_API_TOKEN}"
+}
+
 function helper_integrates_set_dev_secrets {
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY

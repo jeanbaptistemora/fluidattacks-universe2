@@ -164,3 +164,12 @@ resource "aws_route53_record" "production" {
     evaluate_target_health = false
   }
 }
+
+resource "cloudflare_record" "production" {
+  zone_id = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
+  name    = "integrates.front.production.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
+  type    = "CNAME"
+  value   = aws_s3_bucket.production.bucket_domain_name
+  proxied = true
+  ttl     = 1
+}

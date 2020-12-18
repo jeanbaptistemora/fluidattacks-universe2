@@ -916,9 +916,9 @@ function job_integrates_infra_front_deploy {
 
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
-  &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  helper_common_terraform_apply "${target}" \
+    &&  helper_integrates_aws_login production \
+    &&  helper_integrates_cloudflare_login production \
+    &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   || return 1
 }
@@ -928,8 +928,8 @@ function job_integrates_infra_front_test {
 
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
-  &&  echo '[INFO] Logging in to AWS development' \
     &&  helper_integrates_aws_login development \
+    &&  helper_integrates_cloudflare_login development \
     &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
