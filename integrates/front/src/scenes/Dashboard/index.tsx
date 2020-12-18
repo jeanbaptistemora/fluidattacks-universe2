@@ -14,7 +14,6 @@ import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRe
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
-import { ReportsView } from "scenes/Dashboard/containers/ReportsView";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
@@ -254,7 +253,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
             <Route exact={true} path={"/home"}>
               <HomeView />
             </Route>
-            <Route component={ReportsView} path={"/reports"} />
             <Route path={"/orgs/:organizationName/groups/:projectName"}>
               <authzGroupContext.Provider value={groupAttributes}>
                 <authzPermissionsContext.Provider value={groupLevelPermissions}>
