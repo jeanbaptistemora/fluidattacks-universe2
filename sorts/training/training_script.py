@@ -4,6 +4,7 @@
 import argparse
 import csv
 import os
+import tempfile
 import time
 from itertools import combinations
 from typing import (
@@ -18,6 +19,7 @@ from typing import (
 import boto3
 import numpy as np
 import pandas as pd
+from botocore.exceptions import ClientError
 from numpy import ndarray
 from pandas import DataFrame
 from sklearn.ensemble import RandomForestClassifier
@@ -59,13 +61,14 @@ RESULT_HEADERS: List[str] = [
     'F1',
     'Overfit'
 ]
+S3_BUCKET = boto3.Session().resource('s3').Bucket('sorts')
 
 
 def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
     feature_combinations: List[Tuple[str, ...]] = []
     for idx in range(len(features) + 1):
         feature_combinations += list(combinations(features, idx))
-    return feature_combinations
+    return list(filter(None, feature_combinations))
 
 
 def get_model_metrics(
@@ -96,6 +99,42 @@ def get_model_metrics(
         scores['test_f1'].mean() * 100,
         is_overfit(train_results, test_results) * 100
     )
+
+
+def get_previous_training_results(results_filename: str) -> List[List[str]]:
+    previous_results: List[List[str]] = []
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        local_file: str = os.path.join(tmp_dir, results_filename)
+        remote_file: str = f'training-output/{results_filename}'
+        try:
+            S3_BUCKET.Object(remote_file).download_file(local_file)
+            with open(local_file, 'r') as csv_file:
+                csv_reader = csv.reader(csv_file)
+                previous_results.extend(csv_reader)
+        except ClientError:
+            pass
+    return previous_results
+
+
+def get_tried_combinations(
+    previous_results: List[List[str]]
+) -> List[Tuple[str, ...]]:
+    """Analyze results to see which combinations have already been tried"""
+    tried_combinations: List[Tuple[str, ...]] = []
+    inv_features_dict: Dict[str, str] = {
+        v: k for k, v in FEATURES_DICTS.items()
+    }
+    if previous_results:
+        # The first element is the header, so we can skip it
+        for result in previous_results[1:]:
+            features_tried: str = result[1]
+            tried_combinations.append(
+                tuple([
+                    inv_features_dict[feature]
+                    for feature in features_tried.split(' ')
+                ])
+            )
+    return tried_combinations
 
 
 def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
@@ -149,15 +188,29 @@ def split_training_data(
     return features_df, labels
 
 
-def train_model(model_class: ModelType, training_dir: str) -> List[List[str]]:
+def train_model(
+    model_class: ModelType,
+    training_dir: str,
+    previous_results: List[List[str]]
+) -> List[List[str]]:
     all_combinations = get_features_combinations(
         list(FEATURES_DICTS.keys())
     )
     training_data: DataFrame = load_training_data(training_dir)
-    training_output: List[List[str]] = [RESULT_HEADERS]
+    training_output: List[List[str]] = (
+        previous_results if previous_results else [RESULT_HEADERS]
+    )
+
+    # Get previously tried combinations to avoid duplicating work
+    tried_combinations = get_tried_combinations(previous_results)
+    valid_combinations: List[Tuple[str, ...]] = [
+        combination
+        for combination in all_combinations
+        if combination not in tried_combinations
+    ]
 
     # Train the model
-    for combination in filter(None, all_combinations):
+    for combination in valid_combinations:
         start_time: float = time.time()
         train_x, train_y = split_training_data(training_data, combination)
 
@@ -166,7 +219,7 @@ def train_model(model_class: ModelType, training_dir: str) -> List[List[str]]:
             default_args = {'random_state': 42}
         model = model_class(**default_args)
 
-        precision, recall, f1_score, overfit = get_model_metrics(
+        metrics = get_model_metrics(
             model,
             train_x,
             train_y
@@ -174,17 +227,17 @@ def train_model(model_class: ModelType, training_dir: str) -> List[List[str]]:
 
         print(f'Training time: {time.time() - start_time:.2f}')
         print(f'Features: {combination}')
-        print(f'Precision: {precision}%')
-        print(f'Recall: {recall}%')
-        print(f'F1-Score: {f1_score}%')
-        print(f'Overfit: {overfit}%')
+        print(f'Precision: {metrics[0]}%')
+        print(f'Recall: {metrics[1]}%')
+        print(f'F1-Score: {metrics[2]}%')
+        print(f'Overfit: {metrics[3]}%')
         training_output.append([
             model.__class__.__name__,
             ' '.join(FEATURES_DICTS[x] for x in combination),
-            f'{precision:.1f}',
-            f'{recall:.1f}',
-            f'{f1_score:.1f}',
-            f'{overfit:.1f}'
+            f'{metrics[0]:.1f}',
+            f'{metrics[1]:.1f}',
+            f'{metrics[2]:.1f}',
+            f'{metrics[3]:.1f}'
         ])
     return training_output
 
@@ -215,11 +268,16 @@ def main() -> None:
     model_class: Optional[ModelType] = globals().get(model)
     if model_class:
         results_filename: str = f'{model.lower()}_train_results.csv'
-        training_output = train_model(model_class, args.train)
+        previous_results = get_previous_training_results(results_filename)
+        training_output = train_model(
+            model_class,
+            args.train,
+            previous_results
+        )
         with open(results_filename, 'w', newline='') as results_file:
             csv_writer = csv.writer(results_file)
             csv_writer.writerows(training_output)
-        boto3.Session().resource('s3').Bucket('sorts')\
+        S3_BUCKET\
             .Object(f'training-output/{results_filename}')\
             .upload_file(results_filename)
 
