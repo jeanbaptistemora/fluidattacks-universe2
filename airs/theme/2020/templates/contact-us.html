@@ -39,67 +39,33 @@
   {% endif %}
 {% endblock title %}
 
-{% block content %}
-<div class="mw-1366 ph-body flex flex-wrap center pt4-l contact-page mt-body">
-  <div class="w-50-l w-100">
-    <div class="slideshow-container">
-      <div class="slideshow-inner">
-        <div class="mySlide1 fadein">
-          <img
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact-us/slide-1.png"
-            alt="Fluid Attacks Team"/>
-          </div>
-          <div class="mySlide2 fadein dn">
-            <img
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact-us/slide-2.png"
-            alt="Fluid Attacks Team"/>
-          </div>
-          <div class="mySlide3 fadein dn">
-            <img
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact-us/slide-3.png"
-            alt="Fluid Attacks Team"/>
-          </div>
-        </div>
-      </div>
-      <div class="tc">
-        <span class="dot1 h-slide-bt w2 ma0 bg-fluid-red hv-bt-fluid-rd dib slide-bt-trans pointer"></span>
-        <span class="dot2 h-slide-bt w2 ma0 bg-fluid-gray hv-bt-fluid-rd dib slide-bt-trans pointer"></span>
-        <span class="dot3 h-slide-bt w2 ma0 bg-fluid-gray hv-bt-fluid-rd dib slide-bt-trans pointer"></span>
-      </div>
-      {% assets output="static/js/contactSlides.min.js", "js/tmp/contactSlides.min.js" %}
-      <script type="text/javascript"
-              src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-      {% endassets %}
-    </div>
-  <div class="tc w-50-l w-100 items-center justify-center flex">
-    <div class="pv0-l pv5 ph0-l ph2">
-      <h1 class="neue fw7 c-fluid-bk f1-l f-title-s f-title-m ma0">{{ page.title }}</h1>
-      <h2 class="roboto fw1 f4 ma0">Find all the vulnerabilities in your system</h2>
-    </div>
+{% block header %}
+<div
+  class="contact-bg cover banner-height justify-center items-center flex bg-center center mt-body">
+  <div class="w-100 center">
+    <h1 class="roboto white fw7 f1 neue tc f-5-l ma0">
+      Talk to our experts
+    </h1>
+    <h2 class="roboto white f3-l f5-m f6 fw3 roboto tc ma0">
+      and find all the vulnerabilities in your system
+    </h2>
   </div>
 </div>
-<div class="pb6-ns pb4 mw-1366 ph-body center flex">
-  <div class="w-50-l db-l dn">
-    <p class="roboto tl fw1 f4 lh-2 center w36-l">
-      Since 2001, <b class="fw7">Fluid Attacks</b> has been developing technology
-      focused on cybersecurity, offering ethical hacking and pentesting services
-      to companies in the banking, financial, technology, healthcare, insurance,
-      manufacturing, and airline industries, among others.
-      Fluid Attacks" team helps its clients to manage their cybersecurity risks
-      and certify that their systems, which are critical to their operations,
-      are safe for their users.
-    </p>
-  </div>
-  <div class="w-50-l w-100">
+{% endblock header %}
+
+{% block content %}
+<div class="pb6-ns pb4 mw-1366 ph-body center">
+  <h2 class="c-fluid-bk roboto tc f1">Get in touch</h2>
+  <div class="w-50-l w-100 center">
     <div class="contact-form w-100">
       <div id="crmWebToEntityForm" class="zcwf_lblLeft crmWebToEntityForm">
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <form action="https://crm.zoho.com/crm/WebToLeadForm" name=WebToLeads4687720000000388007 method="POST" onSubmit="javascript:document.charset='UTF-8'; return checkMandatory4687720000000388007()" accept-charset="UTF-8">
-          <input type='text' style='display:none;' name='xnQsjsdp' value='1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d'></input> 
-          <input type='hidden' name='zc_gad' id='zc_gad' value=''></input> 
-          <input type='text' style='display:none;' name='xmIwtLD' value='78c3d7dacbbcd07154bafdf9da4878771131756c5fc0387baa3f5706a0968b4b'></input> 
-          <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='></input>
-          <input type='text' style='display:none;' name='returnURL' value='https://fluidattacks.com/contact-us/thank-you/' > </input>
+          <input type='text' style='display: none;' name='xnQsjsdp' value='1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d'></input>
+          <input type='hidden' name='zc_gad' id='zc_gad' value=''></input>
+          <input type='text' style='display: none;' name='xmIwtLD' value='78c3d7dacbbcd07154bafdf9da4878771131756c5fc0387baa3f5706a0968b4b'></input>
+          <input type='text'  style='display: none;' name='actionType' value='TGVhZHM='></input>
+          <input type='text' style='display: none;' name='returnURL' value='https://fluidattacks.com/contact-us/thank-you/' > </input>
 
           <div class="w-50-l pv3 center">
             <label class="tl f5 c-fluid-bk roboto">Full Name</label>
@@ -195,7 +161,12 @@
                   Please select an option
             </span>
           </div>
-          <div  id="recapErr" style="font-size:12px;color:red;visibility:hidden;">
+          <div  id="recapErr"
+          style="
+          color: rgb(255, 0, 0);
+          font-size: 12px;
+          visibility: hidden;
+          ">
           Captcha validation failed. If you are not a robot then please try again.
           </div>
           <div class="tc  w-50-l center">
