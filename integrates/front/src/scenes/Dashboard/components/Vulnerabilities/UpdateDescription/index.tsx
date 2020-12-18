@@ -13,6 +13,8 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { TagField } from "./TagField";
+import { Text } from "utils/forms/fields";
 import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
 import _ from "lodash";
@@ -51,7 +53,6 @@ import type {
   IUpdateTreatmentVulnAttr,
   IVulnDataType,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { TagInput, Text } from "utils/forms/fields";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import {
   groupExternalBts,
@@ -508,27 +509,22 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       />
                     </Col100>
                   </Row>
+                  <Row>
+                    <Col100>
+                      <TagField
+                        handleDeletion={handleDeletion}
+                        isAcceptedSelected={isAcceptedSelected}
+                        isAcceptedUndefinedSelected={
+                          isAcceptedUndefinedSelected
+                        }
+                        isInProgressSelected={isInProgressSelected}
+                      />
+                    </Col100>
+                  </Row>
                   {isInProgressSelected ||
                   isAcceptedSelected ||
                   isAcceptedUndefinedSelected ? (
                     <Row>
-                      <Col100>
-                        <FormGroup>
-                          <ControlLabel>
-                            <b>
-                              {translate.t(
-                                "search_findings.tab_description.tag"
-                              )}
-                            </b>
-                          </ControlLabel>
-                          <Field
-                            component={TagInput}
-                            name={"tag"}
-                            onDeletion={handleDeletion}
-                            type={"text"}
-                          />
-                        </FormGroup>
-                      </Col100>
                       <Col50>
                         <FormGroup>
                           <ControlLabel>
