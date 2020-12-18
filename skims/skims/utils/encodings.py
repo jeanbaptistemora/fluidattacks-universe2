@@ -12,6 +12,11 @@ from aioextensions import (
     in_thread,
 )
 
+# Local libraries
+from utils.model import (
+    VulnerabilityKindEnum,
+)
+
 
 def simplify(obj: Any) -> Any:
     simplified_obj: Any
@@ -61,3 +66,38 @@ async def yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
     return await in_thread(blocking_yaml_dumps, element, *args, **kwargs)
+
+
+def deserialize_namespace_from_vuln(
+    kind: VulnerabilityKindEnum,
+    what: str,
+) -> str:
+    namespace: str
+
+    if kind == VulnerabilityKindEnum.INPUTS:
+        namespace = what.split(': ', maxsplit=1)[0]
+    elif kind == VulnerabilityKindEnum.LINES:
+        namespace = what.split('/', maxsplit=1)[0]
+    elif kind == VulnerabilityKindEnum.PORTS:
+        namespace = what.split(': ', maxsplit=1)[0]
+    else:
+        raise NotImplementedError()
+
+    return namespace
+
+
+def serialize_namespace_into_vuln(
+    kind: VulnerabilityKindEnum,
+    namespace: str,
+    what: str,
+) -> str:
+    if kind == VulnerabilityKindEnum.INPUTS:
+        what = f'{namespace}: {what}'
+    elif kind == VulnerabilityKindEnum.LINES:
+        what = f'{namespace}/{what}'
+    elif kind == VulnerabilityKindEnum.PORTS:
+        what = f'{namespace}: {what}'
+    else:
+        raise NotImplementedError()
+
+    return what
