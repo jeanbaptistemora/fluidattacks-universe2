@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
@@ -17,114 +17,116 @@ import { Have } from "utils/authz/Have";
 import { translate } from "utils/translations/translate";
 import { GroupScopeView } from "../GroupScopeView";
 
-type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
+const projectContent: React.FC = (): JSX.Element => {
+  const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
-const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => (
-  <React.StrictMode>
-    <React.Fragment>
+  return (
+    <React.StrictMode>
       <React.Fragment>
-        <Row>
-          <Col100>
-            <React.Fragment>
-              <StickyContainer>
-                <TabsContainer>
-                  <ContentTab
-                    icon="icon pe-7s-graph3"
-                    id="analyticsTab"
-                    link={`${props.match.url}/analytics`}
-                    title={translate.t("group.tabs.analytics.text")}
-                    tooltip={translate.t("group.tabs.indicators.tooltip")}
-                  />
-                  <ContentTab
-                    icon="icon pe-7s-light"
-                    id="findingsTab"
-                    link={`${props.match.url}/vulns`}
-                    title={translate.t("group.tabs.findings.text")}
-                    tooltip={translate.t("group.tabs.findings.tooltip")}
-                  />
-                  <Can do="backend_api_resolvers_new_group_drafts_resolve">
+        <React.Fragment>
+          <Row>
+            <Col100>
+              <React.Fragment>
+                <StickyContainer>
+                  <TabsContainer>
                     <ContentTab
-                      icon="icon pe-7s-stopwatch"
-                      id="draftsTab"
-                      link={`${props.match.url}/drafts`}
-                      title={translate.t("group.tabs.drafts.text")}
-                      tooltip={translate.t("group.tabs.drafts.tooltip")}
+                      icon="icon pe-7s-graph3"
+                      id="analyticsTab"
+                      link={`${url}/analytics`}
+                      title={translate.t("group.tabs.analytics.text")}
+                      tooltip={translate.t("group.tabs.indicators.tooltip")}
                     />
-                  </Can>
-                  <ContentTab
-                    icon="icon pe-7s-light"
-                    id="forcesTab"
-                    link={`${props.match.url}/devsecops`}
-                    title={translate.t("group.tabs.forces.text")}
-                    tooltip={translate.t("group.tabs.forces.tooltip")}
-                  />
-                  <ContentTab
-                    icon="icon pe-7s-star"
-                    id="eventsTab"
-                    link={`${props.match.url}/events`}
-                    title={translate.t("group.tabs.events.text")}
-                    tooltip={translate.t("group.tabs.events.tooltip")}
-                  />
-                  <ContentTab
-                    icon="icon pe-7s-comment"
-                    id="commentsTab"
-                    link={`${props.match.url}/consulting`}
-                    plus={{visible: true}}
-                    title={translate.t("group.tabs.comments.text")}
-                    tooltip={translate.t("group.tabs.comments.tooltip")}
-                  />
-                  <Can do="backend_api_resolvers_new_query_stakeholder__resolve_for_group">
                     <ContentTab
-                      icon="icon pe-7s-users"
-                      id="usersTab"
-                      link={`${props.match.url}/stakeholders`}
-                      title={translate.t("group.tabs.users.text")}
-                      tooltip={translate.t("group.tabs.users.tooltip")}
+                      icon="icon pe-7s-light"
+                      id="findingsTab"
+                      link={`${url}/vulns`}
+                      title={translate.t("group.tabs.findings.text")}
+                      tooltip={translate.t("group.tabs.findings.tooltip")}
                     />
-                  </Can>
-                  <Have I="has_drills_white">
-                    <Can do="backend_api_resolvers_new_group_bill_resolve">
+                    <Can do="backend_api_resolvers_new_group_drafts_resolve">
                       <ContentTab
-                        icon="icon pe-7s-users"
-                        id="authorsTab"
-                        link={`${props.match.url}/authors`}
-                        title={translate.t("group.tabs.authors.text")}
-                        tooltip={translate.t("group.tabs.authors.tooltip")}
+                        icon="icon pe-7s-stopwatch"
+                        id="draftsTab"
+                        link={`${url}/drafts`}
+                        title={translate.t("group.tabs.drafts.text")}
+                        tooltip={translate.t("group.tabs.drafts.tooltip")}
                       />
                     </Can>
-                  </Have>
-                  <ContentTab
-                    icon="icon pe-7s-box1"
-                    id="resourcesTab"
-                    link={`${props.match.url}/scope`}
-                    title={translate.t("group.tabs.resources.text")}
-                    tooltip={translate.t("group.tabs.resources.tooltip")}
-                  />
-                </TabsContainer>
-              </StickyContainer>
+                    <ContentTab
+                      icon="icon pe-7s-light"
+                      id="forcesTab"
+                      link={`${url}/devsecops`}
+                      title={translate.t("group.tabs.forces.text")}
+                      tooltip={translate.t("group.tabs.forces.tooltip")}
+                    />
+                    <ContentTab
+                      icon="icon pe-7s-star"
+                      id="eventsTab"
+                      link={`${url}/events`}
+                      title={translate.t("group.tabs.events.text")}
+                      tooltip={translate.t("group.tabs.events.tooltip")}
+                    />
+                    <ContentTab
+                      icon="icon pe-7s-comment"
+                      id="commentsTab"
+                      link={`${url}/consulting`}
+                      plus={{visible: true}}
+                      title={translate.t("group.tabs.comments.text")}
+                      tooltip={translate.t("group.tabs.comments.tooltip")}
+                    />
+                    <Can do="backend_api_resolvers_new_query_stakeholder__resolve_for_group">
+                      <ContentTab
+                        icon="icon pe-7s-users"
+                        id="usersTab"
+                        link={`${url}/stakeholders`}
+                        title={translate.t("group.tabs.users.text")}
+                        tooltip={translate.t("group.tabs.users.tooltip")}
+                      />
+                    </Can>
+                    <Have I="has_drills_white">
+                      <Can do="backend_api_resolvers_new_group_bill_resolve">
+                        <ContentTab
+                          icon="icon pe-7s-users"
+                          id="authorsTab"
+                          link={`${url}/authors`}
+                          title={translate.t("group.tabs.authors.text")}
+                          tooltip={translate.t("group.tabs.authors.tooltip")}
+                        />
+                      </Can>
+                    </Have>
+                    <ContentTab
+                      icon="icon pe-7s-box1"
+                      id="resourcesTab"
+                      link={`${url}/scope`}
+                      title={translate.t("group.tabs.resources.text")}
+                      tooltip={translate.t("group.tabs.resources.tooltip")}
+                    />
+                  </TabsContainer>
+                </StickyContainer>
 
-              <div className={globalStyle.tabContent}>
-                <Switch>
-                  <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
-                  <Route path={`${props.match.path}/analytics`} component={ChartsForGroupView} exact={true} />
-                  <Route path={`${props.match.path}/vulns`} component={ProjectFindingsView} exact={true} />
-                  <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
-                  <Route path={`${props.match.path}/devsecops`} component={ProjectForcesView} exact={true} />
-                  <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
-                  <Route path={`${props.match.path}/scope`} component={GroupScopeView} exact={true} />
-                  <Route path={`${props.match.path}/stakeholders`} component={ProjectStakeholdersView} exact={true} />
-                  <Route path={`${props.match.path}/consulting`} component={ProjectConsultingView} exact={true} />
-                  {/* Necessary to support old resources URLs */}
-                  <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/scope`} />
-                  <Redirect to={`${props.match.path}/analytics`} />
-                </Switch>
-              </div>
-            </React.Fragment>
-          </Col100>
-        </Row>
+                <div className={globalStyle.tabContent}>
+                  <Switch>
+                    <Route path={`${path}/authors`} component={ProjectAuthorsView} exact={true} />
+                    <Route path={`${path}/analytics`} component={ChartsForGroupView} exact={true} />
+                    <Route path={`${path}/vulns`} component={ProjectFindingsView} exact={true} />
+                    <Route path={`${path}/drafts`} component={ProjectDraftsView} exact={true} />
+                    <Route path={`${path}/devsecops`} component={ProjectForcesView} exact={true} />
+                    <Route path={`${path}/events`} component={ProjectEventsView} exact={true} />
+                    <Route path={`${path}/scope`} component={GroupScopeView} exact={true} />
+                    <Route path={`${path}/stakeholders`} component={ProjectStakeholdersView} exact={true} />
+                    <Route path={`${path}/consulting`} component={ProjectConsultingView} exact={true} />
+                    {/* Necessary to support old resources URLs */}
+                    <Redirect path={`${path}/resources`} to={`${path}/scope`} />
+                    <Redirect to={`${path}/analytics`} />
+                  </Switch>
+                </div>
+              </React.Fragment>
+            </Col100>
+          </Row>
+        </React.Fragment>
       </React.Fragment>
-    </React.Fragment>
-  </React.StrictMode>
-);
+    </React.StrictMode>
+  );
+};
 
 export { projectContent as ProjectContent };

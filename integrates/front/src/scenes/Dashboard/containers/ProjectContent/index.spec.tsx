@@ -2,37 +2,13 @@ import { MockedProvider } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { MemoryRouter, RouteComponentProps } from "react-router-dom";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
 import store from "store";
 
 describe("ProjectContent", () => {
-
-  const mockProps: RouteComponentProps<{ projectName: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: {projectName: "TEST"},
-      path: "/",
-      url: "",
-    },
-  };
-
   it("should return a function", () => {
     expect(typeof (ProjectContent))
       .toEqual("function");
@@ -44,7 +20,7 @@ describe("ProjectContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <Provider store={store}>
           <MockedProvider mocks={[]} addTypename={false}>
-            <ProjectContent {...mockProps} />
+            <Route path={"/project/:projectName/indicators"} component={ProjectContent} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -60,7 +36,7 @@ describe("ProjectContent", () => {
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <Provider store={store}>
           <MockedProvider mocks={[]} addTypename={false}>
-            <ProjectContent {...mockProps} />
+            <Route path={"/project/:projectName/indicators"} component={ProjectContent}/>
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
