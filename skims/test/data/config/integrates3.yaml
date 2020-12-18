@@ -1,0 +1,4 @@
+namespace: namespace
+output: test/outputs/integrates3.csv
+path: {}
+timeout: 900

@@ -118,7 +118,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F020: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='311',
         description='utils.model.finding.enum.f020.description',
         impact='utils.model.finding.enum.f020.impact',
@@ -142,7 +142,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F022: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='319',
         description='utils.model.finding.enum.F022.description',
         impact='utils.model.finding.enum.F022.impact',
@@ -238,7 +238,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F037: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='200',
         description='utils.model.finding.enum.f037.description',
         impact='utils.model.finding.enum.f037.impact',
@@ -262,7 +262,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.HYGIENE,
     )
     F047_AWS: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='275',
         description='utils.model.finding.enum.f047.description',
         impact='utils.model.finding.enum.f047.impact',
@@ -310,7 +310,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F059: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='532',
         description='utils.model.finding.enum.f059.description',
         impact='utils.model.finding.enum.f059.impact',
@@ -334,7 +334,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F055_AWS: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='16',
         description='utils.model.finding.enum.F055_AWS.description',
         impact='utils.model.finding.enum.F055_AWS.impact',
@@ -358,7 +358,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F055_CORS: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='942',
         description='utils.model.finding.enum.F055_CORS.description',
         impact='utils.model.finding.enum.F055_CORS.impact',

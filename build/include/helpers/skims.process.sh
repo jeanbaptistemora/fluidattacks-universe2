@@ -54,8 +54,8 @@ function helper_skims_pull_cache {
 function helper_skims_push_cache {
   local group="${1}"
   local namespace="${2}"
-  local source="s3://skims.data/cache/${group}/${namespace}"
   local source="${HOME}/.skims"
+  local target="s3://skims.data/cache/${group}/${namespace}"
 
       echo "[INFO] Moving skims state from ${source} to ${target}" \
   &&  aws s3 sync --delete --quiet "${source}" "${target}" \

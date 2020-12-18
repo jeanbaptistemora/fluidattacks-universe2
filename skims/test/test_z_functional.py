@@ -258,7 +258,7 @@ async def test_should_report_nothing_to_integrates_verify(
     assert await get_group_data(test_group) == set()
 
 
-def test_should_report_vulns_to_integrates_run(test_group: str) -> None:
+def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = 'integrates'
     code, stdout, stderr = skims(
         '--group', test_group,
@@ -275,7 +275,7 @@ def test_should_report_vulns_to_integrates_run(test_group: str) -> None:
 
 
 @run_decorator
-async def test_should_report_vulns_to_integrates_verify(
+async def test_should_report_vulns_to_namespace_verify(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
@@ -289,8 +289,72 @@ async def test_should_report_vulns_to_integrates_verify(
     }
 
 
-def test_should_close_vulns_on_integrates_run(test_group: str) -> None:
-    suite: str = 'nothing_to_do'
+def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
+    suite: str = 'integrates2'
+    code, stdout, stderr = skims(
+        '--group', test_group,
+        get_suite_config(suite),
+    )
+    assert code == 0
+    assert '[INFO] Startup working dir is:' in stdout
+    assert '[INFO] Files to be tested:' in stdout
+    assert f'[INFO] Results will be synced to group: {test_group}' in stdout
+    assert f'[INFO] Your role in group {test_group} is: admin' in stdout
+    assert '[INFO] Success: True' in stdout
+    assert not stderr, stderr
+    check_that_csv_results_match(suite)
+
+
+@run_decorator
+async def test_should_report_vulns_to_namespace2_verify(
+    test_group: str,
+    test_integrates_session: None,
+) -> None:
+    # The following findings must be met
+    assert await get_group_data(test_group) == {
+        # Finding, status, open vulnerabilities
+        ('F117', 'APPROVED', (
+            ('namespace/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace/test/data/lib_path/f117/MyJar.jar', '1'),
+            ('namespace2/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace2/test/data/lib_path/f117/MyJar.jar', '1'),
+        )),
+    }
+
+
+def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
+    suite: str = 'integrates3'
+    code, stdout, stderr = skims(
+        '--group', test_group,
+        get_suite_config(suite),
+    )
+    assert code == 0
+    assert '[INFO] Startup working dir is:' in stdout
+    assert '[INFO] Files to be tested:' in stdout
+    assert f'[INFO] Results will be synced to group: {test_group}' in stdout
+    assert f'[INFO] Your role in group {test_group} is: admin' in stdout
+    assert '[INFO] Success: True' in stdout
+    assert not stderr, stderr
+    check_that_csv_results_match(suite)
+
+
+@run_decorator
+async def test_should_close_vulns_to_namespace_verify(
+    test_group: str,
+    test_integrates_session: None,
+) -> None:
+    # The following findings must be met
+    assert await get_group_data(test_group) == {
+        # Finding, status, open vulnerabilities
+        ('F117', 'APPROVED', (
+            ('namespace2/test/data/lib_path/f117/MyJar.class', '1'),
+            ('namespace2/test/data/lib_path/f117/MyJar.jar', '1'),
+        )),
+    }
+
+
+def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
+    suite: str = 'integrates4'
     code, stdout, stderr = skims(
         '--group', test_group,
         get_suite_config(suite),
@@ -302,10 +366,11 @@ def test_should_close_vulns_on_integrates_run(test_group: str) -> None:
     assert f'[INFO] Your role in group {test_group} is: admin' in stdout
     assert '[INFO] Success: True' in stdout
     assert not stderr, stderr
+    check_that_csv_results_match(suite)
 
 
 @run_decorator
-async def test_should_close_vulns_on_integrates_verify(
+async def test_should_close_vulns_on_namespace2_verify(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
