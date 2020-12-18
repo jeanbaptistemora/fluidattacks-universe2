@@ -13,10 +13,10 @@ from aioextensions import (
     in_thread,
     schedule,
 )
-from django.http import HttpRequest
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from rediscluster.nodemanager import RedisClusterException
+from starlette.requests import Request
 
 # Local libraries
 from backend.domain import (
@@ -466,7 +466,7 @@ def cache_content(func: TVar) -> TVar:
     async def decorated(*args: Any, **kwargs: Any) -> Any:
         """Get cached content from a django view with a request object."""
         req = args[0]
-        assert isinstance(req, HttpRequest)
+        assert isinstance(req, Request)
         keys = [
             'username',
             'findingid',

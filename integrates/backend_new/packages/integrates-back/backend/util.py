@@ -30,8 +30,6 @@ from asgiref.sync import async_to_sync
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from django.http import JsonResponse
-from django.http.request import HttpRequest
 from graphql.language.ast import (
     BooleanValueNode,
     FieldNode,
@@ -43,6 +41,7 @@ from graphql.language.ast import (
     VariableNode
 )
 from jose import jwt, JWTError
+
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
@@ -87,15 +86,6 @@ SCRYPT_N = 2**14  # cpu/memory cost
 SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
 MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
-
-
-def response(data: object, message: str, error: bool) -> JsonResponse:
-    """ Create an object to send generic answers """
-    response_data = {}
-    response_data['data'] = data
-    response_data['message'] = message
-    response_data['error'] = error
-    return JsonResponse(response_data)
 
 
 def ord_asc_by_criticality(
@@ -176,18 +166,10 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
         return store[context_store_key]
 
     try:
-        cookies = (
-            context.COOKIES
-            if isinstance(context, HttpRequest)
-            else context.cookies
-        )
+        cookies = context.cookies
         cookie_token = cookies.get(settings.JWT_COOKIE_NAME)
 
-        header_token = (
-            context.META.get('HTTP_AUTHORIZATION')
-            if isinstance(context, HttpRequest)
-            else context.headers.get('Authorization')
-        )
+        header_token = context.headers.get('Authorization')
 
         token = header_token.split()[1] if header_token else cookie_token
         if not token:

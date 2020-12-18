@@ -18,14 +18,11 @@ from ariadne import (
     convert_camel_case_to_snake,
 )
 import botocore.exceptions
-from django.http import (
-    HttpRequest,
-    HttpResponse,
-)
 from PIL import (
     Image,
 )
 
+from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
@@ -112,7 +109,7 @@ async def handle_authz_claims(
         GraphicsForEntityParameters,
         ReportParameters,
     ],
-    request: HttpRequest,
+    request: Request,
 ) -> None:
     user_info = await util.get_jwt_content(request)
     email = user_info['user_email']
@@ -142,7 +139,7 @@ async def handle_authz_claims(
 
 def handle_graphic_request_parameters(
     *,
-    request: HttpRequest,
+    request: Request,
 ) -> GraphicParameters:
     document_name: str = request.query_params['documentName']
     document_type: str = request.query_params['documentType']
@@ -182,7 +179,7 @@ def handle_graphic_request_parameters(
 def handle_graphics_for_entity_request_parameters(
     *,
     entity: str,
-    request: HttpRequest,
+    request: Request,
 ) -> GraphicsForEntityParameters:
     if entity not in ENTITIES:
         raise ValueError(
@@ -209,7 +206,7 @@ def handle_graphics_for_entity_request_parameters(
 
 def handle_graphics_report_request_parameters(
     *,
-    request: HttpRequest,
+    request: Request,
 ) -> ReportParameters:
     entity: str = request.query_params['entity']
 
@@ -236,7 +233,7 @@ def handle_graphics_report_request_parameters(
     )
 
 
-async def handle_graphic_request(request: HttpRequest) -> Response:
+async def handle_graphic_request(request: Request) -> Response:
     try:
         params: GraphicParameters = \
             handle_graphic_request_parameters(request=request)
@@ -266,8 +263,8 @@ async def handle_graphic_request(request: HttpRequest) -> Response:
 
 async def handle_graphics_for_entity_request(
     entity: str,
-    request: HttpRequest,
-) -> HttpResponse:
+    request: Request,
+) -> Response:
     try:
         await handle_authz_claims(
             params=handle_graphics_for_entity_request_parameters(
@@ -291,8 +288,8 @@ async def handle_graphics_for_entity_request(
 
 
 async def handle_graphics_report_request(
-    request: HttpRequest,
-) -> HttpResponse:
+    request: Request,
+) -> Response:
     try:
         params: ReportParameters = handle_graphics_report_request_parameters(
             request=request,
