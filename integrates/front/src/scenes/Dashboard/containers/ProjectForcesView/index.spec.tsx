@@ -6,7 +6,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
@@ -14,30 +14,6 @@ import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForces
 import store from "store";
 
 describe("ForcesView", () => {
-
-  const mockProps: RouteComponentProps<{ projectName: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "unittesting" },
-      path: "/",
-      url: "",
-    },
-  };
-
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
@@ -118,11 +94,13 @@ describe("ForcesView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectForcesView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("Query")
@@ -132,11 +110,13 @@ describe("ForcesView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectForcesView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     expect(wrapper)
       .toHaveLength(1);
@@ -144,11 +124,13 @@ describe("ForcesView", () => {
 
   it("should render forces table", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectForcesView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("table"))
@@ -161,11 +143,13 @@ describe("ForcesView", () => {
 
   it("should render forces modal", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectForcesView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route component={ProjectForcesView} path={"/:projectName/devsecops"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const row: ReactWrapper = wrapper

@@ -9,7 +9,7 @@ import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import React from "react";
 import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router-dom";
 
 // Local imports
 import { ApolloError } from "apollo-client";
@@ -27,8 +27,6 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 
 export interface IExploitResult {
   exploitability: number;
@@ -67,7 +65,8 @@ export interface IExecution {
   vulnerabilities: IVulnerabilities;
 }
 
-const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: ForcesViewProps): JSX.Element => {
+const projectForcesView: React.FC = (): JSX.Element => {
+  const { projectName } = useParams<{ projectName: string }>();
 
   // States
   const defaultCurrentRow: IExecution = {
@@ -204,8 +203,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, wrapped: true,
     },
   ];
-
-  const { projectName } = props.match.params;
 
   const openSeeExecutionDetailsModal: ((event: object, row: IExecution) => void) = (
     _0: object, row: IExecution,
