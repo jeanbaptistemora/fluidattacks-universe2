@@ -17,6 +17,11 @@ function helper_skims_process_group {
   &&  echo '[INFO] Cloning repositories' \
   &&  { helper_common_pull_services_repositories "${group}" || true; } \
   &&  shopt -s nullglob \
+  &&  echo "[INFO] Repos cloned:" \
+  &&  for namespace in "groups/${group}/fusion/"*
+      do
+        echo "        - ${namespace}"
+      done \
   &&  for namespace in "groups/${group}/fusion/"*
       do
             namespace="$(basename "${namespace}")" \
@@ -25,7 +30,7 @@ function helper_skims_process_group {
               | helper_common_json_to_yaml \
               | tee "${TEMP_FILE1}" \
         &&  helper_skims_pull_cache "${group}" "${namespace}" \
-        &&  if "${product}/bin/skims" "${TEMP_FILE1}"
+        &&  if "${product}/bin/skims" --group "${group}" "${TEMP_FILE1}"
             then
               echo "[INFO] Succesfully processed: ${group} ${namespace}"
             else

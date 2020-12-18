@@ -67,9 +67,7 @@ skims_lint:
   <<: *skims_in_dev_and_master_branch
   stage: lint-code
 
-# We disable skims temporarily because we are going to
-# perform a log of backward incompatible changes
-.skims_process_all_groups_on_aws:
+skims_process_all_groups_on_aws:
   <<: *with_nix
   interruptible: false
   only:
