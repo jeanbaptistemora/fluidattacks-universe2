@@ -1,13 +1,16 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import type { IVulnData } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+import type { IVulnDataAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import type { IVulnerabilities } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 
 const getVulnsPendingOfAcceptation: (
   vulnerabilities: IVulnerabilities[]
-) => IVulnData[] = (vulnerabilities: IVulnerabilities[]): IVulnData[] =>
+) => IVulnDataAttr[] = (vulnerabilities: IVulnerabilities[]): IVulnDataAttr[] =>
   vulnerabilities.reduce(
-    (pendingVulns: IVulnData[], vuln: IVulnerabilities): IVulnData[] => {
+    (
+      pendingVulns: IVulnDataAttr[],
+      vuln: IVulnerabilities
+    ): IVulnDataAttr[] => {
       const lastTreatment: IHistoricTreatment = getLastTreatment(
         vuln.historicTreatment
       );

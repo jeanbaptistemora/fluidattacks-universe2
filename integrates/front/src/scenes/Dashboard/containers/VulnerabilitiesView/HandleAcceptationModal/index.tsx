@@ -15,17 +15,17 @@ import {
   HANDLE_VULNS_ACCEPTATION,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import {
-  IHandleVulnsAcceptationModal,
-  IHandleVulnsAcceptationResult,
-  IVulnData,
+  IHandleVulnsAcceptationModalProps,
+  IHandleVulnsAcceptationResultAttr,
+  IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
-  props: IHandleVulnsAcceptationModal,
+const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
+  props: IHandleVulnsAcceptationModalProps,
 ): JSX.Element => {
   const { handleCloseModal, refetchData } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -35,7 +35,7 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
   // GraphQL operations
   const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
     HANDLE_VULNS_ACCEPTATION, {
-    onCompleted: (data: IHandleVulnsAcceptationResult): void => {
+    onCompleted: (data: IHandleVulnsAcceptationResultAttr): void => {
       if (data.handleVulnsAcceptation.success) {
         msgSuccess(
           translate.t("search_findings.tab_vuln.alerts.acceptation_success"),
@@ -72,9 +72,9 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
     values: { treatmentJustification: string },
   ): void => {
     const acceptedVulns: string[] = vulnerabilitiesList.reduce(
-      (acc: string[], vuln: IVulnData) => (vuln.acceptation === "APPROVED" ? [...acc, vuln.id] : acc), []);
+      (acc: string[], vuln: IVulnDataAttr) => (vuln.acceptation === "APPROVED" ? [...acc, vuln.id] : acc), []);
     const rejectedVulns: string[] = vulnerabilitiesList.reduce(
-      (acc: string[], vuln: IVulnData) => (vuln.acceptation === "REJECTED" ? [...acc, vuln.id] : acc), []);
+      (acc: string[], vuln: IVulnDataAttr) => (vuln.acceptation === "REJECTED" ? [...acc, vuln.id] : acc), []);
     handleAcceptation({variables: {
         acceptedVulns,
         findingId: props.findingId,
@@ -87,8 +87,8 @@ const handleAcceptationModal: React.FC<IHandleVulnsAcceptationModal> = (
   const handleUpdateAcceptation: ((vulnInfo: Dictionary<string>) => void) = (
     vulnInfo: Dictionary<string>,
   ): void => {
-    const newVulnList: IVulnData[] = vulnerabilitiesList.map(
-      (vuln: IVulnData) => vuln.id !== vulnInfo.id ? vuln :
+    const newVulnList: IVulnDataAttr[] = vulnerabilitiesList.map(
+      (vuln: IVulnDataAttr) => vuln.id !== vulnInfo.id ? vuln :
         { ...vuln, acceptation: vuln.acceptation === "APPROVED" ? "REJECTED" : "APPROVED" });
     setVulnerabilities([...newVulnList]);
   };

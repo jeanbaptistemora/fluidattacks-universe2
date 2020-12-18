@@ -4,7 +4,7 @@ import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/Vulnerabiliti
 import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import type { IGetFindingVulnInfo } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import type { IVulnData } from "./HandleAcceptationModal/types";
+import type { IVulnDataAttr } from "./HandleAcceptationModal/types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
 import React from "react";
@@ -107,7 +107,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     return <React.StrictMode />;
   }
 
-  const pendingVulnsToHandleAcceptation: IVulnData[] = getVulnsPendingOfAcceptation(
+  const pendingVulnsToHandleAcceptation: IVulnDataAttr[] = getVulnsPendingOfAcceptation(
     data.finding.vulnerabilities
   );
   const canHandleAcceptation: boolean =

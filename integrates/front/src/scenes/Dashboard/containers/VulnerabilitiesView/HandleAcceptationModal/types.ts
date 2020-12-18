@@ -1,21 +1,25 @@
-interface IVulnData {
+interface IVulnDataAttr {
   acceptation: "APPROVED" | "REJECTED";
   id: string;
   specific: string;
   where: string;
 }
 
-interface IHandleVulnsAcceptationModal {
+interface IHandleVulnsAcceptationModalProps {
   findingId: string;
-  vulns: IVulnData[];
-  handleCloseModal(): void;
-  refetchData(): void;
+  vulns: IVulnDataAttr[];
+  handleCloseModal: () => void;
+  refetchData: () => void;
 }
 
-interface IHandleVulnsAcceptationResult {
+interface IHandleVulnsAcceptationResultAttr {
   handleVulnsAcceptation: {
     success: boolean;
   };
 }
 
-export { IHandleVulnsAcceptationModal, IHandleVulnsAcceptationResult, IVulnData };
+export {
+  IHandleVulnsAcceptationModalProps,
+  IHandleVulnsAcceptationResultAttr,
+  IVulnDataAttr,
+};
