@@ -11,7 +11,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -34,6 +34,7 @@ import {
   IStakeholderAttr,
   IStakeholderDataAttr,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -248,10 +249,10 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
     <React.StrictMode>
       <div id="users" className="tab-pane cont active" >
         <Row>
-          <Col md={12} sm={12} xs={12}>
+          <Col100>
             <Row>
-              <Col md={12} sm={12}>
-                <ButtonToolbar className="pull-right md-12 sm-12">
+              <Col100>
+                <ButtonToolbar>
                   <Can do="backend_api_resolvers_user__do_grant_stakeholder_access">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.add_button.tooltip")}
@@ -287,11 +288,11 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                     </TooltipWrapper>
                   </Can>
                 </ButtonToolbar>
-              </Col>
+              </Col100>
             </Row>
             <br />
             <Row>
-              <Col md={12} sm={12}>
+              <Col100>
                 <DataTableNext
                   id="tblUsers"
                   bordered={true}
@@ -310,9 +311,9 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                     onSelect: setCurrentRow,
                   }}
                 />
-              </Col>
+              </Col100>
             </Row>
-          </Col>
+          </Col100>
         </Row>
         <AddUserModal
           action={userModalAction}
