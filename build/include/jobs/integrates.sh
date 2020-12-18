@@ -317,7 +317,6 @@ function job_integrates_deploy_permissions_matrix {
   export PYTHONPATH="${pyPkgNumpy}/lib/python3.7/site-packages:${PYTHONPATH}"
   export PYTHONPATH="${pyPkgMagic}/lib/python3.7/site-packages:${PYTHONPATH}"
   export PYTHONPATH=".:${PYTHONPATH}"
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
@@ -330,7 +329,6 @@ function job_integrates_deploy_permissions_matrix {
 
 function job_integrates_functional_tests_back {
   local common_args=(
-    --ds 'fluidintegrates.settings'
     --verbose
     --cov "${pyPkgIntegratesBack}/site-packages/backend"
     --cov-report 'term'
@@ -526,7 +524,6 @@ function _job_integrates_make_migration {
   local env="${1}"
   local stage="${2}"
   local migration_file="${3}"
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
       env_prepare_python_packages \
   &&  "helper_integrates_set_${env}_secrets" \
@@ -573,7 +570,6 @@ function _job_integrates_analytics_make_documents {
   export CI_COMMIT_REF_NAME
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
   export TEMP_FILE1
   local remote_bucket='fluidintegrates.analytics'
@@ -590,7 +586,6 @@ function _job_integrates_analytics_make_documents {
 
 function _job_integrates_analytics_make_snapshots {
   export CI_COMMIT_REF_NAME
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
   local remote_bucket='fluidintegrates.analytics'
 
@@ -943,7 +938,6 @@ function job_integrates_infra_front_test {
 function job_integrates_test_back {
   local common_args=(
     -n auto
-    --ds 'fluidintegrates.settings'
     --dist 'loadscope'
     --verbose
     --maxfail '20'

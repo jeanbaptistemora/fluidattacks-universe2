@@ -27,7 +27,7 @@ from aioextensions import (
     run,
 )
 import django
-from django.conf import settings
+from backend_new import settings
 from more_itertools import chunked
 import pytz
 

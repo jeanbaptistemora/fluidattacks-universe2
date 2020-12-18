@@ -75,7 +75,6 @@ function helper_bootstrap_dev_ci {
 
 function helper_invoke_py {
   local module="${1}"
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
 
       echo "[INFO] Waking up: ${module}" \

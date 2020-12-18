@@ -22,7 +22,7 @@ import json
 
 from backend.exceptions import ExpiredToken
 from backend.util import (
-    response, ord_asc_by_criticality,
+    ord_asc_by_criticality,
     assert_file_mime,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
@@ -42,16 +42,6 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-
-def test_response():
-    data = 'this is data'
-    message = 'this is a test'
-    error = '500'
-    test_data = response(data, message, error)
-    expected_output = { 'data': 'this is data',
-                        'message': 'this is a test',
-                        'error': '500'}
-    assert json.loads(test_data.content.decode('utf-8')) == expected_output
 
 def test_ord_asc_by_criticality():
     sortable_data = [

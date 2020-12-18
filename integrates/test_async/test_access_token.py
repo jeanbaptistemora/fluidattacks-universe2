@@ -2,7 +2,7 @@ import pytest
 from time import time
 
 from datetime import timedelta
-from django.conf import settings
+from backend_new import settings
 
 from backend.util import (
     calculate_hash_token, is_valid_expiration_time, verificate_hash_token)

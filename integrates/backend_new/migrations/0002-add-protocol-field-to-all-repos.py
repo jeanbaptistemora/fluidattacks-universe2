@@ -27,7 +27,6 @@ from urllib.parse import ParseResult, urlparse
 
 # Setup Django environment to import functions
 PROJECT_PATH: str = '/usr/src/app'
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 

@@ -1,8 +1,5 @@
 # Starlette app init file
 
-# Standard library
-import os
-
 # Third party libraries
 import bugsnag
 import newrelic.agent
@@ -53,8 +50,6 @@ from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY
 )
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 
 
 @authenticate_session  # type: ignore
