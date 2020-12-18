@@ -29,13 +29,10 @@ function helper_integrates_aws_login {
 
 function helper_integrates_cloudflare_login {
   local user="${1}"
-  export TF_VAR_cloudflare_email
   export TF_VAR_cloudflare_api_token
 
       helper_common_sops_env "secrets-${user}.yaml" default \
-        CLOUDFLARE_EMAIL \
         CLOUDFLARE_API_TOKEN \
-  &&  TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \
   &&  TF_VAR_cloudflare_api_token="${CLOUDFLARE_API_TOKEN}"
 }
 
