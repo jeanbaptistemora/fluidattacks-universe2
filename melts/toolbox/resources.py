@@ -210,7 +210,7 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
         if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
             logger.error(f'{repo_name}/{branch} failed')
             logger.error(cmd[1:])
-            problem = {'repo': repo_name, 'problem': cmd[1:]}
+            problem = {'repo': repo_name, 'problem': cmd[1]}
     # validate if there is no problem with the baseurl
     elif not problem:
         cmd = cmd_execute([
@@ -223,7 +223,7 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
         ])
         if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
             logger.error(f'{repo_name}/{branch} failed')
-            problem = {'repo': repo_name, 'problem': cmd[1:]}
+            problem = {'repo': repo_name, 'problem': cmd[1]}
 
     if problem:
         utils.integrates.update_root_cloning_status(
