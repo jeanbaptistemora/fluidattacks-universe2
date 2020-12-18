@@ -26,6 +26,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "1111"
                     },
@@ -60,6 +70,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -102,6 +122,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "3333"
                     },
@@ -136,6 +166,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -178,6 +218,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "5555"
                     },
@@ -212,6 +262,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -254,6 +314,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "7777"
                     },
@@ -288,6 +358,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -330,6 +410,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "9999"
                     },
@@ -364,6 +454,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -406,6 +506,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "2222"
                     },
@@ -440,6 +550,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -482,6 +602,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "4444"
                     },
@@ -520,6 +650,16 @@
                             }
                         ]
                     },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
+                                }
+                            }
+                        ]
+                    },
                     "specific" : {
                         "S" : "5555"
                     },
@@ -554,6 +694,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-12 08:45:48" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]
@@ -843,6 +993,16 @@
                                     "state" : {
                                         "S" : "open"
                                     }
+                                }
+                            }
+                        ]
+                    },
+                    "historic_treatment": {
+                        "L": [
+                            {
+                              "M": {
+                                    "date": { "S": "2019-09-13 09:58:38" },
+                                    "treatment": { "S": "NEW" }
                                 }
                             }
                         ]

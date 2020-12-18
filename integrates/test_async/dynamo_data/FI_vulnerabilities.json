@@ -73,6 +73,16 @@
                 }
               }
             ]
+          },
+          "historic_treatment": {
+             "L": [
+                {
+                   "M": {
+                      "date": { "S": "2018-11-27 14:54:08" },
+                      "treatment": { "S": "NEW" }
+                   }
+                }
+             ]
           }
         }
       }
@@ -99,6 +109,16 @@
                            "state" : {
                               "S" : "closed"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-04-12 08:45:48" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]
@@ -140,6 +160,16 @@
                            "state" : {
                               "S" : "open"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-04-12 08:45:48" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]
@@ -208,7 +238,17 @@
                      }
                    }
                   ]
-                },
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 08:17:41" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "333"
                },
@@ -315,6 +355,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 09:58:38" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "333"
                },
@@ -352,6 +402,16 @@
                            "state" : {
                               "S" : "open"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 15:37:59" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]
@@ -413,6 +473,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 11:03:21" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "4444"
                },
@@ -466,6 +536,16 @@
                            "state" : {
                               "S" : "open"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 08:59:20" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]
@@ -527,6 +607,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 10:00:03" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "333"
                },
@@ -564,6 +654,16 @@
                            "state" : {
                               "S" : "open"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-16 16:01:24" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]
@@ -625,6 +725,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 10:53:05" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "333"
                },
@@ -662,6 +772,16 @@
                            "state" : {
                               "S" : "open"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-13 15:19:17" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]
@@ -755,6 +875,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-09-16 15:02:17" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "1111"
                },
@@ -800,7 +930,7 @@
                   "L": [
                      {
                         "M": {
-                           "date": { "S": "2020-10-13 12:46:10" },
+                           "date": { "S": "2019-09-13 09:03:05" },
                            "treatment": { "S": "NEW" }
                         }
                      }
@@ -1003,6 +1133,16 @@
                      }
                   ]
                },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-01-15 11:04:14" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
+                  ]
+               },
                "specific" : {
                   "S" : "12456"
                },
@@ -1056,6 +1196,16 @@
                         }
                       }
                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-01-16 08:47:07" },
+                           "treatment": { "S": "NEW" }
+                        }
+                     }
                   ]
                },
                "historic_zero_risk" : {
@@ -1366,6 +1516,16 @@
                            "justification" : {
                               "S" : "FALSE_POSITIVE"
                            }
+                        }
+                     }
+                  ]
+               },
+               "historic_treatment": {
+                  "L": [
+                     {
+                        "M": {
+                           "date": { "S": "2019-10-15 11:04:14" },
+                           "treatment": { "S": "NEW" }
                         }
                      }
                   ]

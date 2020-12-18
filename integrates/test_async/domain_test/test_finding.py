@@ -72,7 +72,7 @@ async def test_get_tracking_vulnerabilities():
             "closed": 0,
             "effectiveness": 0,
             "date": "2019-09-12",
-            "new": 1,
+            "new": 16,
             "in_progress": 0,
             "accepted": 0,
             "accepted_undefined": 0
@@ -83,7 +83,7 @@ async def test_get_tracking_vulnerabilities():
             "closed": 4,
             "effectiveness": 15,
             "date": "2019-09-13",
-            "new": 2,
+            "new": 22,
             "in_progress": 0,
             "accepted": 0,
             "accepted_undefined": 0
@@ -94,7 +94,7 @@ async def test_get_tracking_vulnerabilities():
             "closed": 4,
             "effectiveness": 14,
             "date": "2019-09-16",
-            "new": 2,
+            "new": 24,
             "in_progress": 0,
             "accepted": 0,
             "accepted_undefined": 0
@@ -105,7 +105,7 @@ async def test_get_tracking_vulnerabilities():
             "closed": 4,
             "effectiveness": 14,
             "date": "2020-02-19",
-            "new": 2,
+            "new": 24,
             "in_progress": 0,
             "accepted": 0,
             "accepted_undefined": 0

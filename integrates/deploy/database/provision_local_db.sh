@@ -631,6 +631,16 @@ then
                   }
                 ]
               },
+              "historic_treatment": {
+                "L": [
+                  {
+                    "M": {
+                      "date": { "S": "2019-04-07 08:45:48" },
+                      "treatment": { "S": "NEW" }
+                    }
+                  }
+                ]
+              },
               "specific" : {
                 "S" : "9999"
               },
