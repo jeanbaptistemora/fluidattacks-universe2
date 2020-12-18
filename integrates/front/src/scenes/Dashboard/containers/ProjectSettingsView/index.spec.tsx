@@ -91,7 +91,8 @@ describe("ProjectSettingsView", () => {
       .toHaveLength(1);
   });
 
-  it("should render environments component", async () => {
+  // Will be removed next MR
+  it.skip("should render environments component", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_resource__do_update_environment" },
     ]);

@@ -1,4 +1,5 @@
 # Third party libraries
+import pytest
 from selenium.webdriver.remote.webdriver import WebDriver
 
 # Local libraries
@@ -183,6 +184,7 @@ def test_group_scope_repositories(
     )
 
 
+@pytest.mark.skip(reason="Will be rewritten next MR")
 def test_group_scope_environments(
         driver: WebDriver,
         credentials: Credentials,

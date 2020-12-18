@@ -3,8 +3,8 @@
 """
 This migration dumps envs from services yml to the new roots table
 
-Execution Time:
-Finalization Time:
+Execution Time: 2020-12-18 16:32:02 UTC-5
+Finalization Time: 2020-12-18 16:32:23 UTC-5
 """
 # Standard
 import os
@@ -128,7 +128,7 @@ async def update_envs(group_name: str) -> None:
 
         if matching_root:
             print(
-                f'[INFO] Match in f{group_name}',
+                f'[INFO] Match in {group_name}',
                 '\nOLD:', (url, branch),
                 '\nNEW:', (matching_root['url'], matching_root['branch'])
             )

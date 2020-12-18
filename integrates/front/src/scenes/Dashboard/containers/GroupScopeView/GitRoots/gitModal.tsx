@@ -28,9 +28,10 @@ const GitModal: React.FC<IGitModalProps> = ({
     branch: "",
     environment: "",
     environmentUrls: [],
-    filter: { exclude: [""], include: ["*"] },
+    filter: { exclude: [], include: ["*"] },
     id: "",
     includesHealthCheck: false,
+    state: "ACTIVE",
     url: "",
   },
   onClose,
@@ -54,16 +55,7 @@ const GitModal: React.FC<IGitModalProps> = ({
       open={true}
     >
       <GenericForm
-        initialValues={{
-          ...initialValues,
-          filter: {
-            exclude:
-              initialValues.filter.exclude.length === 0
-                ? [""]
-                : initialValues.filter.exclude,
-            include: initialValues.filter.include,
-          },
-        }}
+        initialValues={initialValues}
         name={"gitRoot"}
         onSubmit={onSubmit}
       >
@@ -172,7 +164,11 @@ const GitModal: React.FC<IGitModalProps> = ({
                       <RequiredField>{"*"}&nbsp;</RequiredField>
                       {t("group.scope.git.filter.include")}
                     </ControlLabel>
-                    <ArrayField initialValue={""} name={"include"}>
+                    <ArrayField
+                      allowEmpty={false}
+                      initialValue={""}
+                      name={"include"}
+                    >
                       {(fieldName: string): JSX.Element => (
                         <Field
                           component={Text}
@@ -183,10 +179,13 @@ const GitModal: React.FC<IGitModalProps> = ({
                       )}
                     </ArrayField>
                     <ControlLabel>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
                       {t("group.scope.git.filter.exclude")}
                     </ControlLabel>
-                    <ArrayField initialValue={""} name={"exclude"}>
+                    <ArrayField
+                      allowEmpty={true}
+                      initialValue={""}
+                      name={"exclude"}
+                    >
                       {(fieldName: string): JSX.Element => (
                         <Field
                           component={Text}

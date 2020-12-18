@@ -489,6 +489,7 @@ export const enTranslations: ResourceKey = {
         state: "State",
       },
       git: {
+        envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",
         },
@@ -503,6 +504,7 @@ export const enTranslations: ResourceKey = {
           hasCode: "Is there any code on the repo?",
           title: "Health Check",
         },
+        manageEnvs: "Manage environments",
         repo: {
           branch: "Branch",
           environment: "Environment kind",

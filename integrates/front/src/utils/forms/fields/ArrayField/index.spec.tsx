@@ -27,7 +27,7 @@ describe("Array field", (): void => {
           name={"test"}
           onSubmit={handleSubmit}
         >
-          <ArrayField initialValue={""} name={"names"}>
+          <ArrayField allowEmpty={false} initialValue={""} name={"names"}>
             {(fieldName: string): JSX.Element => (
               <Field component={Text} name={fieldName} type={"text"} />
             )}

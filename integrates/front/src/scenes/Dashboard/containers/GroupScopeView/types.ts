@@ -9,6 +9,7 @@ interface IGitRootAttr {
   };
   includesHealthCheck: boolean;
   id: string;
+  state: "ACTIVE" | "INACTIVE";
   url: string;
 }
 

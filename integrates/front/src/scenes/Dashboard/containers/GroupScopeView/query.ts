@@ -57,6 +57,14 @@ const ADD_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
+const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
+  mutation UpdateGitEnvironments($id: ID!, $environmentUrls: [String!]!) {
+    updateGitEnvironments(id: $id, environmentUrls: $environmentUrls) {
+      success
+    }
+  }
+`;
+
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $environment: String!
@@ -83,4 +91,10 @@ const UPDATE_ROOT_STATE: DocumentNode = gql`
   }
 `;
 
-export { GET_ROOTS, ADD_GIT_ROOT, UPDATE_GIT_ROOT, UPDATE_ROOT_STATE };
+export {
+  GET_ROOTS,
+  ADD_GIT_ROOT,
+  UPDATE_GIT_ENVIRONMENTS,
+  UPDATE_GIT_ROOT,
+  UPDATE_ROOT_STATE,
+};

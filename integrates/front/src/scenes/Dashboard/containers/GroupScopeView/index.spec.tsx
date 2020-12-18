@@ -265,7 +265,7 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
-                  exclude: [],
+                  exclude: ["^bower_components/.*$"],
                   include: ["^.*$"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",

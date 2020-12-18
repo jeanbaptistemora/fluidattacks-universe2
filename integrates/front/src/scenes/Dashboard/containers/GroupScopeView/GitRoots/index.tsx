@@ -4,6 +4,7 @@ import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
+import { EnvsModal } from "./envsModal";
 import { FluidIcon } from "components/FluidIcon";
 import { GitModal } from "./gitModal";
 import { Glyphicon } from "react-bootstrap";
@@ -18,18 +19,23 @@ import { msgError } from "utils/notifications";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
-import { ADD_GIT_ROOT, UPDATE_GIT_ROOT, UPDATE_ROOT_STATE } from "../query";
+import {
+  ADD_GIT_ROOT,
+  UPDATE_GIT_ENVIRONMENTS,
+  UPDATE_GIT_ROOT,
+  UPDATE_ROOT_STATE,
+} from "../query";
 import {
   changeFormatter,
   statusFormatter,
 } from "components/DataTableNext/formatters";
 
-const formatFilter: (globs: string[]) => JSX.Element = (globs): JSX.Element => (
+const formatList: (list: string[]) => JSX.Element = (list): JSX.Element => (
   <p>
-    {globs.map(
-      (glob: string): JSX.Element => (
-        <React.Fragment key={glob}>
-          {glob}
+    {list.map(
+      (item: string): JSX.Element => (
+        <React.Fragment key={item}>
+          {item}
           <br />
         </React.Fragment>
       )
@@ -87,6 +93,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     undefined
   );
 
+  const editDisabled: boolean =
+    currentRow === undefined || currentRow.state === "INACTIVE";
+
+  const [isManagingEnvs, setManagingEnvs] = React.useState(false);
+
+  const openEnvsModal: () => void = React.useCallback((): void => {
+    setManagingEnvs(true);
+  }, []);
+
+  const closeEnvsModal: () => void = React.useCallback((): void => {
+    setManagingEnvs(false);
+  }, []);
+
   // GraphQL operations
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (): void => {
@@ -130,9 +149,30 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
+  const [updateGitEnvs] = useMutation(UPDATE_GIT_ENVIRONMENTS, {
+    onCompleted: (): void => {
+      onUpdate();
+      closeEnvsModal();
+      setCurrentRow(undefined);
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
+          case "Exception - Error empty value is not valid":
+            msgError(t("group.scope.git.errors.invalid"));
+            break;
+          default:
+            msgError(t("group_alerts.error_textsad"));
+            Logger.error("Couldn't update git envs", error);
+        }
+      });
+    },
+  });
+
   const [updateRootState] = useMutation(UPDATE_ROOT_STATE, {
     onCompleted: (): void => {
       onUpdate();
+      setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       msgError(t("group_alerts.error_textsad"));
@@ -190,6 +230,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [addGitRoot, currentRow, groupName, updateGitRoot]
   );
 
+  const handleEnvsSubmit: (
+    values: IGitRootAttr
+  ) => Promise<void> = React.useCallback(
+    async ({ environmentUrls, id }): Promise<void> => {
+      await updateGitEnvs({ variables: { environmentUrls, id } });
+    },
+    [updateGitEnvs]
+  );
+
   return (
     <React.Fragment>
       <h3>{t("group.scope.git.title")}</h3>
@@ -204,9 +253,17 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         </Can>
         <Can do={"backend_api_mutations_update_git_root_mutate"}>
           <div className={"mb3"}>
-            <Button disabled={currentRow === undefined} onClick={openEditModal}>
+            <Button disabled={editDisabled} onClick={openEditModal}>
               <FluidIcon icon={"edit"} />
               &nbsp;{t("group.scope.common.edit")}
+            </Button>
+          </div>
+        </Can>
+        <Can do={"backend_api_mutations_update_git_environments_mutate"}>
+          <div className={"mb3"}>
+            <Button disabled={editDisabled} onClick={openEnvsModal}>
+              <Glyphicon glyph={"cloud"} />
+              &nbsp;{t("group.scope.git.manageEnvs")}
             </Button>
           </div>
         </Can>
@@ -242,13 +299,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   header: t("group.scope.git.repo.environment"),
                 },
                 {
+                  dataField: "environmentUrls",
+                  formatter: formatList,
+                  header: t("group.scope.git.envUrls"),
+                },
+                {
                   dataField: "filter.include",
-                  formatter: formatFilter,
+                  formatter: formatList,
                   header: t("group.scope.git.filter.include"),
                 },
                 {
                   dataField: "filter.exclude",
-                  formatter: formatFilter,
+                  formatter: formatList,
                   header: t("group.scope.git.filter.exclude"),
                 },
                 {
@@ -288,6 +350,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           onSubmit={handleGitSubmit}
         />
       )}
+      {isManagingEnvs ? (
+        <EnvsModal
+          initialValues={currentRow as IGitRootAttr}
+          onClose={closeEnvsModal}
+          onSubmit={handleEnvsSubmit}
+        />
+      ) : undefined}
     </React.Fragment>
   );
 };

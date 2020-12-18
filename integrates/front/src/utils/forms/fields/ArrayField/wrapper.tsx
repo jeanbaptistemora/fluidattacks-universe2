@@ -1,5 +1,6 @@
 import { Button } from "components/Button";
 import { Glyphicon } from "react-bootstrap";
+import type { IArrayProps } from ".";
 import React from "react";
 import type { WrappedFieldArrayProps } from "redux-form";
 
@@ -7,10 +8,11 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
   props: WrappedFieldArrayProps
 ): JSX.Element => {
   const { fields } = props;
-  const { children, initialValue } = props as WrappedFieldArrayProps & {
-    children: (fieldName: string) => React.ReactNode;
-    initialValue: unknown;
-  };
+  const {
+    allowEmpty,
+    children,
+    initialValue,
+  } = props as WrappedFieldArrayProps & IArrayProps;
 
   function addItem(): void {
     /*
@@ -33,7 +35,7 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
             <div className={"flex items-end"} key={fieldName}>
               <div className={"w-80"}>{children(fieldName)}</div>
               <div className={"w-20"}>
-                {index > 0 ? (
+                {index > 0 || allowEmpty ? (
                   <Button onClick={removeItem}>
                     <Glyphicon glyph={"trash"} />
                   </Button>

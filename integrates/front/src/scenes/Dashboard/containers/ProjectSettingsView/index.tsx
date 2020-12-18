@@ -9,7 +9,6 @@ import React from "react";
 import { useParams } from "react-router";
 
 import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup";
-import { Environments } from "scenes/Dashboard/containers/ProjectSettingsView/Environments";
 import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
@@ -28,8 +27,6 @@ const projectSettingsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div id="resources">
-        <Environments projectName={projectName} />
-        <hr />
         <Files projectName={projectName} />
         <hr />
         <Portfolio projectName={projectName} />

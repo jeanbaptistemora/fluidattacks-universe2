@@ -3,6 +3,7 @@ import re
 from typing import (
     Any,
     Dict,
+    List,
     Optional,
     Tuple,
 )
@@ -29,6 +30,7 @@ from backend.exceptions import (
 from backend.typing import (
     GitRoot,
     GitRootCloningStatus,
+    GitRootFilter,
     IPRoot,
     URLRoot,
     Root,
@@ -43,17 +45,21 @@ def format_root(root: Dict[str, Any]) -> Root:
     root_state: Dict[str, Any] = root['historic_state'][-1]
 
     if root['kind'] == 'Git':
-        root_cloning_status: Dict[str,
-                                  Any] = root['historic_cloning_status'][-1]
+        cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
+        filter_config: Dict[str, List[str]] = root_state['filter']
+
         return GitRoot(
             branch=root['branch'],
             cloning_status=GitRootCloningStatus(
-                status=root_cloning_status['status'],
-                message=root_cloning_status['message'],
+                status=cloning_status['status'],
+                message=cloning_status['message'],
             ),
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
-            filter=root_state['filter'],
+            filter=GitRootFilter(
+                exclude=filter_config['exclude'],
+                include=filter_config['include']
+            ),
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             state=root_state['state'],
@@ -353,11 +359,11 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     if is_valid:
         group_name: str = root['group_name']
         new_state: Dict[str, Any] = {
+            **last_state,
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
             'filter': filter_config,
             'includes_health_check': kwargs['includes_health_check'],
-            'state': 'ACTIVE',
             'user': user_email
         }
 

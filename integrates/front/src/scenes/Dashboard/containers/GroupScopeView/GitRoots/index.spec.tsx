@@ -126,7 +126,7 @@ describe("GitRoots", (): void => {
       .find({ name: "filter.exclude" })
       .find("input");
 
-    expect(excludeFields).toHaveLength(1);
+    expect(excludeFields).toHaveLength(0);
   });
 
   it("should render envs modal", (): void => {

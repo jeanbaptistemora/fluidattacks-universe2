@@ -1,6 +1,7 @@
 import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
@@ -16,7 +17,7 @@ import {
 interface IEnvsModalProps {
   initialValues: { environmentUrls: string[] };
   onClose: () => void;
-  onSubmit: (values: { environmentUrls: string[] }) => Promise<void>;
+  onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
 
 const EnvsModal: React.FC<IEnvsModalProps> = ({
@@ -39,7 +40,11 @@ const EnvsModal: React.FC<IEnvsModalProps> = ({
               <RequiredField>{"*"}&nbsp;</RequiredField>
               {t("group.scope.git.envUrls")}
             </ControlLabel>
-            <ArrayField initialValue={""} name={"environmentUrls"}>
+            <ArrayField
+              allowEmpty={false}
+              initialValue={""}
+              name={"environmentUrls"}
+            >
               {(fieldName: string): JSX.Element => (
                 <Field
                   component={Text}
