@@ -45,6 +45,11 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
                 environment: "production",
                 environmentUrls: [],
                 filter: {
@@ -104,6 +109,10 @@ describe("GroupScopeView", (): void => {
         "*/node_modules/*",
         // state
         "Active",
+        // cloning status
+        "Unknown",
+        // cloning message
+        "root created",
       ].join("")
     );
   });
@@ -147,6 +156,11 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
                 environment: "production",
                 environmentUrls: [],
                 filter: {
@@ -241,6 +255,10 @@ describe("GroupScopeView", (): void => {
         "*",
         // state
         "Active",
+        // cloning status
+        "Unknown",
+        // cloning message
+        "root created",
       ].join("")
     );
   });
@@ -261,6 +279,11 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
                 environment: "production",
                 environmentUrls: [],
                 filter: {
@@ -305,6 +328,11 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
                 environment: "staging",
                 environmentUrls: [],
                 filter: {
@@ -410,6 +438,10 @@ describe("GroupScopeView", (): void => {
         "node_modules/*",
         // state
         "Active",
+        // cloning status
+        "Unknown",
+        // cloning message
+        "root created",
       ].join("")
     );
   });
@@ -430,6 +462,11 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
                 environment: "production",
                 environmentUrls: [],
                 filter: {
@@ -474,6 +511,11 @@ describe("GroupScopeView", (): void => {
               {
                 __typename: "GitRoot",
                 branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
                 environment: "production",
                 environmentUrls: [],
                 filter: {

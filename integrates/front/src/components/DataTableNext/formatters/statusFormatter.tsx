@@ -17,12 +17,14 @@ const getBgColor: (value: string) => string = (value: string): string => {
   switch (value) {
     // Gray
     case "Requested":
+    case "Unknown":
       return "bg-lbl-gray";
     // Green
     case "Active":
     case "Closed":
     case "Confirmed":
     case "Enabled":
+    case "Ok":
     case "Secure":
     case "Solved":
     case "Submitted":

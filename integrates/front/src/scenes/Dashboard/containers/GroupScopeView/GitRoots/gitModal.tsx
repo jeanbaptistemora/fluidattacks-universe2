@@ -26,6 +26,10 @@ const GitModal: React.FC<IGitModalProps> = ({
   initialValues = {
     __typename: "GitRoot",
     branch: "",
+    cloningStatus: {
+      message: "",
+      status: "UNKNOWN",
+    },
     environment: "",
     environmentUrls: [],
     filter: { exclude: [], include: ["*"] },

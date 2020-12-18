@@ -7,6 +7,10 @@ const GET_ROOTS: DocumentNode = gql`
       roots {
         ... on GitRoot {
           branch
+          cloningStatus {
+            message
+            status
+          }
           environment
           environmentUrls
           filter {

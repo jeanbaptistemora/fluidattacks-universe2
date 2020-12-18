@@ -324,6 +324,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     : statusFormatter,
                   header: t("group.scope.common.state"),
                 },
+                {
+                  align: "center",
+                  dataField: "cloningStatus.status",
+                  formatter: statusFormatter,
+                  header: t("group.scope.git.repo.cloning.status"),
+                },
+                {
+                  dataField: "cloningStatus.message",
+                  header: t("group.scope.git.repo.cloning.message"),
+                },
               ]}
               id={"tblGitRoots"}
               pageSize={15}

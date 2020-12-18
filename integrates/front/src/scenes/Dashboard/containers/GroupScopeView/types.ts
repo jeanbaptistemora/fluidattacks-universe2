@@ -1,6 +1,10 @@
 interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
+  cloningStatus: {
+    message: string;
+    status: "FAIL" | "OK" | "UNKNOWN";
+  };
   environment: string;
   environmentUrls: string[];
   filter: {

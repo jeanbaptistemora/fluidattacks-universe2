@@ -507,6 +507,10 @@ export const enTranslations: ResourceKey = {
         manageEnvs: "Manage environments",
         repo: {
           branch: "Branch",
+          cloning: {
+            message: "Cloning Message",
+            status: "Cloning Status",
+          },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",
           title: "Git repository",
