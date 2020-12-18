@@ -835,13 +835,13 @@ function job_integrates_infra_cluster_deploy {
 
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
-  &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-      NEW_RELIC_LICENSE_KEY \
-  &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
-  &&  helper_common_terraform_apply "${target}" \
+    &&  helper_integrates_aws_login production \
+    &&  helper_integrates_cloudflare_login production \
+    &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+          NEW_RELIC_LICENSE_KEY \
+    &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
+    &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   || return 1
 }
@@ -854,6 +854,7 @@ function job_integrates_infra_cluster_test {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
     &&  helper_integrates_aws_login development \
+    &&  helper_integrates_cloudflare_login development \
     &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
     &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
           NEW_RELIC_LICENSE_KEY \
