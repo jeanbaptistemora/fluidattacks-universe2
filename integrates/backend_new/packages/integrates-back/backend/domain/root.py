@@ -26,16 +26,31 @@ from backend.exceptions import (
     RepeatedValues,
     RootNotFound
 )
-from backend.typing import GitRoot, IPRoot, URLRoot, Root
-from backend.utils import datetime, validations
+from backend.typing import (
+    GitRoot,
+    GitRootCloningStatus,
+    IPRoot,
+    URLRoot,
+    Root,
+)
+from backend.utils import (
+    datetime,
+    validations,
+)
 
 
 def format_root(root: Dict[str, Any]) -> Root:
     root_state: Dict[str, Any] = root['historic_state'][-1]
 
     if root['kind'] == 'Git':
+        root_cloning_status: Dict[str,
+                                  Any] = root['historic_cloning_status'][-1]
         return GitRoot(
             branch=root['branch'],
+            cloning_status=GitRootCloningStatus(
+                status=root_cloning_status['status'],
+                message=root_cloning_status['message'],
+            ),
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
             filter=root_state['filter'],
@@ -145,10 +160,17 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
     ):
         raise PermissionDenied()
 
+    now_date = datetime.get_as_str(datetime.get_now())
+    initial_cloning_status: Dict[str, Any] = {
+        'date': now_date,
+        'status': 'UNKNOWN',
+        'message': 'root created'
+    }
+
     if is_valid:
         org_id: str = await org_domain.get_id_for_group(group_name)
         initial_state: Dict[str, Any] = {
-            'date': datetime.get_as_str(datetime.get_now()),
+            'date': now_date,
             'environment': kwargs['environment'],
             'filter': {
                 'exclude': [
@@ -167,6 +189,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         root_attributes: Dict[str, Any] = {
             'branch': branch,
             'historic_state': [initial_state],
+            'historic_cloning_status': [initial_cloning_status],
             'kind': 'Git',
             'url': url
         }
@@ -278,25 +301,17 @@ async def add_url_root(user_email: str, **kwargs: Any) -> None:
         protocol: str = url_attributes.scheme.upper()
         org_id: str = await org_domain.get_id_for_group(group_name)
 
-        now_date = datetime.get_as_str(datetime.get_now())
         initial_state: Dict[str, Any] = {
-            'date': now_date,
+            'date': datetime.get_as_str(datetime.get_now()),
             'host': host,
             'path': path,
             'port': port,
             'protocol': protocol,
             'user': user_email
         }
-        initial_cloning_status: Dict[str, Any] = {
-            'date': now_date,
-            'status': 'UNKNOWN',
-            'message': 'root created'
-        }
-
         if await _is_url_unique_in_org(org_id, host, path, port, protocol):
             root_attributes: Dict[str, Any] = {
                 'historic_state': [initial_state],
-                'historic_cloning_status': [initial_cloning_status],
                 'kind': 'URL'
             }
             await root_dal.create(group_name, root_attributes)

@@ -69,6 +69,14 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'CloningStatus',
+        {
+            'OK': 'OK',
+            'FAILED': 'FAILED',
+            'UNKNOWN': 'UNKNOWN'
+        }
+    ),
+    EnumType(
         'DeleteFindingJustification',
         {
             'DUPLICATED': 'DUPLICATED',

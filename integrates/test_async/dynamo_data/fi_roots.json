@@ -124,17 +124,6 @@
                 }
               }
             ]
-          },
-          "historic_cloning_status": {
-            "L": [
-              {
-                "M": {
-                  "date": { "S": "2020-11-19 08:37:10" },
-                  "status": { "S": "UNKNOWN" },
-                  "message": { "S": "root creation" }
-                }
-              }
-            ]
           }
         }
       }
@@ -155,17 +144,6 @@
                   "port": { "N": "443" },
                   "protocol": { "S": "HTTPS" },
                   "user": { "S": "jdoe@fluidattacks.com" }
-                }
-              }
-            ]
-          },
-          "historic_cloning_status": {
-            "L": [
-              {
-                "M": {
-                  "date": { "S": "2020-11-19 08:37:10" },
-                  "status": { "S": "UNKNOWN" },
-                  "message": { "S": "root creation" }
                 }
               }
             ]
