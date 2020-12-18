@@ -5,7 +5,7 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { ProjectConsultingView } from "scenes/Dashboard/containers/ProjectConsultingView";
@@ -23,29 +23,6 @@ describe("ProjectConsultingView", () => {
     document.body.removeChild((container as HTMLDivElement));
     container = undefined;
   });
-
-  const mockProps: RouteComponentProps<{ projectName: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "unittesting" },
-      path: "/",
-      url: "",
-    },
-  };
 
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
@@ -77,9 +54,11 @@ describe("ProjectConsultingView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectConsultingView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/unittesting"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route path={"/:projectName"} component={ProjectConsultingView} />
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -102,9 +81,11 @@ describe("ProjectConsultingView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <ProjectConsultingView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/unittesting"]}>
+        <MockedProvider mocks={emptyMocks} addTypename={false}>
+          <Route path={"/:projectName"} component={ProjectConsultingView} />
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
@@ -113,9 +94,11 @@ describe("ProjectConsultingView", () => {
 
   it("should render comment", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectConsultingView {...mockProps} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/unittesting"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route path={"/:projectName"} component={ProjectConsultingView} />
+        </MockedProvider>
+      </MemoryRouter>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     const commentElement: ReactWrapper = wrapper.find("div")

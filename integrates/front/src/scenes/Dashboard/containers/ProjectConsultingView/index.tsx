@@ -10,8 +10,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router";
 import {
   Comments,
   ICommentStructure,
@@ -26,12 +25,8 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-type IProjectConsultingViewProps = RouteComponentProps<{ projectName: string }>;
-
-const projectConsultingView: React.FC<IProjectConsultingViewProps> =
-  (props: IProjectConsultingViewProps): JSX.Element => {
-  const { projectName } = props.match.params;
-  const { t } = useTranslation();
+const projectConsultingView: React.FC = (): JSX.Element => {
+  const { projectName } = useParams<{ projectName: string}>();
   const onMount: (() => void) = (): void => {
     mixpanel.track("ProjectComments", {
       User: (window as typeof window & { userName: string }).userName,
