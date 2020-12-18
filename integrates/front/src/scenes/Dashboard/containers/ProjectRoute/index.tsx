@@ -8,7 +8,7 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "react-router-dom";
 
@@ -24,6 +24,7 @@ import {
 } from "scenes/Dashboard/containers/ProjectRoute/queries";
 import { IProjectData, IProjectRoute, IRejectRemoveProject } from "scenes/Dashboard/containers/ProjectRoute/types";
 import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -132,7 +133,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
             open={true}
           >
             <Row>
-              <Col md={12}>
+              <Col100>
                 <Trans>
                   <p>
                     {translate.t(
@@ -140,10 +141,10 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
                       { deletionDate: data.project.deletionDate, userEmail: data.project.userDeletion })}
                   </p>
                 </Trans>
-              </Col>
+              </Col100>
             </Row>
             <br />
-            <ButtonToolbar className="pull-right">
+            <ButtonToolbar>
               <Button onClick={closeRejectProjectModal}>
                 {translate.t("update_access_token.close")}
               </Button>
