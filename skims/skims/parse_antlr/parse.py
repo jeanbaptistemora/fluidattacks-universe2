@@ -28,23 +28,38 @@ from utils.system import (
 )
 
 # Constants
+VERSION: int = 0
 PARSER: str = get_artifact(
     'static/parsers/antlr/build/install/parse/bin/parse',
 )
 
 
-@CACHE_ETERNALLY
 async def parse(
     grammar: Grammar,
     *,
     content: bytes,
     path: str,
-    _: int = 0,
+) -> Dict[str, Any]:
+    return await _parse(
+        grammar,
+        content=content,
+        path=path,
+        _=VERSION,
+    )
+
+
+@CACHE_ETERNALLY
+async def _parse(
+    grammar: Grammar,
+    *,
+    content: bytes,
+    path: str,
+    _: int,
 ) -> Dict[str, Any]:
     for memory in iterate_host_memory_levels():
         async with get_memory_semaphore().acquire_many(memory):
             with contextlib.suppress(MemoryError):
-                return await _parse(
+                return await __parse(
                     content=content,
                     grammar=grammar,
                     memory=memory,
@@ -54,7 +69,7 @@ async def parse(
     return {}
 
 
-async def _parse(
+async def __parse(
     grammar: Grammar,
     *,
     content: bytes,

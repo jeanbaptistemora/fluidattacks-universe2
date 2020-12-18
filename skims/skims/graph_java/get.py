@@ -33,21 +33,21 @@ from utils.string import (
     get_debug_path,
 )
 
+# Constants
+VERSION: int = 0
 
-def get(
+
+async def get(
     grammar: Grammar,
     *,
     content: bytes,
     path: str,
-    # Update this number to indicate a new graph version
-    # This also invalidates the cache
-    graph_version: int = 4,
 ) -> nx.DiGraph:
-    return _get(
+    return await _get(
         grammar,
         content=content,
-        graph_version=graph_version,
         path=path,
+        _=VERSION,
     )
 
 
@@ -56,14 +56,13 @@ async def _get(
     grammar: Grammar,
     *,
     content: bytes,
-    graph_version: int,
     path: str,
+    _: int,
 ) -> nx.DiGraph:
     parse_tree = await antlr_parse.parse(
         grammar,
         content=content,
         path=path,
-        _=graph_version,
     )
     model = antlr_model.from_parse_tree(parse_tree)
 
