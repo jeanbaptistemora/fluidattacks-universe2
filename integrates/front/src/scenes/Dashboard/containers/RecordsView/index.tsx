@@ -10,7 +10,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 
@@ -21,6 +21,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
 import { default as globalStyle } from "styles/global.css";
+import { ButtonToolbarRow, Col100, Row, RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { FileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -88,11 +89,11 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
             <React.Fragment>
               <Can do="backend_api_mutations_update_evidence_mutate">
                 <Row>
-                  <Col md={2} mdOffset={10} xs={12} sm={12}>
-                    <Button onClick={handleEditClick}>
+                  <Col100 className={"pa0"}>
+                    <Button className={"fr"} onClick={handleEditClick}>
                       <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_evidence.editable")}
                     </Button>
-                  </Col>
+                  </Col100>
                 </Row>
               </Can>
               <br />
@@ -114,25 +115,19 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                       <GenericForm name="records" onSubmit={handleSubmit}>
                         {({ pristine }: InjectedFormProps): React.ReactNode => (
                           <React.Fragment>
-                            <Row>
-                              <Col md={3} mdOffset={7}>
-                                <FormGroup>
-                                  <Field
-                                    accept=".csv"
-                                    component={FileInput}
-                                    id="recordsFile"
-                                    name="filename"
-                                    validate={[required, validRecordsFile]}
-                                  />
-                                </FormGroup>
-                              </Col>
-                              <Col md={2}>
-                                <Button type="submit" disabled={pristine || updateRes.loading}>
-                                  <Glyphicon glyph="cloud-upload" />
-                                  &nbsp;{translate.t("search_findings.tab_evidence.update")}
-                                </Button>
-                              </Col>
-                            </Row>
+                            <ButtonToolbarRow className={"mb3"}>
+                              <Field
+                                accept=".csv"
+                                component={FileInput}
+                                id="recordsFile"
+                                name="filename"
+                                validate={[required, validRecordsFile]}
+                              />
+                              <Button className={"h-25"} type="submit" disabled={pristine || updateRes.loading}>
+                                <Glyphicon glyph="cloud-upload" />
+                                &nbsp;{translate.t("search_findings.tab_evidence.update")}
+                              </Button>
+                            </ButtonToolbarRow>
                           </React.Fragment>
                         )}
                       </GenericForm>
@@ -155,18 +150,18 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
 
                     return (
                       <Row>
-                        <Col md={2} mdOffset={10}>
-                          <Button onClick={handleRemoveClick} disabled={removeRes.loading}>
+                        <Col100 className={"pa0"}>
+                          <Button className={"fr"} onClick={handleRemoveClick} disabled={removeRes.loading}>
                             <FluidIcon icon="delete" />
                             &nbsp;{translate.t("search_findings.tab_evidence.remove")}
                           </Button>
-                        </Col>
+                        </Col100>
                       </Row>
                     );
                   }}
                 </Mutation>
               ) : undefined}
-              <Row>
+              <RowCenter>
                 {_.isEmpty(JSON.parse(data.finding.records)) ? (
                   <div className={globalStyle["no-data"]}>
                     <Glyphicon glyph="list" />
@@ -183,7 +178,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                       search={false}
                     />
                   )}
-              </Row>
+              </RowCenter>
             </React.Fragment>
           );
         }}
