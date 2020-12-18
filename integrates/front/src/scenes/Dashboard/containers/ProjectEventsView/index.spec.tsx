@@ -7,8 +7,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView";
@@ -17,30 +16,6 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventsView", () => {
-
-  const mockProps: RouteComponentProps<{ projectName: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: {
-      isExact: true,
-      params: { projectName: "unittesting" },
-      path: "/",
-      url: "",
-    },
-  };
-
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
@@ -86,10 +61,10 @@ describe("EventsView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/events"]}>
+      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider mocks={mockError} addTypename={false}>
-            <ProjectEventsView {...mockProps} />
+            <Route component={ProjectEventsView} path={"/project/:projectName/events"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -102,10 +77,10 @@ describe("EventsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/events"]}>
+      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
-            <ProjectEventsView {...mockProps} />
+            <Route component={ProjectEventsView} path={"/project/:projectName/events"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -116,10 +91,10 @@ describe("EventsView", () => {
 
   it("should render events table", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/events"]}>
+      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
-            <ProjectEventsView {...mockProps} />
+            <Route component={ProjectEventsView} path={"/project/:projectName/events"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -143,11 +118,11 @@ describe("EventsView", () => {
       { action: "backend_api_mutations_create_event_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/events"]}>
+      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <ProjectEventsView {...mockProps} />
+              <Route component={ProjectEventsView} path={"/project/:projectName/events"} />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

@@ -12,7 +12,7 @@ import React from "react";
 import { Glyphicon } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
-import { RouteComponentProps, useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { Field, FormSection, formValueSelector, InjectedFormProps, Validator } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
@@ -41,11 +41,11 @@ import {
   validEventFile, validEvidenceImage, validTextField,
 } from "utils/validations";
 
-type EventsViewProps = RouteComponentProps<{ projectName: string }>;
-
 const maxEventDetailsLength: ConfigurableValidator = maxLength(300);
-const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: EventsViewProps): JSX.Element => {
+const projectEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
+  const { projectName } = useParams<{ projectName: string }>();
+
   const selectOptionsStatus: optionSelectFilterProps[] = [
     { value: "Solved", label: "Solved" },
     { value: "Unsolved", label: "Unsolved" },
@@ -132,7 +132,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       onSort: onSortState, width: "13%", wrapped: true,
     },
   ];
-  const { projectName } = props.match.params;
   interface IEventsDataset { project: { events: Array<{ eventType: string }> }; }
   const handleQryResult: ((data: IEventsDataset) => void) = (data: IEventsDataset): void => {
     if (!_.isUndefined(data)) {
