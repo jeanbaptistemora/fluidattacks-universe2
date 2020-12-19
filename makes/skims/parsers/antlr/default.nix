@@ -1,14 +1,17 @@
+{
+  pkgsSkims,
+}:
+
 let
-  make = import ../../../../makes/utils/make pkgs;
-  pkgs = import ../../../../makes/skims/pkgs.nix;
+  make = import ../../../../makes/utils/make pkgsSkims;
 in
   make {
     builder = ./builder.sh;
     buildInputs = [
-      pkgs.gradle
-      pkgs.jdk11
+      pkgsSkims.gradle
+      pkgsSkims.jdk11
     ];
-    envANTLR = pkgs.fetchurl {
+    envANTLR = pkgsSkims.fetchurl {
       url = "https://www.antlr.org/download/antlr-4.8-complete.jar";
       sha256 = "0nms976cnqyr1ndng3haxkmknpdq6xli4cpf4x4al0yr21l9v93k";
     };

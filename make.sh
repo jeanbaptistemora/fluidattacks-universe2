@@ -3,17 +3,11 @@
 function build_with_internet {
   local attr="${1}"
 
-  nix-build \
-    --attr "${attr}" \
-    --option 'sandbox' 'false' \
-    --option 'restrict-eval' 'false' \
-    --no-out-link \
-    --show-trace \
-    makes
+  ./makes/nix-build.sh ".#${attr}"
 }
 
 function list_attributes {
-  nix-env -qa -f makes
+  ./makes/nix.sh search --json | jq -er 'to_entries[] | .value.pname'
 }
 
 function main {
@@ -36,7 +30,7 @@ function main {
             &&  return 0
           else
                 echo \
-            &&  echo "[INFO] ${attribute} build failed :(" \
+            &&  echo "[INFO] ${attribute}'s build failed :(" \
             &&  return 1
           fi
         fi
