@@ -1,4 +1,4 @@
-namespace: OWASP/ldapi
+namespace: OWASP
 output: test/outputs/benchmark_owasp_ldapi_4.csv
 path:
   include:

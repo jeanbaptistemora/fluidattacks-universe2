@@ -1,4 +1,4 @@
-namespace: OWASP/pathtraver
+namespace: OWASP
 output: test/outputs/benchmark_owasp_pathtraver_13.csv
 path:
   include:

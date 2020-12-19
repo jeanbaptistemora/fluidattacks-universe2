@@ -1,4 +1,4 @@
-namespace: OWASP/xss
+namespace: OWASP
 output: test/outputs/benchmark_owasp_xss_39.csv
 path:
   include:

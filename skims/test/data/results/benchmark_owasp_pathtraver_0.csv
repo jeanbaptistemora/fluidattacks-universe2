@@ -1,24 +1,24 @@
 title,what,where,cwe
-F060. Insecure exceptions,BenchmarkTest00001.java,78,396
-F060. Insecure exceptions,BenchmarkTest00001.java,89,396
-F060. Insecure exceptions,BenchmarkTest00002.java,77,396
-F060. Insecure exceptions,BenchmarkTest00002.java,85,396
-F060. Insecure exceptions,BenchmarkTest00028.java,65,396
-F060. Insecure exceptions,BenchmarkTest00028.java,73,396
-F060. Insecure exceptions,BenchmarkTest00045.java,69,396
-F060. Insecure exceptions,BenchmarkTest00062.java,84,396
-F060. Insecure exceptions,BenchmarkTest00062.java,95,396
-F060. Insecure exceptions,BenchmarkTest00063.java,85,396
-F060. Insecure exceptions,BenchmarkTest00063.java,96,396
-F061. Errors without traceability,BenchmarkTest00001.java,89,390
-F061. Errors without traceability,BenchmarkTest00002.java,85,390
-F061. Errors without traceability,BenchmarkTest00028.java,73,390
-F061. Errors without traceability,BenchmarkTest00062.java,95,390
-F061. Errors without traceability,BenchmarkTest00063.java,96,390
-F063. Test - please delete,BenchmarkTest00001.java,71,22
-F063. Test - please delete,BenchmarkTest00002.java,72,22
-F063. Test - please delete,BenchmarkTest00011.java,56,22
-F063. Test - please delete,BenchmarkTest00028.java,60,22
-F063. Test - please delete,BenchmarkTest00045.java,54,22
-F063. Test - please delete,BenchmarkTest00060.java,71,22
-F063. Test - please delete,BenchmarkTest00061.java,71,22
+F060. Insecure exceptions,OWASP/BenchmarkTest00001.java,78,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00001.java,89,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00002.java,77,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00002.java,85,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00028.java,65,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00028.java,73,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00045.java,69,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00062.java,84,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00062.java,95,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00063.java,85,396
+F060. Insecure exceptions,OWASP/BenchmarkTest00063.java,96,396
+F061. Errors without traceability,OWASP/BenchmarkTest00001.java,89,390
+F061. Errors without traceability,OWASP/BenchmarkTest00002.java,85,390
+F061. Errors without traceability,OWASP/BenchmarkTest00028.java,73,390
+F061. Errors without traceability,OWASP/BenchmarkTest00062.java,95,390
+F061. Errors without traceability,OWASP/BenchmarkTest00063.java,96,390
+F063. Test - please delete,OWASP/BenchmarkTest00001.java,71,22
+F063. Test - please delete,OWASP/BenchmarkTest00002.java,72,22
+F063. Test - please delete,OWASP/BenchmarkTest00011.java,56,22
+F063. Test - please delete,OWASP/BenchmarkTest00028.java,60,22
+F063. Test - please delete,OWASP/BenchmarkTest00045.java,54,22
+F063. Test - please delete,OWASP/BenchmarkTest00060.java,71,22
+F063. Test - please delete,OWASP/BenchmarkTest00061.java,71,22

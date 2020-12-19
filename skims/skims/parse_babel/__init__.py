@@ -23,38 +23,54 @@ from utils.hardware import (
     iterate_host_memory_levels,
 )
 from utils.logs import (
-    log_exception,
+    log,
 )
 from utils.system import (
     read,
 )
 
 # Constants
+VERSION: int = 0
 PARSER: str = get_artifact('static/parsers/babel')
 
 
-@CACHE_ETERNALLY
 async def parse(
     *,
     content: bytes,
     path: str,
 ) -> Dict[str, Any]:
+    result = await _parse(
+        content=content,
+        _=VERSION,
+    )
+
+    if result == {}:
+        await log('error', 'Unable to parse js: %s', path)
+
+    return result
+
+
+@CACHE_ETERNALLY
+async def _parse(
+    *,
+    content: bytes,
+    _: int,
+) -> Dict[str, Any]:
     for memory in iterate_host_memory_levels():
         async with get_memory_semaphore().acquire_many(memory):
             with contextlib.suppress(MemoryError):
-                return await _parse(
+                return await __parse(
                     content=content,
                     memory=memory,
-                    path=path,
                 )
 
     return {}
 
 
-async def _parse(
+async def __parse(
+    *,
     content: bytes,
     memory: int,
-    path: str,
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
         'node',
@@ -82,6 +98,5 @@ async def _parse(
             return data
 
         raise IOError('No stdout in process')
-    except (IOError, json.JSONDecodeError) as exc:
-        await log_exception('error', exc, path=path)
+    except (IOError, json.JSONDecodeError):
         return {}

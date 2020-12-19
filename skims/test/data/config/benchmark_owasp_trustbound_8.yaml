@@ -1,4 +1,4 @@
-namespace: OWASP/trustbound
+namespace: OWASP
 output: test/outputs/benchmark_owasp_trustbound_8.csv
 path:
   include:

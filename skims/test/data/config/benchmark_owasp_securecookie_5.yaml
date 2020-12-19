@@ -1,4 +1,4 @@
-namespace: OWASP/securecookie
+namespace: OWASP
 output: test/outputs/benchmark_owasp_securecookie_5.csv
 path:
   include:

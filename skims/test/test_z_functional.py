@@ -193,6 +193,33 @@ def test_bad_integrates_api_token(test_group: str) -> None:
 @pytest.mark.flaky(reruns=0)
 @pytest.mark.parametrize('suite', [
     'lib_path',
+    'benchmark_owasp_pathtraver_0',
+    'benchmark_owasp_pathtraver_1',
+    'benchmark_owasp_pathtraver_2',
+    'benchmark_owasp_pathtraver_3',
+    'benchmark_owasp_pathtraver_4',
+    'benchmark_owasp_pathtraver_5',
+    'benchmark_owasp_pathtraver_6',
+    'benchmark_owasp_pathtraver_7',
+    'benchmark_owasp_pathtraver_8',
+    'benchmark_owasp_pathtraver_9',
+    'benchmark_owasp_pathtraver_10',
+    'benchmark_owasp_pathtraver_11',
+    'benchmark_owasp_pathtraver_12',
+    'benchmark_owasp_pathtraver_13',
+    'benchmark_owasp_pathtraver_14',
+    'benchmark_owasp_pathtraver_15',
+    'benchmark_owasp_pathtraver_16',
+    'benchmark_owasp_pathtraver_17',
+    'benchmark_owasp_pathtraver_18',
+    'benchmark_owasp_pathtraver_19',
+    'benchmark_owasp_pathtraver_20',
+    'benchmark_owasp_pathtraver_21',
+    'benchmark_owasp_pathtraver_22',
+    'benchmark_owasp_pathtraver_23',
+    'benchmark_owasp_pathtraver_24',
+    'benchmark_owasp_pathtraver_25',
+    'benchmark_owasp_pathtraver_26',
 ])
 def test_run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))

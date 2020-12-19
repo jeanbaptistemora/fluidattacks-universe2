@@ -1,4 +1,4 @@
-namespace: OWASP/cmdi
+namespace: OWASP
 output: test/outputs/benchmark_owasp_cmdi_7.csv
 path:
   include:

@@ -1,4 +1,4 @@
-namespace: OWASP/hash
+namespace: OWASP
 output: test/outputs/benchmark_owasp_hash_21.csv
 path:
   include:

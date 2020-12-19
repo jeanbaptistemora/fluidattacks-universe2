@@ -1,18 +1,18 @@
 title,what,where,cwe
-F060. Insecure exceptions,BenchmarkTest02033.java,66,396
-F060. Insecure exceptions,BenchmarkTest02033.java,74,396
-F060. Insecure exceptions,BenchmarkTest02034.java,72,396
-F060. Insecure exceptions,BenchmarkTest02035.java,70,396
-F060. Insecure exceptions,BenchmarkTest02035.java,81,396
-F060. Insecure exceptions,BenchmarkTest02108.java,59,396
-F060. Insecure exceptions,BenchmarkTest02108.java,67,396
-F060. Insecure exceptions,BenchmarkTest02109.java,59,396
-F060. Insecure exceptions,BenchmarkTest02109.java,67,396
-F060. Insecure exceptions,BenchmarkTest02110.java,59,396
-F060. Insecure exceptions,BenchmarkTest02110.java,67,396
-F060. Insecure exceptions,BenchmarkTest02111.java,65,396
-F061. Errors without traceability,BenchmarkTest02033.java,74,390
-F061. Errors without traceability,BenchmarkTest02035.java,81,390
-F061. Errors without traceability,BenchmarkTest02108.java,67,390
-F061. Errors without traceability,BenchmarkTest02109.java,67,390
-F061. Errors without traceability,BenchmarkTest02110.java,67,390
+F060. Insecure exceptions,OWASP/BenchmarkTest02033.java,66,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02033.java,74,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02034.java,72,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02035.java,70,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02035.java,81,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02108.java,59,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02108.java,67,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02109.java,59,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02109.java,67,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02110.java,59,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02110.java,67,396
+F060. Insecure exceptions,OWASP/BenchmarkTest02111.java,65,396
+F061. Errors without traceability,OWASP/BenchmarkTest02033.java,74,390
+F061. Errors without traceability,OWASP/BenchmarkTest02035.java,81,390
+F061. Errors without traceability,OWASP/BenchmarkTest02108.java,67,390
+F061. Errors without traceability,OWASP/BenchmarkTest02109.java,67,390
+F061. Errors without traceability,OWASP/BenchmarkTest02110.java,67,390

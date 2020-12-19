@@ -18,7 +18,7 @@ from utils.hardware import (
     iterate_host_memory_levels,
 )
 from utils.logs import (
-    log_exception,
+    log,
 )
 from utils.model import (
     Grammar,
@@ -40,12 +40,16 @@ async def parse(
     content: bytes,
     path: str,
 ) -> Dict[str, Any]:
-    return await _parse(
+    result = await _parse(
         grammar,
         content=content,
-        path=path,
         _=VERSION,
     )
+
+    if result == {}:
+        await log('error', 'Unable to parse %s: %s', grammar.value, path)
+
+    return result
 
 
 @CACHE_ETERNALLY
@@ -53,7 +57,6 @@ async def _parse(
     grammar: Grammar,
     *,
     content: bytes,
-    path: str,
     _: int,
 ) -> Dict[str, Any]:
     for memory in iterate_host_memory_levels():
@@ -63,7 +66,6 @@ async def _parse(
                     content=content,
                     grammar=grammar,
                     memory=memory,
-                    path=path,
                 )
 
     return {}
@@ -74,7 +76,6 @@ async def __parse(
     *,
     content: bytes,
     memory: int,
-    path: str,
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
         PARSER,
@@ -104,6 +105,5 @@ async def __parse(
             return data
 
         raise IOError('No stdout in process')
-    except (IOError, json.JSONDecodeError) as exc:
-        await log_exception('error', exc, grammar=grammar.value, path=path)
+    except (IOError, json.JSONDecodeError):
         return {}

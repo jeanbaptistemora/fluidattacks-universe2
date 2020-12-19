@@ -1,16 +1,16 @@
 title,what,where,cwe
-F060. Insecure exceptions,BenchmarkTest01905.java,67,396
-F060. Insecure exceptions,BenchmarkTest01905.java,75,396
-F060. Insecure exceptions,BenchmarkTest01906.java,64,396
-F060. Insecure exceptions,BenchmarkTest01906.java,72,396
-F060. Insecure exceptions,BenchmarkTest01907.java,64,396
-F060. Insecure exceptions,BenchmarkTest01907.java,72,396
-F060. Insecure exceptions,BenchmarkTest01908.java,68,396
-F060. Insecure exceptions,BenchmarkTest01908.java,79,396
-F060. Insecure exceptions,BenchmarkTest01988.java,74,396
-F060. Insecure exceptions,BenchmarkTest01988.java,85,396
-F061. Errors without traceability,BenchmarkTest01905.java,75,390
-F061. Errors without traceability,BenchmarkTest01906.java,72,390
-F061. Errors without traceability,BenchmarkTest01907.java,72,390
-F061. Errors without traceability,BenchmarkTest01908.java,79,390
-F061. Errors without traceability,BenchmarkTest01988.java,85,390
+F060. Insecure exceptions,OWASP/BenchmarkTest01905.java,67,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01905.java,75,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01906.java,64,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01906.java,72,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01907.java,64,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01907.java,72,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01908.java,68,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01908.java,79,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01988.java,74,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01988.java,85,396
+F061. Errors without traceability,OWASP/BenchmarkTest01905.java,75,390
+F061. Errors without traceability,OWASP/BenchmarkTest01906.java,72,390
+F061. Errors without traceability,OWASP/BenchmarkTest01907.java,72,390
+F061. Errors without traceability,OWASP/BenchmarkTest01908.java,79,390
+F061. Errors without traceability,OWASP/BenchmarkTest01988.java,85,390

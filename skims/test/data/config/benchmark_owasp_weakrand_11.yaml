@@ -1,4 +1,4 @@
-namespace: OWASP/weakrand
+namespace: OWASP
 output: test/outputs/benchmark_owasp_weakrand_11.csv
 path:
   include:

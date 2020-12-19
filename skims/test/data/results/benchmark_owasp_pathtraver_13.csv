@@ -1,17 +1,17 @@
 title,what,where,cwe
-F060. Insecure exceptions,BenchmarkTest01240.java,59,396
-F060. Insecure exceptions,BenchmarkTest01240.java,67,396
-F060. Insecure exceptions,BenchmarkTest01330.java,64,396
-F060. Insecure exceptions,BenchmarkTest01330.java,72,396
-F060. Insecure exceptions,BenchmarkTest01331.java,64,396
-F060. Insecure exceptions,BenchmarkTest01331.java,72,396
-F060. Insecure exceptions,BenchmarkTest01405.java,74,396
-F060. Insecure exceptions,BenchmarkTest01405.java,85,396
-F060. Insecure exceptions,BenchmarkTest01406.java,76,396
-F060. Insecure exceptions,BenchmarkTest01406.java,84,396
-F060. Insecure exceptions,BenchmarkTest01407.java,79,396
-F061. Errors without traceability,BenchmarkTest01240.java,67,390
-F061. Errors without traceability,BenchmarkTest01330.java,72,390
-F061. Errors without traceability,BenchmarkTest01331.java,72,390
-F061. Errors without traceability,BenchmarkTest01405.java,85,390
-F061. Errors without traceability,BenchmarkTest01406.java,84,390
+F060. Insecure exceptions,OWASP/BenchmarkTest01240.java,59,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01240.java,67,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01330.java,64,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01330.java,72,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01331.java,64,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01331.java,72,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01405.java,74,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01405.java,85,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01406.java,76,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01406.java,84,396
+F060. Insecure exceptions,OWASP/BenchmarkTest01407.java,79,396
+F061. Errors without traceability,OWASP/BenchmarkTest01240.java,67,390
+F061. Errors without traceability,OWASP/BenchmarkTest01330.java,72,390
+F061. Errors without traceability,OWASP/BenchmarkTest01331.java,72,390
+F061. Errors without traceability,OWASP/BenchmarkTest01405.java,85,390
+F061. Errors without traceability,OWASP/BenchmarkTest01406.java,84,390

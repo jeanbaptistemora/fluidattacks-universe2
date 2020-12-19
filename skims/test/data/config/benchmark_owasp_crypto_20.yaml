@@ -1,4 +1,4 @@
-namespace: OWASP/crypto
+namespace: OWASP
 output: test/outputs/benchmark_owasp_crypto_20.csv
 path:
   include:

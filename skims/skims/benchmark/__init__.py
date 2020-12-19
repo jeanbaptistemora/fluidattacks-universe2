@@ -68,7 +68,7 @@ def load_benchmark_skims_results() -> Dict[str, List[Result]]:
     with open(os.environ['PRODUCED_RESULTS_CSV']) as file:
         mapping: Dict[str, List[Result]] = {}
         for row in csv.DictReader(file):
-            what = row['what']
+            what = os.path.basename(row['what'])
             mapping.setdefault(what, [])
             mapping[what].append(Result(
                 category=None,
