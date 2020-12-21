@@ -28,6 +28,7 @@ DANGER_METHODS_BY_OBJ = {
     },
     'String': {
         'getBytes',
+        'substring',
     },
 }
 DANGER_METHODS_BY_TYPE = {

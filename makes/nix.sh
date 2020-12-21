@@ -6,4 +6,5 @@
 nix \
   --experimental-features 'nix-command flakes' \
   --print-build-logs \
+  --verbose \
   "${@}"

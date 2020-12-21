@@ -466,7 +466,7 @@ function helper_common_run_on_aws {
             echo "[ERROR] Memory must be at most ${maxmemory} given ${vcpus} vcpus" \
         &&  return 1
       fi \
-  &&  if test "${vcpus}" -gt '2'
+  &&  if test "${vcpus}" -gt '4'
       then
             echo "[ERROR] Decrease VCPUs consumption" \
         &&  return 1

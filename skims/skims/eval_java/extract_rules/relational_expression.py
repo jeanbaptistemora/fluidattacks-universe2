@@ -33,6 +33,7 @@ def extract(
         and (left_id := match['__0__'])
         and (op_id := match['__1__'])
         and graph.nodes[op_id]['label_type'] in {
+            'EQUAL',
             'GE',
             'GT',
             'INSTANCEOF',
