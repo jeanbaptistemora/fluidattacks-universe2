@@ -7,7 +7,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -21,6 +21,7 @@ import {
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -210,12 +211,12 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   return (
     <React.StrictMode>
       <Row>
-        <Col lg={8} md={10} xs={7}>
+        <Col60 className={"pa0"}>
           <h3>{translate.t("search_findings.tab_resources.files.title")}</h3>
-        </Col>
+        </Col60>
         <Can do="backend_api_resolvers_resource__do_add_files">
-          <Col lg={4} md={2} xs={5}>
-            <ButtonToolbar className="pull-right">
+          <Col40 className={"pa0"}>
+            <ButtonToolbar>
               <TooltipWrapper
                 message={translate.t("search_findings.tab_resources.files.btn_tooltip")}
                 placement="top"
@@ -226,7 +227,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                 </Button>
               </TooltipWrapper>
             </ButtonToolbar>
-          </Col>
+          </Col40>
         </Can>
       </Row>
       <DataTableNext
