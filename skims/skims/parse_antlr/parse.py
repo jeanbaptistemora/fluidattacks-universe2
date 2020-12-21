@@ -11,7 +11,7 @@ from state.cache import (
     CACHE_ETERNALLY,
 )
 from utils.ctx import (
-    get_artifact,
+    PARSER_ANTLR,
 )
 from utils.hardware import (
     get_memory_semaphore,
@@ -29,9 +29,6 @@ from utils.system import (
 
 # Constants
 VERSION: int = 0
-PARSER: str = get_artifact(
-    'static/parsers/antlr/build/install/parse/bin/parse',
-)
 
 
 async def parse(
@@ -78,7 +75,7 @@ async def __parse(
     memory: int,
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
-        PARSER,
+        PARSER_ANTLR,
         grammar.value,
         env=dict(
             # Limit heap size

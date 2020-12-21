@@ -9,10 +9,12 @@ let
 in
   makeApp {
     arguments = {
-      envANTLR = import ../../../makes/skims/parsers/antlr {
+      envParserAntlr = import ../../../makes/skims/parsers/antlr {
         inherit pkgsSkims;
       };
-      envShell = "${pkgsSkims.bash}/bin/bash";
+      envParserBabel = import ../../../makes/skims/parsers/babel {
+        inherit pkgsSkims;
+      };
       envPython = "${pkgsSkims.python38}/bin/python";
       envPythonRequirements = buildPythonRequirements {
         dependencies = [];
@@ -60,6 +62,7 @@ in
         ];
         python = pkgsSkims.python38;
       };
+      envShell = "${pkgsSkims.bash}/bin/bash";
       envSrcSkimsSkims = ../../../skims/skims;
       envSrcSkimsStatic = ../../../skims/static;
       envSrcSkimsVendor = ../../../skims/vendor;

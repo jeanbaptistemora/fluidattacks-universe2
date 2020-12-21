@@ -1,12 +1,12 @@
 #! /usr/bin/env bash
 
-attributes=(
-  # Can be generated with:
-  #   ./makes/nix.sh search --json | jq -er 'to_entries[] | .value.pname'
-  # Stated explicitely here for performance
-
+apps=(
+  skims
+)
+packages=(
   skims-bin
   skims-parsers-antlr
+  skims-parsers-babel
 )
 
 function build_with_internet {
@@ -21,15 +21,39 @@ function build_with_internet {
     ".#${attr}"
 }
 
+function run_with_internet {
+  local attr="${1}"
+
+  ./makes/nix.sh run \
+    --option 'sandbox' 'false' \
+    --option 'restrict-eval' 'false' \
+    --no-update-lock-file \
+    --show-trace \
+    ".#${attr}" \
+    -- \
+    "${@:2}"
+}
+
 function main {
-  local arg_1="${1:-}"
-  local tempfile
+  local cmd="${1:-}"
+  local attr="${2:-}"
 
       main_ctx "${@}" \
-  &&  tempfile="$(mktemp)" \
-  &&  for attribute in "${attributes[@]}"
+  &&  for attribute in "${apps[@]}"
       do
-        if test "${attribute}" = "${arg_1}"
+        if test "${attribute}" = "${attr}"
+        then
+          if run_with_internet "${attribute}" "${@:3}"
+          then
+            return 0
+          else
+            return 1
+          fi
+        fi
+      done \
+  &&  for attribute in "${packages[@]}"
+      do
+        if test "${attribute}" = "${attr}"
         then
           if build_with_internet "${attribute}"
           then
@@ -58,14 +82,15 @@ function main_ctx {
 }
 
 function main_help {
-      echo "Use: ${0} [attribute]" \
+      echo "Use: ${0} [build/run] [attribute]" \
   &&  echo \
-  &&  echo 'Valid attributes are:' \
+  &&  echo 'Valid run attributes are:' \
   &&  echo \
-  &&  for attribute in "${attributes[@]}"
-      do
-        echo "${attribute}"
-      done
+  &&  for attribute in "${packages[@]}"; do echo "  ${attribute}"; done \
+  &&  echo \
+  &&  echo 'Valid build attributes are:' \
+  &&  echo \
+  &&  for attribute in "${apps[@]}"; do echo "  ${attribute}"; done \
 }
 
 main "${@}"

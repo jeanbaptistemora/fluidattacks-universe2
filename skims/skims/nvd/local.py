@@ -18,22 +18,18 @@ from semver import (
 
 # Local libraries
 from utils.ctx import (
-    read_artifact,
+    STATIC,
 )
 from utils.model import (
     Platform,
 )
 
 # Constants
-DATABASE_NPM: Dict[str, Dict[str, List[str]]] = json.loads(
-    read_artifact('static/sca/npm.json').decode('utf-8')
-)
-"""Dictionary mapping products to their manually verified list of CVE."""
+with open(f'{STATIC}/sca/npm.json') as _FILE:
+    DATABASE_NPM: Dict[str, Dict[str, List[str]]] = json.load(_FILE)
 
-DATABASE_MAVEN: Dict[str, Dict[str, List[str]]] = json.loads(
-    read_artifact('static/sca/maven.json').decode('utf-8')
-)
-"""Dictionary mapping products to their manually verified list of CVE."""
+with open(f'{STATIC}/sca/maven.json') as _FILE:
+    DATABASE_MAVEN: Dict[str, Dict[str, List[str]]] = json.load(_FILE)
 
 IGNORED_CHARS = str.maketrans('', '', ''.join({'^', '~'}))
 

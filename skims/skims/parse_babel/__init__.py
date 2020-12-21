@@ -16,7 +16,7 @@ from state.cache import (
     CACHE_ETERNALLY,
 )
 from utils.ctx import (
-    get_artifact,
+    PARSER_BABEL,
 )
 from utils.hardware import (
     get_memory_semaphore,
@@ -31,7 +31,6 @@ from utils.system import (
 
 # Constants
 VERSION: int = 0
-PARSER: str = get_artifact('static/parsers/babel')
 
 
 async def parse(
@@ -76,7 +75,7 @@ async def __parse(
         'node',
         f'--max-old-space-size={1024 * memory}',
         'parse.js',
-        cwd=PARSER,
+        cwd=PARSER_BABEL,
         stdin_bytes=content,
     )
 

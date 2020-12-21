@@ -28,7 +28,8 @@ from PIL import (
 
 # Local libraries
 from utils.ctx import (
-    get_artifact,
+    FLUID_WATERMARK,
+    ROBOTO_FONT,
 )
 from utils.image import (
     blocking_clarify,
@@ -39,13 +40,11 @@ from utils.image import (
 DUMMY_IMG: Image = Image.new('RGB', (0, 0))
 DUMMY_DRAWING: ImageDraw = ImageDraw.Draw(DUMMY_IMG)
 FONT: ImageFont = ImageFont.truetype(
-    font=get_artifact('vendor/fonts/roboto_mono_from_google/regular.ttf'),
+    font=ROBOTO_FONT,
     size=18,
 )
 WATERMARK: Image = blocking_clarify(
-    image=Image.open(
-        get_artifact('static/img/logo_fluid_attacks_854x329.png'),
-    ),
+    image=Image.open(FLUID_WATERMARK),
     ratio=0.15,
 )
 SNIPPETS_CONTEXT: int = 10

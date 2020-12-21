@@ -4,11 +4,15 @@
 # Setup the python path
 export PYTHONPATH="__envPythonRequirements__:${PYTHONPATH:-}"
 export PYTHONPATH="__envSrcSkimsSkims__:${PYTHONPATH:-}"
-export PYTHONPATH="__envSrcSkimsStatic__:${PYTHONPATH:-}"
-export PYTHONPATH="__envSrcSkimsVendor__:${PYTHONPATH:-}"
 
-# Export pre-compiled binaries
-export SKIMS_ANTLR='__envANTLR__/build/install/parse/bin/parse'
+# Context artifacts
+export SKIMS_CIPHER_SUITES_PATH='__envSrcSkimsStatic__/cryptography/cipher_suites.csv'
+export SKIMS_FLUID_WATERMARK='__envSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
+export SKIMS_PARSER_ANTLR='__envParserAntlr__/build/install/parse/bin/parse'
+export SKIMS_PARSER_BABEL='__envParserBabel__'
+export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
+export SKIMS_STATIC='__envSrcSkimsStatic__'
+export SKIMS_VENDOR='__envSrcSkimsVendor__'
 
 # Invoke the entrypoint
 '__envPython__' '__envSrcSkimsSkims__/cli/__init__.py' "${@}"

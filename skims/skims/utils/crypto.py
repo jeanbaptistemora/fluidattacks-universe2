@@ -13,7 +13,7 @@ from aioextensions import (
 
 # Local libraries
 from utils.ctx import (
-    get_artifact,
+    CIPHER_SUITES_PATH,
 )
 
 # Constants
@@ -40,8 +40,7 @@ async def get_hmac(key: bytes, stream: bytes) -> bytes:
 
 
 def _load_static_data() -> None:
-    cipher_suites_path = get_artifact('static/cryptography/cipher_suites.csv')
-    with open(cipher_suites_path) as cipher_suites_file:
+    with open(CIPHER_SUITES_PATH) as cipher_suites_file:
         for row in csv.DictReader(cipher_suites_file):
             # Parse safe column
             if row['safe'] == 'yes':
