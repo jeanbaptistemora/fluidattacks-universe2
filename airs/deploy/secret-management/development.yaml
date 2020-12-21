@@ -1,4 +1,3 @@
-CLOUDFLARE_EMAIL: ENC[AES256_GCM,data:VjJc0IKZJCKo8BE9u4DMIvVh4M2qxqPEO7mQ,iv:6yn4dimrxfn1FGbhn2Ruuks513QLFaTHV+9ez3Bz1YA=,tag:4E/Y6unbqotvaHs1F7o4AA==,type:str]
 CLOUDFLARE_API_TOKEN: ENC[AES256_GCM,data:fAm+MWNVBFGMRwrJ8zH8JAQsLkphlcTn7Q/UBp8+4Nzt8aqWoZ5Y9A==,iv:7dH7VJXhaUDwFDFbbq7RPllHwG0sJnWcLfGzfByp3WA=,tag:kys4WvamBYU385144GtL1Q==,type:str]
 sops:
     kms:
@@ -9,8 +8,8 @@ sops:
     gcp_kms: []
     azure_kv: []
     hc_vault: []
-    lastmodified: '2020-12-17T21:24:51Z'
-    mac: ENC[AES256_GCM,data:ridIvLYKLw3g9r4qxd5/4vZgn4F5lU5Wl/fGj/z6kVmGOC4+3wJmaoMauOpvyZoR2bZCcNah8h+jQ8vtdH6NnDi81HZ4FVbDhI7uqnf2oMGuSXC/WpPW1nQxnKLM/LLyOmugUkjTiXyilg/u3d76rudrDdViDPD9QXuUxzePrkE=,iv:uWOocehbbH4Y0NWhmFztRwQTjuNwAnykVrzyxOQGe6s=,tag:X+fn1abogwH+v6fVBQCSlA==,type:str]
+    lastmodified: '2020-12-21T15:24:16Z'
+    mac: ENC[AES256_GCM,data:hVBzKfToFIrMYHjasR6zyvK5gt23rrVjz8igkPi7peZpVz7zAQqATQH5S1X0oos8dFk+cIGnRxXHhZ1dsDV+yS+aQHnvAGipWIUypI40oijP6aG/K0FAqkoUpCzdjSxbS5l0hrRn4mTKIEqgFmPPgWHtj3npfNWbpCoS5TKgy3U=,iv:xl/7mCjZTzus4V+AZhL5F/TCrc285TWA00hNv74pYo4=,tag:rFpxKBjN5ihINy7XHJzDUQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.6.1
