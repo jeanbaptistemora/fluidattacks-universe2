@@ -176,6 +176,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__do_update_description',
             'backend_api_mutations_update_evidence_description_mutate',
             'backend_api_mutations_update_evidence_mutate',
+            'backend_api_mutations_update_root_cloning_status_mutate',
             'backend_api_resolvers_new_finding_analyst_resolve',
             'backend_api_resolvers_new_finding_historic_state_resolve',
             'backend_api_resolvers_new_query_finding_resolve',
