@@ -2,12 +2,15 @@ import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities
 import { GraphQLError } from "graphql";
 import { HANDLE_VULNS_ACCEPTATION } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
+import type { IVulnerabilities } from "../types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
 import store from "store";
 import waitForExpect from "wait-for-expect";
@@ -34,6 +37,11 @@ describe("handle vulns acceptation modal", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      {
+        action: "backend_api_mutations_handle_vulns_acceptation_mutate",
+      },
+    ]);
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -68,6 +76,24 @@ describe("handle vulns acceptation modal", (): void => {
         },
       },
     ];
+    const mokedVulns: IVulnerabilities[] = [
+      {
+        historicTreatment: [
+          {
+            acceptanceDate: "",
+            acceptanceStatus: "SUBMITTED",
+            date: "2019-07-05 09:56:40",
+            justification: "test justification",
+            treatment: "ACCEPTED_UNDEFINED",
+            treatmentManager: "treatment-manager-1",
+            user: "user@test.com",
+          },
+        ],
+        id: "test",
+        specific: "",
+        where: "",
+      },
+    ];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
@@ -75,12 +101,14 @@ describe("handle vulns acceptation modal", (): void => {
             findingId={"1"}
             handleCloseModal={handleOnClose}
             refetchData={handleRefetchData}
-            vulns={[
-              { acceptation: "APPROVED", id: "test", specific: "", where: "" },
-            ]}
+            vulns={mokedVulns}
           />
         </MockedProvider>
-      </Provider>
+      </Provider>,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
     );
     await act(
       async (): Promise<void> => {
@@ -126,6 +154,11 @@ describe("handle vulns acceptation modal", (): void => {
     jest.clearAllMocks();
 
     const handleRefetchData: jest.Mock = jest.fn();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      {
+        action: "backend_api_mutations_handle_vulns_acceptation_mutate",
+      },
+    ]);
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -148,6 +181,24 @@ describe("handle vulns acceptation modal", (): void => {
         },
       },
     ];
+    const mokedVulns: IVulnerabilities[] = [
+      {
+        historicTreatment: [
+          {
+            acceptanceDate: "",
+            acceptanceStatus: "SUBMITTED",
+            date: "2019-07-05 09:56:40",
+            justification: "test justification",
+            treatment: "ACCEPTED_UNDEFINED",
+            treatmentManager: "treatment-manager-1",
+            user: "user@test.com",
+          },
+        ],
+        id: "test_error",
+        specific: "",
+        where: "",
+      },
+    ];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
@@ -155,17 +206,14 @@ describe("handle vulns acceptation modal", (): void => {
             findingId={"1"}
             handleCloseModal={jest.fn()}
             refetchData={jest.fn()}
-            vulns={[
-              {
-                acceptation: "APPROVED",
-                id: "test_error",
-                specific: "",
-                where: "",
-              },
-            ]}
+            vulns={mokedVulns}
           />
         </MockedProvider>
-      </Provider>
+      </Provider>,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
     );
     await act(
       async (): Promise<void> => {
