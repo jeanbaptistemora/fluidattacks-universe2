@@ -146,12 +146,6 @@ integrates_subscriptions_trigger_user_to_entity_report_prod_schedule:
     refs: [schedules]
     variables: [$integrates_subscriptions_trigger_user_to_entity_report_prod_schedule]
 
-scheduler_delete_pending_projects:
-  <<: *integrates_scheduler_prod_template
-  only:
-    refs: [schedules]
-    variables: [$delete_pending_projects]
-
 scheduler_reset_expired_accepted_findings:
   <<: *integrates_scheduler_prod_template
   only:

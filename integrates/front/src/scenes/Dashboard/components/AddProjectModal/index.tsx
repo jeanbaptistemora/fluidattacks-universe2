@@ -50,7 +50,7 @@ import { msgError, msgSuccess } from "utils/notifications";
  *   - Forces <--needs-- Drills
  *
  * Business rules after creating the project:
- *   - If Integrates is turned off the project will be scheduled for deletion
+ *   - If Integrates is turned off the project will be immediately deleted
  */
 
 const MAX_DESCRIPTION_LENGTH: number = 200;

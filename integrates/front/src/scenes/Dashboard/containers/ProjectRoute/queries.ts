@@ -10,11 +10,3 @@ export const GET_GROUP_DATA: DocumentNode = gql`
     }
   }
 `;
-
-export const REJECT_REMOVE_PROJECT_MUTATION: DocumentNode = gql`
-  mutation RejectProjectDeletion($projectName: String!) {
-    rejectRemoveProject(projectName: $projectName) {
-      success
-    }
-  }
-`;

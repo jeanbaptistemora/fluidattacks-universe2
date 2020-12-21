@@ -275,29 +275,3 @@ def test_group_scope_portfolio(
         tag_name,
         timeout,
     )
-
-
-def test_group_pending_to_delete(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
-    expected_text: str = 'Group pending to delete'
-    # Login
-    utils.login(driver, integrates_endpoint, credentials)
-
-    # Enter group home
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/pendingproject')
-    assert utils.wait_for_text(
-        driver,
-        expected_text,
-        timeout,
-    )
-
-    # Enter group vulnerabilities
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/pendingproject/vulns')
-    assert utils.wait_for_text(
-        driver,
-        expected_text,
-        timeout,
-    )

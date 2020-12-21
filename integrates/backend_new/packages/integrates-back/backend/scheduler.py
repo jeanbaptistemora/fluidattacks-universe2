@@ -896,41 +896,6 @@ async def reset_expired_accepted_findings() -> None:
     )
 
 
-async def delete_pending_projects() -> None:
-    """ Delete pending to delete projects """
-    msg = '[scheduler]: delete_pending_projects is running'
-    LOGGER.warning(msg, **NOEXTRA)
-    today = datetime_utils.get_now()
-    projects = await project_domain.get_pending_to_delete()
-    remove_project_coroutines = []
-    project_names = [
-        project.get('project_name', '')
-        for project in projects
-    ]
-    msg = f'- pending projects: {project_names}'
-    LOGGER.info(msg, extra=dict(extra=projects))
-    for project in projects:
-        historic_deletion: HistoricType = cast(
-            HistoricType,
-            project.get('historic_deletion', [{}])
-        )
-        last_state = historic_deletion[-1]
-        last_state_date: str = last_state.get(
-            'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S')
-        )
-        deletion_date: datetime = datetime_utils.get_from_str(last_state_date)
-        if deletion_date < today:
-            msg = f'- project: {project.get("project_name")} will be deleted'
-            LOGGER.info(msg, extra=dict(extra=project))
-            remove_project_coroutines.append(
-                project_domain.remove_project(
-                    str(project.get('project_name'))
-                )
-            )
-            util.queue_cache_invalidation(str(project.get('project_name')))
-    await collect(remove_project_coroutines)
-
-
 def scheduler_send_mail(
     send_mail_function: Callable,
     mail_to: List[str],

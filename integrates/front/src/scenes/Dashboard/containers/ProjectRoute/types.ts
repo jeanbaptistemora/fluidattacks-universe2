@@ -13,9 +13,3 @@ export interface IProjectData {
 export interface IProjectRoute {
   setUserRole(userRole: string | undefined): void;
 }
-
-export interface IRejectRemoveProject {
-  rejectRemoveProject: {
-    success: boolean;
-  };
-}
