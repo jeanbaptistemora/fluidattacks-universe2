@@ -1,3 +1,5 @@
+import type { IVulnerabilities } from "../types";
+
 interface IVulnDataAttr {
   acceptation: "APPROVED" | "REJECTED";
   id: string;
@@ -7,7 +9,7 @@ interface IVulnDataAttr {
 
 interface IHandleVulnsAcceptationModalProps {
   findingId: string;
-  vulns: IVulnDataAttr[];
+  vulns: IVulnerabilities[];
   handleCloseModal: () => void;
   refetchData: () => void;
 }

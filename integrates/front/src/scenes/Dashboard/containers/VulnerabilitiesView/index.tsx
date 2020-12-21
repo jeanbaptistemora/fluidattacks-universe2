@@ -208,7 +208,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             findingId={findingId}
             handleCloseModal={toggleHandleAcceptationModal}
             refetchData={refetch}
-            vulns={pendingVulnsToHandleAcceptation}
+            vulns={data.finding.vulnerabilities}
           />
         ) : undefined}
       </React.Fragment>

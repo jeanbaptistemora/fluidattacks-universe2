@@ -12,20 +12,22 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { TreatmentField } from "./TreatmentField";
 import { authzPermissionsContext } from "utils/authz/config";
 import { changeVulnTreatmentFormatter } from "components/DataTableNext/formatters";
-import { submit } from "redux-form";
+import { getVulnsPendingOfAcceptation } from "../utils";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
-import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import type {
   IHandleVulnsAcceptationModalProps,
   IHandleVulnsAcceptationResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
+import { formValueSelector, submit } from "redux-form";
 import { msgError, msgSuccess } from "utils/notifications";
+import { useDispatch, useSelector } from "react-redux";
 
 const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   props: IHandleVulnsAcceptationModalProps
@@ -36,8 +38,39 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   const canDisplayAnalyst: boolean = permissions.can(
     "backend_api_resolvers_new_finding_analyst_resolve"
   );
-  const [vulnerabilitiesList, setVulnerabilities] = React.useState(vulns);
+  const canHandleVulnsAcceptation: boolean = permissions.can(
+    "backend_api_mutations_handle_vulns_acceptation_mutate"
+  );
+
   const dispatch: Dispatch = useDispatch();
+
+  const [acceptationVulns, setAcceptationVulns] = React.useState<
+    IVulnDataAttr[]
+  >([]);
+
+  const formValues: Dictionary<string> = useSelector(
+    (state: Record<string, unknown>): Dictionary<string> =>
+      // It is necessary since formValueSelector returns an any type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      formValueSelector("updateTreatmentAcceptation")(state, "treatment", "")
+  );
+
+  const isAcceptedUndefinedSelected: boolean =
+    formValues.treatment === "ACCEPTED_UNDEFINED";
+  const hasAcceptationVulns: boolean = acceptationVulns.length !== 0;
+
+  // Side effects
+  const onTreatmentChange: () => void = (): void => {
+    if (isAcceptedUndefinedSelected) {
+      const pendingVulnsToHandleAcceptation: IVulnDataAttr[] = getVulnsPendingOfAcceptation(
+        vulns
+      );
+      setAcceptationVulns(pendingVulnsToHandleAcceptation);
+    } else {
+      setAcceptationVulns([]);
+    }
+  };
+  React.useEffect(onTreatmentChange, [isAcceptedUndefinedSelected, vulns]);
 
   // GraphQL operations
   const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
@@ -92,12 +125,12 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   }
 
   function handleSubmit(values: { justification: string }): void {
-    const acceptedVulns: string[] = vulnerabilitiesList.reduce(
+    const acceptedVulns: string[] = acceptationVulns.reduce(
       (acc: string[], vuln: IVulnDataAttr): string[] =>
         vuln.acceptation === "APPROVED" ? [...acc, vuln.id] : acc,
       []
     );
-    const rejectedVulns: string[] = vulnerabilitiesList.reduce(
+    const rejectedVulns: string[] = acceptationVulns.reduce(
       (acc: string[], vuln: IVulnDataAttr): string[] =>
         vuln.acceptation === "REJECTED" ? [...acc, vuln.id] : acc,
       []
@@ -115,7 +148,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   const handleUpdateAcceptation: (vulnInfo: Dictionary<string>) => void = (
     vulnInfo: Dictionary<string>
   ): void => {
-    const newVulnList: IVulnDataAttr[] = vulnerabilitiesList.map(
+    const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
       (vuln: IVulnDataAttr): IVulnDataAttr =>
         vuln.id !== vulnInfo.id
           ? vuln
@@ -125,7 +158,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
                 vuln.acceptation === "APPROVED" ? "REJECTED" : "APPROVED",
             }
     );
-    setVulnerabilities([...newVulnList]);
+    setAcceptationVulns([...newVulnList]);
   };
   const vulnsHeader: IHeaderConfig[] = [
     {
@@ -152,6 +185,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       wrapped: true,
     },
   ];
+  const initialTreatment: string = canHandleVulnsAcceptation
+    ? "ACCEPTED_UNDEFINED"
+    : "";
 
   return (
     <React.StrictMode>
@@ -160,14 +196,22 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         open={true}
       >
         <GenericForm
+          initialValues={{
+            treatment: initialTreatment,
+          }}
           name={"updateTreatmentAcceptation"}
           onSubmit={handleSubmit}
         >
           <Row>
+            <Col50>
+              <TreatmentField />
+            </Col50>
+          </Row>
+          <Row>
             <Col100>
               <DataTableNext
                 bordered={false}
-                dataset={vulnerabilitiesList}
+                dataset={acceptationVulns}
                 exportCsv={false}
                 headers={vulnsHeader}
                 id={"vulnsToHandleAcceptation"}
@@ -186,7 +230,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               {translate.t("group.findings.report.modal_close")}
             </Button>
             <Button
-              disabled={handlingAcceptation}
+              disabled={!hasAcceptationVulns || handlingAcceptation}
               onClick={handleUpdateTreatmentAcceptation}
             >
               {translate.t("confirmmodal.proceed")}
