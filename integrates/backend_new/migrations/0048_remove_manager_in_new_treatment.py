@@ -1,8 +1,8 @@
 """
 This migration aims to remove treatment manager when treatment is NEW
 
-Execution Time:
-Finalization Time:
+Execution Time: 2020-12-21 06:52:08 UTC-5
+Finalization Time: 2020-12-21 07:04:20 UTC-5
 """
 # Standard library
 from itertools import chain
