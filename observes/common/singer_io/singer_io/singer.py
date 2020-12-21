@@ -33,7 +33,12 @@ class SingerRecord(NamedTuple):
     time_extracted: Optional[DateTime] = None
 
 
-SingerMessage = Union[SingerRecord, SingerSchema]
+class SingerState(NamedTuple):
+    """Singer state object type"""
+    value: JSONmap
+
+
+SingerMessage = Union[SingerRecord, SingerSchema, SingerState]
 
 
 class MissingKeys(KeyError):

@@ -6,7 +6,6 @@ from typing import (
     Dict,
     IO,
     Optional,
-    Union,
 )
 # Third party libraries
 # Local libraries
@@ -15,11 +14,12 @@ from singer_io.singer import (
     SingerMessage,
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 from singer_io import _factory
 
 
-def deserialize(singer_msg: str) -> Union[SingerRecord, SingerSchema]:
+def deserialize(singer_msg: str) -> SingerMessage:
     """Generate `SingerRecord` or `SingerSchema` from json string"""
     raw_json: Dict[str, Any] = json.loads(singer_msg)
     data_type: Optional[str] = raw_json.get('type', None)
@@ -27,6 +27,8 @@ def deserialize(singer_msg: str) -> Union[SingerRecord, SingerSchema]:
         return _factory.deserialize_record(singer_msg)
     if data_type == 'SCHEMA':
         return _factory.deserialize_schema(singer_msg)
+    if data_type == 'STATE':
+        return _factory.deserialize_state(singer_msg)
     raise InvalidType(
         f'Deserialize singer failed. Unknown or missing type \'{data_type}\''
     )
@@ -37,6 +39,7 @@ def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
     mapper = {
         SingerRecord: 'RECORD',
         SingerSchema: 'SCHEMA',
+        SingerState: 'STATE',
     }
     msg_dict['type'] = mapper[type(singer_msg)]
     msg = json.dumps(msg_dict, cls=_factory.CustomJsonEncoder)

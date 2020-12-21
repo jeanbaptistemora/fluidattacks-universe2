@@ -7,6 +7,7 @@ from singer_io import factory
 from singer_io.singer import (
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 
 
@@ -41,6 +42,13 @@ def mock_record() -> Dict[str, Any]:
     }
 
 
+def mock_state() -> Dict[str, Any]:
+    return {
+        "type": "STATE",
+        "value": {"users": 2, "locations": 1}
+    }
+
+
 def test_deserialize_schema() -> None:
     raw_json = mock_schema()
     schema = factory.deserialize(json.dumps(raw_json))
@@ -60,4 +68,11 @@ def test_deserialize_record() -> None:
         stream=raw_json['stream'],
         record=raw_json['record']
     )
+    assert schema == expected
+
+
+def test_deserialize_state() -> None:
+    raw_json = mock_state()
+    schema = factory.deserialize(json.dumps(raw_json))
+    expected = SingerState(value=raw_json['value'])
     assert schema == expected

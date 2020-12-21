@@ -14,6 +14,7 @@ from singer_io.singer import (
     MissingKeys,
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 
 
@@ -55,6 +56,18 @@ def deserialize_record(raw_singer_record: str) -> SingerRecord:
             time_extracted=raw_json.get('time_extracted', None)
         )
     raise InvalidType(f'Expected "RECORD" not "{raw_json["type"]}"')
+
+
+def deserialize_state(raw_singer_state: str) -> SingerState:
+    """Generate `SingerState` from json string"""
+    raw_json: Dict[str, Any] = json.loads(raw_singer_state)
+    required_keys = frozenset({'type', 'value'})
+    invalid: bool = any(map(lambda x: x not in raw_json, required_keys))
+    if invalid:
+        raise MissingKeys('Can not generate `SingerState` object')
+    if raw_json['type'] == 'STATE':
+        return SingerState(value=raw_json['value'])
+    raise InvalidType(f'Expected "STATE" not "{raw_json["type"]}"')
 
 
 class CustomJsonEncoder(JSONEncoder):
