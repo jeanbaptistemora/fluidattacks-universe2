@@ -38,6 +38,15 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
 
 # CNAME Records
 
+resource "cloudflare_record" "www" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "www.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = cloudflare_zone.fluidattacks_com.zone
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "landing" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "landing.${cloudflare_zone.fluidattacks_com.zone}"
@@ -346,4 +355,21 @@ resource "cloudflare_record" "mailgun_smtp" {
   value    = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWWMDVpf8LmPSxAzXN6maN9tmYF37+LNKt0ClL6xin8F5D6icNdvViPAFuZDUU8aAQPYacWHUPY0ay+95wt2XiGbpZsa7k4EPFYTdL2hfMNwaidDJKgL58kzBcfvR1r/VX3MPmiP0d6cQKqoDi+THtpqd2w270pgCCBKiYvujHmQIDAQAB"
   ttl      = 1
   proxied  = false
+}
+
+
+# Page Rules
+
+resource "cloudflare_page_rule" "redirect_www" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "www.${cloudflare_zone.fluidattacks_com.zone}*"
+  status   = "active"
+  priority = 1
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}$1"
+      status_code = 301
+    }
+  }
 }
