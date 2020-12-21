@@ -1014,6 +1014,9 @@ export const enTranslations: ResourceKey = {
       },
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",
+      handle_acceptation_modal: {
+        title: "Observations",
+      },
       inputs: "Inputs",
       is_new: "New",
       line: "Line",

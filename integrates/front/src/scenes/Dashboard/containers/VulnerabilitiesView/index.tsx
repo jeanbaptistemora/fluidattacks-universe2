@@ -4,7 +4,6 @@ import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/Vulnerabiliti
 import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import type { IGetFindingVulnInfo } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import type { IVulnDataAttr } from "./HandleAcceptationModal/types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
 import React from "react";
@@ -12,7 +11,6 @@ import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerif
 import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
 import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities/index";
 import _ from "lodash";
-import { getVulnsPendingOfAcceptation } from "./utils";
 import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -107,18 +105,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
     return <React.StrictMode />;
   }
 
-  const pendingVulnsToHandleAcceptation: IVulnDataAttr[] = getVulnsPendingOfAcceptation(
-    data.finding.vulnerabilities
-  );
-  const canHandleAcceptation: boolean =
-    pendingVulnsToHandleAcceptation.length > 0;
-
   return (
     <React.StrictMode>
       <React.Fragment>
         <ActionButtons
           areVulnsSelected={remediationModalConfig.vulnerabilities.length > 0}
-          canHandleAcceptation={canHandleAcceptation}
           isConfirmingZeroRisk={isConfirmingZeroRisk}
           isEditing={isEditing}
           isReattackRequestedInAllVuln={data.finding.newRemediated}

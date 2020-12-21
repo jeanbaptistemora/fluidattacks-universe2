@@ -20,7 +20,6 @@ describe("ActionButtons", (): void => {
     const wrapper: ReactWrapper = mount(
       <ActionButtons
         areVulnsSelected={false}
-        canHandleAcceptation={false}
         isConfirmingZeroRisk={false}
         isEditing={false}
         isReattackRequestedInAllVuln={false}
@@ -67,7 +66,6 @@ describe("ActionButtons", (): void => {
     const wrapper: ReactWrapper = mount(
       <ActionButtons
         areVulnsSelected={false}
-        canHandleAcceptation={false}
         isConfirmingZeroRisk={false}
         isEditing={false}
         isReattackRequestedInAllVuln={false}
@@ -152,7 +150,6 @@ describe("ActionButtons", (): void => {
     const wrapper: ReactWrapper = mount(
       <ActionButtons
         areVulnsSelected={false}
-        canHandleAcceptation={false}
         isConfirmingZeroRisk={false}
         isEditing={false}
         isReattackRequestedInAllVuln={false}
@@ -233,7 +230,6 @@ describe("ActionButtons", (): void => {
     const wrapper: ReactWrapper = mount(
       <ActionButtons
         areVulnsSelected={false}
-        canHandleAcceptation={false}
         isConfirmingZeroRisk={false}
         isEditing={false}
         isReattackRequestedInAllVuln={false}

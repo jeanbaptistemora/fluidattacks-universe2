@@ -7,7 +7,6 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { useTranslation } from "react-i18next";
 
 const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
-  canHandleAcceptation,
   isConfirmingZeroRisk,
   isEditing,
   isRequestingReattack,
@@ -17,14 +16,13 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
 }: IHandleAcceptationButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const shouldRenderHandleAcceptationBtn: boolean =
-    !(
-      isConfirmingZeroRisk ||
-      isEditing ||
-      isRequestingReattack ||
-      isVerifying ||
-      isRejectingZeroRisk
-    ) && canHandleAcceptation;
+  const shouldRenderHandleAcceptationBtn: boolean = !(
+    isConfirmingZeroRisk ||
+    isEditing ||
+    isRequestingReattack ||
+    isVerifying ||
+    isRejectingZeroRisk
+  );
 
   return (
     <Can do={"backend_api_mutations_handle_vulns_acceptation_mutate"}>

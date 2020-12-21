@@ -192,7 +192,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t("search_findings.tab_description.editVuln")}
+        headerTitle={translate.t(
+          "search_findings.tab_description.handle_acceptation_modal.title"
+        )}
         open={true}
       >
         <GenericForm

@@ -11,7 +11,6 @@ import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {
   areVulnsSelected: boolean;
-  canHandleAcceptation: boolean;
   isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
@@ -33,7 +32,6 @@ interface IActionButtonsProps {
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
-  canHandleAcceptation,
   isConfirmingZeroRisk,
   isEditing,
   isReattackRequestedInAllVuln,
@@ -64,7 +62,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   return (
     <ButtonToolbarRow>
       <HandleAcceptationButton
-        canHandleAcceptation={canHandleAcceptation}
         isConfirmingZeroRisk={isConfirmingZeroRisk}
         isEditing={isEditing}
         isRejectingZeroRisk={isRejectingZeroRisk}
