@@ -129,8 +129,6 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
     }
   }
 
-  aliases = ["files.fluidattacks.com"]
-
   default_cache_behavior {
     target_origin_id       = "S3-fluidintegrates.reports"
     compress               = true
@@ -165,7 +163,6 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.files-certificate.arn
     minimum_protocol_version = "TLSv1.2_2018"
     ssl_support_method = "sni-only"
   }
