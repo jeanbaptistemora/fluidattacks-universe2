@@ -9,10 +9,12 @@ flake.lib.eachDefaultSystem (
     let
       attrs = {
         pkgsSkims = import pkgsSrcSkims { inherit system; };
+        self = self;
       };
     in
       {
         packages = {
+          skims-bin = import ../makes/skims/bin attrs;
           skims-parsers-antlr = import ../makes/skims/parsers/antlr attrs;
         };
       }

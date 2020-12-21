@@ -3,7 +3,13 @@
 function build_with_internet {
   local attr="${1}"
 
-  ./makes/nix-build.sh ".#${attr}"
+  ./makes/nix.sh build \
+    --option 'sandbox' 'false' \
+    --option 'restrict-eval' 'false' \
+    --out-link "makes/outputs/${attr}" \
+    --no-update-lock-file \
+    --show-trace \
+    ".#${attr}"
 }
 
 function list_attributes {

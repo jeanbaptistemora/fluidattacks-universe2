@@ -21,6 +21,10 @@ function copy {
     "${@}"
 }
 
+function make_executable {
+  chmod +x "${@}"
+}
+
 function initialize {
   local build_dir
 
