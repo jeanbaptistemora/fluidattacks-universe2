@@ -60,6 +60,7 @@
     "@types/react-dom": "16.9.8",
     "babel-preset-expo": "8.2.3",
     "bunyan": "1.8.14",
+    "cheerio": "1.0.0-rc.3",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.4",
     "expo-cli": "3.25.1",
