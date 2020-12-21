@@ -5,7 +5,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView";
@@ -14,25 +14,6 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingRecordsView", () => {
-
-  const routePropsMock: RouteComponentProps<{ findingId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: { isExact: true, params: { findingId: "422286126" }, path: "/", url: "" },
-  };
-
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
       query: GET_FINDING_RECORDS,
@@ -58,9 +39,11 @@ describe("FindingRecordsView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <RecordsView {...routePropsMock} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route component={RecordsView} path={"/:projectName/vulns/:findingId/records"}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const table: ReactWrapper = wrapper.find("BootstrapTable");
@@ -75,13 +58,15 @@ describe("FindingRecordsView", () => {
       { action: "backend_api_mutations_update_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <RecordsView {...routePropsMock} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route component={RecordsView} path={"/:projectName/vulns/:findingId/records"}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const editButton: ReactWrapper = wrapper.find("button")
@@ -96,9 +81,11 @@ describe("FindingRecordsView", () => {
 
   it("should render as readonly", async () => {
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <RecordsView {...routePropsMock} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Route component={RecordsView} path={"/:projectName/vulns/:findingId/records"}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.contains("Edit"))
@@ -110,13 +97,15 @@ describe("FindingRecordsView", () => {
       { action: "backend_api_mutations_update_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <RecordsView {...routePropsMock} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route component={RecordsView} path={"/:projectName/vulns/:findingId/records"}/>
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const editButton: ReactWrapper = wrapper.find("button")
@@ -145,9 +134,11 @@ describe("FindingRecordsView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <RecordsView {...routePropsMock} />
-      </MockedProvider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
+        <MockedProvider mocks={emptyMocks} addTypename={false}>
+          <Route component={RecordsView} path={"/:projectName/vulns/:findingId/records"}/>
+        </MockedProvider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
