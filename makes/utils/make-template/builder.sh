@@ -17,7 +17,7 @@ function main {
       do
             replace_var_in_file "${out}" "${var_name}" \
         ||  return 1
-      done < "${__envArguments}" \
+      done < "${__envArgumentNamesFile}" \
   &&  if test "${__envExecutable}" = 'true'
       then
         chmod +x "${out}"

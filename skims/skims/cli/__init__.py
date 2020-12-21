@@ -35,6 +35,7 @@ class Execution(Exception):
 
 @click.command(
     help='Deterministic vulnerability life-cycle reporting and closing tool.',
+    name='skims',
 )
 @click.argument(
     'config',
@@ -125,3 +126,7 @@ async def main_wrapped(
     )
 
     return success
+
+
+if __name__ == '__main__':
+    dispatch()  # pylint: disable=no-value-for-parameter

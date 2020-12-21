@@ -13,13 +13,13 @@ let
   make = import ../../../makes/utils/make pkgs;
 
   argumentNames = builtins.attrNames arguments;
-  argumentsContent = builtins.concatStringsSep "\n" argumentNames;
-  arguments = builtins.toFile "arguments" argumentsContent;
+  argumentNamesContent = builtins.concatStringsSep "\n" argumentNames;
+  argumentNamesFile = builtins.toFile "arguments" "${argumentNamesContent}\n";
 in
-  make {
+  make (arguments // {
     builder = ./builder.sh;
     name = "utils-make-template-${name}";
-    __envArguments = arguments;
+    __envArgumentNamesFile = argumentNamesFile;
     __envExecutable = executable;
     __envTemplate = template;
-  }
+  })

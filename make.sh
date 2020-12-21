@@ -1,5 +1,14 @@
 #! /usr/bin/env bash
 
+attributes=(
+  # Can be generated with:
+  #   ./makes/nix.sh search --json | jq -er 'to_entries[] | .value.pname'
+  # Stated explicitely here for performance
+
+  skims-bin
+  skims-parsers-antlr
+)
+
 function build_with_internet {
   local attr="${1}"
 
@@ -12,19 +21,13 @@ function build_with_internet {
     ".#${attr}"
 }
 
-function list_attributes {
-  ./makes/nix.sh search --json | jq -er 'to_entries[] | .value.pname'
-}
-
 function main {
   local arg_1="${1:-}"
-  local attributes
   local tempfile
 
       main_ctx "${@}" \
   &&  tempfile="$(mktemp)" \
-  &&  list_attributes > "${tempfile}" \
-  &&  while read -r attribute
+  &&  for attribute in "${attributes[@]}"
       do
         if test "${attribute}" = "${arg_1}"
         then
@@ -40,7 +43,7 @@ function main {
             &&  return 1
           fi
         fi
-      done < "${tempfile}" \
+      done \
   &&  main_help
 }
 
@@ -59,7 +62,10 @@ function main_help {
   &&  echo \
   &&  echo 'Valid attributes are:' \
   &&  echo \
-  &&  list_attributes
+  &&  for attribute in "${attributes[@]}"
+      do
+        echo "${attribute}"
+      done
 }
 
 main "${@}"

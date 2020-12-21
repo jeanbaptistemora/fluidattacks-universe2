@@ -9,7 +9,6 @@ flake.lib.eachDefaultSystem (
     let
       attrs = {
         pkgsSkims = import pkgsSrcSkims { inherit system; };
-        self = self;
       };
     in
       {

@@ -9,8 +9,8 @@ pkgs:
 }:
 
 let
-  make = import ../../../makes/utils/make pkgsSkims;
-  makeTemplate = import ../../../makes/utils/make-template pkgsSkims;
+  make = import ../../../makes/utils/make pkgs;
+  makeTemplate = import ../../../makes/utils/make-template pkgs;
 in
   make {
     builder = ./builder.sh;
