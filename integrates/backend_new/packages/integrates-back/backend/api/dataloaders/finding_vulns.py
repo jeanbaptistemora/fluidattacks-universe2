@@ -89,7 +89,15 @@ async def _batch_load_fn(
                         'historic_zero_risk',
                         [{}]
                     )
-                )[-1].get('status', '').capitalize()
+                )[-1].get('status', '').capitalize(),
+                cycles=str(vuln_domain.get_reattack_cycles(vuln)),
+                last_requested_reattack_date=(
+                    vuln_domain.get_last_requested_reattack_date(vuln)
+                ),
+                efficacy=str(vuln_domain.get_efficacy(vuln)),
+                report_date=cast(
+                    HistoricType, vuln['historic_state']
+                )[0]['date'],
             )
         )
 
