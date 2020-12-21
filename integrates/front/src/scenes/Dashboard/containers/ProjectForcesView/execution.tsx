@@ -7,7 +7,6 @@
 import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import React, { ReactElement } from "react";
-import { Col, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { MemoryRouter, Route } from "react-router";
 // tslint:disable-next-line no-submodule-imports
@@ -27,7 +26,7 @@ import {
 } from "scenes/Dashboard/containers/ProjectForcesView";
 import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
-import { TabsContainer } from "styles/styledComponents";
+import { Col33, Row, TabsContainer } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
@@ -186,36 +185,36 @@ const modalExecution: React.FC<IExecution> = (
   return (
     <div>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.date")}</b></p></Col>
-        <Col md={8}><p>{execution.date}</p></Col>
+        <Col33><p><b>{translate.t("group.forces.date")}</b></p></Col33>
+        <Col33><p>{execution.date}</p></Col33>
       </Row>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.status.title")}</b></p></Col>
-        <Col md={8}><p>{execution.status}</p></Col>
+        <Col33><p><b>{translate.t("group.forces.status.title")}</b></p></Col33>
+        <Col33><p>{execution.status}</p></Col33>
       </Row>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.strictness.title")}</b></p></Col>
-        <Col md={8}><p>{execution.strictness}</p></Col>
+        <Col33><p><b>{translate.t("group.forces.strictness.title")}</b></p></Col33>
+        <Col33><p>{execution.strictness}</p></Col33>
       </Row>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.kind.title")}</b></p></Col>
-        <Col md={8}><p>{execution.kind}</p></Col>
+        <Col33><p><b>{translate.t("group.forces.kind.title")}</b></p></Col33>
+        <Col33><p>{execution.kind}</p></Col33>
       </Row>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.git_repo")}</b></p></Col>
-        <Col md={8}><p>{execution.gitRepo}</p></Col>
+        <Col33><p><b>{translate.t("group.forces.git_repo")}</b></p></Col33>
+        <Col33><p>{execution.gitRepo}</p></Col33>
       </Row>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.identifier")}</b></p></Col>
-        <Col md={8}><p>{execution.execution_id}</p></Col>
+        <Col33><p><b>{translate.t("group.forces.identifier")}</b></p></Col33>
+        <Col33><p>{execution.execution_id}</p></Col33>
       </Row>
       <Row>
-        <Col md={4}><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col>
-        <Col md={8}>
+        <Col33><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col33>
+        <Col33>
           <p className={styles.wrapped}>
             {getVulnerabilitySummaries(execution.foundVulnerabilities)}
           </p>
-        </Col>
+        </Col33>
       </Row>
       <br/>
       <MemoryRouter
