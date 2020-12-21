@@ -6,7 +6,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import {  MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
@@ -15,25 +15,6 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("SeverityView", () => {
-
-  const mockProps: RouteComponentProps<{ findingId: string }> = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: { isExact: true, params: { findingId: "438679960" }, path: "/", url: "" },
-  };
-
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
@@ -97,11 +78,13 @@ describe("SeverityView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <SeverityView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <Route component={SeverityView} path={"/:projectName/vulns/:findingId/severity"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
@@ -112,11 +95,13 @@ describe("SeverityView", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={false}>
-          <SeverityView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <Route component={SeverityView} path={"/:projectName/vulns/:findingId/severity"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper)
@@ -128,13 +113,15 @@ describe("SeverityView", () => {
       { action: "backend_api_mutations_update_severity_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <SeverityView {...mockProps} />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route component={SeverityView} path={"/:projectName/vulns/:findingId/severity"} />
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const editButton: ReactWrapper = wrapper.find("button")
@@ -150,11 +137,13 @@ describe("SeverityView", () => {
 
   it("should render as readonly", async () => {
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <SeverityView {...mockProps} />
-        </MockedProvider>
-      </Provider>,
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={mockError} addTypename={false}>
+            <Route component={SeverityView} path={"/:projectName/vulns/:findingId/severity"} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     const editButton: ReactWrapper = wrapper.find("button")
