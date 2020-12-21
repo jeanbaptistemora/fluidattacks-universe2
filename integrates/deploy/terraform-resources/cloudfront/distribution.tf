@@ -6,7 +6,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
   enabled             = true
   is_ipv6_enabled     = true
   http_version        = "http2"
-  price_class         = "PriceClass_All"
+  price_class         = "PriceClass_100"
   retain_on_delete    = false
   wait_for_deployment = true
 
@@ -102,7 +102,6 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
-    minimum_protocol_version       = "TLSv1.2_2018"
   }
 }
 
@@ -110,7 +109,7 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   enabled             = true
   is_ipv6_enabled     = true
   http_version        = "http2"
-  price_class         = "PriceClass_All"
+  price_class         = "PriceClass_100"
   retain_on_delete    = false
   wait_for_deployment = true
 
@@ -163,7 +162,6 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   }
 
   viewer_certificate {
-    minimum_protocol_version = "TLSv1.2_2018"
-    ssl_support_method = "sni-only"
+    cloudfront_default_certificate = true
   }
 }
