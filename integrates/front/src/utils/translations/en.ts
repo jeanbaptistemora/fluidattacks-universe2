@@ -1867,6 +1867,13 @@ export const enTranslations: ResourceKey = {
       open: "Open",
       tab_title: "Vulnerabilities",
       tooltip: "Open / Closed vulnerabilities",
+      vulnTable: {
+        cycles: "Cycles",
+        efficacy: "Efficacy",
+        lastRequestedReattackDate: "Last reattack request date",
+        verification: "Last reattack",
+        where: "Where",
+      },
     },
     users_table: {
       firstlogin: "First login",

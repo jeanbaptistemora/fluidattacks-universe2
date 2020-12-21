@@ -28,6 +28,12 @@ export interface IVulnRow {
   where: string;
   zeroRisk: string;
 }
+export interface IVulnRowAttr extends IVulnRow {
+  cycles: string;
+  efficacy: string;
+  lastRequestedReattackDate: string;
+  reportDate: string;
+}
 
 export interface IUploadVulnerabilitiesResult {
   uploadFile: {
@@ -77,6 +83,18 @@ export interface IVulnerabilitiesViewProps {
   separatedRow?: boolean;
   state: "open" | "closed";
   verificationFn?(vulnerabilities: IVulnDataType[], clearSelected: () => void): void;
+}
+
+export interface IVulnComponentProps {
+  findingId: string;
+  groupName: string;
+  isConfirmingZeroRisk: boolean;
+  isEditing: boolean;
+  isRejectingZeroRisk: boolean;
+  isRequestingReattack: boolean;
+  isVerifyingRequest: boolean;
+  vulnerabilities: IVulnRowAttr[];
+  onVulnSelect(vulnerabilities: IVulnDataType[], clearSelected: () => void): void;
 }
 
 export interface IRequestVerificationVulnResult {
