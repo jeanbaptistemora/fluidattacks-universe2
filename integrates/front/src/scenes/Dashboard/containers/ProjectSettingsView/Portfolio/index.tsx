@@ -8,7 +8,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
@@ -19,6 +19,7 @@ import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import { ADD_TAGS_MUTATION, GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -143,11 +144,11 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   return (
     <React.StrictMode>
       <Row>
-        <Col lg={8} md={10} xs={7}>
+        <Col60 className={"pa0"}>
           <h3>{translate.t("search_findings.tab_resources.tags.title")}<Badge>pro</Badge></h3>
-        </Col>
-        <Col lg={4} md={2} xs={5}>
-          <ButtonToolbar className="pull-right">
+        </Col60>
+        <Col40 className={"pa0"}>
+          <ButtonToolbar>
             <Can do="backend_api_resolvers_project__do_add_tags">
               <TooltipWrapper
                 message={translate.t("search_findings.tab_resources.tags.add_tooltip")}
@@ -175,7 +176,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
               </TooltipWrapper>
             </Can>
           </ButtonToolbar>
-        </Col>
+        </Col40>
       </Row>
       <Can do="backend_api_resolvers_project__do_remove_tag" passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
