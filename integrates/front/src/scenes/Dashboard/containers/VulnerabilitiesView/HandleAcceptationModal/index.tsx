@@ -1,18 +1,25 @@
 import type { ApolloError } from "apollo-client";
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
+import type { Dispatch } from "redux";
 import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { HANDLE_VULNS_ACCEPTATION } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
+import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
-import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import { authzPermissionsContext } from "utils/authz/config";
 import { changeVulnTreatmentFormatter } from "components/DataTableNext/formatters";
+import { submit } from "redux-form";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
+import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import type {
   IHandleVulnsAcceptationModalProps,
   IHandleVulnsAcceptationResultAttr,
@@ -30,6 +37,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     "backend_api_resolvers_new_finding_analyst_resolve"
   );
   const [vulnerabilitiesList, setVulnerabilities] = React.useState(vulns);
+  const dispatch: Dispatch = useDispatch();
 
   // GraphQL operations
   const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
@@ -79,7 +87,11 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     }
   );
 
-  function handleSubmit(values: { treatmentJustification: string }): void {
+  function handleUpdateTreatmentAcceptation(): void {
+    dispatch(submit("updateTreatmentAcceptation"));
+  }
+
+  function handleSubmit(values: { justification: string }): void {
     const acceptedVulns: string[] = vulnerabilitiesList.reduce(
       (acc: string[], vuln: IVulnDataAttr): string[] =>
         vuln.acceptation === "APPROVED" ? [...acc, vuln.id] : acc,
@@ -94,7 +106,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       variables: {
         acceptedVulns,
         findingId: props.findingId,
-        justification: values.treatmentJustification,
+        justification: values.justification,
         rejectedVulns,
       },
     });
@@ -143,29 +155,45 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
 
   return (
     <React.StrictMode>
-      <RemediationModal
-        isLoading={handlingAcceptation}
-        isOpen={true}
-        maxJustificationLength={200}
-        message={translate.t(
-          "search_findings.tab_description.remediation_modal.observations"
-        )}
-        onClose={handleCloseModal}
-        onSubmit={handleSubmit}
-        title={translate.t(
-          "search_findings.tab_description.remediation_modal.title_observations"
-        )}
+      <Modal
+        headerTitle={translate.t("search_findings.tab_description.editVuln")}
+        open={true}
       >
-        <DataTableNext
-          bordered={false}
-          dataset={vulnerabilitiesList}
-          exportCsv={false}
-          headers={vulnsHeader}
-          id={"vulnsToHandleAcceptation"}
-          pageSize={10}
-          search={false}
-        />
-      </RemediationModal>
+        <GenericForm
+          name={"updateTreatmentAcceptation"}
+          onSubmit={handleSubmit}
+        >
+          <Row>
+            <Col100>
+              <DataTableNext
+                bordered={false}
+                dataset={vulnerabilitiesList}
+                exportCsv={false}
+                headers={vulnsHeader}
+                id={"vulnsToHandleAcceptation"}
+                pageSize={10}
+                search={false}
+              />
+            </Col100>
+          </Row>
+          <Row>
+            <Col100>
+              <JustificationField />
+            </Col100>
+          </Row>
+          <ButtonToolbar>
+            <Button onClick={handleCloseModal}>
+              {translate.t("group.findings.report.modal_close")}
+            </Button>
+            <Button
+              disabled={handlingAcceptation}
+              onClick={handleUpdateTreatmentAcceptation}
+            >
+              {translate.t("confirmmodal.proceed")}
+            </Button>
+          </ButtonToolbar>
+        </GenericForm>
+      </Modal>
     </React.StrictMode>
   );
 };
