@@ -86,4 +86,4 @@ async def test_report():
     data = {'query': query}
     result = await get_result(data)
     assert 'url' in result['data']['report']
-    assert 'https://files.fluidattacks.com/' in result['data']['report']['url']
+    assert 'https://d22vuezekkq177.cloudfront.net/' in result['data']['report']['url']
