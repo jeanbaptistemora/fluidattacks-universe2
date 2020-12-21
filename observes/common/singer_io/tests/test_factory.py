@@ -1,10 +1,17 @@
 # Standard libraries
 import json
-from typing import Any, Dict
+from typing import (
+    Any,
+    Dict,
+    NamedTuple,
+    Optional,
+)
 # Third party libraries
 # Local libraries
 from singer_io import factory
 from singer_io.singer import (
+    SingerHandler,
+    SingerMessage,
     SingerRecord,
     SingerSchema,
     SingerState,
@@ -76,3 +83,28 @@ def test_deserialize_state() -> None:
     schema = factory.deserialize(json.dumps(raw_json))
     expected = SingerState(value=raw_json['value'])
     assert schema == expected
+
+
+def test_singer_handler() -> None:
+    raw_srecord = json.dumps(mock_record())
+    raw_sschema = json.dumps(mock_schema())
+    srecord = factory.deserialize(raw_srecord)
+    sschema = factory.deserialize(raw_sschema)
+
+    class TestState(NamedTuple):
+        singer: Optional[SingerMessage] = None
+        num: int = 0
+
+    def handle1(singer: SingerMessage, state: TestState) -> TestState:
+        return TestState(singer, state.num + 1)
+
+    def handle2(singer: SingerMessage, state: TestState) -> TestState:
+        return TestState(singer, state.num + 2)
+
+    handler: SingerHandler[TestState] = factory.singer_handler({
+        SingerRecord: handle1,
+        SingerSchema: handle2
+    })
+    state = TestState()
+    assert handler(raw_srecord, state) == TestState(srecord, 1)
+    assert handler(raw_sschema, state) == TestState(sschema, 2)

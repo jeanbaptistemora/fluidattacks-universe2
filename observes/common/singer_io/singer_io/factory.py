@@ -5,16 +5,21 @@ from typing import (
     Any,
     Dict,
     IO,
+    Mapping,
     Optional,
+    Type,
 )
 # Third party libraries
 # Local libraries
 from singer_io.singer import (
     InvalidType,
+    ProcessSinger,
+    SingerHandler,
     SingerMessage,
     SingerRecord,
     SingerSchema,
     SingerState,
+    State
 )
 from singer_io import _factory
 
@@ -44,3 +49,13 @@ def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
     msg_dict['type'] = mapper[type(singer_msg)]
     msg = json.dumps(msg_dict, cls=_factory.CustomJsonEncoder)
     print(msg, file=target, flush=True)
+
+
+def singer_handler(
+    handlers: Mapping[Type[SingerMessage], ProcessSinger[State]]
+) -> SingerHandler[State]:
+    def handle(line: str, state: State) -> State:
+        singer_input: SingerMessage = deserialize(line)
+        input_handler: ProcessSinger[State] = handlers[type(singer_input)]
+        return input_handler(singer_input, state)
+    return handle

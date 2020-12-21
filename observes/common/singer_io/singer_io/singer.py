@@ -3,10 +3,12 @@
 import datetime
 from typing import (
     Any,
+    Callable,
     Dict,
     FrozenSet,
     NamedTuple,
     Optional,
+    TypeVar,
     Union,
 )
 # Third party libraries
@@ -39,6 +41,9 @@ class SingerState(NamedTuple):
 
 
 SingerMessage = Union[SingerRecord, SingerSchema, SingerState]
+State = TypeVar("State")
+ProcessSinger = Callable[[SingerMessage, State], State]
+SingerHandler = Callable[[str, State], State]
 
 
 class MissingKeys(KeyError):
