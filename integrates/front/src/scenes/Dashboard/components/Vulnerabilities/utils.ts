@@ -5,6 +5,82 @@ import { formatDropdownField } from "utils/formatHelpers";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { translate } from "utils/translations/translate";
 
+const getVulnerabilitiesIds: (vulnerabilities: IVulnRowAttr[]) => string[] = (
+  vulnerabilities: IVulnRowAttr[]
+): string[] =>
+  vulnerabilities.map(
+    (vulnerability: IVulnRowAttr): string => vulnerability.id
+  );
+
+const getNonSelectableVulnerabilitiesOnEdit: (
+  vulnerabilities: IVulnRowAttr[]
+) => number[] = (vulnerabilities: IVulnRowAttr[]): number[] =>
+  vulnerabilities.reduce(
+    (
+      nonSelectableVulnerabilities: number[],
+      vulnerabilitiy: IVulnRowAttr,
+      currentVulnerabilityIndex: number
+    ): number[] =>
+      vulnerabilitiy.currentState === "open"
+        ? nonSelectableVulnerabilities
+        : [...nonSelectableVulnerabilities, currentVulnerabilityIndex],
+    []
+  );
+
+const getNonSelectableVulnerabilitiesOnReattack: (
+  vulnerabilities: IVulnRowAttr[]
+) => number[] = (vulnerabilities: IVulnRowAttr[]): number[] =>
+  vulnerabilities.reduce(
+    (
+      nonSelectableVulnerabilities: number[],
+      vulnerabilitiy: IVulnRowAttr,
+      currentVulnerabilityIndex: number
+    ): number[] =>
+      vulnerabilitiy.remediated || vulnerabilitiy.currentState === "closed"
+        ? [...nonSelectableVulnerabilities, currentVulnerabilityIndex]
+        : nonSelectableVulnerabilities,
+    []
+  );
+
+const getNonSelectableVulnerabilitiesOnVerify: (
+  vulnerabilities: IVulnRowAttr[]
+) => number[] = (vulnerabilities: IVulnRowAttr[]): number[] =>
+  vulnerabilities.reduce(
+    (
+      nonSelectableVulnerabilities: number[],
+      vulnerabilitiy: IVulnRowAttr,
+      currentVulnerabilityIndex: number
+    ): number[] =>
+      vulnerabilitiy.remediated && vulnerabilitiy.currentState === "open"
+        ? nonSelectableVulnerabilities
+        : [...nonSelectableVulnerabilities, currentVulnerabilityIndex],
+    []
+  );
+
+const getVulnerabilitiesIndex: (
+  selectedVulnerabilities: IVulnRowAttr[],
+  allVulnerabilities: IVulnRowAttr[]
+) => number[] = (
+  selectedVulnerabilities: IVulnRowAttr[],
+  allVulnerabilities: IVulnRowAttr[]
+): number[] => {
+  const selectVulnIds: string[] = getVulnerabilitiesIds(
+    selectedVulnerabilities
+  );
+
+  return allVulnerabilities.reduce(
+    (
+      selectedVulnsIndex: number[],
+      currentVulnerability: IVulnRowAttr,
+      currentVulnerabilityIndex: number
+    ): number[] =>
+      selectVulnIds.includes(currentVulnerability.id)
+        ? [...selectedVulnsIndex, currentVulnerabilityIndex]
+        : selectedVulnsIndex,
+    []
+  );
+};
+
 const formatVulnerabilities: (
   vulnerabilities: IVulnRowAttr[]
 ) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
@@ -28,9 +104,11 @@ const formatVulnerabilities: (
 
       return {
         ...vulnerability,
+        currentState: _.capitalize(vulnerability.currentState),
         cycles: hasVulnCycles ? vulnerability.cycles : "",
         efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
         treatment: isVulnOpen ? treatmentLabel : "-",
+        treatmentDate: isVulnOpen ? lastTreatment.date : "-",
         treatmentManager: isVulnOpen
           ? (lastTreatment.treatmentManager as string)
           : "-",
@@ -42,4 +120,11 @@ const formatVulnerabilities: (
     }
   );
 
-export { formatVulnerabilities };
+export {
+  formatVulnerabilities,
+  getNonSelectableVulnerabilitiesOnEdit,
+  getNonSelectableVulnerabilitiesOnReattack,
+  getNonSelectableVulnerabilitiesOnVerify,
+  getVulnerabilitiesIds,
+  getVulnerabilitiesIndex,
+};

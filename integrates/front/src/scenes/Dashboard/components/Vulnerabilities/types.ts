@@ -33,6 +33,7 @@ export interface IVulnRowAttr extends IVulnRow {
   efficacy: string;
   lastRequestedReattackDate: string;
   reportDate: string;
+  treatmentDate: string;
 }
 
 export interface IUploadVulnerabilitiesResult {
