@@ -9,12 +9,12 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 
 import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
+import { Col80, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -55,7 +55,7 @@ const trackingView: React.FC = (): JSX.Element => {
       <React.Fragment>
         {!_.isUndefined(data) && !_.isEmpty(data) ? (
         <Row>
-          <Col mdOffset={3} md={9} sm={12}>
+          <Col80 className={style.trackGraph}>
             <ul className={style.timelineContainer}>
               {data.finding.tracking.map((closing: IClosing, index: number): JSX.Element => (
                 <TrackingItem
@@ -72,7 +72,7 @@ const trackingView: React.FC = (): JSX.Element => {
                 />
               ))}
             </ul>
-          </Col>
+          </Col80>
         </Row>
         ) : undefined }
       </React.Fragment>

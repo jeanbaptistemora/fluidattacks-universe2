@@ -23,11 +23,8 @@
   margin-left: -1px;
 }
 
-:local .track_title {
-  color: #555;
-  font-weight: bold;
-}
-
-:local .text_right {
-  text-align: right;
+@media (min-width: 1320px) {
+  :local .trackGraph {
+    margin-left: 25%;
+  }
 }
