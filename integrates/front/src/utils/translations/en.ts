@@ -508,8 +508,8 @@ export const enTranslations: ResourceKey = {
         repo: {
           branch: "Branch",
           cloning: {
-            message: "Cloning Message",
-            status: "Cloning Status",
+            message: "Message",
+            status: "Status",
           },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",
