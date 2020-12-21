@@ -170,6 +170,20 @@ def cast_tracking(
     return tracking_casted
 
 
+def get_tracking_cycles(
+    dates: List[str]
+) -> List[TrackingItem]:
+    """Cast tracking in accordance to schema."""
+    tracking_casted = [
+        TrackingItem(
+            cycle=cycle,
+            date=date,
+        )
+        for cycle, date in enumerate(dates)
+    ]
+    return tracking_casted
+
+
 async def get_attributes(
         finding_id: str,
         attributes: List[str]) -> Dict[str, FindingType]:
@@ -263,9 +277,9 @@ def filter_by_date(
 def get_treatments_before_cycle_date(
     historic_treatment: List[Dict[str, str]],
     historic_state: List[Dict[str, str]],
-    cycle_date: str
-) -> Tuple[str, str]:
+    cycle_date: str,
     default_manager: str = ''
+) -> Tuple[str, str]:
     max_date = datetime_utils.get_from_str(cycle_date, '%Y-%m-%d')
     historic_treat = filter_by_date(historic_treatment, max_date)
     states = filter_by_date(historic_state, max_date)
@@ -416,6 +430,52 @@ def get_sorted_historics(
     return sorted_historic, sorted_treatment
 
 
+def build_tracking_by_treatment(
+    tracking: List[TrackingItem],
+    vulnerabilities: List[Dict[str, FindingType]],
+) -> List[TrackingItem]:
+    new_tracking: List[TrackingItem] = []
+    vuln_manager: str = ''
+    allowed_treatments = {
+        'open', 'closed', 'new', 'in_progress',
+        'accepted', 'accepted_undefined'
+    }
+    treatments_with_manager = {'accepted', 'accepted_undefined', 'in_progress'}
+    for track in tracking:
+        cycle_date = track['date']
+        treatment = {
+            'accepted': 0,
+            'accepted_undefined': 0,
+            'closed': 0,
+            'effectiveness': 0,
+            'in_progress': 0,
+            'new': 0,
+            'open': 0,
+        }
+        for vuln in vulnerabilities:
+            sorted_historic, sorted_treatment = get_sorted_historics(vuln)
+
+            treat, manager = get_treatments_before_cycle_date(
+                sorted_treatment, sorted_historic, cycle_date
+            )
+            if treat in treatments_with_manager and manager:
+                vuln_manager = manager
+            if treat in allowed_treatments:
+                treatment[treat] += 1
+                if treat != 'closed':
+                    treatment['open'] += 1
+
+        total_vulns = treatment['open'] + treatment['closed']
+        treatment['effectiveness'] = int(
+            treatment['closed'] / total_vulns * 100
+        )
+        new_tracking.append(
+            build_tracking_new(track, treatment, vuln_manager)
+        )
+
+    return new_tracking
+
+
 def get_open_verification_dates(
         vulnerabilities: List[Dict[str, FindingType]]) -> List[str]:
     """Get dates when open vulns were verified."""
@@ -516,6 +576,23 @@ def group_by_state(
                 {'open': 0, 'closed': 0}
             )
             status_dict[vuln_state] += 1
+    return tracking
+
+
+def group_by_treatment(tracking_dict: Dict[str, Dict[str, str]]) -> \
+        Dict[str, Dict[str, int]]:
+    """Group vulnerabilities by treatment."""
+    tracking: Dict[str, Dict[str, int]] = {}
+    for tracking_date, treatment in list(tracking_dict.items()):
+        for vuln_treatment in list(treatment.values()):
+            treatment_dict = tracking.setdefault(
+                tracking_date,
+                {
+                    'accepted': 0, 'accepted_undefined': 0,
+                    'new': 0, 'in_progress': 0
+                }
+            )
+            treatment_dict[vuln_treatment] += 1
     return tracking
 
 
@@ -727,19 +804,17 @@ def get_historic_dates(
         List[Dict[str, str]], vuln['historic_treatment']
     )
     historic_state = cast(List[Dict[str, str]], vuln['historic_state'])
-    first_treatment_date = get_first_historic_item_date(historic_treatment)
-    first_state_date = get_first_historic_item_date(historic_state)
-    if first_treatment_date <= first_state_date:
-        treatment_dates = [
-            get_date_with_format(treatment)
-            for treatment in historic_treatment
-        ]
-        state_dates = [
-            get_date_with_format(state)
-            for state in historic_state
-        ]
-        return treatment_dates + state_dates
-    return []
+
+    treatment_dates = [
+        get_date_with_format(treatment)
+        for treatment in historic_treatment
+    ]
+    state_dates = [
+        get_date_with_format(state)
+        for state in historic_state
+        if state.get('state', '') in {'open', 'closed'}
+    ]
+    return treatment_dates + state_dates
 
 
 def get_tracking_dates(

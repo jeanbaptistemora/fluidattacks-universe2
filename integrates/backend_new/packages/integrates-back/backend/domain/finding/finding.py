@@ -175,6 +175,40 @@ def get_tracking_vulnerabilities(
     return new_tracked
 
 
+def filter_zero_risk_vulns(
+    vulns: List[Dict[str, FindingType]]
+) -> List[Dict[str, FindingType]]:
+    vulns_filter_non_confirm_zero = vuln_domain.filter_non_confirmed_zero_risk(
+        vulns
+    )
+    vulns_filter_non_request_zero = vuln_domain.filter_non_requested_zero_risk(
+        vulns_filter_non_confirm_zero
+    )
+    return vulns_filter_non_request_zero
+
+
+def get_tracking_vulnerabilities_new(
+    vulnerabilities: List[Dict[str, FindingType]],
+):
+    """get tracking vulnerabilities dictionary"""
+    filter_deleted_status = [
+        vuln_domain.filter_deleted_status(vuln)
+        for vuln in vulnerabilities
+    ]
+    vulns_filtered = [
+        finding_utils.clean_deleted_state(vuln)
+        for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
+        if filter_deleted
+    ]
+    vulns_filtered_zero = filter_zero_risk_vulns(vulns_filtered)
+    vuln_dates = finding_utils.get_tracking_dates(vulns_filtered_zero)
+    tracking_casted = finding_utils.get_tracking_cycles(vuln_dates)
+    new_tracked = finding_utils.build_tracking_by_treatment(
+        tracking_casted, vulnerabilities
+    )
+    return new_tracked
+
+
 async def update_description(
         finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
     validations.validate_fields(
