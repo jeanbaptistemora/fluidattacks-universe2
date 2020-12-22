@@ -17,7 +17,6 @@ channels==3.0.0
 cloudmersive_virus_api_client==2.0.6
 cryptography==3.2.1
 jwcrypto==0.8
-django==3.0.7
 django-analytical==2.6.0
 django-crontab==0.7.1
 django-debreach==2.0.1

@@ -34,7 +34,6 @@ cryptography==3.2.1
 cycler==0.10.0
 daphne==3.0.1
 defusedxml==0.7.0rc1
-Django==3.0.7
 django-analytical==2.6.0
 django-crontab==0.7.1
 django-debreach==2.0.1
