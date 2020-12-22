@@ -2,8 +2,32 @@ pkgsSkims:
 
 let
   buildPythonRequirements = import ../../makes/utils/build-python-requirements pkgsSkims;
+  makeTemplate = import ../../makes/utils/make-template pkgsSkims;
 in
   {
+    contextFile = makeTemplate {
+      arguments = {
+        envParserAntlr = import ../../makes/skims/parsers/antlr {
+          inherit pkgsSkims;
+        };
+        envParserBabel = import ../../makes/skims/parsers/babel {
+          inherit pkgsSkims;
+        };
+        envSrcSkimsStatic = ../../skims/static;
+        envSrcSkimsVendor = ../../skims/vendor;
+      };
+      name = "skims-config-context-file";
+      template = ''
+        export SKIMS_CIPHER_SUITES_PATH='__envSrcSkimsStatic__/cryptography/cipher_suites.csv'
+        export SKIMS_FLUID_WATERMARK='__envSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
+        export SKIMS_PARSER_ANTLR='__envParserAntlr__/build/install/parse/bin/parse'
+        export SKIMS_PARSER_BABEL='__envParserBabel__'
+        export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
+        export SKIMS_STATIC='__envSrcSkimsStatic__'
+        export SKIMS_VENDOR='__envSrcSkimsVendor__'
+      '';
+    };
+
     osRequirements = rec {
       development = [];
       developmentBinPath = pkgsSkims.lib.strings.makeBinPath development;

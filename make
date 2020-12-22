@@ -5,6 +5,7 @@ apps=(
   skims
 )
 packages=(
+  skims-docs-build
   skims-lint
   skims-parsers-antlr
   skims-parsers-babel

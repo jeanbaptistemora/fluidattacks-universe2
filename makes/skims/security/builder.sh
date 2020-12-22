@@ -8,7 +8,7 @@ function main {
         "${envPythonRequirementsDevelopment}" \
         "${envPythonRequirementsRuntime}" \
         "${envSrcSkimsSkims}" \
-  &&  echo '[INFO] Running bandig' \
+  &&  echo '[INFO] Running bandit' \
   &&  bandit --recursive "${envSrcSkimsSkims}" \
   &&  success
 }

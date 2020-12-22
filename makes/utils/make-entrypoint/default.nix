@@ -21,7 +21,9 @@ in
             envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
           };
           name = "utils-make-entrypoint-script";
-          template = ./template.sh;
+          template = ''
+            source '__envBashLibShopts__'
+          '';
         };
       });
       executable = true;

@@ -13,5 +13,5 @@ in
     envPythonRequirementsDevelopment = config.pythonRequirements.development;
     envPythonRequirementsRuntime = config.pythonRequirements.runtime;
     envSrcSkimsSkims = ../../../skims/skims;
-    name = "skims-lint";
+    name = "skims-security";
   }

@@ -15,11 +15,16 @@ let
   argumentNames = builtins.attrNames arguments;
   argumentNamesContent = builtins.concatStringsSep "\n" argumentNames;
   argumentNamesFile = builtins.toFile "arguments" "${argumentNamesContent}\n";
+
+  templateFile =
+    if (builtins.isString template)
+      then builtins.toFile "template" template
+      else template;
 in
   makeDerivation (arguments // {
     builder = ./builder.sh;
     name = "utils-make-template-${name}";
     __envArgumentNamesFile = argumentNamesFile;
     __envExecutable = executable;
-    __envTemplate = template;
+    __envTemplate = templateFile;
   })

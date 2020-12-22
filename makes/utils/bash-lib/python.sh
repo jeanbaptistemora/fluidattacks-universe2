@@ -9,3 +9,12 @@ function make_python_path {
     ||  return 1
   done
 }
+
+function make_python_path_plain {
+  for element in "${@}"
+  do
+        echo "[INFO] Exporting python paths: ${element}" \
+    &&  export PYTHONPATH="${element}:${PYTHONPATH:-}" \
+    ||  return 1
+  done
+}
