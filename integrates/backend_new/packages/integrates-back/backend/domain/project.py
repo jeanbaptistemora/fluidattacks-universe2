@@ -3,11 +3,11 @@
 
 import logging
 import re
-from collections import namedtuple, defaultdict
+from collections import defaultdict
 from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
-from typing import Dict, List, NamedTuple, Tuple, Union, cast, Optional
+from typing import Dict, List, Tuple, Union, cast, Optional
 
 import simplejson as json
 from aioextensions import (
@@ -47,8 +47,6 @@ from backend.exceptions import (
     InvalidParameter,
     InvalidProjectName,
     InvalidProjectServicesConfig,
-    NotPendingDeletion,
-    PermissionDenied,
     RepeatedValues,
     UserNotInOrganization
 )
@@ -413,7 +411,7 @@ async def delete_project(project_name: str, user_email: str) -> bool:
         List[Dict[str, str]],
         data.get('historic_deletion', [])
     )
-    if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
+    if data.get('project_status') != 'DELETED':
         all_resources_removed = await remove_resources(project_name)
         today = datetime_utils.get_now()
         new_state = {
@@ -443,87 +441,6 @@ async def delete_project(project_name: str, user_email: str) -> bool:
     return response
 
 
-async def request_deletion(project_name: str, user_email: str) -> bool:
-    project = project_name.lower()
-    response = False
-    if (await user_domain.get_group_access(user_email, project) and
-            project_name == project):
-        data = await project_dal.get_attributes(
-            project,
-            ['project_status', 'historic_deletion']
-        )
-        historic_deletion = cast(
-            List[Dict[str, str]],
-            data.get('historic_deletion', [])
-        )
-        if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
-            today = datetime_utils.get_now()
-            deletion_date = datetime_utils.get_as_str(
-                datetime_utils.get_now_plus_delta(days=30),
-                date_format='%Y-%m-%d'
-            ) + ' 23:59:59'
-            new_state = {
-                'date': datetime_utils.get_as_str(today),
-                'deletion_date': deletion_date,
-                'user': user_email.lower(),
-            }
-            historic_deletion.append(new_state)
-            new_data: ProjectType = {
-                'historic_deletion': historic_deletion,
-                'project_status': 'PENDING_DELETION'
-            }
-            response = await project_dal.update(project, new_data)
-        else:
-            raise AlreadyPendingDeletion()
-    else:
-        raise PermissionDenied()
-
-    if response:
-        await authz.revoke_cached_group_service_attributes_policies(
-            project_name
-        )
-
-    return response
-
-
-async def reject_deletion(project_name: str, user_email: str) -> bool:
-    response = False
-    project = project_name.lower()
-    if project_name == project:
-        data = await project_dal.get_attributes(
-            project,
-            ['project_status', 'historic_deletion']
-        )
-        historic_deletion = cast(
-            List[Dict[str, str]],
-            data.get('historic_deletion', [])
-        )
-        if data.get('project_status') == 'PENDING_DELETION':
-            today = datetime_utils.get_now()
-            new_state = {
-                'date': datetime_utils.get_as_str(today),
-                'user': user_email.lower(),
-                'state': 'REJECTED'
-            }
-            historic_deletion.append(new_state)
-            new_data = {
-                'project_status': 'ACTIVE',
-                'historic_deletion': historic_deletion
-            }
-            response = await project_dal.update(project, new_data)
-        else:
-            raise NotPendingDeletion()
-    else:
-        raise PermissionDenied()
-
-    if response:
-        await authz.revoke_cached_group_service_attributes_policies(
-            project_name
-        )
-
-    return response
-
-
 async def mask(group_name: str) -> bool:
     today = datetime_utils.get_now()
     comments = await project_dal.get_comments(group_name)
@@ -540,55 +457,6 @@ async def mask(group_name: str) -> bool:
         group_name, update_data
     )
     return comments_result and is_group_finished
-
-
-async def remove_project(project_name: str) -> NamedTuple:
-    """Delete project information."""
-    LOGGER.warning(
-        'Removing %s project',
-        project_name,
-        extra={'extra': locals()}
-    )
-    Status: NamedTuple = namedtuple(
-        'Status',
-        'are_findings_masked are_users_removed is_group_masked '
-        'are_events_masked are_resources_removed'
-    )
-    data = await project_dal.get_attributes(
-        project_name, ['project_status'])
-    if data.get('project_status') == 'PENDING_DELETION':
-        are_users_removed = await remove_all_users_access(project_name)
-        group_findings = await finding_domain.list_findings(
-            [project_name], include_deleted=True
-        )
-        group_drafts = await finding_domain.list_drafts(
-            [project_name], include_deleted=True
-        )
-        findings_and_drafts = (
-            group_findings[0] + group_drafts[0]
-        )
-        are_findings_masked = all(await collect(
-            finding_domain.mask_finding(finding_id)
-            for finding_id in findings_and_drafts
-        ))
-        events = await list_events(project_name)
-        are_events_masked = all(await collect(
-            event_domain.mask(event_id)
-            for event_id in events
-        ))
-        is_group_masked = await mask(project_name)
-        are_resources_removed = all(
-            list(cast(List[bool], await resources_domain.mask(project_name))))
-        response = Status(
-            are_findings_masked,
-            are_users_removed,
-            is_group_masked,
-            are_events_masked,
-            are_resources_removed
-        )
-    else:
-        raise PermissionDenied()
-    return cast(NamedTuple, response)
 
 
 async def remove_all_users_access(project: str) -> bool:

@@ -22,7 +22,7 @@ from backend.domain.project import (
     get_mean_remediate_severity, remove_access, validate_project_services_config,
     create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
-    remove_project, get_closers
+    get_closers
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -296,12 +296,6 @@ async def test_get_users():
     ]
     assert expected_output == await get_users(project_name)
 
-async def test_get_pending_to_delete():
-    projects = await get_pending_to_delete()
-    projects = [project['project_name'] for project in projects]
-    expected_output = ['pendingproject']
-    assert expected_output == projects
-
 async def test_get_closers():
     await get_closers('oneshottest') == 'integratesanalyst@fluidattacks.com'
 
@@ -338,14 +332,6 @@ async def test_create_project_not_user_admin():
     )
     expected_output = True
     assert test_data == expected_output
-
-@pytest.mark.changes_db
-async def test_remove_group():
-    group_name = 'pendingproject'
-    assert len(await project_dal.get_comments(group_name)) >= 1
-    test_data = await remove_project(group_name)
-    assert all(test_data)
-    assert len(await project_dal.get_comments(group_name)) == 0
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(

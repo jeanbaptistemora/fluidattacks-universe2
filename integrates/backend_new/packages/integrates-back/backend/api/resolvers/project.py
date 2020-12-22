@@ -181,31 +181,6 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-)
-# Intentionally not @require_integrates
-async def _do_reject_remove_project(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str) -> SimplePayloadType:
-    """Resolve reject_remove_project mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    success = await project_domain.reject_deletion(
-        project_name, user_info['user_email']
-    )
-    if success:
-        project = project_name.lower()
-        util.queue_cache_invalidation(project)
-        util.cloudwatch_log(
-            info.context,
-            'Security: Reject project '
-            f'{project} deletion successfully'  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
     require_integrates,
 )
 async def _do_add_project_consult(

@@ -184,46 +184,6 @@ async def test_create_project():
 
 
 @pytest.mark.changes_db
-async def test_reject_request_remove_denied():
-    """Check for rejectRemoveProject mutation."""
-    query = '''
-    mutation RejectRemoveProjectMutation(
-            $projectName: String!,
-        ){
-        rejectRemoveProject(projectName: $projectName) {
-        success
-        }
-    }'''
-    variables = {
-        'projectName': 'PendingprojecT'
-    }
-    data = {'query': query, 'variables': variables}
-    result = await _get_result_async(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == str(PermissionDenied())
-
-
-@pytest.mark.changes_db
-async def test_reject_request_remove_not_pending():
-    """Check for rejectRemoveProject mutation."""
-    query = '''
-    mutation RejectRemoveProjectMutation(
-            $projectName: String!,
-        ){
-        rejectRemoveProject(projectName: $projectName) {
-        success
-        }
-    }'''
-    variables = {
-        'projectName': 'unittesting'
-    }
-    data = {'query': query, 'variables': variables}
-    result = await _get_result_async(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == str(NotPendingDeletion())
-
-
-@pytest.mark.changes_db
 async def test_add_tags():
     """Check for addTags mutation."""
     query = '''

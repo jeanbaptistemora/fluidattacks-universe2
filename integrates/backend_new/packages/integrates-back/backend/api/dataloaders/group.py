@@ -77,7 +77,7 @@ class GroupLoader(DataLoader):  # type: ignore
     # pylint: disable=method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[Group]:
         groups: List[Group] = await group_domain.get_many_groups(group_names)
-        allowed_status: Set[str] = {'ACTIVE', 'PENDING_DELETION'}
+        allowed_status: Set[str] = {'ACTIVE'}
 
         return [
             format_group(group)

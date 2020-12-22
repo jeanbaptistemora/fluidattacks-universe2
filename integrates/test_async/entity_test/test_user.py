@@ -22,7 +22,6 @@ async def test_get_user():
         'last_login': '[186, 33677]',
         'projects': [
             {'name': 'oneshottest'},
-            {'name': 'pendingproject'},
             {'name': 'unittesting'}
         ]
     }
