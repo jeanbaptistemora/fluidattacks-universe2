@@ -27,7 +27,6 @@ describe("ActionButtons", (): void => {
         isRequestingReattack={false}
         isVerified={false}
         isVerifying={false}
-        onConfirmZeroRisk={jest.fn()}
         onEdit={jest.fn()}
         onRejectZeroRisk={jest.fn()}
         onRequestReattack={jest.fn()}
@@ -73,7 +72,6 @@ describe("ActionButtons", (): void => {
         isRequestingReattack={false}
         isVerified={false}
         isVerifying={false}
-        onConfirmZeroRisk={jest.fn()}
         onEdit={jest.fn()}
         onRejectZeroRisk={jest.fn()}
         onRequestReattack={onRequestReattack}
@@ -139,7 +137,8 @@ describe("ActionButtons", (): void => {
     ).toHaveLength(0);
   });
 
-  it("should render confirm zero risk", (): void => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip("should render confirm zero risk", (): void => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
@@ -157,7 +156,6 @@ describe("ActionButtons", (): void => {
         isRequestingReattack={false}
         isVerified={false}
         isVerifying={false}
-        onConfirmZeroRisk={onConfirmZeroRisk}
         onEdit={jest.fn()}
         onRejectZeroRisk={jest.fn()}
         onRequestReattack={jest.fn()}
@@ -238,7 +236,6 @@ describe("ActionButtons", (): void => {
         isRequestingReattack={false}
         isVerified={false}
         isVerifying={false}
-        onConfirmZeroRisk={jest.fn()}
         onEdit={jest.fn()}
         onRejectZeroRisk={onRejectZeroRisk}
         onRequestReattack={jest.fn()}

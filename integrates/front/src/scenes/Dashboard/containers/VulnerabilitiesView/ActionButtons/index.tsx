@@ -1,5 +1,4 @@
 import { ButtonToolbarRow } from "styles/styledComponents";
-import { ConfirmZeroRiskVulnButton } from "./ConfirmZeroRiskVulnButton";
 import { EditButton } from "./EditButton";
 import { HandleAcceptationButton } from "./HandleAcceptationButton";
 import React from "react";
@@ -20,7 +19,6 @@ interface IActionButtonsProps {
   isVerifying: boolean;
   state: "open" | "closed";
   subscription: string;
-  onConfirmZeroRisk: () => void;
   onEdit: () => void;
   onRejectZeroRisk: () => void;
   onRequestReattack: () => void;
@@ -41,7 +39,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isVerifying,
   state,
   subscription,
-  onConfirmZeroRisk,
   onEdit,
   onRejectZeroRisk,
   onRequestReattack,
@@ -92,16 +89,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         openModal={openModal}
         state={state}
         subscription={subscription}
-      />
-      <ConfirmZeroRiskVulnButton
-        areVulnsSelected={areVulnsSelected}
-        isConfirmingZeroRisk={isConfirmingZeroRisk}
-        isEditing={isEditing}
-        isRejectingZeroRisk={isRejectingZeroRisk}
-        isRequestingReattack={isRequestingReattack}
-        isVerifying={isVerifying}
-        onConfirmZeroRisk={onConfirmZeroRisk}
-        openUpdateZeroRiskModal={openUpdateZeroRiskModal}
       />
       <RejectZeroRiskVulnButton
         areVulnsSelected={areVulnsSelected}

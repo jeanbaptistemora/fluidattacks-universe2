@@ -117,7 +117,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
           isRequestingReattack={isRequestingVerify}
           isVerified={data.finding.verified}
           isVerifying={isVerifying}
-          onConfirmZeroRisk={toggleConfirmZeroRisk}
           onEdit={toggleEdit}
           onRejectZeroRisk={toggleRejectZeroRisk}
           onRequestReattack={toggleRequestVerify}
