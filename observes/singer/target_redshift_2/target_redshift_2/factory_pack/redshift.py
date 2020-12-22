@@ -17,18 +17,20 @@ from singer_io.singer import (
     SingerRecord,
     SingerSchema,
 )
-from target_redshift_2.utils import Transform
+from target_redshift_2.factory_pack import db_types
 from target_redshift_2.objects import (
-    InvalidType, RedshiftField,
+    InvalidType,
+    RedshiftField,
     RedshiftRecord,
     RedshiftSchema,
 )
+from target_redshift_2.utils import Transform
 
 
 class RedshiftElementsFactory(NamedTuple):
     """Generator of `RedshiftSchema` objects"""
     to_rschema: Callable[[SingerSchema], RedshiftSchema]
-    to_rrecord: Callable[[SingerSchema], RedshiftSchema]
+    to_rrecord: Callable[[SingerRecord, SingerSchema], RedshiftRecord]
 
 
 def singer_to_rschema(
@@ -97,4 +99,14 @@ def singer_to_rrecord(
     return RedshiftRecord(
         r_schema=r_schema,
         record=frozenset(new_field_val_pairs)
+    )
+
+
+def redshift_factory(schema_name: str) -> RedshiftElementsFactory:
+    def to_rschema(singer: SingerSchema) -> RedshiftSchema:
+        return singer_to_rschema(singer, schema_name, db_types.from_dict)
+
+    return RedshiftElementsFactory(
+        to_rschema=to_rschema,
+        to_rrecord=singer_to_rrecord
     )
