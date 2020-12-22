@@ -33,23 +33,41 @@ resource "aws_s3_bucket" "development" {
 }
 
 data "aws_iam_policy_document" "development" {
-    statement {
-    sid    = "integrates-front-prod"
+  statement {
+    sid    = "CloudFront"
     effect = "Allow"
 
     principals {
       type        = "AWS"
       identifiers = [aws_cloudfront_origin_access_identity.development.iam_arn]
     }
-
     actions = [
       "s3:GetObject",
-      "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::integrates.front.development.fluidattacks.com/*",
-      "arn:aws:s3:::integrates.front.development.fluidattacks.com",
+      "${aws_s3_bucket.development.arn}/*",
     ]
+  }
+
+  statement {
+    sid     = "CloudFlare"
+    effect  = "Allow"
+
+    principals {
+      type = "AWS"
+      identifiers = ["*"]
+    }
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "${aws_s3_bucket.development.arn}/*",
+    ]
+    condition {
+      test     = "IpAddress"
+      variable = "aws:SourceIp"
+      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    }
   }
 }
 
