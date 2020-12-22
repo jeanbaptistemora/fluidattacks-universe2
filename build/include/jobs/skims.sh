@@ -259,18 +259,6 @@ function job_skims_install {
 
 }
 
-function job_skims_security {
-  local bandit_args=(
-    --recursive skims/
-  )
-
-      helper_skims_install_dependencies \
-  &&  pushd skims \
-    &&  poetry run bandit "${bandit_args[@]}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_skims_structure {
   local base_args=(
     --cluster

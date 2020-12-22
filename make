@@ -8,6 +8,7 @@ packages=(
   skims-lint
   skims-parsers-antlr
   skims-parsers-babel
+  skims-security
 )
 
 function build_with_internet {

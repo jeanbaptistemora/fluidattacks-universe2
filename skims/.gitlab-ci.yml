@@ -93,9 +93,9 @@ skims_process_all_groups_on_aws:
     variables: [$skims_process_all_groups_on_aws]
   stage: scheduler
 
-skims_security:
-  <<: *with_nix
-  <<: *skims_in_dev_and_master_branch
+skims-security:
+  <<: *makes_build
+  <<: *skims_in_dev_branch
   stage: test-security
 
 skims_structure:
