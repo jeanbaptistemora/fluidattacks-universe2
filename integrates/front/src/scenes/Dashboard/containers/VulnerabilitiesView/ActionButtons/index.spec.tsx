@@ -174,9 +174,10 @@ describe("ActionButtons", (): void => {
       }
     );
     const buttons: ReactWrapper = wrapper.find("Button");
+    const expectedButtons: number = 3;
 
     expect(wrapper).toHaveLength(1);
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(expectedButtons);
 
     const confirmZeroRiskButton: ReactWrapper = buttons.filterWhere(
       (button: ReactWrapper): boolean =>
@@ -253,9 +254,10 @@ describe("ActionButtons", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
+    const expectedButtons: number = 3;
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("Button")).toHaveLength(2);
+    expect(wrapper.find("Button")).toHaveLength(expectedButtons);
 
     const rejectZeroRiskButton: ReactWrapper = wrapper
       .find("Button")

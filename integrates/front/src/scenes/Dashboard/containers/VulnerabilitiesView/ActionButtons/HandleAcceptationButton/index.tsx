@@ -1,9 +1,11 @@
 import { Button } from "components/Button";
-import { Can } from "utils/authz/Can";
 import { FluidIcon } from "components/FluidIcon";
 import type { IHandleAcceptationButtonProps } from "./types";
+import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { authzPermissionsContext } from "utils/authz/config";
+import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
 
 const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
@@ -16,16 +18,31 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
 }: IHandleAcceptationButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const shouldRenderHandleAcceptationBtn: boolean = !(
-    isConfirmingZeroRisk ||
-    isEditing ||
-    isRequestingReattack ||
-    isVerifying ||
-    isRejectingZeroRisk
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canHandleVulnsAcceptation: boolean = permissions.can(
+    "backend_api_mutations_handle_vulns_acceptation_mutate"
+  );
+  const canConfirmZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_confirm_zero_risk_vuln_mutate"
+  );
+  const canRejectZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_reject_zero_risk_vuln_mutate"
   );
 
+  const shouldRenderHandleAcceptationBtn: boolean =
+    (canHandleVulnsAcceptation ||
+      canConfirmZeroRiskVuln ||
+      canRejectZeroRiskVuln) &&
+    !(
+      isConfirmingZeroRisk ||
+      isEditing ||
+      isRequestingReattack ||
+      isVerifying ||
+      isRejectingZeroRisk
+    );
+
   return (
-    <Can do={"backend_api_mutations_handle_vulns_acceptation_mutate"}>
+    <React.StrictMode>
       {shouldRenderHandleAcceptationBtn ? (
         <TooltipWrapper
           message={t(
@@ -42,7 +59,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
           </Button>
         </TooltipWrapper>
       ) : undefined}
-    </Can>
+    </React.StrictMode>
   );
 };
 
