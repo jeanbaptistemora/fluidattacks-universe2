@@ -13,7 +13,6 @@ from aioextensions import (
     in_thread,
     schedule,
 )
-from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from rediscluster.nodemanager import RedisClusterException
 from starlette.requests import Request
@@ -67,27 +66,6 @@ def authenticate_session(func: TFun) -> TFun:
         return func(*args, **kwargs)
 
     return cast(TFun, authenticate_and_call)
-
-
-# Access control decorators for GraphQL
-def verify_csrf(func: TVar) -> TVar:
-    """
-    Conditional CSRF decorator
-
-    Enables django CSRF protection if using cookie-based authentication
-    """
-
-    _func = cast(Callable[..., Any], func)
-
-    @functools.wraps(_func)
-    def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        request = args[0]
-        if request.COOKIES.get(settings.JWT_COOKIE_NAME):
-            ret = csrf_protect(func)(*args, **kwargs)
-        else:
-            ret = _func(*args, **kwargs)
-        return ret
-    return cast(TVar, verify_and_call)
 
 
 def require_login(func: TVar) -> TVar:
