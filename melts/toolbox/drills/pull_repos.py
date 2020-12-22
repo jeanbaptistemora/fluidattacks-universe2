@@ -1,6 +1,7 @@
 # Standard libraries
 import os
 from typing import List
+import fnmatch
 
 # Third party libraries
 
@@ -12,13 +13,16 @@ from toolbox import (
     utils,
 )
 from toolbox.utils.integrates import (
-    get_include_rules,
-    get_exclude_rules,
+    get_filter_rules,
 )
 
 
-def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
-    logger.info('Please remember the scope:')
+def notify_out_of_scope(
+    repo_name: str,
+    include_regexps: str,
+    exclude_regexps: str,
+) -> bool:
+    logger.info(f'Please remember the scope for : {repo_name}')
     logger.info('  In scope:')
     for regex in include_regexps:
         logger.info(f'    - {regex}')
@@ -37,24 +41,39 @@ def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
 def delete_out_of_scope_files(group: str) -> bool:
     path_to_fusion: str = os.path.join('groups', group, 'fusion')
 
-    include_regexps = get_include_rules(group)
-    exclude_regexps = get_exclude_rules(group)
+    for root in get_filter_rules(group):
+        repos = [
+            folder for folder in os.listdir(path_to_fusion)
+            if root['url'].split('/')[-1] == folder
+        ]
+        if repos:
+            repo_name = repos[0]
+            path_to_repo = os.path.join('groups', group, 'fusion', repo_name)
+        else:
+            logger.warn(f'can not find a repository for {root["url"]}')
+            continue
+        non_matching_files_iterator = utils.file.iter_non_matching_files(
+            path=path_to_repo,
+            include_regexps=tuple(
+                map(fnmatch.translate, root['filter']['include'])),
+            exclude_regexps=tuple(
+                map(fnmatch.translate, root['filter']['exclude'])),
+        )
+        notify_out_of_scope(
+            repo_name,
+            root['filter']['include'],
+            root['filter']['exclude'],
+        )
 
-    non_matching_files_iterator = utils.file.iter_non_matching_files(
-        path=path_to_fusion,
-        include_regexps=include_regexps,
-        exclude_regexps=exclude_regexps,
-    )
+        for path in non_matching_files_iterator:
+            path = os.path.join(path_to_fusion, repo_name, path)
+            if '.git' not in path:
+                if os.path.isfile(path):
+                    os.unlink(path)
+                elif os.path.isdir(path):
+                    os.removedirs(path)
 
-    for path in non_matching_files_iterator:
-        path = os.path.join(path_to_fusion, path)
-        if '.git' not in path:
-            if os.path.isfile(path):
-                os.unlink(path)
-            elif os.path.isdir(path):
-                os.removedirs(path)
-
-    return notify_out_of_scope(include_regexps, exclude_regexps)
+    return True
 
 
 def pull_repos_s3_to_fusion(subs: str,

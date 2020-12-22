@@ -1,6 +1,8 @@
 # Standard library
 import json
 from typing import (
+    Any,
+    Dict,
     List,
     Tuple,
 )
@@ -23,6 +25,14 @@ def get_project_repos(project: str) -> List:
         logger.error(response.errors)
 
     return repositories
+
+
+def get_filter_rules(group: str) -> List[Dict[str, Any]]:
+    filter_request = api.integrates.Queries.git_roots_filter(API_TOKEN, group)
+    if not filter_request.ok:
+        logger.error(filter_request.errors)
+        return list()
+    return filter_request.data['project']['roots']
 
 
 def get_include_rules(group: str) -> Tuple[str, ...]:

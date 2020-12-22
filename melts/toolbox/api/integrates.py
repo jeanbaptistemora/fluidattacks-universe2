@@ -324,6 +324,8 @@ class Queries:
               project(projectName: $projectName){
                 roots {
                   ...on GitRoot{
+                    id
+                    url
                     filter{
                       include
                       exclude
