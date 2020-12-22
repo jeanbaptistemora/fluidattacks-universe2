@@ -1857,7 +1857,7 @@ export const enTranslations: ResourceKey = {
       buttons_tooltip: {
         cancel: "Cancel",
         edit: "Modify the fields of the vulnerabilities",
-        handle_acceptation: "Approve/Reject indefinite acceptation treatment",
+        handle_acceptation: "Approve/Reject treatment",
       },
       closed: "Closed",
       exceptions: {
