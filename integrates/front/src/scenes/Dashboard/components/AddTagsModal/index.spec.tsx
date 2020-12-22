@@ -1,14 +1,13 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
-import { Provider } from "react-redux";
-
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
+import { Provider } from "react-redux";
+import React from "react";
 import store from "store";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
 
-const functionMock: (() => void) = (): void => undefined;
+const functionMock: () => void = (): void => undefined;
 
-describe("Add Tags modal", () => {
-
+describe("Add Tags modal", (): void => {
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <AddTagsModal
@@ -16,20 +15,21 @@ describe("Add Tags modal", () => {
         onClose={functionMock}
         onSubmit={functionMock}
       />
-    </Provider>,
+    </Provider>
   );
 
-  it("should return a function", () => {
-    expect(typeof (AddTagsModal))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof AddTagsModal).toStrictEqual("function");
   });
 
-  it("should render", () => {
-    expect(wrapper)
-      .toHaveLength(1);
+  it("should render", (): void => {
+    expect.hasAssertions();
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render input field and add button", () => {
+  it("should render input field and add button", (): void => {
+    expect.hasAssertions();
 
     const modal: ReactWrapper = mount(
       <Provider store={store}>
@@ -38,23 +38,25 @@ describe("Add Tags modal", () => {
           onClose={functionMock}
           onSubmit={functionMock}
         />
-      </Provider>,
+      </Provider>
     );
 
-    const addButton: ReactWrapper = modal.find("renderTagsFields")
+    const addButton: ReactWrapper = modal
+      .find("renderTagsFields")
       .find("Glyphicon");
 
-    const inputField: ReactWrapper = modal.find("renderTagsFields")
+    const inputField: ReactWrapper = modal
+      .find("renderTagsFields")
       .find("input");
 
-    expect(addButton)
-      .toHaveLength(1);
+    expect(addButton).toHaveLength(1);
 
-    expect(inputField)
-      .toHaveLength(1);
+    expect(inputField).toHaveLength(1);
   });
 
-  it("should add and remove a input field", () => {
+  it("should add and remove a input field", (): void => {
+    expect.hasAssertions();
+
     const modal: ReactWrapper = mount(
       <Provider store={store}>
         <AddTagsModal
@@ -62,22 +64,22 @@ describe("Add Tags modal", () => {
           onClose={functionMock}
           onSubmit={functionMock}
         />
-      </Provider>,
+      </Provider>
     );
-    const addButton: ReactWrapper = modal.find("renderTagsFields")
+    const addButton: ReactWrapper = modal
+      .find("renderTagsFields")
       .find(".glyphicon-plus");
 
     addButton.simulate("click");
-    expect(modal.find("renderTagsFields")
-    .find("input"))
-    .toHaveLength(2);
 
-    const deleteButton: ReactWrapper = modal.find("renderTagsFields")
+    expect(modal.find("renderTagsFields").find("input")).toHaveLength(2);
+
+    const deleteButton: ReactWrapper = modal
+      .find("renderTagsFields")
       .find(".glyphicon-trash");
 
     deleteButton.simulate("click");
-    expect(modal.find("renderTagsFields")
-    .find("input"))
-    .toHaveLength(1);
+
+    expect(modal.find("renderTagsFields").find("input")).toHaveLength(1);
   });
 });

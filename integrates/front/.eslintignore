@@ -8,6 +8,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/AddFilesModal/**
 !src/scenes/Dashboard/components/AddOrganizationModal/**
 !src/scenes/Dashboard/components/AddProjectModal/**
+!src/scenes/Dashboard/components/AddTagsModal/index.spec.tsx
 !src/scenes/Dashboard/components/APITokenModal/**
 !src/scenes/Dashboard/components/DeleteGroupModal/**
 !src/scenes/Dashboard/components/NewsWidget/**
