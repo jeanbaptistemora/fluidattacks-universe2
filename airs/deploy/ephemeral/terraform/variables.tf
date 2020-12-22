@@ -5,7 +5,7 @@ variable "cloudflare_api_token" {}
 data "aws_route53_zone" "fluidattacks" {
   name = "fluidattacks.com."
 }
-
+data "cloudflare_ip_ranges" "cloudflare" {}
 data "cloudflare_zones" "fluidattacks_com" {
   filter {
     name = "fluidattacks.com"
@@ -15,7 +15,6 @@ data "cloudflare_zones" "fluidattacks_com" {
 variable bucket-origin-id {
   default = "web-ephemeral-bucket-origin"
 }
-
 variable "region" {
   default = "us-east-1"
 }

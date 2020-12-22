@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "web-ephemeral-bucket-policy-data" {
   statement {
-    sid    = "Web bucket permissions"
+    sid    = "CloudFront"
     effect = "Allow"
     principals {
       type        = "AWS"
@@ -8,12 +8,28 @@ data "aws_iam_policy_document" "web-ephemeral-bucket-policy-data" {
     }
     actions = [
       "s3:GetObject",
-      "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::web.eph.fluidattacks.com/*",
-      "arn:aws:s3:::web.eph.fluidattacks.com",
+      "${aws_s3_bucket.web-ephemeral-bucket.arn}/*",
     ]
+  }
+
+  statement {
+    sid     = "CloudFlare"
+    effect  = "Allow"
+
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "${aws_s3_bucket.web-ephemeral-bucket.arn}/*",
+    ]
+
+    condition {
+      test     = "IpAddress"
+      variable = "aws:SourceIp"
+      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    }
   }
 }
 
