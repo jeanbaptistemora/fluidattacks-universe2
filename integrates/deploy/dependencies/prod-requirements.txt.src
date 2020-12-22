@@ -59,7 +59,6 @@ s3transfer==0.3.3
 simplejson==3.17.0
 starlette==0.13.8
 # This one cannot be updated
-social-auth-app-django==3.1.0
 sqreen==1.25.1
 tracers==20.7.1645
 uvicorn[standard]==0.12.3
