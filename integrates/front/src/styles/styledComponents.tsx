@@ -533,6 +533,12 @@ const TabsContainer: StyledComponent<
   className: "grid mb0 menu-grid pl0 tc-shadow w-100",
 })``;
 
+const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "well pa4 mb4",
+})``;
+
 export {
   Alert,
   BreadCrumb,
@@ -601,4 +607,5 @@ export {
   Tab,
   TabContent,
   TabsContainer,
+  Well,
 };

@@ -8,7 +8,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Alert, ButtonToolbar, Col, ControlLabel, FormGroup, Row, Well } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
@@ -25,12 +24,12 @@ import {
   isDowngrading,
   isDowngradingServices,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
-import styles from "scenes/Dashboard/containers/ProjectSettingsView/Services/index.css";
 import {
   IFormData,
   IServicesDataSet,
   IServicesProps,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
+import { Alert, ButtonToolbar, Col80, ControlLabel, FormGroup, Row, Well } from "styles/styledComponents";
 import { Dropdown, SwitchButton, Text, TextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -259,9 +258,9 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     <React.StrictMode>
       <div>
         <Row>
-          <Col lg={8} md={10} xs={7}>
+          <Col80 className={"pa0"}>
             <h3>{translate.t("search_findings.services_table.services")}</h3>
-          </Col>
+          </Col80>
         </Row>
         <GenericForm
           name="editGroup"
@@ -293,7 +292,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 *   this way the button does not twinkle and is visually stable
                 */}
               {pristine || loadingGroupData || submittingGroupData ? undefined : (
-                <ButtonToolbar className="pull-right">
+                <ButtonToolbar>
                   <Button onClick={handleTblButtonClick}>
                     {translate.t("search_findings.services_table.modal.continue")}
                   </Button>
@@ -337,7 +336,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 {isDowngrading(true, formValues.integrates) ? (
                   <FormGroup>
                     <ControlLabel>{translate.t("search_findings.services_table.modal.warning")}</ControlLabel>
-                    <Alert bsStyle="danger">
+                    <Alert>
                       {translate.t("search_findings.services_table.modal.warning_downgrade_integrates")}
                     </Alert>
                   </FormGroup>
@@ -352,10 +351,10 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                     validate={required}
                   />
                 </FormGroup>
-                <Alert bsStyle="warning">
+                <Alert>
                   * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
                 </Alert>
-                <ButtonToolbar className="pull-right">
+                <ButtonToolbar>
                   <Button onClick={handleClose}>{translate.t("confirmmodal.cancel")}</Button>
                   <Button
                     disabled={!valid}

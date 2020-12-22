@@ -285,7 +285,7 @@ describe("Services", () => {
 
     const proceedButton: (() => ReactWrapper) = (): ReactWrapper =>
       wrapper
-        .find("ButtonToolbar")
+        .find("Button")
         .first();
     const genericForm: (() => ReactWrapper) = (): ReactWrapper =>
       wrapper
