@@ -10,12 +10,10 @@ from typing import Any, Callable, cast, Dict, TypeVar
 # Third party libraries
 from aioextensions import (
     collect,
-    in_thread,
-    schedule,
+    schedule
 )
 from graphql import GraphQLError
 from rediscluster.nodemanager import RedisClusterException
-from starlette.requests import Request
 
 # Local libraries
 from backend.domain import (
@@ -433,73 +431,6 @@ def require_finding_access(func: TVar) -> TVar:
 
         return await _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
-
-
-def cache_content(func: TVar) -> TVar:
-    """Get cached content from a django view with a request object."""
-
-    _func = cast(Callable[..., Any], func)
-
-    @functools.wraps(_func)
-    async def decorated(*args: Any, **kwargs: Any) -> Any:
-        """Get cached content from a django view with a request object."""
-        req = args[0]
-        assert isinstance(req, Request)
-        keys = [
-            'username',
-            'findingid',
-            'project',
-            'documentName',
-            'documentType',
-            'entity',
-            'generatorName',
-            'generatorType',
-            'height',
-            'subject',
-            'width',
-        ]
-        uniq_id = '_'.join([
-            req.session[x]
-            for x in keys
-            if x in req.session
-        ])
-        uniq_id += '_'.join([
-            req.GET[x]
-            for x in keys
-            if x in req.GET
-        ])
-        uniq_id += '_'.join([
-            req.POST[x]
-            for x in keys
-            if x in req.POST
-        ])
-        if len(args) > 1:
-            uniq_id += '_'.join([
-                str(x)
-                for x in args[1:]
-            ])
-        if kwargs:
-            uniq_id += '_'.join([
-                str(kwargs[x])
-                for x in kwargs
-            ])
-        key_name = (
-            f'{_func.__module__.replace(".", "_")}_'
-            f'{_func.__qualname__}_{uniq_id}'
-        )
-        try:
-            ret = await util.get_redis_element(key_name)
-            if ret:
-                return ret
-
-            ret = await in_thread(_func, args, **kwargs)
-            await util.set_redis_element(key_name, cast(str, ret))
-
-            return ret
-        except RedisClusterException as ex:
-            LOGGER.exception(ex, extra=dict(extra=locals()))
-            return _func(*args, **kwargs)
-    return cast(TVar, decorated)
 
 
 def get_entity_cache_async(func: TVar) -> TVar:
