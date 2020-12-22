@@ -13,6 +13,7 @@ flake.lib.eachDefaultSystem (
           apps = builtins.mapAttrs makeApp {
             common-deploy-oci = import ../makes/common/deploy/oci attrs;
             skims = import ../makes/skims/bin attrs;
+            skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
           };
           packages = {
             skims-docs-build = import ../makes/skims/docs/build attrs;

@@ -28,32 +28,6 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
   [test]=test/
 )
 
-function job_skims_documentation {
-  local bucket_path='s3://fluidattacks.com/resources/doc/skims/'
-
-      helper_skims_compile_parsers \
-  &&  helper_skims_install_dependencies \
-  &&  pushd skims \
-    &&  helper_skims_aws_login prod \
-    &&  rm -rf docs/skims \
-    &&  echo '[INFO] Building' \
-    &&  poetry run pdoc \
-          --force \
-          --html \
-          --output-dir docs/ \
-          --template-dir docs/templates/ \
-          skims \
-    &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
-        then
-              echo '[INFO] Deploying' \
-          &&  aws s3 sync docs/skims/ "${bucket_path}" --delete \
-          &&  rm -rf docs/skims/ \
-
-        fi \
-  &&  popd \
-  ||  return 1
-}
-
 function job_skims_dependencies_pack {
   helper_skims_dependencies_pack
 }
