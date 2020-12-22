@@ -10,7 +10,6 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Col, FormGroup, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { Field, InjectedFormProps, reset, submit } from "redux-form";
@@ -25,6 +24,7 @@ import {
   IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { Col25, Col33, FormGroup, RowCenter } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { FileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -181,8 +181,8 @@ const uploadVulnerabilities: React.FC<{ findingId: string }> =
           {({ submit: submitForm }: InjectedFormProps & { submit(): void }): React.ReactNode => (
             <React.Fragment>
               <br/>
-              <Row>
-                <Col md={4} sm={12}>
+              <RowCenter>
+                <Col33>
                   <Button
                     onClick={handleDownloadVulnerability}
                     disabled={mutationResult.loading}
@@ -190,19 +190,20 @@ const uploadVulnerabilities: React.FC<{ findingId: string }> =
                     <FluidIcon icon="export" />
                     &nbsp;{translate.t("search_findings.tab_description.download_vulnerabilities")}
                   </Button>
-                </Col>
-                <Col md={5} sm={12}>
+                </Col33>
+                <Col25>
                   <FormGroup>
                     <Field
                       accept={".yaml, .yml"}
                       component={FileInput}
+                      className={"mr0"}
                       id={"vulnerabilities"}
                       name={"filename"}
                       validate={[isValidVulnsFile]}
                     />
                   </FormGroup>
-                </Col>
-                <Col md={3} sm={12}>
+                </Col25>
+                <Col33>
                   <Button
                     onClick={submitForm}
                     disabled={mutationResult.loading}
@@ -210,8 +211,8 @@ const uploadVulnerabilities: React.FC<{ findingId: string }> =
                     <FluidIcon icon="import" />
                     &nbsp;{translate.t("search_findings.tab_description.update_vulnerabilities")}
                   </Button>
-                </Col>
-              </Row>
+                </Col33>
+              </RowCenter>
             </React.Fragment>
           )}
         </GenericForm>
