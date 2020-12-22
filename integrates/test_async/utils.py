@@ -10,7 +10,7 @@ from jose import jwt
 from backend import util
 from backend.api import apply_context_attrs
 from backend.utils import token as token_helper
-from backend_new import settings
+from back import settings
 
 
 def create_dummy_simple_session(

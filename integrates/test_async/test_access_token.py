@@ -2,7 +2,7 @@ import pytest
 from time import time
 
 from datetime import timedelta
-from backend_new import settings
+from back import settings
 
 from backend.util import (
     calculate_hash_token, is_valid_expiration_time, verificate_hash_token)

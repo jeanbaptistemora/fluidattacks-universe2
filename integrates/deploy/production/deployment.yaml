@@ -30,7 +30,7 @@ spec:
             - build.sh
             - integrates_serve_components
             - production
-            - http/production/backend_new.app.app:APP/backend_new.settings.uvicorn.IntegratesWorker/5/0.0.0.0/8001/*
+            - http/production/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/5/0.0.0.0/8001/*
           resources:
             requests:
               cpu: 1000m

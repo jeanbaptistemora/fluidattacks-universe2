@@ -34,7 +34,7 @@ from backend.dal import (
     available_name as available_name_dal
 )
 
-from backend_new import settings
+from back import settings
 from test_async.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo
 

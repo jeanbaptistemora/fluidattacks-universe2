@@ -35,7 +35,7 @@ from backend.utils import (
     token as token_helper
 )
 from backend.dal.finding import get_finding
-from backend_new import settings
+from back import settings
 from test_async.utils import create_dummy_simple_session
 
 pytestmark = [

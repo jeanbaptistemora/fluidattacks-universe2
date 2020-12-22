@@ -88,7 +88,7 @@ function helper_invoke_py {
 
       echo "[INFO] Waking up: ${module}" \
   &&  python3 \
-        'backend_new/packages/integrates-back/cli/invoker.py' \
+        'back/packages/integrates-back/cli/invoker.py' \
         "${module}"
 }
 

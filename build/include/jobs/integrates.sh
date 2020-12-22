@@ -213,7 +213,7 @@ function job_integrates_build_container_app {
 
 function job_integrates_deploy_front {
   local source='app'
-  local templates='backend_new/app/templates/static'
+  local templates='back/app/templates/static'
 
       pushd integrates \
     &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
@@ -394,11 +394,11 @@ function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'
     'app/backend/reports/images/*'
-    'backend_new/packages/integrates-back/backend/reports/tpls/*'
-    'backend_new/packages/integrates-back/backend/reports/results/results_pdf/*'
-    'backend_new/packages/integrates-back/backend/reports/results/results_excel/*'
+    'back/packages/integrates-back/backend/reports/tpls/*'
+    'back/packages/integrates-back/backend/reports/results/results_pdf/*'
+    'back/packages/integrates-back/backend/reports/results/results_excel/*'
     'build/coverage'
-    'backend_new/packages/*/*.egg-info'
+    'back/packages/*/*.egg-info'
     'front/coverage'
     'geckodriver.log'
     'mobile/coverage'

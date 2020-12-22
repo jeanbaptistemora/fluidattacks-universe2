@@ -36,7 +36,7 @@ in
         };
 
       pyPkgIntegratesBack =
-        import ../../integrates/backend_new/packages/integrates-back pkgs;
+        import ../../integrates/back/packages/integrates-back pkgs;
 
       rubyGemAsciiDoctor =
         builders.rubyGem "asciidoctor:2.0.10";

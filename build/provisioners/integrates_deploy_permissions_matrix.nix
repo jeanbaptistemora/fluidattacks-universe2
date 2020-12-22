@@ -24,6 +24,6 @@ in
       pyPkgNumpy = pkgs.python37Packages.numpy;
 
       pyPkgIntegratesBack =
-        import ../../integrates/backend_new/packages/integrates-back pkgs;
+        import ../../integrates/back/packages/integrates-back pkgs;
     })
   )

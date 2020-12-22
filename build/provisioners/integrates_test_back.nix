@@ -24,7 +24,7 @@ in
       ];
 
       pyPkgIntegratesBack =
-        import ../../integrates/backend_new/packages/integrates-back pkgs;
+        import ../../integrates/back/packages/integrates-back pkgs;
 
       pyPkgReqs =
         builders.pythonRequirements ../../integrates/deploy/dependencies/dev-requirements.txt;

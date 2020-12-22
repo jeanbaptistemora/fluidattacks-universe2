@@ -33,7 +33,7 @@ from backend.utils import (
     findings as findings_utils,
 )
 
-from backend_new import settings
+from back import settings
 
 from test_async.utils import create_dummy_session
 

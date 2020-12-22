@@ -24,7 +24,7 @@ spec:
             - build.sh
             - integrates_serve_components
             - development
-            - http/development/backend_new.app.app:APP/backend_new.settings.uvicorn.IntegratesWorker/3/0.0.0.0/8001/*
+            - http/development/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/3/0.0.0.0/8001/*
           resources:
             requests:
               cpu: 300m

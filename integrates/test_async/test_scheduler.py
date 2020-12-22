@@ -28,7 +28,7 @@ from backend.scheduler import (
 )
 from backend.utils import datetime as datetime_utils
 
-from backend_new import settings
+from back import settings
 
 from test_async.utils import create_dummy_simple_session
 

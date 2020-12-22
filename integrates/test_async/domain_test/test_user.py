@@ -5,7 +5,7 @@ import pytest
 from backend.domain import user as user_domain
 from backend.exceptions import InvalidPushToken
 
-from backend_new import settings
+from back import settings
 
 
 def test_get_current_date():

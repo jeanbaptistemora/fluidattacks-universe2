@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import pytest
-from backend_new import settings
+from back import settings
 
 from backend import authz
 

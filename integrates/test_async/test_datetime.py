@@ -7,7 +7,7 @@ from backend.utils import (
     datetime as datetime_utils
 )
 
-from backend_new import settings
+from back import settings
 
 tzn = pytz.timezone(settings.TIME_ZONE)
 

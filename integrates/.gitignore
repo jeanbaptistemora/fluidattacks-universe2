@@ -30,13 +30,13 @@ coverage.xml
 build/coverage
 
 # Django apps
-backend_new/packages/**/*.egg-info
-backend_new/packages/**/build
-backend_new/packages/**/dist
-backend_new/packages/integrates-back/backend/reports/results/results_pdf/*.pdf
-backend_new/packages/integrates-back/backend/reports/results/results_excel/*.xlsx
-backend_new/packages/integrates-back/backend/reports/tpls/*.tpl
-backend_new/packages/integrates-back/backend/reports/images/*
+back/packages/**/*.egg-info
+back/packages/**/build
+back/packages/**/dist
+back/packages/integrates-back/backend/reports/results/results_pdf/*.pdf
+back/packages/integrates-back/backend/reports/results/results_excel/*.xlsx
+back/packages/integrates-back/backend/reports/tpls/*.tpl
+back/packages/integrates-back/backend/reports/images/*
 
 # Analytics
 analytics/**/*.jpg

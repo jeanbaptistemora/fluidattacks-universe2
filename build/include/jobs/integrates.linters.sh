@@ -4,18 +4,18 @@ function job_integrates_lint_back {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
-      backend_new/migrations/ \
-      backend_new \
+      back/migrations/ \
+      back \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
-        backend_new/packages/integrates-back \
+        back/packages/integrates-back \
   &&  prospector -F -s veryhigh analytics/ \
-  &&  prospector -F -s veryhigh -u django -i node_modules backend_new \
+  &&  prospector -F -s veryhigh -u django -i node_modules back \
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
   &&  npx graphql-schema-linter \
         --except 'enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,arguments-have-descriptions' \
-        backend_new/packages/integrates-back/backend/api/schema/**/*.graphql \
-        backend_new/packages/integrates-back/backend/api/schema/types/**/*.graphql \
+        back/packages/integrates-back/backend/api/schema/**/*.graphql \
+        back/packages/integrates-back/backend/api/schema/types/**/*.graphql \
   &&  popd \
   || return 1
 }
@@ -63,7 +63,7 @@ function job_integrates_lint_styles {
 
 function job_integrates_lint_graphics {
       env_prepare_node_modules \
-  &&  pushd "${STARTDIR}/integrates/backend_new/app/templates/static/graphics" \
+  &&  pushd "${STARTDIR}/integrates/back/app/templates/static/graphics" \
         &&  eslint --config .eslintrc --fix . \
   &&  popd \
   ||  return 1
