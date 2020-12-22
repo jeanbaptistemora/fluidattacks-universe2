@@ -206,6 +206,7 @@ def save_best_model_to_s3(
         train_x, train_y = split_training_data(training_data, best_features)
         model = get_model_instance(model_class)
         model.fit(train_x, train_y)
+        model.feature_names = list(best_features)
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             model_name: str = '-'.join(
