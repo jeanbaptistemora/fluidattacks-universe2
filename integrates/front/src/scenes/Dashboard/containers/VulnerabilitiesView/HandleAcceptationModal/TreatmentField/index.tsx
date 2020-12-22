@@ -16,6 +16,9 @@ const TreatmentField: React.FC = (): JSX.Element => {
   const canConfirmZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_confirm_zero_risk_vuln_mutate"
   );
+  const canRejectZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_reject_zero_risk_vuln_mutate"
+  );
 
   return (
     <FormGroup>
@@ -40,6 +43,13 @@ const TreatmentField: React.FC = (): JSX.Element => {
           <option value={"CONFIRM_ZERO_RISK"}>
             {translate.t(
               "search_findings.tab_description.treatment.confirm_zero_risk"
+            )}
+          </option>
+        ) : undefined}
+        {canRejectZeroRiskVuln ? (
+          <option value={"REJECT_ZERO_RISK"}>
+            {translate.t(
+              "search_findings.tab_description.treatment.reject_zero_risk"
             )}
           </option>
         ) : undefined}

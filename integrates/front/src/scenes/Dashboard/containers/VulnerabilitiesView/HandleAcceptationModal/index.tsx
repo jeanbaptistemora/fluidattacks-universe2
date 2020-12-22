@@ -13,6 +13,7 @@ import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
+import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
@@ -20,11 +21,13 @@ import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import {
   CONFIRM_ZERO_RISK_VULN,
   HANDLE_VULNS_ACCEPTATION,
+  REJECT_ZERO_RISK_VULN,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import type {
   IConfirmZeroRiskVulnResultAttr,
   IHandleVulnsAcceptationModalProps,
   IHandleVulnsAcceptationResultAttr,
+  IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
@@ -82,6 +85,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     formValues.treatment === "ACCEPTED_UNDEFINED";
   const isConfirmZeroRiskSelected: boolean =
     formValues.treatment === "CONFIRM_ZERO_RISK";
+  const isRejectZeroRiskSelected: boolean =
+    formValues.treatment === "REJECT_ZERO_RISK";
 
   // Side effects
   const onTreatmentChange: () => void = (): void => {
@@ -90,7 +95,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         vulns
       );
       setAcceptationVulns(pendingVulnsToHandleAcceptation);
-    } else if (isConfirmZeroRiskSelected) {
+    } else if (isConfirmZeroRiskSelected || isRejectZeroRiskSelected) {
       const requestedZeroRiskVulns: IVulnDataAttr[] = getRequestedZeroRiskVulns(
         vulns
       );
@@ -102,6 +107,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   React.useEffect(onTreatmentChange, [
     isAcceptedUndefinedSelected,
     isConfirmZeroRiskSelected,
+    isRejectZeroRiskSelected,
     vulns,
   ]);
 
@@ -211,7 +217,54 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
           variables: {
             canGetExploit,
             canGetHistoricState,
-            findingId: findingId,
+            findingId,
+          },
+        },
+      ],
+    }
+  );
+  const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
+    REJECT_ZERO_RISK_VULN,
+    {
+      onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
+        if (data.rejectZeroRiskVuln.success) {
+          msgSuccess(
+            translate.t("group_alerts.rejected_zero_risk_success"),
+            translate.t("group_alerts.updated_title")
+          );
+          refetchData();
+          handleCloseModal();
+        }
+      },
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - Zero risk vulnerability is not requested":
+              msgError(translate.t("group_alerts.zero_risk_is_not_requested"));
+              break;
+            default:
+              msgError(translate.t("group_alerts.error_textsad"));
+              Logger.warning(
+                "An error occurred rejecting zero risk vuln",
+                error
+              );
+          }
+        });
+      },
+      refetchQueries: [
+        {
+          query: GET_VULNERABILITIES,
+          variables: {
+            analystField: canDisplayAnalyst,
+            identifier: findingId,
+          },
+        },
+        {
+          query: GET_FINDING_HEADER,
+          variables: {
+            canGetExploit,
+            canGetHistoricState,
+            findingId,
           },
         },
       ],
@@ -233,7 +286,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       void handleAcceptation({
         variables: {
           acceptedVulns: acceptedVulnIds,
-          findingId: props.findingId,
+          findingId,
           justification: values.justification,
           rejectedVulns: rejectedVulnIds,
         },
@@ -242,9 +295,18 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     if (isConfirmZeroRiskSelected) {
       void confirmZeroRisk({
         variables: {
-          findingId: props.findingId,
+          findingId,
           justification: values.justification,
           vulnerabilities: acceptedVulnIds,
+        },
+      });
+    }
+    if (isRejectZeroRiskSelected) {
+      void rejectZeroRisk({
+        variables: {
+          findingId,
+          justification: values.justification,
+          vulnerabilities: rejectedVulnIds,
         },
       });
     }
@@ -296,6 +358,15 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
           </Row>
           <Row>
             <Col100>
+              <ZeroRiskRejectionTable
+                acceptationVulns={acceptationVulns}
+                isRejectZeroRiskSelected={isRejectZeroRiskSelected}
+                setAcceptationVulns={setAcceptationVulns}
+              />
+            </Col100>
+          </Row>
+          <Row>
+            <Col100>
               <JustificationField />
             </Col100>
           </Row>
@@ -307,7 +378,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               disabled={
                 !(hasAcceptedVulns || hasRejectedVulns) ||
                 handlingAcceptation ||
-                confirmingZeroRisk
+                confirmingZeroRisk ||
+                rejectingZeroRisk
               }
               onClick={handleUpdateTreatmentAcceptation}
             >

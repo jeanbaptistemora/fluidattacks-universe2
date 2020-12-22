@@ -1100,6 +1100,7 @@ export const enTranslations: ResourceKey = {
         in_progress: "In progress",
         new: "New",
         pending_approval: " (Pending approval)",
+        reject_zero_risk: "Reject zero risk",
         rejected: "Rejected",
         request_zero_risk: "Request zero risk",
         title: "Treatment",
