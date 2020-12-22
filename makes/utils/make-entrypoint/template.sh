@@ -1,3 +1,3 @@
 # shellcheck shell=bash
 
-source '__envUtils__'
+source '__envBashLibShopts__'

@@ -6,11 +6,13 @@ pkgs:
 attrs:
 
 pkgs.stdenv.mkDerivation (attrs // {
+  __envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
+  __envBashLibDrv = ../../../makes/utils/bash-lib/drv.sh;
   __envStdenv = "${pkgs.stdenv}/setup";
-  __envUtils = ../../../makes/utils/make-derivation/utils.sh;
   makeDerivation = builtins.toFile "setup-make-derivation" ''
     source $__envStdenv
-    source $__envUtils
+    source $__envBashLibShopts
+    source $__envBashLibDrv
 
     initialize
   '';

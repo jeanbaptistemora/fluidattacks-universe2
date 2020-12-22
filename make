@@ -3,9 +3,9 @@
 apps=(
   common-deploy-oci
   skims
-  skims-lint
 )
 packages=(
+  skims-lint
   skims-parsers-antlr
   skims-parsers-babel
 )

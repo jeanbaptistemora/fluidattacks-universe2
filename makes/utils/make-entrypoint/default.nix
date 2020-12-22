@@ -18,7 +18,7 @@ in
       arguments = (arguments // {
         makeEntrypoint = makeTemplate {
           arguments = {
-            envUtils = ../../../makes/utils/make-derivation/utils.sh;
+            envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
           };
           name = "utils-make-entrypoint-script";
           template = ./template.sh;
