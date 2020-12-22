@@ -270,10 +270,9 @@ async def is_alive(
     return is_valid_project
 
 
-async def can_user_access_pending_deletion(
+async def can_user_access(
         project: str,
         role: str,
-        should_access_pending: bool = True,
         table: aioboto3.session.Session.client = None) -> bool:
     project_data = await get_attributes(
         project.lower(),
@@ -286,12 +285,8 @@ async def can_user_access_pending_deletion(
         table
     )
 
-    allow_roles = ['admin', 'customeradmin']
     is_user_allowed = False
-    if not await is_alive(project, project_data):
-        if project_data.get('project_status') == 'PENDING_DELETION':
-            is_user_allowed = role in allow_roles and should_access_pending
-    else:
+    if await is_alive(project, project_data):
         is_user_allowed = bool(role)
     return is_user_allowed
 
@@ -418,11 +413,6 @@ async def get_all(
             items += response.get('Items', [])
 
     return items
-
-
-async def get_pending_to_delete() -> List[ProjectType]:
-    filtering_exp = Attr('project_status').eq('PENDING_DELETION')
-    return await get_all(filtering_exp, 'project_name, historic_deletion')
 
 
 async def get_user_access(

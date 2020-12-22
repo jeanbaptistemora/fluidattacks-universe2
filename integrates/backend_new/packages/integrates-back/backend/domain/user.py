@@ -69,7 +69,6 @@ async def get_data(email: str, attr: str) -> Union[str, UserType]:
 async def get_projects(
         user_email: str,
         active: bool = True,
-        access_pending_projects: bool = True,
         organization_id: str = '') -> List[str]:
     user_projects: List[str] = []
     projects = await user_dal.get_projects(user_email, active)
@@ -79,8 +78,8 @@ async def get_projects(
     async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
         dynamo_table = await resource.Table(project_dal.TABLE_NAME)
         can_access_list = await collect(
-            project_dal.can_user_access_pending_deletion(
-                project, role, access_pending_projects, dynamo_table)
+            project_dal.can_user_access(
+                project, role, dynamo_table)
             for role, project in zip(group_level_roles.values(), projects)
         )
 

@@ -351,10 +351,6 @@ async def remove_access(user_email: str, project_name: str) -> bool:
     return await project_dal.remove_access(user_email, project_name)
 
 
-async def get_pending_to_delete() -> List[ProjectType]:
-    return await project_dal.get_pending_to_delete()
-
-
 async def get_historic_deletion(project_name: str) -> HistoricType:
     historic_deletion = await project_dal.get_attributes(
         project_name.lower(), ['historic_deletion'])

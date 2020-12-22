@@ -18,8 +18,8 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     get_users, get_description, get_pending_verification_findings,
     list_comments, get_active_projects, get_managers, list_events,
-    get_alive_projects, get_pending_to_delete,
-    get_mean_remediate_severity, remove_access, validate_project_services_config,
+    get_alive_projects, get_mean_remediate_severity,
+    remove_access, validate_project_services_config,
     create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
     get_closers
