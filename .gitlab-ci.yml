@@ -42,6 +42,14 @@ workflow:
   variables:
     GIT_DEPTH: 5
 
+.makes: &makes
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+  needs: []
+  interruptible: true
+  variables:
+    GIT_DEPTH: 5
+
 .common_in_mrs: &common_in_mrs
   rules:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
@@ -92,6 +100,15 @@ common_build_nix_caches:
   only:
     refs: [schedules]
     variables: [$common_build_nix_caches]
+
+common_deploy_oci:
+  <<: *makes
+  interruptible: false
+  only:
+    refs: [schedules]
+    variables: [$common_deploy_oci]
+  script: [./make run common-deploy-oci]
+  stage: build
 
 common_deploy_container_image:
   <<: *with_nix
