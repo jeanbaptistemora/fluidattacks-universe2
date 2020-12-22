@@ -27,3 +27,7 @@ class RedshiftRecord(NamedTuple):
 
 class AmbiguousType(Exception):
     pass
+
+
+class InvalidState(Exception):
+    pass

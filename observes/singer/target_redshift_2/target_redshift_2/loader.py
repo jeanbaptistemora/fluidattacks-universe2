@@ -4,7 +4,8 @@ from typing import (
     Dict,
     FrozenSet,
     Iterable,
-    List, NamedTuple, Set,
+    List,
+    NamedTuple,
     Tuple,
 )
 # Third party libraries
@@ -19,6 +20,7 @@ from singer_io.singer import (
     SingerMessage,
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 from target_redshift_2.objects import (
     RedshiftRecord,
@@ -32,6 +34,12 @@ RRecordCreator = Callable[
     [Iterable[SingerRecord], TidRschemaMap], Iterable[RedshiftRecord]
 ]
 TidTableMap = Dict[TableID, Table]
+
+
+class Loader(NamedTuple):
+    update_schema: Callable[[SingerSchema], None]
+    upload_record: Callable[[SingerRecord], None]
+    upload_and_save_state: Callable[[SingerRecord, SingerState], None]
 
 
 def process_lines_builder(
@@ -129,26 +137,3 @@ def update_schema_builder(
             for action in actions:
                 action.act()
     return update_schema
-
-
-class Loader(NamedTuple):
-    process_lines: Transform[Iterable[str], ClassifiedSinger]
-    create_table_schema_map: Transform[Iterable[SingerSchema], TidRschemaMap]
-    create_rrecords: RRecordCreator
-    create_table_mapper: Transform[Iterable[TableID], TidTableMap]
-    update_schema: Callable[[TidTableMap, TidRschemaMap], None]
-    upload_records: Callable[[Set[RedshiftRecord], TidTableMap], None]
-
-
-def upload_lines(lines: List[str], loader: Loader):
-    separated_singers: ClassifiedSinger = loader.process_lines(lines)
-    tableid_schema_map: Dict[TableID, RedshiftSchema] = \
-        loader.create_table_schema_map(separated_singers[0])
-    rrecords: Iterable[RedshiftRecord] = loader.create_rrecords(
-        separated_singers[1], tableid_schema_map
-    )
-    tables_map: TidTableMap = loader.create_table_mapper(
-        set(tableid_schema_map.keys())
-    )
-    loader.update_schema(tables_map, tableid_schema_map)
-    loader.upload_records(set(rrecords), tables_map)
