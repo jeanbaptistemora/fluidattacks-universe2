@@ -3,7 +3,6 @@ import { EditButton } from "./EditButton";
 import { HandleAcceptationButton } from "./HandleAcceptationButton";
 import React from "react";
 import { ReattackVulnButton } from "./ReattackVulnButton";
-import { RejectZeroRiskVulnButton } from "./RejectZeroRiskVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -20,12 +19,10 @@ interface IActionButtonsProps {
   state: "open" | "closed";
   subscription: string;
   onEdit: () => void;
-  onRejectZeroRisk: () => void;
   onRequestReattack: () => void;
   onVerify: () => void;
   openHandleAcceptation: () => void;
   openModal: () => void;
-  openUpdateZeroRiskModal: () => void;
 }
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
@@ -40,12 +37,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   state,
   subscription,
   onEdit,
-  onRejectZeroRisk,
   onRequestReattack,
   onVerify,
   openHandleAcceptation,
   openModal,
-  openUpdateZeroRiskModal,
 }: IActionButtonsProps): JSX.Element => {
   const displayMessage: () => void = (): void => {
     msgInfo(
@@ -89,16 +84,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         openModal={openModal}
         state={state}
         subscription={subscription}
-      />
-      <RejectZeroRiskVulnButton
-        areVulnsSelected={areVulnsSelected}
-        isConfirmingZeroRisk={isConfirmingZeroRisk}
-        isEditing={isEditing}
-        isRejectingZeroRisk={isRejectingZeroRisk}
-        isRequestingReattack={isRequestingReattack}
-        isVerifying={isVerifying}
-        onRejectZeroRisk={onRejectZeroRisk}
-        openUpdateZeroRiskModal={openUpdateZeroRiskModal}
       />
       <EditButton
         isConfirmingZeroRisk={isConfirmingZeroRisk}
