@@ -28,7 +28,8 @@ async def test_finding():
                 'in_progress': 0,
                 'new': 0,
                 'accepted': 1,
-                'accepted_undefined': 0
+                'accepted_undefined': 0,
+                'manager': 'integratesuser@gmail.com',
             }
         ],
         'records': '[]',

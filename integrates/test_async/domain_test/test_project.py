@@ -312,7 +312,7 @@ async def test_get_mean_remediate_severity():
     max_severity = 3.9
     mean_remediate_low_severity = await get_mean_remediate_severity(
         project_name, min_severity, max_severity)
-    expected_output = 194.0
+    expected_output = 197.0
     assert mean_remediate_low_severity == expected_output
     min_severity = 4
     max_severity = 6.9

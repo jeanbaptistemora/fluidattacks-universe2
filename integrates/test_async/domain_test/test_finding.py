@@ -180,7 +180,7 @@ async def test_get_tracking_vulnerabilities():
             "open": 1,
             "closed": 0,
             "effectiveness": 0,
-            "date": "2020-09-09",
+            "date": "2020-01-03",
             "new": 0,
             "in_progress": 1,
             "accepted": 0,

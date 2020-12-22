@@ -77,11 +77,12 @@ async def test_finding():
       "open": 1,
       "closed": 0,
       "effectiveness": 0,
-      "date": "2020-09-09",
+      "date": "2020-01-03",
       "new": 0,
       "in_progress": 1,
       "accepted": 0,
-      "accepted_undefined": 0
+      "accepted_undefined": 0,
+      'manager': '',
     }]
     query = '''{
       finding(identifier: "422286126"){

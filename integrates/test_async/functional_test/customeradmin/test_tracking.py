@@ -19,7 +19,8 @@ async def test_tracking():
                 "new": 1,
                 "in_progress": 0,
                 "accepted": 0,
-                "accepted_undefined": 0
+                "accepted_undefined": 0,
+                "manager": ""
             },
             {
                 "cycle": 1,
@@ -30,7 +31,8 @@ async def test_tracking():
                 "new": 16,
                 "in_progress": 0,
                 "accepted": 0,
-                "accepted_undefined": 0
+                "accepted_undefined": 0,
+                "manager": ""
             },
             {
                 "cycle": 2,
@@ -41,7 +43,8 @@ async def test_tracking():
                 "new": 22,
                 "in_progress": 0,
                 "accepted": 0,
-                "accepted_undefined": 0
+                "accepted_undefined": 0,
+                "manager": ""
             },
             {
                 "cycle": 3,
@@ -52,18 +55,8 @@ async def test_tracking():
                 "new": 24,
                 "in_progress": 0,
                 "accepted": 0,
-                "accepted_undefined": 0
-            },
-            {
-                "cycle": 4,
-                "open": 24,
-                "closed": 4,
-                "effectiveness": 14,
-                "date": "2020-02-19",
-                "new": 24,
-                "in_progress": 0,
-                "accepted": 0,
-                "accepted_undefined": 0
+                "accepted_undefined": 0,
+                "manager": ""
             }
         ],
     }
@@ -88,11 +81,12 @@ async def test_tracking():
                 "open": 1,
                 "closed": 0,
                 "effectiveness": 0,
-                "date": "2020-09-09",
+                "date": "2020-01-03",
                 "new": 0,
                 "in_progress": 1,
                 "accepted": 0,
-                "accepted_undefined": 0
+                "accepted_undefined": 0,
+                "manager": ""
             }
         ],
     }
@@ -121,7 +115,8 @@ async def test_tracking():
                 "new": 0,
                 "in_progress": 0,
                 "accepted": 1,
-                "accepted_undefined": 0
+                "accepted_undefined": 0,
+                "manager": "integratesuser@gmail.com"
             }
         ],
     }
@@ -145,23 +140,25 @@ async def test_tracking():
                 "cycle": 0,
                 "open": 1,
                 "closed": 0,
+                "accepted": 0,
+                "accepted_undefined": 0,
+                "manager": "",
                 "effectiveness": 0,
                 "date": "2019-09-12",
                 "new": 0,
                 "in_progress": 1,
-                "accepted": 0,
-                "accepted_undefined": 0
             },
             {
                 "cycle": 1,
                 "open": 2,
                 "closed": 0,
+                "accepted": 1,
+                "accepted_undefined": 0,
+                "manager": "",
                 "effectiveness": 0,
                 "date": "2019-09-13",
                 "new": 1,
                 "in_progress": 0,
-                "accepted": 1,
-                "accepted_undefined": 0
             }
         ],
     }

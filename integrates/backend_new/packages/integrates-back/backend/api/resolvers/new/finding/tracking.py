@@ -28,6 +28,6 @@ async def resolve(
     if is_finding_released:
         vulns = await finding_vulns_loader.load(finding_id)
 
-        return finding_domain.get_tracking_vulnerabilities(vulns)
+        return finding_domain.get_tracking_vulnerabilities_new(vulns)
 
     return []

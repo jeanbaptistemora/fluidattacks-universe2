@@ -189,7 +189,7 @@ def test_finding_tracking(
     tracking.click()
     assert utils.wait_for_text(
         driver,
-        '2020-09-09',
+        '2020-01-03',
         timeout,
     )
 
