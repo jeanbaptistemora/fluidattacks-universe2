@@ -50,6 +50,16 @@ workflow:
   variables:
     GIT_DEPTH: 5
 
+.makes_build: &makes_build
+  <<: *makes
+  script:
+    - ./make build "${CI_JOB_NAME% *}"
+
+.makes_run: &makes_run
+  <<: *makes
+  script:
+    - ./make run "${CI_JOB_NAME% *}"
+
 .common_in_mrs: &common_in_mrs
   rules:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
@@ -101,13 +111,12 @@ common_build_nix_caches:
     refs: [schedules]
     variables: [$common_build_nix_caches]
 
-common_deploy_oci:
-  <<: *makes
+common-deploy-oci:
+  <<: *makes_run
   interruptible: false
   only:
     refs: [schedules]
     variables: [$common_deploy_oci]
-  script: [./make run common-deploy-oci]
   stage: build
 
 common_deploy_container_image:

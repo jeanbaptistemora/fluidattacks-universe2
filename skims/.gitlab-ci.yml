@@ -8,6 +8,24 @@
   variables:
     GIT_DEPTH: 5
 
+.makes: &makes
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+  needs: []
+  interruptible: true
+  variables:
+    GIT_DEPTH: 5
+
+.makes_build: &makes_build
+  <<: *makes
+  script:
+    - ./make build "${CI_JOB_NAME% *}"
+
+.makes_run: &makes_run
+  <<: *makes
+  script:
+    - ./make run "${CI_JOB_NAME% *}"
+
 .skims_commit_pattern: &skims_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|skims)/'
 
 .skims_in_dev_branch: &skims_in_dev_branch
@@ -62,8 +80,8 @@ skims_deploy_to_pypi:
   <<: *skims_in_master_branch
   stage: deploy-app
 
-skims_lint:
-  <<: *with_nix
+skims-lint:
+  <<: *makes_build
   <<: *skims_in_dev_and_master_branch
   stage: lint-code
 

@@ -17,7 +17,7 @@ from aioextensions import (
 # https://manpages.debian.org/getrusage(2)
 
 # Constants
-_MEMORY_SEMAPHORE: BoundedSemaphore = None  # type: ignore
+_MEMORY_SEMAPHORE: BoundedSemaphore = None
 
 
 def get_max_memory_usage() -> float:

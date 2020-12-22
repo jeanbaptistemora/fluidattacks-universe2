@@ -63,9 +63,9 @@ def yield_statements_from_policy(
     if isinstance(policy, Node) and policy.inner.get('PolicyDocument', None):
         yield from yield_statements_from_policy_document(
             policy.inner.get('PolicyDocument'))
-    elif policy.get('PolicyDocument', {}):  # type: ignore
+    elif policy.get('PolicyDocument', {}):
         yield from yield_statements_from_policy_document(
-            policy.get('PolicyDocument'))  # type: ignore
+            policy.get('PolicyDocument'))
 
 
 def yield_statements_from_policy_document(
@@ -77,7 +77,7 @@ def yield_statements_from_policy_document(
         elif isinstance(statement.inner, list):
             yield from map(patch_statement, statement.data)
     else:
-        statement = document.get('Statement', [])  # type: ignore
+        statement = document.get('Statement', [])
 
         if isinstance(statement, dict):
             yield patch_statement(statement)

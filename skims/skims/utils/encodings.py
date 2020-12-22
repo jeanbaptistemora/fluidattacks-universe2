@@ -54,7 +54,7 @@ def json_dumps(element: object, *args: Any, **kwargs: Any) -> str:
 def blocking_yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
-    return yaml.safe_dump(  # type: ignore
+    return yaml.safe_dump(
         element,
         *args,
         default_flow_style=False,

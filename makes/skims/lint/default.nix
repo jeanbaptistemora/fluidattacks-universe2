@@ -12,6 +12,9 @@ in
     envBashLibPython = ../../../makes/utils/bash-lib/python.sh;
     envPythonRequirementsDevelopment = config.pythonRequirements.development;
     envPythonRequirementsRuntime = config.pythonRequirements.runtime;
+    envSrcSkimsProspectorProfile = ../../../skims/.prospector.yaml;
+    envSrcSkimsSettingsCfg = ../../../skims/settings.cfg;
     envSrcSkimsSkims = ../../../skims/skims;
+    envSrcSkimsTest = ../../../skims/test;
     name = "skims-lint";
   }
