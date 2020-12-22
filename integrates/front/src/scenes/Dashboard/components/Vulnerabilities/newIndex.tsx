@@ -13,6 +13,7 @@ import { UpdateTreatmentModal } from "./UpdateDescription";
 import { UploadVulnerabilites } from "./uploadFile";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
+import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
 import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
 import { useAbility } from "@casl/react";
 import { useStoredState } from "utils/hooks";
@@ -230,6 +231,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         onFilter: onFilterWhere,
       }),
       header: t("search_findings.tab_vuln.vulnTable.where"),
+      headerFormatter: filterFormatter,
       onSort: onSortVulns,
       visible: checkedItems.where,
     },
@@ -254,6 +256,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       }),
       formatter: statusFormatter,
       header: t("search_findings.tab_vuln.vulnTable.status"),
+      headerFormatter: filterFormatter,
       onSort: onSortVulns,
       visible: checkedItems.currentState,
     },
