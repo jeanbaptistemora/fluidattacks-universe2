@@ -259,38 +259,6 @@ function job_skims_install {
 
 }
 
-function job_skims_lint {
-  local args_mypy=(
-    --config-file "${PWD}/skims/settings.cfg"
-  )
-  local args_prospector=(
-    # Some day when skims has https://readthedocs.org !
-    # --doc-warnings
-    --full-pep8
-    --strictness veryhigh
-    --test-warnings
-  )
-  local pkgs="${TEMP_FILE1}"
-
-      helper_skims_install_dependencies \
-  &&  pushd skims \
-    &&  rm "${pkgs}" \
-    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
-        do
-          echo "${pkg}" >> "${pkgs}"
-        done \
-    &&  echo "[INFO] Checking static typing" \
-    &&  parallel -j 8 -I% --max-args 1 \
-          poetry run mypy "${args_mypy[@]}" \
-          < "${pkgs}" \
-    &&  echo "[INFO] Running linters" \
-    &&  parallel -j 8 -I% --max-args 1 \
-          poetry run prospector "${args_prospector[@]}" \
-          < "${pkgs}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_skims_security {
   local bandit_args=(
     --recursive skims/
