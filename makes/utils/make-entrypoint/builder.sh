@@ -3,9 +3,12 @@
 source "${makeDerivation}"
 
 function main {
+  local location="${out}${envLocation}"
+
       echo '[INFO] Copying files' \
-  &&  copy "${envEntrypoint}" "${out}" \
-  &&  make_executable "${out}"
+  &&  mkdir -p "$(dirname "${location}")" \
+  &&  copy "${envEntrypoint}" "${location}" \
+  &&  make_executable "${location}"
 }
 
 main "${@}"

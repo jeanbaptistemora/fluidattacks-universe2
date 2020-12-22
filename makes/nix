@@ -4,7 +4,7 @@
 #!   nix-shell -p nixFlakes
 
 nix \
-  --experimental-features 'nix-command flakes' \
+  --experimental-features 'nix-command ca-references flakes' \
   --print-build-logs \
   --show-trace \
   --verbose \

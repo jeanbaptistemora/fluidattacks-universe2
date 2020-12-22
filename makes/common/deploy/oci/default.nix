@@ -12,6 +12,7 @@ in
       envDockerContext = ../../../../makes/common/deploy/oci/context;
       envShell = "${pkgsCommon.bash}/bin/bash";
     };
+    location = "/bin/common-deploy-oci";
     name = "common-deploy-oci";
     template = ../../../../makes/common/deploy/oci/entrypoint.sh;
   }

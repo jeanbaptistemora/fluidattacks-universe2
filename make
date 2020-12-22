@@ -6,6 +6,7 @@ apps=(
   skims-docs-deploy
 )
 packages=(
+  skims-bin
   skims-docs-build
   skims-lint
   skims-parsers-antlr

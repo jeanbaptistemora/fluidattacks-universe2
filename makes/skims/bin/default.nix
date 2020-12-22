@@ -17,6 +17,7 @@ in
       envShell = "${pkgsSkims.bash}/bin/bash";
       envSrcSkimsSkims = ../../../skims/skims;
     };
+    location = "/bin/skims";
     name = "skims-bin";
     template = ../../../makes/skims/bin/entrypoint.sh;
   }

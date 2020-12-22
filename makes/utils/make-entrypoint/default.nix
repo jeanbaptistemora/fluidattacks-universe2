@@ -4,6 +4,7 @@ pkgs:
 
 {
   arguments,
+  location,
   name,
   template,
 }:
@@ -30,5 +31,6 @@ in
       name = name;
       template = template;
     };
+    envLocation = location;
     name = "utils-make-entrypoint-${name}";
   }
