@@ -1,12 +1,11 @@
+import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
 import type { Dispatch } from "redux";
 import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { HANDLE_VULNS_ACCEPTATION } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
@@ -14,7 +13,6 @@ import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { TreatmentField } from "./TreatmentField";
 import { authzPermissionsContext } from "utils/authz/config";
-import { changeVulnTreatmentFormatter } from "components/DataTableNext/formatters";
 import { getVulnsPendingOfAcceptation } from "../utils";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
@@ -145,46 +143,6 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     });
   }
 
-  const handleUpdateAcceptation: (vulnInfo: Dictionary<string>) => void = (
-    vulnInfo: Dictionary<string>
-  ): void => {
-    const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
-      (vuln: IVulnDataAttr): IVulnDataAttr =>
-        vuln.id !== vulnInfo.id
-          ? vuln
-          : {
-              ...vuln,
-              acceptation:
-                vuln.acceptation === "APPROVED" ? "REJECTED" : "APPROVED",
-            }
-    );
-    setAcceptationVulns([...newVulnList]);
-  };
-  const vulnsHeader: IHeaderConfig[] = [
-    {
-      align: "left",
-      dataField: "where",
-      header: "Where",
-      width: "50%",
-      wrapped: true,
-    },
-    {
-      align: "left",
-      dataField: "specific",
-      header: "Specific",
-      width: "25%",
-      wrapped: true,
-    },
-    {
-      align: "left",
-      changeFunction: handleUpdateAcceptation,
-      dataField: "acceptation",
-      formatter: changeVulnTreatmentFormatter,
-      header: "Acceptation",
-      width: "25%",
-      wrapped: true,
-    },
-  ];
   const initialTreatment: string = canHandleVulnsAcceptation
     ? "ACCEPTED_UNDEFINED"
     : "";
@@ -211,14 +169,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
           </Row>
           <Row>
             <Col100>
-              <DataTableNext
-                bordered={false}
-                dataset={acceptationVulns}
-                exportCsv={false}
-                headers={vulnsHeader}
-                id={"vulnsToHandleAcceptation"}
-                pageSize={10}
-                search={false}
+              <AcceptedUndefinedTable
+                acceptationVulns={acceptationVulns}
+                isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                setAcceptationVulns={setAcceptationVulns}
               />
             </Col100>
           </Row>
