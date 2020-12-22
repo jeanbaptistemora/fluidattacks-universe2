@@ -9,6 +9,7 @@ in
   makeEntrypoint {
     arguments = {
       envDocker = "${pkgsCommon.docker}/bin/docker";
+      envDockerContext = ../../../../makes/common/deploy/oci/context;
       envShell = "${pkgsCommon.bash}/bin/bash";
     };
     name = "common-deploy-oci";
