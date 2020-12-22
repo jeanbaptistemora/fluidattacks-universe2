@@ -46,6 +46,9 @@ from state.cache import (
 from utils import (
     graph as g,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.ast import (
     iterate_nodes,
 )
@@ -119,6 +122,7 @@ def _csharp_insecure_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def csharp_insecure_exceptions(
     content: str,
     path: str,
@@ -189,6 +193,7 @@ def _java_insecure_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_insecure_exceptions(
     content: str,
     path: str,
@@ -265,6 +270,7 @@ def _java_declaration_of_throws_for_generic_exception(
 
 @CACHE_1SEC
 @SHIELD
+@TIMEOUT_1MIN
 async def java_declaration_of_throws_for_generic_exception(
     graph: nx.DiGraph,
     content: str,
@@ -322,6 +328,7 @@ def _python_insecure_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def python_insecure_exceptions(
     content: str,
     path: str,
@@ -363,6 +370,7 @@ def _swift_insecure_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def swift_insecure_exceptions(
     content: str,
     path: str,

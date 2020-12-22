@@ -43,6 +43,9 @@ from parse_java_properties import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -126,6 +129,7 @@ def _jwt_token(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def aws_credentials(
     content: str,
     path: str,
@@ -139,6 +143,7 @@ async def aws_credentials(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def jwt_token(
     content: str,
     path: str,
@@ -152,6 +157,7 @@ async def jwt_token(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def crypto_js_credentials(
     content: str,
     path: str,
@@ -240,6 +246,7 @@ def _dockerfile_env_secrets(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def dockerfile_env_secrets(
     content: str,
     path: str,
@@ -315,6 +322,7 @@ def _java_properties_sensitive_data(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_properties_sensitive_data(
     content: str,
     path: str,

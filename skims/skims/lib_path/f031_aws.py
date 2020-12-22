@@ -52,6 +52,9 @@ from parse_hcl2.structure import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -182,6 +185,7 @@ def _cfn_negative_statement(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_negative_statement(
     content: str,
     path: str,
@@ -223,6 +227,7 @@ def _cfn_permissive_policy(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_permissive_policy(
     content: str,
     path: str,
@@ -283,6 +288,7 @@ def _cfn_admin_policy_attached(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_open_passrole(
     content: str,
     path: str,
@@ -303,6 +309,7 @@ async def cfn_open_passrole(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_admin_policy_attached(
     content: str,
     path: str,
@@ -337,6 +344,7 @@ def _terraform_negative_statement(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def terraform_negative_statement(
     content: str,
     path: str,
@@ -378,6 +386,7 @@ def _terraform_open_passrole(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def terraform_open_passrole(
     content: str,
     path: str,
@@ -416,6 +425,7 @@ def _terraform_permissive_policy(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def terraform_permissive_policy(
     content: str,
     path: str,
@@ -458,6 +468,7 @@ def _terraform_admin_policy_attached(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def terraform_admin_policy_attached(
     content: str,
     path: str,

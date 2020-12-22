@@ -2,6 +2,7 @@
 from asyncio import (
     sleep,
 )
+from asyncio.tasks import wait_for
 import functools
 import inspect
 import traceback
@@ -9,6 +10,7 @@ from typing import (
     Any,
     Callable,
     cast,
+    Optional,
     Tuple,
     Type,
     TypeVar,
@@ -137,3 +139,26 @@ def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
         )
 
     return lambda x: x
+
+
+def time_limited(
+    *,
+    seconds: Optional[int] = None,
+) -> Callable[[TFun], TFun]:
+
+    def decorator(function: TFun) -> TFun:
+
+        @functools.wraps(function)
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+            return await wait_for(
+                function(*args, **kwargs),
+                timeout=seconds,
+            )
+
+        return cast(TFun, wrapper)
+
+    return decorator
+
+
+# Constants
+TIMEOUT_1MIN: Callable[[TFun], TFun] = time_limited(seconds=60)

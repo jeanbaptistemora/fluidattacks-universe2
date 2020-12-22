@@ -24,6 +24,9 @@ from parse_java_properties import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -71,6 +74,7 @@ def _java_properties_unencrypted_transport(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_properties_unencrypted_transport(
     content: str,
     path: str,

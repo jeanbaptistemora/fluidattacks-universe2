@@ -35,6 +35,9 @@ from lib_path.common import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -114,6 +117,7 @@ def _javascript_client_storage(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def javascript_client_storage(
     content: str,
     path: str,

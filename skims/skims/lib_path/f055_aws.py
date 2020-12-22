@@ -57,6 +57,9 @@ from parse_cfn.structure import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -284,6 +287,7 @@ def _terraform_public_buckets(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_groups_without_egress(
     content: str,
     path: str,
@@ -300,6 +304,7 @@ async def cfn_groups_without_egress(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_public_buckets(
     content: str,
     path: str,
@@ -317,6 +322,7 @@ async def cfn_public_buckets(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_instances_without_profile(
     content: str,
     path: str,
@@ -332,6 +338,7 @@ async def cfn_instances_without_profile(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_unencrypted_buckets(
     content: str,
     path: str,
@@ -348,6 +355,7 @@ async def cfn_unencrypted_buckets(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_unencrypted_volumes(
     content: str,
     path: str,
@@ -365,6 +373,7 @@ async def cfn_unencrypted_volumes(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def terraform_unencrypted_buckets(
     content: str,
     path: str,
@@ -381,6 +390,7 @@ async def terraform_unencrypted_buckets(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def terraform_public_buckets(
     content: str,
     path: str,
@@ -398,6 +408,7 @@ async def terraform_public_buckets(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cnf_unrestricted_cidrs(
     content: str,
     path: str,

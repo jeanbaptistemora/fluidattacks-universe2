@@ -30,6 +30,9 @@ from lib_path.common import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.graph import (
     yield_nodes,
 )
@@ -165,6 +168,7 @@ def _java_jpa_like(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_jpa_like(
     content: str,
     path: str,

@@ -38,6 +38,9 @@ from parse_java_properties import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -93,6 +96,7 @@ def _csharp_insecure_cipher(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def csharp_insecure_cipher(
     content: str,
     path: str,
@@ -142,6 +146,7 @@ def _csharp_insecure_hash(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def csharp_insecure_hash(
     content: str,
     path: str,
@@ -215,6 +220,7 @@ def _java_insecure_cipher(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_insecure_cipher(
     content: str,
     path: str,
@@ -293,6 +299,7 @@ def _java_insecure_hash(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_insecure_hash(
     content: str,
     path: str,
@@ -385,6 +392,7 @@ def _java_insecure_key(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_insecure_key(
     content: str,
     path: str,
@@ -430,6 +438,7 @@ def _java_insecure_pass(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_insecure_pass(
     content: str,
     path: str,
@@ -468,6 +477,7 @@ def _java_properties_missing_ssl(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_properties_missing_ssl(
     content: str,
     path: str,
@@ -508,6 +518,7 @@ def _java_properties_weak_cipher_suite(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_properties_weak_cipher_suite(
     content: str,
     path: str,

@@ -27,6 +27,9 @@ from eval_java.evaluate import (
 from state.cache import (
     CACHE_1SEC,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     Grammar,
     FindingEnum,
@@ -39,6 +42,7 @@ from zone import (
 
 @CACHE_1SEC
 @SHIELD
+@TIMEOUT_1MIN
 async def java_path_traversal(
     graph: nx.DiGraph,
     content: str,

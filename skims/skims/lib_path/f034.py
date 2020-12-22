@@ -27,6 +27,9 @@ from graph_java.get import (
 from state.cache import (
     CACHE_1SEC,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Grammar,
@@ -39,6 +42,7 @@ from zone import (
 
 @CACHE_1SEC
 @SHIELD
+@TIMEOUT_1MIN
 async def java_use_of_util_random(
     graph: nx.DiGraph,
     content: str,

@@ -41,6 +41,9 @@ from state.cache import (
 from utils.ast import (
     iterate_nodes,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -82,6 +85,7 @@ def _csharp_swallows_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def csharp_swallows_exceptions(
     content: str,
     path: str,
@@ -131,6 +135,7 @@ def _javascript_swallows_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def javascript_swallows_exceptions(
     content: str,
     path: str,
@@ -173,6 +178,7 @@ def _java_swallows_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_swallows_exceptions(
     content: str,
     path: str,
@@ -217,6 +223,7 @@ def _python_swallows_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def python_swallows_exceptions(
     content: str,
     path: str,
@@ -258,6 +265,7 @@ def _swift_insecure_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def swift_insecure_exceptions(
     content: str,
     path: str,

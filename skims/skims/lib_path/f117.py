@@ -15,6 +15,9 @@ from lib_path.common import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -30,6 +33,7 @@ ALLOWED: Set[Tuple[str, str]] = {
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def unverifiable_files(
     file_name: str,
     file_extension: str,

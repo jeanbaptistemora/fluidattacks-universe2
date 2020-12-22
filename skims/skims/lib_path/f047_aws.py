@@ -37,6 +37,9 @@ from parse_cfn.loader import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -169,6 +172,7 @@ def _cfn_allows_anyone_to_admin_ports(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_allows_anyone_to_admin_ports(
     content: str,
     path: str,
@@ -184,6 +188,7 @@ async def cfn_allows_anyone_to_admin_ports(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cnf_unrestricted_ports(
     content: str,
     path: str,
@@ -203,6 +208,7 @@ async def cnf_unrestricted_ports(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def cfn_unrestricted_ip_protocols(
     content: str,
     path: str,

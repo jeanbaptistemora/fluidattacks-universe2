@@ -27,6 +27,9 @@ from lib_path.common import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.model import (
     FindingEnum,
     Grammar,
@@ -211,6 +214,7 @@ def _java_logging_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def java_logging_exceptions(
     content: str,
     path: str,
@@ -229,6 +233,7 @@ async def java_logging_exceptions(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def javascript_use_console_log(
     content: str,
     path: str,

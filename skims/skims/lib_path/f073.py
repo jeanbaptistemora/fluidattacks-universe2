@@ -40,6 +40,9 @@ from state.cache import (
 from utils import (
     graph as g,
 )
+from utils.function import (
+    TIMEOUT_1MIN,
+)
 from utils.graph import (
     yield_dicts,
     yield_nodes,
@@ -95,6 +98,7 @@ def _csharp_switch_no_default(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def csharp_switch_no_default(
     content: str,
     path: str,
@@ -147,6 +151,7 @@ def _java_switch_without_default(
 
 @CACHE_1SEC
 @SHIELD
+@TIMEOUT_1MIN
 async def java_switch_without_default(
     content: str,
     graph: nx.DiGraph,
@@ -206,6 +211,7 @@ def _javascript_switch_no_default(
 
 @CACHE_ETERNALLY
 @SHIELD
+@TIMEOUT_1MIN
 async def javascript_switch_no_default(
     content: str,
     path: str,
