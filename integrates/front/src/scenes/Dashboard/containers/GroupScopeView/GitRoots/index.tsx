@@ -14,8 +14,10 @@ import type { IGitRootAttr } from "../types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
@@ -105,6 +107,30 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const closeEnvsModal: () => void = React.useCallback((): void => {
     setManagingEnvs(false);
   }, []);
+
+  const [isFilterEnabled, setFilterEnabled] = React.useState<boolean>(false);
+
+  const onfilterStatus: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("statusScopeFilter", filterVal);
+  };
+
+  const onFilterState: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("stateScopeFilter", filterVal);
+  };
+  // const []
+  const selectOptionsStatus: optionSelectFilterProps[] = [
+    { label: "Failed", value: "FAILED" },
+    { label: "Ok", value: "OK" },
+    { label: "Unknown", value: "UNKNOWN" },
+  ];
+  const selectOptionsState: optionSelectFilterProps[] = [
+    { label: "Active", value: "ACTIVE" },
+    { label: "Inactive", value: "INACTIVE" },
+  ];
 
   // GraphQL operations
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
@@ -239,6 +265,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [updateGitEnvs]
   );
 
+  const handleUpdateFilter: () => void = React.useCallback((): void => {
+    setFilterEnabled(!isFilterEnabled);
+  }, [isFilterEnabled]);
+
   return (
     <React.Fragment>
       <h3>{t("group.scope.git.title")}</h3>
@@ -286,6 +316,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           return (
             <DataTableNext
               bordered={true}
+              columnToggle={true}
               dataset={dataset}
               exportCsv={false}
               headers={[
@@ -317,6 +348,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   align: "center",
                   changeFunction: handleStateUpdate,
                   dataField: "state",
+                  filter: selectFilter({
+                    defaultValue: _.get(sessionStorage, "stateScopeFilter"),
+                    onFilter: onFilterState,
+                    options: selectOptionsState,
+                  }),
                   formatter: permissions.can(
                     "backend_api_mutations_update_root_state_mutate"
                   )
@@ -327,6 +363,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 {
                   align: "center",
                   dataField: "cloningStatus.status",
+                  filter: selectFilter({
+                    defaultValue: _.get(sessionStorage, "statusScopeFilter"),
+                    onFilter: onfilterStatus,
+                    options: selectOptionsStatus,
+                  }),
                   formatter: statusFormatter,
                   header: t("group.scope.git.repo.cloning.status"),
                 },
@@ -336,6 +377,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 },
               ]}
               id={"tblGitRoots"}
+              isFilterEnabled={isFilterEnabled}
+              onUpdateEnableFilter={handleUpdateFilter}
               pageSize={15}
               search={true}
               selectionMode={{
