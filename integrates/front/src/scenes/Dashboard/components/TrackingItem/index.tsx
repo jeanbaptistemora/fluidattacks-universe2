@@ -2,6 +2,7 @@
  *
  * Disabling this rule is necessary for conditional rendering
  */
+import _ from "lodash";
 import React from "react";
 import styles from "scenes/Dashboard/components/TrackingItem/index.css";
 import { translate } from "utils/translations/translate";
@@ -14,6 +15,7 @@ interface ITrackingItemProps {
   date: string;
   effectiveness: number;
   inProgress?: number;
+  manager?: string;
   new?: number;
   open: number;
 }
@@ -46,6 +48,10 @@ const trackingItem: React.FC<ITrackingItemProps> = (props: ITrackingItemProps): 
               {`${translate.t("search_findings.tab_tracking.inProgress")}: ${props.inProgress},`}&nbsp;
               {`${translate.t("search_findings.tab_tracking.accepted")}: ${props.accepted},`}&nbsp;
               {`${translate.t("search_findings.tab_tracking.acceptedUndefined")}: ${props.acceptedUndefined}`}
+              <br/>
+              {!_.isEmpty(props.manager) ?
+                `${translate.t("search_findings.tab_tracking.manager")}: ${props.manager}`
+                : undefined}
             </React.Fragment>
           ) : undefined}
         </p>

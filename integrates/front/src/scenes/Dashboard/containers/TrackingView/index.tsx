@@ -27,6 +27,7 @@ export interface IClosing {
   date: string;
   effectiveness: number;
   in_progress?: number;
+  manager?: string;
   new?: number;
   open: number;
 }
@@ -59,16 +60,17 @@ const trackingView: React.FC = (): JSX.Element => {
             <ul className={style.timelineContainer}>
               {data.finding.tracking.map((closing: IClosing, index: number): JSX.Element => (
                 <TrackingItem
+                  accepted={closing.accepted}
+                  acceptedUndefined={closing.accepted_undefined}
                   closed={closing.closed}
                   cycle={closing.cycle}
                   date={closing.date}
                   effectiveness={closing.effectiveness}
-                  key={index}
-                  open={closing.open}
-                  new={closing.new}
                   inProgress={closing.in_progress}
-                  accepted={closing.accepted}
-                  acceptedUndefined={closing.accepted_undefined}
+                  key={index}
+                  manager={closing.manager}
+                  new={closing.new}
+                  open={closing.open}
                 />
               ))}
             </ul>

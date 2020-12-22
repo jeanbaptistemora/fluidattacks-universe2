@@ -1800,6 +1800,7 @@ export const enTranslations: ResourceKey = {
       effectiveness: "Effectiveness",
       found: "Found",
       inProgress: "In progress",
+      manager: "Treatment Manager",
       new: "New",
       open: "Open",
       pending: "Pending",
