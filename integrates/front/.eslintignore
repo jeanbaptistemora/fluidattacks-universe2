@@ -13,6 +13,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/DeleteGroupModal/**
 !src/scenes/Dashboard/components/NewsWidget/**
 !src/scenes/Dashboard/components/Vulnerabilities/newIndex.tsx
+!src/scenes/Dashboard/components/Vulnerabilities/newIndex.spec.tsx
 !src/scenes/Dashboard/components/Vulnerabilities/UpdateDescription/**
 !src/scenes/Dashboard/containers/ChartsGenericView/components/ChartCols/index.tsx
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
