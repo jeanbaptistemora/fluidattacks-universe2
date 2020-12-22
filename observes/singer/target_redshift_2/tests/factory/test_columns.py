@@ -9,7 +9,7 @@ from target_redshift_2.factory_pack import columns
 from target_redshift_2.objects import RedshiftField
 
 
-def test_from_rfield():
+def test_from_rfield() -> None:
     # Arrange
     field1 = RedshiftField('field1', DbTypes.BOOLEAN)
     # Act

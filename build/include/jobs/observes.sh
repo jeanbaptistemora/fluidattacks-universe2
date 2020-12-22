@@ -538,7 +538,8 @@ function job_observes_tredshift_lint {
 
       pushd observes \
     &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/target_redshift_2/target_redshift_2" \
+    &&  helper_observes_lint_generic_package "./singer/target_redshift_2/target_redshift_2" 1 \
+    &&  helper_observes_lint_generic_package "./singer/target_redshift_2/tests" 1 \
   &&  popd \
   ||  return 1
 }

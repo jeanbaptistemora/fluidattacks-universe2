@@ -64,10 +64,10 @@ def process_stdin(stdin: IO[str], loader: Loader) -> None:
     state: State = State()
     line: str = stdin.readline()
 
-    def handle_schema(singer: SingerSchema, state: State):
+    def handle_schema(singer: SingerSchema, state: State) -> None:
         schema_handler(singer, state, loader)
 
-    def handle_record(singer: SingerRecord, state: State):
+    def handle_record(singer: SingerRecord, state: State) -> None:
         record_handler(singer, state, loader)
 
     handler: SingerHandler[State] = singer_handler({

@@ -14,7 +14,11 @@ from singer_io.singer import (
 )
 
 
-def test_process_lines_builder():
+class UnexpectedInput(Exception):
+    pass
+
+
+def test_process_lines_builder() -> None:
     # Arrange
     test_lines = [
         'json_test_schema',
@@ -24,10 +28,10 @@ def test_process_lines_builder():
     test_schema = SingerSchema(
         stream='stream_1',
         schema={"type": "object"},
-        key_properties= frozenset(),
+        key_properties=frozenset(),
     )
-    test_record = SingerRecord(stream='stream_1',record={"id": "123"})
-    test_record_2 = SingerRecord(stream='stream_2',record={"id": "123"})
+    test_record = SingerRecord(stream='stream_1', record={"id": "123"})
+    test_record_2 = SingerRecord(stream='stream_2', record={"id": "123"})
 
     def mock_deserialize(text: str) -> SingerMessage:
         if text == 'json_test_schema':
@@ -36,7 +40,7 @@ def test_process_lines_builder():
             return test_record
         if text == 'json_test_record_2':
             return test_record_2
-        raise Exception(f'Unexpected input: {text}')
+        raise UnexpectedInput(f'input: {text}')
     # Act
     process_lines = loader.process_lines_builder(mock_deserialize)
     result = process_lines(test_lines)
@@ -46,10 +50,12 @@ def test_process_lines_builder():
     assert test_record_2 in result[1]
 
 
-def test_create_table_schema_map_builder():
+def test_create_table_schema_map_builder() -> None:
     # Arrange
     s_schema1 = SingerSchema(
-        stream='the_table_1', schema={'field1': 'str'}, key_properties=frozenset()
+        stream='the_table_1',
+        schema={'field1': 'str'},
+        key_properties=frozenset()
     )
     s_schema2 = SingerSchema(
         stream='the_table_1',
@@ -74,9 +80,10 @@ def test_create_table_schema_map_builder():
                 schema_name='test_schema',
                 table_name=s_schema.stream
             )
-        raise Exception(f'Unexpected input')
+        raise UnexpectedInput()
 
     def mock_extract_table_id(r_schema: RedshiftSchema) -> TableID:
+        # pylint: disable=unused-argument
         return test_table_id
 
     # Act
@@ -94,22 +101,22 @@ def test_create_table_schema_map_builder():
     assert result[test_table_id] == expected
 
 
-def test_create_redshift_records_builder():
+def test_create_redshift_records_builder() -> None:
     # Arrange
     s_record1 = SingerRecord('table_1', {})
     s_record2 = SingerRecord('table_2', {})
     r_schema1 = RedshiftSchema(
-        frozenset({RedshiftField('field1',DbTypes.BOOLEAN)}),
+        frozenset({RedshiftField('field1', DbTypes.BOOLEAN)}),
         'test_schema', 'test_table'
     )
     r_schema2 = RedshiftSchema(
-        frozenset({RedshiftField('field2',DbTypes.FLOAT)}),
+        frozenset({RedshiftField('field2', DbTypes.FLOAT)}),
         'test_schema', 'test_table_2'
     )
     table_id1 = TableID('test_schema', 'table1')
     table_id2 = TableID('test_schema_2', 'table2')
-    r_record1 = RedshiftRecord(r_schema1,frozenset())
-    r_record2 = RedshiftRecord(r_schema2,frozenset())
+    r_record1 = RedshiftRecord(r_schema1, frozenset())
+    r_record2 = RedshiftRecord(r_schema2, frozenset())
     test_records = [s_record1, s_record2]
     test_map = {table_id1: r_schema1, table_id2: r_schema2}
 
@@ -120,14 +127,14 @@ def test_create_redshift_records_builder():
             return r_record1
         if s_record == s_record2 and r_schema == r_schema2:
             return r_record2
-        raise Exception(f'Unexpected input')
+        raise UnexpectedInput()
 
     def mock_to_extract_table_id(s_record: SingerRecord) -> TableID:
         if s_record == s_record1:
             return table_id1
         if s_record == s_record2:
             return table_id2
-        raise Exception(f'Unexpected input')
+        raise UnexpectedInput()
 
     # Act
     create_rrecords = loader.create_redshift_records_builder(
@@ -139,7 +146,7 @@ def test_create_redshift_records_builder():
     assert r_record2 in result
 
 
-def test_create_table_mapper_builder():
+def test_create_table_mapper_builder() -> None:
     # Arrange
     test_table_id = TableID('test_schema', 'test_table')
     test_table = Table(
@@ -153,7 +160,7 @@ def test_create_table_mapper_builder():
     def mock_retrieve_table(table_id: TableID) -> Table:
         if table_id == test_table_id:
             return test_table
-        raise Exception(f'Unexpected input')
+        raise UnexpectedInput()
 
     # Act
     create_table_map = loader.create_table_mapper_builder(
@@ -164,7 +171,7 @@ def test_create_table_mapper_builder():
     assert result[test_table_id] == test_table
 
 
-def test_update_schema_builder():
+def test_update_schema_builder() -> None:
     # Arrange
     test_table_id = TableID('test_schema', 'test_table')
     test_table = Table(
@@ -175,7 +182,7 @@ def test_update_schema_builder():
         add_columns=lambda x: x,
     )
     test_schema = RedshiftSchema(frozenset(), 'the_schema', 'the_table')
-    test_columns = frozenset({IsolatedColumn('field1','bool')})
+    test_columns = frozenset({IsolatedColumn('field1', 'bool')})
     test_table_map = {test_table_id: test_table}
     test_table_schema_map = {test_table_id: test_schema}
     action_executed = {'executed': False}
@@ -183,9 +190,9 @@ def test_update_schema_builder():
     def mock_to_columns(rschema: RedshiftSchema) -> FrozenSet[IsolatedColumn]:
         if rschema == test_schema:
             return test_columns
-        raise Exception(f'Unexpected input')
+        raise UnexpectedInput()
 
-    def mock_action():
+    def mock_action() -> None:
         action_executed['executed'] = True
 
     def mock_add_columns(
@@ -197,7 +204,7 @@ def test_update_schema_builder():
                     act=mock_action, statement='the_statement'
                 )
             ]
-        raise Exception(f'Unexpected input')
+        raise UnexpectedInput()
 
     # Act
     update_schema = loader.update_schema_builder(
@@ -206,4 +213,4 @@ def test_update_schema_builder():
     )
     update_schema(test_table_map, test_table_schema_map)
     # Assert
-    assert action_executed['executed'] == True
+    assert action_executed['executed']

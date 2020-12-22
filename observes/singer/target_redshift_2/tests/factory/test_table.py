@@ -1,5 +1,9 @@
-from postgres_client.connection import ConnectionID
-from postgres_client.table import DbTypes, IsolatedColumn, TableDraft, TableID
+from postgres_client.table import (
+    DbTypes,
+    IsolatedColumn,
+    TableDraft,
+    TableID,
+)
 from target_redshift_2.factory_pack import table
 from target_redshift_2.objects import (
     RedshiftField,
@@ -8,7 +12,7 @@ from target_redshift_2.objects import (
 from singer_io.singer import SingerRecord
 
 
-def test_draft_from_rschema_builder():
+def test_draft_from_rschema_builder() -> None:
     # Arrange
     field1 = RedshiftField('field1', DbTypes.BOOLEAN)
     field2 = RedshiftField('field2', DbTypes.NUMERIC)
@@ -53,7 +57,7 @@ def test_draft_from_rschema_builder():
     assert result == expected
 
 
-def test_tid_from_rschema():
+def test_tid_from_rschema() -> None:
     # Arrange
     test_rschema = RedshiftSchema(
         fields=frozenset(),
@@ -71,11 +75,8 @@ def test_tid_from_rschema():
     assert result == expected
 
 
-def test_tid_from_srecord_builder():
+def test_tid_from_srecord_builder() -> None:
     # Arrange
-    test_connection = ConnectionID(
-        'the_db', 'super_user', '1234', 'the_host', '9000'
-    )
     test_schema = 'the_schema'
     test_srecord = SingerRecord(stream='table1', record={})
     # Act

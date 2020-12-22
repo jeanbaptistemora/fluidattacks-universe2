@@ -112,7 +112,7 @@ def create_table_mapper_builder(
     retrieve_table: Transform[TableID, Table]
 ) -> Transform[Iterable[TableID], TidTableMap]:
     """Returns implemented `TidTableMap`"""
-    def create_table_mapper(table_ids: Iterable[TableID]):
+    def create_table_mapper(table_ids: Iterable[TableID]) -> TidTableMap:
         """
         Retrieves real tables from table ids and return a map between them
         """
@@ -130,7 +130,9 @@ def update_schema_builder(
         [Table, FrozenSet[IsolatedColumn]], List[CursorExeAction]
     ]
 ) -> Callable[[TidTableMap, TidRschemaMap], None]:
-    def update_schema(tables_map, table_schema_map):
+    def update_schema(
+        tables_map: TidTableMap, table_schema_map: TidRschemaMap
+    ) -> None:
         for table_id, schema in table_schema_map.items():
             table: Table = tables_map[table_id]
             actions = add_columns(table, to_columns(schema))

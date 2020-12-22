@@ -16,7 +16,7 @@ from singer_io.singer import (
 )
 
 
-def test_rschema_creation():
+def test_rschema_creation() -> None:
     # Arrange
     factory: RedshiftElementsFactory = redshift.redshift_factory('test_schema')
     mock_s_schema = SingerSchema(
@@ -42,7 +42,7 @@ def test_rschema_creation():
     assert r_schema == expected
 
 
-def test_RedshiftRecordFactory():
+def test_rrecord_creation() -> None:
     # Arrange
     factory: RedshiftElementsFactory = redshift.redshift_factory('test_schema')
     mock_schema_fields: FrozenSet[RedshiftField] = frozenset({
@@ -62,5 +62,5 @@ def test_RedshiftRecordFactory():
     expected_record = frozenset(
         {'field1': "'2.48'", 'field2': "'text'"}.items()
     )
-    expected = RedshiftRecord(mock_schema,expected_record)
+    expected = RedshiftRecord(mock_schema, expected_record)
     assert r_record == expected
