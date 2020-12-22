@@ -4,7 +4,7 @@ attrs @ {
 }:
 
 let
-  config = import ../../../makes/skims/config.nix pkgsSkims;
+  config = import ../../../makes/skims/config.nix attrs.copy;
   makeEntrypoint = import ../../../makes/utils/make-entrypoint pkgsSkims;
 in
   makeEntrypoint {

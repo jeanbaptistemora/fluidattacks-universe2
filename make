@@ -3,6 +3,7 @@
 apps=(
   common-deploy-oci
   skims
+  skims-docs-deploy
 )
 packages=(
   skims-docs-build

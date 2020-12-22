@@ -1,4 +1,8 @@
-pkgsSkims:
+attrs @ {
+  outputs,
+  pkgsSkims,
+  ...
+}:
 
 let
   buildPythonRequirements = import ../../makes/utils/build-python-requirements pkgsSkims;
@@ -7,12 +11,8 @@ in
   {
     contextFile = makeTemplate {
       arguments = {
-        envParserAntlr = import ../../makes/skims/parsers/antlr {
-          inherit pkgsSkims;
-        };
-        envParserBabel = import ../../makes/skims/parsers/babel {
-          inherit pkgsSkims;
-        };
+        envParserAntlr = outputs.packages.skims-parsers-antlr;
+        envParserBabel = outputs.packages.skims-parsers-babel;
         envSrcSkimsStatic = ../../skims/static;
         envSrcSkimsVendor = ../../skims/vendor;
       };
