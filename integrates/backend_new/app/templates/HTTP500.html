@@ -18,7 +18,11 @@
         <h1>OOPS.<small>Error 500</small></h1>
         <p class="lead">Something happens internally.<br />
 Our powerful engineering team has been dispatched to solve the problem.</p>
-	<img width=30% src="{{ url_for('static', path='/imgs/error.gif') }}" alt="error"/>
+    {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+        <img width=30% src="{{ url_for('static', path='/imgs/error.gif') }}" alt="error"/>
+    {% else %}
+        <img width=30% src="{{ url_for('static', path='/imgs/error.gif') | replace('http', 'https') }}" alt="error"/>
+    {% endif %}
     </div>
     <script>
         function Redirect()

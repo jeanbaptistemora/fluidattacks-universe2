@@ -10,7 +10,11 @@
     {% else %}
       <link rel="stylesheet" href="{{ css }}" type="text/css">
     {% endif %}
-
+    {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
+    {% else %}
+      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
+    {% endif %}
     <!-- Third party styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   </head>

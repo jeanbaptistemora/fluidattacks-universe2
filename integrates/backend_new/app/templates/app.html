@@ -19,7 +19,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
+    {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
+    {% else %}
+      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
+    {% endif %}
     <title>Integrates | Fluid Attacks</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300,700" rel="stylesheet">
@@ -30,7 +34,11 @@
     {% else %}
       <link rel="stylesheet" href="{{ css }}" type="text/css">
     {% endif %}
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
+    {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+      <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
+    {% else %}
+      <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
+    {% endif %}
     <script>
       var userName = "{{ request.session['first_name'] }}";
       var fullName = "{{ request.session['first_name'] }} " + "{{ request.session['last_name'] }}";

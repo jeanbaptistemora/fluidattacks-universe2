@@ -48,7 +48,11 @@
 <body>
     <div class="flex-container">
         <div>
-            <img src="{{ url_for('static', path='/imgs/iconFluidAttacks.png') }}" alt="icon" />
+            {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+              <img src="{{ url_for('static', path='/imgs/iconFluidAttacks.png') }}" alt="icon" />
+            {% else %}
+              <img src="{{ url_for('static', path='/imgs/iconFluidAttacks.png') | replace('http', 'https') }}" alt="icon" />
+            {% endif %}
         </div>
         <div>
             <h2>Unauthorized Access</h2>

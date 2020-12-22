@@ -15,6 +15,11 @@
         width: 100%;
       }
     </style>
+    {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
+      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
+    {% else %}
+      <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
+    {% endif %}
   </head>
   <body>
     {% if debug %}
