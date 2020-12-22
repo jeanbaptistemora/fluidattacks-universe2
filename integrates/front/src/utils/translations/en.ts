@@ -1878,6 +1878,12 @@ export const enTranslations: ResourceKey = {
         status: "Status",
         treatmentDate: "Treatment date",
         verification: "Last reattack",
+        vulnType: {
+          inputs: "app",
+          lines: "code",
+          ports: "infra",
+          title: "Type",
+        },
         where: "Where",
       },
     },

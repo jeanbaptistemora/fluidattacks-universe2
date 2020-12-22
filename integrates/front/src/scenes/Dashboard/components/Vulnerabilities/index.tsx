@@ -20,9 +20,7 @@ import { deleteFormatter, statusFormatter } from "components/DataTableNext/forma
 import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
-import {
-  deleteVulnerabilityModal as DeleteVulnerabilityModal,
-} from "scenes/Dashboard/components/DeleteVulnerability/index";
+import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "scenes/Dashboard/components/DeleteVulnerability/types";
 import { default as style } from "scenes/Dashboard/components/Vulnerabilities/index.css";
 import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";

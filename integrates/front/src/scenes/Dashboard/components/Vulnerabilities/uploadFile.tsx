@@ -33,8 +33,8 @@ import { openUrl } from "utils/resourceHelpers";
 import { translate } from "utils/translations/translate";
 import { isValidVulnsFile } from "utils/validations";
 
-const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
-(props: IVulnerabilitiesViewProps): JSX.Element => {
+const uploadVulnerabilities: React.FC<{ findingId: string }> =
+(props: { findingId: string }): JSX.Element => {
   const dispatch: Dispatch = useDispatch();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);

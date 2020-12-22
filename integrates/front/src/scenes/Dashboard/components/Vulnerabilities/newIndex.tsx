@@ -1,15 +1,31 @@
+import { Button } from "components/Button";
+import { Can } from "utils/authz/Can";
+import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components/ChartCols";
 import { DataTableNext } from "components/DataTableNext";
+import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
+import { FluidIcon } from "components/FluidIcon";
+import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import type { PureAbility } from "@casl/ability";
 import React from "react";
+import { RowCenter } from "styles/styledComponents";
+import { UpdateTreatmentModal } from "./UpdateDescription";
+import { UploadVulnerabilites } from "./uploadFile";
 import _ from "lodash";
+import { authzPermissionsContext } from "utils/authz/config";
 import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
-import { statusFormatter } from "components/DataTableNext/formatters";
+import { useAbility } from "@casl/react";
+import { useStoredState } from "utils/hooks";
 import { useTranslation } from "react-i18next";
 import type {
   IVulnComponentProps,
   IVulnDataType,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
+import {
+  deleteFormatter,
+  statusFormatter,
+} from "components/DataTableNext/formatters";
 import {
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,
@@ -18,9 +34,12 @@ import {
   getVulnerabilitiesIds,
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { msgError, msgSuccess } from "utils/notifications";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
+  findingId,
+  groupName,
   isEditing,
   isRequestingReattack,
   isVerifyingRequest,
@@ -28,18 +47,81 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   onVulnSelect,
 }: IVulnComponentProps): JSX.Element => {
   const { t } = useTranslation();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canRequestZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_request_zero_risk_vuln_mutate"
+  );
+  const canUpdateVulnsTreatment: boolean = permissions.can(
+    "backend_api_mutations_update_vulns_treatment_mutate"
+  );
+  const canDeleteVulns: boolean =
+    isEditing &&
+    permissions.can("backend_api_mutations_delete_vulnerability_mutate");
 
   const [selectedVulnerabilities, setSelectedVulnerabilities] = React.useState<
     IVulnRowAttr[]
   >([]);
+  const [vulnerabilityId, setVulnerabilityId] = React.useState("");
+  const [isUpdateVulnOpen, setUpdateVulnOpen] = React.useState(false);
+  const [isDeleteVulnOpen, setDeleteVulnOpen] = React.useState(false);
+  const [checkedItems, setCheckedItems] = useStoredState<
+    Record<string, boolean>
+  >(
+    "VulnerabilitiesTableSet",
+    {
+      currentState: true,
+      cycles: false,
+      efficacy: false,
+      lastRequestedReattackDate: false,
+      reportDate: true,
+      severity: true,
+      specific: true,
+      tag: true,
+      treatment: true,
+      treatmentDate: false,
+      treatmentManager: true,
+      verification: true,
+      vulnType: true,
+      where: true,
+    },
+    localStorage
+  );
 
-  const clearSelectedVulns: () => void = (): void => {
+  function handleCloseUpdateModal(): void {
+    setUpdateVulnOpen(false);
+  }
+  function handleCloseDeleteModal(): void {
+    setDeleteVulnOpen(false);
+  }
+  function onDeleteVulnResult(deleteVulnResult: IDeleteVulnAttr): void {
+    if (deleteVulnResult.deleteVulnerability.success) {
+      msgSuccess(
+        t("search_findings.tab_description.vulnDeleted"),
+        t("group_alerts.title_success")
+      );
+    } else {
+      msgError(t("delete_vulns.not_success"));
+    }
+    setDeleteVulnOpen(false);
+  }
+  function handleDeleteVulnerability(
+    vulnInfo: Record<string, string> | undefined
+  ): void {
+    if (vulnInfo !== undefined) {
+      setVulnerabilityId(vulnInfo.id);
+      setDeleteVulnOpen(true);
+    }
+  }
+  function openUpdateVulnModal(): void {
+    setUpdateVulnOpen(true);
+  }
+  function clearSelectedVulns(): void {
     setSelectedVulnerabilities([]);
-  };
+  }
 
-  const onVulnSelection: () => void = (): void => {
+  function onVulnSelection(): void {
     onVulnSelect(selectedVulnerabilities, clearSelectedVulns);
-  };
+  }
 
   React.useEffect(onVulnSelection, [selectedVulnerabilities, onVulnSelect]);
 
@@ -48,19 +130,33 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     { label: "Closed", value: "Closed" },
   ];
 
-  const onFilterStatus: (filterValue: string) => void = (
-    filterValue: string
-  ): void => {
+  function onFilterStatus(filterValue: string): void {
     sessionStorage.setItem("statusFilter", filterValue);
-  };
+  }
 
-  const onSelectVariousVulnerabilities: (
+  function handleChange(columnName: string): void {
+    if (
+      Object.values(checkedItems).filter((val: boolean): boolean => val)
+        .length === 1 &&
+      checkedItems[columnName]
+    ) {
+      msgError(t("validations.columns"));
+      setCheckedItems({
+        ...checkedItems,
+        [columnName]: true,
+      });
+    } else {
+      setCheckedItems({
+        ...checkedItems,
+        [columnName]: !checkedItems[columnName],
+      });
+    }
+  }
+
+  function onSelectVariousVulnerabilities(
     isSelect: boolean,
     vulnerabilitiesSelected: IVulnRowAttr[]
-  ) => void = (
-    isSelect: boolean,
-    vulnerabilitiesSelected: IVulnRowAttr[]
-  ): void => {
+  ): void {
     if (isSelect) {
       setSelectedVulnerabilities(
         Array.from(
@@ -82,14 +178,14 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         )
       );
     }
-  };
+  }
 
-  const onSelectOneVulnerability: (
+  function onSelectOneVulnerability(
     vulnerability: IVulnRowAttr,
     isSelect: boolean
-  ) => void = (vulnerability: IVulnRowAttr, isSelect: boolean): void => {
+  ): void {
     onSelectVariousVulnerabilities(isSelect, [vulnerability]);
-  };
+  }
 
   const selectionMode: SelectRowOptions = {
     clickToSelect: false,
@@ -111,21 +207,22 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     selected: getVulnerabilitiesIndex(selectedVulnerabilities, vulnerabilities),
   };
 
-  const onSortVulns: (dataField: string, order: SortOrder) => void = (
-    dataField: string,
-    order: SortOrder
-  ): void => {
+  function onSortVulns(dataField: string, order: SortOrder): void {
     const newSorted: Sorted = { dataField, order };
     sessionStorage.setItem("vulnerabilitiesSort", JSON.stringify(newSorted));
-  };
+  }
 
-  const onFilterWhere: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
+  function onFilterWhere(filterVal: string): void {
     sessionStorage.setItem("vulnWhereFilter", filterVal);
-  };
+  }
 
   const headers: IHeaderConfig[] = [
+    {
+      dataField: "vulnType",
+      header: t("search_findings.tab_vuln.vulnTable.vulnType.title"),
+      onSort: onSortVulns,
+      visible: checkedItems.vulnType,
+    },
     {
       dataField: "where",
       filter: textFilter({
@@ -134,16 +231,19 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       }),
       header: t("search_findings.tab_vuln.vulnTable.where"),
       onSort: onSortVulns,
+      visible: checkedItems.where,
     },
     {
       dataField: "specific",
       header: t("search_findings.tab_description.field"),
       onSort: onSortVulns,
+      visible: checkedItems.specific,
     },
     {
       dataField: "reportDate",
       header: t("search_findings.tab_vuln.vulnTable.reportDate"),
       onSort: onSortVulns,
+      visible: checkedItems.reportDate,
     },
     {
       dataField: "currentState",
@@ -155,54 +255,74 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       formatter: statusFormatter,
       header: t("search_findings.tab_vuln.vulnTable.status"),
       onSort: onSortVulns,
+      visible: checkedItems.currentState,
     },
     {
       dataField: "tag",
       header: t("search_findings.tab_description.tag"),
       headerFormatter: proFormatter,
       onSort: onSortVulns,
+      visible: checkedItems.tag,
     },
     {
       dataField: "severity",
       header: t("search_findings.tab_description.business_criticality"),
       headerFormatter: proFormatter,
       onSort: onSortVulns,
+      visible: checkedItems.severity,
     },
     {
       dataField: "verification",
       formatter: statusFormatter,
       header: t("search_findings.tab_vuln.vulnTable.verification"),
       onSort: onSortVulns,
+      visible: checkedItems.verification,
     },
     {
       dataField: "lastRequestedReattackDate",
       header: t("search_findings.tab_vuln.vulnTable.lastRequestedReattackDate"),
       onSort: onSortVulns,
+      visible: checkedItems.lastRequestedReattackDate,
     },
     {
       dataField: "cycles",
       header: t("search_findings.tab_vuln.vulnTable.cycles"),
       onSort: onSortVulns,
+      visible: checkedItems.cycles,
     },
     {
       dataField: "efficacy",
       header: t("search_findings.tab_vuln.vulnTable.efficacy"),
       onSort: onSortVulns,
+      visible: checkedItems.efficacy,
     },
     {
       dataField: "treatment",
       header: t("search_findings.tab_description.treatment.title"),
       onSort: onSortVulns,
+      visible: checkedItems.treatment,
     },
     {
       dataField: "treatmentManager",
       header: t("search_findings.tab_description.treatment_mgr"),
       onSort: onSortVulns,
+      visible: checkedItems.treatmentManager,
     },
     {
       dataField: "treatmentDate",
       header: t("search_findings.tab_vuln.vulnTable.treatmentDate"),
       onSort: onSortVulns,
+      visible: checkedItems.treatmentDate,
+    },
+  ];
+  const deleteHeader: IHeaderConfig[] = [
+    {
+      align: "center",
+      dataField: "id",
+      deleteFunction: handleDeleteVulnerability,
+      formatter: deleteFormatter,
+      header: t("search_findings.tab_description.action"),
+      visible: canDeleteVulns,
     },
   ];
 
@@ -210,17 +330,57 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     <React.StrictMode>
       <DataTableNext
         bordered={true}
+        columnToggle={true}
         dataset={formatVulnerabilities(vulnerabilities)}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "vulnerabilitiesSort", "{}")
         )}
         exportCsv={false}
-        headers={headers}
+        headers={[...headers, ...(canDeleteVulns ? deleteHeader : [])]}
         id={"vulnerabilitiesTable"}
+        onColumnToggle={handleChange}
         pageSize={15}
         search={true}
         selectionMode={selectionMode}
       />
+      <DeleteVulnerabilityModal
+        findingId={findingId}
+        id={vulnerabilityId}
+        onClose={handleCloseDeleteModal}
+        onDeleteVulnRes={onDeleteVulnResult}
+        open={isDeleteVulnOpen}
+      />
+      {isUpdateVulnOpen ? (
+        <UpdateTreatmentModal
+          findingId={findingId}
+          handleClearSelected={clearSelectedVulns}
+          handleCloseModal={handleCloseUpdateModal}
+          projectName={groupName}
+          vulnerabilities={selectedVulnerabilities}
+          vulnerabilitiesChunk={100}
+        />
+      ) : undefined}
+      {isEditing ? (
+        <Col100>
+          {canUpdateVulnsTreatment || canRequestZeroRiskVuln ? (
+            <React.Fragment>
+              <RowCenter>
+                <Button
+                  disabled={selectedVulnerabilities.length === 0}
+                  onClick={openUpdateVulnModal}
+                >
+                  <FluidIcon icon={"edit"} />
+                  {t("search_findings.tab_description.editVuln")}
+                </Button>
+              </RowCenter>
+              <br />
+            </React.Fragment>
+          ) : undefined}
+          <Can do={"backend_api_mutations_upload_file_mutate"}>
+            <UploadVulnerabilites findingId={findingId} />
+          </Can>
+        </Col100>
+      ) : undefined}
     </React.StrictMode>
   );
 };

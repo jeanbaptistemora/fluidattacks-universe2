@@ -107,8 +107,9 @@ const formatVulnerabilities: (
         currentState: _.capitalize(vulnerability.currentState),
         cycles: hasVulnCycles ? vulnerability.cycles : "",
         efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
+        reportDate: vulnerability.reportDate.split(" ")[0],
         treatment: isVulnOpen ? treatmentLabel : "-",
-        treatmentDate: isVulnOpen ? lastTreatment.date : "-",
+        treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
         treatmentManager: isVulnOpen
           ? (lastTreatment.treatmentManager as string)
           : "-",
@@ -116,6 +117,9 @@ const formatVulnerabilities: (
           vulnerability.verification === "Verified"
             ? `${vulnerability.verification} (${vulnerability.currentState})`
             : vulnerability.verification,
+        vulnType: translate.t(
+          `search_findings.tab_vuln.vulnTable.vulnType.${vulnerability.vulnType}`
+        ),
       };
     }
   );
