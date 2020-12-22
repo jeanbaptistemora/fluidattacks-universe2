@@ -9,6 +9,8 @@ let
 in
   makeApp {
     arguments = {
+      envRuntimeBinPath = config.osRequirements.runtimeBinPath;
+      envRuntimeLibPath = config.osRequirements.runtimeLibPath;
       envParserAntlr = import ../../../makes/skims/parsers/antlr {
         inherit pkgsSkims;
       };
@@ -23,6 +25,5 @@ in
       envSrcSkimsVendor = ../../../skims/vendor;
     };
     name = "skims-bin";
-    osRequirements = config.osRequirements.runtime;
     template = ../../../makes/skims/bin/entrypoint.sh;
   }
