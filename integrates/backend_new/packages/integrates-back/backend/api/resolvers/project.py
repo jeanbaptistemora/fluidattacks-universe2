@@ -59,13 +59,21 @@ async def resolve_project_mutation(
 
 async def _create_forces_user(info: GraphQLResolveInfo,
                               group_name: str) -> bool:
+    user_email = user_domain.format_forces_user_email(group_name)
     success = await _create_new_user(
         context=info.context,
-        email=user_domain.format_forces_user_email(group_name),
+        email=user_email,
         responsibility='Forces service user',
         role='service_forces',
         phone_number='',
         group=group_name)
+
+    # Give permissions directly, no confirmation required
+    success = success and await user_domain.update_project_access(
+        user_email, group_name, True)
+    success = success and await authz.grant_group_level_role(
+        user_email, group_name, 'service_forces')
+
     if not success:
         LOGGER.error(
             'Couldn\'t grant access to project',
