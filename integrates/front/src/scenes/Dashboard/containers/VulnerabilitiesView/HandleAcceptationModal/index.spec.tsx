@@ -92,6 +92,7 @@ describe("handle vulns acceptation modal", (): void => {
         id: "test",
         specific: "",
         where: "",
+        zeroRisk: "Requested",
       },
     ];
     const wrapper: ReactWrapper = mount(
@@ -197,6 +198,7 @@ describe("handle vulns acceptation modal", (): void => {
         id: "test_error",
         specific: "",
         where: "",
+        zeroRisk: "Requested",
       },
     ];
     const wrapper: ReactWrapper = mount(

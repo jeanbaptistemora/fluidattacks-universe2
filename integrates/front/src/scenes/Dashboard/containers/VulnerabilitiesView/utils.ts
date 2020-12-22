@@ -23,4 +23,19 @@ const getVulnsPendingOfAcceptation: (
     []
   );
 
-export { getVulnsPendingOfAcceptation };
+const getRequestedZeroRiskVulns: (
+  vulnerabilities: IVulnerabilities[]
+) => IVulnDataAttr[] = (vulnerabilities: IVulnerabilities[]): IVulnDataAttr[] =>
+  vulnerabilities.reduce(
+    (
+      requestedZeroRiskVulns: IVulnDataAttr[],
+      vuln: IVulnerabilities
+    ): IVulnDataAttr[] => {
+      return vuln.zeroRisk === "Requested"
+        ? [...requestedZeroRiskVulns, { acceptation: "", ...vuln }]
+        : requestedZeroRiskVulns;
+    },
+    []
+  );
+
+export { getVulnsPendingOfAcceptation, getRequestedZeroRiskVulns };

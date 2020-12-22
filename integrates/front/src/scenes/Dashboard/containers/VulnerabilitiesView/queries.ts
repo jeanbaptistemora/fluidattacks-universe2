@@ -19,6 +19,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
           acceptanceStatus
           treatment
         }
+        zeroRisk
       }
     }
     project(projectName: $groupName) {

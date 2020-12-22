@@ -22,6 +22,7 @@ interface IVulnerabilities {
   id: string;
   specific: string;
   where: string;
+  zeroRisk: string;
 }
 
 export { IFinding, IGetFindingVulnInfo, IProject, IVulnerabilities };

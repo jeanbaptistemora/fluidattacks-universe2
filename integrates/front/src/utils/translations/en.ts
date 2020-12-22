@@ -1096,6 +1096,7 @@ export const enTranslations: ResourceKey = {
         accepted: "Temporarily accepted",
         accepted_undefined: "Eternally accepted",
         approved_by: "Approved by",
+        confirm_zero_risk: "Confirm zero risk",
         in_progress: "In progress",
         new: "New",
         pending_approval: " (Pending approval)",

@@ -13,6 +13,9 @@ const TreatmentField: React.FC = (): JSX.Element => {
   const canHandleVulnsAcceptation: boolean = permissions.can(
     "backend_api_mutations_handle_vulns_acceptation_mutate"
   );
+  const canConfirmZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_confirm_zero_risk_vuln_mutate"
+  );
 
   return (
     <FormGroup>
@@ -30,6 +33,13 @@ const TreatmentField: React.FC = (): JSX.Element => {
           <option value={"ACCEPTED_UNDEFINED"}>
             {translate.t(
               "search_findings.tab_description.treatment.accepted_undefined"
+            )}
+          </option>
+        ) : undefined}
+        {canConfirmZeroRiskVuln ? (
+          <option value={"CONFIRM_ZERO_RISK"}>
+            {translate.t(
+              "search_findings.tab_description.treatment.confirm_zero_risk"
             )}
           </option>
         ) : undefined}

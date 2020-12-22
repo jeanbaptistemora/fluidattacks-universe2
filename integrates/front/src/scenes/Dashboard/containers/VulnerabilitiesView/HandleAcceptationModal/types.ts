@@ -1,7 +1,7 @@
 import type { IVulnerabilities } from "../types";
 
 interface IVulnDataAttr {
-  acceptation: "APPROVED" | "REJECTED";
+  acceptation: "APPROVED" | "REJECTED" | "";
   id: string;
   specific: string;
   where: string;
@@ -20,7 +20,14 @@ interface IHandleVulnsAcceptationResultAttr {
   };
 }
 
+interface IConfirmZeroRiskVulnResultAttr {
+  confirmZeroRiskVuln: {
+    success: boolean;
+  };
+}
+
 export {
+  IConfirmZeroRiskVulnResultAttr,
   IHandleVulnsAcceptationModalProps,
   IHandleVulnsAcceptationResultAttr,
   IVulnDataAttr,
