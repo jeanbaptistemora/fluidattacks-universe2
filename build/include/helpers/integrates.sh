@@ -303,7 +303,6 @@ function helper_integrates_sops_vars {
     DB_USER \
     DEBUG \
     DEFAULT_ORG \
-    DJANGO_SECRET_KEY \
     DYNAMODB_HOST \
     DYNAMODB_PORT \
     ENVIRONMENT \
