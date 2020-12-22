@@ -31,3 +31,7 @@ class AmbiguousType(Exception):
 
 class InvalidState(Exception):
     pass
+
+
+class InvalidType(Exception):
+    pass
