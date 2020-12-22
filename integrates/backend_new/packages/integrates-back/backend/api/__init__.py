@@ -5,7 +5,6 @@ from typing import Any, Dict
 # Third party
 import newrelic.agent
 from ariadne.asgi import GraphQL
-from django.utils.decorators import method_decorator
 from starlette.requests import Request
 from starlette.responses import Response
 
@@ -65,6 +64,6 @@ class IntegratesAPI(GraphQL):
 
         return data
 
-    @method_decorator(newrelic.agent.web_transaction())
+    @newrelic.agent.web_transaction()
     async def graphql_http_server(self, request: Request) -> Response:
         return await super().graphql_http_server(request)
