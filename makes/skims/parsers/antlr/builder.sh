@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-source "${makeSetup}"
+source "${makeDerivation}"
 
 export CLASSPATH="${envANTLR}:${CLASSPATH:-}"
 

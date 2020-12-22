@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-source "${makeSetup}"
+source "${makeDerivation}"
 
 function replace_var_in_file {
   local file="${1}"

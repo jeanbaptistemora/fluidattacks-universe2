@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-source "${makeSetup}"
+source "${makeDerivation}"
 
 function main {
       echo '[INFO] Building parser' \

@@ -5,10 +5,9 @@ attrs @ {
 
 let
   buildPythonRequirements = import ../../../../makes/utils/build-python-requirements pkgsSkims;
-  make = import ../../../../makes/utils/make pkgsSkims;
-  makeApp = import ../../../../makes/utils/make-app pkgsSkims;
+  makeDerivation = import ../../../../makes/utils/make-derivation pkgsSkims;
 in
-  make {
+  makeDerivation {
     builder = ./builder.sh;
     buildInputs = [
       pkgsSkims.nodejs

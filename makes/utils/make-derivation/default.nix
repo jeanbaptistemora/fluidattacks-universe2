@@ -7,8 +7,8 @@ attrs:
 
 pkgs.stdenv.mkDerivation (attrs // {
   __envStdenv = "${pkgs.stdenv}/setup";
-  __envUtils = ../../../makes/utils/make/utils.sh;
-  makeSetup = builtins.toFile "setup" ''
+  __envUtils = ../../../makes/utils/make-derivation/utils.sh;
+  makeDerivation = builtins.toFile "setup-make-derivation" ''
     source $__envStdenv
     source $__envUtils
 

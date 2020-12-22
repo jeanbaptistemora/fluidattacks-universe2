@@ -4,9 +4,9 @@ attrs @ {
 }:
 
 let
-  make = import ../../../../makes/utils/make pkgsSkims;
+  makeDerivation = import ../../../../makes/utils/make-derivation pkgsSkims;
 in
-  make {
+  makeDerivation {
     builder = ./builder.sh;
     buildInputs = [
       pkgsSkims.gradle

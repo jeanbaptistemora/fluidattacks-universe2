@@ -10,13 +10,13 @@ pkgs:
 }:
 
 let
-  make = import ../../../makes/utils/make pkgs;
+  makeDerivation = import ../../../makes/utils/make-derivation pkgs;
 
   argumentNames = builtins.attrNames arguments;
   argumentNamesContent = builtins.concatStringsSep "\n" argumentNames;
   argumentNamesFile = builtins.toFile "arguments" "${argumentNamesContent}\n";
 in
-  make (arguments // {
+  makeDerivation (arguments // {
     builder = ./builder.sh;
     name = "utils-make-template-${name}";
     __envArgumentNamesFile = argumentNamesFile;

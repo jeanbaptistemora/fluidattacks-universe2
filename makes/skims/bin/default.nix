@@ -4,10 +4,10 @@ attrs @ {
 }:
 
 let
-  makeApp = import ../../../makes/utils/make-app pkgsSkims;
   config = import ../../../makes/skims/config.nix pkgsSkims;
+  makeEntrypoint = import ../../../makes/utils/make-entrypoint pkgsSkims;
 in
-  makeApp {
+  makeEntrypoint {
     arguments = {
       envRuntimeBinPath = config.osRequirements.runtimeBinPath;
       envRuntimeLibPath = config.osRequirements.runtimeLibPath;

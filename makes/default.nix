@@ -13,16 +13,17 @@ flake.lib.eachDefaultSystem (
         pkgsSkims = import pkgsSrcSkims { inherit system; };
         self = self;
       };
+      makeApp = app: derivation: {
+        program = builtins.toString derivation;
+        type = "app";
+      };
     in
       {
-        apps = {
-          skims = {
-            program = "${import ../makes/skims/bin attrs}";
-            type = "app";
-          };
+        apps = builtins.mapAttrs makeApp {
+          common-deploy-oci = import ../makes/common/deploy/oci attrs;
+          skims = import ../makes/skims/bin attrs;
         };
         packages = {
-          skims-bin = import ../makes/skims/bin attrs;
           skims-parsers-antlr = import ../makes/skims/parsers/antlr attrs;
           skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
         };

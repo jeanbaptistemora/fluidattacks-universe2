@@ -1,10 +1,11 @@
 #! /usr/bin/env bash
 
 apps=(
+  common-deploy-oci
   skims
+  skims-lint
 )
 packages=(
-  skims-bin
   skims-parsers-antlr
   skims-parsers-babel
 )
@@ -12,7 +13,7 @@ packages=(
 function build_with_internet {
   local attr="${1}"
 
-  ./makes/nix.sh build \
+  ./makes/nix build \
     --option 'sandbox' 'false' \
     --option 'restrict-eval' 'false' \
     --out-link "makes/outputs/${attr}" \
@@ -24,7 +25,7 @@ function build_with_internet {
 function run_with_internet {
   local attr="${1}"
 
-  ./makes/nix.sh run \
+  ./makes/nix run \
     --option 'sandbox' 'false' \
     --option 'restrict-eval' 'false' \
     --show-trace \
@@ -83,13 +84,15 @@ function main_ctx {
 function main_help {
       echo "Use: ${0} [build/run] [attribute]" \
   &&  echo \
-  &&  echo 'Valid run attributes are:' \
+  &&  echo 'Valid build attributes are:' \
   &&  echo \
   &&  for attribute in "${packages[@]}"; do echo "  ${attribute}"; done \
   &&  echo \
-  &&  echo 'Valid build attributes are:' \
+  &&  echo 'Valid run attributes are:' \
   &&  echo \
   &&  for attribute in "${apps[@]}"; do echo "  ${attribute}"; done \
+  &&  echo \
+
 }
 
 main "${@}"

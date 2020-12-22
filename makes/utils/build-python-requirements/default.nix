@@ -10,12 +10,12 @@ pkgs:
 }:
 
 let
-  make = import ../../../makes/utils/make pkgs;
+  makeDerivation = import ../../../makes/utils/make-derivation pkgs;
 
   requirementsStr = builtins.concatStringsSep "\n" requirements;
   requirementsFile = builtins.toFile "requirements" requirementsStr;
 in
-  make {
+  makeDerivation {
     builder = ./builder.sh;
     buildInputs = dependencies ++ [ python ];
     envRequirementsFile = requirementsFile;
