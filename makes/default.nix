@@ -1,5 +1,6 @@
 {
   flake,
+  pkgsSrcCommon,
   pkgsSrcSkims,
   self,
 }:
@@ -8,7 +9,9 @@ flake.lib.eachDefaultSystem (
   system:
     let
       attrs = {
+        pkgsCommon = import pkgsSrcSkims { inherit system; };
         pkgsSkims = import pkgsSrcSkims { inherit system; };
+        self = self;
       };
     in
       {

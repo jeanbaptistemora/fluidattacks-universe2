@@ -27,7 +27,6 @@ function run_with_internet {
   ./makes/nix.sh run \
     --option 'sandbox' 'false' \
     --option 'restrict-eval' 'false' \
-    --no-update-lock-file \
     --show-trace \
     ".#${attr}" \
     -- \

@@ -33,3 +33,7 @@ function initialize {
   &&  echo "[INFO] Build directory: ${PWD}" \
   ||  return 1
 }
+
+function success {
+  touch "${out}"
+}
