@@ -1,31 +1,40 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import { GraphQLError } from "graphql";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import store from "store";
-import wait from "waait";
-
+/* eslint-disable react/jsx-props-no-spreading
+  --------
+  Best way to pass down props.
+*/
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
-import { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
+import { GraphQLError } from "graphql";
+import type { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
+import { Provider } from "react-redux";
+import { PureAbility } from "@casl/ability";
+import React from "react";
+import { act } from "react-dom/test-utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
+import store from "store";
+import wait from "waait";
+import type { ReactWrapper, ShallowWrapper } from "enzyme";
+import { mount, shallow } from "enzyme";
 
-jest.mock("../../../../utils/notifications", () => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
-  mockedNotifications.msgError = jest.fn();
-  mockedNotifications.msgSuccess = jest.fn();
+jest.mock(
+  "../../../../utils/notifications",
+  (): Dictionary => {
+    const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+      "../../../../utils/notifications"
+    );
+    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-  return mockedNotifications;
-});
-const functionMock: (() => void) = (): void => undefined;
+    return mockedNotifications;
+  }
+);
 
-describe("Add user modal", () => {
+const functionMock: () => void = (): void => undefined;
 
+describe("Add user modal", (): void => {
   const mockPropsAdd: IAddStakeholderModalProps = {
     action: "add",
     editTitle: "",
@@ -50,7 +59,7 @@ describe("Add user modal", () => {
     type: "user",
   };
 
-  const mocks: ReadonlyArray<MockedResponse> = [
+  const mocks: MockedResponse[] = [
     {
       request: {
         query: GET_USER,
@@ -71,7 +80,6 @@ describe("Add user modal", () => {
           },
         },
       },
-
     },
     {
       request: {
@@ -96,7 +104,7 @@ describe("Add user modal", () => {
     },
   ];
 
-  const mockError: ReadonlyArray<MockedResponse> = [
+  const mockError: MockedResponse[] = [
     {
       request: {
         query: GET_USER,
@@ -127,100 +135,125 @@ describe("Add user modal", () => {
     },
   ];
 
-  it("should return a function", () => {
-    expect(typeof (AddUserModal))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof AddUserModal).toStrictEqual("function");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider addTypename={true} mocks={mockError}>
           <AddUserModal {...mockPropsAdd} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
     await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render an add component", async () => {
+  it("should render an add component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider addTypename={true} mocks={mocks}>
           <AddUserModal {...mockPropsAdd} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
     await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render an edit component", async () => {
+  it("should render an edit component", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider addTypename={true} mocks={mocks}>
           <AddUserModal {...mockPropsEdit} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
     await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should auto fill data on inputs", async () => {
+  it("should auto fill data on inputs", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider addTypename={true} mocks={mocks}>
           <AddUserModal {...mockPropsAdd} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
     const emailInput: ReactWrapper = wrapper
-      .find({name: "email", type: "text"})
+      .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
-    emailInput.simulate("change", { target: { value: "unittest@test.com", name: "email" } });
+    emailInput.simulate("change", {
+      target: { name: "email", value: "unittest@test.com" },
+    });
     emailInput.simulate("blur");
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
 
     const phoneNumberInput: ReactWrapper = wrapper
-      .find({name: "phoneNumber", type: "text"})
+      .find({ name: "phoneNumber", type: "text" })
       .at(0)
       .find("input");
     const responsibilityInput: ReactWrapper = wrapper
-      .find({name: "responsibility", type: "text"})
+      .find({ name: "responsibility", type: "text" })
       .at(0)
       .find("input");
-    expect(phoneNumberInput.prop("value"))
-      .toEqual("+57 (312) 321 0123");
-    expect(responsibilityInput.prop("value"))
-      .toEqual("edited");
+
+    expect(phoneNumberInput.prop("value")).toStrictEqual("+57 (312) 321 0123");
+    expect(responsibilityInput.prop("value")).toStrictEqual("edited");
   });
 
-  it("should handle errors when auto fill data", async () => {
+  it("should handle errors when auto fill data", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider addTypename={true} mocks={mockError}>
           <AddUserModal {...mockPropsAdd} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
     const emailInput: ReactWrapper = wrapper
-      .find({name: "email", type: "text"})
+      .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
-    emailInput.simulate("change", { target: { value: "unittest@test.com", name: "email" } });
+    emailInput.simulate("change", {
+      target: { name: "email", value: "unittest@test.com" },
+    });
     emailInput.simulate("blur");
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(msgError)
-      .toHaveBeenCalled();
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgError).toHaveBeenCalledWith();
   });
 
-  it("should render user level role options", async () => {
+  it("should render user level role options", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "grant_user_level_role:admin" },
       { action: "grant_user_level_role:customer" },
@@ -228,23 +261,32 @@ describe("Add user modal", () => {
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider addTypename={true} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <AddUserModal {...mockPropsAdd} projectName={undefined} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
     const options: ReactWrapper = wrapper.find("option");
-    const adminOption: ReactWrapper = options.find({value: "ADMIN"});
-    expect(adminOption)
-      .toHaveLength(1);
-    const userOption: ReactWrapper = options.find({value: "CUSTOMER"});
-    expect(userOption)
-      .toHaveLength(1);
-    const managerOption: ReactWrapper = options.find({value: "INTERNAL_MANAGER"});
-    expect(managerOption)
-      .toHaveLength(1);
+    const adminOption: ReactWrapper = options.find({ value: "ADMIN" });
+
+    expect(adminOption).toHaveLength(1);
+
+    const userOption: ReactWrapper = options.find({ value: "CUSTOMER" });
+
+    expect(userOption).toHaveLength(1);
+
+    const managerOption: ReactWrapper = options.find({
+      value: "INTERNAL_MANAGER",
+    });
+
+    expect(managerOption).toHaveLength(1);
   });
 });
