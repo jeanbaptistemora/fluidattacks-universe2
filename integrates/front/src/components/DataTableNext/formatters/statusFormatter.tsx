@@ -1,4 +1,3 @@
-import type { Label } from "react-bootstrap";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import _ from "lodash";
@@ -51,9 +50,9 @@ const getBgColor: (value: string) => string = (value: string): string => {
   }
 };
 
-export const statusFormatter: (value: string) => React.ReactElement<Label> = (
+export const statusFormatter: (value: string) => JSX.Element = (
   value: string
-): React.ReactElement<Label> => {
+): JSX.Element => {
   const capitalizedValue: string = _.capitalize(value);
   const bgColor: string = getBgColor(capitalizedValue);
 
