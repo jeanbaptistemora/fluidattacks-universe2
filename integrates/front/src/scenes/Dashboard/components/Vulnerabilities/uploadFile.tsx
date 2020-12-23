@@ -21,7 +21,7 @@ import {
   DOWNLOAD_VULNERABILITIES, UPLOAD_VULNERABILITIES,
 } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
-  IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps,
+  IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
