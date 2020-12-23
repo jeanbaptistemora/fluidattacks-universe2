@@ -101,10 +101,11 @@ skims-security:
 skims-structure:
   <<: *makes_build
   <<: *skims_in_dev_branch
+  after_script:
+    - cp -Lr makes/outputs/skims-structure outputs
   artifacts:
     expire_in: 1 week
-    paths:
-      - makes/outputs
+    paths: [outputs]
     when: always
   stage: test-code
 

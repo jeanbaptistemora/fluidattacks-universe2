@@ -38,7 +38,8 @@ function main {
         --max-cluster-size 100 \
         --show-cycles \
         "${end_args[@]}" \
-  &&  mv "${PWD}" "${out}"
+  &&  mkdir "${out}" \
+  &&  mv "${PWD}/"*'.svg' "${out}"
 }
 
 main "${@}"
