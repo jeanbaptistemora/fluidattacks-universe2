@@ -362,13 +362,13 @@ resource "cloudflare_record" "mailgun_smtp" {
 
 resource "cloudflare_page_rule" "redirect_www" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "www.${cloudflare_zone.fluidattacks_com.zone}*"
+  target   = "www.${cloudflare_zone.fluidattacks_com.zone}/*"
   status   = "active"
   priority = 1
 
   actions {
     forwarding_url {
-      url         = "https://${cloudflare_zone.fluidattacks_com.zone}$1"
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}/$1"
       status_code = 301
     }
   }
