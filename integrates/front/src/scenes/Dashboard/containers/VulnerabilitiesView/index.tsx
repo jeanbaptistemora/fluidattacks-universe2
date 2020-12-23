@@ -9,7 +9,6 @@ import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
-import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities/newIndex";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -50,14 +49,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
 
   const [
-    isUpdateZeroRiskModalOpen,
-    setUpdateZeroRiskModalOpen,
-  ] = React.useState(false);
-  function toggleUpdateZeroRiskModal(): void {
-    setUpdateZeroRiskModalOpen(!isUpdateZeroRiskModalOpen);
-  }
-
-  const [
     isHandleAcceptationModalOpen,
     setHandleAcceptationModalOpen,
   ] = React.useState(false);
@@ -89,14 +80,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function toggleEdit(): void {
     setEditing(!isEditing);
   }
-  const [isConfirmingZeroRisk, setConfirmingZeroRisk] = React.useState(false);
-  function toggleConfirmZeroRisk(): void {
-    setConfirmingZeroRisk(!isConfirmingZeroRisk);
-  }
-  const [isRejectingZeroRisk, setRejectingZeroRisk] = React.useState(false);
-  function toggleRejectZeroRisk(): void {
-    setRejectingZeroRisk(!isRejectingZeroRisk);
-  }
+  const [isConfirmingZeroRisk] = React.useState(false);
+  const [isRejectingZeroRisk] = React.useState(false);
   const [isRequestingVerify, setRequestingVerify] = React.useState(false);
   function toggleRequestVerify(): void {
     setRequestingVerify(!isRequestingVerify);
@@ -181,19 +166,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
             refetchData={refetch}
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
-            vulns={remediationModalConfig.vulnerabilities}
-          />
-        ) : undefined}
-        {isUpdateZeroRiskModalOpen ? (
-          <UpdateZeroRiskModal
-            clearSelected={_.get(remediationModalConfig, "clearSelected")}
-            findingId={findingId}
-            handleCloseModal={toggleUpdateZeroRiskModal}
-            isConfirmingZeroRisk={isConfirmingZeroRisk}
-            isRejectingZeroRisk={isRejectingZeroRisk}
-            refetchData={refetch}
-            setConfirmState={toggleConfirmZeroRisk}
-            setRejectState={toggleRejectZeroRisk}
             vulns={remediationModalConfig.vulnerabilities}
           />
         ) : undefined}
