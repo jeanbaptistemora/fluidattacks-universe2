@@ -52,7 +52,7 @@ resource "cloudflare_record" "landing" {
   name    = "landing.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "a2cbfad5d1d14c9eb6099182bb1adb48.unbouncepages.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
@@ -61,7 +61,7 @@ resource "cloudflare_record" "landing_usa" {
   name    = "usa.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "60afa14d825c49689b84f58f10773196.unbouncepages.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
@@ -70,7 +70,7 @@ resource "cloudflare_record" "landing_report2020" {
   name    = "report2020.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "64b61b566e6b494db43ea4242748637a.unbouncepages.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
