@@ -16,10 +16,8 @@ from singer_io.singer import (
 )
 
 
-def test_rschema_creation() -> None:
-    # Arrange
-    factory: RedshiftElementsFactory = redshift.redshift_factory('test_schema')
-    mock_s_schema = SingerSchema(
+def mock_s_schema() -> SingerSchema:
+    return SingerSchema(
         'test_table',
         {
             'properties': {
@@ -28,8 +26,18 @@ def test_rschema_creation() -> None:
         },
         frozenset()
     )
+
+
+def mock_s_record() -> SingerRecord:
+    test_record = frozenset({'field1': 2.48, 'field2': 'text'}.items())
+    return SingerRecord('test_stream', test_record)
+
+
+def test_rschema_creation() -> None:
+    # Arrange
+    factory: RedshiftElementsFactory = redshift.redshift_factory('test_schema')
     # Act
-    r_schema = factory.to_rschema(mock_s_schema)
+    r_schema = factory.to_rschema(mock_s_schema())
     # Assert
     expected = RedshiftSchema(
         frozenset({
@@ -54,10 +62,10 @@ def test_rrecord_creation() -> None:
         'test_schema',
         'test_table'
     )
-    test_record = frozenset({'field1': 2.48, 'field2': 'text'}.items())
-    mock_record = SingerRecord('test_stream', test_record)
     # Act
-    r_record: RedshiftRecord = factory.to_rrecord(mock_record, mock_schema)
+    r_record: RedshiftRecord = factory.to_rrecord(
+        mock_s_record(), mock_s_schema()
+    )
     # Assert
     expected_record = frozenset(
         {'field1': "'2.48'", 'field2': "'text'"}.items()

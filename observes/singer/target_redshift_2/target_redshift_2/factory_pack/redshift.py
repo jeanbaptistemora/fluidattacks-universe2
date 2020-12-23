@@ -77,10 +77,12 @@ def str_len(str_obj: str, encoding: str = "utf-8") -> int:
 
 def singer_to_rrecord(
     s_record: SingerRecord,
-    r_schema: RedshiftSchema
+    s_schema: SingerSchema,
+    to_rschema: Transform[SingerSchema, RedshiftSchema]
 ) -> RedshiftRecord:
     """`SingerRecord` to `RedshiftRecord` transformation"""
     raw_record = dict(s_record.record)
+    r_schema = to_rschema(s_schema)
     schema_fields: FrozenSet[str] = frozenset(
         map(lambda f: f.name, r_schema.fields)
     )
@@ -106,7 +108,12 @@ def redshift_factory(schema_name: str) -> RedshiftElementsFactory:
     def to_rschema(singer: SingerSchema) -> RedshiftSchema:
         return singer_to_rschema(singer, schema_name, db_types.from_dict)
 
+    def to_rrecord(
+        record: SingerRecord, schema: SingerSchema
+    ) -> RedshiftRecord:
+        return singer_to_rrecord(record, schema, to_rschema)
+
     return RedshiftElementsFactory(
         to_rschema=to_rschema,
-        to_rrecord=singer_to_rrecord
+        to_rrecord=to_rrecord
     )
