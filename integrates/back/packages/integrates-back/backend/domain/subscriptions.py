@@ -1,4 +1,5 @@
 # Standard library
+import base64
 import logging
 from collections.abc import Mapping
 from datetime import datetime
@@ -346,12 +347,11 @@ async def send_user_to_entity_report(
             return
 
         image_url: str = await reports.expose_bytes_as_url(
-            content=bytes(
+            content=base64.b64decode(
                 await analytics_domain.get_graphics_report(
                     entity=report_entity.lower(),
                     subject=report_subject,
-                ),
-                'utf-8'
+                )
             ),
             ext='png',
             ttl=604800,  # seven days

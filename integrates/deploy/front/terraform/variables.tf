@@ -8,9 +8,6 @@ data "cloudflare_zones" "fluidattacks_com" {
   }
 }
 data "cloudflare_ip_ranges" "cloudflare" {}
-data "aws_route53_zone" "fluidattacks" {
-  name = "fluidattacks.com."
-}
 
 variable "region" {
   default = "us-east-1"

@@ -2,6 +2,7 @@
 from io import (
     BytesIO,
 )
+import base64
 import json
 import logging
 import os
@@ -93,7 +94,7 @@ async def get_graphics_report(
     *,
     entity: str,
     subject: str,
-) -> str:
+) -> bytes:
     document: bytes = await analytics_dal.get_snapshot(
         f'reports/{entity}:{safe_encode(subject.lower())}.png',
     )
@@ -300,12 +301,11 @@ async def handle_graphics_report_request(
             request=request,
         )
 
-        report: bytes = bytes(
+        report: bytes = base64.b64decode(
             await get_graphics_report(
                 entity=params.entity,
                 subject=params.subject,
-            ),
-            'utf-8'
+            )
         )
     except (
         botocore.exceptions.ClientError,
@@ -341,7 +341,7 @@ def clarify(image_path: str) -> Image:
     return watermark
 
 
-def add_watermark(base_image: Image) -> str:
+def add_watermark(base_image: Image) -> bytes:
     watermark: Image = clarify(IMAGE_PATH)
     watermark_width, watermark_height = watermark.size
     width = max(base_image.width, watermark_width)
@@ -359,4 +359,6 @@ def add_watermark(base_image: Image) -> str:
     transparent.save(stream, format='png')
     stream.seek(0)
 
-    return str(stream.read())
+    image_encoded = base64.b64encode(stream.read())
+
+    return image_encoded
