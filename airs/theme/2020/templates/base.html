@@ -25,6 +25,12 @@
         </script>
       <!-- End Google Analytics -->
 
+      <!-- Cloudflare Web Analytics -->
+      <script defer 
+              src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f4f99c985c414a5591e8077bf301b39b"}'>
+      </script>
+      <!-- End Cloudflare Web Analytics -->
+
             <!-- Compress and Minify CSS files and bundle from SASS files -->
       {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "../node_modules/intl-tel-input/src/css/intlTelInput.scss" %}
         <link rel="preload"
