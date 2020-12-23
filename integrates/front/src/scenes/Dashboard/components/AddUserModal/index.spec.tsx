@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import store from "store";
 import wait from "waait";
 
-import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
 import { authzPermissionsContext } from "utils/authz/config";

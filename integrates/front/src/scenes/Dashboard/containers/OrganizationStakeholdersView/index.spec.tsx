@@ -9,7 +9,7 @@ import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
 
 import moment from "moment";
-import { addUserModal } from "scenes/Dashboard/components/AddUserModal/index";
+import { AddUserModal } from "scenes/Dashboard/components/AddUserModal/index";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
 import {
@@ -319,7 +319,7 @@ describe("Organization users view", () => {
 
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .prop("open"))
       .toBe(false);
 
@@ -331,19 +331,19 @@ describe("Organization users view", () => {
 
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .prop("open"))
       .toBe(true);
 
     const form: ReactWrapper = wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find("genericForm");
     const emailField: ReactWrapper = wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find({ name: "email" })
       .find("input");
     const roleField: ReactWrapper = wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find({ name: "role" })
       .find("select");
 
@@ -356,7 +356,7 @@ describe("Organization users view", () => {
 
         expect(
           wrapper
-            .find(addUserModal)
+            .find(AddUserModal)
             .find({ name: "phoneNumber" })
             .find("input")
             .prop("value"))
@@ -373,7 +373,7 @@ describe("Organization users view", () => {
 
         expect(
           wrapper
-            .find(addUserModal)
+            .find(AddUserModal)
             .prop("open"))
           .toBe(false);
         expect(msgSuccess)
@@ -476,7 +476,7 @@ describe("Organization users view", () => {
 
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .prop("open"))
       .toBe(false);
 
@@ -492,47 +492,47 @@ describe("Organization users view", () => {
 
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .prop("open"))
       .toBe(true);
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .find({ name: "email" })
         .find("input")
         .prop("value"))
       .toBe("testuser1@gmail.com");
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .find({ name: "email" })
         .find("input")
         .prop("disabled"))
       .toBe(true);
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .find({ name: "role" })
         .find("select")
         .prop("defaultValue"))
       .toBe("CUSTOMER");
     expect(
       wrapper
-        .find(addUserModal)
+        .find(AddUserModal)
         .find({ name: "phoneNumber" })
         .find("input")
         .prop("value"))
       .toBe("+57 (310) 000 0000");
 
     const form: ReactWrapper = wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find("genericForm");
     const roleField: ReactWrapper = wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find({ name: "role" })
       .find("select");
     const phoneField: ReactWrapper = wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find({ name: "phoneNumber" })
       .find("input");
 
@@ -546,7 +546,7 @@ describe("Organization users view", () => {
 
         expect(
           wrapper
-            .find(addUserModal)
+            .find(AddUserModal)
             .prop("open"))
           .toBe(false);
         expect(msgSuccess)
@@ -879,10 +879,10 @@ describe("Organization users view", () => {
     };
 
     const getForm: (() => ReactWrapper) = (): ReactWrapper => wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find("genericForm");
     const getRoleField: (() => ReactWrapper) = (): ReactWrapper => wrapper
-      .find(addUserModal)
+      .find(AddUserModal)
       .find({ name: "role" })
       .find("select");
     const submit: (() => void) = (): void => {
@@ -890,7 +890,7 @@ describe("Organization users view", () => {
 
       expect(
         wrapper
-          .find(addUserModal)
+          .find(AddUserModal)
           .prop("open"))
         .toBe(true);
 

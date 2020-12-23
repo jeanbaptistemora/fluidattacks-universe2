@@ -1,6 +1,6 @@
 import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
-import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import type { ApolloError } from "apollo-client";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { GraphQLError } from "graphql";
