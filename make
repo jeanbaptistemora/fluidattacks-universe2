@@ -3,6 +3,7 @@
 apps=(
   common-deploy-oci
   skims
+  skims-benchmark
   skims-docs-deploy
 )
 packages=(
@@ -22,7 +23,6 @@ function build_with_internet {
     --option 'sandbox' 'false' \
     --option 'restrict-eval' 'false' \
     --out-link "makes/outputs/${attr}" \
-    --no-update-lock-file \
     --show-trace \
     ".#${attr}"
 }

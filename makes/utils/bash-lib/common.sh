@@ -12,15 +12,18 @@ function make_executable {
   chmod +x "${@}"
 }
 
-function initialize {
-  local build_dir
-
-      build_dir="$(mktemp -d)" \
-  &&  cd "${build_dir}" \
-  &&  echo "[INFO] Build directory: ${PWD}" \
-  ||  return 1
+function remove {
+  rm -rf "${@}"
 }
 
 function success {
   touch "${out}"
+}
+
+function use_ephemeral_dir {
+  local build_dir
+
+      build_dir="$(mktemp -d)" \
+  &&  pushd "${build_dir}" \
+  ||  return 1
 }

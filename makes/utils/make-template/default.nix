@@ -23,7 +23,7 @@ let
 in
   makeDerivation (arguments // {
     builder = ./builder.sh;
-    name = "utils-make-template-${name}";
+    name = name;
     __envArgumentNamesFile = argumentNamesFile;
     __envExecutable = executable;
     __envTemplate = templateFile;

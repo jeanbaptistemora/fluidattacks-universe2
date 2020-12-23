@@ -19,11 +19,13 @@ in
       arguments = (arguments // {
         makeEntrypoint = makeTemplate {
           arguments = {
+            envBashLibCommon = ../../../makes/utils/bash-lib/common.sh;
             envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
           };
           name = "utils-make-entrypoint-script";
           template = ''
             source '__envBashLibShopts__'
+            source '__envBashLibCommon__'
           '';
         };
       });
@@ -32,5 +34,5 @@ in
       template = template;
     };
     envLocation = location;
-    name = "utils-make-entrypoint-${name}";
+    name = name;
   }

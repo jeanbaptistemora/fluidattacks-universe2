@@ -1,7 +1,7 @@
 namespace: OWASP
-output: test/outputs/results.csv
+output: results.csv
 path:
   include:
     - glob(*.java)
 timeout: 14400
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+working_dir: ../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
