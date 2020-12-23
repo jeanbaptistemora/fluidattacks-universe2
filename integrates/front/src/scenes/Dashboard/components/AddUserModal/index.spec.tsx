@@ -248,7 +248,7 @@ describe("Add user modal", (): void => {
       }
     );
 
-    expect(msgError).toHaveBeenCalledWith();
+    expect(msgError).toHaveBeenCalledWith("There is an error :(");
   });
 
   it("should render user level role options", async (): Promise<void> => {
