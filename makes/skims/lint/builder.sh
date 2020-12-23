@@ -21,7 +21,7 @@ function main {
   local pkgs
 
       pkgs=$(mktemp) \
-  &&  make_python_path \
+  &&  make_python_path '3.8' \
         "${envPythonRequirementsDevelopment}" \
         "${envPythonRequirementsRuntime}" \
         "${envSrcSkimsSkims}" \

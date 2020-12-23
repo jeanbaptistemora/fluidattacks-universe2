@@ -2,6 +2,7 @@
 
 apps=(
   common-deploy-oci
+  observes-target-redshift
   skims
   skims-benchmark
   skims-docs-deploy

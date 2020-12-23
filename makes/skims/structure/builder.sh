@@ -21,7 +21,7 @@ function main {
         --
         'skims/cli'
       ) \
-  &&  make_python_path \
+  &&  make_python_path '3.8' \
         "${envPythonRequirementsDevelopment}" \
         "${envPythonRequirementsRuntime}" \
   &&  make_python_path_plain \

@@ -2,6 +2,7 @@
   flake,
   flakeCompat,
   pkgsSrcCommon,
+  pkgsSrcObserves,
   pkgsSrcSkims,
   self,
 }:
@@ -13,6 +14,7 @@ flake.lib.eachDefaultSystem (
         outputs = {
           apps = builtins.mapAttrs makeApp {
             common-deploy-oci = import ../makes/common/deploy/oci attrs;
+            observes-target-redshift = import ../makes/observes/target-redshift/bin attrs;
             skims = import ../makes/skims/bin attrs;
             skims-benchmark = import ../makes/skims/benchmark attrs;
             skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
@@ -28,6 +30,7 @@ flake.lib.eachDefaultSystem (
           };
         };
         pkgsCommon = import pkgsSrcSkims { inherit system; };
+        pkgsObserves = import pkgsSrcObserves { inherit system; };
         pkgsSkims = import pkgsSrcSkims { inherit system; };
       };
       makeApp = app: derivation: {
