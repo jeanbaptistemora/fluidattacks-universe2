@@ -23,6 +23,34 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
   }
 }
 
+data "aws_iam_policy_document" "web-ephemeral-bucket-policy-data" {
+  statement {
+    sid     = "CloudFlare"
+    effect  = "Allow"
+
+    principals {
+      type = "AWS"
+      identifiers = ["*"]
+    }
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "${aws_s3_bucket.web-ephemeral-bucket.arn}/*",
+    ]
+    condition {
+      test     = "IpAddress"
+      variable = "aws:SourceIp"
+      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "web-bucket-policy" {
+  bucket = aws_s3_bucket.web-ephemeral-bucket.id
+  policy = data.aws_iam_policy_document.web-ephemeral-bucket-policy-data.json
+}
+
 resource "aws_s3_bucket_object" "home-index" {
   bucket       = aws_s3_bucket.web-ephemeral-bucket.id
   key          = "index.html"
