@@ -3,8 +3,7 @@
 source "${makeDerivation}"
 
 function main {
-      mkdir "${out}" \
-  &&  echo '[INFO] Creating virtualenv' \
+      echo '[INFO] Creating virtualenv' \
   &&  python -m venv "${out}" \
   &&  echo '[INFO] Activating virtualenv' \
   &&  source "${out}/bin/activate" \
