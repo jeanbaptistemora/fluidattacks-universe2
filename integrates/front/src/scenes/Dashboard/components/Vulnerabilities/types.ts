@@ -1,28 +1,26 @@
 import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
-export interface IVulnRow {
-  analyst: string;
-  currentState: string;
+export interface IVulnRowAttr {
+  currentState: "open" | "closed";
+  currentStateCapitalized: "Open" | "Closed";
+  cycles: string;
+  efficacy: string;
   externalBts: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
+  lastRequestedReattackDate: string;
   remediated: boolean;
+  reportDate: string;
   severity: string;
   specific: string;
   tag: string;
   treatment: string;
+  treatmentDate: string;
   treatmentManager: string;
   verification: string;
   vulnType: string;
   where: string;
   zeroRisk: string;
-}
-export interface IVulnRowAttr extends IVulnRow {
-  cycles: string;
-  efficacy: string;
-  lastRequestedReattackDate: string;
-  reportDate: string;
-  treatmentDate: string;
 }
 
 export interface IUploadVulnerabilitiesResult {
@@ -51,7 +49,7 @@ export interface IUpdateTreatmentVulnAttr {
 }
 
 export interface IVulnDataType {
-  currentState: string;
+  currentState: "open" | "closed";
   externalBts: string;
   historicTreatment: IHistoricTreatment[];
   id: string;

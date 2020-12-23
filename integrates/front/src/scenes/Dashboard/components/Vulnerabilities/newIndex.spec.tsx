@@ -8,8 +8,8 @@ import { mount } from "enzyme";
 describe("VulnComponent", (): void => {
   const mocks: IVulnRowAttr[] = [
     {
-      analyst: "test@test.com",
       currentState: "open",
+      currentStateCapitalized: "Open",
       cycles: "",
       efficacy: "",
       externalBts: "",
@@ -40,8 +40,8 @@ describe("VulnComponent", (): void => {
       zeroRisk: "Requested",
     },
     {
-      analyst: "test@test.com",
       currentState: "closed",
+      currentStateCapitalized: "Closed",
       cycles: "",
       efficacy: "",
       externalBts: "",

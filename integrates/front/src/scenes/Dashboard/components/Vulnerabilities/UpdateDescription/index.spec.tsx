@@ -41,7 +41,7 @@ jest.mock(
 describe("Update Description component", (): void => {
   const vulns: IVulnDataType[] = [
     {
-      currentState: "",
+      currentState: "open",
       externalBts: "",
       historicTreatment: [],
       id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
@@ -136,7 +136,7 @@ describe("Update Description component", (): void => {
 
     const vulnerabilities: IVulnDataType[] = [
       {
-        currentState: "",
+        currentState: "open",
         externalBts: "",
         historicTreatment: [treatment],
         id: "test_one",
@@ -147,7 +147,7 @@ describe("Update Description component", (): void => {
         where: "",
       },
       {
-        currentState: "",
+        currentState: "open",
         externalBts: "",
         historicTreatment: [treatment],
         id: "test_two",
@@ -425,7 +425,7 @@ describe("Update Description component", (): void => {
     ];
     const vulnsToUpdate: IVulnDataType[] = [
       {
-        currentState: "",
+        currentState: "open",
         externalBts: "",
         historicTreatment: [],
         id: "test1",
@@ -436,7 +436,7 @@ describe("Update Description component", (): void => {
         where: "",
       },
       {
-        currentState: "",
+        currentState: "open",
         externalBts: "",
         historicTreatment: [],
         id: "test2",
@@ -562,7 +562,7 @@ describe("Update Description component", (): void => {
     };
     const vulnsToUpdate: IVulnDataType[] = [
       {
-        currentState: "",
+        currentState: "open",
         externalBts: "",
         historicTreatment: [],
         id: "test",

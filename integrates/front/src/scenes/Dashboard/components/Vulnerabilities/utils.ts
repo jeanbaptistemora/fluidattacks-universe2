@@ -104,7 +104,9 @@ const formatVulnerabilities: (
 
       return {
         ...vulnerability,
-        currentState: _.capitalize(vulnerability.currentState),
+        currentStateCapitalized: _.capitalize(
+          vulnerability.currentState
+        ) as IVulnRowAttr["currentStateCapitalized"],
         cycles: hasVulnCycles ? vulnerability.cycles : "",
         efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
         reportDate: vulnerability.reportDate.split(" ")[0],

@@ -249,7 +249,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       visible: checkedItems.reportDate,
     },
     {
-      dataField: "currentState",
+      dataField: "currentStateCapitalized",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusFilter"),
         onFilter: onFilterStatus,
