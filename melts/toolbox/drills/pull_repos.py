@@ -50,7 +50,7 @@ def delete_out_of_scope_files(group: str) -> bool:
     for root in get_filter_rules(group):
         repos = [
             folder for folder in os.listdir(path_to_fusion)
-            if root['url'].split('/')[-1] == folder
+            if folder in root['url'].split('/')[-1]
         ]
         if repos:
             repo_name = repos[0]
