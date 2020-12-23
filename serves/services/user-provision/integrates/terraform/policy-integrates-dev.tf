@@ -187,18 +187,6 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
   }
 
-  # Route 53 read/write over fluidattacks hosted zone
-  statement {
-    effect  = "Allow"
-    actions = [
-      "route53:ListTagsForResource",
-      "route53:ListResourceRecordSets"
-    ]
-    resources = [
-      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.zone_id}",
-    ]
-  }
-
   # S3 read over continuous data buckets
   statement {
     sid = "s3ContinuousDataRead"

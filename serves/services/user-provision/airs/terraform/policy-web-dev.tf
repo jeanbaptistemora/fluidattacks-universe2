@@ -102,18 +102,6 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
     ]
   }
 
-  # Route 53 read fluidattacks hosted zone
-  statement {
-    effect  = "Allow"
-    actions = [
-      "route53:ListTagsForResource",
-      "route53:ListResourceRecordSets"
-    ]
-    resources = [
-      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.fluidattacks.id}",
-    ]
-  }
-
   # Lambda
   statement {
     effect  = "Allow"
