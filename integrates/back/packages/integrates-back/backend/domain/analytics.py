@@ -93,7 +93,7 @@ async def get_graphics_report(
     *,
     entity: str,
     subject: str,
-) -> bytes:
+) -> str:
     document: bytes = await analytics_dal.get_snapshot(
         f'reports/{entity}:{safe_encode(subject.lower())}.png',
     )
@@ -300,9 +300,12 @@ async def handle_graphics_report_request(
             request=request,
         )
 
-        report: bytes = await get_graphics_report(
-            entity=params.entity,
-            subject=params.subject,
+        report: bytes = bytes(
+            await get_graphics_report(
+                entity=params.entity,
+                subject=params.subject,
+            ),
+            'utf-8'
         )
     except (
         botocore.exceptions.ClientError,
@@ -338,7 +341,7 @@ def clarify(image_path: str) -> Image:
     return watermark
 
 
-def add_watermark(base_image: Image) -> bytes:
+def add_watermark(base_image: Image) -> str:
     watermark: Image = clarify(IMAGE_PATH)
     watermark_width, watermark_height = watermark.size
     width = max(base_image.width, watermark_width)
@@ -356,4 +359,4 @@ def add_watermark(base_image: Image) -> bytes:
     transparent.save(stream, format='png')
     stream.seek(0)
 
-    return stream.read()
+    return str(stream.read())
