@@ -81,18 +81,19 @@ sorts_deploy_infra:
   <<: *sorts_in_master_branch
   stage: deploy-infra
 
-sorts_deploy_to_pypi:
+sorts_train_model_on_aws:
   <<: *with_nix
   <<: *sorts_in_master_branch_code_changes
   stage: deploy-app
+  interruptible: false
+
+sorts_deploy_to_pypi:
+  <<: *with_nix
+  <<: *sorts_in_master_branch_code_changes
+  stage: post-deploy
+  needs: [sorts_train_model_on_aws]
 
 sorts_extract_all_features_on_aws:
   <<: *with_nix
   <<: *sorts_in_master_branch_code_changes
   stage: external
-
-sorts_train_model_on_aws:
-  <<: *with_nix
-  <<: *sorts_in_master_branch_code_changes
-  stage: external
-  interruptible: false

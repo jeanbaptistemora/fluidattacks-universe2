@@ -102,6 +102,7 @@ function job_sorts_deploy_to_pypi {
 
       helper_sorts_install_dependencies \
   &&  pushd sorts \
+    &&  helper_sorts_download_best_model \
     &&  version=$(helper_common_poetry_compute_version) \
     &&  echo "[INFO] Sorts: ${version}" \
     &&  trap 'restore_version' EXIT \

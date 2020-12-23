@@ -194,12 +194,14 @@ def save_best_model_to_s3(
         reverse=True
     )
     best_features: Tuple[str, ...] = tuple()
+    best_f1: str = ''
     for result in sorted_results:
         if float(result[-1]) < 5:
             best_features = tuple([
                 inv_features_dict[feature]
                 for feature in result[1].split(' ')
             ])
+            best_f1 = f'{float(result[-2]):.0f}'
             break
     if best_features:
         training_data: DataFrame = load_training_data(training_dir)
@@ -210,13 +212,14 @@ def save_best_model_to_s3(
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             model_name: str = '-'.join(
-                [type(model).__name__.lower()] +
+                [type(model).__name__.lower(), best_f1] +
                 [FEATURES_DICTS[feature].lower() for feature in best_features]
             )
             local_file: str = os.path.join(tmp_dir, f'{model_name}.joblib')
-            remote_file: str = f'training-output/{model_name}.joblib'
             dump(model, local_file)
-            S3_BUCKET.Object(remote_file).upload_file(local_file)
+            S3_BUCKET.Object(
+                f'training-output/{model_name}.joblib'
+            ).upload_file(local_file)
 
 
 def split_training_data(

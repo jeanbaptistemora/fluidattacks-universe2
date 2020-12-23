@@ -17,13 +17,6 @@ from utils.static import (
 )
 
 
-FILE_PREDICT_FEATURES = [
-    'seldom_contributors',
-    'num_lines',
-    'commit_frequency'
-]
-
-
 def get_subscription_files_df(fusion_path: str) -> DataFrame:
     """Builds the basic DF with all the files from every repository"""
     files: List[str] = []
@@ -61,10 +54,7 @@ def prioritize(subscription_path: str) -> bool:
             num_bits: int = len(bin(len(extensions))[2:])
             predict_vuln_prob(
                 predict_df,
-                (
-                    FILE_PREDICT_FEATURES +
-                    [f'extension_{num}' for num in range(num_bits + 1)]
-                ),
+                [f'extension_{num}' for num in range(num_bits + 1)],
                 group,
                 'file'
             )

@@ -51,8 +51,8 @@ def read_allowed_names() -> Tuple[List[str], ...]:
     return (allowed_names[0], allowed_names[1])
 
 
-def load_neural_network() -> MLPClassifier:
-    return load(get_static_path('neural_network.joblib'))
+def load_model() -> MLPClassifier:
+    return load(get_static_path('model.joblib'))
 
 
 def load_support_vector_machine() -> LinearSVC:

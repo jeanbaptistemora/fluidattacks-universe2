@@ -23,6 +23,34 @@ function helper_sorts_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
+function helper_sorts_download_best_model {
+  export SORTS_PROD_AWS_ACCESS_KEY_ID
+  export SORTS_PROD_AWS_SECRET_ACCESS_KEY
+
+  local best_model
+  local best_f1=0
+  local model_path='static/model.joblib'
+  local source='s3://sorts/training-output/'
+  local tmpdir
+
+      tmpdir="$(mktemp -d -t model-XXXXXXXXXX)" \
+  &&  helper_sorts_aws_login prod \
+  &&  aws s3 sync --exclude "*" --include "*.joblib" --quiet "${source}" "${tmpdir}" \
+  &&  for file in "${tmpdir}"/*
+      do
+            base_file="$(basename -- "${file}")" \
+        &&  IFS='-' read -ra fields <<< "${base_file}" \
+        &&  f1=$(("${fields[1]}")) \
+        &&  if [ "${f1}" -gt "${best_f1}" ]
+            then
+                  best_f1="${f1}" \
+              &&  best_model="${base_file}"
+            fi \
+      done \
+  &&  cp "${tmpdir}/${best_model}" "${model_path}" \
+  &&  rm -rf "${tmpdir}"
+}
+
 function helper_sorts_extract_features {
   local success
 

@@ -13,18 +13,25 @@ from prettytable import (
     from_csv,
     PrettyTable,
 )
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
 
 # Local libraries
 from utils.logs import log
 from utils.static import (
-    load_neural_network,
+    load_model,
     load_support_vector_machine,
 )
 
 
-Model = Union[LinearSVC, MLPClassifier]
+Model = Union[
+    LinearSVC,
+    KNeighborsClassifier,
+    MLPClassifier,
+    RandomForestClassifier
+]
 
 
 def predict_vuln_prob(
@@ -34,11 +41,12 @@ def predict_vuln_prob(
     scope: str
 ) -> None:
     """Uses model to make predictions on the input and save them to CSV"""
-    input_data: DataFrame = predict_df[features]
     if scope == 'file':
-        model: Model = load_neural_network()
+        model: Model = load_model()
+        input_data = predict_df[model.feature_names + features]
         probability_prediction: ndarray = model.predict_proba(input_data)
     elif scope == 'commit':
+        input_data = predict_df[features]
         model = load_support_vector_machine()
         # pylint: disable=protected-access
         probability_prediction = model._predict_proba_lr(input_data)
