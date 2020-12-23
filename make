@@ -12,6 +12,7 @@ packages=(
   skims-parsers-antlr
   skims-parsers-babel
   skims-security
+  skims-structure
 )
 
 function build_with_internet {

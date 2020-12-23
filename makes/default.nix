@@ -22,6 +22,7 @@ flake.lib.eachDefaultSystem (
             skims-parsers-antlr = import ../makes/skims/parsers/antlr attrs;
             skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
             skims-security = import ../makes/skims/security attrs;
+            skims-structure = import ../makes/skims/structure attrs;
           };
         };
         pkgsCommon = import pkgsSrcSkims { inherit system; };

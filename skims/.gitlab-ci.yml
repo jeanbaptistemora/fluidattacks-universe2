@@ -98,14 +98,14 @@ skims-security:
   <<: *skims_in_dev_branch
   stage: test-security
 
-skims_structure:
-  <<: *with_nix
-  <<: *skims_in_dev_and_master_branch
+skims-structure:
+  <<: *makes_build
+  <<: *skims_in_dev_branch
   artifacts:
     expire_in: 1 week
     paths:
-      - skims/*.svg
-    when: on_success
+      - makes/outputs
+    when: always
   stage: test-code
 
 skims_test:

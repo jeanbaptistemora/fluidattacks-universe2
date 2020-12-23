@@ -233,38 +233,6 @@ function job_skims_install {
 
 }
 
-function job_skims_structure {
-  local base_args=(
-    --cluster
-    --include-missing
-    --max-bacon 0
-    --noshow
-    --only "${!SKIMS_GLOBAL_PKGS[@]}"
-    --reverse
-    -x 'click'
-  )
-  local end_args=(
-    --
-    "${SKIMS_GLOBAL_PKGS[cli]}"
-  )
-
-      helper_skims_install_dependencies \
-  &&  pushd skims \
-    &&  echo "[INFO]: Running pydeps" \
-    &&  poetry run pydeps -o skims.file-dag.svg "${base_args[@]}" \
-          --max-cluster-size 100 \
-          "${end_args[@]}" \
-    &&  poetry run pydeps -o skims.module-dag.svg "${base_args[@]}" \
-          --max-cluster-size 1 \
-          "${end_args[@]}" \
-    &&  poetry run pydeps -o skims.cycles.svg "${base_args[@]}" \
-          --max-cluster-size 100 \
-          --show-cycles \
-          "${end_args[@]}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_skims_test {
   export PYTHONUNBUFFERED='1'
   local args_pytest=(
