@@ -108,7 +108,7 @@ describe("Portfolio", () => {
       .findWhere((element: ReactWrapper) => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    const addTagsModal: ReactWrapper = wrapper.find("addTagsModal");
+    const addTagsModal: ReactWrapper = wrapper.find("AddTagsModal");
     const tagInput: ReactWrapper = addTagsModal
       .find({name: "tags[0]", type: "text"})
       .at(0)
@@ -219,7 +219,7 @@ describe("Portfolio", () => {
       .findWhere((element: ReactWrapper) => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    const addTagsModal: ReactWrapper = wrapper.find("addTagsModal");
+    const addTagsModal: ReactWrapper = wrapper.find("AddTagsModal");
     const tagInput: ReactWrapper = addTagsModal
       .find({name: "tags[0]", type: "text"})
       .at(0)
@@ -293,7 +293,7 @@ describe("Portfolio", () => {
       .findWhere((element: ReactWrapper) => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    const addTagsModal: ReactWrapper = wrapper.find("addTagsModal");
+    const addTagsModal: ReactWrapper = wrapper.find("AddTagsModal");
     const tagInput: ReactWrapper = addTagsModal
       .find({name: "tags[0]", type: "text"})
       .at(0)

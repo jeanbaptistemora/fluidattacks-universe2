@@ -1,15 +1,10 @@
-/* tslint:disable jsx-no-multiline-js
- * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
- * readability of the code that dynamically renders the fields
- */
-
-import React from "react";
-import { Glyphicon } from "react-bootstrap";
-import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
-
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Glyphicon } from "react-bootstrap";
+import { Modal } from "components/Modal";
+import React from "react";
+import { Text } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
   Col80,
@@ -18,74 +13,103 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { Text } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
+import { Field, FieldArray } from "redux-form";
+import type { InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
 import { required, validTag } from "utils/validations";
 
-export interface IAddTagsModalProps {
+interface IAddTagsModalProps {
   isOpen: boolean;
-  onClose(): void;
-  onSubmit(values: {}): void;
+  onClose: () => void;
+  onSubmit: (values: { tags: string[] }) => void;
 }
 
-const renderTagsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
-  const addItem: (() => void) = (): void => {
+const renderTagsFields: React.FC<WrappedFieldArrayProps> = (
+  props: WrappedFieldArrayProps
+): JSX.Element => {
+  function addItem(): void {
+    // eslint-disable-next-line fp/no-mutating-methods
     props.fields.push("");
-  };
+  }
 
   return (
     <React.Fragment>
-      {props.fields.map((fieldName: string, index: number) => {
-        const removeItem: (() => void) = (): void => { props.fields.remove(index); };
+      {props.fields.map(
+        (fieldName: string, index: number): JSX.Element => {
+          function removeItem(): void {
+            props.fields.remove(index);
+          }
 
-        return (
-        <React.Fragment key={index}>
-          {index > 0 ? <React.Fragment><br /><hr /></React.Fragment> : undefined}
-          <Row>
-            <Col80>
-              <ControlLabel>
-                <RequiredField>{"* "}</RequiredField>
-                Tag
-              </ControlLabel>
-              <Field name={fieldName} component={Text} type="text" validate={[required, validTag]} />
-            </Col80>
-            {index > 0 ? (
-              <RemoveTag>
-                <Button onClick={removeItem}>
-                  <Glyphicon glyph="trash" />
-                </Button>
-              </RemoveTag>
-            ) : undefined}
-          </Row>
-        </React.Fragment>
-      );
-    })}
+          return (
+            <React.Fragment key={fieldName + String(index)}>
+              {index > 0 ? (
+                <React.Fragment>
+                  <br />
+                  <hr />
+                </React.Fragment>
+              ) : undefined}
+              <Row>
+                <Col80>
+                  <ControlLabel>
+                    <RequiredField>{"* "}</RequiredField>
+                    {"Tag"}
+                  </ControlLabel>
+                  <Field
+                    component={Text}
+                    name={fieldName}
+                    type={"text"}
+                    validate={[required, validTag]}
+                  />
+                </Col80>
+                {index > 0 ? (
+                  <RemoveTag>
+                    <Button onClick={removeItem}>
+                      <Glyphicon glyph={"trash"} />
+                    </Button>
+                  </RemoveTag>
+                ) : undefined}
+              </Row>
+            </React.Fragment>
+          );
+        }
+      )}
       <br />
       <Button onClick={addItem}>
-        <Glyphicon glyph="plus" />
+        <Glyphicon glyph={"plus"} />
       </Button>
     </React.Fragment>
   );
 };
 
-const addTagsModal: React.FC<IAddTagsModalProps> = (props: IAddTagsModalProps): JSX.Element => {
-  const { onClose, onSubmit } = props;
+const AddTagsModal: React.FC<IAddTagsModalProps> = (
+  props: IAddTagsModalProps
+): JSX.Element => {
+  const { isOpen, onClose, onSubmit } = props;
 
   return (
     <React.StrictMode>
       <Modal
-        open={props.isOpen}
-        headerTitle={translate.t("search_findings.tab_indicators.tags.modal_title")}
+        headerTitle={translate.t(
+          "search_findings.tab_indicators.tags.modal_title"
+        )}
+        open={isOpen}
       >
-        <GenericForm name="addTags" initialValues={{ tags: [""] }} onSubmit={onSubmit}>
+        <GenericForm
+          initialValues={{ tags: [""] }}
+          name={"addTags"}
+          onSubmit={onSubmit}
+        >
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
-              <FieldArray name="tags" component={renderTagsFields} />
+              <FieldArray component={renderTagsFields} name={"tags"} />
               <ButtonToolbar>
-                <Button onClick={onClose} id={"portfolio-add-cancel"}>
+                <Button id={"portfolio-add-cancel"} onClick={onClose}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
-                <Button type="submit" disabled={pristine} id={"portfolio-add-proceed"}>
+                <Button
+                  disabled={pristine}
+                  id={"portfolio-add-proceed"}
+                  type={"submit"}
+                >
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>
@@ -97,4 +121,4 @@ const addTagsModal: React.FC<IAddTagsModalProps> = (props: IAddTagsModalProps): 
   );
 };
 
-export { addTagsModal as AddTagsModal };
+export { AddTagsModal, IAddTagsModalProps };
