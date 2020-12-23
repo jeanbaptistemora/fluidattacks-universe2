@@ -18,7 +18,7 @@ resource "cloudflare_zone_settings_override" "fluidsignal" {
     ipv6                     = "on"
     opportunistic_encryption = "on"
     min_tls_version          = "1.2"
-    ssl                      = "strict"
+    ssl                      = "flexible"
     tls_1_3                  = "on"
     challenge_ttl            = 1800
 

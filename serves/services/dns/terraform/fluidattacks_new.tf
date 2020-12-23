@@ -18,7 +18,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     ipv6                     = "on"
     opportunistic_encryption = "on"
     min_tls_version          = "1.2"
-    ssl                      = "strict"
+    ssl                      = "flexible"
     tls_1_3                  = "on"
     challenge_ttl            = 1800
 
@@ -88,7 +88,7 @@ resource "cloudflare_record" "status" {
   name    = "status.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "dashboards.checklyhq.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
@@ -97,7 +97,7 @@ resource "cloudflare_record" "news" {
   name    = "news.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "cname.announcekit.app"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
@@ -106,7 +106,7 @@ resource "cloudflare_record" "help" {
   name    = "help.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "fluidattacks.zendesk.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
@@ -124,7 +124,7 @@ resource "cloudflare_record" "zoho_desk" {
   name    = "help2.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "desk.cs.zohohost.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
@@ -133,7 +133,7 @@ resource "cloudflare_record" "discourse" {
   name    = "community.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "fluidattacks.hosted-by-discourse.com"
-  proxied = true
+  proxied = false
   ttl     = 1
 }
 
