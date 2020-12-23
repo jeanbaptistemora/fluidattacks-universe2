@@ -257,7 +257,7 @@ const findingContent: React.FC = (): JSX.Element => {
                   <ContentTab
                     icon="icon pe-7s-menu"
                     id="vulnItem"
-                    link={`${url}/vulns`}
+                    link={`${url}/localtions`}
                     title={translate.t("search_findings.tab_vuln.tab_title")}
                     tooltip={translate.t("search_findings.tab_vuln.tooltip")}
                   />
@@ -327,7 +327,7 @@ const findingContent: React.FC = (): JSX.Element => {
               </StickyContainerFinding>
               <TabContent>
                 <Switch>
-                  <Route path={`${path}/vulns`} component={VulnsView} exact={true} />
+                  <Route path={`${path}/locations`} component={VulnsView} exact={true} />
                   <Route path={`${path}/description`} component={DescriptionView} exact={true} />
                   <Route path={`${path}/severity`} component={SeverityView} exact={true} />
                   <Route path={`${path}/evidence`} component={EvidenceView} exact={true} />
@@ -339,7 +339,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     component={CommentsView}
                     exact={true}
                   />
-                  <Redirect to={`${path}/vulns`} />
+                  <Redirect to={`${path}/locations`} />
                 </Switch>
               </TabContent>
             </React.Fragment>

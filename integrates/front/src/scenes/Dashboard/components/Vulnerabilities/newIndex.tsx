@@ -238,7 +238,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     },
     {
       dataField: "specific",
-      header: t("search_findings.tab_description.field"),
+      header: t("search_findings.tab_vuln.vulnTable.specific"),
       onSort: onSortVulns,
       visible: checkedItems.specific,
     },

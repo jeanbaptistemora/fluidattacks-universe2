@@ -153,7 +153,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
     (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
       mixpanel.track("ReadFinding", { User: userName });
-      push(`/groups/${projectName}/vulns/${rowInfo.id}/vulns`);
+      push(`/groups/${projectName}/vulns/${rowInfo.id}/locations`);
     };
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {

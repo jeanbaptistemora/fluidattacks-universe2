@@ -177,7 +177,7 @@ async def request_zero_risk_vuln(
     finding_type = cast(str, finding.get('type', ''))
     finding_url = (
         f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/'
-        f'{finding_id}/vulns'
+        f'{finding_id}/locations'
     )
     description = f"""
         You are receiving this case because a zero risk vulnerability has been

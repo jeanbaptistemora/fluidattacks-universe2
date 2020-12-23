@@ -895,7 +895,7 @@ async def send_remediation_email(
                 'finding_name': finding_name,
                 'finding_url': (
                     f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
-                    f'/{finding_id}/vulns'
+                    f'/vulns/{finding_id}/locations'
                 ),
                 'finding_id': finding_id,
                 'user_email': user_email,
