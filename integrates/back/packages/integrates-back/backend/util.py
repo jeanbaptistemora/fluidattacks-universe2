@@ -18,7 +18,6 @@ from typing import (
     Optional,
     Union
 )
-import simplejson as json
 import httpx
 import magic
 from aioextensions import (
@@ -45,10 +44,7 @@ from jose import jwt, JWTError
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
-from backend.dal import session as session_dal
-from backend.dal.helpers.redis import (
-    AREDIS_CLIENT,
-)
+from backend.dal.helpers import redis
 from backend.exceptions import (
     ConcurrentSession,
     ExpiredToken,
@@ -570,17 +566,17 @@ async def check_concurrent_sessions(email: str, session_key: str) -> None:
     already has an active session and if so, removes it
     """
     user_session_key = f'fi_session:{email}'
-    user_session = await session_dal.hgetall_element(user_session_key)
+    user_session = await redis.hgetall(user_session_key)
     user_session_keys = list(user_session.keys())
     if len(user_session_keys) > 1:
-        await session_dal.hdel_element(user_session_key, user_session_keys[0])
+        await redis.hdel(user_session_key, user_session_keys[0])
         raise ConcurrentSession()
     if user_session_keys[0].split(':')[1] != session_key:
         raise ExpiredToken
 
 
 async def save_token(key: str, token: Dict[str, Any], time: int) -> None:
-    await session_dal.add_element(key, token, time)
+    await redis.add(key, token, time)
 
 
 async def save_session_token(
@@ -589,12 +585,12 @@ async def save_session_token(
     name: str,
     ttl: int
 ) -> None:
-    await session_dal.hset_element(key, token, name)
-    await session_dal.set_element_ttl(name, ttl)
+    await redis.hset(key, token, name)
+    await redis.set_ttl(name, ttl)
 
 
 async def remove_token(key: str) -> None:
-    await session_dal.remove_element(key)
+    await redis.delete(key)
 
 
 async def get_token(key: str) -> Optional[str]:
@@ -602,11 +598,11 @@ async def get_token(key: str) -> Optional[str]:
 
 
 async def token_exists(key: str) -> bool:
-    return await session_dal.element_exists(key)
+    return await redis.exists(key)
 
 
 async def get_ttl_token(key: str) -> int:
-    return await AREDIS_CLIENT.ttl(key)
+    return await redis.get_ttl(key)
 
 
 async def set_redis_element(
@@ -614,21 +610,15 @@ async def set_redis_element(
     value: Any,
     ttl: int = settings.CACHE_TTL
 ) -> None:
-    await AREDIS_CLIENT.setex(key, ttl, json.dumps(value))
+    await redis.add(key, value, ttl)
 
 
 async def get_redis_element(key: str) -> Optional[Any]:
-    element = await AREDIS_CLIENT.get(key)
-    if element is not None:
-        element = json.loads(element)
-    return element
+    return await redis.get(key)
 
 
 async def del_redis_element(pattern: str) -> int:
-    keys = [key async for key in AREDIS_CLIENT.scan_iter(match=pattern)]
-    if keys:
-        await AREDIS_CLIENT.delete(*keys)
-    return len(keys)
+    return await redis.delete(pattern)
 
 
 async def get_file_size(file_object: UploadFile) -> int:
