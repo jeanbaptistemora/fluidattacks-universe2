@@ -979,7 +979,6 @@ export const enTranslations: ResourceKey = {
       bts_placeholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
-      cancel_confirming_zero_risk: "Cancel",
       cancel_rejecting_zero_risk: "Cancel",
       cancel_verified: "Cancel",
       cancel_verify: "Cancel",
@@ -991,10 +990,6 @@ export const enTranslations: ResourceKey = {
       compromised_records: {
         text: "Compromised records",
         tooltip: "Number of records in risk",
-      },
-      confirm_zero_risk: {
-        text: "Confirm zero risk",
-        tooltip: "Assess whether the vulnerability was confirmed as zero risk",
       },
       delete: "Delete",
       deleteTags: "Delete Tags",
@@ -1115,15 +1110,6 @@ export const enTranslations: ResourceKey = {
         title: "Finding type",
       },
       update_vulnerabilities: "Update Vulnerabilities",
-      update_zero_risk_modal: {
-        confirm_justification: "Why is the zero risk vulnerability confirmed?",
-        confirm_message:
-          "Zero risk will be confirmed for {{vulns}} vulnerabilities",
-        reject_justification: "Why is the zero risk vulnerability rejected?",
-        reject_message:
-          "Zero risk will be rejected for {{vulns}} vulnerabilities",
-        title: "Justification",
-      },
       verification: "Verification",
       vulnDeleted: "Vulnerability deleted",
       vuln_approval: "Vulnerability approval status was changed",

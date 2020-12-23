@@ -5,7 +5,6 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { useTranslation } from "react-i18next";
 
 interface IEditButtonProps {
-  isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
@@ -14,7 +13,6 @@ interface IEditButtonProps {
 }
 
 const EditButton: React.FC<IEditButtonProps> = ({
-  isConfirmingZeroRisk,
   isEditing,
   isRejectingZeroRisk,
   isRequestingReattack,
@@ -26,7 +24,6 @@ const EditButton: React.FC<IEditButtonProps> = ({
   const shouldRenderEditBtn: boolean = !(
     isRequestingReattack ||
     isVerifying ||
-    isConfirmingZeroRisk ||
     isRejectingZeroRisk
   );
 

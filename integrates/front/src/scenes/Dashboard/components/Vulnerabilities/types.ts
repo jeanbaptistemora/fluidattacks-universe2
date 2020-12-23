@@ -63,7 +63,6 @@ export interface IVulnDataType {
 export interface IVulnComponentProps {
   findingId: string;
   groupName: string;
-  isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;

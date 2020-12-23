@@ -9,7 +9,6 @@ import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {
   areVulnsSelected: boolean;
-  isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRejectingZeroRisk: boolean;
@@ -27,7 +26,6 @@ interface IActionButtonsProps {
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
-  isConfirmingZeroRisk,
   isEditing,
   isReattackRequestedInAllVuln,
   isRejectingZeroRisk,
@@ -54,7 +52,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   return (
     <ButtonToolbarRow>
       <HandleAcceptationButton
-        isConfirmingZeroRisk={isConfirmingZeroRisk}
         isEditing={isEditing}
         isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}
@@ -63,7 +60,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
       />
       <VerifyVunButton
         areVulnsSelected={areVulnsSelected}
-        isConfirmingZeroRisk={isConfirmingZeroRisk}
         isEditing={isEditing}
         isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}
@@ -74,7 +70,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
       />
       <ReattackVulnButton
         areVulnsSelected={areVulnsSelected}
-        isConfirmingZeroRisk={isConfirmingZeroRisk}
         isEditing={isEditing}
         isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
         isRejectingZeroRisk={isRejectingZeroRisk}
@@ -86,7 +81,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         subscription={subscription}
       />
       <EditButton
-        isConfirmingZeroRisk={isConfirmingZeroRisk}
         isEditing={isEditing}
         isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}

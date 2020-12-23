@@ -86,7 +86,6 @@ describe("VulnComponent", (): void => {
       <VulnComponent
         findingId={"480857698"}
         groupName={"test"}
-        isConfirmingZeroRisk={false}
         isEditing={true}
         isRejectingZeroRisk={false}
         isRequestingReattack={false}

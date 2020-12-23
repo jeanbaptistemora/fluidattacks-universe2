@@ -80,7 +80,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function toggleEdit(): void {
     setEditing(!isEditing);
   }
-  const [isConfirmingZeroRisk] = React.useState(false);
   const [isRejectingZeroRisk] = React.useState(false);
   const [isRequestingVerify, setRequestingVerify] = React.useState(false);
   function toggleRequestVerify(): void {
@@ -117,7 +116,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
               areVulnsSelected={
                 remediationModalConfig.vulnerabilities.length > 0
               }
-              isConfirmingZeroRisk={isConfirmingZeroRisk}
               isEditing={isEditing}
               isReattackRequestedInAllVuln={data.finding.newRemediated}
               isRejectingZeroRisk={isRejectingZeroRisk}
@@ -140,7 +138,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
               <VulnComponent
                 findingId={findingId}
                 groupName={projectName}
-                isConfirmingZeroRisk={isConfirmingZeroRisk}
                 isEditing={isEditing}
                 isRejectingZeroRisk={isRejectingZeroRisk}
                 isRequestingReattack={isRequestingVerify}

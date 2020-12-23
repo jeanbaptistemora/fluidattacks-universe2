@@ -9,7 +9,6 @@ import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
 
 const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
-  isConfirmingZeroRisk,
   isEditing,
   isRequestingReattack,
   isVerifying,
@@ -33,13 +32,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
     (canHandleVulnsAcceptation ||
       canConfirmZeroRiskVuln ||
       canRejectZeroRiskVuln) &&
-    !(
-      isConfirmingZeroRisk ||
-      isEditing ||
-      isRequestingReattack ||
-      isVerifying ||
-      isRejectingZeroRisk
-    );
+    !(isEditing || isRequestingReattack || isVerifying || isRejectingZeroRisk);
 
   return (
     <React.StrictMode>

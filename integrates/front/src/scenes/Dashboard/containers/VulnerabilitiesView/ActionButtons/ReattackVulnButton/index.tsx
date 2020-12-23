@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 
 interface IReattackVulnButtonProps {
   areVulnsSelected: boolean;
-  isConfirmingZeroRisk: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRejectingZeroRisk: boolean;
@@ -23,7 +22,6 @@ interface IReattackVulnButtonProps {
 
 const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   areVulnsSelected,
-  isConfirmingZeroRisk,
   isEditing,
   isReattackRequestedInAllVuln,
   isRejectingZeroRisk,
@@ -44,7 +42,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   const shouldRenderRequestVerifyBtn: boolean =
     isContinuous &&
     state === "open" &&
-    !(isEditing || isVerifying || isConfirmingZeroRisk || isRejectingZeroRisk);
+    !(isEditing || isVerifying || isRejectingZeroRisk);
 
   return (
     <Can

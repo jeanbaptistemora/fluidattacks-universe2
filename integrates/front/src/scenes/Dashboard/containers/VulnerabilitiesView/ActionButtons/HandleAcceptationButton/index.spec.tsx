@@ -24,7 +24,6 @@ describe("HandleAcceptationButtons", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <HandleAcceptationButton
-        isConfirmingZeroRisk={false}
         isEditing={true}
         isRejectingZeroRisk={false}
         isRequestingReattack={false}
