@@ -1,3 +1,7 @@
+/* eslint-disable react/forbid-component-props
+  -------
+  We need className to override default styles from react-boostrap.
+*/
 import { Button } from "components/Button";
 import type { Column } from "react-bootstrap-table-next";
 import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
@@ -76,7 +80,9 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
                         onChange={handleClick}
                         type={"checkbox"}
                       />
-                      <ControlLabel>{column.text}</ControlLabel>
+                      <ControlLabel className={"ml1"}>
+                        {column.text}
+                      </ControlLabel>
                     </Row>
                   );
                 }
