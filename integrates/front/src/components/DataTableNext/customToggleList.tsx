@@ -1,13 +1,19 @@
 import { Button } from "components/Button";
 import type { Column } from "react-bootstrap-table-next";
 import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
+import { Glyphicon } from "react-bootstrap";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import { useTranslation } from "react-i18next";
-import { ButtonToolbar, Checkbox, Col, Glyphicon } from "react-bootstrap";
+import {
+  ButtonToolbar,
+  ControlLabel,
+  Row,
+  RowCenter,
+} from "styles/styledComponents";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
   // Readonly utility type doesn't work on deeply nested types
@@ -40,7 +46,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         headerTitle={t("group.findings.tableSet.modal_title")}
         open={hidden}
       >
-        <Col mdOffset={5}>
+        <RowCenter>
           <div
             className={"btn-group btn-group-toggle btn-group-vertical"}
             data-toggle={"buttons"}
@@ -63,24 +69,21 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
                   }
 
                   return (
-                    <Checkbox
-                      checked={column.toggle}
-                      key={column.dataField}
-                      name={column.dataField}
-                      onChange={handleClick}
-                    >
-                      {column.text}
-                    </Checkbox>
+                    <Row key={column.dataField}>
+                      <input
+                        checked={column.toggle}
+                        name={column.dataField}
+                        onChange={handleClick}
+                        type={"checkbox"}
+                      />
+                      <ControlLabel>{column.text}</ControlLabel>
+                    </Row>
                   );
                 }
               )}
           </div>
-        </Col>
-        <ButtonToolbar
-          // We need className to override default styles from react-bootstrap
-          // eslint-disable-next-line react/forbid-component-props
-          className={"pull-right"}
-        >
+        </RowCenter>
+        <ButtonToolbar>
           <Button onClick={handleCloseTableSetClick}>
             {t("group.findings.report.modal_close")}
           </Button>
