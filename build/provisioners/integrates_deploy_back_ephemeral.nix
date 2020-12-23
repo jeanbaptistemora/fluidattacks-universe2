@@ -10,8 +10,6 @@ in
       buildInputs = [
         pkgs.git
         pkgs.awscli
-        pkgs.sops
-        pkgs.jq
         pkgs.kubectl
         pkgs.rpl
       ];

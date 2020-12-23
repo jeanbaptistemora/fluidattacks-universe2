@@ -1046,7 +1046,6 @@ function job_integrates_deploy_back_ephemeral {
   local vars_to_replace_in_manifest=(
     DEPLOYMENT_NAME
     DATE
-    EPHEMERAL_CERTIFICATE_ARN
     B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID
     B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
     B64_CI_COMMIT_REF_NAME
@@ -1057,8 +1056,6 @@ function job_integrates_deploy_back_ephemeral {
       helper_common_use_pristine_workdir \
   &&  pushd integrates \
   &&  helper_integrates_aws_login 'development' \
-  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-        EPHEMERAL_CERTIFICATE_ARN \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
@@ -1140,7 +1137,6 @@ function job_integrates_deploy_back_production {
   )
   local vars_to_replace_in_manifest=(
     DATE
-    PRODUCTION_CERTIFICATE_ARN
     B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID
     B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY
     B64_CI_COMMIT_REF_NAME
@@ -1151,7 +1147,6 @@ function job_integrates_deploy_back_production {
   &&  pushd integrates \
   &&  helper_integrates_aws_login 'production' \
   &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-        PRODUCTION_CERTIFICATE_ARN \
         CHECKLY_CHECK_ID \
         CHECKLY_TRIGGER_ID \
         NEW_RELIC_API_KEY \
