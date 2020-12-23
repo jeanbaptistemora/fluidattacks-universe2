@@ -23,6 +23,7 @@ export const changeZeroRiskRejectionFormatter: (
     <BootstrapSwitchButton
       checked={row.acceptation === "REJECTED"}
       offlabel={"NON REJECTED"}
+      offstyle={"outline-light"}
       onChange={handleOnChange}
       onlabel={"REJECTED"}
       onstyle={"danger"}

@@ -23,6 +23,7 @@ export const changeZeroRiskConfirmationFormatter: (
     <BootstrapSwitchButton
       checked={row.acceptation === "APPROVED"}
       offlabel={"NON CONFIRMED"}
+      offstyle={"outline-light"}
       onChange={handleOnChange}
       onlabel={"CONFIRMED"}
       onstyle={"success"}
