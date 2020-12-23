@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 
 interface IEditButtonProps {
   isEditing: boolean;
-  isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
   onEdit: () => void;
@@ -14,18 +13,13 @@ interface IEditButtonProps {
 
 const EditButton: React.FC<IEditButtonProps> = ({
   isEditing,
-  isRejectingZeroRisk,
   isRequestingReattack,
   isVerifying,
   onEdit,
 }: IEditButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const shouldRenderEditBtn: boolean = !(
-    isRequestingReattack ||
-    isVerifying ||
-    isRejectingZeroRisk
-  );
+  const shouldRenderEditBtn: boolean = !(isRequestingReattack || isVerifying);
 
   return (
     <React.StrictMode>

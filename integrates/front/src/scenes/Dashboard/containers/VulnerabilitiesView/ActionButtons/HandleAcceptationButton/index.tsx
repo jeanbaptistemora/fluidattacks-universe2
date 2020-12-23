@@ -12,7 +12,6 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
   isEditing,
   isRequestingReattack,
   isVerifying,
-  isRejectingZeroRisk,
   openHandleAcceptation,
 }: IHandleAcceptationButtonProps): JSX.Element => {
   const { t } = useTranslation();
@@ -32,7 +31,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
     (canHandleVulnsAcceptation ||
       canConfirmZeroRiskVuln ||
       canRejectZeroRiskVuln) &&
-    !(isEditing || isRequestingReattack || isVerifying || isRejectingZeroRisk);
+    !(isEditing || isRequestingReattack || isVerifying);
 
   return (
     <React.StrictMode>

@@ -979,7 +979,6 @@ export const enTranslations: ResourceKey = {
       bts_placeholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
       business_criticality: "Level",
-      cancel_rejecting_zero_risk: "Cancel",
       cancel_verified: "Cancel",
       cancel_verify: "Cancel",
       compromised_attrs: {
@@ -1030,10 +1029,6 @@ export const enTranslations: ResourceKey = {
       recommendation: {
         text: "Recommendation",
         tooltip: "General suggestion to solve the vulnerability",
-      },
-      reject_zero_risk: {
-        text: "Reject zero risk",
-        tooltip: "Assess whether the vulnerability was rejected as zero risk",
       },
       remediation_modal: {
         justification: "Which was the applied solution?",

@@ -11,7 +11,6 @@ interface IReattackVulnButtonProps {
   areVulnsSelected: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
-  isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
   state: "open" | "closed";
@@ -24,7 +23,6 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   areVulnsSelected,
   isEditing,
   isReattackRequestedInAllVuln,
-  isRejectingZeroRisk,
   isRequestingReattack,
   isVerifying,
   state,
@@ -40,9 +38,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   );
 
   const shouldRenderRequestVerifyBtn: boolean =
-    isContinuous &&
-    state === "open" &&
-    !(isEditing || isVerifying || isRejectingZeroRisk);
+    isContinuous && state === "open" && !(isEditing || isVerifying);
 
   return (
     <Can

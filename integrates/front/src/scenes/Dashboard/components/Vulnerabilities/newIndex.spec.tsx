@@ -87,7 +87,6 @@ describe("VulnComponent", (): void => {
         findingId={"480857698"}
         groupName={"test"}
         isEditing={true}
-        isRejectingZeroRisk={false}
         isRequestingReattack={false}
         isVerifyingRequest={false}
         onVulnSelect={jest.fn()}

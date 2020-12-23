@@ -11,7 +11,6 @@ interface IActionButtonsProps {
   areVulnsSelected: boolean;
   isEditing: boolean;
   isReattackRequestedInAllVuln: boolean;
-  isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerified: boolean;
   isVerifying: boolean;
@@ -28,7 +27,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
   isEditing,
   isReattackRequestedInAllVuln,
-  isRejectingZeroRisk,
   isRequestingReattack,
   isVerified,
   isVerifying,
@@ -53,7 +51,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     <ButtonToolbarRow>
       <HandleAcceptationButton
         isEditing={isEditing}
-        isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}
         isVerifying={isVerifying}
         openHandleAcceptation={openHandleAcceptation}
@@ -61,7 +58,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
       <VerifyVunButton
         areVulnsSelected={areVulnsSelected}
         isEditing={isEditing}
-        isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}
         isVerified={isVerified}
         isVerifying={isVerifying}
@@ -72,7 +68,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         areVulnsSelected={areVulnsSelected}
         isEditing={isEditing}
         isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
-        isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}
         isVerifying={isVerifying}
         onRequestReattack={onRequestReattack}
@@ -82,7 +77,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
       />
       <EditButton
         isEditing={isEditing}
-        isRejectingZeroRisk={isRejectingZeroRisk}
         isRequestingReattack={isRequestingReattack}
         isVerifying={isVerifying}
         onEdit={onEdit}

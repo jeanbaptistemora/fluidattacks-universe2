@@ -64,7 +64,6 @@ export interface IVulnComponentProps {
   findingId: string;
   groupName: string;
   isEditing: boolean;
-  isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerifyingRequest: boolean;
   vulnerabilities: IVulnRowAttr[];

@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 interface IVerifyVunButtonProps {
   areVulnsSelected: boolean;
   isEditing: boolean;
-  isRejectingZeroRisk: boolean;
   isRequestingReattack: boolean;
   isVerified: boolean;
   isVerifying: boolean;
@@ -20,7 +19,6 @@ interface IVerifyVunButtonProps {
 const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
   areVulnsSelected,
   isEditing,
-  isRejectingZeroRisk,
   isRequestingReattack,
   isVerified,
   isVerifying,
@@ -30,7 +28,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
   const { t } = useTranslation();
 
   const shouldRenderVerifyBtn: boolean =
-    !isVerified && !(isEditing || isRequestingReattack || isRejectingZeroRisk);
+    !isVerified && !(isEditing || isRequestingReattack);
 
   return (
     <Can do={"backend_api_resolvers_vulnerability__do_verify_request_vuln"}>
