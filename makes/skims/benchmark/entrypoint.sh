@@ -3,6 +3,7 @@
 
 source '__makeEntrypoint__'
 source '__envUtilsBashLibSkimsAws__'
+source '__envUtilsBashLibSops__'
 
 function main {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
