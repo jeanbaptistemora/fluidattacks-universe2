@@ -59,6 +59,8 @@ export const statusFormatter: (value: string) => JSX.Element = (
   return (
     // Need it to override default background color
     // eslint-disable-next-line react/forbid-component-props
-    <StatusFormatter className={bgColor}>{capitalizedValue}</StatusFormatter>
+    <StatusFormatter className={bgColor}>
+      {capitalizedValue.split(" ")[0]}
+    </StatusFormatter>
   );
 };
