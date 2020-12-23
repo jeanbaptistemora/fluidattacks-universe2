@@ -210,19 +210,6 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
-  # Route 53 basic read
-  statement {
-    effect  = "Allow"
-    actions = [
-      "route53:ListHostedZones",
-      "route53:GetHostedZone",
-      "route53:GetChange"
-    ]
-    resources = [
-      "*",
-    ]
-  }
-
   # S3 read over continuous data buckets
   statement {
     sid = "s3ContinuousDataRead"

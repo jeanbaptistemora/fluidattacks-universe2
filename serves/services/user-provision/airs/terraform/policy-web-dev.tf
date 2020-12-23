@@ -89,19 +89,6 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
     ]
   }
 
-  # Route 53 basic read
-  statement {
-    effect  = "Allow"
-    actions = [
-      "route53:ListHostedZones",
-      "route53:GetHostedZone",
-      "route53:GetChange"
-    ]
-    resources = [
-      "*",
-    ]
-  }
-
   # Lambda
   statement {
     effect  = "Allow"
