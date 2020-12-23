@@ -280,7 +280,7 @@ resource "cloudflare_record" "spf_allowed" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   name     = cloudflare_zone.fluidattacks_com.zone
   type     = "TXT"
-  value    = "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:_spf.salesforce.com -all"
+  value    = "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:_spf.salesforce.com include:transmail.net -all"
   ttl      = 1
   proxied  = false
 }
