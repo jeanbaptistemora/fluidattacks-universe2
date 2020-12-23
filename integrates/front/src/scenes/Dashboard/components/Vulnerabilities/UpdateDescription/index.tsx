@@ -6,6 +6,8 @@ import { ConfirmDialog } from "components/ConfirmDialog";
 import type { Dispatch } from "redux";
 import { ExternalBtsField } from "./ExternalBtsField";
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_PROJECT_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
@@ -29,10 +31,6 @@ import {
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import type { ExecutionResult, GraphQLError } from "graphql";
-import {
-  GET_PROJECT_USERS,
-  GET_VULNERABILITIES,
-} from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IDeleteTagAttr,
   IDeleteTagResultAttr,
@@ -70,9 +68,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   const { handleClearSelected, handleCloseModal } = props;
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canDisplayAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_new_finding_analyst_resolve"
-  );
   const canGetHistoricState: boolean = permissions.can(
     "backend_api_resolvers_new_finding_historic_state_resolve"
   );
@@ -111,12 +106,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   >(UPDATE_DESCRIPTION_MUTATION, {
     refetchQueries: [
       {
-        query: GET_VULNERABILITIES,
+        query: GET_FINDING_VULN_INFO,
         variables: {
-          analystField: permissions.can(
-            "backend_api_resolvers_new_finding_analyst_resolve"
-          ),
-          identifier: findingId,
+          findingId,
+          groupName: projectName,
         },
       },
     ],
@@ -153,12 +146,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
     },
     refetchQueries: [
       {
-        query: GET_VULNERABILITIES,
+        query: GET_FINDING_VULN_INFO,
         variables: {
-          analystField: permissions.can(
-            "backend_api_resolvers_new_finding_analyst_resolve"
-          ),
-          identifier: findingId,
+          findingId,
+          groupName: projectName,
         },
       },
     ],
@@ -347,10 +338,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
       },
       refetchQueries: [
         {
-          query: GET_VULNERABILITIES,
+          query: GET_FINDING_VULN_INFO,
           variables: {
-            analystField: canDisplayAnalyst,
-            identifier: findingId,
+            findingId,
+            groupName: projectName,
           },
         },
         {

@@ -219,7 +219,7 @@ def test_finding_reattack(
     )
     start_reattack.click()
     checkboxes = driver.find_elements_by_css_selector(
-        "#linesVulns input[type='checkbox']")
+        "#vulnerabilitiesTable input[type='checkbox']")
     for checkbox in checkboxes:
         if not checkbox.is_selected():
             checkbox.click()
@@ -271,7 +271,7 @@ def test_finding_vulnerabilities(
     )
     edit_vulns.click()
     checkboxes = driver.find_elements_by_css_selector(
-        "#linesVulns input[type='checkbox']")
+        "#vulnerabilitiesTable input[type='checkbox']")
     for checkbox in checkboxes:
         if not checkbox.is_selected():
             checkbox.click()

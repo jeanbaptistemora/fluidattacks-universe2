@@ -22,8 +22,8 @@ import {
   IRequestVerificationVulnResult,
   IVerifyRequestVulnResult,
 } from "scenes/Dashboard/components/UpdateVerificationModal/types";
-import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -37,6 +37,7 @@ interface IVulnData {
 }
 export interface IUpdateVerificationModal {
   findingId: string;
+  groupName: string;
   isReattacking: boolean;
   isVerifying: boolean;
   vulns: IVulnData[];
@@ -90,7 +91,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       });
     },
     refetchQueries: [
-      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_FINDING_VULN_INFO, variables: { findingId: props.findingId, groupName: props.groupName } },
     ],
   });
 
@@ -128,7 +129,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         canGetHistoricState: canDisplayAnalyst,
         findingId: props.findingId,
       } },
-      { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
+      { query: GET_FINDING_VULN_INFO, variables: { findingId: props.findingId, groupName: props.groupName } },
     ],
   });
 

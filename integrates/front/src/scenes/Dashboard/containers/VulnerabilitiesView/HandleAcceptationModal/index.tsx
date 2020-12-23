@@ -3,7 +3,7 @@ import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import type { Dispatch } from "redux";
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
-import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { JustificationField } from "./JustificationField";
@@ -42,12 +42,9 @@ import { useDispatch, useSelector } from "react-redux";
 const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   props: IHandleVulnsAcceptationModalProps
 ): JSX.Element => {
-  const { findingId, vulns, handleCloseModal, refetchData } = props;
+  const { findingId, groupName, vulns, handleCloseModal, refetchData } = props;
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canDisplayAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_new_finding_analyst_resolve"
-  );
   const canGetHistoricState: boolean = permissions.can(
     "backend_api_resolvers_new_finding_historic_state_resolve"
   );
@@ -167,10 +164,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       },
       refetchQueries: [
         {
-          query: GET_VULNERABILITIES,
+          query: GET_FINDING_VULN_INFO,
           variables: {
-            analystField: canDisplayAnalyst,
-            identifier: findingId,
+            findingId,
+            groupName,
           },
         },
       ],
@@ -206,10 +203,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       },
       refetchQueries: [
         {
-          query: GET_VULNERABILITIES,
+          query: GET_FINDING_VULN_INFO,
           variables: {
-            analystField: canDisplayAnalyst,
-            identifier: findingId,
+            findingId,
+            groupName,
           },
         },
         {
@@ -253,10 +250,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       },
       refetchQueries: [
         {
-          query: GET_VULNERABILITIES,
+          query: GET_FINDING_VULN_INFO,
           variables: {
-            analystField: canDisplayAnalyst,
-            identifier: findingId,
+            findingId,
+            groupName,
           },
         },
         {

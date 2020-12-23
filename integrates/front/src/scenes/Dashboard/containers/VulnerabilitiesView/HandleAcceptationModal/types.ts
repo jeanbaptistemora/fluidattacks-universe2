@@ -9,6 +9,7 @@ interface IVulnDataAttr {
 
 interface IHandleVulnsAcceptationModalProps {
   findingId: string;
+  groupName: string;
   vulns: IVulnerabilities[];
   handleCloseModal: () => void;
   refetchData: () => void;

@@ -1,3 +1,4 @@
+import { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { IHistoricTreatment } from "../DescriptionView/types";
 
 interface IProject {
@@ -9,7 +10,7 @@ interface IFinding {
   newRemediated: boolean;
   state: "open" | "closed";
   verified: boolean;
-  vulnerabilities: IVulnerabilities[];
+  vulnerabilities: IVulnRowAttr[];
 }
 
 interface IGetFindingVulnInfo {

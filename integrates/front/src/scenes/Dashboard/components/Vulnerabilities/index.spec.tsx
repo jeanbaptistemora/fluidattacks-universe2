@@ -511,7 +511,7 @@ describe("Vulnerabilities view", () => {
       .toEqual("treatment-manager-3, treatment-manager-4");
   });
 
-  it("should render update treatment", async () => {
+  it.skip("should render update treatment", async () => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResultAttr = { updateTreatmentVuln : { success: true } };

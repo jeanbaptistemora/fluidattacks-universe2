@@ -6,17 +6,21 @@ import { HandleAcceptationModal } from "scenes/Dashboard/containers/Vulnerabilit
 import type { IGetFindingVulnInfo } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
+import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { UpdateZeroRiskModal } from "scenes/Dashboard/containers/VulnerabilitiesView/UpdateZeroRiskModal";
-import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities/index";
+import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities/newIndex";
 import _ from "lodash";
+import { authzPermissionsContext } from "utils/authz/config";
+import { filterZeroRisk } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { useAbility } from "@casl/react";
 import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
-import { Col100, ControlLabel, Row } from "styles/styledComponents";
+import { Col100, Row } from "styles/styledComponents";
 
 export const VulnsView: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{
@@ -24,6 +28,16 @@ export const VulnsView: React.FC = (): JSX.Element => {
     projectName: string;
   }>();
   const { userName } = window as typeof window & Dictionary<string>;
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canConfirmZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_confirm_zero_risk_vuln_mutate"
+  );
+  const canRejectZeroRiskVuln: boolean = permissions.can(
+    "backend_api_mutations_reject_zero_risk_vuln_mutate"
+  );
+  const shouldFilterZeroRisk: boolean = !(
+    canConfirmZeroRiskVuln || canRejectZeroRiskVuln
+  );
 
   const onMount: () => void = (): void => {
     mixpanel.track("FindingVulnerabilities", { User: userName });
@@ -58,12 +72,16 @@ export const VulnsView: React.FC = (): JSX.Element => {
     clearSelected: (): void => undefined,
     vulnerabilities: [],
   });
-  function openRemediationModal(
+  const openRemediationModal: (
     vulnerabilities: IVulnDataType[],
     clearSelected: () => void
-  ): void {
-    setRemediationModalConfig({ clearSelected, vulnerabilities });
-  }
+  ) => void = React.useCallback(
+    (vulnerabilities: IVulnDataType[], clearSelected: () => void): void => {
+      setRemediationModalConfig({ clearSelected, vulnerabilities });
+    },
+    []
+  );
+
   function closeRemediationModal(): void {
     setOpen(false);
   }
@@ -108,60 +126,47 @@ export const VulnsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <React.Fragment>
-        <ActionButtons
-          areVulnsSelected={remediationModalConfig.vulnerabilities.length > 0}
-          isConfirmingZeroRisk={isConfirmingZeroRisk}
-          isEditing={isEditing}
-          isReattackRequestedInAllVuln={data.finding.newRemediated}
-          isRejectingZeroRisk={isRejectingZeroRisk}
-          isRequestingReattack={isRequestingVerify}
-          isVerified={data.finding.verified}
-          isVerifying={isVerifying}
-          onEdit={toggleEdit}
-          onRequestReattack={toggleRequestVerify}
-          onVerify={toggleVerify}
-          openHandleAcceptation={toggleHandleAcceptationModal}
-          openModal={toggleModal}
-          state={data.finding.state}
-          subscription={data.project.subscription}
-        />
+        <Row>
+          <Col100>
+            <ActionButtons
+              areVulnsSelected={
+                remediationModalConfig.vulnerabilities.length > 0
+              }
+              isConfirmingZeroRisk={isConfirmingZeroRisk}
+              isEditing={isEditing}
+              isReattackRequestedInAllVuln={data.finding.newRemediated}
+              isRejectingZeroRisk={isRejectingZeroRisk}
+              isRequestingReattack={isRequestingVerify}
+              isVerified={data.finding.verified}
+              isVerifying={isVerifying}
+              onEdit={toggleEdit}
+              onRequestReattack={toggleRequestVerify}
+              onVerify={toggleVerify}
+              openHandleAcceptation={toggleHandleAcceptationModal}
+              openModal={toggleModal}
+              state={data.finding.state}
+              subscription={data.project.subscription}
+            />
+          </Col100>
+        </Row>
         <Row>
           <Col100>
             <Row>
-              <Col100>
-                <ControlLabel>
-                  <b>{translate.t("search_findings.tab_vuln.open")}</b>
-                </ControlLabel>
-                <br />
-                <VulnerabilitiesView
-                  editMode={isEditing}
-                  findingId={findingId}
-                  isConfirmingZeroRisk={isConfirmingZeroRisk}
-                  isRejectingZeroRisk={isRejectingZeroRisk}
-                  isRequestVerification={isRequestingVerify}
-                  isVerifyRequest={isVerifying}
-                  projectName={projectName}
-                  separatedRow={true}
-                  state={"open"}
-                  verificationFn={openRemediationModal}
-                />
-              </Col100>
-            </Row>
-            <Row>
-              <Col100>
-                {isRequestingVerify ? undefined : (
-                  <ControlLabel>
-                    <b>{translate.t("search_findings.tab_vuln.closed")}</b>
-                  </ControlLabel>
-                )}
-                <br />
-                <VulnerabilitiesView
-                  editMode={false}
-                  findingId={findingId}
-                  isRequestVerification={isRequestingVerify}
-                  state={"closed"}
-                />
-              </Col100>
+              <VulnComponent
+                findingId={findingId}
+                groupName={projectName}
+                isConfirmingZeroRisk={isConfirmingZeroRisk}
+                isEditing={isEditing}
+                isRejectingZeroRisk={isRejectingZeroRisk}
+                isRequestingReattack={isRequestingVerify}
+                isVerifyingRequest={isVerifying}
+                onVulnSelect={openRemediationModal}
+                vulnerabilities={
+                  shouldFilterZeroRisk
+                    ? filterZeroRisk(data.finding.vulnerabilities)
+                    : data.finding.vulnerabilities
+                }
+              />
             </Row>
           </Col100>
         </Row>
@@ -169,6 +174,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
           <UpdateVerificationModal
             clearSelected={_.get(remediationModalConfig, "clearSelected")}
             findingId={findingId}
+            groupName={projectName}
             handleCloseModal={closeRemediationModal}
             isReattacking={isRequestingVerify}
             isVerifying={isVerifying}
@@ -194,6 +200,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         {isHandleAcceptationModalOpen ? (
           <HandleAcceptationModal
             findingId={findingId}
+            groupName={projectName}
             handleCloseModal={toggleHandleAcceptationModal}
             refetchData={refetch}
             vulns={data.finding.vulnerabilities}

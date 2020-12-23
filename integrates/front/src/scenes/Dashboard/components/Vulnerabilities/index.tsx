@@ -943,7 +943,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         : undefined
                       }
                       <Can do="backend_api_mutations_upload_file_mutate">
-                        <UploadVulnerabilites {...props} />
+                        <UploadVulnerabilites {...props} groupName={""} />
                       </Can>
                     </React.Fragment>
                   : undefined

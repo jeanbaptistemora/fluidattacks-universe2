@@ -74,7 +74,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       cycles: false,
       efficacy: false,
       lastRequestedReattackDate: false,
-      reportDate: true,
+      reportDate: false,
       severity: true,
       specific: true,
       tag: true,
@@ -84,6 +84,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       verification: true,
       vulnType: true,
       where: true,
+      zeroRisk: true,
     },
     localStorage
   );
@@ -282,6 +283,14 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       visible: checkedItems.verification,
     },
     {
+      align: "left",
+      dataField: "zeroRisk",
+      formatter: statusFormatter,
+      header: t("search_findings.tab_description.zero_risk"),
+      onSort: onSortVulns,
+      visible: checkedItems.zeroRisk,
+    },
+    {
       dataField: "lastRequestedReattackDate",
       header: t("search_findings.tab_vuln.vulnTable.lastRequestedReattackDate"),
       onSort: onSortVulns,
@@ -380,7 +389,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             </React.Fragment>
           ) : undefined}
           <Can do={"backend_api_mutations_upload_file_mutate"}>
-            <UploadVulnerabilites findingId={findingId} />
+            <UploadVulnerabilites findingId={findingId} groupName={groupName} />
           </Can>
         </Col100>
       ) : undefined}

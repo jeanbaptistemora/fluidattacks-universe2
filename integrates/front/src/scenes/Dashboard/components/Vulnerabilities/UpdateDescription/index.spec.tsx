@@ -1,6 +1,6 @@
 import { EditableField } from "../../EditableField";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_VULNERABILITIES } from "../queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GraphQLError } from "graphql";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
@@ -52,10 +52,10 @@ describe("Update Description component", (): void => {
   ];
   const mocksVulns: MockedResponse = {
     request: {
-      query: GET_VULNERABILITIES,
+      query: GET_FINDING_VULN_INFO,
       variables: {
-        analystField: false,
-        identifier: "422286126",
+        findingId: "422286126",
+        groupName: "",
       },
     },
     result: {
@@ -159,6 +159,7 @@ describe("Update Description component", (): void => {
               findingId={"1"}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
+              projectName={""}
               vulnerabilities={vulns}
               vulnerabilitiesChunk={1}
             />
@@ -225,6 +226,7 @@ describe("Update Description component", (): void => {
               findingId={"422286126"}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
+              projectName={""}
               vulnerabilities={vulns}
               vulnerabilitiesChunk={1}
             />
@@ -310,6 +312,7 @@ describe("Update Description component", (): void => {
               findingId={"422286126"}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
+              projectName={""}
               vulnerabilities={vulns}
               vulnerabilitiesChunk={1}
             />

@@ -1,4 +1,4 @@
-import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GraphQLError } from "graphql";
 import { HANDLE_VULNS_ACCEPTATION } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
@@ -57,10 +57,10 @@ describe("handle vulns acceptation modal", (): void => {
       },
       {
         request: {
-          query: GET_VULNERABILITIES,
+          query: GET_FINDING_VULN_INFO,
           variables: {
-            analystField: false,
-            identifier: "1",
+            findingId: "1",
+            groupName: "",
           },
         },
         result: {
@@ -100,6 +100,7 @@ describe("handle vulns acceptation modal", (): void => {
         <MockedProvider addTypename={false} mocks={mocksMutation}>
           <HandleAcceptationModal
             findingId={"1"}
+            groupName={""}
             handleCloseModal={handleOnClose}
             refetchData={handleRefetchData}
             vulns={mokedVulns}
@@ -206,6 +207,7 @@ describe("handle vulns acceptation modal", (): void => {
         <MockedProvider addTypename={false} mocks={mocksMutation}>
           <HandleAcceptationModal
             findingId={"1"}
+            groupName={""}
             handleCloseModal={jest.fn()}
             refetchData={jest.fn()}
             vulns={mokedVulns}

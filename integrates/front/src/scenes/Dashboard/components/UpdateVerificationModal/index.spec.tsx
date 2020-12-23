@@ -12,17 +12,17 @@ import {
   REQUEST_VERIFICATION_VULN,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
-import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import store from "store";
 
 describe("update verification component", () => {
   const mocksVulns: MockedResponse = {
     request: {
-      query: GET_VULNERABILITIES,
+      query: GET_FINDING_VULN_INFO,
       variables: {
-        analystField: false,
-        identifier: "",
+        findingId: "",
+        groupName: "",
       },
     },
     result: {
@@ -62,6 +62,7 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
+            groupName={""}
             isReattacking={true}
             isVerifying={false}
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
@@ -117,6 +118,7 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
+            groupName={""}
             isReattacking={true}
             isVerifying={false}
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}
@@ -194,6 +196,7 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
+            groupName={""}
             isReattacking={false}
             isVerifying={true}
             vulns={[{currentState: "open", id: "test", specific: "", where: ""}]}
@@ -254,6 +257,7 @@ describe("update verification component", () => {
         <MockedProvider mocks={mocksMutation} addTypename={false}>
           <UpdateVerificationModal
             findingId={""}
+            groupName={""}
             isReattacking={false}
             isVerifying={true}
             vulns={[{currentState: "open", id: "test_error", specific: "", where: ""}]}

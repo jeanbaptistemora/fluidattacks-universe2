@@ -12,13 +12,30 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
       state
       verified
       vulnerabilities {
-        id
-        specific
-        where
+        currentState
+        cycles
+        efficacy
+        externalBts
+        findingId
         historicTreatment {
+          acceptanceDate
           acceptanceStatus
+          date
+          justification
+          user
           treatment
+          treatmentManager
         }
+        id
+        lastRequestedReattackDate
+        remediated
+        reportDate
+        severity
+        specific
+        tag
+        verification
+        vulnType
+        where
         zeroRisk
       }
     }

@@ -18,12 +18,13 @@ import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
-  DOWNLOAD_VULNERABILITIES, GET_VULNERABILITIES, UPLOAD_VULNERABILITIES,
+  DOWNLOAD_VULNERABILITIES, UPLOAD_VULNERABILITIES,
 } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
   IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { Col25, Col33, FormGroup, RowCenter } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { FileInput } from "utils/forms/fields";
@@ -33,8 +34,8 @@ import { openUrl } from "utils/resourceHelpers";
 import { translate } from "utils/translations/translate";
 import { isValidVulnsFile } from "utils/validations";
 
-const uploadVulnerabilities: React.FC<{ findingId: string }> =
-(props: { findingId: string }): JSX.Element => {
+const uploadVulnerabilities: React.FC<{ findingId: string; groupName: string }> =
+(props: { findingId: string; groupName: string }): JSX.Element => {
   const dispatch: Dispatch = useDispatch();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
@@ -139,10 +140,10 @@ const uploadVulnerabilities: React.FC<{ findingId: string }> =
       onError={handleUploadError}
       refetchQueries={[
         {
-          query: GET_VULNERABILITIES,
+          query: GET_FINDING_VULN_INFO,
           variables: {
-            analystField: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
-            identifier: props.findingId,
+            findingId: props.findingId,
+            groupName: props.groupName,
           },
         },
         {
