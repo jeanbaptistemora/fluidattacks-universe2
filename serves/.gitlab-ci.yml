@@ -70,11 +70,6 @@ serves_test_infra_fluid_vpc:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves_test_infra_certificates:
-  <<: *with_nix
-  <<: *serves_in_dev_branch
-  stage: test-infra
-
 serves_test_infra_secret_management:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -150,11 +145,6 @@ serves_apply_infra_fluid_vpc:
   stage: deploy-infra
 
 serves_apply_infra_secret_management:
-  <<: *with_nix
-  <<: *serves_in_master_branch
-  stage: deploy-infra
-
-serves_apply_infra_certificates:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
