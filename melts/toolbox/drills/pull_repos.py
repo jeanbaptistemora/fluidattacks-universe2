@@ -1,7 +1,7 @@
 # Standard libraries
 import os
 from typing import List
-import fnmatch
+import re
 
 # Third party libraries
 
@@ -15,6 +15,12 @@ from toolbox import (
 from toolbox.utils.integrates import (
     get_filter_rules,
 )
+
+
+def translate_glob_pattern(pattern: str) -> str:
+    # Escape everything that is not `*` and replace `*` with regex `.*`
+    expression = r'.*'.join(map(re.escape, pattern.split('*')))
+    return f'^{expression}$'
 
 
 def notify_out_of_scope(
@@ -55,9 +61,9 @@ def delete_out_of_scope_files(group: str) -> bool:
         non_matching_files_iterator = utils.file.iter_non_matching_files(
             path=path_to_repo,
             include_regexps=tuple(
-                map(fnmatch.translate, root['filter']['include'])),
+                map(translate_glob_pattern, root['filter']['include'])),
             exclude_regexps=tuple(
-                map(fnmatch.translate, root['filter']['exclude'])),
+                map(translate_glob_pattern, root['filter']['exclude'])),
         )
         notify_out_of_scope(
             repo_name,
