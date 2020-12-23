@@ -7,6 +7,13 @@ const Alert: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   }
 )``;
 
+const ButtonGroup: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "relative dib",
+})``;
+
 const ButtonToolbar: StyledComponent<
   "div",
   Record<string, unknown>
@@ -542,6 +549,7 @@ const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
 export {
   Alert,
   BreadCrumb,
+  ButtonGroup,
   ButtonToolbar,
   ButtonToolbarCenter,
   ButtonToolbarLeft,

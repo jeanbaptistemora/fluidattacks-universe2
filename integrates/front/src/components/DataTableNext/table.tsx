@@ -8,6 +8,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Button } from "components/Button";
 import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
+import { Glyphicon } from "react-bootstrap";
 import type { ITableWrapperProps } from "components/DataTableNext/types";
 import React from "react";
 import { Search } from "react-bootstrap-table2-toolkit";
@@ -20,11 +21,11 @@ import style from "components/DataTableNext/index.css";
 import { useTranslation } from "react-i18next";
 import {
   ButtonGroup,
-  ButtonToolbar,
-  Col,
-  Glyphicon,
-  Row,
-} from "react-bootstrap";
+  ButtonToolbarLeft,
+  ButtonToolbarRow,
+  Col33,
+  Col40,
+} from "styles/styledComponents";
 
 export const TableWrapper: React.FC<ITableWrapperProps> = (
   // Readonly utility type doesn't seem to work on ITableWrapperProps
@@ -70,10 +71,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
 
   return (
     <div>
-      <Row className={style.tableOptions}>
-        <Col lg={9} md={8} sm={6} xs={12}>
+      <div className={style.tableOptions}>
+        <Col40 className={"pa0"}>
           {(exportCsv || columnToggle || !_.isUndefined(isFilterEnabled)) && (
-            <ButtonToolbar>
+            <ButtonToolbarLeft>
               {exportCsv && (
                 <ButtonGroup>
                   <ExportCSVButtonWrapper {...toolkitProps} />
@@ -102,15 +103,17 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   </TooltipWrapper>
                 </ButtonGroup>
               )}
-            </ButtonToolbar>
+            </ButtonToolbarLeft>
           )}
-        </Col>
+        </Col40>
         {search && (
-          <Col lg={3} md={4} sm={6} xs={12}>
-            <SearchBar {...searchProps} className={style.searchBar} />
-          </Col>
+          <ButtonToolbarRow>
+            <Col33 className={"pa0"}>
+              <SearchBar {...searchProps} className={style.searchBar} />
+            </Col33>
+          </ButtonToolbarRow>
         )}
-      </Row>
+      </div>
       <BootstrapTable
         {...baseProps}
         bordered={bordered}
