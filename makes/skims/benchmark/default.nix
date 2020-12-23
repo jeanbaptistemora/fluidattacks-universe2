@@ -10,7 +10,7 @@ let
 in
   makeEntrypoint {
     arguments = {
-      envUtilsBashLibSkimsAws = import ../../../makes/utils/bash-lib/skims/aws pkgsSkims;
+      envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws pkgsSkims;
       envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops pkgsSkims;
       envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
       envBenchmarkRepo = pkgsSkims.fetchzip {
@@ -22,6 +22,7 @@ in
       envSkims = outputs.apps.skims.program;
       envSrcSkimsSkims = ../../../skims/skims;
       envSrcSkimsTest = ../../../skims/test;
+      envTapJson = outputs.apps.observes-tap-json.program;
       envTargetRedshift = outputs.apps.observes-target-redshift.program;
     };
     location = "/bin/skims-benchmark";

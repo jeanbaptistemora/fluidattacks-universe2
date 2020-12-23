@@ -2,10 +2,10 @@
 # shellcheck shell=bash
 
 source '__makeEntrypoint__'
-source '__envUtilsBashLibSkimsAws__'
+source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 
-function main {
+function owasp {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local cache_local="${HOME}/.skims"
   local cache_remote="s3://skims.data/cache/owasp_benchmark"
@@ -14,16 +14,30 @@ function main {
 
       echo '[INFO] Creating staging area' \
   &&  copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \
-  &&  skims_aws_login_prod \
-  &&  skims_cache_pull "${cache_local}" "${cache_remote}" \
+  &&  aws_login_prod 'skims' \
+  &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
   &&  echo '[INFO] Analyzing repository' \
   &&  '__envSkims__' '__envSrcSkimsTest__/data/config/benchmark_owasp.yaml' \
   &&  echo '[INFO] Computing score' \
   &&  '__envPython__' '__envSrcSkimsSkims__/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
-  &&  skims_cache_push "${cache_local}" "${cache_remote}" \
+  &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
   &&  remove "${PRODUCED_RESULTS_CSV}" benchmark.json \
   ||  return 1
+}
+
+function upload {
+      aws_login_prod 'observes' \
+  &&  analytics_auth_redshift_file="$(mktemp)" \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' 'default' \
+        analytics_auth_redshift \
+  &&  echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
+
+}
+
+function main {
+      owasp \
+  &&  upload
 }
 
 main "${@}"
