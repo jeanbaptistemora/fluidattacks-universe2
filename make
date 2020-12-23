@@ -2,6 +2,7 @@
 
 apps=(
   common-deploy-oci
+  observes-tap-json
   observes-target-redshift
   skims
   skims-benchmark

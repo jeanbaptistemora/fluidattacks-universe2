@@ -15,6 +15,7 @@ flake.lib.eachDefaultSystem (
           apps = builtins.mapAttrs makeApp {
             common-deploy-oci = import ../makes/common/deploy/oci attrs;
             observes-target-redshift = import ../makes/observes/target-redshift/bin attrs;
+            observes-tap-json = import ../makes/observes/tap-json/bin attrs;
             skims = import ../makes/skims/bin attrs;
             skims-benchmark = import ../makes/skims/benchmark attrs;
             skims-docs-deploy = import ../makes/skims/docs/deploy attrs;

@@ -22,6 +22,7 @@ in
       envSkims = outputs.apps.skims.program;
       envSrcSkimsSkims = ../../../skims/skims;
       envSrcSkimsTest = ../../../skims/test;
+      envTargetRedshift = outputs.apps.observes-target-redshift.program;
     };
     location = "/bin/skims-benchmark";
     name = "skims-benchmark";
