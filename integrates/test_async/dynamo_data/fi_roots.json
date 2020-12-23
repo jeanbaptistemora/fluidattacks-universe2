@@ -17,17 +17,17 @@
                     "M": {
                       "exclude": {
                         "L": [
-                          { "S": "^.*/bower_components/.*$" },
-                          { "S": "^.*/node_modules/.*$" }
+                          { "S": "bower_components/*" },
+                          { "S": "node_modules/*" }
                         ]
                       },
                       "include": {
-                        "L": [{ "S": "^.*$" }]
+                        "L": [{ "S": "*" }]
                       },
                       "paths": {
                         "L": [
-                          { "S": "^.*/bower_components/.*$" },
-                          { "S": "^.*/node_modules/.*$" }
+                          { "S": "bower_components/*" },
+                          { "S": "node_modules/*" }
                         ]
                       },
                       "policy": { "S": "EXCLUDE" }
@@ -77,7 +77,7 @@
                         "L": []
                       },
                       "include": {
-                        "L": [{ "S": "^.*$" }]
+                        "L": [{ "S": "*" }]
                       },
                       "paths": {
                         "L": []

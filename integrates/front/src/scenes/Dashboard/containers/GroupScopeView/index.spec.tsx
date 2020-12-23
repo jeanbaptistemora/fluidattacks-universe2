@@ -54,8 +54,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
-                  exclude: ["^.*/bower_components/.*$", "^.*/node_modules/.*$"],
-                  include: ["^.*$"],
+                  exclude: ["bower_components/*", "node_modules/*"],
+                  include: ["*"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
@@ -105,8 +105,8 @@ describe("GroupScopeView", (): void => {
         // include
         "*",
         // exclude
-        "*/bower_components/*",
-        "*/node_modules/*",
+        "bower_components/*",
+        "node_modules/*",
         // state
         "Active",
         // cloning status
@@ -166,7 +166,7 @@ describe("GroupScopeView", (): void => {
                 filter: {
                   __typename: "GitRootFilter",
                   exclude: [],
-                  include: ["^.*$"],
+                  include: ["*"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
@@ -288,8 +288,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
-                  exclude: ["^bower_components/.*$"],
-                  include: ["^.*$"],
+                  exclude: ["bower_components/*"],
+                  include: ["*"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
@@ -337,8 +337,8 @@ describe("GroupScopeView", (): void => {
                 environmentUrls: [],
                 filter: {
                   __typename: "GitRootFilter",
-                  exclude: ["^node_modules/.*$"],
-                  include: ["^.*$"],
+                  exclude: ["node_modules/*"],
+                  include: ["*"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
@@ -472,7 +472,7 @@ describe("GroupScopeView", (): void => {
                 filter: {
                   __typename: "GitRootFilter",
                   exclude: [],
-                  include: ["^.*$"],
+                  include: ["*"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
@@ -521,7 +521,7 @@ describe("GroupScopeView", (): void => {
                 filter: {
                   __typename: "GitRootFilter",
                   exclude: [],
-                  include: ["^.*$"],
+                  include: ["*"],
                 },
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,

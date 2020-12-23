@@ -45,10 +45,6 @@ const formatList: (list: string[]) => JSX.Element = (list): JSX.Element => (
   </p>
 );
 
-const getGlobFromRegex: (regexExpression: string) => string = (
-  regexExpression
-): string => regexExpression.slice(1, -1).replace(/\.\*/gu, "*");
-
 interface IGitRootsProps {
   groupName: string;
   onUpdate: () => void;
@@ -65,8 +61,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     (root: IGitRootAttr): IGitRootAttr => ({
       ...root,
       filter: {
-        exclude: root.filter.exclude.map(getGlobFromRegex),
-        include: root.filter.include.map(getGlobFromRegex),
+        exclude: root.filter.exclude,
+        include: root.filter.include,
       },
     })
   );

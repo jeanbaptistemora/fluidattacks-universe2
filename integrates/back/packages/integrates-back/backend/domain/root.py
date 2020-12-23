@@ -137,15 +137,6 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url)
 
 
-def _get_regex_from_glob(glob_expression: str) -> str:
-    regex_expression: str = r'.*'.join([
-        re.escape(pattern)
-        for pattern in glob_expression.split('*')
-    ])
-
-    return f'^{regex_expression}$'
-
-
 async def add_git_root(user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs['group_name'].lower()
     url: str = _format_git_repo_url(kwargs['url'])
@@ -179,14 +170,8 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
             'date': now_date,
             'environment': kwargs['environment'],
             'filter': {
-                'exclude': [
-                    _get_regex_from_glob(path)
-                    for path in kwargs['filter']['exclude']
-                ],
-                'include': [
-                    _get_regex_from_glob(path)
-                    for path in kwargs['filter']['include']
-                ],
+                'exclude': kwargs['filter']['exclude'],
+                'include': kwargs['filter']['include'],
             },
             'includes_health_check': kwargs['includes_health_check'],
             'state': 'ACTIVE',
@@ -339,14 +324,8 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
     filter_config = {
-        'exclude': [
-            _get_regex_from_glob(path)
-            for path in kwargs['filter']['exclude']
-        ],
-        'include': [
-            _get_regex_from_glob(path)
-            for path in kwargs['filter']['include']
-        ],
+        'exclude': kwargs['filter']['exclude'],
+        'include': kwargs['filter']['include'],
     }
     filter_changed: bool = filter_config != last_state['filter']
     enforcer = await authz.get_group_level_enforcer(user_email)

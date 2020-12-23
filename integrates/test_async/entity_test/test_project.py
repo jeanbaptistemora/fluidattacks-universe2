@@ -453,10 +453,10 @@ async def test_get_roots() -> None:
             'environmentUrls': ['https://integrates.fluidattacks.com'],
             'filter': {
                 'exclude': [
-                    '^.*/bower_components/.*$',
-                    '^.*/node_modules/.*$'
+                    'bower_components/*',
+                    'node_modules/*'
                 ],
-                'include': ['^.*$']
+                'include': ['*']
             },
             'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
             'includesHealthCheck': True,
@@ -469,7 +469,7 @@ async def test_get_roots() -> None:
             'environmentUrls': [],
             'filter': {
                 'exclude': [],
-                'include': ['^.*$']
+                'include': ['*']
             },
             'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             'includesHealthCheck': False,
