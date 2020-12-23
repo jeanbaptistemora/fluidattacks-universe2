@@ -15,6 +15,9 @@
         width: 100%;
       }
     </style>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f4f99c985c414a5591e8077bf301b39b"}'></script>
+    <!-- End Cloudflare Web Analytics -->
     {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
       <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
     {% else %}
