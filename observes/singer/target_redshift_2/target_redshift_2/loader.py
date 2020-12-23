@@ -6,6 +6,7 @@ from typing import (
     Iterable,
     List,
     NamedTuple,
+    Set,
     Tuple,
 )
 # Third party libraries
@@ -38,7 +39,7 @@ TidTableMap = Dict[TableID, Table]
 
 class Loader(NamedTuple):
     update_schema: Callable[[SingerSchema], None]
-    upload_record: Callable[[SingerRecord], None]
+    upload_record: Callable[[SingerRecord, Set[SingerSchema]], None]
     upload_and_save_state: Callable[[SingerRecord, SingerState], None]
 
 
@@ -124,18 +125,23 @@ def create_table_mapper_builder(
     return create_table_mapper
 
 
-def update_schema_builder(
+def _update_schema(
+    tables_map: TidTableMap,
+    table_schema_map: TidRschemaMap,
     to_columns: Transform[RedshiftSchema, FrozenSet[IsolatedColumn]],
     add_columns: Callable[
         [Table, FrozenSet[IsolatedColumn]], List[CursorExeAction]
     ]
-) -> Callable[[TidTableMap, TidRschemaMap], None]:
-    def update_schema(
-        tables_map: TidTableMap, table_schema_map: TidRschemaMap
-    ) -> None:
-        for table_id, schema in table_schema_map.items():
-            table: Table = tables_map[table_id]
-            actions = add_columns(table, to_columns(schema))
-            for action in actions:
-                action.act()
-    return update_schema
+) -> None:
+    def adjust_columns(
+        items: Tuple[TableID, RedshiftSchema]
+    ) -> List[CursorExeAction]:
+        table_id = items[0]
+        schema = items[1]
+        table: Table = tables_map[table_id]
+        return add_columns(table, to_columns(schema))
+
+    actions = list(map(adjust_columns, table_schema_map.items()))
+    for sub_actions in actions:
+        for action in sub_actions:
+            action.act()

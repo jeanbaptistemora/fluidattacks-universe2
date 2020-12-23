@@ -1,6 +1,4 @@
-from typing import FrozenSet, List
-from postgres_client.cursor import CursorExeAction
-from postgres_client.table import DbTypes, IsolatedColumn, Table, TableID
+from postgres_client.table import DbTypes, Table, TableID
 from target_redshift_2 import loader
 from target_redshift_2.objects import (
     RedshiftField,
@@ -8,7 +6,6 @@ from target_redshift_2.objects import (
     RedshiftSchema,
 )
 from singer_io.singer import (
-    SingerMessage,
     SingerRecord,
     SingerSchema,
 )
@@ -16,38 +13,6 @@ from singer_io.singer import (
 
 class UnexpectedInput(Exception):
     pass
-
-
-def test_process_lines_builder() -> None:
-    # Arrange
-    test_lines = [
-        'json_test_schema',
-        'json_test_record',
-        'json_test_record_2'
-    ]
-    test_schema = SingerSchema(
-        stream='stream_1',
-        schema={"type": "object"},
-        key_properties=frozenset(),
-    )
-    test_record = SingerRecord(stream='stream_1', record={"id": "123"})
-    test_record_2 = SingerRecord(stream='stream_2', record={"id": "123"})
-
-    def mock_deserialize(text: str) -> SingerMessage:
-        if text == 'json_test_schema':
-            return test_schema
-        if text == 'json_test_record':
-            return test_record
-        if text == 'json_test_record_2':
-            return test_record_2
-        raise UnexpectedInput(f'input: {text}')
-    # Act
-    process_lines = loader.process_lines_builder(mock_deserialize)
-    result = process_lines(test_lines)
-    # Assert=
-    assert test_schema in result[0]
-    assert test_record in result[1]
-    assert test_record_2 in result[1]
 
 
 def test_create_table_schema_map_builder() -> None:
@@ -169,48 +134,3 @@ def test_create_table_mapper_builder() -> None:
     result = create_table_map([test_table_id])
     # Assert
     assert result[test_table_id] == test_table
-
-
-def test_update_schema_builder() -> None:
-    # Arrange
-    test_table_id = TableID('test_schema', 'test_table')
-    test_table = Table(
-        id=test_table_id,
-        primary_keys=frozenset(),
-        columns=frozenset({}),
-        table_path=lambda x: x,
-        add_columns=lambda x: x,
-    )
-    test_schema = RedshiftSchema(frozenset(), 'the_schema', 'the_table')
-    test_columns = frozenset({IsolatedColumn('field1', 'bool')})
-    test_table_map = {test_table_id: test_table}
-    test_table_schema_map = {test_table_id: test_schema}
-    action_executed = {'executed': False}
-
-    def mock_to_columns(rschema: RedshiftSchema) -> FrozenSet[IsolatedColumn]:
-        if rschema == test_schema:
-            return test_columns
-        raise UnexpectedInput()
-
-    def mock_action() -> None:
-        action_executed['executed'] = True
-
-    def mock_add_columns(
-        table: Table, columns: FrozenSet[IsolatedColumn]
-    ) -> List[CursorExeAction]:
-        if table == test_table and columns == test_columns:
-            return [
-                CursorExeAction(
-                    act=mock_action, statement='the_statement'
-                )
-            ]
-        raise UnexpectedInput()
-
-    # Act
-    update_schema = loader.update_schema_builder(
-        mock_to_columns,
-        mock_add_columns
-    )
-    update_schema(test_table_map, test_table_schema_map)
-    # Assert
-    assert action_executed['executed']

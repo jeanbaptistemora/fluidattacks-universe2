@@ -13,7 +13,7 @@ from singer_io.singer import (
     SingerSchema,
     SingerState,
 )
-from singer_io.singer.factory import singer_handler
+from singer_io.factory import singer_handler
 from target_redshift_2.loader import Loader
 from target_redshift_2.objects import InvalidState
 
@@ -38,7 +38,7 @@ def record_handler(
     singer: SingerRecord, state: State, loader: Loader
 ) -> State:
     if state.previous_record:
-        loader.upload_record(state.previous_record)
+        loader.upload_record(state.previous_record, state.current_schemas)
     return State(
         current_schemas=state.current_schemas,
         previous_record=singer,

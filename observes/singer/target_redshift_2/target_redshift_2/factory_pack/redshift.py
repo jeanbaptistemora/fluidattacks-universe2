@@ -33,7 +33,7 @@ class RedshiftElementsFactory(NamedTuple):
     to_rrecord: Callable[[SingerRecord, SingerSchema], RedshiftRecord]
 
 
-def singer_to_rschema(
+def _singer_to_rschema(
     s_schema: SingerSchema,
     redshift_schema_name: str,
     to_db_type: Transform[Dict[str, Any], Optional[DbTypes]]
@@ -54,7 +54,7 @@ def singer_to_rschema(
     )
 
 
-def escape(text: str) -> str:
+def _escape(text: str) -> str:
     """
     Escape characters from an string object.
     Which are known to make a Redshift statement fail.
@@ -70,12 +70,12 @@ def escape(text: str) -> str:
     return str_obj
 
 
-def str_len(str_obj: str, encoding: str = "utf-8") -> int:
+def _str_len(str_obj: str, encoding: str = "utf-8") -> int:
     """Returns the length in bytes of a string."""
     return len(str_obj.encode(encoding))
 
 
-def singer_to_rrecord(
+def _singer_to_rrecord(
     s_record: SingerRecord,
     s_schema: SingerSchema,
     to_rschema: Transform[SingerSchema, RedshiftSchema]
@@ -92,11 +92,11 @@ def singer_to_rrecord(
         if field in schema_fields:
             if field_type[field] == DbTypes.VARCHAR:
                 new_value = f"{value}"[0:256]
-                while str_len(escape(new_value)) > 256:
+                while _str_len(_escape(new_value)) > 256:
                     new_value = new_value[0:-1]
-                new_value = f"'{escape(new_value)}'"
+                new_value = f"'{_escape(new_value)}'"
             else:
-                new_value = f"'{escape(str(value))}'"
+                new_value = f"'{_escape(str(value))}'"
             new_field_val_pairs.add((field, new_value))
     return RedshiftRecord(
         r_schema=r_schema,
@@ -106,12 +106,12 @@ def singer_to_rrecord(
 
 def redshift_factory(schema_name: str) -> RedshiftElementsFactory:
     def to_rschema(singer: SingerSchema) -> RedshiftSchema:
-        return singer_to_rschema(singer, schema_name, db_types.from_dict)
+        return _singer_to_rschema(singer, schema_name, db_types.from_dict)
 
     def to_rrecord(
         record: SingerRecord, schema: SingerSchema
     ) -> RedshiftRecord:
-        return singer_to_rrecord(record, schema, to_rschema)
+        return _singer_to_rrecord(record, schema, to_rschema)
 
     return RedshiftElementsFactory(
         to_rschema=to_rschema,
