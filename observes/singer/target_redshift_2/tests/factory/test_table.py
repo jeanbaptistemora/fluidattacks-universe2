@@ -12,42 +12,28 @@ from target_redshift_2.objects import (
 from singer_io.singer import SingerRecord
 
 
-def test_draft_from_rschema_builder() -> None:
+def test_tabledraft_factory() -> None:
     # Arrange
+    test_schema = 'the_schema'
+    factory = table.tabledraft_factory(test_schema)
     field1 = RedshiftField('field1', DbTypes.BOOLEAN)
     field2 = RedshiftField('field2', DbTypes.NUMERIC)
     column1 = IsolatedColumn(
-        name='field1', field_type='bool', default_val='False'
+        name='field1', field_type=DbTypes.BOOLEAN.value, default_val=None
     )
     column2 = IsolatedColumn(
-        name='field2', field_type='numeric', default_val='0'
+        name='field2', field_type=DbTypes.NUMERIC.value, default_val=None
     )
     test_rschema = RedshiftSchema(
         fields=frozenset({field1, field2}),
-        schema_name='the_schema',
+        schema_name=test_schema,
         table_name='super_table'
     )
     test_table_id = TableID(
-        'the_schema', table_name='super_table'
+        test_schema, table_name='super_table'
     )
-
-    def mock_column_from_rfield(rfield: RedshiftField) -> IsolatedColumn:
-        if rfield == field1:
-            return column1
-        if rfield == field2:
-            return column2
-        raise Exception('Unexpected input')
-
-    def mock_tid_from_rschema(rfield: RedshiftSchema) -> TableID:
-        if rfield == test_rschema:
-            return test_table_id
-        raise Exception('Unexpected input')
-
     # Act
-    from_rschema = table.draft_from_rschema_builder(
-        mock_column_from_rfield, mock_tid_from_rschema
-    )
-    result = from_rschema(test_rschema)
+    result = factory.rschema_to_tdraft(test_rschema)
     # Assert
     expected = TableDraft(
         id=test_table_id,
@@ -57,31 +43,32 @@ def test_draft_from_rschema_builder() -> None:
     assert result == expected
 
 
-def test_tid_from_rschema() -> None:
+def test_tid_factory_rschema_to_tid() -> None:
     # Arrange
+    test_schema = 'the_schema'
+    factory = table.tableid_factory(test_schema)
     test_rschema = RedshiftSchema(
         fields=frozenset(),
         schema_name='the_schema',
         table_name='super_table'
     )
     # Act
-    from_rschema = table.tid_from_rschema
-    result = from_rschema(test_rschema)
+    result = factory.rschema_to_tid(test_rschema)
     # Assert
     expected = TableID(
-        schema='the_schema',
+        schema=test_schema,
         table_name='super_table'
     )
     assert result == expected
 
 
-def test_tid_from_srecord_builder() -> None:
+def test_tid_factory_srecord_to_tid() -> None:
     # Arrange
     test_schema = 'the_schema'
+    factory = table.tableid_factory(test_schema)
     test_srecord = SingerRecord(stream='table1', record={})
     # Act
-    from_srecord = table.tid_from_srecord_builder(test_schema)
-    result = from_srecord(test_srecord)
+    result = factory.srecord_to_tid(test_srecord)
     # Assert
     expected = TableID(
         schema=test_schema,
