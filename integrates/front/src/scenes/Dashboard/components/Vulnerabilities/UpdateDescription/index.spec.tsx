@@ -3,11 +3,11 @@ import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/q
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GraphQLError } from "graphql";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IUpdateVulnDescriptionResultAttr } from "./types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
-import { REQUEST_ZERO_RISK_VULN } from "./queries";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
@@ -15,8 +15,10 @@ import { act } from "react-dom/test-utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { mount } from "enzyme";
 import store from "store";
+import { translate } from "utils/translations/translate";
 import waitForExpect from "wait-for-expect";
 import { MockedProvider, wait } from "@apollo/react-testing";
+import { REQUEST_ZERO_RISK_VULN, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import {
   getLastTreatment,
   groupLastHistoricTreatment,
@@ -61,12 +63,32 @@ describe("Update Description component", (): void => {
     result: {
       data: {
         finding: {
-          btsUrl: "",
-          id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
-          inputsVulns: [],
-          linesVulns: [],
-          portsVulns: [],
-          releaseDate: "",
+          id: "480857698",
+          newRemediated: false,
+          state: "open",
+          verified: false,
+          vulnerabilities: {
+            currentState: "open",
+            cycles: "0",
+            efficacy: "0",
+            externalBts: "",
+            findingId: "480857698",
+            historicTreatment: [],
+            id: "",
+            lastRequestedReattackDate: "",
+            remediated: false,
+            reportDate: "",
+            severity: "",
+            specific: "",
+            tag: "",
+            verification: "",
+            vulnType: "",
+            where: "",
+            zeroRisk: "",
+          },
+        },
+        project: {
+          subscription: "",
         },
       },
     },
@@ -360,5 +382,269 @@ describe("Update Description component", (): void => {
     expect(msgError).toHaveBeenCalledWith(
       "Zero risk vulnerability already requested"
     );
+  });
+
+  it("should render update treatment", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleClearSelected: jest.Mock = jest.fn();
+    const handleOnClose: jest.Mock = jest.fn();
+    const updateTreatment: IUpdateVulnDescriptionResultAttr = {
+      updateTreatmentVuln: { success: true },
+      updateVulnsTreatment: { success: true },
+    };
+    const mutationVariables: Dictionary<boolean | string | number> = {
+      acceptanceDate: "",
+      externalBts: "http://test.t",
+      findingId: "422286126",
+      isVulnInfoChanged: true,
+      isVulnTreatmentChanged: true,
+      justification: "test justification to treatment",
+      severity: 2,
+      tag: "one",
+      treatment: "IN_PROGRESS",
+      treatmentManager: "manager_test@test.test",
+    };
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_DESCRIPTION_MUTATION,
+          variables: { ...mutationVariables, vulnerabilities: ["test1"] },
+        },
+        result: { data: updateTreatment },
+      },
+      {
+        request: {
+          query: UPDATE_DESCRIPTION_MUTATION,
+          variables: { ...mutationVariables, vulnerabilities: ["test2"] },
+        },
+        result: { data: updateTreatment },
+      },
+    ];
+    const vulnsToUpdate: IVulnDataType[] = [
+      {
+        currentState: "",
+        externalBts: "",
+        historicTreatment: [],
+        id: "test1",
+        severity: "",
+        specific: "",
+        tag: "one",
+        treatmentManager: "",
+        where: "",
+      },
+      {
+        currentState: "",
+        externalBts: "",
+        historicTreatment: [],
+        id: "test2",
+        severity: "",
+        specific: "",
+        tag: "one",
+        treatmentManager: "",
+        where: "",
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mocksMutation, mocksVulns]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <UpdateTreatmentModal
+              findingId={"422286126"}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+              projectName={""}
+              vulnerabilities={vulnsToUpdate}
+              vulnerabilitiesChunk={1}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </Provider>
+    );
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    const treatment: ReactWrapper = wrapper
+      .find({ name: "treatment" })
+      .find("select")
+      .at(0);
+    treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const treatmentJustification: ReactWrapper = wrapper
+      .find({ name: "justification" })
+      .find("textarea")
+      .at(0);
+    treatmentJustification.simulate("change", {
+      target: { value: "test justification to treatment" },
+    });
+    const externalBts: ReactWrapper = wrapper
+      .find({ name: "externalBts" })
+      .find("input");
+    externalBts
+      .at(0)
+      .simulate("change", { target: { value: "http://test.t" } });
+    const vulnLevel: ReactWrapper = wrapper
+      .find({ name: "severity" })
+      .find("input");
+    vulnLevel.at(0).simulate("change", { target: { value: "2" } });
+    const treatmentManager: ReactWrapper = wrapper
+      .find({ name: "treatmentManager" })
+      .find("select");
+    treatmentManager
+      .at(0)
+      .simulate("change", { target: { value: "manager_test@test.test" } });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    const form: ReactWrapper = wrapper.find("form");
+    form.at(0).simulate("submit");
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
+    expect(msgSuccess).toHaveBeenCalledTimes(1);
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("should render error update treatment", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleClearSelected: jest.Mock = jest.fn();
+    const handleOnClose: jest.Mock = jest.fn();
+    const mocksError: MockedResponse = {
+      request: {
+        query: UPDATE_DESCRIPTION_MUTATION,
+        variables: {
+          acceptanceDate: "",
+          externalBts: "",
+          findingId: "422286126",
+          isVulnInfoChanged: false,
+          isVulnTreatmentChanged: true,
+          justification: "test justification to treatment",
+          severity: -1,
+          tag: "one",
+          treatment: "ACCEPTED_UNDEFINED",
+          vulnerabilities: ["test"],
+        },
+      },
+      result: {
+        errors: [
+          new GraphQLError(
+            "Vulnerability has been accepted the maximum number of times allowed by the organization"
+          ),
+        ],
+      },
+    };
+    const vulnsToUpdate: IVulnDataType[] = [
+      {
+        currentState: "",
+        externalBts: "",
+        historicTreatment: [],
+        id: "test",
+        severity: "",
+        specific: "",
+        tag: "one",
+        treatmentManager: "",
+        where: "",
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider addTypename={false} mocks={[mocksError, mocksVulns]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <UpdateTreatmentModal
+              findingId={"422286126"}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+              vulnerabilities={vulnsToUpdate}
+              vulnerabilitiesChunk={100}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </Provider>
+    );
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(wrapper).toHaveLength(1);
+
+    const treatment: ReactWrapper = wrapper
+      .find({ name: "treatment" })
+      .find("select")
+      .at(0);
+    const treatmentJustification: ReactWrapper = wrapper
+      .find({ name: "justification" })
+      .find("textarea")
+      .at(0);
+    treatment.simulate("change", { target: { value: "ACCEPTED_UNDEFINED" } });
+    treatmentJustification.simulate("change", {
+      target: { value: "test justification to treatment" },
+    });
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+    const form: ReactWrapper = wrapper.find("form");
+    form.at(0).simulate("submit");
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    const proceedButton: ReactWrapper = wrapper
+      .find("ConfirmDialog")
+      .find("Button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      );
+    proceedButton.first().simulate("click");
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(msgError).toHaveBeenCalledWith(
+      translate.t(
+        "search_findings.tab_vuln.alerts.maximum_number_of_acceptations"
+      )
+    );
+    expect(handleOnClose).not.toHaveBeenCalled();
   });
 });
