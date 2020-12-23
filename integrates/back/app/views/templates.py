@@ -86,19 +86,20 @@ def graphic_error(request: Request) -> HTMLResponse:
 
 
 def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
+    entity_title = entity.title()
     return TEMPLATING_ENGINE.TemplateResponse(
         name='graphics-for-entity.html',
         context=dict(
             request=request,
             debug=settings.DEBUG,
-            entity=entity.title(),
+            entity=entity_title,
             js=(
                 f'{settings.STATIC_URL}/dashboard/'
-                f'graphicsFor{entity}-bundle.min.js'
+                f'graphicsFor{entity_title}-bundle.min.js'
             ),
             css=(
                 f'{settings.STATIC_URL}/dashboard/'
-                f'graphicsFor{entity}-style.min.css'
+                f'graphicsFor{entity_title}-style.min.css'
             )
         )
     )
