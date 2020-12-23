@@ -61,6 +61,7 @@ async def expose_bytes_as_url(
 
     uploaded_file = UploadFile(filename=file_name)
     await uploaded_file.write(content)
+    await uploaded_file.seek(0)
     if not await s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_REPORTS_BUCKET,
         uploaded_file,
