@@ -16,6 +16,7 @@ in
       envPythonRequirements = config.pythonRequirements.runtime;
       envShell = "${pkgsSkims.bash}/bin/bash";
       envSrcSkimsSkims = ../../../skims/skims;
+      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
     };
     location = "/bin/skims";
     name = "skims-bin";

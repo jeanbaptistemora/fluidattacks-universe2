@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function make_python_path {
-  version="${1}"
+  local version="${1}"
 
   for element in "${@:1}"
   do

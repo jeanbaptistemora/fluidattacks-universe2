@@ -1,18 +1,21 @@
 #! __envShell__
 # shellcheck shell=bash
 
-# Setup the path
-export PATH="__envRuntimeBinPath__:${PATH:-}"
-
-# Setup linked path
-export LD_LIBRARY_PATH="__envRuntimeLibPath__:${LD_LIBRARY_PATH:-}";
-
-# Setup the python path
-export PYTHONPATH="__envPythonRequirements__:${PYTHONPATH:-}"
-export PYTHONPATH="__envSrcSkimsSkims__:${PYTHONPATH:-}"
-
 # Context artifacts
+source '__makeEntrypoint__'
 source '__envContextFile__'
+source '__envUtilsBashLibPython__'
 
-# Invoke the entrypoint
-'__envPython__' '__envSrcSkimsSkims__/cli/__init__.py' "${@}"
+function main {
+  export PATH="__envRuntimeBinPath__:${PATH:-}"
+  export LD_LIBRARY_PATH='__envRuntimeLibPath__'
+
+      unset PYTHONPATH \
+  &&  make_python_path '3.8' \
+      '__envPythonRequirements__' \
+  &&  make_python_path_plain \
+      '__envSrcSkimsSkims__' \
+  &&  '__envPython__' '__envSrcSkimsSkims__/cli/__init__.py' "${@}"
+}
+
+main "${@}"
