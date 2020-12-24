@@ -22,7 +22,7 @@ function owasp {
   &&  '__envPython__' '__envSrcSkimsSkims__/benchmark/__init__.py' \
   &&  echo '[INFO] Cleaning environment' \
   &&  aws_s3_sync "${cache_local}" "${cache_remote}" \
-  &&  remove "${PRODUCED_RESULTS_CSV}" benchmark.json \
+  &&  remove "${PRODUCED_RESULTS_CSV}" \
   ||  return 1
 }
 
@@ -32,7 +32,17 @@ function upload {
   &&  sops_export_vars 'observes/secrets-prod.yaml' 'default' \
         analytics_auth_redshift \
   &&  echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
-
+  &&  echo '[INFO] Running tap' \
+  &&  '__envTapJson__' \
+        < 'benchmark.json' \
+        > '.singer' \
+  &&  echo '[INFO] Running target' \
+  && '__envTargetRedshift__' \
+        --auth "${analytics_auth_redshift_file}" \
+        --drop-schema \
+        --schema-name 'skims_benchmark' \
+        < '.singer' \
+  &&  remove '.singer' 'benchmark.json'
 }
 
 function main {
