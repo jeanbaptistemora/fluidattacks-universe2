@@ -74,6 +74,15 @@ resource "cloudflare_record" "landing_report2020" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "track" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "track.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "mandrillapp.com"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "mail" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "mail.${cloudflare_zone.fluidattacks_com.zone}"
