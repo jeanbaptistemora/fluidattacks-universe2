@@ -3,16 +3,21 @@ pkgs:
 {
   attempts,
   command,
-  environment,
   jobname,
   jobqueue,
   name,
   product,
+  secrets,
   timeout,
   vcpus,
 }:
 
 let
+  getSecretFromRuntimeEnv = name: {
+    name = name;
+    value = "\${${name}}";
+  };
+
   makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgs;
 
   # Granting less than 3600 MB of memory per vCPU is paying for unused resources
@@ -31,10 +36,16 @@ in
       envName = name;
       envManifest = builtins.toJSON {
         command = command;
-        environment = builtins.map (name: {
-          name = name;
-          value = "\${${name}}";
-        }) environment;
+        environment = (builtins.map getSecretFromRuntimeEnv secrets) ++ [
+          {
+            name = "CI";
+            value = "true";
+          }
+          {
+            name = "CI_COMMIT_REF_NAME";
+            value = "master";
+          }
+        ];
         memory = envMemory;
         vcpus = vcpus;
       };

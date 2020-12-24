@@ -5,7 +5,7 @@ source '__makeEntrypoint__'
 source '__envUtilsBashLibAws__'
 
 function main {
-  local manifest='__envManifest__'
+  local manifest=__envManifest__
 
       echo '[INFO] Running on AWS: __envCommand__' \
   &&  echo '[INFO] VCPUs: __envVcpus__' \

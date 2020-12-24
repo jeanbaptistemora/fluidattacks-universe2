@@ -13,6 +13,10 @@ in
     jobqueue = "default-uninterruptible";
     name = "skims-benchmark-on-aws";
     product = "skims";
+    secrets = [
+      "SKIMS_PROD_AWS_ACCESS_KEY_ID"
+      "SKIMS_PROD_AWS_SECRET_ACCESS_KEY"
+    ];
     timeout = 18000;
     vcpus = 4;
   }
