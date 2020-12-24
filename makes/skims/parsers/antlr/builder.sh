@@ -28,7 +28,7 @@ function main {
         &&  compile_java "src/main/java/parse/${language}"*'.java' \
         ||  return 1
       done \
-  &&  gradle installDist \
+  &&  gradle -g "$(mktemp -d)" installDist \
   &&  mv "${PWD}" "${out}" \
   ||  return 1
 }

@@ -62,8 +62,8 @@
       when: never
     - if: *skims_commit_pattern
 
-skims_benchmark_on_aws:
-  <<: *with_nix
+skims-benchmark-on-aws:
+  <<: *makes_run
   interruptible: false
   only:
     refs: [schedules]
