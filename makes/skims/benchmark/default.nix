@@ -12,7 +12,6 @@ in
     arguments = {
       envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws pkgsSkims;
       envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops pkgsSkims;
-      envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
       envBenchmarkRepo = pkgsSkims.fetchzip {
         url = "https://github.com/OWASP/Benchmark/archive/9a0c25a5f8443245c676965d20d22d5f93da3f99.zip";
         sha256 = "QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=";

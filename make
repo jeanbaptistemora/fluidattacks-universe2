@@ -6,6 +6,7 @@ apps=(
   observes-target-redshift
   skims
   skims-benchmark
+  skims-benchmark-on-aws
   skims-docs-deploy
 )
 packages=(
