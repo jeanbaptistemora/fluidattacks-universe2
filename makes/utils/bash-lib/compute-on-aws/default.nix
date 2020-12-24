@@ -29,12 +29,15 @@ in
   makeEntrypoint {
     arguments = rec {
       envAttempts = attempts;
+      envAws = "${pkgs.awscli}/bin/aws";
       envCommand = builtins.toJSON command;
+      envEnvsubst = "${pkgs.envsubst}/bin/envsubst";
       envJobname = jobname;
       envJobqueue = jobqueue;
+      envJq = "${pkgs.jq}/bin/jq";
       envMemory = memory;
       envName = name;
-      envManifest = builtins.toJSON {
+      envManifestFile = builtins.toFile "manifest" (builtins.toJSON {
         command = command;
         environment = (builtins.map getSecretFromRuntimeEnv secrets) ++ [
           {
@@ -48,7 +51,7 @@ in
         ];
         memory = envMemory;
         vcpus = vcpus;
-      };
+      });
       envProduct = product;
       envShell = "${pkgs.bash}/bin/bash";
       envTimeout = timeout;
