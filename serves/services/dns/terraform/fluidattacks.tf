@@ -40,7 +40,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     server_side_exclude         = "on"
     sort_query_string_for_cache = "off"
     ssl                         = "flexible"
-    tls_1_3                     = "on"
+    tls_1_3                     = "zrt"
     tls_client_auth             = "off"
     true_client_ip_header       = "off"
     universal_ssl               = "on"
@@ -62,6 +62,35 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
       nosniff            = false
       max_age            = 31536000
     }
+  }
+}
+
+resource "cloudflare_rate_limit" "fluidattacks_com" {
+  zone_id             = cloudflare_zone.fluidattacks_com.id
+  threshold           = 1000
+  period              = 60
+  disabled            = false
+  description         = "Main rate limit"
+  bypass_url_patterns = []
+
+  match {
+    request {
+      url_pattern = "*"
+      schemes     = ["_ALL_"]
+      methods     = ["_ALL_"]
+    }
+    response {
+      origin_traffic = true
+    }
+  }
+
+  action {
+    mode = "simulate"
+    timeout = 3600
+  }
+
+  correlate {
+    by = "nat"
   }
 }
 
