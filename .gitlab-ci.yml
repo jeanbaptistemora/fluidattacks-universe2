@@ -113,18 +113,12 @@ common_build_nix_caches:
 
 common-deploy-oci-batch:
   <<: *makes_run
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$common_deploy_oci]
+  <<: *common_in_master_branch
   stage: build
 
 common-deploy-oci-ci:
   <<: *makes_run
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$common_deploy_oci]
+  <<: *common_in_master_branch
   stage: build
 
 common_deploy_container_image:
