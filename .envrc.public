@@ -47,4 +47,4 @@ test -n "${CI_NODE_TOTAL:-}" \
 test -n "${CHANGELOG:-}" \
   || CHANGELOG=$(
       git log --format='[%h] %s' "${CI_COMMIT_BEFORE_SHA}..${CI_COMMIT_SHA}" \
-        | sed -ze 's/\n/\\n/g' -e 's/\"/\\"/g')
+        | sed -e 's/\n/\\n/g' -e 's/\"/\\"/g')

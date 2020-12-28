@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
 apps=(
+  common-deploy-oci-batch
   common-deploy-oci-ci
   observes-tap-json
   observes-target-redshift
@@ -47,6 +48,7 @@ function main {
   local attr="${2:-}"
 
       main_ctx "${@}" \
+  &&  source .envrc.public \
   &&  for attribute in "${apps[@]}"
       do
         if test "${attribute}" = "${attr}"

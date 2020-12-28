@@ -60,13 +60,3 @@ nix-env \
 ```
 
 Uninstall with: `nix-env -e product`
-
-**Docker**
-
-Launch an interactive container with:
-
-```sh
-docker run -it registry.gitlab.com/fluidattacks/product/bin
-```
-
-Uninstall by pruning your Docker daemon.

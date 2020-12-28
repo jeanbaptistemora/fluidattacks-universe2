@@ -10,11 +10,11 @@ function main {
         --password "${CI_REGISTRY_PASSWORD}" \
       "${CI_REGISTRY}" \
   &&  echo '[INFO] Building: __envTag__' \
-  &&  __envDocker__ build --tag '__envTag__' "__envDockerContext__" \
+  &&  __envDocker__ build --tag '__envTag__' '__envDockerContext__' \
   &&  echo '[INFO] Pushing: __envTag__' \
-  &&  __envDocker__ push "__envTag__" \
+  &&  __envDocker__ push '__envTag__' \
   &&  echo '[INFO] Deleting local copy of: __envTag__' \
-  &&  __envDocker__ image remove "__envTag__" \
+  &&  __envDocker__ image remove '__envTag__' \
 
 }
 

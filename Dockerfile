@@ -20,7 +20,3 @@ RUN mkdir -p ~/.ssh \
 # and source code for the commands
 COPY . /source
 WORKDIR /source
-
-# Install the products lazily,
-# binaries will be available under the names explained in each product documentation
-RUN ./install.sh
