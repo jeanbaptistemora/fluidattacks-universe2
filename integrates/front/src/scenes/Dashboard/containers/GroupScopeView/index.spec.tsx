@@ -403,7 +403,6 @@ describe("GroupScopeView", (): void => {
     environment.simulate("change", { target: { value: "staging" } });
 
     wrapper.find(SwitchButton).at(0).simulate("click");
-    wrapper.find(SwitchButton).at(1).simulate("click");
 
     const includesHealthCheck: ReactWrapper = wrapper
       .find({ name: "includesHealthCheck" })

@@ -46,9 +46,6 @@ const GitModal: React.FC<IGitModalProps> = ({
   const { t } = useTranslation();
 
   // State management
-  const [hasCode, setHasCode] = React.useState(
-    initialValues.includesHealthCheck
-  );
   const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(
     initialValues.includesHealthCheck
   );
@@ -121,42 +118,27 @@ const GitModal: React.FC<IGitModalProps> = ({
                 <div className={"flex"}>
                   <div className={"w-100"}>
                     <ControlLabel>
-                      {t("group.scope.git.healthCheck.hasCode")}
+                      {t("group.scope.git.healthCheck.confirm")}
                     </ControlLabel>
                     <SwitchButton
-                      checked={hasCode}
+                      checked={confirmHealthCheck}
                       offlabel={t("No")}
-                      onChange={setHasCode}
+                      onChange={setConfirmHealthCheck}
                       onlabel={t("Yes")}
                     />
+                    {confirmHealthCheck ? (
+                      <Field
+                        component={Checkbox}
+                        name={"includesHealthCheck"}
+                        type={"checkbox"}
+                        validate={checked}
+                      >
+                        <RequiredField>{"*"}&nbsp;</RequiredField>
+                        {t("group.scope.git.healthCheck.accept")}
+                      </Field>
+                    ) : undefined}
                   </div>
                 </div>
-                {hasCode ? (
-                  <div className={"flex"}>
-                    <div className={"w-100"}>
-                      <ControlLabel>
-                        {t("group.scope.git.healthCheck.confirm")}
-                      </ControlLabel>
-                      <SwitchButton
-                        checked={confirmHealthCheck}
-                        offlabel={t("No")}
-                        onChange={setConfirmHealthCheck}
-                        onlabel={t("Yes")}
-                      />
-                      {confirmHealthCheck ? (
-                        <Field
-                          component={Checkbox}
-                          name={"includesHealthCheck"}
-                          type={"checkbox"}
-                          validate={checked}
-                        >
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                          {t("group.scope.git.healthCheck.accept")}
-                        </Field>
-                      ) : undefined}
-                    </div>
-                  </div>
-                ) : undefined}
               </fieldset>
               <Can do={"update_git_root_filter"}>
                 <FormSection name={"filter"}>

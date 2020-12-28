@@ -109,7 +109,6 @@ describe("GitRoots", (): void => {
     expect(wrapper.find({ name: "includesHealthCheck" })).toHaveLength(0);
 
     wrapper.find(SwitchButton).at(0).simulate("click");
-    wrapper.find(SwitchButton).at(1).simulate("click");
 
     expect(
       wrapper.find({ name: "includesHealthCheck" }).find("input")

@@ -501,7 +501,6 @@ export const enTranslations: ResourceKey = {
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",
           confirm: "Would you like a health check for the existing code?",
-          hasCode: "Is there any code on the repo?",
           title: "Health Check",
         },
         manageEnvs: "Manage environments",
