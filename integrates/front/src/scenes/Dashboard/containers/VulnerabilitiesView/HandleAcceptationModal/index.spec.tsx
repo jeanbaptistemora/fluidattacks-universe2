@@ -2,7 +2,7 @@ import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/Vulnerabiliti
 import { GraphQLError } from "graphql";
 import { HANDLE_VULNS_ACCEPTATION } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
-import type { IVulnerabilities } from "../types";
+import type { IVulnerabilitiesAttr } from "../types";
 import { MockedProvider } from "@apollo/react-testing";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
@@ -76,7 +76,7 @@ describe("handle vulns acceptation modal", (): void => {
         },
       },
     ];
-    const mokedVulns: IVulnerabilities[] = [
+    const mokedVulns: IVulnerabilitiesAttr[] = [
       {
         historicTreatment: [
           {
@@ -183,7 +183,7 @@ describe("handle vulns acceptation modal", (): void => {
         },
       },
     ];
-    const mokedVulns: IVulnerabilities[] = [
+    const mokedVulns: IVulnerabilitiesAttr[] = [
       {
         historicTreatment: [
           {

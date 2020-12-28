@@ -1,11 +1,8 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_FINDING_VULN_INFO: DocumentNode = gql`
-  query GetFindingVulnInfo(
-    $findingId: String!,
-    $groupName: String!
-  ) {
+  query GetFindingVulnInfo($findingId: String!, $groupName: String!) {
     finding(identifier: $findingId) {
       id
       newRemediated

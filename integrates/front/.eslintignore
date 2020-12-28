@@ -21,8 +21,6 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/containers/FindingContent/components/buttoncol/index.tsx
 !src/scenes/Dashboard/containers/GroupScopeView/**
 !src/scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/**
-!src/scenes/Dashboard/containers/VulnerabilitiesView/index.tsx
+!src/scenes/Dashboard/containers/VulnerabilitiesView/**
 src/**/*.css.d.ts
 src/**/*.d.ts

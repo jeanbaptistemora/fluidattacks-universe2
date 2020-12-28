@@ -3,7 +3,7 @@ import type { ApolloError } from "apollo-client";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
-import type { IGetFindingVulnInfo } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
+import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
@@ -89,7 +89,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setVerifying(!isVerifying);
   }
 
-  const { data, refetch } = useQuery<IGetFindingVulnInfo>(
+  const { data, refetch } = useQuery<IGetFindingVulnInfoAttr>(
     GET_FINDING_VULN_INFO,
     {
       onError: ({ graphQLErrors }: ApolloError): void => {

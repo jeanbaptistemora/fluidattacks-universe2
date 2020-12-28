@@ -1,11 +1,11 @@
-import { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { IHistoricTreatment } from "../DescriptionView/types";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
-interface IProject {
+interface IProjectAttr {
   subscription: string;
 }
 
-interface IFinding {
+interface IFindingAttr {
   id: string;
   newRemediated: boolean;
   state: "open" | "closed";
@@ -13,12 +13,12 @@ interface IFinding {
   vulnerabilities: IVulnRowAttr[];
 }
 
-interface IGetFindingVulnInfo {
-  finding: IFinding;
-  project: IProject;
+interface IGetFindingVulnInfoAttr {
+  finding: IFindingAttr;
+  project: IProjectAttr;
 }
 
-interface IVulnerabilities {
+interface IVulnerabilitiesAttr {
   historicTreatment: IHistoricTreatment[];
   id: string;
   specific: string;
@@ -26,4 +26,9 @@ interface IVulnerabilities {
   zeroRisk: string;
 }
 
-export { IFinding, IGetFindingVulnInfo, IProject, IVulnerabilities };
+export {
+  IFindingAttr,
+  IGetFindingVulnInfoAttr,
+  IProjectAttr,
+  IVulnerabilitiesAttr,
+};
