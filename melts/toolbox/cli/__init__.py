@@ -8,37 +8,17 @@ import functools
 import click
 
 # Local libraries
-from toolbox.utils.version import check_new_version
 from toolbox import (
     drills,
     utils,
     constants,
-    logger,
 )
 
 from .misc import misc_management
 from .resources import resources_management
 
 
-def _valid_integrates_token(ctx, param, value):
-    assert constants
-
-
-class ForceUpgrade(click.Group):
-    def parse_args(self, ctx, args):
-        if (not utils.generic.is_env_ci() and not utils.generic.is_dev_mode()
-                and check_new_version()):
-            click.echo('There is a new version')
-            click.echo('Updating..')
-            if utils.version.upgrade():
-                click.echo("Melts updated successfully")
-            self.invoke = lambda ctx: None
-            logger.info('Try the command again')
-        else:
-            click.Group.parse_args(self, ctx, args)
-
-
-@click.group(name='entrypoint', cls=ForceUpgrade)
+@click.group(name='entrypoint')
 def entrypoint():
     """Main comand line group."""
 

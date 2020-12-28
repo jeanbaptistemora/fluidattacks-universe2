@@ -11,7 +11,6 @@ from toolbox.utils import (
     logs,
     env,
     function,
-    version,
 )
 
 # Imported but unused
@@ -26,4 +25,3 @@ assert bugs
 assert logs
 assert env
 assert function
-assert version

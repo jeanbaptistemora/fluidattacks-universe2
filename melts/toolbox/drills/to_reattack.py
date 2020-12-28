@@ -1,8 +1,5 @@
 # Standard library
 from datetime import datetime as dt
-from glob import glob
-from os.path import relpath
-from typing import List
 from dateutil.relativedelta import relativedelta
 
 # Local libraries
@@ -10,7 +7,7 @@ from toolbox import api
 from toolbox.constants import API_TOKEN
 from toolbox.utils.function import shield
 
-BASE_URL: str = 'https://integrates.fluidattacks.com/dashboard#!/project'
+BASE_URL: str = 'https://integrates.fluidattacks.com'
 
 
 def get_subs_unverified_findings(group: str = 'all'):
@@ -52,27 +49,15 @@ def get_subs_unverified_findings(group: str = 'all'):
 
 def get_url(subs_name: str, finding_id: str) -> str:
     """Return a string with an url associated to a subs finding"""
-    return f'{BASE_URL}/{subs_name}/{finding_id}'
+    return f'{BASE_URL}/groups/{subs_name}/vulns/{finding_id}'
 
 
-def get_exploits_paths(subs_name: str, finding_id: str) -> List:
-    """Return a string with exploit paths associated to a subs finding"""
-    exploits_paths: list = []
-    exp_glob: str = \
-        f'./groups/{subs_name}/forces/*/exploits/*{finding_id}*'
-    exp_paths: List[str] = glob(exp_glob)
-    for exp_path in map(relpath, exp_paths):
-        exploits_paths.append(exp_path)
-    return exploits_paths
-
-
-def to_reattack(with_exp: bool, group: str = 'all') -> dict:
+def to_reattack(group: str = 'all') -> dict:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
 
     param: group: Name of the group to check
-    param: with_exp: Show findings with or without exploits
     """
     graphql_date_format = '%Y-%m-%d %H:%M:%S'
 
@@ -97,7 +82,7 @@ def to_reattack(with_exp: bool, group: str = 'all') -> dict:
     for project_info in projects_info:
         for finding in project_info['findings']:
             # Filter requested vulnerabilities
-            finding['vulnerabilities'] = filter(
+            finding['vulnerabilities'] = list(filter(
                 lambda vulnerability:
                     vulnerability
                 and
@@ -107,7 +92,7 @@ def to_reattack(with_exp: bool, group: str = 'all') -> dict:
                                  [-1]
                                  ['status'] == 'REQUESTED',
                 finding['vulnerabilities']
-            )
+            ))
             # Order vulnerabilities by date
             finding['vulnerabilities'] = list(sorted(
                 finding['vulnerabilities'],
@@ -115,7 +100,7 @@ def to_reattack(with_exp: bool, group: str = 'all') -> dict:
                                [-1]
                                ['date']
             ))
-        # cleaning findings without vulnerabilities
+
         project_info['findings'] = list(filter(
             lambda finding:
                 finding['vulnerabilities'],
@@ -142,43 +127,16 @@ def to_reattack(with_exp: bool, group: str = 'all') -> dict:
             )
             finding['vulnerability_counter'] = len(finding['vulnerabilities'])
             finding['oldest_vuln_dif'] = oldest_vuln_dif
-            finding['exploit_paths'] = get_exploits_paths(
-                project_info['name'],
-                finding['id']
-            )
             finding['url'] = get_url(project_info["name"], finding["id"])
 
-            if with_exp and finding['exploit_paths']:
-                total_vulnerabilities += finding['vulnerability_counter']
-                if (oldest_finding['date_dif'].days <  # type: ignore
-                        finding['oldest_vuln_dif'].days):
-                    oldest_finding = {
-                        'group': project_info['name'],
-                        'date_dif': finding['oldest_vuln_dif']
-                    }
-            elif not with_exp and not finding['exploit_paths']:
-                total_vulnerabilities += finding['vulnerability_counter']
-                # type: ignore
-                if (oldest_finding['date_dif'].days <  # type: ignore
-                        finding['oldest_vuln_dif'].days):
+            total_vulnerabilities += finding['vulnerability_counter']
+            if (oldest_finding['date_dif'].days <  # type: ignore
+                    finding['oldest_vuln_dif'].days):
 
-                    oldest_finding = {
-                        'group': project_info['name'],
-                        'date_dif': finding['oldest_vuln_dif']
-                    }
-
-        if with_exp:
-            project_info['findings'] = list(filter(
-                lambda finding:
-                    finding['exploit_paths'],
-                project_info['findings']
-            ))
-        else:
-            project_info['findings'] = list(filter(
-                lambda finding:
-                    not finding['exploit_paths'],
-                project_info['findings']
-            ))
+                oldest_finding = {
+                    'group': project_info['name'],
+                    'date_dif': finding['oldest_vuln_dif']
+                }
 
         total_findings += len(project_info['findings'])
 
@@ -205,13 +163,11 @@ def to_reattack(with_exp: bool, group: str = 'all') -> dict:
 
 
 @shield()
-def main(with_exp: bool, group: str = 'all'):
+def main(group: str = 'all'):
     """
     Print all non-verified findings and their exploits
-
-    param: with_exp: Show findings with or without exploits
     """
-    to_reattack_search = to_reattack(with_exp, group)
+    to_reattack_search = to_reattack(group)
 
     projects_info = to_reattack_search['projects_info']
     summary_info = to_reattack_search['summary_info']
@@ -229,11 +185,6 @@ def main(with_exp: bool, group: str = 'all'):
                       '  vulns to verify:   '
                       f'{finding["vulnerability_counter"]}'
                       )
-                if finding['exploit_paths']:
-                    print('  exploits: ')
-                    for path_exploit in finding['exploit_paths']:
-                        print(f'           - {path_exploit}')
-
                 print()
             print()
 

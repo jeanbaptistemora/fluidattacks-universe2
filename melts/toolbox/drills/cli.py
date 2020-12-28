@@ -47,11 +47,7 @@ from toolbox.drills import (
 @option(
     '--to-reattack', 'o_to_reattack',
     is_flag=True,
-    help='Show findings without exploit pending to re-attack and verify')
-@option(
-    '--to-reattack-exp', 'o_to_reattack_exp',
-    is_flag=True,
-    help='Show findings with exploit pending to re-attack and verify')
+    help='Show findings pending to re-attack and verify')
 @option(
     '--pull-repos', 'o_pull_repos',
     is_flag=True,
@@ -74,7 +70,6 @@ def drills_management(
         o_update_lines,
         o_upload_history,
         o_to_reattack,
-        o_to_reattack_exp,
         o_pull_repos,
         o_push_repos,
         o_count_toe,
@@ -91,11 +86,7 @@ def drills_management(
     elif o_to_reattack:
         group = ('all' if group == 'unspecified-subs'
                  else group)
-        to_reattack.main(False, group)
-    elif o_to_reattack_exp:
-        group = ('all' if group == 'unspecified-subs'
-                 else group)
-        to_reattack.main(True, group)
+        to_reattack.main(group)
     elif o_pull_repos:
         success = pull_repos.main(group, o_name)
     elif o_push_repos:
