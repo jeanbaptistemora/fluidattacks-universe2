@@ -35,6 +35,16 @@ resource "cloudflare_zone_settings_override" "fluidsignal" {
   }
 }
 
+resource "cloudflare_argo" "fluidsignal_com" {
+  zone_id        = cloudflare_zone.fluidsignal_com.id
+  tiered_caching = "on"
+  smart_routing  = "on"
+}
+
+resource "cloudflare_zone_dnssec" "fluidsignal_com" {
+  zone_id = cloudflare_zone.fluidsignal_com.id
+}
+
 resource "cloudflare_record" "fluidsignal_main" {
   zone_id = cloudflare_zone.fluidsignal_com.id
   name    = cloudflare_zone.fluidsignal_com.zone

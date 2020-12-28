@@ -35,6 +35,16 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
   }
 }
 
+resource "cloudflare_argo" "fluidattacks_com" {
+  zone_id        = cloudflare_zone.fluidattacks_com.id
+  tiered_caching = "on"
+  smart_routing  = "on"
+}
+
+resource "cloudflare_zone_dnssec" "fluidattacks_com" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+}
+
 
 # CNAME Records
 
