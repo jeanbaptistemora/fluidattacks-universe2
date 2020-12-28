@@ -43,10 +43,6 @@ def pygments_monkeypatch_style(mod_name, cls):
     pygments.styles.STYLE_MAP[mod_name] = mod_name + "::" + cls_name
 
 
-def setup(app):
-    app.add_javascript("https://www.googletagmanager.com/gtag/js?id=UA-22974464-4")
-    app.add_javascript("google-analytics.js")
-
 pygments_monkeypatch_style("Fluidattacks", Fluidattacks)
 
 # -- Project information -----------------------------------------------------
