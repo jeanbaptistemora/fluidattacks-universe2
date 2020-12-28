@@ -411,4 +411,166 @@ describe("handle vulns acceptation modal", (): void => {
       "Correct!"
     );
   });
+
+  it("should handle confirm zero risk error", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleRefetchData: jest.Mock = jest.fn();
+    const handleCloseModal: jest.Mock = jest.fn();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      {
+        action: "backend_api_mutations_confirm_zero_risk_vuln_mutate",
+      },
+    ]);
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: CONFIRM_ZERO_RISK_VULN,
+          variables: {
+            findingId: "422286126",
+            justification: "This is a test of confirming zero risk vulns",
+            vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError(
+              "Exception - Zero risk vulnerability is not requested"
+            ),
+          ],
+        },
+      },
+    ];
+    const mocksFindingHeader: MockedResponse = {
+      request: {
+        query: GET_FINDING_HEADER,
+        variables: {
+          canGetExploit: false,
+          canGetHistoricState: false,
+          findingId: "422286126",
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            closedVulns: 0,
+            id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+            openVulns: 0,
+            releaseDate: "",
+            reportDate: "",
+            severityScore: 1,
+            state: "default",
+            title: "",
+            tracking: [],
+          },
+        },
+      },
+    };
+    const mocksFindingVulnInfo: MockedResponse = {
+      request: {
+        query: GET_FINDING_VULN_INFO,
+        variables: {
+          findingId: "422286126",
+          groupName: "group name",
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            id: "422286126",
+            inputsVulns: [],
+            linesVulns: [],
+            newRemediated: "",
+            portsVulns: [],
+            releaseDate: "",
+            state: "",
+            verified: "",
+            vulnerabilities: [],
+          },
+          project: {
+            subscription: "",
+          },
+        },
+      },
+    };
+    const mokedVulns: IVulnerabilitiesAttr[] = [
+      {
+        historicTreatment: [
+          {
+            acceptanceDate: "",
+            acceptanceStatus: "SUBMITTED",
+            date: "2019-07-05 09:56:40",
+            justification: "test justification",
+            treatment: "ACCEPTED_UNDEFINED",
+            treatmentManager: "treatment-manager-1",
+            user: "user@test.com",
+          },
+        ],
+        id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+        specific: "",
+        where: "",
+        zeroRisk: "Requested",
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+        >
+          <HandleAcceptationModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </Provider>,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
+    );
+    const treatmentFieldSelect: ReactWrapper = wrapper
+      .find(Field)
+      .filter({ name: "treatment" })
+      .find("select");
+    treatmentFieldSelect.simulate("change", {
+      target: { value: "CONFIRM_ZERO_RISK" },
+    });
+    const justificationFieldTextArea: ReactWrapper = wrapper
+      .find(Field)
+      .filter({ name: "justification" })
+      .find("textarea");
+    justificationFieldTextArea.simulate("change", {
+      target: {
+        value: "This is a test of confirming zero risk vulns",
+      },
+    });
+    const zeroRiskConfirmationTable: ReactWrapper<PropsWithChildren<
+      IZeroRiskConfirmationTableProps
+    >> = wrapper.find(ZeroRiskConfirmationTable);
+    const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
+      .find("SimpleRow")
+      .find(".switch");
+    requestedZeroRiskSwitch.simulate("click");
+
+    const form: ReactWrapper = wrapper.find("form");
+    form.at(0).simulate("submit");
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    expect(handleRefetchData).not.toHaveBeenCalledWith();
+    expect(handleCloseModal).not.toHaveBeenCalledWith();
+    expect(msgError).toHaveBeenCalledWith(
+      "Zero risk vulnerability is not requested"
+    );
+  });
 });
