@@ -63,20 +63,6 @@ data "aws_iam_policy_document" "web-dev-policy-data" {
     ]
   }
 
-  # Cloudfront read distribuions
-  statement {
-    effect  = "Allow"
-    actions = [
-      "cloudfront:GetDistribution",
-      "cloudfront:ListTagsForResource",
-      "cloudfront:GetCloudFrontOriginAccessIdentity",
-    ]
-    resources = [
-      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*",
-      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:origin-access-identity/*",
-    ]
-  }
-
   # ACM read certificate
   statement {
     effect  = "Allow"

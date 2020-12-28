@@ -42,25 +42,6 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     ]
   }
 
-  # Cloudfront write and delete distribuions and OAI
-  statement {
-    effect  = "Allow"
-    actions = [
-      "cloudfront:CreateDistribution",
-      "cloudfront:UpdateDistribution",
-      "cloudfront:TagResource",
-      "cloudfront:GetDistribution",
-      "cloudfront:ListTagsForResource",
-      "cloudfront:DeleteDistribution",
-      "cloudfront:CreateCloudFrontOriginAccessIdentity",
-      "cloudfront:GetCloudFrontOriginAccessIdentity",
-      "cloudfront:DeleteCloudFrontOriginAccessIdentity",
-    ]
-    resources = [
-      "*"
-    ]
-  }
-
   # ACM create, read and delete certificate
   statement {
     effect  = "Allow"
