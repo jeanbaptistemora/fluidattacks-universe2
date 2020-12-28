@@ -6,21 +6,48 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
   zone_id = cloudflare_zone.fluidattacks_com.id
 
   settings {
-    always_online            = "on"
-    always_use_https         = "on"
-    automatic_https_rewrites = "on"
-    brotli                   = "on"
-    browser_check            = "on"
-    cache_level              = "basic"
-    email_obfuscation        = "on"
-    hotlink_protection       = "on"
-    ip_geolocation           = "on"
-    ipv6                     = "on"
-    opportunistic_encryption = "on"
-    min_tls_version          = "1.2"
-    ssl                      = "flexible"
-    tls_1_3                  = "on"
-    challenge_ttl            = 1800
+    always_online               = "on"
+    always_use_https            = "on"
+    automatic_https_rewrites    = "on"
+    brotli                      = "on"
+    browser_cache_ttl           = 14400
+    browser_check               = "on"
+    cache_level                 = "aggressive"
+    challenge_ttl               = 1800
+    cname_flattening            = "flatten_at_root"
+    development_mode            = "off"
+    email_obfuscation           = "on"
+    h2_prioritization           = "on"
+    hotlink_protection          = "on"
+    http2                       = "on"
+    http3                       = "on"
+    image_resizing              = "off"
+    ip_geolocation              = "on"
+    ipv6                        = "on"
+    max_upload                  = 100
+    min_tls_version             = "1.2"
+    mirage                      = "on"
+    opportunistic_encryption    = "on"
+    opportunistic_onion         = "on"
+    origin_error_page_pass_thru = "off"
+    polish                      = "lossy"
+    pseudo_ipv4                 = "off"
+    prefetch_preload            = "off"
+    privacy_pass                = "on"
+    response_buffering          = "off"
+    rocket_loader               = "on"
+    security_level              = "medium"
+    server_side_exclude         = "on"
+    sort_query_string_for_cache = "off"
+    ssl                         = "flexible"
+    tls_1_3                     = "on"
+    tls_client_auth             = "off"
+    true_client_ip_header       = "off"
+    universal_ssl               = "on"
+    waf                         = "on"
+    webp                        = "on"
+    websockets                  = "on"
+    zero_rtt                    = "on"
 
     minify {
       css  = "on"
@@ -29,8 +56,11 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     }
 
     security_header {
-      enabled = true
-      max_age = 31536000
+      enabled            = true
+      preload            = false
+      include_subdomains = false
+      nosniff            = false
+      max_age            = 31536000
     }
   }
 }

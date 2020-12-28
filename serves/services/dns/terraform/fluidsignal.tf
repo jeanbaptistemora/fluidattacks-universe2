@@ -11,7 +11,7 @@ resource "cloudflare_zone_settings_override" "fluidsignal" {
     automatic_https_rewrites = "on"
     brotli                   = "on"
     browser_check            = "on"
-    cache_level              = "basic"
+    cache_level              = "aggressive"
     email_obfuscation        = "on"
     hotlink_protection       = "on"
     ip_geolocation           = "on"
@@ -45,6 +45,9 @@ resource "cloudflare_zone_dnssec" "fluidsignal_com" {
   zone_id = cloudflare_zone.fluidsignal_com.id
 }
 
+
+# CNAME Records
+
 resource "cloudflare_record" "fluidsignal_main" {
   zone_id = cloudflare_zone.fluidsignal_com.id
   name    = cloudflare_zone.fluidsignal_com.zone
@@ -53,19 +56,8 @@ resource "cloudflare_record" "fluidsignal_main" {
   proxied = true
 }
 
-resource "cloudflare_page_rule" "fluidsignal_redirect" {
-  zone_id  = cloudflare_zone.fluidsignal_com.id
-  target   = "${cloudflare_zone.fluidsignal_com.zone}/*"
-  status   = "active"
-  priority = 1
 
-  actions {
-    forwarding_url {
-      url         = "https://fluidattacks.com/$1"
-      status_code = 301
-    }
-  }
-}
+# MX Records
 
 resource "cloudflare_record" "fluidsignal_com_email_1" {
   zone_id  = cloudflare_zone.fluidsignal_com.id
@@ -110,4 +102,21 @@ resource "cloudflare_record" "fluidsignal_com_email_5" {
   priority = 10
   value    = "aspmx3.googlemail.com"
   ttl      = 300
+}
+
+
+# Page Rules
+
+resource "cloudflare_page_rule" "fluidsignal_redirect" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  target   = "${cloudflare_zone.fluidsignal_com.zone}/*"
+  status   = "active"
+  priority = 1
+
+  actions {
+    forwarding_url {
+      url         = "https://fluidattacks.com/$1"
+      status_code = 301
+    }
+  }
 }
