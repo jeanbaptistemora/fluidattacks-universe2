@@ -9,9 +9,9 @@ function job_integrates_lint_back {
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back \
   &&  prospector -F -s veryhigh analytics/ \
-  &&  prospector -F -s veryhigh -u django -i node_modules back \
+  &&  prospector -F -s veryhigh back \
   &&  prospector -F -s veryhigh lambda \
-  &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
+  &&  prospector -F -s veryhigh deploy/permissions-matrix \
   &&  npx graphql-schema-linter \
         --except 'enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,arguments-have-descriptions' \
         back/packages/integrates-back/backend/api/schema/**/*.graphql \
