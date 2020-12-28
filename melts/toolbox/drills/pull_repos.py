@@ -45,26 +45,51 @@ def notify_out_of_scope(
 
 
 def delete_out_of_scope_files(group: str) -> bool:
+    # This entire function should be rewritten:
+    #   https://gitlab.com/fluidattacks/product/-/issues/2617#note_474753627
+    # I'm patching it for now (2020-12-28) so it survives a few days
+    # The business logic is going to change when we all get to an agreement
+
     path_to_fusion: str = os.path.join('groups', group, 'fusion')
 
     for root in get_filter_rules(group):
+        # Please modify this piece of code, it's too dirty to assume
+        # that the url contains the name of the repo:
+        # - it can end in .git,
+        # - it can contain query parameters
+        # - it can be url encoded
+        # Besides, testing for `a in b` may cause false positives:
+        # For instance:
+        #   url = github/group/repo, is the github url for repo
+        #   if you are looking for: folder = group
+        # then you consider the url is a match, but it is not
+        # This is a critical component, treat it as such
+        # 100% determinism
+
         repos = [
             folder for folder in os.listdir(path_to_fusion)
             if folder in root['url'].split('/')[-1]
         ]
         if repos:
             repo_name = repos[0]
-            path_to_repo = os.path.join('groups', group, 'fusion', repo_name)
         else:
             logger.warn(f'can not find a repository for {root["url"]}')
             continue
+
+        # Compute what files should be deleted according to the scope rules
         non_matching_files_iterator = utils.file.iter_non_matching_files(
-            path=path_to_repo,
-            include_regexps=tuple(
-                map(translate_glob_pattern, root['filter']['include'])),
-            exclude_regexps=tuple(
-                map(translate_glob_pattern, root['filter']['exclude'])),
+            path=path_to_fusion,
+            include_regexps=tuple(map(
+                translate_glob_pattern,
+                root['filter']['include'],
+            )),
+            exclude_regexps=tuple(map(
+                translate_glob_pattern,
+                root['filter']['exclude'],
+            )),
         )
+
+        # Display to the user the Scope
         notify_out_of_scope(
             repo_name,
             root['filter']['include'],
@@ -72,8 +97,8 @@ def delete_out_of_scope_files(group: str) -> bool:
         )
 
         for path in non_matching_files_iterator:
-            path = os.path.join(path_to_fusion, repo_name, path)
-            if '.git' not in path:
+            if path.startswith(repo_name) and '.git' not in path:
+                path = os.path.join(path_to_fusion, path)
                 if os.path.isfile(path):
                     os.unlink(path)
                 elif os.path.isdir(path):
