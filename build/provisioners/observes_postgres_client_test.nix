@@ -8,7 +8,9 @@ in
 
       buildInputs = [
         pkgs.git
+        pkgs.postgresql
         pkgs.python38
+        pkgs.python38Packages.setuptools
       ];
 
       PostgresClient = pkgs.poetry2nix.mkPoetryEnv {
