@@ -41,7 +41,7 @@ const EnvsModal: React.FC<IEnvsModalProps> = ({
               {t("group.scope.git.envUrls")}
             </ControlLabel>
             <ArrayField
-              allowEmpty={false}
+              allowEmpty={true}
               initialValue={""}
               name={"environmentUrls"}
             >
