@@ -111,7 +111,7 @@ common_build_nix_caches:
     refs: [schedules]
     variables: [$common_build_nix_caches]
 
-common-deploy-oci:
+common-deploy-oci-ci:
   <<: *makes_run
   interruptible: false
   only:

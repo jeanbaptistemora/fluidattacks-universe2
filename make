@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 apps=(
-  common-deploy-oci
+  common-deploy-oci-ci
   observes-tap-json
   observes-target-redshift
   skims

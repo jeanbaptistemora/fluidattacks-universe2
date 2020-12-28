@@ -13,7 +13,7 @@ flake.lib.eachDefaultSystem (
       attrs = makeLazyCopy {
         outputs = {
           apps = builtins.mapAttrs makeApp {
-            common-deploy-oci = import ../makes/common/deploy/oci attrs;
+            common-deploy-oci-ci = import ../makes/common/deploy/oci-ci attrs;
             observes-target-redshift = import ../makes/observes/target-redshift/bin attrs;
             observes-tap-json = import ../makes/observes/tap-json/bin attrs;
             skims = import ../makes/skims/bin attrs;
