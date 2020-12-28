@@ -29,6 +29,9 @@ function main {
         ||  return 1
       done \
   &&  gradle -g "$(mktemp -d)" installDist \
+  &&  sed -i \
+        "s|#!/usr/bin/env sh|#! ${envShell}|g" \
+        "${PWD}/build/install/parse/bin/parse" \
   &&  mv "${PWD}" "${out}" \
   ||  return 1
 }
