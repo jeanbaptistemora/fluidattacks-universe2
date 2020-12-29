@@ -47,7 +47,7 @@ from starlette.datastructures import UploadFile
 
 from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
-    AREDIS_CLIENT,
+    redis_cmd,
 )
 from backend.exceptions import (
     ConcurrentSession,
@@ -606,7 +606,7 @@ async def token_exists(key: str) -> bool:
 
 
 async def get_ttl_token(key: str) -> int:
-    return await AREDIS_CLIENT.ttl(key)
+    return await redis_cmd('ttl', key)
 
 
 async def set_redis_element(
@@ -614,20 +614,20 @@ async def set_redis_element(
     value: Any,
     ttl: int = settings.CACHE_TTL
 ) -> None:
-    await AREDIS_CLIENT.setex(key, ttl, json.dumps(value))
+    await redis_cmd('setex', key, ttl, json.dumps(value))
 
 
 async def get_redis_element(key: str) -> Optional[Any]:
-    element = await AREDIS_CLIENT.get(key)
+    element = await redis_cmd('get', key)
     if element is not None:
         element = json.loads(element)
     return element
 
 
 async def del_redis_element(pattern: str) -> int:
-    keys = [key async for key in AREDIS_CLIENT.scan_iter(match=pattern)]
+    keys = await redis_cmd('keys', pattern)
     if keys:
-        await AREDIS_CLIENT.delete(*keys)
+        await redis_cmd('delete', *keys)
     return len(keys)
 
 

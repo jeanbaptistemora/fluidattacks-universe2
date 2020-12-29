@@ -13,9 +13,11 @@ from aioextensions import (
     schedule
 )
 from graphql import GraphQLError
-from rediscluster.nodemanager import RedisClusterException
 
 # Local libraries
+from backend.dal.helpers.redis import (
+    REDIS_EXCEPTIONS,
+)
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
@@ -464,7 +466,7 @@ def get_entity_cache_async(func: TVar) -> TVar:
                 await util.set_redis_element(key_name, ret)
 
             return ret
-        except RedisClusterException as ex:
+        except REDIS_EXCEPTIONS as ex:
             LOGGER.exception(ex, extra=dict(extra=locals()))
             return await _func(*args, **kwargs)
 
@@ -520,7 +522,7 @@ def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
 
                     await util.set_redis_element(cache_key, ret, ttl=ttl)
                 return ret
-            except RedisClusterException as ex:
+            except REDIS_EXCEPTIONS as ex:
                 LOGGER.exception(ex, extra=dict(extra=locals()))
                 return await _func(*args, **kwargs)
 

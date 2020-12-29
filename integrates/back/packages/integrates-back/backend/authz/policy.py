@@ -13,12 +13,14 @@ import logging
 from aioextensions import (
     collect,
 )
-from rediscluster.nodemanager import RedisClusterException
 
 # Local imports
 from backend.dal import (
     project as project_dal,
     user as user_dal,
+)
+from backend.dal.helpers.redis import (
+    REDIS_EXCEPTIONS,
 )
 from backend.utils import (
     function,
@@ -58,7 +60,7 @@ async def get_cached_group_service_attributes_policies(
     try:
         # Attempt to retrieve data from the cache
         ret = await util.get_redis_element(cache_key)
-    except RedisClusterException:
+    except REDIS_EXCEPTIONS:
         ret = None
 
     if ret is None:
@@ -76,7 +78,7 @@ async def get_cached_group_service_attributes_policies(
                 policies,
                 ttl=86400
             )
-        except RedisClusterException as ex:
+        except REDIS_EXCEPTIONS as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
     else:
         policies = cast(Tuple[str, ...], ret)
@@ -107,7 +109,7 @@ async def get_cached_subject_policies(
         try:
             # Attempt to retrieve data from the cache
             ret = await util.get_redis_element(cache_key)
-        except RedisClusterException:
+        except REDIS_EXCEPTIONS:
             ret = None
 
         if ret is None:
@@ -125,7 +127,7 @@ async def get_cached_subject_policies(
                     policies,
                     ttl=300
                 )
-            except RedisClusterException as ex:
+            except REDIS_EXCEPTIONS as ex:
                 LOGGER.exception(ex, extra={'extra': locals()})
         else:
             policies = cast(Tuple[Tuple[str, str, str], ...], ret)

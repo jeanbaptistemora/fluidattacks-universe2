@@ -321,6 +321,8 @@ function job_integrates_deploy_permissions_matrix {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
+  &&  sleep 3 \
+  &&  helper_integrates_serve_redis \
   &&  echo '[INFO] Deploying permissions matrix' \
   &&  python3 deploy/permissions-matrix/matrix.py \
   &&  popd \
