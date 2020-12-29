@@ -152,7 +152,7 @@ resource "cloudflare_record" "track" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "zoho_verify" {
+resource "cloudflare_record" "zoho_verify_directory" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "zb62268970.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
@@ -367,7 +367,7 @@ resource "cloudflare_record" "spf_allowed" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   name     = cloudflare_zone.fluidattacks_com.zone
   type     = "TXT"
-  value    = "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:_spf.salesforce.com include:transmail.net -all"
+  value    = "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:transmail.net -all"
   ttl      = 1
   proxied  = false
 }
@@ -417,15 +417,6 @@ resource "cloudflare_record" "mail_dkim" {
   proxied  = false
 }
 
-resource "cloudflare_record" "salesforce_dkim" {
-  zone_id  = cloudflare_zone.fluidattacks_com.id
-  name     = "salesforce.${cloudflare_zone.fluidattacks_com.zone}"
-  type     = "TXT"
-  value    = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqiBCWoHf5vbibfUS9UO1WiPXA1ZuUqR+yQdbbZLacQuQBB5HuCfylr4soetxurxTg4a7KN6EcDexy/4nGaxxdmDWrYx9bKP1AtNtTL4pwkkI3c1H9jWJTRyqRPTLg+c5qqzNBNYaGcOVEXWUruOvuwO39w3A\"\"NIiOdt6grMh+vM7p1Kr/M8bITcQz92Yx0kWN9DZPcXf++v5jlP39VCAd0QOPZIVGBWvNAkD1gGvDl2fe3YCGSXkEt7F8WD/K1RhUBGI/+3GamRGX2K6c0wVpdmzUPF447VRSO1PQzhOP6JMZAoiY7tssZVW5JiBesTlbLsKWK9Vrry+mayLOexdysQIDAQAB"
-  ttl      = 1
-  proxied  = false
-}
-
 resource "cloudflare_record" "mandrill_dkim" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   name     = "mandrill._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
@@ -442,6 +433,15 @@ resource "cloudflare_record" "mailgun_smtp" {
   value    = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWWMDVpf8LmPSxAzXN6maN9tmYF37+LNKt0ClL6xin8F5D6icNdvViPAFuZDUU8aAQPYacWHUPY0ay+95wt2XiGbpZsa7k4EPFYTdL2hfMNwaidDJKgL58kzBcfvR1r/VX3MPmiP0d6cQKqoDi+THtpqd2w270pgCCBKiYvujHmQIDAQAB"
   ttl      = 1
   proxied  = false
+}
+
+resource "cloudflare_record" "zoho_verify_dkim" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "1522905413783._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "TXT"
+  value   = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCr6KMgdxxgg7oT3ulMwPJs9RXgXDrI9UWU118pHEMohl3UbL3Jwp4oxp/9N3thh/3WCJnYV134zbEVolZwqaT3JsFEq/mQ/RpW/JnOZ3rnxqJPurb2bcfJol4SDxiWVObzHX31xnANzFcXnq1/5dMK5QvW4Jh7n0fm4+4ywqiy2QIDAQAB"
+  ttl     = 1
+  proxied = false
 }
 
 
