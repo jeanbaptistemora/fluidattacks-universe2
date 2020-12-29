@@ -51,7 +51,9 @@ async def _batch_load_fn(
             title=finding.get('finding', ''),
             type=finding.get('findingType', ''),
             historic_state=finding.get('historicState', [{}]),
-            current_state=finding.get('historicState', '')
+            current_state=cast(
+                List[Dict[str, str]], finding.get('historicState', [{}])
+            )[-1].get('state', '')
         )
 
     return [findings.get(finding_id, dict()) for finding_id in finding_ids]
