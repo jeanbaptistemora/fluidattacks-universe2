@@ -12,9 +12,9 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
   }
 
   website {
-     index_document = "index.html"
-     error_document = "error-index.html"
-   }
+    index_document = "index.html"
+    error_document = "error-index.html"
+  }
 
   tags = {
     "Name"               = "web.eph.fluidattacks.com"
