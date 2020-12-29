@@ -15,6 +15,7 @@ export interface IVulnRowAttr {
   specific: string;
   tag: string;
   treatment: string;
+  treatmentChanges: number;
   treatmentDate: string;
   treatmentManager: string;
   verification: string;

@@ -1854,12 +1854,13 @@ export const enTranslations: ResourceKey = {
       tab_title: "Locations",
       tooltip: "Open / Closed vulnerabilities",
       vulnTable: {
-        cycles: "Cycles",
+        cycles: "Reattacks",
         efficacy: "Efficiency",
         lastRequestedReattackDate: "Last reattack request date",
         reportDate: "Report date",
         specific: "Specific",
         status: "Status",
+        treatmentChanges: "Treatment changes",
         treatmentDate: "Treatment date",
         verification: "Last reattack",
         vulnType: {

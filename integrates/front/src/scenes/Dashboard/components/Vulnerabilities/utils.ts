@@ -101,6 +101,11 @@ const formatVulnerabilities: (
               "search_findings.tab_description.treatment.pending_approval"
             )
           : "");
+      const firstTreatment: IHistoricTreatment =
+        vulnerability.historicTreatment[0];
+      const treatmentChanges: number =
+        vulnerability.historicTreatment.length -
+        (firstTreatment.treatment === "NEW" ? 1 : 0);
 
       return {
         ...vulnerability,
@@ -111,6 +116,7 @@ const formatVulnerabilities: (
         efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
         reportDate: vulnerability.reportDate.split(" ")[0],
         treatment: isVulnOpen ? treatmentLabel : "-",
+        treatmentChanges: treatmentChanges,
         treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
         treatmentManager: isVulnOpen
           ? (lastTreatment.treatmentManager as string)

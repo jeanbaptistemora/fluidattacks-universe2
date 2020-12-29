@@ -79,6 +79,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       specific: true,
       tag: true,
       treatment: true,
+      treatmentChanges: false,
       treatmentDate: false,
       treatmentManager: true,
       verification: true,
@@ -325,6 +326,12 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       header: t("search_findings.tab_vuln.vulnTable.treatmentDate"),
       onSort: onSortVulns,
       visible: checkedItems.treatmentDate,
+    },
+    {
+      dataField: "treatmentChanges",
+      header: t("search_findings.tab_vuln.vulnTable.treatmentChanges"),
+      onSort: onSortVulns,
+      visible: checkedItems.treatmentChanges,
     },
   ];
   const deleteHeader: IHeaderConfig[] = [
