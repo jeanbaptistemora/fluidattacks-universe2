@@ -51,7 +51,7 @@ def prioritize(subscription_path: str) -> bool:
         success = extract_features(predict_df)
         if success:
             extensions: List[str] = get_extensions_list()
-            num_bits: int = len(bin(len(extensions))[2:])
+            num_bits: int = len(extensions).bit_length()
             predict_vuln_prob(
                 predict_df,
                 [f'extension_{num}' for num in range(num_bits + 1)],

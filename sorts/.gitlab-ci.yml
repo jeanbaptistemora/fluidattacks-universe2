@@ -84,6 +84,7 @@ sorts_deploy_infra:
 sorts_extract_all_features:
   <<: *with_nix
   <<: *sorts_in_master_branch_code_changes
+  image: "${CI_REGISTRY_IMAGE}/nix:sorts_extract_all_features"
   stage: test-code
   parallel: 15
 
