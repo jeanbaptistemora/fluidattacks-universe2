@@ -20,7 +20,7 @@ import { useStoredState } from "utils/hooks";
 import { useTranslation } from "react-i18next";
 import type {
   IVulnComponentProps,
-  IVulnDataType,
+  IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
@@ -174,7 +174,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         Array.from(
           new Set(
             selectedVulnerabilities.filter(
-              (selectedVulnerability: IVulnDataType): boolean =>
+              (selectedVulnerability: IVulnDataTypeAttr): boolean =>
                 !vulnerabilitiesIds.includes(selectedVulnerability.id)
             )
           )

@@ -4,7 +4,7 @@ import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/Vulnerabiliti
 import { GraphQLError } from "graphql";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import type { IUpdateVulnDescriptionResultAttr } from "./types";
-import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
@@ -39,7 +39,7 @@ jest.mock(
 );
 
 describe("Update Description component", (): void => {
-  const vulns: IVulnDataType[] = [
+  const vulns: IVulnDataTypeAttr[] = [
     {
       currentState: "open",
       externalBts: "",
@@ -134,7 +134,7 @@ describe("Update Description component", (): void => {
       user: "",
     };
 
-    const vulnerabilities: IVulnDataType[] = [
+    const vulnerabilities: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
         externalBts: "",
@@ -423,7 +423,7 @@ describe("Update Description component", (): void => {
         result: { data: updateTreatment },
       },
     ];
-    const vulnsToUpdate: IVulnDataType[] = [
+    const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
         externalBts: "",
@@ -560,7 +560,7 @@ describe("Update Description component", (): void => {
         ],
       },
     };
-    const vulnsToUpdate: IVulnDataType[] = [
+    const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
         externalBts: "",

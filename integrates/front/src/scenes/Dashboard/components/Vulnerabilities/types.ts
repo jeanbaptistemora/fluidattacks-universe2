@@ -1,6 +1,6 @@
-import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
-export interface IVulnRowAttr {
+interface IVulnRowAttr {
   currentState: "open" | "closed";
   currentStateCapitalized: "Open" | "Closed";
   cycles: string;
@@ -24,20 +24,20 @@ export interface IVulnRowAttr {
   zeroRisk: string;
 }
 
-export interface IUploadVulnerabilitiesResult {
+interface IUploadVulnerabilitiesResultAttr {
   uploadFile: {
     success: boolean;
   };
 }
 
-export interface IDownloadVulnerabilitiesResult {
+interface IDownloadVulnerabilitiesResultAttr {
   downloadVulnFile: {
     success: boolean;
     url: string;
   };
 }
 
-export interface IUpdateTreatmentVulnAttr {
+interface IUpdateTreatmentVulnAttr {
   acceptanceDate: string;
   externalBts: string;
   findingId: string;
@@ -49,7 +49,7 @@ export interface IUpdateTreatmentVulnAttr {
   vulnerabilities: string[];
 }
 
-export interface IVulnDataType {
+interface IVulnDataTypeAttr {
   currentState: "open" | "closed";
   externalBts: string;
   historicTreatment: IHistoricTreatment[];
@@ -61,19 +61,24 @@ export interface IVulnDataType {
   where: string;
 }
 
-export interface IVulnComponentProps {
+interface IVulnComponentProps {
   findingId: string;
   groupName: string;
   isEditing: boolean;
   isRequestingReattack: boolean;
   isVerifyingRequest: boolean;
   vulnerabilities: IVulnRowAttr[];
-  onVulnSelect(vulnerabilities: IVulnDataType[], clearSelected: () => void): void;
+  onVulnSelect: (
+    vulnerabilities: IVulnDataTypeAttr[],
+    clearSelected: () => void
+  ) => void;
 }
 
-export interface IRequestVerificationVulnResult {
-  requestVerificationVuln: { success: boolean };
-}
-export interface IVerifyRequestVulnResult {
-  verifyRequestVuln: { success: boolean };
-}
+export {
+  IVulnRowAttr,
+  IUploadVulnerabilitiesResultAttr,
+  IDownloadVulnerabilitiesResultAttr,
+  IUpdateTreatmentVulnAttr,
+  IVulnDataTypeAttr,
+  IVulnComponentProps,
+};

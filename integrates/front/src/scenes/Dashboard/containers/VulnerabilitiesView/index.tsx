@@ -4,7 +4,7 @@ import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/Vulnerabiliti
 import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
@@ -57,17 +57,17 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
 
   const [remediationModalConfig, setRemediationModalConfig] = React.useState<{
-    vulnerabilities: IVulnDataType[];
+    vulnerabilities: IVulnDataTypeAttr[];
     clearSelected: () => void;
   }>({
     clearSelected: (): void => undefined,
     vulnerabilities: [],
   });
   const openRemediationModal: (
-    vulnerabilities: IVulnDataType[],
+    vulnerabilities: IVulnDataTypeAttr[],
     clearSelected: () => void
   ) => void = React.useCallback(
-    (vulnerabilities: IVulnDataType[], clearSelected: () => void): void => {
+    (vulnerabilities: IVulnDataTypeAttr[], clearSelected: () => void): void => {
       setRemediationModalConfig({ clearSelected, vulnerabilities });
     },
     []

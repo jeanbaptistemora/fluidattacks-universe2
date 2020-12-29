@@ -1,9 +1,9 @@
-import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
 interface IUpdateTreatmentModalProps {
   findingId: string;
   projectName?: string;
-  vulnerabilities: IVulnDataType[];
+  vulnerabilities: IVulnDataTypeAttr[];
   vulnerabilitiesChunk: number;
   handleClearSelected: () => void;
   handleCloseModal: () => void;

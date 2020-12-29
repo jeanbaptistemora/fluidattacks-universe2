@@ -21,7 +21,8 @@ import {
   DOWNLOAD_VULNERABILITIES, UPLOAD_VULNERABILITIES,
 } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
-  IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult,
+  IDownloadVulnerabilitiesResultAttr,
+  IUploadVulnerabilitiesResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
@@ -40,8 +41,8 @@ const uploadVulnerabilities: React.FC<{ findingId: string; groupName: string }> 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
-  const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResult) => void) =
-  (mtResult: IUploadVulnerabilitiesResult): void => {
+  const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResultAttr) => void) =
+  (mtResult: IUploadVulnerabilitiesResultAttr): void => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.uploadFile.success) {
         dispatch(submit("editDescription"));
@@ -109,7 +110,7 @@ const uploadVulnerabilities: React.FC<{ findingId: string; groupName: string }> 
   };
 
   const [downloadVulnerability] = useMutation(DOWNLOAD_VULNERABILITIES, {
-    onCompleted: (result: IDownloadVulnerabilitiesResult): void => {
+    onCompleted: (result: IDownloadVulnerabilitiesResultAttr): void => {
       if (!_.isUndefined(result)) {
         if (result.downloadVulnFile.success && result.downloadVulnFile.url !== "") {
           openUrl(result.downloadVulnFile.url);

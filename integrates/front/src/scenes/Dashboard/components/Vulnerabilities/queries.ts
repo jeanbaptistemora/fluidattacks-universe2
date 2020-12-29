@@ -1,15 +1,15 @@
-import { DocumentNode } from "graphql";
+import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
-  mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
+const UPLOAD_VULNERABILITIES: DocumentNode = gql`
+  mutation UploadVulnerabilites($file: Upload!, $findingId: String!) {
     uploadFile(findingId: $findingId, file: $file) {
       success
     }
-  }`
-;
+  }
+`;
 
-export const GET_PROJECT_USERS: DocumentNode = gql`
+const GET_PROJECT_USERS: DocumentNode = gql`
   query GetProjectUsers($projectName: String!) {
     project(projectName: $projectName) {
       stakeholders {
@@ -19,7 +19,7 @@ export const GET_PROJECT_USERS: DocumentNode = gql`
   }
 `;
 
-export const DOWNLOAD_VULNERABILITIES: DocumentNode = gql`
+const DOWNLOAD_VULNERABILITIES: DocumentNode = gql`
   mutation downloadVulnFile($findingId: String!) {
     downloadVulnFile(findingId: $findingId) {
       success
@@ -27,3 +27,5 @@ export const DOWNLOAD_VULNERABILITIES: DocumentNode = gql`
     }
   }
 `;
+
+export { DOWNLOAD_VULNERABILITIES, GET_PROJECT_USERS, UPLOAD_VULNERABILITIES };

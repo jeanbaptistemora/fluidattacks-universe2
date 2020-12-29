@@ -42,7 +42,7 @@ import type {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import type {
   IUpdateTreatmentVulnAttr,
-  IVulnDataType,
+  IVulnDataTypeAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { formValueSelector, isPristine, submit } from "redux-form";
@@ -82,7 +82,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   const [isRunning, setRunning] = React.useState(false);
 
   const vulnsTags: string[][] = vulnerabilities.map(
-    (vuln: IVulnDataType): string[] => sortTags(vuln.tag)
+    (vuln: IVulnDataTypeAttr): string[] => sortTags(vuln.tag)
   );
   const isEditPristine: boolean = useSelector(
     (state: Record<string, unknown>): boolean =>
@@ -170,7 +170,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         >[] = await Promise.all(
           _.chunk(vulnerabilities, vulnerabilitiesChunk).map(
             async (
-              vulnsChuncked: IVulnDataType[]
+              vulnsChuncked: IVulnDataTypeAttr[]
             ): Promise<ExecutionResult<IUpdateVulnDescriptionResultAttr>> =>
               updateVuln({
                 variables: {
@@ -193,7 +193,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                       ? undefined
                       : dataTreatment.treatmentManager,
                   vulnerabilities: vulnsChuncked.map(
-                    (vuln: IVulnDataType): string => vuln.id
+                    (vuln: IVulnDataTypeAttr): string => vuln.id
                   ),
                 },
               })
@@ -300,7 +300,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         findingId: findingId,
         tag,
         vulnerabilities: vulnerabilities.map(
-          (vuln: IVulnDataType): string => vuln.id
+          (vuln: IVulnDataTypeAttr): string => vuln.id
         ),
       },
     });
@@ -406,7 +406,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                     findingId: findingId,
                     justification: values.justification,
                     vulnerabilities: vulnerabilities.map(
-                      (vuln: IVulnDataType): string => vuln.id
+                      (vuln: IVulnDataTypeAttr): string => vuln.id
                     ),
                   },
                 });

@@ -1,5 +1,5 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import type { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import _ from "lodash";
 
 const emptyTreatment: IHistoricTreatment = {
@@ -18,16 +18,16 @@ const sortTags: (tags: string) => string[] = (tags: string): string[] => {
   return tagSplit.map((tag: string): string => tag.trim());
 };
 
-const groupExternalBts: (vulnerabilities: IVulnDataType[]) => string = (
-  vulnerabilities: IVulnDataType[]
+const groupExternalBts: (vulnerabilities: IVulnDataTypeAttr[]) => string = (
+  vulnerabilities: IVulnDataTypeAttr[]
 ): string => {
   const bts: string = vulnerabilities.reduce(
-    (acc: string, vuln: IVulnDataType): string =>
+    (acc: string, vuln: IVulnDataTypeAttr): string =>
       _.isEmpty(vuln.externalBts) ? acc : vuln.externalBts,
     ""
   );
 
-  return vulnerabilities.every((row: IVulnDataType): boolean =>
+  return vulnerabilities.every((row: IVulnDataTypeAttr): boolean =>
     _.isEmpty(row.externalBts) ? true : row.externalBts === bts
   )
     ? bts
@@ -54,13 +54,13 @@ const getLastTreatment: (
 };
 
 const groupLastHistoricTreatment: (
-  vulnerabilities: IVulnDataType[]
+  vulnerabilities: IVulnDataTypeAttr[]
 ) => IHistoricTreatment = (
-  vulnerabilities: IVulnDataType[]
+  vulnerabilities: IVulnDataTypeAttr[]
 ): IHistoricTreatment => {
   const attributeToOmitWhenComparing: string[] = ["date", "user"];
   const treatment: IHistoricTreatment = vulnerabilities.reduce(
-    (acc: IHistoricTreatment, vuln: IVulnDataType): IHistoricTreatment => {
+    (acc: IHistoricTreatment, vuln: IVulnDataTypeAttr): IHistoricTreatment => {
       const lastTreatment: IHistoricTreatment = getLastTreatment(
         vuln.historicTreatment
       );
@@ -70,7 +70,7 @@ const groupLastHistoricTreatment: (
     emptyTreatment
   );
 
-  return vulnerabilities.every((vuln: IVulnDataType): boolean => {
+  return vulnerabilities.every((vuln: IVulnDataTypeAttr): boolean => {
     const lastTreatment: IHistoricTreatment = getLastTreatment(
       vuln.historicTreatment
     );
@@ -86,16 +86,16 @@ const groupLastHistoricTreatment: (
     : emptyTreatment;
 };
 
-const groupVulnLevel: (vulnerabilities: IVulnDataType[]) => string = (
-  vulnerabilities: IVulnDataType[]
+const groupVulnLevel: (vulnerabilities: IVulnDataTypeAttr[]) => string = (
+  vulnerabilities: IVulnDataTypeAttr[]
 ): string => {
   const vulnLevel: string = vulnerabilities.reduce(
-    (acc: string, vuln: IVulnDataType): string =>
+    (acc: string, vuln: IVulnDataTypeAttr): string =>
       _.isEmpty(vuln.severity) ? acc : vuln.severity,
     ""
   );
 
-  return vulnerabilities.every((row: IVulnDataType): boolean =>
+  return vulnerabilities.every((row: IVulnDataTypeAttr): boolean =>
     _.isEmpty(row.severity) ? true : row.severity === vulnLevel
   )
     ? vulnLevel
