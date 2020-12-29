@@ -46,3 +46,8 @@ analytics/**/*.png
 
 # Tests E2E
 test_e2e/geckodriver.log
+
+# Redis local
+/.Redis/
+/appendonly.aof
+/nodes.conf

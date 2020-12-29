@@ -1,23 +1,18 @@
-
+# Third party libraries
 from aredis import (
-    StrictRedis as AStrictRedis,
     StrictRedisCluster as AStrictRedisCluster,
 )
-from __init__ import FI_ENVIRONMENT, FI_REDIS_SERVER
 
-CLIENT_CONFIG = {
-    'host': FI_REDIS_SERVER,
-    'port': 6379,
-    'decode_responses': True,
-    'max_connections': 2048,
-}
-if FI_ENVIRONMENT == 'development':
-    AREDIS_CLIENT = AStrictRedis(
-        **CLIENT_CONFIG,
-        db=0,
-    )
-else:
-    AREDIS_CLIENT = AStrictRedisCluster(
-        **CLIENT_CONFIG,
-        skip_full_coverage_check=True,
-    )
+# Local libraries
+from __init__ import (
+    FI_REDIS_SERVER,
+)
+
+# Constants
+AREDIS_CLIENT = AStrictRedisCluster(
+    decode_responses=True,
+    host=FI_REDIS_SERVER,
+    max_connections=2048,
+    port=6379,
+    skip_full_coverage_check=True,
+)

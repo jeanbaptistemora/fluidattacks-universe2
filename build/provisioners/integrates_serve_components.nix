@@ -17,6 +17,7 @@ in
         pkgs.awscli
         pkgs.curl
         pkgs.cacert
+        pkgs.lsof
         pkgs.nodejs
         pkgs.openjdk
         pkgs.p7zip
