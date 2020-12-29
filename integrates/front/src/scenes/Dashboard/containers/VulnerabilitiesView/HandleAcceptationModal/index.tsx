@@ -364,7 +364,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
           </Row>
           <Row>
             <Col100>
-              <JustificationField />
+              <JustificationField
+                isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
+              />
             </Col100>
           </Row>
           <ButtonToolbar>

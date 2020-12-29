@@ -1009,6 +1009,12 @@ export const enTranslations: ResourceKey = {
       field: "Field",
       handle_acceptation_modal: {
         title: "Observations",
+        zero_risk_justification: {
+          confirmation: {
+            fp: "FP",
+            out_of_the_scope: "Out of the scope",
+          },
+        },
       },
       inputs: "Inputs",
       is_new: "New",
