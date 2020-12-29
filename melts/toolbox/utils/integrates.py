@@ -1,5 +1,6 @@
 # Standard library
 import json
+import multiprocessing.pool
 from typing import (
     Any,
     Dict,
@@ -57,12 +58,26 @@ def get_exclude_rules(group: str) -> Tuple[str, ...]:
 
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.has_forces(API_TOKEN, group)
-    success = False
-    if response.ok:
-        success = response.data['project']['hasForces']
-    else:
-        logger.error(response.errors[0])
-    return success
+    if not response.ok:
+        raise Exception(response.errors)
+
+    return response.data['project']['hasForces']
+
+
+def filter_groups_with_forces(groups: Tuple[str, ...]) -> Tuple[str, ...]:
+    with multiprocessing.pool.ThreadPool(10) as pool:
+        return tuple(
+            group
+            for group, group_has_forces in zip(
+                groups, pool.map(has_forces, groups),
+            )
+            if group_has_forces
+        )
+
+
+def filter_groups_with_forces_as_json_str(groups: Tuple[str, ...]) -> bool:
+    print(json.dumps(filter_groups_with_forces(groups)))
+    return True
 
 
 def update_root_cloning_status(

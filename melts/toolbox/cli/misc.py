@@ -3,7 +3,6 @@ import sys
 
 # Third party libraries
 from click import (
-    argument,
     command,
     option,
 )
@@ -32,29 +31,28 @@ def do_check_commit_msg() -> bool:
 
 
 @command(name='misc', short_help='miscellaneous checks')
-@argument(
-    'group',
-    default=utils.generic.get_current_group(),
-    callback=utils.generic.is_valid_group)
 @option('--check-commit-msg', is_flag=True, help='validate commit msg syntax')
 @option('--is-drills-commit', is_flag=True)
-@option('--has-forces', is_flag=True)
+@option('--filter-groups-with-forces')
 def misc_management(
-        group,
-        check_commit_msg,
-        is_drills_commit,
-        has_forces,
+    check_commit_msg,
+    is_drills_commit,
+    filter_groups_with_forces,
 ):
-    success: bool
+    success: bool = False
 
     if is_drills_commit:
         summary: str = utils.generic.get_change_request_summary()
         success = drills.commit.is_drills_commit(summary)
-        sys.exit(0 if success else 1)
 
     elif check_commit_msg:
         success_message = do_check_commit_msg()
         success_content = drills.lint.check_folder_content()
-        sys.exit(0 if success_message and success_content else 1)
-    elif has_forces:
-        sys.exit(0 if utils.integrates.has_forces(group) else 1)
+        success = success_message and success_content
+
+    elif filter_groups_with_forces:
+        success = utils.integrates.filter_groups_with_forces_as_json_str(tuple(
+            filter_groups_with_forces.split(' '),
+        ))
+
+    sys.exit(0 if success else 1)
