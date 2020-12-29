@@ -117,40 +117,27 @@ function job_sorts_deploy_to_pypi {
   ||  return 1
 }
 
-function job_sorts_extract_all_features_on_aws {
+function job_sorts_extract_all_features {
+  export CI_NODE_INDEX
+  export CI_NODE_TOTAL
+
   local groups_file="${TEMP_FILE1}"
   local groups_count
+  local offset
+  local step
 
       echo '[INFO] Computing groups list' \
   &&  helper_common_list_services_groups "${groups_file}" \
   &&  groups_count=$(wc -l < "${groups_file}") \
+  &&  step=$(( groups_count/CI_NODE_TOTAL+1 )) \
+  &&  offset=$(( step*(CI_NODE_INDEX-1)+1 )) \
   &&  echo "[INFO] ${groups_count} groups found" \
   &&  while read -r group
       do
             echo "[INFO] Submitting: ${group}" \
-        &&  job_sorts_extract_features_on_aws "${group}" \
+        &&  job_sorts_extract_features "${group}" \
         ||  return 1
-      done < "${groups_file}"
-}
-
-function job_sorts_extract_features_on_aws {
-  local vcpus='2'
-  local memory='3600'
-  local attempts='10'
-  local timeout='18000'
-  local group="${1}"
-  local jobqueue='default'
-
-      jobname="sorts_extract_features__${group}" \
-  &&  helper_sorts_aws_login prod \
-  &&  helper_common_run_on_aws \
-        "${vcpus}" \
-        "${memory}" \
-        "${attempts}" \
-        "${timeout}" \
-        "${jobname}" \
-        "${jobqueue}" \
-        'sorts_extract_features' "${group}"
+      done < <(tail -n "+${offset}" "${groups_file}" | head -n "${step}")
 }
 
 function job_sorts_extract_features {
@@ -170,6 +157,8 @@ function job_sorts_train_model_on_aws {
       helper_sorts_install_dependencies \
   &&  pushd sorts \
     &&  helper_sorts_aws_login prod \
+    &&  echo "[INFO] Preparing extracted features data..." \
+    &&  poetry run python3 training/merge_features.py \
     &&  echo "[INFO] Initializing training..." \
     &&  poetry run python3 training/sagemaker_provisioner.py \
   &&  popd \

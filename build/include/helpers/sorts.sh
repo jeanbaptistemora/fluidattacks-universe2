@@ -45,7 +45,7 @@ function helper_sorts_download_best_model {
             then
                   best_f1="${f1}" \
               &&  best_model="${base_file}"
-            fi \
+            fi
       done \
   &&  cp "${tmpdir}/${best_model}" "${model_path}" \
   &&  rm -rf "${tmpdir}"
