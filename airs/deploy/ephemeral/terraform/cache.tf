@@ -4,6 +4,9 @@ resource "cloudflare_page_rule" "cache" {
   status   = "active"
 
   actions {
-    cache_level = "aggressive"
+    cache_level            = "cache_everything"
+    edge_cache_ttl         = 1800
+    browser_cache_ttl      = 1800
+    bypass_cache_on_cookie = "CookieConsent"
   }
 }
