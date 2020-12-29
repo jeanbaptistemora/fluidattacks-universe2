@@ -1856,6 +1856,7 @@ export const enTranslations: ResourceKey = {
       vulnTable: {
         cycles: "Reattacks",
         efficacy: "Efficiency",
+        lastReattackDate: "Last reattack date",
         lastRequestedReattackDate: "Last reattack request date",
         reportDate: "Report date",
         specific: "Specific",

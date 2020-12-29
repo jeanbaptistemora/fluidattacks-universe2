@@ -8,6 +8,7 @@ interface IVulnRowAttr {
   externalBts: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
+  lastReattackDate: string;
   lastRequestedReattackDate: string;
   remediated: boolean;
   reportDate: string;

@@ -24,6 +24,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
           treatmentManager
         }
         id
+        lastReattackDate
         lastRequestedReattackDate
         remediated
         reportDate
