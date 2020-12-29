@@ -98,6 +98,7 @@ async def _batch_load_fn(
                 report_date=cast(
                     HistoricType, vuln['historic_state']
                 )[0]['date'],
+                last_reattack_date=vuln_domain.get_last_reattack_date(vuln),
             )
         )
 
