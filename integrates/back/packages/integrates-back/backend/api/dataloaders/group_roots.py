@@ -1,5 +1,8 @@
 # Standard
-from typing import Tuple
+from typing import (
+    cast,
+    Tuple
+)
 
 # Third party
 from aiodataloader import DataLoader
@@ -24,7 +27,7 @@ class GroupRootsLoader(DataLoader):  # type: ignore
         self,
         group_names: Tuple[str, ...]
     ) -> Tuple[Tuple[Root, ...], ...]:
-        return await collect(
+        return cast(Tuple[Tuple[Root, ...], ...], await collect(
             get_roots_by_group(group_name)
             for group_name in group_names
-        )
+        ))

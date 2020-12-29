@@ -31,35 +31,34 @@ async def _batch_load_fn(
             cvss_version=finding.get('cvssVersion', '3.1'),
             cwe_url=finding.get('cwe', ''),
             description=finding.get('vulnerability', ''),
-            evidence=finding.get('evidence', {}),  # type: ignore
-            exploit=finding.get('exploit', {}),  # type: ignore
+            evidence=finding.get('evidence', ''),
+            exploit=finding.get('exploit', ''),
             finding_id=finding.get('findingId', ''),
             id=finding.get('findingId', ''),
             is_exploitable=finding.get('exploitable', ''),
             last_vulnerability=finding.get('lastVulnerability', 0),
             project_name=finding.get('projectName', ''),
             recommendation=finding.get('effectSolution', ''),
-            records=finding.get('records', {}),  # type: ignore
+            records=finding.get('records', ''),
             remediated=finding.get('remediated', False),
             requirements=finding.get('requirements', ''),
             risk=finding.get('risk', ''),
             scenario=finding.get('scenario', ''),
             sorts=finding.get('sorts', None),
-            severity=finding.get('severity', {}),  # type: ignore
+            severity=finding.get('severity', ''),
             severity_score=finding.get('severityCvss', 0.0),
             threat=finding.get('threat', ''),
             title=finding.get('finding', ''),
             type=finding.get('findingType', ''),
             historic_state=finding.get('historicState', [{}]),
-            current_state=finding.get(  # type: ignore
-                'historicState', [{}])[-1].get('state', '')  # type: ignore
+            current_state=finding.get('historicState', '')
         )
 
     return [findings.get(finding_id, dict()) for finding_id in finding_ids]
 
 
 # pylint: disable=too-few-public-methods
-class FindingLoader(DataLoader):
+class FindingLoader(DataLoader):  # type: ignore
     async def batch_load_fn(
             self, finding_ids: List[str]) -> List[Dict[str, FindingType]]:
         return await _batch_load_fn(finding_ids)

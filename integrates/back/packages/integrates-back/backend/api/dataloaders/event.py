@@ -41,6 +41,6 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
 
 
 # pylint: disable=too-few-public-methods
-class EventLoader(DataLoader):
+class EventLoader(DataLoader):  # type: ignore
     async def batch_load_fn(self, event_ids: List[str]) -> List[EventType]:
         return await _batch_load_fn(event_ids)

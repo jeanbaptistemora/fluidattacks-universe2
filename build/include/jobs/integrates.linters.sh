@@ -6,6 +6,8 @@ function job_integrates_lint_back {
   &&  mypy --strict --ignore-missing-imports analytics/ \
       back/migrations/ \
       back \
+  &&  mypy --strict --ignore-missing-imports --follow-imports=skip \
+        back/packages/integrates-back/backend/api/dataloaders \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back \
   &&  prospector -F -s veryhigh analytics/ \
