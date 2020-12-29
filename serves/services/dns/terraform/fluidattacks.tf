@@ -21,7 +21,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     hotlink_protection          = "on"
     http2                       = "on"
     http3                       = "on"
-    image_resizing              = "open"
+    image_resizing              = "off"
     ip_geolocation              = "on"
     ipv6                        = "on"
     max_upload                  = 100
@@ -148,6 +148,15 @@ resource "cloudflare_record" "track" {
   name    = "track.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "mandrillapp.com"
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_record" "zoho_verify" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "zb62268970.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "zmverify.zoho.com"
   proxied = false
   ttl     = 1
 }
