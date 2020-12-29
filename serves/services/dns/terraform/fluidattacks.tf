@@ -21,7 +21,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     hotlink_protection          = "on"
     http2                       = "on"
     http3                       = "on"
-    image_resizing              = "off"
+    image_resizing              = "open"
     ip_geolocation              = "on"
     ipv6                        = "on"
     max_upload                  = 100
@@ -67,7 +67,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
 
 resource "cloudflare_rate_limit" "fluidattacks_com" {
   zone_id             = cloudflare_zone.fluidattacks_com.id
-  threshold           = 1000
+  threshold           = 500
   period              = 60
   disabled            = false
   description         = "Main rate limit"
