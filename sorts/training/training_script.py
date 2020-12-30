@@ -234,7 +234,10 @@ def split_training_data(
         [
             features_df.loc[:, feature_list],
             # Include all extensions
-            features_df.loc[:, 'extension_0':]  # type: ignore
+            features_df.loc[
+                :,
+                features_df.columns.str.startswith('extension_')
+            ]
         ],
         axis=1)
     return features_df, labels
