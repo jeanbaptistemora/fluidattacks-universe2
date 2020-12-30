@@ -3,15 +3,18 @@ import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
+import type { IJustificationFieldProps } from "./JustificationField/types";
 import type { IVulnerabilitiesAttr } from "../types";
 import type { IZeroRiskConfirmationTableProps } from "./ZeroRiskConfirmationTable/types";
 import type { IZeroRiskRejectionTableProps } from "./ZeroRiskRejectionTable/types";
+import { JustificationField } from "./JustificationField";
 import type { MockedResponse } from "@apollo/react-testing";
 import type { PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 import { PureAbility } from "@casl/ability";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
+import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
 import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
 import { act } from "react-dom/test-utils";
@@ -732,5 +735,92 @@ describe("handle vulns acceptation modal", (): void => {
       "Zero risk vulnerability has been rejected",
       "Correct!"
     );
+  });
+
+  it("should display dropdown to confirm zero risk", (): void => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleRefetchData: jest.Mock = jest.fn();
+    const handleCloseModal: jest.Mock = jest.fn();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      {
+        action: "backend_api_mutations_confirm_zero_risk_vuln_mutate",
+      },
+      {
+        action: "see_dropdown_to_confirm_zero_risk",
+      },
+    ]);
+    const mokedVulns: IVulnerabilitiesAttr[] = [
+      {
+        historicTreatment: [
+          {
+            acceptanceDate: "",
+            acceptanceStatus: "SUBMITTED",
+            date: "2019-07-05 09:56:40",
+            justification: "test justification",
+            treatment: "ACCEPTED_UNDEFINED",
+            treatmentManager: "treatment-manager-1",
+            user: "user@test.com",
+          },
+        ],
+        id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+        specific: "",
+        where: "",
+        zeroRisk: "Requested",
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider addTypename={false}>
+          <HandleAcceptationModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </Provider>,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
+    );
+    const treatmentFieldDropdown: ReactWrapper = wrapper
+      .find(TreatmentField)
+      .find("select");
+    treatmentFieldDropdown.simulate("change", {
+      target: { value: "CONFIRM_ZERO_RISK" },
+    });
+    const justificationField: ReactWrapper<IJustificationFieldProps> = wrapper.find(
+      JustificationField
+    );
+    const expectedJustificationFieldLength: number = 1;
+
+    expect(justificationField).toHaveLength(expectedJustificationFieldLength);
+
+    const dropdown: ReactWrapper = justificationField.find("select");
+    const expectedDropdownLength: number = 1;
+
+    expect(dropdown).toHaveLength(expectedDropdownLength);
+
+    const dropdownOptions: ReactWrapper = dropdown.find("option");
+    const expectedDropdownOptionLength: number = 3;
+
+    expect(dropdownOptions).toHaveLength(expectedDropdownOptionLength);
+
+    const fpOption: ReactWrapper = dropdownOptions.filter({ value: "FP" });
+    const expectedFpOptionLength: number = 1;
+
+    expect(fpOption).toHaveLength(expectedFpOptionLength);
+
+    const outOfTheScopeOption: ReactWrapper = dropdownOptions.filter({
+      value: "Out of the scope",
+    });
+    const expectedOutOfTheScopeOptionLength: number = 1;
+
+    expect(outOfTheScopeOption).toHaveLength(expectedOutOfTheScopeOptionLength);
   });
 });
