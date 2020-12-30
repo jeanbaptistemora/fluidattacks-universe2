@@ -17,6 +17,7 @@ in
         sha256 = "QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=";
       };
       envPython = "${pkgsSkims.python38}/bin/python";
+      envSetupSkimsRuntime = config.setupSkimsRuntime;
       envSkims = outputs.apps.skims.program;
       envSrcSkimsSkims = ../../../skims/skims;
       envSrcSkimsTest = ../../../skims/test;

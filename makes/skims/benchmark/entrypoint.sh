@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 
+source '__envSetupSkimsRuntime__'
 source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 
