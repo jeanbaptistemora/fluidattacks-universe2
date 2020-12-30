@@ -1,5 +1,6 @@
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
+variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
 
 data "cloudflare_ip_ranges" "cloudflare" {}

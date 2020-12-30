@@ -42,10 +42,13 @@ function helper_airs_aws_login {
 
 function helper_airs_cloudflare_login {
   local user="${1}"
+  export TF_VAR_cloudflare_account_id
   export TF_VAR_cloudflare_api_token
 
       helper_common_sops_env "deploy/secret-management/${user}.yaml" default \
+        CLOUDFLARE_ACCOUNT_ID \
         CLOUDFLARE_API_TOKEN \
+  &&  TF_VAR_cloudflare_account_id="${CLOUDFLARE_ACCOUNT_ID}" \
   &&  TF_VAR_cloudflare_api_token="${CLOUDFLARE_API_TOKEN}"
 }
 

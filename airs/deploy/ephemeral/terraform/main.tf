@@ -8,7 +8,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 2.14.0"
+      version = "~> 2.15.0"
     }
   }
 
@@ -28,5 +28,6 @@ provider "aws" {
 }
 
 provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+  account_id = var.cloudflare_account_id
+  api_token  = var.cloudflare_api_token
 }
