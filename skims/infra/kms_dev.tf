@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "key_skims_dev" {
     condition {
       test     = "Bool"
       variable = "kms:GrantIsForAWSResource"
-      values   = [
+      values = [
         "true",
       ]
     }
@@ -68,9 +68,9 @@ data "aws_iam_policy_document" "key_skims_dev" {
 }
 
 resource "aws_kms_key" "key_skims_dev" {
-  policy = data.aws_iam_policy_document.key_skims_dev.json
+  policy                  = data.aws_iam_policy_document.key_skims_dev.json
   deletion_window_in_days = 30
-  is_enabled = true
+  is_enabled              = true
 
   tags = {
     "Name"               = "skims-development"
@@ -80,6 +80,6 @@ resource "aws_kms_key" "key_skims_dev" {
 }
 
 resource "aws_kms_alias" "key_skims_dev" {
-  name = "alias/skims_dev"
+  name          = "alias/skims_dev"
   target_key_id = aws_kms_key.key_skims_dev.key_id
 }

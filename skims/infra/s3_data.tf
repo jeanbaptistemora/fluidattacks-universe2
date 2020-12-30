@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "skims_data" {
-  acl = "private"
+  acl    = "private"
   bucket = "skims.data"
   region = var.region
   tags = {
@@ -10,9 +10,9 @@ resource "aws_s3_bucket" "skims_data" {
 
   lifecycle_rule {
     abort_incomplete_multipart_upload_days = 7
-    enabled = true
-    id = "skims_data_cache"
-    prefix = "cache/"
+    enabled                                = true
+    id                                     = "skims_data_cache"
+    prefix                                 = "cache/"
 
     expiration {
       days = 28
@@ -32,7 +32,7 @@ resource "aws_s3_bucket" "skims_data" {
   }
 
   versioning {
-    enabled = true
+    enabled    = true
     mfa_delete = false
   }
 }

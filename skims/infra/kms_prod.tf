@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "key_skims_prod" {
     condition {
       test     = "Bool"
       variable = "kms:GrantIsForAWSResource"
-      values   = [
+      values = [
         "true",
       ]
     }
@@ -66,9 +66,9 @@ data "aws_iam_policy_document" "key_skims_prod" {
 }
 
 resource "aws_kms_key" "key_skims_prod" {
-  policy = data.aws_iam_policy_document.key_skims_prod.json
+  policy                  = data.aws_iam_policy_document.key_skims_prod.json
   deletion_window_in_days = 30
-  is_enabled = true
+  is_enabled              = true
 
   tags = {
     "Name"               = "skims-production"
@@ -78,6 +78,6 @@ resource "aws_kms_key" "key_skims_prod" {
 }
 
 resource "aws_kms_alias" "key_skims_prod" {
-  name = "alias/skims_prod"
+  name          = "alias/skims_prod"
   target_key_id = aws_kms_key.key_skims_prod.key_id
 }
