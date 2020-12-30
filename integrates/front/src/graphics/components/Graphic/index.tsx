@@ -2,6 +2,7 @@
   --------
   We need className to override default styles from react-bootstrap.
   */
+import { ButtonGroup } from "styles/styledComponents";
 import type { ComponentSize } from "@rehooks/component-size";
 import type { IGraphicProps } from "graphics/types";
 import type { ISecureStoreConfig } from "utils/secureStore";
@@ -11,15 +12,7 @@ import { secureStoreContext } from "utils/secureStore";
 import styles from "graphics/components/Graphic/index.css";
 import { translate } from "utils/translations/translate";
 import useComponentSize from "@rehooks/component-size";
-import {
-  Button,
-  ButtonGroup,
-  Glyphicon,
-  Grid,
-  Modal,
-  Panel,
-  Row,
-} from "react-bootstrap";
+import { Button, Glyphicon, Modal, Panel } from "react-bootstrap";
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -168,31 +161,27 @@ export const Graphic: React.FC<IGraphicProps> = (
       >
         <Modal.Header>
           <Modal.Title>
-            <Grid fluid={true}>
-              <Row>
-                <div className={styles.titleBar}>
-                  {title}
-                  <div className={styles.buttonGroup}>
-                    <ButtonGroup bsSize={"small"}>
-                      <Button
-                        download={buildFileName(modalSize)}
-                        href={buildUrl(props, modalSize)}
-                        rel={"noopener noreferrer"}
-                        target={"_blank"}
-                      >
-                        <Glyphicon glyph={"save"} />
-                      </Button>
-                      <Button onClick={modalFrameOnRefresh}>
-                        <Glyphicon glyph={"refresh"} />
-                      </Button>
-                      <Button onClick={frameOnFullScreenExit}>
-                        <Glyphicon glyph={"remove"} />
-                      </Button>
-                    </ButtonGroup>
-                  </div>
-                </div>
-              </Row>
-            </Grid>
+            <div className={"w-100"}>
+              <div className={styles.titleBar}>
+                {title}
+                <ButtonGroup className={"fr"}>
+                  <Button
+                    download={buildFileName(modalSize)}
+                    href={buildUrl(props, modalSize)}
+                    rel={"noopener noreferrer"}
+                    target={"_blank"}
+                  >
+                    <Glyphicon glyph={"save"} />
+                  </Button>
+                  <Button onClick={modalFrameOnRefresh}>
+                    <Glyphicon glyph={"refresh"} />
+                  </Button>
+                  <Button onClick={frameOnFullScreenExit}>
+                    <Glyphicon glyph={"remove"} />
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -224,33 +213,29 @@ export const Graphic: React.FC<IGraphicProps> = (
             <Panel.Heading className={styles.panelTitle}>
               <Panel.Title>
                 <div className={styles.titleBar}>
-                  <Grid fluid={true}>
-                    <Row>
-                      {title}
-                      {expanded &&
-                        !reportMode &&
-                        fullSize.width > minWidthToShowButtons && (
-                          <div className={styles.buttonGroup}>
-                            <ButtonGroup bsSize={"small"}>
-                              <Button
-                                download={buildFileName(bigGraphicSize)}
-                                href={buildUrl(props, bigGraphicSize)}
-                                rel={"noopener noreferrer"}
-                                target={"_blank"}
-                              >
-                                <Glyphicon glyph={"save"} />
-                              </Button>
-                              <Button onClick={frameOnRefresh}>
-                                <Glyphicon glyph={"refresh"} />
-                              </Button>
-                              <Button onClick={frameOnFullScreen}>
-                                <Glyphicon glyph={"fullscreen"} />
-                              </Button>
-                            </ButtonGroup>
-                          </div>
-                        )}
-                    </Row>
-                  </Grid>
+                  <div className={"w-100"}>
+                    {title}
+                    {expanded &&
+                      !reportMode &&
+                      fullSize.width > minWidthToShowButtons && (
+                        <ButtonGroup className={"fr"}>
+                          <Button
+                            download={buildFileName(bigGraphicSize)}
+                            href={buildUrl(props, bigGraphicSize)}
+                            rel={"noopener noreferrer"}
+                            target={"_blank"}
+                          >
+                            <Glyphicon glyph={"save"} />
+                          </Button>
+                          <Button onClick={frameOnRefresh}>
+                            <Glyphicon glyph={"refresh"} />
+                          </Button>
+                          <Button onClick={frameOnFullScreen}>
+                            <Glyphicon glyph={"fullscreen"} />
+                          </Button>
+                        </ButtonGroup>
+                      )}
+                  </div>
                 </div>
               </Panel.Title>
             </Panel.Heading>
