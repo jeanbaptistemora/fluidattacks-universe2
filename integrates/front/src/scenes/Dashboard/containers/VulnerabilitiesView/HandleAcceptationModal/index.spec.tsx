@@ -823,4 +823,93 @@ describe("handle vulns acceptation modal", (): void => {
 
     expect(outOfTheScopeOption).toHaveLength(expectedOutOfTheScopeOptionLength);
   });
+
+  it("should display dropdown to reject zero risk", (): void => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleRefetchData: jest.Mock = jest.fn();
+    const handleCloseModal: jest.Mock = jest.fn();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      {
+        action: "backend_api_mutations_reject_zero_risk_vuln_mutate",
+      },
+      {
+        action: "see_dropdown_to_reject_zero_risk",
+      },
+    ]);
+    const mokedVulns: IVulnerabilitiesAttr[] = [
+      {
+        historicTreatment: [
+          {
+            acceptanceDate: "",
+            acceptanceStatus: "SUBMITTED",
+            date: "2019-07-05 09:56:40",
+            justification: "test justification",
+            treatment: "ACCEPTED_UNDEFINED",
+            treatmentManager: "treatment-manager-1",
+            user: "user@test.com",
+          },
+        ],
+        id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+        specific: "",
+        where: "",
+        zeroRisk: "Requested",
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider addTypename={false}>
+          <HandleAcceptationModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </Provider>,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
+    );
+    const treatmentFieldDropdown: ReactWrapper = wrapper
+      .find(TreatmentField)
+      .find("select");
+    treatmentFieldDropdown.simulate("change", {
+      target: { value: "REJECT_ZERO_RISK" },
+    });
+    const justificationField: ReactWrapper<IJustificationFieldProps> = wrapper.find(
+      JustificationField
+    );
+    const expectedJustificationFieldLength: number = 1;
+
+    expect(justificationField).toHaveLength(expectedJustificationFieldLength);
+
+    const dropdown: ReactWrapper = justificationField.find("select");
+    const expectedDropdownLength: number = 1;
+
+    expect(dropdown).toHaveLength(expectedDropdownLength);
+
+    const dropdownOptions: ReactWrapper = dropdown.find("option");
+    const expectedDropdownOptionLength: number = 3;
+
+    expect(dropdownOptions).toHaveLength(expectedDropdownOptionLength);
+
+    const fnOption: ReactWrapper = dropdownOptions.filter({ value: "FN" });
+    const expectedFnOptionLength: number = 1;
+
+    expect(fnOption).toHaveLength(expectedFnOptionLength);
+
+    const complementaryControlOption: ReactWrapper = dropdownOptions.filter({
+      value: "Complementary control",
+    });
+    const expectedComplementaryControlLength: number = 1;
+
+    expect(complementaryControlOption).toHaveLength(
+      expectedComplementaryControlLength
+    );
+  });
 });
