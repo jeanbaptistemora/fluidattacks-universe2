@@ -10,7 +10,7 @@ import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { RowCenter } from "styles/styledComponents";
 import { UpdateTreatmentModal } from "./UpdateDescription";
-import { UploadVulnerabilites } from "./uploadFile";
+import { UploadVulnerabilities } from "./uploadFile";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
@@ -403,7 +403,10 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             </React.Fragment>
           ) : undefined}
           <Can do={"backend_api_mutations_upload_file_mutate"}>
-            <UploadVulnerabilites findingId={findingId} groupName={groupName} />
+            <UploadVulnerabilities
+              findingId={findingId}
+              groupName={groupName}
+            />
           </Can>
         </Col100>
       ) : undefined}
