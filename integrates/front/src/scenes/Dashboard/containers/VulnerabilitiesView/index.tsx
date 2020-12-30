@@ -9,7 +9,7 @@ import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
-import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities/newIndex";
+import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { filterZeroRisk } from "scenes/Dashboard/components/Vulnerabilities/utils";

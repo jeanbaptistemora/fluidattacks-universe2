@@ -1,7 +1,7 @@
 import type { IVulnRowAttr } from "./types";
 import React from "react";
 import type { ReactWrapper } from "enzyme";
-import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities/newIndex";
+import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
