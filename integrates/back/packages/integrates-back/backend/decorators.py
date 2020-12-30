@@ -58,12 +58,12 @@ UNAUTHORIZED_ROLE_MSG = (
 def authenticate_session(func: TFun) -> TFun:
 
     @functools.wraps(func)
-    def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
+    async def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
         if 'username' not in request.session or \
                 request.session['username'] is None:
             return templates.unauthorized(request)
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
 
     return cast(TFun, authenticate_and_call)
 

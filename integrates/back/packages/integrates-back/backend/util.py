@@ -26,7 +26,6 @@ from aioextensions import (
     in_thread,
     schedule,
 )
-from asgiref.sync import async_to_sync
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
@@ -118,23 +117,6 @@ async def assert_uploaded_file_mime(
         allowed_mimes: List[str]) -> bool:
     mime_type = await get_uploaded_file_mime(file_instance)
     return mime_type in allowed_mimes
-
-
-def cloudwatch_log_sync(request, msg: str) -> None:
-    try:
-        user_data = async_to_sync(get_jwt_content)(request)
-        info = [str(user_data['user_email'])]
-    except (ExpiredToken, InvalidAuthorization):
-        info = ['unauthenticated user']
-
-    for parameter in ['project', 'findingid']:
-        if parameter in request.POST.dict():
-            info.append(request.POST.dict()[parameter])
-        elif parameter in request.GET.dict():
-            info.append(request.GET.dict()[parameter])
-    info.append(FI_ENVIRONMENT)
-    info.append(msg)
-    LOGGER_TRANSACTIONAL.info(':'.join(info), **settings.NOEXTRA)
 
 
 def cloudwatch_log(request, msg: str) -> None:

@@ -6,7 +6,6 @@ import newrelic.agent
 import sqreen
 
 from aioextensions import in_thread
-from asgiref.sync import async_to_sync
 
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -53,7 +52,6 @@ from __init__ import (
 
 
 @authenticate_session  # type: ignore
-@async_to_sync  # type: ignore
 async def app(*request_args: Request) -> HTMLResponse:
     """ View for authenticated users"""
     request = utils.get_starlette_request(request_args)
