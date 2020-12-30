@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
 source "${makeDerivation}"
-source "${envBashLibPython}"
+source "${envSetupSkimsDevelopment}"
+source "${envSetupSkimsRuntime}"
 
 function list_packages {
       target="${PWD}/test" \
@@ -21,10 +22,6 @@ function main {
   local pkgs
 
       pkgs=$(mktemp) \
-  &&  make_python_path '3.8' \
-        "${envPythonRequirementsDevelopment}" \
-        "${envPythonRequirementsRuntime}" \
-        "${envSrcSkimsSkims}" \
   &&  list_packages > "${pkgs}" \
   &&  while read -r pkg
       do

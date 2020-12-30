@@ -25,6 +25,7 @@ flake.lib.eachDefaultSystem (
             skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
             skims-infra-deploy =  import ../makes/skims/infra-deploy attrs;
             skims-infra-test =  import ../makes/skims/infra-test attrs;
+            skims-test =  import ../makes/skims/test attrs;
           };
           packages = {
             skims-bin = import ../makes/skims/bin attrs;

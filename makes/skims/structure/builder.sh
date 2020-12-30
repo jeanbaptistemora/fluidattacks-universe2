@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
 source "${makeDerivation}"
-source "${envBashLibPython}"
+source "${envSetupSkimsDevelopment}"
+source "${envSetupSkimsRuntime}"
 
 function main {
       echo '[INFO] Creating a staging area' \
@@ -21,12 +22,6 @@ function main {
         --
         'skims/cli'
       ) \
-  &&  make_python_path '3.8' \
-        "${envPythonRequirementsDevelopment}" \
-        "${envPythonRequirementsRuntime}" \
-  &&  make_python_path_plain \
-        "${envSrcSkimsSkims}" \
-        "${PWD}" \
   &&  echo '[INFO] Creating images' \
   &&  pydeps -o file.svg "${base_args[@]}" \
         --max-cluster-size 100 \

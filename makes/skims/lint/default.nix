@@ -9,9 +9,8 @@ let
 in
   makeDerivation {
     builder = ./builder.sh;
-    envBashLibPython = ../../../makes/utils/bash-lib/python.sh;
-    envPythonRequirementsDevelopment = config.pythonRequirements.development;
-    envPythonRequirementsRuntime = config.pythonRequirements.runtime;
+    envSetupSkimsDevelopment = config.setupSkimsDevelopment;
+    envSetupSkimsRuntime = config.setupSkimsRuntime;
     envSrcSkimsProspectorProfile = ../../../skims/.prospector.yaml;
     envSrcSkimsSettingsCfg = ../../../skims/settings.cfg;
     envSrcSkimsSkims = ../../../skims/skims;

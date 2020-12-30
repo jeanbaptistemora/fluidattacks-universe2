@@ -10,9 +10,8 @@ in
   makeDerivation {
     builder = ./builder.sh;
     envBashLibPython = ../../../../makes/utils/bash-lib/python.sh;
-    envContextFile = config.contextFile;
-    envPythonRequirementsDevelopment = config.pythonRequirements.development;
-    envPythonRequirementsRuntime = config.pythonRequirements.runtime;
+    envSetupSkimsDevelopment = config.setupSkimsDevelopment;
+    envSetupSkimsRuntime = config.setupSkimsRuntime;
     envSrcSkimsDocs = ../../../../skims/docs;
     envSrcSkimsReadme = ../../../../skims/README.md;
     envSrcSkimsSkims = ../../../../skims/skims;

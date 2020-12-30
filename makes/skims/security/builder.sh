@@ -1,15 +1,10 @@
 # shellcheck shell=bash
 
 source "${makeDerivation}"
-source "${envBashLibPython}"
+source "${envSetupSkimsDevelopment}"
 
 function main {
-      make_python_path '3.8' \
-        "${envPythonRequirementsDevelopment}" \
-        "${envPythonRequirementsRuntime}" \
-        "${envSrcSkimsSkims}" \
-  &&  echo '[INFO] Running bandit' \
-  &&  bandit --recursive "${envSrcSkimsSkims}" \
+      bandit --recursive "${envSrcSkimsSkims}" \
   &&  success
 }
 
