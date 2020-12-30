@@ -228,20 +228,21 @@ def split_training_data(
 ) -> Tuple[DataFrame, DataFrame]:
     """Read the training data in two DataFrames for training purposes"""
     # Separate the labels from the features in the training data
-    labels: DataFrame = training_df.iloc[:, 0]
-    features_df: DataFrame = training_df.iloc[:, 1:]
-    features_df = pd.concat(
+    filtered_df = pd.concat(
         [
-            features_df.loc[:, feature_list],
+            # Include labels
+            training_df.iloc[:, 0],
+            # Include features
+            training_df.loc[:, feature_list],
             # Include all extensions
-            features_df.loc[
+            training_df.loc[
                 :,
-                features_df.columns.str.startswith('extension_')
+                training_df.columns.str.startswith('extension_')
             ]
         ],
         axis=1)
-    features_df.dropna(inplace=True)
-    return features_df, labels
+    filtered_df.dropna(inplace=True)
+    return filtered_df.iloc[:, 1:], filtered_df.iloc[:, 0]
 
 
 def train_model(
