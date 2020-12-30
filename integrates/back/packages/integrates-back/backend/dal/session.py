@@ -35,4 +35,4 @@ async def remove_element(key: str):
 
 
 async def element_exists(key: str) -> bool:
-    return bool(await redis_cmd('get', key))
+    return await redis_cmd('exists', key) > 0

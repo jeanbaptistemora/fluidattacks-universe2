@@ -625,10 +625,9 @@ async def get_redis_element(key: str) -> Optional[Any]:
 
 
 async def del_redis_element(pattern: str) -> int:
-    keys = await redis_cmd('keys', pattern)
-    if keys:
-        await redis_cmd('delete', *keys)
-    return len(keys)
+    return sum(await collect(tuple(
+        redis_cmd('delete', key) for key in await redis_cmd('keys', pattern)
+    )))
 
 
 async def get_file_size(file_object: UploadFile) -> int:
