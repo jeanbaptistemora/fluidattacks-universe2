@@ -1,7 +1,5 @@
-#! __envShell__
 # shellcheck shell=bash
 
-source '__makeEntrypoint__'
 source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 

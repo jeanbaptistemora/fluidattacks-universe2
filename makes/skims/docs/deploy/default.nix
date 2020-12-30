@@ -10,7 +10,6 @@ in
   makeEntrypoint {
     arguments = {
       envSkimsDocsBuild = outputs.packages.skims-docs-build;
-      envShell = "${pkgsSkims.bash}/bin/bash";
       envAwscli = "${pkgsSkims.awscli}/bin/aws";
     };
     location = "/bin/skims-docs-deploy";

@@ -5,16 +5,16 @@ attrs @ {
 }:
 
 let
-  buildPythonRequirements = import ../../makes/utils/build-python-requirements pkgsSkims;
-  makeTemplate = import ../../makes/utils/make-template pkgsSkims;
+  buildPythonRequirements = import ../../../makes/utils/build-python-requirements pkgsSkims;
+  makeTemplate = import ../../../makes/utils/make-template pkgsSkims;
 in
-  {
+  rec {
     contextFile = makeTemplate {
       arguments = {
         envParserAntlr = outputs.packages.skims-parsers-antlr;
         envParserBabel = outputs.packages.skims-parsers-babel;
-        envSrcSkimsStatic = ../../skims/static;
-        envSrcSkimsVendor = ../../skims/vendor;
+        envSrcSkimsStatic = ../../../skims/static;
+        envSrcSkimsVendor = ../../../skims/vendor;
       };
       name = "skims-config-context-file";
       template = ''
@@ -146,5 +146,19 @@ in
         ];
         python = pkgsSkims.python38;
       };
+    };
+
+    setupSkimsRuntime = makeTemplate {
+      arguments = {
+        envContextFile = contextFile;
+        envPython = "${pkgsSkims.python38}/bin/python";
+        envPythonRequirements = pythonRequirements.runtime;
+        envRuntimeBinPath = osRequirements.runtimeBinPath;
+        envRuntimeLibPath = osRequirements.runtimeLibPath;
+        envSrcSkimsSkims = ../../../skims/skims;
+        envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      };
+      name = "skims-config-setup-skims";
+      template = ../../../makes/skims/config/setup-skims-runtime.sh;
     };
   }

@@ -10,7 +10,6 @@ in
   makeEntrypoint {
     arguments = {
       envBashLibPython = ../../../../makes/utils/bash-lib/python.sh;
-      envShell = "${pkgsObserves.bash}/bin/bash";
       envTapJson = buildPythonPackage {
         dependencies = [];
         packagePath = ../../../../observes/singer/tap_json;

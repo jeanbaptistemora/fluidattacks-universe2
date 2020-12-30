@@ -1,7 +1,4 @@
-#! __envShell__
 # shellcheck shell=bash
-
-source '__makeEntrypoint__'
 
 function main {
       echo "[INFO] Logging into: ${CI_REGISTRY}" \

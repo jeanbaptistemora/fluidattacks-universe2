@@ -1,7 +1,4 @@
-#! __envShell__
 # shellcheck shell=bash
-
-source '__makeEntrypoint__'
 
 function main {
   local source='__envSkimsDocsBuild__'

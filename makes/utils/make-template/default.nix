@@ -4,7 +4,6 @@ pkgs:
 
 {
   arguments,
-  executable ? false,
   name,
   template,
 }:
@@ -25,6 +24,5 @@ in
     builder = ./builder.sh;
     name = name;
     __envArgumentNamesFile = argumentNamesFile;
-    __envExecutable = executable;
     __envTemplate = templateFile;
   })

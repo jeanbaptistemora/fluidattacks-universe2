@@ -7,7 +7,12 @@ function main {
 
       echo '[INFO] Copying files' \
   &&  mkdir -p "$(dirname "${location}")" \
-  &&  copy "${envEntrypoint}" "${location}" \
+  &&  {
+            cat "${envEntrypointSetup}" \
+        &&  echo \
+        &&  cat "${envEntrypoint}" \
+
+      } > "${location}" \
   &&  make_executable "${location}"
 }
 

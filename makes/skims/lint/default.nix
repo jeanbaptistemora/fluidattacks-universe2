@@ -4,7 +4,7 @@ attrs @ {
 }:
 
 let
-  config = import ../../../makes/skims/config.nix attrs.copy;
+  config = import ../../../makes/skims/config attrs.copy;
   makeDerivation = import ../../../makes/utils/make-derivation pkgsSkims;
 in
   makeDerivation {
