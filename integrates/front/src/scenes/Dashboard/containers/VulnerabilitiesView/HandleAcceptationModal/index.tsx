@@ -14,6 +14,7 @@ import React from "react";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
 import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
+import _ from "lodash";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
@@ -325,7 +326,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       >
         <GenericForm
           initialValues={{
-            treatment: initialTreatment,
+            treatment: _.isEmpty(formValues.treatment)
+              ? initialTreatment
+              : formValues.treatment,
           }}
           name={"updateTreatmentAcceptation"}
           onSubmit={handleSubmit}
@@ -366,6 +369,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
             <Col100>
               <JustificationField
                 isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
+                isRejectZeroRiskSelected={isRejectZeroRiskSelected}
               />
             </Col100>
           </Row>

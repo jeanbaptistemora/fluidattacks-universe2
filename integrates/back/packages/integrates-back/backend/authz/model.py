@@ -515,6 +515,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'post_finding_observation',
             'handle_comment_scope',
             'see_dropdown_to_confirm_zero_risk',
+            'see_dropdown_to_reject_zero_risk',
         },
         tags={
             'drills',

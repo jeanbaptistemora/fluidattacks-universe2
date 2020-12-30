@@ -1014,6 +1014,10 @@ export const enTranslations: ResourceKey = {
             fp: "FP",
             out_of_the_scope: "Out of the scope",
           },
+          rejection: {
+            complementary_control: "Complementary control",
+            fn: "FN",
+          },
         },
       },
       inputs: "Inputs",

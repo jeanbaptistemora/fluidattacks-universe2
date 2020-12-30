@@ -17,15 +17,19 @@ const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
 const JustificationField: React.FC<IJustificationFieldProps> = (
   props: IJustificationFieldProps
 ): JSX.Element => {
-  const { isConfirmZeroRiskSelected } = props;
+  const { isConfirmZeroRiskSelected, isRejectZeroRiskSelected } = props;
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canSeeDropDownToConfirmZeroRisk: boolean = permissions.can(
     "see_dropdown_to_confirm_zero_risk"
   );
+  const canSeeDropDownToRejectZeroRisk: boolean = permissions.can(
+    "see_dropdown_to_reject_zero_risk"
+  );
 
   const shouldRenderDropdown: boolean =
-    canSeeDropDownToConfirmZeroRisk && isConfirmZeroRiskSelected;
+    (canSeeDropDownToConfirmZeroRisk && isConfirmZeroRiskSelected) ||
+    (canSeeDropDownToRejectZeroRisk && isRejectZeroRiskSelected);
 
   return (
     <FormGroup>
@@ -54,6 +58,20 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
               <option value={"Out of the scope"}>
                 {translate.t(
                   "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.confirmation.out_of_the_scope"
+                )}
+              </option>
+            </React.Fragment>
+          ) : undefined}
+          {isRejectZeroRiskSelected ? (
+            <React.Fragment>
+              <option value={"FN"}>
+                {translate.t(
+                  "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.rejection.fn"
+                )}
+              </option>
+              <option value={"Complementary control"}>
+                {translate.t(
+                  "search_findings.tab_description.handle_acceptation_modal.zero_risk_justification.rejection.complementary_control"
                 )}
               </option>
             </React.Fragment>
