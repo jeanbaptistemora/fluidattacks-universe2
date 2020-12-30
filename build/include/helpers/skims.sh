@@ -129,11 +129,3 @@ function helper_skims_dependencies_unpack {
   &&  aws s3 cp "s3://skims.data/dependencies/${cache_key}/bundle.tar.gz" "${TEMP_FILE1}" \
   &&  tar --no-same-owner -xf "${TEMP_FILE1}"
 }
-
-function helper_skims_terraform_plan {
-  local target="${1}"
-  local config
-
-      config="$(readlink -f ../.tflint.hcl)" \
-  &&  helper_common_terraform_plan_new "${target}" "${config}"
-}

@@ -505,7 +505,7 @@ function job_integrates_kill_components {
   local port="${1}"
   local ports=(
     3000  # front
-    6379  # redis
+    6379 6380 6381 6382 6383 6384  # redis
     8022  # dynamodb
     8080  # back1
     8081  # back2

@@ -80,9 +80,14 @@ skims_deploy_to_pypi:
   <<: *skims_in_master_branch
   stage: deploy-app
 
+skims-infra-test:
+  <<: *makes_run
+  <<: *skims_in_dev_branch
+  stage: test-code
+
 skims-lint:
   <<: *makes_build
-  <<: *skims_in_dev_and_master_branch
+  <<: *skims_in_dev_branch
   stage: lint-code
 
 skims_process_all_groups_on_aws:
@@ -116,11 +121,6 @@ skims_test:
     paths:
       - skims/test/outputs/
     when: always
-  stage: test-code
-
-skims_test_infra:
-  <<: *with_nix
-  <<: *skims_in_dev_branch
   stage: test-code
 
 skims-docs-deploy:

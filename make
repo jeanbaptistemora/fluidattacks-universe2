@@ -9,6 +9,7 @@ apps=(
   skims-benchmark
   skims-benchmark-on-aws
   skims-docs-deploy
+  skims-infra-test
 )
 packages=(
   skims-bin

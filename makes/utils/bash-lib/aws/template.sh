@@ -6,10 +6,15 @@ function aws_login_dev {
   export AWS_ACCESS_KEY_ID="${!key}"
   export AWS_DEFAULT_REGION='us-east-1'
   export AWS_SECRET_ACCESS_KEY="${!secret}"
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with development credentials' \
   &&  '__envAwscli__' configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
-  &&  '__envAwscli__' configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}"
+  &&  '__envAwscli__' configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
+
 }
 
 function aws_login_prod {
@@ -18,10 +23,15 @@ function aws_login_prod {
   export AWS_ACCESS_KEY_ID="${!key}"
   export AWS_DEFAULT_REGION='us-east-1'
   export AWS_SECRET_ACCESS_KEY="${!secret}"
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
 
       echo '[INFO] Logging into AWS with production credentials' \
   &&  '__envAwscli__' configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
-  &&  '__envAwscli__' configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}"
+  &&  '__envAwscli__' configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
+
 }
 
 function aws_s3_sync {

@@ -79,13 +79,30 @@
         "type": "github"
       }
     },
+    "pkgsSrcSkimsTerraform": {
+      "locked": {
+        "lastModified": 1598565984,
+        "narHash": "sha256-IhMHI80jrf+y8JN8NgiwwzbIahHo/6Yddz1vzfn5YIg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f99908924015bb83df8186b2c473919be35b43f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f99908924015bb83df8186b2c473919be35b43f0",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake": "flake",
         "flakeCompat": "flakeCompat",
         "pkgsSrcCommon": "pkgsSrcCommon",
         "pkgsSrcObserves": "pkgsSrcObserves",
-        "pkgsSrcSkims": "pkgsSrcSkims"
+        "pkgsSrcSkims": "pkgsSrcSkims",
+        "pkgsSrcSkimsTerraform": "pkgsSrcSkimsTerraform"
       }
     }
   },

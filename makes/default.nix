@@ -4,6 +4,7 @@
   pkgsSrcCommon,
   pkgsSrcObserves,
   pkgsSrcSkims,
+  pkgsSrcSkimsTerraform,
   self,
 }:
 
@@ -21,6 +22,7 @@ flake.lib.eachDefaultSystem (
             skims-benchmark = import ../makes/skims/benchmark attrs;
             skims-benchmark-on-aws = import ../makes/skims/benchmark-on-aws attrs;
             skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
+            skims-infra-test =  import ../makes/skims/infra-test attrs;
           };
           packages = {
             skims-bin = import ../makes/skims/bin attrs;
@@ -35,6 +37,7 @@ flake.lib.eachDefaultSystem (
         pkgsCommon = import pkgsSrcSkims { inherit system; };
         pkgsObserves = import pkgsSrcObserves { inherit system; };
         pkgsSkims = import pkgsSrcSkims { inherit system; };
+        pkgsSkimsTerraform = import pkgsSrcSkimsTerraform { inherit system; };
       };
       makeApp = app: derivation: {
         program = "${derivation}/bin/${app}";

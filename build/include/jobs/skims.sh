@@ -205,15 +205,3 @@ function job_skims_test {
   &&  helper_skims_cache_push \
   ||  return 1
 }
-
-function job_skims_test_infra {
-  local target='infra'
-
-
-      helper_common_use_pristine_workdir \
-  &&  pushd skims \
-    &&  helper_skims_aws_login dev \
-    &&  helper_skims_terraform_plan "${target}" \
-  &&  popd \
-  ||  return 1
-}
