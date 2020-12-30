@@ -1,27 +1,5 @@
 #! /usr/bin/env bash
 
-apps=(
-  common-deploy-oci-batch
-  common-deploy-oci-ci
-  observes-tap-json
-  observes-target-redshift
-  skims
-  skims-benchmark
-  skims-benchmark-on-aws
-  skims-docs-deploy
-  skims-infra-deploy
-  skims-infra-test
-)
-packages=(
-  skims-bin
-  skims-docs-build
-  skims-lint
-  skims-parsers-antlr
-  skims-parsers-babel
-  skims-security
-  skims-structure
-)
-
 function build_with_internet {
   local attr="${1}"
 
@@ -46,24 +24,23 @@ function run_with_internet {
 }
 
 function main {
-  local cmd="${1:-}"
-  local attr="${2:-}"
+  local attr="${1:-}"
 
       main_ctx "${@}" \
   &&  source .envrc.public \
-  &&  for attribute in "${apps[@]}"
+  &&  while read -r attribute
       do
         if test "${attribute}" = "${attr}"
         then
-          if run_with_internet "${attribute}" "${@:3}"
+          if run_with_internet "${attribute}" "${@:2}"
           then
             return 0
           else
             return 1
           fi
         fi
-      done \
-  &&  for attribute in "${packages[@]}"
+      done < "makes/attrs/applications.lst" \
+  &&  while read -r attribute
       do
         if test "${attribute}" = "${attr}"
         then
@@ -79,7 +56,7 @@ function main {
             &&  return 1
           fi
         fi
-      done \
+      done < "makes/attrs/packages.lst" \
   &&  main_help
 }
 
@@ -94,15 +71,15 @@ function main_ctx {
 }
 
 function main_help {
-      echo "Use: ${0} [build/run] [attribute]" \
+      echo "Use: ${0} [attribute]" \
   &&  echo \
-  &&  echo 'Valid build attributes are:' \
+  &&  echo 'Applications:' \
   &&  echo \
-  &&  for attribute in "${packages[@]}"; do echo "  ${attribute}"; done \
+  &&  while read -r attr; do echo "  ${attr}"; done < "makes/attrs/applications.lst" \
   &&  echo \
-  &&  echo 'Valid run attributes are:' \
+  &&  echo 'Packages are:' \
   &&  echo \
-  &&  for attribute in "${apps[@]}"; do echo "  ${attribute}"; done \
+  &&  while read -r attr; do echo "  ${attr}"; done < "makes/attrs/packages.lst" \
   &&  echo \
 
 }

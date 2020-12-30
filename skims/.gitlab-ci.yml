@@ -13,18 +13,10 @@
   image: "${CI_REGISTRY_IMAGE}/makes:ci"
   needs: []
   interruptible: true
+  script:
+    - ./make "${CI_JOB_NAME% *}"
   variables:
     GIT_DEPTH: 5
-
-.makes_build: &makes_build
-  <<: *makes
-  script:
-    - ./make build "${CI_JOB_NAME% *}"
-
-.makes_run: &makes_run
-  <<: *makes
-  script:
-    - ./make run "${CI_JOB_NAME% *}"
 
 .skims_commit_pattern: &skims_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|skims)/'
 
@@ -63,7 +55,7 @@
     - if: *skims_commit_pattern
 
 skims-benchmark-on-aws:
-  <<: *makes_run
+  <<: *makes
   interruptible: false
   only:
     refs: [schedules]
@@ -76,17 +68,17 @@ skims_deploy_to_pypi:
   stage: deploy-app
 
 skims-infra-deploy:
-  <<: *makes_run
+  <<: *makes
   <<: *skims_in_master_branch
   stage: deploy-app
 
 skims-infra-test:
-  <<: *makes_run
+  <<: *makes
   <<: *skims_in_dev_branch
   stage: test-code
 
 skims-lint:
-  <<: *makes_build
+  <<: *makes
   <<: *skims_in_dev_branch
   stage: lint-code
 
@@ -99,12 +91,12 @@ skims_process_all_groups_on_aws:
   stage: scheduler
 
 skims-security:
-  <<: *makes_build
+  <<: *makes
   <<: *skims_in_dev_branch
   stage: test-security
 
 skims-structure:
-  <<: *makes_build
+  <<: *makes
   <<: *skims_in_dev_branch
   after_script:
     - cp -Lr makes/outputs/skims-structure outputs
@@ -124,7 +116,7 @@ skims_test:
   stage: test-code
 
 skims-docs-deploy:
-  <<: *makes_run
+  <<: *makes
   <<: *skims_in_master_branch
   stage: deploy-app
 

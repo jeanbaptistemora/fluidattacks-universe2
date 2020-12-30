@@ -47,18 +47,10 @@ workflow:
   image: "${CI_REGISTRY_IMAGE}/makes:ci"
   needs: []
   interruptible: true
+  script:
+    - ./make "${CI_JOB_NAME% *}"
   variables:
     GIT_DEPTH: 5
-
-.makes_build: &makes_build
-  <<: *makes
-  script:
-    - ./make build "${CI_JOB_NAME% *}"
-
-.makes_run: &makes_run
-  <<: *makes
-  script:
-    - ./make run "${CI_JOB_NAME% *}"
 
 .common_in_mrs: &common_in_mrs
   rules:
@@ -112,12 +104,12 @@ common_build_nix_caches:
     variables: [$common_build_nix_caches]
 
 common-deploy-oci-batch:
-  <<: *makes_run
+  <<: *makes
   <<: *common_in_master_branch
   stage: build
 
 common-deploy-oci-ci:
-  <<: *makes_run
+  <<: *makes
   <<: *common_in_master_branch
   stage: build
 

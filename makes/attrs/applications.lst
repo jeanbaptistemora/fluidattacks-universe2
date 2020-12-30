@@ -1,0 +1,10 @@
+common-deploy-oci-batch
+common-deploy-oci-ci
+observes-tap-json
+observes-target-redshift
+skims
+skims-benchmark
+skims-benchmark-on-aws
+skims-docs-deploy
+skims-infra-deploy
+skims-infra-test
