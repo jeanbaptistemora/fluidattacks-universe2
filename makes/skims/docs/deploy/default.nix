@@ -1,16 +1,16 @@
 attrs @ {
   outputs,
-  pkgsSkims,
+  skimsPkgs,
   ...
 }:
 
 let
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgsSkims;
+  makeEntrypoint = import ../../../../makes/utils/make-entrypoint skimsPkgs;
 in
   makeEntrypoint {
     arguments = {
       envSkimsDocsBuild = outputs.packages.skims-docs-build;
-      envAwscli = "${pkgsSkims.awscli}/bin/aws";
+      envAwscli = "${skimsPkgs.awscli}/bin/aws";
     };
     location = "/bin/skims-docs-deploy";
     name = "skims-docs-deploy";

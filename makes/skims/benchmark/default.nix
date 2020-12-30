@@ -1,22 +1,20 @@
 attrs @ {
   outputs,
-  pkgsSkims,
+  skimsBenchmarkOwaspRepo,
+  skimsPkgs,
   ...
 }:
 
 let
   config = import ../../../makes/skims/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint pkgsSkims;
+  makeEntrypoint = import ../../../makes/utils/make-entrypoint skimsPkgs;
 in
   makeEntrypoint {
     arguments = {
-      envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws pkgsSkims;
-      envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops pkgsSkims;
-      envBenchmarkRepo = pkgsSkims.fetchzip {
-        url = "https://github.com/OWASP/Benchmark/archive/9a0c25a5f8443245c676965d20d22d5f93da3f99.zip";
-        sha256 = "QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=";
-      };
-      envPython = "${pkgsSkims.python38}/bin/python";
+      envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws skimsPkgs;
+      envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops skimsPkgs;
+      envBenchmarkRepo = skimsBenchmarkOwaspRepo;
+      envPython = "${skimsPkgs.python38}/bin/python";
       envSetupSkimsRuntime = config.setupSkimsRuntime;
       envSkims = outputs.apps.skims.program;
       envSrcSkimsSkims = ../../../skims/skims;

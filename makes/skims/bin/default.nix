@@ -1,11 +1,11 @@
 attrs @ {
-  pkgsSkims,
+  skimsPkgs,
   ...
 }:
 
 let
   config = import ../../../makes/skims/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint pkgsSkims;
+  makeEntrypoint = import ../../../makes/utils/make-entrypoint skimsPkgs;
 in
   makeEntrypoint {
     arguments = {

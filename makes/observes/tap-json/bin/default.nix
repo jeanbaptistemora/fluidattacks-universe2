@@ -1,11 +1,11 @@
 attrs @ {
-  pkgsObserves,
+  observesPkgs,
   ...
 }:
 
 let
-  buildPythonPackage = import ../../../../makes/utils/build-python-package pkgsObserves;
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgsObserves;
+  buildPythonPackage = import ../../../../makes/utils/build-python-package observesPkgs;
+  makeEntrypoint = import ../../../../makes/utils/make-entrypoint observesPkgs;
 in
   makeEntrypoint {
     arguments = {
@@ -13,7 +13,7 @@ in
       envTapJson = buildPythonPackage {
         dependencies = [];
         packagePath = ../../../../observes/singer/tap_json;
-        python = pkgsObserves.python37;
+        python = observesPkgs.python37;
       };
     };
     location = "/bin/observes-tap-json";

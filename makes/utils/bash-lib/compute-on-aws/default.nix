@@ -36,7 +36,6 @@ in
       envJobqueue = jobqueue;
       envJq = "${pkgs.jq}/bin/jq";
       envMemory = memory;
-      envName = name;
       envManifestFile = builtins.toFile "manifest" (builtins.toJSON {
         command = command;
         environment = (builtins.map getSecretFromRuntimeEnv secrets) ++ [
@@ -53,7 +52,6 @@ in
         vcpus = vcpus;
       });
       envProduct = product;
-      envShell = "${pkgs.bash}/bin/bash";
       envTimeout = timeout;
       envUtilsBashLibAws = import ../../../../makes/utils/bash-lib/aws pkgs;
       envVcpus =

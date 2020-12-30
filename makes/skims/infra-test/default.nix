@@ -1,10 +1,10 @@
 attrs @ {
-  pkgsSkimsTerraform,
+  skimsPkgsTerraform,
   ...
 }:
 
 let
-  terraformTest = import ../../../makes/utils/bash-lib/terraform-test pkgsSkimsTerraform;
+  terraformTest = import ../../../makes/utils/bash-lib/terraform-test skimsPkgsTerraform;
 in
   terraformTest {
     name = "skims-infra-test";

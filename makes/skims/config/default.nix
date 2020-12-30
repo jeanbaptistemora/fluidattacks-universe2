@@ -1,12 +1,12 @@
 attrs @ {
   outputs,
-  pkgsSkims,
+  skimsPkgs,
   ...
 }:
 
 let
-  buildPythonRequirements = import ../../../makes/utils/build-python-requirements pkgsSkims;
-  makeTemplate = import ../../../makes/utils/make-template pkgsSkims;
+  buildPythonRequirements = import ../../../makes/utils/build-python-requirements skimsPkgs;
+  makeTemplate = import ../../../makes/utils/make-template skimsPkgs;
 in
   rec {
     contextFile = makeTemplate {
@@ -30,14 +30,14 @@ in
 
     osRequirements = rec {
       development = [];
-      developmentBinPath = pkgsSkims.lib.strings.makeBinPath development;
-      developmentLibPath = pkgsSkims.lib.strings.makeLibraryPath development;
+      developmentBinPath = skimsPkgs.lib.strings.makeBinPath development;
+      developmentLibPath = skimsPkgs.lib.strings.makeLibraryPath development;
 
       runtime = [
-        pkgsSkims.graphviz
+        skimsPkgs.graphviz
       ];
-      runtimeBinPath = pkgsSkims.lib.strings.makeBinPath runtime;
-      runtimeLibPath = pkgsSkims.lib.strings.makeLibraryPath runtime;
+      runtimeBinPath = skimsPkgs.lib.strings.makeBinPath runtime;
+      runtimeLibPath = skimsPkgs.lib.strings.makeLibraryPath runtime;
     };
 
     pythonRequirements = {
@@ -97,7 +97,7 @@ in
           "wcwidth==0.2.5"
           "wrapt==1.12.1"
         ];
-        python = pkgsSkims.python38;
+        python = skimsPkgs.python38;
       };
 
       runtime = buildPythonRequirements {
@@ -144,14 +144,14 @@ in
           "WebOb==1.8.6"
           "yarl==1.6.3"
         ];
-        python = pkgsSkims.python38;
+        python = skimsPkgs.python38;
       };
     };
 
     setupSkimsRuntime = makeTemplate {
       arguments = {
         envContextFile = contextFile;
-        envPython = "${pkgsSkims.python38}/bin/python";
+        envPython = "${skimsPkgs.python38}/bin/python";
         envPythonRequirements = pythonRequirements.runtime;
         envRuntimeBinPath = osRequirements.runtimeBinPath;
         envRuntimeLibPath = osRequirements.runtimeLibPath;

@@ -31,7 +31,18 @@
         "type": "github"
       }
     },
-    "pkgsSrcCommon": {
+    "root": {
+      "inputs": {
+        "flake": "flake",
+        "flakeCompat": "flakeCompat",
+        "srcCommonPkgs": "srcCommonPkgs",
+        "srcObservesPkgs": "srcObservesPkgs",
+        "srcSkimsBenchmarkOwaspRepo": "srcSkimsBenchmarkOwaspRepo",
+        "srcSkimsPkgs": "srcSkimsPkgs",
+        "srcSkimsPkgsTerraform": "srcSkimsPkgsTerraform"
+      }
+    },
+    "srcCommonPkgs": {
       "locked": {
         "lastModified": 1608136118,
         "narHash": "sha256-yvnnBQrVsrWkRAEZDM3LiAVPSKBgk9ZgiSaa6NYmJX4=",
@@ -47,7 +58,7 @@
         "type": "github"
       }
     },
-    "pkgsSrcObserves": {
+    "srcObservesPkgs": {
       "locked": {
         "lastModified": 1584668685,
         "narHash": "sha256-mj/ouBv7sEoATqG4aoLbIrPSfq0oAOG0ajk0+i59GeM=",
@@ -63,7 +74,24 @@
         "type": "github"
       }
     },
-    "pkgsSrcSkims": {
+    "srcSkimsBenchmarkOwaspRepo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1608579362,
+        "narHash": "sha256-QwtG90KPleNRU9DrNYTdBlcjR6vcmLTiC6G57x1Ayw4=",
+        "owner": "OWASP",
+        "repo": "Benchmark",
+        "rev": "9a0c25a5f8443245c676965d20d22d5f93da3f99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OWASP",
+        "repo": "Benchmark",
+        "rev": "9a0c25a5f8443245c676965d20d22d5f93da3f99",
+        "type": "github"
+      }
+    },
+    "srcSkimsPkgs": {
       "locked": {
         "lastModified": 1584668685,
         "narHash": "sha256-mj/ouBv7sEoATqG4aoLbIrPSfq0oAOG0ajk0+i59GeM=",
@@ -79,7 +107,7 @@
         "type": "github"
       }
     },
-    "pkgsSrcSkimsTerraform": {
+    "srcSkimsPkgsTerraform": {
       "locked": {
         "lastModified": 1598565984,
         "narHash": "sha256-IhMHI80jrf+y8JN8NgiwwzbIahHo/6Yddz1vzfn5YIg=",
@@ -93,16 +121,6 @@
         "repo": "nixpkgs",
         "rev": "f99908924015bb83df8186b2c473919be35b43f0",
         "type": "github"
-      }
-    },
-    "root": {
-      "inputs": {
-        "flake": "flake",
-        "flakeCompat": "flakeCompat",
-        "pkgsSrcCommon": "pkgsSrcCommon",
-        "pkgsSrcObserves": "pkgsSrcObserves",
-        "pkgsSrcSkims": "pkgsSrcSkims",
-        "pkgsSrcSkimsTerraform": "pkgsSrcSkimsTerraform"
       }
     }
   },

@@ -1,16 +1,16 @@
 attrs @ {
-  pkgsSkims,
+  skimsPkgs,
   ...
 }:
 
 let
-  buildPythonRequirements = import ../../../../makes/utils/build-python-requirements pkgsSkims;
-  makeDerivation = import ../../../../makes/utils/make-derivation pkgsSkims;
+  buildPythonRequirements = import ../../../../makes/utils/build-python-requirements skimsPkgs;
+  makeDerivation = import ../../../../makes/utils/make-derivation skimsPkgs;
 in
   makeDerivation {
     builder = ./builder.sh;
     buildInputs = [
-      pkgsSkims.nodejs
+      skimsPkgs.nodejs
     ];
     envSrc = ../../../../skims/static/parsers/babel;
     name = "skims-parsers-babel";

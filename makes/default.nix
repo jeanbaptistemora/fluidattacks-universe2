@@ -1,10 +1,11 @@
 {
   flake,
   flakeCompat,
-  pkgsSrcCommon,
-  pkgsSrcObserves,
-  pkgsSrcSkims,
-  pkgsSrcSkimsTerraform,
+  srcCommonPkgs,
+  srcObservesPkgs,
+  srcSkimsBenchmarkOwaspRepo,
+  srcSkimsPkgs,
+  srcSkimsPkgsTerraform,
   self,
 }:
 
@@ -35,10 +36,11 @@ flake.lib.eachDefaultSystem (
             skims-structure = import ../makes/skims/structure attrs;
           };
         };
-        pkgsCommon = import pkgsSrcSkims { inherit system; };
-        pkgsObserves = import pkgsSrcObserves { inherit system; };
-        pkgsSkims = import pkgsSrcSkims { inherit system; };
-        pkgsSkimsTerraform = import pkgsSrcSkimsTerraform { inherit system; };
+        commonPkgs = import srcCommonPkgs { inherit system; };
+        observesPkgs = import srcObservesPkgs { inherit system; };
+        skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
+        skimsPkgs = import srcSkimsPkgs { inherit system; };
+        skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
       };
       makeApp = app: derivation: {
         program = "${derivation}/bin/${app}";

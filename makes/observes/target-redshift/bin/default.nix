@@ -1,21 +1,21 @@
 attrs @ {
-  pkgsObserves,
+  observesPkgs,
   ...
 }:
 
 let
-  buildPythonPackage = import ../../../../makes/utils/build-python-package pkgsObserves;
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgsObserves;
+  buildPythonPackage = import ../../../../makes/utils/build-python-package observesPkgs;
+  makeEntrypoint = import ../../../../makes/utils/make-entrypoint observesPkgs;
 in
   makeEntrypoint {
     arguments = {
       envBashLibPython = ../../../../makes/utils/bash-lib/python.sh;
       envTargetRedshift = buildPythonPackage {
         dependencies = [
-          pkgsObserves.postgresql
+          observesPkgs.postgresql
         ];
         packagePath = ../../../../observes/singer/target_redshift;
-        python = pkgsObserves.python37;
+        python = observesPkgs.python37;
       };
     };
     location = "/bin/observes-target-redshift";

@@ -1,11 +1,11 @@
 attrs @ {
-  pkgsSkims,
+  skimsPkgs,
   ...
 }:
 
 let
   config = import ../../../makes/skims/config attrs.copy;
-  makeDerivation = import ../../../makes/utils/make-derivation pkgsSkims;
+  makeDerivation = import ../../../makes/utils/make-derivation skimsPkgs;
 in
   makeDerivation {
     builder = ./builder.sh;

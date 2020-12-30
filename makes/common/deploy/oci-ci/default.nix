@@ -1,10 +1,10 @@
 attrs @ {
-  pkgsCommon,
+  commonPkgs,
   ...
 }:
 
 let
-  dockerBuild = import ../../../../makes/utils/bash-lib/docker-build pkgsCommon;
+  dockerBuild = import ../../../../makes/utils/bash-lib/docker-build commonPkgs;
 in
   dockerBuild {
     context = ../../../../makes/common/deploy/oci-ci/context;
