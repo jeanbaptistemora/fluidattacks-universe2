@@ -61,6 +61,21 @@ resource "aws_s3_bucket_policy" "development" {
 }
 
 
+# Cache
+
+resource "cloudflare_page_rule" "development" {
+  zone_id  = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
+  target   = "integrates.front.development.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}/*"
+  status   = "active"
+
+  actions {
+    cache_level            = "aggressive"
+    edge_cache_ttl         = 1800
+    browser_cache_ttl      = 1800
+  }
+}
+
+
 # DNS
 
 resource "cloudflare_record" "development" {
