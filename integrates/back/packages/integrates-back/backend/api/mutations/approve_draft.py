@@ -17,7 +17,7 @@ from backend.domain import finding as finding_domain
 from backend.typing import ApproveDraftPayload
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

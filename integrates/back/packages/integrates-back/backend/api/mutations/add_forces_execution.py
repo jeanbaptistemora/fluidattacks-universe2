@@ -13,7 +13,7 @@ from backend.domain import forces as forces_domain
 from backend.typing import SimplePayload
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @enforce_group_level_auth_async
 async def mutate(
     _parent: None,

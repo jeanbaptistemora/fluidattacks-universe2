@@ -18,7 +18,7 @@ from backend.domain import root as root_domain
 from backend.typing import SimplePayload
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @rename_kwargs({'id': 'root_id'})
 @concurrent_decorators(
     require_login,

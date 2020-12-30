@@ -15,7 +15,7 @@ from backend.domain.vulnerability import handle_vulns_acceptation
 from backend.typing import SimplePayload
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

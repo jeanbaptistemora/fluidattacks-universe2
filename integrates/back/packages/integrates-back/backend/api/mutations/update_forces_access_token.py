@@ -14,7 +14,7 @@ from backend.typing import UpdateAccessTokenPayload
 from backend.utils import datetime as datetime_utils
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @enforce_group_level_auth_async
 async def mutate(
     _parent: None,

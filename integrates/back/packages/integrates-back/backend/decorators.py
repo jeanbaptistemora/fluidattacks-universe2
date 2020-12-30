@@ -4,7 +4,7 @@
 # Standard library
 import functools
 import inspect
-import logging
+import logging.config
 from typing import Any, Callable, cast, Dict, TypeVar
 
 # Third party libraries

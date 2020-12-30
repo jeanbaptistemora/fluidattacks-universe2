@@ -16,7 +16,7 @@ from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

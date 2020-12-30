@@ -1,5 +1,5 @@
 # Standard
-import logging
+import logging.config
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -22,7 +22,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

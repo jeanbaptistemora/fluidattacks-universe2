@@ -12,7 +12,7 @@ from backend.domain import organization as org_domain
 from backend.typing import SimplePayload
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @enforce_organization_level_auth_async
 async def mutate(
     _parent: None,

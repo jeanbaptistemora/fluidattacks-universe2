@@ -16,7 +16,7 @@ from backend.domain import skims as skims_domain
 from backend.typing import ExecuteSkimsPayload
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

@@ -1,5 +1,5 @@
 # Standard
-import logging
+import logging.config
 
 # Third party
 from aioextensions import schedule
@@ -22,7 +22,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_user_level_auth_async,
