@@ -35,11 +35,13 @@ function aws_login_prod {
 }
 
 function aws_s3_sync {
-  local flags=()
+  local flags=(
+    --follow-symlinks
+  )
   local from="${1}"
   local to="${2}"
 
       echo "[INFO] Syncing data to AWS from ${from} to ${to}" \
   &&  if test -n "${CI}"; then flags+=( --quiet ); fi \
-  &&  '__envAwscli__' s3 sync "${flags[@]}" "${from}" "${to}"
+  &&  '__envAwscli__' s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
 }
