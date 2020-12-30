@@ -10,7 +10,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     always_use_https            = "on"
     automatic_https_rewrites    = "on"
     brotli                      = "on"
-    browser_cache_ttl           = 14400
+    browser_cache_ttl           = 1800
     browser_check               = "on"
     cache_level                 = "aggressive"
     challenge_ttl               = 1800
