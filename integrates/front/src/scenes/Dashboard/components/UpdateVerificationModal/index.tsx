@@ -13,7 +13,6 @@ import { DataTableNext } from "components/DataTableNext";
 import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
-import { default as style } from "scenes/Dashboard/components/UpdateVerificationModal/index.css";
 import {
   REQUEST_VERIFICATION_VULN,
   VERIFY_VULNERABILITIES,
@@ -187,8 +186,6 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         headers={vulnsHeader}
         pageSize={10}
         search={false}
-        tableBody={style.tableBody}
-        tableHeader={style.tableHeader}
       />
     );
   };
