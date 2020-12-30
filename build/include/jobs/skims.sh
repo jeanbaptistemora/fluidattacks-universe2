@@ -115,17 +115,6 @@ function job_skims_process_all_groups_on_aws {
       done < "${groups_file}"
 }
 
-function job_skims_deploy_infra {
-  local target='infra'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd skims \
-    &&  helper_skims_aws_login prod \
-    &&  helper_common_terraform_apply "${target}" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_skims_deploy_to_pypi {
   # Propagated from Gitlab env vars
   local version

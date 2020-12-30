@@ -22,6 +22,7 @@ flake.lib.eachDefaultSystem (
             skims-benchmark = import ../makes/skims/benchmark attrs;
             skims-benchmark-on-aws = import ../makes/skims/benchmark-on-aws attrs;
             skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
+            skims-infra-deploy =  import ../makes/skims/infra-deploy attrs;
             skims-infra-test =  import ../makes/skims/infra-test attrs;
           };
           packages = {

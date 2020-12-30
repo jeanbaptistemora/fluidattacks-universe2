@@ -70,13 +70,13 @@ skims-benchmark-on-aws:
     variables: [$skims_benchmark_on_aws]
   stage: scheduler
 
-skims_deploy_infra:
+skims_deploy_to_pypi:
   <<: *with_nix
   <<: *skims_in_master_branch
   stage: deploy-app
 
-skims_deploy_to_pypi:
-  <<: *with_nix
+skims-infra-deploy:
+  <<: *makes_run
   <<: *skims_in_master_branch
   stage: deploy-app
 
