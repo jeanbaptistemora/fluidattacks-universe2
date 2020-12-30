@@ -5,6 +5,18 @@ let securityHeaders = {
   "X-Frame-Options" : "DENY",
   "X-Content-Type-Options" : "nosniff",
   "Referrer-Policy" : "strict-origin-when-cross-origin",
+  "Permissions-Policy" : "geolocation=(self), \
+                          midi=(self), \
+                          push=(self), \
+                          sync-xhr=(self), \
+                          microphone=(self), \
+                          camera=(self), \
+                          magnetometer=(self), \
+                          gyroscope=(self), \
+                          speaker=(self), \
+                          vibrate=(self), \
+                          fullscreen=(self), \
+                          payment=(self)",
 }
 
 let sanitiseHeaders = {}
