@@ -29,10 +29,18 @@ function main {
         ||  return 1
       done \
   &&  gradle -g "$(mktemp -d)" installDist \
-  &&  sed -i \
-        "s|#!/usr/bin/env sh|#! ${envShell}|g" \
-        "${PWD}/build/install/parse/bin/parse" \
   &&  mv "${PWD}" "${out}" \
+  &&  {
+            echo "#! ${envShell}" \
+        &&  echo \
+        &&  for jar in "${out}/build/install/parse/lib/"*
+            do
+              echo "export CP=\"${jar}:\${CP:-}\""
+            done \
+        &&  echo \
+        &&  echo "${envJava} --class-path "\${CP}" Parse \"\${@}\"" \
+
+      } > "${out}/build/install/parse/bin/parse" \
   ||  return 1
 }
 
