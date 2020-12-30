@@ -1,10 +1,32 @@
-import json
-import datetime
-import ast
-import sys
+# Standard libraries
 import argparse
-from typing import List, Dict, Tuple, Any
+import datetime
+import json
+import sys
+import tempfile
+from contextlib import contextmanager
+from typing import (
+    Any,
+    Dict,
+    IO,
+    Iterator,
+    List,
+    Tuple,
+)
+# Third party libraries
 import requests
+# Local libraries
+from singer_io import factory
+from singer_io.singer import SingerRecord
+
+
+@contextmanager
+def open_temp(file: IO[str]) -> Iterator[IO[str]]:
+    try:
+        file.seek(0)
+        yield file
+    finally:
+        file.flush()
 
 
 def read_properties(schema_file: str) -> Dict[str, Any]:
@@ -38,7 +60,8 @@ def handle_null(dct: Dict[str, Any]) -> Dict[str, Any]:
     return dct
 
 
-def load_data(event: str, credentials: Dict[str, Any]) -> List[Dict]:
+@contextmanager
+def load_data(event: str, credentials: Dict[str, Any]) -> Iterator[IO[str]]:
     from_date = credentials['from_date']
     to_date = credentials['to_date']
     parameters = {"from_date": from_date, "to_date": to_date,
@@ -46,18 +69,9 @@ def load_data(event: str, credentials: Dict[str, Any]) -> List[Dict]:
     authorization = (credentials['API_secret'], credentials['token'])
     result = requests.get("https://data.mixpanel.com/api/2.0/export/",
                           auth=authorization, params=parameters)
-    data = raw_to_formated(result.text)
-    return data
-
-
-def raw_to_formated(raw_data: str) -> List[Dict]:
-    interm = raw_data.split('\n')
-    data = [
-        ast.literal_eval(handle_t_f(dct))
-        for dct in interm
-        if dct
-    ]
-    return data
+    with tempfile.NamedTemporaryFile('w+') as tmp:
+        tmp.write(result.text)
+        yield tmp
 
 
 def new_formatted_data(formatted_data: List[Dict]) -> List[Dict]:
@@ -112,36 +126,6 @@ def check_and_parse(sample: Dict[str, Any],
     return output
 
 
-def schema_parser(dtypes: Dict[str, Dict[str, str]]) -> Dict[str, Any]:
-    primary_key = ["$insert_id"]
-    singer_schema = {"type": "SCHEMA", "stream": "Events",
-                     "key_properties": primary_key, "schema": dtypes}
-    return singer_schema
-
-
-def generate_singer_schema(schema: Dict[str, Any]) -> str:
-    schema_base = {key: ({"type": value} if value != "date-time"
-                         else {"type": "string", "format": "date-time"})
-                   for (key, value) in schema.items()}
-    schema_base = {"properties": schema_base}
-    singer_schema = json.dumps(schema_parser(schema_base))
-    return singer_schema
-
-
-def record_parser(record_dict: Dict[str, Any]) -> str:
-    singer_record = json.dumps({"type": "RECORD",
-                                "stream": "Events", "record": record_dict})
-    return str(singer_record)
-
-
-def generate_singer_records(data: List[Dict],
-                            dtypes: Dict[str, str]) -> List[str]:
-    itr_records = [check_and_parse(sample, dtypes) for sample in data]
-    std_records = [dict(std_tuple) for std_tuple in itr_records]
-    singer_records = [record_parser(dct) for dct in std_records]
-    return singer_records
-
-
 def write_file(singer_schema: str, singer_records: List[str]) -> None:
     with open("Events.txt", 'w+') as stream_file:
         str_records = "\n".join(singer_records)
@@ -149,9 +133,23 @@ def write_file(singer_schema: str, singer_records: List[str]) -> None:
         stream_file.write(str_stream)
 
 
-def emit_message(singer_records: List[str]) -> None:
-    for record in singer_records:
-        print(record)
+def process_line(line: str) -> Dict[str, Any]:
+    data: Dict[str, Any] = json.loads(line)
+    data = handle_null(data)
+    data = new_formatted_data([data])[0]
+    return data
+
+
+def format_and_emit_data(data_file: IO[str]) -> None:
+    with open_temp(data_file) as tmp:
+        line = tmp.readline()
+        while line:
+            record = SingerRecord(
+                stream='Events',
+                record=process_line(line)
+            )
+            factory.emit(record)
+            line = tmp.readline()
 
 
 def main() -> None:
@@ -168,17 +166,10 @@ def main() -> None:
     credentials = config_completion(credentials)
     tables = read_properties(conf_file)['tables']
 
-    formatted_data = []
     for table in tables:
         print(table, file=sys.stderr)
-        interm_data = []
-        interm_data = load_data(table, credentials)
-        formatted_data += interm_data
-    formatted_data = [handle_null(dct) for dct in formatted_data]
-    formatted_data = new_formatted_data(formatted_data)
-    dtypes = take_dtypes(formatted_data)
-    records = generate_singer_records(formatted_data, dtypes)
-    emit_message(records)
+        with load_data(table, credentials) as raw_data_file:
+            format_and_emit_data(raw_data_file)
 
 
 if __name__ == "__main__":

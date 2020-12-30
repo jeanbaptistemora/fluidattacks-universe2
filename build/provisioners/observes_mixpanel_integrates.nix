@@ -6,16 +6,22 @@ in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
     // (rec {
-      name = "builder";
+      name = "mixpanel_integrates_etl";
 
       buildInputs = [
         pkgs.git
         pkgs.awscli
         pkgs.sops
         pkgs.jq
+        SingerIO
         TapMixpanel
         TapJson
-      ];    
+      ];
+
+      SingerIO = pkgs.poetry2nix.mkPoetryApplication {
+        projectDir = ../../observes/common/singer_io;
+        python = pkgs.python38;
+      };
 
       TapMixpanel = pkgs.poetry2nix.mkPoetryApplication {
         projectDir = ../../observes/singer/tap_mixpanel;
@@ -24,7 +30,7 @@ in
       TapJson = pkgs.poetry2nix.mkPoetryApplication {
         projectDir = ../../observes/singer/tap_json;
       };
-      
+
       pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../observes/singer/target_redshift; };
     })
   )
