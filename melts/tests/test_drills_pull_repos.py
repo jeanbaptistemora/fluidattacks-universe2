@@ -17,3 +17,21 @@ def test_drills_pull_repos():
         assert not pull_repos.main(NON_EXISTING_REPO)
     finally:
         rmtree(LOCAL_PATH)
+
+
+def test_get_repo_from_url() -> None:
+    for url, repo in (
+        (
+            'ssh://git@gitlab.com:fluidattacks/product.git',
+            'product',
+        ),
+        (
+            'ssh://git@vs-ssh.visualstudio.com:v3/grupo/something Tecnología/Test',
+            'Test',
+        ),
+        (
+            'ssh://git@vs-ssh.visualstudio.com:v3/grupo/something+Tecnolog%C3%ADa/Test+test',
+            'Test test',
+        ),
+    ):
+        assert pull_repos.get_repo_from_url(url) == repo

@@ -1,7 +1,12 @@
 # Standard libraries
 import os
-from typing import List
+from typing import (
+    List,
+    Set,
+)
 import re
+import shutil
+import urllib.parse
 
 # Third party libraries
 
@@ -44,38 +49,33 @@ def notify_out_of_scope(
     return True
 
 
+def get_repo_from_url(url: str) -> str:
+    # Parse the URL
+    url_obj = urllib.parse.urlparse(url)
+
+    # Unquote the path portion, it may contain URL encoded characters
+    url_path = urllib.parse.unquote_plus(url_obj.path)
+
+    # Return the last component of the path
+    repo = os.path.basename(url_path)
+
+    # It may end with .git
+    if repo.endswith('.git'):
+        repo = repo[0:-4]
+
+    return repo
+
+
 def delete_out_of_scope_files(group: str) -> bool:
     # This entire function should be rewritten:
     #   https://gitlab.com/fluidattacks/product/-/issues/2617#note_474753627
     # I'm patching it for now (2020-12-28) so it survives a few days
     # The business logic is going to change when we all get to an agreement
 
+    expected_repositories: Set[str] = set()
     path_to_fusion: str = os.path.join('groups', group, 'fusion')
 
     for root in get_filter_rules(group):
-        # Please modify this piece of code, it's too dirty to assume
-        # that the url contains the name of the repo:
-        # - it can end in .git,
-        # - it can contain query parameters
-        # - it can be url encoded
-        # Besides, testing for `a in b` may cause false positives:
-        # For instance:
-        #   url = github/group/repo, is the github url for repo
-        #   if you are looking for: folder = group
-        # then you consider the url is a match, but it is not
-        # This is a critical component, treat it as such
-        # 100% determinism
-
-        repos = [
-            folder for folder in os.listdir(path_to_fusion)
-            if folder in root['url'].split('/')[-1]
-        ]
-        if repos:
-            repo_name = repos[0]
-        else:
-            logger.warn(f'can not find a repository for {root["url"]}')
-            continue
-
         # Compute what files should be deleted according to the scope rules
         non_matching_files_iterator = utils.file.iter_non_matching_files(
             path=path_to_fusion,
@@ -88,6 +88,10 @@ def delete_out_of_scope_files(group: str) -> bool:
                 root['filter']['exclude'],
             )),
         )
+
+        # Get the expected repo name from the URL
+        repo_name = get_repo_from_url(root['url'])
+        expected_repositories.add(repo_name)
 
         # Display to the user the Scope
         notify_out_of_scope(
@@ -103,6 +107,17 @@ def delete_out_of_scope_files(group: str) -> bool:
                     os.unlink(path)
                 elif os.path.isdir(path):
                     os.removedirs(path)
+
+    # Delete cloned repositories that are not expected to be cloned
+    cloned_repositories: Set[str] = set(os.listdir(path_to_fusion))
+    bad_repositories: Set[str] = cloned_repositories - expected_repositories
+
+    if bad_repositories:
+        logger.error('We cloned repositories that are not on Integrates')
+        logger.error('This is very likely a bug, please notify the manager')
+        for repository in bad_repositories:
+            logger.warn(f'  Deleting, out of scope: {repository}')
+            shutil.rmtree(os.path.join(path_to_fusion, repository))
 
     return True
 
