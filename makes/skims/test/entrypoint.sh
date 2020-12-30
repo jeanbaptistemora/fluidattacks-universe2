@@ -7,7 +7,7 @@ source '__envUtilsBashLibAws__'
 function main {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local cache_local="${HOME}/.skims"
-  local cache_remote="s3://skims.data/cache/owasp_benchmark"
+  local cache_remote="s3://skims.data/cache/${CI_COMMIT_REF_NAME}"
 
       echo '[INFO] Creating staging area' \
   &&  copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \

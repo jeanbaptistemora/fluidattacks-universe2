@@ -106,8 +106,8 @@ skims-structure:
     when: always
   stage: test-code
 
-skims_test:
-  <<: *with_nix
+skims-test:
+  <<: *makes
   <<: *skims_in_dev_branch
   artifacts:
     paths:
