@@ -30,6 +30,8 @@ def main() -> None:
             merged_features = pd.concat([merged_features, features])
         merged_features.reset_index(drop=True, inplace=True)
 
+        # Change appropriate columns to numeric type for future filtering
+        merged_features = merged_features.apply(pd.to_numeric, errors='ignore')
         # Drop all non-numeric columns
         merged_features = merged_features.select_dtypes([np.number])
         merged_features.to_csv(local_merged_file, index=False)
