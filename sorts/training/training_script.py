@@ -240,6 +240,7 @@ def split_training_data(
             ]
         ],
         axis=1)
+    features_df.dropna(inplace=True)
     return features_df, labels
 
 
