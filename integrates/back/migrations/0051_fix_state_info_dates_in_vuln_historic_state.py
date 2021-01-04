@@ -1,0 +1,92 @@
+"""
+This migration set the finding release date in the vuln historic state
+for those dates that are previous to the finding release
+"""
+# Standard library
+from asyncio import run
+import copy
+import os
+from pprint import pprint
+
+# Third party library
+from aioextensions import (
+    collect,
+)
+
+# Local
+from backend.dal.helpers import dynamodb
+from backend.dal import(
+    vulnerability as vuln_dal,
+)
+from backend.domain import (
+    vulnerability as vuln_domain,
+)
+from backend.filters import (
+    finding as finding_filters
+)
+from backend.utils import (
+    datetime as datetime_utils
+)
+
+STAGE: str = os.environ['STAGE']
+FINDINGS_TABLE = 'FI_findings'
+
+
+async def main() -> None:
+    scan_attrs = {
+        'ProjectionExpression': ','.join({'finding_id', 'historic_state'})
+    }
+    updates = []
+    findings = await dynamodb.async_scan(FINDINGS_TABLE, scan_attrs)
+    for finding in findings:
+        if (
+            # We don't care about wiped findings
+            finding.get('finding') == 'WIPED'
+            or finding.get('affected_systems') == 'Masked'
+        ):
+            continue
+
+        finding_id = finding['finding_id']
+        release_date = None
+        release_date_str = finding_filters.get_approval_date(finding)
+        if release_date_str:
+            release_date = datetime_utils.get_from_str(release_date_str)
+        vulns = await vuln_domain.list_vulnerabilities_async(
+            [finding_id],
+            should_list_deleted=True,
+            include_requested_zero_risk=True,
+            include_confirmed_zero_risk=True
+        )
+        for vuln in vulns:
+            vuln_id = vuln['UUID']
+            old_historic_state = vuln.get('historic_state', [])
+            historic_state = copy.deepcopy(old_historic_state)
+            to_update = False
+
+            for state_info in historic_state:
+                date = datetime_utils.get_from_str(state_info['date'])
+                if release_date and date < release_date:
+                    state_info['date'] = release_date_str
+                    to_update = True
+
+            if to_update:
+                print(f'finding_id = {finding_id}')
+                print(f'release_date_str = {release_date_str}')
+                print(f'vuln_id = {vuln_id}')
+                print('old_historic_state =')
+                pprint(old_historic_state)
+                print('historic_state =')
+                pprint(historic_state)
+                updates.append(
+                    vuln_dal.update(
+                        finding_id,
+                        vuln_id,
+                        {"historic_state": historic_state}
+                    )
+                )
+
+    print(f'Success: {all(await collect(updates, workers=64))}')
+
+
+if __name__ == '__main__':
+    run(main())
