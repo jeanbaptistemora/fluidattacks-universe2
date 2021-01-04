@@ -6,13 +6,20 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from postgres_client import cursor as cursor_module
-from postgres_client.connection import DbConnection
+from postgres_client import (
+    connection as connection_module,
+    cursor as cursor_module,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
+    DbConnection,
+)
 from postgres_client.cursor import (
+    Cursor,
     CursorExeAction,
     CursorFetchAction,
     DynamicSQLargs,
-    FetchAction,
 )
 
 
@@ -23,36 +30,30 @@ class Client(NamedTuple):
     drop_access_point: Callable[[], None]
 
 
+class _Client(NamedTuple):
+    cursor: Cursor
+    connection: DbConnection
+    close: Callable[[], None]
+
+
+def _drop_access_point(cursor: Cursor, connection: DbConnection) -> None:
+    cursor.close()
+    connection.close()
+
+
 def new_client(
-    connection: DbConnection,
+    db_id: DatabaseID,
+    cred: Credentials
 ) -> Client:
-    cursor = connection.get_cursor()
-    sql_id_purifier = cursor_module.sql_id_purifier_builder()
-    make_exe_action = cursor_module.make_exe_action_builder(
-        cursor, sql_id_purifier
-    )
-    make_fetch_action = cursor_module.make_fetch_action_builder(
-        cursor
-    )
+    db_connection = connection_module.connect(db_id, cred)
+    db_cursor = cursor_module.new_cursor(db_connection)
 
-    def drop_access_point() -> None:
-        cursor.close()
-        connection.close()
-
-    def execute(
-        statement: str, args: Optional[DynamicSQLargs] = None
-    ) -> CursorExeAction:
-        return make_exe_action(statement, args)
-
-    def fetchall() -> CursorFetchAction:
-        return make_fetch_action(FetchAction.ALL)
-
-    def fetchone() -> CursorFetchAction:
-        return make_fetch_action(FetchAction.ONE)
+    def close() -> None:
+        _drop_access_point(db_cursor, db_connection)
 
     return Client(
-        execute=execute,
-        fetchall=fetchall,
-        fetchone=fetchone,
-        drop_access_point=drop_access_point,
+        execute=db_cursor.execute,
+        fetchall=db_cursor.fetchall,
+        fetchone=db_cursor.fetchone,
+        drop_access_point=close,
     )

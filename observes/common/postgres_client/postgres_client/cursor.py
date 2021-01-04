@@ -10,9 +10,9 @@ from typing import (
     Union,
 )
 # Third party libraries
-import psycopg2 as postgres
 from psycopg2 import sql as postgres_sql
 # Local libraries
+from postgres_client.connection import DbConnection
 
 
 class FetchAction(Enum):
@@ -26,7 +26,7 @@ class DynamicSQLargs(NamedTuple):
 
 
 class Cursor(NamedTuple):
-    execute: Callable[..., 'CursorExeAction']
+    execute: Callable[[str, Optional[DynamicSQLargs]], 'CursorExeAction']
     fetchall: Callable[[], 'CursorFetchAction']
     fetchone: Callable[[], 'CursorFetchAction']
     close: Callable[[], None]
@@ -42,62 +42,79 @@ class CursorFetchAction(NamedTuple):
     fetch_type: FetchAction
 
 
+CursorAction = Union[CursorExeAction, CursorFetchAction]
 SQLidPurifier = Callable[[str, Optional[DynamicSQLargs]], str]
-MakeExeAction = Callable[
-    [str, Optional[DynamicSQLargs]], CursorExeAction
-]
-MakeFetchAction = Callable[[FetchAction], CursorFetchAction]
+DbCursor = Any
 
 
-def make_exe_action_builder(
-    cursor: Cursor,
-    sql_id_purifier: SQLidPurifier
-) -> MakeExeAction:
-    def exe_action(
-        statement: str,
-        args: Optional[DynamicSQLargs] = None
+def sql_id_purifier(
+    statement: str, args: Optional[DynamicSQLargs] = None
+) -> Any:
+    raw_sql = postgres_sql.SQL(statement)
+    format_input = dict(
+        map(
+            lambda t: (t[0], postgres_sql.Identifier(t[1])),
+            args.identifiers.items()
+        )
+    ) if args else {}
+    if format_input:
+        return raw_sql.format(**format_input)
+    return statement
+
+
+def _act_exe_action(
+    purify_sql_ids: SQLidPurifier,
+    cursor: DbCursor,
+    statement: str,
+    args: Optional[DynamicSQLargs] = None,
+) -> None:
+    safe_stm = purify_sql_ids(statement, args)
+    stm_values = args.values if args else {}
+    cursor.execute(safe_stm, stm_values)
+
+
+def _make_exe_action(
+    cursor: DbCursor,
+    statement: str,
+    args: Optional[DynamicSQLargs] = None,
+) -> CursorExeAction:
+    def action() -> None:
+        _act_exe_action(sql_id_purifier, cursor, statement, args)
+
+    return CursorExeAction(
+        statement=statement,
+        act=action
+    )
+
+
+def _make_fetch_action(
+    cursor: DbCursor, f_action: FetchAction
+) -> CursorFetchAction:
+    action = \
+        cursor.fetchall if f_action == FetchAction.ALL else cursor.fetchone
+    return CursorFetchAction(
+        act=action,
+        fetch_type=f_action
+    )
+
+
+def new_cursor(connection: DbConnection) -> Cursor:
+    db_cursor = connection.get_cursor()
+
+    def exe(
+        stm: str, args: Optional[DynamicSQLargs] = None
     ) -> CursorExeAction:
-        def action() -> Any:
-            try:
-                safe_stm = sql_id_purifier(statement, args)
-                stm_values = args.values if args else {}
-                cursor.execute(safe_stm, stm_values)
-            except postgres.ProgrammingError as exc:
-                raise exc
-        return CursorExeAction(
-            statement=statement,
-            act=action
-        )
-    return exe_action
+        return _make_exe_action(db_cursor, stm, args)
 
+    def f_all() -> CursorFetchAction:
+        return _make_fetch_action(db_cursor, FetchAction.ALL)
 
-def make_fetch_action_builder(cursor: Cursor) -> MakeFetchAction:
-    def fetch_action(f_action: FetchAction) -> CursorFetchAction:
-        """Generator of `CursorFetchAction` objects"""
-        def action() -> Any:
-            try:
-                if f_action == FetchAction.ALL:
-                    return cursor.fetchall()
-                return cursor.fetchone()
-            except postgres.ProgrammingError as exc:
-                raise exc
-        return CursorFetchAction(
-            act=action,
-            fetch_type=f_action
-        )
-    return fetch_action
+    def f_one() -> CursorFetchAction:
+        return _make_fetch_action(db_cursor, FetchAction.ONE)
 
-
-def sql_id_purifier_builder(sql_lib: Any = postgres_sql) -> SQLidPurifier:
-    def purifier(
-        statement: str, args: Optional[DynamicSQLargs] = None
-    ) -> Any:
-        raw_sql = sql_lib.SQL(statement)
-        format_input = {}
-        if args:
-            for key, value in args.identifiers.items():
-                format_input[key] = sql_lib.Identifier(value)
-        if format_input:
-            return raw_sql.format(**format_input)
-        return statement
-    return purifier
+    return Cursor(
+        execute=exe,
+        fetchall=f_all,
+        fetchone=f_one,
+        close=db_cursor.close
+    )
