@@ -1,18 +1,13 @@
-
 # Standard libraries
 import getpass
-from typing import Any, Iterable, Optional
 # Third party libraries
 import pytest
 from pytest_postgresql import factories
 # Local libraries
-from postgres_client import cursor as cursor_module
+from postgres_client import client
+from postgres_client.client import Client
 from postgres_client.cursor import (
-    Cursor,
-    CursorExeAction,
-    CursorFetchAction,
     DynamicSQLargs,
-    FetchAction,
 )
 from streamer_zoho_crm import db
 from streamer_zoho_crm.api import BulkJob, ModuleName
@@ -22,55 +17,13 @@ postgresql_my_proc = factories.postgresql_proc(
 postgresql_my = factories.postgresql('postgresql_my_proc')
 
 
-def setup_cursor(postgresql: Any) -> Cursor:
-    cur = postgresql.cursor()
-    purifier = cursor_module.sql_id_purifier
-
-    def mock_close() -> None:
-        cur.close()
-        postgresql.close()
-
-    def mock_execute(
-        statement: str, args: Optional[DynamicSQLargs] = None
-    ) -> CursorExeAction:
-        def act() -> None:
-            safe_stm = purifier(statement, args)
-            stm_values = args.values if args else {}
-            cur.execute(safe_stm, stm_values)
-            postgresql.commit()
-        return CursorExeAction(
-            act=act, statement=statement
-        )
-
-    def mock_fetchall() -> CursorFetchAction:
-        def act() -> Iterable[Any]:
-            return iter(cur.fetchall())
-        return CursorFetchAction(
-            act=act, fetch_type=FetchAction.ALL
-        )
-
-    def mock_fetchone() -> CursorFetchAction:
-        def act() -> Iterable[Any]:
-            return iter(cur.fetchone())
-        return CursorFetchAction(
-            act=act, fetch_type=FetchAction.ONE
-        )
-
-    return Cursor(
-        execute=mock_execute,
-        fetchall=mock_fetchall,
-        fetchone=mock_fetchone,
-        close=mock_close
-    )
-
-
-def setup_db(cursor: Cursor) -> None:
+def setup_db(db_client: Client) -> None:
     schema = 'super-schema'
-    create_schema = cursor.execute(
+    create_schema = db_client.cursor.execute(
         'CREATE SCHEMA {schema_name}',
         DynamicSQLargs(identifiers={'schema_name': schema})
     )
-    create_table = cursor.execute(
+    create_table = db_client.cursor.execute(
         """
             CREATE TABLE {schema_name}.bulk_jobs (
                 operation VARCHAR,
@@ -89,6 +42,7 @@ def setup_db(cursor: Cursor) -> None:
     )
     create_schema.act()
     create_table.act()
+    db_client.connection.commit()
 
 
 @pytest.mark.xfail(
@@ -96,8 +50,8 @@ def setup_db(cursor: Cursor) -> None:
     reason="can not run with root")  # type: ignore
 def test_save_load_bulk_job_integrated(postgresql):
     # Arrange
-    cursor = setup_cursor(postgresql)
-    setup_db(cursor)
+    db_client = client.new_test_client(postgresql)
+    setup_db(db_client)
     test_job = BulkJob(
         operation='operation1',
         created_by='{"author": master"}',
@@ -110,8 +64,9 @@ def test_save_load_bulk_job_integrated(postgresql):
     )
     schema = 'super-schema'
     # Act
-    db.save_bulk_job(cursor, test_job, schema)
-    jobs = db.get_bulk_jobs(cursor, schema)
+    db.save_bulk_job(db_client, test_job, schema)
+    db_client.connection.commit()
+    jobs = db.get_bulk_jobs(db_client, schema)
     # Assert
     assert test_job in jobs
 
@@ -121,8 +76,8 @@ def test_save_load_bulk_job_integrated(postgresql):
     reason="can not run with root")  # type: ignore
 def test_update_bulk_job_integrated(postgresql):
     # Arrange
-    cursor = setup_cursor(postgresql)
-    setup_db(cursor)
+    db_client = client.new_test_client(postgresql)
+    setup_db(db_client)
     test_job = BulkJob(
         operation='operation1',
         created_by='{"author": master"}',
@@ -145,9 +100,11 @@ def test_update_bulk_job_integrated(postgresql):
     )
     schema = 'super-schema'
     # Act
-    db.save_bulk_job(cursor, test_job, schema)
-    db.update_bulk_job(cursor, updated_job, schema)
-    jobs = db.get_bulk_jobs(cursor, schema)
+    db.save_bulk_job(db_client, test_job, schema)
+    db_client.connection.commit()
+    db.update_bulk_job(db_client, updated_job, schema)
+    db_client.connection.commit()
+    jobs = db.get_bulk_jobs(db_client, schema)
     # Assert
     expected = updated_job
     assert test_job not in jobs
