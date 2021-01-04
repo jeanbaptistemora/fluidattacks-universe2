@@ -3,6 +3,7 @@ from typing import (
     Any,
     Callable,
     NamedTuple,
+    Optional,
 )
 # Third party libraries
 import psycopg2 as postgres
@@ -12,7 +13,9 @@ import psycopg2.extensions as postgres_extensions
 
 class DbConnection(NamedTuple):
     close: Callable[[], None]
+    commit: Callable[[], None]
     get_cursor: Callable[[], Any]
+    options: 'Options'
 
 
 class ConnectionID(NamedTuple):
@@ -34,11 +37,28 @@ class Credentials(NamedTuple):
     password: str
 
     def __repr__(self) -> str:
-        return "Creds(user={}, password=****)".format(self.user)
+        return "Creds(user={})".format(self.user)
 
 
 class Options(NamedTuple):
-    isolation_lvl: Any = postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
+    isolation_lvl: Optional[int] = \
+        postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
+
+
+DbConn = Any
+
+
+def adapt_connection(
+    connection: DbConn, options: Options = Options()
+) -> DbConnection:
+    connection.set_session(readonly=False)
+    connection.set_isolation_level(options.isolation_lvl)
+    return DbConnection(
+        close=connection.close,
+        get_cursor=connection.cursor,
+        commit=connection.commit,
+        options=options
+    )
 
 
 def connect(
@@ -53,29 +73,4 @@ def connect(
         host=db_id.host,
         port=db_id.port
     )
-    dbcon.set_session(readonly=False)
-    dbcon.set_isolation_level(options.isolation_lvl)
-    return DbConnection(
-        close=dbcon.close,
-        get_cursor=dbcon.cursor
-    )
-
-
-def make_access_point(
-    auth: ConnectionID,
-    isolation_lvl: Any = postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
-) -> DbConnection:
-    dbcon = postgres.connect(
-        dbname=auth.dbname,
-        user=auth.user,
-        password=auth.password,
-        host=auth.host,
-        port=auth.port
-    )
-    dbcon.set_session(readonly=False)
-    dbcon.set_isolation_level(isolation_lvl)
-
-    return DbConnection(
-        close=dbcon.close,
-        get_cursor=dbcon.cursor
-    )
+    return adapt_connection(dbcon, options)

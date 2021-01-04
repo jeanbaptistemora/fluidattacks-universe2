@@ -98,9 +98,7 @@ def _make_fetch_action(
     )
 
 
-def new_cursor(connection: DbConnection) -> Cursor:
-    db_cursor = connection.get_cursor()
-
+def _cursor_builder(db_cursor: DbCursor) -> Cursor:
     def exe(
         stm: str, args: Optional[DynamicSQLargs] = None
     ) -> CursorExeAction:
@@ -118,3 +116,12 @@ def new_cursor(connection: DbConnection) -> Cursor:
         fetchone=f_one,
         close=db_cursor.close
     )
+
+
+def adapt_cursor(db_cursor: DbCursor) -> Cursor:
+    return _cursor_builder(db_cursor)
+
+
+def new_cursor(connection: DbConnection) -> Cursor:
+    db_cursor = connection.get_cursor()
+    return _cursor_builder(db_cursor)
