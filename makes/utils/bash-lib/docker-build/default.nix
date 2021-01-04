@@ -13,7 +13,6 @@ in
     arguments = {
       envDocker = "${pkgs.docker}/bin/docker";
       envDockerContext = context;
-      envShell = "${pkgs.bash}/bin/bash";
       envTag = tag;
     };
     location = "/bin/${name}";
