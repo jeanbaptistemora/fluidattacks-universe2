@@ -236,6 +236,13 @@ const FormGroup: StyledComponent<
   className: "mb4 w-100",
 })``;
 
+const GraphicButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: "dim dib g-btn pr3 pl3 pt2 pb2 outline-0",
+})``;
+
 const Label: StyledComponent<
   "span",
   Record<string, unknown>
@@ -578,6 +585,7 @@ export {
   FindingHeaderLabel,
   Flex,
   FormGroup,
+  GraphicButton,
   Label,
   LastProjectSetting,
   Meter,

@@ -2,7 +2,6 @@
   --------
   We need className to override default styles from react-bootstrap.
   */
-import { ButtonGroup } from "styles/styledComponents";
 import type { ComponentSize } from "@rehooks/component-size";
 import type { IGraphicProps } from "graphics/types";
 import type { ISecureStoreConfig } from "utils/secureStore";
@@ -12,7 +11,8 @@ import { secureStoreContext } from "utils/secureStore";
 import styles from "graphics/components/Graphic/index.css";
 import { translate } from "utils/translations/translate";
 import useComponentSize from "@rehooks/component-size";
-import { Button, Glyphicon, Modal, Panel } from "react-bootstrap";
+import { ButtonGroup, GraphicButton } from "styles/styledComponents";
+import { Glyphicon, Modal, Panel } from "react-bootstrap";
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -165,20 +165,23 @@ export const Graphic: React.FC<IGraphicProps> = (
               <div className={styles.titleBar}>
                 {title}
                 <ButtonGroup className={"fr"}>
-                  <Button
-                    download={buildFileName(modalSize)}
-                    href={buildUrl(props, modalSize)}
-                    rel={"noopener noreferrer"}
-                    target={"_blank"}
-                  >
-                    <Glyphicon glyph={"save"} />
-                  </Button>
-                  <Button onClick={modalFrameOnRefresh}>
+                  <GraphicButton>
+                    <a
+                      className={"g-a"}
+                      download={buildFileName(modalSize)}
+                      href={buildUrl(props, modalSize)}
+                      rel={"noopener noreferrer"}
+                      target={"_blank"}
+                    >
+                      <Glyphicon glyph={"save"} />
+                    </a>
+                  </GraphicButton>
+                  <GraphicButton onClick={modalFrameOnRefresh}>
                     <Glyphicon glyph={"refresh"} />
-                  </Button>
-                  <Button onClick={frameOnFullScreenExit}>
+                  </GraphicButton>
+                  <GraphicButton onClick={frameOnFullScreenExit}>
                     <Glyphicon glyph={"remove"} />
-                  </Button>
+                  </GraphicButton>
                 </ButtonGroup>
               </div>
             </div>
@@ -219,20 +222,23 @@ export const Graphic: React.FC<IGraphicProps> = (
                       !reportMode &&
                       fullSize.width > minWidthToShowButtons && (
                         <ButtonGroup className={"fr"}>
-                          <Button
-                            download={buildFileName(bigGraphicSize)}
-                            href={buildUrl(props, bigGraphicSize)}
-                            rel={"noopener noreferrer"}
-                            target={"_blank"}
-                          >
-                            <Glyphicon glyph={"save"} />
-                          </Button>
-                          <Button onClick={frameOnRefresh}>
+                          <GraphicButton>
+                            <a
+                              className={"g-a"}
+                              download={buildFileName(bigGraphicSize)}
+                              href={buildUrl(props, bigGraphicSize)}
+                              rel={"noopener noreferrer"}
+                              target={"_blank"}
+                            >
+                              <Glyphicon glyph={"save"} />
+                            </a>
+                          </GraphicButton>
+                          <GraphicButton onClick={frameOnRefresh}>
                             <Glyphicon glyph={"refresh"} />
-                          </Button>
-                          <Button onClick={frameOnFullScreen}>
+                          </GraphicButton>
+                          <GraphicButton onClick={frameOnFullScreen}>
                             <Glyphicon glyph={"fullscreen"} />
-                          </Button>
+                          </GraphicButton>
                         </ButtonGroup>
                       )}
                   </div>

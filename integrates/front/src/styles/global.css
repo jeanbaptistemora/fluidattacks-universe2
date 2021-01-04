@@ -184,6 +184,21 @@ label {
   border-radius: 0;
 }
 
+:global .g-btn {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-color: #ccc;
+}
+
+:global .g-a,
+:global .g-a:hover,
+:global .g-a:focus,
+:global .g-a:visited {
+  color: #333;
+  text-decoration: none;
+}
+
 :global .navbar {
   background-color: #f5f5f5;
   border-bottom: 2px #e4e4e4 solid;
