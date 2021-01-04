@@ -9,6 +9,7 @@ interface IVulnRowAttr {
   historicTreatment: IHistoricTreatment[];
   id: string;
   lastReattackDate: string;
+  lastReattackRequester: string;
   lastRequestedReattackDate: string;
   remediated: boolean;
   reportDate: string;

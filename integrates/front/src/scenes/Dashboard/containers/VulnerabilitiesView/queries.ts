@@ -25,6 +25,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
         }
         id
         lastReattackDate
+        lastReattackRequester
         lastRequestedReattackDate
         remediated
         reportDate

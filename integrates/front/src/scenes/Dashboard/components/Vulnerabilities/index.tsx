@@ -74,6 +74,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       cycles: false,
       efficacy: false,
       lastReattackDate: false,
+      lastReattackRequester: false,
       lastRequestedReattackDate: false,
       reportDate: false,
       severity: true,
@@ -297,6 +298,12 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       header: t("search_findings.tab_vuln.vulnTable.lastRequestedReattackDate"),
       onSort: onSortVulns,
       visible: checkedItems.lastRequestedReattackDate,
+    },
+    {
+      dataField: "lastReattackRequester",
+      header: t("search_findings.tab_vuln.vulnTable.lastReattackRequester"),
+      onSort: onSortVulns,
+      visible: checkedItems.lastReattackRequester,
     },
     {
       dataField: "lastReattackDate",

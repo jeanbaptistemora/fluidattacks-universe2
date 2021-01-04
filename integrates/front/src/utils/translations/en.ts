@@ -1867,6 +1867,7 @@ export const enTranslations: ResourceKey = {
         cycles: "Reattacks",
         efficacy: "Efficiency",
         lastReattackDate: "Last reattack date",
+        lastReattackRequester: "Last reattack requester",
         lastRequestedReattackDate: "Last reattack request date",
         reportDate: "Report date",
         specific: "Specific",
