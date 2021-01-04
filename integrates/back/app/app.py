@@ -13,8 +13,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 from starlette.responses import (
     HTMLResponse,
-    RedirectResponse,
-    Response
+    RedirectResponse
 )
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
@@ -75,7 +74,7 @@ async def app(*request_args: Request) -> HTMLResponse:
             response = templates.unauthorized(request)
             response.delete_cookie(key=settings.JWT_COOKIE_NAME)
     except ConcurrentSession:
-        response = Response(
+        response = HTMLResponse(
             '<script> '
             'localStorage.setItem("concurrentSession","1"); '
             'location.assign("/registration"); '
