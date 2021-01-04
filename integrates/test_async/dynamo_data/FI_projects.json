@@ -3,6 +3,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "language" : {
+                  "S" : "en"
+               },
                "closed_vulnerabilities": {
                   "N" : "0"
                },
@@ -567,6 +570,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "language" : {
+                  "S" : "en"
+               },
                "closed_vulnerabilities": {
                   "N" : "8"
                },
@@ -1884,6 +1890,9 @@
       {
         "PutRequest" : {
            "Item" : {
+              "language" : {
+                 "S" : "en"
+              },
               "closed_vulnerabilities": {
                  "N" : "0"
               },
@@ -2256,6 +2265,9 @@
       {
          "PutRequest" : {
             "Item" : {
+               "language" : {
+                  "S" : "en"
+               },
                "closed_vulnerabilities": {
                   "N" : "0"
                },

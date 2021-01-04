@@ -335,6 +335,9 @@ then
                   }
                 ]
               },
+              "language" : {
+                "S" : "en"
+               },
               "last_closing_date" : {
                 "N" : "45"
               },

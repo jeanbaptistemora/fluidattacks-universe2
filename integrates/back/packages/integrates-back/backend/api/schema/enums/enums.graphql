@@ -143,6 +143,11 @@ enum Frequency {
   WEEKLY
 }
 
+enum Language {
+  EN
+  ES
+}
+
 enum NameEntity {
   GROUP
   ORGANIZATION

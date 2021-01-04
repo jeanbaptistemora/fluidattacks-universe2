@@ -135,7 +135,7 @@ def validate_project_services_config(
                 'Forces is only available in projects of type Continuous')
 
 
-async def create_project(  # pylint: disable=too-many-arguments
+async def create_project(  # pylint: disable=too-many-arguments,too-many-locals
     user_email: str,
     user_role: str,
     project_name: str,
@@ -143,7 +143,8 @@ async def create_project(  # pylint: disable=too-many-arguments
     description: str,
     has_drills: bool = False,
     has_forces: bool = False,
-    subscription: str = 'continuous'
+    subscription: str = 'continuous',
+    language: str = 'en',
 ) -> bool:
     validations.validate_project_name(project_name)
     validations.validate_fields([description])
@@ -176,6 +177,7 @@ async def create_project(  # pylint: disable=too-many-arguments
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
+                'language': language,
                 'historic_configuration': [{
                     'date': datetime_utils.get_as_str(
                         datetime_utils.get_now()

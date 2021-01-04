@@ -97,7 +97,8 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
         project_name: str,
         subscription: str = 'continuous',
         has_drills: bool = False,
-        has_forces: bool = False) -> SimplePayloadType:
+        has_forces: bool = False,
+        language: str = 'en') -> SimplePayloadType:
     """Resolve create_project mutation."""
     user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -111,7 +112,8 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
         description,
         has_drills,
         has_forces,
-        subscription
+        subscription,
+        language,
     )
 
     if success and has_forces:

@@ -129,6 +129,7 @@ type Mutation {
 
   createProject(
     description: String!
+    language: Language
     organization: String
     projectName: String!
     subscription: SubscriptionType

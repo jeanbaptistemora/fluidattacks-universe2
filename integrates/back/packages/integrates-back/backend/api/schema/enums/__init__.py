@@ -187,6 +187,13 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'Language',
+        {
+            'EN': 'en',
+            'ES': 'es'
+        }
+    ),
+    EnumType(
         'NameEntity',
         {
             'GROUP': 'GROUP',

@@ -12,6 +12,7 @@ type Project {
   hasDrills: Boolean
   hasForces: Boolean
   hasIntegrates: Boolean
+  language: Language
   lastClosingVuln: Int
   lastClosingVulnFinding: Finding
   maxOpenSeverity: Float

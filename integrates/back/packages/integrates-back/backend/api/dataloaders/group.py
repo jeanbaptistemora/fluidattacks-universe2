@@ -33,6 +33,7 @@ def format_group(group: Group) -> Group:
         'has_drills': historic_configuration[-1]['has_drills'],
         'has_forces': historic_configuration[-1]['has_forces'],
         'has_integrates': group['project_status'] == 'ACTIVE',
+        'language': group['language'],
         'last_closing_vuln': group.get('last_closing_date', 0),
         'last_closing_vuln_finding': group.get(
             'last_closing_vuln_finding'
