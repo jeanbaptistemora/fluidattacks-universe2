@@ -34,6 +34,7 @@ async def _batch_load_fn(
             evidence=finding.get('evidence', ''),
             exploit=finding.get('exploit', ''),
             finding_id=finding.get('findingId', ''),
+            historic_verification=finding.get('historicVerification', []),
             id=finding.get('findingId', ''),
             is_exploitable=finding.get('exploitable', ''),
             last_vulnerability=finding.get('lastVulnerability', 0),
