@@ -2,7 +2,6 @@
 import logging
 import sys
 from typing import (
-    cast,
     Awaitable,
     Dict,
     List,
@@ -158,15 +157,7 @@ async def resolve_user_mutation(
     """Wrap user mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return cast(
-        Union[
-            AddStakeholderPayloadType,
-            GrantStakeholderAccessPayloadType,
-            RemoveStakeholderAccessPayloadType,
-            EditStakeholderPayloadType
-        ],
-        await resolver_func(obj, info, **parameters)
-    )
+    return await resolver_func(obj, info, **parameters)
 
 
 @concurrent_decorators(

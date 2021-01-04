@@ -57,10 +57,7 @@ async def resolve_resources_mutation(
     """Wrap resources mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return cast(
-        Union[SimplePayloadType, DownloadFilePayloadType],
-        await resolver_func(obj, info, **parameters)
-    )
+    return await resolver_func(obj, info, **parameters)
 
 
 @concurrent_decorators(
@@ -299,7 +296,7 @@ async def _do_update_environment(
         await resources.send_mail(
             project_name,
             user_email,
-            cast(List[ResourceType], [env]),
+            [cast(Dict[str, object], env)],
             action,
             'environment'
         )

@@ -2,7 +2,7 @@
 import logging
 import sys
 from time import time
-from typing import Any, Union, cast
+from typing import Any, Union
 
 # Third party libraries
 from ariadne import convert_kwargs_to_snake_case
@@ -51,15 +51,7 @@ def resolve_finding_mutation(
     """Resolve findings mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return cast(
-        Union[
-            SimpleFindingPayloadType,
-            SimplePayloadType,
-            AddConsultPayloadType,
-            ApproveDraftPayloadType
-        ],
-        resolver_func(obj, info, **parameters)
-    )
+    return resolver_func(obj, info, **parameters)
 
 
 @concurrent_decorators(

@@ -1,7 +1,7 @@
 import logging
 import json
 import sys
-from typing import Any, Dict, Optional
+from typing import Any, cast, Dict, Optional
 import aiohttp
 
 from aioextensions import (
@@ -148,7 +148,7 @@ async def get_provider_user_info(
                 user['given_name'] = user_name.split(' ')[0]
                 user['family_name'] = \
                     user_name.split(' ')[1] if len(user_name) == 2 else ''
-            return user
+            return cast(Optional[Dict[str, str]], user)
 
 
 async def _do_sign_in(
