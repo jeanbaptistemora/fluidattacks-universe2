@@ -19,6 +19,6 @@ in
       "SKIMS_PROD_AWS_ACCESS_KEY_ID"
       "SKIMS_PROD_AWS_SECRET_ACCESS_KEY"
     ];
-    timeout = 18000;
+    timeout = 86400;
     vcpus = 4;
   }
