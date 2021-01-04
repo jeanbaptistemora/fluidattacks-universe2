@@ -97,10 +97,26 @@ async def approve_draft(
                     'analyst': reviewer_email,
                     'state': 'APPROVED'
                 })
-                success = await finding_dal.update(draft_id, {
+                finding_update_success = await finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
                     'historic_state': history
                 })
+                all_vulns = await vuln_domain.list_vulnerabilities_async(
+                    [draft_id],
+                    should_list_deleted=True,
+                    include_requested_zero_risk=True,
+                    include_confirmed_zero_risk=True
+                )
+                vuln_update_success = await collect(
+                    vuln_domain.update_historic_state_dates(
+                        draft_id,
+                        vuln,
+                        release_date
+                    )
+                    for vuln in all_vulns
+                )
+
+                success = all(vuln_update_success) and finding_update_success
             else:
                 raise NotSubmitted()
         else:
