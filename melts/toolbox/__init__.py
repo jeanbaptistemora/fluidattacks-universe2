@@ -15,5 +15,3 @@ assert constants
 assert logger
 assert toolbox
 assert drills
-
-__version__ = constants.VERSION
