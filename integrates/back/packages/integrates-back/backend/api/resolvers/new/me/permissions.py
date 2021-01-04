@@ -23,24 +23,25 @@ async def _get_permissions(
     identifier: str,
     with_cache: bool
 ) -> Set[str]:
+    actions: Set[str] = set()
     if entity == 'USER':
-        return await authz.get_user_level_actions(user_email, with_cache)
-
-    if entity == 'PROJECT' and identifier:
-        return await authz.get_group_level_actions(
+        actions = await authz.get_user_level_actions(user_email, with_cache)
+    elif entity == 'PROJECT' and identifier:
+        actions = await authz.get_group_level_actions(
             user_email,
             identifier,
             with_cache
         )
-
-    if entity == 'ORGANIZATION' and identifier:
-        return await authz.get_organization_level_actions(
+    elif entity == 'ORGANIZATION' and identifier:
+        actions = await authz.get_organization_level_actions(
             user_email,
             identifier,
             with_cache
         )
+    else:
+        raise InvalidParameter()
 
-    raise InvalidParameter()
+    return actions
 
 
 async def resolve(

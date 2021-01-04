@@ -18,7 +18,7 @@ from backend.typing import ForcesExecution, ForcesExecutions
 from backend.util import datetime_utils
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

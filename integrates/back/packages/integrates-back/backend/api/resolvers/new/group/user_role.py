@@ -19,4 +19,7 @@ async def resolve(
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
-    return await authz.get_group_level_role(user_email, group_name)
+    return cast(
+        str,
+        await authz.get_group_level_role(user_email, group_name)
+    )

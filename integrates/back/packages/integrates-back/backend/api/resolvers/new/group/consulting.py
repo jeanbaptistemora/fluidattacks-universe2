@@ -30,4 +30,7 @@ async def resolve(
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 
-    return await project_domain.list_comments(group_name, user_email)
+    return cast(
+        List[Comment],
+        await project_domain.list_comments(group_name, user_email)
+    )

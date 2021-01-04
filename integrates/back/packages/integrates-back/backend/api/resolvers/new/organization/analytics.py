@@ -11,7 +11,7 @@ from backend.decorators import enforce_organization_level_auth_async
 from backend.typing import Organization
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @enforce_organization_level_auth_async
 async def resolve(
     parent: Organization,

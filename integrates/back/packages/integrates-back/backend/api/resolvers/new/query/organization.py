@@ -15,7 +15,7 @@ from backend.domain import organization as org_domain
 from backend.typing import Organization
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     require_organization_access,

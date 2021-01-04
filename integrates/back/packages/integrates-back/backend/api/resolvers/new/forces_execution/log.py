@@ -17,4 +17,7 @@ async def resolve(
     group_name: str = cast(str, parent['project_name'])
     execution_id: str = cast(str, parent['execution_id'])
 
-    return await forces_domain.get_log_execution(group_name, execution_id)
+    return cast(
+        str,
+        await forces_domain.get_log_execution(group_name, execution_id)
+    )

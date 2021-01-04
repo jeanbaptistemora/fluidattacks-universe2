@@ -19,14 +19,15 @@ async def resolve(
 
     entity: str = kwargs['entity']
     identifier: str = kwargs.get('identifier', '')
+    role = ''
 
     if entity == 'USER':
-        return await authz.get_user_level_role(user_email)
+        role = await authz.get_user_level_role(user_email)
+    elif entity == 'PROJECT' and identifier:
+        role = await authz.get_group_level_role(user_email, identifier)
+    elif entity == 'ORGANIZATION' and identifier:
+        role = await authz.get_organization_level_role(user_email, identifier)
+    else:
+        raise InvalidParameter()
 
-    if entity == 'PROJECT' and identifier:
-        return await authz.get_group_level_role(user_email, identifier)
-
-    if entity == 'ORGANIZATION' and identifier:
-        return await authz.get_organization_level_role(user_email, identifier)
-
-    raise InvalidParameter()
+    return role

@@ -15,7 +15,7 @@ from backend.domain import (
 from backend.typing import Me, Tag
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_organization_access
 async def resolve(
     parent: Me,

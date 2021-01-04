@@ -18,4 +18,7 @@ async def resolve(
 ) -> Set[str]:
     group_name: str = cast(str, parent['name'])
 
-    return await authz.get_group_service_attributes(group_name)
+    return cast(
+        Set[str],
+        await authz.get_group_service_attributes(group_name)
+    )

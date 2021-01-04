@@ -17,4 +17,4 @@ async def resolve(
     group_name: str = cast(str, parent['name'])
     org_id: str = await org_domain.get_id_for_group(group_name)
 
-    return await org_domain.get_name_by_id(org_id)
+    return cast(str, await org_domain.get_name_by_id(org_id))

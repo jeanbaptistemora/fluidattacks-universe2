@@ -15,7 +15,7 @@ from backend.domain import analytics as analytics_domain
 from backend.typing import Project as Group
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_integrates,

@@ -16,7 +16,7 @@ from backend.decorators import (
 from backend.typing import Project as Group, Resource, Resources
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

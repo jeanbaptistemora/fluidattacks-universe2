@@ -16,6 +16,9 @@ async def resolve(
 ) -> List[Dict[str, str]]:
     user_email: str = cast(str, parent['user_email'])
 
-    return await subscriptions_domain.get_user_subscriptions_to_entity_report(
-        user_email=user_email,
+    return cast(
+        List[Dict[str, str]],
+        await subscriptions_domain.get_user_subscriptions_to_entity_report(
+            user_email=user_email
+        )
     )

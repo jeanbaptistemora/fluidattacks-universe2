@@ -11,7 +11,7 @@ from backend.decorators import require_login
 from backend.typing import Me
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 async def resolve(
     _parent: None,

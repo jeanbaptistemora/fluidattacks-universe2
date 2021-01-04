@@ -1,5 +1,5 @@
 # Standard
-from typing import List
+from typing import cast, List
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
@@ -22,4 +22,4 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[str]:
-    return await group_domain.get_alive_projects()
+    return cast(List[str], await group_domain.get_alive_projects())

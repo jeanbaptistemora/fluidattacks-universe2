@@ -1,5 +1,5 @@
 # Standard
-from typing import Dict
+from typing import cast, Dict
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
@@ -18,4 +18,4 @@ async def resolve(
 ) -> str:
     release_date = finding_filters.get_approval_date(parent)
 
-    return release_date
+    return cast(str, release_date)

@@ -1,6 +1,6 @@
 # Standard
 import logging
-from typing import Dict, List, Optional
+from typing import cast, Dict, List, Optional
 
 # Third party
 from aiodataloader import DataLoader
@@ -32,7 +32,7 @@ async def _get_url_all_users(info: GraphQLResolveInfo, user_email: str) -> str:
         f'Security: All users report requested by {user_email}'
     )
 
-    return await report.generate_all_users_report(user_email)
+    return cast(str, await report.generate_all_users_report(user_email))
 
 
 @enforce_user_level_auth_async
@@ -47,7 +47,10 @@ async def _get_url_all_vulns(
         f'for group {group_name}'
     )
 
-    return await report.generate_all_vulns_report(user_email, group_name)
+    return cast(
+        str,
+        await report.generate_all_vulns_report(user_email, group_name)
+    )
 
 
 async def _get_url_complete(info: GraphQLResolveInfo, user_email: str) -> str:
@@ -57,7 +60,10 @@ async def _get_url_complete(info: GraphQLResolveInfo, user_email: str) -> str:
         f'Security: Complete report requested by {user_email}'
     )
 
-    return await report.generate_complete_report(user_email, groups)
+    return cast(
+        str,
+        await report.generate_complete_report(user_email, groups)
+    )
 
 
 @enforce_group_level_auth_async
@@ -81,13 +87,16 @@ async def _get_url_group_report(
             f'group {group_name}'
         )
 
-        return await report.generate_group_report(
-            report_type,
-            user_email,
-            context=info.context,
-            lang=lang,
-            project_findings=finding_ids,
-            project_name=group_name,
+        return cast(
+            str,
+            await report.generate_group_report(
+                report_type,
+                user_email,
+                context=info.context,
+                lang=lang,
+                project_findings=finding_ids,
+                project_name=group_name,
+            )
         )
     except RequestedReportError as ex:
         LOGGER.exception(
@@ -104,7 +113,7 @@ async def _get_url_group_report(
         raise ex
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 async def resolve(
     _parent: None,

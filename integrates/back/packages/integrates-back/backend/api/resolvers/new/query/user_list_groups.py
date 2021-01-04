@@ -17,7 +17,7 @@ from backend.domain import user as user_domain
 from backend.typing import Project as Group
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
     enforce_user_level_auth_async,
