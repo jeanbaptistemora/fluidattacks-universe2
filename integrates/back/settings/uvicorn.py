@@ -33,10 +33,14 @@ class IntegratesWorker(UvicornWorker):  # type: ignore
                 'master-only',
             ],
             [
+                'X-Content-Type-Options',
+                'nosniff',
+            ],
+            [
                 'Content-Security-Policy',
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' localhost:* "
+                "script-src 'self' 'unsafe-inline' localhost:* "
                 'cdn.announcekit.app *.amazonaws.com *.cloudfront.net '
-                '*.front.development.fluidattacks.com '
+                '*.front.development.fluidattacks.com bam-cell.nr-data.net '
                 '*.front.production.fluidattacks.com '
                 '*.cloudflare.com *.cookiebot.com *.zdassets.com '
                 '*.newrelic.com *.mxpnl.com *.pingdom.net '
