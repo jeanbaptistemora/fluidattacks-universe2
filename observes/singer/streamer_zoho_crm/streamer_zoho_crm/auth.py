@@ -7,11 +7,15 @@ from typing import (
     Dict,
     IO,
     NamedTuple,
+    Tuple,
 )
 # Third party libraries
 import requests
 # Local libraries
-from postgres_client.connection import ConnectionID
+from postgres_client.connection import (
+    DatabaseID,
+    Credentials as DbCredentials,
+)
 from streamer_zoho_crm import utils
 
 
@@ -70,6 +74,13 @@ def generate_token(credentials: Credentials) -> Dict[str, Any]:
 
 def to_db_credentials(
     auth_file: IO[AnyStr]
-) -> ConnectionID:
+) -> Tuple[DatabaseID, DbCredentials]:
     auth = json.load(auth_file)
-    return ConnectionID(**auth)
+    auth['db_name'] = auth['dbname']
+    db_id_raw = dict(
+        filter(lambda x: x[0] in DatabaseID._fields, auth.items())
+    )
+    creds_raw = dict(
+        filter(lambda x: x[0] in DbCredentials._fields, auth.items())
+    )
+    return (DatabaseID(**db_id_raw), DbCredentials(**creds_raw))

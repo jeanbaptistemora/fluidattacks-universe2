@@ -8,7 +8,10 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from postgres_client.connection import ConnectionID
+from postgres_client.connection import (
+    DatabaseID,
+    Credentials as DbCredentials,
+)
 from singer_io import factory
 from singer_io.singer import SingerRecord
 from streamer_zoho_crm import (
@@ -37,18 +40,22 @@ class TypeFieldDict(TypedDict):
     data_type: str
 
 
-def initialize(db_auth: ConnectionID) -> None:
-    db.init_db(db_auth)
+def initialize(
+    db_id: DatabaseID,
+    db_creds: DbCredentials,
+) -> None:
+    db.init_db(db_id, db_creds)
 
 
 def creation_phase(
     crm_creds: Credentials,
-    db_auth: ConnectionID,
+    db_id: DatabaseID,
+    db_creds: DbCredentials,
     target_modules: FrozenSet[ModuleName] = ALL_MODULES
 ) -> None:
     """Creates bulk jobs for the `target_modules`"""
     api_client: ApiClient = api.new_client(crm_creds)
-    db_client: DbClient = db.new_client(db_auth)
+    db_client: DbClient = db.new_client(db_id, db_creds)
     try:
         bulk_utils: BulkUtils = bulk.new_bulk_utils(api_client, db_client)
         jobs: FrozenSet[BulkJob] = bulk_utils.get_all()
@@ -108,10 +115,11 @@ def extraction_phase(
 
 def start_streamer(
     crm_creds: Credentials,
-    db_auth: ConnectionID,
+    db_id: DatabaseID,
+    db_creds: DbCredentials
 ) -> None:
     api_client: ApiClient = api.new_client(crm_creds)
-    db_client: DbClient = db.new_client(db_auth)
+    db_client: DbClient = db.new_client(db_id, db_creds)
     bulk_utils: BulkUtils = bulk.new_bulk_utils(api_client, db_client)
     try:
         extraction_phase(bulk_utils)

@@ -9,9 +9,12 @@ from typing import (
 )
 # Third party libraries
 # Local libraries
-from postgres_client import connection, client
+from postgres_client import client
 from postgres_client.client import Client as DbClient
-from postgres_client.connection import ConnectionID, DbConnection
+from postgres_client.connection import (
+    Credentials as DbCredentials,
+    DatabaseID,
+)
 from postgres_client.cursor import (
     CursorExeAction,
     DynamicSQLargs,
@@ -28,12 +31,12 @@ class Client(NamedTuple):
 
 def get_bulk_jobs(db_client: DbClient, db_schema: str) -> FrozenSet[BulkJob]:
     statement = 'SELECT * FROM {schema_name}.bulk_jobs'
-    exe_action = db_client.execute(
+    exe_action = db_client.cursor.execute(
         statement,
         DynamicSQLargs(identifiers={'schema_name': db_schema})
     )
     exe_action.act()
-    fetch_action = db_client.fetchall()
+    fetch_action = db_client.cursor.fetchall()
     results = fetch_action.act()
 
     def tuple_to_bulkjob(element: Tuple[Any, ...]) -> BulkJob:
@@ -67,7 +70,7 @@ def save_bulk_job(
     """
     job_dict = dict(job._asdict())
     job_dict['module'] = job_dict['module'].value
-    exe_action = db_client.execute(
+    exe_action = db_client.cursor.execute(
         statement,
         DynamicSQLargs(
             values=job_dict,
@@ -86,7 +89,7 @@ def update_bulk_job(
         WHERE id = %(id)s
     """
     job_dict = dict(job._asdict())
-    exe_action = db_client.execute(
+    exe_action = db_client.cursor.execute(
         statement,
         DynamicSQLargs(
             values=job_dict,
@@ -99,9 +102,8 @@ def update_bulk_job(
 SCHEMA = 'zoho_crm'
 
 
-def init_db(db_auth: ConnectionID) -> None:
-    db_connection: DbConnection = connection.make_access_point(db_auth)
-    db_client: DbClient = client.new_client(db_connection)
+def init_db(db_id: DatabaseID, db_creds: DbCredentials) -> None:
+    db_client: DbClient = client.new_client(db_id, db_creds)
     create_schema = f"""
         CREATE SCHEMA IF NOT EXISTS {SCHEMA};
     """
@@ -118,18 +120,19 @@ def init_db(db_auth: ConnectionID) -> None:
         );
     """
     actions: List[CursorExeAction] = list(
-        map(db_client.execute, [create_schema, create_table])
+        map(db_client.cursor.execute, [create_schema, create_table])
     )
     try:
         for action in actions:
             action.act()
     finally:
-        db_client.drop_access_point()
+        db_client.close()
 
 
-def new_client(db_auth: ConnectionID, db_schema: str = SCHEMA) -> Client:
-    db_connection: DbConnection = connection.make_access_point(db_auth)
-    db_client: DbClient = client.new_client(db_connection)
+def new_client(
+    db_id: DatabaseID, db_creds: DbCredentials, db_schema: str = SCHEMA
+) -> Client:
+    db_client: DbClient = client.new_client(db_id, db_creds)
 
     def get_jobs() -> FrozenSet[BulkJob]:
         return get_bulk_jobs(db_client, db_schema)
@@ -140,12 +143,9 @@ def new_client(db_auth: ConnectionID, db_schema: str = SCHEMA) -> Client:
     def update_job(job: BulkJob) -> None:
         update_bulk_job(db_client, job, db_schema)
 
-    def close() -> None:
-        db_client.drop_access_point()
-
     return Client(
         get_bulk_jobs=get_jobs,
         save_bulk_job=save_job,
         update_bulk_job=update_job,
-        close=close,
+        close=db_client.close,
     )

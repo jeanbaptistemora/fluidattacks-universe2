@@ -2,7 +2,6 @@
 from typing import (
     Callable,
     NamedTuple,
-    Optional,
 )
 # Third party libraries
 # Local libraries
@@ -17,20 +16,10 @@ from postgres_client.connection import (
 )
 from postgres_client.cursor import (
     Cursor,
-    CursorExeAction,
-    CursorFetchAction,
-    DynamicSQLargs,
 )
 
 
 class Client(NamedTuple):
-    execute: Callable[[str, Optional[DynamicSQLargs]], CursorExeAction]
-    fetchall: Callable[[], CursorFetchAction]
-    fetchone: Callable[[], CursorFetchAction]
-    drop_access_point: Callable[[], None]
-
-
-class _Client(NamedTuple):
     cursor: Cursor
     connection: DbConnection
     close: Callable[[], None]
@@ -52,8 +41,7 @@ def new_client(
         _drop_access_point(db_cursor, db_connection)
 
     return Client(
-        execute=db_cursor.execute,
-        fetchall=db_cursor.fetchall,
-        fetchone=db_cursor.fetchone,
-        drop_access_point=close,
+        cursor=db_cursor,
+        connection=db_connection,
+        close=close,
     )

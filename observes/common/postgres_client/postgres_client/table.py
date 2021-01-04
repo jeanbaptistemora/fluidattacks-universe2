@@ -27,8 +27,9 @@ class IsolatedColumn(NamedTuple):
 
 
 class Column(NamedTuple):
-    table: 'TableID'
-    column: IsolatedColumn
+    name: str
+    field_type: DbTypes
+    default_val: Optional[str] = None
 
 
 class TableID(NamedTuple):
@@ -94,7 +95,7 @@ def table_builder(
                 '{field_type} default %(default_val)s'
             )
             actions.append(
-                db_client.execute(
+                db_client.cursor.execute(
                     statement,
                     DynamicSQLargs(
                         values={
@@ -128,7 +129,7 @@ def exist(db_client: Client, table_id: TableID) -> bool:
             AND table_name = %(table_name)s
         );
     """
-    action = db_client.execute(
+    action = db_client.cursor.execute(
         statement,
         DynamicSQLargs(
             values={
@@ -138,7 +139,7 @@ def exist(db_client: Client, table_id: TableID) -> bool:
         )
     )
     action.act()
-    f_action = db_client.fetchone()
+    f_action = db_client.cursor.fetchone()
     result = tuple(f_action.act())
     return bool(result[0])
 
@@ -159,7 +160,7 @@ def retrieve(db_client: Client, table_id: TableID) -> Optional[Table]:
             AND table_schema = %(table_schema)s
         ORDER BY ordinal_position;
     """
-    action: CursorExeAction = db_client.execute(
+    action: CursorExeAction = db_client.cursor.execute(
         statement,
         DynamicSQLargs(
             values={
@@ -168,7 +169,7 @@ def retrieve(db_client: Client, table_id: TableID) -> Optional[Table]:
             }
         )
     )
-    fetch_action = db_client.fetchall()
+    fetch_action = db_client.cursor.fetchall()
     action.act()
     results = fetch_action.act()
     columns = set()
@@ -213,7 +214,7 @@ def create(
         identifiers[f'name_{index}'] = column.name
         identifiers[f'field_type_{index}'] = column.field_type
 
-    db_client.execute(
+    db_client.cursor.execute(
         statement,
         DynamicSQLargs(
             identifiers=identifiers

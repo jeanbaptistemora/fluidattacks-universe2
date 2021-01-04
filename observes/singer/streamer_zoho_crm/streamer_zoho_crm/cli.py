@@ -6,7 +6,6 @@ from typing import (
 # Third party libraries
 import click
 # Local libraries
-from postgres_client.connection import ConnectionID
 from streamer_zoho_crm import auth, etl
 from streamer_zoho_crm.auth import Credentials
 
@@ -29,8 +28,8 @@ def revoke_token() -> None:
 @click.command()
 @click.argument('db_auth_file', type=click.File('r'))
 def init_db(db_auth_file: IO[AnyStr]) -> None:
-    db_creds: ConnectionID = auth.to_db_credentials(db_auth_file)
-    etl.initialize(db_creds)
+    db_id, db_creds = auth.to_db_credentials(db_auth_file)
+    etl.initialize(db_id, db_creds)
 
 
 @click.command()
@@ -38,8 +37,8 @@ def init_db(db_auth_file: IO[AnyStr]) -> None:
 @click.argument('db_auth_file', type=click.File('r'))
 def create_jobs(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
     crm_creds: Credentials = auth.to_credentials(crm_auth_file)
-    db_creds: ConnectionID = auth.to_db_credentials(db_auth_file)
-    etl.creation_phase(crm_creds, db_creds)
+    db_id, db_creds = auth.to_db_credentials(db_auth_file)
+    etl.creation_phase(crm_creds, db_id, db_creds)
 
 
 @click.command()
@@ -47,8 +46,8 @@ def create_jobs(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
 @click.argument('db_auth_file', type=click.File('r'))
 def stream(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
     crm_creds: Credentials = auth.to_credentials(crm_auth_file)
-    db_creds: ConnectionID = auth.to_db_credentials(db_auth_file)
-    etl.start_streamer(crm_creds, db_creds)
+    db_id, db_creds = auth.to_db_credentials(db_auth_file)
+    etl.start_streamer(crm_creds, db_id, db_creds)
 
 
 @click.group()

@@ -24,7 +24,7 @@ postgresql_my = factories.postgresql('postgresql_my_proc')
 
 def setup_cursor(postgresql: Any) -> Cursor:
     cur = postgresql.cursor()
-    purifier = cursor_module.sql_id_purifier_builder()
+    purifier = cursor_module.sql_id_purifier
 
     def mock_close() -> None:
         cur.close()
