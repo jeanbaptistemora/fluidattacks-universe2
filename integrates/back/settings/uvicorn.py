@@ -9,8 +9,16 @@ class IntegratesWorker(UvicornWorker):  # type: ignore
         'interface': 'asgi3',
         'headers': [
             [
-                'Pragma',
-                'no-cache',
+                'X-Frame-Options',
+                'SAMEORIGIN',
+            ],
+            [
+                'Accept-Encoding',
+                'identity',
+            ],
+            [
+                'Referrer-Policy',
+                'strict-origin-when-cross-origin',
             ],
             [
                 'WWW-Authenticate',
@@ -29,10 +37,6 @@ class IntegratesWorker(UvicornWorker):  # type: ignore
                 'nosniff',
             ],
             [
-                'Expires',
-                '0',
-            ],
-            [
                 'Content-Security-Policy',
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval' "
                 'localhost:* *.amazonaws.com *.cloudfront.net '
@@ -44,8 +48,19 @@ class IntegratesWorker(UvicornWorker):  # type: ignore
                 'cdn.headwayapp.co *.cloudflareinsights.com;',
             ],
             [
-                'Accept-Encoding',
-                'identity',
-            ],
+                'Permissions-Policy',
+                'geolocation=(self), '
+                'midi=(self), '
+                'push=(self), '
+                'sync-xhr=(self), '
+                'microphone=(self), '
+                'camera=(self), '
+                'magnetometer=(self), '
+                'gyroscope=(self), '
+                'speaker=(self), '
+                'vibrate=(self), '
+                'fullscreen=(self), '
+                'payment=(self) ',
+            ]
         ],
     }
