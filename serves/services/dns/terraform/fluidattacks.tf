@@ -35,7 +35,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     prefetch_preload            = "off"
     privacy_pass                = "on"
     response_buffering          = "off"
-    rocket_loader               = "on"
+    rocket_loader               = "off"
     security_level              = "medium"
     server_side_exclude         = "on"
     sort_query_string_for_cache = "off"
