@@ -6,19 +6,15 @@ attrs @ {
 
 let
   buildPythonRequirements = import ../../../makes/utils/build-python-requirements skimsPkgs;
-  makeNixRequirements = inputs: {
-    binPath = skimsPkgs.lib.strings.makeBinPath inputs;
-    libPath = skimsPkgs.lib.strings.makeLibraryPath inputs;
-    pyPath = skimsPkgs.lib.strings.makeSearchPath "lib/python3.8/site-packages" inputs;
-  };
+  makeSearchPaths = import ../../../makes/utils/make-search-paths skimsPkgs;
   makeTemplate = import ../../../makes/utils/make-template skimsPkgs;
-    nixRequirements = builtins.mapAttrs (key: val: makeNixRequirements val) {
-      development = [];
-      runtime = [
-        skimsPkgs.graphviz
-        skimsPkgs.python38Packages.pygraphviz
-      ];
-    };
+  nixRequirements = builtins.mapAttrs (key: val: makeSearchPaths val) {
+    development = [];
+    runtime = [
+      skimsPkgs.graphviz
+      skimsPkgs.python38Packages.pygraphviz
+    ];
+  };
 
   pythonRequirements = {
     development = buildPythonRequirements {
