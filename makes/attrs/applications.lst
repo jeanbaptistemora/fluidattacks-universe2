@@ -10,4 +10,5 @@ skims-docs-deploy
 skims-infra-deploy
 skims-infra-test
 skims-process-group
+skims-process-group-on-aws
 skims-test

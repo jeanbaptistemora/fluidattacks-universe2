@@ -30,14 +30,13 @@ in
     arguments = rec {
       envAttempts = attempts;
       envAws = "${pkgs.awscli}/bin/aws";
-      envCommand = builtins.toJSON command;
+      envCommandFile = builtins.toFile "command" (builtins.toJSON command);
       envEnvsubst = "${pkgs.envsubst}/bin/envsubst";
       envJobname = jobname;
       envJobqueue = jobqueue;
       envJq = "${pkgs.jq}/bin/jq";
       envMemory = memory;
       envManifestFile = builtins.toFile "manifest" (builtins.toJSON {
-        command = command;
         environment = (builtins.map getSecretFromRuntimeEnv secrets) ++ [
           {
             name = "CI";

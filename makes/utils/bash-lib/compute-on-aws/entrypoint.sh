@@ -2,8 +2,26 @@
 
 source '__envUtilsBashLibAws__'
 
+function substitute_env_vars {
+  cat "${1}" | '__envEnvsubst__' -no-empty -no-unset
+}
+
 function main {
-      echo '[INFO] Running on AWS: __envCommand__' \
+  local env_command
+  local env_manifest
+
+      env_command="$(substitute_env_vars '__envCommandFile__')" \
+  &&  env_manifest="$(substitute_env_vars '__envManifestFile__')" \
+  &&  env_command="$( \
+        __envJq__ \
+          -enr \
+          --argjson 'command' "${env_command}" \
+          --args \
+          '($command + $ARGS.positional)' \
+          -- \
+          "${@}" \
+      )" \
+  &&  echo "[INFO] Running on AWS: ${env_command}" \
   &&  echo '[INFO] VCPUs: __envVcpus__' \
   &&  echo '[INFO] Memory: __envMemory__ MB' \
   &&  echo '[INFO] Attempts: __envAttempts__' \
@@ -23,11 +41,12 @@ function main {
             echo '[INFO] Sending job' \
         &&  '__envAws__' batch submit-job \
               --container-overrides "$( \
-                  cat '__envManifestFile__' \
-                    | '__envEnvsubst__' \
-                        -no-empty \
-                        -no-unset \
-                    | '__envJq__' -er \
+                __envJq__ \
+                  -enr \
+                  --argjson 'manifest' "${env_manifest}" \
+                  --argjson 'command' "${env_command}" \
+                  --args \
+                  '$manifest * {command: $command}'
               )" \
               --job-name '__envJobname__' \
               --job-queue '__envJobqueue__' \
