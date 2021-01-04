@@ -12,6 +12,6 @@ in
         pkgs.nix
       ];
 
-      srcProduct = import ../..;
+      srcProduct = (import ../..).product;
     })
   )

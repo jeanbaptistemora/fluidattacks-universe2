@@ -9,6 +9,7 @@ let
   makeTemplate = import ../../../makes/utils/make-template meltsPkgs;
   nixRequirements = builtins.mapAttrs (key: val: makeSearchPaths val) {
     runtime = [
+      meltsPkgs.python38Packages.psycopg2
     ];
   };
 

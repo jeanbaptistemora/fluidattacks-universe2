@@ -60,4 +60,4 @@ done
 
 echo
 echo '[INFO] Installing products'
-nix-env -i product -f default.nix
+nix-env -if default.nix
