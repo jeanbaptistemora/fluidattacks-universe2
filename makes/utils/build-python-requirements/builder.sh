@@ -12,13 +12,13 @@ function main {
         --requirement "${envRequirementsFile}" \
         --no-cache-dir \
   &&  echo '[INFO] Freezing' \
-  &&  python -m pip freeze > "${out}/requirements" \
+  &&  python -m pip freeze | sort --ignore-case > "${out}/requirements" \
   &&  if test "$(cat "${out}/requirements")" = "$(cat "${envRequirementsFile}")"
       then
         echo '[INFO] Integrity check passed'
       else
             echo '[ERROR] Integrity check failed' \
-        &&  echo '[INFO] You need to pin all dependencies:' \
+        &&  echo '[INFO] You need to specify all dependencies:' \
         &&  while read -r requirement
             do
               echo "\"${requirement}\""
