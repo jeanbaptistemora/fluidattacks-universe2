@@ -100,6 +100,7 @@ def get_historic_state(finding: Dict[str, FindingType]) -> HistoricType:
 def get_creation_date(finding: Dict[str, FindingType]) -> str:
     """Get creation date from the historic state"""
     creation_date = ''
+    creation_info = None
     historic_state = get_historic_state(finding)
     if historic_state:
         creation_info = list(filter(
@@ -115,6 +116,7 @@ def get_creation_date(finding: Dict[str, FindingType]) -> str:
 def get_submission_date(finding: Dict[str, FindingType]) -> str:
     """Get submission date from the historic state"""
     submission_date = ''
+    submission_info = None
     historic_state = get_historic_state(finding)
     if historic_state:
         submission_info = list(filter(
@@ -130,6 +132,7 @@ def get_submission_date(finding: Dict[str, FindingType]) -> str:
 def get_approval_date(finding: Dict[str, FindingType]) -> str:
     """Get approval date from the historic state"""
     approval_date = ''
+    approval_info = None
     historic_state = get_historic_state(finding)
     if historic_state:
         approval_info = list(filter(
