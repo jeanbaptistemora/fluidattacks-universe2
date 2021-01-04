@@ -29,6 +29,7 @@ flake.lib.eachDefaultSystem (
             skims-infra-test =  import ../makes/skims/infra-test attrs;
             skims-process-group = import ../makes/skims/process-group attrs;
             skims-process-group-on-aws = import ../makes/skims/process-group-on-aws attrs;
+            skims-process-groups-on-aws = import ../makes/skims/process-groups-on-aws attrs;
             skims-test =  import ../makes/skims/test attrs;
           };
           packages = {

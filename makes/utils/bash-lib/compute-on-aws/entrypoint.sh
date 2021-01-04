@@ -8,9 +8,15 @@ function substitute_env_vars {
 
 function main {
   local env_command
+  local env_jobname
   local env_manifest
 
       env_command="$(substitute_env_vars '__envCommandFile__')" \
+  &&  env_jobname='__envJobname__' \
+  &&  if test -n "${*:1}"
+      then
+        env_jobname="${env_jobname}-${*:1}"
+      fi \
   &&  env_manifest="$(substitute_env_vars '__envManifestFile__')" \
   &&  env_command="$( \
         __envJq__ \
@@ -26,7 +32,7 @@ function main {
   &&  echo '[INFO] Memory: __envMemory__ MB' \
   &&  echo '[INFO] Attempts: __envAttempts__' \
   &&  echo '[INFO] Timeout: __envTimeout__ seconds' \
-  &&  echo '[INFO] Job Name: __envJobname__' \
+  &&  echo "[INFO] Job Name: ${env_jobname}" \
   &&  echo '[INFO] Job Queue: __envJobqueue__' \
   &&  aws_login_prod '__envProduct__' \
   &&  is_already_in_queue=$( \
@@ -34,7 +40,9 @@ function main {
           --job-queue '__envJobqueue__' \
           --job-status 'RUNNABLE' \
           --query 'jobSummaryList[*].jobName' \
-          | '__envJq__' -r '. | contains(["__envJobname__"])' \
+          | '__envJq__' -r \
+              --arg 'env_jobname' "${env_jobname}" \
+              '. | contains([$env_jobname])' \
       ) \
   &&  if test "${is_already_in_queue}" = 'false'
       then
@@ -48,14 +56,14 @@ function main {
                   --args \
                   '$manifest * {command: $command}'
               )" \
-              --job-name '__envJobname__' \
+              --job-name "${env_jobname}" \
               --job-queue '__envJobqueue__' \
               --job-definition 'default' \
               --retry-strategy 'attempts=__envAttempts__' \
               --timeout 'attemptDurationSeconds=__envTimeout__' \
-        &&  echo '[INFO] Job __envJobname__ has been succesfully sent'
+        &&  echo "[INFO] Job ${env_jobname} has been succesfully sent"
       else
-        echo '[INFO] Job __envJobname__ is already in queue, skipped sending it'
+        echo "[INFO] Job ${env_jobname} is already in queue, skipped sending it"
       fi
 }
 
