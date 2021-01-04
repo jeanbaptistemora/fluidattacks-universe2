@@ -1,13 +1,3 @@
-.with_nix: &with_nix
-  tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
-  needs: []
-  script:
-    - ./build.sh "${CI_JOB_NAME% *}"
-  interruptible: true
-  variables:
-    GIT_DEPTH: 5
-
 .makes: &makes
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes:ci"
@@ -24,16 +14,6 @@
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *skims_commit_pattern
-
-.skims_in_dev_and_master_branch: &skims_in_dev_and_master_branch
-  rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
@@ -62,11 +42,6 @@ skims-benchmark-on-aws:
     variables: [$skims_benchmark_on_aws]
   stage: scheduler
 
-skims_deploy_to_pypi:
-  <<: *with_nix
-  <<: *skims_in_master_branch
-  stage: deploy-app
-
 skims-infra-deploy:
   <<: *makes
   <<: *skims_in_master_branch
@@ -82,8 +57,8 @@ skims-lint:
   <<: *skims_in_dev_branch
   stage: lint-code
 
-skims_process_all_groups_on_aws:
-  <<: *with_nix
+skims-process-groups-on-aws:
+  <<: *makes
   interruptible: false
   only:
     refs: [schedules]
@@ -119,15 +94,3 @@ skims-docs-deploy:
   <<: *makes
   <<: *skims_in_master_branch
   stage: deploy-app
-
-skims_process_group_on_aws:
-  <<: *with_nix
-  rules:
-    - if: '$CI_PIPELINE_SOURCE != "trigger"'
-      when: never
-    - if: '$CI_COMMIT_BRANCH != "master"'
-      when: never
-    - if: '$SKIMS_GROUP_TO_PROCESS_ON_AWS == null'
-      when: never
-    - if: *skims_commit_pattern
-  stage: external

@@ -36,10 +36,6 @@ source "${srcIncludeServesJobs}"
 
 source "${srcIncludeHelpersServices}"
 
-source "${srcIncludeHelpersSkimsProcess}"
-source "${srcIncludeHelpersSkims}"
-source "${srcIncludeSkimsJobs}"
-
 source "${srcIncludeHelpersSorts}"
 source "${srcIncludeSortsJobs}"
 
