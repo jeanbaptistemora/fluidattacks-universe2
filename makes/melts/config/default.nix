@@ -77,4 +77,17 @@ let
   };
 in
   {
+    setupMeltsRuntime = makeTemplate {
+      arguments = {
+        envBinPath = nixRequirements.runtime.binPath;
+        envLibPath = nixRequirements.runtime.libPath;
+        envPyPath = nixRequirements.runtime.pyPath;
+        envPython = "${meltsPkgs.python38}/bin/python";
+        envPythonRequirements = pythonRequirements.runtime;
+        envSrcMelts = ../../../melts;
+        envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      };
+      name = "melts-config-setup-melts-runtime";
+      template = ../../../makes/melts/config/setup-melts-runtime.sh;
+    };
   }

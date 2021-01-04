@@ -5,6 +5,7 @@
     flakeCompat.flake = false;
     flakeCompat.url = "github:edolstra/flake-compat";
     srcCommonPkgs.url = "github:NixOS/nixpkgs/release-20.03";
+    srcMeltsPkgs.url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d";
     srcObservesPkgs.url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d";
     srcSkimsPkgs.url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d";
     srcSkimsPkgsTerraform.url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0";

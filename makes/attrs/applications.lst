@@ -1,5 +1,6 @@
 common-deploy-oci-batch
 common-deploy-oci-ci
+melts
 observes-tap-json
 observes-target-redshift
 skims

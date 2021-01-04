@@ -14,19 +14,19 @@ from toolbox import (
     constants,
 )
 
-from .misc import misc_management
-from .resources import resources_management
+from toolbox.cli.misc import misc_management
+from toolbox.cli.resources import resources_management
 
 
-@click.group(name='entrypoint')
-def entrypoint():
+@click.group(name='melts')
+def melts():
     """Main comand line group."""
 
 
-entrypoint.add_command(resources_management)
-entrypoint.add_command(utils.cli.utils_management)
-entrypoint.add_command(drills.cli.drills_management)
-entrypoint.add_command(misc_management)
+melts.add_command(resources_management)
+melts.add_command(utils.cli.utils_management)
+melts.add_command(drills.cli.drills_management)
+melts.add_command(misc_management)
 
 
 def retry_debugging_on_failure(func):
@@ -47,5 +47,11 @@ def retry_debugging_on_failure(func):
 def main():
     """Usual entrypoint."""
     utils.bugs.configure_bugsnag()
-    entrypoint()
+    melts(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
+        prog_name='melts',
+    )
     return True
+
+
+if __name__ == '__main__':
+    main()

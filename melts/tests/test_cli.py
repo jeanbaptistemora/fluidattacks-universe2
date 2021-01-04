@@ -1,16 +1,5 @@
-# Standard library
-import sys
-import shlex
-import os
-import yaml
-
-# Third parties libraries
-import pytest
-import unittest.mock
-from click.testing import CliRunner
-
 # Local libraries
-from toolbox.cli import entrypoint as cli
+from toolbox.cli import melts as cli
 
 # constants
 

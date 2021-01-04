@@ -2,6 +2,7 @@
   flake,
   flakeCompat,
   srcCommonPkgs,
+  srcMeltsPkgs,
   srcObservesPkgs,
   srcSkimsBenchmarkOwaspRepo,
   srcSkimsPkgs,
@@ -17,6 +18,7 @@ flake.lib.eachDefaultSystem (
           apps = builtins.mapAttrs makeApp {
             common-deploy-oci-batch = import ../makes/common/deploy/oci-batch attrs;
             common-deploy-oci-ci = import ../makes/common/deploy/oci-ci attrs;
+            melts = import ../makes/melts/bin attrs;
             observes-target-redshift = import ../makes/observes/target-redshift/bin attrs;
             observes-tap-json = import ../makes/observes/tap-json/bin attrs;
             skims = import ../makes/skims/bin attrs;
@@ -28,6 +30,7 @@ flake.lib.eachDefaultSystem (
             skims-test =  import ../makes/skims/test attrs;
           };
           packages = {
+            melts-bin = import ../makes/melts/bin attrs;
             skims-bin = import ../makes/skims/bin attrs;
             skims-docs-build = import ../makes/skims/docs/build attrs;
             skims-lint = import ../makes/skims/lint attrs;
@@ -38,6 +41,7 @@ flake.lib.eachDefaultSystem (
           };
         };
         commonPkgs = import srcCommonPkgs { inherit system; };
+        meltsPkgs = import srcMeltsPkgs { inherit system; };
         observesPkgs = import srcObservesPkgs { inherit system; };
         skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
         skimsPkgs = import srcSkimsPkgs { inherit system; };

@@ -10,15 +10,12 @@ from typing import (
 # Third parties libraries
 import boto3
 import pytest
-import unittest.mock
 from click.testing import CliRunner
 
 # Local libraries
-import toolbox.toolbox
 from toolbox import logger
 from toolbox.utils import generic
-from toolbox import resources
-from toolbox.cli import entrypoint as cli
+from toolbox.cli import melts as cli
 
 # Constants
 SUBS: str = 'continuoustest'
