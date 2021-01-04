@@ -920,8 +920,6 @@ function job_integrates_test_back {
     --dist 'loadscope'
     --verbose
     --maxfail '20'
-    --cov 'fluidintegrates'
-    --cov 'app'
     --cov "${pyPkgIntegratesBack}/site-packages/backend"
     --cov-report 'term'
     --cov-report 'html:build/coverage/html'
