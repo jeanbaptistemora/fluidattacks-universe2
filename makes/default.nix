@@ -22,6 +22,7 @@ flake.lib.eachDefaultSystem (
             observes-target-redshift = import ../makes/observes/target-redshift/bin attrs;
             observes-tap-json = import ../makes/observes/tap-json/bin attrs;
             skims = import ../makes/skims/bin attrs;
+            skims-process-group = import ../makes/skims/process-group attrs;
             skims-benchmark = import ../makes/skims/benchmark attrs;
             skims-benchmark-on-aws = import ../makes/skims/benchmark-on-aws attrs;
             skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
