@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 
 from asgiref.sync import async_to_sync
 from collections import namedtuple
+from freezegun import freeze_time
 from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
@@ -359,19 +360,29 @@ async def test_validate_number_acceptations():
             values_accepted,
         )
 
+
 @pytest.mark.changes_db
+@freeze_time("2019-12-01")
 async def test_approve_draft():
     finding_id = '475041513'
     reviewer_email = 'unittest@fluidattacks.com'
     test_success, test_date = await approve_draft(
         finding_id, reviewer_email)
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn)
-    date = str(today.strftime('%Y-%m-%d %H:%M'))
-    expected_output =  True, date
+    release_date = '2019-11-30 19:00:00'
+    expected_output =  True, release_date
     assert isinstance(test_success, bool)
     assert isinstance(test_date, str)
-    assert test_success, test_date[-3] == expected_output
+    assert test_success, test_date == expected_output
+    all_vulns = await list_vulnerabilities_async(
+        [finding_id],
+        should_list_deleted=True,
+        include_requested_zero_risk=True,
+        include_confirmed_zero_risk=True
+    )
+    for vuln in all_vulns:
+        for state_info in vuln['historic_state']:
+            assert state_info['date'] == release_date
+
 
 async def test_list_findings() -> None:
     project_name = 'unittesting'
