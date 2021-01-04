@@ -324,11 +324,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 {
                   dataField: "environment",
                   header: t("group.scope.git.repo.environment"),
+                  visible: false,
                 },
                 {
                   dataField: "environmentUrls",
                   formatter: formatList,
                   header: t("group.scope.git.envUrls"),
+                  visible: false,
                 },
                 {
                   dataField: "filter.include",
@@ -370,6 +372,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 {
                   dataField: "cloningStatus.message",
                   header: t("group.scope.git.repo.cloning.message"),
+                  visible: false,
                 },
               ]}
               id={"tblGitRoots"}

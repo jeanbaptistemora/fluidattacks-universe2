@@ -100,8 +100,6 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // branch
         "master",
-        // environment
-        "production",
         // include
         "*",
         // exclude
@@ -111,8 +109,6 @@ describe("GroupScopeView", (): void => {
         "Active",
         // cloning status
         "Unknown",
-        // cloning message
-        "root created",
       ].join("")
     );
   });
@@ -249,16 +245,12 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // branch
         "master",
-        // environment
-        "production",
         // include
         "*",
         // state
         "Active",
         // cloning status
         "Unknown",
-        // cloning message
-        "root created",
       ].join("")
     );
   });
@@ -429,8 +421,6 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // branch
         "master",
-        // environment
-        "staging",
         // include
         "*",
         // exclude
@@ -439,8 +429,6 @@ describe("GroupScopeView", (): void => {
         "Active",
         // cloning status
         "Unknown",
-        // cloning message
-        "root created",
       ].join("")
     );
   });
