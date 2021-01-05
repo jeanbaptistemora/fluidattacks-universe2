@@ -238,6 +238,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       headerFormatter: filterFormatter,
       onSort: onSortVulns,
       visible: checkedItems.where,
+      width: "40%",
+      wrapped: true,
     },
     {
       dataField: "specific",
