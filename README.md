@@ -23,11 +23,8 @@
 
 **Skims**
 
-[![PyPI](https://img.shields.io/pypi/v/skims)](https://pypi.org/project/skims)
-[![Status](https://img.shields.io/pypi/status/skims)](https://pypi.org/project/skims)
-[![Downloads](https://img.shields.io/pypi/dm/skims)](https://pypi.org/project/skims)
-[![License](https://img.shields.io/pypi/l/skims)](../LICENSE)
-[![Docs](https://img.shields.io/badge/Docs-grey)](./skims/README.md)
+[![](https://img.shields.io/badge/Contributing-green)](./skims/README.md)
+[![](https://img.shields.io/badge/Docs-grey)](https://fluidattacks.com/resources/doc/skims/)
 
 # Installing
 

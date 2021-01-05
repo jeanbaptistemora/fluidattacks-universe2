@@ -1,15 +1,34 @@
-[![Release](
-https://img.shields.io/pypi/v/skims?color=success&label=Release&style=flat-square)](
-https://pypi.org/project/skims)
-[![Documentation](
-https://img.shields.io/badge/Documentation-click_here!-success?style=flat-square)](
-https://fluidattacks.gitlab.io/product/skims)
-[![Downloads](
-https://img.shields.io/pypi/dm/skims?label=Downloads&style=flat-square)](
-https://pypi.org/project/skims)
-[![Status](
-https://img.shields.io/pypi/status/skims?label=Status&style=flat-square)](
-https://pypi.org/project/skims)
-[![License](
-https://img.shields.io/pypi/l/skims?color=success&label=License&style=flat-square)](
-https://gitlab.com/fluidattacks/product/-/blob/master/LICENSE)
+# Contributing
+
+As a cybersecurity product we want to make the world a safer place
+
+We do this by:
+- Finding all vulnerabilities possible
+- Using different attack vectors and cutting edge technologies
+- Reporting only true positives
+
+You can help us achieve these goals by the following means:
+- Telling your friends
+- Using the product
+- Creating [issues](/product/-/issues) with ideas, feature requests,
+  problems, use cases, or feedback
+- Helping us solve those issues
+
+Code contributions or direct bug fixes can be submitted as a patch to
+development@fluidattacks.com
+or directly as a PR request to this repository.
+
+Should you have any questions we'll be happy to help you: help@fluidattacks.com
+
+## From zero to running a development version of skims
+
+- Install Nix as explained in the [tutorial](https://nixos.org/download.html)
+- Clone this repository
+- Run: `./make skims --help`
+
+Changes made to the source code are reflected on each invocation
+
+## Executing quality checks locally (lint, benchmark, test, security, structure, docs, etc)
+
+- Run: `./make`, a list of available commands will be displayed.
+  Relevant commands begin with `skims-` prefix

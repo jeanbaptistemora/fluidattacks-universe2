@@ -1,6 +1,5 @@
 """Vulnerability life-cycle management tool.
 
-.. include:: ../README.md
 .. include:: ../docs/content/introduction.md
 .. include:: ../docs/content/introduction/about_skims.md
 .. include:: ../docs/content/introduction/quick_start.md
