@@ -2,6 +2,7 @@
 
 # Third party libraries
 import bugsnag
+from bugsnag.asgi import BugsnagMiddleware
 import newrelic.agent
 import sqreen
 
@@ -156,8 +157,12 @@ STARLETTE_APP = Starlette(
     ]
 )
 
+BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
+
 sqreen.start()
-APP = newrelic.agent.ASGIApplicationWrapper(
-    STARLETTE_APP,
+NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
+    BUGSNAG_WRAP,
     framework=('Starlette', '0.13.8')
 )
+
+APP = NEWRELIC_WRAP
