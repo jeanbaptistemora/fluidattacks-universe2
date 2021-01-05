@@ -40,7 +40,8 @@
         "srcObservesPkgs": "srcObservesPkgs",
         "srcSkimsBenchmarkOwaspRepo": "srcSkimsBenchmarkOwaspRepo",
         "srcSkimsPkgs": "srcSkimsPkgs",
-        "srcSkimsPkgsTerraform": "srcSkimsPkgsTerraform"
+        "srcSkimsPkgsTerraform": "srcSkimsPkgsTerraform",
+        "srcSkimsTreeSitterRepo": "srcSkimsTreeSitterRepo"
       }
     },
     "srcCommonPkgs": {
@@ -137,6 +138,23 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "f99908924015bb83df8186b2c473919be35b43f0",
+        "type": "github"
+      }
+    },
+    "srcSkimsTreeSitterRepo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1603820462,
+        "narHash": "sha256-qz8u75CvWrVph9vZM5hfERpyc7NJF8Cxm7oFnVc6cEk=",
+        "owner": "tree-sitter",
+        "repo": "tree-sitter-java",
+        "rev": "f7b62ac33d63bea56ce202ace107aaa4285e50af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tree-sitter",
+        "repo": "tree-sitter-java",
+        "rev": "f7b62ac33d63bea56ce202ace107aaa4285e50af",
         "type": "github"
       }
     }

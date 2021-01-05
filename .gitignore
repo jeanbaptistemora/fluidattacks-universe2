@@ -27,3 +27,6 @@ package-lock.json
 
 # Secrets
 .envrc
+
+# Auto-generated files
+skims-languages.so

@@ -6,6 +6,7 @@ _ @ {
   srcSkimsBenchmarkOwaspRepo,
   srcSkimsPkgs,
   srcSkimsPkgsTerraform,
+  srcSkimsTreeSitterRepo,
   ...
 }:
 
@@ -51,6 +52,7 @@ flake.lib.eachDefaultSystem (
         skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
         skimsPkgs = import srcSkimsPkgs { inherit system; };
         skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
+        skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
       };
       makeApp = app: derivation: {
         program = "${derivation}/bin/${app}";

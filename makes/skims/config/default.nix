@@ -1,6 +1,7 @@
 _ @ {
   outputs,
   skimsPkgs,
+  skimsTreeSitterRepo,
   ...
 }:
 
@@ -36,6 +37,7 @@ in
             envParserBabel = outputs.packages.skims-parsers-babel;
             envSrcSkimsStatic = ../../../skims/static;
             envSrcSkimsVendor = ../../../skims/vendor;
+            envSrcTreeSitter = skimsTreeSitterRepo;
           };
           name = "skims-config-context-file";
           template = ''
@@ -45,6 +47,7 @@ in
             export SKIMS_PARSER_BABEL='__envParserBabel__'
             export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
             export SKIMS_STATIC='__envSrcSkimsStatic__'
+            export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitter__'
             export SKIMS_VENDOR='__envSrcSkimsVendor__'
           '';
         };
