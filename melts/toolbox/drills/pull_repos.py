@@ -4,11 +4,11 @@ from typing import (
     List,
     Set,
 )
-import re
 import shutil
 import urllib.parse
 
 # Third party libraries
+import pathspec
 
 # Local libraries
 from toolbox.drills import generic as drills_generic
@@ -20,12 +20,6 @@ from toolbox import (
 from toolbox.utils.integrates import (
     get_filter_rules,
 )
-
-
-def translate_glob_pattern(pattern: str) -> str:
-    # Escape everything that is not `*` and replace `*` with regex `.*`
-    expression = r'.*'.join(map(re.escape, pattern.split('*')))
-    return f'^{expression}$'
 
 
 def notify_out_of_scope(
@@ -76,22 +70,12 @@ def delete_out_of_scope_files(group: str) -> bool:
     path_to_fusion: str = os.path.join('groups', group, 'fusion')
 
     for root in get_filter_rules(group):
-        # Compute what files should be deleted according to the scope rules
-        non_matching_files_iterator = utils.file.iter_non_matching_files(
-            path=path_to_fusion,
-            include_regexps=tuple(map(
-                translate_glob_pattern,
-                root['filter']['include'],
-            )),
-            exclude_regexps=tuple(map(
-                translate_glob_pattern,
-                root['filter']['exclude'],
-            )),
-        )
-
         # Get the expected repo name from the URL
         repo_name = get_repo_from_url(root['url'])
         expected_repositories.add(repo_name)
+
+        spec_ignore = pathspec.PathSpec.from_lines('gitwildmatch',
+                                                   root['filter']['exclude'])
 
         # Display to the user the Scope
         notify_out_of_scope(
@@ -100,9 +84,11 @@ def delete_out_of_scope_files(group: str) -> bool:
             root['filter']['exclude'],
         )
 
-        for path in non_matching_files_iterator:
-            if path.startswith(repo_name) and '.git' not in path:
-                path = os.path.join(path_to_fusion, path)
+        # Compute what files should be deleted according to the scope rules
+        path_to_repo = os.path.join('groups', group, 'fusion', repo_name)
+        for path in utils.file.iter_rel_paths(path_to_repo):
+            if spec_ignore.match_file(path):
+                path = os.path.join(path_to_fusion, repo_name, path)
                 if os.path.isfile(path):
                     os.unlink(path)
                 elif os.path.isdir(path):

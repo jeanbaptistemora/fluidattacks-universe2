@@ -5,7 +5,6 @@ import os
 import re
 import tempfile
 import textwrap
-from itertools import filterfalse
 from operator import methodcaller
 from typing import (
     Generator,
@@ -13,7 +12,6 @@ from typing import (
     Pattern,
     Tuple,
 )
-from toolbox.utils.function import shield
 
 
 @functools.lru_cache(maxsize=None, typed=True)
@@ -34,7 +32,7 @@ def _iter_full_paths(path: str) -> Iterator[str]:
                 yield full_path
 
 
-def _iter_rel_paths(starting_path: str) -> Iterator[str]:
+def iter_rel_paths(starting_path: str) -> Iterator[str]:
     """Recursively yield relative paths to files for a given starting path."""
     yield from (
         path.replace(starting_path, '')[1:]
@@ -72,26 +70,3 @@ def is_covered(
     return \
         not is_excluded_in_any_rule \
         and is_included_in_any_rule
-
-
-@shield(on_error_return=False)
-def iter_non_matching_files(
-    *,
-    path: str,
-    include_regexps: Tuple[str, ...],
-    exclude_regexps: Tuple[str, ...],
-) -> Iterator[str]:
-    """Yield non-matching paths for the include/exclude regular expresions.
-
-    Include/exclude regular expresions are considered relative.
-    This means that regular expresions will be matched against the string
-    that is after 'path/'
-    """
-    def predicate(file: str) -> bool:
-        return is_covered(
-            path=file,
-            include_regexps=include_regexps,
-            exclude_regexps=exclude_regexps,
-        )
-
-    yield from filterfalse(predicate, _iter_rel_paths(path))
