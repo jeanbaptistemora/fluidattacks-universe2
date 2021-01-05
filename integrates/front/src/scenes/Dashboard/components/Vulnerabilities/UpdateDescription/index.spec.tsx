@@ -56,6 +56,7 @@ describe("Update Description component", (): void => {
     request: {
       query: GET_FINDING_VULN_INFO,
       variables: {
+        canRetrieveAnalyst: false,
         findingId: "422286126",
         groupName: "",
       },

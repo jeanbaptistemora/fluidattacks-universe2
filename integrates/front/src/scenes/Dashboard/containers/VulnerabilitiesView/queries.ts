@@ -2,13 +2,18 @@ import type { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_FINDING_VULN_INFO: DocumentNode = gql`
-  query GetFindingVulnInfo($findingId: String!, $groupName: String!) {
+  query GetFindingVulnInfo(
+    $canRetrieveAnalyst: Boolean!
+    $findingId: String!
+    $groupName: String!
+  ) {
     finding(identifier: $findingId) {
       id
       newRemediated
       state
       verified
       vulnerabilities {
+        analyst @include(if: $canRetrieveAnalyst)
         currentState
         cycles
         efficacy

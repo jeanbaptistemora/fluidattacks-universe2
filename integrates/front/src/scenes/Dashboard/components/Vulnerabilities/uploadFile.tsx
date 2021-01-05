@@ -132,6 +132,9 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
+          canRetrieveAnalyst: permissions.can(
+            "backend_api_resolvers_new_vulnerability_analyst_resolve"
+          ),
           findingId,
           groupName,
         },

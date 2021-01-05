@@ -90,6 +90,7 @@ describe("VulnComponent", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <VulnComponent
+        canDisplayAnalyst={false}
         findingId={"480857698"}
         groupName={"test"}
         isEditing={true}

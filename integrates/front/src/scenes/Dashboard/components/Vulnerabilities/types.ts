@@ -1,6 +1,7 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 interface IVulnRowAttr {
+  analyst?: string;
   currentState: "open" | "closed";
   currentStateCapitalized: "Open" | "Closed";
   cycles: string;
@@ -64,6 +65,7 @@ interface IVulnDataTypeAttr {
 }
 
 interface IVulnComponentProps {
+  canDisplayAnalyst: boolean;
   findingId: string;
   groupName: string;
   isEditing: boolean;

@@ -39,6 +39,7 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
+  canDisplayAnalyst,
   findingId,
   groupName,
   isEditing,
@@ -70,6 +71,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   >(
     "VulnerabilitiesTableSet",
     {
+      analyst: false,
       currentState: true,
       cycles: false,
       efficacy: false,
@@ -266,6 +268,16 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       onSort: onSortVulns,
       visible: checkedItems.currentState,
     },
+    ...(canDisplayAnalyst
+      ? [
+          {
+            dataField: "analyst",
+            header: t("search_findings.tab_description.analyst"),
+            onSort: onSortVulns,
+            visible: checkedItems.analyst && canDisplayAnalyst,
+          },
+        ]
+      : []),
     {
       dataField: "tag",
       header: t("search_findings.tab_description.tag"),

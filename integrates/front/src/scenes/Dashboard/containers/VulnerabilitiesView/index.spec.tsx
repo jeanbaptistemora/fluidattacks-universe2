@@ -18,6 +18,7 @@ describe("VulnerabilitiesView", (): void => {
     request: {
       query: GET_FINDING_VULN_INFO,
       variables: {
+        canRetrieveAnalyst: true,
         findingId: "422286126",
         groupName: "testgroup",
       },
@@ -31,6 +32,7 @@ describe("VulnerabilitiesView", (): void => {
           verified: false,
           vulnerabilities: [
             {
+              analyst: "useranalyst@test.test",
               currentState: "open",
               cycles: "",
               efficacy: "",
@@ -63,6 +65,7 @@ describe("VulnerabilitiesView", (): void => {
               zeroRisk: "Requested",
             },
             {
+              analyst: "useranalyst@test.test",
               currentState: "closed",
               cycles: "",
               efficacy: "",
@@ -120,7 +123,16 @@ describe("VulnerabilitiesView", (): void => {
       >
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[mocksQuery]}>
-            <authzPermissionsContext.Provider value={new PureAbility([])}>
+            <authzPermissionsContext.Provider
+              value={
+                new PureAbility([
+                  {
+                    action:
+                      "backend_api_resolvers_new_vulnerability_analyst_resolve",
+                  },
+                ])
+              }
+            >
               <Route
                 component={VulnsView}
                 path={
@@ -154,6 +166,7 @@ describe("VulnerabilitiesView", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
+      { action: "backend_api_resolvers_new_vulnerability_analyst_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter

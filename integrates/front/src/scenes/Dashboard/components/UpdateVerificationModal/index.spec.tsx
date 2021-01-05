@@ -21,6 +21,7 @@ describe("update verification component", () => {
     request: {
       query: GET_FINDING_VULN_INFO,
       variables: {
+        canRetrieveAnalyst: false,
         findingId: "",
         groupName: "",
       },
@@ -29,11 +30,10 @@ describe("update verification component", () => {
       data: {
         finding: {
           id: "",
-          inputsVulns: [],
-          linesVulns: [],
-          portsVulns: [],
-          releaseDate: "",
-          success: true,
+          newRemediated: true,
+          state: "open",
+          verified: false,
+          vulnerabilities: [],
         },
       },
     },

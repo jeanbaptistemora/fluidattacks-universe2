@@ -68,6 +68,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   const { handleClearSelected, handleCloseModal } = props;
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canRetrieveAnalyst: boolean = permissions.can(
+    "backend_api_resolvers_new_vulnerability_analyst_resolve"
+  );
   const canGetHistoricState: boolean = permissions.can(
     "backend_api_resolvers_new_finding_historic_state_resolve"
   );
@@ -108,6 +111,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
+          canRetrieveAnalyst,
           findingId,
           groupName: projectName,
         },
@@ -148,6 +152,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
+          canRetrieveAnalyst,
           findingId,
           groupName: projectName,
         },
@@ -340,6 +345,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
+            canRetrieveAnalyst,
             findingId,
             groupName: projectName,
           },

@@ -34,6 +34,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const canRejectZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_reject_zero_risk_vuln_mutate"
   );
+  const canRetrieveAnalyst: boolean = permissions.can(
+    "backend_api_resolvers_new_vulnerability_analyst_resolve"
+  );
   const shouldFilterZeroRisk: boolean = !(
     canConfirmZeroRiskVuln || canRejectZeroRiskVuln
   );
@@ -98,7 +101,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
           Logger.warning("An error occurred loading finding", error);
         });
       },
-      variables: { findingId, groupName: projectName },
+      variables: { canRetrieveAnalyst, findingId, groupName: projectName },
     }
   );
 
@@ -134,6 +137,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
           <Col100>
             <Row>
               <VulnComponent
+                canDisplayAnalyst={canRetrieveAnalyst}
                 findingId={findingId}
                 groupName={projectName}
                 isEditing={isEditing}

@@ -49,6 +49,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   const canGetHistoricState: boolean = permissions.can(
     "backend_api_resolvers_new_finding_historic_state_resolve"
   );
+  const canRetrieveAnalyst: boolean = permissions.can(
+    "backend_api_resolvers_new_vulnerability_analyst_resolve"
+  );
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const canGetExploit: boolean = groupPermissions.can("has_forces");
   const canHandleVulnsAcceptation: boolean = permissions.can(
@@ -167,6 +170,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
+            canRetrieveAnalyst,
             findingId,
             groupName,
           },
@@ -206,6 +210,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
+            canRetrieveAnalyst,
             findingId,
             groupName,
           },
@@ -253,6 +258,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
+            canRetrieveAnalyst,
             findingId,
             groupName,
           },
