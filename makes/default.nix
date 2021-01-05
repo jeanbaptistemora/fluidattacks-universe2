@@ -42,6 +42,7 @@ flake.lib.eachDefaultSystem (
             skims-lint = import ../makes/skims/lint attrs;
             skims-parsers-antlr = import ../makes/skims/parsers/antlr attrs;
             skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
+            skims-repl =  import ../makes/skims/repl attrs;
             skims-security = import ../makes/skims/security attrs;
             skims-structure = import ../makes/skims/structure attrs;
           };

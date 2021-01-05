@@ -7,5 +7,6 @@ skims-docs-build
 skims-lint
 skims-parsers-antlr
 skims-parsers-babel
+skims-repl
 skims-security
 skims-structure
