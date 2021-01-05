@@ -243,6 +243,34 @@ const GraphicButton: StyledComponent<
   className: "dim dib g-btn pr3 pl3 pt2 pb2 outline-0",
 })``;
 
+const GraphicPanelCollapse: StyledComponent<
+  "div",
+  Record<string, boolean>
+> = styled.div.attrs({
+  className: "mb4 items-center",
+})``;
+
+const GraphicPanelCollapseBody: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "pa4 items-center panel-cb",
+})``;
+
+const GraphicPanelCollapseHeader: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "pb3 pl4 pt3 pr4 items-center panel-ch",
+})``;
+
+const GraphicPanelCollapseFooter: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "pb3 pl4 pt3 pr4 items-center panel-cf",
+})``;
+
 const Label: StyledComponent<
   "span",
   Record<string, unknown>
@@ -586,6 +614,10 @@ export {
   Flex,
   FormGroup,
   GraphicButton,
+  GraphicPanelCollapse,
+  GraphicPanelCollapseBody,
+  GraphicPanelCollapseFooter,
+  GraphicPanelCollapseHeader,
   Label,
   LastProjectSetting,
   Meter,

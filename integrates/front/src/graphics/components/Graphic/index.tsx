@@ -11,8 +11,15 @@ import { secureStoreContext } from "utils/secureStore";
 import styles from "graphics/components/Graphic/index.css";
 import { translate } from "utils/translations/translate";
 import useComponentSize from "@rehooks/component-size";
-import { ButtonGroup, GraphicButton } from "styles/styledComponents";
-import { Glyphicon, Modal, Panel } from "react-bootstrap";
+import {
+  ButtonGroup,
+  GraphicButton,
+  GraphicPanelCollapse,
+  GraphicPanelCollapseBody,
+  GraphicPanelCollapseFooter,
+  GraphicPanelCollapseHeader,
+} from "styles/styledComponents";
+import { Glyphicon, Modal } from "react-bootstrap";
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -62,7 +69,7 @@ function buildUrl(
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
-  const { bsHeight, footer, reportMode, subject, title } = props;
+  const { bsHeight, className, footer, reportMode, subject, title } = props;
 
   // Hooks
   const fullRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
@@ -207,47 +214,45 @@ export const Graphic: React.FC<IGraphicProps> = (
         )}
       </Modal>
       <div ref={fullRef}>
-        <Panel
-          expanded={expanded}
+        <GraphicPanelCollapse
+          className={className}
           onMouseEnter={panelOnMouseEnter}
           onMouseLeave={panelOnMouseLeave}
         >
           <div ref={headRef}>
-            <Panel.Heading className={styles.panelTitle}>
-              <Panel.Title>
-                <div className={styles.titleBar}>
-                  <div className={"w-100"}>
-                    {title}
-                    {expanded &&
-                      !reportMode &&
-                      fullSize.width > minWidthToShowButtons && (
-                        <ButtonGroup className={"fr"}>
-                          <GraphicButton>
-                            <a
-                              className={"g-a"}
-                              download={buildFileName(bigGraphicSize)}
-                              href={buildUrl(props, bigGraphicSize)}
-                              rel={"noopener noreferrer"}
-                              target={"_blank"}
-                            >
-                              <Glyphicon glyph={"save"} />
-                            </a>
-                          </GraphicButton>
-                          <GraphicButton onClick={frameOnRefresh}>
-                            <Glyphicon glyph={"refresh"} />
-                          </GraphicButton>
-                          <GraphicButton onClick={frameOnFullScreen}>
-                            <Glyphicon glyph={"fullscreen"} />
-                          </GraphicButton>
-                        </ButtonGroup>
-                      )}
-                  </div>
+            <GraphicPanelCollapseHeader>
+              <div className={styles.titleBar}>
+                <div className={"w-100"}>
+                  {title}
+                  {expanded &&
+                    !reportMode &&
+                    fullSize.width > minWidthToShowButtons && (
+                      <ButtonGroup className={"fr"}>
+                        <GraphicButton>
+                          <a
+                            className={"g-a"}
+                            download={buildFileName(bigGraphicSize)}
+                            href={buildUrl(props, bigGraphicSize)}
+                            rel={"noopener noreferrer"}
+                            target={"_blank"}
+                          >
+                            <Glyphicon glyph={"save"} />
+                          </a>
+                        </GraphicButton>
+                        <GraphicButton onClick={frameOnRefresh}>
+                          <Glyphicon glyph={"refresh"} />
+                        </GraphicButton>
+                        <GraphicButton onClick={frameOnFullScreen}>
+                          <Glyphicon glyph={"fullscreen"} />
+                        </GraphicButton>
+                      </ButtonGroup>
+                    )}
                 </div>
-              </Panel.Title>
-            </Panel.Heading>
+              </div>
+            </GraphicPanelCollapseHeader>
             <hr className={styles.tinyLine} />
           </div>
-          <Panel.Body>
+          <GraphicPanelCollapseBody>
             <div style={{ height: bsHeight }}>
               <iframe
                 className={styles.frame}
@@ -286,15 +291,11 @@ export const Graphic: React.FC<IGraphicProps> = (
                 </div>
               )}
             </div>
-          </Panel.Body>
+          </GraphicPanelCollapseBody>
           {!_.isUndefined(footer) && (
-            <Panel.Collapse>
-              <Panel.Footer className={styles.panelFooter}>
-                {footer}
-              </Panel.Footer>
-            </Panel.Collapse>
+            <GraphicPanelCollapseFooter> {footer} </GraphicPanelCollapseFooter>
           )}
-        </Panel>
+        </GraphicPanelCollapse>
       </div>
     </React.Fragment>
   );

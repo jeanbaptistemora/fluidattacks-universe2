@@ -6,6 +6,7 @@ export interface IGraphicProps {
   footer?: JSX.Element | string;
   generatorName: string;
   generatorType: string;
+  className: string;
   reportMode: boolean;
   subject: string;
   title: string;
