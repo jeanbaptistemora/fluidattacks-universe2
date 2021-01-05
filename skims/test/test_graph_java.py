@@ -71,6 +71,7 @@ from utils.model import (
     ],
 )
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_graph_generation(path: str, name: str) -> None:
     content = await get_file_raw_content(path)
 
@@ -108,6 +109,7 @@ async def test_graph_generation(path: str, name: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_control_flow_1() -> None:
     path = 'test/data/parse_java/TestCFG.java'
     graph = await java_get_graph(
@@ -153,6 +155,7 @@ async def test_control_flow_1() -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_control_flow_2() -> None:
     path = 'test/data/lib_path/f063_path_traversal/Test.java'
     graph = await java_get_graph(

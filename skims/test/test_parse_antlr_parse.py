@@ -2,6 +2,7 @@
 from aioextensions import (
     run_decorator,
 )
+import pytest
 
 # Local libraries
 from parse_antlr.parse import (
@@ -16,6 +17,7 @@ from utils.model import (
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_parse_csharp_success() -> None:
     path = 'test/data/lib_path/f073/Test.cs'
     data = await parse(
@@ -48,6 +50,7 @@ async def test_parse_csharp_success() -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_parse_java9_success() -> None:
     path = 'test/data/lib_path/f031_cwe378/Test.java'
     data = await parse(
@@ -78,6 +81,7 @@ async def test_parse_java9_success() -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_parse_scala_success() -> None:
     path = 'test/data/lib_path/f073/Test.scala'
     data = await parse(
@@ -107,6 +111,7 @@ async def test_parse_scala_success() -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_parse_fail() -> None:
     path = 'test/data/lib_path/f011/yarn.lock'
     for grammar in Grammar:

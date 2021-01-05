@@ -3,9 +3,11 @@ from metaloaders.model import Type
 from metaloaders.cloudformation import (
     load,
 )
+import pytest
 
 # Local libraries
 from parse_cfn.structure import iterate_iam_policy_documents
+
 
 EXPECTED = ({
     'Effect': 'Allow',
@@ -51,6 +53,7 @@ EXPECTED = ({
 })
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents_as_yml() -> None:
     with open('test/data/parse_cfn/full.yaml') as file:
         template = load(stream=file.read(), fmt='yaml')
@@ -109,6 +112,7 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
     assert result[6].inner['Resource'][0][0].start_line == 86
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents_as_json() -> None:
     with open('test/data/parse_cfn/full.yaml.json') as file:
         template = load(stream=file.read(), fmt='json')

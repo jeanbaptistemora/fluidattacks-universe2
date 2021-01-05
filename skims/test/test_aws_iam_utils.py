@@ -1,9 +1,14 @@
+# Third party libraries
+import pytest
+
 # Local libraries
 from aws.iam.utils import (
     match_pattern,
 )
 
 
+
+@pytest.mark.skims_test_group('unittesting')
 def test_match_pattern() -> None:
     assert match_pattern('iam:PassRole', 'iam:PassRole')
     assert match_pattern('iam:PassR*', 'iam:PassRole')

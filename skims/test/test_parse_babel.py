@@ -2,6 +2,7 @@
 from aioextensions import (
     run_decorator,
 )
+import pytest
 
 # Local libraries
 from parse_babel import (
@@ -13,6 +14,7 @@ from utils.fs import (
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_parse_success() -> None:
     path = 'test/data/lib_path/f034/javascript.js'
     data = await parse(
@@ -142,6 +144,7 @@ async def test_parse_success() -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_parse_fail() -> None:
     path = 'test/data/lib_path/f011/yarn.lock'
     data = await parse(

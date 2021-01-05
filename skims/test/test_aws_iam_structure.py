@@ -1,3 +1,6 @@
+# Third party libraries
+import pytest
+
 # Local libraries
 from aws.iam.structure import (
     is_action_permissive,
@@ -5,6 +8,7 @@ from aws.iam.structure import (
 )
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_is_action_permissive() -> None:
     assert is_action_permissive('*')
     assert is_action_permissive('s3:*')
@@ -24,6 +28,7 @@ def test_is_action_permissive() -> None:
     assert not is_action_permissive([])  # type: ignore
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_is_resource_permissive() -> None:
     assert is_resource_permissive('*')
 

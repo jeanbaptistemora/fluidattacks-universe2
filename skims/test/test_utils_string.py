@@ -1,15 +1,10 @@
-# Third party libraries
+# Standard libraries
 from textwrap import (
     dedent,
 )
-from typing import (
-    Tuple,
-)
 
 # Third party libraries
-from aioextensions import (
-    run_decorator,
-)
+import pytest
 
 # Local libraries
 from utils.string import (
@@ -17,6 +12,8 @@ from utils.string import (
 )
 
 
+@pytest.mark.skims_test_group('unittesting')
+@pytest.mark.skims_test_group('unittesting')
 def test_to_snippet() -> None:
     content: str = dedent("""
         xxxxx

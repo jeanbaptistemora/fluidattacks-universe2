@@ -5,6 +5,7 @@ from textwrap import dedent
 from aioextensions import (
     run_decorator,
 )
+import pytest
 
 # Local libraries
 from integrates.graphql import (
@@ -40,6 +41,7 @@ from zone import (
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_client(
     test_integrates_api_token: str,
     test_integrates_session: None,
@@ -51,6 +53,7 @@ async def test_client(
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_build_vulnerabilities_stream() -> None:
     assert await build_vulnerabilities_stream(
         results=(
@@ -75,6 +78,7 @@ async def test_build_vulnerabilities_stream() -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_get_group_level_role(
     test_group: str,
     test_integrates_session: str,

@@ -8,6 +8,7 @@ from itertools import (
 )
 import os
 from typing import (
+    Any,
     Dict,
     Iterator,
 )
@@ -23,6 +24,71 @@ from integrates.graphql import (
 from parse_cfn.loader import (
     load_as_yaml_without_line_number,
 )
+from utils.ctx import (
+    CTX,
+)
+from utils.model import (
+    LocalesEnum,
+    SkimsConfig,
+    SkimsPathConfig,
+)
+
+# Constants
+TEST_GROUPS = {
+    'functional',
+    'unittesting',
+}
+
+# Side effects
+CTX.config = SkimsConfig(
+    group=None,
+    language=LocalesEnum.EN,
+    namespace='test',
+    output=None,
+    path=SkimsPathConfig(include=(), exclude=()),
+    start_dir=os.getcwd(),
+    timeout=None,
+    working_dir=os.getcwd(),
+)
+CTX.debug = True
+
+
+def pytest_addoption(parser: Any) -> None:
+    parser.addoption(
+        '--skims-test-group',
+        action='store',
+        metavar='SKIMS_TEST_GROUP',
+    )
+
+
+def pytest_runtest_setup(item: Any) -> None:
+    # We pass this command line option to tell what group do we want to run
+    # This split the big test suite in components
+    skims_test_group = item.config.getoption('--skims-test-group')
+
+    # Validate that the dev specified a group that is run on the CI
+    if not skims_test_group:
+        raise ValueError('skims-test-group not specified')
+    if skims_test_group != 'all' and skims_test_group not in TEST_GROUPS:
+        raise ValueError(f'skims-test-group must be one of: {TEST_GROUPS}, or all')
+
+    # The test expects to run on one of these groups
+    # If the dev forgets to specify it while writing the test it'll run
+    runnable_groups = {
+        mark.args[0] for mark in item.iter_markers(name='skims_test_group')
+    }
+
+    # Validate that the dev specified a group that is run on the CI
+    if not runnable_groups or runnable_groups - TEST_GROUPS:
+        raise ValueError(f'skims-test-group must be one of: {TEST_GROUPS}')
+
+    # Small logic to skip tests that should not run
+    if runnable_groups:
+        if skims_test_group == 'all' or skims_test_group in runnable_groups:
+            # Test should execute
+            pass
+        else:
+            pytest.skip(f'Requires skims test group in: {runnable_groups}')
 
 
 @pytest.fixture(autouse=True, scope='session')

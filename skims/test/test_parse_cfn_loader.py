@@ -1,3 +1,6 @@
+# Third party libraries
+import pytest
+
 # Local libraries
 from parse_cfn.loader import (
     load_as_json,
@@ -5,6 +8,7 @@ from parse_cfn.loader import (
 )
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_load_as_json() -> None:
     expected = {
         'AWSTemplateFormatVersion': '2010-09-09',
@@ -70,6 +74,7 @@ def test_load_as_json() -> None:
         assert load_as_json(file.read()) == expected
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_load_as_yaml() -> None:
     expected = {
         '__column__': 0,

@@ -5,6 +5,7 @@ from lark import (
 from lark.lexer import (
     Token,
 )
+import pytest
 
 # Local libraries
 from parse_hcl2.loader import (
@@ -17,6 +18,7 @@ from parse_hcl2.tokens import (
 )
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_bad() -> None:
     expected = 'ERROR'
 
@@ -26,6 +28,7 @@ def test_bad() -> None:
     assert template == expected
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_load_empty() -> None:
     expected = Tree('start', [
         Tree('body', [
@@ -39,6 +42,7 @@ def test_load_empty() -> None:
     assert template == expected
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_load_1() -> None:
     expected = Tree('start', [
         Tree('body', [
@@ -88,6 +92,7 @@ def test_load_1() -> None:
     assert template == expected
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_load_2() -> None:
     expected = Tree('start', [
         Tree('body', [

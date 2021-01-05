@@ -2,6 +2,7 @@
 from aioextensions import (
     run_decorator,
 )
+import pytest
 
 # Local libraries
 from utils.system import (
@@ -10,6 +11,7 @@ from utils.system import (
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_read() -> None:
     code, stdout, stderr = await read('echo', 'test')
 

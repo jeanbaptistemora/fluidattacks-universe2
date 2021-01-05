@@ -4,7 +4,6 @@ from contextlib import (
     redirect_stdout,
 )
 import io
-import os
 from typing import (
     Dict,
     List,
@@ -32,37 +31,17 @@ from integrates.dal import (
 from state.ephemeral import (
     EphemeralStore,
 )
-from utils.ctx import (
-    CTX,
-)
 from utils.logs import (
     configure,
 )
 from utils.model import (
     FindingEnum,
     FindingReleaseStatusEnum,
-    LocalesEnum,
-    SkimsConfig,
-    SkimsPathConfig,
     VulnerabilityStateEnum,
 )
 from zone import (
     t,
 )
-
-
-# Side effects
-CTX.config = SkimsConfig(
-    group=None,
-    language=LocalesEnum.EN,
-    namespace='test',
-    output=None,
-    path=SkimsPathConfig(include=(), exclude=()),
-    start_dir=os.getcwd(),
-    timeout=None,
-    working_dir=os.getcwd(),
-)
-CTX.debug = True
 
 
 def skims(*args: str) -> Tuple[int, str, str]:
@@ -156,6 +135,7 @@ async def get_group_data(group: str) -> Set[
     return result
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_help() -> None:
     code, stdout, stderr = skims('--help')
     assert code == 0
@@ -163,6 +143,7 @@ def test_help() -> None:
     assert not stderr
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_non_existent_config() -> None:
     code, stdout, stderr = skims('#')
     assert code == 2
@@ -170,6 +151,7 @@ def test_non_existent_config() -> None:
     assert 'File \'#\' does not exist.' in stderr, stderr
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_config_with_extra_parameters() -> None:
     suite: str = 'bad_extra_things'
     code, stdout, stderr = skims(get_suite_config(suite))
@@ -178,6 +160,7 @@ def test_config_with_extra_parameters() -> None:
     assert not stderr, stderr
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_bad_integrates_api_token(test_group: str) -> None:
     suite: str = 'nothing_to_do'
     code, stdout, stderr = skims(
@@ -191,6 +174,7 @@ def test_bad_integrates_api_token(test_group: str) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group('unittesting')
 @pytest.mark.parametrize('suite', [
     'lib_path',
     'benchmark_owasp_pathtraver_0',
@@ -238,6 +222,7 @@ def test_run_no_group(suite: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_integrates_group_is_pristine_run(
     test_group: str,
     test_integrates_session: None,
@@ -252,6 +237,7 @@ async def test_integrates_group_is_pristine_run(
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_integrates_group_is_pristine_check(
     test_group: str,
     test_integrates_session: None,
@@ -260,6 +246,7 @@ async def test_integrates_group_is_pristine_check(
     assert await get_group_data(test_group) == set()
 
 
+@pytest.mark.skims_test_group('functional')
 def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     suite: str = 'nothing_to_do'
     code, stdout, stderr = skims(
@@ -277,6 +264,7 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_should_report_nothing_to_integrates_verify(
     test_group: str,
     test_integrates_session: None,
@@ -285,6 +273,7 @@ async def test_should_report_nothing_to_integrates_verify(
     assert await get_group_data(test_group) == set()
 
 
+@pytest.mark.skims_test_group('functional')
 def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = 'integrates'
     code, stdout, stderr = skims(
@@ -302,6 +291,7 @@ def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_should_report_vulns_to_namespace_verify(
     test_group: str,
     test_integrates_session: None,
@@ -316,6 +306,7 @@ async def test_should_report_vulns_to_namespace_verify(
     }
 
 
+@pytest.mark.skims_test_group('functional')
 def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     suite: str = 'integrates2'
     code, stdout, stderr = skims(
@@ -333,6 +324,7 @@ def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_should_report_vulns_to_namespace2_verify(
     test_group: str,
     test_integrates_session: None,
@@ -349,6 +341,7 @@ async def test_should_report_vulns_to_namespace2_verify(
     }
 
 
+@pytest.mark.skims_test_group('functional')
 def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = 'integrates3'
     code, stdout, stderr = skims(
@@ -366,6 +359,7 @@ def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_should_close_vulns_to_namespace_verify(
     test_group: str,
     test_integrates_session: None,
@@ -380,6 +374,7 @@ async def test_should_close_vulns_to_namespace_verify(
     }
 
 
+@pytest.mark.skims_test_group('functional')
 def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
     suite: str = 'integrates4'
     code, stdout, stderr = skims(
@@ -397,6 +392,7 @@ def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
 
 
 @run_decorator
+@pytest.mark.skims_test_group('functional')
 async def test_should_close_vulns_on_namespace2_verify(
     test_group: str,
     test_integrates_session: None,

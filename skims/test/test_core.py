@@ -2,6 +2,7 @@
 from aioextensions import (
     run_decorator,
 )
+import pytest
 
 # Local libraries
 from core.persist import (
@@ -25,6 +26,7 @@ from utils.model import (
 
 
 @run_decorator
+@pytest.mark.skims_test_group('unittesting')
 async def test_diff_results() -> None:
     namespace = 'test'
     namespace_other = 'test-other'

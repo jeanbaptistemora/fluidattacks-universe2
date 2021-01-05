@@ -1,10 +1,5 @@
 # Third party libraries
-from lark import (
-    Tree,
-)
-from lark.lexer import (
-    Token,
-)
+import pytest
 
 # Local libraries
 from aws.model import (
@@ -17,12 +12,9 @@ from parse_hcl2.structure import (
     iterate_iam_policy_documents,
     iterate_resources,
 )
-from parse_hcl2.tokens import (
-    Attribute,
-    Block,
-)
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_iterate_resources() -> None:
     with open('test/data/parse_hcl2/iam.tf') as file:
         model = blocking_load(file.read())
@@ -30,6 +22,7 @@ def test_iterate_resources() -> None:
     assert len(tuple(iterate_resources(model, 'resource', 'aws_iam_role'))) == 1
 
 
+@pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents() -> None:
     with open('test/data/parse_hcl2/iam.tf') as file:
         model = blocking_load(file.read())
