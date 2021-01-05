@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+source makes/utils/bash-lib/shopts.sh
+
 function build_with_internet {
   local attr="${1}"
 
@@ -11,23 +13,33 @@ function build_with_internet {
     ".#${attr}"
 }
 
-function run_with_internet {
-  local attr="${1}"
+function cachix_push {
+  local attribute="${1}"
+  local nix_store_path
 
-  ./makes/nix run \
-    --option 'sandbox' 'false' \
-    --option 'restrict-eval' 'false' \
-    --show-trace \
-    ".#${attr}" \
-    -- \
-    "${@:2}"
+  if test -n "${CACHIX_FLUIDATTACKS_TOKEN:-}"
+  then
+        nix_store_path=$(readlink -f "makes/outputs/${attribute}") \
+    &&  echo "[INFO] Pushing to cache: ${nix_store_path}" \
+    &&  cachix authtoken "${CACHIX_FLUIDATTACKS_TOKEN}" \
+    &&  echo "${nix_store_path}" | cachix push -c 9 fluidattacks
+  fi
+}
+
+function ensure_cachix {
+      if test -z "$(command -v cachix)"
+      then
+        nix-env -iA cachix -f https://cachix.org/api/v1/install
+      fi \
+  &&  cachix use fluidattacks
 }
 
 function main {
   local attr="${1:-}"
 
       main_ctx "${@}" \
-  &&  source .envrc.public \
+  &&  source "${PWD}/.envrc.public" \
+  &&  ensure_cachix \
   &&  while read -r attribute
       do
         if test "${attribute}" = "${attr}"
@@ -47,6 +59,7 @@ function main {
           if build_with_internet "${attribute}"
           then
                 echo \
+            &&  cachix_push "${attribute}" \
             &&  echo "[INFO] ${attribute} built successfully" \
             &&  echo '[INFO]   Congratulations!' \
             &&  return 0
@@ -82,6 +95,18 @@ function main_help {
   &&  while read -r attr; do echo "  ${attr}"; done < "makes/attrs/packages.lst" \
   &&  echo \
 
+}
+
+function run_with_internet {
+  local attr="${1}"
+
+  ./makes/nix run \
+    --option 'sandbox' 'false' \
+    --option 'restrict-eval' 'false' \
+    --show-trace \
+    ".#${attr}" \
+    -- \
+    "${@:2}"
 }
 
 main "${@}"

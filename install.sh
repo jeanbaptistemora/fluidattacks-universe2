@@ -60,4 +60,8 @@ done
 
 echo
 echo '[INFO] Installing products'
-nix-env -if default.nix
+
+nix-env \
+  --option 'sandbox' 'false' \
+  --option 'restrict-eval' 'false' \
+  -if .
