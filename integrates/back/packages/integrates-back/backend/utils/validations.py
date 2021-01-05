@@ -1,3 +1,4 @@
+import os
 import re
 from ipaddress import ip_address
 from typing import List
@@ -167,3 +168,16 @@ def is_valid_ip(address: str) -> bool:
         return True
     except ValueError:
         return False
+
+
+def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
+    is_valid: bool = True
+    repo_name: str = os.path.basename(url).lower()
+    for pattern in exclude_patterns:
+        pattern_as_list: List[str] = pattern.lower().split('/')
+        if (
+            repo_name in pattern_as_list
+            and pattern_as_list.index(repo_name) == 0
+        ):
+            is_valid = False
+    return is_valid

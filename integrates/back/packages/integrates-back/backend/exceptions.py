@@ -196,6 +196,17 @@ class InvalidParameter(Exception):
         super(InvalidParameter, self).__init__(msg)
 
 
+class InvalidRootExclusion(Exception):
+    """Exception to control exclusion paths"""
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = (
+            'Exception - Root name should not be included in the exception '
+            'pattern'
+        )
+        super(InvalidRootExclusion, self).__init__(msg)
+
+
 class InvalidProjectName(Exception):
     """Exception to control invalid project name"""
     def __init__(self) -> None:

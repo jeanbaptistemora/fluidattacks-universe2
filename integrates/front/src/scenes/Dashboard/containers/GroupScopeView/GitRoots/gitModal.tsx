@@ -14,7 +14,7 @@ import {
   RequiredField,
 } from "styles/styledComponents";
 import { Field, FormSection } from "redux-form";
-import { checked, required } from "utils/validations";
+import { checked, excludeFormat, required } from "utils/validations";
 
 interface IGitModalProps {
   initialValues: IGitRootAttr | undefined;
@@ -177,6 +177,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                           component={Text}
                           name={fieldName}
                           type={"text"}
+                          validate={excludeFormat}
                         />
                       )}
                     </ArrayField>

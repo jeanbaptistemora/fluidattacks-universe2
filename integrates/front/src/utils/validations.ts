@@ -340,6 +340,21 @@ const isLowerDate: Validator = (value: string): string | undefined => {
 const checked: Validator = (value: unknown): string | undefined =>
   value === true ? undefined : translate.t("validations.required");
 
+const excludeFormat: Validator = (
+  value: string,
+  allValues: Record<string, string>
+): string | undefined => {
+  const repoUrl: string = allValues.url;
+
+  if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
+    const repoName: string = repoUrl.split("/").slice(-1)[0];
+
+    return value.toLowerCase().split("/").indexOf(repoName.toLowerCase()) == 0
+      ? translate.t("validations.excludeFormat")
+      : undefined;
+  }
+};
+
 export {
   checked,
   required,
@@ -370,4 +385,5 @@ export {
   isValidFileSize,
   isValidDateAccessToken,
   isLowerDate,
+  excludeFormat,
 };

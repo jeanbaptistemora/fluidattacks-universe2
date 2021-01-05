@@ -1,6 +1,7 @@
 import pytest
 
 from backend.utils.validations import (
+    is_exclude_valid,
     is_valid_git_branch,
     is_valid_ip,
     is_valid_url,
@@ -75,3 +76,13 @@ def test_is_valid_git_branch() -> None:
 def test_is_valid_ip() -> None:
     assert is_valid_ip('8.8.8.8')
     assert not is_valid_ip('randomstring')
+
+
+def test_is_exclude_valid() -> None:
+    repo_url: str = 'https://fluidattacks.com/product'
+    assert is_exclude_valid(
+        ['*/test.py', 'production/test.py', 'test/product/test.py'],
+        repo_url
+    )
+    assert not is_exclude_valid(['Product/test.py'], repo_url)
+    assert not is_exclude_valid(['product/**/test.py'], repo_url)

@@ -23,6 +23,7 @@ from backend.domain import (
 )
 from backend.exceptions import (
     InvalidParameter,
+    InvalidRootExclusion,
     PermissionDenied,
     RepeatedValues,
     RootNotFound
@@ -156,6 +157,8 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         and not enforcer(group_name, 'update_git_root_filter')
     ):
         raise PermissionDenied()
+    if not validations.is_exclude_valid(kwargs['filter']['exclude'], url):
+        raise InvalidRootExclusion()
 
     now_date = datetime.get_as_str(datetime.get_now())
     initial_cloning_status: Dict[str, Any] = {
@@ -334,6 +337,10 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         and not enforcer(root['group_name'], 'update_git_root_filter')
     ):
         raise PermissionDenied()
+    if not validations.is_exclude_valid(
+        kwargs['filter']['exclude'], root['url']
+    ):
+        raise InvalidRootExclusion()
 
     if is_valid:
         group_name: str = root['group_name']
