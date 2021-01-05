@@ -1,5 +1,4 @@
 attrs @ {
-  outputs,
   skimsBenchmarkOwaspRepo,
   skimsPkgs,
   ...

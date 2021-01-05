@@ -1,6 +1,5 @@
 attrs @ {
   outputs,
-  skimsBenchmarkOwaspRepo,
   skimsPkgs,
   ...
 }:

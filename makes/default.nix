@@ -1,6 +1,5 @@
-{
+_ @ {
   flake,
-  flakeCompat,
   srcCommonPkgs,
   srcCommonPkgsNixLinter,
   srcCommonPkgsNixLinterPkgs,
@@ -9,7 +8,7 @@
   srcSkimsBenchmarkOwaspRepo,
   srcSkimsPkgs,
   srcSkimsPkgsTerraform,
-  self,
+  ...
 }:
 
 flake.lib.eachDefaultSystem (

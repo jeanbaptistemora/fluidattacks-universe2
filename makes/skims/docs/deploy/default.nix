@@ -1,4 +1,4 @@
-attrs @ {
+_ @ {
   outputs,
   skimsPkgs,
   ...

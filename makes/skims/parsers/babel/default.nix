@@ -1,10 +1,9 @@
-attrs @ {
+_ @ {
   skimsPkgs,
   ...
 }:
 
 let
-  buildPythonRequirements = import ../../../../makes/utils/build-python-requirements skimsPkgs;
   makeDerivation = import ../../../../makes/utils/make-derivation skimsPkgs;
 in
   makeDerivation {

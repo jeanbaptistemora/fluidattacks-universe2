@@ -1,12 +1,10 @@
-attrs @ {
-  outputs,
+_ @ {
   commonPkgs,
   commonPkgsNixLinter,
   ...
 }:
 
 let
-  config = import ../../../makes/skims/config attrs.copy;
   makeDerivation = import ../../../makes/utils/make-derivation commonPkgs;
 in
   makeDerivation {

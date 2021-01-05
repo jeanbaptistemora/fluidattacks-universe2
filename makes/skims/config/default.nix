@@ -1,14 +1,13 @@
-attrs @ {
+_ @ {
   outputs,
   skimsPkgs,
   ...
 }:
 
 let
-  buildPythonRequirements = import ../../../makes/utils/build-python-requirements skimsPkgs;
   makeSearchPaths = import ../../../makes/utils/make-search-paths skimsPkgs;
   makeTemplate = import ../../../makes/utils/make-template skimsPkgs;
-  nixRequirements = builtins.mapAttrs (key: val: makeSearchPaths val) {
+  nixRequirements = builtins.mapAttrs (_: val: makeSearchPaths val) {
     development = [];
     runtime = [
       skimsPkgs.graphviz
