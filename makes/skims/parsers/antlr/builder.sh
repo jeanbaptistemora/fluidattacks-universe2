@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${makeDerivation}"
-
 export CLASSPATH="${envANTLR}:${CLASSPATH:-}"
 
 function compile_antlr {
@@ -38,7 +36,7 @@ function main {
               echo "export CP=\"${jar}:\${CP:-}\""
             done \
         &&  echo \
-        &&  echo "${envJava} --class-path "\${CP}" Parse \"\${@}\"" \
+        &&  echo "${envJava} --class-path \"\${CP}\" Parse \"\${@}\"" \
 
       } > "${out}/build/install/parse/bin/parse" \
   ||  return 1

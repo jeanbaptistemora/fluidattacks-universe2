@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${makeDerivation}"
-
 function replace_var_in_file {
   local file="${1}"
   local var_name="${2}"

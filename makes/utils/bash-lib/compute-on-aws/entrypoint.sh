@@ -3,7 +3,7 @@
 source '__envUtilsBashLibAws__'
 
 function substitute_env_vars {
-  cat "${1}" | '__envEnvsubst__' -no-empty -no-unset
+  '__envEnvsubst__' -no-empty -no-unset < "${1}"
 }
 
 function main {

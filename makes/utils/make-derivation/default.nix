@@ -9,11 +9,13 @@ pkgs.stdenv.mkDerivation (attrs // {
   __envBashLibCommon = ../../../makes/utils/bash-lib/common.sh;
   __envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
   __envStdenv = "${pkgs.stdenv}/setup";
-  makeDerivation = builtins.toFile "setup-make-derivation" ''
+  builder = builtins.toFile "setup-make-derivation" ''
     source $__envStdenv
     source $__envBashLibShopts
     source $__envBashLibCommon
 
     use_ephemeral_dir
+
+    ${builtins.readFile attrs.builder}
   '';
 })

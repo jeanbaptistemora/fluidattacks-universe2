@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${makeDerivation}"
-
 function main {
       echo '[INFO] Creating virtualenv' \
   &&  python -m venv "${out}" \

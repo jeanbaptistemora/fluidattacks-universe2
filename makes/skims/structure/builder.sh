@@ -1,14 +1,14 @@
 # shellcheck shell=bash
 
-source "${makeDerivation}"
 source "${envSetupSkimsDevelopment}"
 source "${envSetupSkimsRuntime}"
 
 function main {
       echo '[INFO] Creating a staging area' \
   &&  copy "${envSrcSkimsSkims}" "${PWD}/skims" \
-  &&  pkgs=( $(ls -1  "${envSrcSkimsSkims}") ) \
-  &&  echo "[INFO] Packages: ${pkgs[@]}" \
+  &&  ls -1 "${envSrcSkimsSkims}" > list \
+  &&  mapfile -t pkgs < list \
+  &&  echo "[INFO] Packages: ${pkgs[*]}" \
   &&  base_args=(
         --cluster
         --include-missing

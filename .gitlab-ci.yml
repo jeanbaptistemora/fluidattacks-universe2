@@ -118,8 +118,8 @@ common_deploy_container_image:
   <<: *common_in_master_branch
   stage: deploy-app
 
-common_lint_build_system:
-  <<: *with_nix
+common-lint-build-system:
+  <<: *makes
   <<: *common_in_dev_branch
   stage: lint-code
 

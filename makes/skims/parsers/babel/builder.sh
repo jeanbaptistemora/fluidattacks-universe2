@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${makeDerivation}"
-
 function main {
       echo '[INFO] Building parser' \
   &&  copy "${envSrc}" . \

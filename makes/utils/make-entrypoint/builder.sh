@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${makeDerivation}"
-
 function main {
   local location="${out}${envLocation}"
 
