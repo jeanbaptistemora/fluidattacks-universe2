@@ -348,20 +348,6 @@ function job_observes_code_mirror_group_to_s3_on_aws {
         'observes_code_mirror_group_to_s3' "${group}"
 }
 
-function job_observes_git_process {
-  # If you move me take into account the artifacts in the .gitlab-ci.yaml
-
-      env_prepare_python_packages \
-  &&  helper_observes_git_process \
-  ||  return 1
-}
-
-function job_observes_git_upload {
-      env_prepare_python_packages \
-  &&  helper_observes_git_upload \
-  ||  return 1
-}
-
 function job_observes_timedoctor_refresh_token {
       helper_common_use_pristine_workdir \
   &&  env_prepare_python_packages \

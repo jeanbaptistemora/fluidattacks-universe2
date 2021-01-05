@@ -297,56 +297,6 @@ function helper_observes_zoho_crm {
         < .singer
 }
 
-function helper_observes_git_process {
-  local artifacts="${PWD}/artifacts"
-  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  local num_threads='4'
-  helper_common_get_projects
-  export DEBUG="True"
-  export CI_NODE_INDEX
-  export CI_NODE_TOTAL
-
-      helper_observes_aws_login prod \
-  &&  echo '[INFO] Cloning our own repositories' \
-  &&  python3 observes/git/clone_us.py "${PROJECTS[@]}" \
-  &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
-  &&  \
-      CI=true \
-      CI_COMMIT_REF_NAME='master' \
-      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
-      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-      python3 observes/git/generate_config.py \
-  &&  mkdir -p "${artifacts}" \
-  &&  echo "[INFO] Running tap in ${num_threads} threads" \
-  &&  for fork in $(seq 1 "${num_threads}")
-      do
-        ( tap-git \
-            --conf './config.json' \
-            --with-metrics \
-            --threads "${num_threads}" \
-            --fork-id "${fork}" > "${artifacts}/git.${CI_NODE_INDEX}.${fork}" \
-        ) &
-      done \
-  &&  wait
-}
-
-function helper_observes_git_upload {
-  local artifacts="${PWD}/artifacts"
-
-      helper_observes_aws_login prod \
-  &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        analytics_auth_redshift \
-  &&  echo '[INFO] Generating secret files' \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE1}" \
-  &&  echo '[INFO] Running target' \
-  &&  cat "${artifacts}/git."* \
-        | target-redshift \
-            --auth "${TEMP_FILE1}" \
-            --drop-schema \
-            --schema-name "git"
-}
-
 function helper_observes_timedoctor_refresh_token {
   export analytics_auth_timedoctor
 

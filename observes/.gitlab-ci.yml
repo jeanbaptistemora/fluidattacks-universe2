@@ -227,36 +227,6 @@ observes_mixpanel_integrates:
     variables: [$observes_mixpanel_integrates]
   interruptible: false
 
-observes_git_process:
-  <<: *with_nix_serial
-  image: "${CI_REGISTRY_IMAGE}/nix:observes_git_process"
-  tags: [autoscaling-analytics]
-  stage: analytics
-  artifacts:
-    paths:
-      - artifacts/
-    when: always
-    expire_in: 1 day
-  parallel: 50
-  only:
-    refs: [schedules]
-    variables: [$observes_git_process]
-  interruptible: false
-
-observes_git_upload:
-  <<: *with_nix_serial
-  tags: [autoscaling-analytics]
-  stage: analytics-upload
-  artifacts:
-    paths:
-      - artifacts/
-    when: always
-    expire_in: 1 day
-  only:
-    refs: [schedules]
-    variables: [$observes_git_upload]
-  interruptible: false
-
 observes_code_upload_all_groups_on_aws:
   <<: *with_nix_serial
   only:
