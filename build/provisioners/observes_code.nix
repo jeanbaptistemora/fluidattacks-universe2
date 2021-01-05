@@ -20,12 +20,13 @@ in
             pkgs.python37
             pkgs.python37Packages.GitPython
             pkgs.python37Packages.psycopg2
+            melts
           ];
 
           pyPkgAioextensions = builders.pythonPackage {
             requirement = "aioextensions==20.8.2087641";
           };
-
+          melts = (import ../..).melts;
           srcProduct = (import ../..).product;
         })
   )

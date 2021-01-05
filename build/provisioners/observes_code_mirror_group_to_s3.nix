@@ -21,6 +21,7 @@ in
             pkgs.python37Packages.GitPython
             pkgs.python37Packages.psycopg2
             pkgs.python38Packages.psycopg2
+            melts
           ];
 
           UpdateSyncStamp = pkgs.poetry2nix.mkPoetryApplication {
@@ -28,6 +29,7 @@ in
             python = pkgs.python38;
           };
 
+          melts = (import ../..).melts;
           srcProduct = (import ../..).product;
         })
   )
