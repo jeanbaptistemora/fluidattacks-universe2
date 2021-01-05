@@ -1,7 +1,7 @@
 # Standard library
 import asyncio
 import logging
-from typing import cast, Dict
+from typing import Any, cast, Dict
 from uuid import uuid4 as uuid
 
 # Third party libraries
