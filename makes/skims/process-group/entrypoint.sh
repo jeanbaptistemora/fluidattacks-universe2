@@ -14,7 +14,7 @@ function clone_group {
       CI_COMMIT_REF_NAME='master' \
       PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
-  &&  __envMelts__ drills --pull-repos "${group}" \
+      __envMelts__ drills --pull-repos "${group}" \
   &&  echo "[INFO] Repositories cloned:" \
   &&  shopt -s nullglob \
   &&  for namespace in "groups/${group}/fusion/"*
