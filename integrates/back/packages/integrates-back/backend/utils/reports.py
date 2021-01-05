@@ -78,8 +78,8 @@ async def expose_bytes_as_url(
     return await sign(path=file_name, ttl=ttl)
 
 
-async def upload_report_from_file_descriptor(report: Dict[str, str]) -> str:
-    file_path = report['filename']
+async def upload_report_from_file_descriptor(report: Any) -> str:
+    file_path = report.filename
     file_name: str = file_path.split('_')[-1]
 
     if not await s3.upload_memory_file(  # type: ignore
