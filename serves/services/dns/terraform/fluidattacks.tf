@@ -152,7 +152,16 @@ resource "cloudflare_record" "track" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "mailchimp_verify_1" {
+resource "cloudflare_record" "mailchimp_domainkey_1" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "k1._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "dkim.mcsv.net"
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_record" "mailchimp_domainkey_2" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "k2._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
@@ -161,7 +170,7 @@ resource "cloudflare_record" "mailchimp_verify_1" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "mailchimp_verify_2" {
+resource "cloudflare_record" "mailchimp_domainkey_3" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "k3._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
@@ -239,15 +248,6 @@ resource "cloudflare_record" "discourse" {
   type    = "CNAME"
   value   = "fluidattacks.hosted-by-discourse.com"
   proxied = false
-  ttl     = 1
-}
-
-resource "cloudflare_record" "mailchimp_domainkey" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "k1._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "dkim.mcsv.net"
-  proxied = true
   ttl     = 1
 }
 
