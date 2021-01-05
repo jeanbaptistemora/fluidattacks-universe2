@@ -1,6 +1,6 @@
 # Standard libraries
 # Third party libraries
-from typing import Any, Dict
+from typing import Any, cast, Dict
 from jose import jwt
 from jwcrypto.jwe import JWE
 from jwcrypto.jwk import JWK
@@ -79,8 +79,11 @@ def decode_jwt(
 def jwt_has_api_token(token: str) -> bool:
     payload = jwt.get_unverified_claims(token)
     payload = _decrypt_jwt_payload(payload)
-    return payload.get('sub') == (
-        'api_token'
-        if 'sub' in payload
-        else 'jti' in payload
+    return cast(
+        bool,
+        payload.get('sub') == (
+            'api_token'
+            if 'sub' in payload
+            else 'jti' in payload
+        )
     )

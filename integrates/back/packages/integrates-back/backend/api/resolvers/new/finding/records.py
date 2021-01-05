@@ -23,13 +23,10 @@ async def resolve(
     )['records']['url']
 
     if records_url:
-        return cast(
-            List[Dict[object, object]],
-            await finding_utils.get_records_from_file(
-                group_name,
-                finding_id,
-                records_url
-            )
+        return await finding_utils.get_records_from_file(
+            group_name,
+            finding_id,
+            records_url
         )
 
     return []

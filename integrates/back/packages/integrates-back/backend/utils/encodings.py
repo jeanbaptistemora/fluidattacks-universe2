@@ -2,7 +2,7 @@
 import json
 from datetime import datetime
 from typing import (
-    Any, Dict,
+    Any, cast, Dict,
 )
 
 from backend.utils import (
@@ -63,7 +63,7 @@ def jwt_payload_encode(payload: Dict[str, Any]) -> str:
                 date_format='%Y-%m-%dT%H:%M:%S.%f'
             )
         # let JSONEncoder handle unsupported object types
-        return json.JSONEncoder().default(obj)
+        return cast(str, json.JSONEncoder().default(obj))
     encoder = json.JSONEncoder(default=hook)
     return encoder.encode(payload)
 
@@ -81,4 +81,7 @@ def jwt_payload_decode(payload: str) -> Dict[str, Any]:
             jwt_payload['exp'] = exp
         return jwt_payload
     decoder = json.JSONDecoder(object_hook=hook)
-    return decoder.decode(payload)
+    return cast(
+        Dict[str, Any],
+        decoder.decode(payload)
+    )

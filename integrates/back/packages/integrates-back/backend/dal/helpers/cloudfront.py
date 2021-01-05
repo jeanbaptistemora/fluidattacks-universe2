@@ -1,5 +1,6 @@
 
 import base64
+from typing import cast
 import urllib.parse
 
 from aioextensions import in_thread
@@ -25,7 +26,7 @@ def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
     cloudfront_signer = signers.CloudFrontSigner(key_id, rsa_signer)
     signed_url = cloudfront_signer.generate_presigned_url(
         url, date_less_than=expire_date)
-    return signed_url
+    return cast(str, signed_url)
 
 
 def rsa_signer(message: str) -> bool:
@@ -34,10 +35,13 @@ def rsa_signer(message: str) -> bool:
         password=None,
         backend=default_backend()
     )
-    return private_key.sign(
-        message,
-        asymmetric.padding.PKCS1v15(),
-        hashes.SHA1()
+    return cast(
+        bool,
+        private_key.sign(
+            message,
+            asymmetric.padding.PKCS1v15(),
+            hashes.SHA1()
+        )
     )
 
 
@@ -48,4 +52,7 @@ async def download_file(
         expire_mins: float) -> str:
     project_name = project_name.lower()
     file_url = project_name + '/' + file_info
-    return await in_thread(sign_url, domain, file_url, expire_mins)
+    return cast(
+        str,
+        await in_thread(sign_url, domain, file_url, expire_mins)
+    )

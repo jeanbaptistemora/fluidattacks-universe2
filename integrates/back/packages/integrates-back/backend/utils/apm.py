@@ -1,5 +1,6 @@
 # Standard library
 from typing import (
+    Any,
     Callable,
     Optional,
 )
@@ -13,7 +14,9 @@ from __init__ import (
 )
 
 
-def trace(overridden_function: Optional[Callable] = None) -> Callable:
+def trace(
+    overridden_function: Optional[Callable[[Any], Any]] = None
+) -> Any:
     return tracers.function.trace(
         enabled=DEBUG.lower() == 'true',
         # Please remove this line if you want to see the traces

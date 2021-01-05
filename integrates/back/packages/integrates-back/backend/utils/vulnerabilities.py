@@ -2,7 +2,7 @@ import html
 import itertools
 import logging
 from operator import itemgetter
-from typing import Iterable, List, Dict, Union, cast
+from typing import Any, Iterable, List, Dict, Union, cast
 
 from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import InvalidRange
@@ -24,7 +24,7 @@ def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     return vuln
 
 
-def as_range(iterable: Iterable) -> str:
+def as_range(iterable: Iterable[Any]) -> str:
     """Convert range into string."""
     my_list = list(iterable)
     range_value = ''
@@ -205,4 +205,4 @@ async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
         'treatment_justification': 'Masked',
         'source': 'Masked'
     })
-    return success
+    return cast(bool, success)

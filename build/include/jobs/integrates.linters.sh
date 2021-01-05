@@ -4,12 +4,14 @@ function job_integrates_lint_back {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
-      back/migrations/ \
-      back \
+        back/migrations/ \
+        back \
   &&  mypy --strict --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back/backend/decorators.py \
         back/packages/integrates-back/backend/api/ \
         back/packages/integrates-back/backend/authz/ \
+        back/packages/integrates-back/backend/dal/helpers/ \
+        back/packages/integrates-back/backend/utils/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back \
   &&  prospector -F -s veryhigh analytics/ \

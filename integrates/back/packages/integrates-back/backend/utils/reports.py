@@ -1,7 +1,7 @@
 # Standard library
 import asyncio
 import logging
-from typing import Dict
+from typing import cast, Dict
 from uuid import uuid4 as uuid
 
 # Third party libraries
@@ -25,17 +25,23 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def sign_url(path: str, minutes: float = 60.0) -> str:
-    return await in_thread(
-        cloudfront.sign_url, FI_CLOUDFRONT_REPORTS_DOMAIN, path, minutes
+    return cast(
+        str,
+        await in_thread(
+            cloudfront.sign_url, FI_CLOUDFRONT_REPORTS_DOMAIN, path, minutes
+        )
     )
 
 
 async def sign(path: str, ttl: float) -> str:
-    return await in_thread(
-        cloudfront.sign_url,
-        FI_CLOUDFRONT_REPORTS_DOMAIN,
-        path,
-        ttl / 60,
+    return cast(
+        str,
+        await in_thread(
+            cloudfront.sign_url,
+            FI_CLOUDFRONT_REPORTS_DOMAIN,
+            path,
+            ttl / 60,
+        )
     )
 
 
@@ -72,9 +78,9 @@ async def expose_bytes_as_url(
     return await sign(path=file_name, ttl=ttl)
 
 
-async def upload_report_from_file_descriptor(report) -> str:
-    file_path = report.filename
-    file_name = file_path.split('_')[-1]
+async def upload_report_from_file_descriptor(report: Dict[str, str]) -> str:
+    file_path = report['filename']
+    file_name: str = file_path.split('_')[-1]
 
     if not await s3.upload_memory_file(  # type: ignore
             FI_AWS_S3_REPORTS_BUCKET, report, file_name):

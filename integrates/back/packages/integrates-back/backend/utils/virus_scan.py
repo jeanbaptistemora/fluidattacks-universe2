@@ -25,7 +25,7 @@ LOGGER = logging.getLogger(__name__)
 def scan_file(
         target_file: UploadFile,
         user_email: str,
-        project_name: str):
+        project_name: str) -> None:
     if FI_ENVIRONMENT == 'production':
         payload_data = {
             'project_name': project_name,

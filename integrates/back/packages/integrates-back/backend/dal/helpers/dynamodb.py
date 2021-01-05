@@ -75,8 +75,8 @@ async def async_put_item(table: str, item: Dict[str, Any]) -> bool:
 
 
 async def async_query(
-        table: str, query_attrs: DynamoQueryType) -> List:
-    response_items: List
+        table: str, query_attrs: DynamoQueryType) -> List[Any]:
+    response_items: List[Any]
     try:
         async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
             dynamo_table = await dynamodb_resource.Table(table)
@@ -94,7 +94,8 @@ async def async_query(
 
 
 async def async_scan(
-        table: str, scan_attrs: DynamoQueryType) -> List:
+        table: str, scan_attrs: DynamoQueryType) -> List[Any]:
+    response_items: List[Any]
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.scan(**scan_attrs)

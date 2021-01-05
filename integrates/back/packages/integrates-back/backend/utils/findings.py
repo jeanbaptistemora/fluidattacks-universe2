@@ -5,7 +5,7 @@ import io
 import itertools
 import logging
 from decimal import Decimal
-from typing import Dict, List, Union, cast, Tuple, Optional, Set
+from typing import Any, Dict, List, Union, cast, Tuple, Optional, Set
 
 from aioextensions import (
     collect,
@@ -101,7 +101,7 @@ async def _download_evidence_file(
         ext = {'.py': '.tmp'}
         tmp_filepath = util.replace_all(localfile, ext)
         await finding_dal.download_evidence(file_id, tmp_filepath)
-        return tmp_filepath
+        return cast(str, tmp_filepath)
     raise Exception('Evidence not found')
 
 
@@ -192,7 +192,7 @@ async def get_attributes(
     response = await finding_dal.get_attributes(finding_id, attributes)
     if not response:
         raise FindingNotFound()
-    return response
+    return cast(Dict[str, FindingType], response)
 
 
 async def get_records_from_file(
@@ -255,7 +255,7 @@ def clean_deleted_state(
 
 
 def get_item_date(
-    item
+    item: Any
 ) -> Datetime:
     return datetime_utils.get_from_str(
         item['date'].split(' ')[0],
@@ -321,7 +321,7 @@ def last_treatment_before_cycle_date(
 
 
 def sort_historic_by_date(
-    historic
+    historic: Any
 ) -> HistoricType:
     historic_sort = sorted(historic, key=lambda i: i['date'])
     return historic_sort
@@ -691,9 +691,12 @@ async def mask_treatment(
         }
         for treatment in historic_treatment
     ]
-    return await finding_dal.update(
-        finding_id,
-        {'historic_treatment': historic}
+    return cast(
+        bool,
+        await finding_dal.update(
+            finding_id,
+            {'historic_treatment': historic}
+        )
     )
 
 
@@ -708,9 +711,12 @@ async def mask_state(
         }
         for state in historic_state
     ]
-    return await finding_dal.update(
-        finding_id,
-        {'historic_state': historic}
+    return cast(
+        bool,
+        await finding_dal.update(
+            finding_id,
+            {'historic_state': historic}
+        )
     )
 
 
@@ -721,9 +727,12 @@ async def mask_verification(
         {**treatment, 'user': 'Masked', 'status': 'Masked'}
         for treatment in historic_verification
     ]
-    return await finding_dal.update(
-        finding_id,
-        {'historic_verification': historic}
+    return cast(
+        bool,
+        await finding_dal.update(
+            finding_id,
+            {'historic_verification': historic}
+        )
     )
 
 
@@ -1095,7 +1104,7 @@ async def validate_treatment_change(
 
 def format_finding(
     finding: Dict[str, FindingType],
-    attrs: Set[str] = None
+    attrs: Optional[Set[str]] = None
 ) -> Dict[str, FindingType]:
     """Returns the data in the format expected by default resolvers"""
     formated_finding = finding.copy()
