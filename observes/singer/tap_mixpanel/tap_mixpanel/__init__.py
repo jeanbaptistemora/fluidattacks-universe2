@@ -85,7 +85,7 @@ def new_formatted_data(formatted_data: List[Dict]) -> List[Dict]:
     return format_def
 
 
-def take_dtypes(data: List[Dict]) -> Dict[str, str]:
+def take_dtypes(data: List[Dict[str, Any]]) -> Dict[str, str]:
     def parsing_dtype(obs: Any) -> Any:
         result = None
         if isinstance(obs, int) and len(str(obs)) == 10:
@@ -137,6 +137,8 @@ def process_line(line: str) -> Dict[str, Any]:
     data: Dict[str, Any] = json.loads(line)
     data = handle_null(data)
     data = new_formatted_data([data])[0]
+    dtypes = take_dtypes([data])
+    data = dict(check_and_parse(data, dtypes))
     return data
 
 
