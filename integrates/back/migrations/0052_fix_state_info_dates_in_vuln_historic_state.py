@@ -1,6 +1,9 @@
 """
 This migration set the finding release date in the vuln historic state
 for those dates that are previous to the finding release
+
+Execution Time:    2021-01-05 at 09:11:57 UTC-05
+Finalization Time: 2021-01-05 at 15:46:35 UTC-05
 """
 # Standard library
 from asyncio import run
