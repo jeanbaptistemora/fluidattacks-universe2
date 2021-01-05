@@ -1,3 +1,7 @@
+/* eslint-disable react/forbid-component-props
+  -------
+  We need className to override default styles from react-boostrap.
+*/
 import type { ApolloError } from "apollo-client";
 import { Button } from "components/Button";
 import type { Dispatch } from "redux";
@@ -208,7 +212,7 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
               )}
             </Button>
           </Col33>
-          <Col25>
+          <Col25 className={"upload-file"}>
             <FormGroup>
               <Field
                 accept={".yaml, .yml"}

@@ -394,6 +394,17 @@ label {
   overflow-y: auto !important;
 }
 
+:global .upload-file {
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+@media (max-width: 479px) {
+  :global .upload-file {
+    margin-top: 20px;
+  }
+}
+
 :global .well {
   min-height: 20px;
   background-color: #f5f5f5;
