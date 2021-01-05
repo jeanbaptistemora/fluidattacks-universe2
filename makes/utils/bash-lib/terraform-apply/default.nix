@@ -13,7 +13,6 @@ in
     arguments = {
       envPath = path;
       envProduct = product;
-      envShell = "${pkgs.bash}/bin/bash";
       envTerraform = "${pkgs.terraform_0_13}/bin/terraform";
       envUtilsBashLibAws = import ../../../../makes/utils/bash-lib/aws pkgs;
     };

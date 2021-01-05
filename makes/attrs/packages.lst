@@ -1,5 +1,7 @@
 melts-bin
 skims-bin
+skims-config-python-requirements-development
+skims-config-python-requirements-runtime
 skims-docs-build
 skims-lint
 skims-parsers-antlr
