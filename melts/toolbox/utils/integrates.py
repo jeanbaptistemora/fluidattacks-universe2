@@ -64,6 +64,14 @@ def has_forces(group: str) -> bool:
     return response.data['project']['hasForces']
 
 
+def get_group_language(group: str) -> str:
+    response = api.integrates.Queries.get_language(API_TOKEN, group)
+    if not response.ok:
+        raise Exception(response.errors)
+
+    return response.data['project']['language']
+
+
 def filter_groups_with_forces(groups: Tuple[str, ...]) -> Tuple[str, ...]:
     with multiprocessing.pool.ThreadPool(10) as pool:
         return tuple(

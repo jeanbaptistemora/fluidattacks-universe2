@@ -365,6 +365,26 @@ class Queries:
             operation='MeltsHasForces',
         )
 
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def get_language(api_token: str, project_name: str) -> Response:
+        query = """
+            query MeltsGetGroupLanguage($projectName: String!) {
+              project(projectName: $projectName){
+                language
+              }
+            }
+        """
+        params: dict = {
+            'projectName': project_name
+        }
+        return request(
+            api_token,
+            query,
+            params,
+            operation='MeltsGetGroupLanguage',
+        )
+
 
 class Mutations:
     """Namespace for Integrates's GraphQL Mutations."""

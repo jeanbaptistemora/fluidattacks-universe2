@@ -3,6 +3,7 @@ import sys
 
 # Third party libraries
 from click import (
+    argument,
     command,
     option,
 )
@@ -31,13 +32,21 @@ def do_check_commit_msg() -> bool:
 
 
 @command(name='misc', short_help='miscellaneous checks')
+@argument(
+    'group',
+    default=utils.generic.get_current_group(),
+    callback=utils.generic.is_valid_group,
+)
 @option('--check-commit-msg', is_flag=True, help='validate commit msg syntax')
 @option('--is-drills-commit', is_flag=True)
 @option('--filter-groups-with-forces')
+@option('--get-group-language', is_flag=True)
 def misc_management(
+    group,
     check_commit_msg,
     is_drills_commit,
     filter_groups_with_forces,
+    get_group_language,
 ):
     success: bool = False
 
@@ -54,5 +63,8 @@ def misc_management(
         success = utils.integrates.filter_groups_with_forces_as_json_str(tuple(
             filter_groups_with_forces.split(' '),
         ))
+    elif get_group_language:
+        print(utils.integrates.get_group_language(group))
+        success = True
 
     sys.exit(0 if success else 1)
