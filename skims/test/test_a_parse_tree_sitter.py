@@ -9,14 +9,56 @@ from parse_tree_sitter import (
 
 @pytest.mark.skims_test_group('unittesting')
 def test_parse_java() -> None:
-    tree = parse_java(b"""
-    package x.x.x;
-    import y.y;
-    """)
+    data = parse_java(b'package x.x;')
 
-    assert tree.root_node.sexp() == (
-        '(program (package_declaration (scoped_identifier scope: (scoped_identifier '
-        'scope: (identifier) name: (identifier)) name: (identifier))) '
-        '(import_declaration (scoped_identifier scope: (identifier) name: '
-        '(identifier))))'
-    )
+    assert data == {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "c": 0,
+                        "l": 0,
+                        "type": "package"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "c": 8,
+                                "l": 0,
+                                "type": "identifier"
+                            },
+                            {
+                                "children": [],
+                                "c": 9,
+                                "l": 0,
+                                "type": "."
+                            },
+                            {
+                                "children": [],
+                                "c": 10,
+                                "l": 0,
+                                "type": "identifier"
+                            }
+                        ],
+                        "c": 8,
+                        "l": 0,
+                        "type": "scoped_identifier"
+                    },
+                    {
+                        "children": [],
+                        "c": 11,
+                        "l": 0,
+                        "type": ";"
+                    }
+                ],
+                "c": 0,
+                "l": 0,
+                "type": "package_declaration"
+            }
+        ],
+        "c": 0,
+        "l": 0,
+        "type": "program"
+    }
