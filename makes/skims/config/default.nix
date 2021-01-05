@@ -7,9 +7,9 @@ _ @ {
 let
   makeSearchPaths = import ../../../makes/utils/make-search-paths skimsPkgs;
   makeTemplate = import ../../../makes/utils/make-template skimsPkgs;
-  nixRequirements = builtins.mapAttrs (_: val: makeSearchPaths val) {
-    development = [];
-    runtime = [
+  nixRequirements = {
+    development = makeSearchPaths [];
+    runtime = makeSearchPaths [
       skimsPkgs.graphviz
       skimsPkgs.python38Packages.pygraphviz
     ];

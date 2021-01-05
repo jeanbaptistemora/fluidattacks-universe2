@@ -7,8 +7,8 @@ let
   buildPythonRequirements = import ../../../makes/utils/build-python-requirements meltsPkgs;
   makeSearchPaths = import ../../../makes/utils/make-search-paths meltsPkgs;
   makeTemplate = import ../../../makes/utils/make-template meltsPkgs;
-  nixRequirements = builtins.mapAttrs (_: val: makeSearchPaths val) {
-    runtime = [
+  nixRequirements = {
+    runtime = makeSearchPaths [
       meltsPkgs.python38Packages.psycopg2
     ];
   };
