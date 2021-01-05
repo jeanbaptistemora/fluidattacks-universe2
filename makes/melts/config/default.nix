@@ -31,6 +31,7 @@ let
           "GitPython==3.1.11"
           "more-itertools==8.5.0"
           "mypy-extensions==0.4.3"
+          "pathspec==0.8.1"
           "pykwalify==1.7.0"
           "pynamodb==4.3.1"
           "python-dateutil==2.8.1"
