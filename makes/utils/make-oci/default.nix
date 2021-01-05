@@ -12,11 +12,11 @@ pkgs:
 }:
 
 pkgs.dockerTools.buildLayeredImage (attrs // {
-  config = config;
-  contents = contents;
+  inherit config;
+  inherit contents;
   created = null;
-  extraCommands = extraCommands;
+  inherit extraCommands;
   maxLayers = 125;
-  name = name;
-  tag = tag;
+  inherit name;
+  inherit tag;
 })

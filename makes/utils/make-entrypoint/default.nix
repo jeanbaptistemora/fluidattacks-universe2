@@ -16,9 +16,9 @@ in
   makeDerivation {
     builder = ./builder.sh;
     envEntrypoint = makeTemplate {
-      arguments = arguments;
-      name = name;
-      template = template;
+      inherit arguments;
+      inherit name;
+      inherit template;
     };
     envEntrypointSetup = makeTemplate {
       arguments = {
@@ -35,5 +35,5 @@ in
       '';
     };
     envLocation = location;
-    name = name;
+    inherit name;
   }

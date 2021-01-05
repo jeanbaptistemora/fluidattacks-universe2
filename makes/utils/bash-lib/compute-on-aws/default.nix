@@ -14,7 +14,7 @@ pkgs:
 
 let
   getSecretFromRuntimeEnv = name: {
-    name = name;
+    inherit name;
     value = "\${${name}}";
   };
 
@@ -35,7 +35,6 @@ in
       envJobname = jobname;
       envJobqueue = jobqueue;
       envJq = "${pkgs.jq}/bin/jq";
-      envMemory = memory;
       envManifestFile = builtins.toFile "manifest" (builtins.toJSON {
         environment = (builtins.map getSecretFromRuntimeEnv secrets) ++ [
           {
@@ -48,8 +47,9 @@ in
           }
         ];
         memory = envMemory;
-        vcpus = vcpus;
+        inherit vcpus;
       });
+      envMemory = memory;
       envProduct = product;
       envTimeout = timeout;
       envUtilsBashLibAws = import ../../../../makes/utils/bash-lib/aws pkgs;
@@ -59,6 +59,6 @@ in
         else abort "Too much vCPUs";
     };
     location = "/bin/${name}";
-    name = name;
+    inherit name;
     template = ../../../../makes/utils/bash-lib/compute-on-aws/entrypoint.sh;
   }

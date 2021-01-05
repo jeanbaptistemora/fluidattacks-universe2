@@ -17,6 +17,6 @@ in
       envUtilsBashLibAws = import ../../../../makes/utils/bash-lib/aws pkgs;
     };
     location = "/bin/${name}";
-    name = name;
+    inherit name;
     template = ../../../../makes/utils/bash-lib/terraform-apply/entrypoint.sh;
   }

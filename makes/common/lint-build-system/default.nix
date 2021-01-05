@@ -1,6 +1,5 @@
 _ @ {
   commonPkgs,
-  commonPkgsNixLinter,
   ...
 }:
 
@@ -11,7 +10,7 @@ in
     builder = ../../../makes/common/lint-build-system/builder.sh;
     buildInputs = [
       commonPkgs.shellcheck
-      commonPkgsNixLinter.nix-linter
+      commonPkgs.nix-linter
     ];
     envSrcMakes = ../../../makes;
     name = "common-lint-build-system";

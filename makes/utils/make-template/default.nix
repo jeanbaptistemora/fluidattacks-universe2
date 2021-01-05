@@ -22,7 +22,7 @@ let
 in
   makeDerivation (arguments // {
     builder = ./builder.sh;
-    name = name;
+    inherit name;
     __envArgumentNamesFile = argumentNamesFile;
     __envTemplate = templateFile;
   })

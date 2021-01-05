@@ -1,8 +1,6 @@
 _ @ {
   flake,
   srcCommonPkgs,
-  srcCommonPkgsNixLinter,
-  srcCommonPkgsNixLinterPkgs,
   srcMeltsPkgs,
   srcObservesPkgs,
   srcSkimsBenchmarkOwaspRepo,
@@ -48,9 +46,6 @@ flake.lib.eachDefaultSystem (
           };
         };
         commonPkgs = import srcCommonPkgs { inherit system; };
-        commonPkgsNixLinter = import srcCommonPkgsNixLinter {
-          pkgs = import srcCommonPkgsNixLinterPkgs { inherit system; };
-        };
         meltsPkgs = import srcMeltsPkgs { inherit system; };
         observesPkgs = import srcObservesPkgs { inherit system; };
         skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;

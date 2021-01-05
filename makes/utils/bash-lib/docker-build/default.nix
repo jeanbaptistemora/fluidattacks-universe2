@@ -16,6 +16,6 @@ in
       envTag = tag;
     };
     location = "/bin/${name}";
-    name = name;
+    inherit name;
     template = ../../../../makes/utils/bash-lib/docker-build/entrypoint.sh;
   }

@@ -11,8 +11,6 @@ let
 in
   makeEntrypoint {
     arguments = {
-      envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws skimsPkgs;
-      envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops skimsPkgs;
       envBenchmarkRepo = skimsBenchmarkOwaspRepo;
       envPython = "${skimsPkgs.python38}/bin/python";
       envSetupSkimsRuntime = config.setupSkimsRuntime;
@@ -21,6 +19,8 @@ in
       envSrcSkimsTest = ../../../skims/test;
       envTapJson = outputs.apps.observes-tap-json.program;
       envTargetRedshift = outputs.apps.observes-target-redshift.program;
+      envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws skimsPkgs;
+      envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops skimsPkgs;
     };
     location = "/bin/skims-benchmark";
     name = "skims-benchmark";
