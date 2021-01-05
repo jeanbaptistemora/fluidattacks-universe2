@@ -3,8 +3,8 @@
 This migration removes the repository name from the exclusion patterns
 used to define which file should not be reviewed by analysts
 
-Execution Time:
-Finalization Time:
+Execution Time: 2021-01-05 18:23 UTC-5
+Finalization Time: 2021-01-05 18:27 UTC-5
 """
 # Standard
 import os
