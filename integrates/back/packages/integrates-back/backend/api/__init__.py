@@ -40,7 +40,7 @@ def apply_context_attrs(context: Request) -> Request:
     return context
 
 
-class IntegratesAPI(GraphQL):
+class IntegratesAPI(GraphQL):  # type: ignore
     async def get_context_for_request(self, request: Request) -> Request:
         return apply_context_attrs(request)
 
@@ -64,6 +64,6 @@ class IntegratesAPI(GraphQL):
 
         return data
 
-    @newrelic.agent.web_transaction()
+    @newrelic.agent.web_transaction()  # type: ignore
     async def graphql_http_server(self, request: Request) -> Response:
         return await super().graphql_http_server(request)

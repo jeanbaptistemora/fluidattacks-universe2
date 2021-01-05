@@ -1,28 +1,29 @@
-import dateutil
+from typing import Any
+import dateutil.parser
 
 from ariadne import ScalarType
 
 DATETIME_SCALAR = ScalarType('DateTime')
 
 
-@DATETIME_SCALAR.serializer
-def serialize_datetime(value):
+@DATETIME_SCALAR.serializer  # type: ignore
+def serialize_datetime(value: Any) -> Any:
     if isinstance(value, str):
         value = dateutil.parser.parse(value)
 
     return value.isoformat()
 
 
-@DATETIME_SCALAR.value_parser
-def parse_datetime_value(value):
+@DATETIME_SCALAR.value_parser  # type: ignore
+def parse_datetime_value(value: Any) -> Any:
     if value:
         return dateutil.parser.parse(value)
 
     return value
 
 
-@DATETIME_SCALAR.literal_parser
-def parse_datetime_literal(ast):
+@DATETIME_SCALAR.literal_parser  # type: ignore
+def parse_datetime_literal(ast: Any) -> Any:
     value = str(ast.value) if ast.value else ast.value
 
     return parse_datetime_value(value)

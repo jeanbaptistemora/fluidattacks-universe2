@@ -8,9 +8,7 @@ function job_integrates_lint_back {
       back \
   &&  mypy --strict --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back/backend/decorators.py \
-        back/packages/integrates-back/backend/api/dataloaders \
-        back/packages/integrates-back/backend/api/mutations \
-        back/packages/integrates-back/backend/api/resolvers \
+        back/packages/integrates-back/backend/api/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back \
   &&  prospector -F -s veryhigh analytics/ \

@@ -1,3 +1,4 @@
+from typing import Any, TypeVar
 from graphql.language.ast import (
     StringValueNode,
     BooleanValueNode,
@@ -10,20 +11,21 @@ from graphql.language.ast import (
 from ariadne import ScalarType
 
 GENERIC_SCALAR = ScalarType('GenericScalar')
+TVar = TypeVar('TVar')
 
 
-@GENERIC_SCALAR.serializer
-def serialize_genericscalar(value):
+@GENERIC_SCALAR.serializer  # type: ignore
+def serialize_genericscalar(value: TVar) -> TVar:
     return value
 
 
-@GENERIC_SCALAR.value_parser
-def parse_genericscalar_value(value):
+@GENERIC_SCALAR.value_parser  # type: ignore
+def parse_genericscalar_value(value: TVar) -> TVar:
     return value
 
 
-@GENERIC_SCALAR.literal_parser
-def parse_genericscalar_literal(ast):
+@GENERIC_SCALAR.literal_parser  # type: ignore
+def parse_genericscalar_literal(ast: Any) -> Any:
     if isinstance(ast, (StringValueNode, BooleanValueNode)):
         return ast.value
     if isinstance(ast, IntValueNode):
