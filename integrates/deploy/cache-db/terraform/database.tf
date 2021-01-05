@@ -16,8 +16,8 @@ resource "aws_elasticache_replication_group" "cache_db" {
   security_group_ids = var.security_groups
 
   cluster_mode {
+    num_node_groups         = 2
     replicas_per_node_group = 1
-    num_node_groups         = 1
   }
 
   tags = {
