@@ -2,6 +2,8 @@
   flake,
   flakeCompat,
   srcCommonPkgs,
+  srcCommonPkgsNixLinter,
+  srcCommonPkgsNixLinterPkgs,
   srcMeltsPkgs,
   srcObservesPkgs,
   srcSkimsBenchmarkOwaspRepo,
@@ -33,6 +35,7 @@ flake.lib.eachDefaultSystem (
             skims-test =  import ../makes/skims/test attrs;
           };
           packages = {
+            common-lint-build-system = import ../makes/common/lint-build-system attrs;
             melts-bin = import ../makes/melts/bin attrs;
             skims-bin = import ../makes/skims/bin attrs;
             skims-config-python-requirements-development = import ../makes/skims/config/python-requirements/development attrs;
@@ -46,6 +49,9 @@ flake.lib.eachDefaultSystem (
           };
         };
         commonPkgs = import srcCommonPkgs { inherit system; };
+        commonPkgsNixLinter = import srcCommonPkgsNixLinter {
+          pkgs = import srcCommonPkgsNixLinterPkgs { inherit system; };
+        };
         meltsPkgs = import srcMeltsPkgs { inherit system; };
         observesPkgs = import srcObservesPkgs { inherit system; };
         skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;

@@ -36,6 +36,8 @@
         "flake": "flake",
         "flakeCompat": "flakeCompat",
         "srcCommonPkgs": "srcCommonPkgs",
+        "srcCommonPkgsNixLinter": "srcCommonPkgsNixLinter",
+        "srcCommonPkgsNixLinterPkgs": "srcCommonPkgsNixLinterPkgs",
         "srcMeltsPkgs": "srcMeltsPkgs",
         "srcObservesPkgs": "srcObservesPkgs",
         "srcSkimsBenchmarkOwaspRepo": "srcSkimsBenchmarkOwaspRepo",
@@ -56,6 +58,38 @@
         "owner": "NixOS",
         "ref": "release-20.03",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "srcCommonPkgsNixLinter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1601022420,
+        "narHash": "sha256-a56UUIfxLaeFrM9uFAzhUMHEFL5pdypPqZofsxMTth4=",
+        "owner": "Synthetica9",
+        "repo": "nix-linter",
+        "rev": "2516a8cda41f9bb553a1c3eca38e3dd94ebf53de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Synthetica9",
+        "repo": "nix-linter",
+        "type": "github"
+      }
+    },
+    "srcCommonPkgsNixLinterPkgs": {
+      "locked": {
+        "lastModified": 1600387253,
+        "narHash": "sha256-WtdpHuiunPF9QMlcXrWJkESuIjSSjP9WMOKvYQS/D7M=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "72b9660dc18ba347f7cd41a9504fc181a6d87dc3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "72b9660dc18ba347f7cd41a9504fc181a6d87dc3",
         "type": "github"
       }
     },
