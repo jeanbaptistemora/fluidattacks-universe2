@@ -557,7 +557,7 @@ async def check_concurrent_sessions(email: str, session_key: str) -> None:
     if len(user_session_keys) > 1:
         await session_dal.hdel_element(user_session_key, user_session_keys[0])
         raise ConcurrentSession()
-    if user_session_keys[0].split(':')[1] != session_key:
+    if user_session_keys and user_session_keys[0].split(':')[1] != session_key:
         raise ExpiredToken
 
 

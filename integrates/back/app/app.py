@@ -86,8 +86,12 @@ async def app(*request_args: Request) -> HTMLResponse:
     return response
 
 
-def logout(request: Request) -> HTMLResponse:
+async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
+    await util.remove_token(
+        f'fi_session:{safe_encode(request.session.get("username"))}'
+    )
+
     request.session.clear()
 
     response = RedirectResponse('/')
