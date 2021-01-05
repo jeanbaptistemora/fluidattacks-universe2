@@ -1,7 +1,8 @@
 # Standard library
-from collections import defaultdict
 from typing import (
+    Any,
     Callable,
+    DefaultDict
 )
 
 # Local libraries
@@ -50,7 +51,7 @@ async def get_user_level_enforcer(
 
 async def get_group_level_enforcer(
     subject: str,
-    context_store: defaultdict = None,
+    context_store: DefaultDict[Any, Any] = DefaultDict(str),
     with_cache: bool = True,
 ) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided subject.

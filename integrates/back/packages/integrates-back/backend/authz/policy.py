@@ -1,7 +1,8 @@
 # Standard library
-from collections import defaultdict
 from typing import (
+    Any,
     Awaitable,
+    DefaultDict,
     Dict,
     List,
     Tuple,
@@ -88,7 +89,7 @@ async def get_cached_group_service_attributes_policies(
 
 async def get_cached_subject_policies(
     subject: str,
-    context_store: defaultdict = None,
+    context_store: DefaultDict[Any, Any] = DefaultDict(str),
     with_cache: bool = True,
 ) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
@@ -100,9 +101,12 @@ async def get_cached_subject_policies(
 
         # If there is already a result for this operation within the context of
         # this request let's return it
-        context_store = context_store or defaultdict()
+        context_store = context_store or DefaultDict(str)
         if context_store_key in context_store:
-            return context_store[context_store_key]
+            return cast(
+                Tuple[Tuple[str, str, str], ...],
+                context_store[context_store_key]
+            )
 
         cache_key: str = get_subject_cache_key(subject)
 
@@ -146,7 +150,7 @@ async def get_cached_subject_policies(
 async def get_group_level_role(email: str, group: str) -> str:
     # Admins are granted access to all groups
     subject_policy = await user_dal.get_subject_policy(email, group)
-    group_role = subject_policy.role
+    group_role: str = subject_policy.role
 
     # Please always make the query at the end
     if not group_role and await get_user_level_role(email) == 'admin':
@@ -160,7 +164,7 @@ async def get_organization_level_role(email: str, organization_id: str) -> str:
     subject_policy = await user_dal.get_subject_policy(
         email, organization_id.lower()
     )
-    organization_role = subject_policy.role
+    organization_role: str = subject_policy.role
 
     # Please always make the query at the end
     if not organization_role and await get_user_level_role(email) == 'admin':
@@ -190,7 +194,7 @@ async def get_group_level_roles(
 
 async def get_user_level_role(email: str) -> str:
     user_policy = await user_dal.get_subject_policy(email, 'self')
-    return user_policy.role
+    return cast(str, user_policy.role)
 
 
 async def grant_group_level_role(email: str, group: str, role: str) -> bool:

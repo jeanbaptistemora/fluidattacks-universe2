@@ -1,4 +1,4 @@
-from collections import defaultdict
+from typing import Any, DefaultDict
 from backend import authz
 from backend.exceptions import (
     InvalidCommentParent,
@@ -11,7 +11,7 @@ async def validate_handle_comment_scope(
     user_email: str,
     project_name: str,
     parent: str,
-    context_store: defaultdict = None,
+    context_store: DefaultDict[Any, Any] = DefaultDict(str),
 ) -> None:
     enforcer = await authz.get_group_level_enforcer(
         user_email,
