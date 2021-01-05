@@ -152,6 +152,24 @@ resource "cloudflare_record" "track" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "mailchimp_verify_1" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "k2._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "dkim2.mcsv.net"
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_record" "mailchimp_verify_2" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "k3._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "dkim3.mcsv.net"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "zoho_verify_directory" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "zb62268970.${cloudflare_zone.fluidattacks_com.zone}"
