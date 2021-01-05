@@ -10,8 +10,7 @@
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
-:about1: Technical writer
-:about2: Behavioral scientist.
+:about1: Cybersecurity Editor
 :source: https://unsplash.com/@sharonmccutcheon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 
 = Your Files Have Been Encrypted!

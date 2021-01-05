@@ -10,7 +10,7 @@
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
-:about1: Technical writer
+:about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/BIg1X_t8iWI
 
 = I Saw Your Data on the Dark Web

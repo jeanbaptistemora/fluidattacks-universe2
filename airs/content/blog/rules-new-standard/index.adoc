@@ -10,8 +10,7 @@
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
-:about1: Technical writer
-:about2: Behavioral scientist.
+:about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/lynE-l7F8sY
 
 = We've Reached a New Standard

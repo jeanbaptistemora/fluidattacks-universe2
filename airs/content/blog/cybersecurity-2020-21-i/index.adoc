@@ -10,7 +10,7 @@
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
-:about1: Technical writer
+:about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/WAR4DbHdiKA
 
 = State of Cybersecurity 2020-21 (I)

@@ -10,7 +10,7 @@
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
-:about1: Technical writer
+:about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/oTrebzk1v54
 
 = Tribe of Hackers Red Team 3.0

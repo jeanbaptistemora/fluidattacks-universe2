@@ -10,7 +10,7 @@
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
-:about1: Technical writer
+:about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/K9nejptN9i8
 
 = Anyone Can Look Inside!
