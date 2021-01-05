@@ -26,6 +26,6 @@ in
             requirement = "aioextensions==20.8.2087641";
           };
 
-          srcProduct = import ../..;
+          srcProduct = (import ../..).product;
         })
   )

@@ -28,6 +28,6 @@ in
             python = pkgs.python38;
           };
 
-          srcProduct = import ../..;
+          srcProduct = (import ../..).product;
         })
   )
