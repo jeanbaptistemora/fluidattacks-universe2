@@ -55,43 +55,30 @@ def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bo
 
 def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if all previous pipelines were successful"""
-
-    def passed_first_pipeline_before_mr() -> bool:
-        success: bool = True
-        if config['passed_first_pipeline_before_mr']:
-            first_pipeline: Any = pull_request.pipelines()[-1]
-            if first_pipeline.status not in ('success', 'manual'):
-                log(err_log,
-                    'The Dev pipeline should pass before you open an MR.\n'
-                    'Specifically, you opened your MR before %s passed.',
-                    first_pipeline.web_url)
-                success = False
-        return success
-
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    success: bool = passed_first_pipeline_before_mr()
+    success: bool = True
     index: int = 0
     while index < len(pull_request.pipelines()):
         pipeline: Any = pull_request.pipelines()[index]
-        p_id: str = str(pipeline.id)
-        p_status: str = str(pipeline.status)
-        p_job_names: List[str] = [ job.name for job in pipeline.jobs.list() ]
-        if config['job_name'] not in p_job_names:
-            if p_status in ('success', 'manual'):
-                pass
-            elif p_status in ('pending', 'running'):
-                sleep(5)
-                index = -1
-            else:
-                log(err_log,
-                    'Pipeline with ID %s '
-                    'finished with status: %s, please '
-                    'make sure to have all the pipelines associated '
-                    'to your MR in green before re-running MR tests.',
-                    p_id,
-                    p_status)
-                success = False
+        p_jobs: Any = pipeline.jobs.list()
+        p_jobs_names: List[str] = [ job.name for job in p_jobs ]
+        if config['job_name'] not in p_jobs_names:
+            for p_job in p_jobs:
+                if p_job.status in ('success', 'manual'):
+                    pass
+                elif p_job.status in ('pending', 'running'):
+                    sleep(5)
+                    index = -1
+                else:
+                    log(err_log,
+                        'Pipeline: %s\n'
+                        'has the job: %s\n'
+                        'with status: %s\n',
+                        pipeline.web_url,
+                        p_job.name,
+                        p_job.status)
+                    success = False
         index += 1
     return success or not should_fail
 
