@@ -517,25 +517,29 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                     </Col50>
                   </Row>
                 </GenericForm>
-                <ButtonToolbar>
-                  <Button onClick={handleCloseModal}>
-                    {translate.t("group.findings.report.modal_close")}
-                  </Button>
-                  {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
-                    <Button
-                      disabled={
-                        requestingZeroRisk ||
-                        updatingVuln ||
-                        deletingTag ||
-                        isRunning ||
-                        (isEditPristine && isTreatmentPristine)
-                      }
-                      onClick={handleEditTreatment}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  ) : undefined}
-                </ButtonToolbar>
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button onClick={handleCloseModal}>
+                        {translate.t("group.findings.report.modal_close")}
+                      </Button>
+                      {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
+                        <Button
+                          disabled={
+                            requestingZeroRisk ||
+                            updatingVuln ||
+                            deletingTag ||
+                            isRunning ||
+                            (isEditPristine && isTreatmentPristine)
+                          }
+                          onClick={handleEditTreatment}
+                        >
+                          {translate.t("confirmmodal.proceed")}
+                        </Button>
+                      ) : undefined}
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
               </React.Fragment>
             );
           }}

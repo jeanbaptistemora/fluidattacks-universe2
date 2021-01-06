@@ -59,9 +59,13 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (props: IFileOptionsM
             </Col33>
           </ButtonToolbarCenter>
         </Row>
-        <ButtonToolbar>
-          <Button onClick={onClose}>{translate.t("confirmmodal.cancel")}</Button>
-        </ButtonToolbar>
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button onClick={onClose}>{translate.t("confirmmodal.cancel")}</Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
       </Modal>
     </React.StrictMode>
   );

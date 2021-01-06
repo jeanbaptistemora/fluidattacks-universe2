@@ -379,22 +379,26 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               />
             </Col100>
           </Row>
-          <ButtonToolbar>
-            <Button onClick={handleCloseModal}>
-              {translate.t("group.findings.report.modal_close")}
-            </Button>
-            <Button
-              disabled={
-                !(hasAcceptedVulns || hasRejectedVulns) ||
-                handlingAcceptation ||
-                confirmingZeroRisk ||
-                rejectingZeroRisk
-              }
-              onClick={handleUpdateTreatmentAcceptation}
-            >
-              {translate.t("confirmmodal.proceed")}
-            </Button>
-          </ButtonToolbar>
+          <Row>
+            <Col100>
+              <ButtonToolbar>
+                <Button onClick={handleCloseModal}>
+                  {translate.t("group.findings.report.modal_close")}
+                </Button>
+                <Button
+                  disabled={
+                    !(hasAcceptedVulns || hasRejectedVulns) ||
+                    handlingAcceptation ||
+                    confirmingZeroRisk ||
+                    rejectingZeroRisk
+                  }
+                  onClick={handleUpdateTreatmentAcceptation}
+                >
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ButtonToolbar>
+            </Col100>
+          </Row>
         </GenericForm>
       </Modal>
     </React.StrictMode>
