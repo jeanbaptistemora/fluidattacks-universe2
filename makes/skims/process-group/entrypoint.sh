@@ -29,7 +29,7 @@ function get_config {
   local namespace="${2}"
 
   __envJq__ -e -n -r \
-    --arg 'language' "$(__envYq__ -r .language < "groups/${group}/config/config.yml")" \
+    --arg 'language' "$(__envMelts__ misc --get-group-language "${group}")" \
     --arg 'namespace' "${namespace}" \
     --arg 'working_dir' "groups/${group}/fusion/${namespace}" \
     '{
