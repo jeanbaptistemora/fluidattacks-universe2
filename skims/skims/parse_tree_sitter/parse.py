@@ -19,6 +19,9 @@ from tree_sitter import (
 )
 
 # Local libraries
+from parse_tree_sitter.transformations.control_flow import (
+    add as add_control_flow,
+)
 from parse_tree_sitter.transformations.styles import (
     add as add_styles,
 )
@@ -74,14 +77,19 @@ def _build_ast_graph(
 
         _graph.add_node(
             n_id,
-            c=obj.start_point[1],
-            l=obj.start_point[0],
-            parent=_parent,
-            type=obj.type,
+            label_c=obj.start_point[1],
+            label_l=obj.start_point[0],
+            label_parent_ast=_parent,
+            label_type=obj.type,
         )
 
         if _parent is not None:
-            _graph.add_edge(_parent, n_id, index=_edge_index, label_ast='AST')
+            _graph.add_edge(
+                _parent,
+                n_id,
+                label_ast='AST',
+                label_index=_edge_index,
+            )
 
         for edge_index, child in enumerate(obj.children):
             _build_ast_graph(
@@ -107,6 +115,7 @@ def parse(
     raw_tree: Tree = parser.parse(content)
 
     graph: nx.DiGraph = _build_ast_graph(raw_tree)
+    add_control_flow(graph)
     add_styles(graph)
 
     if CTX.debug:
