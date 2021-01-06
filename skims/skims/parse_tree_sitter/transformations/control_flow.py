@@ -228,7 +228,8 @@ def _generic(
             break
     else:
         if next_id := stack[-2].pop('next_id', None):
-            graph.add_edge(n_id, next_id, **edge_attrs)
+            if n_id != next_id:
+                graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
 
