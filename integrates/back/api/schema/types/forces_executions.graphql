@@ -1,7 +1,0 @@
-"ForcesExecutions type definition"
-type ForcesExecutions {
-  executions: [ForcesExecution]
-  fromDate: String
-  projectName: String!
-  toDate: String
-}

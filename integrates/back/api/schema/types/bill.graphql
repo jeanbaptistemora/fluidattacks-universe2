@@ -1,4 +1,0 @@
-"Bill type definition"
-type Bill {
-  developers: [BillDeveloper]
-}

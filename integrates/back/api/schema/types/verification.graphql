@@ -1,5 +1,0 @@
-"Verification type definition"
-type Verification {
-  date: String
-  status: String
-}

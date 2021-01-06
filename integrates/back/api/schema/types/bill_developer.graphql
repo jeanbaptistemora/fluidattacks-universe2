@@ -1,8 +1,0 @@
-"BillDeveloper type definition"
-type BillDeveloper {
-  actor: String
-  commit: String
-  groups: String
-  organization: String
-  repository: String
-}
