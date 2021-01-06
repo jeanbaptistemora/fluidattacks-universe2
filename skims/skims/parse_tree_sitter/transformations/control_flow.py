@@ -108,12 +108,10 @@ def _if_statement(
     # if ( __0__ ) __1__ else __2__
     match = g.match_ast(
         graph, n_id,
-        'IF',
-        'LPAREN',
+        'if',
         '__0__',
-        'RPAREN',
         '__1__',
-        'ELSE',
+        'else',
         '__2__',
     )
 
@@ -215,14 +213,13 @@ def _generic(
          _step_by_step),
         ({'method_declaration'},
          _method_declaration),
+        ({'if_statement'},
+         _if_statement),
 
         ({'BasicForStatement',
           'EnhancedForStatement',
           'WhileStatement'},
          _loop_statement),
-        ({'IfThenStatement',
-          'IfThenElseStatement'},
-         _if_statement),
         ({'TryStatement'},
          _try_statement),
     ):

@@ -967,11 +967,13 @@
       },
       "215": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_true": "cfg_true",
         "label_index": 2
       },
       "231": {
         "label_cfg": "CFG",
-        "label_cfg_always": "cfg_always"
+        "label_cfg_false": "cfg_false"
       }
     },
     "201": {
