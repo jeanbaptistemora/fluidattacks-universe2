@@ -30,19 +30,20 @@ flake.lib.eachDefaultSystem (
             skims-process-group = import ../makes/skims/process-group attrs;
             skims-process-group-on-aws = import ../makes/skims/process-group-on-aws attrs;
             skims-process-groups-on-aws = import ../makes/skims/process-groups-on-aws attrs;
+            skims-repl =  import ../makes/skims/bin-repl attrs;
             skims-test =  import ../makes/skims/test attrs;
           };
           packages = {
             common-lint-build-system = import ../makes/common/lint-build-system attrs;
             melts-bin = import ../makes/melts/bin attrs;
             skims-bin = import ../makes/skims/bin attrs;
+            skims-bin-repl =  import ../makes/skims/bin-repl attrs;
             skims-config-python-requirements-development = import ../makes/skims/config/python-requirements/development attrs;
             skims-config-python-requirements-runtime = import ../makes/skims/config/python-requirements/runtime attrs;
             skims-docs-build = import ../makes/skims/docs/build attrs;
             skims-lint = import ../makes/skims/lint attrs;
             skims-parsers-antlr = import ../makes/skims/parsers/antlr attrs;
             skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
-            skims-repl =  import ../makes/skims/repl attrs;
             skims-security = import ../makes/skims/security attrs;
             skims-structure = import ../makes/skims/structure attrs;
           };

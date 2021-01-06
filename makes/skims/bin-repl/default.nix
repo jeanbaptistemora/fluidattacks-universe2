@@ -14,5 +14,5 @@ in
     };
     location = "/bin/skims-repl";
     name = "skims-repl";
-    template = ../../../makes/skims/repl/entrypoint.sh;
+    template = ../../../makes/skims/bin-repl/entrypoint.sh;
   }

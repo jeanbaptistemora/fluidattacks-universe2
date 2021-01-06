@@ -1,12 +1,12 @@
 common-lint-build-system
 melts-bin
 skims-bin
+skims-bin-repl
 skims-config-python-requirements-development
 skims-config-python-requirements-runtime
 skims-docs-build
 skims-lint
 skims-parsers-antlr
 skims-parsers-babel
-skims-repl
 skims-security
 skims-structure
