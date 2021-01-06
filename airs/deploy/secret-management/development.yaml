@@ -1,5 +1,5 @@
 CLOUDFLARE_ACCOUNT_ID: ENC[AES256_GCM,data:yhryJDQ5Kb7yvN18jV88G7Dzs17w2UuY+bkNxZrKhvM=,iv:FRq4XU/YMU4BoX74vcxWyRubNs0rQqLS6OhBTtgc5L4=,tag:rxa7e97ksElOR4n3Po0qNw==,type:str]
-CLOUDFLARE_API_TOKEN: ENC[AES256_GCM,data:fAm+MWNVBFGMRwrJ8zH8JAQsLkphlcTn7Q/UBp8+4Nzt8aqWoZ5Y9A==,iv:7dH7VJXhaUDwFDFbbq7RPllHwG0sJnWcLfGzfByp3WA=,tag:kys4WvamBYU385144GtL1Q==,type:str]
+CLOUDFLARE_API_TOKEN: ENC[AES256_GCM,data:eQ9zeBDOvW8UWZDDg5uLcmQsKfU7k+MuyAMBOWEIoKEqwEwQ50UvYQ==,iv:Qb14NzrdiuEWBbu1Zjtlh1c0GMOeN+nUjep3pQQW7c0=,tag:JtGiYYBWgoOKN5vKh2RQ/A==,type:str]
 sops:
     kms:
     -   arn: arn:aws:kms:us-east-1:205810638802:alias/web-dev
@@ -9,8 +9,8 @@ sops:
     gcp_kms: []
     azure_kv: []
     hc_vault: []
-    lastmodified: '2020-12-30T20:35:13Z'
-    mac: ENC[AES256_GCM,data:UmgbXx4HjwQ/Gt0hxn4/hqqE3JxII2utFJqAgCukxfrL9Frp2Hs95MBZum7hYJiQe2tM0rzhxfG5Ed9uVhFCjAWNofaHsjvwQbQbOHP44iAXXLruSWu1OgtnlmSjCJMCdIMoxdcnZfvdUth7DkP8QCJAPWpwHQbqF1MDdD6g5kA=,iv:7Z9JYcXHFr9qL0Bo7dsp+zo6bh9hVnlty+II+YYVank=,tag:6kU4kRgXTP7UQNQZR7NwQw==,type:str]
+    lastmodified: '2021-01-06T18:18:10Z'
+    mac: ENC[AES256_GCM,data:ZjMSw6OvPewAo/yPFxT8JZsgUY5cwcdMrNDhxPDQDdHQ/s1ugX6BoWAQhgyJcrj++l86nYWhXLDYCm/Qhe/kqB8PMlmBC5HpgObTGLRV1q8BCDKqfH/SfjKHvyWbRbAqoe2XMOkz4axbyiIxgmPoV/7OQSjkkQ2Ff65GR3TSzHk=,iv:KLM1SLnpVKHxibi9RfXgPrIwuIPW9xoqVK/v2T1m4QM=,tag:XWXAJUiNWBV5E0M312Evmw==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.6.1
