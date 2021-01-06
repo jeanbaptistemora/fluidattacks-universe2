@@ -79,7 +79,7 @@ def _build_ast_graph(
         _graph.add_node(
             n_id,
             label_c=obj.start_point[1],
-            label_l=obj.start_point[0],
+            label_l=obj.start_point[0] + 1,
             label_parent_ast=_parent,
             label_type=obj.type,
         )
