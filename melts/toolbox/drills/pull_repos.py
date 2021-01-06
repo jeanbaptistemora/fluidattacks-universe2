@@ -9,6 +9,7 @@ import urllib.parse
 
 # Third party libraries
 import pathspec
+from pathspec.patterns.gitwildmatch import GitWildMatchPattern
 from git import Repo
 from git.exc import GitError
 
@@ -62,6 +63,18 @@ def get_repo_from_url(url: str) -> str:
     return repo
 
 
+def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
+    matches = []
+    for pattern in patterns:
+        if pattern.include is not None:
+            if file in pattern.match((file, )):
+                matches.append(pattern.include)
+            elif not pattern.include:
+                matches.append(True)
+
+    return all(matches) if matches else False
+
+
 def delete_out_of_scope_files(group: str) -> bool:
     # This entire function should be rewritten:
     #   https://gitlab.com/fluidattacks/product/-/issues/2617#note_474753627
@@ -89,7 +102,7 @@ def delete_out_of_scope_files(group: str) -> bool:
         # Compute what files should be deleted according to the scope rules
         path_to_repo = os.path.join('groups', group, 'fusion', repo_name)
         for path in utils.file.iter_rel_paths(path_to_repo):
-            if spec_ignore.match_file(path):
+            if match_file(spec_ignore.patterns, path):
                 path = os.path.join(path_to_fusion, repo_name, path)
                 if os.path.isfile(path):
                     os.unlink(path)
@@ -160,17 +173,20 @@ def pull_repos_s3_to_fusion(subs: str,
         logger.info(stderr)
         logger.info()
         return False
-    try:
-        for folder in os.listdir(local_path):
-            repo_path = os.path.join(local_path, folder)
+
+    failed = False
+    for folder in os.listdir(local_path):
+        repo_path = os.path.join(local_path, folder)
+        try:
             repo = Repo(repo_path)
             repo.head.reset(working_tree=True, index=True)
-    except GitError as exc:
-        logger.error('Expand repositories has failed:')
-        logger.info(exc)
-        logger.info()
-        return False
-    return True
+        except GitError as exc:
+            logger.error('Expand repositories has failed:')
+            logger.info(f'Repository: {os.path.basename(repo_path)}')
+            logger.info(exc)
+            logger.info()
+            failed = True
+    return not failed
 
 
 @shield(retries=1)
@@ -200,9 +216,10 @@ def main(subs: str, repository_name: str = 'all') -> bool:
             drills_generic.calculate_days_ago(
                 drills_generic.get_last_upload(bucket, f'{subs}/'))
 
-        passed = passed \
-            and pull_repos_s3_to_fusion(subs, local_path, repository_name) \
-            and delete_out_of_scope_files(subs)
+        success_pull = pull_repos_s3_to_fusion(subs, local_path,
+                                               repository_name)
+        success_delete = delete_out_of_scope_files(subs)
+        passed = passed and success_pull and success_delete
 
         logger.info(f'Data for {subs} was uploaded to S3 {days} days ago')
 
