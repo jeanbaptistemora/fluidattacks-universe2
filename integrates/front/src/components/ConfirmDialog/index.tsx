@@ -1,9 +1,9 @@
 import { Button } from "components/Button";
-import { ButtonToolbar } from "styles/styledComponents";
 import { Modal } from "components/Modal";
 import React from "react";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 
 interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
@@ -63,14 +63,18 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
             <p key={line}>{line}</p>
           )
         )}
-        <ButtonToolbar>
-          <Button id={"confirmmodal-cancel"} onClick={handleClose}>
-            {translate.t("confirmmodal.cancel")}
-          </Button>
-          <Button id={"confirmmodal-proceed"} onClick={handleProceed}>
-            {translate.t("confirmmodal.proceed")}
-          </Button>
-        </ButtonToolbar>
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button id={"confirmmodal-cancel"} onClick={handleClose}>
+                {translate.t("confirmmodal.cancel")}
+              </Button>
+              <Button id={"confirmmodal-proceed"} onClick={handleProceed}>
+                {translate.t("confirmmodal.proceed")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
       </Modal>
       {children(confirm)}
     </React.Fragment>

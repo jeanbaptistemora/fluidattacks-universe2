@@ -360,10 +360,14 @@ const findingContent: React.FC = (): JSX.Element => {
               <option value="NOT_REQUIRED">{translate.t("search_findings.delete.justif.not_required")}</option>
             </Field>
           </FormGroup>
-          <ButtonToolbar>
-            <Button onClick={closeDeleteModal}>{translate.t("confirmmodal.cancel")}</Button>
-            <Button type="submit">{translate.t("confirmmodal.proceed")}</Button>
-          </ButtonToolbar>
+          <Row>
+            <Col100>
+              <ButtonToolbar>
+                <Button onClick={closeDeleteModal}>{translate.t("confirmmodal.cancel")}</Button>
+                <Button type="submit">{translate.t("confirmmodal.proceed")}</Button>
+              </ButtonToolbar>
+            </Col100>
+          </Row>
         </GenericForm>
       </Modal>
     </React.StrictMode>
