@@ -56,26 +56,13 @@ def _propagate_next_id_from_parent(
         _set_next_id(stack, default_id)
 
 
-def _block(
-    graph: nx.DiGraph,
-    n_id: str,
-    stack: Stack,
-) -> None:
-    c_id = g.adj_ast(graph, n_id)[1]
-    graph.add_edge(n_id, c_id, **ALWAYS)
-
-    # Recurse
-    _propagate_next_id_from_parent(stack)
-    _generic(graph, c_id, stack, edge_attrs=ALWAYS)
-
-
-def _block_statements(
+def _step_by_step(
     graph: nx.DiGraph,
     n_id: str,
     stack: Stack,
 ) -> None:
     # Statements = step1 step2 ...
-    stmt_ids = g.adj_ast(graph, n_id)
+    stmt_ids = g.adj_ast(graph, n_id)[1:-1]
 
     # Walk the Statements
     for first, last, (stmt_a_id, stmt_b_id) in mark_ends(pairwise(stmt_ids)):
@@ -92,14 +79,6 @@ def _block_statements(
             if _get_next_id(stack):
                 _propagate_next_id_from_parent(stack)
             _generic(graph, stmt_b_id, stack, edge_attrs=ALWAYS)
-
-
-def _expression_statements(
-    graph: nx.DiGraph,
-    n_id: str,
-    stack: Stack,
-) -> None:
-    _block_statements(graph, n_id, stack)
 
 
 def _loop_statement(
@@ -231,18 +210,16 @@ def _generic(
     stack.append(dict(type=n_attrs_label_type))
 
     for types, walker in (
-        ({'block'},
-         _block),
+        ({'block',
+          'expression_statement'},
+         _step_by_step),
         ({'method_declaration'},
          _method_declaration),
+
         ({'BasicForStatement',
           'EnhancedForStatement',
           'WhileStatement'},
          _loop_statement),
-        ({'BlockStatements'},
-         _block_statements),
-        ({'ExpressionStatements'},
-         _expression_statements),
         ({'IfThenStatement',
           'IfThenElseStatement'},
          _if_statement),

@@ -33,8 +33,8 @@ from utils.ctx import (
     TREE_SITTER_JAVA,
 )
 from utils.graph import (
-    copy_ast2,
-    copy_cfg2,
+    copy_ast,
+    copy_cfg,
     to_svg,
 )
 from utils.string import (
@@ -129,7 +129,7 @@ def parse(
     if CTX.debug:
         output = get_debug_path('tree-sitter-' + path)
         to_svg(graph, output)
-        to_svg(copy_ast2(graph), f'{output}.ast')
-        to_svg(copy_cfg2(graph), f'{output}.cfg')
+        to_svg(copy_ast(graph), f'{output}.ast')
+        to_svg(copy_cfg(graph), f'{output}.cfg')
 
     return graph

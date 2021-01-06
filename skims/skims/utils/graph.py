@@ -2,6 +2,7 @@
 from itertools import (
     product,
 )
+import os
 from typing import (
     Any,
     Dict,
@@ -41,6 +42,7 @@ def to_svg(graph: nx.DiGraph, path: str) -> bool:
     code, stdout, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
 
     if code == 0:
+        os.unlink(path)
         return True
 
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
@@ -373,24 +375,10 @@ def copy_ast(graph: nx.DiGraph) -> nx.DiGraph:
     )
 
 
-def copy_ast2(graph: nx.DiGraph) -> nx.DiGraph:
-    return _get_subgraph(
-        graph=graph,
-        edge_predicate=pred_has_labels(type='AST'),
-    )
-
-
 def copy_cfg(graph: nx.DiGraph) -> nx.DiGraph:
     return _get_subgraph(
         graph=graph,
         edge_predicate=pred_has_labels(label_cfg='CFG'),
-    )
-
-
-def copy_cfg2(graph: nx.DiGraph) -> nx.DiGraph:
-    return _get_subgraph(
-        graph=graph,
-        edge_predicate=pred_has_labels(type='CFG'),
     )
 
 

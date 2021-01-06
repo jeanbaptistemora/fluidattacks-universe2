@@ -179,8 +179,6 @@
       },
       "37": {
         "label_ast": "AST",
-        "label_cfg": "CFG",
-        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "75": {
