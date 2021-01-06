@@ -187,3 +187,10 @@ def get_debug_path(path: str) -> str:
         'test/outputs',
         os.path.relpath(path).replace('/', '__').replace('.', '_'),
     )
+
+
+def get_debug_path2(path: str) -> str:
+    return os.path.join(
+        'skims/test/outputs',
+        os.path.relpath(path).replace('/', '__').replace('.', '_'),
+    )

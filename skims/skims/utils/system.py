@@ -1,12 +1,37 @@
 # Standard library
 import asyncio
 import os
+import subprocess  # nosec
 from typing import (
     Any,
     Dict,
     Optional,
     Tuple,
 )
+
+
+def call_blocking(
+    binary: str,
+    *binary_args: str,
+    cwd: Optional[str] = None,
+    env: Optional[Dict[str, str]] = None,
+    stdin: int = subprocess.DEVNULL,
+    stdout: int = subprocess.PIPE,
+    stderr: int = subprocess.PIPE,
+    **kwargs: Any,
+) -> subprocess.Popen:
+    return subprocess.Popen(  # nosec
+        [binary, *binary_args],
+        cwd=cwd,
+        env={
+            **os.environ.copy(),
+            **(env or {}),
+        },
+        stderr=stderr,
+        stdin=stdin,
+        stdout=stdout,
+        **kwargs,
+    )
 
 
 async def call(
@@ -34,6 +59,37 @@ async def call(
     )
 
     return process
+
+
+def read_blocking(
+    binary: str,
+    *binary_args: str,
+    cwd: Optional[str] = None,
+    env: Optional[Dict[str, str]] = None,
+    stdin_bytes: Optional[bytes] = None,
+    stdout: int = subprocess.PIPE,
+    stderr: int = subprocess.PIPE,
+    **kwargs: Any,
+) -> Tuple[int, bytes, bytes]:
+    process = call_blocking(
+        binary,
+        *binary_args,
+        cwd=cwd,
+        env=env,
+        stdin=(
+            subprocess.DEVNULL
+            if stdin_bytes is None
+            else subprocess.PIPE
+        ),
+        stdout=stdout,
+        stderr=stderr,
+        **kwargs,
+    )
+
+    out, err = process.communicate(input=stdin_bytes)
+    code = process.returncode
+
+    return code, out, err
 
 
 async def read(
