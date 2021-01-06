@@ -68,7 +68,7 @@ a|==== Method
 
 a|==== link:../../blog/importance-pentesting/#diagram[Correlation of attacks]
 | By combining vulnerabilities A and B, we discover a new,
-higher impact vulnerability C, which may compromise more registers.
+higher impact vulnerability C, which may compromise more records.
 | They do not achieve that correlation.
 
 a|==== Safe mode
