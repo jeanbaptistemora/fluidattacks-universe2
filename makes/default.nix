@@ -38,6 +38,8 @@ flake.lib.eachDefaultSystem (
             melts-bin = import ../makes/melts/bin attrs;
             skims-bin = import ../makes/skims/bin attrs;
             skims-bin-repl =  import ../makes/skims/bin-repl attrs;
+            skims-config-setup-skims-development = (import ../makes/skims/config attrs).setupSkimsDevelopment;
+            skims-config-setup-skims-runtime = (import ../makes/skims/config attrs).setupSkimsRuntime;
             skims-config-python-requirements-development = import ../makes/skims/config/python-requirements/development attrs;
             skims-config-python-requirements-runtime = import ../makes/skims/config/python-requirements/runtime attrs;
             skims-docs-build = import ../makes/skims/docs/build attrs;
