@@ -179,6 +179,8 @@
       },
       "37": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "75": {
@@ -193,6 +195,8 @@
       },
       "39": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "64": {
@@ -207,16 +211,24 @@
       },
       "41": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "63": {
         "label_ast": "AST",
         "label_index": 2
+      },
+      "64": {
+        "label_cfg": "CFG",
+        "label_cfg_maybe": "cfg_maybe"
       }
     },
     "41": {
       "42": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 0
       },
       "62": {
@@ -240,6 +252,10 @@
       "49": {
         "label_ast": "AST",
         "label_index": 3
+      },
+      "62": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "43": {

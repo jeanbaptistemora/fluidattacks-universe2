@@ -68,21 +68,22 @@ def _step_by_step(
     if graph.nodes[n_id]['label_type'] == 'block':
         stmt_ids = stmt_ids[1:-1]
 
-    # Walk the Statements
-    for first, last, (stmt_a_id, stmt_b_id) in mark_ends(pairwise(stmt_ids)):
-        if first:
-            # Link Block to first Statement
-            graph.add_edge(n_id, stmt_a_id, **ALWAYS)
+    if not stmt_ids:
+        return
 
+    # Link to the first statement in the block
+    graph.add_edge(n_id, stmt_ids[0], **ALWAYS)
+
+    # Walk pairs of elements
+    for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
         # Mark as next_id the next statement in chain
         _set_next_id(stack, stmt_b_id)
         _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
 
-        # Follow the parent next_id if exists
-        if last:
-            if _get_next_id(stack):
-                _propagate_next_id_from_parent(stack)
-            _generic(graph, stmt_b_id, stack, edge_attrs=ALWAYS)
+    # Link recursively the last statement in the block
+    if _get_next_id(stack):
+        _propagate_next_id_from_parent(stack)
+    _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 
 def _loop_statement(
