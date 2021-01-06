@@ -62,7 +62,11 @@ def _step_by_step(
     stack: Stack,
 ) -> None:
     # Statements = step1 step2 ...
-    stmt_ids = g.adj_ast(graph, n_id)[1:-1]
+    stmt_ids = g.adj_ast(graph, n_id)
+
+    # Skip { }
+    if graph.nodes[n_id]['label_type'] == 'block':
+        stmt_ids = stmt_ids[1:-1]
 
     # Walk the Statements
     for first, last, (stmt_a_id, stmt_b_id) in mark_ends(pairwise(stmt_ids)):
@@ -161,14 +165,14 @@ def _try_statement(
         c_attrs_label_type = graph.nodes[c_id]['label_type']
         if c_attrs_label_type == 'try':
             pass
-        elif c_attrs_label_type == 'block':
+        elif c_attrs_label_type in {
+            'block',
+            'finally_clause',
+            'resource_specification',
+        }:
             children_stack.append((c_id, ALWAYS))
         elif c_attrs_label_type == 'catch_clause':
             children_stack.append((c_id, MAYBE))
-        elif c_attrs_label_type == 'finally_clause':
-            children_stack.append((c_id, ALWAYS))
-        elif c_attrs_label_type == 'resource_specification':
-            children_stack.append((c_id, ALWAYS))
         else:
             raise NotImplementedError()
 
@@ -179,6 +183,8 @@ def _try_statement(
         p_id = c_id
 
         # Link child block recursively
+        if _get_next_id(stack):
+            _propagate_next_id_from_parent(stack)
         _generic(graph, c_id, stack, edge_attrs=edge_attrs)
 
         # If this is the last block and we should link to a next_id, do it
@@ -204,6 +210,10 @@ def _generic(
         ({'block',
           'expression_statement'},
          _step_by_step),
+        ({'for_statement',
+          'enhanced_for_statement',
+          'while_statement'},
+         _loop_statement),
         ({'if_statement'},
          _if_statement),
         ({'method_declaration'},
@@ -211,11 +221,6 @@ def _generic(
         ({'try_statement',
           'try_with_resources_statement'},
          _try_statement),
-
-        ({'for_statement',
-          'enhanced_for_statement',
-          'while_statement'},
-         _loop_statement),
     ):
         if n_attrs_label_type in types:
             walker(graph, n_id, stack)
