@@ -94,6 +94,7 @@ skims-structure:
 
 skims-test-functional:
   <<: *skims-test
+  <<: *skims_in_master_branch
 
 skims-test-unittesting:
   <<: *skims-test

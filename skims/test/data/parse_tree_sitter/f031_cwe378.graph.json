@@ -378,6 +378,7 @@
       "label_c": 0,
       "label_l": 0,
       "label_parent_ast": 2,
+      "label_text": "import",
       "label_type": "import"
     },
     "4": {
@@ -396,36 +397,42 @@
       "label_c": 7,
       "label_l": 0,
       "label_parent_ast": 5,
+      "label_text": "java",
       "label_type": "identifier"
     },
     "7": {
       "label_c": 11,
       "label_l": 0,
       "label_parent_ast": 5,
+      "label_text": ".",
       "label_type": "."
     },
     "8": {
       "label_c": 12,
       "label_l": 0,
       "label_parent_ast": 5,
+      "label_text": "io",
       "label_type": "identifier"
     },
     "9": {
       "label_c": 14,
       "label_l": 0,
       "label_parent_ast": 4,
+      "label_text": ".",
       "label_type": "."
     },
     "10": {
       "label_c": 15,
       "label_l": 0,
       "label_parent_ast": 4,
+      "label_text": "File",
       "label_type": "identifier"
     },
     "11": {
       "label_c": 19,
       "label_l": 0,
       "label_parent_ast": 2,
+      "label_text": ";",
       "label_type": ";"
     },
     "12": {
@@ -444,18 +451,21 @@
       "label_c": 0,
       "label_l": 2,
       "label_parent_ast": 13,
+      "label_text": "public",
       "label_type": "public"
     },
     "15": {
       "label_c": 7,
       "label_l": 2,
       "label_parent_ast": 12,
+      "label_text": "class",
       "label_type": "class"
     },
     "16": {
       "label_c": 13,
       "label_l": 2,
       "label_parent_ast": 12,
+      "label_text": "Test",
       "label_type": "identifier"
     },
     "17": {
@@ -468,6 +478,7 @@
       "label_c": 18,
       "label_l": 2,
       "label_parent_ast": 17,
+      "label_text": "{",
       "label_type": "{"
     },
     "19": {
@@ -486,24 +497,28 @@
       "label_c": 4,
       "label_l": 3,
       "label_parent_ast": 20,
+      "label_text": "public",
       "label_type": "public"
     },
     "22": {
       "label_c": 11,
       "label_l": 3,
       "label_parent_ast": 20,
+      "label_text": "static",
       "label_type": "static"
     },
     "23": {
       "label_c": 18,
       "label_l": 3,
       "label_parent_ast": 19,
+      "label_text": "void",
       "label_type": "void_type"
     },
     "24": {
       "label_c": 23,
       "label_l": 3,
       "label_parent_ast": 19,
+      "label_text": "main",
       "label_type": "identifier"
     },
     "25": {
@@ -516,6 +531,7 @@
       "label_c": 27,
       "label_l": 3,
       "label_parent_ast": 25,
+      "label_text": "(",
       "label_type": "("
     },
     "27": {
@@ -534,6 +550,7 @@
       "label_c": 28,
       "label_l": 3,
       "label_parent_ast": 28,
+      "label_text": "String",
       "label_type": "type_identifier"
     },
     "30": {
@@ -546,24 +563,28 @@
       "label_c": 34,
       "label_l": 3,
       "label_parent_ast": 30,
+      "label_text": "[",
       "label_type": "["
     },
     "32": {
       "label_c": 35,
       "label_l": 3,
       "label_parent_ast": 30,
+      "label_text": "]",
       "label_type": "]"
     },
     "33": {
       "label_c": 37,
       "label_l": 3,
       "label_parent_ast": 27,
+      "label_text": "args",
       "label_type": "identifier"
     },
     "34": {
       "label_c": 41,
       "label_l": 3,
       "label_parent_ast": 25,
+      "label_text": ")",
       "label_type": ")"
     },
     "35": {
@@ -576,6 +597,7 @@
       "label_c": 42,
       "label_l": 3,
       "label_parent_ast": 35,
+      "label_text": "{",
       "label_type": "{"
     },
     "37": {
@@ -588,6 +610,7 @@
       "label_c": 8,
       "label_l": 4,
       "label_parent_ast": 37,
+      "label_text": "try",
       "label_type": "try"
     },
     "39": {
@@ -600,6 +623,7 @@
       "label_c": 12,
       "label_l": 4,
       "label_parent_ast": 39,
+      "label_text": "{",
       "label_type": "{"
     },
     "41": {
@@ -624,30 +648,35 @@
       "label_c": 8,
       "label_l": 5,
       "label_parent_ast": 43,
+      "label_text": "System",
       "label_type": "identifier"
     },
     "45": {
       "label_c": 14,
       "label_l": 5,
       "label_parent_ast": 43,
+      "label_text": ".",
       "label_type": "."
     },
     "46": {
       "label_c": 15,
       "label_l": 5,
       "label_parent_ast": 43,
+      "label_text": "out",
       "label_type": "identifier"
     },
     "47": {
       "label_c": 18,
       "label_l": 5,
       "label_parent_ast": 42,
+      "label_text": ".",
       "label_type": "."
     },
     "48": {
       "label_c": 19,
       "label_l": 5,
       "label_parent_ast": 42,
+      "label_text": "println",
       "label_type": "identifier"
     },
     "49": {
@@ -660,6 +689,7 @@
       "label_c": 26,
       "label_l": 5,
       "label_parent_ast": 49,
+      "label_text": "(",
       "label_type": "("
     },
     "51": {
@@ -672,18 +702,21 @@
       "label_c": 27,
       "label_l": 5,
       "label_parent_ast": 51,
+      "label_text": "File",
       "label_type": "identifier"
     },
     "53": {
       "label_c": 31,
       "label_l": 5,
       "label_parent_ast": 51,
+      "label_text": ".",
       "label_type": "."
     },
     "54": {
       "label_c": 32,
       "label_l": 5,
       "label_parent_ast": 51,
+      "label_text": "createTempFile",
       "label_type": "identifier"
     },
     "55": {
@@ -696,48 +729,56 @@
       "label_c": 46,
       "label_l": 5,
       "label_parent_ast": 55,
+      "label_text": "(",
       "label_type": "("
     },
     "57": {
       "label_c": 47,
       "label_l": 5,
       "label_parent_ast": 55,
+      "label_text": "\"xxx\"",
       "label_type": "string_literal"
     },
     "58": {
       "label_c": 52,
       "label_l": 5,
       "label_parent_ast": 55,
+      "label_text": ",",
       "label_type": ","
     },
     "59": {
       "label_c": 54,
       "label_l": 5,
       "label_parent_ast": 55,
+      "label_text": "null",
       "label_type": "null_literal"
     },
     "60": {
       "label_c": 58,
       "label_l": 5,
       "label_parent_ast": 55,
+      "label_text": ")",
       "label_type": ")"
     },
     "61": {
       "label_c": 59,
       "label_l": 5,
       "label_parent_ast": 49,
+      "label_text": ")",
       "label_type": ")"
     },
     "62": {
       "label_c": 60,
       "label_l": 5,
       "label_parent_ast": 41,
+      "label_text": ";",
       "label_type": ";"
     },
     "63": {
       "label_c": 8,
       "label_l": 6,
       "label_parent_ast": 39,
+      "label_text": "}",
       "label_type": "}"
     },
     "64": {
@@ -750,12 +791,14 @@
       "label_c": 10,
       "label_l": 6,
       "label_parent_ast": 64,
+      "label_text": "catch",
       "label_type": "catch"
     },
     "66": {
       "label_c": 16,
       "label_l": 6,
       "label_parent_ast": 64,
+      "label_text": "(",
       "label_type": "("
     },
     "67": {
@@ -774,18 +817,21 @@
       "label_c": 17,
       "label_l": 6,
       "label_parent_ast": 68,
+      "label_text": "Exception",
       "label_type": "type_identifier"
     },
     "70": {
       "label_c": 27,
       "label_l": 6,
       "label_parent_ast": 67,
+      "label_text": "e",
       "label_type": "identifier"
     },
     "71": {
       "label_c": 28,
       "label_l": 6,
       "label_parent_ast": 64,
+      "label_text": ")",
       "label_type": ")"
     },
     "72": {
@@ -798,30 +844,35 @@
       "label_c": 30,
       "label_l": 6,
       "label_parent_ast": 72,
+      "label_text": "{",
       "label_type": "{"
     },
     "74": {
       "label_c": 31,
       "label_l": 6,
       "label_parent_ast": 72,
+      "label_text": "}",
       "label_type": "}"
     },
     "75": {
       "label_c": 4,
       "label_l": 7,
       "label_parent_ast": 35,
+      "label_text": "}",
       "label_type": "}"
     },
     "76": {
       "label_c": 0,
       "label_l": 8,
       "label_parent_ast": 17,
+      "label_text": "}",
       "label_type": "}"
     },
     "77": {
       "label_c": 0,
       "label_l": 10,
       "label_parent_ast": 1,
+      "label_text": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
       "label_type": "comment"
     }
   }

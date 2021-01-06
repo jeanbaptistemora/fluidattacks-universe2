@@ -55,6 +55,7 @@ PARSER_JAVA.set_language(Language(LANGUAGES_SO, 'java'))
 
 
 def _build_ast_graph(
+    content: bytes,
     obj: Any,
     *,
     _counter: Optional[Iterator[int]] = None,
@@ -67,7 +68,7 @@ def _build_ast_graph(
     _graph = nx.DiGraph() if _graph is None else _graph
 
     if isinstance(obj, Tree):
-        _graph = _build_ast_graph(obj.root_node)
+        _graph = _build_ast_graph(content, obj.root_node)
 
     elif isinstance(obj, Node):
         if obj.has_error:
@@ -83,6 +84,12 @@ def _build_ast_graph(
             label_type=obj.type,
         )
 
+        if not obj.children:
+            _graph.nodes[n_id]['label_text'] = content[
+                obj.start_byte:
+                obj.end_byte
+            ].decode('latin-1')
+
         if _parent is not None:
             _graph.add_edge(
                 _parent,
@@ -93,6 +100,7 @@ def _build_ast_graph(
 
         for edge_index, child in enumerate(obj.children):
             _build_ast_graph(
+                content,
                 child,
                 _counter=_counter,
                 _edge_index=edge_index,
@@ -114,7 +122,7 @@ def parse(
 ) -> nx.DiGraph:
     raw_tree: Tree = parser.parse(content)
 
-    graph: nx.DiGraph = _build_ast_graph(raw_tree)
+    graph: nx.DiGraph = _build_ast_graph(content, raw_tree)
     add_control_flow(graph)
     add_styles(graph)
 
