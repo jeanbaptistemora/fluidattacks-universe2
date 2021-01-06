@@ -14,6 +14,7 @@ import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
 import {
   ButtonToolbar,
+  Col100,
   ControlLabel,
   FormGroup,
   Row,
@@ -144,15 +145,17 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
                 />
               </TooltipWrapper>
             </FormGroup>
+            <Col100>
+              <ButtonToolbar>
+                <Button onClick={onClose}>
+                  {translate.t("confirmmodal.cancel")}
+                </Button>
+                <Button disabled={loading || submitting} type={"submit"}>
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ButtonToolbar>
+            </Col100>
           </Row>
-          <ButtonToolbar>
-            <Button onClick={onClose}>
-              {translate.t("confirmmodal.cancel")}
-            </Button>
-            <Button disabled={loading || submitting} type={"submit"}>
-              {translate.t("confirmmodal.proceed")}
-            </Button>
-          </ButtonToolbar>
         </GenericForm>
       </Modal>
     </React.StrictMode>

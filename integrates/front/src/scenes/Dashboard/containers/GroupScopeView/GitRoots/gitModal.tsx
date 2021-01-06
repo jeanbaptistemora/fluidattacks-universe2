@@ -10,8 +10,10 @@ import { useTranslation } from "react-i18next";
 import { ArrayField, Checkbox, Text } from "utils/forms/fields";
 import {
   ButtonToolbar,
+  Col100,
   ControlLabel,
   RequiredField,
+  Row,
 } from "styles/styledComponents";
 import { Field, FormSection } from "redux-form";
 import { checked, excludeFormat, required } from "utils/validations";
@@ -185,16 +187,20 @@ const GitModal: React.FC<IGitModalProps> = ({
                 </FormSection>
               </Can>
             </React.Fragment>
-            <ButtonToolbar>
-              <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
-              <Button
-                disabled={pristine || submitting}
-                id={"git-root-add-proceed"}
-                type={"submit"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ButtonToolbar>
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
+                  <Button
+                    disabled={pristine || submitting}
+                    id={"git-root-add-proceed"}
+                    type={"submit"}
+                  >
+                    {t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
           </React.Fragment>
         )}
       </GenericForm>

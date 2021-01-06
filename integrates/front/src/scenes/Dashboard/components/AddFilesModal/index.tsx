@@ -7,7 +7,12 @@ import { Modal } from "components/Modal";
 import React from "react";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
 import { translate } from "utils/translations/translate";
-import { ButtonToolbar, RequiredField } from "styles/styledComponents";
+import {
+  ButtonToolbar,
+  Col100,
+  RequiredField,
+  Row,
+} from "styles/styledComponents";
 import { FileInput, TextArea } from "utils/forms/fields";
 import type { InjectedFormProps, Validator } from "redux-form";
 import {
@@ -74,22 +79,26 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
               </div>
               {isUploading ? renderUploadBar(props) : undefined}
               <br />
-              <ButtonToolbar>
-                <Button
-                  disabled={isUploading}
-                  id={"file-add-cancel"}
-                  onClick={onClose}
-                >
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={pristine || isUploading}
-                  id={"file-add-proceed"}
-                  type={"submit"}
-                >
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
+              <Row>
+                <Col100>
+                  <ButtonToolbar>
+                    <Button
+                      disabled={isUploading}
+                      id={"file-add-cancel"}
+                      onClick={onClose}
+                    >
+                      {translate.t("confirmmodal.cancel")}
+                    </Button>
+                    <Button
+                      disabled={pristine || isUploading}
+                      id={"file-add-proceed"}
+                      type={"submit"}
+                    >
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
+                </Col100>
+              </Row>
             </React.Fragment>
           )}
         </GenericForm>

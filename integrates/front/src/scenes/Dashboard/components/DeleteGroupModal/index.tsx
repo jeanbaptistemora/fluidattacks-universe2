@@ -10,8 +10,10 @@ import { translate } from "utils/translations/translate";
 import {
   Alert,
   ButtonToolbar,
+  Col100,
   ControlLabel,
   FormGroup,
+  Row,
 } from "styles/styledComponents";
 
 interface IDeleteGroupModalProps {
@@ -81,18 +83,22 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   validate={required}
                 />
               </FormGroup>
-              <ButtonToolbar>
-                <Button onClick={onClose}>
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!valid}
-                  onClick={handleSubmit}
-                  type={"submit"}
-                >
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
+              <Row>
+                <Col100>
+                  <ButtonToolbar>
+                    <Button onClick={onClose}>
+                      {translate.t("confirmmodal.cancel")}
+                    </Button>
+                    <Button
+                      disabled={!valid}
+                      onClick={handleSubmit}
+                      type={"submit"}
+                    >
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
+                </Col100>
+              </Row>
             </React.Fragment>
           )}
         </GenericForm>

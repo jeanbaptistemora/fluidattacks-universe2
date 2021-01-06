@@ -423,21 +423,25 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                             "organization.tabs.groups.newGroup.extra_charges_may_apply"
                           )}
                           <br />
-                          <ButtonToolbar>
-                            <Button
-                              id={"add-group-cancel"}
-                              onClick={closeNewProjectModal}
-                            >
-                              {translate.t("confirmmodal.cancel")}
-                            </Button>
-                            <Button
-                              disabled={pristine || submitting}
-                              id={"add-group-proceed"}
-                              type={"submit"}
-                            >
-                              {translate.t("confirmmodal.proceed")}
-                            </Button>
-                          </ButtonToolbar>
+                          <Row>
+                            <Col100>
+                              <ButtonToolbar>
+                                <Button
+                                  id={"add-group-cancel"}
+                                  onClick={closeNewProjectModal}
+                                >
+                                  {translate.t("confirmmodal.cancel")}
+                                </Button>
+                                <Button
+                                  disabled={pristine || submitting}
+                                  id={"add-group-proceed"}
+                                  type={"submit"}
+                                >
+                                  {translate.t("confirmmodal.proceed")}
+                                </Button>
+                              </ButtonToolbar>
+                            </Col100>
+                          </Row>
                         </React.Fragment>
                       )}
                     </GenericForm>

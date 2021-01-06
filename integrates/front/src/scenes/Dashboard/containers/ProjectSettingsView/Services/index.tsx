@@ -29,7 +29,7 @@ import {
   IServicesDataSet,
   IServicesProps,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
-import { Alert, ButtonToolbar, Col80, ControlLabel, FormGroup, Row, Well } from "styles/styledComponents";
+import { Alert, ButtonToolbar, Col100, Col80, ControlLabel, FormGroup, Row, Well } from "styles/styledComponents";
 import { Dropdown, SwitchButton, Text, TextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -292,11 +292,15 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 *   this way the button does not twinkle and is visually stable
                 */}
               {pristine || loadingGroupData || submittingGroupData ? undefined : (
-                <ButtonToolbar>
-                  <Button onClick={handleTblButtonClick}>
-                    {translate.t("search_findings.services_table.modal.continue")}
-                  </Button>
-                </ButtonToolbar>
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button onClick={handleTblButtonClick}>
+                        {translate.t("search_findings.services_table.modal.continue")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
               )}
               <Modal
                 headerTitle={translate.t("search_findings.services_table.modal.title")}
@@ -354,16 +358,20 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 <Alert>
                   * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
                 </Alert>
-                <ButtonToolbar>
-                  <Button onClick={handleClose}>{translate.t("confirmmodal.cancel")}</Button>
-                  <Button
-                    disabled={!valid}
-                    onClick={handleSubmit}
-                    type="submit"
-                  >
-                    {translate.t("confirmmodal.proceed")}
-                  </Button>
-                </ButtonToolbar>
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button onClick={handleClose}>{translate.t("confirmmodal.cancel")}</Button>
+                      <Button
+                        disabled={!valid}
+                        onClick={handleSubmit}
+                        type="submit"
+                      >
+                        {translate.t("confirmmodal.proceed")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
               </Modal>
             </React.Fragment>
           )}

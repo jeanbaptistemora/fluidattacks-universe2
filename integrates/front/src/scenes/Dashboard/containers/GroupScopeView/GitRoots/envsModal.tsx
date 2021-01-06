@@ -10,8 +10,10 @@ import { useTranslation } from "react-i18next";
 import { ArrayField, Text } from "utils/forms/fields";
 import {
   ButtonToolbar,
+  Col100,
   ControlLabel,
   RequiredField,
+  Row,
 } from "styles/styledComponents";
 
 interface IEnvsModalProps {
@@ -54,12 +56,16 @@ const EnvsModal: React.FC<IEnvsModalProps> = ({
                 />
               )}
             </ArrayField>
-            <ButtonToolbar>
-              <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
-              <Button disabled={pristine || submitting} type={"submit"}>
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ButtonToolbar>
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
+                  <Button disabled={pristine || submitting} type={"submit"}>
+                    {t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
           </React.Fragment>
         )}
       </GenericForm>

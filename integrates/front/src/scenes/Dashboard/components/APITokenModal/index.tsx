@@ -148,22 +148,24 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                   </ControlLabel>
                 </Col100>
               )}
+              <Col100>
+                <ButtonToolbarLeft>
+                  {!submitSucceeded && hasAPIToken && (
+                    <Button onClick={handleInvalidateAPIToken}>
+                      {translate.t("update_access_token.invalidate")}
+                    </Button>
+                  )}
+                </ButtonToolbarLeft>
+                <ButtonToolbar>
+                  <Button onClick={onClose}>
+                    {translate.t("update_access_token.close")}
+                  </Button>
+                  <Button disabled={hasAPIToken} type={"submit"}>
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
             </Row>
-            <ButtonToolbarLeft>
-              {!submitSucceeded && hasAPIToken && (
-                <Button onClick={handleInvalidateAPIToken}>
-                  {translate.t("update_access_token.invalidate")}
-                </Button>
-              )}
-            </ButtonToolbarLeft>
-            <ButtonToolbar>
-              <Button onClick={onClose}>
-                {translate.t("update_access_token.close")}
-              </Button>
-              <Button disabled={hasAPIToken} type={"submit"}>
-                {translate.t("confirmmodal.proceed")}
-              </Button>
-            </ButtonToolbar>
           </React.Fragment>
         )}
       </GenericForm>
