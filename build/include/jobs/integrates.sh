@@ -409,7 +409,6 @@ function job_integrates_reset {
     'lambda/.venv.*'
     'mobile/.expo/'
     'mobile/google-services.json'
-    'skims/coverage'
     'TEMP_FD'
     'version.txt'
     '*.xlsx'
