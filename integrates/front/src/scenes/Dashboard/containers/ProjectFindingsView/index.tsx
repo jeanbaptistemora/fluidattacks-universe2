@@ -404,11 +404,15 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     </Row>
                   </Col100>
                 </Row>
-                <ButtonToolbar>
-                  <Button onClick={closeReportsModal}>
-                    {translate.t("group.findings.report.modal_close")}
-                  </Button>
-                </ButtonToolbar>
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button onClick={closeReportsModal}>
+                        {translate.t("group.findings.report.modal_close")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
               </Modal>
           </React.StrictMode>
         );

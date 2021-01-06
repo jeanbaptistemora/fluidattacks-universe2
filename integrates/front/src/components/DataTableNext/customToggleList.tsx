@@ -14,6 +14,7 @@ import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import {
   ButtonToolbar,
+  Col100,
   ControlLabel,
   Row,
   RowCenter,
@@ -89,11 +90,15 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
               )}
           </div>
         </RowCenter>
-        <ButtonToolbar>
-          <Button onClick={handleCloseTableSetClick}>
-            {t("group.findings.report.modal_close")}
-          </Button>
-        </ButtonToolbar>
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button onClick={handleCloseTableSetClick}>
+                {t("group.findings.report.modal_close")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
       </Modal>
     </div>
   );

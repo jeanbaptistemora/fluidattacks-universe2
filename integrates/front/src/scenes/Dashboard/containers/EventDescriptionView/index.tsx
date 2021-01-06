@@ -23,6 +23,7 @@ import {
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import {
   ButtonToolbar,
+  Col100,
   Col50,
   ControlLabel,
   FormGroup,
@@ -134,15 +135,17 @@ const eventDescriptionView: React.FC = (): JSX.Element => {
                                   />
                                 </FormGroup>
                               </Col50>
+                              <Col100>
+                                <ButtonToolbar>
+                                  <Button onClick={closeSolvingModal}>
+                                    {translate.t("confirmmodal.cancel")}
+                                  </Button>
+                                  <Button type="submit" disabled={pristine || submitting}>
+                                    {translate.t("confirmmodal.proceed")}
+                                  </Button>
+                                </ButtonToolbar>
+                            </Col100>
                             </Row>
-                            <ButtonToolbar>
-                              <Button onClick={closeSolvingModal}>
-                                {translate.t("confirmmodal.cancel")}
-                              </Button>
-                              <Button type="submit" disabled={pristine || submitting}>
-                                {translate.t("confirmmodal.proceed")}
-                              </Button>
-                            </ButtonToolbar>
                           </React.Fragment>
                         )}
                       </GenericForm>

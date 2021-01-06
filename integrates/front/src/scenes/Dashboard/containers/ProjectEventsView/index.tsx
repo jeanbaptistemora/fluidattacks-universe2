@@ -540,15 +540,17 @@ const projectEventsView: React.FC = (): JSX.Element => {
                                     />
                                   </FormGroup>
                                 </Col50>
+                                <Col100>
+                                  <ButtonToolbar>
+                                    <Button onClick={closeNewEventModal}>
+                                      {translate.t("confirmmodal.cancel")}
+                                    </Button>
+                                    <Button type="submit" disabled={pristine || mtResult.loading}>
+                                      {translate.t("confirmmodal.proceed")}
+                                    </Button>
+                                  </ButtonToolbar>
+                                </Col100>
                               </Row>
-                              <ButtonToolbar>
-                                <Button onClick={closeNewEventModal}>
-                                  {translate.t("confirmmodal.cancel")}
-                                </Button>
-                                <Button type="submit" disabled={pristine || mtResult.loading}>
-                                  {translate.t("confirmmodal.proceed")}
-                                </Button>
-                              </ButtonToolbar>
                             </React.Fragment>
                           )}
                         </GenericForm>

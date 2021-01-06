@@ -246,14 +246,18 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                                 </Col100>
                               </Row>
                               <br />
-                              <ButtonToolbar>
-                                <Button onClick={closeNewDraftModal}>
-                                  {translate.t("confirmmodal.cancel")}
-                                </Button>
-                                <Button type="submit" disabled={pristine || submitting}>
-                                  {translate.t("confirmmodal.proceed")}
-                                </Button>
-                              </ButtonToolbar>
+                              <Row>
+                                <Col100>
+                                  <ButtonToolbar>
+                                    <Button onClick={closeNewDraftModal}>
+                                      {translate.t("confirmmodal.cancel")}
+                                    </Button>
+                                    <Button type="submit" disabled={pristine || submitting}>
+                                      {translate.t("confirmmodal.proceed")}
+                                    </Button>
+                                  </ButtonToolbar>
+                                </Col100>
+                              </Row>
                             </React.Fragment>
                           )}
                         </GenericForm>
