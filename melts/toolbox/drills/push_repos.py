@@ -1,7 +1,8 @@
 # Standard libraries
+import os
 import json
 from typing import List
-
+from pathlib import Path
 # Local libraries
 from toolbox import logger
 from toolbox.utils import generic
@@ -43,6 +44,39 @@ def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
     return []
 
 
+def fill_empty_folders(path: str) -> None:
+    empty_folders = []
+    for root, dirs, files in os.walk(path):
+        if not dirs and not files:
+            empty_folders.append(root)
+    for folder in empty_folders:
+        logger.info(f'Adding .keep at {folder}')
+        Path(folder, '.keep').touch()
+
+
+def git_optimize_all(path: str, **kwargs) -> bool:
+    git_optimize_all_command: List[str] = [
+        'git', 'gc', '--aggressive', '--prune=all'
+    ]
+    git_files = Path(path).glob('**/.git')
+    logger.info(f'Git files: {git_files}')
+    git_folders = set(map(lambda x: x.parent, git_files))
+    for folder in git_folders:
+        logger.info(f'Git optimize at {folder}')
+        git_status, git_stdout, git_stderr = generic.run_command(
+            cmd=git_optimize_all_command,
+            cwd=str(folder),
+            env={},
+            **kwargs,
+        )
+        if git_status:
+            logger.error(f'Git optimization has failed at {folder}: ')
+            logger.info(git_stdout)
+            logger.info(git_stderr)
+            return False
+    return True
+
+
 def s3_sync_fusion_to_s3(
         subs: str,
         bucket: str = 'continuous-repositories',
@@ -54,14 +88,6 @@ def s3_sync_fusion_to_s3(
         stderr=None,
     )
 
-    git_optimize_all_command: List[str] = [
-        'find', fusion_dir,
-        '-name', '.git',
-        '-execdir',
-        'git', 'gc',
-        '--aggressive', '--prune=all', ';'
-    ]
-
     aws_sync_command: List[str] = [
         'aws', 's3', 'sync',
         '--delete',
@@ -70,41 +96,12 @@ def s3_sync_fusion_to_s3(
         '--include', "*/.git/*",
         fusion_dir, f's3://{bucket}/{s3_subs_repos_path}',
     ]
-
     # Allow upload empty folders to keep .git structure
     # and avoid errors
-    fill_empty_git_folders_command: List[str] = [
-        'find', fusion_dir,
-        '-type', 'd',
-        '-empty', '-execdir', 'touch',
-        '{}/.keep', ';'
-    ]
-
-    fill_status, fill_stdout, fill_stderr = generic.run_command(
-        cmd=fill_empty_git_folders_command,
-        cwd='.',
-        env={},
-        **kwargs,
-    )
-
-    if fill_status:
-        logger.error('No any repository found:')
-        logger.info(fill_stdout)
-        logger.info(fill_stderr)
-        return False
+    fill_empty_folders(fusion_dir)
 
     if not generic.is_env_ci():
-        git_status, git_stdout, git_stderr = generic.run_command(
-            cmd=git_optimize_all_command,
-            cwd='.',
-            env={},
-            **kwargs,
-        )
-
-        if git_status:
-            logger.error('Git optimization has failed:')
-            logger.info(git_stdout)
-            logger.info(git_stderr)
+        if not git_optimize_all(fusion_dir, **kwargs):
             return False
 
     if endpoint_url:
