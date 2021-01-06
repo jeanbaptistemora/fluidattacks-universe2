@@ -33,7 +33,6 @@ from utils.fs import (
 )
 from utils.graph import (
     export_graph_as_json,
-    to_svg,
     has_labels,
 )
 from utils.model import (
@@ -79,8 +78,6 @@ async def test_graph_generation(path: str, name: str) -> None:
     graph = await java_get_graph(Grammar.JAVA9, content=content, path=path)
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json_dumps(graph_as_json, indent=2, sort_keys=True)
-
-    assert await to_svg(graph, f'test/outputs/{name}.graph')
 
     with open(f'test/data/parse_java/{name}.graph.json') as handle:
         expected = handle.read()

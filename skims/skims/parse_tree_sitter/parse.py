@@ -23,7 +23,16 @@ from state import (
     STATE_FOLDER,
 )
 from utils.ctx import (
+    CTX,
     TREE_SITTER_JAVA,
+)
+from utils.graph import (
+    copy_ast2,
+    copy_cfg2,
+    to_svg,
+)
+from utils.string import (
+    get_debug_path,
 )
 
 # Constants
@@ -90,9 +99,16 @@ def parse(
     *,
     content: bytes,
     parser: Parser,
+    path: str,
 ) -> nx.DiGraph:
     raw_tree: Tree = parser.parse(content)
 
     graph: nx.DiGraph = _build_ast_graph(raw_tree)
+
+    if CTX.debug:
+        output = get_debug_path('tree-sitter-' + path)
+        to_svg(graph, output)
+        to_svg(copy_ast2(graph), f'{output}.ast')
+        to_svg(copy_cfg2(graph), f'{output}.cfg')
 
     return graph

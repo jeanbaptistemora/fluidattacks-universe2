@@ -14,9 +14,6 @@ from typing import (
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-)
 from jmespath import (
     search as jsh,
 )
@@ -27,7 +24,7 @@ import networkx as nx
 
 # Local libraries
 from utils.system import (
-    read,
+    read_blocking,
 )
 
 # Constants
@@ -38,23 +35,15 @@ NAttrs = Dict[str, str]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 
 
-async def _to_svg(graph: nx.DiGraph, path: str) -> bool:
+def to_svg(graph: nx.DiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
-    code, stdout, stderr = await read('dot', '-O', '-T', 'svg', path)
+    code, stdout, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
 
     if code == 0:
         return True
 
     raise SystemError(f'stdout: {stdout.decode()}, stderr: {stderr.decode()}')
-
-
-async def to_svg(graph: nx.DiGraph, path: str) -> bool:
-    return all(await collect((
-        _to_svg(graph, path),
-        _to_svg(copy_ast(graph), f'{path}.ast'),
-        _to_svg(copy_cfg(graph), f'{path}.cfg'),
-    )))
 
 
 def has_labels(n_attrs: NAttrs, **expected_attrs: str) -> bool:
@@ -384,10 +373,24 @@ def copy_ast(graph: nx.DiGraph) -> nx.DiGraph:
     )
 
 
+def copy_ast2(graph: nx.DiGraph) -> nx.DiGraph:
+    return _get_subgraph(
+        graph=graph,
+        edge_predicate=pred_has_labels(type='AST'),
+    )
+
+
 def copy_cfg(graph: nx.DiGraph) -> nx.DiGraph:
     return _get_subgraph(
         graph=graph,
         edge_predicate=pred_has_labels(label_cfg='CFG'),
+    )
+
+
+def copy_cfg2(graph: nx.DiGraph) -> nx.DiGraph:
+    return _get_subgraph(
+        graph=graph,
+        edge_predicate=pred_has_labels(type='CFG'),
     )
 
 

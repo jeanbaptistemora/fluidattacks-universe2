@@ -49,6 +49,7 @@ def test_graph_generation(path: str, name: str) -> None:
         graph = parse(
             content=handle.read().encode(),
             parser=PARSER_JAVA,
+            path=path,
         )
 
     graph_as_json = export_graph_as_json(graph)

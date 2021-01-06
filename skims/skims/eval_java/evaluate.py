@@ -51,7 +51,8 @@ def evaluate(
         generic_extract.extract(graph, n_id, ctx=ctx)
 
     if CTX.debug:
-        with open(f'{get_debug_path(path)}.ctx.{index}.json', 'w') as handle:
+        output = get_debug_path('antlr-' + path)
+        with open(f'{output}.ctx.{index}.json', 'w') as handle:
             json_dump(ctx, handle, indent=2)
 
     if ctx.complete or allow_incomplete:
@@ -63,7 +64,8 @@ def evaluate(
         statements = []
 
     if CTX.debug:
-        with open(f'{get_debug_path(path)}.stmt.{index}.json', 'w') as handle:
+        output = get_debug_path('antlr-' + path)
+        with open(f'{output}.stmt.{index}.json', 'w') as handle:
             json_dump(statements, handle, indent=2)
 
     return statements

@@ -21,6 +21,8 @@ from state.cache import (
     CACHE_ETERNALLY,
 )
 from utils.graph import (
+    copy_ast,
+    copy_cfg,
     to_svg,
 )
 from utils.model import (
@@ -67,7 +69,7 @@ async def _get(
     model = antlr_model.from_parse_tree(parse_tree)
 
     if CTX.debug:
-        output = get_debug_path(path)
+        output = get_debug_path('antlr-' + path)
         with open(f'{output}.model.json', 'w') as handle:
             json.dump(model, handle, indent=2, sort_keys=True)
 
@@ -79,7 +81,9 @@ async def _get(
     styles.stylize(graph)
 
     if CTX.debug:
-        output = get_debug_path(path)
-        await to_svg(graph, output)
+        output = get_debug_path('antlr-' + path)
+        to_svg(graph, output)
+        to_svg(copy_ast(graph), f'{output}.ast')
+        to_svg(copy_cfg(graph), f'{output}.cfg')
 
     return graph
