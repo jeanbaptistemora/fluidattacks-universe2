@@ -170,20 +170,6 @@ def cast_tracking(
     return tracking_casted
 
 
-def get_tracking_cycles(
-    dates: List[str]
-) -> List[TrackingItem]:
-    """Cast tracking in accordance to schema."""
-    tracking_casted = [
-        TrackingItem(
-            cycle=cycle,
-            date=date,
-        )
-        for cycle, date in enumerate(dates)
-    ]
-    return tracking_casted
-
-
 async def get_attributes(
         finding_id: str,
         attributes: List[str]) -> Dict[str, FindingType]:
@@ -346,16 +332,17 @@ def build_tracking_dict(
 
 
 def build_tracking_new(
-    track: TrackingItem,
+    date: str,
     treat: Dict[str, int],
     manager: str,
+    cycle: int,
 ) -> TrackingItem:
     tracking = TrackingItem(
-        cycle=track['cycle'],
+        cycle=cycle,
         open=treat['open'],
         closed=treat['closed'],
         effectiveness=treat['effectiveness'],
-        date=track['date'],
+        date=date,
         new=treat['new'],
         in_progress=treat['in_progress'],
         accepted=treat['accepted'],
@@ -431,7 +418,7 @@ def get_sorted_historics(
 
 
 def build_tracking_by_treatment(
-    tracking: List[TrackingItem],
+    dates: List[str],
     vulnerabilities: List[Dict[str, FindingType]],
 ) -> List[TrackingItem]:
     new_tracking: List[TrackingItem] = []
@@ -441,8 +428,7 @@ def build_tracking_by_treatment(
         'accepted', 'accepted_undefined'
     }
     treatments_with_manager = {'accepted', 'accepted_undefined', 'in_progress'}
-    for track in tracking:
-        cycle_date = track['date']
+    for date in dates:
         treatment = {
             'accepted': 0,
             'accepted_undefined': 0,
@@ -456,7 +442,7 @@ def build_tracking_by_treatment(
             sorted_historic, sorted_treatment = get_sorted_historics(vuln)
 
             treat, manager = get_treatments_before_cycle_date(
-                sorted_treatment, sorted_historic, cycle_date
+                sorted_treatment, sorted_historic, date
             )
             if treat in treatments_with_manager and manager:
                 vuln_manager = manager
@@ -466,12 +452,15 @@ def build_tracking_by_treatment(
                     treatment['open'] += 1
 
         total_vulns = treatment['open'] + treatment['closed']
-        treatment['effectiveness'] = int(
-            treatment['closed'] / total_vulns * 100
-        )
-        new_tracking.append(
-            build_tracking_new(track, treatment, vuln_manager)
-        )
+        if total_vulns > 0:
+            treatment['effectiveness'] = int(
+                treatment['closed'] / total_vulns * 100
+            )
+            new_tracking.append(
+                build_tracking_new(
+                    date, treatment, vuln_manager, len(new_tracking)
+                )
+            )
 
     return new_tracking
 

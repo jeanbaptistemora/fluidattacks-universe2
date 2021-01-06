@@ -202,9 +202,8 @@ def get_tracking_vulnerabilities_new(
     ]
     vulns_filtered_zero = filter_zero_risk_vulns(vulns_filtered)
     vuln_dates = finding_utils.get_tracking_dates(vulns_filtered_zero)
-    tracking_casted = finding_utils.get_tracking_cycles(vuln_dates)
     new_tracked = finding_utils.build_tracking_by_treatment(
-        tracking_casted, vulnerabilities
+        vuln_dates, vulnerabilities
     )
     return new_tracked
 
