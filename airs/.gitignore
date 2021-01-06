@@ -10,6 +10,7 @@ venv/*
 *.md5
 .vscode
 TEMP_FD
+.cache
 
 # Bundler
 Gemfile.lock
