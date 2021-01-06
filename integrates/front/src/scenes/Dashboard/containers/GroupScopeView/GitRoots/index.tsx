@@ -18,8 +18,10 @@ import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 import { selectFilter } from "react-bootstrap-table2-filter";
+import style from "./index.css";
 import { useAbility } from "@casl/react";
 import { useMutation } from "@apollo/react-hooks";
+import { useStoredState } from "utils/hooks";
 import { useTranslation } from "react-i18next";
 import {
   ADD_GIT_ROOT,
@@ -104,7 +106,28 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setManagingEnvs(false);
   }, []);
 
-  const [isFilterEnabled, setFilterEnabled] = React.useState<boolean>(false);
+  const [checkedItems, setCheckedItems] = useStoredState<
+    Record<string, boolean>
+  >(
+    "rootTableSet",
+    {
+      branch: true,
+      "cloningStatus.message": false,
+      "cloningStatus.status": true,
+      environment: false,
+      environmentUrls: false,
+      "filter.exclude": true,
+      "filter.include": true,
+      state: true,
+      url: true,
+    },
+    localStorage
+  );
+
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
+    "rootFilters",
+    false
+  );
 
   const onfilterStatus: (filterVal: string) => void = (
     filterVal: string
@@ -261,9 +284,28 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [updateGitEnvs]
   );
 
-  const handleUpdateFilter: () => void = React.useCallback((): void => {
+  function handleChange(columnName: string): void {
+    if (
+      Object.values(checkedItems).filter((val: boolean): boolean => val)
+        .length === 1 &&
+      checkedItems[columnName]
+    ) {
+      alert(t("validations.columns"));
+      setCheckedItems({
+        ...checkedItems,
+        [columnName]: true,
+      });
+    } else {
+      setCheckedItems({
+        ...checkedItems,
+        [columnName]: !checkedItems[columnName],
+      });
+    }
+  }
+
+  function handleUpdateFilter(): void {
     setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled]);
+  }
 
   return (
     <React.Fragment>
@@ -310,86 +352,109 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           };
 
           return (
-            <DataTableNext
-              bordered={true}
-              columnToggle={true}
-              dataset={dataset}
-              exportCsv={false}
-              headers={[
-                { dataField: "url", header: t("group.scope.git.repo.url") },
-                {
-                  dataField: "branch",
-                  header: t("group.scope.git.repo.branch"),
-                },
-                {
-                  dataField: "environment",
-                  header: t("group.scope.git.repo.environment"),
-                  visible: false,
-                },
-                {
-                  dataField: "environmentUrls",
-                  formatter: formatList,
-                  header: t("group.scope.git.envUrls"),
-                  visible: false,
-                },
-                {
-                  dataField: "filter.include",
-                  formatter: formatList,
-                  header: t("group.scope.git.filter.include"),
-                },
-                {
-                  dataField: "filter.exclude",
-                  formatter: formatList,
-                  header: t("group.scope.git.filter.exclude"),
-                },
-                {
-                  align: "center",
-                  changeFunction: handleStateUpdate,
-                  dataField: "state",
-                  filter: selectFilter({
-                    defaultValue: _.get(sessionStorage, "stateScopeFilter"),
-                    onFilter: onFilterState,
-                    options: selectOptionsState,
-                  }),
-                  formatter: permissions.can(
-                    "backend_api_mutations_update_root_state_mutate"
-                  )
-                    ? changeFormatter
-                    : statusFormatter,
-                  header: t("group.scope.common.state"),
-                },
-                {
-                  align: "center",
-                  dataField: "cloningStatus.status",
-                  filter: selectFilter({
-                    defaultValue: _.get(sessionStorage, "statusScopeFilter"),
-                    onFilter: onfilterStatus,
-                    options: selectOptionsStatus,
-                  }),
-                  formatter: statusFormatter,
-                  header: t("group.scope.git.repo.cloning.status"),
-                },
-                {
-                  dataField: "cloningStatus.message",
-                  header: t("group.scope.git.repo.cloning.message"),
-                  visible: false,
-                },
-              ]}
-              id={"tblGitRoots"}
-              isFilterEnabled={isFilterEnabled}
-              onUpdateEnableFilter={handleUpdateFilter}
-              pageSize={15}
-              search={true}
-              selectionMode={{
-                clickToSelect: true,
-                hideSelectColumn: permissions.cannot(
-                  "backend_api_mutations_update_git_root_mutate"
-                ),
-                mode: "radio",
-                onSelect: handleRowSelect,
-              }}
-              striped={true}
-            />
+            <div className={style.container}>
+              <DataTableNext
+                bordered={true}
+                columnToggle={true}
+                dataset={dataset}
+                exportCsv={false}
+                headers={[
+                  {
+                    dataField: "url",
+                    header: t("group.scope.git.repo.url"),
+                    visible: checkedItems.url,
+                    wrapped: true,
+                  },
+                  {
+                    dataField: "branch",
+                    header: t("group.scope.git.repo.branch"),
+                    visible: checkedItems.branch,
+                    width: "5%",
+                  },
+                  {
+                    dataField: "environment",
+                    header: t("group.scope.git.repo.environment"),
+                    visible: checkedItems.environment,
+                    width: "8%",
+                  },
+                  {
+                    dataField: "environmentUrls",
+                    formatter: formatList,
+                    header: t("group.scope.git.envUrls"),
+                    visible: checkedItems.environmentUrls,
+                    width: "12%",
+                    wrapped: true,
+                  },
+                  {
+                    dataField: "filter.include",
+                    formatter: formatList,
+                    header: t("group.scope.git.filter.include"),
+                    visible: checkedItems["filter.include"],
+                    width: "6%",
+                    wrapped: true,
+                  },
+                  {
+                    dataField: "filter.exclude",
+                    formatter: formatList,
+                    header: t("group.scope.git.filter.exclude"),
+                    visible: checkedItems["filter.exclude"],
+                    width: "12%",
+                    wrapped: true,
+                  },
+                  {
+                    align: "center",
+                    changeFunction: handleStateUpdate,
+                    dataField: "state",
+                    filter: selectFilter({
+                      defaultValue: _.get(sessionStorage, "stateScopeFilter"),
+                      onFilter: onFilterState,
+                      options: selectOptionsState,
+                    }),
+                    formatter: permissions.can(
+                      "backend_api_mutations_update_root_state_mutate"
+                    )
+                      ? changeFormatter
+                      : statusFormatter,
+                    header: t("group.scope.common.state"),
+                    visible: checkedItems.state,
+                    width: "15%",
+                  },
+                  {
+                    align: "center",
+                    dataField: "cloningStatus.status",
+                    filter: selectFilter({
+                      defaultValue: _.get(sessionStorage, "statusScopeFilter"),
+                      onFilter: onfilterStatus,
+                      options: selectOptionsStatus,
+                    }),
+                    formatter: statusFormatter,
+                    header: t("group.scope.git.repo.cloning.status"),
+                    visible: checkedItems["cloningStatus.status"],
+                    width: "15%",
+                  },
+                  {
+                    dataField: "cloningStatus.message",
+                    header: t("group.scope.git.repo.cloning.message"),
+                    visible: checkedItems["cloningStatus.message"],
+                  },
+                ]}
+                id={"tblGitRoots"}
+                isFilterEnabled={isFilterEnabled}
+                onColumnToggle={handleChange}
+                onUpdateEnableFilter={handleUpdateFilter}
+                pageSize={15}
+                search={true}
+                selectionMode={{
+                  clickToSelect: true,
+                  hideSelectColumn: permissions.cannot(
+                    "backend_api_mutations_update_git_root_mutate"
+                  ),
+                  mode: "radio",
+                  onSelect: handleRowSelect,
+                }}
+                striped={true}
+              />
+            </div>
           );
         }}
       </ConfirmDialog>
