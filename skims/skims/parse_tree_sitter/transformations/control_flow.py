@@ -156,32 +156,25 @@ def _try_statement(
     stack: Stack,
 ) -> None:
     # Strain the childs over the following node types
-    childs = g.match_ast(
-        graph,
-        n_id,
-        # Components in order
-        'TRY',
-        'ResourceSpecification',
-        'Block',
-        'CatchClause',
-        'Finally_',
-    )
-
-    # Declare blocks that actually exists
-    childs_stack = [
-        (c_id, edge_attrs)
-        for c_id, edge_attrs in [
-            (childs['ResourceSpecification'], ALWAYS),
-            (childs['Block'], ALWAYS),
-            (childs['CatchClause'], MAYBE),
-            (childs['Finally_'], ALWAYS),
-        ]
-        if c_id
-    ]
+    children_stack = []
+    for c_id in g.adj_ast(graph, n_id):
+        c_attrs_label_type = graph.nodes[c_id]['label_type']
+        if c_attrs_label_type == 'try':
+            pass
+        elif c_attrs_label_type == 'block':
+            children_stack.append((c_id, ALWAYS))
+        elif c_attrs_label_type == 'catch_clause':
+            children_stack.append((c_id, MAYBE))
+        elif c_attrs_label_type == 'finally_clause':
+            children_stack.append((c_id, ALWAYS))
+        elif c_attrs_label_type == 'resource_specification':
+            children_stack.append((c_id, ALWAYS))
+        else:
+            raise NotImplementedError()
 
     # Walk the existing blocks and link them recursively
     p_id = n_id
-    for _, last, (c_id, edge_attrs) in mark_ends(childs_stack):
+    for _, last, (c_id, edge_attrs) in mark_ends(children_stack):
         graph.add_edge(p_id, c_id, **edge_attrs)
         p_id = c_id
 
@@ -211,17 +204,18 @@ def _generic(
         ({'block',
           'expression_statement'},
          _step_by_step),
-        ({'method_declaration'},
-         _method_declaration),
         ({'if_statement'},
          _if_statement),
+        ({'method_declaration'},
+         _method_declaration),
+        ({'try_statement',
+          'try_with_resources_statement'},
+         _try_statement),
 
         ({'BasicForStatement',
           'EnhancedForStatement',
           'WhileStatement'},
          _loop_statement),
-        ({'TryStatement'},
-         _try_statement),
     ):
         if n_attrs_label_type in types:
             walker(graph, n_id, stack)

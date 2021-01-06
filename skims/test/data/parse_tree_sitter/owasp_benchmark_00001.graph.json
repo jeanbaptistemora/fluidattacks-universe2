@@ -2295,6 +2295,8 @@
       },
       "486": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "656": {
@@ -2313,6 +2315,8 @@
       },
       "488": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "512": {
@@ -2334,6 +2338,10 @@
       "655": {
         "label_ast": "AST",
         "label_index": 6
+      },
+      "656": {
+        "label_cfg": "CFG",
+        "label_cfg_maybe": "cfg_maybe"
       }
     },
     "488": {
@@ -2592,6 +2600,10 @@
       "560": {
         "label_ast": "AST",
         "label_index": 2
+      },
+      "561": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "543": {
@@ -2680,6 +2692,10 @@
       "575": {
         "label_ast": "AST",
         "label_index": 2
+      },
+      "576": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "562": {
@@ -3114,6 +3130,10 @@
       "664": {
         "label_ast": "AST",
         "label_index": 4
+      },
+      "733": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "659": {

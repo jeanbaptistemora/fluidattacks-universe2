@@ -1271,6 +1271,8 @@
       },
       "268": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "367": {
@@ -1285,6 +1287,8 @@
       },
       "270": {
         "label_ast": "AST",
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always",
         "label_index": 1
       },
       "301": {
@@ -1302,6 +1306,10 @@
       "366": {
         "label_ast": "AST",
         "label_index": 5
+      },
+      "367": {
+        "label_cfg": "CFG",
+        "label_cfg_maybe": "cfg_maybe"
       }
     },
     "270": {
@@ -1316,6 +1324,10 @@
       "300": {
         "label_ast": "AST",
         "label_index": 2
+      },
+      "301": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "271": {
@@ -1456,6 +1468,10 @@
       "320": {
         "label_ast": "AST",
         "label_index": 2
+      },
+      "321": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "302": {
@@ -1544,6 +1560,10 @@
       "339": {
         "label_ast": "AST",
         "label_index": 2
+      },
+      "340": {
+        "label_cfg": "CFG",
+        "label_cfg_always": "cfg_always"
       }
     },
     "322": {
