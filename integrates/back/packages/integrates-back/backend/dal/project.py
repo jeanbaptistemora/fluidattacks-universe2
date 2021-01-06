@@ -2,10 +2,12 @@
 
 import logging
 from typing import (
+    Any,
     cast,
     Dict,
     List,
     NamedTuple,
+    Optional,
     Union,
 )
 
@@ -56,7 +58,9 @@ async def get_service_policies(group: str) -> List[ServicePolicy]:
 
     group_attributes = response_items[0]
 
-    historic_config: list = group_attributes['historic_configuration']
+    historic_config: List[Dict[str, Any]] = group_attributes[
+        'historic_configuration'
+    ]
 
     has_drills: bool = historic_config[-1]['has_drills']
     has_forces: bool = historic_config[-1]['has_forces']
@@ -193,8 +197,9 @@ async def get_users(project: str, active: bool = True) -> List[str]:
 
 
 async def exists(
-        project_name: str,
-        pre_computed_project_data: dict = None) -> bool:
+    project_name: str,
+    pre_computed_project_data: Optional[Dict[str, str]] = None
+) -> bool:
     project = project_name.lower()
     project_data = (
         pre_computed_project_data or
@@ -224,7 +229,7 @@ async def list_project_managers(group: str) -> List[str]:
 
 async def get_attributes(
     project_name: str,
-    attributes: List[str] = None,
+    attributes: Optional[List[str]] = None,
     table: aioboto3.session.Session.client = None
 ) -> Dict[str, Union[str, List[str]]]:
     response = {}
@@ -249,8 +254,9 @@ async def get_attributes(
 
 
 async def is_alive(
-        project: str,
-        pre_computed_project_data: dict = None) -> bool:
+    project: str,
+    pre_computed_project_data: Optional[Dict[str, Any]] = None
+) -> bool:
     """Validate if a project exist and is not deleted."""
     project_name = project.lower()
     is_valid_project = True
@@ -412,7 +418,7 @@ async def get_all(
             response = await table.scan(**scan_attrs)
             items += response.get('Items', [])
 
-    return items
+    return cast(List[ProjectType], items)
 
 
 async def get_user_access(

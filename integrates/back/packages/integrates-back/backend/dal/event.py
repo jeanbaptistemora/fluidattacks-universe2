@@ -1,6 +1,6 @@
 """DAL functions for events."""
 import logging
-from typing import List
+from typing import cast, List
 
 from aioextensions import in_thread
 from boto3.dynamodb.conditions import Key
@@ -98,11 +98,14 @@ async def remove_evidence(file_name: str) -> bool:
 
 
 async def sign_url(file_url: str) -> str:
-    return await in_thread(
-        cloudfront.sign_url,
-        FI_CLOUDFRONT_RESOURCES_DOMAIN,
-        file_url,
-        1.0 / 6
+    return cast(
+        str,
+        await in_thread(
+            cloudfront.sign_url,
+            FI_CLOUDFRONT_RESOURCES_DOMAIN,
+            file_url,
+            1.0 / 6
+        )
     )
 
 

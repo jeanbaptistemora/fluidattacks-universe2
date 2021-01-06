@@ -1,10 +1,10 @@
 # Standard library
 import base64
 import logging
-from collections.abc import Mapping
 from datetime import datetime
 from decimal import Decimal
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -138,7 +138,7 @@ def should_process_event(
 async def get_user_subscriptions(
     *,
     user_email: str,
-) -> List[Mapping]:
+) -> List[Dict[Any, Any]]:
     return await subscriptions_dal.get_user_subscriptions(
         user_email=user_email,
     )
@@ -166,7 +166,7 @@ async def get_user_subscriptions_to_entity_report(
 async def get_subscriptions_to_entity_report(
     *,
     audience: str,
-) -> List[Mapping]:
+) -> List[Dict[Any, Any]]:
     return await subscriptions_dal.get_subscriptions_to_entity_report(
         audience=audience,
     )

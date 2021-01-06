@@ -38,7 +38,7 @@ async def yield_executions(
     project_name: str,
     from_date: datetime,
     to_date: datetime,
-) -> AsyncIterator:
+) -> AsyncIterator[Any]:
     """ Lazy iterator over the executions of a project """
     key_condition_expresion = \
         Key('subscription').eq(project_name)

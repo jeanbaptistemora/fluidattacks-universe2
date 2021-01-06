@@ -1,7 +1,7 @@
 # standard imports
 import logging
 import uuid
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 # third-party imports
 import aioboto3
@@ -17,8 +17,8 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS  # type: ignore
-TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
+RESOURCE_OPTIONS: Dict[str, Optional[str]] = dynamodb.RESOURCE_OPTIONS
+TABLE_NAME: str = dynamodb.TABLE_NAME
 
 
 async def create(name: str, entity: str) -> bool:

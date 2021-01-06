@@ -10,7 +10,7 @@ function job_integrates_lint_back {
         back/packages/integrates-back/backend/decorators.py \
         back/packages/integrates-back/backend/api/ \
         back/packages/integrates-back/backend/authz/ \
-        back/packages/integrates-back/backend/dal/helpers/ \
+        back/packages/integrates-back/backend/dal/ \
         back/packages/integrates-back/backend/utils/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         back/packages/integrates-back \

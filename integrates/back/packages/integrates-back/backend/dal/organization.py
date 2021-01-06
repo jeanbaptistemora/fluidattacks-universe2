@@ -6,6 +6,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Optional,
     Tuple,
 )
 
@@ -219,7 +220,7 @@ async def exists(org_name: str) -> bool:
 
 async def get_by_id(
     organization_id: str,
-    attributes: List[str] = None
+    attributes: Optional[List[str]] = None
 ) -> OrganizationType:
     """
     Use the organization ID to fetch general information about it
@@ -251,7 +252,7 @@ async def get_by_id(
 
 async def get_by_name(
     org_name: str,
-    attributes: List[str] = None
+    attributes: Optional[List[str]] = None
 ) -> OrganizationType:
     """
     Get an organization info given its name
@@ -284,14 +285,17 @@ async def get_by_name(
 
 async def get_many_by_id(
     organization_ids: List[str],
-    attributes: List[str] = None
+    attributes: Optional[List[str]] = None
 ) -> List[OrganizationType]:
     """
     Use the organization ID to fetch general information about it
     """
-    return await collect(
-        get_by_id(org_id, attributes)
-        for org_id in organization_ids
+    return cast(
+        List[OrganizationType],
+        await collect(
+            get_by_id(org_id, attributes)
+            for org_id in organization_ids
+        )
     )
 
 

@@ -1,7 +1,8 @@
 # Standard library
 from decimal import Decimal
-from collections.abc import Mapping
 from typing import (
+    Any,
+    Dict,
     List,
     Union,
 )
@@ -24,7 +25,7 @@ NumericType = Union[Decimal, float, int]
 async def get_user_subscriptions(
     *,
     user_email: str,
-) -> List[Mapping]:
+) -> List[Dict[Any, Any]]:
     results = await dynamodb.async_query(
         query_attrs=dict(
             KeyConditionExpression=Key('pk').eq(mapping_to_key({
@@ -41,7 +42,7 @@ async def get_user_subscriptions(
 async def get_subscriptions_to_entity_report(
     *,
     audience: str,
-) -> List[Mapping]:
+) -> List[Dict[Any, Any]]:
     results = await dynamodb.async_query(
         query_attrs=dict(
             IndexName='pk_meta',
@@ -104,7 +105,7 @@ async def unsubscribe_user_to_entity_report(
     )
 
 
-def _unpack_items(items: List[Mapping]) -> List[Mapping]:
+def _unpack_items(items: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
     return [
         {
             **item,

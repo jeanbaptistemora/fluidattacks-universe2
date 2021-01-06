@@ -5,6 +5,7 @@ from typing import (
     DefaultDict,
     Dict,
     List,
+    Optional,
     Tuple,
     cast
 )
@@ -89,7 +90,7 @@ async def get_cached_group_service_attributes_policies(
 
 async def get_cached_subject_policies(
     subject: str,
-    context_store: DefaultDict[Any, Any] = DefaultDict(str),
+    context_store: Optional[DefaultDict[Any, Any]] = None,
     with_cache: bool = True,
 ) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
@@ -194,7 +195,7 @@ async def get_group_level_roles(
 
 async def get_user_level_role(email: str) -> str:
     user_policy = await user_dal.get_subject_policy(email, 'self')
-    return cast(str, user_policy.role)
+    return user_policy.role
 
 
 async def grant_group_level_role(email: str, group: str, role: str) -> bool:

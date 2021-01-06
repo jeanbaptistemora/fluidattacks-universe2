@@ -205,4 +205,4 @@ async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
         'treatment_justification': 'Masked',
         'source': 'Masked'
     })
-    return cast(bool, success)
+    return success

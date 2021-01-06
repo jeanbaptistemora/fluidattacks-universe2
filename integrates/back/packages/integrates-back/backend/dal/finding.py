@@ -1,6 +1,6 @@
 """DAL functions for findings."""
 import logging
-from typing import Any, cast, Dict, List, Set
+from typing import Any, cast, Dict, List, Optional, Set
 
 import aioboto3
 from boto3.dynamodb.conditions import Equals, Key
@@ -140,7 +140,10 @@ async def get(
         finding_id: str,
         table: aioboto3.session.Session.client) -> Dict[str, FindingType]:
     response = await table.get_item(Key={'finding_id': finding_id})
-    return response.get('Item', {})
+    return cast(
+        Dict[str, FindingType],
+        response.get('Item', {})
+    )
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
@@ -159,7 +162,7 @@ async def remove_evidence(file_name: str) -> bool:
     return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-async def download_evidence(file_name: str, file_path: str):
+async def download_evidence(file_name: str, file_path: str) -> None:
     await s3.download_file(  # type: ignore
         FI_AWS_S3_BUCKET,
         file_name,
@@ -169,7 +172,7 @@ async def download_evidence(file_name: str, file_path: str):
 
 async def get_findings_by_group(
     group_name: str,
-    attrs: Set[str] = None
+    attrs: Optional[Set[str]] = None
 ) -> List[Dict[str, Any]]:
     key_exp: Equals = Key('project_name').eq(group_name.lower())
     query_attrs = {

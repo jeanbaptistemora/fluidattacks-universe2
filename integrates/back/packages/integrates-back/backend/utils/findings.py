@@ -192,7 +192,7 @@ async def get_attributes(
     response = await finding_dal.get_attributes(finding_id, attributes)
     if not response:
         raise FindingNotFound()
-    return cast(Dict[str, FindingType], response)
+    return response
 
 
 async def get_records_from_file(
@@ -691,12 +691,9 @@ async def mask_treatment(
         }
         for treatment in historic_treatment
     ]
-    return cast(
-        bool,
-        await finding_dal.update(
-            finding_id,
-            {'historic_treatment': historic}
-        )
+    return await finding_dal.update(
+        finding_id,
+        {'historic_treatment': historic}
     )
 
 
@@ -711,12 +708,9 @@ async def mask_state(
         }
         for state in historic_state
     ]
-    return cast(
-        bool,
-        await finding_dal.update(
-            finding_id,
-            {'historic_state': historic}
-        )
+    return await finding_dal.update(
+        finding_id,
+        {'historic_state': historic}
     )
 
 
@@ -727,12 +721,9 @@ async def mask_verification(
         {**treatment, 'user': 'Masked', 'status': 'Masked'}
         for treatment in historic_verification
     ]
-    return cast(
-        bool,
-        await finding_dal.update(
-            finding_id,
-            {'historic_verification': historic}
-        )
+    return await finding_dal.update(
+        finding_id,
+        {'historic_verification': historic}
     )
 
 

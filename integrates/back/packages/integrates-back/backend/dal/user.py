@@ -1,7 +1,7 @@
 # Standard library
 import logging
 import contextlib
-from typing import Dict, List, NamedTuple
+from typing import Any, Dict, List, NamedTuple
 
 # Third party libraries
 from boto3.dynamodb.conditions import Attr, Key, Not
@@ -43,7 +43,7 @@ SubjectPolicy = NamedTuple(
 )
 
 
-def cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict:
+def cast_subject_policy_into_dict(policy: SubjectPolicy) -> Dict[str, str]:
     """Cast a subject policy into a dict, valid to be put in dynamo."""
     # pylint: disable=protected-access
     return {
@@ -56,9 +56,9 @@ def cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict:
     }
 
 
-def cast_dict_into_subject_policy(item: dict) -> SubjectPolicy:
+def cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
     # pylint: disable=protected-access
-    field_types: dict = SubjectPolicy._field_types
+    field_types: Dict[Any, Any] = SubjectPolicy._field_types
 
     # Every string as lowercase
     for field, _ in field_types.items():
@@ -241,7 +241,7 @@ async def delete(email: str) -> bool:
     return resp
 
 
-@apm.trace()
+@apm.trace()  # type: ignore
 async def get_projects(user_email: str, active: bool) -> List[str]:
     """ Get projects of a user """
     filtering_exp = Key('user_email').eq(user_email.lower())
