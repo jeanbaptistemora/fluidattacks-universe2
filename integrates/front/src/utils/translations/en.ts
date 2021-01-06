@@ -494,9 +494,13 @@ export const enTranslations: ResourceKey = {
           invalid: "Repository URL or branch are not valid",
         },
         filter: {
-          exclude: "Exclude",
-          include: "Include",
+          documentation:
+            "https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitignore.html#_pattern_format",
+          exclude: "Gitignore",
+          placeholder: "**/example.txt",
           title: "Filters",
+          tooltip:
+            "Patterns that define which files should be ignored during the analysis",
         },
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",

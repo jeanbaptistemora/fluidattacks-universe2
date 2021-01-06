@@ -386,14 +386,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     wrapped: true,
                   },
                   {
-                    dataField: "filter.include",
-                    formatter: formatList,
-                    header: t("group.scope.git.filter.include"),
-                    visible: checkedItems["filter.include"],
-                    width: "6%",
-                    wrapped: true,
-                  },
-                  {
                     dataField: "filter.exclude",
                     formatter: formatList,
                     header: t("group.scope.git.filter.exclude"),

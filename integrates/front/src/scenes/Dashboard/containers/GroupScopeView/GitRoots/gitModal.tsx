@@ -1,11 +1,14 @@
 import { Button } from "components/Button";
 import { Can } from "utils/authz/Can";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Glyphicon } from "react-bootstrap";
 import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import style from "./index.css";
 import { useTranslation } from "react-i18next";
 import { ArrayField, Checkbox, Text } from "utils/forms/fields";
 import {
@@ -51,6 +54,10 @@ const GitModal: React.FC<IGitModalProps> = ({
   const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(
     initialValues.includesHealthCheck
   );
+
+  function goToDocumentation(): void {
+    window.open(t("group.scope.git.filter.documentation"));
+  }
 
   return (
     <Modal
@@ -145,30 +152,20 @@ const GitModal: React.FC<IGitModalProps> = ({
               <Can do={"update_git_root_filter"}>
                 <FormSection name={"filter"}>
                   <fieldset>
-                    <legend className={"f3 b"}>
-                      {t("group.scope.git.filter.title")}
-                    </legend>
-                    <ControlLabel>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
-                      {t("group.scope.git.filter.include")}
-                    </ControlLabel>
-                    <ArrayField
-                      allowEmpty={false}
-                      initialValue={""}
-                      name={"include"}
+                    <TooltipWrapper
+                      message={t("group.scope.git.filter.tooltip")}
                     >
-                      {(fieldName: string): JSX.Element => (
-                        <Field
-                          component={Text}
-                          name={fieldName}
-                          type={"text"}
-                          validate={required}
-                        />
-                      )}
-                    </ArrayField>
-                    <ControlLabel>
-                      {t("group.scope.git.filter.exclude")}
-                    </ControlLabel>
+                      <ControlLabel>
+                        {t("group.scope.git.filter.exclude")}
+                      </ControlLabel>
+                    </TooltipWrapper>
+                    <Button
+                      // eslint-disable-next-line react/forbid-component-props
+                      className={style.button}
+                      onClick={goToDocumentation}
+                    >
+                      <Glyphicon glyph={"glyphicon glyphicon-question-sign"} />
+                    </Button>
                     <ArrayField
                       allowEmpty={true}
                       initialValue={""}
@@ -178,6 +175,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                         <Field
                           component={Text}
                           name={fieldName}
+                          placeholder={t("group.scope.git.filter.placeholder")}
                           type={"text"}
                           validate={excludeFormat}
                         />

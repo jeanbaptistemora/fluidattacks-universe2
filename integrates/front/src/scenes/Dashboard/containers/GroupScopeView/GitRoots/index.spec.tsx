@@ -115,12 +115,6 @@ describe("GitRoots", (): void => {
     ).toHaveLength(1);
 
     // Filters
-    const includeFields: ReactWrapper = wrapper
-      .find({ name: "filter.include" })
-      .find("input");
-
-    expect(includeFields).toHaveLength(1);
-
     const excludeFields: ReactWrapper = wrapper
       .find({ name: "filter.exclude" })
       .find("input");

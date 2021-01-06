@@ -100,8 +100,6 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // branch
         "master",
-        // include
-        "*",
         // exclude
         "bower_components/*",
         "node_modules/*",
@@ -245,8 +243,6 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // branch
         "master",
-        // include
-        "*",
         // state
         "Active",
         // cloning status
@@ -421,8 +417,6 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // branch
         "master",
-        // include
-        "*",
         // exclude
         "node_modules/*",
         // state
