@@ -9,6 +9,8 @@ import urllib.parse
 
 # Third party libraries
 import pathspec
+from git import Repo
+from git.exc import GitError
 
 # Local libraries
 from toolbox.drills import generic as drills_generic
@@ -136,13 +138,6 @@ def pull_repos_s3_to_fusion(subs: str,
         bucket_path, local_path,
     ]
 
-    git_expand_repositories_command: List[str] = [
-        'find', local_path,
-        '-name', '.git',
-        '-execdir',
-        'git', 'checkout',
-        '--', '.', ';'
-    ]
     logger.info(f'Downloading {subs} repositories')
 
     # Passing None to stdout and stderr shows the s3 progress
@@ -165,18 +160,14 @@ def pull_repos_s3_to_fusion(subs: str,
         logger.info(stderr)
         logger.info()
         return False
-
-    git_status, git_stdout, git_stderr = utils.generic.run_command(
-        cmd=git_expand_repositories_command,
-        cwd='.',
-        env={},
-        **kwargs,
-    )
-
-    if git_status:
+    try:
+        for folder in os.listdir(local_path):
+            repo_path = os.path.join(local_path, folder)
+            repo = Repo(repo_path)
+            repo.head.reset(working_tree=True, index=True)
+    except GitError as exc:
         logger.error('Expand repositories has failed:')
-        logger.info(git_stdout)
-        logger.info(git_stderr)
+        logger.info(exc)
         logger.info()
         return False
     return True
