@@ -59,7 +59,6 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
 export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceImageProps): JSX.Element => {
   const handleClick: (() => void) = (): void => { props.onClick(); };
 
-  // Add replace to handle the new route until starlette is finished
   return (
     <React.StrictMode>
       <Col33>
