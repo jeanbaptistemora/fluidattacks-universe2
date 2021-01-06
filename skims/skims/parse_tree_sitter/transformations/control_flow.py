@@ -212,9 +212,9 @@ def _generic(
           'try_with_resources_statement'},
          _try_statement),
 
-        ({'BasicForStatement',
-          'EnhancedForStatement',
-          'WhileStatement'},
+        ({'for_statement',
+          'enhanced_for_statement',
+          'while_statement'},
          _loop_statement),
     ):
         if n_attrs_label_type in types:
