@@ -33,6 +33,7 @@ GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
 
 # Types
 NAttrs = Dict[str, str]
+NIdPredicateFunction = Callable[[str], bool]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 
 
@@ -98,7 +99,10 @@ def adj(
 
     results: List[str] = []
 
-    childs: List[str] = sorted(graph.adj[n_id], key=int)
+    childs: List[str] = sorted(
+        graph.adj[n_id],
+        key=lambda x: int(x.rsplit('-', maxsplit=1)[-1]),
+    )
 
     # Append direct childs
     for c_id in childs:
@@ -346,8 +350,8 @@ def export_graph_as_json(
 
 def _get_subgraph(
     graph: nx.DiGraph,
-    node_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
-    edge_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
+    node_n_id_predicate: NIdPredicateFunction = lambda n_id: True,
+    edge_n_attrs_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
 ) -> nx.DiGraph:
     copy: nx.DiGraph = nx.DiGraph()
 
@@ -357,9 +361,9 @@ def _get_subgraph(
         n_b_attrs = graph.nodes[n_b_id].copy()
 
         if (
-            edge_predicate(edge_attrs)
-            and node_predicate(n_a_attrs)
-            and node_predicate(n_b_attrs)
+            edge_n_attrs_predicate(edge_attrs)
+            and node_n_id_predicate(n_a_id)
+            and node_n_id_predicate(n_b_id)
         ):
             copy.add_node(n_a_id, **n_a_attrs)
             copy.add_node(n_b_id, **n_b_attrs)
@@ -371,14 +375,24 @@ def _get_subgraph(
 def copy_ast(graph: nx.DiGraph) -> nx.DiGraph:
     return _get_subgraph(
         graph=graph,
-        edge_predicate=pred_has_labels(label_ast='AST'),
+        edge_n_attrs_predicate=pred_has_labels(label_ast='AST'),
     )
 
 
 def copy_cfg(graph: nx.DiGraph) -> nx.DiGraph:
     return _get_subgraph(
         graph=graph,
-        edge_predicate=pred_has_labels(label_cfg='CFG'),
+        edge_n_attrs_predicate=pred_has_labels(label_cfg='CFG'),
+    )
+
+
+def copy_depth(graph: nx.DiGraph, n_id: str, depth: int = -1) -> nx.DiGraph:
+    closure = {n_id}
+    closure.update(adj(graph, n_id, depth))
+
+    return _get_subgraph(
+        graph=graph,
+        node_n_id_predicate=lambda n_id: n_id in closure,
     )
 
 
