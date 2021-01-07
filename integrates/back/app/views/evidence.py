@@ -7,7 +7,11 @@ from typing import List, Sequence
 from magic import Magic
 
 from starlette.requests import Request
-from starlette.responses import JSONResponse, Response
+from starlette.responses import (
+    HTMLResponse,
+    JSONResponse,
+    Response,
+)
 
 # Local libraries
 from backend import authz, util
@@ -36,7 +40,7 @@ async def enforce_group_level_role(
     email = request.session.get('username')
 
     if not email:
-        return Response(
+        return HTMLResponse(
             '<script> '
             'var getUrl=window.location.href.split('
             '`${window.location.host}/`); '
