@@ -1,7 +1,6 @@
 # pylint:disable=too-many-lines
 import logging
 import sys
-from time import time
 from typing import Any, Union
 
 # Third party libraries
@@ -17,7 +16,6 @@ from backend.decorators import (
 from backend.domain import (
     finding as finding_domain,
 )
-from backend.exceptions import PermissionDenied
 from backend.typing import (
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
@@ -25,8 +23,7 @@ from backend.typing import (
     AddConsultPayload as AddConsultPayloadType,
 )
 from backend.utils import (
-    datetime as datetime_utils,
-    findings as finding_utils,
+    findings as finding_utils
 )
 from backend import util
 from back.settings import LOGGING
@@ -52,112 +49,6 @@ def resolve_finding_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return resolver_func(obj, info, **parameters)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-async def _do_remove_evidence(
-        _: Any,
-        info: GraphQLResolveInfo,
-        evidence_id: str,
-        finding_id: str) -> SimpleFindingPayloadType:
-    """Resolve remove_evidence mutation."""
-    success = await finding_domain.remove_evidence(evidence_id, finding_id)
-
-    if success:
-        util.queue_cache_invalidation(
-            f'evidence*{finding_id}',
-            f'exploit*{finding_id}',
-            f'records*{finding_id}'
-        )
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Removed evidence '
-             f'in finding {finding_id}')  # pragma: no cover
-        )
-    finding = await info.context.loaders['finding'].load(finding_id)
-    return SimpleFindingPayloadType(finding=finding, success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
-async def _do_add_finding_consult(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: Any) -> AddConsultPayloadType:
-    success = False
-    param_type = parameters.get('type', '').lower()
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    finding_id = str(parameters.get('finding_id'))
-    finding_loader = info.context.loaders['finding']
-    finding = await finding_loader.load(finding_id)
-    group = finding.get('project_name')
-    content = parameters['content']
-
-    user_email = user_data['user_email']
-    comment_id = int(round(time() * 1000))
-    current_time = datetime_utils.get_as_str(
-        datetime_utils.get_now()
-    )
-    comment_data = {
-        'user_id': comment_id,
-        'comment_type': param_type if param_type != 'consult' else 'comment',
-        'content': content,
-        'fullname': ' '.join(
-            [user_data['first_name'], user_data['last_name']]
-        ),
-        'parent': parameters.get('parent'),
-        'created': current_time,
-        'modified': current_time,
-    }
-    try:
-        success = await finding_domain.add_comment(
-            info,
-            user_email,
-            comment_data,
-            finding_id,
-            group
-        )
-    except PermissionDenied:
-        util.cloudwatch_log(
-            info.context,
-            'Security: Unauthorized role attempted to add observation'
-        )
-
-    if success:
-        util.queue_cache_invalidation(
-            f'{param_type}*{finding_id}',
-            f'comment*{finding_id}'
-        )
-        if content.strip() not in {'#external', '#internal'}:
-            finding_domain.send_comment_mail(
-                user_email,
-                comment_data,
-                finding
-            )
-
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Added comment in '
-             f'finding {finding_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to add '
-             f'comment in finding {finding_id}')  # pragma: no cover
-        )
-    ret = AddConsultPayloadType(success=success, comment_id=str(comment_id))
-    return ret
 
 
 @concurrent_decorators(
