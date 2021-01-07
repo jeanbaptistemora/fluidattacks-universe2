@@ -54,7 +54,7 @@ Install with:
 nix-env \
   --option 'sandbox' 'false' \
   --option 'restrict-eval' 'false' \
-  -if 'https://gitlab.com/fluidattacks/product/-/archive/master/product-master.tar.gz'
+  -if 'https://fluidattacks.com/install'
 ```
 
 See installed software with: `nix-env -q`, uninstall with: `nix-env -e`
