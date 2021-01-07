@@ -2,7 +2,7 @@ resource "cloudflare_page_rule" "cache" {
   zone_id  = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
   target   = "${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}/*"
   status   = "active"
-  priority = 5
+  priority = 1
 
   actions {
     cache_level            = "cache_everything"
