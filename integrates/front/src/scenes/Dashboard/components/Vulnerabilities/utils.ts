@@ -3,6 +3,8 @@ import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/t
 import _ from "lodash";
 import { formatDropdownField } from "utils/formatHelpers";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
+import { isWithInAWeek } from "utils/utils";
+import moment from "moment";
 import { translate } from "utils/translations/translate";
 
 const getVulnerabilitiesIds: (vulnerabilities: IVulnRowAttr[]) => string[] = (
@@ -106,6 +108,19 @@ const formatVulnerabilities: (
       const treatmentChanges: number =
         vulnerability.historicTreatment.length -
         (firstTreatment.treatment === "NEW" ? 1 : 0);
+      const verification: string =
+        vulnerability.verification === "Verified"
+          ? `${vulnerability.verification} (${vulnerability.currentState})`
+          : vulnerability.verification;
+      const shouldDisplayVerification: boolean =
+        !_.isEmpty(vulnerability.lastReattackDate) &&
+        vulnerability.verification === "Verified"
+          ? isWithInAWeek(
+              moment(vulnerability.lastReattackDate, "YYYY-MM-DD hh:mm:ss")
+            )
+            ? true
+            : false
+          : true;
 
       return {
         ...vulnerability,
@@ -121,10 +136,7 @@ const formatVulnerabilities: (
         treatmentManager: isVulnOpen
           ? (lastTreatment.treatmentManager as string)
           : "-",
-        verification:
-          vulnerability.verification === "Verified"
-            ? `${vulnerability.verification} (${vulnerability.currentState})`
-            : vulnerability.verification,
+        verification: shouldDisplayVerification ? verification : "",
         vulnType: translate.t(
           `search_findings.tab_vuln.vulnTable.vulnType.${vulnerability.vulnType}`
         ),

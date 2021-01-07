@@ -3,15 +3,18 @@ import React from "react";
 import type { ReactWrapper } from "enzyme";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { act } from "react-dom/test-utils";
+import moment from "moment";
 import { mount } from "enzyme";
 
 describe("VulnComponent", (): void => {
+  const numberOfDaysOldThanAWeek: number = 12;
+  const numberOfDays: number = 5;
   const mocks: IVulnRowAttr[] = [
     {
       currentState: "open",
       currentStateCapitalized: "Open",
-      cycles: "",
-      efficacy: "",
+      cycles: "1",
+      efficacy: "0",
       externalBts: "",
       historicTreatment: [
         {
@@ -45,8 +48,8 @@ describe("VulnComponent", (): void => {
     {
       currentState: "closed",
       currentStateCapitalized: "Closed",
-      cycles: "",
-      efficacy: "",
+      cycles: "1",
+      efficacy: "100",
       externalBts: "",
       historicTreatment: [
         {
@@ -60,7 +63,9 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
-      lastReattackDate: "",
+      lastReattackDate: moment()
+        .subtract(numberOfDays, "days")
+        .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
       lastRequestedReattackDate: "",
       remediated: false,
@@ -72,6 +77,43 @@ describe("VulnComponent", (): void => {
       treatmentChanges: 1,
       treatmentDate: "",
       treatmentManager: "",
+      verification: "Verified",
+      vulnType: "lines",
+      where: "https://example.com/lines",
+      zeroRisk: "",
+    },
+    {
+      currentState: "open",
+      currentStateCapitalized: "Open",
+      cycles: "1",
+      efficacy: "0",
+      externalBts: "",
+      historicTreatment: [
+        {
+          acceptanceDate: "",
+          acceptanceStatus: "",
+          date: "2019-07-05 09:56:40",
+          justification: "test progress justification",
+          treatment: "IN PROGRESS",
+          treatmentManager: "treatment-manager-4",
+          user: "usertreatment@test.test",
+        },
+      ],
+      id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
+      lastReattackDate: moment()
+        .subtract(numberOfDaysOldThanAWeek, "days")
+        .format("YYYY-MM-DD hh:mm:ss"),
+      lastReattackRequester: "",
+      lastRequestedReattackDate: "",
+      remediated: false,
+      reportDate: "",
+      severity: "1",
+      specific: "specific-3",
+      tag: "tag-7, tag-8",
+      treatment: "IN PROGRESS",
+      treatmentChanges: 1,
+      treatmentDate: "2019-07-05 09:56:40",
+      treatmentManager: "treatment-manager-4",
       verification: "Verified",
       vulnType: "lines",
       where: "https://example.com/lines",
@@ -109,10 +151,14 @@ describe("VulnComponent", (): void => {
       .at(0);
     const tableSpecifics: ReactWrapper = tableVulns.find({ columnIndex: 2 });
     const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
+    const tableVerification: ReactWrapper = tableVulns.find({ columnIndex: 6 });
 
     expect(tableSpecifics.at(0).text()).toStrictEqual("specific-1");
     expect(selectionCell.at(0).find("input").prop("disabled")).toBe(false);
     expect(selectionCell.at(1).find("input").prop("disabled")).toBe(true);
+    expect(tableVerification.at(0).text()).toStrictEqual("Requested");
+    expect(tableVerification.at(1).text()).toStrictEqual("Verified");
+    expect(tableVerification.at(2).text()).toStrictEqual("");
 
     act((): void => {
       wrapper.setProps({ isEditing: false, isRequestingReattack: true });
