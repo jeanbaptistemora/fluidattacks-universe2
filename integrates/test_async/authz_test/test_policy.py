@@ -28,6 +28,7 @@ async def test_get_cached_group_service_attributes_policies():
         'integrates',
     ]
     assert sorted(await function('unittesting')) == [
+        'continuous',
         'drills_white',
         'forces',
         'integrates',

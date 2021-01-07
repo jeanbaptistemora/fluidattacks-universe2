@@ -229,6 +229,7 @@ async def test_project():
     assert result['data']['project']['serviceAttributes'] == [
         'has_drills_white',
         'is_fluidattacks_customer',
+        'is_continuous',
         'has_integrates',
         'has_forces',
         'must_only_have_fluidattacks_hackers',

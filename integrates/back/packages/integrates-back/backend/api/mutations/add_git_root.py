@@ -10,8 +10,8 @@ from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
+    require_continuous,
     require_login,
-    require_drills_white
 )
 from backend.domain import root as root_domain
 from backend.typing import SimplePayload
@@ -21,7 +21,7 @@ from backend.typing import SimplePayload
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_drills_white
+    require_continuous
 )
 async def mutate(
     _parent: None,

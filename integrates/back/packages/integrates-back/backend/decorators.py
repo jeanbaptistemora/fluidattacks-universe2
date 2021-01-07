@@ -338,10 +338,15 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
 
 # Factory functions
+REQUIRE_CONTINUOUS = require_attribute('is_continuous')
 REQUIRE_INTEGRATES = require_attribute('has_integrates')
 REQUIRE_FORCES = require_attribute('has_forces')
 REQUIRE_DRILLS_BLACK = require_attribute('has_drills_black')
 REQUIRE_DRILLS_WHITE = require_attribute('has_drills_white')
+
+
+def require_continuous(func: TVar) -> TVar:
+    return REQUIRE_CONTINUOUS(func)
 
 
 def require_integrates(func: TVar) -> TVar:

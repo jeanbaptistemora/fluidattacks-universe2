@@ -11,8 +11,8 @@ from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     rename_kwargs,
-    require_login,
-    require_drills_white
+    require_continuous,
+    require_login
 )
 from backend.domain import root as root_domain
 from backend.typing import SimplePayload
@@ -23,7 +23,7 @@ from backend.typing import SimplePayload
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_drills_white
+    require_continuous
 )
 @rename_kwargs({'root_id': 'id'})
 async def mutate(

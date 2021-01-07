@@ -690,6 +690,9 @@ USER_LEVEL_ACTIONS: Set[str] = {
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
+    continuous={
+        'is_continuous',
+    },
     drills_black={
         'has_drills_black',
         'is_fluidattacks_customer',

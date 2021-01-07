@@ -30,7 +30,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Have I={"has_drills_white"}>
+      <Have I={"is_continuous"}>
         <GitRoots
           groupName={groupName}
           onUpdate={refetch}

@@ -34,6 +34,7 @@ pytestmark = [
             'internal_manager'
         ]),
         (authz.SERVICE_ATTRIBUTES, [
+            'continuous',
             'drills_black',
             'drills_white',
             'forces',

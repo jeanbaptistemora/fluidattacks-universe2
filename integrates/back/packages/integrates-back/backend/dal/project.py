@@ -69,6 +69,9 @@ async def get_service_policies(group: str) -> List[ServicePolicy]:
 
     if type_ == 'continuous':
 
+        policies.append(
+            ServicePolicy(group=group, service='continuous')
+        )
         if has_integrates:
             policies.append(
                 ServicePolicy(group=group, service='integrates')
