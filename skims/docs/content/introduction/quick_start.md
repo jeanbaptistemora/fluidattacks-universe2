@@ -10,7 +10,7 @@ Installing:
 
 1.  Run the following command:
 
-    `nix-env -i product -f 'https://gitlab.com/fluidattacks/product/-/archive/master/product-master.tar.gz'`
+    `nix-env -i product -f 'https://fluidattacks.com/install'`
 
 1.  You should be able to execute skims now:
 
