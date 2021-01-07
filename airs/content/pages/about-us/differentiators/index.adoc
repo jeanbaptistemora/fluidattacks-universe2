@@ -33,7 +33,7 @@ we have a *0%* false negatives (omissions).
 
 a|==== All in one
 | We provide comprehensive testing through a single solution,
-including the following techniques: `SAST`, `DAST`, `IAST`, `SCA`,
+including the following techniques: `SAST`, `DAST`, `SCA`,
 Pentesting, DevSecOps, link:../../blog/fuzzy-bugs-online/[fuzzing], manual code review,
 link:../../blog/reversing-mortals/[reversing] (if the source is not given), false positive elimination,
 exploitation with public, private, and custom exploits, user enumeration,
