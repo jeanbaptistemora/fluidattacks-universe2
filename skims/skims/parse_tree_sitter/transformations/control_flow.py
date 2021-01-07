@@ -81,8 +81,7 @@ def _step_by_step(
         _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
 
     # Link recursively the last statement in the block
-    if _get_next_id(stack):
-        _propagate_next_id_from_parent(stack)
+    _propagate_next_id_from_parent(stack)
     _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 
@@ -142,7 +141,7 @@ def _if_statement(
         graph.add_edge(n_id, next_id, **FALSE)
 
 
-def _method_declaration(
+def _link_to_last_node(
     graph: nx.DiGraph,
     n_id: str,
     stack: Stack,
@@ -184,14 +183,12 @@ def _try_statement(
         p_id = c_id
 
         # Link child block recursively
-        if _get_next_id(stack):
-            _propagate_next_id_from_parent(stack)
+        _propagate_next_id_from_parent(stack)
         _generic(graph, c_id, stack, edge_attrs=edge_attrs)
 
         # If this is the last block and we should link to a next_id, do it
         if last:
-            if _get_next_id(stack):
-                _propagate_next_id_from_parent(stack)
+            _propagate_next_id_from_parent(stack)
             _generic(graph, c_id, stack, edge_attrs=edge_attrs)
 
 
@@ -211,6 +208,8 @@ def _generic(
         ({'block',
           'expression_statement'},
          _step_by_step),
+        ({'catch_clause'},
+         _link_to_last_node),
         ({'for_statement',
           'enhanced_for_statement',
           'while_statement'},
@@ -218,7 +217,7 @@ def _generic(
         ({'if_statement'},
          _if_statement),
         ({'method_declaration'},
-         _method_declaration),
+         _link_to_last_node),
         ({'try_statement',
           'try_with_resources_statement'},
          _try_statement),

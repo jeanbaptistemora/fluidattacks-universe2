@@ -17,7 +17,6 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    in_thread,
     in_process,
 )
 from PIL import (
@@ -55,12 +54,8 @@ def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:
     return SequenceMatcher(None, string_a, string_b).ratio() >= threshold
 
 
-async def to_in_memory_file(string: str) -> BytesIO:
-
-    def _to_in_memory_file() -> BytesIO:
-        return BytesIO(string.encode())
-
-    return await in_thread(_to_in_memory_file)
+def to_in_memory_file(string: str) -> BytesIO:
+    return BytesIO(string.encode())
 
 
 def blocking_to_snippet(

@@ -589,7 +589,7 @@ async def do_upload_vulnerabilities(
         """,
         operation='SkimsDoUploadVulnerabilities',
         variables=dict(
-            file_handle=await to_in_memory_file(stream),
+            file_handle=to_in_memory_file(stream),
             finding_id=finding_id,
         )
     )
