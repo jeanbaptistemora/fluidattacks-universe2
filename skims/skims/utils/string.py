@@ -26,6 +26,9 @@ from PIL import (
 )
 
 # Local libraries
+from state import (
+    STATE_FOLDER_DEBUG
+)
 from utils.ctx import (
     FLUID_WATERMARK,
     ROBOTO_FONT,
@@ -33,7 +36,9 @@ from utils.ctx import (
 from utils.image import (
     clarify_blocking,
 )
-
+from utils.logs import (
+    log_blocking,
+)
 
 # Constants
 DUMMY_IMG: Image = Image.new('RGB', (0, 0))
@@ -178,7 +183,9 @@ async def to_png(*, string: str) -> BytesIO:
 
 
 def get_debug_path(path: str) -> str:
-    return os.path.join(
-        'test/outputs',
+    output = os.path.join(
+        STATE_FOLDER_DEBUG,
         os.path.relpath(path).replace('/', '__').replace('.', '_'),
     )
+    log_blocking('info', 'An output will be generated at %s*', output)
+    return output
