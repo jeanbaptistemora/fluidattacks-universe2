@@ -10,13 +10,8 @@ from botocore.exceptions import ClientError
 # Local libraries
 from toolbox import (
     logger,
-    utils,
 )
 from toolbox.utils.function import shield
-from toolbox.utils.integrates import (
-    get_include_rules,
-    get_exclude_rules,
-)
 
 
 def get_dynamodb_resource():
@@ -28,21 +23,14 @@ def get_dynamodb_resource():
     )
 
 
-def count_lines(subs, file_csv):
+def count_lines(file_csv):
     """Insert lines.csv"""
     with open(file_csv) as f_csv:
         reader = csv.reader(f_csv)
         next(reader, None)
-        (lines, tested_lines, skipped) = (0, 0, 0)
+        (lines, tested_lines) = (0, 0,)
         for row in reader:
             if not row:
-                continue
-            filename: str = row[0]
-            if not utils.file.is_covered(
-                    path=filename,
-                    include_regexps=get_include_rules(subs),
-                    exclude_regexps=get_exclude_rules(subs)):
-                skipped += int(row[1]) if row[1] else 0
                 continue
 
             if row[1] != '':
@@ -54,7 +42,6 @@ def count_lines(subs, file_csv):
                     tested_lines += int(row[2])
                 else:
                     pass
-        logger.info('skipped', file_csv, skipped)
     return (lines, tested_lines)
 
 
@@ -119,7 +106,7 @@ def main(target_group: str):
             fields, tested_fields = count_inputs(inputs_file)
 
         if os.path.exists(lines_file):
-            lines, tested_lines = count_lines(group, lines_file)
+            lines, tested_lines = count_lines(lines_file)
 
         success = success \
             and insert_data(group, lines, tested_lines, fields, tested_fields)

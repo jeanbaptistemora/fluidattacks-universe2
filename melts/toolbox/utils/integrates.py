@@ -36,26 +36,6 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     return filter_request.data['project']['roots']
 
 
-def get_include_rules(group: str) -> Tuple[str, ...]:
-    filter_request = api.integrates.Queries.git_roots_filter(API_TOKEN, group)
-    if not filter_request.ok:
-        logger.error(filter_request.errors)
-        return tuple()
-    filters = tuple(rule['filter']
-                    for rule in filter_request.data['project']['roots'])
-    return tuple(rule for root in filters for rule in root['include'])
-
-
-def get_exclude_rules(group: str) -> Tuple[str, ...]:
-    filter_request = api.integrates.Queries.git_roots_filter(API_TOKEN, group)
-    if not filter_request.ok:
-        logger.error(filter_request.errors)
-        return tuple()
-    filters = tuple(rule['filter']
-                    for rule in filter_request.data['project']['roots'])
-    return tuple(rule for root in filters for rule in root['exclude'])
-
-
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.has_forces(API_TOKEN, group)
     if not response.ok:
