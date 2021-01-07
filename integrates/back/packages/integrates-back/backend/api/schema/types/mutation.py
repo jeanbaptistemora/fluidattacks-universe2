@@ -28,6 +28,7 @@ from backend.api.mutations import (
     invalidate_cache,
     reject_zero_risk_vuln,
     remove_event_evidence,
+    remove_finding_evidence,
     remove_group,
     remove_stakeholder_organization_access,
     request_zero_risk_vuln,
@@ -136,7 +137,7 @@ MUTATION.set_field('addProjectConsult',
                    project.resolve_project_mutation)
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
-MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
+MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription',
                    finding.resolve_finding_mutation)
