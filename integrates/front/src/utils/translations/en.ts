@@ -501,6 +501,10 @@ export const enTranslations: ResourceKey = {
           title: "Filters",
           tooltip:
             "Patterns that define which files should be ignored during the analysis",
+          warning:
+            "Vulnerabilities of various impact can exist in test directories. " +
+            "We recommend you do not exlude any part of your repository. " +
+            "Decide at your own risk.",
         },
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",

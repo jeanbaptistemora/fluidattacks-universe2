@@ -8,17 +8,20 @@ import { Modal } from "components/Modal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import _ from "lodash";
 import style from "./index.css";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { ArrayField, Checkbox, Text } from "utils/forms/fields";
 import {
+  Alert,
   ButtonToolbar,
   Col100,
   ControlLabel,
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { Field, FormSection } from "redux-form";
+import { ArrayField, Checkbox, Text } from "utils/forms/fields";
+import { Field, FormSection, formValueSelector } from "redux-form";
 import { checked, excludeFormat, required } from "utils/validations";
 
 interface IGitModalProps {
@@ -51,6 +54,15 @@ const GitModal: React.FC<IGitModalProps> = ({
   const { t } = useTranslation();
 
   // State management
+  const selector: (
+    state: Record<string, unknown>,
+    field: string
+  ) => string[] = formValueSelector("gitRoot");
+  const gitIgnoreValues: string[] = useSelector(
+    (state: Record<string, unknown>): string[] =>
+      selector(state, "filter.exclude")
+  );
+
   const [confirmHealthCheck, setConfirmHealthCheck] = React.useState(
     initialValues.includesHealthCheck
   );
@@ -166,6 +178,11 @@ const GitModal: React.FC<IGitModalProps> = ({
                     >
                       <Glyphicon glyph={"glyphicon glyphicon-question-sign"} />
                     </Button>
+                    {_.isUndefined(gitIgnoreValues) ? undefined : _.isEmpty(
+                        gitIgnoreValues
+                      ) ? undefined : (
+                      <Alert>{t("group.scope.git.filter.warning")}</Alert>
+                    )}
                     <ArrayField
                       allowEmpty={true}
                       initialValue={""}
