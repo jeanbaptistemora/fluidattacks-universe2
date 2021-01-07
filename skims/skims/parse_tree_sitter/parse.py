@@ -5,8 +5,16 @@ from itertools import (
 import os
 from typing import (
     Any,
+    Awaitable,
+    Iterable,
     Iterator,
     Optional,
+    Tuple,
+)
+from aioextensions import (
+    CPU_CORES,
+    in_process,
+    resolve,
 )
 
 # Third party libraries
@@ -27,6 +35,9 @@ from parse_tree_sitter.transformations.styles import (
 )
 from state import (
     STATE_FOLDER,
+)
+from state.cache import (
+    CACHE_ETERNALLY,
 )
 from utils.ctx import (
     CTX,
@@ -58,13 +69,13 @@ def _build_ast_graph(
     content: bytes,
     obj: Any,
     *,
-    _counter: Optional[Iterator[int]] = None,
-    _edge_index: Optional[int] = None,
+    _counter: Optional[Iterator[str]] = None,
+    _edge_index: Optional[str] = None,
     _graph: Optional[nx.DiGraph] = None,
-    _parent: Optional[int] = None,
+    _parent: Optional[str] = None,
 ) -> nx.DiGraph:
     # Handle first level of recurssion, where _graph is None
-    _counter = count(1) if _counter is None else _counter
+    _counter = map(str, count(1)) if _counter is None else _counter
     _graph = nx.DiGraph() if _graph is None else _graph
 
     if isinstance(obj, Tree):
@@ -78,7 +89,7 @@ def _build_ast_graph(
 
         _graph.add_node(
             n_id,
-            label_c=obj.start_point[1],
+            label_c=obj.start_point[1] + 1,
             label_l=obj.start_point[0] + 1,
             label_parent_ast=_parent,
             label_type=obj.type,
@@ -103,7 +114,7 @@ def _build_ast_graph(
                 content,
                 child,
                 _counter=_counter,
-                _edge_index=edge_index,
+                _edge_index=str(edge_index),
                 _graph=_graph,
                 _parent=n_id,
             )
@@ -114,12 +125,28 @@ def _build_ast_graph(
     return _graph
 
 
-def parse(
+def decide_language(path: str) -> str:
+    language = ''
+
+    if path.endswith('.java'):
+        language = 'java'
+
+    return language
+
+
+@CACHE_ETERNALLY
+def _parse_one_cached(
     *,
-    content: bytes,
-    parser: Parser,
+    language: str,
     path: str,
+    _: int,
 ) -> nx.DiGraph:
+    parser: Parser = Parser()
+    parser.set_language(Language(LANGUAGES_SO, language))
+
+    with open(path, 'rb') as handle:
+        content = handle.read()
+
     raw_tree: Tree = parser.parse(content)
 
     graph: nx.DiGraph = _build_ast_graph(content, raw_tree)
@@ -133,3 +160,31 @@ def parse(
         to_svg(copy_cfg(graph), f'{output}.cfg')
 
     return graph
+
+
+def parse_one(
+    *,
+    language: str,
+    path: str,
+    version: int = 3,
+) -> Optional[nx.DiGraph]:
+    if not language:
+        return None
+
+    return _parse_one_cached(
+        language=language,
+        path=path,
+        _=version,
+    )
+
+
+def parse_many(paths: Tuple[str, ...]) -> Iterable[Awaitable[nx.DiGraph]]:
+    # Collect graphs in a cluster of processes
+    return resolve((
+        in_process(
+            parse_one,
+            language=decide_language(path),
+            path=path,
+        )
+        for path in paths
+    ), workers=CPU_CORES)

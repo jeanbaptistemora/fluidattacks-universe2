@@ -1,10 +1,12 @@
 # Third party libraries
+from aioextensions import (
+    run_decorator,
+)
 import pytest
 
 # Local libraries
 from parse_tree_sitter.parse import (
-    parse,
-    PARSER_JAVA,
+    parse_many,
 )
 from utils.graph import (
     export_graph_as_json,
@@ -44,14 +46,9 @@ from utils.encodings import (
     ],
 )
 @pytest.mark.skims_test_group('unittesting')
-def test_graph_generation(path: str, name: str) -> None:
-    with open(path, 'r') as handle:
-        graph = parse(
-            content=handle.read().encode(),
-            parser=PARSER_JAVA,
-            path=path,
-        )
-
+@run_decorator
+async def test_graph_generation(path: str, name: str) -> None:
+    graph = await tuple(parse_many((path,)))[0]
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json_dumps(graph_as_json, indent=2, sort_keys=True)
 
