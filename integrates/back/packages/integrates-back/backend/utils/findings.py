@@ -465,11 +465,21 @@ def build_tracking_by_treatment(
     return new_tracking
 
 
+def combine_historic(historic: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """Combines common date historic elements"""
+    objs: Dict[str, Dict[str, str]] = {}
+    for element in historic:
+        if element['date'] in objs:
+            objs[element['date']].update(element)
+        else:
+            objs[element['date']] = element
+    return list(map(lambda x: x[1], objs.items()))
+
+
 def get_open_verification_dates(
         vulnerabilities: List[Dict[str, FindingType]]) -> List[str]:
     """Get dates when open vulns were verified."""
     verified_open_dates = set()
-    historic_open_verified = []
     for vuln in vulnerabilities:
         historic_state = cast(
             List[Dict[str, str]],
@@ -480,19 +490,18 @@ def get_open_verification_dates(
             vuln.get('historic_verification', [])
         )
         historic = historic_state + historic_verification
-        sorted_historic = sort_historic_by_date(historic)
-        for index in range(1, len(sorted_historic)):
-            prev_milestone = sorted_historic[index - 1]
-            milestone = sorted_historic[index]
-            if 'state' not in milestone:
-                milestone['state'] = prev_milestone['state']
-        historic_open_verified = list(
-            filter(
-                lambda i: i.get('state', '') == 'open'
-                and i.get('status', '') == 'VERIFIED',
-                sorted_historic
-            )
-        )
+        sorted_historic = sort_historic_by_date(combine_historic(historic))
+        last_state: str = 'UNKNOWN'
+        historic_open_verified: List[Dict[str, Any]] = []
+        for element in sorted_historic:
+            if 'status' in element:
+                if str(element['status']).upper() == 'VERIFIED' \
+                   and last_state.lower() == 'open':
+                    historic_open_verified.append(element)
+                if 'state' in element:
+                    last_state = element['state']
+            elif 'state' in element:
+                last_state = element['state']
         verified_open_dates.update([
             str(milestone.get('date', '')).split(' ')[0]
             for milestone in historic_open_verified
