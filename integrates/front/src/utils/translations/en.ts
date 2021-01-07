@@ -705,6 +705,12 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Communication platform where all group stakeholders can interact",
           },
+          language: {
+            EN: "English",
+            ES: "Spanish",
+            text: "Report Language",
+            tooltip: "Language in which findings should be reported",
+          },
           name: "Group Name",
           new: {
             group: "New Group",
@@ -867,6 +873,14 @@ export const enTranslations: ResourceKey = {
     finding_deleted: "Finding {{findingId}} was deleted",
     finding_rejected: "Finding {{findingId}} was rejected",
     high_severity: "High",
+    info_table: {
+      EN: "English",
+      ES: "Spanish",
+      attribute: "Attribute",
+      lang: "Language",
+      title: "Information",
+      value: "Value",
+    },
     low_severity: "Low",
     medium_severity: "Medium",
     none_severity: "None",

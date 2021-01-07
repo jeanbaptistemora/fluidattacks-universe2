@@ -14,6 +14,7 @@ const CREATE_PROJECT_MUTATION: DocumentNode = gql`
     $description: String!
     $hasDrills: Boolean
     $hasForces: Boolean
+    $language: Language
     $organization: String!
     $projectName: String!
     $subscription: SubscriptionType
@@ -22,6 +23,7 @@ const CREATE_PROJECT_MUTATION: DocumentNode = gql`
       description: $description
       hasDrills: $hasDrills
       hasForces: $hasForces
+      language: $language
       organization: $organization
       projectName: $projectName
       subscription: $subscription

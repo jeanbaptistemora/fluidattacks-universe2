@@ -38,6 +38,7 @@ describe("Services", () => {
           project: {
             hasDrills: true,
             hasForces: true,
+            language: "EN",
             subscription: "CoNtInUoUs",
           },
         },
@@ -55,6 +56,7 @@ describe("Services", () => {
           project: {
             hasDrills: true,
             hasForces: true,
+            language: "EN",
             subscription: "CoNtInUoUs",
           },
         },
@@ -72,6 +74,7 @@ describe("Services", () => {
           project: {
             hasDrills: false,
             hasForces: false,
+            language: "EN",
             subscription: "OnEsHoT",
           },
         },
@@ -84,6 +87,7 @@ describe("Services", () => {
           groupName: "unittesting",
           hasDrills: false,
           hasForces: false,
+          language: "EN",
           subscription: "CONTINUOUS",
         },
       },

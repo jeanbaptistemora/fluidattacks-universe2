@@ -194,6 +194,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                   function handleSubmit(values: {
                     description: string;
                     name: string;
+                    language: string;
                     organization: string;
                     type: string;
                   }): void {
@@ -202,6 +203,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                         description: values.description,
                         hasDrills,
                         hasForces,
+                        language: values.language,
                         organization: values.organization,
                         projectName: values.name,
                         subscription: values.type,
@@ -321,6 +323,37 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                       <option value={"ONESHOT"}>
                                         {translate.t(
                                           "organization.tabs.groups.newGroup.type.one_shot"
+                                        )}
+                                      </option>
+                                    </Field>
+                                  </FormGroup>
+                                </TooltipWrapper>
+                              </FormGroup>
+                              <FormGroup>
+                                <ControlLabel>
+                                  {translate.t(
+                                    "organization.tabs.groups.newGroup.language.text"
+                                  )}
+                                </ControlLabel>
+                                <TooltipWrapper
+                                  message={translate.t(
+                                    "organization.tabs.groups.newGroup.language.tooltip"
+                                  )}
+                                  placement={"top"}
+                                >
+                                  <FormGroup>
+                                    <Field
+                                      component={Dropdown}
+                                      name={"language"}
+                                    >
+                                      <option value={"EN"}>
+                                        {translate.t(
+                                          "organization.tabs.groups.newGroup.language.EN"
+                                        )}
+                                      </option>
+                                      <option value={"ES"}>
+                                        {translate.t(
+                                          "organization.tabs.groups.newGroup.language.ES"
                                         )}
                                       </option>
                                     </Field>
