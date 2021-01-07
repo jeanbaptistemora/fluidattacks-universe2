@@ -94,7 +94,8 @@ function main_help {
   &&  echo \
   &&  while read -r attr; do echo "  ${attr}"; done < "makes/attrs/packages.lst" \
   &&  echo \
-
+  &&  return 1 \
+  ||  return 1
 }
 
 function run_with_internet {

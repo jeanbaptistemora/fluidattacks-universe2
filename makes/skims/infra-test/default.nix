@@ -1,13 +1,11 @@
-_ @ {
-  skimsPkgsTerraform,
-  ...
-}:
-
+{ skimsPkgsTerraform
+, ...
+} @ _:
 let
   terraformTest = import ../../../makes/utils/bash-lib/terraform-test skimsPkgsTerraform;
 in
-  terraformTest {
-    name = "skims-infra-test";
-    path = "skims/infra";
-    product = "skims";
-  }
+terraformTest {
+  name = "skims-infra-test";
+  path = "skims/infra";
+  product = "skims";
+}

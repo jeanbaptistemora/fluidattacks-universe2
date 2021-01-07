@@ -103,12 +103,12 @@ common_build_nix_caches:
     refs: [schedules]
     variables: [$common_build_nix_caches]
 
-common-deploy-oci-batch:
+makes-deploy-oci-batch:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
 
-common-deploy-oci-ci:
+makes-deploy-oci-ci:
   <<: *makes
   <<: *common_in_master_branch
   stage: build
@@ -118,7 +118,7 @@ common_deploy_container_image:
   <<: *common_in_master_branch
   stage: deploy-app
 
-common-lint-build-system:
+makes-lint:
   <<: *makes
   <<: *common_in_dev_branch
   stage: lint-code

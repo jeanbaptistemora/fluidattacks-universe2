@@ -3,12 +3,11 @@
 
 pkgs:
 
-{
-  dependencies,
-  python,
-  requirements,
+{ dependencies
+, python
+, requirements
+,
 }:
-
 let
   makeDerivation = import ../../../makes/utils/make-derivation pkgs;
 
@@ -36,9 +35,9 @@ let
   requirementsStr = builtins.concatStringsSep "\n" requirementsList;
   requirementsFile = builtins.toFile "requirements" requirementsStr;
 in
-  makeDerivation {
-    builder = ./builder.sh;
-    buildInputs = dependencies ++ [ python ];
-    envRequirementsFile = requirementsFile;
-    name = "build-python-requirements";
-  }
+makeDerivation {
+  builder = ./builder.sh;
+  buildInputs = dependencies ++ [ python ];
+  envRequirementsFile = requirementsFile;
+  name = "build-python-requirements";
+}

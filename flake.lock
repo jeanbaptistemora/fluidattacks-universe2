@@ -35,7 +35,7 @@
       "inputs": {
         "flake": "flake",
         "flakeCompat": "flakeCompat",
-        "srcCommonPkgs": "srcCommonPkgs",
+        "srcMakesPkgs": "srcMakesPkgs",
         "srcMeltsPkgs": "srcMeltsPkgs",
         "srcObservesPkgs": "srcObservesPkgs",
         "srcSkimsBenchmarkOwaspRepo": "srcSkimsBenchmarkOwaspRepo",
@@ -44,7 +44,7 @@
         "srcSkimsTreeSitterRepo": "srcSkimsTreeSitterRepo"
       }
     },
-    "srcCommonPkgs": {
+    "srcMakesPkgs": {
       "locked": {
         "lastModified": 1609429790,
         "narHash": "sha256-g8ZZmGMbEbHuHW7yr86oRdh+7ot+3B5bz28J2WGgT6s=",

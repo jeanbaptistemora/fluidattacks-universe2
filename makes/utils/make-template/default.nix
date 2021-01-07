@@ -2,12 +2,11 @@
 
 pkgs:
 
-{
-  arguments,
-  name,
-  template,
+{ arguments
+, name
+, template
+,
 }:
-
 let
   makeDerivation = import ../../../makes/utils/make-derivation pkgs;
 
@@ -17,12 +16,12 @@ let
 
   templateFile =
     if (builtins.isString template)
-      then builtins.toFile "template" template
-      else template;
+    then builtins.toFile "template" template
+    else template;
 in
-  makeDerivation (arguments // {
-    builder = ./builder.sh;
-    inherit name;
-    __envArgumentNamesFile = argumentNamesFile;
-    __envTemplate = templateFile;
-  })
+makeDerivation (arguments // {
+  builder = ./builder.sh;
+  inherit name;
+  __envArgumentNamesFile = argumentNamesFile;
+  __envTemplate = templateFile;
+})

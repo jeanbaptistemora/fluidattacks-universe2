@@ -3,12 +3,12 @@
 
 pkgs:
 
-{
-  config,
-  contents,
-  extraCommands,
-  name,
-  tag,
+{ config
+, contents
+, extraCommands
+, name
+, tag
+,
 }:
 
 pkgs.dockerTools.buildLayeredImage (attrs // {

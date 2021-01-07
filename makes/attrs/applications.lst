@@ -1,5 +1,6 @@
-common-deploy-oci-batch
-common-deploy-oci-ci
+makes-deploy-oci-batch
+makes-deploy-oci-ci
+makes-lint
 melts
 observes-tap-json
 observes-target-redshift
