@@ -469,7 +469,7 @@ resource "cloudflare_page_rule" "redirect_www" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "www.${cloudflare_zone.fluidattacks_com.zone}/*"
   status   = "active"
-  priority = 2
+  priority = 99
 
   actions {
     forwarding_url {
@@ -483,7 +483,7 @@ resource "cloudflare_page_rule" "install" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/install"
   status   = "active"
-  priority = 1
+  priority = 100
 
   actions {
     forwarding_url {
