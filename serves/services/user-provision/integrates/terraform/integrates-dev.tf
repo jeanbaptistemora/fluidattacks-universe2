@@ -28,6 +28,7 @@ resource "cloudflare_api_token" "integrates_development" {
   policy {
     effect = "allow"
     permission_groups = [
+      data.cloudflare_api_token_permission_groups.all.permissions["Zone Read"],
       data.cloudflare_api_token_permission_groups.all.permissions["DNS Read"],
       data.cloudflare_api_token_permission_groups.all.permissions["Page Rules Read"],
     ]
