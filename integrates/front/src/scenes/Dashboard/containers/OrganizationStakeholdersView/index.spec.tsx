@@ -23,6 +23,8 @@ import store from "store";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+waitForExpect.defaults.interval = 1000;
+
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
   mockedNotifications.msgError = jest.fn();
