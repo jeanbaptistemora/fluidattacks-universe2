@@ -128,7 +128,6 @@ function job_observes_code_upload_all_groups_on_aws {
 }
 
 function job_observes_code_upload_group {
-  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local group="${1}"
 
       if test -z "${group}"
@@ -149,7 +148,6 @@ function job_observes_code_upload_group {
     &&  echo "[INFO] Cloning ${group}" \
     &&  if  CI=true \
             CI_COMMIT_REF_NAME='master' \
-            INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
             PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
             PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
             melts drills --pull-repos "${group}"
