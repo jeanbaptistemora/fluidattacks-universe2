@@ -7,6 +7,7 @@ from ariadne import MutationType
 # Local
 from backend.api.mutations import (
     add_event_consult,
+    add_finding_consult,
     add_forces_execution,
     add_git_root,
     add_ip_root,
@@ -136,8 +137,7 @@ MUTATION.set_field('addProjectConsult',
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)
-MUTATION.set_field('addFindingConsult',
-                   finding.resolve_finding_mutation)
+MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
