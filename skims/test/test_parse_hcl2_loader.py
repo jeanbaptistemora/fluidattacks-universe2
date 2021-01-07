@@ -9,7 +9,7 @@ import pytest
 
 # Local libraries
 from parse_hcl2.loader import (
-    blocking_load,
+    load_blocking,
 )
 from parse_hcl2.tokens import (
     Attribute,
@@ -23,7 +23,7 @@ def test_bad() -> None:
     expected = 'ERROR'
 
     with open('test/data/parse_hcl2/bad.tf') as file:
-        template = blocking_load(file.read(), default=expected)
+        template = load_blocking(file.read(), default=expected)
 
     assert template == expected
 
@@ -37,7 +37,7 @@ def test_load_empty() -> None:
     ])
 
     with open('test/data/parse_hcl2/empty.tf') as file:
-        template = blocking_load(file.read())
+        template = load_blocking(file.read())
 
     assert template == expected
 
@@ -87,7 +87,7 @@ def test_load_1() -> None:
     ])
 
     with open('test/data/parse_hcl2/1.tf') as file:
-        template = blocking_load(file.read())
+        template = load_blocking(file.read())
 
     assert template == expected
 
@@ -222,6 +222,6 @@ def test_load_2() -> None:
     ])
 
     with open('test/data/parse_hcl2/2.tf') as file:
-        template = blocking_load(file.read())
+        template = load_blocking(file.read())
 
     assert template == expected

@@ -28,8 +28,8 @@ from aioextensions import (
 # Local libraries
 from lib_path.common import (
     BACKTICK_QUOTED_STRING,
-    blocking_get_vulnerabilities,
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_JAVASCRIPT,
@@ -91,7 +91,7 @@ def _aws_credentials(
 ) -> Tuple[Vulnerability, ...]:
     grammar = Regex(r'AKIA[A-Z0-9]{16}')
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'798'},
         description=t(
@@ -114,7 +114,7 @@ def _jwt_token(
         r'[A-Za-z0-9-_.+\/=]{20,}').addCondition(
             lambda tokens: any(_validate_jwt(token) for token in tokens))
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'798'},
         description=t(
@@ -193,7 +193,7 @@ def _crypto_js_credentials(
         )
     )
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'798'},
         description=t(
@@ -231,7 +231,7 @@ def _dockerfile_env_secrets(
                     column: int = match.start('value')
                     yield line_no, column
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'798'},
         description=t(
@@ -307,7 +307,7 @@ def _java_properties_sensitive_data(
                 if sensible_key_smell in key and val:
                     yield line_no, 0
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'798'},
         description=t(

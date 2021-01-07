@@ -4,7 +4,7 @@ from PIL import (
 )
 
 
-def blocking_clarify(image: Image, ratio: float) -> Image:
+def clarify_blocking(image: Image, ratio: float) -> Image:
     image_mask: Image = image.convert('L')
     image_mask_pixels = image_mask.load()
 

@@ -26,9 +26,9 @@ from graph_java.get import (
     get as java_get_graph,
 )
 from lib_path.common import (
-    blocking_get_vulnerabilities,
-    blocking_get_vulnerabilities_from_iterator,
-    blocking_get_vulnerabilities_from_n_attrs_iterable,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
+    get_vulnerabilities_from_n_attrs_iterable_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
@@ -106,7 +106,7 @@ def _csharp_insecure_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'396'},
         description=t(
@@ -177,7 +177,7 @@ def _java_insecure_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'396'},
         description=t(
@@ -254,7 +254,7 @@ def _java_declaration_of_throws_for_generic_exception(
                         if c_c_attrs['label_text'] in generics:
                             yield c_c_attrs
 
-    return blocking_get_vulnerabilities_from_n_attrs_iterable(
+    return get_vulnerabilities_from_n_attrs_iterable_blocking(
         content=content,
         cwe={'397'},
         description=t(
@@ -310,7 +310,7 @@ def _python_insecure_exceptions(
         ),
     )
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'396'},
         description=t(
@@ -354,7 +354,7 @@ def _swift_insecure_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'396'},
         description=t(

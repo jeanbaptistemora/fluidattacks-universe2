@@ -30,8 +30,8 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
-    blocking_get_vulnerabilities_from_iterator,
-    blocking_get_vulnerabilities_from_n_attrs_iterable,
+    get_vulnerabilities_from_iterator_blocking,
+    get_vulnerabilities_from_n_attrs_iterable_blocking,
 )
 from state.cache import (
     CACHE_1SEC,
@@ -83,7 +83,7 @@ def _csharp_switch_no_default(
             if defaults_count == 0:
                 yield switch[0]['l'], switch[0]['c']
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'478'},
         description=t(
@@ -136,7 +136,7 @@ def _java_switch_without_default(
                 if len(default_ids) == 0:
                     yield graph.nodes[n_id]
 
-    return blocking_get_vulnerabilities_from_n_attrs_iterable(
+    return get_vulnerabilities_from_n_attrs_iterable_blocking(
         content=content,
         cwe={'478'},
         description=t(
@@ -196,7 +196,7 @@ def _javascript_switch_no_default(
                         node['loc']['start']['column'],
                     )
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'478'},
         description=t(

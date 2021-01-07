@@ -21,8 +21,8 @@ from utils.function import (
     shield,
 )
 from utils.logs import (
-    blocking_log,
-    blocking_log_to_remote,
+    log_blocking,
+    log_to_remote_blocking,
 )
 from utils.bugs import (
     configure_bugsnag,
@@ -84,8 +84,8 @@ def dispatch(
         debug=False,
     )
 
-    blocking_log('info', 'Success: %s', success)
-    blocking_log_to_remote(
+    log_blocking('info', 'Success: %s', success)
+    log_to_remote_blocking(
         Execution('Success' if success else 'Failure'),
         execution_seconds=f'{time() - start_time}',
     )

@@ -30,7 +30,7 @@ from aws.iam.utils import (
     match_pattern,
 )
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_aws_iterator,
+    get_vulnerabilities_from_aws_iterator_blocking,
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     SHIELD,
@@ -170,7 +170,7 @@ def _cfn_negative_statement(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
         finding=FindingEnum.F031_AWS,
@@ -212,7 +212,7 @@ def _cfn_permissive_policy(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
         finding=FindingEnum.F031_AWS,
@@ -255,7 +255,7 @@ def _cfn_open_passrole(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
         finding=FindingEnum.F031_AWS,
@@ -273,7 +273,7 @@ def _cfn_admin_policy_attached(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
         finding=FindingEnum.F031_AWS,
@@ -329,7 +329,7 @@ def _terraform_negative_statement(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
         finding=FindingEnum.F031_AWS,
@@ -371,7 +371,7 @@ def _terraform_open_passrole(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
         finding=FindingEnum.F031_AWS,
@@ -410,7 +410,7 @@ def _terraform_permissive_policy(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
         finding=FindingEnum.F031_AWS,
@@ -453,7 +453,7 @@ def _terraform_admin_policy_attached(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_aws_iterator(
+    return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
         finding=FindingEnum.F031_AWS,

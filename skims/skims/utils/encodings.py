@@ -51,7 +51,7 @@ def json_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     return json.dumps(simplify(element), *args, **kwargs)
 
 
-def blocking_yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
+def yaml_dumps_blocking(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
     dumped: str = yaml.safe_dump(
@@ -67,7 +67,7 @@ def blocking_yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
 async def yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
-    return await in_thread(blocking_yaml_dumps, element, *args, **kwargs)
+    return await in_thread(yaml_dumps_blocking, element, *args, **kwargs)
 
 
 def deserialize_namespace_from_vuln(

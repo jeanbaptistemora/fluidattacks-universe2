@@ -16,7 +16,7 @@ from pyparsing import (
 
 # Local libraries
 from lib_path.common import (
-    blocking_get_vulnerabilities,
+    get_vulnerabilities_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA,
@@ -51,7 +51,7 @@ def _java_file_create_temp_file(
         'src.lib_path.f031_cwe378.java_file_create_temp_file.description'
     )
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'378'},
         description=t(key=translation_key, path=path),

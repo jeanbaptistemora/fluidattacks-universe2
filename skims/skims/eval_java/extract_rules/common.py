@@ -18,7 +18,7 @@ from utils.function import (
     get_id,
 )
 from utils.logs import (
-    blocking_log,
+    log_blocking,
 )
 
 
@@ -83,7 +83,7 @@ def not_implemented(
     *,
     ctx: Context
 ) -> None:
-    blocking_log(
+    log_blocking(
         'debug',
         'Missing case handling in %s: %s',
         get_id(function),

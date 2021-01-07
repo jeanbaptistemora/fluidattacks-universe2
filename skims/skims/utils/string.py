@@ -31,7 +31,7 @@ from utils.ctx import (
     ROBOTO_FONT,
 )
 from utils.image import (
-    blocking_clarify,
+    clarify_blocking,
 )
 
 
@@ -42,7 +42,7 @@ FONT: ImageFont = ImageFont.truetype(
     font=ROBOTO_FONT,
     size=18,
 )
-WATERMARK: Image = blocking_clarify(
+WATERMARK: Image = clarify_blocking(
     image=Image.open(FLUID_WATERMARK),
     ratio=0.15,
 )
@@ -58,7 +58,7 @@ def to_in_memory_file(string: str) -> BytesIO:
     return BytesIO(string.encode())
 
 
-def blocking_to_snippet(
+def to_snippet_blocking(
     *,
     chars_per_line: int = SNIPPETS_COLUMNS,
     column: int,
@@ -105,7 +105,7 @@ async def to_snippet(
     line: int,
 ) -> str:
     return await in_process(
-        blocking_to_snippet,
+        to_snippet_blocking,
         chars_per_line=chars_per_line,
         column=column,
         content=content,
@@ -114,7 +114,7 @@ async def to_snippet(
     )
 
 
-def blocking_boxify(
+def boxify_blocking(
     *,
     width_to_height_ratio: int = 3,
     string: str,
@@ -132,7 +132,7 @@ def blocking_boxify(
 
 def _to_png(*, string: str, margin: int = 25) -> BytesIO:
     # Make this image rectangular
-    string = blocking_boxify(string=string)
+    string = boxify_blocking(string=string)
 
     # This is the number of pixes needed to draw this text, may be big
     size: Tuple[int, int] = DUMMY_DRAWING.textsize(string, font=FONT)

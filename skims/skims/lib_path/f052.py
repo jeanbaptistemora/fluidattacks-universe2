@@ -20,8 +20,8 @@ from pyparsing import (
 
 # Local libraries
 from lib_path.common import (
-    blocking_get_vulnerabilities,
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
@@ -81,7 +81,7 @@ def _csharp_insecure_cipher(
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -131,7 +131,7 @@ def _csharp_insecure_hash(
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -205,7 +205,7 @@ def _java_insecure_cipher(
     ])
     grammar.ignore(C_STYLE_COMMENT)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -284,7 +284,7 @@ def _java_insecure_hash(
     ])
     grammar.ignore(C_STYLE_COMMENT)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -377,7 +377,7 @@ def _java_insecure_key(
     ])
     grammar.ignore(C_STYLE_COMMENT)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -423,7 +423,7 @@ def _java_insecure_pass(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -462,7 +462,7 @@ def _java_properties_missing_ssl(
             if key == missing_ssl_key and val in missing_ssl_values:
                 yield line_no, 0
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(
@@ -503,7 +503,7 @@ def _java_properties_weak_cipher_suite(
             ):
                 yield line_no, 0
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'310', '327'},
         description=t(

@@ -20,7 +20,7 @@ from aioextensions import (
 
 # Local library
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
 )
@@ -130,7 +130,7 @@ def _javascript_use_console_log(
                                 console['loc']['start']['column'],
                             )
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'200', '209'},
         description=t(
@@ -199,7 +199,7 @@ def _java_logging_exceptions(
                     ):
                         yield (var['l'], var['c'])
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'200', '209'},
         description=t(

@@ -23,7 +23,7 @@ from parse_antlr.parse import (
     parse as parse_antlr,
 )
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     EXTENSIONS_JAVA,
     SHIELD,
 )
@@ -153,7 +153,7 @@ def _java_jpa_like(
             if vulnerable:
                 yield line_no, column_no
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'89'},
         description=t(

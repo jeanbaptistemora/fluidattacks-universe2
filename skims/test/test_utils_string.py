@@ -8,7 +8,7 @@ import pytest
 
 # Local libraries
 from utils.string import (
-    blocking_to_snippet,
+    to_snippet_blocking,
 )
 
 
@@ -31,7 +31,7 @@ def test_to_snippet() -> None:
         xxxxx
     """)
 
-    snippet: str = blocking_to_snippet(
+    snippet: str = to_snippet_blocking(
         chars_per_line=43,
         content=content,
         context=4,

@@ -15,7 +15,7 @@ from more_itertools import (
 
 # Local libraries
 from utils.encodings import (
-    blocking_yaml_dumps,
+    yaml_dumps_blocking,
 )
 
 # Constants
@@ -50,7 +50,7 @@ def main() -> None:
             suite = f'benchmark_owasp_{category}_{index}'
             suites.append(suite)
 
-            content = blocking_yaml_dumps(dict(
+            content = yaml_dumps_blocking(dict(
                 namespace=f'OWASP',
                 output=f'test/outputs/{suite}.csv',
                 path=dict(include=batch),

@@ -24,7 +24,7 @@ from pyparsing import (
 # Local libraries
 from lib_path.common import (
     BACKTICK_QUOTED_STRING,
-    blocking_get_vulnerabilities,
+    get_vulnerabilities_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVASCRIPT,
@@ -102,7 +102,7 @@ def _javascript_client_storage(
     )
     grammar.ignore(C_STYLE_COMMENT)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'922'},
         description=t(

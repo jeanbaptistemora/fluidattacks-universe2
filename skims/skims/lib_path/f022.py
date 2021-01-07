@@ -14,7 +14,7 @@ from aioextensions import (
 
 # Local libraries
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     EXTENSIONS_JAVA_PROPERTIES,
     SHIELD,
 )
@@ -59,7 +59,7 @@ def _java_properties_unencrypted_transport(
             ):
                 yield line_no, 0
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'319'},
         description=t(

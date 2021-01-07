@@ -14,7 +14,7 @@ from utils.model import (
     SkimsPathConfig,
 )
 from utils.logs import (
-    blocking_log,
+    log_blocking,
 )
 
 
@@ -65,6 +65,6 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
                 f'Some keys were not recognized: {unrecognized_keys}',
             )
 
-    blocking_log('debug', '%s', skims_config)
+    log_blocking('debug', '%s', skims_config)
 
     return skims_config

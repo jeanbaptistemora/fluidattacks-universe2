@@ -9,7 +9,7 @@ from typing import (
 
 # Local libraries
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
 from state.cache import (
@@ -43,7 +43,7 @@ async def unverifiable_files(
     if (file_name, file_extension) in ALLOWED:
         return ()
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=raw_content.decode(encoding='utf-8', errors='replace'),
         cwe={'377'},
         description=t(

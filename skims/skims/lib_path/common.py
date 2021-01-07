@@ -57,7 +57,7 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from utils.string import (
-    blocking_to_snippet,
+    to_snippet_blocking,
 )
 from zone import (
     t,
@@ -94,7 +94,7 @@ SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
 # pylint: disable=too-many-arguments
 
 
-def blocking_get_matching_lines(
+def get_matching_lines_blocking(
     content: str,
     grammar: ParserElement,
 ) -> Tuple[GrammarMatch, ...]:
@@ -114,7 +114,7 @@ def blocking_get_matching_lines(
     return matches
 
 
-def blocking_get_vulnerabilities(
+def get_vulnerabilities_blocking(
     content: str,
     cwe: Set[str],
     description: str,
@@ -136,14 +136,14 @@ def blocking_get_vulnerabilities(
             skims_metadata=SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
-                snippet=blocking_to_snippet(
+                snippet=to_snippet_blocking(
                     column=match.start_column,
                     content=content,
                     line=match.start_line,
                 )
             )
         )
-        for match in blocking_get_matching_lines(
+        for match in get_matching_lines_blocking(
             content=content,
             grammar=grammar,
         )
@@ -152,7 +152,7 @@ def blocking_get_vulnerabilities(
     return results
 
 
-def blocking_get_vulnerabilities_from_iterator(
+def get_vulnerabilities_from_iterator_blocking(
     content: str,
     cwe: Set[str],
     description: str,
@@ -174,7 +174,7 @@ def blocking_get_vulnerabilities_from_iterator(
             skims_metadata=SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
-                snippet=blocking_to_snippet(
+                snippet=to_snippet_blocking(
                     column=column_no,
                     content=content,
                     line=line_no,
@@ -187,7 +187,7 @@ def blocking_get_vulnerabilities_from_iterator(
     return results
 
 
-def blocking_get_vulnerabilities_from_n_attrs_iterable(
+def get_vulnerabilities_from_n_attrs_iterable_blocking(
     content: str,
     cwe: Set[str],
     description: str,
@@ -195,7 +195,7 @@ def blocking_get_vulnerabilities_from_n_attrs_iterable(
     path: str,
     n_attrs_iterable: Iterable[NAttrs],
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe=cwe,
         description=description,
@@ -215,7 +215,7 @@ def str_to_number(token: str, default: float = math.nan) -> float:
         return default
 
 
-def blocking_get_vulnerabilities_from_aws_iterator(
+def get_vulnerabilities_from_aws_iterator_blocking(
     content: str,
     description_key: str,
     finding: FindingEnum,
@@ -228,7 +228,7 @@ def blocking_get_vulnerabilities_from_aws_iterator(
         Node,
     ]],
 ) -> Tuple[Vulnerability, ...]:
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={finding.value.cwe},
         description=t(

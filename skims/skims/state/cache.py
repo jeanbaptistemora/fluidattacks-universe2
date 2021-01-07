@@ -69,7 +69,7 @@ def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
     store_object(CACHE_FOLDER, key, value, ttl)
 
 
-def _blocking_cache(
+def _cache_blocking(
     function: Callable[..., TVar],
     ttl: Optional[int],
     *args: Any,
@@ -141,7 +141,7 @@ def cache_decorator(
 
             @functools.wraps(function)
             def wrapper(*args: Any, **kwargs: Any) -> Any:
-                return _blocking_cache(function, ttl, *args, **kwargs)
+                return _cache_blocking(function, ttl, *args, **kwargs)
 
         else:
             raise NotImplementedError()

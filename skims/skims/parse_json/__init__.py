@@ -42,7 +42,7 @@ GRAMMAR = r"""
 """
 
 
-def blocking_loads(
+def loads_blocking(
     stream: str,
     *,
     default: Optional[frozendict] = None,
@@ -70,7 +70,7 @@ async def loads(
     *,
     default: Optional[frozendict] = None,
 ) -> frozendict:
-    return await in_process(blocking_loads, stream, default=default)
+    return await in_process(loads_blocking, stream, default=default)
 
 
 class JSONBuilder(lark.Transformer):

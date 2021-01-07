@@ -6,7 +6,7 @@ from aws.model import (
     AWSIamPolicyStatement,
 )
 from parse_hcl2.loader import (
-    blocking_load,
+    load_blocking,
 )
 from parse_hcl2.structure import (
     iterate_iam_policy_documents,
@@ -17,7 +17,7 @@ from parse_hcl2.structure import (
 @pytest.mark.skims_test_group('unittesting')
 def test_iterate_resources() -> None:
     with open('test/data/parse_hcl2/iam.tf') as file:
-        model = blocking_load(file.read())
+        model = load_blocking(file.read())
 
     assert len(tuple(iterate_resources(model, 'resource', 'aws_iam_role'))) == 1
 
@@ -25,7 +25,7 @@ def test_iterate_resources() -> None:
 @pytest.mark.skims_test_group('unittesting')
 def test_iterate_iam_policy_documents() -> None:
     with open('test/data/parse_hcl2/iam.tf') as file:
-        model = blocking_load(file.read())
+        model = load_blocking(file.read())
 
     assert tuple(iterate_iam_policy_documents(model)) == (
         AWSIamPolicyStatement(

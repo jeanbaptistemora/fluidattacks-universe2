@@ -50,7 +50,7 @@ from utils.graph import (
     import_graph_from_json,
 )
 from utils.logs import (
-    blocking_log_exception,
+    log_exception_blocking,
 )
 from utils.model import (
     FindingEnum,
@@ -298,5 +298,5 @@ def load(stream: bytes) -> Any:
         TypeError,
         ValueError,
     ) as exc:
-        blocking_log_exception('debug', exc)
+        log_exception_blocking('debug', exc)
         raise LoadError(exc)

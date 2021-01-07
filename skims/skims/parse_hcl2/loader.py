@@ -44,7 +44,7 @@ class HCL2Builder(  # pylint: disable=too-few-public-methods
         return self.transformer.new_line_or_comment(args)
 
 
-def blocking_load(stream: str, *, default: Any = None) -> Any:
+def load_blocking(stream: str, *, default: Any = None) -> Any:
     try:
         return post_process(Lark_StandAlone(HCL2Builder()).parse(stream))
     except lark.exceptions.LarkError:
@@ -54,7 +54,7 @@ def blocking_load(stream: str, *, default: Any = None) -> Any:
 
 
 async def load(stream: str, *, default: Any = None) -> Any:
-    return await in_process(blocking_load, stream, default=default)
+    return await in_process(load_blocking, stream, default=default)
 
 
 def post_process(data: Any) -> Any:

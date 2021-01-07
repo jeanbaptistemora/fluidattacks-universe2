@@ -29,7 +29,7 @@ import yaml
 
 # Local libraries
 from parse_json import (
-    blocking_loads,
+    loads_blocking,
 )
 from parse_common.types import (
     ListToken,
@@ -174,7 +174,7 @@ def load_as_json(content: str) -> Any:
     return _create_obj(
         last_c=0,
         last_l=1,
-        obj=blocking_loads(content, default={}),
+        obj=loads_blocking(content, default={}),
     )
 
 

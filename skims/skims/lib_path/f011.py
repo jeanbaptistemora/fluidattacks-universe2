@@ -30,7 +30,7 @@ from nvd.local import (
     query,
 )
 from parse_json import (
-    blocking_loads as blocking_json_loads,
+    loads_blocking as json_loads_blocking,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -53,7 +53,7 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from utils.string import (
-    blocking_to_snippet,
+    to_snippet_blocking,
 )
 from zone import (
     t,
@@ -149,7 +149,7 @@ def _npm_package_json(
     path: str,
     platform: Platform,
 ) -> Tuple[Vulnerability, ...]:
-    content_json = blocking_json_loads(content, default={})
+    content_json = json_loads_blocking(content, default={})
 
     dependencies: Iterator[DependencyType] = (
         (product, version)
@@ -199,7 +199,7 @@ def _npm_package_lock_json(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(
-            obj=blocking_json_loads(content, default={}),
+            obj=json_loads_blocking(content, default={}),
         ),
         path=path,
         platform=platform,
@@ -312,7 +312,7 @@ def translate_dependencies_to_vulnerabilities(
                     version=version['item'],
                     cve=cve,
                 ),
-                snippet=blocking_to_snippet(
+                snippet=to_snippet_blocking(
                     column=product['column'],
                     content=content,
                     line=product['line'],

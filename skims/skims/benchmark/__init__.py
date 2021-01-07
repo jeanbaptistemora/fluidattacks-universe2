@@ -13,7 +13,7 @@ from typing import (
 
 # Local libraries
 from utils.logs import (
-    blocking_log,
+    log_blocking,
 )
 
 
@@ -115,7 +115,7 @@ def load_skims_results() -> Score:
                 true_negatives += 1
 
         if not success:
-            blocking_log(
+            log_blocking(
                 'error',
                 'test: %s\nskims: %s\nreal: %s\n',
                 test,
@@ -159,7 +159,7 @@ def main() -> None:
         ('score', 100 * score.score),
     ):
         results_owasp['record'][attr] = attr_value
-        blocking_log('info', '%s: %s', attr, attr_value)
+        log_blocking('info', '%s: %s', attr, attr_value)
 
     with open('benchmark.json', 'w') as handle:
         json.dump(results_owasp, handle, sort_keys=True)

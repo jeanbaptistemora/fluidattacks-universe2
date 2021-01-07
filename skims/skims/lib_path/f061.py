@@ -22,8 +22,8 @@ from pyparsing import (
 
 # Local libraries
 from lib_path.common import (
-    blocking_get_vulnerabilities,
-    blocking_get_vulnerabilities_from_iterator,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     C_STYLE_COMMENT,
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
@@ -69,7 +69,7 @@ def _csharp_swallows_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'390'},
         description=t(
@@ -119,7 +119,7 @@ def _javascript_swallows_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'390'},
         description=t(
@@ -162,7 +162,7 @@ def _java_swallows_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'390'},
         description=t(
@@ -205,7 +205,7 @@ def _python_swallows_exceptions(
         ),
     )
 
-    return blocking_get_vulnerabilities_from_iterator(
+    return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={'390'},
         description=t(
@@ -249,7 +249,7 @@ def _swift_insecure_exceptions(
     grammar.ignore(DOUBLE_QUOTED_STRING)
     grammar.ignore(SINGLE_QUOTED_STRING)
 
-    return blocking_get_vulnerabilities(
+    return get_vulnerabilities_blocking(
         content=content,
         cwe={'390'},
         description=t(

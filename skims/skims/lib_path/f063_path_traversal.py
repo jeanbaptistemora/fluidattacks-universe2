@@ -17,7 +17,7 @@ from graph_java.get import (
     get as java_get_graph,
 )
 from lib_path.common import (
-    blocking_get_vulnerabilities_from_n_attrs_iterable,
+    get_vulnerabilities_from_n_attrs_iterable_blocking,
     EXTENSIONS_JAVA,
     SHIELD,
 )
@@ -49,7 +49,7 @@ async def java_path_traversal(
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        blocking_get_vulnerabilities_from_n_attrs_iterable,
+        get_vulnerabilities_from_n_attrs_iterable_blocking,
         content=content,
         cwe={'22'},
         description=t(
