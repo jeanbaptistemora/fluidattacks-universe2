@@ -99,8 +99,8 @@ in a simple way and in real time.
 | In some companies, the tools are fragmented
 and do not have a single centralized management process.
 
-a|==== Zero-day vulnerabilities
-| Our hackers are skilled at finding zero-day vulnerabilities.
+a|==== link:../../advisories/prine/[Zero-day vulnerabilities]
+| Our hackers are link:../certifications/[skilled] at finding link:../../advisories/prine/[zero-day] vulnerabilities.
 | They fail to find these vulnerabilities.
 
 a|==== Pricing
