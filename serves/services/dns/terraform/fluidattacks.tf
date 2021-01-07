@@ -469,11 +469,25 @@ resource "cloudflare_page_rule" "redirect_www" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "www.${cloudflare_zone.fluidattacks_com.zone}/*"
   status   = "active"
-  priority = 1
+  priority = 2
 
   actions {
     forwarding_url {
       url         = "https://${cloudflare_zone.fluidattacks_com.zone}/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "install" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/install"
+  status   = "active"
+  priority = 1
+
+  actions {
+    forwarding_url {
+      url         = "https://gitlab.com/fluidattacks/product/-/archive/master/product-master.tar.gz"
       status_code = 301
     }
   }
