@@ -7,13 +7,13 @@ import pytest
 # Local libraries
 from utils.system import (
     read,
-    read_blocking,
+    blocking_read,
 )
 
 
 @pytest.mark.skims_test_group('unittesting')
-def test_read_blocking() -> None:
-    code, stdout, stderr = read_blocking('echo', 'test')
+def blocking_test_read() -> None:
+    code, stdout, stderr = blocking_read('echo', 'test')
 
     assert code == 0
     assert stdout == b'test\n', stdout

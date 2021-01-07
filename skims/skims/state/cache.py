@@ -1,4 +1,5 @@
 # Standard library
+import asyncio
 import functools
 from os import (
     makedirs,
@@ -13,6 +14,11 @@ from typing import (
     cast,
     Optional,
     TypeVar,
+)
+
+# Third party libraries
+from aioextensions import (
+    in_thread,
 )
 
 # Local libraries
@@ -39,7 +45,7 @@ TVar = TypeVar('TVar')
 makedirs(CACHE_FOLDER, mode=0o700, exist_ok=True)
 
 
-async def cache_read(key: Any) -> Any:
+def cache_read(key: Any) -> Any:
     """Retrieve an entry from the cache.
 
     :param key: Key that identifies the value to be read
@@ -47,10 +53,10 @@ async def cache_read(key: Any) -> Any:
     :return: The value that is hold under the specified key
     :rtype: Any
     """
-    return await retrieve_object(CACHE_FOLDER, key)
+    return retrieve_object(CACHE_FOLDER, key)
 
 
-async def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
+def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
     """Store an entry in the cache.
 
     :param key: Key under the value is to be aliased
@@ -60,25 +66,16 @@ async def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
     :param ttl: Time to live in seconds, defaults to None
     :type ttl: Optional[int], optional
     """
-    await store_object(CACHE_FOLDER, key, value, ttl)
+    store_object(CACHE_FOLDER, key, value, ttl)
 
 
-async def cache(
-    function: Callable[..., Awaitable[TVar]],
+def _blocking_cache(
+    function: Callable[..., TVar],
     ttl: Optional[int],
     *args: Any,
     **kwargs: Any,
 ) -> TVar:
-    """Cache function(\\*args, \\*\\*kwargs) on-disk for ttl seconds.
-
-    :param function: The function whose result is to be cached
-    :type function: Callable[..., Awaitable[TVar]]
-    :param ttl: Time to live, in seconds
-    :type ttl: Optional[int]
-    :return: Either the result of the evaluation, or the data retrieved from
-        the cache
-    :rtype: TVar
-    """
+    """Cache function(\\*args, \\*\\*kwargs) on-disk for ttl seconds."""
     cache_key = (
         function.__module__,
         function.__name__,
@@ -88,10 +85,34 @@ async def cache(
     )
 
     try:
-        cache_value: TVar = await cache_read(cache_key)
+        cache_value: TVar = cache_read(cache_key)
+    except (FileNotFoundError, LoadError):
+        cache_value = function(*args, **kwargs)
+        cache_store(cache_key, cache_value, ttl=ttl)
+
+    return cache_value
+
+
+async def _cache(
+    function: Callable[..., Awaitable[TVar]],
+    ttl: Optional[int],
+    *args: Any,
+    **kwargs: Any,
+) -> TVar:
+    """Cache function(\\*args, \\*\\*kwargs) on-disk for ttl seconds."""
+    cache_key = (
+        function.__module__,
+        function.__name__,
+        CTX.config.namespace,
+        args,
+        kwargs,
+    )
+
+    try:
+        cache_value: TVar = await in_thread(cache_read, cache_key)
     except (FileNotFoundError, LoadError):
         cache_value = await function(*args, **kwargs)
-        await cache_store(cache_key, cache_value, ttl=ttl)
+        await in_thread(cache_store, cache_key, cache_value, ttl=ttl)
 
     return cache_value
 
@@ -110,9 +131,20 @@ def cache_decorator(
 
     def decorator(function: TFunc) -> TFunc:
 
-        @functools.wraps(function)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            return await cache(function, ttl, *args, **kwargs)
+        if asyncio.iscoroutinefunction(function):
+
+            @functools.wraps(function)
+            async def wrapper(*args: Any, **kwargs: Any) -> Any:
+                return await _cache(function, ttl, *args, **kwargs)
+
+        elif callable(function):
+
+            @functools.wraps(function)
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
+                return _blocking_cache(function, ttl, *args, **kwargs)
+
+        else:
+            raise NotImplementedError()
 
         return cast(TFunc, wrapper)
 

@@ -25,7 +25,7 @@ import networkx as nx
 
 # Local libraries
 from utils.system import (
-    read_blocking,
+    blocking_read,
 )
 
 # Constants
@@ -39,7 +39,7 @@ NAttrsPredicateFunction = Callable[[NAttrs], bool]
 def to_svg(graph: nx.DiGraph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
-    code, stdout, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
+    code, stdout, stderr = blocking_read('dot', '-O', '-T', 'svg', path)
 
     if code == 0:
         os.unlink(path)

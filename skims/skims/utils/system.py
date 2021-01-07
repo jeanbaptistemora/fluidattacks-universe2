@@ -10,7 +10,7 @@ from typing import (
 )
 
 
-def call_blocking(
+def blocking_call(
     binary: str,
     *binary_args: str,
     cwd: Optional[str] = None,
@@ -61,7 +61,7 @@ async def call(
     return process
 
 
-def read_blocking(
+def blocking_read(
     binary: str,
     *binary_args: str,
     cwd: Optional[str] = None,
@@ -71,7 +71,7 @@ def read_blocking(
     stderr: int = subprocess.PIPE,
     **kwargs: Any,
 ) -> Tuple[int, bytes, bytes]:
-    process = call_blocking(
+    process = blocking_call(
         binary,
         *binary_args,
         cwd=cwd,

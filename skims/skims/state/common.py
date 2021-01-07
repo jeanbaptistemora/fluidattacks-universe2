@@ -7,9 +7,6 @@ from typing import (
     Optional,
 )
 
-# Third party libraries
-import aiofiles
-
 # Local libraries
 from serialization import (
     dump as py_dumps,
@@ -31,15 +28,13 @@ def get_obj_id(obj: Any) -> bytes:
     return get_hash(py_dumps(obj))
 
 
-async def read_blob(obj_location: str) -> Any:
-    async with aiofiles.open(  # type: ignore
-        obj_location, mode='rb',
-    ) as obj_store:
-        obj_stream: bytes = await obj_store.read()
+def read_blob(obj_location: str) -> Any:
+    with open(obj_location, 'rb') as obj_store:
+        obj_stream: bytes = obj_store.read()
         return py_loads(obj_stream)
 
 
-async def retrieve_object(folder: str, key: Any) -> Any:
+def retrieve_object(folder: str, key: Any) -> Any:
     """Retrieve an entry from the cache.
 
     :param folder: Path to folder to retrieve data from
@@ -52,10 +47,10 @@ async def retrieve_object(folder: str, key: Any) -> Any:
     obj_id: bytes = get_obj_id(key)
     obj_location: str = join(folder, obj_id.hex())
 
-    return await read_blob(obj_location)
+    return read_blob(obj_location)
 
 
-async def store_object(
+def store_object(
     folder: str,
     key: Any,
     value: Any,
@@ -76,7 +71,5 @@ async def store_object(
     obj_stream: bytes = py_dumps(value, ttl=ttl)
     obj_location: str = join(folder, obj_id.hex())
 
-    async with aiofiles.open(  # type: ignore
-        obj_location, mode='wb',
-    ) as obj_store:
-        await obj_store.write(obj_stream)
+    with open(obj_location, 'wb') as obj_store:
+        obj_store.write(obj_stream)

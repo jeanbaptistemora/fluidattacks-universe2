@@ -7,9 +7,6 @@ from operator import (
     methodcaller,
 )
 import os
-from shutil import (
-    rmtree,
-)
 from typing import (
     Awaitable,
     Callable,
@@ -92,10 +89,6 @@ async def get_file_raw_content(path: str, size: int = -1) -> bytes:
 
 async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
     return await in_thread(os.makedirs, name, mode=mode, exist_ok=exist_ok)
-
-
-async def rmdir(name: str) -> None:
-    return await in_thread(rmtree, name)
 
 
 async def recurse_dir(path: str) -> Tuple[str, ...]:

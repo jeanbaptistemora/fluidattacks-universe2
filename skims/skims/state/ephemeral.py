@@ -5,6 +5,9 @@ from os import (
 from os.path import (
     join,
 )
+from shutil import (
+    rmtree,
+)
 from tempfile import (
     mkdtemp,
 )
@@ -20,6 +23,11 @@ from uuid import (
     uuid4 as uuid,
 )
 
+# Third party libraries
+from aioextensions import (
+    in_thread
+)
+
 # Local libraries
 from state import (
     STATE_FOLDER,
@@ -30,7 +38,6 @@ from state.common import (
 )
 from utils.fs import (
     mkdir,
-    rmdir,
     recurse_dir,
 )
 
@@ -63,17 +70,17 @@ def get_ephemeral_store() -> EphemeralStore:
     folder: str = mkdtemp(dir=EPHEMERAL)
 
     async def clear() -> None:
-        await rmdir(folder)
+        await in_thread(rmtree, folder)
 
     async def length() -> int:
         return len(await recurse_dir(folder))
 
     async def store(obj: Any) -> None:
-        await store_object(folder, obj, obj)
+        await in_thread(store_object, folder, obj, obj)
 
     async def iterate() -> AsyncIterator[Any]:
         for object_key in await recurse_dir(folder):
-            yield await read_blob(object_key)
+            yield await in_thread(read_blob, object_key)
 
     async def get_a_few(count: int) -> Tuple[Any, ...]:
         results = []
@@ -93,5 +100,5 @@ def get_ephemeral_store() -> EphemeralStore:
 
 
 async def reset() -> None:
-    await rmdir(EPHEMERAL)
+    await in_thread(rmtree, EPHEMERAL)
     await mkdir(EPHEMERAL, mode=0o700, exist_ok=True)
