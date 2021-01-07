@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
-source "${envSetupSkimsDevelopment}"
 source "${envSetupSkimsRuntime}"
+source "${envBashLibLintPython}"
 
 function list_packages {
       target="${PWD}/test" \
@@ -19,34 +19,16 @@ function list_packages {
 
 function main {
   local pkgs
+  local success='true'
 
       pkgs=$(mktemp) \
   &&  list_packages > "${pkgs}" \
   &&  while read -r pkg
       do
-            pkg_dir="$(dirname "${pkg}")" \
-        &&  pkg_name="$(basename "${pkg}")" \
-        &&  echo "[INFO] Running mypy over: ${pkg}" \
-        &&  pushd "${pkg_dir}" \
-          &&  mypy \
-                --config-file "${envSrcSkimsSettingsCfg}" \
-                "${pkg_name}" \
-        &&  popd \
-        ||  return 1
+            lint_python "${pkg}" \
+        ||  success='false'
       done < "${pkgs}" \
-  &&  while read -r pkg
-      do
-            pkg_dir="$(dirname "${pkg}")" \
-        &&  pkg_name="$(basename "${pkg}")" \
-        &&  echo "[INFO] Running prospector over: ${pkg}" \
-        &&  prospector \
-              --full-pep8 \
-              --profile "${envSrcSkimsProspectorProfile}" \
-              --strictness 'veryhigh' \
-              --test-warnings \
-              "${pkg}" \
-        ||  return 1
-      done < "${pkgs}" \
+  &&  test "${success}" = 'true' \
   &&  success
 }
 

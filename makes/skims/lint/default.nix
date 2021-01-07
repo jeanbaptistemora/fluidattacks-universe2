@@ -7,10 +7,8 @@ let
 in
 makeDerivation {
   builder = ./builder.sh;
-  envSetupSkimsDevelopment = config.setupSkimsDevelopment;
+  envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python skimsPkgs;
   envSetupSkimsRuntime = config.setupSkimsRuntime;
-  envSrcSkimsProspectorProfile = ../../../skims/.prospector.yaml;
-  envSrcSkimsSettingsCfg = ../../../skims/settings.cfg;
   envSrcSkimsSkims = ../../../skims/skims;
   envSrcSkimsTest = ../../../skims/test;
   name = "skims-lint";

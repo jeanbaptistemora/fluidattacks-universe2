@@ -230,7 +230,7 @@ def _yarn_lock(
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
             Tuple[Tuple[int, str], Tuple[int, str]],
-        ] = windowed(  # type: ignore
+        ] = windowed(
             fillvalue='',
             n=2,
             seq=tuple(enumerate(content.splitlines(), start=1)),
