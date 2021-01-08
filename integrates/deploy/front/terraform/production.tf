@@ -3,7 +3,6 @@
 resource "aws_s3_bucket" "production" {
   bucket = "integrates.front.production.fluidattacks.com"
   acl    = "private"
-  region = var.region
 
   server_side_encryption_configuration {
     rule {

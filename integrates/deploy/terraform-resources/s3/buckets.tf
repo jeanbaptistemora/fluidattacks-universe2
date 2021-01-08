@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "fi_analytics_bucket" {
   acl           = "private"
   bucket        = var.analytics_bucket_name
-  region        = "us-east-1"
   request_payer = "BucketOwner"
 
   tags = {
