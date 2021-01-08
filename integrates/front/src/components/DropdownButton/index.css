@@ -1,8 +1,10 @@
 :local .dropdownButton {
+  border: solid 1px;
   border-radius: 0 !important;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px !important;
   white-space: normal;
+  width: 235px;
 }
 
 :local .dropdownButton,
@@ -67,4 +69,27 @@
 
 :local .dropdownButton:hover:not([disabled]) svg circle {
   stroke: #fff !important;
+}
+
+:local .itemsContainer {
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  color: #333;
+  padding: 12px 16px;
+  margin-top: 20px;
+  width: 205px;
+}
+
+:local .dropdownButton:hover .itemsContainer {
+  display: block;
+}
+
+:local .menuItem {
+  font-size: small;
+}
+
+:local .menuItem:hover {
+  background-color: #ff3435;
+  border-color: #ff3435;
+  color: #fff;
 }
