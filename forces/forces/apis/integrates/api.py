@@ -296,6 +296,29 @@ async def get_project_role(group: str, **kwargs: Any) -> str:
     return response['me']['role']
 
 
+async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
+    query = """
+        query ForcesGetGitRoots($group: String!) {
+          project(projectName: $group){
+            roots {
+              ...on GitRoot{
+                url
+                state
+              }
+            }
+          }
+        }
+    """
+    response: Dict[str, Dict[str, List[Dict[str, str]]]] = await execute(
+        query,
+        operation_name='ForcesGetGitRoots',
+        variables={'group': group},
+        **kwargs,
+    )
+
+    return response['project']['roots']
+
+
 async def get_forces_user(**kwargs: Any) -> Optional[str]:
     projects = await get_projects_access(**kwargs)
     for group in projects:

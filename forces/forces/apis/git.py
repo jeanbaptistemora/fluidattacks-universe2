@@ -4,6 +4,7 @@ import re
 from contextlib import suppress
 from typing import (
     Dict,
+    Optional,
 )
 
 # Third libraries
@@ -24,8 +25,17 @@ REGEXES_GIT_REPO_FROM_ORIGIN = [
     # git@bitbucket.org:xxxxx/repo_name
     re.compile(r'^.*bitbucket.org:.*\/(.*)'),
     # https://xxx@gitlab.com/xxx/repo_name.git
-    re.compile(r'^.*(?:gitlab|github).com(?::|\/).*\/(.*).git$'),
+    re.compile(r'^.*(?:gitlab|github).com(?::|\/).*\/(.*?)(?:\.git)?$'),
 ]
+
+
+def extract_repo_name(pattern: str) -> Optional[str]:
+    for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
+        match = regex.match(pattern)
+        if match and match.group(1):
+            return match.group(1)
+
+    return None
 
 
 def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
@@ -52,14 +62,10 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
 
         with suppress(ValueError, IndexError,):
             origins = list(repo.remote().urls)
-            git_origin = DEFAULT_COLUMN_VALUE
+            git_origin = origins[0]
             if origins:
-                git_origin = origins[0]
-                for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
-                    match = regex.match(git_origin)
-                    if match and match.group(1):
-                        git_repo = match.group(1)
-                        break
+                git_repo = extract_repo_name(git_origin) or git_repo
+
         if git_repo == DEFAULT_COLUMN_VALUE:
             with suppress(IndexError):
                 git_repo = os.path.basename(os.path.split(repo.git_dir)[0])

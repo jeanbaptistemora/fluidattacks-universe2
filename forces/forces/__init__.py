@@ -12,10 +12,10 @@ from forces.apis.integrates import (
     set_api_token,
 )
 from forces.apis.integrates.api import (
-    upload_report,
+    get_git_remotes, upload_report,
 )
 from forces.apis.git import (
-    get_repository_metadata,
+    extract_repo_name, get_repository_metadata,
     DEFAULT_COLUMN_VALUE,
 )
 from forces.report import (
@@ -48,6 +48,23 @@ async def entrypoint(
               f"Running forces on the repository: {config.repository_name}")
     exit_code = 0
     set_api_token(token)
+
+    # check if repo is in roots
+    api_remotes = await get_git_remotes(config.group)
+    is_in_remotes = False
+    for remote in api_remotes:
+        if extract_repo_name(remote['url']) == config.repository_name:
+            if remote['state'] != 'ACTIVE':
+                await log('error', 'The %s repository is innactive',
+                          config.repository_name)
+                return 1
+            is_in_remotes = True
+            break
+    if not is_in_remotes:
+        await log('error',
+                  'The %s repository has not been registered in integrates',
+                  config.repository_name)
+        return 1
 
     report = await generate_report(config)
 
