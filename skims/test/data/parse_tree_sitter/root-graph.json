@@ -20351,6 +20351,7 @@
     "root": {},
     "shard-0": {
       "label_language": "java",
+      "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00001.java"
     },
     "shard-0-1": {
@@ -25607,6 +25608,7 @@
     },
     "shard-1": {
       "label_language": "java",
+      "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00008.java"
     },
     "shard-1-1": {
@@ -28567,6 +28569,7 @@
     },
     "shard-2": {
       "label_language": "java",
+      "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00167.java"
     },
     "shard-2-1": {
@@ -33940,6 +33943,7 @@
     },
     "shard-3": {
       "label_language": "java",
+      "label_metadata_package": "",
       "label_path": "test/data/lib_path/f031_cwe378/Test.java"
     },
     "shard-3-1": {
@@ -34459,6 +34463,7 @@
     },
     "shard-4": {
       "label_language": "java",
+      "label_metadata_package": "",
       "label_path": "test/data/lib_path/f063_path_traversal/Test.java"
     },
     "shard-4-1": {
@@ -35621,6 +35626,7 @@
     },
     "shard-5": {
       "label_language": "java",
+      "label_metadata_package": "",
       "label_path": "test/data/parse_java/TestCFG.java"
     },
     "shard-5-1": {

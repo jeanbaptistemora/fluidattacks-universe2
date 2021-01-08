@@ -62,7 +62,8 @@ def _verify(graph: nx.DiGraph) -> None:
                 raise ValueError(f'{reserved_attr} must be added in styles')
 
 
-def add(graph: nx.DiGraph) -> None:
-    _verify(graph)
+def add(graph: nx.DiGraph, override: bool = False) -> None:
+    if not override:
+        _verify(graph)
     _add_labels(graph)
     _add_styles(graph)

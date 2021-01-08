@@ -31,11 +31,12 @@ from tree_sitter import (
 )
 
 # Local libraries
-from parse_tree_sitter.transformations.control_flow import (
-    add as add_control_flow,
+from parse_tree_sitter import (
+    inspectors,
 )
-from parse_tree_sitter.transformations.styles import (
-    add as add_styles,
+from parse_tree_sitter.transformations import (
+    control_flow,
+    styles,
 )
 from state import (
     STATE_FOLDER,
@@ -57,7 +58,7 @@ from utils.logs import (
     log,
 )
 from utils.model import (
-    GraphWithMeta,
+    ParsedFile,
 )
 from utils.string import (
     get_debug_path,
@@ -157,17 +158,20 @@ def _parse_one_cached(
     content: bytes,
     language: str,
     _: int,
-) -> GraphWithMeta:
+) -> ParsedFile:
     parser: Parser = Parser()
     parser.set_language(Language(LANGUAGES_SO, language))
 
     raw_tree: Tree = parser.parse(content)
 
     graph: nx.DiGraph = _build_ast_graph(content, raw_tree)
-    add_control_flow(graph)
+    control_flow.add(graph)
+    styles.add(graph)
 
-    return GraphWithMeta(
+    return ParsedFile(
         graph=graph,
+        language=language,
+        metadata=inspectors.get_metadata(graph, language),
     )
 
 
@@ -175,8 +179,8 @@ def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 8,
-) -> GraphWithMeta:
+    version: int = 10,
+) -> ParsedFile:
     if not language:
         raise ParsingError()
 
@@ -199,35 +203,32 @@ def parse_one(
 
 
 class ParseManyOutput(NamedTuple):
-    graph: nx.DiGraph
-    language: str
+    parsed_file: ParsedFile
     path: str
     shard: int
 
 
 async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[ParseManyOutput]:
-    languages = tuple(map(decide_language, paths))
     shards = tuple(range(0, len(paths)))
-    graphs_lazy = resolve((
+    parsed_files_lazy = resolve((
         in_process(
             parse_one,
-            language=language,
+            language=decide_language(path),
             path=path,
         )
-        for language, path in zip(languages, paths)
+        for path in paths
     ), workers=CPU_CORES)
 
-    for graph_lazy, language, path, shard in zip(
-        graphs_lazy, languages, paths, shards,
+    for parsed_file_lazy, path, shard in zip(
+        parsed_files_lazy, paths, shards,
     ):
         try:
-            graph = await graph_lazy
+            parsed_file = await parsed_file_lazy
         except ParsingError:
             await log('warning', 'Unable to parse: %s, ignoring', path)
         else:
             yield ParseManyOutput(
-                graph=graph.graph,
-                language=language,
+                parsed_file=parsed_file,
                 path=path,
                 shard=shard,
             )
@@ -250,7 +251,9 @@ async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
         )
 
         # Copy nodes from shard
-        for first, _, (n_id, n_attrs) in mark_ends(result.graph.nodes.items()):
+        for first, _, (n_id, n_attrs) in mark_ends(
+            result.parsed_file.graph.nodes.items(),
+        ):
             n_id = f'shard-{result.shard}-{n_id}'
 
             if first:
@@ -258,8 +261,15 @@ async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
                 shard_id = f'shard-{result.shard}'
                 root.add_node(
                     shard_id,
-                    label_language=result.language,
+                    label_language=result.parsed_file.language,
                     label_path=result.path,
+                    **{
+                        f'label_metadata_{meta_name}': meta_value
+                        for meta_name, meta_value in getattr(
+                            result.parsed_file.metadata,
+                            result.parsed_file.language,
+                        )._asdict().items()
+                    },
                 )
 
                 # Link root to the shard
@@ -274,14 +284,14 @@ async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
             )
 
         # Copy edges from shard
-        for u_id, v_id in result.graph.edges:
+        for u_id, v_id in result.parsed_file.graph.edges:
             root.add_edge(
                 f'shard-{result.shard}-{u_id}',
                 f'shard-{result.shard}-{v_id}',
-                **result.graph[u_id][v_id],
+                **result.parsed_file.graph[u_id][v_id],
             )
 
-    add_styles(root)
+    styles.add(root, override=True)
 
     if CTX.debug:
         await in_thread(

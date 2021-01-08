@@ -653,8 +653,18 @@ class Vulnerability(NamedTuple):
         ))
 
 
-class GraphWithMeta(NamedTuple):
+class ParsedFileMetadataJava(NamedTuple):
+    package: str
+
+
+class ParsedFileMetadata(NamedTuple):
+    java: Optional[ParsedFileMetadataJava]
+
+
+class ParsedFile(NamedTuple):
     graph: nx.DiGraph
+    language: str
+    metadata: ParsedFileMetadata
 
 
 def _fill_finding_enum() -> None:
