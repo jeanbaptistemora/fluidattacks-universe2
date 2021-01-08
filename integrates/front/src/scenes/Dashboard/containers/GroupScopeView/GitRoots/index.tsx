@@ -248,34 +248,36 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         url,
       } = values;
 
-      if (currentRow === undefined) {
-        await addGitRoot({
-          variables: {
-            branch,
-            environment,
-            filter: {
-              exclude: filter.exclude.filter(
-                (glob: string): boolean => glob.trim() !== ""
-              ),
-              include: filter.include,
+      if (isManagingRoot != false) {
+        if (isManagingRoot.mode === "ADD") {
+          await addGitRoot({
+            variables: {
+              branch,
+              environment,
+              filter: {
+                exclude: filter.exclude.filter(
+                  (glob: string): boolean => glob.trim() !== ""
+                ),
+                include: filter.include,
+              },
+              groupName,
+              includesHealthCheck,
+              url,
             },
-            groupName,
-            includesHealthCheck,
-            url,
-          },
-        });
-      } else {
-        await updateGitRoot({
-          variables: {
-            environment,
-            filter,
-            id,
-            includesHealthCheck,
-          },
-        });
+          });
+        } else {
+          await updateGitRoot({
+            variables: {
+              environment,
+              filter,
+              id,
+              includesHealthCheck,
+            },
+          });
+        }
       }
     },
-    [addGitRoot, currentRow, groupName, updateGitRoot]
+    [addGitRoot, groupName, isManagingRoot, updateGitRoot]
   );
 
   const handleEnvsSubmit: (
