@@ -654,6 +654,7 @@ class Vulnerability(NamedTuple):
 
 
 class ParsedFileMetadataJava(NamedTuple):
+    classes: Dict[str, str]
     package: str
 
 

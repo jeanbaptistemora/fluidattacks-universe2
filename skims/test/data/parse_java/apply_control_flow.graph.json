@@ -1403,7 +1403,7 @@
         "index": 2,
         "label_ast": "AST"
       },
-      "6368": {
+      "6380": {
         "index": 3,
         "label_ast": "AST"
       }
@@ -5815,8 +5815,12 @@
         "index": 1,
         "label_ast": "AST"
       },
-      "6367": {
+      "6370": {
         "index": 2,
+        "label_ast": "AST"
+      },
+      "6379": {
+        "index": 3,
         "label_ast": "AST"
       }
     },
@@ -6804,6 +6808,34 @@
       "6365": {
         "label_cfg": "CFG",
         "label_cfg_always": "cfg_always"
+      }
+    },
+    "6370": {
+      "6372": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "6373": {
+        "index": 1,
+        "label_ast": "AST"
+      },
+      "6375": {
+        "index": 2,
+        "label_ast": "AST"
+      },
+      "6376": {
+        "index": 3,
+        "label_ast": "AST"
+      }
+    },
+    "6376": {
+      "6377": {
+        "index": 0,
+        "label_ast": "AST"
+      },
+      "6378": {
+        "index": 1,
+        "label_ast": "AST"
       }
     },
     "639": {
@@ -18262,17 +18294,71 @@
       "label_type": "RBRACE",
       "label_type_index": "0"
     },
-    "6367": {
+    "6370": {
+      "label_c": 2,
+      "label_l": 214,
+      "label_parent_ast": "57",
+      "label_type": "NormalClassDeclaration",
+      "label_type_index": "0"
+    },
+    "6372": {
+      "label_c": 2,
+      "label_l": 214,
+      "label_parent_ast": "6370",
+      "label_text": "private",
+      "label_type": "PRIVATE",
+      "label_type_index": "0"
+    },
+    "6373": {
+      "label_c": 10,
+      "label_l": 214,
+      "label_parent_ast": "6370",
+      "label_text": "class",
+      "label_type": "CLASS",
+      "label_type_index": "0"
+    },
+    "6375": {
+      "label_c": 16,
+      "label_l": 214,
+      "label_parent_ast": "6370",
+      "label_text": "InnerTest",
+      "label_type": "IdentifierRule",
+      "label_type_index": "0"
+    },
+    "6376": {
+      "label_c": 26,
+      "label_l": 214,
+      "label_parent_ast": "6370",
+      "label_type": "ClassBody",
+      "label_type_index": "0"
+    },
+    "6377": {
+      "label_c": 26,
+      "label_l": 214,
+      "label_parent_ast": "6376",
+      "label_text": "{",
+      "label_type": "LBRACE",
+      "label_type_index": "0"
+    },
+    "6378": {
+      "label_c": 2,
+      "label_l": 215,
+      "label_parent_ast": "6376",
+      "label_text": "}",
+      "label_type": "RBRACE",
+      "label_type_index": "0"
+    },
+    "6379": {
       "label_c": 0,
-      "label_l": 213,
+      "label_l": 216,
       "label_parent_ast": "57",
       "label_text": "}",
       "label_type": "RBRACE",
       "label_type_index": "0"
     },
-    "6368": {
+    "6380": {
       "label_c": 0,
-      "label_l": 214,
+      "label_l": 217,
       "label_parent_ast": "2",
       "label_text": "<EOF>",
       "label_type": "EOF",

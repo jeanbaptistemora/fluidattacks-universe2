@@ -210,4 +210,7 @@ public class Test {
   try {int j = 0;} finally {log(e);};
   try (T r = 0) {int j = 0;};
   }
+
+  private class InnerTest {
+  }
 }

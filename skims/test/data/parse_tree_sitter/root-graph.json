@@ -15642,6 +15642,40 @@
         "label_index": "2"
       }
     },
+    "shard-5-1804": {
+      "shard-5-1805": {
+        "label_ast": "AST",
+        "label_index": "0"
+      },
+      "shard-5-1807": {
+        "label_ast": "AST",
+        "label_index": "1"
+      },
+      "shard-5-1808": {
+        "label_ast": "AST",
+        "label_index": "2"
+      },
+      "shard-5-1809": {
+        "label_ast": "AST",
+        "label_index": "3"
+      }
+    },
+    "shard-5-1805": {
+      "shard-5-1806": {
+        "label_ast": "AST",
+        "label_index": "0"
+      }
+    },
+    "shard-5-1809": {
+      "shard-5-1810": {
+        "label_ast": "AST",
+        "label_index": "0"
+      },
+      "shard-5-1811": {
+        "label_ast": "AST",
+        "label_index": "1"
+      }
+    },
     "shard-5-181": {
       "shard-5-182": {
         "label_ast": "AST",
@@ -16868,6 +16902,10 @@
       "shard-5-1804": {
         "label_ast": "AST",
         "label_index": "2"
+      },
+      "shard-5-1812": {
+        "label_ast": "AST",
+        "label_index": "3"
       },
       "shard-5-40": {
         "label_ast": "AST",
@@ -20351,6 +20389,9 @@
     "root": {},
     "shard-0": {
       "label_language": "java",
+      "label_metadata_classes": {
+        ".BenchmarkTest00001": "88"
+      },
       "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00001.java"
     },
@@ -25608,6 +25649,9 @@
     },
     "shard-1": {
       "label_language": "java",
+      "label_metadata_classes": {
+        ".BenchmarkTest00008": "88"
+      },
       "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00008.java"
     },
@@ -28569,6 +28613,9 @@
     },
     "shard-2": {
       "label_language": "java",
+      "label_metadata_classes": {
+        ".BenchmarkTest00167": "88"
+      },
       "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00167.java"
     },
@@ -33943,6 +33990,9 @@
     },
     "shard-3": {
       "label_language": "java",
+      "label_metadata_classes": {
+        ".Test": "12"
+      },
       "label_metadata_package": "",
       "label_path": "test/data/lib_path/f031_cwe378/Test.java"
     },
@@ -34463,6 +34513,9 @@
     },
     "shard-4": {
       "label_language": "java",
+      "label_metadata_classes": {
+        ".Test": "12"
+      },
       "label_metadata_package": "",
       "label_path": "test/data/lib_path/f063_path_traversal/Test.java"
     },
@@ -35626,6 +35679,10 @@
     },
     "shard-5": {
       "label_language": "java",
+      "label_metadata_classes": {
+        ".Test": "34",
+        ".Test.InnerTest": "1804"
+      },
       "label_metadata_package": "",
       "label_path": "test/data/parse_java/TestCFG.java"
     },
@@ -41623,17 +41680,70 @@
       "label_type": "}"
     },
     "shard-5-1804": {
-      "label_c": 1,
-      "label_l": 213,
+      "label_c": 3,
+      "label_l": 214,
       "label_parent_ast": "shard-5-39",
-      "label_text": "}",
-      "label_type": "}"
+      "label_type": "class_declaration"
+    },
+    "shard-5-1805": {
+      "label_c": 3,
+      "label_l": 214,
+      "label_parent_ast": "shard-5-1804",
+      "label_type": "modifiers"
+    },
+    "shard-5-1806": {
+      "label_c": 3,
+      "label_l": 214,
+      "label_parent_ast": "shard-5-1805",
+      "label_text": "private",
+      "label_type": "private"
+    },
+    "shard-5-1807": {
+      "label_c": 11,
+      "label_l": 214,
+      "label_parent_ast": "shard-5-1804",
+      "label_text": "class",
+      "label_type": "class"
+    },
+    "shard-5-1808": {
+      "label_c": 17,
+      "label_l": 214,
+      "label_parent_ast": "shard-5-1804",
+      "label_text": "InnerTest",
+      "label_type": "identifier"
+    },
+    "shard-5-1809": {
+      "label_c": 27,
+      "label_l": 214,
+      "label_parent_ast": "shard-5-1804",
+      "label_type": "class_body"
     },
     "shard-5-181": {
       "label_c": 25,
       "label_l": 21,
       "label_parent_ast": "shard-5-174",
       "label_type": "argument_list"
+    },
+    "shard-5-1810": {
+      "label_c": 27,
+      "label_l": 214,
+      "label_parent_ast": "shard-5-1809",
+      "label_text": "{",
+      "label_type": "{"
+    },
+    "shard-5-1811": {
+      "label_c": 3,
+      "label_l": 215,
+      "label_parent_ast": "shard-5-1809",
+      "label_text": "}",
+      "label_type": "}"
+    },
+    "shard-5-1812": {
+      "label_c": 1,
+      "label_l": 216,
+      "label_parent_ast": "shard-5-39",
+      "label_text": "}",
+      "label_type": "}"
     },
     "shard-5-182": {
       "label_c": 25,

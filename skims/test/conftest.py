@@ -25,12 +25,7 @@ from parse_cfn.loader import (
     load_as_yaml_without_line_number,
 )
 from utils.ctx import (
-    CTX,
-)
-from utils.model import (
-    LocalesEnum,
-    SkimsConfig,
-    SkimsPathConfig,
+    create_test_context,
 )
 
 # Constants
@@ -40,17 +35,7 @@ TEST_GROUPS = {
 }
 
 # Side effects
-CTX.config = SkimsConfig(
-    group=None,
-    language=LocalesEnum.EN,
-    namespace='test',
-    output=None,
-    path=SkimsPathConfig(include=(), exclude=()),
-    start_dir=os.getcwd(),
-    timeout=None,
-    working_dir=os.getcwd(),
-)
-CTX.debug = True
+create_test_context()
 
 
 def pytest_addoption(parser: Any) -> None:

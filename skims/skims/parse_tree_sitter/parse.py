@@ -179,7 +179,7 @@ def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 10,
+    version: int = 11,
 ) -> ParsedFile:
     if not language:
         raise ParsingError()
@@ -246,7 +246,7 @@ async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
         await log(
             'info', 'Generating graph shard %s of %s: %s',
             result.shard,
-            paths_count,
+            paths_count - 1,
             result.path,
         )
 
