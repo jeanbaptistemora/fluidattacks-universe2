@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "skims_data" {
   acl    = "private"
   bucket = "skims.data"
-  region = var.region
   tags = {
     "Name"               = "skims.data"
     "management:type"    = "production"
