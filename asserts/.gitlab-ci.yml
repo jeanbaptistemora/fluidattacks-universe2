@@ -79,7 +79,7 @@ asserts_test_api_cloud_aws_terraform:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_cloud_azure:
+.asserts_test_api_cloud_azure:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
