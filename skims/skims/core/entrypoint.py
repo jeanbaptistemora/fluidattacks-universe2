@@ -25,6 +25,9 @@ from core.persist import (
 from lib_path.analyze import (
     analyze as analyze_paths,
 )
+from lib_root.analyze import (
+    analyze as analyze_root,
+)
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
@@ -64,6 +67,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     await wait_for(
         collect((
             analyze_paths(stores=stores),
+            analyze_root(),
         )),
         CTX.config.timeout,
     )

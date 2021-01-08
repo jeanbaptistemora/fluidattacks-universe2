@@ -184,7 +184,7 @@ def parse_one(
     if not language:
         raise ParsingError()
 
-    with open(path, 'rb') as handle:
+    with open(os.path.join(CTX.config.working_dir, path), 'rb') as handle:
         content = handle.read()
 
     graph = _parse_one_cached(

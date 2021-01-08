@@ -1,20 +1,11 @@
 # Standard library
-from glob import (
-    iglob as glob,
-)
 from os.path import (
-    normpath,
     split,
     splitext,
 )
-from itertools import (
-    chain,
-)
 from typing import (
     Dict,
-    Iterator,
     Set,
-    Tuple,
 )
 
 # Third party libraries
@@ -52,7 +43,7 @@ from utils.ctx import (
 from utils.fs import (
     generate_file_content,
     generate_file_raw_content,
-    recurse,
+    resolve_paths,
 )
 from utils.logs import (
     log,
@@ -121,51 +112,6 @@ async def analyze_one_path(
         ):
             for vulnerability in await vulnerabilities:
                 await stores[finding].store(vulnerability)
-
-
-async def resolve_paths(
-    *,
-    exclude: Tuple[str, ...],
-    include: Tuple[str, ...],
-) -> Set[str]:
-    """Compute a set of unique paths based on the include/exclude rules.
-
-    Paths will be un-globed, normalized and entered if needed.
-
-    :param exclude: Paths to exclude
-    :type exclude: Tuple[str, ...]
-    :param include: Paths to include
-    :type include: Tuple[str, ...]
-    :raises SystemExit: If any critical error occurs
-    :return: A set of unique paths
-    :rtype: Set[str]
-    """
-
-    def normalize(path: str) -> str:
-        return normpath(path)
-
-    def evaluate(path: str) -> Iterator[str]:
-        if path.startswith('glob(') and path.endswith(')'):
-            yield from glob(path[5:-1], recursive=True)
-        else:
-            yield path
-
-    try:
-        unique_paths: Set[str] = set(map(normalize, chain.from_iterable(
-            await collect(map(
-                recurse, chain.from_iterable(map(evaluate, include)),
-            )),
-        ))) - set(map(normalize, chain.from_iterable(
-            await collect(map(
-                recurse, chain.from_iterable(map(evaluate, exclude)),
-            )),
-        )))
-    except FileNotFoundError as exc:
-        raise SystemExit(f'File does not exist: {exc.filename}')
-    else:
-        await log('info', 'Files to be tested: %s', len(unique_paths))
-
-    return unique_paths
 
 
 async def analyze(

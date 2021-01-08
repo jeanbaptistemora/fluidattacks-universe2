@@ -1,4 +1,7 @@
 # Standard library
+from glob import (
+    iglob as glob,
+)
 from itertools import (
     chain,
 )
@@ -11,6 +14,8 @@ from typing import (
     Awaitable,
     Callable,
     Dict,
+    Iterable,
+    Set,
     Tuple,
 )
 
@@ -24,6 +29,9 @@ from aioextensions import (
 # Local libraries
 from utils.concurrency import (
     never_concurrent,
+)
+from utils.logs import (
+    log,
 )
 
 
@@ -109,3 +117,36 @@ async def recurse_dir(path: str) -> Tuple[str, ...]:
 
 async def recurse(path: str) -> Tuple[str, ...]:
     return (path,) if os.path.isfile(path) else await recurse_dir(path)
+
+
+async def resolve_paths(
+    *,
+    exclude: Tuple[str, ...],
+    include: Tuple[str, ...],
+) -> Set[str]:
+
+    def normpath(path: str) -> str:
+        return os.path.normpath(path)
+
+    def evaluate(path: str) -> Iterable[str]:
+        if path.startswith('glob(') and path.endswith(')'):
+            yield from glob(path[5:-1], recursive=True)
+        else:
+            yield path
+
+    try:
+        unique_paths: Set[str] = set(map(normpath, chain.from_iterable(
+            await collect(map(
+                recurse, chain.from_iterable(map(evaluate, include)),
+            )),
+        ))) - set(map(normpath, chain.from_iterable(
+            await collect(map(
+                recurse, chain.from_iterable(map(evaluate, exclude)),
+            )),
+        )))
+    except FileNotFoundError as exc:
+        raise SystemExit(f'File does not exist: {exc.filename}')
+    else:
+        await log('info', 'Files to be tested: %s', len(unique_paths))
+
+    return unique_paths
