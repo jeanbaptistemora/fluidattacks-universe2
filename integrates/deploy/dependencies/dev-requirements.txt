@@ -72,6 +72,8 @@ PyExcelerate==0.9.0
 pyflakes==2.1.1
 Pygments==2.7.3
 pylint-celery==0.3
+# pylint-django is a direct dependency of prospector, so we cant get rid of it
+# https://github.com/PyCQA/prospector/blob/master/setup.py#L34
 pylint-django==2.0.12
 pylint-flask==0.6
 pylint-plugin-utils==0.6
