@@ -85,6 +85,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "elasticache:CreateReplicationGroup",
       "elasticache:CreateCacheSecurityGroup",
       "elasticache:CreateCacheSubnetGroup",
+      "elasticache:AddTagsToResource",
     ]
     resources = ["*"]
   }

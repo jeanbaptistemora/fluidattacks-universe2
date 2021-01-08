@@ -36,6 +36,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/analytics",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/analytics",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/analytics/analytics",
     ]
   }
 
