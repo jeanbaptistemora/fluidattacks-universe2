@@ -20390,7 +20390,17 @@
     "shard-0": {
       "label_language": "java",
       "label_metadata_classes": {
-        ".BenchmarkTest00001": "88"
+        ".BenchmarkTest00001": {
+          "methods": {
+            "doGet": {
+              "n_id": "120"
+            },
+            "doPost": {
+              "n_id": "311"
+            }
+          },
+          "n_id": "88"
+        }
       },
       "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00001.java"
@@ -25650,7 +25660,17 @@
     "shard-1": {
       "label_language": "java",
       "label_metadata_classes": {
-        ".BenchmarkTest00008": "88"
+        ".BenchmarkTest00008": {
+          "methods": {
+            "doGet": {
+              "n_id": "120"
+            },
+            "doPost": {
+              "n_id": "156"
+            }
+          },
+          "n_id": "88"
+        }
       },
       "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00008.java"
@@ -28614,7 +28634,17 @@
     "shard-2": {
       "label_language": "java",
       "label_metadata_classes": {
-        ".BenchmarkTest00167": "88"
+        ".BenchmarkTest00167": {
+          "methods": {
+            "doGet": {
+              "n_id": "120"
+            },
+            "doPost": {
+              "n_id": "156"
+            }
+          },
+          "n_id": "88"
+        }
       },
       "label_metadata_package": "org.owasp.benchmark.testcode",
       "label_path": "test/data/benchmark/owasp/BenchmarkTest00167.java"
@@ -33991,7 +34021,14 @@
     "shard-3": {
       "label_language": "java",
       "label_metadata_classes": {
-        ".Test": "12"
+        ".Test": {
+          "methods": {
+            "main": {
+              "n_id": "19"
+            }
+          },
+          "n_id": "12"
+        }
       },
       "label_metadata_package": "",
       "label_path": "test/data/lib_path/f031_cwe378/Test.java"
@@ -34514,7 +34551,14 @@
     "shard-4": {
       "label_language": "java",
       "label_metadata_classes": {
-        ".Test": "12"
+        ".Test": {
+          "methods": {
+            "doPost": {
+              "n_id": "19"
+            }
+          },
+          "n_id": "12"
+        }
       },
       "label_metadata_package": "",
       "label_path": "test/data/lib_path/f063_path_traversal/Test.java"
@@ -35680,8 +35724,18 @@
     "shard-5": {
       "label_language": "java",
       "label_metadata_classes": {
-        ".Test": "34",
-        ".Test.InnerTest": "1804"
+        ".Test": {
+          "methods": {
+            "main": {
+              "n_id": "41"
+            }
+          },
+          "n_id": "34"
+        },
+        ".Test.InnerTest": {
+          "methods": {},
+          "n_id": "1804"
+        }
       },
       "label_metadata_package": "",
       "label_path": "test/data/parse_java/TestCFG.java"

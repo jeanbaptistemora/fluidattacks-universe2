@@ -62,6 +62,8 @@ from utils.model import (
     ParsedFile,
     ParsedFileMetadata,
     ParsedFileMetadataJava,
+    ParsedFileMetadataJavaClass,
+    ParsedFileMetadataJavaClassMethod,
     Platform,
     SkimsVulnerabilityMetadata,
     Vulnerability,
@@ -238,6 +240,8 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 ParsedFile,
                 ParsedFileMetadata,
                 ParsedFileMetadataJava,
+                ParsedFileMetadataJavaClass,
+                ParsedFileMetadataJavaClassMethod,
                 SkimsVulnerabilityMetadata,
                 Vulnerability,
                 Node

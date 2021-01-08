@@ -1,5 +1,8 @@
 # Third party libraries
 import networkx as nx
+from utils.encodings import (
+    json_dumps,
+)
 
 # Local libraries
 from utils.graph import GRAPH_STYLE_ATTRS
@@ -25,6 +28,7 @@ def _add_styles(graph: nx.DiGraph) -> None:
     # Walk the nodes and compute a label from the node attributes
     for n_attrs in graph.nodes.values():
         n_attrs['color'] = 'black'
+        # Adding ordering out makes output more human readable
         n_attrs['style'] = 'filled'
 
         if n_attrs.get('label_input_type'):
@@ -48,7 +52,15 @@ def _add_styles(graph: nx.DiGraph) -> None:
 
 
 def _create_label(**attrs: str) -> str:
-    return '\n'.join(f'{key}: {attrs[key]}' for key in sorted(attrs))
+    return '\\l'.join(
+        f'{key}: {val}'
+        for key in sorted(attrs)
+        for val in [(
+            json_dumps(attrs[key], indent=2).replace('\n', '\\l')
+            if isinstance(attrs[key], dict)
+            else attrs[key]
+        )]
+    )
 
 
 def _verify(graph: nx.DiGraph) -> None:

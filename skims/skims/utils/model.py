@@ -653,8 +653,17 @@ class Vulnerability(NamedTuple):
         ))
 
 
+class ParsedFileMetadataJavaClassMethod(NamedTuple):
+    n_id: str
+
+
+class ParsedFileMetadataJavaClass(NamedTuple):
+    methods: Dict[str, ParsedFileMetadataJavaClassMethod]
+    n_id: str
+
+
 class ParsedFileMetadataJava(NamedTuple):
-    classes: Dict[str, str]
+    classes: Dict[str, ParsedFileMetadataJavaClass]
     package: str
 
 

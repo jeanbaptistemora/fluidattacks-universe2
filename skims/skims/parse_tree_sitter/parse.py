@@ -179,7 +179,7 @@ def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 11,
+    version: int = 13,
 ) -> ParsedFile:
     if not language:
         raise ParsingError()

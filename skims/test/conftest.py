@@ -35,7 +35,7 @@ TEST_GROUPS = {
 }
 
 # Side effects
-create_test_context()
+create_test_context(debug=False)
 
 
 def pytest_addoption(parser: Any) -> None:
