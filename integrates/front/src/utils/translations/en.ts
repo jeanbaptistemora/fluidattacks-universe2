@@ -494,6 +494,8 @@ export const enTranslations: ResourceKey = {
         envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",
+          rootInGitignore:
+            "Root name should not be included in gitignore pattern",
         },
         filter: {
           documentation:

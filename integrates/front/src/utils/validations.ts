@@ -347,7 +347,10 @@ const excludeFormat: Validator = (
   const repoUrl: string = allValues.url;
 
   if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
-    const repoName: string = repoUrl.split("/").slice(-1)[0];
+    const urlBasename: string = repoUrl.split("/").slice(-1)[0];
+    const repoName: string = urlBasename.endsWith(".git")
+      ? urlBasename.replace(".git", "")
+      : urlBasename;
 
     return value.toLowerCase().split("/").indexOf(repoName.toLowerCase()) == 0
       ? translate.t("validations.excludeFormat")

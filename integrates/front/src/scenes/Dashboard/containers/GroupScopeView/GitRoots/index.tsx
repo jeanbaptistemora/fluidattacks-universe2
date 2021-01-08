@@ -166,6 +166,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           case "Exception - Active root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicate"));
             break;
+          case "Exception - Root name should not be included in the exception pattern":
+            msgError(t("group.scope.git.errors.rootInGitignore"));
+            break;
           default:
             msgError(t("group_alerts.error_textsad"));
             Logger.error("Couldn't add git roots", error);

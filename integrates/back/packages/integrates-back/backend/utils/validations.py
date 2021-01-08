@@ -2,7 +2,11 @@ import os
 import re
 from ipaddress import ip_address
 from typing import List
-from urllib.parse import urlparse, ParseResult
+from urllib.parse import (
+    unquote_plus,
+    urlparse,
+    ParseResult
+)
 
 from git import Git, GitCommandError
 
@@ -172,7 +176,14 @@ def is_valid_ip(address: str) -> bool:
 
 def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
     is_valid: bool = True
-    repo_name: str = os.path.basename(url).lower()
+
+    # Get repository name
+    url_obj = urlparse(url)
+    url_path = unquote_plus(url_obj.path)
+    repo_name = os.path.basename(url_path)
+    if repo_name.endswith('.git'):
+        repo_name = repo_name[0:-4]
+
     for pattern in exclude_patterns:
         pattern_as_list: List[str] = pattern.lower().split('/')
         if (
