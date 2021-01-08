@@ -214,7 +214,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         <Col60 className={"pa0"}>
           <h3>{translate.t("search_findings.tab_resources.files.title")}</h3>
         </Col60>
-        <Can do="backend_api_resolvers_resource__do_add_files">
+        <Can do="backend_api_mutations_add_files_mutate">
           <Col40 className={"pa0"}>
             <ButtonToolbar>
               <TooltipWrapper

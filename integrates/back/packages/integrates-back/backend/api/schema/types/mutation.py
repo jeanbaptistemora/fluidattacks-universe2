@@ -7,6 +7,7 @@ from ariadne import MutationType
 # Local
 from backend.api.mutations import (
     add_environment,
+    add_files,
     add_event_consult,
     add_finding_consult,
     add_forces_execution,
@@ -126,7 +127,7 @@ MUTATION.set_field('grantStakeholderAccess', user.resolve_user_mutation)
 MUTATION.set_field('removeStakeholderAccess', user.resolve_user_mutation)
 MUTATION.set_field('editStakeholder', user.resolve_user_mutation)
 MUTATION.set_field('addEnvironments', add_environment.mutate)
-MUTATION.set_field('addFiles', resource.resolve_resources_mutation)
+MUTATION.set_field('addFiles', add_files.mutate)
 MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)

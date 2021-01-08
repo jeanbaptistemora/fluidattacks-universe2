@@ -116,7 +116,7 @@ describe("Files", () => {
       result: { data: { addFiles : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_add_files" },
+      { action: "backend_api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -282,7 +282,7 @@ describe("Files", () => {
       ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_add_files" },
+      { action: "backend_api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -321,7 +321,7 @@ describe("Files", () => {
 
   it("should handle error when there are repeated files", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_add_files" },
+      { action: "backend_api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
