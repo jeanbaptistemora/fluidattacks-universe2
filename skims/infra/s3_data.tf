@@ -14,11 +14,11 @@ resource "aws_s3_bucket" "skims_data" {
     prefix                                 = "cache/"
 
     expiration {
-      days = 28
+      days = 7
     }
 
     noncurrent_version_expiration {
-      days = 28
+      days = 7
     }
   }
 

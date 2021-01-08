@@ -68,7 +68,7 @@ function get_config {
 
 function main {
   local group="${1:-}"
-  local cache_local="${HOME}/.skims"
+  local cache_local="${HOME}/.skims/cache"
   local cache_remote="s3://skims.data/cache/${group}"
   local config_file
   local success='false'
