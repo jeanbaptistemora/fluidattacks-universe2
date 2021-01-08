@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = "fluidattacks.com"
   acl    = "private"
-  region = var.region
 
   server_side_encryption_configuration {
     rule {

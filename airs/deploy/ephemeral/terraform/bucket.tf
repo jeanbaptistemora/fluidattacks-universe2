@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "web-ephemeral-bucket" {
   bucket = "web.eph.fluidattacks.com"
   acl    = "private"
-  region = var.region
 
   server_side_encryption_configuration {
     rule {
