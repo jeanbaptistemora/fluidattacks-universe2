@@ -45,9 +45,6 @@ def _add_styles(graph: nx.DiGraph) -> None:
             edge_attrs['color'] = 'blue'
         elif 'label_cfg' in edge_attrs:
             edge_attrs['color'] = 'red'
-        else:
-            # Should not happen
-            raise NotImplementedError()
 
 
 def _create_label(**attrs: str) -> str:

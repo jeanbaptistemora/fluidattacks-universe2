@@ -14,7 +14,11 @@ from typing import (
 from aioextensions import (
     CPU_CORES,
     in_process,
+    in_thread,
     resolve,
+)
+from more_itertools import (
+    mark_ends,
 )
 
 # Third party libraries
@@ -46,7 +50,11 @@ from utils.ctx import (
 from utils.graph import (
     copy_ast,
     copy_cfg,
+    copy_depth,
     to_svg,
+)
+from utils.logs import (
+    log,
 )
 from utils.string import (
     get_debug_path,
@@ -63,6 +71,10 @@ Language.build_library(LANGUAGES_SO, [
 # Constants
 PARSER_JAVA: Parser = Parser()
 PARSER_JAVA.set_language(Language(LANGUAGES_SO, 'java'))
+
+
+class ParsingError(Exception):
+    pass
 
 
 def _build_ast_graph(
@@ -83,7 +95,7 @@ def _build_ast_graph(
 
     elif isinstance(obj, Node):
         if obj.has_error:
-            raise ValueError()
+            raise ParsingError()
 
         n_id = next(_counter)
 
@@ -137,21 +149,38 @@ def decide_language(path: str) -> str:
 @CACHE_ETERNALLY
 def _parse_one_cached(
     *,
+    content: bytes,
     language: str,
-    path: str,
     _: int,
 ) -> nx.DiGraph:
     parser: Parser = Parser()
     parser.set_language(Language(LANGUAGES_SO, language))
 
-    with open(path, 'rb') as handle:
-        content = handle.read()
-
     raw_tree: Tree = parser.parse(content)
 
     graph: nx.DiGraph = _build_ast_graph(content, raw_tree)
     add_control_flow(graph)
-    add_styles(graph)
+
+    return graph
+
+
+def parse_one(
+    *,
+    language: str,
+    path: str,
+    version: int = 4,
+) -> Optional[nx.DiGraph]:
+    if not language:
+        return None
+
+    with open(path, 'rb') as handle:
+        content = handle.read()
+
+    graph = _parse_one_cached(
+        content=content,
+        language=language,
+        _=version,
+    )
 
     if CTX.debug:
         output = get_debug_path('tree-sitter-' + path)
@@ -162,29 +191,76 @@ def _parse_one_cached(
     return graph
 
 
-def parse_one(
-    *,
-    language: str,
-    path: str,
-    version: int = 3,
-) -> Optional[nx.DiGraph]:
-    if not language:
-        return None
-
-    return _parse_one_cached(
-        language=language,
-        path=path,
-        _=version,
-    )
-
-
-def parse_many(paths: Tuple[str, ...]) -> Iterable[Awaitable[nx.DiGraph]]:
-    # Collect graphs in a cluster of processes
-    return resolve((
+def parse_many(paths: Tuple[str, ...]) -> Iterable[Tuple[
+    Awaitable[nx.DiGraph],  # graphs_lazy
+    str,  # languages
+    str,  # paths
+]]:
+    languages = tuple(map(decide_language, paths))
+    graphs_lazy = resolve((
         in_process(
             parse_one,
-            language=decide_language(path),
+            language=language,
             path=path,
         )
-        for path in paths
+        for language, path in zip(languages, paths)
     ), workers=CPU_CORES)
+
+    # Collect graphs in a cluster of processes
+    return zip(graphs_lazy, languages, paths)
+
+
+async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
+    # Reproducibility
+    paths = tuple(sorted(paths))
+
+    root = nx.DiGraph()
+    root.add_node('root')
+
+    paths_count: int = len(paths)
+    for shard, (graph_lazy, language, path) in enumerate(parse_many(paths)):
+        await log(
+            'info', 'Generating graph shard %s of %s: %s',
+            shard,
+            paths_count,
+            path,
+        )
+
+        try:
+            graph = await graph_lazy
+        except ParsingError:
+            await log('warning', 'Unable to parse: %s, ignoring', path)
+        else:
+            # Copy nodes from shard
+            for first, _, (n_id, n_attrs) in mark_ends(graph.nodes.items()):
+                n_id = f'shard-{shard}-{n_id}'
+
+                if first:
+                    # Create the shard in the root graph
+                    shard_id = f'shard-{shard}'
+                    root.add_node(
+                        shard_id,
+                        label_language=language,
+                        label_path=path,
+                    )
+
+                    # Link root to the shard
+                    root.add_edge('root', shard_id)
+                    root.add_edge(shard_id, n_id)
+
+                root.add_node(n_id, **n_attrs)
+
+            # Copy edges from shard
+            for u_id, v_id in graph.edges:
+                root.add_edge(u_id, v_id, **graph[u_id][v_id])
+
+    add_styles(root)
+
+    if CTX.debug:
+        await in_thread(
+            to_svg,
+            copy_depth(root, 'root', 2),
+            get_debug_path('tree-sitter-root'),
+        )
+
+    return root

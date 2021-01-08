@@ -6,7 +6,7 @@ import pytest
 
 # Local libraries
 from parse_tree_sitter.parse import (
-    parse_many,
+    get_root,
 )
 from utils.graph import (
     export_graph_as_json,
@@ -16,43 +16,21 @@ from utils.encodings import (
 )
 
 
-@pytest.mark.parametrize(
-    'path,name',
-    [
-        (
-            'test/data/lib_path/f031_cwe378/Test.java',
-            'f031_cwe378',
-        ),
-        (
-            'test/data/lib_path/f063_path_traversal/Test.java',
-            'f063_path_traversal',
-        ),
-        (
-            'test/data/benchmark/owasp/BenchmarkTest00001.java',
-            'owasp_benchmark_00001',
-        ),
-        (
-            'test/data/benchmark/owasp/BenchmarkTest00008.java',
-            'owasp_benchmark_00008',
-        ),
-        (
-            'test/data/benchmark/owasp/BenchmarkTest00167.java',
-            'owasp_benchmark_00167',
-        ),
-        (
-            'test/data/parse_java/TestCFG.java',
-            'apply_control_flow',
-        )
-    ],
-)
 @pytest.mark.skims_test_group('unittesting')
 @run_decorator
-async def test_graph_generation(path: str, name: str) -> None:
-    graph = await tuple(parse_many((path,)))[0]
+async def test_graph_generation() -> None:
+    graph = await get_root((
+        'test/data/lib_path/f031_cwe378/Test.java',
+        'test/data/lib_path/f063_path_traversal/Test.java',
+        'test/data/benchmark/owasp/BenchmarkTest00001.java',
+        'test/data/benchmark/owasp/BenchmarkTest00008.java',
+        'test/data/benchmark/owasp/BenchmarkTest00167.java',
+        'test/data/parse_java/TestCFG.java',
+    ))
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json_dumps(graph_as_json, indent=2, sort_keys=True)
 
-    with open(f'test/data/parse_tree_sitter/{name}.graph.json') as handle:
+    with open(f'test/data/parse_tree_sitter/root-graph.json') as handle:
         expected = handle.read()
 
     assert graph_as_json_str == expected
