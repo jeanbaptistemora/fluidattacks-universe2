@@ -1,7 +1,7 @@
 import logging
 import re
 import sys
-from typing import Any, Dict, List, cast, Union
+from typing import Any, Dict, cast, Union
 
 from aioextensions import (
     in_thread,
@@ -58,48 +58,6 @@ async def resolve_resources_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_add_environments(
-        _: Any,
-        info: GraphQLResolveInfo,
-        envs: List[Dict[str, str]],
-        project_name: str) -> SimplePayloadType:
-    """Resolve add_environments mutation."""
-    new_envs = util.camel_case_list_dict(envs)
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    success = await resources.create_environments(
-        new_envs, project_name, user_email
-    )
-
-    if success:
-        _clean_resources_cache(project_name)
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Added envs to '
-             f'{project_name} project successfully')  # pragma: no cover
-        )
-        await resources.send_mail(
-            project_name,
-            user_email,
-            new_envs,
-            'added',
-            'environment'
-        )
-    else:
-        LOGGER.error('Couldn\'t add environments', extra={'extra': locals()})
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to add '
-             f'envs to {project_name} project')  # pragma: no cover
-        )
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

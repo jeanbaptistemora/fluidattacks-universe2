@@ -137,7 +137,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
         <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.environments_title")}</h3>
         </Col>
-        <Can do="backend_api_resolvers_resource__do_add_environments">
+        <Can do="backend_api_mutations_add_environment_mutate">
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
               <TooltipWrapper
