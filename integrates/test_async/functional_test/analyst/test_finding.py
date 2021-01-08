@@ -3,6 +3,7 @@ import pytest
 
 from starlette.datastructures import UploadFile
 
+from backend.exceptions import VulnNotFound
 from backend.utils import datetime as datetime_utils
 from test_async.functional_test.analyst.utils import get_result
 
@@ -283,7 +284,10 @@ async def test_finding():
             currentState
             newRemediated
             verified
-            vulnerabilities {{
+            closedVulns: vulnerabilities(state: "closed") {{
+                id
+            }}
+            openVulns: vulnerabilities(state: "open") {{
                 id
             }}
             portsVulns {{
@@ -410,6 +414,9 @@ async def test_finding():
         }
     ]
 
+    open_vulnerabilities = result['data']['finding']['openVulns']
+    closed_vulnerabilities = result['data']['finding']['closedVulns']
+    vuln_ids = [vuln['id'] for vuln in open_vulnerabilities + closed_vulnerabilities]
     actor = 'ANYONE_INTERNET'
     affected_systems = 'Server bWAPP'
     attack_vector_desc = 'This is an updated attack vector'
@@ -562,6 +569,27 @@ async def test_finding():
     ]
     assert result['data']['finding']['consulting'] == [{'content': consult_content}]
 
+    vuln_query = '''
+        query GetVulnInfo($vuln1Id: String!, $vuln2Id: String!, $vuln3Id: String!) {
+            vuln1: vulnerability(uuid: $vuln1Id) {
+                currentState
+            }
+            vuln2: vulnerability(uuid: $vuln2Id) {
+                currentState
+            }
+            vuln3: vulnerability(uuid: $vuln3Id) {
+                currentState
+            }
+        }
+    '''
+    variables = {'vuln1Id': vuln_ids[0], 'vuln2Id': vuln_ids[1], 'vuln3Id': vuln_ids[2]}
+    data = {'query': vuln_query, 'variables': variables}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert result['data']['vuln1']['currentState'] == 'open'
+    assert result['data']['vuln2']['currentState'] == 'closed'
+    assert result['data']['vuln3']['currentState'] == 'closed'
+
     query = f'''
         mutation {{
             deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
@@ -600,3 +628,11 @@ async def test_finding():
     group_findings = result['data']['project']['findings']
     finding_ids = [finding['id'] for finding in group_findings]
     assert finding_id not in finding_ids
+
+    variables = {'vuln1Id': vuln_ids[0], 'vuln2Id': vuln_ids[1], 'vuln3Id': vuln_ids[2]}
+    data = {'query': vuln_query, 'variables': variables}
+    result = await get_result(data)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == str(VulnNotFound())
+    assert result['errors'][1]['message'] == str(VulnNotFound())
+    assert result['errors'][2]['message'] == str(VulnNotFound())

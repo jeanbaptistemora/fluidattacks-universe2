@@ -266,17 +266,42 @@ async def delete_finding(
             datetime_utils.get_now()
         )
         user_info = await util.get_jwt_content(context)
+        analyst = user_info['user_email']
         submission_history.append({
             'state': 'DELETED',
             'date': delete_date,
             'justification': justification,
-            'analyst': user_info['user_email'],
+            'analyst': analyst,
         })
         success = await finding_dal.update(finding_id, {
             'historic_state': submission_history
         })
+        schedule(delete_vulnerabilities(finding_id, justification, analyst))
 
     return success
+
+
+async def delete_vulnerabilities(
+    finding_id: str,
+    justification: str,
+    user_email: str
+) -> bool:
+    vulnerabilities = await vuln_domain.list_vulnerabilities_async(
+        [finding_id],
+        include_confirmed_zero_risk=True,
+        include_requested_zero_risk=True,
+    )
+
+    return all(await collect(
+        vuln_domain.delete_vulnerability(
+            finding_id,
+            str(vuln['UUID']),
+            justification,
+            user_email,
+            include_closed_vuln=True,
+        )
+        for vuln in vulnerabilities
+    ))
 
 
 async def get_finding(finding_id: str) -> Dict[str, FindingType]:
