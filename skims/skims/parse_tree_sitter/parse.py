@@ -110,7 +110,9 @@ def _build_ast_graph(
             label_type=obj.type,
         )
 
-        if not obj.children:
+        if not obj.children or obj.type in {
+            'scoped_identifier',
+        }:
             _graph.nodes[n_id]['label_text'] = content[
                 obj.start_byte:
                 obj.end_byte
@@ -173,7 +175,7 @@ def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 6,
+    version: int = 8,
 ) -> GraphWithMeta:
     if not language:
         raise ParsingError()

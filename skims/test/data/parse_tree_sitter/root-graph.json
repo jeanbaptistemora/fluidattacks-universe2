@@ -20952,6 +20952,7 @@
       "label_c": 8,
       "label_l": 21,
       "label_parent_ast": "shard-0-16",
+      "label_text": "java.io.IOException",
       "label_type": "scoped_identifier"
     },
     "shard-0-180": {
@@ -21025,6 +21026,7 @@
       "label_c": 8,
       "label_l": 21,
       "label_parent_ast": "shard-0-18",
+      "label_text": "java.io",
       "label_type": "scoped_identifier"
     },
     "shard-0-190": {
@@ -21695,6 +21697,7 @@
       "label_c": 8,
       "label_l": 23,
       "label_parent_ast": "shard-0-26",
+      "label_text": "javax.servlet.ServletException",
       "label_type": "scoped_identifier"
     },
     "shard-0-280": {
@@ -21768,6 +21771,7 @@
       "label_c": 8,
       "label_l": 23,
       "label_parent_ast": "shard-0-28",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-290": {
@@ -22439,6 +22443,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-0-36",
+      "label_text": "javax.servlet.annotation.WebServlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-380": {
@@ -22511,6 +22516,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-0-38",
+      "label_text": "javax.servlet.annotation",
       "label_type": "scoped_identifier"
     },
     "shard-0-390": {
@@ -22590,6 +22596,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-0-39",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-400": {
@@ -23325,6 +23332,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-0-3",
+      "label_text": "org.owasp.benchmark.testcode",
       "label_type": "scoped_identifier"
     },
     "shard-0-50": {
@@ -23408,6 +23416,7 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-0-49",
+      "label_text": "javax.servlet.http.HttpServlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-510": {
@@ -23479,6 +23488,7 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-0-51",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-0-520": {
@@ -23552,6 +23562,7 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-0-52",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-530": {
@@ -24062,6 +24073,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-0-5",
+      "label_text": "org.owasp.benchmark",
       "label_type": "scoped_identifier"
     },
     "shard-0-60": {
@@ -24366,6 +24378,7 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-0-62",
+      "label_text": "javax.servlet.http.HttpServletRequest",
       "label_type": "scoped_identifier"
     },
     "shard-0-640": {
@@ -24440,6 +24453,7 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-0-64",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-0-650": {
@@ -24514,6 +24528,7 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-0-65",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-660": {
@@ -24807,6 +24822,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-0-6",
+      "label_text": "org.owasp",
       "label_type": "scoped_identifier"
     },
     "shard-0-70": {
@@ -25328,6 +25344,7 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-0-75",
+      "label_text": "javax.servlet.http.HttpServletResponse",
       "label_type": "scoped_identifier"
     },
     "shard-0-770": {
@@ -25401,6 +25418,7 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-0-77",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-0-780": {
@@ -25435,6 +25453,7 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-0-78",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-0-8": {
@@ -26190,6 +26209,7 @@
       "label_c": 8,
       "label_l": 21,
       "label_parent_ast": "shard-1-16",
+      "label_text": "java.io.IOException",
       "label_type": "scoped_identifier"
     },
     "shard-1-180": {
@@ -26263,6 +26283,7 @@
       "label_c": 8,
       "label_l": 21,
       "label_parent_ast": "shard-1-18",
+      "label_text": "java.io",
       "label_type": "scoped_identifier"
     },
     "shard-1-190": {
@@ -26933,6 +26954,7 @@
       "label_c": 8,
       "label_l": 23,
       "label_parent_ast": "shard-1-26",
+      "label_text": "javax.servlet.ServletException",
       "label_type": "scoped_identifier"
     },
     "shard-1-280": {
@@ -27004,6 +27026,7 @@
       "label_c": 8,
       "label_l": 23,
       "label_parent_ast": "shard-1-28",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-290": {
@@ -27676,6 +27699,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-1-36",
+      "label_text": "javax.servlet.annotation.WebServlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-380": {
@@ -27746,6 +27770,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-1-38",
+      "label_text": "javax.servlet.annotation",
       "label_type": "scoped_identifier"
     },
     "shard-1-390": {
@@ -27827,6 +27852,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-1-39",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-400": {
@@ -28165,6 +28191,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-1-3",
+      "label_text": "org.owasp.benchmark.testcode",
       "label_type": "scoped_identifier"
     },
     "shard-1-50": {
@@ -28178,18 +28205,21 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-1-49",
+      "label_text": "javax.servlet.http.HttpServlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-52": {
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-1-51",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-1-53": {
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-1-52",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-54": {
@@ -28238,6 +28268,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-1-5",
+      "label_text": "org.owasp.benchmark",
       "label_type": "scoped_identifier"
     },
     "shard-1-60": {
@@ -28271,18 +28302,21 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-1-62",
+      "label_text": "javax.servlet.http.HttpServletRequest",
       "label_type": "scoped_identifier"
     },
     "shard-1-65": {
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-1-64",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-1-66": {
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-1-65",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-67": {
@@ -28310,6 +28344,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-1-6",
+      "label_text": "org.owasp",
       "label_type": "scoped_identifier"
     },
     "shard-1-70": {
@@ -28364,18 +28399,21 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-1-75",
+      "label_text": "javax.servlet.http.HttpServletResponse",
       "label_type": "scoped_identifier"
     },
     "shard-1-78": {
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-1-77",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-1-79": {
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-1-78",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-1-8": {
@@ -29131,6 +29169,7 @@
       "label_c": 8,
       "label_l": 21,
       "label_parent_ast": "shard-2-16",
+      "label_text": "java.io.IOException",
       "label_type": "scoped_identifier"
     },
     "shard-2-180": {
@@ -29204,6 +29243,7 @@
       "label_c": 8,
       "label_l": 21,
       "label_parent_ast": "shard-2-18",
+      "label_text": "java.io",
       "label_type": "scoped_identifier"
     },
     "shard-2-190": {
@@ -29873,6 +29913,7 @@
       "label_c": 8,
       "label_l": 23,
       "label_parent_ast": "shard-2-26",
+      "label_text": "javax.servlet.ServletException",
       "label_type": "scoped_identifier"
     },
     "shard-2-280": {
@@ -29944,6 +29985,7 @@
       "label_c": 8,
       "label_l": 23,
       "label_parent_ast": "shard-2-28",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-290": {
@@ -30615,6 +30657,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-2-36",
+      "label_text": "javax.servlet.annotation.WebServlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-380": {
@@ -30687,6 +30730,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-2-38",
+      "label_text": "javax.servlet.annotation",
       "label_type": "scoped_identifier"
     },
     "shard-2-390": {
@@ -30768,6 +30812,7 @@
       "label_c": 8,
       "label_l": 24,
       "label_parent_ast": "shard-2-39",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-400": {
@@ -31503,6 +31548,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-2-3",
+      "label_text": "org.owasp.benchmark.testcode",
       "label_type": "scoped_identifier"
     },
     "shard-2-50": {
@@ -31583,6 +31629,7 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-2-49",
+      "label_text": "javax.servlet.http.HttpServlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-510": {
@@ -31656,6 +31703,7 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-2-51",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-2-520": {
@@ -31728,6 +31776,7 @@
       "label_c": 8,
       "label_l": 25,
       "label_parent_ast": "shard-2-52",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-530": {
@@ -32244,6 +32293,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-2-5",
+      "label_text": "org.owasp.benchmark",
       "label_type": "scoped_identifier"
     },
     "shard-2-60": {
@@ -32546,6 +32596,7 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-2-62",
+      "label_text": "javax.servlet.http.HttpServletRequest",
       "label_type": "scoped_identifier"
     },
     "shard-2-640": {
@@ -32618,6 +32669,7 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-2-64",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-2-650": {
@@ -32689,6 +32741,7 @@
       "label_c": 8,
       "label_l": 26,
       "label_parent_ast": "shard-2-65",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-660": {
@@ -32986,6 +33039,7 @@
       "label_c": 9,
       "label_l": 19,
       "label_parent_ast": "shard-2-6",
+      "label_text": "org.owasp",
       "label_type": "scoped_identifier"
     },
     "shard-2-70": {
@@ -33508,6 +33562,7 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-2-75",
+      "label_text": "javax.servlet.http.HttpServletResponse",
       "label_type": "scoped_identifier"
     },
     "shard-2-770": {
@@ -33582,6 +33637,7 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-2-77",
+      "label_text": "javax.servlet.http",
       "label_type": "scoped_identifier"
     },
     "shard-2-780": {
@@ -33654,6 +33710,7 @@
       "label_c": 8,
       "label_l": 27,
       "label_parent_ast": "shard-2-78",
+      "label_text": "javax.servlet",
       "label_type": "scoped_identifier"
     },
     "shard-2-790": {
@@ -34106,6 +34163,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-3-2",
+      "label_text": "java.io.File",
       "label_type": "scoped_identifier"
     },
     "shard-3-40": {
@@ -34178,6 +34236,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-3-4",
+      "label_text": "java.io",
       "label_type": "scoped_identifier"
     },
     "shard-3-50": {
@@ -35122,6 +35181,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-4-2",
+      "label_text": "java.io.File",
       "label_type": "scoped_identifier"
     },
     "shard-4-40": {
@@ -35195,6 +35255,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-4-4",
+      "label_text": "java.io",
       "label_type": "scoped_identifier"
     },
     "shard-4-50": {
@@ -41706,6 +41767,7 @@
       "label_c": 8,
       "label_l": 2,
       "label_parent_ast": "shard-5-18",
+      "label_text": "org.apache.logging.log4j.LogManager",
       "label_type": "scoped_identifier"
     },
     "shard-5-200": {
@@ -41778,6 +41840,7 @@
       "label_c": 8,
       "label_l": 2,
       "label_parent_ast": "shard-5-20",
+      "label_text": "org.apache.logging.log4j",
       "label_type": "scoped_identifier"
     },
     "shard-5-210": {
@@ -41851,6 +41914,7 @@
       "label_c": 8,
       "label_l": 2,
       "label_parent_ast": "shard-5-21",
+      "label_text": "org.apache.logging",
       "label_type": "scoped_identifier"
     },
     "shard-5-220": {
@@ -41925,6 +41989,7 @@
       "label_c": 8,
       "label_l": 2,
       "label_parent_ast": "shard-5-22",
+      "label_text": "org.apache",
       "label_type": "scoped_identifier"
     },
     "shard-5-230": {
@@ -43182,6 +43247,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-5-2",
+      "label_text": "org.apache.logging.log4j.Logger",
       "label_type": "scoped_identifier"
     },
     "shard-5-40": {
@@ -43923,6 +43989,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-5-4",
+      "label_text": "org.apache.logging.log4j",
       "label_type": "scoped_identifier"
     },
     "shard-5-50": {
@@ -44663,6 +44730,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-5-5",
+      "label_text": "org.apache.logging",
       "label_type": "scoped_identifier"
     },
     "shard-5-60": {
@@ -45404,6 +45472,7 @@
       "label_c": 8,
       "label_l": 1,
       "label_parent_ast": "shard-5-6",
+      "label_text": "org.apache",
       "label_type": "scoped_identifier"
     },
     "shard-5-70": {
