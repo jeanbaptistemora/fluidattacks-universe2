@@ -20,6 +20,12 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
       Principal = {
         Service = "ec2.amazonaws.com"
       }
+    },{
+      Action = "sts:AssumeRole",
+      Effect = "Allow",
+      Principal = {
+        Service = "spotfleet.amazonaws.com"
+      }
     }]
   })
   name = "aws_ecs_instance_role"
@@ -34,6 +40,11 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
 resource "aws_iam_role_policy_attachment" "aws_ecs_instance_role" {
   role = aws_iam_role.aws_ecs_instance_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+}
+
+resource "aws_iam_role_policy_attachment" "aws_ecs_instance_role_fleet_tagging" {
+  role = aws_iam_role.aws_ecs_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole"
 }
 
 resource "aws_iam_instance_profile" "aws_ecs_instance_role" {
@@ -113,60 +124,54 @@ resource "aws_launch_template" "batch_instance" {
   }
 }
 
-resource "aws_batch_compute_environment" "default" {
-  compute_environment_name = "default"
-  depends_on = [aws_iam_role_policy_attachment.aws_batch_service_role]
-  service_role = aws_iam_role.aws_batch_service_role.arn
-  state = "ENABLED"
-  type = "MANAGED"
-
-  compute_resources {
-    allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
-    # We want to use this one: https://aws.amazon.com/amazon-linux-2
-    #   because it provides Docker with overlay2,
-    #   whose volumes are not limited to 10GB size but are elastic
-    # This avoids us this problem:
-    #   https://aws.amazon.com/premiumsupport/knowledge-center/increase-default-ecs-docker-limit/
-    image_id = "ami-059628695ae4c249b"
-    instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
-    instance_type = [
-      "m5a.xlarge",
-    ]
-    max_vcpus = 48
-    min_vcpus = 0
-    security_group_ids = [
-      aws_security_group.aws_batch_compute_environment_security_group.id,
-    ]
-    subnets = [
-      aws_subnet.default.id,
-    ]
-    type = "SPOT"
-    tags = {
-      "Name"               = "default"
-      "management:type"    = "production"
-      "management:product" = "common"
-    }
-
-    launch_template {
-      // https://aws.amazon.com/premiumsupport/knowledge-center/batch-ebs-volumes-launch-template/
-      launch_template_id = aws_launch_template.batch_instance.id
-    }
+locals {
+  compute_environments = {
+    skims = {
+      max_vcpus = 32
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type = "SPOT"
+    },
+    spot = {
+      max_vcpus = 16
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type = "SPOT"
+    },
+    dedicated = {
+      max_vcpus = 4
+      spot_iam_fleet_role = null
+      type = "EC2"
+    },
   }
+  queues = [
+    {
+      name = "now"
+      priority = 10
+    },
+    {
+      name = "soon"
+      priority = 5
+    },
+    {
+      name = "later"
+      priority = 1
+    },
+  ]
+
+  compute_environment_names = [
+    for name, _ in local.compute_environments: name
+  ]
 }
 
-resource "aws_batch_compute_environment" "uninterruptible" {
-  # Machines here do not use SPOT Instances in order to avoid jobs
-  # being interrupted, this compute environment has a higher cost
-  # (50% at the moment of writing) and will be used to run long-running
-  # jobs that would otherwise be killed because of spot-machine interruption
-  compute_environment_name = "uninterruptible"
+resource "aws_batch_compute_environment" "default" {
+  for_each = local.compute_environments
+
+  compute_environment_name = each.key
   depends_on = [aws_iam_role_policy_attachment.aws_batch_service_role]
   service_role = aws_iam_role.aws_batch_service_role.arn
   state = "ENABLED"
   type = "MANAGED"
 
   compute_resources {
-    allocation_strategy = "BEST_FIT_PROGRESSIVE"
     # We want to use this one: https://aws.amazon.com/amazon-linux-2
     #   because it provides Docker with overlay2,
     #   whose volumes are not limited to 10GB size but are elastic
@@ -177,19 +182,18 @@ resource "aws_batch_compute_environment" "uninterruptible" {
     instance_type = [
       "m5a.xlarge",
     ]
-    max_vcpus = 4
+    max_vcpus = each.value.max_vcpus
     min_vcpus = 0
     security_group_ids = [
       aws_security_group.aws_batch_compute_environment_security_group.id,
     ]
+    spot_iam_fleet_role = each.value.spot_iam_fleet_role
     subnets = [
       aws_subnet.default.id,
     ]
-    # Higher cost, jobs can execute as much time as they need and won't
-    # be interrupted unlike SPOT instances
-    type = "EC2"
+    type = each.value.type
     tags = {
-      "Name"               = "default"
+      "Name"               = each.key
       "management:type"    = "production"
       "management:product" = "common"
     }
@@ -202,46 +206,22 @@ resource "aws_batch_compute_environment" "uninterruptible" {
 }
 
 resource "aws_batch_job_queue" "default" {
-  # Send here short-running jobs that can execute at any point in time
-  # may be delayed by days
-  compute_environments = [
-    aws_batch_compute_environment.default.arn,
-  ]
-  name = "default"
-  priority = 1
-  state = "ENABLED"
-}
+  for_each = {
+    for data in setproduct(
+      local.compute_environment_names,
+      local.queues,
+    ):
 
-resource "aws_batch_job_queue" "asap" {
-  # Send here short-running jobs that need to execute as soon as possible
+    "${data[0]}_${data[1].name}" => {
+      compute_environment = data[0]
+      priority = data[1].priority
+    }
+  }
   compute_environments = [
-    aws_batch_compute_environment.default.arn,
+    aws_batch_compute_environment.default[each.value.compute_environment].arn
   ]
-  name = "asap"
-  priority = 10
-  state = "ENABLED"
-}
-
-resource "aws_batch_job_queue" "default-uninterruptible" {
-  # Send here long-running jobs that can execute at any point in time
-  # may be delayed by days
-  # Just send here jobs that really need to run for many hours, it's more expensive
-  compute_environments = [
-    aws_batch_compute_environment.uninterruptible.arn,
-  ]
-  name = "default-uninterruptible"
-  priority = 1
-  state = "ENABLED"
-}
-
-resource "aws_batch_job_queue" "asap-uninterruptible" {
-  # Send here long-running jobs that need to execute as soon as possible
-  # Just send here jobs that really need to run for many hours, it's more expensive
-  compute_environments = [
-    aws_batch_compute_environment.uninterruptible.arn,
-  ]
-  name = "asap-uninterruptible"
-  priority = 10
+  name = each.key
+  priority = each.value.priority
   state = "ENABLED"
 }
 
