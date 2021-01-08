@@ -249,10 +249,19 @@ async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
                     root.add_edge(shard_id, n_id)
 
                 root.add_node(n_id, **n_attrs)
+                root.nodes[n_id]['label_parent_ast'] = (
+                    None
+                    if n_attrs['label_parent_ast'] is None
+                    else f'shard-{shard}-{n_attrs["label_parent_ast"]}'
+                )
 
             # Copy edges from shard
             for u_id, v_id in graph.edges:
-                root.add_edge(u_id, v_id, **graph[u_id][v_id])
+                root.add_edge(
+                    f'shard-{shard}-{u_id}',
+                    f'shard-{shard}-{v_id}',
+                    **graph[u_id][v_id],
+                )
 
     add_styles(root)
 
