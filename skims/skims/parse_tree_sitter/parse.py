@@ -5,9 +5,9 @@ from itertools import (
 import os
 from typing import (
     Any,
-    Awaitable,
-    Iterable,
+    AsyncIterable,
     Iterator,
+    NamedTuple,
     Optional,
     Tuple,
 )
@@ -55,6 +55,9 @@ from utils.graph import (
 )
 from utils.logs import (
     log,
+)
+from utils.model import (
+    GraphWithMeta,
 )
 from utils.string import (
     get_debug_path,
@@ -152,7 +155,7 @@ def _parse_one_cached(
     content: bytes,
     language: str,
     _: int,
-) -> nx.DiGraph:
+) -> GraphWithMeta:
     parser: Parser = Parser()
     parser.set_language(Language(LANGUAGES_SO, language))
 
@@ -161,17 +164,19 @@ def _parse_one_cached(
     graph: nx.DiGraph = _build_ast_graph(content, raw_tree)
     add_control_flow(graph)
 
-    return graph
+    return GraphWithMeta(
+        graph=graph,
+    )
 
 
 def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 4,
-) -> Optional[nx.DiGraph]:
+    version: int = 6,
+) -> GraphWithMeta:
     if not language:
-        return None
+        raise ParsingError()
 
     with open(path, 'rb') as handle:
         content = handle.read()
@@ -184,19 +189,23 @@ def parse_one(
 
     if CTX.debug:
         output = get_debug_path('tree-sitter-' + path)
-        to_svg(graph, output)
-        to_svg(copy_ast(graph), f'{output}.ast')
-        to_svg(copy_cfg(graph), f'{output}.cfg')
+        to_svg(graph.graph, output)
+        to_svg(copy_ast(graph.graph), f'{output}.ast')
+        to_svg(copy_cfg(graph.graph), f'{output}.cfg')
 
     return graph
 
 
-def parse_many(paths: Tuple[str, ...]) -> Iterable[Tuple[
-    Awaitable[nx.DiGraph],  # graphs_lazy
-    str,  # languages
-    str,  # paths
-]]:
+class ParseManyOutput(NamedTuple):
+    graph: nx.DiGraph
+    language: str
+    path: str
+    shard: int
+
+
+async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[ParseManyOutput]:
     languages = tuple(map(decide_language, paths))
+    shards = tuple(range(0, len(paths)))
     graphs_lazy = resolve((
         in_process(
             parse_one,
@@ -206,8 +215,20 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[Tuple[
         for language, path in zip(languages, paths)
     ), workers=CPU_CORES)
 
-    # Collect graphs in a cluster of processes
-    return zip(graphs_lazy, languages, paths)
+    for graph_lazy, language, path, shard in zip(
+        graphs_lazy, languages, paths, shards,
+    ):
+        try:
+            graph = await graph_lazy
+        except ParsingError:
+            await log('warning', 'Unable to parse: %s, ignoring', path)
+        else:
+            yield ParseManyOutput(
+                graph=graph.graph,
+                language=language,
+                path=path,
+                shard=shard,
+            )
 
 
 async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
@@ -218,57 +239,52 @@ async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
     root.add_node('root')
 
     paths_count: int = len(paths)
-    for shard, (graph_lazy, language, path) in enumerate(parse_many(paths)):
+    async for result in parse_many(paths):
         await log(
             'info', 'Generating graph shard %s of %s: %s',
-            shard,
+            result.shard,
             paths_count,
-            path,
+            result.path,
         )
 
-        try:
-            graph = await graph_lazy
-        except ParsingError:
-            await log('warning', 'Unable to parse: %s, ignoring', path)
-        else:
-            # Copy nodes from shard
-            for first, _, (n_id, n_attrs) in mark_ends(graph.nodes.items()):
-                n_id = f'shard-{shard}-{n_id}'
+        # Copy nodes from shard
+        for first, _, (n_id, n_attrs) in mark_ends(result.graph.nodes.items()):
+            n_id = f'shard-{result.shard}-{n_id}'
 
-                if first:
-                    # Create the shard in the root graph
-                    shard_id = f'shard-{shard}'
-                    root.add_node(
-                        shard_id,
-                        label_language=language,
-                        label_path=path,
-                    )
-
-                    # Link root to the shard
-                    root.add_edge('root', shard_id)
-                    root.add_edge(shard_id, n_id)
-
-                root.add_node(n_id, **n_attrs)
-                root.nodes[n_id]['label_parent_ast'] = (
-                    None
-                    if n_attrs['label_parent_ast'] is None
-                    else f'shard-{shard}-{n_attrs["label_parent_ast"]}'
+            if first:
+                # Create the shard in the root graph
+                shard_id = f'shard-{result.shard}'
+                root.add_node(
+                    shard_id,
+                    label_language=result.language,
+                    label_path=result.path,
                 )
 
-            # Copy edges from shard
-            for u_id, v_id in graph.edges:
-                root.add_edge(
-                    f'shard-{shard}-{u_id}',
-                    f'shard-{shard}-{v_id}',
-                    **graph[u_id][v_id],
-                )
+                # Link root to the shard
+                root.add_edge('root', shard_id)
+                root.add_edge(shard_id, n_id)
+
+            root.add_node(n_id, **n_attrs)
+            root.nodes[n_id]['label_parent_ast'] = (
+                None
+                if n_attrs['label_parent_ast'] is None
+                else f'shard-{result.shard}-{n_attrs["label_parent_ast"]}'
+            )
+
+        # Copy edges from shard
+        for u_id, v_id in result.graph.edges:
+            root.add_edge(
+                f'shard-{result.shard}-{u_id}',
+                f'shard-{result.shard}-{v_id}',
+                **result.graph[u_id][v_id],
+            )
 
     add_styles(root)
 
     if CTX.debug:
         await in_thread(
             to_svg,
-            copy_depth(root, 'root', 2),
+            copy_depth(root, 'root', 1),
             get_debug_path('tree-sitter-root'),
         )
 

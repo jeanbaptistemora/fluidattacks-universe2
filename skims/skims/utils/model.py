@@ -9,6 +9,9 @@ from typing import (
     Tuple,
 )
 
+# Third party libraries
+import networkx as nx
+
 
 class Platform(Enum):
     NPM: str = 'NPM'
@@ -648,6 +651,10 @@ class Vulnerability(NamedTuple):
             self.what,
             self.where,
         ))
+
+
+class GraphWithMeta(NamedTuple):
+    graph: nx.DiGraph
 
 
 def _fill_finding_enum() -> None:

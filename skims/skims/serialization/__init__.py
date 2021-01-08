@@ -57,6 +57,7 @@ from utils.model import (
     FindingMetadata,
     FindingTypeEnum,
     Grammar,
+    GraphWithMeta,
     IntegratesVulnerabilityMetadata,
     NVDVulnerability,
     Platform,
@@ -227,6 +228,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
             (named_tuple, _dump_named_tuple, _load_named_tuple(named_tuple))
             for named_tuple in (
                 FindingMetadata,
+                GraphWithMeta,
                 HCL2Attribute,
                 HCL2Block,
                 HCL2Json,
