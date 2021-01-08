@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "autoscaling_ci_cache" {
   bucket        = "autoscaling-ci-cache"
   acl           = "private"
-  region        = var.region
   force_destroy = true
 
   versioning {
