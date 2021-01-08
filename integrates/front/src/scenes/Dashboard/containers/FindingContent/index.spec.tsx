@@ -596,7 +596,7 @@ describe("FindingContent", () => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
-      { action: "backend_api_resolvers_finding__do_reject_draft" },
+      { action: "backend_api_mutations_reject_draft_mutate" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },
@@ -668,7 +668,7 @@ describe("FindingContent", () => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_new_finding_historic_state_resolve" },
-      { action: "backend_api_resolvers_finding__do_reject_draft" },
+      { action: "backend_api_mutations_reject_draft_mutate" },
     ]);
     const mockedGroupPermissions: PureAbility<string> = new PureAbility([
       { action: "has_forces" },

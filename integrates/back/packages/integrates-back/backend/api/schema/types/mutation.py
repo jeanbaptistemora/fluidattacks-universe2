@@ -26,6 +26,7 @@ from backend.api.mutations import (
     grant_stakeholder_organization_access,
     handle_vulns_acceptation,
     invalidate_cache,
+    reject_draft,
     reject_zero_risk_vuln,
     remove_event_evidence,
     remove_finding_evidence,
@@ -49,7 +50,6 @@ from backend.api.mutations import (
     upload_file
 )
 from backend.api.resolvers import (
-    finding,
     me,
     project,
     resource,
@@ -141,7 +141,7 @@ MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription', update_finding_description.mutate)
-MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
+MUTATION.set_field('rejectDraft', reject_draft.mutate)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',
                    vulnerability.resolve_vulnerability_mutation)

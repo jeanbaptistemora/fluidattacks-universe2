@@ -58,7 +58,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
               }}
             </ConfirmDialog>
           </Can>
-          <Can do="backend_api_resolvers_finding__do_reject_draft">
+          <Can do="backend_api_mutations_reject_draft_mutate">
             <ConfirmDialog title={translate.t("group.drafts.reject.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
