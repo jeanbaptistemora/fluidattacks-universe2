@@ -302,10 +302,10 @@ function job_observes_code_mirror_group_to_s3 {
     &&  echo "[INFO] Working on ${group}" \
     &&  echo "[INFO] Cloning ${group} from source Git repository" \
     &&  export CI='true' \
-        export CI_COMMIT_REF_NAME='master' \
-        export PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-        export PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-    &&  melts resources --clone-from-customer-git "${group}" \
+    &&  export CI_COMMIT_REF_NAME='master' \
+    &&  export PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+    &&  export PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+    &&  { melts resources --clone-from-customer-git "${group}" || true;} \
     &&  if find "groups/${group}/fusion/"* -maxdepth 0 -type d
         then
               echo '[INFO] Pushing repositories to S3' \
@@ -314,7 +314,8 @@ function job_observes_code_mirror_group_to_s3 {
           &&  update-s3-last-sync-date "${group}" "${TEMP_FILE2}"
         else
               echo '[INFO] Unable to clone repositories from source' \
-          &&  echo '[INFO] Skipping push to S3'
+          &&  echo '[INFO] Skipping push to S3' \
+          &&  return 1
         fi \
     &&  rm -rf "groups/${group}/fusion/" \
   &&  popd \
