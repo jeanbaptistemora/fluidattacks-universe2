@@ -26,7 +26,7 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
 
   return (
     <ButtonToolbarRow>
-      <Can do="backend_api_resolvers_finding__do_update_description">
+      <Can do="backend_api_mutations_update_finding_description_mutate">
       {props.isEditing ? (
         <TooltipWrapper message={translate.t("search_findings.tab_description.save.tooltip")}>
           <Button onClick={onUpdate} disabled={props.isPristine}>

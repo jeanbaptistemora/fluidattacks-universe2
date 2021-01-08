@@ -165,7 +165,7 @@ const descriptionView: React.FC = (): JSX.Element => {
           <React.Fragment>
             <Row>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={Dropdown}
@@ -194,7 +194,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 </Col45>
               </Can>
             </Row>
-            <Can do="backend_api_resolvers_finding__do_update_description">
+            <Can do="backend_api_mutations_update_finding_description_mutate">
               {isEditing ? (
                 <Row>
                   <Col100>
@@ -220,7 +220,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             </Can>
             <Row>
               <Col100>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -239,7 +239,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col100>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -258,7 +258,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -275,7 +275,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 </Can>
               </Col45>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -294,7 +294,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -311,7 +311,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 </Can>
               </Col45>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -330,7 +330,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col100>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -349,7 +349,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             </Row>
             <Row>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -366,7 +366,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 </Can>
               </Col45>
               <Col45>
-                <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
+                <Can do="backend_api_mutations_update_finding_description_mutate" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
                       component={TextArea}
@@ -383,7 +383,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 </Can>
               </Col45>
             </Row>
-            <Can do="backend_api_resolvers_finding__do_update_description">
+            <Can do="backend_api_mutations_update_finding_description_mutate">
               {isEditing ? (
                 <Row>
                   <Col45>

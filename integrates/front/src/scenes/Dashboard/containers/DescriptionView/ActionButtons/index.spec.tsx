@@ -20,7 +20,7 @@ describe("ActionButtons", () => {
 
   it("should render a component", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_update_description" },
+      { action: "backend_api_mutations_update_finding_description_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <authzPermissionsContext.Provider value={mockedPermissions}>

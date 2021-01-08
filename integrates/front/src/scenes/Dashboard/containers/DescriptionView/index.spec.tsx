@@ -84,7 +84,7 @@ describe("Finding Description", () => {
 
   it("should set the description as editable", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_finding__do_update_description" },
+      { action: "backend_api_mutations_update_finding_description_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>

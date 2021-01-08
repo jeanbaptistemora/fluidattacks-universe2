@@ -37,6 +37,7 @@ from backend.api.mutations import (
     update_event_evidence,
     update_evidence_description,
     update_evidence,
+    update_finding_description,
     update_forces_access_token,
     update_git_environments,
     update_git_root,
@@ -139,8 +140,7 @@ MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
-MUTATION.set_field('updateDescription',
-                   finding.resolve_finding_mutation)
+MUTATION.set_field('updateDescription', update_finding_description.mutate)
 MUTATION.set_field('rejectDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',

@@ -57,40 +57,6 @@ def resolve_finding_mutation(
     require_integrates,
     require_finding_access,
 )
-async def _do_update_description(
-        _: Any,
-        info: GraphQLResolveInfo,
-        finding_id: str,
-        **parameters: Any) -> SimpleFindingPayloadType:
-    """Perform update_description mutation."""
-    success = await finding_domain.update_description(
-        finding_id, parameters
-    )
-    if success:
-        attrs_to_clean = {attribute: finding_id for attribute in parameters}
-        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        util.queue_cache_invalidation(*to_clean)
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Updated description in '
-             'finding {finding_id} successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to update '
-             f'description in finding {finding_id}')  # pragma: no cover
-        )
-    finding = await info.context.loaders['finding'].load(finding_id)
-    return SimpleFindingPayloadType(finding=finding, success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_finding_access,
-)
 async def _do_reject_draft(
         _: Any,
         info: GraphQLResolveInfo,
