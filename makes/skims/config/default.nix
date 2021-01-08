@@ -10,6 +10,7 @@ let
     development = makeSearchPaths [ ];
     runtime = makeSearchPaths [
       skimsPkgs.graphviz
+      skimsPkgs.nodejs
       skimsPkgs.python38Packages.pygraphviz
     ];
   };
