@@ -25,6 +25,7 @@ from backend.exceptions import (
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
+    RepeatedRoot,
     RepeatedValues,
     RootNotFound
 )
@@ -119,6 +120,7 @@ async def _is_git_unique_in_org(org_id: str, url: str, branch: str) -> bool:
         )
         for root in group_roots
         if root['kind'] == 'Git'
+        and root['historic_state'][-1]['state'] == 'ACTIVE'
     )
 
     return (url, branch) not in org_roots
@@ -198,7 +200,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
                     branch=branch
                 )
         else:
-            raise RepeatedValues()
+            raise RepeatedRoot()
     else:
         raise InvalidParameter()
 

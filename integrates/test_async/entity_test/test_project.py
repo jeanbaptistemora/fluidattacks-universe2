@@ -587,7 +587,7 @@ async def test_add_git_root_uniqueness() -> None:
     result = await _get_result_async({'query': query})
 
     assert 'errors' in result
-    assert 'One or more values already exist' in result['errors'][0]['message']
+    assert 'same URL/branch already exists' in result['errors'][0]['message']
 
 
 @pytest.mark.changes_db  # type: ignore

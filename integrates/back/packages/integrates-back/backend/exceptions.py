@@ -562,6 +562,15 @@ class VulnNotFound(Exception):
         super(VulnNotFound, self).__init__(msg)
 
 
+class RepeatedRoot(Exception):
+    """Exception to prevent repeated roots"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Active root with the same URL/branch already exists'
+        super(RepeatedRoot, self).__init__(msg)
+
+
 class RepeatedValues(Exception):
     """Exception to prevent repeated values"""
 

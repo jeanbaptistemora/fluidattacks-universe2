@@ -163,7 +163,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           case "Exception - Error empty value is not valid":
             msgError(t("group.scope.git.errors.invalid"));
             break;
-          case "Exception - One or more values already exist":
+          case "Exception - Active root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicate"));
             break;
           default:

@@ -484,7 +484,9 @@ export const enTranslations: ResourceKey = {
         confirm: "Confirm state change",
         edit: "Edit root",
         errors: {
-          duplicate: "The root already exists within the organization",
+          duplicate:
+            "An active root with the same URL/branch already exists " +
+            "within the organization",
         },
         state: "State",
       },
