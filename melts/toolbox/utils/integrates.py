@@ -37,7 +37,7 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
 
 
 def has_forces(group: str) -> bool:
-    response = api.integrates.Queries.has_forces(API_TOKEN, group)
+    response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
         raise Exception(response.errors)
 
@@ -45,11 +45,19 @@ def has_forces(group: str) -> bool:
 
 
 def get_group_language(group: str) -> str:
-    response = api.integrates.Queries.get_language(API_TOKEN, group)
+    response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
         raise Exception(response.errors)
 
     return response.data['project']['language']
+
+
+def has_drills(group: str) -> bool:
+    response = api.integrates.Queries.get_group_info(API_TOKEN, group)
+    if not response.ok:
+        raise Exception(response.errors)
+
+    return response.data['project']['hasDrills']
 
 
 def filter_groups_with_forces(groups: Tuple[str, ...]) -> Tuple[str, ...]:

@@ -347,31 +347,13 @@ class Queries:
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def has_forces(api_token: str, project_name: str) -> Response:
-        query = """
-            query MeltsHasForces($projectName: String!) {
-              project(projectName: $projectName){
-                hasForces
-              }
-            }
-        """
-        params: dict = {
-            'projectName': project_name
-        }
-        return request(
-            api_token,
-            query,
-            params,
-            operation='MeltsHasForces',
-        )
-
-    @staticmethod
-    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def get_language(api_token: str, project_name: str) -> Response:
+    def get_group_info(api_token: str, project_name: str) -> Response:
         query = """
             query MeltsGetGroupLanguage($projectName: String!) {
               project(projectName: $projectName){
+                hasForces
                 language
+                hasDrills
               }
             }
         """

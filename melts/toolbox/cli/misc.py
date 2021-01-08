@@ -41,13 +41,15 @@ def do_check_commit_msg() -> bool:
 @option('--is-drills-commit', is_flag=True)
 @option('--filter-groups-with-forces')
 @option('--get-group-language', is_flag=True)
+@option('--has-drills', is_flag=True)
 def misc_management(
-    group,
-    check_commit_msg,
-    is_drills_commit,
-    filter_groups_with_forces,
-    get_group_language,
-):
+    group: str,
+    check_commit_msg: bool,
+    is_drills_commit: bool,
+    filter_groups_with_forces: str,
+    get_group_language: bool,
+    has_drills: bool,
+) -> None:
     success: bool = False
 
     if is_drills_commit:
@@ -66,5 +68,7 @@ def misc_management(
     elif get_group_language:
         print(utils.integrates.get_group_language(group))
         success = True
+    elif has_drills:
+        success = utils.integrates.has_drills(group)
 
     sys.exit(0 if success else 1)
