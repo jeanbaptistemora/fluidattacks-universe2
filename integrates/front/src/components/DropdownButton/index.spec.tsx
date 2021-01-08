@@ -1,12 +1,14 @@
-import { DropdownButton } from "components/DropdownButton";
+import { MenuItem } from "components/DropdownButton";
 import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 
+const list: string[] = [];
+
 describe("DropdownButton", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof DropdownButton).toStrictEqual("function");
+    expect(typeof MenuItem).toStrictEqual("function");
   });
 
   it("should render a button", (): void => {
@@ -14,11 +16,15 @@ describe("DropdownButton", (): void => {
 
     const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
-      <DropdownButton
-        bsStyle={"primary"}
-        id={"test"}
+      <MenuItem
+        eventKey={"test"}
+        itemContent={
+          <React.Fragment>
+            {list}
+            {list}
+          </React.Fragment>
+        }
         onClick={clickCallback}
-        title={"test"}
       />
     );
 
@@ -30,15 +36,19 @@ describe("DropdownButton", (): void => {
 
     const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
-      <DropdownButton
-        bsStyle={"primary"}
-        id={"test"}
+      <MenuItem
+        eventKey={"test"}
+        itemContent={
+          <React.Fragment>
+            {list}
+            {list}
+          </React.Fragment>
+        }
         onClick={clickCallback}
-        title={"test"}
       />
     );
 
-    wrapper.find("DropdownButton").simulate("click");
+    wrapper.find({ className: "menuItem" }).simulate("click");
 
     expect(clickCallback.mock.calls).toHaveLength(1);
   });

@@ -3,28 +3,43 @@
   We need className to override default styles and props spreading in
   order to pass down props to react-bootstrap DropdownButton.
 */
+import { MenuItem } from "./components/MenuItem";
 import React from "react";
+import type { StyledComponent } from "styled-components";
 import style from "components/DropdownButton/index.css";
-import { DropdownButton, MenuItem } from "react-bootstrap";
+import styled from "styled-components";
 
-/*
- * They have a bug in this onSelect type
- *   https://react-bootstrap-v3.netlify.app/components/dropdowns/
- *
- * Below is the one declared in the docs and the one they actually implement
- */
-interface IDropdownButtonProps
-  extends Omit<DropdownButton.DropdownButtonProps, "onSelect"> {
-  onSelect?: (eventKey: string) => void;
+interface IDropdownButtonProps {
+  content: React.ReactNode;
+  id: string;
+  items: React.ReactNode;
 }
 
-const dropdownButton: React.FC<IDropdownButtonProps> = (
-  props: Readonly<IDropdownButtonProps>
-): JSX.Element => (
-  <DropdownButton
-    className={style.dropdownButton}
-    {...(props as DropdownButton.DropdownButtonProps)}
-  />
-);
+const StyledDropdownButton: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "relative dib pa3",
+})``;
 
-export { dropdownButton as DropdownButton, MenuItem };
+const ItemsContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "absolute dn z-1",
+})``;
+
+const DropdownButton: React.FC<IDropdownButtonProps> = (
+  props: Readonly<IDropdownButtonProps>
+): JSX.Element => {
+  const { content, id, items } = props;
+
+  return (
+    <StyledDropdownButton className={style.dropdownButton} id={id}>
+      {content}
+      <ItemsContainer className={style.itemsContainer}>{items}</ItemsContainer>
+    </StyledDropdownButton>
+  );
+};
+
+export { DropdownButton, MenuItem };

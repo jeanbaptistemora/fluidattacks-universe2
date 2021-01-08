@@ -146,35 +146,39 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                         </Button>
                       </a>
                       <DropdownButton
-                        bsSize="large"
                         id="subscribe-dropdown"
-                        onSelect={subscribeDropdownOnSelect}
-                        title={
+                        content={
                           <React.Fragment>
-                            {loadingSubscribe
-                              ? <Glyphicon glyph="hourglass" />
-                              : <Glyphicon glyph="stats" />}
-                            {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
-                            <Badge>pro</Badge>
+                            <div className={"tc"}>
+                              {loadingSubscribe
+                                ? <Glyphicon glyph="hourglass" />
+                                : <Glyphicon glyph="stats" />}
+                              {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
+                              <Badge>pro</Badge>
+                            </div>
                           </React.Fragment>
                         }
-                      >
-                        {frequencies.map((freq: string): JSX.Element => (
-                          <MenuItem
-                            eventKey={freq.toUpperCase()}
-                            key={freq}
-                          >
-                            <TooltipWrapper
-                              message={translateFrequencyArrivalTime(freq)}
-                              placement="right"
-                            >
-                              <span>
-                                {translateFrequency(freq, "action")}
-                              </span>
-                            </TooltipWrapper>
-                          </MenuItem>
+                        items={
+                          frequencies.map((freq: string): JSX.Element => (
+                            <MenuItem
+                              eventKey={freq}
+                              key={freq}
+                              onClick={subscribeDropdownOnSelect}
+                              itemContent={
+                                <React.Fragment>
+                                  <TooltipWrapper
+                                    message={translateFrequencyArrivalTime(freq)}
+                                    placement="right"
+                                  >
+                                    <span>
+                                      {translateFrequency(freq, "action")}
+                                    </span>
+                                  </TooltipWrapper>
+                                </React.Fragment>
+                              }
+                            />
                         ))}
-                      </DropdownButton>
+                      />
                     </ButtonToolbarCenter>
                   </div>
                 </div>
