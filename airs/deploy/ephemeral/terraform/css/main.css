@@ -7,16 +7,6 @@
  * Kroc Camen, and the H5BP dev community and team.
  */
 
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
-
-html {
-  color: #222;
-  font-size: 1em;
-  line-height: 1.4;
-}
-
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -98,6 +88,9 @@ textarea {
    Author's custom styles
    ========================================================================== */
 html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif ;
 }
