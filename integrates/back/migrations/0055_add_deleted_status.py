@@ -1,8 +1,8 @@
 """
 This migration aims to add DELETED status to vulns
 
-Execution Time:
-Finalization Time:
+Execution Time: 2021-01-08 18:38:32 UTC-5
+Finalization Time: 2020-01-08 19:03:16 UTC-5
 """
 # Standard library
 from itertools import chain
