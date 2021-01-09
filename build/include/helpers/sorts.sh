@@ -48,7 +48,8 @@ function helper_sorts_download_best_model {
             fi
       done \
   &&  cp "${tmpdir}/${best_model}" "${model_path}" \
-  &&  rm -rf "${tmpdir}"
+  &&  rm -rf "${tmpdir}" \
+  &&  aws s3 rm --recursive --exclude "*" --include "*.joblib" --quiet "${source}"
 }
 
 function helper_sorts_extract_features {

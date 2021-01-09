@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "sorts_bucket" {
-  acl = "private"
+  acl    = "private"
   bucket = "sorts"
 
   server_side_encryption_configuration {
@@ -7,6 +7,17 @@ resource "aws_s3_bucket" "sorts_bucket" {
       apply_server_side_encryption_by_default {
         sse_algorithm = "AES256"
       }
+    }
+  }
+
+  lifecycle_rule {
+    id = "training-job-configs"
+    prefix = "sorts-training-test"
+    enabled = true
+
+    expiration {
+      days = 8
+      expired_object_delete_marker = true
     }
   }
 
