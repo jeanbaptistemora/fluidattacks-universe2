@@ -8,7 +8,7 @@ computeOnAws {
   attempts = 1;
   command = [ "./make" "skims-process-group" ];
   jobname = "skims-process-group";
-  jobqueue = "default";
+  jobqueue = "skims_later";
   name = "skims-process-group-on-aws";
   product = "skims";
   secrets = [

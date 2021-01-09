@@ -8,7 +8,7 @@ computeOnAws {
   attempts = 1;
   command = [ "./make" "skims-benchmark" ];
   jobname = "skims-benchmark";
-  jobqueue = "default-uninterruptible";
+  jobqueue = "dedicated_later";
   name = "skims-benchmark-on-aws";
   product = "skims";
   secrets = [
