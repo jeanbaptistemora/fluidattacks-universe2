@@ -28,8 +28,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
   return (
     <React.StrictMode>
       <div className={"center"}>
-        {doesEntityMatch("group", "organization") ? (
-          <React.Fragment>
+        {doesEntityMatch("group", "organization", "portfolio") ? (
             <RowCenter>
               <Col100>
                 <Graphic
@@ -56,6 +55,9 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col100>
             </RowCenter>
+          ) : undefined}
+        {doesEntityMatch("group", "organization") ? (
+          <React.Fragment>
             <RowCenter>
               <Col50>
                 <Graphic
@@ -470,7 +472,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               </Col50>
             </RowCenter>
             <RowCenter>
-              <Col25>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   documentName="daysSinceLastRemediation"
@@ -486,8 +488,25 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
                 />
-              </Col25>
-              <Col25>
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  documentName="totalVulnerabilities"
+                  documentType="textBox"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.textBox.totalVulnerabilities.footer")}</p>
+                  }
+                  generatorName="raw"
+                  generatorType="textBox"
+                  className={"g3"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.totalVulnerabilities.title")}
+                />
+              </Col33>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   documentName="meanTimeToRemediate"
@@ -503,7 +522,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
                 />
-              </Col25>
+              </Col33>
             </RowCenter>
           </div>
         </React.Fragment>

@@ -71,6 +71,7 @@ def test_org_portfolios(
         integrates_endpoint: str,
         timeout: int) -> None:
     expected_charts: List[str] = [
+        'Vulnerabilities over time',
         'How many vulnerabilities are remediated (closed)?',
         'How many vulnerabilities are remediated and accepted?',
         'Findings by group',
@@ -83,6 +84,7 @@ def test_org_portfolios(
         'Treatmentless by group',
         'Severity',
         'Days since last remediation',
+        'Total vulnerabilities',
         'Mean time to remediate',
     ]
     # Login

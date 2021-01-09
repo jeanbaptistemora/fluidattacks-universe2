@@ -8,6 +8,7 @@ from aioextensions import (
     collect,
     run,
 )
+from async_lru import alru_cache
 from backend.domain import (
     project as group_domain,
 )
@@ -18,6 +19,7 @@ from analytics import (
 )
 
 
+@alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     item = await group_domain.get_attributes(group, ['total_treatment'])
 
