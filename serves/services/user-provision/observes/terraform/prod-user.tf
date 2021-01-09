@@ -51,10 +51,8 @@ data "aws_iam_policy_document" "prod-policy-data" {
     actions = ["batch:SubmitJob"]
     resources = [
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/default",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/default-uninterruptible",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/asap",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/asap-uninterruptible",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
     ]
   }
 
