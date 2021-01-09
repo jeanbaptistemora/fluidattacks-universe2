@@ -125,18 +125,24 @@ resource "aws_launch_template" "batch_instance" {
 }
 
 locals {
+  # Most of the parameters cant be updated in-place
+  # So just comment items, apply (to destroy the item)
+  # then un-comment, modify, and apply (to create the item again from scratch)
   compute_environments = {
     skims = {
+      bid_percentage = 100
       max_vcpus = 32
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type = "SPOT"
     },
     spot = {
+      bid_percentage = 100
       max_vcpus = 16
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type = "SPOT"
     },
     dedicated = {
+      bid_percentage = null
       max_vcpus = 4
       spot_iam_fleet_role = null
       type = "EC2"
@@ -172,6 +178,7 @@ resource "aws_batch_compute_environment" "default" {
   type = "MANAGED"
 
   compute_resources {
+    bid_percentage = each.value.bid_percentage
     # We want to use this one: https://aws.amazon.com/amazon-linux-2
     #   because it provides Docker with overlay2,
     #   whose volumes are not limited to 10GB size but are elastic
