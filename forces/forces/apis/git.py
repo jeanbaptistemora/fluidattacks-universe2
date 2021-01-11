@@ -29,6 +29,18 @@ REGEXES_GIT_REPO_FROM_ORIGIN = [
 ]
 
 
+def get_repo_name_from_vars() -> Optional[str]:
+    common_names = {
+        'BUILD_REPOSITORY_NAME',  # Azure devops
+        'CI_PROJECT_NAME',  # gitlab-ci
+        'CIRCLE_PROJECT_REPONAME',  # circleci
+    }
+    for var in common_names:
+        if name := os.environ.get(var):
+            return name
+    return None
+
+
 def extract_repo_name(pattern: str) -> Optional[str]:
     for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
         match = regex.match(pattern)
@@ -60,15 +72,19 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         git_commit_authored_date = head_commit.authored_datetime.astimezone(
             pytz.UTC).isoformat()
 
-        with suppress(ValueError, IndexError,):
+        with suppress(
+            ValueError,
+            IndexError,
+        ):
             origins = list(repo.remote().urls)
             git_origin = origins[0]
-            if origins:
-                git_repo = extract_repo_name(git_origin) or git_repo
-
-        if git_repo == DEFAULT_COLUMN_VALUE:
-            with suppress(IndexError):
-                git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
+            if name := get_repo_name_from_vars():
+                git_repo = name
+            elif name := extract_repo_name(git_origin):
+                git_repo = name
+            elif git_repo == DEFAULT_COLUMN_VALUE:
+                with suppress(IndexError):
+                    git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
     return {
         'git_branch': git_branch,
         'git_commit': git_commit,
