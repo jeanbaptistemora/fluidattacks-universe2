@@ -63,12 +63,12 @@ $codeyellow: rgba(230, 219, 116, 1);
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
 .w-32 { width: 32%; }
-.montsy { font-family: 'Montserrat'; }
-.sans-pro { font-family: 'Source Sans Pro'; }
+.montsy { font-family: 'Montserrat', sans-serif; }
+.sans-pro { font-family: 'Source Sans Pro', sans-serif; }
 .roboto { font-family: 'Roboto', sans-serif; }
 .neue { font-family: neue-haas-grotesk-display, sans-serif; }
 .mono { font-family: 'Overpass Mono', monospace; }
-.mono2 { font-family: monospaced; }
+.mono2 { font-family: monospaced, sans-serif; }
 .c-black { color: $black; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-red { color: $fluid-red; }
@@ -1220,7 +1220,7 @@ video {
     }
   }
 
-  accordion-item:active h3 .accordion-arrow {
+  .accordion-item:active h3 .accordion-arrow {
     transform: rotate(180deg);
   }
 }
