@@ -1,6 +1,3 @@
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from eval_java.extract_rules import (
     common,
@@ -14,10 +11,13 @@ from eval_java.model import (
 from utils import (
     graph as g,
 )
+from utils.model import (
+    Graph,
+)
 
 
 def extract(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -35,7 +35,7 @@ def extract(
 
 
 def _method_header(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -55,7 +55,7 @@ def _method_header(
 
 
 def _method_declarator(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -73,7 +73,7 @@ def _method_declarator(
 
 
 def _formal_parameter_list(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -91,7 +91,7 @@ def _formal_parameter_list(
 
 
 def _formal_parameter(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

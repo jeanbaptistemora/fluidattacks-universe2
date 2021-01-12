@@ -24,6 +24,9 @@ from more_itertools.recipes import (
 import networkx as nx
 
 # Local libraries
+from utils.model import (
+    Graph,
+)
 from utils.system import (
     read_blocking,
 )
@@ -37,7 +40,7 @@ NIdPredicateFunction = Callable[[str], bool]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 
 
-def to_svg(graph: nx.DiGraph, path: str) -> bool:
+def to_svg(graph: Graph, path: str) -> bool:
     nx.drawing.nx_agraph.write_dot(graph, path)
 
     code, stdout, stderr = read_blocking('dot', '-O', '-T', 'svg', path)
@@ -65,7 +68,7 @@ def pred_has_labels(**expected_attrs: str) -> NAttrsPredicateFunction:
 
 
 def filter_nodes(
-    graph: nx.DiGraph,
+    graph: Graph,
     nodes: Iterable[str],
     predicate: NAttrsPredicateFunction,
 ) -> Tuple[str, ...]:
@@ -79,7 +82,7 @@ def filter_nodes(
 
 
 def adj(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -119,7 +122,7 @@ def adj(
 
 
 def adj_ast(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **n_attrs: str,
@@ -132,7 +135,7 @@ def adj_ast(
 
 
 def adj_cfg(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **n_attrs: str,
@@ -145,7 +148,7 @@ def adj_cfg(
 
 
 def pred_lazy(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -174,7 +177,7 @@ def pred_lazy(
 
 
 def pred(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -183,7 +186,7 @@ def pred(
 
 
 def pred_ast(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -192,7 +195,7 @@ def pred_ast(
 
 
 def pred_ast_lazy(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -201,7 +204,7 @@ def pred_ast_lazy(
 
 
 def pred_cfg(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -210,7 +213,7 @@ def pred_cfg(
 
 
 def pred_cfg_lazy(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
@@ -219,7 +222,7 @@ def pred_cfg_lazy(
 
 
 def paths(
-    graph: nx.DiGraph,
+    graph: Graph,
     s_id: str,
     t_id: str,
     **edge_attrs: str,
@@ -237,7 +240,7 @@ def paths(
     yield from (tuple(path) for path in paths_iterator)
 
 
-def get_node_cfg_condition(graph: nx.DiGraph, n_id: str) -> str:
+def get_node_cfg_condition(graph: Graph, n_id: str) -> str:
     p_id = graph.nodes[n_id]['label_parent_ast']
     val: str
 
@@ -249,7 +252,7 @@ def get_node_cfg_condition(graph: nx.DiGraph, n_id: str) -> str:
 
 
 def match_ast(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *label_type: str,
 ) -> Dict[str, Optional[str]]:
@@ -268,7 +271,7 @@ def match_ast(
 
 
 def flows(
-    graph: nx.DiGraph,
+    graph: Graph,
     *,
     input_type: str,
     sink_type: str,
@@ -307,8 +310,8 @@ def flows(
     )))
 
 
-def import_graph_from_json(model: Any) -> nx.DiGraph:
-    graph = nx.DiGraph()
+def import_graph_from_json(model: Any) -> Graph:
+    graph = Graph()
 
     for n_id, n_attrs in model['nodes'].items():
         graph.add_node(n_id, **n_attrs)
@@ -321,7 +324,7 @@ def import_graph_from_json(model: Any) -> nx.DiGraph:
 
 
 def export_graph_as_json(
-    graph: nx.DiGraph,
+    graph: Graph,
     *,
     include_styles: bool = False,
 ) -> Dict[str, Any]:
@@ -349,11 +352,11 @@ def export_graph_as_json(
 
 
 def _get_subgraph(
-    graph: nx.DiGraph,
+    graph: Graph,
     node_n_id_predicate: NIdPredicateFunction = lambda n_id: True,
     edge_n_attrs_predicate: NAttrsPredicateFunction = lambda n_attrs: True,
-) -> nx.DiGraph:
-    copy: nx.DiGraph = nx.DiGraph()
+) -> Graph:
+    copy: Graph = Graph()
 
     for n_a_id, n_b_id in graph.edges:
         edge_attrs = graph[n_a_id][n_b_id].copy()
@@ -372,21 +375,21 @@ def _get_subgraph(
     return copy
 
 
-def copy_ast(graph: nx.DiGraph) -> nx.DiGraph:
+def copy_ast(graph: Graph) -> Graph:
     return _get_subgraph(
         graph=graph,
         edge_n_attrs_predicate=pred_has_labels(label_ast='AST'),
     )
 
 
-def copy_cfg(graph: nx.DiGraph) -> nx.DiGraph:
+def copy_cfg(graph: Graph) -> Graph:
     return _get_subgraph(
         graph=graph,
         edge_n_attrs_predicate=pred_has_labels(label_cfg='CFG'),
     )
 
 
-def copy_depth(graph: nx.DiGraph, n_id: str, depth: int = -1) -> nx.DiGraph:
+def copy_depth(graph: Graph, n_id: str, depth: int = -1) -> Graph:
     closure = {n_id}
     closure.update(adj(graph, n_id, depth))
 

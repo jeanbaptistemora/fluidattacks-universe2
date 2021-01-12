@@ -13,7 +13,6 @@ from typing import (
 from aioextensions import (
     in_process,
 )
-import networkx as nx
 
 # Local libraries
 from graph_java.get import (
@@ -50,6 +49,7 @@ from utils.graph import (
 from utils.model import (
     FindingEnum,
     Grammar,
+    Graph,
     Vulnerability,
 )
 from zone import (
@@ -117,7 +117,7 @@ async def csharp_switch_no_default(
 
 def _java_switch_without_default(
     content: str,
-    graph: nx.DiGraph,
+    graph: Graph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
 
@@ -154,7 +154,7 @@ def _java_switch_without_default(
 @TIMEOUT_1MIN
 async def java_switch_without_default(
     content: str,
-    graph: nx.DiGraph,
+    graph: Graph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(

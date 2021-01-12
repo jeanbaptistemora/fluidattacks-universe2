@@ -34,7 +34,6 @@ from metaloaders.model import (
     Node,
     Type,
 )
-import networkx as nx
 
 # Local libraries
 from parse_common.types import (
@@ -57,6 +56,7 @@ from utils.model import (
     FindingMetadata,
     FindingTypeEnum,
     Grammar,
+    Graph,
     IntegratesVulnerabilityMetadata,
     NVDVulnerability,
     ParsedFile,
@@ -121,12 +121,12 @@ def _load_enum(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda value: factory(_deserialize(value))
 
 
-def _dump_graph(instance: nx.DiGraph) -> Serialized:
+def _dump_graph(instance: Graph) -> Serialized:
     graph_as_json = export_graph_as_json(instance, include_styles=True)
     return _serialize(instance, graph_as_json)
 
 
-def _load_graph(graph_as_json: Any) -> nx.DiGraph:
+def _load_graph(graph_as_json: Any) -> Graph:
     return import_graph_from_json(graph_as_json)
 
 
@@ -204,12 +204,12 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (date, _dump_datetime, _load_datetime),
         (datetime, _dump_datetime, _load_datetime),
         (float, _dump_base, float),
+        (Graph, _dump_graph, _load_graph),
         (int, _dump_base, int),
         (list, _dump_tuple, _load_list),
         (LarkMeta, _dump_lark_meta, _load_lark_meta),
         (LarkTree, _dump_lark_tree, _load_lark_tree),
         (ListToken, _dump_tuple, _load_list),
-        (nx.DiGraph, _dump_graph, _load_graph),
         (OrderedDict, _dump_dict, _load_ordered_dict),
         (str, _dump_base, str),
         (tuple, _dump_tuple, _load_tuple),
@@ -304,6 +304,7 @@ def load(stream: bytes) -> Any:
     except (
         AttributeError,
         json.decoder.JSONDecodeError,
+        KeyError,
         LoadError,
         TypeError,
         ValueError,

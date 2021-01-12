@@ -3,12 +3,12 @@
 Only presentation (visual) logic should go here
 """
 
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from utils.graph import (
     GRAPH_STYLE_ATTRS,
+)
+from utils.model import (
+    Graph,
 )
 
 
@@ -16,7 +16,7 @@ def _create_label(**attrs: str) -> str:
     return '\n'.join(f'{key}: {attrs[key]}' for key in sorted(attrs))
 
 
-def _verify(graph: nx.DiGraph) -> None:
+def _verify(graph: Graph) -> None:
     """Verify that styles attributes were not added somewhere else.
 
     Styles should be added in this module for maintainability.
@@ -31,7 +31,7 @@ def _verify(graph: nx.DiGraph) -> None:
                 raise ValueError(f'{reserved_attr} must be added in styles')
 
 
-def _add_labels(graph: nx.DiGraph) -> None:
+def _add_labels(graph: Graph) -> None:
     # Walk the nodes and compute a label from the node attributes
     for n_id, n_attrs in graph.nodes.items():
         graph.nodes[n_id]['label'] = _create_label(**n_attrs, id=n_id)
@@ -41,7 +41,7 @@ def _add_labels(graph: nx.DiGraph) -> None:
         graph[n_id_u][n_id_v]['label'] = _create_label(**graph[n_id_u][n_id_v])
 
 
-def _add_styles(graph: nx.DiGraph) -> None:
+def _add_styles(graph: Graph) -> None:
     # https://graphviz.org/doc/info/attrs.html
     # https://graphviz.org/doc/info/colors.html
     # color: border of the node, edge
@@ -76,7 +76,7 @@ def _add_styles(graph: nx.DiGraph) -> None:
             raise NotImplementedError()
 
 
-def stylize(graph: nx.DiGraph) -> None:
+def stylize(graph: Graph) -> None:
     _verify(graph)
     _add_labels(graph)
     _add_styles(graph)

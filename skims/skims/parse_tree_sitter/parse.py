@@ -22,7 +22,6 @@ from more_itertools import (
 )
 
 # Third party libraries
-import networkx as nx
 from tree_sitter import (
     Language,
     Node,
@@ -58,6 +57,7 @@ from utils.logs import (
     log,
 )
 from utils.model import (
+    Graph,
     ParsedFile,
 )
 from utils.string import (
@@ -87,12 +87,12 @@ def _build_ast_graph(
     *,
     _counter: Optional[Iterator[str]] = None,
     _edge_index: Optional[str] = None,
-    _graph: Optional[nx.DiGraph] = None,
+    _graph: Optional[Graph] = None,
     _parent: Optional[str] = None,
-) -> nx.DiGraph:
+) -> Graph:
     # Handle first level of recurssion, where _graph is None
     _counter = map(str, count(1)) if _counter is None else _counter
-    _graph = nx.DiGraph() if _graph is None else _graph
+    _graph = Graph() if _graph is None else _graph
 
     if isinstance(obj, Tree):
         _graph = _build_ast_graph(content, obj.root_node)
@@ -164,7 +164,7 @@ def _parse_one_cached(
 
     raw_tree: Tree = parser.parse(content)
 
-    graph: nx.DiGraph = _build_ast_graph(content, raw_tree)
+    graph: Graph = _build_ast_graph(content, raw_tree)
     control_flow.add(graph)
     styles.add(graph)
 
@@ -234,11 +234,11 @@ async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[ParseManyOutput]:
             )
 
 
-async def get_root(paths: Tuple[str, ...]) -> nx.DiGraph:
+async def get_root(paths: Tuple[str, ...]) -> Graph:
     # Reproducibility
     paths = tuple(sorted(paths))
 
-    root = nx.DiGraph()
+    root = Graph()
     root.add_node('root')
 
     paths_count: int = len(paths)

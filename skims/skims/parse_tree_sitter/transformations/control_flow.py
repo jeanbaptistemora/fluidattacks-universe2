@@ -7,7 +7,6 @@ from typing import (
 )
 
 # Third party libraries
-import networkx as nx
 from more_itertools import (
     mark_ends,
     pairwise,
@@ -16,6 +15,9 @@ from more_itertools import (
 # Local libraries
 from utils import (
     graph as g,
+)
+from utils.model import (
+    Graph,
 )
 
 # Constants
@@ -57,7 +59,7 @@ def _propagate_next_id_from_parent(
 
 
 def _step_by_step(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -86,7 +88,7 @@ def _step_by_step(
 
 
 def _loop_statement(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -105,7 +107,7 @@ def _loop_statement(
 
 
 def _if_statement(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -142,7 +144,7 @@ def _if_statement(
 
 
 def _link_to_last_node(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -155,7 +157,7 @@ def _link_to_last_node(
 
 
 def _try_statement(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -193,7 +195,7 @@ def _try_statement(
 
 
 def _generic(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
     *,
@@ -233,7 +235,7 @@ def _generic(
     stack.pop()
 
 
-def add(graph: nx.DiGraph) -> None:
+def add(graph: Graph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='method_declaration',
     )):

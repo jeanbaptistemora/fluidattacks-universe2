@@ -13,7 +13,6 @@ from typing import (
 from aioextensions import (
     in_process,
 )
-import networkx as nx
 from pyparsing import (
     delimitedList,
     Keyword,
@@ -54,6 +53,7 @@ from utils.ast import (
 )
 from utils.model import (
     Grammar,
+    Graph,
     FindingEnum,
     Vulnerability,
 )
@@ -207,7 +207,7 @@ async def java_insecure_exceptions(
 
 def _java_declaration_of_throws_for_generic_exception(
     content: str,
-    graph: nx.DiGraph,
+    graph: Graph,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     generics: Set[str] = {
@@ -272,7 +272,7 @@ def _java_declaration_of_throws_for_generic_exception(
 @SHIELD
 @TIMEOUT_1MIN
 async def java_declaration_of_throws_for_generic_exception(
-    graph: nx.DiGraph,
+    graph: Graph,
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:

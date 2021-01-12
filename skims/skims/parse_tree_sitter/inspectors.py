@@ -5,14 +5,12 @@ from typing import (
     Optional,
 )
 
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from utils import (
     graph as g,
 )
 from utils.model import (
+    Graph,
     ParsedFileMetadata,
     ParsedFileMetadataJava,
     ParsedFileMetadataJavaClass,
@@ -24,7 +22,7 @@ ROOT = '1'
 
 
 def get_metadata(
-    graph: nx.DiGraph,
+    graph: Graph,
     language: str,
 ) -> ParsedFileMetadata:
 
@@ -40,7 +38,7 @@ def get_metadata(
     return ParsedFileMetadata(**metadata)
 
 
-def get_metadata_java(graph: nx.DiGraph) -> ParsedFileMetadataJava:
+def get_metadata_java(graph: Graph) -> ParsedFileMetadataJava:
     classes = get_metadata_java_classes(graph)
     package = get_metadata_java_package(graph)
 
@@ -50,7 +48,7 @@ def get_metadata_java(graph: nx.DiGraph) -> ParsedFileMetadataJava:
     )
 
 
-def get_metadata_java_package(graph: nx.DiGraph) -> str:
+def get_metadata_java_package(graph: Graph) -> str:
     package: str = ''
 
     match = g.match_ast(graph, ROOT, 'package_declaration')
@@ -67,7 +65,7 @@ def get_metadata_java_package(graph: nx.DiGraph) -> str:
 
 
 def get_metadata_java_classes(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str = ROOT,
     namespace: str = '',
 ) -> Dict[str, ParsedFileMetadataJavaClass]:
@@ -101,7 +99,7 @@ def get_metadata_java_classes(
 
 
 def get_metadata_java_class_methods(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
 ) -> Dict[str, ParsedFileMetadataJavaClassMethod]:
     methods: Dict[str, ParsedFileMetadataJavaClassMethod] = {}

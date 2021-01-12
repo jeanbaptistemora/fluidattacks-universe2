@@ -10,7 +10,6 @@ from typing import (
 from aioextensions import (
     in_process,
 )
-import networkx as nx
 
 # Local libraries
 from graph_java.get import (
@@ -32,6 +31,7 @@ from utils.function import (
 )
 from utils.model import (
     Grammar,
+    Graph,
     FindingEnum,
     Vulnerability,
 )
@@ -44,7 +44,7 @@ from zone import (
 @SHIELD
 @TIMEOUT_1MIN
 async def java_path_traversal(
-    graph: nx.DiGraph,
+    graph: Graph,
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:

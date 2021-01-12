@@ -1,9 +1,6 @@
 # Standard library
 import json
 
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from parse_antlr import (
     graph as antlr_graph,
@@ -27,6 +24,7 @@ from utils.graph import (
 )
 from utils.model import (
     Grammar,
+    Graph,
 )
 from utils.ctx import (
     CTX,
@@ -44,7 +42,7 @@ async def get(
     *,
     content: bytes,
     path: str,
-) -> nx.DiGraph:
+) -> Graph:
     return await _get(
         grammar,
         content=content,
@@ -60,7 +58,7 @@ async def _get(
     content: bytes,
     path: str,
     _: int,
-) -> nx.DiGraph:
+) -> Graph:
     parse_tree = await antlr_parse.parse(
         grammar,
         content=content,

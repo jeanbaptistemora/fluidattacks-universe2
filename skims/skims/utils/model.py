@@ -14,6 +14,10 @@ from typing import (
 import networkx as nx
 
 
+class Graph(nx.DiGraph):
+    pass
+
+
 class Platform(Enum):
     NPM: str = 'NPM'
     MAVEN: str = 'MAVEN'
@@ -672,8 +676,13 @@ class ParsedFileMetadata(NamedTuple):
     java: Optional[ParsedFileMetadataJava]
 
 
+# Aliases
+LibRootQuery = Callable[[Graph], Tuple[Vulnerability, ...]]
+LibRootQueries = Tuple[LibRootQuery, ...]
+
+
 class ParsedFile(NamedTuple):
-    graph: nx.DiGraph
+    graph: Graph
     language: str
     metadata: ParsedFileMetadata
 
@@ -699,10 +708,6 @@ def _fill_finding_enum() -> None:
         ]:
             finding.value.severity[environmental] = 0.0
 
-
-# Aliases
-LibRootQuery = Callable[[nx.DiGraph], Tuple[Vulnerability, ...]]
-LibRootQueries = Tuple[LibRootQuery, ...]
 
 # Import hooks
 _fill_finding_enum()

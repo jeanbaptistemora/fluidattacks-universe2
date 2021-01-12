@@ -10,7 +10,6 @@ from typing import (
 from aioextensions import (
     in_process,
 )
-import networkx as nx
 
 # Local libraries
 from eval_java.evaluate import (
@@ -33,6 +32,7 @@ from utils.function import (
 from utils.model import (
     FindingEnum,
     Grammar,
+    Graph,
     Vulnerability,
 )
 from zone import (
@@ -44,7 +44,7 @@ from zone import (
 @SHIELD
 @TIMEOUT_1MIN
 async def java_use_of_util_random(
-    graph: nx.DiGraph,
+    graph: Graph,
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:

@@ -1,6 +1,3 @@
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from eval_java.extract_rules import (
     common,
@@ -10,6 +7,9 @@ from eval_java.model import (
     get_default_statement_meta,
     OptionalContext,
     StatementLiteral,
+)
+from utils.model import (
+    Graph,
 )
 
 # Constants
@@ -23,7 +23,7 @@ LITERAL_TYPES_MAPPING = {
 
 
 def extract(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

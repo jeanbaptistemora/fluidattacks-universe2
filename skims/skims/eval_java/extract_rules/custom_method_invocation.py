@@ -1,6 +1,3 @@
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from eval_java.extract_rules import (
     common,
@@ -16,10 +13,13 @@ from eval_java.model import (
 from utils import (
     graph as g,
 )
+from utils.model import (
+    Graph,
+)
 
 
 def extract(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -37,7 +37,7 @@ def extract(
 
 
 def _extract_case_1(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: Context,
@@ -74,7 +74,7 @@ def _extract_case_1(
 
 
 def _extract_case_2(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: Context,

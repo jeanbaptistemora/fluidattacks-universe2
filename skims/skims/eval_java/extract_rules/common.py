@@ -6,9 +6,6 @@ from typing import (
     Tuple,
 )
 
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from eval_java.model import (
     Context,
@@ -19,6 +16,9 @@ from utils.function import (
 )
 from utils.logs import (
     log_blocking,
+)
+from utils.model import (
+    Graph,
 )
 
 
@@ -45,7 +45,7 @@ def ensure_context(ctx: OptionalContext = None) -> Context:
 
 
 def extract_until_handled(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -67,7 +67,7 @@ def extract_until_handled(
     return mark_seen(ctx, n_id)
 
 
-def mark_if_sink(graph: nx.DiGraph, n_id: str, ctx: Context) -> None:
+def mark_if_sink(graph: Graph, n_id: str, ctx: Context) -> None:
     if statements := ctx.statements:
         if label := graph.nodes[n_id].get('label_sink_type'):
             statements[-1].meta.sink = label
@@ -94,7 +94,7 @@ def not_implemented(
 
 
 def translate_match(
-    graph: nx.DiGraph,
+    graph: Graph,
     op_id: str,
     translations: Dict[str, str],
 ) -> str:

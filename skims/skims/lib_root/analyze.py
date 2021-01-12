@@ -13,7 +13,6 @@ from aioextensions import (
     in_process,
     resolve,
 )
-import networkx as nx
 
 # Local imports
 from lib_path.common import (
@@ -40,6 +39,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
+    Graph,
     LibRootQueries,
     Vulnerability,
 )
@@ -54,7 +54,7 @@ async def analyze(
         include=CTX.config.path.include,
     )
 
-    root: nx.DiGraph = await get_root(tuple(unique_paths))
+    root: Graph = await get_root(tuple(unique_paths))
     queries_list: Tuple[LibRootQueries, ...] = (
     )
 

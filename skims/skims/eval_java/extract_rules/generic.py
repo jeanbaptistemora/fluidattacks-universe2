@@ -1,6 +1,3 @@
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from eval_java.extract_rules import (
     additive_expression,
@@ -29,6 +26,9 @@ from eval_java.model import (
     Context,
     OptionalContext,
 )
+from utils.model import (
+    Graph,
+)
 
 # Constants
 _UNINTERESTING_NODES = {
@@ -45,7 +45,7 @@ _UNINTERESTING_NODES = {
 
 
 def extract(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

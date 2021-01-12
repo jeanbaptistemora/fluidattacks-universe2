@@ -7,7 +7,6 @@ from typing import (
 )
 
 # Third party libraries
-import networkx as nx
 from more_itertools import (
     mark_ends,
     pairwise,
@@ -16,6 +15,9 @@ from more_itertools import (
 # Local libraries
 from utils import (
     graph as g,
+)
+from utils.model import (
+    Graph,
 )
 
 # Constants
@@ -57,7 +59,7 @@ def _propagate_next_id_from_parent(
 
 
 def _block(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -70,7 +72,7 @@ def _block(
 
 
 def _block_statements(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -95,7 +97,7 @@ def _block_statements(
 
 
 def _expression_statements(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -103,7 +105,7 @@ def _expression_statements(
 
 
 def _loop_statement(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -122,7 +124,7 @@ def _loop_statement(
 
 
 def _if_statement(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -161,7 +163,7 @@ def _if_statement(
 
 
 def _method_declaration(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -174,7 +176,7 @@ def _method_declaration(
 
 
 def _try_statement(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
 ) -> None:
@@ -219,7 +221,7 @@ def _try_statement(
 
 
 def _generic(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_id: str,
     stack: Stack,
     *,
@@ -259,7 +261,7 @@ def _generic(
     stack.pop()
 
 
-def analyze(graph: nx.DiGraph) -> None:
+def analyze(graph: Graph) -> None:
     # Walk all `MethodDeclaration` nodes, for now they are our entrypoint
     # but it can be extended up-to compilation units and cross-file graphs
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(

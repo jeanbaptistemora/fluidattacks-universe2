@@ -6,9 +6,6 @@ from more_itertools import (
     pairwise,
 )
 
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from eval_java.extract_rules import (
     common,
@@ -30,13 +27,16 @@ from utils.ctx import (
 from utils.encodings import (
     json_dump,
 )
+from utils.model import (
+    Graph,
+)
 from utils.string import (
     get_debug_path,
 )
 
 
 def evaluate(
-    graph: nx.DiGraph,
+    graph: Graph,
     graph_path: Tuple[str, ...],
     path: str,
     *,
@@ -72,7 +72,7 @@ def evaluate(
 
 
 def is_vulnerable(
-    graph: nx.DiGraph,
+    graph: Graph,
     graph_path: Tuple[str, ...],
     path: str,
     *,
@@ -94,7 +94,7 @@ def is_vulnerable(
 
 
 def traverse_vulns(
-    graph: nx.DiGraph,
+    graph: Graph,
     path: str,
     *,
     input_type: str,

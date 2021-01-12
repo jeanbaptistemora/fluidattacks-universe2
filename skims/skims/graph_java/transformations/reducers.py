@@ -10,23 +10,23 @@ from typing import (
     Tuple,
 )
 
-# Third party libraries
-import networkx as nx
-
 # Local libraries
 from utils import (
     graph as g,
 )
+from utils.model import (
+    Graph,
+)
 
 
-def _rename_node_type(graph: nx.DiGraph, before: str, after: str) -> None:
+def _rename_node_type(graph: Graph, before: str, after: str) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type=before,
     )):
         graph.nodes[n_id]['label_type'] = after
 
 
-def _patch_node_types(graph: nx.DiGraph) -> None:
+def _patch_node_types(graph: Graph) -> None:
     for n_attrs in graph.nodes.values():
         label_type: str = n_attrs['label_type']
 
@@ -42,12 +42,12 @@ def _patch_node_types(graph: nx.DiGraph) -> None:
             n_attrs['label_type_index'] = '0'
 
 
-def _join_label_texts(graph: nx.DiGraph, n_ids: Iterable[str]) -> str:
+def _join_label_texts(graph: Graph, n_ids: Iterable[str]) -> str:
     return ''.join(graph.nodes[n_id]['label_text'] for n_id in n_ids)
 
 
 def _concatenate_child_texts_in_place(
-    graph: nx.DiGraph,
+    graph: Graph,
     n_attrs_label_type: str,
     n_ids: List[str],
 ) -> None:
@@ -57,7 +57,7 @@ def _concatenate_child_texts_in_place(
 
 
 def _concatenate_child_texts(
-    graph: nx.DiGraph,
+    graph: Graph,
     parent_label_type: str,
     childs_label_types: Tuple[str, ...],
 ) -> None:
@@ -85,7 +85,7 @@ def _concatenate_child_texts(
 
 
 def _replace_with_child(
-    graph: nx.DiGraph,
+    graph: Graph,
     parent_label_type: str,
     childs_label_type: str,
 ) -> None:
@@ -108,11 +108,11 @@ def _replace_with_child(
 
 
 def _reduce_ordered(
-    graph: nx.DiGraph,
+    graph: Graph,
     parent_label_type: str,
     rules: Tuple[Tuple[str, Set[str]], ...],
     reducers: Dict[str, Callable[
-        [nx.DiGraph, str, List[str]],
+        [Graph, str, List[str]],
         None,
     ]],
 ) -> None:
@@ -166,7 +166,7 @@ def _reduce_ordered(
             )
 
 
-def _package_or_type_name(graph: nx.DiGraph) -> None:
+def _package_or_type_name(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'PackageOrTypeName', (
         'IdentifierRule',
         'DOT',
@@ -180,7 +180,7 @@ def _package_or_type_name(graph: nx.DiGraph) -> None:
         ))
 
 
-def _array_access_lfno_primary(graph: nx.DiGraph) -> None:
+def _array_access_lfno_primary(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'ArrayAccess_lfno_primary', (
         'IdentifierRule',
         'LBRACK',
@@ -195,21 +195,21 @@ def _array_access_lfno_primary(graph: nx.DiGraph) -> None:
     ))
 
 
-def _array_type(graph: nx.DiGraph) -> None:
+def _array_type(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'ArrayType', (
         'IdentifierRule',
         'CustomDims',
     ))
 
 
-def _dims(graph: nx.DiGraph) -> None:
+def _dims(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'Dims', (
         'LBRACK',
         'RBRACK',
     ))
 
 
-def _type_arguments(graph: nx.DiGraph) -> None:
+def _type_arguments(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'TypeArguments', (
         'LT',
         'IdentifierRule',
@@ -222,7 +222,7 @@ def _type_arguments(graph: nx.DiGraph) -> None:
     ))
 
 
-def _type_arguments_list(graph: nx.DiGraph) -> None:
+def _type_arguments_list(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'TypeArgumentList', (
         'IdentifierRule',
         'COMMA',
@@ -235,7 +235,7 @@ def _type_arguments_list(graph: nx.DiGraph) -> None:
     ))
 
 
-def _type_names(graph: nx.DiGraph) -> None:
+def _type_names(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'TypeName', (
         'IdentifierRule',
         'DOT',
@@ -248,7 +248,7 @@ def _type_names(graph: nx.DiGraph) -> None:
     ))
 
 
-def _unann_array_type(graph: nx.DiGraph) -> None:
+def _unann_array_type(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'UnannArrayType', (
         'CustomUnannClassOrInterfaceType',
         'CustomDims',
@@ -260,7 +260,7 @@ def _unann_array_type(graph: nx.DiGraph) -> None:
 
 
 def _unann_class_type_lf_unann_class_or_interface_type(
-    graph: nx.DiGraph,
+    graph: Graph,
 ) -> None:
     parent_label_type = 'UnannClassType_lf_unannClassOrInterfaceType'
     _concatenate_child_texts(graph, parent_label_type, (
@@ -274,14 +274,14 @@ def _unann_class_type_lf_unann_class_or_interface_type(
     ))
 
 
-def _unary_expression(graph: nx.DiGraph) -> None:
+def _unary_expression(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'UnaryExpression', (
         'SUB',
         'IntegerLiteral',
     ))
 
 
-def _ambiguous_names(graph: nx.DiGraph) -> None:
+def _ambiguous_names(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'AmbiguousName', (
         'IdentifierRule',
         'DOT',
@@ -295,7 +295,7 @@ def _ambiguous_names(graph: nx.DiGraph) -> None:
         ))
 
 
-def _expression_name(graph: nx.DiGraph) -> None:
+def _expression_name(graph: Graph) -> None:
     _concatenate_child_texts(graph, 'ExpressionName', (
         'CustomAmbiguousName',
         'DOT',
@@ -303,7 +303,7 @@ def _expression_name(graph: nx.DiGraph) -> None:
     ))
 
 
-def _method_invocations(graph: nx.DiGraph) -> None:
+def _method_invocations(graph: Graph) -> None:
     for label_type in (
         'MethodInvocation',
         'MethodInvocation_lf_primary',
@@ -385,7 +385,7 @@ def _method_invocations(graph: nx.DiGraph) -> None:
     )
 
 
-def _multiplicative_expression(graph: nx.DiGraph) -> None:
+def _multiplicative_expression(graph: Graph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='MultiplicativeExpression',
     )):
@@ -413,7 +413,7 @@ def _multiplicative_expression(graph: nx.DiGraph) -> None:
                 graph.remove_nodes_from((left_id, op_id, right_id))
 
 
-def _primary_no_new_array_lfno_primary(graph: nx.DiGraph) -> None:
+def _primary_no_new_array_lfno_primary(graph: Graph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='PrimaryNoNewArray_lfno_primary',
     )):
@@ -431,7 +431,7 @@ def _primary_no_new_array_lfno_primary(graph: nx.DiGraph) -> None:
             graph.remove_node(n_id)
 
 
-def reduce(graph: nx.DiGraph) -> None:
+def reduce(graph: Graph) -> None:
     _patch_node_types(graph)
     _dims(graph)
     _array_access_lfno_primary(graph)

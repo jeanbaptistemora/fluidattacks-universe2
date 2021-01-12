@@ -1,14 +1,18 @@
 # Third party libraries
-import networkx as nx
 from utils.encodings import (
     json_dumps,
 )
 
 # Local libraries
-from utils.graph import GRAPH_STYLE_ATTRS
+from utils.model import (
+    Graph,
+)
+from utils.graph import (
+    GRAPH_STYLE_ATTRS,
+)
 
 
-def _add_labels(graph: nx.DiGraph) -> None:
+def _add_labels(graph: Graph) -> None:
     # Walk the nodes and compute a label from the node attributes
     for n_id, n_attrs in graph.nodes.items():
         graph.nodes[n_id]['label'] = _create_label(**n_attrs, id=n_id)
@@ -18,7 +22,7 @@ def _add_labels(graph: nx.DiGraph) -> None:
         graph[n_id_u][n_id_v]['label'] = _create_label(**graph[n_id_u][n_id_v])
 
 
-def _add_styles(graph: nx.DiGraph) -> None:
+def _add_styles(graph: Graph) -> None:
     # https://graphviz.org/doc/info/attrs.html
     # https://graphviz.org/doc/info/colors.html
     # color: border of the node, edge
@@ -63,7 +67,7 @@ def _create_label(**attrs: str) -> str:
     )
 
 
-def _verify(graph: nx.DiGraph) -> None:
+def _verify(graph: Graph) -> None:
     for reserved_attr in GRAPH_STYLE_ATTRS:
         for n_attrs in graph.nodes.values():
             if reserved_attr in n_attrs:
@@ -74,7 +78,7 @@ def _verify(graph: nx.DiGraph) -> None:
                 raise ValueError(f'{reserved_attr} must be added in styles')
 
 
-def add(graph: nx.DiGraph, override: bool = False) -> None:
+def add(graph: Graph, override: bool = False) -> None:
     if not override:
         _verify(graph)
     _add_labels(graph)

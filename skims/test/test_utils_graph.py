@@ -1,17 +1,19 @@
 # Third party libraries
-import networkx as nx
 import pytest
 
 # Local libraries
 from utils import (
     graph as g,
 )
+from utils.model import (
+    Graph,
+)
 
 
 
 @pytest.mark.skims_test_group('unittesting')
 def test_all() -> None:
-    graph = nx.DiGraph()
+    graph = Graph()
     graph.add_node('1')
     graph.add_node('2')
     graph.add_node('3')
