@@ -328,7 +328,7 @@ describe("Project users view", () => {
       result: { data: { removeStakeholderAccess : { success: true, removedEmail: "user@gmail.com" } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_remove_stakeholder_access" },
+      { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -515,7 +515,7 @@ describe("Project users view", () => {
       result: { errors: [new GraphQLError("Access denied")] },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_remove_stakeholder_access" },
+      { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

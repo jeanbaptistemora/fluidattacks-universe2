@@ -36,6 +36,7 @@ from backend.api.mutations import (
     remove_finding_evidence,
     remove_files,
     remove_group,
+    remove_stakeholder_access,
     remove_stakeholder_organization_access,
     request_zero_risk_vuln,
     solve_event,
@@ -127,7 +128,7 @@ MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)
 MUTATION.set_field('grantStakeholderAccess', grant_stakeholder_access.mutate)
-MUTATION.set_field('removeStakeholderAccess', user.resolve_user_mutation)
+MUTATION.set_field('removeStakeholderAccess', remove_stakeholder_access.mutate)
 MUTATION.set_field('editStakeholder', user.resolve_user_mutation)
 MUTATION.set_field('addEnvironments', add_environment.mutate)
 MUTATION.set_field('addFiles', add_files.mutate)

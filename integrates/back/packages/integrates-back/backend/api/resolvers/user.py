@@ -67,42 +67,6 @@ async def resolve_user_mutation(
     enforce_group_level_auth_async,
     require_integrates,
 )
-async def _do_remove_stakeholder_access(
-        _: Any,
-        info: GraphQLResolveInfo,
-        project_name: str,
-        user_email: str) -> RemoveStakeholderAccessPayloadType:
-    success = await project_domain.remove_user_access(
-        project_name, user_email
-    )
-    removed_email = user_email if success else ''
-    if success:
-        util.queue_cache_invalidation(
-            f'stakeholders*{project_name}',
-            user_email
-        )
-        msg = (
-            f'Security: Removed stakeholder: {user_email} from {project_name} '
-            f'project successfully'
-        )
-        util.cloudwatch_log(info.context, msg)
-    else:
-        msg = (
-            f'Security: Attempted to remove stakeholder: {user_email} '
-            f'from {project_name} project'
-        )
-        util.cloudwatch_log(info.context, msg)
-    return RemoveStakeholderAccessPayloadType(
-        success=success,
-        removed_email=removed_email
-    )
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
 async def _do_edit_stakeholder(
         _: Any,
         info: GraphQLResolveInfo,
