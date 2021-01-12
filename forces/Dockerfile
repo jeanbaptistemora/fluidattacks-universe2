@@ -4,8 +4,4 @@ RUN apt update
 
 RUN apt -y install git
 
-COPY . /pakage
-
-WORKDIR /pakage
-
-RUN pip install .
+RUN pip install melts
