@@ -253,7 +253,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Can do="backend_api_resolvers_user__do_grant_stakeholder_access">
+                  <Can do="backend_api_mutations_grant_stakeholder_access_mutate">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.add_button.tooltip")}
                     >
