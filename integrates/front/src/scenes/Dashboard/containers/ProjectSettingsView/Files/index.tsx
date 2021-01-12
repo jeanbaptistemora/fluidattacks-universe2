@@ -252,7 +252,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         isUploading={uploading}
         uploadProgress={uploadProgress}
       />
-      <Can do="backend_api_resolvers_resource__do_remove_files" passThrough={true}>
+      <Can do="backend_api_mutations_remove_files_mutate" passThrough={true}>
         {(canRemove: boolean): JSX.Element => (
           <FileOptionsModal
             canRemove={canRemove}

@@ -32,6 +32,7 @@ from backend.api.mutations import (
     reject_zero_risk_vuln,
     remove_event_evidence,
     remove_finding_evidence,
+    remove_files,
     remove_group,
     remove_stakeholder_organization_access,
     request_zero_risk_vuln,
@@ -129,7 +130,7 @@ MUTATION.set_field('editStakeholder', user.resolve_user_mutation)
 MUTATION.set_field('addEnvironments', add_environment.mutate)
 MUTATION.set_field('addFiles', add_files.mutate)
 MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
-MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
+MUTATION.set_field('removeFiles', remove_files.mutate)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
 MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)

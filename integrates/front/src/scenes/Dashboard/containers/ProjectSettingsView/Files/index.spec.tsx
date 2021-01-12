@@ -192,7 +192,7 @@ describe("Files", () => {
       result: { data: { removeFiles : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_remove_files" },
+      { action: "backend_api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -235,7 +235,7 @@ describe("Files", () => {
       result: { data: { downloadFile : { success: true, url: "https://test.com/file" } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_remove_files" },
+      { action: "backend_api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
