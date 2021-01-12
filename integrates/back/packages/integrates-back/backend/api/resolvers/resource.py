@@ -3,11 +3,7 @@ import re
 import sys
 from typing import Any, Dict, cast, Union
 
-from aioextensions import (
-    in_thread,
-)
 from ariadne import convert_kwargs_to_snake_case
-from mixpanel import Mixpanel
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import (
@@ -23,8 +19,6 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
 )
 from backend import util
-
-from back import settings
 
 from back.settings import LOGGING
 
@@ -57,55 +51,6 @@ async def resolve_resources_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_download_file(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: Any) -> DownloadFilePayloadType:
-    """Resolve download_file mutation."""
-    success = False
-    file_info = parameters['files_data']
-    project_name = parameters['project_name'].lower()
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    signed_url = await resources.download_file(
-        file_info, project_name
-    )
-    if signed_url:
-        msg = (
-            f'Security: Downloaded file {parameters["files_data"]} '
-            f'in project {project_name} successfully'
-        )
-        util.cloudwatch_log(info.context, msg)  # pragma: no cover
-        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await in_thread(
-            mp_obj.track,
-            user_email,
-            'DownloadProjectFile',
-            {
-                'Project': project_name.upper(),
-                'Email': user_email,
-                'FileName': parameters['files_data'],
-            }
-        )
-        success = True
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to download file '
-             f'{parameters["files_data"]}'
-             f' in project {project_name}')  # pragma: no cover
-        )
-        LOGGER.error(
-            'Couldn\'t generate signed URL',
-            extra={'extra': parameters})
-    return DownloadFilePayloadType(success=success, url=str(signed_url))
 
 
 @concurrent_decorators(
