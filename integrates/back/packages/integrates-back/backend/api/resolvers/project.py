@@ -36,7 +36,7 @@ from backend import util
 from backend.utils import (
     datetime as datetime_utils,
 )
-from backend.api.resolvers.user import _create_new_user
+from backend.api.mutations.grant_stakeholder_access import _create_new_user
 from back.settings import LOGGING
 
 
