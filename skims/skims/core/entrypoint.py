@@ -67,7 +67,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     await wait_for(
         collect((
             analyze_paths(stores=stores),
-            analyze_root(),
+            analyze_root(stores=stores),
         )),
         CTX.config.timeout,
     )

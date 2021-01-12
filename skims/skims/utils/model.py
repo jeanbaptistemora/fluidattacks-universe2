@@ -3,6 +3,7 @@ from enum import (
     Enum,
 )
 from typing import (
+    Callable,
     Dict,
     NamedTuple,
     Optional,
@@ -699,4 +700,9 @@ def _fill_finding_enum() -> None:
             finding.value.severity[environmental] = 0.0
 
 
+# Aliases
+LibRootQuery = Callable[[nx.DiGraph], Tuple[Vulnerability, ...]]
+LibRootQueries = Tuple[LibRootQuery, ...]
+
+# Import hooks
 _fill_finding_enum()
