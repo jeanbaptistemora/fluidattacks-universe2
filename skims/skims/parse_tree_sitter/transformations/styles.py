@@ -78,8 +78,7 @@ def _verify(graph: Graph) -> None:
                 raise ValueError(f'{reserved_attr} must be added in styles')
 
 
-def add(graph: Graph, override: bool = False) -> None:
-    if not override:
-        _verify(graph)
+def add(graph: Graph) -> None:
+    _verify(graph)
     _add_labels(graph)
     _add_styles(graph)

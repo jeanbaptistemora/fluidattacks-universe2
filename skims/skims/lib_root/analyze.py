@@ -1,10 +1,12 @@
 # Standard library
+from functools import (
+    partial,
+)
 from typing import (
     Awaitable,
     Dict,
     Iterable,
     Set,
-    Tuple,
 )
 
 # Third party libraries
@@ -19,10 +21,7 @@ from lib_path.common import (
     SHIELD,
 )
 from parse_tree_sitter.parse import (
-    get_root,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
+    get_graph_db,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -39,7 +38,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Graph,
+    GraphDB,
     LibRootQueries,
     Vulnerabilities,
 )
@@ -54,20 +53,19 @@ async def analyze(
         include=CTX.config.path.include,
     )
 
-    root: Graph = await get_root(tuple(unique_paths))
-    queries_list: Tuple[LibRootQueries, ...] = (
+    graph_db: GraphDB = await get_graph_db(tuple(unique_paths))
+    queries: LibRootQueries = (
     )
 
     # Query the root with different methods in a CPU cluster
     vulnerabilities_lazy_iterator: Iterable[
         Awaitable[Vulnerabilities],
     ] = resolve((
-        pipe(in_process(query, root), (
+        pipe(
+            partial(in_process, query),
             TIMEOUT_1MIN,
-            CACHE_ETERNALLY,
             SHIELD,
-        ))
-        for queries in queries_list
+        )(graph_db)
         for query in queries
     ), workers=CPU_CORES)
 

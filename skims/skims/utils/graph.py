@@ -103,10 +103,7 @@ def adj(
 
     results: List[str] = []
 
-    childs: List[str] = sorted(
-        graph.adj[n_id],
-        key=lambda x: int(x.rsplit('-', maxsplit=1)[-1]),
-    )
+    childs: List[str] = sorted(graph.adj[n_id], key=int)
 
     # Append direct childs
     for c_id in childs:
@@ -387,16 +384,6 @@ def copy_cfg(graph: Graph) -> Graph:
     return _get_subgraph(
         graph=graph,
         edge_n_attrs_predicate=pred_has_labels(label_cfg='CFG'),
-    )
-
-
-def copy_depth(graph: Graph, n_id: str, depth: int = -1) -> Graph:
-    closure = {n_id}
-    closure.update(adj(graph, n_id, depth))
-
-    return _get_subgraph(
-        graph=graph,
-        node_n_id_predicate=lambda n_id: n_id in closure,
     )
 
 

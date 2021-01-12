@@ -12,7 +12,6 @@ from typing import (
     Any,
     Callable,
     cast,
-    Iterable,
     Optional,
     Tuple,
     Type,
@@ -144,7 +143,7 @@ def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
     return lambda x: x
 
 
-def pipe(value: Any, functions: Iterable[Callable[..., Any]]) -> Any:
+def pipe(value: Any, *functions: Callable[..., Any]) -> Any:
     for function in functions:
         value = function(value)
 

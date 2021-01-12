@@ -13,7 +13,11 @@ from aioextensions import (
 )
 
 # Local libraries
+from utils.graph import (
+    export_graph_as_json,
+)
 from utils.model import (
+    Graph,
     VulnerabilityKindEnum,
 )
 
@@ -35,6 +39,8 @@ def simplify(obj: Any) -> Any:
         ))
     elif isinstance(obj, (list, tuple, set)):
         simplified_obj = tuple(map(simplify, obj))
+    elif isinstance(obj, Graph):
+        simplified_obj = export_graph_as_json(obj)
     elif dataclasses.is_dataclass(obj):
         simplified_obj = simplify(dataclasses.asdict(obj))
     else:

@@ -11,10 +11,10 @@ from utils import (
 )
 from utils.model import (
     Graph,
-    ParsedFileMetadata,
-    ParsedFileMetadataJava,
-    ParsedFileMetadataJavaClass,
-    ParsedFileMetadataJavaClassMethod,
+    GraphShardMetadata,
+    GraphShardMetadataJava,
+    GraphShardMetadataJavaClass,
+    GraphShardMetadataJavaClassMethod,
 )
 
 # Constants
@@ -24,7 +24,7 @@ ROOT = '1'
 def get_metadata(
     graph: Graph,
     language: str,
-) -> ParsedFileMetadata:
+) -> GraphShardMetadata:
 
     metadata: Dict[str, Optional[Any]] = {
         'java': None,
@@ -35,14 +35,14 @@ def get_metadata(
     else:
         raise NotImplementedError()
 
-    return ParsedFileMetadata(**metadata)
+    return GraphShardMetadata(**metadata)
 
 
-def get_metadata_java(graph: Graph) -> ParsedFileMetadataJava:
+def get_metadata_java(graph: Graph) -> GraphShardMetadataJava:
     classes = get_metadata_java_classes(graph)
     package = get_metadata_java_package(graph)
 
-    return ParsedFileMetadataJava(
+    return GraphShardMetadataJava(
         classes=classes,
         package=package,
     )
@@ -68,8 +68,8 @@ def get_metadata_java_classes(
     graph: Graph,
     n_id: str = ROOT,
     namespace: str = '',
-) -> Dict[str, ParsedFileMetadataJavaClass]:
-    classes: Dict[str, ParsedFileMetadataJavaClass] = {}
+) -> Dict[str, GraphShardMetadataJavaClass]:
+    classes: Dict[str, GraphShardMetadataJavaClass] = {}
 
     for c_id in g.adj_ast(graph, n_id):
         if graph.nodes[c_id]['label_type'] == 'class_declaration':
@@ -78,7 +78,7 @@ def get_metadata_java_classes(
             if class_identifier_id := match['__0__']:
                 name = graph.nodes[class_identifier_id]['label_text']
                 name_qualified = namespace + '.' + name
-                classes[name_qualified] = ParsedFileMetadataJavaClass(
+                classes[name_qualified] = GraphShardMetadataJavaClass(
                     n_id=c_id,
                     methods=get_metadata_java_class_methods(graph, c_id),
                 )
@@ -101,8 +101,8 @@ def get_metadata_java_classes(
 def get_metadata_java_class_methods(
     graph: Graph,
     n_id: str,
-) -> Dict[str, ParsedFileMetadataJavaClassMethod]:
-    methods: Dict[str, ParsedFileMetadataJavaClassMethod] = {}
+) -> Dict[str, GraphShardMetadataJavaClassMethod]:
+    methods: Dict[str, GraphShardMetadataJavaClassMethod] = {}
 
     match = g.match_ast(graph, n_id, 'class_body')
 
@@ -114,7 +114,7 @@ def get_metadata_java_class_methods(
 
                 if identifier_id := match['identifier']:
                     name = graph.nodes[identifier_id]['label_text']
-                    methods[name] = ParsedFileMetadataJavaClassMethod(
+                    methods[name] = GraphShardMetadataJavaClassMethod(
                         n_id=c_id,
                     )
 

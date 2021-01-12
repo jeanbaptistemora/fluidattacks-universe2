@@ -5,6 +5,8 @@ from enum import (
 from typing import (
     Callable,
     Dict,
+    Iterable,
+    List,
     NamedTuple,
     Optional,
     Tuple,
@@ -659,35 +661,48 @@ class Vulnerability(NamedTuple):
 
 
 Vulnerabilities = Tuple[Vulnerability, ...]
+VulnerabilitiesLazy = Iterable[Vulnerability]
 
 
-class ParsedFileMetadataJavaClassMethod(NamedTuple):
+class GraphShardMetadataJavaClassMethod(NamedTuple):
     n_id: str
 
 
-class ParsedFileMetadataJavaClass(NamedTuple):
-    methods: Dict[str, ParsedFileMetadataJavaClassMethod]
+class GraphShardMetadataJavaClass(NamedTuple):
+    methods: Dict[str, GraphShardMetadataJavaClassMethod]
     n_id: str
 
 
-class ParsedFileMetadataJava(NamedTuple):
-    classes: Dict[str, ParsedFileMetadataJavaClass]
+class GraphShardMetadataJava(NamedTuple):
+    classes: Dict[str, GraphShardMetadataJavaClass]
     package: str
 
 
-class ParsedFileMetadata(NamedTuple):
-    java: Optional[ParsedFileMetadataJava]
+class GraphShardMetadata(NamedTuple):
+    java: Optional[GraphShardMetadataJava]
+
+
+class GraphShardCacheable(NamedTuple):
+    graph: Graph
+    language: str
+    metadata: GraphShardMetadata
+
+
+class GraphShard(NamedTuple):
+    graph: Graph
+    language: str
+    metadata: GraphShardMetadata
+    path: str
+
+
+class GraphDB(NamedTuple):
+    shards: List[GraphShard]
+    shards_by_path: Dict[str, int]
 
 
 # Aliases
 LibRootQuery = Callable[[Graph], Vulnerabilities]
 LibRootQueries = Tuple[LibRootQuery, ...]
-
-
-class ParsedFile(NamedTuple):
-    graph: Graph
-    language: str
-    metadata: ParsedFileMetadata
 
 
 def _fill_finding_enum() -> None:
