@@ -116,13 +116,12 @@ what had to be done and introduced within a particular structure
 to obtain specific answers translated into vulnerabilities.
 
 At this point, it should be noted that within `Fluid Attacks`
-we have a platform similar to that described, called `Fixes`
-(formerly known as [inner]#link:../../products/integrates/[`Integrates`]#).
-`Fixes` facilitates the management of vulnerabilities.
-These vulnerabilities are stored in `Fixes`.
+we have a platform similar to that described, called Integrates.
+Integrates facilitates the management of vulnerabilities.
+These vulnerabilities are stored in Integrates.
 Access to their evidence is provided there
 at different stages of the process and in real-time.
-With `Fixes`, our client can classify and prioritize vulnerabilities,
+With Integrates, our client can classify and prioritize vulnerabilities,
 define their treatment, and maintain a constant check
 of their status and remediation progress.
 

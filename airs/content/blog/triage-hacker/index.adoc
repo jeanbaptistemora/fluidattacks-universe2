@@ -67,8 +67,8 @@ What data should we feed to this algorithm?
 We need lots of labeled data for
 such an attempt to work, according to Andrew Ng.
 But not too much that it would be an obstacle.
-Fortunately, we have a good amount of code vulnerabilities stored in
-[inner]#link:../../products/integrates/[Integrates]#.
+Fortunately, we have a good amount
+of code vulnerabilities stored in Integrates.
 The ones we are interested in are those
 which point to a particular set of lines of code
 in a specific repository.

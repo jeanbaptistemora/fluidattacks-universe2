@@ -29,7 +29,7 @@ by sharing the methodologies and work practices, or *habits*,
 that allow us to implement a `SecDevOps` culture
 in the execution of our projects;
 from the infrastructure management to the development of our orchestration platform
-for vulnerability remediation: link:../../../products/integrates/[Integrates].
+for vulnerability remediation: Integrates.
 
 These habits allow us not only to increase our productivity,
 and generate value for our customers on a daily basis,

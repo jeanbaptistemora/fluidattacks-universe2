@@ -210,8 +210,7 @@ on manual testing vs the `LGTM`
 where it is quite clear that tool misses most of the vulnerabilities as well.
 
 Now for a more realistic test,
-let's try running `DeepCode` on some of our own repos, namely,
-[inner]#link:../../products/integrates[Integrates]#,
+let's try running `DeepCode` on some of our own repos, namely, Integrates,
 our platform for vulnerability centralization and management and
 [inner]#link:../../products/asserts/[Asserts]#,
 our vulnerability automation framework.
