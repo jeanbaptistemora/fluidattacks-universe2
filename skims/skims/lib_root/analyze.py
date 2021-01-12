@@ -20,6 +20,9 @@ from aioextensions import (
 from lib_path.common import (
     SHIELD,
 )
+from lib_root import (
+    f060,
+)
 from parse_tree_sitter.parse import (
     get_graph_db,
 )
@@ -55,6 +58,7 @@ async def analyze(
 
     graph_db: GraphDB = await get_graph_db(tuple(unique_paths))
     queries: LibRootQueries = (
+        *f060.QUERIES,
     )
 
     # Query the root with different methods in a CPU cluster

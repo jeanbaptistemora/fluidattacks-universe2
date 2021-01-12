@@ -4243,16 +4243,19 @@
           "156": {
             "label_c": 3,
             "label_l": 37,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "157": {
             "label_c": 3,
             "label_l": 37,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "158": {
             "label_c": 3,
             "label_l": 37,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "159": {
@@ -4339,16 +4342,19 @@
           "171": {
             "label_c": 46,
             "label_l": 37,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "172": {
             "label_c": 46,
             "label_l": 37,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "173": {
             "label_c": 46,
             "label_l": 37,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "174": {
@@ -4762,11 +4768,13 @@
           "238": {
             "label_c": 28,
             "label_l": 41,
+            "label_text": "java.net.URL",
             "label_type": "scoped_type_identifier"
           },
           "239": {
             "label_c": 28,
             "label_l": 41,
+            "label_text": "java.net",
             "label_type": "scoped_type_identifier"
           },
           "24": {
@@ -5019,6 +5027,7 @@
           "279": {
             "label_c": 3,
             "label_l": 43,
+            "label_text": "javax.servlet.RequestDispatcher",
             "label_type": "scoped_type_identifier"
           },
           "28": {
@@ -5030,6 +5039,7 @@
           "280": {
             "label_c": 3,
             "label_l": 43,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "281": {
@@ -5465,6 +5475,7 @@
           "349": {
             "label_c": 3,
             "label_l": 53,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "35": {
@@ -5476,11 +5487,13 @@
           "350": {
             "label_c": 3,
             "label_l": 53,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "351": {
             "label_c": 3,
             "label_l": 53,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "352": {
@@ -5750,16 +5763,19 @@
           "394": {
             "label_c": 9,
             "label_l": 57,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "395": {
             "label_c": 9,
             "label_l": 57,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "396": {
             "label_c": 9,
             "label_l": 57,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "397": {
@@ -6249,11 +6265,13 @@
           "472": {
             "label_c": 9,
             "label_l": 67,
+            "label_text": "java.io.FileInputStream",
             "label_type": "scoped_type_identifier"
           },
           "473": {
             "label_c": 9,
             "label_l": 67,
+            "label_text": "java.io",
             "label_type": "scoped_type_identifier"
           },
           "474": {
@@ -6538,11 +6556,13 @@
           "518": {
             "label_c": 21,
             "label_l": 71,
+            "label_text": "java.io.FileInputStream",
             "label_type": "scoped_type_identifier"
           },
           "519": {
             "label_c": 21,
             "label_l": 71,
+            "label_text": "java.io",
             "label_type": "scoped_type_identifier"
           },
           "52": {
@@ -6606,6 +6626,7 @@
           "529": {
             "label_c": 49,
             "label_l": 71,
+            "label_text": "java.io.File",
             "label_type": "scoped_type_identifier"
           },
           "53": {
@@ -6617,6 +6638,7 @@
           "530": {
             "label_c": 49,
             "label_l": 71,
+            "label_text": "java.io",
             "label_type": "scoped_type_identifier"
           },
           "531": {
@@ -11621,11 +11643,13 @@
           "271": {
             "label_c": 13,
             "label_l": 57,
+            "label_text": "java.sql.Connection",
             "label_type": "scoped_type_identifier"
           },
           "272": {
             "label_c": 13,
             "label_l": 57,
+            "label_text": "java.sql",
             "label_type": "scoped_type_identifier"
           },
           "273": {
@@ -11820,11 +11844,13 @@
           "302": {
             "label_c": 13,
             "label_l": 58,
+            "label_text": "java.sql.CallableStatement",
             "label_type": "scoped_type_identifier"
           },
           "303": {
             "label_c": 13,
             "label_l": 58,
+            "label_text": "java.sql",
             "label_type": "scoped_type_identifier"
           },
           "304": {
@@ -11946,11 +11972,13 @@
           "322": {
             "label_c": 13,
             "label_l": 59,
+            "label_text": "java.sql.ResultSet",
             "label_type": "scoped_type_identifier"
           },
           "323": {
             "label_c": 13,
             "label_l": 59,
+            "label_text": "java.sql",
             "label_type": "scoped_type_identifier"
           },
           "324": {
@@ -12260,11 +12288,13 @@
           "372": {
             "label_c": 18,
             "label_l": 62,
+            "label_text": "java.sql.SQLException",
             "label_type": "scoped_type_identifier"
           },
           "373": {
             "label_c": 18,
             "label_l": 62,
+            "label_text": "java.sql",
             "label_type": "scoped_type_identifier"
           },
           "374": {
@@ -18615,11 +18645,13 @@
           "342": {
             "label_c": 16,
             "label_l": 59,
+            "label_text": "java.util.Random",
             "label_type": "scoped_type_identifier"
           },
           "343": {
             "label_c": 16,
             "label_l": 59,
+            "label_text": "java.util",
             "label_type": "scoped_type_identifier"
           },
           "344": {
@@ -19335,16 +19367,19 @@
           "456": {
             "label_c": 3,
             "label_l": 70,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "457": {
             "label_c": 3,
             "label_l": 70,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "458": {
             "label_c": 3,
             "label_l": 70,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "459": {
@@ -19756,16 +19791,19 @@
           "522": {
             "label_c": 5,
             "label_l": 73,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "523": {
             "label_c": 5,
             "label_l": 73,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "524": {
             "label_c": 5,
             "label_l": 73,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "525": {
@@ -20510,16 +20548,19 @@
           "641": {
             "label_c": 4,
             "label_l": 88,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "642": {
             "label_c": 4,
             "label_l": 88,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "643": {
             "label_c": 4,
             "label_l": 88,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "644": {
@@ -20601,16 +20642,19 @@
           "656": {
             "label_c": 47,
             "label_l": 88,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "657": {
             "label_c": 47,
             "label_l": 88,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "658": {
             "label_c": 47,
             "label_l": 88,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "659": {
@@ -23583,11 +23627,13 @@
           "136": {
             "label_c": 5,
             "label_l": 13,
+            "label_text": "java.io.FileInputStream",
             "label_type": "scoped_type_identifier"
           },
           "137": {
             "label_c": 5,
             "label_l": 13,
+            "label_text": "java.io",
             "label_type": "scoped_type_identifier"
           },
           "138": {
@@ -23657,11 +23703,13 @@
           "148": {
             "label_c": 39,
             "label_l": 13,
+            "label_text": "java.io.FileInputStream",
             "label_type": "scoped_type_identifier"
           },
           "149": {
             "label_c": 39,
             "label_l": 13,
+            "label_text": "java.io",
             "label_type": "scoped_type_identifier"
           },
           "15": {
@@ -23725,6 +23773,7 @@
           "159": {
             "label_c": 67,
             "label_l": 13,
+            "label_text": "java.io.File",
             "label_type": "scoped_type_identifier"
           },
           "16": {
@@ -23736,6 +23785,7 @@
           "160": {
             "label_c": 67,
             "label_l": 13,
+            "label_text": "java.io",
             "label_type": "scoped_type_identifier"
           },
           "161": {
@@ -24073,11 +24123,13 @@
           "58": {
             "label_c": 5,
             "label_l": 10,
+            "label_text": "javax.servlet.http.Cookie",
             "label_type": "scoped_type_identifier"
           },
           "59": {
             "label_c": 5,
             "label_l": 10,
+            "label_text": "javax.servlet.http",
             "label_type": "scoped_type_identifier"
           },
           "6": {
@@ -24089,6 +24141,7 @@
           "60": {
             "label_c": 5,
             "label_l": 10,
+            "label_text": "javax.servlet",
             "label_type": "scoped_type_identifier"
           },
           "61": {

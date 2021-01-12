@@ -33,6 +33,7 @@ from utils.system import (
 
 # Constants
 GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
+ROOT_NODE: str = '1'
 
 # Types
 NId = str

@@ -17,9 +17,6 @@ from utils.model import (
     GraphShardMetadataJavaClassMethod,
 )
 
-# Constants
-ROOT = '1'
-
 
 def get_metadata(
     graph: Graph,
@@ -51,7 +48,7 @@ def get_metadata_java(graph: Graph) -> GraphShardMetadataJava:
 def get_metadata_java_package(graph: Graph) -> str:
     package: str = ''
 
-    match = g.match_ast(graph, ROOT, 'package_declaration')
+    match = g.match_ast(graph, g.ROOT_NODE, 'package_declaration')
 
     if n_id := match['package_declaration']:
         match = g.match_ast(graph, n_id, 'identifier', 'scoped_identifier')
@@ -66,7 +63,7 @@ def get_metadata_java_package(graph: Graph) -> str:
 
 def get_metadata_java_classes(
     graph: Graph,
-    n_id: str = ROOT,
+    n_id: str = g.ROOT_NODE,
     namespace: str = '',
 ) -> Dict[str, GraphShardMetadataJavaClass]:
     classes: Dict[str, GraphShardMetadataJavaClass] = {}

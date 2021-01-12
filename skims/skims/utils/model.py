@@ -5,7 +5,6 @@ from enum import (
 from typing import (
     Callable,
     Dict,
-    Iterable,
     List,
     NamedTuple,
     Optional,
@@ -661,7 +660,6 @@ class Vulnerability(NamedTuple):
 
 
 Vulnerabilities = Tuple[Vulnerability, ...]
-VulnerabilitiesLazy = Iterable[Vulnerability]
 
 
 class GraphShardMetadataJavaClassMethod(NamedTuple):

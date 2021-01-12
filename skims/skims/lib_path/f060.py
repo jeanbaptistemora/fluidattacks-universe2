@@ -20,13 +20,9 @@ from pyparsing import (
 )
 
 # Local libraries
-from graph_java.get import (
-    get as java_get_graph,
-)
 from lib_path.common import (
     get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
-    get_vulnerabilities_from_n_attrs_iterable_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
@@ -39,10 +35,6 @@ from lib_path.common import (
 )
 from state.cache import (
     CACHE_ETERNALLY,
-    CACHE_1SEC,
-)
-from utils import (
-    graph as g,
 )
 from utils.function import (
     TIMEOUT_1MIN,
@@ -51,8 +43,6 @@ from utils.ast import (
     iterate_nodes,
 )
 from utils.model import (
-    Grammar,
-    Graph,
     FindingEnum,
     Vulnerabilities,
 )
@@ -204,85 +194,6 @@ async def java_insecure_exceptions(
     )
 
 
-def _java_declaration_of_throws_for_generic_exception(
-    content: str,
-    graph: Graph,
-    path: str,
-) -> Vulnerabilities:
-    generics: Set[str] = {
-        'Exception',
-        'Throwable',
-        'lang.Exception',
-        'lang.Throwable',
-        'java.lang.Exception',
-        'java.lang.Throwable',
-    }
-
-    def iterator() -> Iterator[g.NAttrs]:
-        for throw_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            g.pred_has_labels(label_type='Throws_'),
-        ):
-            # Walk first level childs
-            for c_id in g.adj(graph, throw_id):
-                c_attrs = graph.nodes[c_id]
-                # Throws_ childs possibilities
-                # - ClassType
-                # - IdentifierRule
-                #
-                # This one may appear.
-                # Most cases have been simplified to Custom types, though:
-                # - ClassType
-                # - ExceptionTypeList
-                #   - ClassType
-                #   - ExceptionType
-                #     - IdentifierRule
-                #     - ClassType
-                # - IdentifierRule
-
-                if c_attrs['label_type'] in {
-                    'CustomClassType',
-                    'IdentifierRule',
-                }:
-                    if c_attrs['label_text'] in generics:
-                        yield c_attrs
-                elif c_attrs['label_type'] == 'ExceptionTypeList':
-                    for c_c_id in g.adj(graph, c_id):
-                        c_c_attrs = graph.nodes[c_c_id]
-                        if c_c_attrs['label_text'] in generics:
-                            yield c_c_attrs
-
-    return get_vulnerabilities_from_n_attrs_iterable_blocking(
-        content=content,
-        cwe={'397'},
-        description=t(
-            key='src.lib_path.f060.insecure_exceptions.description',
-            lang='Java',
-            path=path,
-        ),
-        finding=FindingEnum.F060,
-        n_attrs_iterable=tuple(iterator()),
-        path=path,
-    )
-
-
-@CACHE_1SEC
-@SHIELD
-@TIMEOUT_1MIN
-async def java_declaration_of_throws_for_generic_exception(
-    graph: Graph,
-    content: str,
-    path: str,
-) -> Vulnerabilities:
-    return await in_process(
-        _java_declaration_of_throws_for_generic_exception,
-        content=content,
-        graph=graph,
-        path=path,
-    )
-
-
 def _python_insecure_exceptions(
     content: str,
     path: str,
@@ -398,18 +309,8 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_JAVA:
         content = await content_generator()
-        graph = await java_get_graph(
-            Grammar.JAVA9,
-            content=content.encode(),
-            path=path,
-        )
         coroutines.append(java_insecure_exceptions(
             content=content,
-            path=path,
-        ))
-        coroutines.append(java_declaration_of_throws_for_generic_exception(
-            content=content,
-            graph=graph,
             path=path,
         ))
     elif file_extension in EXTENSIONS_PYTHON:

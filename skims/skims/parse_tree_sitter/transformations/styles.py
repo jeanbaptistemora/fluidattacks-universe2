@@ -1,8 +1,3 @@
-# Third party libraries
-from utils.encodings import (
-    json_dumps,
-)
-
 # Local libraries
 from utils.model import (
     Graph,
@@ -56,15 +51,7 @@ def _add_styles(graph: Graph) -> None:
 
 
 def _create_label(**attrs: str) -> str:
-    return '\\l'.join(
-        f'{key}: {val}'
-        for key in sorted(attrs)
-        for val in [(
-            json_dumps(attrs[key], indent=2).replace('\n', '\\l')
-            if isinstance(attrs[key], dict)
-            else attrs[key]
-        )]
-    )
+    return '\n'.join(f'{key}: {attrs[key]}' for key in sorted(attrs))
 
 
 def _verify(graph: Graph) -> None:

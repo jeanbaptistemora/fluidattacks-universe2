@@ -108,6 +108,7 @@ def _build_ast_graph(
 
         if not obj.children or obj.type in {
             'scoped_identifier',
+            'scoped_type_identifier',
         }:
             _graph.nodes[n_id]['label_text'] = content[
                 obj.start_byte:
@@ -174,7 +175,7 @@ def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 13,
+    version: int = 15,
 ) -> GraphShard:
     if not language:
         raise ParsingError()
@@ -202,7 +203,9 @@ def parse_one(
     )
 
 
-async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[GraphShard]:
+async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[
+    Optional[GraphShard],
+]:
     graphs_lazy = resolve((
         in_process(
             parse_one,
@@ -219,6 +222,7 @@ async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[GraphShard]:
             yield await graph_lazy
         except ParsingError:
             await log('warning', 'Unable to parse: %s, ignoring', path)
+            yield None
 
 
 async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
@@ -231,15 +235,16 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     )
 
     index = 0
-    index_max: int = len(paths) - 1
+    index_max: int = len(paths)
     async for shard in parse_many(paths):
         index += 1
-        await log(
-            'info', 'Generating graph shard %s of %s: %s',
-            index, index_max, shard.path,
-        )
+        if shard:
+            await log(
+                'info', 'Generated graph shard %s of %s: %s',
+                index, index_max, shard.path,
+            )
 
-        graph_db.shards.append(shard)
-        graph_db.shards_by_path[shard.path] = index
+            graph_db.shards.append(shard)
+            graph_db.shards_by_path[shard.path] = index
 
     return graph_db
