@@ -616,7 +616,7 @@ function job_integrates_analytics_make_documents_dev {
 function job_integrates_analytics_make_documents_prod {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_integrates_set_prod_secrets \
+  &&  helper_bootstrap_prod_ci \
   &&  _job_integrates_analytics_make_documents \
   &&  popd \
   ||  return 1
