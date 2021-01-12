@@ -35,6 +35,7 @@ from utils.system import (
 GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
 
 # Types
+NId = str
 NAttrs = Dict[str, str]
 NIdPredicateFunction = Callable[[str], bool]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]

@@ -1,7 +1,8 @@
 # Standard library
 import os
 from typing import (
-    Set,
+    Iterable,
+    Tuple,
 )
 
 # Local libraries
@@ -21,6 +22,7 @@ from utils.model import (
     FindingEnum,
     Graph,
     SkimsVulnerabilityMetadata,
+    Vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
@@ -35,7 +37,7 @@ from zone import (
 
 def get_vulnerability_from_n_id(
     *,
-    cwe: Set[str],
+    cwe: Tuple[str, ...],
     desc_key: str,
     finding: FindingEnum,
     graph: Graph,
@@ -67,7 +69,7 @@ def get_vulnerability_from_n_id(
         ),
         where=n_attrs_label_line,
         skims_metadata=SkimsVulnerabilityMetadata(
-            cwe=tuple(cwe),
+            cwe=cwe,
             description=t(
                 key=desc_key,
                 path=meta_attrs_label_path,
@@ -79,3 +81,23 @@ def get_vulnerability_from_n_id(
             )
         )
     )
+
+
+def get_vulnerabilities_from_n_ids(
+    cwe: Tuple[str, ...],
+    desc_key: str,
+    finding: FindingEnum,
+    graph: Graph,
+    n_ids: Iterable[str],
+) -> Vulnerabilities:
+
+    def get_one(n_id: str) -> Vulnerability:
+        return get_vulnerability_from_n_id(
+            cwe=cwe,
+            desc_key=desc_key,
+            finding=finding,
+            graph=graph,
+            n_id=n_id,
+        )
+
+    return tuple(map(get_one, n_ids))
