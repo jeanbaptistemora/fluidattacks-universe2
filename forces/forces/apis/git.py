@@ -72,19 +72,17 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         git_commit_authored_date = head_commit.authored_datetime.astimezone(
             pytz.UTC).isoformat()
 
-        with suppress(
-            ValueError,
-            IndexError,
-        ):
-            origins = list(repo.remote().urls)
+        origins = list(repo.remote().urls)
+        with suppress(IndexError):
             git_origin = origins[0]
-            if name := get_repo_name_from_vars():
-                git_repo = name
-            elif name := extract_repo_name(git_origin):
-                git_repo = name
-            elif git_repo == DEFAULT_COLUMN_VALUE:
-                with suppress(IndexError):
-                    git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
+
+        if name := get_repo_name_from_vars():
+            git_repo = name
+        elif name := extract_repo_name(git_origin):
+            git_repo = name
+        elif git_repo == DEFAULT_COLUMN_VALUE:
+            with suppress(IndexError):
+                git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
     return {
         'git_branch': git_branch,
         'git_commit': git_commit,
