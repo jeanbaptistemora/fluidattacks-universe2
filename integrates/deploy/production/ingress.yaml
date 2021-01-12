@@ -8,7 +8,8 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/tags: management:product=integrates,management:type=production
     alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=180
-    alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=false
+    alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=true
+    alb.ingress.kubernetes.io/security-groups: CloudFlare
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/success-codes: 200,302
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '6'
