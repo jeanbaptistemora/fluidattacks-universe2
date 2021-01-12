@@ -39,6 +39,7 @@ from backend.api.mutations import (
     request_zero_risk_vuln,
     solve_event,
     submit_draft,
+    update_environment,
     update_event_evidence,
     update_evidence_description,
     update_evidence,
@@ -56,7 +57,6 @@ from backend.api.mutations import (
 from backend.api.resolvers import (
     me,
     project,
-    resource,
     user,
     vulnerability
 )
@@ -132,7 +132,7 @@ MUTATION.set_field('addEnvironments', add_environment.mutate)
 MUTATION.set_field('addFiles', add_files.mutate)
 MUTATION.set_field('downloadFile', download_file.mutate)
 MUTATION.set_field('removeFiles', remove_files.mutate)
-MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
+MUTATION.set_field('updateEnvironment', update_environment.mutate)
 MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)
 MUTATION.set_field('removeGroup', remove_group.mutate)

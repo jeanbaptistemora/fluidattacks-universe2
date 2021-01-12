@@ -153,7 +153,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
           </Col>
         </Can>
       </Row>
-      <Can do="backend_api_resolvers_resource__do_update_environment" passThrough={true}>
+      <Can do="backend_api_mutations_update_environment_mutate" passThrough={true}>
         {(canUpdate: boolean): JSX.Element => (
       <ConfirmDialog title="Change environment state">
         {(confirm: IConfirmFn): React.ReactNode => {

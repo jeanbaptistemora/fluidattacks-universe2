@@ -203,7 +203,7 @@ describe("Environments", () => {
       result: { data: { updateEnvironment : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_resource__do_update_environment" },
+      { action: "backend_api_mutations_update_environment_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
