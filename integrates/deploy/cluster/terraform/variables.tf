@@ -4,6 +4,9 @@ variable "aws_secret_key" {}
 variable "newrelic_license_key" {}
 variable "cloudflare_api_token" {}
 
+data "aws_security_group" "cloudflare" {
+  name = "CloudFlare"
+}
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
@@ -62,6 +65,11 @@ variable "map_users" {
   }))
 
   default = [
+    {
+      userarn  = "arn:aws:iam::205810638802:user/user-provision/serves-prod"
+      username = "user-serves-prod"
+      groups   = ["system:masters"]
+    },
     {
       userarn  = "arn:aws:iam::205810638802:user/user-provision/integrates-prod"
       username = "user-integrates-prod"

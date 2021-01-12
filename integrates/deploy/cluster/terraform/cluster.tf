@@ -11,6 +11,10 @@ module "eks" {
     aws_subnet.region_d.id,
   ]
 
+  worker_additional_security_group_ids = [
+    data.aws_security_group.cloudflare.id
+  ]
+
   tags = {
     "Name"               = "integrates-cluster"
     "Environment"        = "production"
