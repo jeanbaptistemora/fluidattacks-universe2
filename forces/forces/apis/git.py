@@ -15,6 +15,9 @@ from git import (
     Commit,
 )
 
+# Local libraries
+from forces.utils.logs import blocking_log
+
 # Contants
 DEFAULT_COLUMN_VALUE: str = 'unable to retrieve'
 REGEXES_GIT_REPO_FROM_ORIGIN = [
@@ -58,11 +61,16 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
     git_origin = DEFAULT_COLUMN_VALUE
     git_repo = DEFAULT_COLUMN_VALUE
 
-    with suppress(InvalidGitRepositoryError):
+    if name := get_repo_name_from_vars():
+        blocking_log('info', 'repository name obtained from environment')
+        git_repo = name
+
+    try:
+        blocking_log('info', 'trying to detect repository')
         repo = Repo(repo_path, search_parent_directories=True)
+        blocking_log('info', 'repository detected')
         head_commit: Commit = repo.head.commit
 
-        git_branch = DEFAULT_COLUMN_VALUE
         with suppress(TypeError):
             git_branch = repo.active_branch.name
 
@@ -76,13 +84,18 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
         with suppress(IndexError):
             git_origin = origins[0]
 
-        if name := get_repo_name_from_vars():
-            git_repo = name
-        elif name := extract_repo_name(git_origin):
+        if git_repo == DEFAULT_COLUMN_VALUE and (
+                name := extract_repo_name(git_origin)):
+            blocking_log('info', 'repository name obtained from origin')
             git_repo = name
         elif git_repo == DEFAULT_COLUMN_VALUE:
             with suppress(IndexError):
+                blocking_log('info',
+                             'repository name obtained from current dir')
                 git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
+    except InvalidGitRepositoryError:
+        blocking_log('error', 'the repository cannot be detected')
+
     return {
         'git_branch': git_branch,
         'git_commit': git_commit,
