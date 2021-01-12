@@ -211,6 +211,6 @@ plus `4` additional participants on `Fluid Attacks'` side.
 
 == 9. Speakers
 
-* [button]#link:../../people/jrestrepo/[Juan Restrepo]#
+* Juan Restrepo
 * [button]#link:../../people/ralvarez/[Rafael Álvarez]#
-* [button]#link:../../people/dsalazar/[Daniel Salazar]#
+* Daniel Salazar
