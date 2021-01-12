@@ -48,7 +48,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -88,7 +88,7 @@ def _validate_jwt(token: str) -> bool:
 def _aws_credentials(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = Regex(r'AKIA[A-Z0-9]{16}')
 
     return get_vulnerabilities_blocking(
@@ -107,7 +107,7 @@ def _aws_credentials(
 def _jwt_token(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = Regex(
         r'[A-Za-z0-9-_.+\/=]{20,}\.'
         r'[A-Za-z0-9-_.+\/=]{20,}\.'
@@ -133,7 +133,7 @@ def _jwt_token(
 async def aws_credentials(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _aws_credentials,
         content=content,
@@ -147,7 +147,7 @@ async def aws_credentials(
 async def jwt_token(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _jwt_token,
         content=content,
@@ -161,7 +161,7 @@ async def jwt_token(
 async def crypto_js_credentials(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _crypto_js_credentials,
         content=content,
@@ -172,7 +172,7 @@ async def crypto_js_credentials(
 def _crypto_js_credentials(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = (
         'CryptoJS' + '.' + 'enc' + '.' + MatchFirst({
             Keyword('Base64'),
@@ -209,7 +209,7 @@ def _crypto_js_credentials(
 def _dockerfile_env_secrets(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     secret_smells: Set[str] = {
         'api_key',
         'jboss_pass',
@@ -250,7 +250,7 @@ def _dockerfile_env_secrets(
 async def dockerfile_env_secrets(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _dockerfile_env_secrets,
         content=content,
@@ -261,7 +261,7 @@ async def dockerfile_env_secrets(
 def _java_properties_sensitive_data(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     sensible_key_smells = {
         'amazon.aws.key',
         'amazon.aws.secret',
@@ -326,7 +326,7 @@ def _java_properties_sensitive_data(
 async def java_properties_sensitive_data(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_properties_sensitive_data,
         content=content,
@@ -341,8 +341,8 @@ async def analyze(  # pylint: disable=too-many-arguments
     file_name: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in {
         'groovy',

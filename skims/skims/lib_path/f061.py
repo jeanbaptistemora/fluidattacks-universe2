@@ -5,7 +5,6 @@ from typing import (
     Callable,
     Iterator,
     List,
-    Tuple,
 )
 
 # Third party libraries
@@ -46,7 +45,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -56,7 +55,7 @@ from zone import (
 def _csharp_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     grammar = (
@@ -89,7 +88,7 @@ def _csharp_swallows_exceptions(
 async def csharp_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _csharp_swallows_exceptions,
         content=content,
@@ -100,7 +99,7 @@ async def csharp_swallows_exceptions(
 def _javascript_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     classic = (
@@ -139,7 +138,7 @@ def _javascript_swallows_exceptions(
 async def javascript_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _javascript_swallows_exceptions,
         content=content,
@@ -150,7 +149,7 @@ async def javascript_swallows_exceptions(
 def _java_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     grammar = (
@@ -182,7 +181,7 @@ def _java_swallows_exceptions(
 async def java_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_swallows_exceptions,
         content=content,
@@ -193,7 +192,7 @@ async def java_swallows_exceptions(
 def _python_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     node: ast.AST
     vulnerable_nodes: Iterator[ast.ExceptHandler] = iterate_nodes(
         content=content,
@@ -227,7 +226,7 @@ def _python_swallows_exceptions(
 async def python_swallows_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _python_swallows_exceptions,
         content=content,
@@ -238,7 +237,7 @@ async def python_swallows_exceptions(
 def _swift_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = (
         Keyword('catch') +
         Optional('let' + VAR_ATTR_JAVA) +
@@ -269,7 +268,7 @@ def _swift_insecure_exceptions(
 async def swift_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _swift_insecure_exceptions,
         content=content,
@@ -283,8 +282,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_swallows_exceptions(

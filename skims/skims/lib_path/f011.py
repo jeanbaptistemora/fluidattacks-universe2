@@ -48,6 +48,7 @@ from utils.model import (
     FindingEnum,
     Platform,
     SkimsVulnerabilityMetadata,
+    Vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
@@ -97,7 +98,7 @@ def _build_gradle(
     content: str,
     path: str,
     platform: Platform,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def resolve_dependencies() -> Iterator[DependencyType]:
         for line_no, line in enumerate(content.splitlines(), start=1):
@@ -135,7 +136,7 @@ def _build_gradle(
 async def build_gradle(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _build_gradle,
         content=content,
@@ -148,7 +149,7 @@ def _npm_package_json(
     content: str,
     path: str,
     platform: Platform,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     content_json = json_loads_blocking(content, default={})
 
     dependencies: Iterator[DependencyType] = (
@@ -172,7 +173,7 @@ def _npm_package_json(
 async def npm_package_json(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _npm_package_json,
         content=content,
@@ -185,7 +186,7 @@ def _npm_package_lock_json(
     content: str,
     path: str,
     platform: Platform,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def resolve_dependencies(obj: frozendict) -> Iterator[DependencyType]:
         for key in obj:
@@ -212,7 +213,7 @@ def _npm_package_lock_json(
 async def npm_package_lock_json(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _npm_package_lock_json,
         content=content,
@@ -225,7 +226,7 @@ def _yarn_lock(
     content: str,
     path: str,
     platform: Platform,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
@@ -272,7 +273,7 @@ def _yarn_lock(
 async def yarn_lock(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _yarn_lock,
         content=content,
@@ -287,8 +288,8 @@ def translate_dependencies_to_vulnerabilities(
     dependencies: Iterator[DependencyType],
     path: str,
     platform: Platform,
-) -> Tuple[Vulnerability, ...]:
-    results: Tuple[Vulnerability, ...] = tuple(
+) -> Vulnerabilities:
+    results: Vulnerabilities = tuple(
         Vulnerability(
             finding=FindingEnum.F011,
             kind=VulnerabilityKindEnum.LINES,
@@ -333,8 +334,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if (file_name, file_extension) == ('build', 'gradle'):
         coroutines.append(build_gradle(

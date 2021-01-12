@@ -40,7 +40,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -50,7 +50,7 @@ from zone import (
 def _javascript_client_storage(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     conditions: Tuple[Set[str], ...] = (
         # All items in the set must be present to consider it sensitive info
         {'auth'},
@@ -121,7 +121,7 @@ def _javascript_client_storage(
 async def javascript_client_storage(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _javascript_client_storage,
         content=content,
@@ -135,8 +135,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_client_storage(

@@ -6,7 +6,6 @@ from typing import (
     Iterator,
     List,
     Set,
-    Tuple,
 )
 
 # Third party libraries
@@ -55,7 +54,7 @@ from utils.model import (
     Grammar,
     Graph,
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -65,7 +64,7 @@ from zone import (
 def _csharp_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     insecure_exceptions: Set[str] = {
         # Generic
         'Exception',
@@ -126,7 +125,7 @@ def _csharp_insecure_exceptions(
 async def csharp_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _csharp_insecure_exceptions,
         content=content,
@@ -137,7 +136,7 @@ async def csharp_insecure_exceptions(
 def _java_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     insecure_exceptions: Set[str] = {
         # Unrecoverable
         'RuntimeException',
@@ -197,7 +196,7 @@ def _java_insecure_exceptions(
 async def java_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_insecure_exceptions,
         content=content,
@@ -209,7 +208,7 @@ def _java_declaration_of_throws_for_generic_exception(
     content: str,
     graph: Graph,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     generics: Set[str] = {
         'Exception',
         'Throwable',
@@ -275,7 +274,7 @@ async def java_declaration_of_throws_for_generic_exception(
     graph: Graph,
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_declaration_of_throws_for_generic_exception,
         content=content,
@@ -287,7 +286,7 @@ async def java_declaration_of_throws_for_generic_exception(
 def _python_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     node: ast.AST
     insecure: Set[str] = {'BaseException', 'Exception'}
 
@@ -332,7 +331,7 @@ def _python_insecure_exceptions(
 async def python_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _python_insecure_exceptions,
         content=content,
@@ -343,7 +342,7 @@ async def python_insecure_exceptions(
 def _swift_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = (
         Keyword('catch') +
         Optional('let' + VAR_ATTR_JAVA) +
@@ -374,7 +373,7 @@ def _swift_insecure_exceptions(
 async def swift_insecure_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _swift_insecure_exceptions,
         content=content,
@@ -388,8 +387,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
     content: str
 
     if file_extension in EXTENSIONS_CSHARP:

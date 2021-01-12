@@ -20,7 +20,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -39,7 +39,7 @@ async def unverifiable_files(
     file_extension: str,
     path: str,
     raw_content: bytes,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     if (file_name, file_extension) in ALLOWED:
         return ()
 
@@ -63,8 +63,8 @@ async def analyze(
     path: str,
     raw_content_generator: Callable[[], Awaitable[bytes]],
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in {
         'bin',

@@ -3,7 +3,6 @@ from typing import (
     Awaitable,
     Callable,
     List,
-    Tuple,
 )
 
 # Third party libraries
@@ -31,7 +30,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -41,7 +40,7 @@ from zone import (
 def _java_file_create_temp_file(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = Keyword('File') + '.' + Keyword('createTempFile') + '('
     grammar.ignore(C_STYLE_COMMENT)
     grammar.ignore(DOUBLE_QUOTED_STRING)
@@ -67,7 +66,7 @@ def _java_file_create_temp_file(
 async def java_file_create_temp_file(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_file_create_temp_file,
         content=content,
@@ -81,8 +80,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_file_create_temp_file(

@@ -50,7 +50,7 @@ from utils.model import (
     FindingEnum,
     Grammar,
     Graph,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -61,7 +61,7 @@ def _csharp_switch_no_default(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def iterator() -> Iterator[Tuple[int, int]]:
         for switch in yield_nodes(
@@ -102,7 +102,7 @@ def _csharp_switch_no_default(
 async def csharp_switch_no_default(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _csharp_switch_no_default,
         content=content,
@@ -119,7 +119,7 @@ def _java_switch_without_default(
     content: str,
     graph: Graph,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def iterator() -> Iterator[Dict[str, str]]:
         for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
@@ -156,7 +156,7 @@ async def java_switch_without_default(
     content: str,
     graph: Graph,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_switch_without_default,
         content=content,
@@ -169,7 +169,7 @@ def _javascript_switch_no_default(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def iterator() -> Iterator[Tuple[int, int]]:
         for node in yield_dicts(model):
@@ -215,7 +215,7 @@ def _javascript_switch_no_default(
 async def javascript_switch_no_default(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _javascript_switch_no_default,
         content=content,
@@ -233,8 +233,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_switch_no_default(

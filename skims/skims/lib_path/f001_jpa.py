@@ -39,7 +39,7 @@ from utils.graph import (
 from utils.model import (
     FindingEnum,
     Grammar,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -106,7 +106,7 @@ def _java_jpa_like(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
 
     def _has_like_injection(statement: str) -> bool:
         roots = (
@@ -172,7 +172,7 @@ def _java_jpa_like(
 async def java_jpa_like(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     if not content:
         return ()
 
@@ -194,8 +194,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_jpa_like(

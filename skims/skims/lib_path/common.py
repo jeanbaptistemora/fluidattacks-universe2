@@ -52,6 +52,7 @@ from utils.model import (
     FindingEnum,
     GrammarMatch,
     SkimsVulnerabilityMetadata,
+    Vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
@@ -121,8 +122,8 @@ def get_vulnerabilities_blocking(
     finding: FindingEnum,
     grammar: ParserElement,
     path: str,
-) -> Tuple[Vulnerability, ...]:
-    results: Tuple[Vulnerability, ...] = tuple(
+) -> Vulnerabilities:
+    results: Vulnerabilities = tuple(
         Vulnerability(
             finding=finding,
             kind=VulnerabilityKindEnum.LINES,
@@ -159,8 +160,8 @@ def get_vulnerabilities_from_iterator_blocking(
     finding: FindingEnum,
     iterator: Iterator[Tuple[int, int]],
     path: str,
-) -> Tuple[Vulnerability, ...]:
-    results: Tuple[Vulnerability, ...] = tuple(
+) -> Vulnerabilities:
+    results: Vulnerabilities = tuple(
         Vulnerability(
             finding=finding,
             kind=VulnerabilityKindEnum.LINES,
@@ -194,7 +195,7 @@ def get_vulnerabilities_from_n_attrs_iterable_blocking(
     finding: FindingEnum,
     path: str,
     n_attrs_iterable: Iterable[NAttrs],
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe=cwe,
@@ -227,7 +228,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
         AWSS3Bucket,
         Node,
     ]],
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={finding.value.cwe},

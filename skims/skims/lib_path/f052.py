@@ -43,7 +43,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 from utils.crypto import (
     is_open_ssl_cipher_suite_vulnerable,
@@ -57,7 +57,7 @@ from zone import (
 def _csharp_insecure_cipher(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = (
         MatchFirst([
             Keyword('DES'),
@@ -100,7 +100,7 @@ def _csharp_insecure_cipher(
 async def csharp_insecure_cipher(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _csharp_insecure_cipher,
         content=content,
@@ -111,7 +111,7 @@ async def csharp_insecure_cipher(
 def _csharp_insecure_hash(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = MatchFirst([
         Keyword('HMACMD5'),
         Keyword('HMACRIPEMD160'),
@@ -150,7 +150,7 @@ def _csharp_insecure_hash(
 async def csharp_insecure_hash(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _csharp_insecure_hash,
         content=content,
@@ -176,7 +176,7 @@ def _vuln_cipher_get_instance(transformation: str) -> bool:
 def _java_insecure_cipher(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = MatchFirst([
         (
             MatchFirst([
@@ -224,7 +224,7 @@ def _java_insecure_cipher(
 async def java_insecure_cipher(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_insecure_cipher,
         content=content,
@@ -235,7 +235,7 @@ async def java_insecure_cipher(
 def _java_insecure_hash(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = MatchFirst([
         (
             Keyword('MessageDigest') + '.' +
@@ -303,7 +303,7 @@ def _java_insecure_hash(
 async def java_insecure_hash(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_insecure_hash,
         content=content,
@@ -314,7 +314,7 @@ async def java_insecure_hash(
 def _java_insecure_key(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     grammar = MatchFirst([
         (
             Keyword('RSAKeyGenParameterSpec') + '(' +
@@ -396,7 +396,7 @@ def _java_insecure_key(
 async def java_insecure_key(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_insecure_key,
         content=content,
@@ -407,7 +407,7 @@ async def java_insecure_key(
 def _java_insecure_pass(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     framework = 'org.springframework.security'
     grammar = MatchFirst([
         Keyword(f'{framework}.authentication.encoding.ShaPasswordEncoder'),
@@ -442,7 +442,7 @@ def _java_insecure_pass(
 async def java_insecure_pass(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_insecure_pass,
         content=content,
@@ -453,7 +453,7 @@ async def java_insecure_pass(
 def _java_properties_missing_ssl(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     missing_ssl_key: str = 'ibm.mq.use_ssl'
     missing_ssl_values: Set[str] = {'false'}
 
@@ -481,7 +481,7 @@ def _java_properties_missing_ssl(
 async def java_properties_missing_ssl(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_properties_missing_ssl,
         content=content,
@@ -492,7 +492,7 @@ async def java_properties_missing_ssl(
 def _java_properties_weak_cipher_suite(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     weak_cipher_suite: str = 'ibm.mq.cipher.suite'
 
     def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
@@ -522,7 +522,7 @@ def _java_properties_weak_cipher_suite(
 async def java_properties_weak_cipher_suite(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_properties_weak_cipher_suite,
         content=content,
@@ -536,8 +536,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_insecure_cipher(

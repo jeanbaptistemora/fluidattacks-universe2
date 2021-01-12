@@ -36,7 +36,7 @@ from utils.model import (
     FindingEnum,
     FindingReleaseStatusEnum,
     IntegratesVulnerabilitiesLines,
-    Vulnerability,
+    Vulnerabilities,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
 )
@@ -57,7 +57,7 @@ VulnStreamType = Dict[VulnerabilityKindEnum, Tuple[
 
 
 def _build_vulnerabilities_stream(
-    results: Tuple[Vulnerability, ...],
+    results: Vulnerabilities,
 ) -> VulnStreamType:
     data: VulnStreamType = {
         VulnerabilityKindEnum.LINES: tuple(
@@ -83,7 +83,7 @@ def _build_vulnerabilities_stream(
 
 async def build_vulnerabilities_stream(
     *,
-    results: Tuple[Vulnerability, ...],
+    results: Vulnerabilities,
 ) -> str:
     return await yaml_dumps(
         await in_process(_build_vulnerabilities_stream, results),

@@ -46,6 +46,7 @@ from utils.model import (
     FindingEvidenceIDEnum,
     FindingEvidenceDescriptionIDEnum,
     IntegratesVulnerabilityMetadata,
+    Vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
@@ -89,11 +90,11 @@ async def upload_evidences(
         (FindingEvidenceIDEnum.EVIDENCE5,
          FindingEvidenceDescriptionIDEnum.EVIDENCE5),
     )
-    results: Tuple[Vulnerability, ...] = (
+    results: Vulnerabilities = (
         await store.get_a_few(len(evidence_ids))
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
-    result_samples: Tuple[Vulnerability, ...] = tuple(
+    result_samples: Vulnerabilities = tuple(
         random.sample(results, k=number_of_samples),
     )
 

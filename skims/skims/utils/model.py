@@ -658,6 +658,9 @@ class Vulnerability(NamedTuple):
         ))
 
 
+Vulnerabilities = Tuple[Vulnerability, ...]
+
+
 class ParsedFileMetadataJavaClassMethod(NamedTuple):
     n_id: str
 
@@ -677,7 +680,7 @@ class ParsedFileMetadata(NamedTuple):
 
 
 # Aliases
-LibRootQuery = Callable[[Graph], Tuple[Vulnerability, ...]]
+LibRootQuery = Callable[[Graph], Vulnerabilities]
 LibRootQueries = Tuple[LibRootQuery, ...]
 
 

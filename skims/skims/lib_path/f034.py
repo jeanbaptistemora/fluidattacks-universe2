@@ -3,7 +3,6 @@ from typing import (
     Awaitable,
     Callable,
     List,
-    Tuple,
 )
 
 # Third party libraries
@@ -33,7 +32,7 @@ from utils.model import (
     FindingEnum,
     Grammar,
     Graph,
-    Vulnerability,
+    Vulnerabilities,
 )
 from zone import (
     t,
@@ -47,7 +46,7 @@ async def java_use_of_util_random(
     graph: Graph,
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         get_vulnerabilities_from_n_attrs_iterable_blocking,
         content=content,
@@ -73,8 +72,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
         content = await content_generator()

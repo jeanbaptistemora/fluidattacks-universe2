@@ -5,7 +5,6 @@ from typing import (
     Callable,
     Iterator,
     List,
-    Tuple,
 )
 from contextlib import suppress
 from ipaddress import (
@@ -42,7 +41,7 @@ from utils.function import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
+    Vulnerabilities,
 )
 
 
@@ -121,7 +120,7 @@ def _cnf_unrestricted_ports(
     content: str,
     path: str,
     template: Any,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_ports',
@@ -139,7 +138,7 @@ def _cfn_unrestricted_ip_protocols(
     content: str,
     path: str,
     template: Any,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_protocols',
@@ -157,7 +156,7 @@ def _cfn_allows_anyone_to_admin_ports(
     content: str,
     path: str,
     template: Any,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f047_aws.allows_anyone_to_admin_ports',
@@ -177,7 +176,7 @@ async def cfn_allows_anyone_to_admin_ports(
     content: str,
     path: str,
     template: Any,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _cfn_allows_anyone_to_admin_ports,
         content=content,
@@ -193,7 +192,7 @@ async def cnf_unrestricted_ports(
     content: str,
     path: str,
     template: Any,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     # cfn_nag W27 Security Groups found ingress with port range instead of just
     # a single port
     # cfn_nag W29 Security Groups found egress with port range instead of just
@@ -213,7 +212,7 @@ async def cfn_unrestricted_ip_protocols(
     content: str,
     path: str,
     template: Any,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     # cfn_nag W40 Security Groups egress with an IpProtocol of -1 found
     # cfn_nag W42 Security Groups ingress with an ipProtocol of -1 found
     return await in_process(
@@ -230,8 +229,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()

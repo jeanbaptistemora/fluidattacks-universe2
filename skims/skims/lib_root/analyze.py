@@ -41,7 +41,7 @@ from utils.model import (
     FindingEnum,
     Graph,
     LibRootQueries,
-    Vulnerability,
+    Vulnerabilities,
 )
 
 
@@ -60,7 +60,7 @@ async def analyze(
 
     # Query the root with different methods in a CPU cluster
     vulnerabilities_lazy_iterator: Iterable[
-        Awaitable[Tuple[Vulnerability, ...]],
+        Awaitable[Vulnerabilities],
     ] = resolve((
         pipe(in_process(query, root), (
             TIMEOUT_1MIN,
@@ -72,7 +72,7 @@ async def analyze(
     ), workers=CPU_CORES)
 
     for vulnerabilities_lazy in vulnerabilities_lazy_iterator:
-        vulnerabilities: Tuple[Vulnerability, ...] = await vulnerabilities_lazy
+        vulnerabilities: Vulnerabilities = await vulnerabilities_lazy
 
         for vulnerability in vulnerabilities:
             await stores[vulnerability.finding].store(vulnerability)

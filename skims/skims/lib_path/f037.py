@@ -33,7 +33,7 @@ from utils.function import (
 from utils.model import (
     FindingEnum,
     Grammar,
-    Vulnerability,
+    Vulnerabilities,
 )
 from utils.graph import (
     yield_dicts,
@@ -95,7 +95,7 @@ def _javascript_use_console_log(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for node in yield_dicts(model):
             # interface CatchClause <: Node {
@@ -147,7 +147,7 @@ def _java_logging_exceptions(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
 
         for node in yield_nodes(
@@ -218,7 +218,7 @@ def _java_logging_exceptions(
 async def java_logging_exceptions(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _java_logging_exceptions,
         content=content,
@@ -237,7 +237,7 @@ async def java_logging_exceptions(
 async def javascript_use_console_log(
     content: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Vulnerabilities:
     return await in_process(
         _javascript_use_console_log,
         content=content,
@@ -255,8 +255,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Tuple[Vulnerability, ...]]]:
-    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+) -> List[Awaitable[Vulnerabilities]]:
+    coroutines: List[Awaitable[Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_use_console_log(
