@@ -4,7 +4,7 @@
 :category: techniques
 :banner: sast-bg
 :template: techniques
-:definition: Fluid Attacks’ Static Application Security Testing (SAST) detects security vulnerabilities in your applications. You don’t have to wait until they are built and in production to start evaluating them. Our assessments and analyses are supported by Skims, our automatic tool, which provides feedback to developers, searching for vulnerabilities with easy, precise, and fast execution across your entire SDLC. However, it is our ethical hackers who carry the main responsibility of completing a more in-depth attack on your IT systems without compromising your company’s development pace. This form of white-box testing is available for diverse frameworks and languages, and examines in line with multiple industry standards. It aims to reduce risks and costs through the early detection of weaknesses in a non-running software and seamless integration into your CI pipelines.
+:definition: Fluid Attacks’ Static Application Security Testing (SAST) detects security vulnerabilities in your applications. You don’t have to wait until they are built and in production to start evaluating them. Our assessments and analyses are supported by Asserts, our automatic tool, which provides feedback to developers, searching for vulnerabilities with easy, precise, and fast execution across your entire SDLC. However, it is our ethical hackers who carry the main responsibility of completing a more in-depth attack on your IT systems without compromising your company’s development pace. This form of white-box testing is available for diverse frameworks and languages, and examines in line with multiple industry standards. It aims to reduce risks and costs through the early detection of weaknesses in a non-running software and seamless integration into your CI pipelines.
 
 = SAST
 
@@ -15,7 +15,7 @@ processes and achieve significant money and time savings for your company.
 
 === No false positives
 
-The low rates of false positives appearing on Skims’ automatic scans can be
+The low rates of false positives appearing on Asserts’ automatic scans can be
 brought to zero after thorough manual checks by our certified team of ethical
 hackers.
 

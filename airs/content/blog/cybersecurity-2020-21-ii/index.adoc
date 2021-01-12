@@ -156,7 +156,7 @@ The latter provide high-speed but low-accuracy reports.
 The former, in longer times but using their astuteness and creativity,
 are more accurate and access more profound and complex issues.
 
-The activity of tools such as link:https:../../products/skims/[Skims],
+The activity of tools such as link:https:../../products/asserts/[Asserts],
 for example, searching for superficial vulnerabilities that are already known,
 facilitates and speeds up our ethical hackers' work,
 which is still indispensable (using techniques such as link:../../solutions/pentesting/[pentesting])

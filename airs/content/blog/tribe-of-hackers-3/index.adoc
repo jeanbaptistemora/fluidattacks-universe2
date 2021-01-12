@@ -137,7 +137,7 @@ and what will be detected first are "missing patches,
 default passwords, and similar low-hanging fruit."
 In these cases, according to Georgia, scanners or automated processes
 should be used more often, as we do in `Fluid Attacks`
-with our product link:../../products/skims/[Skims] at the beginning of projects,
+with our tool link:../../products/asserts/[Asserts] at the beginning of projects,
 looking for known superficial and deterministic vulnerabilities
 to be remediated ASAP.
 
