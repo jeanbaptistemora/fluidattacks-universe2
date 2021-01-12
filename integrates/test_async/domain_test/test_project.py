@@ -297,7 +297,8 @@ async def test_get_users():
     assert expected_output == await get_users(project_name)
 
 async def test_get_closers():
-    await get_closers('oneshottest') == 'integratesanalyst@fluidattacks.com'
+    closers = await get_closers('oneshottest')
+    assert closers == ['integratesanalyst@fluidattacks.com']
 
 @freeze_time("2020-04-12")
 async def test_get_mean_remediate_severity():

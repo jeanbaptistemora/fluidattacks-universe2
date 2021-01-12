@@ -205,7 +205,7 @@ async def test_organization():
     result = await get_result(data, stakeholder=stakeholder)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
-    result['data']['organizationId'] == None
+    assert result['data']['organizationId'] == None
 
     query = f'''
         query {{
