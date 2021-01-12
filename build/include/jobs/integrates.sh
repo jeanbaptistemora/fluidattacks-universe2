@@ -632,7 +632,7 @@ function job_integrates_analytics_make_documents_prod_schedule {
 function job_integrates_analytics_make_snapshots_prod_schedule {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_integrates_set_prod_secrets \
+  &&  helper_bootstrap_prod_ci \
   &&  _job_integrates_analytics_make_snapshots \
   &&  popd \
   ||  return 1
