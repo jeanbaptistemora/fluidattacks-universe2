@@ -68,9 +68,12 @@ async def entrypoint(
 
     report = await generate_report(config)
 
-    yaml_report = await generate_report_log(
-        copy.deepcopy(report), verbose_level=config.verbose_level)
-    await log('info', '\n%s', yaml_report)
+    if report['summary']['total'] > 0:
+        yaml_report = await generate_report_log(
+            copy.deepcopy(report), verbose_level=config.verbose_level)
+        await log('info', '\n%s', yaml_report)
+    else:
+        log('info', 'The current repository has no reported vulnerabilities')
 
     if output := config.output:
         temp_file.seek(os.SEEK_SET)

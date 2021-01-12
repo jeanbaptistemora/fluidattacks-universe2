@@ -4,4 +4,4 @@ RUN apt update
 
 RUN apt -y install git
 
-RUN pip install melts
+RUN pip install forces
