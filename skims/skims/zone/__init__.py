@@ -15,7 +15,7 @@ from utils.ctx import (
     CTX,
     STATIC,
 )
-from utils.model import (
+from model.core_model import (
     LocalesEnum,
 )
 

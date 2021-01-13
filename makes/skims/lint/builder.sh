@@ -19,16 +19,14 @@ function list_packages {
 
 function main {
   local pkgs
-  local success='true'
 
       pkgs=$(mktemp) \
   &&  list_packages > "${pkgs}" \
   &&  while read -r pkg
       do
             lint_python "${pkg}" \
-        ||  success='false'
+        ||  return 1
       done < "${pkgs}" \
-  &&  test "${success}" = 'true' \
   &&  success
 }
 

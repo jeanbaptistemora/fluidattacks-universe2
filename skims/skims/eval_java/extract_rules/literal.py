@@ -8,7 +8,7 @@ from eval_java.model import (
     OptionalContext,
     StatementLiteral,
 )
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 

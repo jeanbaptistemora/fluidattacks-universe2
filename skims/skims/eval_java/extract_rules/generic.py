@@ -26,7 +26,7 @@ from eval_java.model import (
     Context,
     OptionalContext,
 )
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 

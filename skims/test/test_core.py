@@ -15,7 +15,7 @@ from state.ephemeral import (
 from utils.encodings import (
     serialize_namespace_into_vuln,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     IntegratesVulnerabilityMetadata,
     Vulnerability,

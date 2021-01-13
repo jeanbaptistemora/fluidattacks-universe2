@@ -25,7 +25,7 @@ from integrates.domain import (
     delete_closest_findings,
     get_closest_finding_id,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
     IntegratesVulnerabilityMetadata,

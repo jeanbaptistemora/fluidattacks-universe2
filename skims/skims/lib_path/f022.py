@@ -27,7 +27,7 @@ from state.cache import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     Vulnerabilities,
 )

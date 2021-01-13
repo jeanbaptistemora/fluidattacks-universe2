@@ -20,7 +20,7 @@ from semver import (
 from utils.ctx import (
     STATIC,
 )
-from utils.model import (
+from model.core_model import (
     Platform,
 )
 

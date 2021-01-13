@@ -17,7 +17,7 @@ from utils.function import (
 from utils.logs import (
     log_blocking,
 )
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 

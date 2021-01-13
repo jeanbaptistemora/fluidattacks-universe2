@@ -35,7 +35,7 @@ from utils.graph import (
     export_graph_as_json,
     has_labels,
 )
-from utils.model import (
+from model.core_model import (
     Grammar,
 )
 

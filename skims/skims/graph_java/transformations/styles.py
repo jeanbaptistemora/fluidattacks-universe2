@@ -7,7 +7,7 @@ Only presentation (visual) logic should go here
 from utils.graph import (
     GRAPH_STYLE_ATTRS,
 )
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 

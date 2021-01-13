@@ -31,17 +31,7 @@ from integrates.domain import (
     do_release_finding,
     get_closest_finding_id,
 )
-from state.ephemeral import (
-    EphemeralStore,
-    get_ephemeral_store,
-)
-from utils.ctx import (
-    CTX,
-)
-from utils.logs import (
-    log,
-)
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     FindingEvidenceIDEnum,
     FindingEvidenceDescriptionIDEnum,
@@ -51,6 +41,16 @@ from utils.model import (
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
+)
+from state.ephemeral import (
+    EphemeralStore,
+    get_ephemeral_store,
+)
+from utils.ctx import (
+    CTX,
+)
+from utils.logs import (
+    log,
 )
 from utils.string import (
     to_png,

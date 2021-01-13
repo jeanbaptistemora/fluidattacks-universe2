@@ -36,6 +36,10 @@ from metaloaders.model import (
 )
 
 # Local libraries
+from model import (
+    core_model,
+    graph_model,
+)
 from parse_common.types import (
     ListToken,
 )
@@ -50,29 +54,6 @@ from utils.graph import (
 )
 from utils.logs import (
     log_exception_blocking,
-)
-from utils.model import (
-    FindingEnum,
-    FindingMetadata,
-    FindingTypeEnum,
-    Grammar,
-    Graph,
-    IntegratesVulnerabilityMetadata,
-    NVDVulnerability,
-    GraphShard,
-    GraphShardCacheable,
-    GraphShardMetadata,
-    GraphShardMetadataJava,
-    GraphShardMetadataJavaClass,
-    GraphShardMetadataJavaClassMethod,
-    GraphShardMetadataLanguage,
-    Platform,
-    SkimsVulnerabilityMetadata,
-    Vulnerability,
-    VulnerabilityApprovalStatusEnum,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
-    VulnerabilityStateEnum,
 )
 from utils.time import (
     get_utc_timestamp,
@@ -123,12 +104,12 @@ def _load_enum(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda value: factory(_deserialize(value))
 
 
-def _dump_graph(instance: Graph) -> Serialized:
+def _dump_graph(instance: graph_model.Graph) -> Serialized:
     graph_as_json = export_graph_as_json(instance, include_styles=True)
     return _serialize(instance, graph_as_json)
 
 
-def _load_graph(graph_as_json: Any) -> Graph:
+def _load_graph(graph_as_json: Any) -> graph_model.Graph:
     return import_graph_from_json(graph_as_json)
 
 
@@ -206,11 +187,11 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (date, _dump_datetime, _load_datetime),
         (datetime, _dump_datetime, _load_datetime),
         (float, _dump_base, float),
-        (Graph, _dump_graph, _load_graph),
         (int, _dump_base, int),
         (list, _dump_tuple, _load_list),
         (LarkMeta, _dump_lark_meta, _load_lark_meta),
         (LarkTree, _dump_lark_tree, _load_lark_tree),
+        (graph_model.Graph, _dump_graph, _load_graph),
         (ListToken, _dump_tuple, _load_list),
         (OrderedDict, _dump_dict, _load_ordered_dict),
         (str, _dump_base, str),
@@ -219,36 +200,36 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         *[
             (enum, _dump_enum, _load_enum(enum))
             for enum in (
-                FindingEnum,
-                FindingTypeEnum,
-                Grammar,
-                GraphShardMetadataLanguage,
-                Platform,
-                VulnerabilityApprovalStatusEnum,
-                VulnerabilityKindEnum,
-                VulnerabilitySourceEnum,
-                VulnerabilityStateEnum,
+                core_model.FindingEnum,
+                core_model.FindingTypeEnum,
+                core_model.Grammar,
+                graph_model.GraphShardMetadataLanguage,
+                core_model.Platform,
+                core_model.VulnerabilityApprovalStatusEnum,
+                core_model.VulnerabilityKindEnum,
+                core_model.VulnerabilitySourceEnum,
+                core_model.VulnerabilityStateEnum,
                 Type,
             )
         ],
         *[
             (named_tuple, _dump_named_tuple, _load_named_tuple(named_tuple))
             for named_tuple in (
-                FindingMetadata,
+                core_model.FindingMetadata,
                 HCL2Attribute,
                 HCL2Block,
                 HCL2Json,
-                IntegratesVulnerabilityMetadata,
-                NVDVulnerability,
-                GraphShardCacheable,
-                GraphShard,
-                GraphShardMetadata,
-                GraphShardMetadataJava,
-                GraphShardMetadataJavaClass,
-                GraphShardMetadataJavaClassMethod,
-                SkimsVulnerabilityMetadata,
-                Vulnerability,
-                Node
+                core_model.IntegratesVulnerabilityMetadata,
+                core_model.NVDVulnerability,
+                graph_model.GraphShardCacheable,
+                graph_model.GraphShard,
+                graph_model.GraphShardMetadata,
+                graph_model.GraphShardMetadataJava,
+                graph_model.GraphShardMetadataJavaClass,
+                graph_model.GraphShardMetadataJavaClassMethod,
+                core_model.SkimsVulnerabilityMetadata,
+                core_model.Vulnerability,
+                Node,
             )
         ],
     ]

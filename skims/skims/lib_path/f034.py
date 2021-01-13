@@ -28,11 +28,9 @@ from state.cache import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from utils.model import (
-    FindingEnum,
-    Grammar,
-    Graph,
-    Vulnerabilities,
+from model import (
+    core_model,
+    graph_model,
 )
 from zone import (
     t,
@@ -43,10 +41,10 @@ from zone import (
 @SHIELD
 @TIMEOUT_1MIN
 async def java_use_of_util_random(
-    graph: Graph,
+    graph: graph_model.Graph,
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         get_vulnerabilities_from_n_attrs_iterable_blocking,
         content=content,
@@ -55,7 +53,7 @@ async def java_use_of_util_random(
             key='src.lib_path.f034.java_use_of_util_random.description',
             path=path,
         ),
-        finding=FindingEnum.F034,
+        finding=core_model.FindingEnum.F034,
         n_attrs_iterable=traverse_vulns(
             graph=graph,
             path=path,
@@ -72,13 +70,13 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
         content = await content_generator()
         graph = await java_get_graph(
-            Grammar.JAVA9,
+            core_model.Grammar.JAVA9,
             content=content.encode(),
             path=path,
         )

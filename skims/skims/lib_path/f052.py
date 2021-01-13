@@ -32,6 +32,10 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     str_to_number,
 )
+from model.core_model import (
+    FindingEnum,
+    Vulnerabilities,
+)
 from parse_java_properties import (
     load as load_java_properties,
 )
@@ -40,10 +44,6 @@ from state.cache import (
 )
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from utils.model import (
-    FindingEnum,
-    Vulnerabilities,
 )
 from utils.crypto import (
     is_open_ssl_cipher_suite_vulnerable,

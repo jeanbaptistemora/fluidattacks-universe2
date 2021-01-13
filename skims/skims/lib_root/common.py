@@ -7,6 +7,10 @@ from typing import (
 )
 
 # Local libraries
+from model import (
+    core_model,
+    graph_model,
+)
 from utils.ctx import (
     CTX,
 )
@@ -17,15 +21,6 @@ from utils.graph import (
     NAttrs,
     NId,
 )
-from utils.model import (
-    FindingEnum,
-    GraphShard,
-    SkimsVulnerabilityMetadata,
-    Vulnerabilities,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
-)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -34,7 +29,7 @@ from zone import (
 )
 
 # Constants
-GraphShardNode = Tuple[GraphShard, NId]
+GraphShardNode = Tuple[graph_model.GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
 
@@ -43,10 +38,10 @@ def get_vulnerability_from_n_id(
     cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],
-    finding: FindingEnum,
-    graph_shard: GraphShard,
+    finding: core_model.FindingEnum,
+    graph_shard: graph_model.GraphShard,
     n_id: str,
-) -> Vulnerability:
+) -> core_model.Vulnerability:
     # Root -> meta -> file graph
     meta_attrs_label_path = graph_shard.path
 
@@ -60,17 +55,17 @@ def get_vulnerability_from_n_id(
     ) as handle:
         content: str = handle.read()
 
-    return Vulnerability(
+    return core_model.Vulnerability(
         finding=finding,
-        kind=VulnerabilityKindEnum.LINES,
-        state=VulnerabilityStateEnum.OPEN,
+        kind=core_model.VulnerabilityKindEnum.LINES,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
-            kind=VulnerabilityKindEnum.LINES,
+            kind=core_model.VulnerabilityKindEnum.LINES,
             namespace=CTX.config.namespace,
             what=meta_attrs_label_path,
         ),
         where=n_attrs_label_line,
-        skims_metadata=SkimsVulnerabilityMetadata(
+        skims_metadata=core_model.SkimsVulnerabilityMetadata(
             cwe=cwe,
             description=t(
                 key=desc_key,
@@ -90,9 +85,9 @@ def get_vulnerabilities_from_n_ids(
     cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     graph_shard_nodes: GraphShardNodes,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return tuple(
         get_vulnerability_from_n_id(
             cwe=cwe,

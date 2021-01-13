@@ -34,7 +34,7 @@ from state.ephemeral import (
 from utils.logs import (
     configure,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     FindingReleaseStatusEnum,
     VulnerabilityStateEnum,

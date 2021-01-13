@@ -5,7 +5,7 @@ import pytest
 from utils import (
     graph as g,
 )
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 

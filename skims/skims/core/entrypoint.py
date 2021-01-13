@@ -40,7 +40,7 @@ from utils.logs import (
     log,
     set_level,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
 )
 from zone import (

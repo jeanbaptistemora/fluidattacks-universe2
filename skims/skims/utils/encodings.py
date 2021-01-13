@@ -16,9 +16,9 @@ from aioextensions import (
 from utils.graph import (
     export_graph_as_json,
 )
-from utils.model import (
-    Graph,
-    VulnerabilityKindEnum,
+from model import (
+    core_model,
+    graph_model,
 )
 
 
@@ -39,7 +39,7 @@ def simplify(obj: Any) -> Any:
         ))
     elif isinstance(obj, (list, tuple, set)):
         simplified_obj = tuple(map(simplify, obj))
-    elif isinstance(obj, Graph):
+    elif isinstance(obj, graph_model.Graph):
         simplified_obj = export_graph_as_json(obj)
     elif dataclasses.is_dataclass(obj):
         simplified_obj = simplify(dataclasses.asdict(obj))
@@ -77,16 +77,16 @@ async def yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
 
 
 def deserialize_namespace_from_vuln(
-    kind: VulnerabilityKindEnum,
+    kind: core_model.VulnerabilityKindEnum,
     what: str,
 ) -> str:
     namespace: str
 
-    if kind == VulnerabilityKindEnum.INPUTS:
+    if kind == core_model.VulnerabilityKindEnum.INPUTS:
         namespace = what.split(': ', maxsplit=1)[0]
-    elif kind == VulnerabilityKindEnum.LINES:
+    elif kind == core_model.VulnerabilityKindEnum.LINES:
         namespace = what.split('/', maxsplit=1)[0]
-    elif kind == VulnerabilityKindEnum.PORTS:
+    elif kind == core_model.VulnerabilityKindEnum.PORTS:
         namespace = what.split(': ', maxsplit=1)[0]
     else:
         raise NotImplementedError()
@@ -95,15 +95,15 @@ def deserialize_namespace_from_vuln(
 
 
 def serialize_namespace_into_vuln(
-    kind: VulnerabilityKindEnum,
+    kind: core_model.VulnerabilityKindEnum,
     namespace: str,
     what: str,
 ) -> str:
-    if kind == VulnerabilityKindEnum.INPUTS:
+    if kind == core_model.VulnerabilityKindEnum.INPUTS:
         what = f'{namespace}: {what}'
-    elif kind == VulnerabilityKindEnum.LINES:
+    elif kind == core_model.VulnerabilityKindEnum.LINES:
         what = f'{namespace}/{what}'
-    elif kind == VulnerabilityKindEnum.PORTS:
+    elif kind == core_model.VulnerabilityKindEnum.PORTS:
         what = f'{namespace}: {what}'
     else:
         raise NotImplementedError()

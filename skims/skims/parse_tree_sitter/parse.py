@@ -25,6 +25,13 @@ from tree_sitter import (
 )
 
 # Local libraries
+from model.graph_model import (
+    Graph,
+    GraphDB,
+    GraphShard,
+    GraphShardCacheable,
+    GraphShardMetadataLanguage,
+)
 from parse_tree_sitter import (
     inspectors,
 )
@@ -36,7 +43,7 @@ from state import (
     STATE_FOLDER,
 )
 from state.cache import (
-    CACHE_ETERNALLY,
+    CACHE_1SEC,
 )
 from utils.ctx import (
     CTX,
@@ -49,13 +56,6 @@ from utils.graph import (
 )
 from utils.logs import (
     log,
-)
-from utils.model import (
-    Graph,
-    GraphDB,
-    GraphShard,
-    GraphShardCacheable,
-    GraphShardMetadataLanguage,
 )
 from utils.string import (
     get_debug_path,
@@ -152,7 +152,7 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
     return language
 
 
-@CACHE_ETERNALLY
+@CACHE_1SEC
 def _parse_one_cached(
     *,
     content: bytes,
@@ -178,7 +178,7 @@ def parse_one(
     *,
     language: GraphShardMetadataLanguage,
     path: str,
-    version: int = 19,
+    version: int = 20,
 ) -> GraphShard:
     if language == GraphShardMetadataLanguage.NOT_SUPPORTED:
         raise ParsingError()

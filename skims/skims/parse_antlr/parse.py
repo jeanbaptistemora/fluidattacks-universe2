@@ -7,6 +7,9 @@ from typing import (
 )
 
 # Local libraries
+from model.core_model import (
+    Grammar,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -19,9 +22,6 @@ from utils.hardware import (
 )
 from utils.logs import (
     log,
-)
-from utils.model import (
-    Grammar,
 )
 from utils.system import (
     read,

@@ -36,6 +36,15 @@ from aws.model import (
     AWSS3Acl,
     AWSS3Bucket,
 )
+from model.core_model import (
+    FindingEnum,
+    GrammarMatch,
+    SkimsVulnerabilityMetadata,
+    Vulnerabilities,
+    Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
 from utils.ctx import (
     CTX,
 )
@@ -47,15 +56,6 @@ from utils.function import (
 )
 from utils.graph import (
     NAttrs,
-)
-from utils.model import (
-    FindingEnum,
-    GrammarMatch,
-    SkimsVulnerabilityMetadata,
-    Vulnerabilities,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
 )
 from utils.string import (
     to_snippet_blocking,

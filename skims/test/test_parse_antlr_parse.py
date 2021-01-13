@@ -11,7 +11,7 @@ from parse_antlr.parse import (
 from utils.fs import (
     get_file_raw_content,
 )
-from utils.model import (
+from model.core_model import (
     Grammar,
 )
 

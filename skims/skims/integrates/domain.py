@@ -23,6 +23,14 @@ from integrates.dal import (
     get_group_findings,
     ResultGetGroupFindings,
 )
+from model.core_model import (
+    FindingEnum,
+    FindingReleaseStatusEnum,
+    IntegratesVulnerabilitiesLines,
+    Vulnerabilities,
+    VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -31,14 +39,6 @@ from utils.encodings import (
 )
 from utils.logs import (
     log,
-)
-from utils.model import (
-    FindingEnum,
-    FindingReleaseStatusEnum,
-    IntegratesVulnerabilitiesLines,
-    Vulnerabilities,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
 )
 from utils.string import (
     are_similar,

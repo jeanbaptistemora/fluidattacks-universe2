@@ -14,7 +14,7 @@ from typing import (
 )
 
 # Local libraries
-from utils.model import (
+from model.core_model import (
     LocalesEnum,
     SkimsConfig,
     SkimsPathConfig,

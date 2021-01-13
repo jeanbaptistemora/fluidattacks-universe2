@@ -18,6 +18,9 @@ from eval_java.model import (
 from eval_java.eval_rules import (
     generic as generic_evaluate,
 )
+from model.graph_model import (
+    Graph,
+)
 from utils import (
     graph as g,
 )
@@ -26,9 +29,6 @@ from utils.ctx import (
 )
 from utils.encodings import (
     json_dump,
-)
-from utils.model import (
-    Graph,
 )
 from utils.string import (
     get_debug_path,

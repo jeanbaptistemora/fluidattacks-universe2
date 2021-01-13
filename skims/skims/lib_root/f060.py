@@ -8,17 +8,15 @@ from lib_root.common import (
 from utils import (
     graph as g,
 )
-from utils.model import (
-    FindingEnum,
-    GraphDB,
-    LibRootQueries,
-    Vulnerabilities,
+from model import (
+    core_model,
+    graph_model,
 )
 
 
 def java_declaration_of_throws_for_generic_exception(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards:
@@ -71,7 +69,7 @@ def java_declaration_of_throws_for_generic_exception(
 
 
 # Constants
-FINDING: FindingEnum = FindingEnum.F060
-QUERIES: LibRootQueries = (
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F060
+QUERIES: graph_model.Queries = (
     java_declaration_of_throws_for_generic_exception,
 )

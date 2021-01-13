@@ -23,6 +23,18 @@ from integrates.limits import (
     DEFAULT as DEFAULT_RATE_LIMIT,
     DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
+from model.core_model import (
+    FindingEnum,
+    FindingEvidenceIDEnum,
+    FindingEvidenceDescriptionIDEnum,
+    FindingReleaseStatusEnum,
+    IntegratesVulnerabilityMetadata,
+    Vulnerability,
+    VulnerabilityApprovalStatusEnum,
+    VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
+    VulnerabilityStateEnum,
+)
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
@@ -38,18 +50,6 @@ from utils.function import (
 )
 from utils.logs import (
     log,
-)
-from utils.model import (
-    FindingEnum,
-    FindingEvidenceIDEnum,
-    FindingEvidenceDescriptionIDEnum,
-    FindingReleaseStatusEnum,
-    IntegratesVulnerabilityMetadata,
-    Vulnerability,
-    VulnerabilityApprovalStatusEnum,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
-    VulnerabilityStateEnum,
 )
 from utils.string import (
     to_in_memory_file,

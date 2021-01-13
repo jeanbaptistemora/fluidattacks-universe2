@@ -24,16 +24,16 @@ from lib_path.common import (
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
 )
+from model.core_model import (
+    FindingEnum,
+    Grammar,
+    Vulnerabilities,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from utils.model import (
-    FindingEnum,
-    Grammar,
-    Vulnerabilities,
 )
 from utils.graph import (
     yield_dicts,

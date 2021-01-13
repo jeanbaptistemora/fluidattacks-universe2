@@ -48,7 +48,7 @@ from utils.fs import (
 from utils.logs import (
     log,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
 )
 

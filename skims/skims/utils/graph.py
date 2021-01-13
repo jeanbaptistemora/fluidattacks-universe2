@@ -24,7 +24,7 @@ from more_itertools.recipes import (
 import networkx as nx
 
 # Local libraries
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 from utils.system import (

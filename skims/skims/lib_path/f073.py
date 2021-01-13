@@ -46,11 +46,9 @@ from utils.graph import (
     yield_dicts,
     yield_nodes,
 )
-from utils.model import (
-    FindingEnum,
-    Grammar,
-    Graph,
-    Vulnerabilities,
+from model import (
+    core_model,
+    graph_model,
 )
 from zone import (
     t,
@@ -61,7 +59,7 @@ def _csharp_switch_no_default(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
 
     def iterator() -> Iterator[Tuple[int, int]]:
         for switch in yield_nodes(
@@ -90,7 +88,7 @@ def _csharp_switch_no_default(
             key='src.lib_path.f073.switch_no_default',
             path=path,
         ),
-        finding=FindingEnum.F073,
+        finding=core_model.FindingEnum.F073,
         iterator=iterator(),
         path=path,
     )
@@ -102,12 +100,12 @@ def _csharp_switch_no_default(
 async def csharp_switch_no_default(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _csharp_switch_no_default,
         content=content,
         model=await parse_antlr(
-            Grammar.CSHARP,
+            core_model.Grammar.CSHARP,
             content=content.encode(),
             path=path,
         ),
@@ -117,9 +115,9 @@ async def csharp_switch_no_default(
 
 def _java_switch_without_default(
     content: str,
-    graph: Graph,
+    graph: graph_model.Graph,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
 
     def iterator() -> Iterator[Dict[str, str]]:
         for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
@@ -143,7 +141,7 @@ def _java_switch_without_default(
             key='src.lib_path.f073.switch_no_default',
             path=path,
         ),
-        finding=FindingEnum.F073,
+        finding=core_model.FindingEnum.F073,
         n_attrs_iterable=tuple(iterator()),
         path=path,
     )
@@ -154,9 +152,9 @@ def _java_switch_without_default(
 @TIMEOUT_1MIN
 async def java_switch_without_default(
     content: str,
-    graph: Graph,
+    graph: graph_model.Graph,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_switch_without_default,
         content=content,
@@ -169,7 +167,7 @@ def _javascript_switch_no_default(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
 
     def iterator() -> Iterator[Tuple[int, int]]:
         for node in yield_dicts(model):
@@ -203,7 +201,7 @@ def _javascript_switch_no_default(
             key='src.lib_path.f073.switch_no_default',
             path=path,
         ),
-        finding=FindingEnum.F073,
+        finding=core_model.FindingEnum.F073,
         iterator=iterator(),
         path=path,
     )
@@ -215,7 +213,7 @@ def _javascript_switch_no_default(
 async def javascript_switch_no_default(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _javascript_switch_no_default,
         content=content,
@@ -233,8 +231,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_switch_no_default(
@@ -244,7 +242,7 @@ async def analyze(
     elif file_extension in EXTENSIONS_JAVA:
         content = await content_generator()
         graph = await java_get_graph(
-            Grammar.JAVA9,
+            core_model.Grammar.JAVA9,
             content=content.encode(),
             path=path,
         )

@@ -8,7 +8,7 @@ from typing import (
 import confuse
 
 # Local libraries
-from utils.model import (
+from model.core_model import (
     LocalesEnum,
     SkimsConfig,
     SkimsPathConfig,

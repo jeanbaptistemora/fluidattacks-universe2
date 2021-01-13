@@ -42,7 +42,7 @@ from utils.function import (
 from utils.ast import (
     iterate_nodes,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     Vulnerabilities,
 )

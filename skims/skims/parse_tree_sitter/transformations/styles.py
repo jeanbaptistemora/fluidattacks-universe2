@@ -1,5 +1,5 @@
 # Local libraries
-from utils.model import (
+from model.graph_model import (
     Graph,
 )
 from utils.graph import (

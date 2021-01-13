@@ -26,6 +26,15 @@ from aioextensions import (
 from lib_path.common import (
     SHIELD,
 )
+from model.core_model import (
+    FindingEnum,
+    Platform,
+    SkimsVulnerabilityMetadata,
+    Vulnerabilities,
+    Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
 from nvd.local import (
     query,
 )
@@ -43,15 +52,6 @@ from utils.encodings import (
 )
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from utils.model import (
-    FindingEnum,
-    Platform,
-    SkimsVulnerabilityMetadata,
-    Vulnerabilities,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
 )
 from utils.string import (
     to_snippet_blocking,

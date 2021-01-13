@@ -14,6 +14,10 @@ from graph_java.transformations import (
     sinks,
     styles,
 )
+from model import (
+    core_model,
+    graph_model,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -21,10 +25,6 @@ from utils.graph import (
     copy_ast,
     copy_cfg,
     to_svg,
-)
-from utils.model import (
-    Grammar,
-    Graph,
 )
 from utils.ctx import (
     CTX,
@@ -38,11 +38,11 @@ VERSION: int = 0
 
 
 async def get(
-    grammar: Grammar,
+    grammar: core_model.Grammar,
     *,
     content: bytes,
     path: str,
-) -> Graph:
+) -> graph_model.Graph:
     return await _get(
         grammar,
         content=content,
@@ -53,12 +53,12 @@ async def get(
 
 @CACHE_ETERNALLY
 async def _get(
-    grammar: Grammar,
+    grammar: core_model.Grammar,
     *,
     content: bytes,
     path: str,
     _: int,
-) -> Graph:
+) -> graph_model.Graph:
     parse_tree = await antlr_parse.parse(
         grammar,
         content=content,

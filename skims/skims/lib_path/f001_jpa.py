@@ -36,7 +36,7 @@ from utils.function import (
 from utils.graph import (
     yield_nodes,
 )
-from utils.model import (
+from model.core_model import (
     FindingEnum,
     Grammar,
     Vulnerabilities,
