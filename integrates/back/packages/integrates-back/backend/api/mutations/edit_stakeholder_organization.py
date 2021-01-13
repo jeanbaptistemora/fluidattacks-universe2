@@ -7,7 +7,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.api.resolvers.user import modify_user_information
 from backend.decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -17,6 +16,7 @@ from backend.decorators import (
 from backend.domain import organization as org_domain
 from backend.exceptions import UserNotInOrganization
 from backend.typing import EditStakeholderPayload
+from backend.utils.user import modify_user_information
 
 
 @convert_kwargs_to_snake_case  # type: ignore

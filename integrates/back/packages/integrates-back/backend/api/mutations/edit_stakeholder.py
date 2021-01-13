@@ -1,14 +1,8 @@
 # Standard library
 import logging
-from typing import (
-    Any,
-    Awaitable,
-    Dict,
-    List
-)
+from typing import Any
 
 # Third party libraries
-from aioextensions import collect
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -20,17 +14,11 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import (
-    project as project_domain,
-    user as user_domain
-)
 from backend.typing import (
     EditStakeholderPayload as EditStakeholderPayloadType
 )
-from backend.utils.validations import (
-    validate_fluidattacks_staff_on_group,
-    validate_phone_field
-)
+from backend.utils.user import modify_user_information
+from backend.utils.validations import validate_fluidattacks_staff_on_group
 
 from back.settings import LOGGING
 
@@ -39,64 +27,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-async def _add_acess(
-    responsibility: str,
-    email: str,
-    project_name: str,
-    context: object
-) -> bool:
-    result = False
-    if len(responsibility) <= 50:
-        result = await project_domain.add_access(
-            email,
-            project_name,
-            'responsibility',
-            responsibility
-        )
-    else:
-        util.cloudwatch_log(
-            context,
-            f'Security: {email} Attempted to add responsibility to '
-            f'project{project_name} bypassing validation'
-        )
-
-    return result
-
-
-async def modify_user_information(
-    context: Any,
-    modified_user_data: Dict[str, str],
-    project_name: str
-) -> bool:
-    success = False
-    email = modified_user_data['email']
-    responsibility = modified_user_data['responsibility']
-    phone = modified_user_data['phone_number']
-    coroutines: List[Awaitable[bool]] = []
-
-    if responsibility:
-        coroutines.append(_add_acess(
-            responsibility,
-            email,
-            project_name,
-            context
-        ))
-
-    if phone and validate_phone_field(phone):
-        coroutines.append(
-            user_domain.add_phone_to_user(email, phone)
-        )
-        success = all(await collect(coroutines))
-    else:
-        util.cloudwatch_log(
-            context,
-            f'Security: {email} Attempted to edit '
-            f'user phone bypassing validation'
-        )
-
-    return success
 
 
 @convert_kwargs_to_snake_case  # type: ignore
