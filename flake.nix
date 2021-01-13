@@ -4,6 +4,7 @@
     flake.url = "github:numtide/flake-utils";
     flakeCompat.flake = false;
     flakeCompat.url = "github:edolstra/flake-compat";
+    srcIntegratesPkgs.url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d";
     srcMakesPkgs.url = "github:NixOS/nixpkgs/7138a338b58713e0dea22ddab6a6785abec7376a";
     srcMeltsPkgs.url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d";
     srcObservesPkgs.url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d";

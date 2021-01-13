@@ -1,4 +1,5 @@
 { flake
+, srcIntegratesPkgs
 , srcMakesPkgs
 , srcMeltsPkgs
 , srcObservesPkgs
@@ -34,6 +35,7 @@ flake.lib.eachDefaultSystem (
           skims-test = import ../makes/skims/test attrs;
         };
         packages = {
+          integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
           skims-bin = import ../makes/skims/bin attrs;
           skims-bin-repl = import ../makes/skims/bin-repl attrs;
@@ -49,6 +51,7 @@ flake.lib.eachDefaultSystem (
           skims-structure = import ../makes/skims/structure attrs;
         };
       };
+      integratesPkgs = import srcIntegratesPkgs { inherit system; };
       makesPkgs = import srcMakesPkgs { inherit system; };
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
