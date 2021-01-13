@@ -41,6 +41,7 @@ from backend.api.mutations import (
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
     request_zero_risk_vuln,
+    sign_in,
     solve_event,
     submit_draft,
     subscribe_to_entity_report,
@@ -124,7 +125,7 @@ MUTATION.set_field('updateRootCloningStatus',
 MUTATION.set_field('updateSeverity', update_severity.mutate)
 MUTATION.set_field('uploadFile', upload_file.mutate)
 
-MUTATION.set_field('signIn', me.resolve_me_mutation)
+MUTATION.set_field('signIn', sign_in.mutate)
 MUTATION.set_field(
     'subscribeToEntityReport',
     subscribe_to_entity_report.mutate
