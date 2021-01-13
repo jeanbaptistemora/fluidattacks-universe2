@@ -275,7 +275,9 @@ def repo_cloning(subs: str) -> bool:
         logger.error(repo_request.errors)
         return False
 
-    repositories: List[Dict[str, str]] = repo_request.data['project']['roots']
+    repositories: List[Dict[str, str]] = list(
+        root for root in repo_request.data['project']['roots']
+        if root['state'] == 'ACTIVE')
 
     repos_fusion = os.listdir('.')
 
