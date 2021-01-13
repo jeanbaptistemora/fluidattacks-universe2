@@ -45,6 +45,9 @@ from model.core_model import (
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
 )
+from model.graph_model import (
+    NAttrs,
+)
 from utils.ctx import (
     CTX,
 )
@@ -53,9 +56,6 @@ from utils.encodings import (
 )
 from utils.function import (
     shield,
-)
-from utils.graph import (
-    NAttrs,
 )
 from utils.string import (
     to_snippet_blocking,

@@ -35,6 +35,9 @@ from model.graph_model import (
 from parse_tree_sitter import (
     inspectors,
 )
+from parse_tree_sitter.syntax_readers.generic import (
+    read_from_graph,
+)
 from parse_tree_sitter.transformations import (
     control_flow,
     styles,
@@ -46,6 +49,9 @@ from utils.ctx import (
     CTX,
     STATE_FOLDER,
     TREE_SITTER_JAVA,
+)
+from utils.encodings import (
+    json_dump,
 )
 from utils.graph import (
     copy_ast,
@@ -169,6 +175,7 @@ def _parse_one_cached(
     return GraphShardCacheable(
         graph=graph,
         metadata=inspectors.get_metadata(graph, language),
+        syntax=read_from_graph(graph)
     )
 
 
@@ -195,11 +202,14 @@ def parse_one(
         to_svg(graph.graph, output)
         to_svg(copy_ast(graph.graph), f'{output}.ast')
         to_svg(copy_cfg(graph.graph), f'{output}.cfg')
+        with open(f'{output}.json', 'w') as handlew:
+            json_dump(graph, handlew, indent=2)
 
     return GraphShard(
         graph=graph.graph,
         metadata=graph.metadata,
         path=path,
+        syntax=graph.syntax,
     )
 
 

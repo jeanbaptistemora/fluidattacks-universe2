@@ -18,6 +18,9 @@ from eval_java.model import (
 from eval_java.eval_rules import (
     generic as generic_evaluate,
 )
+from model import (
+    graph_model,
+)
 from model.graph_model import (
     Graph,
 )
@@ -99,7 +102,7 @@ def traverse_vulns(
     *,
     input_type: str,
     sink_type: str,
-) -> Tuple[g.NAttrs, ...]:
+) -> Tuple[graph_model.NAttrs, ...]:
     return tuple(
         graph.nodes[graph_path[-1]]
         for index, graph_path in g.flows(

@@ -26,6 +26,9 @@ import networkx as nx
 # Local libraries
 from model.graph_model import (
     Graph,
+    NAttrs,
+    NAttrsPredicateFunction,
+    NIdPredicateFunction,
 )
 from utils.system import (
     read_blocking,
@@ -34,12 +37,6 @@ from utils.system import (
 # Constants
 GRAPH_STYLE_ATTRS = {'arrowhead', 'color', 'fillcolor', 'label', 'style'}
 ROOT_NODE: str = '1'
-
-# Types
-NId = str
-NAttrs = Dict[str, str]
-NIdPredicateFunction = Callable[[str], bool]
-NAttrsPredicateFunction = Callable[[NAttrs], bool]
 
 
 def to_svg(graph: Graph, path: str) -> bool:

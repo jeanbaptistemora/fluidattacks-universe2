@@ -17,10 +17,6 @@ from utils.ctx import (
 from utils.encodings import (
     serialize_namespace_into_vuln,
 )
-from utils.graph import (
-    NAttrs,
-    NId,
-)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -29,7 +25,7 @@ from zone import (
 )
 
 # Constants
-GraphShardNode = Tuple[graph_model.GraphShard, NId]
+GraphShardNode = Tuple[graph_model.GraphShard, graph_model.NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
 
@@ -45,7 +41,7 @@ def get_vulnerability_from_n_id(
     # Root -> meta -> file graph
     meta_attrs_label_path = graph_shard.path
 
-    n_attrs: NAttrs = graph_shard.graph.nodes[n_id]
+    n_attrs: graph_model.NAttrs = graph_shard.graph.nodes[n_id]
     n_attrs_label_column = n_attrs['label_c']
     n_attrs_label_line = n_attrs['label_l']
 
