@@ -405,13 +405,8 @@ def get_sorted_historics(
         List[Dict[str, str]],
         vuln.get('historic_state', [])
     )
-    historic_verification = cast(
-        List[Dict[str, str]],
-        vuln.get('historic_verification', [])
-    )
 
-    historic = historic_state + historic_verification
-    sorted_historic = sort_historic_by_date(historic)
+    sorted_historic = sort_historic_by_date(historic_state)
     sorted_treatment = sort_historic_by_date(historic_treatment)
 
     return sorted_historic, sorted_treatment
