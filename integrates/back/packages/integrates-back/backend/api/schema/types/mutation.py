@@ -24,6 +24,7 @@ from backend.api.mutations import (
     delete_vulnerability,
     download_event_file,
     download_file,
+    edit_stakeholder,
     edit_stakeholder_organization,
     execute_skims,
     grant_stakeholder_access,
@@ -59,7 +60,6 @@ from backend.api.mutations import (
 from backend.api.resolvers import (
     me,
     project,
-    user,
     vulnerability
 )
 
@@ -129,7 +129,7 @@ MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)
 MUTATION.set_field('grantStakeholderAccess', grant_stakeholder_access.mutate)
 MUTATION.set_field('removeStakeholderAccess', remove_stakeholder_access.mutate)
-MUTATION.set_field('editStakeholder', user.resolve_user_mutation)
+MUTATION.set_field('editStakeholder', edit_stakeholder.mutate)
 MUTATION.set_field('addEnvironments', add_environment.mutate)
 MUTATION.set_field('addFiles', add_files.mutate)
 MUTATION.set_field('downloadFile', download_file.mutate)

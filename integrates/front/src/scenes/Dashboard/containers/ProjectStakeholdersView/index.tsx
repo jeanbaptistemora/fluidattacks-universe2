@@ -263,7 +263,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can do="backend_api_resolvers_user__do_edit_stakeholder">
+                  <Can do="backend_api_mutations_edit_stakeholder_mutate">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.edit_button.tooltip")}
                     >
@@ -305,7 +305,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                   selectionMode={{
                     clickToSelect: true,
                     hideSelectColumn:
-                      permissions.cannot("backend_api_resolvers_user__do_edit_stakeholder")
+                      permissions.cannot("backend_api_mutations_edit_stakeholder_mutate")
                       || permissions.cannot("backend_api_mutations_remove_stakeholder_access_mutate"),
                     mode: "radio",
                     onSelect: setCurrentRow,
