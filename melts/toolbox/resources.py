@@ -22,6 +22,7 @@ from typing import (
     List,
     Optional,
 )
+from datetime import datetime
 
 # Third parties imports
 from alive_progress import alive_bar, config_handler
@@ -223,11 +224,13 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
     folder = repo_name
     if os.path.isdir(folder):
         # Update already existing repo
-        cmd = cmd_execute(['git', 'pull', 'origin', branch], folder)
-        if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+        try:
+            git_repo = git.Repo(folder, search_parent_directories=True)
+            git_repo.remotes.origin.pull()
+        except GitError as exc:
             logger.error(f'{repo_name}/{branch} failed')
-            logger.error(cmd[1:])
-            problem = {'repo': repo_name, 'problem': cmd[1]}
+            logger.error(exc)
+            problem = {'repo': repo_name, 'problem': exc}
     # validate if there is no problem with the baseurl
     elif not problem:
         try:
@@ -362,7 +365,7 @@ def get_fingerprint(subs: str) -> bool:
     """
     results = []
     max_hash = ''
-    max_date = ''
+    max_date = datetime.fromtimestamp(0)
     path = f"groups/{subs}"
     if not os.path.exists(path):
         logger.error(f"There is no project with the name: {subs}")
@@ -376,13 +379,14 @@ def get_fingerprint(subs: str) -> bool:
 
     for repo in (r for r in listpath if os.path.isdir(f'{path}/{r}')):
         # com -> commom command
-        com = f'git -C "{path}/{repo}" log --max-count 1'
-        hashr = os.popen(f'{com} --format=%h').read().replace('\n', '')
-        date = os.popen(f'{com} --format=%aI').read().replace('\n', '')[0:16]
-        if date > max_date:
+        git_repo = git.Repo(f"{path}/{repo}", search_parent_directories=True)
+        hashr = git_repo.head.commit.hexsha[:7]
+        date = datetime.fromtimestamp(git_repo.head.commit.authored_date)
+        max_date = max_date or date
+        if date >= max_date:
             max_date = date
             max_hash = hashr
-        results.append((repo, hashr, date))
+        results.append((repo, hashr, date.isoformat()))
     if results == []:
         logger.error(f"There is not any folder in fusion - Subs: {subs}")
         return False
@@ -394,7 +398,8 @@ def get_fingerprint(subs: str) -> bool:
     for params in sorted(results):
         logger.info(output_fmt.format(*params))
     logger.info(output_bar)
-    logger.info(output_fmt.format(len(results), max_hash, max_date))
+    logger.info(output_fmt.format(len(results), max_hash,
+                                  max_date.isoformat()))
     return True
 
 
