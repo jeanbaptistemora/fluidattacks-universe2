@@ -3,9 +3,6 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import {
-  SelectCallback,
-} from "react-bootstrap";
 import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
@@ -148,7 +145,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                           eventKey={organization.name}
                           key={organization.name}
                           itemContent={organization.name}
-                          onClick={handleOrganizationChange as SelectCallback}
+                          onClick={handleOrganizationChange}
                         />
                       ))}
                     </div>
