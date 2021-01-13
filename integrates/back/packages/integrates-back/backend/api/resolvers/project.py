@@ -18,8 +18,7 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_login,
     turn_args_into_kwargs,
-    require_integrates,
-    enforce_user_level_auth_async
+    require_integrates
 )
 from backend.domain import (
     project as project_domain,
@@ -56,49 +55,6 @@ async def resolve_project_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_user_level_auth_async,
-)
-async def _do_create_project(  # pylint: disable=too-many-arguments
-        _: Any,
-        info: GraphQLResolveInfo,
-        description: str,
-        organization: str,
-        project_name: str,
-        subscription: str = 'continuous',
-        has_drills: bool = False,
-        has_forces: bool = False,
-        language: str = 'en') -> SimplePayloadType:
-    """Resolve create_project mutation."""
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    user_role = await authz.get_user_level_role(user_email)
-
-    success = await project_domain.create_project(
-        user_email,
-        user_role,
-        project_name.lower(),
-        organization,
-        description,
-        has_drills,
-        has_forces,
-        subscription,
-        language,
-    )
-
-    if success and has_forces:
-        await create_forces_user(info, project_name)
-    if success:
-        util.queue_cache_invalidation(user_email)
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Created project {project_name.lower()} successfully',
-        )
-
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

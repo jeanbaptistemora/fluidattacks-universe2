@@ -22,6 +22,7 @@ from backend.api.mutations import (
     create_draft,
     create_event,
     create_organization,
+    create_project,
     delete_finding,
     delete_vulnerability,
     download_event_file,
@@ -143,7 +144,7 @@ MUTATION.set_field('addFiles', add_files.mutate)
 MUTATION.set_field('downloadFile', download_file.mutate)
 MUTATION.set_field('removeFiles', remove_files.mutate)
 MUTATION.set_field('updateEnvironment', update_environment.mutate)
-MUTATION.set_field('createProject', project.resolve_project_mutation)
+MUTATION.set_field('createProject', create_project.mutate)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)
 MUTATION.set_field('removeGroup', remove_group.mutate)
 MUTATION.set_field('rejectRemoveProject',
