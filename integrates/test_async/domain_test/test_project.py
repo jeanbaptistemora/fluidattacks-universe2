@@ -22,7 +22,8 @@ from backend.domain.project import (
     remove_access, validate_project_services_config,
     create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
-    get_closers
+    get_closers,
+    get_mean_remediate_non_treated,
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -188,19 +189,14 @@ async def test_get_open_vulnerability_date():
 
 @freeze_time("2019-12-01")
 async def test_get_mean_remediate():
-    open_vuln_finding = '463558592'
-    open_finding = await finding_dal.get_finding(open_vuln_finding)
+    group_name = 'unittesting'
+    test_data = await get_mean_remediate(group_name)
+    test_data_non_treated = await get_mean_remediate_non_treated(group_name)
+    expected_output = Decimal('124.0')
+    expected_output_non_treated = Decimal('237.0')
 
-    test_data = await get_mean_remediate([open_finding])
-    expected_output = Decimal('160.0')
     assert test_data == expected_output
-
-    closed_vuln_finding = '457497316'
-    closed_finding = await finding_dal.get_finding(closed_vuln_finding)
-
-    test_data = await get_mean_remediate([closed_finding])
-    expected_output = 293
-    assert test_data == expected_output
+    assert test_data_non_treated == expected_output_non_treated
 
 async def test_get_total_treatment():
     findings_to_get = ['463558592', '422286126']

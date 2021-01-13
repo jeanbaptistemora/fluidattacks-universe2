@@ -692,23 +692,23 @@ def get_open_vulnerability_date(
     return open_date
 
 
-async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
-        Decimal:
+async def get_mean_remediate(group_name: str) -> Decimal:
+    findings = await finding_domain.get_findings_by_group(group_name)
+    vulns = await vuln_domain.list_vulnerabilities_async(
+        [str(finding['finding_id']) for finding in findings],
+        include_confirmed_zero_risk=True,
+        include_requested_zero_risk=True,
+    )
+
+    return await get_mean_remediate_vulnerabilities(vulns)
+
+
+async def get_mean_remediate_vulnerabilities(
+    vulns: List[Dict[str, FindingType]]
+) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
-    validate_findings = await collect(
-        finding_domain.validate_finding(str(finding['finding_id']))
-        for finding in findings
-    )
-    validated_findings = [
-        finding
-        for finding, validate_finding in zip(findings, validate_findings)
-        if validate_finding
-    ]
-    vulns = await vuln_domain.list_vulnerabilities_async(
-        [str(finding['finding_id']) for finding in validated_findings]
-    )
     open_vuln_dates = await collect(
         in_process(get_open_vulnerability_date, vuln)
         for vuln in vulns
@@ -833,6 +833,19 @@ async def get_total_treatment(
         'undefined': undefined_treatment
     }
     return treatment
+
+
+async def get_mean_remediate_non_treated(group_name: str) -> Decimal:
+    findings = await finding_domain.get_findings_by_group(group_name)
+    vulnerabilities = await vuln_domain.list_vulnerabilities_async(
+        [str(finding['finding_id']) for finding in findings],
+        include_requested_zero_risk=True,
+    )
+
+    return await get_mean_remediate_vulnerabilities([
+        vuln for vuln in vulnerabilities
+        if vuln_domain.is_accepted_undefined_vulnerability(vuln)
+    ])
 
 
 async def get_closers(
