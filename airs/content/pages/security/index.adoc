@@ -65,8 +65,8 @@ the public will also be informed via email.
 
 === 1.4 Status page
 
-We continuously monitor link:../products/integrates[Integrates],
-its link:../../integrates/api[API], and link:../[our website].
+We continuously monitor Integrates,
+its API, and link:../[our website].
 Monitoring checks run on North American and European servers
 every minute for all applications.
 They send HTTP GET requests,
@@ -107,9 +107,7 @@ have industry-standard link:../products/rules/list/224/[encryption at rest].
   [inner]#link:../products/rules/list/185/[AES256 ciphered]#
   redundant data centers.
 - Forces exploits are stored encrypted using AES256 keys.
-- All
-  [inner]#link:../products/integrates[Integrates]#
-  data is stored in an AES256 encrypted database.
+- All Integrates data is stored in an AES256 encrypted database.
 - Most of our encrypted-at-rest secrets
   are only decrypted in memory,
   meaning that they are never stored
@@ -144,8 +142,7 @@ industry-standard
   link:https://es.wikipedia.org/wiki/HTTP_Strict_Transport_Security[HSTS]
   policy to ensure that every connection to our domain goes
   through link:https://en.wikipedia.org/wiki/HTTPS[HTTPS].
-- [inner]#link:../products/integrates[Integrates]#'s
-  database uses TLSv1.2 for in transit protection.
+- Integrates's database uses TLSv1.2 for in transit protection.
 - We possess fully dedicated network channels with some of our biggest clients,
   allowing us to isolate all unwanted traffic. This is especially useful
   for running secure dynamic application hacking.
@@ -199,9 +196,7 @@ and the third-party services we use.
 
 === 3.1 For clients
 
-[inner]#link:../products/integrates[Integrates]#
-only uses
-link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
+Integrates only uses link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
 with Google and Microsoft Accounts.
 link:https://oauth.net/2/[Oauth2] protocol is used.
 Such protocol only accepts login attempts from trusted URLs
@@ -213,8 +208,7 @@ The only personal information we store of our clients is:
 - Company and cellphone (only if shared, user can decide)
 
 It is also worth noting that if users lose their corporate email,
-link:../products/rules/list/114/[they also lose access] to their
-link:../products/integrates[Integrates] account.
+link:../products/rules/list/114/[they also lose access] to their Integrates account.
 Clients can link:../products/rules/list/034/[easily manage]
 who has and who does not have access to their projects.
 
@@ -279,7 +273,7 @@ to do what they should not.
 
 === 4.1 For clients
 
-link:../products/integrates[Integrates] has a set of link:../products/rules/list/096/[roles]
+Integrates has a set of link:../products/rules/list/096/[roles]
 that are necessary for every hacking project.
 Once the client decides which members of their team
 should be *_project managers_*,
@@ -426,8 +420,7 @@ This includes contracts, portfolios, and other sensitive documents.
 
 ==== 5.2.2 Signed URLs
 
-[inner]#link:../products/integrates[Integrates]#
-has the feature of creating signed download URLs
+Integrates has the feature of creating signed download URLs
 with an expiration date when downloading reports,
 meaning that links expire
 and can only be used
@@ -435,8 +428,7 @@ by the user who requested the download.
 
 ==== 5.2.3 Passphrase protected reports
 
-All reports downloaded via
-[inner]#link:../products/integrates[Integrates]#
+All reports downloaded via Integrates
 have a randomly generated four-word passphrase.
 This passphrase is sent to the email of the user
 who requested the download.
@@ -444,16 +436,14 @@ This applies to both XLS and PDF formats.
 
 ==== 5.2.4 Watermarked reports
 
-Every report downloaded via
-[inner]#link:../products/integrates[Integrates]#
+Every report downloaded via Integrates
 comes with a watermark on all its pages,
 specifying that only the individual
 who generated it is allowed to read it.
 This is used as a measure to identify
 who generated the report in the first place
-and discourage its distribution through channels
-other than
-[inner]#link:../products/integrates[Integrates]#.
+and discourage its distribution
+through channels other than Integrates.
 
 === 5.3 Unsubscribe email
 
@@ -468,11 +458,7 @@ and no new emails will be sent to them.
 
 === 5.4 Transparent cookie usage
 
-Both [inner]#link:../products/integrates[Integrates]#
-and [inner]#link:../[Web]#
-use a
-link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR]
-module that
+Both Integrates and [inner]#link:../[Web]# use a link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR] module that
 
 - informs the user about
   every cookie the site creates; and
@@ -504,7 +490,7 @@ over the provided information.
 ==== 5.5.2 Data retention policy
 
 All the data related to a project
-can be deleted from link:../products/integrates[Integrates]
+can be deleted from Integrates
 by a user with a *_project manager_* role.
 Once this action is performed,
 a 30-day link:../products/rules/list/317/[deletion window] begins.
@@ -582,16 +568,14 @@ Typical logs are also essential
 for a non-repudiation policy to be successful.
 Currently, we store logs for:
 
-- *[inner]#link:../products/integrates[Integrates]#'s*
-  *logging system:*
+- *Integrates's logging system:*
   Integrates stores a historical status
   of projects, findings, vulnerabilities,
   and other critical components.
   Changes made to these components
   are always tied to a user and a date.
   The historical status never expires.
-- *[inner]#link:../products/integrates[Integrates]#'s*
-  *error tracking system:*
+- *Integrates's error tracking system:*
   It provides real-time logging
   of errors that occur in its production environments.
   It is especially useful for quickly detecting
@@ -637,17 +621,14 @@ Avoiding service interruptions is crucial here.
 
 === 7.1 Distributed applications
 
-[inner]#link:../products/integrates[Integrates]#
-is hosted in an application cluster with
+Integrates is hosted in an application cluster with
 autoscaling policies and distributed
 replicas. This ensures high availability,
 as there is always one instance ready to
 receive user requests if another stops
 working. Every cluster node has at least one
-[inner]#link:../products/integrates[Integrates]#
-instance running in it.
-Additionally,
-its front side is served via a region-distributed
+Integrates instance running in it.
+Additionally, its front side is served via a region-distributed
 link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
 providing maximum speed and availability across the globe.
 
@@ -669,15 +650,13 @@ we have strong backup policies for everything, for example:
 - Our redundant data centers are fully versioned,
   meaning that any file can be recovered
   or returned to a previous version.
-- [inner]#link:../products/integrates[Integrates]#'s
-  database has daily, weekly, quarterly,
+- Integrates's database has daily, weekly, quarterly,
   and annual full backup schedules.
   The daily backups last one week,
   the weekly ones twelve weeks,
   the quarterly ones three years,
   and the annual ones fifteen years.
-- [inner]#link:../products/integrates[Integrates]#'s
-  database has point-in-time
+- Integrates's database has point-in-time
   recovery with the ability to recover
   the database to the state it was
   in at a specific date and time (hours, minutes and seconds)

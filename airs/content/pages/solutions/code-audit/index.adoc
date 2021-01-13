@@ -25,7 +25,7 @@ to ensure both security and quality in your product.
 
 === Full tracking
 
-Our link:../../products/integrates/[*Integrates*, role=basic-link] platform allows you
+Our *Integrates*, platform allows you
 to access general and specific data
 for each finding in your code reported by our expert security analysts.
 Furthermore, enables your team to follow the entire vulnerability

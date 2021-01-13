@@ -19,7 +19,7 @@ where its overall size cannot be assessed and a specific scope is predefined.
 === Critical Information Extraction and Information Removal
 
 Information extraction is done to maximize the impacts of the findings.
-The data gathered during a project remains on link:../../../products/integrates/[*Integrates*].
+The data gathered during a project remains on *Integrates*.
 Your project's admin is allowed to delete it.
 The data is removed *30* days after the admin's decision.
 This operation can be reversed during those *30* days.
@@ -63,10 +63,11 @@ when there is a formal presentation of the executive report.
 
 === Vulnerability Management Platform
 
-You can check the status of findings during the execution of the project using
-link:../../../products/integrates/[*Integrates*].
-Each project must have a manager so that he or she can express the needs of your
-company before, during, and after the performance.
+You can check the status of findings
+during the execution of the project using *Integrates*.
+Each project must have a manager
+so that he or she can express the needs of your company
+before, during, and after the performance.
 Daily progress reports are sent by email. These include coverage, strictness,
 partial results, and overall progress.
 
