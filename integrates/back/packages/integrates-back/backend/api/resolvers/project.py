@@ -36,7 +36,8 @@ from backend import util
 from backend.utils import (
     datetime as datetime_utils,
 )
-from backend.api.mutations.grant_stakeholder_access import _create_new_user
+from backend.utils.user import create_forces_user
+
 from back.settings import LOGGING
 
 
@@ -55,34 +56,6 @@ async def resolve_project_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
-
-
-async def _create_forces_user(info: GraphQLResolveInfo,
-                              group_name: str) -> bool:
-    user_email = user_domain.format_forces_user_email(group_name)
-    success = await _create_new_user(
-        context=info.context,
-        email=user_email,
-        responsibility='Forces service user',
-        role='service_forces',
-        phone_number='',
-        group=group_name)
-
-    # Give permissions directly, no confirmation required
-    success = success and await user_domain.update_project_access(
-        user_email, group_name, True)
-    success = success and await authz.grant_group_level_role(
-        user_email, group_name, 'service_forces')
-
-    if not success:
-        LOGGER.error(
-            'Couldn\'t grant access to project',
-            extra={
-                'extra': info.context,
-                'username': group_name
-            },
-        )
-    return success
 
 
 @concurrent_decorators(
@@ -117,7 +90,7 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
     )
 
     if success and has_forces:
-        await _create_forces_user(info, project_name)
+        await create_forces_user(info, project_name)
     if success:
         util.queue_cache_invalidation(user_email)
         util.cloudwatch_log(
@@ -168,7 +141,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         )
 
     if success and has_forces:
-        await _create_forces_user(info, group_name)
+        await create_forces_user(info, group_name)
     elif (
         success and not has_forces and has_integrates and
         await user_domain.ensure_user_exists(
