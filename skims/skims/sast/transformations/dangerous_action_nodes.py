@@ -5,7 +5,7 @@ from typing import (
 from model import (
     graph_model,
 )
-from parse_tree_sitter.common import (
+from sast.common import (
     build_attr_paths,
 )
 from utils import (

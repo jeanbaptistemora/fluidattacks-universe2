@@ -32,13 +32,13 @@ from model.graph_model import (
     GraphShardCacheable,
     GraphShardMetadataLanguage,
 )
-from parse_tree_sitter import (
+from sast import (
     inspectors,
 )
-from parse_tree_sitter.syntax_readers.generic import (
+from sast.syntax_readers.generic import (
     read_from_graph,
 )
-from parse_tree_sitter.transformations import (
+from sast.transformations import (
     control_flow,
     dangerous_action_nodes,
     styles,

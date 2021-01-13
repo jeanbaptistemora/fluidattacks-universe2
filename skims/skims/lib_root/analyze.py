@@ -23,7 +23,7 @@ from lib_path.common import (
 from lib_root import (
     f060,
 )
-from parse_tree_sitter.parse import (
+from sast.parse import (
     get_graph_db,
 )
 from state.ephemeral import (
