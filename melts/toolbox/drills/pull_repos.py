@@ -104,6 +104,8 @@ def delete_out_of_scope_files(group: str) -> bool:
         for path in utils.file.iter_rel_paths(path_to_repo):
             if match_file(spec_ignore.patterns, path):
                 path = os.path.join(path_to_fusion, repo_name, path)
+                if '.git/' in path:
+                    continue
                 if os.path.isfile(path):
                     os.unlink(path)
                 elif os.path.isdir(path):
