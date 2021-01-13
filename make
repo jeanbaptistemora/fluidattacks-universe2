@@ -14,13 +14,11 @@ function build_with_internet {
 }
 
 function cachix_push {
-  local attribute="${1}"
-  local nix_store_path
+  local nix_store_path="${1}"
 
   if test -n "${CACHIX_FLUIDATTACKS_TOKEN:-}"
   then
-        nix_store_path=$(readlink -f "makes/outputs/${attribute}") \
-    &&  echo "[INFO] Pushing to cache: ${nix_store_path}" \
+        echo "[INFO] Pushing to cache: ${nix_store_path}" \
     &&  cachix authtoken "${CACHIX_FLUIDATTACKS_TOKEN}" \
     &&  echo "${nix_store_path}" | cachix push -c 9 fluidattacks
   fi
@@ -59,9 +57,13 @@ function main {
           if build_with_internet "${attribute}"
           then
                 echo \
-            &&  cachix_push "${attribute}" \
+            &&  nix_store_path=$(readlink -f "makes/outputs/${attribute}") \
+            &&  cachix_push "${nix_store_path}" \
             &&  echo "[INFO] ${attribute} built successfully" \
             &&  echo '[INFO]   Congratulations!' \
+            &&  echo '[INFO]' \
+            &&  echo "[INFO] Store path: ${nix_store_path}" \
+            &&  echo "[INFO] Symlink at: ./makes/outputs/${attribute}" \
             &&  return 0
           else
                 echo \
