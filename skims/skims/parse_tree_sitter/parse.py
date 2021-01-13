@@ -76,6 +76,7 @@ class ParsingError(Exception):
 
 def _build_ast_graph(
     content: bytes,
+    language: GraphShardMetadataLanguage,
     obj: Any,
     *,
     _counter: Optional[Iterator[str]] = None,
@@ -88,7 +89,7 @@ def _build_ast_graph(
     _graph = Graph() if _graph is None else _graph
 
     if isinstance(obj, Tree):
-        _graph = _build_ast_graph(content, obj.root_node)
+        _graph = _build_ast_graph(content, language, obj.root_node)
 
     elif isinstance(obj, Node):
         if obj.has_error:
@@ -111,11 +112,13 @@ def _build_ast_graph(
                 label_index=_edge_index,
             )
 
-        if not obj.children or obj.type in {
-            'field_access',
-            'scoped_identifier',
-            'scoped_type_identifier',
-        }:
+        if not obj.children or any((
+            language == GraphShardMetadataLanguage.JAVA and obj.type in {
+                'field_access',
+                'scoped_identifier',
+                'scoped_type_identifier',
+            },
+        )):
             # Consider it a final node, extract the text from it
             _graph.nodes[n_id]['label_text'] = content[
                 obj.start_byte:
@@ -126,6 +129,7 @@ def _build_ast_graph(
             for edge_index, child in enumerate(obj.children):
                 _build_ast_graph(
                     content,
+                    language,
                     child,
                     _counter=_counter,
                     _edge_index=str(edge_index),
@@ -160,7 +164,7 @@ def _parse_one_cached(
 
     raw_tree: Tree = parser.parse(content)
 
-    graph: Graph = _build_ast_graph(content, raw_tree)
+    graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph)
     styles.add(graph)
 
@@ -174,7 +178,7 @@ def parse_one(
     *,
     language: GraphShardMetadataLanguage,
     path: str,
-    version: int = 18,
+    version: int = 19,
 ) -> GraphShard:
     if language == GraphShardMetadataLanguage.NOT_SUPPORTED:
         raise ParsingError()
