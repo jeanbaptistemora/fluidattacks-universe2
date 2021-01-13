@@ -106,7 +106,7 @@ have industry-standard link:../products/rules/list/224/[encryption at rest].
   stored in private,
   [inner]#link:../products/rules/list/185/[AES256 ciphered]#
   redundant data centers.
-- Forces exploits are stored encrypted using AES256 keys.
+- All the exploits are stored encrypted using AES256 keys.
 - All Integrates data is stored in an AES256 encrypted database.
 - Most of our encrypted-at-rest secrets
   are only decrypted in memory,
@@ -158,11 +158,9 @@ which is why today our entire technology stack
 goes through a process of comprehensive link:../services/continuous-hacking/[Continuous Hacking].
 
 All our development projects run
-<<CI, Continuous Integration>>
-pipelines,
-including Forces exploits and strict linters,
-to ensure that
-[inner]#link:../products/rules/list/155/[no known vulnerabilities]#
+<<CI, Continuous Integration>> pipelines,
+including exploits and strict linters,
+to ensure that [inner]#link:../products/rules/list/155/[no known vulnerabilities]#
 are released to production.
 
 === 2.4 All our hired personnel must accept an NDA
@@ -364,7 +362,7 @@ access revocation:
     access to all the company applications
     and client data.
     This includes
-    Integrates, Forces, mail, etc.
+    Integrates, mail, etc.
   . *Removing Git repository access:*
     Users can no longer see confidential information from the repository,
     such as registry images, confidential issues,
@@ -661,7 +659,7 @@ we have strong backup policies for everything, for example:
   the database to the state it was
   in at a specific date and time (hours, minutes and seconds)
   during the last 35 days.
-- All Forces's exploits are versioned.
+- All the exploits are versioned.
 
 == 8. Resilience
 
@@ -842,7 +840,7 @@ code of the application via
 link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge Request].
 The Application Build Process includes steps like the following:
 
-- Forces exploits tests
+- Exploit tests
 - Linting tests
 - Compilation tests
 - Unit tests

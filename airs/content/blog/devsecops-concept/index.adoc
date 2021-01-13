@@ -138,15 +138,14 @@ Their work can begin
 with every new change being reviewed.
 That work can continue after the application has been deployed to production.
 
-When a vulnerability is detected in the client's code
-(with our product *'Forces'* enabled),
-a member of our team develops a personalized script called 'exploit,'
+When a vulnerability is detected in the client's code,
+a member of our team can develop a personalized script called 'exploit,'
 associated with the finding.
 That exploit "automatically checks if the analyst's finding persists."
 Therefore, "if the customer wants to make new changes to her product,
 she must fix the finding first," because if she doesn't,
 the exploit will continue reporting the presence of the vulnerability.
-Then, according to a configuration by our team, *Forces* will break the build,
+Then, according to a configuration by our team, it will break the build,
 and the deployment process will be automatically stopped.
 "This way, security is prioritized, and our security testing
 is integrated into the client's `SDLC`," Oscar concludes.

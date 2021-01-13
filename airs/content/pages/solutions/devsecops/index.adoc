@@ -42,7 +42,6 @@ impacts on your business.
 
 === Break the build
 
-At Fluid Attacks, we have *Forces* to break the build.
-Within our DevSecOps solution, we can break the build
-in any continuous integration pipeline
+At Fluid Attacks, within our DevSecOps solution,
+we can break the build in any continuous integration pipeline
 without making the mistake of doing so with false positives or lies.

@@ -117,7 +117,7 @@ as they work through remediating the issues
 in case they have any questions."
 In addition, as an essential complement to the above,
 she mentions remediation validation —which, for instance, in our company,
-we carry out with re-attacks (see link:../../products/forces/[Forces])—
+we carry out with re-attacks—
 always to ensure that the identified and reported vulnerabilities
 have been successfully closed.
 

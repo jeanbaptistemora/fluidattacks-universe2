@@ -8,7 +8,7 @@
 
 === Break the Build in Your CI
 
-link:../../../products/forces/[*Forces*] breaks the build in your CI,
+We can break the build in your CI,
 obliging developers to fix the open vulnerabilities in order to deploy.
 With just one click in *Integrates*,
 managers can decide which vulnerabilities are crucial

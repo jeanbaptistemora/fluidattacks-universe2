@@ -357,5 +357,5 @@ of the vulnerable software. If you take a look at the
 link:../vulnserver-kstet/[KSTET] and the link:../vulnserver-trun/[TRUN]
 articles, you can see that the analysis performed using reverse engineering
 matched the one using fuzzing, with some additional details. And remember
-that we use all link:../../products/drills/[these approaches] at
+that we use all these approaches at
 `Fluid Attacks` to find vulnerabilities!
