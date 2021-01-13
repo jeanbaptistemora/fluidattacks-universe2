@@ -10,7 +10,6 @@ from backend.domain import (
     finding as finding_domain,
 )
 from backend.typing import Finding
-from backend.filters import finding as finding_filters
 
 
 @get_entity_cache_async
@@ -19,6 +18,7 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> int:
-    release_date = finding_filters.get_approval_date(parent)
+    finding_id: str = cast(str, parent['id'])
+    age = cast(int, await finding_domain.get_finding_age(finding_id))
 
-    return cast(int, finding_domain.get_age_finding(release_date))
+    return age

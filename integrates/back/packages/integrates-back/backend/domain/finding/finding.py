@@ -52,6 +52,7 @@ from backend.dal import (
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
+    Historic as HistoricType,
     Tracking as TrackingItem,
 )
 
@@ -127,18 +128,20 @@ def send_finding_mail(
     )
 
 
-def get_age_finding(
-    release_date: str
+async def get_finding_age(
+    finding_id: str
 ) -> int:
-    age: int = 0
-    date_format: str = '%Y-%m-%d'
-
-    if release_date:
-        age = util.calculate_datediff_since(
-            datetime_utils.get_from_str(
-                release_date.split(' ')[0], date_format
-            )
-        ).days
+    age = 0
+    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    report_dates = [
+        datetime_utils.get_from_str(
+            cast(HistoricType, vuln['historic_state'])[0]['date']
+        )
+        for vuln in vulns
+    ]
+    if report_dates:
+        oldest_report_date = min(report_dates)
+        age = (datetime_utils.get_now() - oldest_report_date).days
 
     return age
 

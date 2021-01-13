@@ -12,7 +12,7 @@ from starlette.datastructures import UploadFile
 
 from backend import mailer
 from backend.domain.finding import (
-    add_comment, get_age_finding,
+    add_comment,
     get_tracking_vulnerabilities,
     validate_evidence, mask_finding,
     approve_draft, list_findings,
