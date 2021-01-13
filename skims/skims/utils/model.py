@@ -676,19 +676,23 @@ class GraphShardMetadataJava(NamedTuple):
     package: str
 
 
+class GraphShardMetadataLanguage(Enum):
+    JAVA: str = 'java'
+    NOT_SUPPORTED: str = 'not_supported'
+
+
 class GraphShardMetadata(NamedTuple):
     java: Optional[GraphShardMetadataJava]
+    language: GraphShardMetadataLanguage
 
 
 class GraphShardCacheable(NamedTuple):
     graph: Graph
-    language: str
     metadata: GraphShardMetadata
 
 
 class GraphShard(NamedTuple):
     graph: Graph
-    language: str
     metadata: GraphShardMetadata
     path: str
 

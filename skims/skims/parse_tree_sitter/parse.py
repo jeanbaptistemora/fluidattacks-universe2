@@ -55,6 +55,7 @@ from utils.model import (
     GraphDB,
     GraphShard,
     GraphShardCacheable,
+    GraphShardMetadataLanguage,
 )
 from utils.string import (
     get_debug_path,
@@ -67,10 +68,6 @@ LANGUAGES_SO = os.path.join(STATE_FOLDER, 'languages.so')
 Language.build_library(LANGUAGES_SO, [
     TREE_SITTER_JAVA,
 ])
-
-# Constants
-PARSER_JAVA: Parser = Parser()
-PARSER_JAVA.set_language(Language(LANGUAGES_SO, 'java'))
 
 
 class ParsingError(Exception):
@@ -142,11 +139,11 @@ def _build_ast_graph(
     return _graph
 
 
-def decide_language(path: str) -> str:
-    language = ''
+def decide_language(path: str) -> GraphShardMetadataLanguage:
+    language = GraphShardMetadataLanguage.NOT_SUPPORTED
 
     if path.endswith('.java'):
-        language = 'java'
+        language = GraphShardMetadataLanguage.JAVA
 
     return language
 
@@ -155,11 +152,11 @@ def decide_language(path: str) -> str:
 def _parse_one_cached(
     *,
     content: bytes,
-    language: str,
+    language: GraphShardMetadataLanguage,
     _: int,
 ) -> GraphShardCacheable:
     parser: Parser = Parser()
-    parser.set_language(Language(LANGUAGES_SO, language))
+    parser.set_language(Language(LANGUAGES_SO, language.value))
 
     raw_tree: Tree = parser.parse(content)
 
@@ -169,18 +166,17 @@ def _parse_one_cached(
 
     return GraphShardCacheable(
         graph=graph,
-        language=language,
         metadata=inspectors.get_metadata(graph, language),
     )
 
 
 def parse_one(
     *,
-    language: str,
+    language: GraphShardMetadataLanguage,
     path: str,
-    version: int = 16,
+    version: int = 18,
 ) -> GraphShard:
-    if not language:
+    if language == GraphShardMetadataLanguage.NOT_SUPPORTED:
         raise ParsingError()
 
     with open(os.path.join(CTX.config.working_dir, path), 'rb') as handle:
@@ -200,7 +196,6 @@ def parse_one(
 
     return GraphShard(
         graph=graph.graph,
-        language=graph.language,
         metadata=graph.metadata,
         path=path,
     )

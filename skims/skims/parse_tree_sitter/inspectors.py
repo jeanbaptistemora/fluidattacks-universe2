@@ -15,24 +15,25 @@ from utils.model import (
     GraphShardMetadataJava,
     GraphShardMetadataJavaClass,
     GraphShardMetadataJavaClassMethod,
+    GraphShardMetadataLanguage,
 )
 
 
 def get_metadata(
     graph: Graph,
-    language: str,
+    language: GraphShardMetadataLanguage,
 ) -> GraphShardMetadata:
 
     metadata: Dict[str, Optional[Any]] = {
         'java': None,
     }
 
-    if language == 'java':
+    if language == GraphShardMetadataLanguage.JAVA:
         metadata['java'] = get_metadata_java(graph)
     else:
         raise NotImplementedError()
 
-    return GraphShardMetadata(**metadata)
+    return GraphShardMetadata(language=language, **metadata)
 
 
 def get_metadata_java(graph: Graph) -> GraphShardMetadataJava:

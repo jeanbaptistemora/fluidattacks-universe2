@@ -6535,7 +6535,6 @@
           }
         }
       },
-      "language": "java",
       "metadata": {
         "java": {
           "classes": {
@@ -6552,7 +6551,8 @@
             }
           },
           "package": "org.owasp.benchmark.testcode"
-        }
+        },
+        "language": "java"
       },
       "path": "test/data/benchmark/owasp/BenchmarkTest00001.java"
     },
@@ -9909,7 +9909,6 @@
           }
         }
       },
-      "language": "java",
       "metadata": {
         "java": {
           "classes": {
@@ -9926,7 +9925,8 @@
             }
           },
           "package": "org.owasp.benchmark.testcode"
-        }
+        },
+        "language": "java"
       },
       "path": "test/data/benchmark/owasp/BenchmarkTest00008.java"
     },
@@ -17061,7 +17061,6 @@
           }
         }
       },
-      "language": "java",
       "metadata": {
         "java": {
           "classes": {
@@ -17078,7 +17077,8 @@
             }
           },
           "package": "org.owasp.benchmark.testcode"
-        }
+        },
+        "language": "java"
       },
       "path": "test/data/benchmark/owasp/BenchmarkTest00167.java"
     },
@@ -17808,7 +17808,6 @@
           }
         }
       },
-      "language": "java",
       "metadata": {
         "java": {
           "classes": {
@@ -17822,7 +17821,8 @@
             }
           },
           "package": ""
-        }
+        },
+        "language": "java"
       },
       "path": "test/data/lib_path/f031_cwe378/Test.java"
     },
@@ -19096,7 +19096,6 @@
           }
         }
       },
-      "language": "java",
       "metadata": {
         "java": {
           "classes": {
@@ -19110,7 +19109,8 @@
             }
           },
           "package": ""
-        }
+        },
+        "language": "java"
       },
       "path": "test/data/lib_path/f063_path_traversal/Test.java"
     },
@@ -36826,7 +36826,6 @@
           }
         }
       },
-      "language": "java",
       "metadata": {
         "java": {
           "classes": {
@@ -36844,7 +36843,8 @@
             }
           },
           "package": ""
-        }
+        },
+        "language": "java"
       },
       "path": "test/data/parse_java/TestCFG.java"
     }
