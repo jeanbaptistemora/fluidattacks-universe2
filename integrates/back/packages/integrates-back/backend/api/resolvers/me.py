@@ -15,10 +15,7 @@ from mixpanel import Mixpanel
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import require_login
-from backend.domain import (
-    subscriptions as subscriptions_domain,
-    user as user_domain,
-)
+from backend.domain import user as user_domain
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     SignInPayload as SignInPayloadType,
@@ -55,53 +52,6 @@ async def resolve_me_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
-
-
-async def _do_subscribe_to_entity_report(
-    _: Any,
-    info: GraphQLResolveInfo,
-    frequency: str,
-    report_entity: str,
-    report_subject: str,
-) -> SimplePayloadType:
-    success: bool = False
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-
-    if await subscriptions_domain.can_subscribe_user_to_entity_report(
-        report_entity=report_entity,
-        report_subject=report_subject,
-        user_email=user_email,
-    ):
-        success = await subscriptions_domain.subscribe_user_to_entity_report(
-            event_frequency=frequency,
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
-        )
-
-        if success:
-            util.cloudwatch_log(
-                info.context,
-                f'user: {user_email} edited subscription to '
-                f'entity_report: {report_entity}/{report_subject} '
-                f'frequency: {frequency}',
-            )
-        else:
-            LOGGER.error(
-                'Couldn\'t subscribe to %s report',
-                report_entity,
-                extra={'extra': locals()})
-    else:
-        util.cloudwatch_log(
-            info.context,
-            f'user: {user_email} attempted to edit subscription to '
-            f'entity_report: {report_entity}/{report_subject} '
-            f'frequency: {frequency} '
-            f'without permission',
-        )
-
-    return SimplePayloadType(success=success)
 
 
 async def get_provider_user_info(

@@ -42,6 +42,7 @@ from backend.api.mutations import (
     request_zero_risk_vuln,
     solve_event,
     submit_draft,
+    subscribe_to_entity_report,
     update_environment,
     update_event_evidence,
     update_evidence_description,
@@ -122,7 +123,10 @@ MUTATION.set_field('updateSeverity', update_severity.mutate)
 MUTATION.set_field('uploadFile', upload_file.mutate)
 
 MUTATION.set_field('signIn', me.resolve_me_mutation)
-MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
+MUTATION.set_field(
+    'subscribeToEntityReport',
+    subscribe_to_entity_report.mutate
+)
 MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
