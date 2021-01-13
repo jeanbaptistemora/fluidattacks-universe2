@@ -2,7 +2,7 @@
   --------
   Disable for testing purposes
 */
-import { Button } from "react-bootstrap";
+import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import React from "react";
 import type { ShallowWrapper } from "enzyme";
@@ -71,15 +71,7 @@ describe("Generic modal", (): void => {
     expect(
       wrapper.contains(
         <ModalFooter>
-          <Button
-            active={false}
-            block={false}
-            bsClass={"btn"}
-            bsStyle={"default"}
-            disabled={false}
-          >
-            {"test btn"}
-          </Button>
+          <Button>{"test btn"}</Button>
         </ModalFooter>
       )
     ).toBe(true);
