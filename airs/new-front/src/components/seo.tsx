@@ -1,26 +1,28 @@
+import { graphql, StaticQuery } from "gatsby";
 import React from "react";
+// tslint:disable-next-line: match-default-export-name
 import Helmet from "react-helmet";
-import {StaticQuery, graphql} from "gatsby";
 
-type StaticQueryData = {
+interface StaticQueryData {
   site: {
     siteMetadata: {
-      title: string
-      description: string
-      keywords: [String]
-    }
-  }
+      description: string;
+      keywords: [string];
+      title: string;
+    };
+  };
 }
 
-interface IProps {
-  readonly title: string
-  readonly description?: string
-  readonly lang?: string
-  readonly keywords?: string[]
+interface Props {
+  readonly description?: string;
+  readonly keywords?: string[];
+  readonly lang?: string;
+  readonly title: string;
 }
 
-const SEO: React.FC<IProps> = ({ title, description, lang, keywords }) => (
+export const SEO: React.FC<Props> = ({ title, description, lang, keywords }: Props): JSX.Element => (
 <StaticQuery
+    // tslint:disable-next-line: no-void-expression
     query={graphql`
       query {
         site {
@@ -32,45 +34,44 @@ const SEO: React.FC<IProps> = ({ title, description, lang, keywords }) => (
       }
     `}
     render={(data: StaticQueryData): React.ReactElement | null => {
-      const metaDescription = description || data.site.siteMetadata.description
-      lang = lang || "es"
-      keywords = keywords || []
+      const metaDescription: string = description as string;
+      const language: string = lang as string;
+      const kwords: string[] = keywords as string[];
+
       return (
         <Helmet
           htmlAttributes={{
-            lang,
+            language,
           }}
           title={title}
           titleTemplate={`%s | ${data.site.siteMetadata.title}`}
           meta={[
             {
-              name: `description`,
               content: metaDescription,
+              name: "description",
             },
             {
-              property: `og:title`,
               content: title,
+              property: "og:title",
             },
             {
-              property: `og:description`,
               content: metaDescription,
+              property: "og:description",
             },
             {
-              property: `og:type`,
-              content: `website`,
+              content: "website",
+              property: "og:type",
             },
           ].concat(
-            keywords.length > 0
+            kwords.length > 0
               ? {
-                  name: `keywords`,
-                  content: keywords.join(`, `),
+                  content: kwords.join(", "),
+                  name: "keywords",
                 }
               : [],
           )}
         />
-      )
+      );
     }}
   />
-)
-
-export default SEO
+);
