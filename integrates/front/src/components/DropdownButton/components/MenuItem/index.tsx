@@ -18,7 +18,7 @@ const StyledMenuItem: StyledComponent<
   "button",
   Record<string, unknown>
 > = styled.button.attrs({
-  className: "w-100 flex ba br0 pa3 mt2 outline-0 justify-between items-center",
+  className: "w-100 flex ba br0 pa3 outline-0 justify-center",
 })``;
 
 const MenuItem: React.FC<IMenuItemsProps> = (

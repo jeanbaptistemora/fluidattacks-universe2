@@ -4,9 +4,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {
-  MenuItem,
   SelectCallback,
-  SplitButton,
 } from "react-bootstrap";
 import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -24,6 +22,7 @@ import {
 } from "styles/styledComponents";
 
 import { Button } from "components/Button";
+import { MenuItem } from "components/DropdownButton";
 import { FluidIcon } from "components/FluidIcon";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
@@ -35,6 +34,7 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric } from "utils/validations";
+import { SplitButton } from "./components/splitbutton";
 
 export const navbarComponent: React.FC = (): JSX.Element => {
   const { push } = useHistory();
@@ -72,16 +72,15 @@ export const navbarComponent: React.FC = (): JSX.Element => {
   // Auxiliary Operations
   const handleOrganizationChange: (
     eventKey: string,
-    event: React.SyntheticEvent<SplitButton>,
   ) => void = (eventKey: string): void => {
     if (eventKey !== lastOrganization.name) {
       setLastOrganization({ name: eventKey });
       push(`/orgs/${eventKey}/`);
     }
+    document.getElementsByClassName("splitItems")[0]
+      .setAttribute("style", "display:none;");
   };
-  const handleOrganizationClick: (
-    event: React.MouseEvent<SplitButton, globalThis.MouseEvent>,
-  ) => void = () => {
+  const handleOrganizationClick: () => void = () => {
     push(`/orgs/${lastOrganization.name}/`);
   };
   const handleSearchSubmit: (values: {
@@ -90,6 +89,16 @@ export const navbarComponent: React.FC = (): JSX.Element => {
     const projectName: string = values.projectName.toLowerCase();
     if (!_.isEmpty(projectName)) {
       push(`/groups/${projectName}/indicators`);
+    }
+  };
+  const showItems: () => void = () => {
+    const element: Element = document.getElementsByClassName("splitItems")[0];
+    const elementStyle: CSSStyleDeclaration = window.getComputedStyle(element);
+    const displayValue: string = elementStyle.getPropertyValue("display");
+    if (displayValue === "none") {
+      element.setAttribute("style", "display:block;");
+    } else {
+      element.setAttribute("style", "display:none;");
     }
   };
 
@@ -130,18 +139,21 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                 <SplitButton
                   id={"organizationList"}
                   onClick={handleOrganizationClick}
-                  onSelect={handleOrganizationChange as SelectCallback}
+                  onClickIcon={showItems}
                   title={pathOrganization}
-                >
-                  {organizationList.map((organization: { name: string }) => (
-                    <MenuItem
-                      eventKey={organization.name}
-                      key={organization.name}
-                    >
-                      {organization.name}
-                    </MenuItem>
-                  ))}
-                </SplitButton>
+                  content={
+                    <div className={"splitItems"}>
+                      {organizationList.map((organization: { name: string }) => (
+                        <MenuItem
+                          eventKey={organization.name}
+                          key={organization.name}
+                          itemContent={organization.name}
+                          onClick={handleOrganizationChange as SelectCallback}
+                        />
+                      ))}
+                    </div>
+                  }
+                />
               </NavSplitButtonContainer>
             </li>
             {breadcrumbItems}

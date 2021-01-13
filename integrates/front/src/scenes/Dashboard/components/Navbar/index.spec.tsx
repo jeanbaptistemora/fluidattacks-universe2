@@ -1,7 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
-import { SplitButton } from "react-bootstrap";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
@@ -12,6 +11,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { navbarComponent as NavbarComponent } from "scenes/Dashboard/components/Navbar";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import store from "store";
+import { SplitButton } from "./components/splitbutton";
 
 describe("Navbar", () => {
   (window as typeof window & { userEmail: string }).userEmail = "test@fluidattacks.com";

@@ -107,10 +107,6 @@ label {
   margin-left: -1px;
 }
 
-:global .split-button ul a {
-  padding: 0.6rem 3rem 0.6rem 1.8rem;
-}
-
 :global .nav-item > span:hover {
   color: #272727;
 }
@@ -145,11 +141,6 @@ label {
   color: #e71d1d;
   background-color: #eee;
   border-color: #ddd;
-}
-
-:global .dropdown-menu > li > a:hover {
-  background-color: #ff3435;
-  color: #fff;
 }
 
 :global .breadcrumb > li + li > a:active,
@@ -355,7 +346,7 @@ label {
   display: block;
 }
 
-:global .split-button button {
+:global .split-button > div > button {
   background: transparent !important;
   border: none;
   color: #ff3435;
@@ -366,32 +357,43 @@ label {
   padding: 0;
 }
 
-:global .split-button button:active,
-:global .split-button button:focus,
-:global .split-button button:hover {
+:global .split-button > div > button + button + div > button {
+  font-size: 18px !important;
+  text-transform: capitalize;
+  max-height: 500px !important;
+  min-width: auto;
+}
+
+:global .split-button > div > button:active,
+:global .split-button > div > button:focus,
+:global .split-button > div > button:hover {
   color: #272727 !important;
   background: transparent !important;
 }
 
-:global .split-button button:active,
-:global .split-button button:focus {
+:global .split-button > div > button:active,
+:global .split-button > div > button:focus {
   outline: none !important;
   box-shadow: none !important;
 }
 
-:global .split-button button:nth-child(2) {
+:global .split-button > div > button:nth-child(2) {
   padding-right: 0.5rem !important;
   padding-left: 1rem !important;
   top: -0.1rem !important;
 }
 
-:global .split-button ul {
-  font-size: 18px !important;
-  padding: 0;
-  text-transform: capitalize;
-  max-height: 500px !important;
-  min-width: auto;
-  overflow-y: auto !important;
+:global .splitItems {
+  background-color: #fff;
+  border: solid 1px;
+  border-color: #ddd;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  color: #333;
+  display: none;
+  margin-top: 5px;
+  position: absolute;
+  width: 117px;
+  z-index: 1;
 }
 
 :global .upload-file {
