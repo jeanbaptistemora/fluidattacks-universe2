@@ -41,6 +41,7 @@ from parse_tree_sitter.syntax_readers.generic import (
 from parse_tree_sitter.transformations import (
     control_flow,
     styles,
+    untrusted_nodes,
 )
 from state.cache import (
     CACHE_1SEC,
@@ -170,6 +171,7 @@ def _parse_one_cached(
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph)
+    untrusted_nodes.mark(graph, language)
     styles.add(graph)
 
     return GraphShardCacheable(

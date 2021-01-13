@@ -105,6 +105,10 @@ class GraphShard(NamedTuple):
     syntax: GraphSyntax
 
 
+class GraphUntrustedNode(Enum):
+    F063_PATH_TRAVERSAL: str = 'F063_PATH_TRAVERSAL'
+
+
 class GraphDB(NamedTuple):
     shards: List[GraphShard]
     shards_by_path: Dict[str, int]
