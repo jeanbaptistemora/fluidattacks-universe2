@@ -202,7 +202,7 @@ export const enTranslations: ResourceKey = {
       meanTimeToRemediate: {
         footer:
           "Amount of time (in days) it takes to your team to fix a security vulnerability.",
-        title: "Mean time to remediate",
+        title: "Mean time to remediate (all vulnerabilities)",
       },
       totalFindings: {
         footer:
