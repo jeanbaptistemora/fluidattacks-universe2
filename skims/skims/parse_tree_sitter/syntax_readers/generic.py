@@ -1,6 +1,8 @@
 # Standard library
 from typing import (
     Callable,
+    Dict,
+    NamedTuple,
     Set,
     Tuple,
 )
@@ -20,12 +22,20 @@ from utils.logs import (
 )
 
 
-LabelTypes = Set[str]
 SyntaxReader = Callable[
     [graph_model.Graph, graph_model.NId, graph_model.SyntaxSteps],
     None,
 ]
 SyntaxReaders = Tuple[SyntaxReader, ...]
+
+
+class Dispatcher(NamedTuple):
+    applicable_languages: Set[graph_model.GraphShardMetadataLanguage]
+    applicable_node_label_types: Set[str]
+    syntax_readers: SyntaxReaders
+
+
+Dispatchers = Tuple[Dispatcher, ...]
 
 
 class UnableToRead(Exception):
@@ -91,26 +101,47 @@ def attemp_with_readers(
     return syntax_steps
 
 
-DISPATCHERS: Tuple[Tuple[LabelTypes, SyntaxReaders], ...] = (
-    ({'method_declaration'},
-     (method_declaration,)),
+DISPATCHERS: Tuple[Dispatcher, ...] = (
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'method_declaration',
+        },
+        syntax_readers=(
+            method_declaration,
+        )
+    ),
 )
+DISPATCHERS_BY_LANG: Dict[
+    graph_model.GraphShardMetadataLanguage,
+    Dispatchers,
+] = {
+    language: tuple(
+        dispatcher
+        for dispatcher in DISPATCHERS
+        if language in dispatcher.applicable_languages
+    )
+    for language in graph_model.GraphShardMetadataLanguage
+}
 
 
 def read_from_graph(
     graph: graph_model.Graph,
+    language: graph_model.GraphShardMetadataLanguage,
 ) -> graph_model.GraphSyntax:
     graph_syntax: graph_model.GraphSyntax = {}
 
     for n_id, n_attrs in graph.nodes.items():
         syntax_steps: graph_model.SyntaxSteps = []
 
-        for label_types, syntax_readers in DISPATCHERS:
-            if n_attrs['label_type'] in label_types:
+        for dispatcher in DISPATCHERS_BY_LANG[language]:
+            if n_attrs['label_type'] in dispatcher.applicable_node_label_types:
                 syntax_steps = attemp_with_readers(
                     graph=graph,
                     n_id=n_id,
-                    syntax_readers=syntax_readers,
+                    syntax_readers=dispatcher.syntax_readers,
                 )
 
         graph_syntax[n_id] = syntax_steps

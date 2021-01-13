@@ -179,7 +179,7 @@ def _parse_one_cached(
     return GraphShardCacheable(
         graph=graph,
         metadata=inspectors.get_metadata(graph, language),
-        syntax=read_from_graph(graph)
+        syntax=read_from_graph(graph, language)
     )
 
 
