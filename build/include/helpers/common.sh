@@ -449,6 +449,7 @@ function helper_common_run_on_aws {
   export EXTERNAL_ENV_VARS
   export NIX_PATH
   export STARTDIR
+  export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
   local job_definition
   local vcpus="${1}"
   local memory="${2}"
