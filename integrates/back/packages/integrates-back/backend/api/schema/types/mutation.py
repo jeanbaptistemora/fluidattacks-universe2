@@ -43,6 +43,7 @@ from backend.api.mutations import (
     solve_event,
     submit_draft,
     subscribe_to_entity_report,
+    update_access_token,
     update_environment,
     update_event_evidence,
     update_evidence_description,
@@ -127,7 +128,7 @@ MUTATION.set_field(
     'subscribeToEntityReport',
     subscribe_to_entity_report.mutate
 )
-MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
+MUTATION.set_field('updateAccessToken', update_access_token.mutate)
 MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)

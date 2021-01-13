@@ -16,11 +16,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import require_login
 from backend.domain import user as user_domain
-from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     SignInPayload as SignInPayloadType,
-    SimplePayload as SimplePayloadType,
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+    SimplePayload as SimplePayloadType
 )
 from backend.utils import (
     datetime as datetime_utils,
@@ -143,44 +141,6 @@ async def _do_sign_in(
         session_jwt=session_jwt,
         success=success
     )
-
-
-@require_login
-async def _do_update_access_token(
-        _: Any,
-        info: GraphQLResolveInfo,
-        expiration_time: int) -> UpdateAccessTokenPayloadType:
-    """Resolve update_access_token mutation."""
-    user_info = await util.get_jwt_content(info.context)
-    email = user_info['user_email']
-    try:
-        result = await user_domain.update_access_token(
-            email,
-            expiration_time,
-            first_name=user_info['first_name'],
-            last_name=user_info['last_name'])
-        if result.success:
-            util.cloudwatch_log(
-                info.context,
-                (f'{user_info["user_email"]} '  # pragma: no cover
-                 'update access token')
-            )
-        else:
-            util.cloudwatch_log(
-                info.context,
-                (f'{user_info["user_email"]} '  # pragma: no cover
-                 'attempted to update access token')
-            )
-        return result
-    except InvalidExpirationTime as exc:
-        util.cloudwatch_log(
-            info.context,
-            (f'{user_info["user_email"]} '  # pragma: no cover
-             'attempted to use expiration time '
-             'greater than six months or minor '
-             'than current time')
-        )
-        raise exc
 
 
 @require_login
