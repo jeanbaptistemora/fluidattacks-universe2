@@ -6,6 +6,7 @@ from ariadne import MutationType
 
 # Local
 from backend.api.mutations import (
+    accept_legal,
     add_environment,
     add_files,
     add_event_consult,
@@ -13,6 +14,7 @@ from backend.api.mutations import (
     add_forces_execution,
     add_git_root,
     add_ip_root,
+    add_push_token,
     add_url_root,
     add_stakeholder,
     approve_draft,
@@ -62,7 +64,6 @@ from backend.api.mutations import (
     upload_file
 )
 from backend.api.resolvers import (
-    me,
     project,
     vulnerability
 )
@@ -132,8 +133,8 @@ MUTATION.set_field(
 )
 MUTATION.set_field('updateAccessToken', update_access_token.mutate)
 MUTATION.set_field('invalidateAccessToken', invalidate_access_token.mutate)
-MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
-MUTATION.set_field('addPushToken', me.resolve_me_mutation)
+MUTATION.set_field('acceptLegal', accept_legal.mutate)
+MUTATION.set_field('addPushToken', add_push_token.mutate)
 MUTATION.set_field('grantStakeholderAccess', grant_stakeholder_access.mutate)
 MUTATION.set_field('removeStakeholderAccess', remove_stakeholder_access.mutate)
 MUTATION.set_field('editStakeholder', edit_stakeholder.mutate)
