@@ -25,15 +25,13 @@ from aioextensions import (
 from serialization import (
     LoadError,
 )
-from state import (
-    STATE_FOLDER,
-)
 from state.common import (
     retrieve_object,
     store_object,
 )
 from utils.ctx import (
     CTX,
+    STATE_FOLDER,
 )
 
 # Constants

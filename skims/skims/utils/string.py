@@ -26,12 +26,10 @@ from PIL import (
 )
 
 # Local libraries
-from state import (
-    STATE_FOLDER_DEBUG
-)
 from utils.ctx import (
     FLUID_WATERMARK,
     ROBOTO_FONT,
+    STATE_FOLDER_DEBUG,
 )
 from utils.image import (
     clarify_blocking,

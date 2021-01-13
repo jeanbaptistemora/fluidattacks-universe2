@@ -39,14 +39,12 @@ from parse_tree_sitter.transformations import (
     control_flow,
     styles,
 )
-from state import (
-    STATE_FOLDER,
-)
 from state.cache import (
     CACHE_1SEC,
 )
 from utils.ctx import (
     CTX,
+    STATE_FOLDER,
     TREE_SITTER_JAVA,
 )
 from utils.graph import (

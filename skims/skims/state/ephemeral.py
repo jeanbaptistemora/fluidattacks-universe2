@@ -29,12 +29,12 @@ from aioextensions import (
 )
 
 # Local libraries
-from state import (
-    STATE_FOLDER,
-)
 from state.common import (
     read_blob,
     store_object,
+)
+from utils.ctx import (
+    STATE_FOLDER,
 )
 from utils.fs import (
     mkdir,

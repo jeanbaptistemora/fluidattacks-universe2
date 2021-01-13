@@ -8,6 +8,10 @@ from multiprocessing.managers import (
 )
 from os import (
     environ,
+    makedirs,
+)
+from os.path import (
+    expanduser,
 )
 from typing import (
     Any,
@@ -23,6 +27,8 @@ from model.core_model import (
 # Constants
 MANAGER: SyncManager = Manager()
 CTX: Any = MANAGER.Namespace()
+STATE_FOLDER: str = expanduser('~/.skims')
+STATE_FOLDER_DEBUG: str = os.path.join(STATE_FOLDER, 'debug')
 
 
 def _get_artifact(env_var: str) -> str:
@@ -55,3 +61,6 @@ ROBOTO_FONT = _get_artifact('SKIMS_ROBOTO_FONT')
 STATIC = _get_artifact('SKIMS_STATIC')
 TREE_SITTER_JAVA = _get_artifact('SKIMS_TREE_SITTER_JAVA')
 VENDOR = _get_artifact('SKIMS_VENDOR')
+
+makedirs(STATE_FOLDER, mode=0o700, exist_ok=True)
+makedirs(STATE_FOLDER_DEBUG, mode=0o700, exist_ok=True)
