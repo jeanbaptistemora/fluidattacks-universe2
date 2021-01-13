@@ -1,4 +1,7 @@
 # Standard library
+from dataclasses import (
+    dataclass,
+)
 from enum import (
     Enum,
 )
@@ -28,6 +31,34 @@ NIdPredicateFunction = Callable[[str], bool]
 
 SyntaxStep = Any
 SyntaxSteps = List[SyntaxStep]
+
+
+@dataclass
+class SyntaxStepMeta:
+    danger: bool
+    dependencies: int
+    linear: bool
+    sink: Optional[str]
+    value: Optional[Any]
+
+    @staticmethod
+    def default() -> 'SyntaxStepMeta':
+        return SyntaxStepMeta(
+            danger=False,
+            dependencies=0,
+            linear=False,
+            sink=None,
+            value=None,
+        )
+
+
+class SyntaxStepDeclaration(NamedTuple):
+    dependencies: List[SyntaxSteps]
+    var: str
+    var_type: str
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepDeclaration'
 
 
 class Graph(nx.DiGraph):

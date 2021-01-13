@@ -28,6 +28,7 @@ from model.graph_model import (
     Graph,
     NAttrs,
     NAttrsPredicateFunction,
+    NId,
     NIdPredicateFunction,
 )
 from utils.system import (
@@ -264,6 +265,20 @@ def match_ast(
             index += 1
 
     return nodes
+
+
+def get_ast_childs(
+    graph: Graph,
+    n_id: NId,
+    label_type: str,
+    *,
+    depth: int = 1,
+) -> Tuple[NId, ...]:
+    return tuple(
+        n_id
+        for n_id in adj_ast(graph, n_id, depth=depth)
+        if graph.nodes[n_id]['label_type'] == label_type
+    )
 
 
 def flows(

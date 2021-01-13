@@ -2,6 +2,7 @@
 from collections import (
     OrderedDict,
 )
+import dataclasses
 from enum import (
     Enum,
 )
@@ -125,6 +126,14 @@ def _load_named_tuple(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda *args: factory(*map(_deserialize, args))
 
 
+def _dump_dataclass(instance: Any) -> Serialized:
+    return _serialize(instance, *map(_dump, dataclasses.astuple(instance)))
+
+
+def _load_dataclass(factory: Callable[..., TVar]) -> Callable[..., TVar]:
+    return lambda *args: factory(*map(_deserialize, args))
+
+
 def _dump_none(instance: None) -> Serialized:
     return _serialize(instance)
 
@@ -227,9 +236,16 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.GraphShardMetadataJava,
                 graph_model.GraphShardMetadataJavaClass,
                 graph_model.GraphShardMetadataJavaClassMethod,
+                graph_model.SyntaxStepDeclaration,
                 core_model.SkimsVulnerabilityMetadata,
                 core_model.Vulnerability,
                 Node,
+            )
+        ],
+        *[
+            (dataclass, _dump_dataclass, _load_dataclass(dataclass))
+            for dataclass in (
+                graph_model.SyntaxStepMeta,
             )
         ],
     ]
