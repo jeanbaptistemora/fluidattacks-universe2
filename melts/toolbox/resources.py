@@ -25,7 +25,9 @@ from typing import (
 
 # Third parties imports
 from alive_progress import alive_bar, config_handler
-
+import git
+from git.exc import GitCommandError, GitError
+from git import Repo
 
 # Local libraries
 from toolbox import logger
@@ -34,6 +36,18 @@ from toolbox.constants import API_TOKEN
 from toolbox.api import integrates
 
 config_handler.set_global(length=25)
+
+
+def ls_remote(url) -> Dict[str, Any]:
+    remote_refs = {}
+    remote = git.cmd.Git()
+    try:
+        for ref in remote.ls_remote(url).split('\n'):
+            hash_ref_list = ref.split('\t')
+            remote_refs[hash_ref_list[1]] = hash_ref_list[0]
+        return {'ok': remote_refs}
+    except GitCommandError as exc:
+        return {'error': {'message': exc.stderr, 'status': exc.status}}
 
 
 def cmd_execute(cmnd, folder='.'):
@@ -95,10 +109,11 @@ def setup_ssh_key(baseurl: str) -> Iterator[str]:
         ])
 
 
-def repo_url(baseurl: str):
+def repo_url(baseurl: str) -> str:
     """ return the repo url """
-    for user, passw in ['repo_user', 'repo_pass'], \
-                       ['repo_user_2', 'repo_pass_2']:
+    error = ''
+    for user, passw in ['repo_user',
+                        'repo_pass'], ['repo_user_2', 'repo_pass_2']:
         repo_user = ''
         repo_pass = ''
         with open('../config/secrets-prod.yaml') as secrets:
@@ -106,22 +121,24 @@ def repo_url(baseurl: str):
                 repo_user = utils.generic.get_sops_secret(
                     user,
                     '../config/secrets-prod.yaml',
-                    'continuous-admin'
+                    'continuous-admin',
                 )
                 repo_pass = utils.generic.get_sops_secret(
                     passw,
                     '../config/secrets-prod.yaml',
-                    'continuous-admin'
+                    'continuous-admin',
                 )
                 repo_user = urllib.parse.quote_plus(repo_user)
                 repo_pass = urllib.parse.quote_plus(repo_pass)
         uri = baseurl.replace('<user>', repo_user)
         uri = uri.replace('<pass>', repo_pass)
         # check if the user has permissions in the repo
-        cmd = cmd_execute(['git', 'ls-remote', uri])
-        if 'fatal' not in cmd[1]:
+        remote = ls_remote(uri)
+        if remote.get('ok'):
             return uri
-    return cmd[1]
+        error = remote['error']['message']
+
+    return error
 
 
 def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
@@ -213,17 +230,13 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
             problem = {'repo': repo_name, 'problem': cmd[1]}
     # validate if there is no problem with the baseurl
     elif not problem:
-        cmd = cmd_execute([
-            'git',
-            'clone',
-            '-b',
-            branch,
-            '--single-branch',
-            baseurl,
-        ])
-        if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+        try:
+            Repo.clone_from(baseurl,
+                            repo_name,
+                            multi_options=[f'-b {branch}', '--single-branch'])
+        except GitError as exc:
             logger.error(f'{repo_name}/{branch} failed')
-            problem = {'repo': repo_name, 'problem': cmd[1]}
+            problem = {'repo': repo_name, 'problem': exc}
 
     if problem:
         utils.integrates.update_root_cloning_status(
