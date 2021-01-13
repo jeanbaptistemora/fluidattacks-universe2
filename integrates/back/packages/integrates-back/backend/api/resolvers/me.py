@@ -143,31 +143,6 @@ async def _do_sign_in(
     )
 
 
-@require_login
-async def _do_invalidate_access_token(
-        _: Any,
-        info: GraphQLResolveInfo) -> SimplePayloadType:
-    """Resolve invalidate_access_token mutation."""
-    user_info = await util.get_jwt_content(info.context)
-
-    success = await user_domain.remove_access_token(
-        user_info['user_email']
-    )
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            (f'{user_info["user_email"]} '  # pragma: no cover
-             'invalidate access token')
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            (f'{user_info["user_email"]} '  # pragma: no cover
-             'attempted to invalidate access token')
-        )
-    return SimplePayloadType(success=success)
-
-
 async def _do_accept_legal(
         _: Any,
         info: GraphQLResolveInfo,

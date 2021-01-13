@@ -30,6 +30,7 @@ from backend.api.mutations import (
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_vulns_acceptation,
+    invalidate_access_token,
     invalidate_cache,
     reject_draft,
     reject_zero_risk_vuln,
@@ -129,7 +130,7 @@ MUTATION.set_field(
     subscribe_to_entity_report.mutate
 )
 MUTATION.set_field('updateAccessToken', update_access_token.mutate)
-MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
+MUTATION.set_field('invalidateAccessToken', invalidate_access_token.mutate)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)
 MUTATION.set_field('grantStakeholderAccess', grant_stakeholder_access.mutate)
