@@ -1,3 +1,8 @@
+# Future
+from __future__ import (
+    annotations,
+)
+
 # Standard library
 from dataclasses import (
     dataclass,
@@ -42,7 +47,7 @@ class SyntaxStepMeta:
     value: Optional[Any]
 
     @staticmethod
-    def default() -> 'SyntaxStepMeta':
+    def default() -> SyntaxStepMeta:
         return SyntaxStepMeta(
             danger=False,
             dependencies=0,
