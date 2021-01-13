@@ -106,15 +106,6 @@ def _build_ast_graph(
             label_type=obj.type,
         )
 
-        if not obj.children or obj.type in {
-            'scoped_identifier',
-            'scoped_type_identifier',
-        }:
-            _graph.nodes[n_id]['label_text'] = content[
-                obj.start_byte:
-                obj.end_byte
-            ].decode('latin-1')
-
         if _parent is not None:
             _graph.add_edge(
                 _parent,
@@ -123,15 +114,27 @@ def _build_ast_graph(
                 label_index=_edge_index,
             )
 
-        for edge_index, child in enumerate(obj.children):
-            _build_ast_graph(
-                content,
-                child,
-                _counter=_counter,
-                _edge_index=str(edge_index),
-                _graph=_graph,
-                _parent=n_id,
-            )
+        if not obj.children or obj.type in {
+            'field_access',
+            'scoped_identifier',
+            'scoped_type_identifier',
+        }:
+            # Consider it a final node, extract the text from it
+            _graph.nodes[n_id]['label_text'] = content[
+                obj.start_byte:
+                obj.end_byte
+            ].decode('latin-1')
+        else:
+            # It's not a final node, recurse
+            for edge_index, child in enumerate(obj.children):
+                _build_ast_graph(
+                    content,
+                    child,
+                    _counter=_counter,
+                    _edge_index=str(edge_index),
+                    _graph=_graph,
+                    _parent=n_id,
+                )
 
     else:
         raise NotImplementedError()
@@ -175,7 +178,7 @@ def parse_one(
     *,
     language: str,
     path: str,
-    version: int = 15,
+    version: int = 16,
 ) -> GraphShard:
     if not language:
         raise ParsingError()
