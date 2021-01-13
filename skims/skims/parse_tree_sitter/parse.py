@@ -40,6 +40,7 @@ from parse_tree_sitter.syntax_readers.generic import (
 )
 from parse_tree_sitter.transformations import (
     control_flow,
+    dangerous_action_nodes,
     styles,
     untrusted_nodes,
 )
@@ -171,6 +172,7 @@ def _parse_one_cached(
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph)
+    dangerous_action_nodes.mark(graph, language)
     untrusted_nodes.mark(graph, language)
     styles.add(graph)
 

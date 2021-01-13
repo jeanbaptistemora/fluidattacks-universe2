@@ -111,6 +111,12 @@ class GraphShard(NamedTuple):
 
 
 class GraphUntrustedNode(Enum):
+    F034_INSECURE_RANDOM: str = 'F034_INSECURE_RANDOM'
+    F063_PATH_TRAVERSAL: str = 'F063_PATH_TRAVERSAL'
+
+
+class GraphDangerousActionNode(Enum):
+    F034_INSECURE_RANDOM: str = 'F034_INSECURE_RANDOM'
     F063_PATH_TRAVERSAL: str = 'F063_PATH_TRAVERSAL'
 
 
