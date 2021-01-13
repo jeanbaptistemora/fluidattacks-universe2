@@ -16,6 +16,7 @@ from typing import (
     Optional,
     Dict
 )
+import configparser
 
 # Third party libraries
 import boto3
@@ -284,10 +285,10 @@ def _write_aws_credentials(profile: str,
     :param key_info: AWS credentials for profile.
     :param delete_default: Delete default credentials.
     """
-    creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    creds_file: str = os.path.expanduser('~/.aws/credentials')
     if not os.path.exists(creds_file):
         with contextlib.suppress(FileExistsError):
-            os.mkdir(f"{os.environ['HOME']}/.aws/")
+            os.mkdir(os.path.expanduser('~/.aws/'))
         open(creds_file, 'w').close()
     config: ConfigParser = ConfigParser()
     config.read(creds_file)
@@ -295,10 +296,10 @@ def _write_aws_credentials(profile: str,
         config.add_section(profile)
     if delete_default and config.has_section(DEFAULT_PROFILE):
         del config[DEFAULT_PROFILE]
-    config[profile]['AWS_ACCESS_KEY_ID'] = key_info['AccessKeyId']
-    config[profile]['AWS_SECRET_ACCESS_KEY'] = key_info['SecretAccessKey']
-    config[profile]['AWS_SESSION_TOKEN'] = key_info['SessionToken']
-    config[profile]['AWS_SESSION_TOKEN_EXPIRATION'] = key_info['Expiration']
+    config[profile]['aws_access_key_id'] = key_info['AccessKeyId']
+    config[profile]['aws_secret_access_key'] = key_info['SecretAccessKey']
+    config[profile]['aws_session_token'] = key_info['SessionToken']
+    config[profile]['aws_session_token_expiration'] = key_info['Expiration']
 
     with open(creds_file, 'w') as file:
         config.write(file)
@@ -308,7 +309,7 @@ def _get_aws_credentials(profile: str) -> Dict:
     """
     Returns aws credentials of the profile by reading the aws credentials file.
     """
-    creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    creds_file: str = os.path.expanduser('~/.aws/credentials')
     config: ConfigParser = ConfigParser()
     config.read(creds_file)
     if not config.has_section(profile):
@@ -334,7 +335,7 @@ def _get_okta_user() -> Optional[str]:
     if not user:
         logger.info("Set the variable AWS_OKTA_USER in your shell profile")
         try:
-            path: str = f"{os.environ['HOME']}/.aws-okta-processor/cache/"
+            path: str = os.path.expanduser('~/.aws-okta-processor/cache/')
             users: List[str] = os.listdir(path)
             if users:
                 with open(path + users[0], 'r') as reader:
@@ -356,17 +357,15 @@ def _set_aws_env_creds(profile: str):
 
     :param profile: Profile name credentials are extracted.
     """
-    os.environ['AWS_ACCESS_KEY_ID'] = os.popen(
-        f'aws configure get {profile}.aws_access_key_id').read().rstrip()
-    os.environ['AWS_SECRET_ACCESS_KEY'] = os.popen(
-        f'aws configure get {profile}.aws_secret_access_key').read().rstrip()
-    os.environ['AWS_SESSION_TOKEN'] = os.popen(
-        f'aws configure get {profile}.aws_session_token').read().rstrip()
+    credentials = boto3.Session(profile_name=profile).get_credentials()
+    os.environ['AWS_ACCESS_KEY_ID'] = credentials.access_key
+    os.environ['AWS_SECRET_ACCESS_KEY'] = credentials.secret_key
+    os.environ['AWS_SESSION_TOKEN'] = credentials.token
 
 
 def _get_okta_aws_credentials(profile: str) -> Dict:
     """Login in okta to get the aws credentials of the profile."""
-    creds_file: str = f"{os.environ['HOME']}/.aws/credentials"
+    creds_file: str = os.path.expanduser('~/.aws/credentials')
     config: ConfigParser = ConfigParser()
     config.read(creds_file)
     url: str = 'fluidattacks.okta.com'
@@ -431,13 +430,8 @@ def okta_aws_login(profile: str = 'default') -> bool:
 
     _write_aws_credentials(profile, key_info)
     if profile == DEFAULT_PROFILE:
-        command: List[str] = [
-            'aws', 'sts', 'get-caller-identity', '--profile',
-            DEFAULT_PROFILE
-        ]
-        out: str
-        _, out, _ = run_command(command, cwd='.', env={})
-        profile = json.loads(out)['Arn'].split('/')[1]
+        client = boto3.client('sts', profile=DEFAULT_PROFILE)
+        profile = client.get_caller_identity()['Arn'].split('/')[1]
         _write_aws_credentials(profile, key_info, delete_default=True)
     _set_aws_env_creds(profile)
 
@@ -466,17 +460,13 @@ def aws_login(profile: str = 'default'):
         aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
         aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
 
-        cmd_access_key = [
-            'aws', 'configure', 'set',
-            'aws_access_key_id', aws_access_key_id,
-        ]
-        cmd_secret_key = [
-            'aws', 'configure', 'set',
-            'aws_secret_access_key', aws_secret_access_key,
-        ]
+        credentials = configparser.ConfigParser()
+        credentials.read(os.path.expanduser('~/.aws/credentials'))
+        credentials['default']['aws_access_key_id'] = aws_access_key_id
+        credentials['default']['aws_secret_access_key'] = aws_secret_access_key
+        with open(os.path.expanduser('~/.aws/credentials'), 'w') as handler:
+            credentials.write(handler)
 
-        run_command(cmd=cmd_access_key, cwd='.', env={})
-        run_command(cmd=cmd_secret_key, cwd='.', env={})
     else:
         okta_aws_login(profile)
 
