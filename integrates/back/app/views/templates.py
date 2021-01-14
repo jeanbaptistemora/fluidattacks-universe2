@@ -69,7 +69,6 @@ def main_app(request: Request) -> HTMLResponse:
             'debug': settings.DEBUG,
             'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
             'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
-            'delighted': f'{settings.STATIC_URL}/app/delighted.js'
         }
     )
 

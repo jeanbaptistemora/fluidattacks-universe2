@@ -39,7 +39,7 @@
       var userEmail = "{{ request.session['username'] }}";
     </script>
     <!-- Start of Delighted survey script -->
-    <script defer src="{{ delighted }}" type="text/javascript"></script>
+    <script defer src="{{ url_for('static', path='/delighted.js') | replace('http', 'https') }}"" type="text/javascript"></script>
     <!-- End of Delighted survey script -->
     <!-- Start of fluidattacks Zendesk Widget script -->
     <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=dc2bbf98-b773-4e25-ac9f-6cb800f7d293"></script>
