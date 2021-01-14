@@ -135,7 +135,7 @@ def validate_project_services_config(
                 'Forces is only available in projects of type Continuous')
 
 
-async def create_project(  # pylint: disable=too-many-arguments,too-many-locals
+async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     user_email: str,
     user_role: str,
     project_name: str,

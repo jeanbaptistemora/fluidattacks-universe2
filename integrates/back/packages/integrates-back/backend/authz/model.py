@@ -569,7 +569,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_new_query_stakeholder_'
                 '_resolve_for_organization'
             ),
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
         },
@@ -578,7 +578,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             'backend_api_resolvers_new_organization_analytics_resolve',
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
         },
         tags=set()
     ),
@@ -600,7 +600,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_new_query_stakeholder_'
                 '_resolve_for_organization'
             ),
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
         },
@@ -623,7 +623,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_new_query_stakeholder_'
                 '_resolve_for_organization'
             ),
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
         },
         tags=set()
     )
@@ -641,7 +641,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_mutations_invalidate_cache_mutate',
             'backend_api_resolvers_new_query_internal_names_resolve',
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
             'backend_api_resolvers_new_query_groups_resolve',
             'backend_api_resolvers_new_query_report__get_url_all_users',
             'backend_api_resolvers_new_query_report__get_url_all_vulns',
@@ -657,7 +657,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_new_query_internal_names_resolve',
             'backend_api_mutations_invalidate_cache_mutate',
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
         },
         tags={
             'drills',
@@ -666,14 +666,14 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             'backend_api_resolvers_new_query_internal_names_resolve',
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
         },
         tags=set(),
     ),
     internal_manager=dict(
         actions={
             'backend_api_resolvers_new_query_internal_names_resolve',
-            'backend_api_mutations_create_project_mutate',
+            'backend_api_mutations_create_group_mutate',
             'backend_api_resolvers_new_query_user_list_groups_resolve',
         },
         tags={

@@ -20,7 +20,7 @@ from backend.domain.project import (
     list_comments, get_active_projects, get_managers, list_events,
     get_alive_projects, get_mean_remediate_severity,
     remove_access, validate_project_services_config,
-    create_project, total_vulnerabilities,
+    create_group, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
     get_closers,
     get_mean_remediate_non_treated,
@@ -317,7 +317,7 @@ async def test_create_project_not_user_admin():
     await available_name_dal.create('NEWAVAILABLENAME', 'group')
     user_email = 'integratesuser@gmail.com'
     user_role = 'customeradmin'
-    test_data = await create_project(
+    test_data = await create_group(
         user_email=user_email,
         user_role=user_role,
         project_name='NEWAVAILABLENAME',

@@ -111,7 +111,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
     <React.StrictMode>
       <div className={style.container}>
         <Row>
-          <Can do="backend_api_mutations_create_project_mutate">
+          <Can do="backend_api_mutations_create_group_mutate">
             <ButtonToolbarCenter>
               <TooltipWrapper message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}>
                 <Button id={"add-group"} onClick={openNewProjectModal}>

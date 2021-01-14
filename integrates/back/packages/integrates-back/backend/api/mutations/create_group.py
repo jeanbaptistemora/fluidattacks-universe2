@@ -12,7 +12,7 @@ from backend.decorators import (
     enforce_user_level_auth_async,
     require_login
 )
-from backend.domain import project as project_domain
+from backend.domain import project as group_domain
 from backend.typing import SimplePayload as SimplePayloadType
 from backend.utils.user import create_forces_user
 
@@ -33,14 +33,15 @@ async def mutate(  # pylint: disable=too-many-arguments
     has_forces: bool = False,
     language: str = 'en'
 ) -> SimplePayloadType:
+    group_name = project_name
     user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = await authz.get_user_level_role(user_email)
 
-    success = await project_domain.create_project(
+    success = await group_domain.create_group(
         user_email,
         user_role,
-        project_name.lower(),
+        group_name.lower(),
         organization,
         description,
         has_drills,
@@ -50,12 +51,12 @@ async def mutate(  # pylint: disable=too-many-arguments
     )
 
     if success and has_forces:
-        await create_forces_user(info, project_name)
+        await create_forces_user(info, group_name)
     if success:
         util.queue_cache_invalidation(user_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Created project {project_name.lower()} successfully',
+            f'Security: Created group {group_name.lower()} successfully',
         )
 
     return SimplePayloadType(success=success)
