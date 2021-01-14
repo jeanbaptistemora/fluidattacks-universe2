@@ -14,6 +14,7 @@
     srcSkimsPkgsTerraform.url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0";
     srcSkimsTreeSitterRepo.flake = false;
     srcSkimsTreeSitterRepo.url = "github:tree-sitter/tree-sitter-java/f7b62ac33d63bea56ce202ace107aaa4285e50af";
+    srcSortsPkgs.url = "github:NixOS/nixpkgs/5d5e970ce04933576957dfbf99cb7d4c1802c60d";
   };
   outputs = attrs: import ./makes attrs;
 }

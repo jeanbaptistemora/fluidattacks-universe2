@@ -7,6 +7,7 @@
 , srcSkimsPkgs
 , srcSkimsPkgsTerraform
 , srcSkimsTreeSitterRepo
+, srcSortsPkgs
 , ...
 } @ _:
 
@@ -53,6 +54,9 @@ flake.lib.eachDefaultSystem (
           skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
           skims-security = import ../makes/skims/security attrs;
           skims-structure = import ../makes/skims/structure attrs;
+          sorts-config-python-requirements-development = import ../makes/sorts/config/python-requirements/development attrs;
+          sorts-config-python-requirements-runtime = import ../makes/sorts/config/python-requirements/runtime attrs;
+          sorts-lint = import ../makes/sorts/lint attrs;
         };
       };
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
@@ -63,6 +67,7 @@ flake.lib.eachDefaultSystem (
       skimsPkgs = import srcSkimsPkgs { inherit system; };
       skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
       skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
+      sortsPkgs = import srcSortsPkgs { inherit system; };
     };
     makeApp = app: derivation: {
       program = "${derivation}/bin/${app}";
