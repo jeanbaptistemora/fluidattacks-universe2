@@ -1,6 +1,5 @@
 # Third party libraries
 from lib_root.common import (
-    GraphShardNodes,
     get_vulnerabilities_from_n_ids
 )
 
@@ -18,7 +17,7 @@ def java_declaration_of_throws_for_generic_exception(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> graph_model.GraphShardNodes:
         for shard in graph_db.shards:
             graph = shard.graph
 

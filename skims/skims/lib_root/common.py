@@ -2,7 +2,6 @@
 import os
 from typing import (
     Dict,
-    Iterable,
     Tuple,
 )
 
@@ -23,10 +22,6 @@ from utils.string import (
 from zone import (
     t,
 )
-
-# Constants
-GraphShardNode = Tuple[graph_model.GraphShard, graph_model.NId]
-GraphShardNodes = Iterable[GraphShardNode]
 
 
 def get_vulnerability_from_n_id(
@@ -82,7 +77,7 @@ def get_vulnerabilities_from_n_ids(
     desc_key: str,
     desc_params: Dict[str, str],
     finding: core_model.FindingEnum,
-    graph_shard_nodes: GraphShardNodes,
+    graph_shard_nodes: graph_model.GraphShardNodes,
 ) -> core_model.Vulnerabilities:
     return tuple(
         get_vulnerability_from_n_id(

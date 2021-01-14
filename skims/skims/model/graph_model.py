@@ -14,6 +14,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Iterable,
     List,
     NamedTuple,
     Optional,
@@ -124,6 +125,9 @@ class GraphDB(NamedTuple):
     shards: List[GraphShard]
     shards_by_path: Dict[str, int]
 
+
+GraphShardNode = Tuple[GraphShard, NId]
+GraphShardNodes = Iterable[GraphShardNode]
 
 Query = Callable[[Graph], core_model.Vulnerabilities]
 Queries = Tuple[Query, ...]
