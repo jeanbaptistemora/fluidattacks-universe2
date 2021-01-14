@@ -1974,6 +1974,7 @@ export const enTranslations: ResourceKey = {
     vulnerabilitiesByLevel: "Vulnerabilities by level",
     vulnerabilitiesByTag: "Vulnerabilities by tag",
     vulnerabilitiesByTreatments: "Vulnerabilities by treatments",
+    vulnerabilitiesByType: "Vulnerabilities by type",
     vulns_groups: "Vulnerabilities by group",
   },
   update_access_token: {
