@@ -3,6 +3,12 @@ import os
 import json
 from typing import List
 from pathlib import Path
+
+# Third party libaries
+import boto3
+import git
+from git.exc import GitCommandError
+
 # Local libraries
 from toolbox import logger
 from toolbox.utils import generic
@@ -10,30 +16,17 @@ from toolbox.utils.function import shield
 
 
 def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
+    client = boto3.client('s3', endpoint_url=endpoint_url)
+
     if not path.endswith('/'):
         path = f'{path}/'
-    command: List[str] = [
-        'aws',
-        's3api',
-        'list-objects-v2',
-        '--bucket',
-        bucket,
-        '--prefix',
-        path,
-        '--delimiter',
-        '/',
-    ]
-    if endpoint_url:
-        command.append('--endpoint')
-        command.append(endpoint_url)
 
-    _, stdout, _ = generic.run_command(
-        cmd=command,
-        cwd='.',
-        env={},
+    response = client.list_objects_v2(
+        Bucket=bucket,
+        Delimiter='/',
+        Prefix=path,
     )
     try:
-        response = json.loads(stdout)
         return list(map(lambda x: x['Prefix'], response['CommonPrefixes']))
     except KeyError as key_error:
         logger.error('Looks like response does not have Common Prefixes:')
@@ -54,25 +47,19 @@ def fill_empty_folders(path: str) -> None:
         Path(folder, '.keep').touch()
 
 
-def git_optimize_all(path: str, **kwargs) -> bool:
-    git_optimize_all_command: List[str] = [
-        'git', 'gc', '--aggressive', '--prune=all'
-    ]
+def git_optimize_all(path: str) -> bool:
     git_files = Path(path).glob('**/.git')
     logger.info(f'Git files: {git_files}')
     git_folders = set(map(lambda x: x.parent, git_files))
     for folder in git_folders:
         logger.info(f'Git optimize at {folder}')
-        git_status, git_stdout, git_stderr = generic.run_command(
-            cmd=git_optimize_all_command,
-            cwd=str(folder),
-            env={},
-            **kwargs,
-        )
-        if git_status:
+        try:
+            git.Repo(str(folder), search_parent_directories=True).git.gc(
+                '--aggressive', '--prune=all')
+        except GitCommandError as exc:
             logger.error(f'Git optimization has failed at {folder}: ')
-            logger.info(git_stdout)
-            logger.info(git_stderr)
+            logger.info(exc.stdout)
+            logger.info(exc.stderr)
             return False
     return True
 
@@ -101,7 +88,7 @@ def s3_sync_fusion_to_s3(
     fill_empty_folders(fusion_dir)
 
     if not generic.is_env_ci():
-        if not git_optimize_all(fusion_dir, **kwargs):
+        if not git_optimize_all(fusion_dir):
             return False
 
     if endpoint_url:
