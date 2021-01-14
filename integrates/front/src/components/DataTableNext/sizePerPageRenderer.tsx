@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownButton, MenuItem } from "react-bootstrap";
+import { DropdownButton, MenuItem } from "components/DropdownButton";
 
 export const SizePerPageRenderer: React.FC<SizePerPageRenderer> = (
   // Readonly utility type doesn't seem to work on SizePerPageRenderer
@@ -14,18 +14,20 @@ export const SizePerPageRenderer: React.FC<SizePerPageRenderer> = (
   return (
     <div>
       <DropdownButton
+        content={currSizePerPage}
         id={"pageSizeDropDown"}
-        onSelect={handleSelect}
-        title={currSizePerPage}
-      >
-        {options.map(
+        items={options.map(
           (option: Readonly<{ page: number; text: string }>): JSX.Element => (
-            <MenuItem eventKey={option.page} key={option.text}>
-              {option.page}
-            </MenuItem>
+            <MenuItem
+              eventKey={`${option.page}`}
+              itemContent={option.page}
+              key={option.text}
+              onClick={handleSelect}
+            />
           )
         )}
-      </DropdownButton>
+        width={"sizePageDropdownBtn"}
+      />
     </div>
   );
 };

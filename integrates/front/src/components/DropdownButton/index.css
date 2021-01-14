@@ -4,11 +4,10 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 16px !important;
   white-space: normal;
-  width: 235px;
 }
 
 :local .dropdownButton,
-.dropdownButton:focus {
+:local .dropdownButton:focus {
   background-color: #fff;
   border-color: #ff3435;
   color: #ff3435;
@@ -22,7 +21,7 @@
 }
 
 :local .dropdownButton:active,
-.dropdownButton:active:focus {
+:local .dropdownButton:active:focus {
   background-color: #8e1616;
   border-color: #8e1616;
   color: #fff;
@@ -41,7 +40,7 @@
 }
 
 :local .dropdownButton[disabled],
-.dropdownButton[disabled]:hover {
+:local .dropdownButton[disabled]:hover {
   background-color: #fafafa;
   border-color: #dfdfdf;
   color: #919191;
@@ -77,10 +76,9 @@
   color: #333;
   margin-left: -11px;
   margin-top: 11px;
-  width: 235px;
 }
 
-:local .dropdownButton:hover .itemsContainer {
+:local .dropdownButton:hover :local .itemsContainer {
   display: block;
 }
 

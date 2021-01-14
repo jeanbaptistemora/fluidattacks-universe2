@@ -147,6 +147,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                       </a>
                       <DropdownButton
                         id="subscribe-dropdown"
+                        width={"suscribeDropdownBtn"}
                         content={
                           <React.Fragment>
                             <div className={"tc"}>

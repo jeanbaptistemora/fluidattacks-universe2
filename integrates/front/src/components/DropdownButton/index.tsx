@@ -13,31 +13,32 @@ interface IDropdownButtonProps {
   content: React.ReactNode;
   id: string;
   items: React.ReactNode;
+  width: string;
 }
 
 const StyledDropdownButton: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "relative dib pa3",
+  className: `relative dib pa3 tc ${style.dropdownButton}`,
 })``;
 
 const ItemsContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "absolute dn z-1",
+  className: `absolute dn z-1 ${style.itemsContainer}`,
 })``;
 
 const DropdownButton: React.FC<IDropdownButtonProps> = (
   props: Readonly<IDropdownButtonProps>
 ): JSX.Element => {
-  const { content, id, items } = props;
+  const { content, id, items, width } = props;
 
   return (
-    <StyledDropdownButton className={style.dropdownButton} id={id}>
+    <StyledDropdownButton className={width} id={id}>
       {content}
-      <ItemsContainer className={style.itemsContainer}>{items}</ItemsContainer>
+      <ItemsContainer className={width}>{items}</ItemsContainer>
     </StyledDropdownButton>
   );
 };

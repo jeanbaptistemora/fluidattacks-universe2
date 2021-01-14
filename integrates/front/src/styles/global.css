@@ -346,6 +346,14 @@ label {
   display: block;
 }
 
+:global .sizePageDropdownBtn {
+  width: 45px;
+}
+
+:global .suscribeDropdownBtn {
+  width: 235px;
+}
+
 :global .split-button > div > button {
   background: transparent !important;
   border: none;
