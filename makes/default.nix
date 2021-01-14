@@ -40,6 +40,7 @@ flake.lib.eachDefaultSystem (
           observes-bin-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-config-python-requirements-target-redshift-runtime = import ../makes/observes/config/python-requirements/target-redshift-runtime attrs;
           observes-config-setup-target-redshift-runtime = (import ../makes/observes/config attrs).setupTargetRedshiftRuntime;
+          observes-lint-target-redshift = import ../makes/observes/lint-target-redshift attrs;
           skims-bin = import ../makes/skims/bin attrs;
           skims-bin-repl = import ../makes/skims/bin-repl attrs;
           skims-config-setup-skims-development = (import ../makes/skims/config attrs).setupSkimsDevelopment;

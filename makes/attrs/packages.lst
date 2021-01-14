@@ -3,6 +3,7 @@ melts-bin
 observes-bin-target-redshift
 observes-config-python-requirements-target-redshift-runtime
 observes-config-setup-target-redshift-runtime
+observes-lint-target-redshift
 skims-bin
 skims-bin-repl
 skims-config-python-requirements-development
