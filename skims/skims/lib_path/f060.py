@@ -15,6 +15,7 @@ from aioextensions import (
 from pyparsing import (
     delimitedList,
     Keyword,
+    MatchFirst,
     nestedExpr,
     Optional,
 )
@@ -250,14 +251,21 @@ async def python_insecure_exceptions(
     )
 
 
-def _swift_insecure_exceptions(
+def _swift_generic_exceptions(
     content: str,
     path: str,
 ) -> Vulnerabilities:
+    exc_generic = VAR_ATTR_JAVA.copy()
+    exc_generic.addCondition(lambda tokens: tokens[0] in {
+        'Error',
+    })
+
     grammar = (
         Keyword('catch') +
-        Optional('let' + VAR_ATTR_JAVA) +
-        Optional('as' + VAR_ATTR_JAVA) +
+        MatchFirst((
+            Optional('let' + VAR_ATTR_JAVA + 'as' + exc_generic),
+            Optional('let' + VAR_ATTR_JAVA),
+        )) +
         '{'
     )
     grammar.ignore(C_STYLE_COMMENT)
@@ -281,12 +289,12 @@ def _swift_insecure_exceptions(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def swift_insecure_exceptions(
+async def swift_generic_exceptions(
     content: str,
     path: str,
 ) -> Vulnerabilities:
     return await in_process(
-        _swift_insecure_exceptions,
+        _swift_generic_exceptions,
         content=content,
         path=path,
     )
@@ -319,7 +327,7 @@ async def analyze(
             path=path,
         ))
     elif file_extension in EXTENSIONS_SWIFT:
-        coroutines.append(swift_insecure_exceptions(
+        coroutines.append(swift_generic_exceptions(
             content=await content_generator(),
             path=path,
         ))

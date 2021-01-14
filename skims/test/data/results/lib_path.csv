@@ -228,11 +228,8 @@ F060. Insecure exceptions,namespace/test/data/lib_path/f060/java.java,5,396
 F060. Insecure exceptions,namespace/test/data/lib_path/f060/python.py,2,396
 F060. Insecure exceptions,namespace/test/data/lib_path/f060/python.py,4,396
 F060. Insecure exceptions,namespace/test/data/lib_path/f060/python.py,5,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/swift.swift,5,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f060/swift.swift,6,396
 F060. Insecure exceptions,namespace/test/data/lib_path/f060/swift.swift,7,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f061/swift.swift,5,396
-F060. Insecure exceptions,namespace/test/data/lib_path/f061/swift.swift,6,396
+F060. Insecure exceptions,namespace/test/data/lib_path/f060/swift.swift,9,396
 F060. Insecure exceptions,namespace/test/data/lib_path/f061/swift.swift,7,396
 F061. Errors without traceability,namespace/test/data/lib_path/f031_cwe378/Test.java,7,390
 F061. Errors without traceability,namespace/test/data/lib_path/f061/csharp.cs,2,390

@@ -35,7 +35,7 @@ from model.graph_model import (
 from sast import (
     inspectors,
 )
-from sast.syntax_readers.generic import (
+from sast.syntax_readers import (
     read_from_graph,
 )
 from sast.transformations import (
