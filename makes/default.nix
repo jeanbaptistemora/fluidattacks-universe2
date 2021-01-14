@@ -37,6 +37,7 @@ flake.lib.eachDefaultSystem (
         packages = {
           integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
+          observes-config-python-requirements-target-redshift-runtime = import ../makes/observes/config/python-requirements/target-redshift-runtime attrs;
           skims-bin = import ../makes/skims/bin attrs;
           skims-bin-repl = import ../makes/skims/bin-repl attrs;
           skims-config-setup-skims-development = (import ../makes/skims/config attrs).setupSkimsDevelopment;
