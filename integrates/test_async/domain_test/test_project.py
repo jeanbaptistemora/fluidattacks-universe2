@@ -193,7 +193,7 @@ async def test_get_mean_remediate():
     test_data = await get_mean_remediate(group_name)
     test_data_non_treated = await get_mean_remediate_non_treated(group_name)
     expected_output = Decimal('124.0')
-    expected_output_non_treated = Decimal('237.0')
+    expected_output_non_treated = Decimal('109.0')
 
     assert test_data == expected_output
     assert test_data_non_treated == expected_output_non_treated

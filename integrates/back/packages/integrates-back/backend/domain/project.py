@@ -844,7 +844,7 @@ async def get_mean_remediate_non_treated(group_name: str) -> Decimal:
 
     return await get_mean_remediate_vulnerabilities([
         vuln for vuln in vulnerabilities
-        if vuln_domain.is_accepted_undefined_vulnerability(vuln)
+        if not vuln_domain.is_accepted_undefined_vulnerability(vuln)
     ])
 
 
