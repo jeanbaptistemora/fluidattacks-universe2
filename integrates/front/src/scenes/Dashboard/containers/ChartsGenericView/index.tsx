@@ -371,6 +371,22 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               <Col100>
                 <Graphic
                   bsHeight={320}
+                  documentName="vulnerabilitiesByTag"
+                  documentType="barChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  className={"g1"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.vulnerabilitiesByTag")}
+                />
+              </Col100>
+            </RowCenter>
+            <RowCenter>
+              <Col100>
+                <Graphic
+                  bsHeight={320}
                   documentName="vulnerabilitiesByLevel"
                   documentType="barChart"
                   entity={entity}

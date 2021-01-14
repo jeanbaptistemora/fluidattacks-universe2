@@ -1972,6 +1972,7 @@ export const enTranslations: ResourceKey = {
     undefined_title: "Treatmentless by group",
     undefined_vuln: "undefined",
     vulnerabilitiesByLevel: "Vulnerabilities by level",
+    vulnerabilitiesByTag: "Vulnerabilities by tag",
     vulns_groups: "Vulnerabilities by group",
   },
   update_access_token: {
