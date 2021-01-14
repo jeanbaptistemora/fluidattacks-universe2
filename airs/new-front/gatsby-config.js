@@ -15,47 +15,18 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        // trackingId: `ADD YOUR TRACKING ID HERE`,
-      },
-    },
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-PCDDL8T",
-
-        // Include GTM in development.
-        //
-        // Defaults to false meaning GTM will only be loaded in production.
-        includeInDevelopment: false,
-
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        //
-        // Defaults to null
-        defaultDataLayer: { platform: "gatsby" },
-      },
-    },
-    {
-      resolve: `gatsby-transformer-asciidoc`,
-      options: {
-        attributes: {
-          showtitle: true,
-        },
-        fileExtensions: [`adoc`],
-      },
-    },
-    {
-      resolve: `gatsby-transformer-asciidoc`,
-      options: {
-        attributes: {
-          imagesdir: `/content/images`,
-        },
+        name: `Fluid Attacks`,
+        short_name: `https://fluidattacks.com`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/favicon.png`, // This path is relative to the root of the site.,
       },
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-typescript`,
     `gatsby-transformer-sharp`,

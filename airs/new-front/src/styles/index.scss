@@ -1,5 +1,16 @@
 // Height Classes
 .h-navbar { height: 6.5rem; }
 
+// Width and Max Width classes
+.mw-1366 { max-width: 1366px; }
+
+// Padding classes
+.ph-body { padding: 0 1.875rem; }
+
 // Transitions
 .t-all-5 { transition: all 0.5s; }
+
+// Media queries
+@media screen and (min-width: 60em) {
+  .ph-body { padding: 0 3.75rem; }
+}
