@@ -103,13 +103,13 @@ def delete_out_of_scope_files(group: str) -> bool:
         path_to_repo = os.path.join('groups', group, 'fusion', repo_name)
         for path in utils.file.iter_rel_paths(path_to_repo):
             if match_file(spec_ignore.patterns, path):
-                path = os.path.join(path_to_fusion, repo_name, path)
-                if '.git/' in path:
+                if path.startswith('.git/'):
                     continue
-                if os.path.isfile(path):
-                    os.unlink(path)
-                elif os.path.isdir(path):
-                    os.removedirs(path)
+                path_to_delete = os.path.join(path_to_fusion, repo_name, path)
+                if os.path.isfile(path_to_delete):
+                    os.unlink(path_to_delete)
+                elif os.path.isdir(path_to_delete):
+                    os.removedirs(path_to_delete)
 
     # Delete cloned repositories that are not expected to be cloned
     cloned_repositories: Set[str] = set(os.listdir(path_to_fusion))
