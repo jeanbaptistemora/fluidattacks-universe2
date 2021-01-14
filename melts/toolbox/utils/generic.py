@@ -23,6 +23,7 @@ import boto3
 import dateutil.parser
 from click import BadParameter
 from botocore.exceptions import ClientError
+import git
 
 # Local libraries
 from toolbox import logger
@@ -169,47 +170,39 @@ def rfc3339_str_to_date_obj(
     return dateutil.parser.parse(date_str)
 
 
-def get_change_request_summary(ref: str = 'HEAD') -> str:
+def get_change_request_summary(ref: str = 'HEAD', path=os.getcwd()) -> str:
     """Return the commit message, or the merge request title."""
-    exit_code: int
     commit_summary: str
     gitlab_summary_var: str = 'CI_MERGE_REQUEST_TITLE'
 
     if gitlab_summary_var in os.environ:
         commit_summary = os.environ[gitlab_summary_var]
     else:
-        cmd = ['git', 'log', '--max-count', '1', '--format=%s', ref]
-        exit_code, commit_summary, _ = run_command(cmd, cwd='.', env={})
-
-        commit_summary = str() if exit_code else commit_summary[:-1]
+        commit_summary = git.Repo(
+            path, search_parent_directories=True).commit(ref).summary
 
     return commit_summary
 
 
-def get_change_request_body(ref: str = 'HEAD') -> str:
+def get_change_request_body(ref: str = 'HEAD', path=os.getcwd()) -> str:
     """Return the HEAD commit message, or the merge request body."""
-    cmd: List[str]
-    exit_code: int
     commit_body: str
     gitlab_summary_var: str = 'CI_MERGE_REQUEST_DESCRIPTION'
 
     if gitlab_summary_var in os.environ:
         commit_body = os.environ[gitlab_summary_var]
     else:
-        cmd = ['git', 'log', '--max-count', '1', '--format=%b', ref]
-        exit_code, commit_body, _ = run_command(cmd, cwd='.', env={})
-
-        commit_body = str() if exit_code else commit_body[:-1]
+        commit_body = git.Repo(
+            path, search_parent_directories=True).commit(ref).message.split(
+                '\n\n', 1)[1]
 
     return commit_body
 
 
-def get_change_request_patch(ref: str = 'HEAD') -> str:
+def get_change_request_patch(ref: str = 'HEAD', path=os.getcwd()) -> str:
     """Return the HEAD commit patch."""
-    exit_code, patch, _ = \
-        run_command(['git', 'show', '--format=', ref], cwd='.', env={})
-
-    return str() if exit_code else patch[:-1]
+    return git.Repo(path,
+                    search_parent_directories=True).git.show('--format=', ref)
 
 
 def get_change_request_hunks(ref: str = 'HEAD') -> List[str]:
@@ -241,17 +234,14 @@ def get_change_request_deltas(ref: str = 'HEAD') -> int:
     return insertions + deletions
 
 
-def get_change_request_touched_files(ref: str = 'HEAD') -> Tuple[str, ...]:
+def get_change_request_touched_files(
+        ref: str = 'HEAD',
+        path=os.getcwd(),
+) -> Tuple[str, ...]:
     """Return touched files in HEAD commit."""
-    exit_code: int
-    stdout: str
-
-    cmd: List[str] = ['git', 'show', '--name-only', '--format=', ref]
-    exit_code, stdout, _ = run_command(cmd, cwd='.', env={})
-
-    stdout = str() if exit_code else stdout
-
-    return tuple(stdout.splitlines())
+    return tuple(
+        git.Repo(path, search_parent_directories=True).git.show(
+            '--format=', '--name-only', ref).splitlines())
 
 
 def get_change_request_touched_and_existing_exploits(
