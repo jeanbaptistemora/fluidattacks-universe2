@@ -58,10 +58,10 @@ const addGivenHeaders: (
         sortFunc: key.sortFunc,
         style: (): CSSProperties => ({
           whiteSpace: _.isUndefined(key.wrapped)
-            ? "nowrap"
+            ? "pre-wrap"
             : key.wrapped
             ? "unset"
-            : "nowrap",
+            : "pre-wrap",
         }),
         text: key.header,
       };
