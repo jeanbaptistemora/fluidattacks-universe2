@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "analytics_policy_document_data" {
 
   statement {
-    sid = "AnalyticsS3"
+    sid    = "AnalyticsS3"
     effect = "Allow"
     actions = [
       "s3:*",
@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "analytics_policy_document_data" {
   }
 
   statement {
-    sid = "AnalyticsReadDynamoDB"
+    sid    = "AnalyticsReadDynamoDB"
     effect = "Allow"
     actions = [
       "dynamodb:Query",
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "analytics_policy_document_data" {
   }
 
   statement {
-    sid = "AnalyticsReadInfrastructure"
+    sid    = "AnalyticsReadInfrastructure"
     effect = "Allow"
     actions = [
       "redshift:Describe*",
@@ -54,8 +54,8 @@ resource "aws_iam_policy" "analytics_policy" {
 }
 
 resource "aws_iam_user" "analytics_user" {
-  name     = "analytics"
-  path     = "/analytics/"
+  name = "analytics"
+  path = "/analytics/"
 
   tags = {
     "Name"               = "analytics"
