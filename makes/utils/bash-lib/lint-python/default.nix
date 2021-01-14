@@ -11,18 +11,23 @@ makeTemplate {
       dependencies = [ ];
       requirements = {
         direct = [
+          "import-linter==1.2"
           "mypy==0.790"
           "prospector==1.3.0"
         ];
         inherited = [
           "astroid==2.4.1"
+          "click==7.1.2"
+          "decorator==4.4.2"
           "dodgy==0.2.1"
           "flake8-polyfill==1.0.2"
           "flake8==3.8.4"
+          "grimp==1.2.2"
           "isort==4.3.21"
           "lazy-object-proxy==1.4.3"
           "mccabe==0.6.1"
           "mypy-extensions==0.4.3"
+          "networkx==2.5"
           "pep8-naming==0.10.0"
           "pycodestyle==2.6.0"
           "pydocstyle==5.1.1"

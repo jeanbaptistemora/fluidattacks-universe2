@@ -23,3 +23,15 @@ function lint_python {
         "${path}" \
   ||  return 1
 }
+
+function lint_python_imports {
+  local config="${1}"
+  local path="${2}"
+
+      make_python_path '3.8' \
+        '__envPythonRequirements__' \
+  && pushd "${path}" \
+    &&  lint-imports --config "${config}" \
+  &&  popd \
+  ||  return 1
+}

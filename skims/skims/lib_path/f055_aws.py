@@ -130,9 +130,9 @@ def _public_buckets_iterate_vulnerabilities(
                 yield bucket.inner['AccessControl']
         elif isinstance(bucket, AWSS3Bucket):
             acl = get_attribute(body=bucket.data, key='acl')
-            if acl and acl.val == 'public-read-write':
+            if acl and acl.val == 'public-read-write':  # type: ignore
                 yield AWSS3Acl(
-                    data=acl.val,
+                    data=acl.val,  # type: ignore
                     column=acl.column,
                     line=acl.line,
                 )
