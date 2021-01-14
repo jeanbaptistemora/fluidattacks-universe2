@@ -102,7 +102,7 @@ describe("Services", () => {
   ];
 
   const mockedPermissions: PureAbility<string> = new PureAbility([
-    { action: "backend_api_resolvers_project__do_edit_group" },
+    { action: "backend_api_mutations_edit_group_mutate" },
   ]);
 
   it("should return a function", () => {

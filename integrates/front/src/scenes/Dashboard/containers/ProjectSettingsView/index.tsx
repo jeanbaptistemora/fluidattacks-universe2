@@ -31,7 +31,7 @@ const projectSettingsView: React.FC = (): JSX.Element => {
         <Files projectName={projectName} />
         <hr />
         <Portfolio projectName={projectName} />
-        <Can do="backend_api_resolvers_project__do_edit_group">
+        <Can do="backend_api_mutations_edit_group_mutate">
           <React.Fragment>
             <hr />
             <Services groupName={projectName} />

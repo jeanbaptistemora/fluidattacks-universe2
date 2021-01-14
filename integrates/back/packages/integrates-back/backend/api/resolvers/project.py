@@ -12,30 +12,24 @@ from ariadne import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import authz
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
-    turn_args_into_kwargs,
     require_integrates
 )
 from backend.domain import (
     project as project_domain,
-    user as user_domain,
 )
-from backend.exceptions import PermissionDenied
 from backend.typing import (
     Project as ProjectType,
     AddConsultPayload as AddConsultPayloadType,
-    SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
 )
 from backend import util
 from backend.utils import (
     datetime as datetime_utils,
 )
-from backend.utils.user import create_forces_user
 
 from back.settings import LOGGING
 
@@ -55,66 +49,6 @@ async def resolve_project_mutation(
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-@turn_args_into_kwargs
-async def _do_edit_group(  # pylint: disable=too-many-arguments
-    _: Any,
-    info: GraphQLResolveInfo,
-    comments: str,
-    group_name: str,
-    has_drills: bool,
-    has_forces: bool,
-    has_integrates: bool,
-    reason: str,
-    subscription: str
-) -> SimplePayloadType:
-    group_name = group_name.lower()
-    user_info = await util.get_jwt_content(info.context)
-    requester_email = user_info['user_email']
-    success = False
-
-    try:
-        success = await project_domain.edit(
-            comments=comments,
-            group_name=group_name,
-            has_drills=has_drills,
-            has_forces=has_forces,
-            has_integrates=has_integrates,
-            reason=reason,
-            requester_email=requester_email,
-            subscription=subscription,
-        )
-    except PermissionDenied:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Unauthorized role attempted to edit group'
-        )
-
-    if success and has_forces:
-        await create_forces_user(info, group_name)
-    elif (
-        success and not has_forces and has_integrates and
-        await user_domain.ensure_user_exists(
-            user_domain.format_forces_user_email(group_name)
-        )
-    ):
-        await project_domain.remove_user_access(
-            group_name, user_domain.format_forces_user_email(group_name))
-    if success:
-        await util.invalidate_cache(group_name, requester_email)
-        await authz.revoke_cached_group_service_attributes_policies(group_name)
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Edited group {group_name} successfully',
-        )
-
-    return SimplePayloadType(success=success)
 
 
 @concurrent_decorators(

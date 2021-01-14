@@ -27,6 +27,7 @@ from backend.api.mutations import (
     delete_vulnerability,
     download_event_file,
     download_file,
+    edit_group,
     edit_stakeholder,
     edit_stakeholder_organization,
     execute_skims,
@@ -145,7 +146,7 @@ MUTATION.set_field('downloadFile', download_file.mutate)
 MUTATION.set_field('removeFiles', remove_files.mutate)
 MUTATION.set_field('updateEnvironment', update_environment.mutate)
 MUTATION.set_field('createProject', create_group.mutate)
-MUTATION.set_field('editGroup', project.resolve_project_mutation)
+MUTATION.set_field('editGroup', edit_group.mutate)
 MUTATION.set_field('removeGroup', remove_group.mutate)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
