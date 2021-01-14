@@ -156,7 +156,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               </Col33>
             </RowCenter>
             <RowCenter>
-              <Col33>
+              <Col50>
                 <Graphic
                   bsHeight={80}
                   documentName="findingsBeingReattacked"
@@ -172,8 +172,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.findingsBeingReattacked.title")}
                 />
-              </Col33>
-              <Col33>
+              </Col50>
+              <Col50>
                 <Graphic
                   bsHeight={80}
                   documentName="daysSinceLastRemediation"
@@ -189,8 +189,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
                 />
-              </Col33>
-              <Col33>
+              </Col50>
+            </RowCenter>
+            <RowCenter>
+              <Col50>
                 <Graphic
                   bsHeight={80}
                   documentName="meanTimeToRemediate"
@@ -206,7 +208,24 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
                 />
-              </Col33>
+              </Col50>
+              <Col50>
+                <Graphic
+                  bsHeight={80}
+                  documentName="meanTimeToRemediateNonTreated"
+                  documentType="textBox"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.textBox.meanTimeToRemediateNonTreated.footer")}</p>
+                  }
+                  generatorName="raw"
+                  generatorType="textBox"
+                  className={"g3"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.meanTimeToRemediateNonTreated.title")}
+                />
+              </Col50>
             </RowCenter>
             <RowCenter>
               <Col50>
@@ -447,7 +466,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   entity={entity}
                   generatorName="generic"
                   generatorType="c3"
-                  className={"g1"}
+                  className={"g2"}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("tag_indicator.mean_remediate")}
@@ -488,7 +507,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               </Col50>
             </RowCenter>
             <RowCenter>
-              <Col33>
+              <Col50>
                 <Graphic
                   bsHeight={80}
                   documentName="daysSinceLastRemediation"
@@ -504,8 +523,8 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
                 />
-              </Col33>
-              <Col33>
+              </Col50>
+              <Col50>
                 <Graphic
                   bsHeight={80}
                   documentName="totalVulnerabilities"
@@ -521,8 +540,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.totalVulnerabilities.title")}
                 />
-              </Col33>
-              <Col33>
+              </Col50>
+            </RowCenter>
+            <RowCenter>
+              <Col50>
                 <Graphic
                   bsHeight={80}
                   documentName="meanTimeToRemediate"
@@ -538,7 +559,24 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   subject={subject}
                   title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
                 />
-              </Col33>
+              </Col50>
+              <Col50>
+                <Graphic
+                  bsHeight={80}
+                  documentName="meanTimeToRemediateNonTreated"
+                  documentType="textBox"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.textBox.meanTimeToRemediateNonTreated.footer")}</p>
+                  }
+                  generatorName="raw"
+                  generatorType="textBox"
+                  className={"g3"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.meanTimeToRemediateNonTreated.title")}
+                />
+              </Col50>
             </RowCenter>
           </div>
         </React.Fragment>

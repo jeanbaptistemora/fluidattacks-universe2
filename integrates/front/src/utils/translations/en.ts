@@ -204,6 +204,12 @@ export const enTranslations: ResourceKey = {
           "Amount of time (in days) it takes to your team to fix a security vulnerability.",
         title: "Mean time to remediate (all vulnerabilities)",
       },
+      meanTimeToRemediateNonTreated: {
+        footer:
+          "Amount of time (in days) it takes to your team to fix a security vulnerability, " +
+          "taking into account only non treated ones",
+        title: "Mean time to remediate (non treated vulnerabilities)",
+      },
       totalFindings: {
         footer:
           "A finding is a group of vulnerabilities on your system " +
