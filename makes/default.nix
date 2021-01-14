@@ -20,7 +20,7 @@ flake.lib.eachDefaultSystem (
           makes-deploy-oci-ci = import ../makes/makes/deploy/oci-ci attrs;
           makes-lint = import ../makes/makes/lint attrs;
           melts = import ../makes/melts/bin attrs;
-          observes-target-redshift = import ../makes/observes/target-redshift/bin attrs;
+          observes-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-tap-json = import ../makes/observes/tap-json/bin attrs;
           skims = import ../makes/skims/bin attrs;
           skims-benchmark = import ../makes/skims/benchmark attrs;
@@ -37,6 +37,7 @@ flake.lib.eachDefaultSystem (
         packages = {
           integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
+          observes-bin-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-config-python-requirements-target-redshift-runtime = import ../makes/observes/config/python-requirements/target-redshift-runtime attrs;
           observes-config-setup-target-redshift-runtime = (import ../makes/observes/config attrs).setupTargetRedshiftRuntime;
           skims-bin = import ../makes/skims/bin attrs;

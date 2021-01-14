@@ -1,5 +1,6 @@
 integrates-lint-front
 melts-bin
+observes-bin-target-redshift
 observes-config-python-requirements-target-redshift-runtime
 observes-config-setup-target-redshift-runtime
 skims-bin

@@ -12,7 +12,7 @@ let
   };
 in
 {
-  setupTargetRedshiftRuntime = makeTemplate {
+  setupObservesTargetRedshiftRuntime = makeTemplate {
     arguments = {
       envPython = "${observesPkgs.python37}/bin/python";
       envPythonRequirements = outputs.packages.observes-config-python-requirements-target-redshift-runtime;
