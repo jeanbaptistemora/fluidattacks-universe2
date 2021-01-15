@@ -42,7 +42,7 @@ def do_check_commit_msg() -> bool:
 @option('--filter-groups-with-forces')
 @option('--get-group-language', is_flag=True)
 @option('--has-drills', is_flag=True)
-def misc_management(
+def misc_management(  # pylint: disable=too-many-arguments
     group: str,
     check_commit_msg: bool,
     is_drills_commit: bool,

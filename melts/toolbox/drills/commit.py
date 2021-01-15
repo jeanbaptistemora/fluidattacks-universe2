@@ -47,7 +47,7 @@ VALID_REASONS: Tuple[str, ...] = \
 
 
 @shield(on_error_return=False)
-def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
+def is_valid_summary(  # noqa: MC0001
     summary: str,
     body: str = str(),
 ) -> bool:

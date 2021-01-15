@@ -63,7 +63,7 @@ from toolbox.drills import (
     '--vpn', 'o_vpn',
     help='Access a subs VPN',
     is_flag=True)
-def drills_management(
+def drills_management(  # pylint: disable=too-many-arguments
     group: str,
     o_name: str,
     o_generate_commit_msg: bool,

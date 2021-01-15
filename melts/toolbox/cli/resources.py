@@ -40,7 +40,7 @@ SUBS_METAVAR = '[GROUP]'
     '--edit-prod', is_flag=True, help='edit the prod secrets of a group')
 @option(
     '--read-prod', is_flag=True, help='read the prod secrets of a group')
-def resources_management(
+def resources_management(  # pylint: disable=too-many-arguments
     group: str,
     clone: bool,
     fingerprint: bool,

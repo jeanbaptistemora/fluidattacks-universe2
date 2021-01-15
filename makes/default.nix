@@ -40,6 +40,7 @@ flake.lib.eachDefaultSystem (
         packages = {
           integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
+          melts-lint = import ../makes/melts/lint attrs;
           observes-bin-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-config-python-requirements-target-redshift-runtime = import ../makes/observes/config/python-requirements/target-redshift-runtime attrs;
           observes-config-setup-target-redshift-runtime = (import ../makes/observes/config attrs).setupTargetRedshiftRuntime;
