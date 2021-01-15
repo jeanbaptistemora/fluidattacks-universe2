@@ -88,14 +88,21 @@ export const navbarComponent: React.FC = (): JSX.Element => {
       push(`/groups/${projectName}/indicators`);
     }
   };
+  const handleBlurEvent: (event: FocusEvent) => void = (event: FocusEvent): void => {
+    const child: HTMLElement = event.target as HTMLElement;
+    const element: HTMLElement = child.parentNode as HTMLElement;
+    element.setAttribute("style", "display:none;");
+    child.removeEventListener("blur", () => undefined);
+  };
   const showItems: () => void = () => {
-    const element: Element = document.getElementsByClassName("splitItems")[0];
+    const element: Element = document.querySelector(".splitItems") as Element;
+    const child: HTMLElement = element.firstChild as HTMLElement;
     const elementStyle: CSSStyleDeclaration = window.getComputedStyle(element);
     const displayValue: string = elementStyle.getPropertyValue("display");
     if (displayValue === "none") {
       element.setAttribute("style", "display:block;");
-    } else {
-      element.setAttribute("style", "display:none;");
+      child.addEventListener("blur", handleBlurEvent);
+      child.focus();
     }
   };
 
