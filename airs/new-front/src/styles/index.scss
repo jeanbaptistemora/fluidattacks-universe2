@@ -18,6 +18,7 @@ $button-hover: rgba(255, 52, 53, 1);
 
 // Hover changes classes
 .hv-fluid-bd { &:hover { border-color: $button-hover;} }
+.hv-fluid-rd { &:hover { color: $button-hover; } }
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }

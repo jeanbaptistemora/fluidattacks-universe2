@@ -85,3 +85,42 @@ export const NavbarContactButton: StyledComponent<
      pointer
     `,
 })``;
+
+export const NavbarLoginButton: StyledComponent<
+"button", Record<string, unknown>
+> = styled.button.attrs(
+  {
+    className: `
+     outline-transparent
+     c-dkred
+     fw7
+     f-18
+     ba
+     b--white
+     bw1
+     ph0
+     pv2
+     hv-fluid-rd
+     bg-transparent
+     pointer
+  `,
+})``;
+
+export const NavbarRegularButton: StyledComponent<
+"button", Record<string, unknown>
+> = styled.button.attrs(
+{
+  className: `
+  outline-transparent
+  fw4
+  f-18
+  ba
+  b--white
+  bw1
+  ph0
+  pv2
+  hv-fluid-rd
+  bg-transparent
+  pointer
+  `,
+})``;
