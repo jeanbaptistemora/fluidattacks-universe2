@@ -51,7 +51,7 @@ def main() -> None:
             suites.append(suite)
 
             content = yaml_dumps_blocking(dict(
-                namespace=f'OWASP',
+                namespace='OWASP',
                 output=f'test/outputs/{suite}.csv',
                 path=dict(include=batch),
                 working_dir=FOLDER,

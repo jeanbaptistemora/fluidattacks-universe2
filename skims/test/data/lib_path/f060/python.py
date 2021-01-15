@@ -1,3 +1,4 @@
+# flake8: noqa
 try: raise KeyError()
 except (ValueError, KeyError, Exception): raise
 except (): raise

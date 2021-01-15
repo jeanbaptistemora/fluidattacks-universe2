@@ -8,9 +8,6 @@ import pytest
 from sast.parse import (
     get_graph_db,
 )
-from utils.graph import (
-    export_graph_as_json,
-)
 from utils.encodings import (
     json_dumps,
 )
@@ -29,7 +26,7 @@ async def test_graph_generation() -> None:
     ))
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
 
-    with open(f'test/data/sast/root-graph.json') as handle:
+    with open('test/data/sast/root-graph.json') as handle:
         expected = handle.read()
 
     assert graph_db_as_json_str == expected

@@ -141,7 +141,8 @@ async def test_diff_results() -> None:
         where=common_where,
     ))
 
-    # Something was open on integrates in other namespace and not found open by skims
+    # Something was open on integrates in other namespace and not
+    # found open by skims
     await integrates_store.store(Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata_in_other_ns,

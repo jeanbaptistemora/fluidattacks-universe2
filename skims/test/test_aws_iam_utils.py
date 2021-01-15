@@ -7,7 +7,6 @@ from aws.iam.utils import (
 )
 
 
-
 @pytest.mark.skims_test_group('unittesting')
 def test_match_pattern() -> None:
     assert match_pattern('iam:PassRole', 'iam:PassRole')

@@ -5,11 +5,11 @@ from aioextensions import (
 import pytest
 
 # Local libraries
-from graph_java.get import (
-    get as java_get_graph,
-)
 from eval_java.evaluate import (
     evaluate,
+)
+from graph_java.get import (
+    get as java_get_graph,
 )
 from graph_java.transformations.sinks import (
     SINKS,

@@ -84,7 +84,9 @@ def test_branch() -> Iterator[str]:
 
 
 @pytest.fixture(autouse=True, scope='session')
-def test_group(test_branch: str) -> Iterator[str]:
+def test_group(
+    test_branch: str,  # pylint: disable=redefined-outer-name
+) -> Iterator[str]:
     mapping: Dict[str, str] = {
         'drestrepoatfluid': 'wausau',
         'kamadoatfluid': 'worcester',
