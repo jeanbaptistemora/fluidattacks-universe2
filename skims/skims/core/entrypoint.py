@@ -28,6 +28,9 @@ from lib_path.analyze import (
 from lib_root.analyze import (
     analyze as analyze_root,
 )
+from model import (
+    core_model,
+)
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
@@ -39,9 +42,6 @@ from utils.ctx import (
 from utils.logs import (
     log,
     set_level,
-)
-from model.core_model import (
-    FindingEnum,
 )
 from zone import (
     t,
@@ -60,8 +60,8 @@ async def execute_skims(token: Optional[str]) -> bool:
     """
     success: bool = True
 
-    stores: Dict[FindingEnum, EphemeralStore] = {
-        finding: get_ephemeral_store() for finding in FindingEnum
+    stores: Dict[core_model.FindingEnum, EphemeralStore] = {
+        finding: get_ephemeral_store() for finding in core_model.FindingEnum
     }
 
     await wait_for(
@@ -97,7 +97,7 @@ async def execute_skims(token: Optional[str]) -> bool:
 
 
 async def notify_findings_as_snippets(
-    stores: Dict[FindingEnum, EphemeralStore],
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     """Print user-friendly messages about the results found."""
     for store in stores.values():
@@ -112,7 +112,7 @@ async def notify_findings_as_snippets(
 
 
 async def notify_findings_as_csv(
-    stores: Dict[FindingEnum, EphemeralStore],
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
     output: str,
 ) -> None:
     headers = ('title', 'what', 'where', 'cwe')

@@ -39,9 +39,8 @@ from state.cache import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 
 
@@ -120,11 +119,11 @@ def _cnf_unrestricted_ports(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_ports',
-        finding=FindingEnum.F047_AWS,
+        finding=core_model.FindingEnum.F047_AWS,
         path=path,
         statements_iterator=_range_port_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
@@ -138,11 +137,11 @@ def _cfn_unrestricted_ip_protocols(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f047_aws.unrestricted_protocols',
-        finding=FindingEnum.F047_AWS,
+        finding=core_model.FindingEnum.F047_AWS,
         path=path,
         statements_iterator=_protocol_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
@@ -156,11 +155,11 @@ def _cfn_allows_anyone_to_admin_ports(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f047_aws.allows_anyone_to_admin_ports',
-        finding=FindingEnum.F047_AWS,
+        finding=core_model.FindingEnum.F047_AWS,
         path=path,
         statements_iterator=_cfn_iter_vulnerable_admin_ports(
             rules_iterator=iter_ec2_ingress_egress(
@@ -176,7 +175,7 @@ async def cfn_allows_anyone_to_admin_ports(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_allows_anyone_to_admin_ports,
         content=content,
@@ -192,7 +191,7 @@ async def cnf_unrestricted_ports(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W27 Security Groups found ingress with port range instead of just
     # a single port
     # cfn_nag W29 Security Groups found egress with port range instead of just
@@ -212,7 +211,7 @@ async def cfn_unrestricted_ip_protocols(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W40 Security Groups egress with an IpProtocol of -1 found
     # cfn_nag W42 Security Groups ingress with an ipProtocol of -1 found
     return await in_process(
@@ -229,8 +228,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()

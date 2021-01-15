@@ -17,13 +17,8 @@ from integrates.dal import (
 from integrates.domain import (
     build_vulnerabilities_stream,
 )
-from model.core_model import (
-    FindingEnum,
-    IntegratesVulnerabilityMetadata,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
-    VulnerabilityStateEnum,
+from model import (
+    core_model,
 )
 
 
@@ -45,13 +40,13 @@ async def test_client(
 async def test_build_vulnerabilities_stream() -> None:
     assert await build_vulnerabilities_stream(
         results=(
-            Vulnerability(
-                finding=FindingEnum.F034,
-                integrates_metadata=IntegratesVulnerabilityMetadata(
-                    source=VulnerabilitySourceEnum.SKIMS,
+            core_model.Vulnerability(
+                finding=core_model.FindingEnum.F034,
+                integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                    source=core_model.VulnerabilitySourceEnum.SKIMS,
                 ),
-                kind=VulnerabilityKindEnum.LINES,
-                state=VulnerabilityStateEnum.OPEN,
+                kind=core_model.VulnerabilityKindEnum.LINES,
+                state=core_model.VulnerabilityStateEnum.OPEN,
                 what='what',
                 where='123',
             ),

@@ -36,10 +36,8 @@ from utils.function import (
 from utils.graph import (
     yield_nodes,
 )
-from model.core_model import (
-    FindingEnum,
-    Grammar,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 from zone import (
     t,
@@ -106,7 +104,7 @@ def _java_jpa_like(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
 
     def _has_like_injection(statement: str) -> bool:
         roots = (
@@ -160,7 +158,7 @@ def _java_jpa_like(
             key='src.lib_path.f001_jpa.java_like.description',
             path=path,
         ),
-        finding=FindingEnum.F001_JPA,
+        finding=core_model.FindingEnum.F001_JPA,
         iterator=iterator(),
         path=path,
     )
@@ -172,7 +170,7 @@ def _java_jpa_like(
 async def java_jpa_like(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     if not content:
         return ()
 
@@ -180,7 +178,7 @@ async def java_jpa_like(
         _java_jpa_like,
         content=content,
         model=await parse_antlr(
-            Grammar.JAVA9,
+            core_model.Grammar.JAVA9,
             content=content.encode(),
             path=path,
         ),
@@ -194,8 +192,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_jpa_like(

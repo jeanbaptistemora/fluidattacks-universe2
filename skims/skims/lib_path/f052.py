@@ -32,9 +32,8 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     str_to_number,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 from parse_java_properties import (
     load as load_java_properties,
@@ -57,7 +56,7 @@ from zone import (
 def _csharp_insecure_cipher(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = (
         MatchFirst([
             Keyword('DES'),
@@ -88,7 +87,7 @@ def _csharp_insecure_cipher(
             key='src.lib_path.f052.insecure_cipher.description',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         grammar=grammar,
         path=path,
     )
@@ -100,7 +99,7 @@ def _csharp_insecure_cipher(
 async def csharp_insecure_cipher(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _csharp_insecure_cipher,
         content=content,
@@ -111,7 +110,7 @@ async def csharp_insecure_cipher(
 def _csharp_insecure_hash(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = MatchFirst([
         Keyword('HMACMD5'),
         Keyword('HMACRIPEMD160'),
@@ -138,7 +137,7 @@ def _csharp_insecure_hash(
             key='src.lib_path.f052.insecure_hash.description',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         grammar=grammar,
         path=path,
     )
@@ -150,7 +149,7 @@ def _csharp_insecure_hash(
 async def csharp_insecure_hash(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _csharp_insecure_hash,
         content=content,
@@ -176,7 +175,7 @@ def _vuln_cipher_get_instance(transformation: str) -> bool:
 def _java_insecure_cipher(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = MatchFirst([
         (
             MatchFirst([
@@ -212,7 +211,7 @@ def _java_insecure_cipher(
             key='src.lib_path.f052.insecure_cipher.description',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         grammar=grammar,
         path=path,
     )
@@ -224,7 +223,7 @@ def _java_insecure_cipher(
 async def java_insecure_cipher(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_insecure_cipher,
         content=content,
@@ -235,7 +234,7 @@ async def java_insecure_cipher(
 def _java_insecure_hash(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = MatchFirst([
         (
             Keyword('MessageDigest') + '.' +
@@ -291,7 +290,7 @@ def _java_insecure_hash(
             key='src.lib_path.f052.insecure_hash.description',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         grammar=grammar,
         path=path,
     )
@@ -303,7 +302,7 @@ def _java_insecure_hash(
 async def java_insecure_hash(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_insecure_hash,
         content=content,
@@ -314,7 +313,7 @@ async def java_insecure_hash(
 def _java_insecure_key(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = MatchFirst([
         (
             Keyword('RSAKeyGenParameterSpec') + '(' +
@@ -384,7 +383,7 @@ def _java_insecure_key(
             key='src.lib_path.f052.insecure_key.description',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         grammar=grammar,
         path=path,
     )
@@ -396,7 +395,7 @@ def _java_insecure_key(
 async def java_insecure_key(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_insecure_key,
         content=content,
@@ -407,7 +406,7 @@ async def java_insecure_key(
 def _java_insecure_pass(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     framework = 'org.springframework.security'
     grammar = MatchFirst([
         Keyword(f'{framework}.authentication.encoding.ShaPasswordEncoder'),
@@ -430,7 +429,7 @@ def _java_insecure_pass(
             key='src.lib_path.f052.insecure_pass.description',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         grammar=grammar,
         path=path,
     )
@@ -442,7 +441,7 @@ def _java_insecure_pass(
 async def java_insecure_pass(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_insecure_pass,
         content=content,
@@ -453,7 +452,7 @@ async def java_insecure_pass(
 def _java_properties_missing_ssl(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     missing_ssl_key: str = 'ibm.mq.use_ssl'
     missing_ssl_values: Set[str] = {'false'}
 
@@ -469,7 +468,7 @@ def _java_properties_missing_ssl(
             key='src.lib_path.f052.java_properties_missing_ssl',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
         path=path,
     )
@@ -481,7 +480,7 @@ def _java_properties_missing_ssl(
 async def java_properties_missing_ssl(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_properties_missing_ssl,
         content=content,
@@ -492,7 +491,7 @@ async def java_properties_missing_ssl(
 def _java_properties_weak_cipher_suite(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     weak_cipher_suite: str = 'ibm.mq.cipher.suite'
 
     def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
@@ -510,7 +509,7 @@ def _java_properties_weak_cipher_suite(
             key='src.lib_path.f052.java_properties_weak_cipher_suite',
             path=path,
         ),
-        finding=FindingEnum.F052,
+        finding=core_model.FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
         path=path,
     )
@@ -522,7 +521,7 @@ def _java_properties_weak_cipher_suite(
 async def java_properties_weak_cipher_suite(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_properties_weak_cipher_suite,
         content=content,
@@ -536,8 +535,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_insecure_cipher(

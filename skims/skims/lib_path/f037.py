@@ -24,10 +24,8 @@ from lib_path.common import (
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
 )
-from model.core_model import (
-    FindingEnum,
-    Grammar,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -95,7 +93,7 @@ def _javascript_use_console_log(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for node in yield_dicts(model):
             # interface CatchClause <: Node {
@@ -137,7 +135,7 @@ def _javascript_use_console_log(
             key='src.lib_path.f037.javascript_use_console_log',
             path=path,
         ),
-        finding=FindingEnum.F037,
+        finding=core_model.FindingEnum.F037,
         iterator=iterator(),
         path=path,
     )
@@ -147,7 +145,7 @@ def _java_logging_exceptions(
     content: str,
     model: Dict[str, Any],
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
 
         for node in yield_nodes(
@@ -206,7 +204,7 @@ def _java_logging_exceptions(
             key='src.lib_path.f037.java_print_stack_traces',
             path=path,
         ),
-        finding=FindingEnum.F037,
+        finding=core_model.FindingEnum.F037,
         iterator=iterator(),
         path=path,
     )
@@ -218,12 +216,12 @@ def _java_logging_exceptions(
 async def java_logging_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_logging_exceptions,
         content=content,
         model=await parse_antlr(
-            Grammar.JAVA9,
+            core_model.Grammar.JAVA9,
             content=content.encode(),
             path=path,
         ),
@@ -237,7 +235,7 @@ async def java_logging_exceptions(
 async def javascript_use_console_log(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _javascript_use_console_log,
         content=content,
@@ -255,8 +253,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_use_console_log(

@@ -34,6 +34,9 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
+from model import (
+    core_model,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -43,10 +46,6 @@ from utils.ast import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
-)
 from zone import (
     t,
 )
@@ -55,7 +54,7 @@ from zone import (
 def _csharp_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     grammar = (
@@ -76,7 +75,7 @@ def _csharp_swallows_exceptions(
             lang='C#',
             path=path,
         ),
-        finding=FindingEnum.F061,
+        finding=core_model.FindingEnum.F061,
         grammar=grammar,
         path=path,
     )
@@ -88,7 +87,7 @@ def _csharp_swallows_exceptions(
 async def csharp_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _csharp_swallows_exceptions,
         content=content,
@@ -99,7 +98,7 @@ async def csharp_swallows_exceptions(
 def _javascript_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     classic = (
@@ -126,7 +125,7 @@ def _javascript_swallows_exceptions(
             lang='Javascript',
             path=path,
         ),
-        finding=FindingEnum.F061,
+        finding=core_model.FindingEnum.F061,
         grammar=grammar,
         path=path,
     )
@@ -138,7 +137,7 @@ def _javascript_swallows_exceptions(
 async def javascript_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _javascript_swallows_exceptions,
         content=content,
@@ -149,7 +148,7 @@ async def javascript_swallows_exceptions(
 def _java_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
     grammar = (
@@ -169,7 +168,7 @@ def _java_swallows_exceptions(
             lang='Java',
             path=path,
         ),
-        finding=FindingEnum.F061,
+        finding=core_model.FindingEnum.F061,
         grammar=grammar,
         path=path,
     )
@@ -181,7 +180,7 @@ def _java_swallows_exceptions(
 async def java_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_swallows_exceptions,
         content=content,
@@ -192,7 +191,7 @@ async def java_swallows_exceptions(
 def _python_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     node: ast.AST
     vulnerable_nodes: Iterator[ast.ExceptHandler] = iterate_nodes(
         content=content,
@@ -212,7 +211,7 @@ def _python_swallows_exceptions(
             lang='Python',
             path=path,
         ),
-        finding=FindingEnum.F061,
+        finding=core_model.FindingEnum.F061,
         iterator=(
             (node.lineno, node.col_offset) for node in vulnerable_nodes
         ),
@@ -226,7 +225,7 @@ def _python_swallows_exceptions(
 async def python_swallows_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _python_swallows_exceptions,
         content=content,
@@ -237,7 +236,7 @@ async def python_swallows_exceptions(
 def _swift_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = (
         Keyword('catch') +
         Optional('let' + VAR_ATTR_JAVA) +
@@ -256,7 +255,7 @@ def _swift_insecure_exceptions(
             lang='Swift',
             path=path,
         ),
-        finding=FindingEnum.F061,
+        finding=core_model.FindingEnum.F061,
         grammar=grammar,
         path=path,
     )
@@ -268,7 +267,7 @@ def _swift_insecure_exceptions(
 async def swift_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _swift_insecure_exceptions,
         content=content,
@@ -282,8 +281,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_swallows_exceptions(

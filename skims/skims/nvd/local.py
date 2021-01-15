@@ -17,11 +17,11 @@ from semver import (
 )
 
 # Local libraries
+from model import (
+    core_model,
+)
 from utils.ctx import (
     STATIC,
-)
-from model.core_model import (
-    Platform,
 )
 
 # Constants
@@ -68,7 +68,7 @@ def remove_constraints(version: str) -> str:
 
 
 def query(
-    platform: Platform,
+    platform: core_model.Platform,
     product: str,
     version: str,
 ) -> List[str]:

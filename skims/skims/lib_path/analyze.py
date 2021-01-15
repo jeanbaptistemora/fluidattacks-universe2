@@ -34,6 +34,9 @@ from lib_path import (
     f085,
     f117,
 )
+from model import (
+    core_model,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -48,9 +51,6 @@ from utils.fs import (
 from utils.logs import (
     log,
 )
-from model.core_model import (
-    FindingEnum,
-)
 
 # Constants
 MEBIBYTE: int = 1048576
@@ -61,7 +61,7 @@ async def analyze_one_path(
     *,
     index: int,
     path: str,
-    stores: Dict[FindingEnum, EphemeralStore],
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
     unique_paths_count: int,
 ) -> None:
     """Execute all findings against the provided file.
@@ -85,23 +85,24 @@ async def analyze_one_path(
     file_extension = file_extension[1:]
 
     for finding, analyzer in (
-        (FindingEnum.F001_JPA, f001_jpa.analyze),
-        (FindingEnum.F009, f009.analyze),
-        (FindingEnum.F011, f011.analyze),
-        (FindingEnum.F022, f022.analyze),
-        (FindingEnum.F031_AWS, f031_aws.analyze),
-        (FindingEnum.F031_CWE378, f031_cwe378.analyze),
-        (FindingEnum.F034, f034.analyze),
-        (FindingEnum.F037, f037.analyze),
-        (FindingEnum.F047_AWS, f047_aws.analyze),
-        (FindingEnum.F052, f052.analyze),
-        (FindingEnum.F055_AWS, f055_aws.analyze),
-        (FindingEnum.F060, f060.analyze),
-        (FindingEnum.F061, f061.analyze),
-        (FindingEnum.F063_PATH_TRAVERSAL, f063_path_traversal.analyze),
-        (FindingEnum.F073, f073.analyze),
-        (FindingEnum.F085, f085.analyze),
-        (FindingEnum.F117, f117.analyze),
+        (core_model.FindingEnum.F001_JPA, f001_jpa.analyze),
+        (core_model.FindingEnum.F009, f009.analyze),
+        (core_model.FindingEnum.F011, f011.analyze),
+        (core_model.FindingEnum.F022, f022.analyze),
+        (core_model.FindingEnum.F031_AWS, f031_aws.analyze),
+        (core_model.FindingEnum.F031_CWE378, f031_cwe378.analyze),
+        (core_model.FindingEnum.F034, f034.analyze),
+        (core_model.FindingEnum.F037, f037.analyze),
+        (core_model.FindingEnum.F047_AWS, f047_aws.analyze),
+        (core_model.FindingEnum.F052, f052.analyze),
+        (core_model.FindingEnum.F055_AWS, f055_aws.analyze),
+        (core_model.FindingEnum.F060, f060.analyze),
+        (core_model.FindingEnum.F061, f061.analyze),
+        (core_model.FindingEnum.F063_PATH_TRAVERSAL,
+         f063_path_traversal.analyze),
+        (core_model.FindingEnum.F073, f073.analyze),
+        (core_model.FindingEnum.F085, f085.analyze),
+        (core_model.FindingEnum.F117, f117.analyze),
     ):
         for vulnerabilities in await analyzer(  # type: ignore
             content_generator=file_content_generator,
@@ -116,7 +117,7 @@ async def analyze_one_path(
 
 async def analyze(
     *,
-    stores: Dict[FindingEnum, EphemeralStore],
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     unique_paths: Set[str] = await resolve_paths(
         exclude=CTX.config.path.exclude,

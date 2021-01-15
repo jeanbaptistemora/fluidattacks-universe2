@@ -31,16 +31,8 @@ from integrates.domain import (
     do_release_finding,
     get_closest_finding_id,
 )
-from model.core_model import (
-    FindingEnum,
-    FindingEvidenceIDEnum,
-    FindingEvidenceDescriptionIDEnum,
-    IntegratesVulnerabilityMetadata,
-    Vulnerabilities,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
-    VulnerabilityStateEnum,
+from model import (
+    core_model,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -57,8 +49,8 @@ from utils.string import (
 )
 
 
-def get_root(vulnerability: Vulnerability) -> str:
-    if vulnerability.kind == VulnerabilityKindEnum.LINES:
+def get_root(vulnerability: core_model.Vulnerability) -> str:
+    if vulnerability.kind == core_model.VulnerabilityKindEnum.LINES:
         return os.path.basename(vulnerability.what[::-1])[::-1]
 
     raise NotImplementedError(f'Not implemented for: {vulnerability.kind}')
@@ -85,16 +77,19 @@ async def upload_evidences(
     store: EphemeralStore,
 ) -> bool:
     evidence_ids: Tuple[
-        Tuple[FindingEvidenceIDEnum, FindingEvidenceDescriptionIDEnum], ...
+        Tuple[
+            core_model.FindingEvidenceIDEnum,
+            core_model.FindingEvidenceDescriptionIDEnum,
+        ], ...
     ] = (
-        (FindingEvidenceIDEnum.EVIDENCE5,
-         FindingEvidenceDescriptionIDEnum.EVIDENCE5),
+        (core_model.FindingEvidenceIDEnum.EVIDENCE5,
+         core_model.FindingEvidenceDescriptionIDEnum.EVIDENCE5),
     )
-    results: Vulnerabilities = (
+    results: core_model.Vulnerabilities = (
         await store.get_a_few(len(evidence_ids))
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
-    result_samples: Vulnerabilities = tuple(
+    result_samples: core_model.Vulnerabilities = tuple(
         random.sample(results, k=number_of_samples),
     )
 
@@ -153,14 +148,14 @@ async def diff_results(
     store = get_ephemeral_store()
 
     def prepare_result(
-        result: Vulnerability,
-        state: VulnerabilityStateEnum,
-    ) -> Vulnerability:
-        return Vulnerability(
+        result: core_model.Vulnerability,
+        state: core_model.VulnerabilityStateEnum,
+    ) -> core_model.Vulnerability:
+        return core_model.Vulnerability(
             finding=result.finding,
-            integrates_metadata=IntegratesVulnerabilityMetadata(
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
                 # Mark them as managed by skims
-                source=VulnerabilitySourceEnum.SKIMS,
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
             ),
             kind=result.kind,
             state=state,
@@ -172,7 +167,7 @@ async def diff_results(
     #   is currently on Integrates, vs the generation that Skims found
 
     # The current state at Integrates
-    integrates_hashes: Dict[int, VulnerabilityStateEnum] = {
+    integrates_hashes: Dict[int, core_model.VulnerabilityStateEnum] = {
         result.digest: result.state
         async for result in integrates_store.iterate()
         # Filter integrates results
@@ -180,11 +175,12 @@ async def diff_results(
         # That are within the same namespace
         and result.integrates_metadata.namespace == namespace
         # And managed by skims
-        and result.integrates_metadata.source == VulnerabilitySourceEnum.SKIMS
+        and result.integrates_metadata.source
+        == core_model.VulnerabilitySourceEnum.SKIMS
     }
 
     # The current state to Skims
-    skims_hashes: Dict[int, VulnerabilityStateEnum] = {}
+    skims_hashes: Dict[int, core_model.VulnerabilityStateEnum] = {}
 
     # Walk all Skims results
     async for result in skims_store.iterate():
@@ -211,12 +207,12 @@ async def diff_results(
             # And his result was not found by Skims
             and result.digest not in skims_hashes
             # And this result is OPEN
-            and result.state == VulnerabilityStateEnum.OPEN
+            and result.state == core_model.VulnerabilityStateEnum.OPEN
         ):
             # This result must be CLOSED and persisted to Integrates
             await store.store(prepare_result(
                 result=result,
-                state=VulnerabilityStateEnum.CLOSED,
+                state=core_model.VulnerabilityStateEnum.CLOSED,
             ))
 
     return store
@@ -224,14 +220,14 @@ async def diff_results(
 
 async def persist_finding(
     *,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     group: str,
     store: EphemeralStore,
 ) -> bool:
     """Persist a finding to Integrates
 
     :param finding: The finding to persist
-    :type finding: FindingEnum
+    :type finding: core_model.FindingEnum
     :param group: The group whose state is to be synced
     :type group: str
     :param store: Store to read data from
@@ -305,7 +301,7 @@ async def persist_finding(
 async def persist(
     *,
     group: str,
-    stores: Dict[FindingEnum, EphemeralStore],
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
     token: str,
 ) -> bool:
     """Persist all findings with the data extracted from the store.
@@ -313,7 +309,7 @@ async def persist(
     :param group: The group whose state is to be synced
     :type group: str
     :param stores: A mapping of findings to results store
-    :type stores: Dict[FindingEnum, EphemeralStore]
+    :type stores: Dict[core_model.FindingEnum, EphemeralStore]
     :param token: Integrates API token
     :type token: str
     :return: A boolean indicating success
@@ -329,7 +325,7 @@ async def persist(
             group=group,
             store=stores[finding],
         )
-        for finding in FindingEnum
+        for finding in core_model.FindingEnum
     )))
 
     return success

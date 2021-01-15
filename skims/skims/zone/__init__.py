@@ -11,12 +11,12 @@ from typing import (
 from ruamel import yaml
 
 # Local libraries
+from model import (
+    core_model,
+)
 from utils.ctx import (
     CTX,
     STATIC,
-)
-from model.core_model import (
-    LocalesEnum,
 )
 
 
@@ -38,7 +38,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
 
                 translations[key] = {
                     locale_code: data[locale_code.lower()]
-                    for locale in LocalesEnum
+                    for locale in core_model.LocalesEnum
                     for locale_code in [locale.value]
                 }
 

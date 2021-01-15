@@ -34,6 +34,9 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
+from model import (
+    core_model,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -43,10 +46,6 @@ from utils.function import (
 from utils.ast import (
     iterate_nodes,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
-)
 from zone import (
     t,
 )
@@ -55,7 +54,7 @@ from zone import (
 def _csharp_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     insecure_exceptions: Set[str] = {
         # Generic
         'Exception',
@@ -104,7 +103,7 @@ def _csharp_insecure_exceptions(
             lang='C#',
             path=path,
         ),
-        finding=FindingEnum.F060,
+        finding=core_model.FindingEnum.F060,
         grammar=grammar,
         path=path,
     )
@@ -116,7 +115,7 @@ def _csharp_insecure_exceptions(
 async def csharp_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _csharp_insecure_exceptions,
         content=content,
@@ -127,7 +126,7 @@ async def csharp_insecure_exceptions(
 def _java_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     insecure_exceptions: Set[str] = {
         # Unrecoverable
         'RuntimeException',
@@ -175,7 +174,7 @@ def _java_insecure_exceptions(
             lang='Java',
             path=path,
         ),
-        finding=FindingEnum.F060,
+        finding=core_model.FindingEnum.F060,
         grammar=grammar,
         path=path,
     )
@@ -187,7 +186,7 @@ def _java_insecure_exceptions(
 async def java_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_insecure_exceptions,
         content=content,
@@ -198,7 +197,7 @@ async def java_insecure_exceptions(
 def _python_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     node: ast.AST
     insecure: Set[str] = {'BaseException', 'Exception'}
 
@@ -229,7 +228,7 @@ def _python_insecure_exceptions(
             lang='Python',
             path=path,
         ),
-        finding=FindingEnum.F060,
+        finding=core_model.FindingEnum.F060,
         iterator=(
             (node.lineno, node.col_offset) for node in vulnerable_nodes
         ),
@@ -243,7 +242,7 @@ def _python_insecure_exceptions(
 async def python_insecure_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _python_insecure_exceptions,
         content=content,
@@ -254,7 +253,7 @@ async def python_insecure_exceptions(
 def _swift_generic_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     exc_generic = VAR_ATTR_JAVA.copy()
     exc_generic.addCondition(lambda tokens: tokens[0] in {
         'Error',
@@ -280,7 +279,7 @@ def _swift_generic_exceptions(
             lang='Swift',
             path=path,
         ),
-        finding=FindingEnum.F060,
+        finding=core_model.FindingEnum.F060,
         grammar=grammar,
         path=path,
     )
@@ -292,7 +291,7 @@ def _swift_generic_exceptions(
 async def swift_generic_exceptions(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _swift_generic_exceptions,
         content=content,
@@ -306,8 +305,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
     content: str
 
     if file_extension in EXTENSIONS_CSHARP:

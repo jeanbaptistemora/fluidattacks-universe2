@@ -34,10 +34,8 @@ from state.ephemeral import (
 from utils.logs import (
     configure,
 )
-from model.core_model import (
-    FindingEnum,
-    FindingReleaseStatusEnum,
-    VulnerabilityStateEnum,
+from model import (
+    core_model,
 )
 from zone import (
     t,
@@ -90,17 +88,18 @@ async def get_group_data(group: str) -> Set[
     Tuple[str, str, Tuple[Tuple[str, str], ...]],
 ]:
     """Return a set of (finding, release_status, num_open, num_closed)."""
-    titles_to_finding: Dict[str, FindingEnum] = {
-        t(finding.value.title): finding for finding in FindingEnum
+    titles_to_finding: Dict[str, core_model.FindingEnum] = {
+        t(finding.value.title): finding for finding in core_model.FindingEnum
     }
 
     findings = await get_group_findings(group=group)
-    findings_statuses: Tuple[FindingReleaseStatusEnum, ...] = await collect([
-        get_finding_current_release_status(
-            finding_id=finding.identifier,
-        )
-        for finding in findings
-    ])
+    findings_statuses: Tuple[core_model.FindingReleaseStatusEnum, ...] = \
+        await collect([
+            get_finding_current_release_status(
+                finding_id=finding.identifier,
+            )
+            for finding in findings
+        ])
     findings_vulns: Tuple[EphemeralStore, ...] = await collect([
         get_finding_vulnerabilities(
             finding=titles_to_finding[finding.title],
@@ -113,7 +112,7 @@ async def get_group_data(group: str) -> Set[
     for vulnerabilities in findings_vulns:
         findings_vulns_summary.append([])
         async for vulnerability in vulnerabilities.iterate():
-            if vulnerability.state is VulnerabilityStateEnum.OPEN:
+            if vulnerability.state is core_model.VulnerabilityStateEnum.OPEN:
                 findings_vulns_summary[-1].append((
                     vulnerability.what,
                     vulnerability.where,

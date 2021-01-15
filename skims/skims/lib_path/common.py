@@ -36,14 +36,8 @@ from aws.model import (
     AWSS3Acl,
     AWSS3Bucket,
 )
-from model.core_model import (
-    FindingEnum,
-    GrammarMatch,
-    SkimsVulnerabilityMetadata,
-    Vulnerabilities,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
+from model import (
+    core_model,
 )
 from model.graph_model import (
     NAttrs,
@@ -98,14 +92,14 @@ SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
 def get_matching_lines_blocking(
     content: str,
     grammar: ParserElement,
-) -> Tuple[GrammarMatch, ...]:
+) -> Tuple[core_model.GrammarMatch, ...]:
     # Pyparsing's scanString expands tabs to 'n' number of spaces
     # But we count tabs as '1' char width
     # This forces the parser to not offset when a file contains tabs
     grammar.parseWithTabs()
 
-    matches: Tuple[GrammarMatch, ...] = tuple(
-        GrammarMatch(
+    matches: Tuple[core_model.GrammarMatch, ...] = tuple(
+        core_model.GrammarMatch(
             start_column=col(start_char, content) - 1,
             start_line=lineno(start_char, content),
         )
@@ -119,22 +113,22 @@ def get_vulnerabilities_blocking(
     content: str,
     cwe: Set[str],
     description: str,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     grammar: ParserElement,
     path: str,
-) -> Vulnerabilities:
-    results: Vulnerabilities = tuple(
-        Vulnerability(
+) -> core_model.Vulnerabilities:
+    results: core_model.Vulnerabilities = tuple(
+        core_model.Vulnerability(
             finding=finding,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
+            kind=core_model.VulnerabilityKindEnum.LINES,
+            state=core_model.VulnerabilityStateEnum.OPEN,
             what=serialize_namespace_into_vuln(
-                kind=VulnerabilityKindEnum.LINES,
+                kind=core_model.VulnerabilityKindEnum.LINES,
                 namespace=CTX.config.namespace,
                 what=path,
             ),
             where=f'{match.start_line}',
-            skims_metadata=SkimsVulnerabilityMetadata(
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
                 snippet=to_snippet_blocking(
@@ -157,22 +151,22 @@ def get_vulnerabilities_from_iterator_blocking(
     content: str,
     cwe: Set[str],
     description: str,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     iterator: Iterator[Tuple[int, int]],
     path: str,
-) -> Vulnerabilities:
-    results: Vulnerabilities = tuple(
-        Vulnerability(
+) -> core_model.Vulnerabilities:
+    results: core_model.Vulnerabilities = tuple(
+        core_model.Vulnerability(
             finding=finding,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
+            kind=core_model.VulnerabilityKindEnum.LINES,
+            state=core_model.VulnerabilityStateEnum.OPEN,
             what=serialize_namespace_into_vuln(
-                kind=VulnerabilityKindEnum.LINES,
+                kind=core_model.VulnerabilityKindEnum.LINES,
                 namespace=CTX.config.namespace,
                 what=path,
             ),
             where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
                 snippet=to_snippet_blocking(
@@ -192,10 +186,10 @@ def get_vulnerabilities_from_n_attrs_iterable_blocking(
     content: str,
     cwe: Set[str],
     description: str,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     path: str,
     n_attrs_iterable: Iterable[NAttrs],
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe=cwe,
@@ -219,7 +213,7 @@ def str_to_number(token: str, default: float = math.nan) -> float:
 def get_vulnerabilities_from_aws_iterator_blocking(
     content: str,
     description_key: str,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     path: str,
     statements_iterator: Iterator[Union[
         AWSIamManagedPolicyArns,
@@ -228,7 +222,7 @@ def get_vulnerabilities_from_aws_iterator_blocking(
         AWSS3Bucket,
         Node,
     ]],
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={finding.value.cwe},

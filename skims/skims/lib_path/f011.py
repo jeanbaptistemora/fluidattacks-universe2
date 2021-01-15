@@ -26,14 +26,8 @@ from aioextensions import (
 from lib_path.common import (
     SHIELD,
 )
-from model.core_model import (
-    FindingEnum,
-    Platform,
-    SkimsVulnerabilityMetadata,
-    Vulnerabilities,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
+from model import (
+    core_model,
 )
 from nvd.local import (
     query,
@@ -97,8 +91,8 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 def _build_gradle(
     content: str,
     path: str,
-    platform: Platform,
-) -> Vulnerabilities:
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
 
     def resolve_dependencies() -> Iterator[DependencyType]:
         for line_no, line in enumerate(content.splitlines(), start=1):
@@ -136,20 +130,20 @@ def _build_gradle(
 async def build_gradle(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _build_gradle,
         content=content,
         path=path,
-        platform=Platform.MAVEN,
+        platform=core_model.Platform.MAVEN,
     )
 
 
 def _npm_package_json(
     content: str,
     path: str,
-    platform: Platform,
-) -> Vulnerabilities:
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
     content_json = json_loads_blocking(content, default={})
 
     dependencies: Iterator[DependencyType] = (
@@ -173,20 +167,20 @@ def _npm_package_json(
 async def npm_package_json(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _npm_package_json,
         content=content,
         path=path,
-        platform=Platform.NPM,
+        platform=core_model.Platform.NPM,
     )
 
 
 def _npm_package_lock_json(
     content: str,
     path: str,
-    platform: Platform,
-) -> Vulnerabilities:
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
 
     def resolve_dependencies(obj: frozendict) -> Iterator[DependencyType]:
         for key in obj:
@@ -213,20 +207,20 @@ def _npm_package_lock_json(
 async def npm_package_lock_json(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _npm_package_lock_json,
         content=content,
         path=path,
-        platform=Platform.NPM,
+        platform=core_model.Platform.NPM,
     )
 
 
 def _yarn_lock(
     content: str,
     path: str,
-    platform: Platform,
-) -> Vulnerabilities:
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
 
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
@@ -273,12 +267,12 @@ def _yarn_lock(
 async def yarn_lock(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _yarn_lock,
         content=content,
         path=path,
-        platform=Platform.NPM,
+        platform=core_model.Platform.NPM,
     )
 
 
@@ -287,15 +281,15 @@ def translate_dependencies_to_vulnerabilities(
     content: str,
     dependencies: Iterator[DependencyType],
     path: str,
-    platform: Platform,
-) -> Vulnerabilities:
-    results: Vulnerabilities = tuple(
-        Vulnerability(
-            finding=FindingEnum.F011,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
+    platform: core_model.Platform,
+) -> core_model.Vulnerabilities:
+    results: core_model.Vulnerabilities = tuple(
+        core_model.Vulnerability(
+            finding=core_model.FindingEnum.F011,
+            kind=core_model.VulnerabilityKindEnum.LINES,
+            state=core_model.VulnerabilityStateEnum.OPEN,
             what=serialize_namespace_into_vuln(
-                kind=VulnerabilityKindEnum.LINES,
+                kind=core_model.VulnerabilityKindEnum.LINES,
                 namespace=CTX.config.namespace,
                 what=' '.join((
                     path,
@@ -304,7 +298,7 @@ def translate_dependencies_to_vulnerabilities(
                 )),
             ),
             where=f'{product["line"]}',
-            skims_metadata=SkimsVulnerabilityMetadata(
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=('937',),
                 description=t(
                     key='src.lib_path.f011.npm_package_json.description',
@@ -334,8 +328,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if (file_name, file_extension) == ('build', 'gradle'):
         coroutines.append(build_gradle(

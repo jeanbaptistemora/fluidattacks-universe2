@@ -23,13 +23,8 @@ from integrates.dal import (
     get_group_findings,
     ResultGetGroupFindings,
 )
-from model.core_model import (
-    FindingEnum,
-    FindingReleaseStatusEnum,
-    IntegratesVulnerabilitiesLines,
-    Vulnerabilities,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
+from model import (
+    core_model,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -48,32 +43,32 @@ from zone import (
 )
 
 
-VulnStreamType = Dict[VulnerabilityKindEnum, Tuple[
+VulnStreamType = Dict[core_model.VulnerabilityKindEnum, Tuple[
     Union[
-        IntegratesVulnerabilitiesLines
+        core_model.IntegratesVulnerabilitiesLines
     ],
     ...,
 ]]
 
 
 def _build_vulnerabilities_stream(
-    results: Vulnerabilities,
+    results: core_model.Vulnerabilities,
 ) -> VulnStreamType:
     data: VulnStreamType = {
-        VulnerabilityKindEnum.LINES: tuple(
-            IntegratesVulnerabilitiesLines(
+        core_model.VulnerabilityKindEnum.LINES: tuple(
+            core_model.IntegratesVulnerabilitiesLines(
                 line=result.where,
                 path=result.what,
                 source=(
                     result.integrates_metadata.source
                     if (result.integrates_metadata and
                         result.integrates_metadata.source)
-                    else VulnerabilitySourceEnum.INTEGRATES
+                    else core_model.VulnerabilitySourceEnum.INTEGRATES
                 ),
                 state=result.state,
             )
             for result in results
-            if result.kind == VulnerabilityKindEnum.LINES
+            if result.kind == core_model.VulnerabilityKindEnum.LINES
         ),
         # More bindings for PORTS and INPUTS go here ...
     }
@@ -83,7 +78,7 @@ def _build_vulnerabilities_stream(
 
 async def build_vulnerabilities_stream(
     *,
-    results: Vulnerabilities,
+    results: core_model.Vulnerabilities,
 ) -> str:
     return await yaml_dumps(
         await in_process(_build_vulnerabilities_stream, results),
@@ -94,7 +89,7 @@ async def get_closest_finding_id(
     *,
     affected_systems: str = '',
     create_if_missing: bool = False,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     group: str,
     recreate_if_draft: bool = False,
 ) -> str:
@@ -135,7 +130,11 @@ async def get_closest_finding_id(
     return finding_id
 
 
-async def delete_closest_findings(*, group: str, finding: FindingEnum) -> bool:
+async def delete_closest_findings(
+    *,
+    group: str,
+    finding: core_model.FindingEnum,
+) -> bool:
     success: bool = True
 
     while True:
@@ -196,11 +195,11 @@ async def do_delete_if_draft(
     finding_id: str,
 ) -> bool:
     was_deleted: bool = False
-    release_status: FindingReleaseStatusEnum = (
+    release_status: core_model.FindingReleaseStatusEnum = (
         await get_finding_current_release_status(finding_id=finding_id)
     )
 
-    if release_status == FindingReleaseStatusEnum.APPROVED:
+    if release_status == core_model.FindingReleaseStatusEnum.APPROVED:
         # Already released so it's not a draft
         was_deleted = False
     else:
@@ -223,15 +222,15 @@ async def do_release_finding(
     releaser.
     """
     success: bool = False
-    release_status: FindingReleaseStatusEnum = (
+    release_status: core_model.FindingReleaseStatusEnum = (
         await get_finding_current_release_status(finding_id=finding_id)
     )
 
-    if release_status == FindingReleaseStatusEnum.APPROVED:
+    if release_status == core_model.FindingReleaseStatusEnum.APPROVED:
         # Already released
         success = True
     else:
-        if release_status == FindingReleaseStatusEnum.SUBMITTED:
+        if release_status == core_model.FindingReleaseStatusEnum.SUBMITTED:
             # Already submitted
             success = True
         else:

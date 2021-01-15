@@ -43,6 +43,9 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
+from model import (
+    core_model,
+)
 from parse_cfn.loader import (
     load_templates,
 )
@@ -58,10 +61,6 @@ from state.cache import (
 )
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
 )
 
 
@@ -130,9 +129,9 @@ def _public_buckets_iterate_vulnerabilities(
                 yield bucket.inner['AccessControl']
         elif isinstance(bucket, AWSS3Bucket):
             acl = get_attribute(body=bucket.data, key='acl')
-            if acl and acl.val == 'public-read-write':  # type: ignore
+            if acl and acl.val == 'public-read-write':
                 yield AWSS3Acl(
-                    data=acl.val,  # type: ignore
+                    data=acl.val,
                     column=acl.column,
                     line=acl.line,
                 )
@@ -157,12 +156,12 @@ def _cfn_instances_without_profile(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key=('utils.model.finding.enum.F055_AWS.'
                          'instances_without_profile'),
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_instances_without_role_iter_vulns(
             instaces_iterator=iter_ec2_instances(template=template)),
@@ -173,11 +172,11 @@ def _cfn_public_buckets(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='utils.model.finding.enum.F055_AWS.public_buckets',
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
             buckets_iterator=iter_s3_buckets(template=template)),
@@ -188,12 +187,12 @@ def _cfn_unencrypted_volumes(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key=('utils.model.finding.enum.'
                          'F055_AWS.unencrypted_volumes'),
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_unencrypted_volume_iterate_vulnerabilities(
             volumes_iterator=_iter_ec2_volumes(
@@ -207,12 +206,12 @@ def _cfn_unencrypted_buckets(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key=('utils.model.finding.enum.'
                          'F055_AWS.unencrypted_buckets'),
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=(bucket for bucket in iter_s3_buckets(template)
                              if not bucket.raw.get('BucketEncryption', None)),
@@ -223,11 +222,11 @@ def _cfn_groups_without_egress(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f055_aws.security_group_without_egress',
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_groups_without_egress_iter_vulnerabilities(
             groups_iterators=iter_ec2_security_groups(template=template)),
@@ -238,11 +237,11 @@ def _cnf_unrestricted_cidrs(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f055_aws.unrestricted_cidrs',
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_cidr_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
@@ -256,12 +255,12 @@ def _terraform_unencrypted_buckets(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key=('utils.model.finding.enum.'
                          'F055_AWS.unencrypted_buckets'),
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_unencrypted_buckets_iterate_vulnerabilities(
             buckets_iterator=terraform_iter_s3_buckets(model=model)
@@ -273,11 +272,11 @@ def _terraform_public_buckets(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='utils.model.finding.enum.F055_AWS.public_buckets',
-        finding=FindingEnum.F055_AWS,
+        finding=core_model.FindingEnum.F055_AWS,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
             buckets_iterator=terraform_iter_s3_buckets(model=model)),
@@ -291,7 +290,7 @@ async def cfn_groups_without_egress(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag F1000 Missing egress rule means all traffic is allowed outbound
     return await in_process(
         _cfn_groups_without_egress,
@@ -308,7 +307,7 @@ async def cfn_public_buckets(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag F14 S3 Bucket should not have a public read-write acl
     # cfn_nag W31 S3 Bucket likely should not have a public read acl
     return await in_process(
@@ -326,7 +325,7 @@ async def cfn_instances_without_profile(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_instances_without_profile,
         content=content,
@@ -342,7 +341,7 @@ async def cfn_unencrypted_buckets(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W41 S3 Bucket should have encryption option set
     return await in_process(
         _cfn_unencrypted_buckets,
@@ -359,7 +358,7 @@ async def cfn_unencrypted_volumes(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W37 EBS Volume should specify a KmsKeyId value\
     # cloudconformity EBS-001 EBS Encrypted
     return await in_process(
@@ -377,7 +376,7 @@ async def terraform_unencrypted_buckets(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W41 S3 Bucket should have encryption option set
     return await in_process(
         _terraform_unencrypted_buckets,
@@ -394,7 +393,7 @@ async def terraform_public_buckets(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag F14 S3 Bucket should not have a public read-write acl
     # cfn_nag W31 S3 Bucket likely should not have a public read acl
     return await in_process(
@@ -412,7 +411,7 @@ async def cnf_unrestricted_cidrs(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cnf_nag W2 Security Groups found with cidr open to world on ingress
     # cnf_nag W5 Security Groups found with cidr open to world on egress
     # cnf_nag W9 Security Groups found with ingress cidr that is not /32
@@ -430,8 +429,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()

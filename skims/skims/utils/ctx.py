@@ -18,10 +18,8 @@ from typing import (
 )
 
 # Local libraries
-from model.core_model import (
-    LocalesEnum,
-    SkimsConfig,
-    SkimsPathConfig,
+from model import (
+    core_model,
 )
 
 # Constants
@@ -40,12 +38,12 @@ def _get_artifact(env_var: str) -> str:
 
 def create_test_context(debug: bool = True) -> None:
     CTX.debug = debug
-    CTX.config = SkimsConfig(
+    CTX.config = core_model.SkimsConfig(
         group=None,
-        language=LocalesEnum.EN,
+        language=core_model.LocalesEnum.EN,
         namespace='test',
         output=None,
-        path=SkimsPathConfig(include=(), exclude=()),
+        path=core_model.SkimsPathConfig(include=(), exclude=()),
         start_dir=os.getcwd(),
         timeout=None,
         working_dir=os.getcwd(),

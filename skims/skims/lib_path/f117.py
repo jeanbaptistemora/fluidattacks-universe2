@@ -15,12 +15,11 @@ from lib_path.common import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from model import (
+    core_model,
+)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
 )
 from zone import (
     t,
@@ -39,7 +38,7 @@ async def unverifiable_files(
     file_extension: str,
     path: str,
     raw_content: bytes,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     if (file_name, file_extension) in ALLOWED:
         return ()
 
@@ -50,7 +49,7 @@ async def unverifiable_files(
             key='src.lib_path.f117.unverifiable_files.description',
             path=path,
         ),
-        finding=FindingEnum.F117,
+        finding=core_model.FindingEnum.F117,
         iterator=iter([(1, 0)]),
         path=path,
     )
@@ -63,8 +62,8 @@ async def analyze(
     path: str,
     raw_content_generator: Callable[[], Awaitable[bytes]],
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in {
         'bin',

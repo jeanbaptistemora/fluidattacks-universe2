@@ -23,17 +23,8 @@ from integrates.limits import (
     DEFAULT as DEFAULT_RATE_LIMIT,
     DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
-from model.core_model import (
-    FindingEnum,
-    FindingEvidenceIDEnum,
-    FindingEvidenceDescriptionIDEnum,
-    FindingReleaseStatusEnum,
-    IntegratesVulnerabilityMetadata,
-    Vulnerability,
-    VulnerabilityApprovalStatusEnum,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
-    VulnerabilityStateEnum,
+from model import (
+    core_model,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -207,7 +198,7 @@ async def get_group_findings(
 async def get_finding_current_release_status(
     *,
     finding_id: str,
-) -> FindingReleaseStatusEnum:
+) -> core_model.FindingReleaseStatusEnum:
     result = await _execute(
         query="""
             query SkimsGetFindingCurrentReleaseStatus(
@@ -225,16 +216,18 @@ async def get_finding_current_release_status(
     )
 
     return (
-        FindingReleaseStatusEnum(result['data']['finding']['currentState'])
+        core_model.FindingReleaseStatusEnum(
+            result['data']['finding']['currentState']
+        )
         if result['data']['finding']['currentState']
-        else FindingReleaseStatusEnum.APPROVED
+        else core_model.FindingReleaseStatusEnum.APPROVED
     )
 
 
 @SHIELD
 async def get_finding_vulnerabilities(
     *,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     finding_id: str,
 ) -> EphemeralStore:
     result = await _execute(
@@ -263,25 +256,29 @@ async def get_finding_vulnerabilities(
 
     store: EphemeralStore = get_ephemeral_store()
     for vulnerability in result['data']['finding']['vulnerabilities']:
-        kind = VulnerabilityKindEnum(vulnerability['vulnType'])
+        kind = core_model.VulnerabilityKindEnum(vulnerability['vulnType'])
         what = vulnerability['where']
 
-        await store.store(Vulnerability(
+        await store.store(core_model.Vulnerability(
             finding=finding,
-            integrates_metadata=IntegratesVulnerabilityMetadata(
-                approval_status=VulnerabilityApprovalStatusEnum((
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                approval_status=core_model.VulnerabilityApprovalStatusEnum((
                     vulnerability['currentApprovalStatus'] or
-                    VulnerabilityApprovalStatusEnum.APPROVED
+                    core_model.VulnerabilityApprovalStatusEnum.APPROVED
                 )),
                 namespace=deserialize_namespace_from_vuln(
                     kind=kind,
                     what=what,
                 ),
-                source=VulnerabilitySourceEnum(vulnerability['source']),
+                source=core_model.VulnerabilitySourceEnum(
+                    vulnerability['source']
+                ),
                 uuid=vulnerability['id'],
             ),
             kind=kind,
-            state=VulnerabilityStateEnum(vulnerability['currentState']),
+            state=core_model.VulnerabilityStateEnum(
+                vulnerability['currentState']
+            ),
             what=what,
             where=vulnerability['specific'],
         ))
@@ -293,7 +290,7 @@ async def get_finding_vulnerabilities(
 async def do_create_draft(
     *,
     affected_systems: str,
-    finding: FindingEnum,
+    finding: core_model.FindingEnum,
     group: str,
 ) -> bool:
     result = await _execute(
@@ -490,7 +487,7 @@ async def do_update_finding_severity(
 @SHIELD
 async def do_update_evidence(
     *,
-    evidence_id: FindingEvidenceIDEnum,
+    evidence_id: core_model.FindingEvidenceIDEnum,
     evidence_stream: bytes,
     finding_id: str,
 ) -> bool:
@@ -532,7 +529,7 @@ async def do_update_evidence(
 async def do_update_evidence_description(
     *,
     evidence_description: str,
-    evidence_description_id: FindingEvidenceDescriptionIDEnum,
+    evidence_description_id: core_model.FindingEvidenceDescriptionIDEnum,
     finding_id: str,
 ) -> bool:
     result = await _execute(

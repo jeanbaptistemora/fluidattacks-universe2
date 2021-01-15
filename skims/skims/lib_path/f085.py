@@ -32,15 +32,14 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
+from model import (
+    core_model,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
 )
 from zone import (
     t,
@@ -50,7 +49,7 @@ from zone import (
 def _javascript_client_storage(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     conditions: Tuple[Set[str], ...] = (
         # All items in the set must be present to consider it sensitive info
         {'auth'},
@@ -109,7 +108,7 @@ def _javascript_client_storage(
             key='src.lib_path.f085.client_storage.description',
             path=path,
         ),
-        finding=FindingEnum.F085,
+        finding=core_model.FindingEnum.F085,
         grammar=grammar,
         path=path,
     )
@@ -121,7 +120,7 @@ def _javascript_client_storage(
 async def javascript_client_storage(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _javascript_client_storage,
         content=content,
@@ -135,8 +134,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_client_storage(

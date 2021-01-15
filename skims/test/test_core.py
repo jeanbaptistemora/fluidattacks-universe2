@@ -8,20 +8,15 @@ import pytest
 from core.persist import (
     diff_results,
 )
+from model import (
+    core_model,
+)
 from state.ephemeral import (
     get_ephemeral_store,
     EphemeralStore,
 )
 from utils.encodings import (
     serialize_namespace_into_vuln,
-)
-from model.core_model import (
-    FindingEnum,
-    IntegratesVulnerabilityMetadata,
-    Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
-    VulnerabilityStateEnum,
 )
 
 
@@ -33,26 +28,27 @@ async def test_diff_results() -> None:
     skims_store: EphemeralStore = get_ephemeral_store()
     integrates_store: EphemeralStore = get_ephemeral_store()
 
-    common_finding = FindingEnum.F009
-    common_integrates_metadata = IntegratesVulnerabilityMetadata(
+    common_finding = core_model.FindingEnum.F009
+    common_integrates_metadata = core_model.IntegratesVulnerabilityMetadata(
         namespace=namespace,
-        source=VulnerabilitySourceEnum.SKIMS,
+        source=core_model.VulnerabilitySourceEnum.SKIMS,
     )
-    common_integrates_metadata_in_other_ns = IntegratesVulnerabilityMetadata(
-        namespace=namespace_other,
-        source=VulnerabilitySourceEnum.SKIMS,
-    )
-    common_kind = VulnerabilityKindEnum.LINES
+    common_integrates_metadata_in_other_ns = \
+        core_model.IntegratesVulnerabilityMetadata(
+            namespace=namespace_other,
+            source=core_model.VulnerabilitySourceEnum.SKIMS,
+        )
+    common_kind = core_model.VulnerabilityKindEnum.LINES
     common_where = 'file'
 
     # Something that Skims does not manage
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
-        integrates_metadata=IntegratesVulnerabilityMetadata(
-            source=VulnerabilitySourceEnum.INTEGRATES,
+        integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+            source=core_model.VulnerabilitySourceEnum.INTEGRATES,
         ),
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -62,11 +58,11 @@ async def test_diff_results() -> None:
     ))
 
     # Something was open at Integrates and was found open by Skims
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata,
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -74,11 +70,11 @@ async def test_diff_results() -> None:
         ),
         where=common_where,
     ))
-    await skims_store.store(Vulnerability(
+    await skims_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata,
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -88,11 +84,11 @@ async def test_diff_results() -> None:
     ))
 
     # Something was open at Integrates and not found open by Skims
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata,
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -102,11 +98,11 @@ async def test_diff_results() -> None:
     ))
 
     # Something was closed at Integrates and found open by Skims
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata,
         kind=common_kind,
-        state=VulnerabilityStateEnum.CLOSED,
+        state=core_model.VulnerabilityStateEnum.CLOSED,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -114,11 +110,11 @@ async def test_diff_results() -> None:
         ),
         where=common_where,
     ))
-    await skims_store.store(Vulnerability(
+    await skims_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata,
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -128,11 +124,11 @@ async def test_diff_results() -> None:
     ))
 
     # Something was closed at Integrates and not found open by Skims
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata,
         kind=common_kind,
-        state=VulnerabilityStateEnum.CLOSED,
+        state=core_model.VulnerabilityStateEnum.CLOSED,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -143,11 +139,11 @@ async def test_diff_results() -> None:
 
     # Something was open on integrates in other namespace and not
     # found open by skims
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata_in_other_ns,
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what=serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
@@ -157,11 +153,11 @@ async def test_diff_results() -> None:
     ))
 
     # Something was open on integrates but follows a weird format
-    await integrates_store.store(Vulnerability(
+    await integrates_store.store(core_model.Vulnerability(
         finding=common_finding,
         integrates_metadata=common_integrates_metadata_in_other_ns,
         kind=common_kind,
-        state=VulnerabilityStateEnum.OPEN,
+        state=core_model.VulnerabilityStateEnum.OPEN,
         what='...........',
         where=common_where,
     ))
@@ -178,10 +174,10 @@ async def test_diff_results() -> None:
             kind=common_kind,
             namespace=namespace,
             what='2',
-        ), VulnerabilityStateEnum.CLOSED),
+        ), core_model.VulnerabilityStateEnum.CLOSED),
         (serialize_namespace_into_vuln(
             kind=common_kind,
             namespace=namespace,
             what='3',
-        ), VulnerabilityStateEnum.OPEN),
+        ), core_model.VulnerabilityStateEnum.OPEN),
     ]

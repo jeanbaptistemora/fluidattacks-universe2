@@ -7,11 +7,11 @@ from typing import (
 )
 
 # Local libraries
-from model.core_model import (
-    Grammar,
-)
 from state.cache import (
     CACHE_ETERNALLY,
+)
+from model import (
+    core_model,
 )
 from utils.ctx import (
     PARSER_ANTLR,
@@ -32,7 +32,7 @@ VERSION: int = 0
 
 
 async def parse(
-    grammar: Grammar,
+    grammar: core_model.Grammar,
     *,
     content: bytes,
     path: str,
@@ -51,7 +51,7 @@ async def parse(
 
 @CACHE_ETERNALLY
 async def _parse(
-    grammar: Grammar,
+    grammar: core_model.Grammar,
     *,
     content: bytes,
     _: int,
@@ -69,7 +69,7 @@ async def _parse(
 
 
 async def __parse(
-    grammar: Grammar,
+    grammar: core_model.Grammar,
     *,
     content: bytes,
     memory: int,

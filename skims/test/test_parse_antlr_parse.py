@@ -5,14 +5,14 @@ from aioextensions import (
 import pytest
 
 # Local libraries
+from model import (
+    core_model,
+)
 from parse_antlr.parse import (
     parse,
 )
 from utils.fs import (
     get_file_raw_content,
-)
-from model.core_model import (
-    Grammar,
 )
 
 
@@ -21,7 +21,7 @@ from model.core_model import (
 async def test_parse_csharp_success() -> None:
     path = 'test/data/lib_path/f073/Test.cs'
     data = await parse(
-        Grammar.CSHARP,
+        core_model.Grammar.CSHARP,
         content=await get_file_raw_content(path),
         path=path,
     )
@@ -54,7 +54,7 @@ async def test_parse_csharp_success() -> None:
 async def test_parse_java9_success() -> None:
     path = 'test/data/lib_path/f031_cwe378/Test.java'
     data = await parse(
-        Grammar.JAVA9,
+        core_model.Grammar.JAVA9,
         content=await get_file_raw_content(path),
         path=path,
     )
@@ -85,7 +85,7 @@ async def test_parse_java9_success() -> None:
 async def test_parse_scala_success() -> None:
     path = 'test/data/lib_path/f073/Test.scala'
     data = await parse(
-        Grammar.SCALA,
+        core_model.Grammar.SCALA,
         content=await get_file_raw_content(path),
         path=path,
     )
@@ -114,7 +114,7 @@ async def test_parse_scala_success() -> None:
 @pytest.mark.skims_test_group('unittesting')
 async def test_parse_fail() -> None:
     path = 'test/data/lib_path/f011/yarn.lock'
-    for grammar in Grammar:
+    for grammar in core_model.Grammar:
         data = await parse(
             grammar,
             content=await get_file_raw_content(path),

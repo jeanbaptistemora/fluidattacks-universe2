@@ -8,24 +8,22 @@ from typing import (
 import confuse
 
 # Local libraries
-from model.core_model import (
-    LocalesEnum,
-    SkimsConfig,
-    SkimsPathConfig,
+from model import (
+    core_model,
 )
 from utils.logs import (
     log_blocking,
 )
 
 
-def load(group: Optional[str], path: str) -> SkimsConfig:
+def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     template = confuse.Configuration('skims', read=False)
     template.set_file(path)
     template.read(user=False, defaults=False)
 
     config = template.get(
         confuse.Template({
-            'language': confuse.Choice(LocalesEnum),
+            'language': confuse.Choice(core_model.LocalesEnum),
             'namespace': confuse.String(),
             'output': confuse.String(),
             'path': confuse.Template({
@@ -43,12 +41,12 @@ def load(group: Optional[str], path: str) -> SkimsConfig:
         if output := config.pop('output', None):
             output = os.path.abspath(output)
 
-        skims_config: SkimsConfig = SkimsConfig(
+        skims_config = core_model.SkimsConfig(
             group=group,
-            language=LocalesEnum(config.pop('language', 'EN')),
+            language=core_model.LocalesEnum(config.pop('language', 'EN')),
             namespace=config.pop('namespace'),
             output=output,
-            path=SkimsPathConfig(
+            path=core_model.SkimsPathConfig(
                 exclude=config_path.pop('exclude', ()),
                 include=config_path.pop('include', ()),
             ),

@@ -54,9 +54,8 @@ from state.cache import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 
 
@@ -168,11 +167,11 @@ def _cfn_negative_statement(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_negative_statement_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -189,7 +188,7 @@ async def cfn_negative_statement(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cloudconformity IAM-061
     # cfn_nag W14 IAM role should not allow Allow+NotAction on trust perms
     # cfn_nag W15 IAM role should not allow Allow+NotAction
@@ -210,11 +209,11 @@ def _cfn_permissive_policy(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_permissive_policy_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -231,7 +230,7 @@ async def cfn_permissive_policy(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cloudconformity IAM-045
     # cloudconformity IAM-049
     # cfn_nag W11 IAM role should not allow * resource on its permissions pol
@@ -253,11 +252,11 @@ def _cfn_open_passrole(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_open_passrole_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -271,11 +270,11 @@ def _cfn_admin_policy_attached(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=cnf_iterate_managed_policy_arns(
@@ -292,7 +291,7 @@ async def cfn_open_passrole(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag F38 IAM role should not allow * resource with PassRole action
     #             on its permissions policy
     # cfn_nag F39 IAM policy should not allow * resource with PassRole action
@@ -313,7 +312,7 @@ async def cfn_admin_policy_attached(
     content: str,
     path: str,
     template: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W43 IAM role should not have AdministratorAccess policy
     return await in_process(
         _cfn_admin_policy_attached,
@@ -327,11 +326,11 @@ def _terraform_negative_statement(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_negative_statement_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -348,7 +347,7 @@ async def terraform_negative_statement(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cloudconformity IAM-061
     # cfn_nag W14 IAM role should not allow Allow+NotAction on trust perms
     # cfn_nag W15 IAM role should not allow Allow+NotAction
@@ -369,11 +368,11 @@ def _terraform_open_passrole(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_open_passrole_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -390,7 +389,7 @@ async def terraform_open_passrole(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag F38 IAM role should not allow * resource with PassRole action
     #             on its permissions policy
     # cfn_nag F39 IAM policy should not allow * resource with PassRole action
@@ -408,11 +407,11 @@ def _terraform_permissive_policy(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_permissive_policy_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -429,7 +428,7 @@ async def terraform_permissive_policy(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cloudconformity IAM-045
     # cloudconformity IAM-049
     # cfn_nag W11 IAM role should not allow * resource on its permissions pol
@@ -451,11 +450,11 @@ def _terraform_admin_policy_attached(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
-        finding=FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031_AWS,
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=terraform_iterate_managed_policy_arns(
@@ -472,7 +471,7 @@ async def terraform_admin_policy_attached(
     content: str,
     path: str,
     model: Any,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     # cfn_nag W43 IAM role should not have AdministratorAccess policy
     return await in_process(
         _terraform_admin_policy_attached,
@@ -488,8 +487,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = await content_generator()

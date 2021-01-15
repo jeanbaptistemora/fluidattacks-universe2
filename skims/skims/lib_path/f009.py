@@ -46,9 +46,8 @@ from state.cache import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 from zone import (
     t,
@@ -88,7 +87,7 @@ def _validate_jwt(token: str) -> bool:
 def _aws_credentials(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = Regex(r'AKIA[A-Z0-9]{16}')
 
     return get_vulnerabilities_blocking(
@@ -98,7 +97,7 @@ def _aws_credentials(
             key='src.lib_path.f009.aws_credentials.description',
             path=path,
         ),
-        finding=FindingEnum.F009,
+        finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
     )
@@ -107,7 +106,7 @@ def _aws_credentials(
 def _jwt_token(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = Regex(
         r'[A-Za-z0-9-_.+\/=]{20,}\.'
         r'[A-Za-z0-9-_.+\/=]{20,}\.'
@@ -121,7 +120,7 @@ def _jwt_token(
             key='src.lib_path.f009.jwt_token.description',
             path=path,
         ),
-        finding=FindingEnum.F009,
+        finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
     )
@@ -133,7 +132,7 @@ def _jwt_token(
 async def aws_credentials(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _aws_credentials,
         content=content,
@@ -147,7 +146,7 @@ async def aws_credentials(
 async def jwt_token(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _jwt_token,
         content=content,
@@ -161,7 +160,7 @@ async def jwt_token(
 async def crypto_js_credentials(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _crypto_js_credentials,
         content=content,
@@ -172,7 +171,7 @@ async def crypto_js_credentials(
 def _crypto_js_credentials(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     grammar = (
         'CryptoJS' + '.' + 'enc' + '.' + MatchFirst({
             Keyword('Base64'),
@@ -200,7 +199,7 @@ def _crypto_js_credentials(
             key='src.lib_path.f009.crypto_js_credentials.description',
             path=path,
         ),
-        finding=FindingEnum.F009,
+        finding=core_model.FindingEnum.F009,
         grammar=grammar,
         path=path,
     )
@@ -209,7 +208,7 @@ def _crypto_js_credentials(
 def _dockerfile_env_secrets(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     secret_smells: Set[str] = {
         'api_key',
         'jboss_pass',
@@ -238,7 +237,7 @@ def _dockerfile_env_secrets(
             key='src.lib_path.f009.dockerfile_env_secrets.description',
             path=path,
         ),
-        finding=FindingEnum.F009,
+        finding=core_model.FindingEnum.F009,
         iterator=iterator(),
         path=path,
     )
@@ -250,7 +249,7 @@ def _dockerfile_env_secrets(
 async def dockerfile_env_secrets(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _dockerfile_env_secrets,
         content=content,
@@ -261,7 +260,7 @@ async def dockerfile_env_secrets(
 def _java_properties_sensitive_data(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     sensible_key_smells = {
         'amazon.aws.key',
         'amazon.aws.secret',
@@ -314,7 +313,7 @@ def _java_properties_sensitive_data(
             key='src.lib_path.f009.java_properties_sensitive_data',
             path=path,
         ),
-        finding=FindingEnum.F009,
+        finding=core_model.FindingEnum.F009,
         iterator=iterator(),
         path=path,
     )
@@ -326,7 +325,7 @@ def _java_properties_sensitive_data(
 async def java_properties_sensitive_data(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_properties_sensitive_data,
         content=content,
@@ -341,8 +340,8 @@ async def analyze(  # pylint: disable=too-many-arguments
     file_name: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in {
         'groovy',

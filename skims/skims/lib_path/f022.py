@@ -27,9 +27,8 @@ from state.cache import (
 from utils.function import (
     TIMEOUT_1MIN,
 )
-from model.core_model import (
-    FindingEnum,
-    Vulnerabilities,
+from model import (
+    core_model,
 )
 from zone import (
     t,
@@ -39,7 +38,7 @@ from zone import (
 def _java_properties_unencrypted_transport(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
 
     def iterator() -> Iterator[Tuple[int, int]]:
         data = load_java_properties(
@@ -66,7 +65,7 @@ def _java_properties_unencrypted_transport(
             key='src.lib_path.f022.unencrypted_channel',
             path=path,
         ),
-        finding=FindingEnum.F022,
+        finding=core_model.FindingEnum.F022,
         iterator=iterator(),
         path=path,
     )
@@ -78,7 +77,7 @@ def _java_properties_unencrypted_transport(
 async def java_properties_unencrypted_transport(
     content: str,
     path: str,
-) -> Vulnerabilities:
+) -> core_model.Vulnerabilities:
     return await in_process(
         _java_properties_unencrypted_transport,
         content=content,
@@ -92,8 +91,8 @@ async def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> List[Awaitable[core_model.Vulnerabilities]]:
+    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(java_properties_unencrypted_transport(
