@@ -16,13 +16,13 @@ from pandas import DataFrame
 
 # Local libraries
 from features.commit import extract_features
+from integrates.domain import get_vulnerable_files
 from utils.logs import log
 from utils.repositories import (
     get_bad_repos,
     get_file_commit_history,
     get_repository_commit_history,
 )
-from utils.training import get_vulnerable_files
 
 
 COMMIT_MAX_RETRIES: int = 15

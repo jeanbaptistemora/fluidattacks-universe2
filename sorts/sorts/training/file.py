@@ -14,13 +14,13 @@ from pandas import DataFrame
 
 # Local libraries
 from features.file import extract_features
+from integrates.domain import get_vulnerable_files
 from utils.logs import log
 from utils.repositories import (
     get_bad_repos,
     get_repository_files,
 )
 from utils.static import read_allowed_names
-from utils.training import get_vulnerable_files
 
 
 # Constants

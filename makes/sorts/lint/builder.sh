@@ -25,6 +25,7 @@ function main {
   local pkgs
 
       pkgs=$(mktemp) \
+  &&  lint_python_imports "${envImportLinterConfig}" "${envSrcSortsSorts}" \
   &&  list_packages > "${pkgs}" \
   &&  while read -r pkg
       do
