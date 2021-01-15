@@ -55,6 +55,7 @@ skims-infra-test:
 skims-lint:
   <<: *makes
   <<: *skims_in_dev_branch
+  allow_failure: true
   stage: lint-code
 
 skims-process-groups-on-aws:

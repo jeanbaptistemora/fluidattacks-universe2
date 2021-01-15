@@ -10,7 +10,6 @@ from model.graph_model import (
 )
 
 
-
 @pytest.mark.skims_test_group('unittesting')
 def test_all() -> None:
     graph = Graph()

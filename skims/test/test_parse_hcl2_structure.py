@@ -19,7 +19,9 @@ def test_iterate_resources() -> None:
     with open('test/data/parse_hcl2/iam.tf') as file:
         model = load_blocking(file.read())
 
-    assert len(tuple(iterate_resources(model, 'resource', 'aws_iam_role'))) == 1
+    assert len(tuple(
+        iterate_resources(model, 'resource', 'aws_iam_role')
+    )) == 1
 
 
 @pytest.mark.skims_test_group('unittesting')
@@ -62,7 +64,8 @@ def test_iterate_iam_policy_documents() -> None:
                 ],
                 'Resource': [
                     'arn:aws:s3:::${var.s3_bucket_name}/home/&{aws:username}',
-                    'arn:aws:s3:::${var.s3_bucket_name}/home/&{aws:username}/*',
+                    ('arn:aws:s3:::${var.s3_bucket_name}'
+                     '/home/&{aws:username}/*'),
                 ],
             },
             line=137,

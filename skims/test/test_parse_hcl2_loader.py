@@ -2,9 +2,6 @@
 from lark import (
     Tree,
 )
-from lark.lexer import (
-    Token,
-)
 import pytest
 
 # Local libraries
@@ -150,13 +147,19 @@ def test_load_2() -> None:
                         column=2,
                         key='endpoint',
                         line=11,
-                        val='arn:aws:sqs:${var.zone}:${var.aws_account}:xxxx-${var.environment_prefix}',
+                        val=(
+                            'arn:aws:sqs:${var.zone}:${var.aws_account}:xxxx'
+                            '-${var.environment_prefix}'
+                        ),
                     ),
                     Attribute(
                         column=2,
                         key='filter_policy',
                         line=12,
-                        val='{ \\"scope\\": [ \\"SEND_TO_UI\\", \\"SEND_TO_ALL\\" ] }',
+                        val=(
+                            '{ \\"scope\\":'
+                            ' [ \\"SEND_TO_UI\\", \\"SEND_TO_ALL\\" ] }'
+                        ),
                     ),
                     Attribute(
                         column=2,
@@ -169,7 +172,9 @@ def test_load_2() -> None:
                 line=8,
             ),
             Block(
-                namespace=['resource', 'aws_iam_user_policy', 'topics_policy1'],
+                namespace=[
+                    'resource', 'aws_iam_user_policy', 'topics_policy1',
+                ],
                 body=[
                     Attribute(
                         column=2,

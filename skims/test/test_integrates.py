@@ -12,31 +12,18 @@ from integrates.graphql import (
     client as graphql_client,
 )
 from integrates.dal import (
-    do_create_draft,
-    do_update_finding_severity,
-    do_upload_vulnerabilities,
-    get_finding_vulnerabilities,
-    get_group_findings,
     get_group_level_role,
-    ResultGetGroupFindings,
 )
 from integrates.domain import (
     build_vulnerabilities_stream,
-    delete_closest_findings,
-    get_closest_finding_id,
 )
 from model.core_model import (
     FindingEnum,
-    IntegratesVulnerabilitiesLines,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
-)
-from zone import (
-    t,
 )
 
 
@@ -44,9 +31,10 @@ from zone import (
 @pytest.mark.skims_test_group('unittesting')
 async def test_client(
     test_integrates_api_token: str,
-    test_integrates_session: None,
+    test_integrates_session: None,  # pylint: disable=unused-argument
 ) -> None:
     async with graphql_client() as client:
+        # pylint: disable=protected-access
         assert client.session._default_headers == {
             'authorization': f'Bearer {test_integrates_api_token}'
         }
@@ -81,6 +69,6 @@ async def test_build_vulnerabilities_stream() -> None:
 @pytest.mark.skims_test_group('functional')
 async def test_get_group_level_role(
     test_group: str,
-    test_integrates_session: str,
+    test_integrates_session: str,  # pylint: disable=unused-argument
 ) -> None:
     assert await get_group_level_role(group=test_group) == 'admin'

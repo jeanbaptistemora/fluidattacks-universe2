@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 
+source "${envSetupSkimsDevelopment}"
 source "${envSetupSkimsRuntime}"
 source "${envBashLibLintPython}"
 

@@ -55,7 +55,9 @@ def pytest_runtest_setup(item: Any) -> None:
     if not skims_test_group:
         raise ValueError('skims-test-group not specified')
     if skims_test_group != 'all' and skims_test_group not in TEST_GROUPS:
-        raise ValueError(f'skims-test-group must be one of: {TEST_GROUPS}, or all')
+        raise ValueError(
+            f'skims-test-group must be one of: {TEST_GROUPS}, or all',
+        )
 
     # The test expects to run on one of these groups
     # If the dev forgets to specify it while writing the test it'll run
@@ -101,7 +103,9 @@ def test_integrates_api_token() -> Iterator[str]:
 
 
 @pytest.fixture(scope='function')
-def test_integrates_session(test_integrates_api_token: str) -> Iterator[None]:
+def test_integrates_session(
+    test_integrates_api_token: str,  # pylint: disable=redefined-outer-name
+) -> Iterator[None]:
     token = create_session(api_token=test_integrates_api_token)
     try:
         yield

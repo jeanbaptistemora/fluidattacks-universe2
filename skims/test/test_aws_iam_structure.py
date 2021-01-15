@@ -23,9 +23,9 @@ def test_is_action_permissive() -> None:
     assert not is_action_permissive('s3*:')
     assert not is_action_permissive('s3***:')
 
-    assert not is_action_permissive(None)  # type: ignore
-    assert not is_action_permissive({})  # type: ignore
-    assert not is_action_permissive([])  # type: ignore
+    assert not is_action_permissive(None)
+    assert not is_action_permissive({})
+    assert not is_action_permissive([])
 
 
 @pytest.mark.skims_test_group('unittesting')

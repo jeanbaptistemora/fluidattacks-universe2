@@ -16,8 +16,6 @@ from graph_java.transformations.sinks import (
 )
 from graph_java.transformations.cfg import (
     ALWAYS,
-    BREAK,
-    CONTINUE,
     FALSE,
     MAYBE,
     TRUE,
@@ -97,9 +95,14 @@ async def test_graph_generation(path: str, name: str) -> None:
                 allow_incomplete=True,
                 index=index,
             )
-            statements_as_json = json_dumps(statements, indent=2, sort_keys=True)
+            statements_as_json = json_dumps(
+                statements, indent=2, sort_keys=True,
+            )
 
-            with open(f'test/data/parse_java/{name}.{sink}.{index}.statements.json') as handle:
+            with open((
+                'test/data/parse_java'
+                f'/{name}.{sink}.{index}.statements.json'
+            )) as handle:
                 expected = handle.read()
 
             assert statements_as_json == expected
@@ -148,7 +151,7 @@ async def test_control_flow_1() -> None:
         (3876, 3911, TRUE),
         (3876, 4269, FALSE),
     ):
-        assert has_labels(graph[str(s_id)][str(t_id)], **edge_attrs), (s_id, t_id)
+        assert has_labels(graph[str(s_id)][str(t_id)], **edge_attrs)
 
 
 @run_decorator
