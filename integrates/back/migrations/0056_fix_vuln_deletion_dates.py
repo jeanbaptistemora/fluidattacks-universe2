@@ -2,6 +2,9 @@
 This migration fix those vuln deletion dates that have a lot of time of difference
 with the finding deletion date. Those vuln deletion dates were introduced with the
 migration 0055_add_deleted_status.
+
+Execution Time:    2021-01-14 at 09:59:47 UTC-05
+Finalization Time: 2021-01-15 at 08:00:00 UTC-05
 """
 # Standard library
 import copy
@@ -123,7 +126,8 @@ async def main() -> None:
         [
             fix_vuln_deletion_dates_for_group(group)
             for group in groups
-        ]
+        ],
+        workers=10
     ))
 
     print(f'Success: {success}')
