@@ -8,18 +8,19 @@ import requests
 from ratelimiter import RateLimiter
 # Local libraries
 from streamer_zoho_crm import utils
-from streamer_zoho_crm.api import (
-    API_URL,
-    UnexpectedResponse,
-)
 from streamer_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     BulkJobResult,
     ModuleName,
 )
+from streamer_zoho_crm.api.common import (
+    API_URL,
+    UnexpectedResponse,
+)
 
 
+API_ENDPOINT = API_URL + '/crm/bulk/v2/read'
 LOG = utils.get_log(__name__)
 rate_limiter = RateLimiter(max_calls=10, period=60)
 
@@ -29,7 +30,7 @@ def create_bulk_read_job(
 ) -> BulkJob:
     with rate_limiter:
         LOG.info('API: Create bulk job for %s @page:%s', module, page)
-        endpoint = f'{API_URL}/crm/bulk/v2/read'
+        endpoint = API_ENDPOINT
         headers = {'Authorization': f'Zoho-oauthtoken {token}'}
         data = {
             'query': {
@@ -56,7 +57,7 @@ def create_bulk_read_job(
 
 def get_bulk_job(token: str, job_id: str) -> BulkJob:
     LOG.info('API: Get bulk job #%s', job_id)
-    endpoint = f'{API_URL}/crm/bulk/v2/read/{job_id}'
+    endpoint = f'{API_ENDPOINT}/{job_id}'
     headers = {'Authorization': f'Zoho-oauthtoken {token}'}
     response = requests.get(url=endpoint, headers=headers)
     response_json = response.json()
@@ -88,7 +89,7 @@ def get_bulk_job(token: str, job_id: str) -> BulkJob:
 def download_result(token: str, job_id: str) -> BulkData:
     with rate_limiter:
         LOG.info('API: Download bulk job #%s', job_id)
-        endpoint = f'{API_URL}/crm/bulk/v2/read/{job_id}/result'
+        endpoint = f'{API_ENDPOINT}/{job_id}/result'
         headers = {'Authorization': f'Zoho-oauthtoken {token}'}
         response = requests.get(url=endpoint, headers=headers)
         tmp_zipdir = tempfile.mkdtemp()
