@@ -296,43 +296,51 @@ def get_ast_childs(
     )
 
 
+def lookup_first_cfg_parent(
+    graph: Graph,
+    n_id: NId,
+) -> str:
+    # Has child/parent CFG edges
+    if adj_cfg(graph, n_id) or pred_cfg(graph, n_id):
+        return n_id
+
+    # Lookup first parent who has parent CFG edges
+    for p_id in pred_ast_lazy(graph, n_id, depth=-1):
+        if pred_cfg(graph, p_id):
+            return p_id
+
+    # Base case, pass through
+    return n_id
+
+
 def flows(
     graph: Graph,
     *,
     input_type: str,
     sink_type: str,
 ) -> Tuple[Tuple[int, Tuple[str, ...]], ...]:
-
-    def lookup_first_cfg_parent(n_id: str) -> str:
-        # Has child/parent CFG edges
-        if adj_cfg(graph, n_id) or pred_cfg(graph, n_id):
-            return n_id
-
-        # Lookup first parent who has parent CFG edges
-        for p_id in pred_ast_lazy(graph, n_id, depth=-1):
-            if pred_cfg(graph, p_id):
-                return p_id
-
-        # Base case, pass through
-        return n_id
-
     return tuple(enumerate(sorted(
         path
         for s_id, t_id in product(
             # Inputs
-            map(lookup_first_cfg_parent, filter_nodes(
+            filter_nodes(
                 graph,
                 graph.nodes,
                 pred_has_labels(label_input_type=input_type),
-            )),
+            ),
             # Sinks
-            map(lookup_first_cfg_parent, filter_nodes(
+            filter_nodes(
                 graph,
                 graph.nodes,
                 pred_has_labels(label_sink_type=sink_type),
-            )),
+            ),
         )
-        for path in paths(graph, s_id, t_id, label_cfg='CFG')
+        for path in paths(
+            graph,
+            lookup_first_cfg_parent(graph, s_id),
+            lookup_first_cfg_parent(graph, t_id),
+            label_cfg='CFG',
+        )
     )))
 
 
