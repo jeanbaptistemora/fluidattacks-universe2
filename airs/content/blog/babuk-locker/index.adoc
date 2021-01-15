@@ -17,15 +17,15 @@
 
 A new form of link:../ransomware/[ransomware] has emerged to welcome the new year, *2021*.
 We're referring to the *Babuk Locker*.
-Malicious software that is capable of encrypting
+A malicious software that is capable of encrypting
 some of your essential files to deny you access to them,
 and for which you should pay a ransom.
 link:http://chuongdong.com[Chuong Dong], a Computer Science student
 at link:https://www.gatech.edu/[Georgia Tech] interested in cybersecurity,
-link:http://chuongdong.com/reverse%20engineering/2021/01/03/BabukRansomware/[reported it on 03/01/21].
+link:http://chuongdong.com/reverse%20engineering/2021/01/03/BabukRansomware/[reported it on January 3rd, 2021].
 (It seems that Dong saw Babuk mentioned in a tweet by link:https://twitter.com/Arkbird_SOLG[Arkbird] and,
-linked to it, finishing the post,
-I found an earlier link:https://id-ransomware.blogspot.com/2021/01/babuk-ransomware.html[article in Russian by Amigo-A] published on 01/01/21.)
+linked to it, finishing this post,
+I found an earlier link:https://id-ransomware.blogspot.com/2021/01/babuk-ransomware.html[article in Russian by Amigo-A] published on January 1st, 2021.)
 
 According to Dong, this malware has not been obfuscated
 (link:https://securityboulevard.com/2020/02/what-is-malware-obfuscation/[malware obfuscation] makes the data or code difficult to understand)
@@ -65,14 +65,14 @@ Let's keep an overview of this ransomware currently occupying our attention.
 == Babuk Locker's injection and operation
 
 Babuk Locker appears as a 32-bit _.exe_ file
-(i.e., "link:https://id-ransomware.blogspot.com/2021/01/babuk-ransomware.html[BABUK.exe]", at least that’s how it was coming),
+(i.e., "link:https://id-ransomware.blogspot.com/2021/01/babuk-ransomware.html[BABUK.exe]", at least at first),
 but, as reported by link:https://threatpost.com/ransomware-babuk-locker-large-corporations/162836/[O'Donnell in Threatpost],
 it is not clear how this malware "is initially spread to victims."
-However, the vehicle of infection, in this case,
+It seems, though, that the vehicle of infection, in this case,
 may not be far from the typical link:../phishing/[phishing]
-"similar to other ransomware groups' approaches," said Dong to Threatpost.
+"similar to other ransomware groups' approaches," said Dong.
 Indeed, for his part, link:https://howtofix.guide/babuk-locker/[Brendan Smith in Howtofix]
-talks about only two forms of Babuk injection: email spam and trojans.
+talks about _only two_ forms of Babuk injection: email spam and trojans.
 
 When the threat actors launch Babuk Locker,
 they can employ "a command-line argument to control
@@ -95,19 +95,19 @@ and [appends] it to each encrypted file."
 The specific extension currently used is "*.$$__$$NIST_K571$$__$$*".
 So, for example, if you have a file with the name "summary_2020.docx",
 it is transformed into "summary_2020.docx.$$__$$NIST_K571$$__$$".
-Linked to this, a ransom note named _How To Restore Your Files.txt_
+Also, a ransom note named _How To Restore Your Files.txt_
 (see Figure 2) appears in the folders containing encrypted files.
 It shows general information about the attack
 and instructions to follow for recovering data,
 including a link to a link:https://www.torproject.org/[Tor] page
-(remember the _.onion_ we talked about
+(remember the _.onion_ domains we talked about
 link:../dark-web/[a few weeks ago]) to establish negotiation.
 
 .Image taken from link:http://chuongdong.com/uploads/RansomNote.PNG[chuongdong.com].
 image::ransomnote.png[RansomNote]
 
 In addition, the ransomware operators
-can reveal in their notes victims' names and demonstrate through images
+can reveal the victims' names in their notes and demonstrate through images
 that they have stolen unencrypted files with data
 that they could expose (leak) on the Dark Web,
 specifically on a hacker forum, in case no agreement is reached.
