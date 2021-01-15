@@ -8,7 +8,7 @@ from typing import (
 # Third party libraries
 # Local libraries
 from streamer_zoho_crm import utils
-from streamer_zoho_crm.api import (
+from streamer_zoho_crm.temp_api import (
     ApiClient,
     BulkData,
     BulkJob,

@@ -1,0 +1,60 @@
+# Standard libraries
+from enum import Enum
+from typing import (
+    IO,
+    NamedTuple,
+    Optional,
+)
+# Third party libraries
+# Local libraries
+from streamer_zoho_crm.api.bulk import _bulk
+
+
+JSONstr = str
+
+
+class ModuleName(Enum):
+    LEADS = 'Leads'
+    ACCOUNTS = 'Accounts'
+    CONTACTS = 'Contacts'
+    DEALS = 'Deals'
+    CAMPAIGNS = 'Campaigns'
+    TASKS = 'Tasks'
+    CASES = 'Cases'
+    CALLS = 'Calls'
+    SOLUTIONS = 'Solutions'
+    PRODUCTS = 'Products'
+    VENDORS = 'Vendors'
+    PRICE_BOOKS = 'Price_Books'
+    QUOTES = 'Quotes'
+    SALES_ORDERS = 'Sales_Orders'
+    PURCHASE_ORDERS = 'Purchase_Orders'
+    INVOICES = 'Invoices'
+
+
+class BulkJobResult(NamedTuple):
+    page: int
+    count_items: int
+    download_url: str
+    more_records: bool
+
+
+class BulkJob(NamedTuple):
+    operation: str
+    created_by: JSONstr
+    created_time: str
+    state: str
+    id: str
+    module: ModuleName
+    page: int
+    result: Optional[BulkJobResult] = None
+
+
+class BulkData(NamedTuple):
+    job_id: str
+    file: IO[str]
+
+
+create_bulk_read_job = _bulk.create_bulk_read_job
+get_bulk_job = _bulk.get_bulk_job
+download_result = _bulk.download_result

@@ -15,12 +15,12 @@ from postgres_client.connection import (
 from singer_io import factory
 from singer_io.singer import SingerRecord
 from streamer_zoho_crm import (
-    api,
     bulk,
     db,
+    temp_api as api,
     utils,
 )
-from streamer_zoho_crm.api import (
+from streamer_zoho_crm.temp_api import (
     ApiClient,
     BulkData,
     BulkJob,
