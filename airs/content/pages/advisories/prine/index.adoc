@@ -1,15 +1,15 @@
 :slug: advisories/prine/
-:description: Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
-:keywords: Fluid Attacks, Security, Vulnerabilities, Dup Scout
+:description: DupScout Enterprise 10.0.18 'sid' Buffer Overflow
+:keywords: Fluid Attacks, Security, Vulnerabilities, DupScout
 :banner: asserts-bg
 
-= Dup Scout Enterprise 10.0.18 BoF
+= DupScout Enterprise 10.0.18 BoF
 
 == Summary
 
-- *Name:* Dup Scout Enterprise 10.0.18 'sid' Buffer Overflow
+- *Name:* DupScout Enterprise 10.0.18 'sid' Buffer Overflow
 - *Code name:* link:https://en.wikipedia.org/wiki/John_Prine[Prine]
-- *Product:* Dup Scout Enterprise
+- *Product:* DupScout Enterprise
 - *Versions:* 10.0.18
 - *Fixed versions:* 13.2.24
 - *Release date:* 2020-12-15 14:00 COT
@@ -25,27 +25,27 @@
 
 == Description
 
-A stack buffer overflow was found in the `sid` `GET` parameter of 
-several requests of Dup Scout Enterprise 10.0.18 which can be exploited 
-by an unauthenticated, remote user to gain `NT AUTHORITY\SYSTEM` privileges 
+A stack buffer overflow was found in the `sid` `GET` parameter of
+several requests of DupScout Enterprise 10.0.18 which can be exploited
+by an unauthenticated, remote user to gain `NT AUTHORITY\SYSTEM` privileges
 on the server holding the affected software.
 
 == Exploit
 
-A first version of the exploit was published at 
+A first version of the exploit was published at
 link:https://www.exploit-db.com/exploits/49217[Exploit DB]
 and an updated exploit can be found link:prine-exploit.py[here].
 
 
 == Mitigation
 
-An updated version of Dup Scout Enterprise is available at 
-the vendor page.
+An updated version of DupScout Enterprise
+is available at the vendor page.
 
 == Credits
 
-The vulnerability was discovered by link:https://www.linkedin.com/in/andres-roldan/[Andrés Roldán] from the 
-Offensive Team of Fluid Attacks.
+The vulnerability was discovered by link:https://www.linkedin.com/in/andres-roldan/[Andrés Roldán] 
+from the Offensive Team of `Fluid Attacks`.
 
 == References
 
