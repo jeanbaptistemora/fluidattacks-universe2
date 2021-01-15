@@ -9,7 +9,7 @@ from toolbox.utils.function import shield
 
 
 @shield(on_error_return=False)
-def main():
+def main() -> None:
     '''
     Print all repositories that:
     1. Have their repos on s3

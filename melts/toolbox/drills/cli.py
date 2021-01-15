@@ -64,16 +64,17 @@ from toolbox.drills import (
     help='Access a subs VPN',
     is_flag=True)
 def drills_management(
-        group,
-        o_name,
-        o_generate_commit_msg,
-        o_update_lines,
-        o_upload_history,
-        o_to_reattack,
-        o_pull_repos,
-        o_push_repos,
-        o_count_toe,
-        o_vpn):
+    group: str,
+    o_name: str,
+    o_generate_commit_msg: bool,
+    o_update_lines: bool,
+    o_upload_history: bool,
+    o_to_reattack: bool,
+    o_pull_repos: bool,
+    o_push_repos: bool,
+    o_count_toe: bool,
+    o_vpn: bool,
+) -> None:
     """Perform operations with the drills service."""
     success: bool = True
 

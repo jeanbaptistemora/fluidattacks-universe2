@@ -39,7 +39,7 @@ from toolbox.api import integrates
 config_handler.set_global(length=25)
 
 
-def ls_remote(url) -> Dict[str, Any]:
+def ls_remote(url: str) -> Dict[str, Any]:
     remote_refs = {}
     remote = git.cmd.Git()
     try:
@@ -51,7 +51,7 @@ def ls_remote(url) -> Dict[str, Any]:
         return {'error': {'message': exc.stderr, 'status': exc.status}}
 
 
-def cmd_execute(cmnd, folder='.'):
+def cmd_execute(cmnd: List[str], folder: str = '.') -> List[str]:
     """ Execute a cmd command in the folder """
     env_vars: Dict[str, str] = {
         'GIT_SSL_NO_VERIFY': '1',
@@ -62,13 +62,19 @@ def cmd_execute(cmnd, folder='.'):
         stdout=PIPE,
         stderr=PIPE,
         cwd=folder,
-        env={**os.environ.copy(), **env_vars})
-    result = process.communicate()
-    result = list(map(lambda x: x.decode('utf-8', 'ignore'), result))
-    return result
+        env={
+            **os.environ.copy(),
+            **env_vars
+        },
+    )
+    return list(
+        map(lambda x: x.decode('utf-8', 'ignore'), process.communicate()))
 
 
-def print_problems(problems, branches):
+def print_problems(
+    problems: List[Dict[str, str]],
+    branches: List[str],
+) -> None:
     """ print problems in the repos"""
     logger.info('Problems with the following repositories:' +
                 f'[{len(problems)}/{len(branches)}]\n\n')
@@ -77,7 +83,7 @@ def print_problems(problems, branches):
         logger.info(problem['problem'])
 
 
-def has_vpn(code, subs):
+def has_vpn(code: Dict[str, str], subs: str) -> None:
     """ check if the group has a vpn """
     does_have_vpn = code.get('vpn')
     if does_have_vpn:
@@ -405,8 +411,11 @@ def get_fingerprint(subs: str) -> bool:
     return True
 
 
-def print_inactive_missing_repos(group, inactive_repos,
-                                 missing_repos) -> None:
+def print_inactive_missing_repos(
+    group: str,
+    inactive_repos: List[str],
+    missing_repos: List[str],
+) -> None:
     print(json.dumps({
         'stream': 'repositories',
         'record': {
@@ -417,7 +426,7 @@ def print_inactive_missing_repos(group, inactive_repos,
     }))
 
 
-def fluidcounts(path):
+def fluidcounts(path: str) -> str:
     """Count lines of code using cloc."""
     filepaths = ''
     doc_langs = ["Markdown"]

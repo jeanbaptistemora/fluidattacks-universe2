@@ -41,15 +41,15 @@ SUBS_METAVAR = '[GROUP]'
 @option(
     '--read-prod', is_flag=True, help='read the prod secrets of a group')
 def resources_management(
-    group,
-    clone,
-    fingerprint,
-    login,
-    edit_dev,
-    read_dev,
-    edit_prod,
-    read_prod,
-):
+    group: str,
+    clone: bool,
+    fingerprint: bool,
+    login: bool,
+    edit_dev: bool,
+    read_dev: bool,
+    edit_prod: bool,
+    read_prod: bool,
+) -> None:
     """Allows administration tasks within groups"""
     success: bool = True
 

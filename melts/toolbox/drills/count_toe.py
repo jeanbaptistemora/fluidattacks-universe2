@@ -2,6 +2,10 @@
 import os
 import csv
 from datetime import datetime
+from typing import (
+    Any,
+    Tuple,
+)
 
 # Third party libraries
 import boto3
@@ -14,7 +18,7 @@ from toolbox import (
 from toolbox.utils.function import shield
 
 
-def get_dynamodb_resource():
+def get_dynamodb_resource() -> Any:
     return boto3.resource(
         'dynamodb',
         aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
@@ -23,7 +27,7 @@ def get_dynamodb_resource():
     )
 
 
-def count_lines(file_csv):
+def count_lines(file_csv: str) -> Tuple[int, int]:
     """Insert lines.csv"""
     with open(file_csv) as f_csv:
         reader = csv.reader(f_csv)
@@ -45,7 +49,7 @@ def count_lines(file_csv):
     return (lines, tested_lines)
 
 
-def count_inputs(file_csv):
+def count_inputs(file_csv: str) -> Tuple[int, int]:
     """Insert campos.csv"""
     with open(file_csv) as f_csv:
         reader = csv.reader(f_csv)
@@ -63,7 +67,13 @@ def count_inputs(file_csv):
     return (fields, tested_fields)
 
 
-def insert_data(group, lines, tested_lines, fields, tested_fields):
+def insert_data(
+    group: str,
+    lines: int,
+    tested_lines: int,
+    fields: int,
+    tested_fields: int,
+) -> bool:
     """Insert data into table"""
     success: bool = True
     table = get_dynamodb_resource().Table('FI_toe')
@@ -90,7 +100,7 @@ def insert_data(group, lines, tested_lines, fields, tested_fields):
 
 
 @shield(on_error_return=False)
-def main(target_group: str):
+def main(target_group: str) -> bool:
     """main function"""
     success: bool = True
 

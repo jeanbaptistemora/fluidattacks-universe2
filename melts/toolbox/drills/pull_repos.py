@@ -166,7 +166,7 @@ def pull_repos_s3_to_fusion(subs: str,
         cmd=aws_sync_command,
         cwd='.',
         env={},
-        **kwargs,
+        **kwargs,  # type: ignore
     )
 
     if status:

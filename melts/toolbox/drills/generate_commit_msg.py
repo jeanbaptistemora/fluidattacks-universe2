@@ -10,7 +10,7 @@ from toolbox.utils.function import shield
 
 class Objective:
     # pylint: disable=too-few-public-methods
-    def __init__(self, count, sofar, today):
+    def __init__(self, count: int, sofar: int, today: int) -> None:
         self.count = count
         self.sofar = sofar
         self.today = today
@@ -57,7 +57,7 @@ def process_inputs_csv(subs: str) -> Objective:
     return inputs
 
 
-def safe_divide(num: int, den: int) -> float:
+def safe_divide(num: float, den: float) -> float:
     return (1.0 if num == 0 else 0.0) if den == 0 else num / den
 
 

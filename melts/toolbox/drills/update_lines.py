@@ -2,6 +2,11 @@
 import csv
 import os
 import sys
+from typing import (
+    Any,
+    Dict,
+    Tuple,
+)
 
 # Local libraries
 from toolbox.drills import (
@@ -22,23 +27,23 @@ FIELDS = [
 ]
 
 
-def command(cmd: str):
+def command(cmd: str) -> None:
     if os.system(cmd):
         raise Exception(f"CRITICAL: `{cmd}` return a non-zero status code.")
 
 
-def sort_rows(path):
+def sort_rows(path: str) -> None:
     command(f"(head -n 1 '{path}' && tail -n +2 '{path}' | LC_ALL=C sort) >"
             f"'{path}.{UNIQ}'")
     command(f"mv -f '{path}.{UNIQ}' '{path}'")
 
 
-def remove_cr(path):
+def remove_cr(path: str) -> None:
     command(f"tr -d '\r' < '{path}' > '{path}.{UNIQ}'")
     command(f"mv -f '{path}.{UNIQ}' '{path}'")
 
 
-def append_changes(path):
+def append_changes(path: str) -> None:
     with open("toe/snapshot", "r") as snapshot, open(path, "a") as now:
         now_writer = csv.writer(now)
         for row in snapshot:
@@ -48,7 +53,7 @@ def append_changes(path):
             now_writer.writerow(modified_row)
 
 
-def alter_state(path):
+def alter_state(path: str) -> None:
     command(f"mv '{path}' toe/lines.tmp")
     with open("toe/lines.tmp", "r") as now, \
             open(path, "w") as tmp:
@@ -68,7 +73,12 @@ def alter_state(path):
     command("rm toe/lines.tmp")
 
 
-def alter_state__aux(row, state, cache, writer):
+def alter_state__aux(
+    row: Dict[str, Any],
+    state: str,
+    cache: Any,
+    writer: csv.DictWriter,
+) -> Tuple[str, str]:
     if state == "init":
         if row["filename"][-UNIQ_L:] == UNIQ:
             # new file
@@ -92,7 +102,7 @@ def alter_state__aux(row, state, cache, writer):
                 row["comments"] = cache["comments"]
             else:
                 row = cache
-            row.pop(None, None)
+            row.pop(None, None)  # type: ignore
             writer.writerow(row)
             state, cache = "init", None
         else:
@@ -102,7 +112,7 @@ def alter_state__aux(row, state, cache, writer):
 
 
 @shield(on_error_return=False)
-def main(subs: str):
+def main(subs: str) -> None:
     init_dir: str = os.getcwd()
 
     try:

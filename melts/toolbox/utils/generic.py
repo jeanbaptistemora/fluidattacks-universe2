@@ -11,10 +11,12 @@ from datetime import datetime
 from functools import lru_cache
 from configparser import ConfigParser
 from typing import (
+    Any,
+    Iterator,
     List,
     Tuple,
     Optional,
-    Dict
+    Dict,
 )
 import configparser
 
@@ -32,7 +34,7 @@ DEFAULT_PROFILE: str = 'continuous-unspecified-subs'
 
 
 def run_command_old(
-    cmd: str,
+    cmd: List[str],
     cwd: str,
     env: dict,
 ) -> Tuple[int, str, str]:
@@ -40,14 +42,14 @@ def run_command_old(
     return run_command(cmd, cwd, env, shell=True)
 
 
-def run_command(
-    cmd,
+def run_command(  # pylint: disable=too-many-arguments
+    cmd: List[str],
     cwd: str,
-    env: dict,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-    universal_newlines=True,
-    **kwargs,
+    env: Dict[str, Any],
+    stdout: Optional[int] = subprocess.PIPE,
+    stderr: Optional[int] = subprocess.PIPE,
+    universal_newlines: bool = True,
+    **kwargs: Any,
 ) -> Tuple[int, str, str]:
     """Run a command and return exit-code, stdout and stderr."""
     # We are checking the exit code in upstream components
@@ -91,9 +93,11 @@ def is_branch_master() -> bool:
     return os.environ.get('CI_COMMIT_REF_NAME') == 'master'
 
 
-def is_credential_valid(aws_access_key_id,
-                        aws_secret_access_key,
-                        aws_session_token):
+def is_credential_valid(
+    aws_access_key_id: bool,
+    aws_secret_access_key: bool,
+    aws_session_token: bool,
+) -> bool:
     try:
         client = boto3.client('sts', aws_access_key_id=aws_access_key_id,
                               aws_secret_access_key=aws_secret_access_key,
@@ -104,14 +108,14 @@ def is_credential_valid(aws_access_key_id,
     return True
 
 
-def is_inside_services():
+def is_inside_services() -> bool:
     starting_dir: str = os.getcwd()
     if 'services' not in starting_dir:
         return False
     return True
 
 
-def go_back_to_services():
+def go_back_to_services() -> None:
     if not is_inside_services():
         logger.error('Please run the toolbox inside the services repo')
         sys.exit(78)
@@ -129,7 +133,11 @@ def get_current_group() -> str:
         return 'unspecified-subs'
 
 
-def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
+def is_valid_group(  # pylint: disable=unused-argument
+    ctx: Any,
+    param: Any,
+    subs: str,
+) -> str:
     actual_path: str = os.getcwd()
     if is_inside_services() \
             and 'groups' not in actual_path \
@@ -142,7 +150,7 @@ def is_valid_group(ctx, param, subs):  # pylint: disable=unused-argument
 
 
 @contextlib.contextmanager
-def output_block(*, indent=2):
+def output_block(*, indent: int = 2) -> Iterator[None]:
     buffer = io.StringIO()
     with contextlib.redirect_stdout(buffer), \
             contextlib.redirect_stderr(buffer):
@@ -170,7 +178,10 @@ def rfc3339_str_to_date_obj(
     return dateutil.parser.parse(date_str)
 
 
-def get_change_request_summary(ref: str = 'HEAD', path=os.getcwd()) -> str:
+def get_change_request_summary(
+        ref: str = 'HEAD',
+        path: str = os.getcwd(),
+) -> str:
     """Return the commit message, or the merge request title."""
     commit_summary: str
     gitlab_summary_var: str = 'CI_MERGE_REQUEST_TITLE'
@@ -184,7 +195,7 @@ def get_change_request_summary(ref: str = 'HEAD', path=os.getcwd()) -> str:
     return commit_summary
 
 
-def get_change_request_body(ref: str = 'HEAD', path=os.getcwd()) -> str:
+def get_change_request_body(ref: str = 'HEAD', path: str = os.getcwd()) -> str:
     """Return the HEAD commit message, or the merge request body."""
     commit_body: str
     gitlab_summary_var: str = 'CI_MERGE_REQUEST_DESCRIPTION'
@@ -199,7 +210,10 @@ def get_change_request_body(ref: str = 'HEAD', path=os.getcwd()) -> str:
     return commit_body
 
 
-def get_change_request_patch(ref: str = 'HEAD', path=os.getcwd()) -> str:
+def get_change_request_patch(
+        ref: str = 'HEAD',
+        path: str = os.getcwd(),
+) -> str:
     """Return the HEAD commit patch."""
     return git.Repo(path,
                     search_parent_directories=True).git.show('--format=', ref)
@@ -236,7 +250,7 @@ def get_change_request_deltas(ref: str = 'HEAD') -> int:
 
 def get_change_request_touched_files(
         ref: str = 'HEAD',
-        path=os.getcwd(),
+        path: str = os.getcwd(),
 ) -> Tuple[str, ...]:
     """Return touched files in HEAD commit."""
     return tuple(
@@ -266,8 +280,8 @@ def get_change_request_touched_and_existing_files(
 
 
 def _write_aws_credentials(profile: str,
-                           key_info: Dict,
-                           delete_default: bool = False):
+                           key_info: Dict[str, str],
+                           delete_default: bool = False) -> None:
     """
     Add profile credentials in aws credential file.
 
@@ -341,7 +355,7 @@ def _get_okta_user() -> Optional[str]:
     return user
 
 
-def _set_aws_env_creds(profile: str):
+def _set_aws_env_creds(profile: str) -> None:
     """
     Set aws credentials as environment variables.
 
@@ -428,7 +442,7 @@ def okta_aws_login(profile: str = 'default') -> bool:
     return success == 0
 
 
-def aws_login(profile: str = 'default'):
+def aws_login(profile: str = 'default') -> None:
     """
     Login as either:
     1. AWS Prod if branch is master in CI
@@ -497,7 +511,7 @@ def does_fusion_exist(subs: str) -> bool:
     return os.path.isdir(f'groups/{subs}/fusion')
 
 
-def glob_re(pattern, paths='.'):
+def glob_re(pattern: str, paths: str = '.') -> Iterator[str]:
     """Return the file paths that are regex compliant."""
     for dirpath, _, filenames in os.walk(paths):
         for path in filenames:

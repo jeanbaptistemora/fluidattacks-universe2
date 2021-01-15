@@ -1,5 +1,10 @@
 # Standard libraries
-from typing import Dict, Any, List
+from typing import (
+    Dict,
+    Any,
+    List,
+    Optional,
+)
 from datetime import datetime
 
 # Third party libraries
@@ -18,7 +23,11 @@ def calculate_days_ago(date: datetime) -> int:
     return passed_days.days
 
 
-def s3_path_exists(bucket: str, path: str, endpoint_url: str = None) -> bool:
+def s3_path_exists(
+    bucket: str,
+    path: str,
+    endpoint_url: Optional[str] = None,
+) -> bool:
     '''
     Return True if provided path exists within a bucket. Else otherwise
 
@@ -40,7 +49,7 @@ def s3_path_exists(bucket: str, path: str, endpoint_url: str = None) -> bool:
 def get_last_upload(
         bucket: str,
         path: str,
-        endpoint_url: str = None) -> datetime:
+        endpoint_url: Optional[str] = None) -> datetime:
     '''
     Get upload date of last uploaded file in a path
 

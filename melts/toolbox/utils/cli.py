@@ -31,9 +31,10 @@ from toolbox.utils import (
     help='get the group name from the commmit msg.',
     is_flag=True)
 def utils_management(
-        group,
-        o_does_subs_exist,
-        o_get_commit_subs):
+    group: str,
+    o_does_subs_exist: bool,
+    o_get_commit_subs: bool,
+) -> None:
     if o_does_subs_exist:
         sys.exit(0 if does_subs_exist.main(group) else 1)
     elif o_get_commit_subs:

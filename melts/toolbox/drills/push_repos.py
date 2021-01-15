@@ -1,7 +1,10 @@
 # Standard libraries
 import os
 import json
-from typing import List
+from typing import (
+    List,
+    Optional,
+)
 from pathlib import Path
 
 # Third party libaries
@@ -15,7 +18,11 @@ from toolbox.utils import generic
 from toolbox.utils.function import shield
 
 
-def s3_ls(bucket: str, path: str, endpoint_url: str = None) -> List[str]:
+def s3_ls(
+    bucket: str,
+    path: str,
+    endpoint_url: Optional[str] = None,
+) -> List[str]:
     client = boto3.client('s3', endpoint_url=endpoint_url)
 
     if not path.endswith('/'):
@@ -65,9 +72,10 @@ def git_optimize_all(path: str) -> bool:
 
 
 def s3_sync_fusion_to_s3(
-        subs: str,
-        bucket: str = 'continuous-repositories',
-        endpoint_url: str = None) -> bool:
+    subs: str,
+    bucket: str = 'continuous-repositories',
+    endpoint_url: Optional[str] = None,
+) -> bool:
     fusion_dir: str = f'groups/{subs}/fusion'
     s3_subs_repos_path: str = f'{subs}/'
     kwargs = dict() if generic.is_env_ci() else dict(
@@ -100,7 +108,7 @@ def s3_sync_fusion_to_s3(
         cmd=aws_sync_command,
         cwd='.',
         env={},
-        **kwargs,
+        **kwargs,  # type:ignore
     )
     if status:
         logger.error('Sync from bucket has failed:')
@@ -112,11 +120,12 @@ def s3_sync_fusion_to_s3(
 
 @shield(retries=1)
 def main(
-        subs: str,
-        bucket: str = 'continuous-repositories',
-        aws_login: bool = True,
-        aws_profile: str = 'continuous-admin',
-        endpoint_url: str = None) -> bool:
+    subs: str,
+    bucket: str = 'continuous-repositories',
+    aws_login: bool = True,
+    aws_profile: str = 'continuous-admin',
+    endpoint_url: Optional[str] = None,
+) -> bool:
     """
     This function does:
 

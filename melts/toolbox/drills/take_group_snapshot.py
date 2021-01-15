@@ -5,6 +5,10 @@ import os
 import sys
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
+from typing import (
+    Iterator,
+    Tuple,
+)
 
 # Third party libraries
 from git import Repo
@@ -15,13 +19,13 @@ from binaryornot.check import is_binary
 from toolbox.resources import fluidcounts
 
 
-def command(cmd: str):
+def command(cmd: str) -> None:
     """Execute a command"""
     if os.system(cmd):
         raise Exception(f"CRITICAL: `{cmd}` return a non-zero status code.")
 
 
-def get_files_in_head(repo_path: str):
+def get_files_in_head(repo_path: str) -> Iterator[str]:
     """Get all files in the head in the repo."""
     repo = None
     try:
@@ -43,19 +47,19 @@ def get_files_in_head(repo_path: str):
     return True
 
 
-def get_last_hash(repo, file_path: str):
+def get_last_hash(repo: Repo, file_path: str) -> str:
     """Get last hash of a file in the repo."""
     return repo.git.log('--max-count', '1', '--format=%h', '--',
                         f'{file_path}')
 
 
-def get_last_date(repo, file_path: str):
+def get_last_date(repo: Repo, file_path: str) -> str:
     """Get last modified date of a file in the repo."""
     return repo.git.log('--max-count', '1', '--format=%cI', '--',
                         file_path)[0:10]
 
 
-def get_lines_count(file_path: str):
+def get_lines_count(file_path: str) -> int:
     """Get the number of lines in a file if is non binary."""
     if not is_binary(file_path):
         num_lines = sum(1 for line in open(file_path, encoding='latin-1'))
@@ -63,7 +67,7 @@ def get_lines_count(file_path: str):
     return 0
 
 
-def do_apply_config(file_path: str):
+def do_apply_config(file_path: str) -> None:
     """apply config in the git repository"""
     current_path = os.getcwd()
     os.chdir(file_path)
@@ -71,7 +75,7 @@ def do_apply_config(file_path: str):
     os.chdir(current_path)
 
 
-def parse_path(path: str):
+def parse_path(path: str) -> Tuple[str, str]:
     """Get the repo path and the file path """
     path_to_list = path.split('/')
     file_path = ''
@@ -80,7 +84,7 @@ def parse_path(path: str):
     return 'fusion/' + path.split('/')[0], file_path[:-1]
 
 
-def do_print_line(path: str):
+def do_print_line(path: str) -> None:
     """Print a line on a csv"""
     repo_path, file_path = parse_path(path)
     repo: str = Repo(repo_path)
@@ -99,7 +103,7 @@ def do_print_line(path: str):
         writer.writerow(row)
 
 
-def do_gen_stats():
+def do_gen_stats() -> None:
     """print all files in the fusion repositories"""
     repos = glob.glob('fusion/*')
     # Touch the file if it does not exist

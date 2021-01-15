@@ -5,7 +5,14 @@ import os
 import time
 import json
 import functools
-from typing import Any, List, NamedTuple, Tuple
+from typing import (
+    Any,
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+)
 
 # Third parties libraries
 import aiohttp
@@ -41,8 +48,12 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
         ValueError,
     )
 
-    async def execute(self, query: str, variables: dict = None,
-                      operation: str = None) -> aiohttp.ClientResponse:
+    async def execute(
+        self,
+        query: str,
+        variables: Optional[Dict[str, Any]] = None,
+        operation: Optional[str] = None,
+    ) -> aiohttp.ClientResponse:
         connector = aiohttp.TCPConnector(verify_ssl=False)
         timeout = aiohttp.ClientTimeout(
             total=None,
@@ -74,7 +85,12 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
                 return response
 
 
-async def gql_request(api_token, payload, variables, **kwargs):
+async def gql_request(
+    api_token: str,
+    payload: str,
+    variables: Optional[Dict[str, Any]],
+    **kwargs: Any,
+) -> Response:
     """Async GraphQL request."""
     headers = {
         'Authorization': f'Bearer {api_token}'
@@ -112,7 +128,7 @@ async def gql_request(api_token, payload, variables, **kwargs):
 
 def request(api_token: str,
             body: str,
-            params: dict = None,
+            params: Optional[Dict[str, Any]] = None,
             expected_types: tuple = (frozendict,),
             **kwargs: Any) -> Response:
     """Make a generic query to a GraphQL instance."""
@@ -494,7 +510,7 @@ __all__: List[str] = [
 ]
 
 
-def clear_cache():
+def clear_cache() -> None:
     Queries.me.cache_clear()
     Queries.project.cache_clear()
     Queries.finding.cache_clear()
