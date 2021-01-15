@@ -62,3 +62,18 @@ def test_cycles() -> None:
     graph.add_edge('2', '1')
 
     assert g.adj(graph, '1', depth=-1) == ('2', '1')
+
+
+@pytest.mark.skims_test_group('unittesting')
+def test_branches_cfg() -> None:
+    graph = Graph()
+    graph.add_edge('1', '2', label_cfg='CFG')
+    graph.add_edge('2', '3', label_cfg='CFG')
+    graph.add_edge('2', '4', label_cfg='CFG')
+    graph.add_edge('2', '5', label_cfg='CFG')
+    graph.add_edge('3', '2', label_cfg='CFG')
+
+    assert g.branches_cfg(graph, '1') == (
+        (0, ('1', '2', '4')),
+        (1, ('1', '2', '5')),
+    )
