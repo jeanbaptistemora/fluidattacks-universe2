@@ -51,3 +51,14 @@ def test_all() -> None:
     assert g.pred(graph, '5', depth=+1, attr_1='a') == ('4',)
     assert g.pred(graph, '5', depth=+1, attr_0='b') == ()
     assert g.pred(graph, '5', depth=+2) == ('4', '3')
+
+
+@pytest.mark.skims_test_group('unittesting')
+def test_cycles() -> None:
+    graph = Graph()
+    graph.add_node('1')
+    graph.add_node('2')
+    graph.add_edge('1', '2')
+    graph.add_edge('2', '1')
+
+    assert g.adj(graph, '1', depth=-1) == ('2', '1')

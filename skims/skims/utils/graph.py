@@ -11,6 +11,7 @@ from typing import (
     Iterator,
     List,
     Optional,
+    Set,
     Tuple,
 )
 
@@ -85,6 +86,7 @@ def adj(
     graph: Graph,
     n_id: str,
     depth: int = 1,
+    _processed_n_ids: Optional[Set[str]] = None,
     **edge_attrs: str,
 ) -> Tuple[str, ...]:
     """Return adjacent nodes to `n_id`, following just edges with given attrs.
@@ -100,6 +102,12 @@ def adj(
     if depth == 0:
         return ()
 
+    processed_n_ids: Set[str] = _processed_n_ids or set()
+    if n_id in processed_n_ids:
+        return ()
+
+    processed_n_ids.add(n_id)
+
     results: List[str] = []
 
     childs: List[str] = sorted(graph.adj[n_id], key=int)
@@ -113,7 +121,13 @@ def adj(
     if depth < 0 or depth > 1:
         for c_id in childs:
             if has_labels(graph[n_id][c_id], **edge_attrs):
-                results.extend(adj(graph, c_id, depth=depth - 1, **edge_attrs))
+                results.extend(adj(
+                    graph,
+                    c_id,
+                    depth=depth - 1,
+                    _processed_n_ids=processed_n_ids,
+                    **edge_attrs,
+                ))
 
     return tuple(results)
 
