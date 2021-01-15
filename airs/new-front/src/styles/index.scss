@@ -1,5 +1,23 @@
+// Color Variables
+$button-red: rgba(191, 38, 38, 1);
+$button-hover: rgba(255, 52, 53, 1);
+
+// Color classes
+.bc-fluid-red { border-color: $button-red; }
+.c-dkred { color: $button-red; }
+
+// Fonts
+.roboto { font-family: 'Roboto', sans-serif; }
+
+// Font Sizes
+.f-18 { font-size: 1.125rem; }
+
 // Height Classes
 .h-navbar { height: 6.5rem; }
+.h-5 { height: 5rem; }
+
+// Hover changes classes
+.hv-fluid-bd { &:hover { border-color: $button-hover;} }
 
 // Width and Max Width classes
 .mw-1366 { max-width: 1366px; }
@@ -9,6 +27,7 @@
 
 // Transitions
 .t-all-5 { transition: all 0.5s; }
+.t-all-3-ease { transition: all 0.3s ease;}
 
 // Media queries
 @media screen and (min-width: 60em) {

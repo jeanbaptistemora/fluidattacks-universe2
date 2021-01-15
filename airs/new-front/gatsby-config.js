@@ -9,27 +9,35 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-canonical-urls`,
+      resolve: "gatsby-plugin-canonical-urls",
       options: {
-        siteUrl: `https://fluidattacks.com`,
+        siteUrl: "https://fluidattacks.com",
       },
     },
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: "gatsby-plugin-manifest",
       options: {
-        name: `Fluid Attacks`,
-        short_name: `https://fluidattacks.com`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/favicon.png`, // This path is relative to the root of the site.,
+        name: "Fluid Attacks",
+        short_name: "https://fluidattacks.com",
+        start_url: "/",
+        background_color: "#ffffff",
+        theme_color: "#663399",
+        display: "minimal-ui",
+        icon: "src/images/favicon.png", // This path is relative to the root of the site.,
       },
     },
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-styled-components`,
-    `gatsby-plugin-typescript`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sass`,
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ["Roboto:300,400,700,900"]
+        }
+      }
+    },
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-styled-components",
+    "gatsby-plugin-typescript",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-sass",
   ],
 }

@@ -62,3 +62,26 @@ export const MenuButton: StyledComponent<
      mv1
     `,
   })``;
+
+export const NavbarContactButton: StyledComponent<
+"button", Record<string, unknown>
+> = styled.button.attrs(
+  {
+    className: `
+     outline-transparent
+     fw7
+     f-18
+     br2
+     bw1
+     ph2
+     pv2
+     bg-white
+     bc-fluid-red
+     ba
+     hv-fluid-rd
+     hv-fluid-bd
+     t-all-3-ease
+     c-dkred
+     pointer
+    `,
+})``;
