@@ -24,6 +24,7 @@ type Finding {
   linesVulns: [Vulnerability]
   newRemediated: Boolean
   observations: [Consult]
+  openAge: Int
   openVulnerabilities: Int
   portsVulns: [Vulnerability]
   projectName: String

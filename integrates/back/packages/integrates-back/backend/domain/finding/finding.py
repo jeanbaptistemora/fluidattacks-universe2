@@ -34,6 +34,7 @@ from backend.exceptions import (
 )
 from backend.filters import (
     finding as finding_filters,
+    vulnerability as vuln_filters,
 )
 from backend.utils import (
     comments as comment_utils,
@@ -52,7 +53,6 @@ from backend.dal import (
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
-    Historic as HistoricType,
     Tracking as TrackingItem,
 )
 
@@ -133,17 +133,26 @@ async def get_finding_age(
 ) -> int:
     age = 0
     vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
-    report_dates = [
-        datetime_utils.get_from_str(
-            cast(HistoricType, vuln['historic_state'])[0]['date']
-        )
-        for vuln in vulns
-    ]
+    report_dates = vuln_utils.get_report_dates(vulns)
     if report_dates:
         oldest_report_date = min(report_dates)
         age = (datetime_utils.get_now() - oldest_report_date).days
 
     return age
+
+
+async def get_finding_open_age(
+    finding_id: str
+) -> int:
+    open_age = 0
+    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    open_vulns = vuln_filters.filter_open_vulns(vulns)
+    report_dates = vuln_utils.get_report_dates(open_vulns)
+    if report_dates:
+        oldest_report_date = min(report_dates)
+        open_age = (datetime_utils.get_now() - oldest_report_date).days
+
+    return open_age
 
 
 def get_tracking_vulnerabilities(

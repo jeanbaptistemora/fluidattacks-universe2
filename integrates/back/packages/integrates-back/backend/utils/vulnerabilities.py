@@ -1,12 +1,19 @@
 import html
 import itertools
 import logging
+from datetime import datetime
 from operator import itemgetter
 from typing import Any, Iterable, List, Dict, Union, cast
 
 from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import InvalidRange
-from backend.typing import Finding as FindingType
+from backend.typing import (
+    Finding as FindingType,
+    Historic as HistoricType,
+)
+from backend.utils import (
+    datetime as datetime_utils,
+)
 from back.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -206,3 +213,17 @@ async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
         'source': 'Masked'
     })
     return success
+
+
+def get_report_dates(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> List[datetime]:
+    """Get report dates for vulnerabilities."""
+    report_dates = [
+        datetime_utils.get_from_str(
+            cast(HistoricType, vuln['historic_state'])[0]['date']
+        )
+        for vuln in vulnerabilities
+    ]
+
+    return report_dates
