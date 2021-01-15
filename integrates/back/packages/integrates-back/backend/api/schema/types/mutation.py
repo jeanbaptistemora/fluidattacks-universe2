@@ -7,9 +7,10 @@ from ariadne import MutationType
 # Local
 from backend.api.mutations import (
     accept_legal,
+    add_event_consult,
     add_environment,
     add_files,
-    add_event_consult,
+    add_group_consult,
     add_finding_consult,
     add_forces_execution,
     add_git_root,
@@ -150,8 +151,7 @@ MUTATION.set_field('editGroup', edit_group.mutate)
 MUTATION.set_field('removeGroup', remove_group.mutate)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
-MUTATION.set_field('addProjectConsult',
-                   project.resolve_project_mutation)
+MUTATION.set_field('addProjectConsult', add_group_consult.mutate)
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
