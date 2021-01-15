@@ -44,6 +44,7 @@ from backend.api.mutations import (
     remove_finding_evidence,
     remove_files,
     remove_group,
+    remove_group_tag,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
     request_zero_risk_vuln,
@@ -154,7 +155,7 @@ MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
 MUTATION.set_field('addProjectConsult', add_group_consult.mutate)
 MUTATION.set_field('addTags', add_group_tags.mutate)
-MUTATION.set_field('removeTag', project.resolve_project_mutation)
+MUTATION.set_field('removeTag', remove_group_tag.mutate)
 MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription', update_finding_description.mutate)

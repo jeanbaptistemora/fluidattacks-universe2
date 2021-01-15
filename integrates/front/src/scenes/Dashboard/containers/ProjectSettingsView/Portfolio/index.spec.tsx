@@ -135,7 +135,7 @@ describe("Portfolio", () => {
       result: { data: { removeTag : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project__do_remove_tag" },
+      { action: "backend_api_mutations_remove_group_tag_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -248,7 +248,7 @@ describe("Portfolio", () => {
       ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project__do_remove_tag" },
+      { action: "backend_api_mutations_remove_group_tag_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

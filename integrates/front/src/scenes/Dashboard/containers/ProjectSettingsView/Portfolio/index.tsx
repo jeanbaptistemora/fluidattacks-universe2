@@ -160,7 +160,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
                 </Button>
               </TooltipWrapper>
             </Can>
-            <Can do="backend_api_resolvers_project__do_remove_tag">
+            <Can do="backend_api_mutations_remove_group_tag_mutate">
               <TooltipWrapper
                 message={translate.t("search_findings.tab_resources.tags.remove_tooltip")}
                 placement="top"
@@ -178,7 +178,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
           </ButtonToolbar>
         </Col40>
       </Row>
-      <Can do="backend_api_resolvers_project__do_remove_tag" passThrough={true}>
+      <Can do="backend_api_mutations_remove_group_tag_mutate" passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
           <DataTableNext
             bordered={true}
