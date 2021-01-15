@@ -92,7 +92,7 @@ describe("Portfolio", () => {
       result: { data: { addTags : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project__do_add_tags" },
+      { action: "backend_api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -203,7 +203,7 @@ describe("Portfolio", () => {
       ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project__do_add_tags" },
+      { action: "backend_api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -277,7 +277,7 @@ describe("Portfolio", () => {
 
   it("should handle error when there are repeated tags", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project__do_add_tags" },
+      { action: "backend_api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

@@ -149,7 +149,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
         </Col60>
         <Col40 className={"pa0"}>
           <ButtonToolbar>
-            <Can do="backend_api_resolvers_project__do_add_tags">
+            <Can do="backend_api_mutations_add_group_tags_mutate">
               <TooltipWrapper
                 message={translate.t("search_findings.tab_resources.tags.add_tooltip")}
                 placement="top"

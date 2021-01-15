@@ -11,6 +11,7 @@ from backend.api.mutations import (
     add_environment,
     add_files,
     add_group_consult,
+    add_group_tags,
     add_finding_consult,
     add_forces_execution,
     add_git_root,
@@ -152,7 +153,7 @@ MUTATION.set_field('removeGroup', remove_group.mutate)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
 MUTATION.set_field('addProjectConsult', add_group_consult.mutate)
-MUTATION.set_field('addTags', project.resolve_project_mutation)
+MUTATION.set_field('addTags', add_group_tags.mutate)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
