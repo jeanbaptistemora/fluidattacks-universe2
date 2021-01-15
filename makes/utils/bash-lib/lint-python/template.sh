@@ -17,7 +17,7 @@ function lint_python_module {
   &&  if ! test -e "${module_path}/py.typed"
       then
             echo '[ERROR] This is not a mypy module, a module has py.typed' \
-        ||  return 1
+        &&  return 1
       fi \
   &&  tmpdir="$(mktemp -d)" \
   &&  copy "${module_path}" "${tmpdir}/${module_name}" \
@@ -28,7 +28,7 @@ function lint_python_module {
   &&  if ! test -e "${module_path}/__init__.py"
       then
             echo '[ERROR] This is not a python module, a module has __init__.py' \
-        ||  return 1
+        &&  return 1
       fi \
   &&  pushd "${tmpdir}" \
     &&  prospector --profile '__envSettingsProspector__' "${module_name}" \
