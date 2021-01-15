@@ -78,6 +78,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       description: true,
       isExploitable: true,
       lastVulnerability: true,
+      openAge: false,
       openVulnerabilities: true,
       remediated: false,
       severityScore: true,
@@ -216,6 +217,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {
       align: "center", dataField: "age", header: "Age (days)", onSort: onSortState,
       visible: checkedItems.age, width: "5%",
+    },
+    {
+      align: "center", dataField: "openAge", header: "Open Age (days)", onSort: onSortState,
+      visible: checkedItems.openAge, width: "5%",
     },
     {
       align: "center", dataField: "lastVulnerability", header: "Last report (days)", onSort: onSortState,

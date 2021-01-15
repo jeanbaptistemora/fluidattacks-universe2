@@ -12,6 +12,7 @@ export const GET_FINDINGS: DocumentNode = gql`
         title
         description
         severityScore
+        openAge
         openVulnerabilities
         state
         isExploitable
