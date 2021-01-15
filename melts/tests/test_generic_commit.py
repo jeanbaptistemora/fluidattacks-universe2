@@ -11,7 +11,7 @@ from toolbox.generic.commit import (
 )
 
 
-def test_is_valid_summary():
+def test_is_valid_summary() -> None:
     for type_ in VALID_TYPES:
         for scope in VALID_SCOPES:
             assert is_valid_summary(f'{type_}({scope}): #123.1 test this, now')
@@ -28,7 +28,7 @@ def test_is_valid_summary():
             assert not is_valid_summary(f' {type_}({scope}): #123.1 test this, nw')
 
 
-def test_has_short_line_length():
+def test_has_short_line_length() -> None:
     assert has_short_line_length('s' * 50, 'b' * 72)
     assert not has_short_line_length('s' * 51, 'b' * 72)
     assert not has_short_line_length('s' * 50, 'b' * 73)
@@ -37,7 +37,8 @@ def test_has_short_line_length():
     assert not has_short_line_length('s', 'b' * 73 + '\n' + 'b' * 72)
     assert not has_short_line_length('s', 'b' * 72 + '\n' + 'b' * 73)
 
-def test_is_under_100_deltas():
+
+def test_is_under_100_deltas() -> None:
     assert is_under_100_deltas('e2035b8')
     assert not is_under_100_deltas('ff5e8c1')
 

@@ -1,14 +1,17 @@
+# pylint: disable=unused-argument
 # Third parties libraries
 import pytest
 
 # Standrd libraries
 import os
-from typing import List
+from typing import (
+    Any,
+    List,
+)
 from pathlib import Path
 from shutil import rmtree
 
 # Third party libraries
-import boto3
 
 # Local libraries
 from toolbox.utils import generic
@@ -31,15 +34,18 @@ EXPECTED_REPOS: List[str] = [
     f'{SUBS}/repo3/'
 ]
 
-def test_drills_push_repos(relocate, prepare_s3_continuous_repositories):
+
+def test_drills_push_repos(
+    relocate: Any,
+    prepare_s3_continuous_repositories: Any,
+) -> None:
     """
     This tests does the following:
 
     - repo2 and repo3 are uploaded
     """
 
-
-    def create_repo(path: str):
+    def create_repo(path: str) -> None:
         files: List[str] = ['file1', 'file2', 'file3']
         os.mkdir(path)
         os.mkdir(f'{path}/.git')
@@ -48,7 +54,7 @@ def test_drills_push_repos(relocate, prepare_s3_continuous_repositories):
             Path(file_path).touch()
 
 
-    def set_up_repos():
+    def set_up_repos() -> None:
         repos: List[str] = ['repo1', 'repo2', 'repo3']
         os.makedirs(SUBS_FUSION, exist_ok=True)
 

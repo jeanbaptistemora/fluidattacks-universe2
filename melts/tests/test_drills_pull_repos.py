@@ -14,7 +14,7 @@ NON_EXISTING_REPO: str = 'sodjfoisajfdoiasjfdoia'
 LOCAL_PATH = 'continuoustest'
 
 
-def test_drills_pull_repos():
+def test_drills_pull_repos() -> None:
     try:
         assert pull_repos.pull_repos_s3_to_fusion(EXISTING_REPO, LOCAL_PATH)
         assert not pull_repos.main(EXISTING_REPO_NO_PERMISSIONS)

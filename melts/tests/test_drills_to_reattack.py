@@ -1,10 +1,12 @@
+# pylint: disable=unused-argument
 # Local libraries
+from typing import Any
 from toolbox.drills.to_reattack import (
     to_reattack
 )
 
 
-def test_drills_to_reattack(relocate):
+def test_drills_to_reattack(relocate: Any) -> None:
     data: list = to_reattack('continuoustest')['projects_info']
 
     assert data[0]['name'] == 'continuoustest'

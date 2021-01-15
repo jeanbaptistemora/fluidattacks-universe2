@@ -1,16 +1,21 @@
 # Standard library
 from datetime import datetime as dt
+from typing import (
+    Any,
+    Dict,
+)
 from dateutil.relativedelta import relativedelta
 
 # Local libraries
 from toolbox import api
 from toolbox.constants import API_TOKEN
 from toolbox.utils.function import shield
+from toolbox.api.integrates import Response
 
 BASE_URL: str = 'https://integrates.fluidattacks.com'
 
 
-def get_subs_unverified_findings(group: str = 'all'):
+def get_subs_unverified_findings(group: str = 'all') -> Response:
 
     project_info_query = '''
         name
@@ -52,7 +57,7 @@ def get_url(subs_name: str, finding_id: str) -> str:
     return f'{BASE_URL}/groups/{subs_name}/vulns/{finding_id}'
 
 
-def to_reattack(group: str = 'all') -> dict:
+def to_reattack(group: str = 'all') -> Dict[str, Any]:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
@@ -61,17 +66,13 @@ def to_reattack(group: str = 'all') -> dict:
     """
     graphql_date_format = '%Y-%m-%d %H:%M:%S'
 
-    projects_info = get_subs_unverified_findings(group)
+    response = get_subs_unverified_findings(group)
+    projects_info = response.data if response.ok else dict()
+
     if group != 'all':
-        class Tmp():
-            def __init__(self):
-                self.data = None
-        tmp = Tmp()
-        tmp.data = {'me': None}
-        tmp.data['me'] = {'projects': [None]}
-        tmp.data['me']['projects'][0] = projects_info.data['project']
-        projects_info = tmp
-    projects_info = list(projects_info.data['me']['projects'])
+        projects_info = {'me': {'projects': [projects_info.get('project')]}}
+    projects_info = list(
+        projects_info.get('me', dict()).get('projects', list()))
     # claning empty findigs
     projects_info = list(filter(
         lambda info: info['findings'],
@@ -163,7 +164,7 @@ def to_reattack(group: str = 'all') -> dict:
 
 
 @shield()
-def main(group: str = 'all'):
+def main(group: str = 'all') -> None:
     """
     Print all non-verified findings and their exploits
     """
@@ -190,7 +191,7 @@ def main(group: str = 'all'):
 
     # summary
     summary = (
-        f"TO-DO: FIN: {summary_info['total_findings']}; "  # type: ignore
+        f"TO-DO: FIN: {summary_info['total_findings']}; "
         f"Vulns: {summary_info['total_vulnerabilities']}; "
         "Days since oldest request: "
         f"{summary_info['oldest_finding']['date_dif'].days}; "

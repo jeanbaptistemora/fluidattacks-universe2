@@ -1,7 +1,7 @@
+# pylint: disable=unused-argument
 # Standard library
 import os
-import re
-import sys
+from typing import Any
 
 # Third parties imports
 import pytest
@@ -18,7 +18,7 @@ FINDING: str = '720412598'
 EMAIL: str = 'dalvarez@fluidattacks.com'
 
 
-def test_toolbox_get_fingerprint(relocate):
+def test_toolbox_get_fingerprint(relocate: Any) -> None:
     """Run required toolbox commands."""
     assert resources.get_fingerprint(SUBS)
     assert not resources.get_fingerprint(SUBS_BAD)

@@ -7,14 +7,14 @@ from toolbox.drills.commit import (
 )
 
 
-def test_is_drills_commit():
+def test_is_drills_commit() -> None:
     assert is_drills_commit('drills(lines)')
     assert is_drills_commit('drills(xxxxx)')
     assert not is_drills_commit('style(cross)')
     assert not is_drills_commit('feat(lines)')
 
 
-def test_is_valid_summary():
+def test_is_valid_summary() -> None:
     assert is_valid_summary(
         'drills(lines): test - 72.75%, 0 el, 6 ei',
         'not-drills(cross)-because: toe-has-lines-only')
