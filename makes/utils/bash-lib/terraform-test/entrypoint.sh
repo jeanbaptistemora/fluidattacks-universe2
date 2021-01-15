@@ -12,7 +12,7 @@ function main {
         then
               echo '[ERROR] Source code is not formated with: terraform fmt' \
           &&  echo '[INFO] We will format it for you, but the job will fail' \
-          &&  terraform fmt -list=false -recursive \
+          &&  '__envTerraform__' fmt -list=false -recursive \
           &&  return 1 \
           ||  return 1
         fi \

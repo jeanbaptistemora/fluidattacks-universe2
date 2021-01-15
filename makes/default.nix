@@ -3,6 +3,7 @@
 , srcMakesPkgs
 , srcMeltsPkgs
 , srcObservesPkgs
+, srcObservesPkgsTerraform
 , srcSkimsBenchmarkOwaspRepo
 , srcSkimsPkgs
 , srcSkimsPkgsTerraform
@@ -21,6 +22,7 @@ flake.lib.eachDefaultSystem (
           makes-deploy-oci-ci = import ../makes/makes/deploy/oci-ci attrs;
           makes-lint = import ../makes/makes/lint attrs;
           melts = import ../makes/melts/bin attrs;
+          observes-infra-test = import ../makes/observes/infra-test attrs;
           observes-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-tap-json = import ../makes/observes/tap-json/bin attrs;
           skims = import ../makes/skims/bin attrs;
@@ -63,6 +65,7 @@ flake.lib.eachDefaultSystem (
       makesPkgs = import srcMakesPkgs { inherit system; };
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
+      observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
       skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
       skimsPkgs = import srcSkimsPkgs { inherit system; };
       skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };

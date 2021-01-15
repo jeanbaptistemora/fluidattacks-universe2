@@ -56,8 +56,8 @@ observes-lint-target-redshift:
   stage: lint-code
   allow_failure: true
 
-observes_test_infra:
-  <<: *with_nix
+observes-infra-test:
+  <<: *makes
   <<: *observes_in_dev_branch
   stage: test-infra
 
