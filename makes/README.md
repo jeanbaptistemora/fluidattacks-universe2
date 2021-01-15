@@ -19,8 +19,10 @@
   - How to use nix-shell with a long -I nixpkgs=hash
   - How to build/run apps and packages from the flake
 - ./make uses flakes under the hood, but hides/automatize the complexity
+- Additionally a default.nix is added for compatibility reasons,
+  so people can nix-env us
 
-## 2020-12-22 - `./make build` vs `./make run`
+## 2020-12-22 - Flakes's packages versus Flakes's apps
 
 - Understand `build` as a mathematical function (`pkgs.stdenv.mkDerivation`)
 - A build has inputs and outputs
@@ -37,14 +39,15 @@
   - apps (deterministic build + possibly non-deterministic execution)
 
 Basically:
-- if your operation depends on inputs that you CANT write on the Nix derivation,
-  then it's an app and thus you should `./make run` it,
-  otherwise it's a package and you should `./make build` it
-- `./make run` calls `./make build` under the hood and then runs the binary
+- if your operation depends on inputs that you CANT write on the Nix derivation then it's an app, otherwise it's a package
+- An app builds the package under the hood and then runs the binary
 
 Examples:
-- Building the terraform binary is deterministic. It's a build
-- Running terraform depends on remote AWS inputs that you can't state on the Nix derivation. It's an app
+- Building the terraform binary is deterministic. It's a package, you take
+  source code, a compiler, dependencies, and produce a binary. Building it
+  always give the same result: a binary
+- Executing terraform is not deterministic, it may produce different results each time, requires Internet Network availability,
+  depends on remote AWS inputs that you can't state on the Nix derivation. It's an app
 - Linting something depends only on the source code.
   Since you can declare the source code as an input in the Nix derivation,
   it's a build
@@ -58,8 +61,8 @@ Remember:
 - It's just their execution which may vary
 
 So, we want to:
-- Build everything deterministically
-- Then execute, if needed
+- Build everything deterministically (packages)
+- Then execute, if needed (apps)
 
 How is this implemented?
 - `makeDerivation` builds deterministically whatever you need
