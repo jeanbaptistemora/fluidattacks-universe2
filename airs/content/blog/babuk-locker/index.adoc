@@ -92,9 +92,9 @@ before and after the encryption.
 As Abrams also points out, "When encrypting files,
 Babuk Locker [uses] a hardcoded extension
 and [appends] it to each encrypted file."
-The specific extension currently used is "*.__NIST_K571__*".
+The specific extension currently used is "*.$$__$$NIST_K571$$__$$*".
 So, for example, if you have a file with the name "summary_2020.docx",
-it is transformed into "summary_2020.docx.__NIST_K571_".
+it is transformed into "summary_2020.docx.$$__$$NIST_K571$$__$$".
 Linked to this, a ransom note named _How To Restore Your Files.txt_
 (see Figure 2) appears in the folders containing encrypted files.
 It shows general information about the attack
