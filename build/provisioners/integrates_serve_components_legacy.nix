@@ -24,6 +24,7 @@ in
         pkgs.redis
         pkgs.sops
         pkgs.jq
+        pkgs.lsof
         pkgs.ruby
         pkgs.iproute
         (pkgs.python37.withPackages (ps: with ps; [

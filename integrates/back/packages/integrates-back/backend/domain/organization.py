@@ -142,7 +142,7 @@ async def get_name_by_id(organization_id: str) -> str:
         ['name']
     )
     if not result:
-        raise InvalidOrganization()
+        raise InvalidOrganization(organization_id)
     return str(result['name'])
 
 
