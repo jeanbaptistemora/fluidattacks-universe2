@@ -26,8 +26,8 @@ from eval_java.model import (
     Context,
     OptionalContext,
 )
-from model.graph_model import (
-    Graph,
+from model import (
+    graph_model,
 )
 
 # Constants
@@ -45,7 +45,7 @@ _UNINTERESTING_NODES = {
 
 
 def extract(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

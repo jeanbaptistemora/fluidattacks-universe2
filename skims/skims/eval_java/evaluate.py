@@ -21,9 +21,6 @@ from eval_java.eval_rules import (
 from model import (
     graph_model,
 )
-from model.graph_model import (
-    Graph,
-)
 from utils import (
     graph as g,
 )
@@ -39,7 +36,7 @@ from utils.string import (
 
 
 def evaluate(
-    graph: Graph,
+    graph: graph_model.Graph,
     graph_path: Tuple[str, ...],
     path: str,
     *,
@@ -75,7 +72,7 @@ def evaluate(
 
 
 def is_vulnerable(
-    graph: Graph,
+    graph: graph_model.Graph,
     graph_path: Tuple[str, ...],
     path: str,
     *,
@@ -97,7 +94,7 @@ def is_vulnerable(
 
 
 def traverse_vulns(
-    graph: Graph,
+    graph: graph_model.Graph,
     path: str,
     *,
     input_type: str,

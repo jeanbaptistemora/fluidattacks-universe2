@@ -11,14 +11,14 @@ from eval_java.model import (
     Context,
     OptionalContext,
 )
+from model import (
+    graph_model,
+)
 from utils.function import (
     get_id,
 )
 from utils.logs import (
     log_blocking,
-)
-from model.graph_model import (
-    Graph,
 )
 
 
@@ -45,7 +45,7 @@ def ensure_context(ctx: OptionalContext = None) -> Context:
 
 
 def extract_until_handled(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -67,7 +67,7 @@ def extract_until_handled(
     return mark_seen(ctx, n_id)
 
 
-def mark_if_sink(graph: Graph, n_id: str, ctx: Context) -> None:
+def mark_if_sink(graph: graph_model.Graph, n_id: str, ctx: Context) -> None:
     if statements := ctx.statements:
         if label := graph.nodes[n_id].get('label_sink_type'):
             statements[-1].meta.sink = label
@@ -94,7 +94,7 @@ def not_implemented(
 
 
 def translate_match(
-    graph: Graph,
+    graph: graph_model.Graph,
     op_id: str,
     translations: Dict[str, str],
 ) -> str:

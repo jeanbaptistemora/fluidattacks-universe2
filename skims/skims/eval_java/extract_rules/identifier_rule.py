@@ -8,13 +8,13 @@ from eval_java.model import (
     OptionalContext,
     StatementLookup,
 )
-from model.graph_model import (
-    Graph,
+from model import (
+    graph_model,
 )
 
 
 def extract(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

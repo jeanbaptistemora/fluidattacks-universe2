@@ -9,16 +9,16 @@ from eval_java.model import (
     OptionalContext,
     StatementDeclaration,
 )
+from model import (
+    graph_model,
+)
 from utils import (
     graph as g,
-)
-from model.graph_model import (
-    Graph,
 )
 
 
 def extract(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -36,7 +36,7 @@ def extract(
 
 
 def _local_variable_declaration(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -96,7 +96,7 @@ def _local_variable_declaration(
 
 
 def _variable_declarator(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

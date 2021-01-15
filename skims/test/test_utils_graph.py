@@ -2,17 +2,17 @@
 import pytest
 
 # Local libraries
+from model import (
+    graph_model,
+)
 from utils import (
     graph as g,
-)
-from model.graph_model import (
-    Graph,
 )
 
 
 @pytest.mark.skims_test_group('unittesting')
 def test_all() -> None:
-    graph = Graph()
+    graph = graph_model.Graph()
     graph.add_node('1')
     graph.add_node('2')
     graph.add_node('3')
@@ -54,7 +54,7 @@ def test_all() -> None:
 
 @pytest.mark.skims_test_group('unittesting')
 def test_cycles() -> None:
-    graph = Graph()
+    graph = graph_model.Graph()
     graph.add_node('1')
     graph.add_node('2')
     graph.add_edge('1', '2')
@@ -65,7 +65,7 @@ def test_cycles() -> None:
 
 @pytest.mark.skims_test_group('unittesting')
 def test_branches_cfg() -> None:
-    graph = Graph()
+    graph = graph_model.Graph()
     graph.add_edge('1', '2', label_cfg='CFG')
     graph.add_edge('2', '3', label_cfg='CFG')
     graph.add_edge('2', '4', label_cfg='CFG')

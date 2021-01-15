@@ -1,13 +1,13 @@
 # Local libraries
-from model.graph_model import (
-    Graph,
+from model import (
+    graph_model,
 )
 from utils.graph import (
     GRAPH_STYLE_ATTRS,
 )
 
 
-def _add_labels(graph: Graph) -> None:
+def _add_labels(graph: graph_model.Graph) -> None:
     # Walk the nodes and compute a label from the node attributes
     for n_id, n_attrs in graph.nodes.items():
         graph.nodes[n_id]['label'] = _create_label(**n_attrs, id=n_id)
@@ -17,7 +17,7 @@ def _add_labels(graph: Graph) -> None:
         graph[n_id_u][n_id_v]['label'] = _create_label(**graph[n_id_u][n_id_v])
 
 
-def _add_styles(graph: Graph) -> None:
+def _add_styles(graph: graph_model.Graph) -> None:
     # https://graphviz.org/doc/info/attrs.html
     # https://graphviz.org/doc/info/colors.html
     # color: border of the node, edge
@@ -54,7 +54,7 @@ def _create_label(**attrs: str) -> str:
     return '\n'.join(f'{key}: {attrs[key]}' for key in sorted(attrs))
 
 
-def _verify(graph: Graph) -> None:
+def _verify(graph: graph_model.Graph) -> None:
     for reserved_attr in GRAPH_STYLE_ATTRS:
         for n_attrs in graph.nodes.values():
             if reserved_attr in n_attrs:
@@ -65,7 +65,7 @@ def _verify(graph: Graph) -> None:
                 raise ValueError(f'{reserved_attr} must be added in styles')
 
 
-def add(graph: Graph) -> None:
+def add(graph: graph_model.Graph) -> None:
     _verify(graph)
     _add_labels(graph)
     _add_styles(graph)

@@ -8,16 +8,16 @@ from eval_java.model import (
     OptionalContext,
     StatementDeclaration,
 )
+from model import (
+    graph_model,
+)
 from utils import (
     graph as g,
-)
-from model.graph_model import (
-    Graph,
 )
 
 
 def extract(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -35,7 +35,7 @@ def extract(
 
 
 def _method_header(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -55,7 +55,7 @@ def _method_header(
 
 
 def _method_declarator(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -73,7 +73,7 @@ def _method_declarator(
 
 
 def _formal_parameter_list(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -91,7 +91,7 @@ def _formal_parameter_list(
 
 
 def _formal_parameter(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,

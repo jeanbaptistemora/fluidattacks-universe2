@@ -6,11 +6,11 @@ from typing import (
 )
 
 # Local libraries
+from model import (
+    graph_model,
+)
 from utils import (
     graph as g,
-)
-from model.graph_model import (
-    Graph,
 )
 
 # Constants
@@ -20,7 +20,7 @@ SINKS: Set[str] = {
 
 
 def _pathtraver_custom_class_instance_creation_expression_lfno_primary(
-    graph: Graph,
+    graph: graph_model.Graph,
 ) -> None:
     # Class instantiations of given type
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
@@ -53,7 +53,7 @@ def _pathtraver_custom_class_instance_creation_expression_lfno_primary(
 
 
 def _pathtraver_custom_method_invocation_lfno_primary(
-    graph: Graph,
+    graph: graph_model.Graph,
 ) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CustomMethodInvocation_lfno_primary',
@@ -75,7 +75,7 @@ def _pathtraver_custom_method_invocation_lfno_primary(
             graph.nodes[n_id]['label_sink_type'] = 'F063_PATH_TRAVERSAL'
 
 
-def _insecure_randoms(graph: Graph) -> None:
+def _insecure_randoms(graph: graph_model.Graph) -> None:
     for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
         label_type='CustomMethodInvocation_lfno_primary',
     )):
@@ -100,7 +100,7 @@ def _insecure_randoms(graph: Graph) -> None:
                         'label_sink_type'] = 'F034_INSECURE_RANDOMS'
 
 
-def mark(graph: Graph) -> None:
+def mark(graph: graph_model.Graph) -> None:
     for marker in (
         _insecure_randoms,
         _pathtraver_custom_class_instance_creation_expression_lfno_primary,

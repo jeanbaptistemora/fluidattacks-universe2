@@ -10,16 +10,16 @@ from eval_java.model import (
     StatementCustomMethodInvocation,
     StatementCustomMethodInvocationChain,
 )
+from model import (
+    graph_model,
+)
 from utils import (
     graph as g,
-)
-from model.graph_model import (
-    Graph,
 )
 
 
 def extract(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: OptionalContext,
@@ -37,7 +37,7 @@ def extract(
 
 
 def _extract_case_1(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: Context,
@@ -74,7 +74,7 @@ def _extract_case_1(
 
 
 def _extract_case_2(
-    graph: Graph,
+    graph: graph_model.Graph,
     n_id: str,
     *,
     ctx: Context,
