@@ -69,7 +69,6 @@ from backend.api.mutations import (
     upload_file
 )
 from backend.api.resolvers import (
-    project,
     vulnerability
 )
 
@@ -151,8 +150,6 @@ MUTATION.set_field('updateEnvironment', update_environment.mutate)
 MUTATION.set_field('createProject', create_group.mutate)
 MUTATION.set_field('editGroup', edit_group.mutate)
 MUTATION.set_field('removeGroup', remove_group.mutate)
-MUTATION.set_field('rejectRemoveProject',
-                   project.resolve_project_mutation)
 MUTATION.set_field('addProjectConsult', add_group_consult.mutate)
 MUTATION.set_field('addTags', add_group_tags.mutate)
 MUTATION.set_field('removeTag', remove_group_tag.mutate)

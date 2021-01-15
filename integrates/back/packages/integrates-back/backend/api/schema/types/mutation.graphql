@@ -218,8 +218,6 @@ type Mutation {
 
   rejectDraft(findingId: String!): SimplePayload!
 
-  rejectRemoveProject(projectName: String!): SimplePayload!
-
   rejectZeroRiskVuln(
     findingId: String!
     justification: String!
