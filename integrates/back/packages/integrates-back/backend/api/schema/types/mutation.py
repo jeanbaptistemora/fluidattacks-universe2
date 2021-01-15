@@ -48,6 +48,7 @@ from backend.api.mutations import (
     remove_group_tag,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
+    request_verification_vulnerability,
     request_zero_risk_vuln,
     sign_in,
     solve_event,
@@ -164,8 +165,10 @@ MUTATION.set_field(
     'updateTreatmentVuln',
     update_treatment_vulnerability.mutate
 )
-MUTATION.set_field('requestVerificationVuln',
-                   vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field(
+    'requestVerificationVuln',
+    request_verification_vulnerability.mutate
+)
 MUTATION.set_field('verifyRequestVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',

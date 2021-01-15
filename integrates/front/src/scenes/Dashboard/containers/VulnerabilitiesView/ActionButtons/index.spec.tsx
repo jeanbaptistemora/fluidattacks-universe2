@@ -55,7 +55,7 @@ describe("ActionButtons", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
         action:
-          "backend_api_resolvers_vulnerability__do_request_verification_vuln",
+          "backend_api_mutations_request_verification_vulnerability_mutate",
       },
     ]);
     const wrapper: ReactWrapper = mount(

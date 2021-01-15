@@ -87,8 +87,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_mutations_delete_vulnerability_mutate',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_upload_file_mutate',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
@@ -152,8 +151,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_resources_resolve',
             'backend_api_mutations_delete_vulnerability_mutate',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_upload_file_mutate',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
@@ -197,8 +195,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_mutations_download_file_mutate',
             'backend_api_resolvers_new_query_resources_resolve',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
             'backend_api_mutations_upload_file_mutate',
             'backend_api_resolvers_vulnerability__do_verify_request_vuln',
@@ -250,8 +247,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource_resolve_add_resources',
             'backend_api_resolvers_new_query_resources_resolve',
             'backend_api_mutations_delete_vulnerability_tags_mutate',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_update_treatment_vulnerability_mutate',
             'valid_treatment_manager',
             'update_git_root_filter'
@@ -310,8 +306,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_remove_stakeholder_access_mutate',
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_mutations_delete_vulnerability_tags_mutate',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_update_treatment_vulnerability_mutate',
             'grant_user_level_role:customer',
             'grant_group_level_role:customer',
@@ -358,8 +353,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource_resolve_add_resources',
             'backend_api_resolvers_new_query_resources_resolve',
             'backend_api_mutations_delete_vulnerability_tags_mutate',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_update_treatment_vulnerability_mutate',
         },
         tags=set()
@@ -419,8 +413,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_update_forces_access_token_mutate',
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
             'backend_api_mutations_delete_vulnerability_tags_mutate',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_update_treatment_vulnerability_mutate',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
             (
@@ -463,8 +456,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_new_query_group_resolve',
             'backend_api_mutations_download_file_mutate',
             'backend_api_resolvers_new_query_resources_resolve',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_add_git_root_mutate',
             'backend_api_mutations_update_git_environments_mutate',
             'backend_api_mutations_update_git_root_mutate',
@@ -518,8 +510,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_download_file_mutate',
             'backend_api_resolvers_new_query_resources_resolve',
             'backend_api_resolvers_new_query_stakeholder__resolve_for_group',
-            ('backend_api_resolvers_vulnerability__do_'
-                'request_verification_vuln'),
+            'backend_api_mutations_request_verification_vulnerability_mutate',
             'backend_api_mutations_upload_file_mutate',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
             'post_finding_observation',
