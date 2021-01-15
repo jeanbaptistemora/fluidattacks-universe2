@@ -1368,7 +1368,7 @@
                       "S": "2020-10-13 12:46:10"
                     },
                     "treatment_manager": {
-                      "S": "integratesuser@gmail.com"
+                      "S": "integratescustomer@gmail.com"
                     },
                     "treatment": {
                       "S": "ACCEPTED"
@@ -1380,7 +1380,7 @@
                       "S": "2021-01-16 12:46:10"
                     },
                     "user": {
-                      "S": "integratesuser@gmail.com"
+                      "S": "integratescustomer@gmail.com"
                     }
                   }
                 }

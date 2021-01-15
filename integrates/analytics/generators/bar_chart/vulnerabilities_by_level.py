@@ -68,6 +68,7 @@ def format_data(counters: Counter) -> dict:
                 ),
             ),
         ),
+        barChartYTickFormat=True,
     )
 
 

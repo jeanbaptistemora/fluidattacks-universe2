@@ -1956,6 +1956,7 @@ export const enTranslations: ResourceKey = {
     },
   },
   tag_indicator: {
+    acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
     critical_severity: "Critical Severity",
     findings_group: "Findings by group",
     high_severity: "High Severity",

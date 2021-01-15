@@ -66,7 +66,14 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
                     multiline=False,
                 ),
             ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+            ),
         ),
+        barChartYTickFormat=True,
     )
 
 

@@ -26,9 +26,11 @@ async def get_data_one_group(group: str) -> Counter:
         )
     )
 
-    return Counter(filter(None, chain.from_iterable(
-        map(lambda x: x['tag'].split(', '), vulnerabilities)
-    )))
+    return Counter([
+        vuln['historic_treatment'][-1]['user'] for vuln in vulnerabilities
+        if vuln['historic_treatment'][-1]['treatment'] == 'ACCEPTED'
+        and vuln['historic_state'][-1]['state'] == 'open'
+    ])
 
 
 async def get_data_many_groups(groups: List[str]) -> Counter:
@@ -38,15 +40,17 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
 
 
 def format_data(counters: Counter) -> dict:
-    data = counters.most_common()[:12]
+    data = counters.most_common()[:10]
 
     return dict(
         data=dict(
             columns=[
-                ['Tag'] + [value for _, value in data],
+                ['# Accepted vulnerabilities'] + [
+                    accepted_vulns for _, accepted_vulns in data
+                ],
             ],
             colors={
-                'Tag': RISK.neutral,
+                '# Accepted vulnerabilities': RISK.neutral,
             },
             type='bar',
         ),
@@ -55,10 +59,10 @@ def format_data(counters: Counter) -> dict:
         ),
         axis=dict(
             x=dict(
-                categories=[key for key, _ in data],
+                categories=[user for user, _ in data],
                 type='category',
                 tick=dict(
-                    rotate=utils.TICK_ROTATION,
+                    rotate=12,
                     multiline=False,
                 ),
             ),
