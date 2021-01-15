@@ -17,6 +17,6 @@ skims-parsers-antlr
 skims-parsers-babel
 skims-security
 skims-structure
-sorts-config-python-requirements-development = import ../makes/sorts/config/python-requirements/development attrs;
-sorts-config-python-requirements-runtime = import ../makes/sorts/config/python-requirements/runtime attrs;
+sorts-config-python-requirements-development
+sorts-config-python-requirements-runtime
 sorts-lint

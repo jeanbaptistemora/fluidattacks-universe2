@@ -27,8 +27,12 @@ def test_clone_repo() -> Iterator[str]:
         yield tmp_dir
 
 
-@pytest.fixture(autouse=True, scope='session')
-def test_integrates_api_token() -> Iterator[str]:
+@pytest.fixture(
+    autouse=True,
+    name="test_integrates_api_token",
+    scope='session'
+)
+def fixture_test_integrates_api_token() -> Iterator[str]:
     yield os.environ['INTEGRATES_API_TOKEN']
 
 

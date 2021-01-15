@@ -5,6 +5,7 @@ from typing import List
 
 # Third-party libraries
 import pandas as pd
+import pytest
 import pytz
 from pandas import DataFrame
 from _pytest.logging import LogCaptureFixture
@@ -24,7 +25,8 @@ from features.file import (
 DATA_PATH: str = f'{os.path.dirname(__file__)}/data'
 
 
-def test_bad_dataframe(caplog: LogCaptureFixture,test_clone_repo: str) -> None:
+@pytest.mark.usefixtures("test_clone_repo")
+def test_bad_dataframe(caplog: LogCaptureFixture) -> None:
     training_df: DataFrame = pd.read_csv(
         os.path.join(DATA_PATH, 'test_repo_files.csv')
     )
@@ -36,7 +38,7 @@ def test_extract_commit_features(test_clone_repo: str) -> None:
     training_df: DataFrame = pd.read_csv(
         os.path.join(DATA_PATH, 'test_repo_commits.csv')
     )
-    training_df['repo'] = f'requests'
+    training_df['repo'] = 'requests'
     extract_commit_features(training_df, test_clone_repo)
     assert training_df[COMMIT_FEATURES].values.tolist() == [
         [
@@ -125,7 +127,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             0,
             49,
             161,
-            round(137/file_ages[0], 4),
+            round(137 / file_ages[0], 4),
             1,
             'py'
         ],
@@ -137,7 +139,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             0,
             38,
             305,
-            round(116/file_ages[1], 4),
+            round(116 / file_ages[1], 4),
             1,
             'py'
         ],
@@ -149,7 +151,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             0,
             16,
             123,
-            round(46/file_ages[2], 4),
+            round(46 / file_ages[2], 4),
             1,
             'py'
         ],
@@ -161,7 +163,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             0,
             98,
             769,
-            round(323/file_ages[3], 4),
+            round(323 / file_ages[3], 4),
             1,
             'py'
         ],
@@ -173,11 +175,12 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             0,
             77,
             982,
-            round(251/file_ages[4], 4),
+            round(251 / file_ages[4], 4),
             1,
             'py'
         ]
     ]
+
 
 def test_encode_extensions() -> None:
     training_df: DataFrame = pd.DataFrame(
@@ -200,4 +203,3 @@ def test_encode_extensions() -> None:
     assert training_df.loc[4].values.tolist() == [
         'go', 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1
     ]
-

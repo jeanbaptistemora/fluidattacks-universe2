@@ -4,34 +4,18 @@ source "${envSetupSortsDevelopment}"
 source "${envSetupSortsRuntime}"
 source "${envBashLibLintPython}"
 
-function list_packages {
-      target="${PWD}/test" \
-  &&  copy "${envSrcSortsTest}" "${target}" \
-  &&  echo "${target}" \
-  &&  target="${PWD}/training" \
-  &&  copy "${envSrcSortsTraining}" "${target}" \
-  &&  echo "${target}" \
-  &&  find "${envSrcSortsSorts}" -mindepth 1 -maxdepth 1 -type d \
-        | while read -r folder
-          do
-                target="${PWD}/$(basename "${folder}")" \
-            &&  copy "${folder}" "${target}" \
-            &&  echo "${target}" \
-            ||  return 1
-          done
-}
-
 function main {
-  local pkgs
-
-      pkgs=$(mktemp) \
-  &&  lint_python_imports "${envImportLinterConfig}" "${envSrcSortsSorts}" \
-  &&  list_packages > "${pkgs}" \
-  &&  while read -r pkg
+      lint_python_imports "${envImportLinterConfig}" "${envSrcSortsSorts}" \
+  &&  lint_python_module "${envSrcSortsTest}" \
+  &&  lint_python_module "${envSrcSortsTraining}" \
+  &&  for module in "${envSrcSortsSorts}"/*
       do
-            lint_python "${pkg}" \
+            if test -d "${module}"
+            then
+              lint_python_module "${module}"
+            fi \
         ||  return 1
-      done < "${pkgs}" \
+      done \
   &&  success
 }
 
