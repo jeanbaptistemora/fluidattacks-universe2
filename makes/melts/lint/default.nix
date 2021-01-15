@@ -9,6 +9,8 @@ makeDerivation {
   builder = ./builder.sh;
   envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python meltsPkgs;
   envSetupMeltsRuntime = config.setupMeltsRuntime;
-  envSrcMelts = ../../../melts/toolbox;
+  envSetupMeltsDevelopment = config.setupMeltsDevelopment;
+  envSrcMeltsToolbox = ../../../melts/toolbox;
+  envSrcMeltsTest = ../../../melts/tests;
   name = "melts-lint";
 }

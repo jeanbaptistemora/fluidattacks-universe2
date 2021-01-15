@@ -30,11 +30,13 @@ def test_get_repo_from_url() -> None:
             'product',
         ),
         (
-            'ssh://git@vs-ssh.visualstudio.com:v3/grupo/something Tecnología/Test',
+            ('ssh://git@vs-ssh.visualstudio.com:v3/grupo/'
+             'something Tecnología/Test'),
             'Test',
         ),
         (
-            'ssh://git@vs-ssh.visualstudio.com:v3/grupo/something+Tecnolog%C3%ADa/Test+test',
+            ('ssh://git@vs-ssh.visualstudio.com:v3/grupo/'
+             'something+Tecnolog%C3%ADa/Test+test'),
             'Test test',
         ),
     ):
@@ -49,7 +51,7 @@ def test_match_file() -> None:
     assert match_file(spec_ignore.patterns, 'build/default.nix')
     assert match_file(spec_ignore.patterns, '.gitlab-ci.yml')
     assert not match_file(spec_ignore.patterns,
-                                     'integrates/front/package.json')
+                          'integrates/front/package.json')
 
     patterns = [
         'aaa/*',

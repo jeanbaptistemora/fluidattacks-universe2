@@ -4,7 +4,6 @@ import os
 from typing import Any
 
 # Third parties imports
-import pytest
 
 # Local libraries
 from toolbox import resources

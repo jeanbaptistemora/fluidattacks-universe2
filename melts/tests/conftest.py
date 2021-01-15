@@ -12,11 +12,11 @@ from typing import (
 
 # Third parties libraries
 import boto3
-import pytest
 from click.testing import (
     CliRunner,
     Result,
 )
+import pytest
 
 # Local libraries
 from toolbox import logger
@@ -68,7 +68,8 @@ def prepare_s3_continuous_repositories(request: Any) -> None:
 
 
 @pytest.fixture(scope='session', autouse=True)
-def cli_runner(request: Any) -> Callable[..., Result]:  # pylint: disable=unused-argument
+def cli_runner(  # pylint: disable=unused-argument
+        request: Any) -> Callable[..., Result]:
     def executor(command: List[str]) -> Result:
         runner = CliRunner()
         return runner.invoke(cli, command)

@@ -1,12 +1,12 @@
 # shellcheck shell=bash
 
 source "${envSetupMeltsRuntime}"
+source "${envSetupMeltsDevelopment}"
 source "${envBashLibLintPython}"
 
 function main {
-      target="${PWD}/toolbox" \
-  &&  copy "${envSrcMelts}" "${target}" \
-  &&  lint_python "${target}" \
+      lint_python_module "${envSrcMeltsToolbox}" \
+  &&  lint_python_module "${envSrcMeltsTest}" \
   &&  success
 }
 

@@ -6,8 +6,7 @@
 # Local libraries
 from typing import Any
 from toolbox import (
-    toolbox,
-    utils
+    utils,
 )
 
 # Constants

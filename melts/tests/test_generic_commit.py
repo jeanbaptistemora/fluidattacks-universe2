@@ -1,5 +1,4 @@
 # Third parties libraries
-import pytest
 
 # Local libraries
 from toolbox.generic.commit import (
@@ -17,15 +16,24 @@ def test_is_valid_summary() -> None:
             assert is_valid_summary(f'{type_}({scope}): #123.1 test this, now')
             assert not is_valid_summary(f'{type_}({scope}): # test this, now')
             assert not is_valid_summary(f'{type_}({scope}): #0 test this, now')
-            assert not is_valid_summary(f'{type_}({scope}): #1.0 test this, now')
-            assert not is_valid_summary(f'{type_}({scope}): #0.0 test this, now')
-            assert not is_valid_summary(f'{scope}({type_}): #123.1 test this, now')
-            assert not is_valid_summary(f'{type_}({scope}): #123 test this, now')
-            assert not is_valid_summary(f'{type_}({scope}): #123 test2 this, now')
-            assert not is_valid_summary(f'{type_}({scope}): #123  test2 this, now')
-            assert not is_valid_summary(f'{type_}({scope}):  #123 test2 this, now')
-            assert not is_valid_summary(f'{type_}({scope}):  $123 test2 this, now')
-            assert not is_valid_summary(f' {type_}({scope}): #123.1 test this, nw')
+            assert not is_valid_summary(
+                f'{type_}({scope}): #1.0 test this, now')
+            assert not is_valid_summary(
+                f'{type_}({scope}): #0.0 test this, now')
+            assert not is_valid_summary(
+                f'{scope}({type_}): #123.1 test this, now')
+            assert not is_valid_summary(
+                f'{type_}({scope}): #123 test this, now')
+            assert not is_valid_summary(
+                f'{type_}({scope}): #123 test2 this, now')
+            assert not is_valid_summary(
+                f'{type_}({scope}): #123  test2 this, now')
+            assert not is_valid_summary(
+                f'{type_}({scope}):  #123 test2 this, now')
+            assert not is_valid_summary(
+                f'{type_}({scope}):  $123 test2 this, now')
+            assert not is_valid_summary(
+                f' {type_}({scope}): #123.1 test this, nw')
 
 
 def test_has_short_line_length() -> None:

@@ -1,7 +1,4 @@
 # pylint: disable=unused-argument
-# Third parties libraries
-import pytest
-
 # Standrd libraries
 import os
 from typing import (
@@ -52,7 +49,6 @@ def test_drills_push_repos(
         for filename in files:
             file_path: str = f'{path}/.git/{filename}'
             Path(file_path).touch()
-
 
     def set_up_repos() -> None:
         repos: List[str] = ['repo1', 'repo2', 'repo3']
