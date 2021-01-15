@@ -7,7 +7,7 @@ export const GET_FINDINGS: DocumentNode = gql`
       findings {
         id
         age
-        lastVulnerability
+        lastVulnReport
         type
         title
         description

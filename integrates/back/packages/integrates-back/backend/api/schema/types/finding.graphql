@@ -20,6 +20,7 @@ type Finding {
   id: String
   inputsVulns: [Vulnerability]
   isExploitable: Boolean
+  lastVulnReport: Int
   lastVulnerability: Int
   linesVulns: [Vulnerability]
   newRemediated: Boolean

@@ -155,6 +155,19 @@ async def get_finding_open_age(
     return open_age
 
 
+async def get_finding_last_vuln_report(
+    finding_id: str
+) -> int:
+    last_vuln_report = 0
+    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    report_dates = vuln_utils.get_report_dates(vulns)
+    if report_dates:
+        newest_report_date = max(report_dates)
+        last_vuln_report = (datetime_utils.get_now() - newest_report_date).days
+
+    return last_vuln_report
+
+
 def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[TrackingItem]:
