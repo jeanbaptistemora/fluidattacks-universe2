@@ -8,7 +8,7 @@ import requests
 from ratelimiter import RateLimiter
 # Local libraries
 from streamer_zoho_crm import utils
-from streamer_zoho_crm.api.bulk import (
+from streamer_zoho_crm.api.bulk._objs import (
     BulkData,
     BulkJob,
     BulkJobResult,
