@@ -3,31 +3,17 @@
 source "${envSetupSkimsRuntime}"
 source "${envBashLibLintPython}"
 
-function list_packages {
-      target="${PWD}/test" \
-  &&  copy "${envSrcSkimsTest}" "${target}" \
-  &&  echo "${target}" \
-  &&  find "${envSrcSkimsSkims}" -mindepth 1 -maxdepth 1 -type d \
-        | while read -r folder
-          do
-                target="${PWD}/$(basename "${folder}")" \
-            &&  copy "${folder}" "${target}" \
-            &&  echo "${target}" \
-            ||  return 1
-          done
-}
-
 function main {
-  local pkgs
-
-      pkgs=$(mktemp) \
-  &&  lint_python_imports "${envImportLinterConfig}" "${envSrcSkimsSkims}" \
-  &&  list_packages > "${pkgs}" \
-  &&  while read -r pkg
+      lint_python_imports "${envImportLinterConfig}" "${envSrcSkimsSkims}" \
+  &&  lint_python_module "${envSrcSkimsTest}" \
+  &&  for module in "${envSrcSkimsSkims}"/*
       do
-            lint_python "${pkg}" \
+            if test -d "${module}"
+            then
+              lint_python_module "${module}"
+            fi \
         ||  return 1
-      done < "${pkgs}" \
+      done \
   &&  success
 }
 

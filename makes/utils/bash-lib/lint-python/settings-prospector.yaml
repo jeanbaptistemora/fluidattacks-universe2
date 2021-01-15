@@ -1,6 +1,9 @@
 inherits:
+  - full_pep8
   - strictness_veryhigh
 
 pylint:
   disable:
     - cyclic-import
+
+test-warnings: true

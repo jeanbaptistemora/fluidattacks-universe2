@@ -5,8 +5,6 @@ let
 in
 makeTemplate {
   arguments = {
-    envBasename = "${pkgs.coreutils}/bin/basename";
-    envDirname = "${pkgs.coreutils}/bin/dirname";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
       requirements = {
