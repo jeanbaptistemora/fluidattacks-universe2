@@ -9,6 +9,8 @@ let
     target-redshift-runtime = makeSearchPaths [
       observesPkgs.postgresql
     ];
+    streamer-zoho-crm-runtime = makeSearchPaths [
+    ];
   };
 in
 {
@@ -24,5 +26,18 @@ in
     };
     name = "observes-config-setup-target-redshift-runtime";
     template = ../../../makes/observes/config/setup-target-redshift-runtime.sh;
+  };
+  setupObservesStreamerZohoCrmRuntime = makeTemplate {
+    arguments = {
+      envPython = "${observesPkgs.python38}/bin/python";
+      envPythonRequirements = outputs.packages.observes-config-python-requirements-streamer-zoho-crm-runtime;
+      envBinPath = nixRequirements.streamer-zoho-crm-runtime.binPath;
+      envLibPath = nixRequirements.streamer-zoho-crm-runtime.libPath;
+      envPyPath = nixRequirements.streamer-zoho-crm-runtime.pyPath;
+      envSrcObservesStreamerZohoCrmEntrypoint = ../../../observes/singer/streamer_zoho_crm/streamer_zoho_crm/__init__.py;
+      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+    };
+    name = "observes-config-setup-streamer-zoho-crm-runtime";
+    template = ../../../makes/observes/config/setup-streamer-zoho-crm-runtime.sh;
   };
 }
