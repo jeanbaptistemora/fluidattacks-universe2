@@ -401,7 +401,7 @@ label {
   margin-top: 5px;
   position: absolute;
   width: 117px;
-  overflow: overlay;
+  overflow: auto;
   max-height: 50vh;
   z-index: 1;
 }
