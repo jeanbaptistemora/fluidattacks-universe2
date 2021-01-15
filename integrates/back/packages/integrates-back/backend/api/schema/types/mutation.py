@@ -27,6 +27,7 @@ from backend.api.mutations import (
     create_organization,
     delete_finding,
     delete_vulnerability,
+    delete_vulnerability_tags,
     download_event_file,
     download_file,
     edit_group,
@@ -157,7 +158,7 @@ MUTATION.set_field('removeEvidence', remove_finding_evidence.mutate)
 MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription', update_finding_description.mutate)
 MUTATION.set_field('rejectDraft', reject_draft.mutate)
-MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('deleteTags', delete_vulnerability_tags.mutate)
 MUTATION.set_field('updateTreatmentVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('requestVerificationVuln',
