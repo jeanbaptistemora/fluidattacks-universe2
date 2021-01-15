@@ -252,7 +252,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_delete_vulnerability_tags_mutate',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
-            'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+            'backend_api_mutations_update_treatment_vulnerability_mutate',
             'valid_treatment_manager',
             'update_git_root_filter'
         },
@@ -312,7 +312,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_delete_vulnerability_tags_mutate',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
-            'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+            'backend_api_mutations_update_treatment_vulnerability_mutate',
             'grant_user_level_role:customer',
             'grant_group_level_role:customer',
             'grant_group_level_role:customeradmin',
@@ -360,7 +360,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_delete_vulnerability_tags_mutate',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
-            'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+            'backend_api_mutations_update_treatment_vulnerability_mutate',
         },
         tags=set()
     ),
@@ -421,7 +421,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_delete_vulnerability_tags_mutate',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
-            'backend_api_resolvers_vulnerability__do_update_treatment_vuln',
+            'backend_api_mutations_update_treatment_vulnerability_mutate',
             'backend_api_resolvers_new_vulnerability_analyst_resolve',
             (
                 'backend_api_resolvers_new_vulnerability_'

@@ -66,6 +66,7 @@ from backend.api.mutations import (
     update_root_cloning_status,
     update_root_state,
     update_severity,
+    update_treatment_vulnerability,
     update_vulns_treatment,
     upload_file
 )
@@ -159,8 +160,10 @@ MUTATION.set_field('addFindingConsult', add_finding_consult.mutate)
 MUTATION.set_field('updateDescription', update_finding_description.mutate)
 MUTATION.set_field('rejectDraft', reject_draft.mutate)
 MUTATION.set_field('deleteTags', delete_vulnerability_tags.mutate)
-MUTATION.set_field('updateTreatmentVuln',
-                   vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field(
+    'updateTreatmentVuln',
+    update_treatment_vulnerability.mutate
+)
 MUTATION.set_field('requestVerificationVuln',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('verifyRequestVuln',
