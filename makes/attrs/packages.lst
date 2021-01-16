@@ -13,6 +13,7 @@ skims-config-setup-skims-development
 skims-config-setup-skims-runtime
 skims-docs-build
 skims-lint
+skims-oci-build
 skims-parsers-antlr
 skims-parsers-babel
 skims-security

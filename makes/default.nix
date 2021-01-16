@@ -53,6 +53,7 @@ flake.lib.eachDefaultSystem (
           skims-config-python-requirements-runtime = import ../makes/skims/config/python-requirements/runtime attrs;
           skims-docs-build = import ../makes/skims/docs/build attrs;
           skims-lint = import ../makes/skims/lint attrs;
+          skims-oci-build = import ../makes/skims/oci-build attrs;
           skims-parsers-antlr = import ../makes/skims/parsers/antlr attrs;
           skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
           skims-security = import ../makes/skims/security attrs;
