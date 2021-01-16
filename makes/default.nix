@@ -37,6 +37,7 @@ flake.lib.eachDefaultSystem (
           skims-process-groups-on-aws = import ../makes/skims/process-groups-on-aws attrs;
           skims-repl = import ../makes/skims/bin-repl attrs;
           skims-test = import ../makes/skims/test attrs;
+          sorts-test = import ../makes/sorts/test attrs;
         };
         packages = {
           integrates-lint-front = import ../makes/integrates/lint/front attrs;

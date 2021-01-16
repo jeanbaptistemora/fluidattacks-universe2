@@ -1,5 +1,6 @@
 # Standard libraries
 import json
+from os import environ
 from os.path import (
     abspath,
     dirname,
@@ -17,8 +18,10 @@ import numpy as np
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
 
-
-ROOT: str = abspath(dirname(dirname(dirname(__file__))))
+try:
+    ROOT: str = environ['SORTS_STATIC']
+except KeyError:
+    ROOT = abspath(dirname(dirname(dirname(__file__))))
 
 
 def get_extensions_list() -> List[str]:
@@ -35,6 +38,7 @@ def get_static_path(file: str) -> str:
     for attempt in [
         abspath(join(ROOT, static_file)),
         abspath(join(ROOT, 'site-packages', static_file)),
+        abspath(join(ROOT, file)),
     ]:
         if exists(attempt):
             return attempt

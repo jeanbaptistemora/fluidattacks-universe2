@@ -76,8 +76,8 @@ sorts-lint:
   <<: *sorts_in_dev_branch
   stage: lint-code
 
-sorts_test_code:
-  <<: *with_nix
+sorts-test:
+  <<: *makes
   <<: *sorts_in_dev_branch
   stage: test-code
 
