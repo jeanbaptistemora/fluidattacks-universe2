@@ -31,6 +31,7 @@ flake.lib.eachDefaultSystem (
           skims-docs-deploy = import ../makes/skims/docs/deploy attrs;
           skims-infra-deploy = import ../makes/skims/infra-deploy attrs;
           skims-infra-test = import ../makes/skims/infra-test attrs;
+          skims-oci-deploy = import ../makes/skims/oci-deploy attrs;
           skims-process-group = import ../makes/skims/process-group attrs;
           skims-process-group-on-aws = import ../makes/skims/process-group-on-aws attrs;
           skims-process-groups-on-aws = import ../makes/skims/process-groups-on-aws attrs;

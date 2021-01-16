@@ -11,6 +11,7 @@ skims-benchmark-on-aws
 skims-docs-deploy
 skims-infra-deploy
 skims-infra-test
+skims-oci-deploy
 skims-process-group
 skims-process-group-on-aws
 skims-process-groups-on-aws

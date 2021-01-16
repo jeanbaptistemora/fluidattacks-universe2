@@ -5,17 +5,16 @@
 pkgs:
 
 { config ? null
-, contents
+, contents ? [ ]
 , extraCommands ? null
-, name
 }:
 
 pkgs.dockerTools.buildLayeredImage {
   inherit config;
   inherit contents;
-  created = null;
+  created = "1970-01-01T00:00:01Z";
   inherit extraCommands;
   maxLayers = 125;
-  inherit name;
-  tag = "oci";
+  name = "oci";
+  tag = "latest";
 }
