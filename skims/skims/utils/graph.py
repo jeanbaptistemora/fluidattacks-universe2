@@ -1,5 +1,6 @@
 # Standard library
 from itertools import (
+    chain,
     filterfalse,
     product,
 )
@@ -300,13 +301,9 @@ def lookup_first_cfg_parent(
     graph: Graph,
     n_id: NId,
 ) -> str:
-    # Has child/parent CFG edges
-    if adj_cfg(graph, n_id) or pred_cfg(graph, n_id):
-        return n_id
-
-    # Lookup first parent who has parent CFG edges
-    for p_id in pred_ast_lazy(graph, n_id, depth=-1):
-        if pred_cfg(graph, p_id):
+    # Lookup first parent who is connected to the CFG
+    for p_id in chain([n_id], pred_ast_lazy(graph, n_id, depth=-1)):
+        if adj_cfg(graph, p_id) or pred_cfg(graph, p_id):
             return p_id
 
     # Base case, pass through
@@ -352,7 +349,7 @@ def branches_cfg(
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
     # Filter the ones that are leafs
-    leaf_ids = filterfalse(lambda x_id: adj_cfg(graph, x_id), c_ids,)
+    leaf_ids = filterfalse(lambda x_id: adj_cfg(graph, x_id), c_ids)
 
     return tuple(enumerate(sorted(
         path
