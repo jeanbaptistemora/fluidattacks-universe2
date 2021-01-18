@@ -5,6 +5,7 @@ import os
 import pytest
 
 from ariadne import graphql
+from freezegun import freeze_time
 from graphql import GraphQLError
 from jose import jwt
 from starlette.datastructures import UploadFile
@@ -29,6 +30,25 @@ async def _get_result(data, user='integratesmanager@gmail.com'):
     }
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
+
+
+@freeze_time("2020-12-01")
+async def test_finding_age():
+    """Check for finding age."""
+    query = '''{
+      finding(identifier: "422286126"){
+          age
+          lastVulnReport
+          openAge
+      }
+    }'''
+    data = {'query': query}
+    result = await _get_result(data)
+    assert 'errors' not in result
+    assert result['data']['finding']['age'] == 332
+    assert result['data']['finding']['lastVulnReport'] == 332
+    assert result['data']['finding']['openAge'] == 332
+
 
 async def test_finding():
     """Check for finding query."""
