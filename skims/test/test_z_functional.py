@@ -31,6 +31,9 @@ from integrates.dal import (
 from state.ephemeral import (
     EphemeralStore,
 )
+from utils.ctx import (
+    SHOULD_UPDATE_TESTS,
+)
 from utils.logs import (
     configure,
 )
@@ -80,6 +83,11 @@ def sorted_csv(lines: List[str]) -> List[str]:
 
 def check_that_csv_results_match(suite: str) -> None:
     with open(get_suite_produced_results(suite)) as produced:
+        if SHOULD_UPDATE_TESTS:
+            with open(get_suite_expected_results(suite), 'w') as expected:
+                expected.writelines(sorted_csv(produced.readlines()))
+                produced.seek(0)
+
         with open(get_suite_expected_results(suite)) as expected:
             assert sorted_csv(produced.readlines()) == expected.readlines()
 

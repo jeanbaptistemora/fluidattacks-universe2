@@ -50,6 +50,9 @@ def create_test_context(debug: bool = True) -> None:
     )
 
 
+# Environment vars that change the execution
+SHOULD_UPDATE_TESTS: bool = 'SKIMS_SHOULD_UPDATE_TESTS' in os.environ
+
 # Side effects
 CIPHER_SUITES_PATH: str = _get_artifact('SKIMS_CIPHER_SUITES_PATH')
 FLUID_WATERMARK = _get_artifact('SKIMS_FLUID_WATERMARK')

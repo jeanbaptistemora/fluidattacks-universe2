@@ -26,6 +26,9 @@ from model import (
 from utils import (
     graph as g,
 )
+from utils.ctx import (
+    SHOULD_UPDATE_TESTS,
+)
 from utils.encodings import (
     json_dumps,
 )
@@ -79,6 +82,10 @@ async def test_graph_generation(path: str, name: str) -> None:
     graph_as_json = export_graph_as_json(graph)
     graph_as_json_str = json_dumps(graph_as_json, indent=2, sort_keys=True)
 
+    if SHOULD_UPDATE_TESTS:
+        with open(f'test/data/parse_java/{name}.graph.json', 'w') as handle:
+            handle.write(graph_as_json_str)
+
     with open(f'test/data/parse_java/{name}.graph.json') as handle:
         expected = handle.read()
 
@@ -100,6 +107,13 @@ async def test_graph_generation(path: str, name: str) -> None:
             statements_as_json = json_dumps(
                 statements, indent=2, sort_keys=True,
             )
+
+            if SHOULD_UPDATE_TESTS:
+                with open((
+                    'test/data/parse_java'
+                    f'/{name}.{sink}.{index}.statements.json'
+                ), 'w') as handle:
+                    handle.write(statements_as_json)
 
             with open((
                 'test/data/parse_java'

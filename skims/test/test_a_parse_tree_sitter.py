@@ -8,6 +8,9 @@ import pytest
 from sast.parse import (
     get_graph_db,
 )
+from utils.ctx import (
+    SHOULD_UPDATE_TESTS,
+)
 from utils.encodings import (
     json_dumps,
 )
@@ -25,6 +28,10 @@ async def test_graph_generation() -> None:
         'test/data/parse_java/TestCFG.java',
     ))
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
+
+    if SHOULD_UPDATE_TESTS:
+        with open('test/data/sast/root-graph.json', 'w') as handle:
+            handle.write(graph_db_as_json_str)
 
     with open('test/data/sast/root-graph.json') as handle:
         expected = handle.read()
