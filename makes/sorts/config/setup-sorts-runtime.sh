@@ -15,7 +15,7 @@ function sorts_setup_runtime {
 }
 
 function sorts {
-  '__envPython__' '__envSrcSortsSorts__/cli/execute_sorts.py' "$@"
+  '__envPython__' '__envSrcSortsSorts__/cli/__init__.py' "$@"
 }
 
 sorts_setup_runtime

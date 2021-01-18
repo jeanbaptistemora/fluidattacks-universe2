@@ -91,10 +91,9 @@ sorts-infra-deploy:
   <<: *sorts_in_master_branch
   stage: deploy-infra
 
-sorts_extract_all_features:
-  <<: *with_nix
+sorts-extract-features:
+  <<: *makes
   <<: *sorts_in_master_branch_code_changes
-  image: "${CI_REGISTRY_IMAGE}/nix:sorts_extract_all_features"
   stage: test-code
   interruptible: false
   parallel: 15
@@ -104,7 +103,7 @@ sorts_train_model_on_aws:
   <<: *sorts_in_master_branch_code_changes
   stage: deploy-app
   interruptible: false
-  needs: [sorts_extract_all_features]
+  needs: [sorts-extract-features]
 
 sorts_deploy_to_pypi:
   <<: *with_nix

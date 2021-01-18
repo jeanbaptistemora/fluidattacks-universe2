@@ -97,3 +97,7 @@ def execute_sorts(
     log('info', 'Success: %s', success)
     log('info', 'Finished after %.2f seconds.', time.time() - start_time)
     sys.exit(0 if success else 1)
+
+
+if __name__ == '__main__':
+    execute_sorts()  # pylint: disable=no-value-for-parameter
