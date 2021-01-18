@@ -91,7 +91,12 @@ export const navbarComponent: React.FC = (): JSX.Element => {
   const handleBlurEvent: (event: FocusEvent) => void = (event: FocusEvent): void => {
     const child: HTMLElement = event.target as HTMLElement;
     const element: HTMLElement = child.parentNode as HTMLElement;
-    element.setAttribute("style", "display:none;");
+    setTimeout(
+      () => {
+        element.setAttribute("style", "display:none;");
+      },
+      250,
+    );
     child.removeEventListener("blur", () => undefined);
   };
   const showItems: () => void = () => {
