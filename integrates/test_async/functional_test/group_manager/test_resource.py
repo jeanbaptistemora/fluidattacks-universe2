@@ -21,19 +21,6 @@ async def test_resource():
         date_format='%Y/%m/%d'
     )
     group_name = 'unittesting'
-    url_env = 'https://url.env3.com'
-    query = f'''mutation {{
-        addEnvironments(projectName: "{group_name}", envs: [
-            {{urlEnv: "{url_env}"}}
-        ]) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addEnvironments']
-    assert result['data']['addEnvironments']['success']
 
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
@@ -77,11 +64,6 @@ async def test_resource():
     }}'''
     data = {'query': query}
     result = await get_result(data)
-    environments = json.loads(result['data']['resources']['environments'])
-    env = [env for env in environments if env['urlEnv'] == quote(url_env, safe='')][0]
-    assert today in env['historic_state'][0]['date']
-    assert env['historic_state'][0]['state'] == 'ACTIVE'
-    assert env['historic_state'][0]['user'] == 'unittest2@fluidattacks.com'
     files = json.loads(result['data']['resources']['files'])
     file = [file for file in files if file['uploadDate'][:-6] == today][0]
     assert file['uploader'] == 'unittest2@fluidattacks.com'
@@ -103,19 +85,6 @@ async def test_resource():
     assert 'success' in result['data']['downloadFile']
     assert result['data']['downloadFile']['success']
     assert 'url' in result['data']['downloadFile']
-
-    query = f'''mutation {{
-        updateEnvironment(projectName: "{group_name}", state: INACTIVE, env: {{
-            urlEnv: "{url_env}"
-        }}) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateEnvironment']
-    assert result['data']['updateEnvironment']['success']
 
     query = '''
         mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
@@ -149,11 +118,6 @@ async def test_resource():
     }}'''
     data = {'query': query}
     result = await get_result(data)
-    environments = json.loads(result['data']['resources']['environments'])
-    env = [env for env in environments if env['urlEnv'] == quote(url_env, safe='')][0]
-    assert state_today in env['historic_state'][1]['date']
-    assert env['historic_state'][1]['state'] == 'INACTIVE'
-    assert env['historic_state'][1]['user'] == 'unittest2@fluidattacks.com'
     files = json.loads(result['data']['resources']['files'])
     today_files = [file for file in files if file['uploadDate'][:-6] == today]
     assert today_files == []

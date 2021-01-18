@@ -1,14 +1,10 @@
-from tempfile import NamedTemporaryFile
 import json
 import os
-from datetime import datetime, timedelta
 import pytest
 
-from ariadne import graphql, graphql_sync
-from jose import jwt
+from ariadne import graphql
 from starlette.datastructures import UploadFile
 
-from backend import util
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
@@ -47,23 +43,6 @@ async def test_get_resources():
     assert 'asdasd.py' in result['data']['resources']['files']
     assert 'https%3A%2F%2Ffluidattacks.com%2F' in \
         result['data']['resources']['environments']
-
-@pytest.mark.changes_db
-async def test_add_environments():
-    """Check for addEnvironments mutation."""
-    query = '''mutation {
-      addEnvironments(projectName: "unittesting", envs: [
-        {urlEnv: "https://integrates.fluidattacks.com/test"},
-        {urlEnv: "https://fluidattacks.com/test"},
-      ]) {
-        success
-      }
-    }'''
-    data = {'query': query}
-    result = await _get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addEnvironments']
-    assert result['data']['addEnvironments']['success']
 
 @pytest.mark.changes_db
 async def test_add_files():
@@ -147,19 +126,3 @@ async def test_remove_files():
     assert 'errors' not in result
     assert 'success' in result['data']['removeFiles']
     assert result['data']['removeFiles']['success']
-
-@pytest.mark.changes_db
-async def test_update_environment():
-    """Check for updateEnvironment mutation."""
-    query = '''mutation {
-      updateEnvironment(projectName: "unittesting", state: INACTIVE, env: {
-        urlEnv: "https://unittesting.fluidattacks.com/"
-      }) {
-        success
-      }
-    }'''
-    data = {'query': query}
-    result = await _get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateEnvironment']
-    assert result['data']['updateEnvironment']['success']

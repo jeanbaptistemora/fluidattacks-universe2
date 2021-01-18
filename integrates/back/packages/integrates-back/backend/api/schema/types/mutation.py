@@ -8,7 +8,6 @@ from ariadne import MutationType
 from backend.api.mutations import (
     accept_legal,
     add_event_consult,
-    add_environment,
     add_files,
     add_group_consult,
     add_group_tags,
@@ -56,7 +55,6 @@ from backend.api.mutations import (
     submit_draft,
     subscribe_to_entity_report,
     update_access_token,
-    update_environment,
     update_event_evidence,
     update_evidence_description,
     update_evidence,
@@ -144,11 +142,9 @@ MUTATION.set_field('addPushToken', add_push_token.mutate)
 MUTATION.set_field('grantStakeholderAccess', grant_stakeholder_access.mutate)
 MUTATION.set_field('removeStakeholderAccess', remove_stakeholder_access.mutate)
 MUTATION.set_field('editStakeholder', edit_stakeholder.mutate)
-MUTATION.set_field('addEnvironments', add_environment.mutate)
 MUTATION.set_field('addFiles', add_files.mutate)
 MUTATION.set_field('downloadFile', download_file.mutate)
 MUTATION.set_field('removeFiles', remove_files.mutate)
-MUTATION.set_field('updateEnvironment', update_environment.mutate)
 MUTATION.set_field('createProject', create_group.mutate)
 MUTATION.set_field('editGroup', edit_group.mutate)
 MUTATION.set_field('removeGroup', remove_group.mutate)

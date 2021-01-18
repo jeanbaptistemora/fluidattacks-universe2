@@ -56,19 +56,6 @@ async def test_resource():
     assert result['data']['downloadFile']['success']
     assert 'url' in result['data']['downloadFile']
 
-    url_env = 'https://url.env3.com'
-    query = f'''mutation {{
-        addEnvironments(projectName: "{group_name}", envs: [
-            {{urlEnv: "{url_env}"}}
-        ]) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
-
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../../mock/test-anim.gif')
     with open(filename, 'rb') as test_file:
@@ -96,18 +83,6 @@ async def test_resource():
             'projectName': group_name
         }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
-
-    query = f'''mutation {{
-        updateEnvironment(projectName: "{group_name}", state: INACTIVE, env: {{
-            urlEnv: "{url_env}"
-        }}) {{
-            success
-        }}
-    }}'''
-    data = {'query': query}
     result = await get_result(data)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
