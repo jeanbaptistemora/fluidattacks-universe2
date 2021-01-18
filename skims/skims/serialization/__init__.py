@@ -230,6 +230,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 HCL2Json,
                 core_model.IntegratesVulnerabilityMetadata,
                 core_model.NVDVulnerability,
+                graph_model.GraphDB,
                 graph_model.GraphShardCacheable,
                 graph_model.GraphShard,
                 graph_model.GraphShardMetadata,

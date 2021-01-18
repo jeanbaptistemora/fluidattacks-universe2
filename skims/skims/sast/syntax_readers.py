@@ -111,7 +111,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             method_declaration,
-        )
+        ),
     ),
 )
 DISPATCHERS_BY_LANG: Dict[
@@ -134,15 +134,15 @@ def read_from_graph(
     graph_syntax: graph_model.GraphSyntax = {}
 
     for n_id, n_attrs in graph.nodes.items():
-        syntax_steps: graph_model.SyntaxSteps = []
-
+        n_attrs_label_type = n_attrs['label_type']
         for dispatcher in DISPATCHERS_BY_LANG[language]:
-            if n_attrs['label_type'] in dispatcher.applicable_node_label_types:
+            if n_attrs_label_type in dispatcher.applicable_node_label_types:
                 if syntax_steps := attemp_with_readers(
                     graph=graph,
                     n_id=n_id,
                     syntax_readers=dispatcher.syntax_readers,
                 ):
                     graph_syntax[n_id] = syntax_steps
+                    break
 
     return graph_syntax

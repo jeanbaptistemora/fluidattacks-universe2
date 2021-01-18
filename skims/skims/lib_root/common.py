@@ -73,6 +73,7 @@ def get_vulnerability_from_n_id(
 
 
 def get_vulnerabilities_from_n_ids(
+    *,
     cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],

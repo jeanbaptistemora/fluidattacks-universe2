@@ -22,6 +22,7 @@ from lib_path.common import (
 )
 from lib_root import (
     f060,
+    f063_path_traversal,
 )
 from sast.parse import (
     get_graph_db,
@@ -57,6 +58,7 @@ async def analyze(
     graph_db: graph_model.GraphDB = await get_graph_db(tuple(unique_paths))
     queries: graph_model.Queries = (
         *f060.QUERIES,
+        *f063_path_traversal.QUERIES,
     )
 
     # Query the root with different methods in a CPU cluster
