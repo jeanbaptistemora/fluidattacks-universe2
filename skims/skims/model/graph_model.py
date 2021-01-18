@@ -68,6 +68,12 @@ class SyntaxStepDeclaration(NamedTuple):
     type: str = 'SyntaxStepDeclaration'
 
 
+class SyntaxStepStringLiteral(NamedTuple):
+    meta: SyntaxStepMeta
+    value: str
+    type: str = 'SyntaxStepStringLiteral'
+
+
 class SyntaxStepMethodInvocation(NamedTuple):
     dependencies: List[SyntaxSteps]
     meta: SyntaxStepMeta

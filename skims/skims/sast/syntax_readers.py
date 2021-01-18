@@ -116,12 +116,22 @@ def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         '.',
     }):
         yield graph_model.SyntaxStepMethodInvocation(
-            dependencies=generic(args.fork_n_id(args_id)),
+            dependencies=[
+                generic(args.fork_n_id(args_c_id))
+                for args_c_id in g.adj_ast(args.graph, args_id)[1:-1]
+            ],
             meta=graph_model.SyntaxStepMeta.default(),
             method=g.concatenate_label_text(args.graph, identifier_ids),
         )
     else:
         raise MissingCaseHandling(method_invocation, args)
+
+
+def string_literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    yield graph_model.SyntaxStepStringLiteral(
+        meta=graph_model.SyntaxStepMeta.default(),
+        value=args.graph.nodes[args.n_id]['label_text'][1:-1],
+    )
 
 
 def generic(
@@ -167,6 +177,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             method_invocation,
         ),
     ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'string_literal',
+        },
+        syntax_readers=(
+            string_literal,
+        ),
+    ),
     *[
         Dispatcher(
             applicable_languages={
@@ -208,11 +229,12 @@ def read_from_graph(
 
     # Read the syntax of every node in the graph, if possible
     for n_id in graph.nodes:
-        with contextlib.suppress(MissingSyntaxReader):
-            graph_syntax[n_id] = generic(SyntaxReaderArgs(
-                graph=graph,
-                language=language,
-                n_id=n_id,
-            ), warn_if_missing_syntax_reader=False)
+        if n_id not in graph_syntax:
+            with contextlib.suppress(MissingSyntaxReader):
+                graph_syntax[n_id] = generic(SyntaxReaderArgs(
+                    graph=graph,
+                    language=language,
+                    n_id=n_id,
+                ), warn_if_missing_syntax_reader=False)
 
     return graph_syntax

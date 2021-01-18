@@ -6572,6 +6572,32 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "108": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00001"
+          }
+        ],
+        "110": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "FileName"
+          }
+        ],
         "112": [
           {
             "meta": {
@@ -6656,6 +6682,35 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "138": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "request.getRequestURI",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "userCookie.setPath",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "14": [
           {
             "meta": {
@@ -6666,6 +6721,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "144": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestURI",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "152": [
@@ -6690,6 +6759,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "167": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestURL",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "18": [
@@ -6750,6 +6833,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "202": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "/pathtraver-00/BenchmarkTest00001.html"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestDispatcher",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "208": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "/pathtraver-00/BenchmarkTest00001.html"
           }
         ],
         "210": [
@@ -6864,6 +6988,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "251": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "text/html;charset=UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "257": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          }
+        ],
         "259": [
           {
             "meta": {
@@ -6888,6 +7053,20 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "269": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "276": [
           {
             "meta": {
@@ -6898,6 +7077,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "282": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "noCookieValueSupplied"
           }
         ],
         "283": [
@@ -6948,6 +7140,33 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "310": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "theCookie.getName",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "321": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00001"
+          }
+        ],
         "324": [
           {
             "meta": {
@@ -6970,6 +7189,33 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "336": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "theCookie.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "344": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "UTF-8"
           }
         ],
         "346": [
@@ -7080,6 +7326,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "41": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "/pathtraver-00/BenchmarkTest00001"
+          }
+        ],
         "416": [
           {
             "meta": {
@@ -7114,6 +7373,74 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "434": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "448": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "The beginning of file: '"
+          }
+        ],
+        "451": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "465": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "' is:\\n\\n"
+          }
+        ],
+        "468": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "492": [
@@ -7152,6 +7479,32 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "513": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Couldn't open FileInputStream on file: '"
+          }
+        ],
+        "517": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "'"
+          }
+        ],
         "519": [
           {
             "meta": {
@@ -7174,6 +7527,61 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "522": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "534": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Problem getting FileInputStream: "
+          }
+        ],
+        "537": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "548": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "e.getMessage",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "557": [
@@ -7234,6 +7642,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "579": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "fis.close",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "586": [
@@ -7370,6 +7792,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "89": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "text/html;charset=UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "95": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
           }
         ],
         "97": [
@@ -10810,6 +11273,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "126": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "text/html;charset=UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "132": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          }
+        ],
         "134": [
           {
             "meta": {
@@ -10834,6 +11338,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "140": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ""
+          }
+        ],
         "141": [
           {
             "meta": {
@@ -10844,6 +11361,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "147": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "BenchmarkTest00008"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getHeader",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "153": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00008"
           }
         ],
         "158": [
@@ -10868,6 +11426,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "164": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "BenchmarkTest00008"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getHeader",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "170": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00008"
           }
         ],
         "172": [
@@ -10918,6 +11517,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "187": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "UTF-8"
+          }
+        ],
         "189": [
           {
             "meta": {
@@ -10930,6 +11542,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "197": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "{call "
+          }
+        ],
         "2": [
           {
             "meta": {
@@ -10940,6 +11565,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "201": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "}"
           }
         ],
         "202": [
@@ -10964,6 +11602,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "212": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "219": [
@@ -11000,6 +11652,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "239": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "statement.executeQuery",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "246": [
@@ -11086,6 +11752,33 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "282": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "293": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Error processing request."
+          }
+        ],
         "295": [
           {
             "meta": {
@@ -11132,6 +11825,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "41": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "/sqli-00/BenchmarkTest00008"
           }
         ],
         "6": [
@@ -18442,6 +19148,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "125": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "text/html;charset=UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "131": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          }
+        ],
         "133": [
           {
             "meta": {
@@ -18452,6 +19199,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "139": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ""
           }
         ],
         "14": [
@@ -18478,6 +19238,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "146": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "BenchmarkTest00167"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getHeader",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "152": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00167"
+          }
+        ],
         "157": [
           {
             "meta": {
@@ -18500,6 +19301,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "163": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "BenchmarkTest00167"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getHeader",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "169": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00167"
           }
         ],
         "171": [
@@ -18550,6 +19392,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "186": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "UTF-8"
+          }
+        ],
         "188": [
           {
             "meta": {
@@ -18560,6 +19415,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "194": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ""
           }
         ],
         "195": [
@@ -18610,6 +19478,50 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "216": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "method": "param.getBytes",
+                        "type": "SyntaxStepMethodInvocation"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "org.apache.commons.codec.binary.Base64.encodeBase64",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.apache.commons.codec.binary.Base64.decodeBase64",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "22": [
           {
             "meta": {
@@ -18620,6 +19532,49 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "222": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "param.getBytes",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.apache.commons.codec.binary.Base64.encodeBase64",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "228": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "param.getBytes",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "238": [
@@ -18670,6 +19625,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "278": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Logan"
+          }
+        ],
         "279": [
           {
             "meta": {
@@ -18704,6 +19672,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "324": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest"
           }
         ],
         "331": [
@@ -18742,6 +19723,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "344": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "rememberMe"
+          }
+        ],
         "347": [
           {
             "meta": {
@@ -18764,6 +19758,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "364": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "371": [
@@ -18826,6 +19834,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "41": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "/weakrand-00/BenchmarkTest00167"
+          }
+        ],
         "420": [
           {
             "meta": {
@@ -18838,6 +19859,49 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "425": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "cookie.getName",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "cookieName.equals",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "431": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "cookie.getName",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "440": [
           {
             "meta": {
@@ -18848,6 +19912,34 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "447": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "cookie.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "459": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "474": [
@@ -18908,6 +20000,46 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "496": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "509": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Welcome back: "
+          }
+        ],
+        "513": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "<br/>"
           }
         ],
         "515": [
@@ -19006,6 +20138,49 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "556": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "request.getRequestURI",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "rememberMe.setPath",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "562": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestURI",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "570": [
           {
             "meta": {
@@ -19052,6 +20227,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "575": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "590": [
@@ -19114,6 +20303,20 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "603": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "62": [
           {
             "meta": {
@@ -19124,6 +20327,33 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "621": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": " has been remembered with cookie: "
+          }
+        ],
+        "623": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "rememberMe.getName",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "63": [
@@ -19154,6 +20384,46 @@
             "var_type": "HttpServletResponse"
           }
         ],
+        "631": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": " whose value is: "
+          }
+        ],
+        "633": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "rememberMe.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "641": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "<br/>"
+          }
+        ],
         "643": [
           {
             "meta": {
@@ -19176,6 +20446,33 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "647": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "658": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Weak Randomness Test java.util.Random.nextLong() executed"
           }
         ],
         "660": [
@@ -20034,6 +21331,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "48": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "xxx"
           }
         ],
         "5": [
@@ -21453,6 +22763,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "40": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "text/html;charset=UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "46": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          }
+        ],
         "48": [
           {
             "meta": {
@@ -21489,6 +22840,20 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "59": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "66": [
           {
             "meta": {
@@ -21499,6 +22864,33 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "78": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "theCookie.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "86": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "UTF-8"
           }
         ],
         "88": [
@@ -39285,6 +40677,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1010": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Printing using for loop. Count is: "
+          }
+        ],
         "1014": [
           {
             "meta": {
@@ -39295,6 +40700,59 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "102": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "e.toString",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1027": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Vivek"
+          }
+        ],
+        "1029": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Kavya"
+          }
+        ],
+        "1031": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Aryan"
           }
         ],
         "1033": [
@@ -39331,6 +40789,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1052": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Hi, I am "
           }
         ],
         "1056": [
@@ -39381,6 +40852,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1083": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are three or less than three yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1089": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are three or less than three yr old"
+          }
+        ],
         "1091": [
           {
             "meta": {
@@ -39405,6 +40917,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "110": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Error"
+          }
+        ],
         "1103": [
           {
             "meta": {
@@ -39415,6 +40940,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1104": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are six or less than six yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1110": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are six or less than six yr old"
           }
         ],
         "1112": [
@@ -39463,6 +41029,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1120": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are more than six yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1126": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are more than six yr old"
           }
         ],
         "1128": [
@@ -39525,6 +41132,34 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "115": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Error"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "1154": [
           {
             "meta": {
@@ -39559,6 +41194,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1168": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Breaking the for loop."
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1174": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Breaking the for loop."
           }
         ],
         "1176": [
@@ -39597,6 +41273,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1189": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Printing using for loop. Count is: "
+          }
+        ],
         "1193": [
           {
             "meta": {
@@ -39619,6 +41308,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "121": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Error"
           }
         ],
         "1212": [
@@ -39657,6 +41359,34 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1226": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Breaking the for loop."
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "123": [
           {
             "meta": {
@@ -39667,6 +41397,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1232": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Breaking the for loop."
           }
         ],
         "1234": [
@@ -39703,6 +41446,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1247": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Inside the while loop, counting: "
           }
         ],
         "125": [
@@ -39751,6 +41507,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "126": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "e.printStackTrace",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "1290": [
@@ -39849,6 +41619,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1349": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": " is even"
+          }
+        ],
         "1351": [
           {
             "meta": {
@@ -39945,6 +41728,34 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "144": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "I am a Car"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "1441": [
           {
             "meta": {
@@ -40005,6 +41816,45 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1484": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Found "
+          }
+        ],
+        "1488": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": " at position "
+          }
+        ],
+        "1492": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ","
+          }
+        ],
         "1496": [
           {
             "meta": {
@@ -40027,6 +41877,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "150": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Car"
           }
         ],
         "1505": [
@@ -40377,6 +42240,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "183": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Car number :"
+          }
+        ],
         "187": [
           {
             "meta": {
@@ -40413,6 +42289,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "199": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "I am a Car"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "205": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Car"
+          }
+        ],
         "207": [
           {
             "meta": {
@@ -40447,6 +42364,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "213": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "I am a Truck"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "219": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Truck"
           }
         ],
         "221": [
@@ -40495,6 +42453,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "249": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck number: "
           }
         ],
         "253": [
@@ -40581,6 +42552,32 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "291": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck Number: "
+          }
+        ],
+        "295": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ", "
+          }
+        ],
         "299": [
           {
             "meta": {
@@ -40665,6 +42662,32 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "335": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck Number: "
+          }
+        ],
+        "339": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ", "
+          }
+        ],
         "343": [
           {
             "meta": {
@@ -40713,6 +42736,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "361": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Finish"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "367": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Finish"
+          }
+        ],
         "369": [
           {
             "meta": {
@@ -40723,6 +42787,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "379": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Car"
           }
         ],
         "381": [
@@ -40749,6 +42826,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "384": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "I am a Car"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "390": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Car"
+          }
+        ],
         "392": [
           {
             "meta": {
@@ -40759,6 +42877,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "402": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck"
           }
         ],
         "404": [
@@ -40785,6 +42916,34 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "407": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "I am a Truck"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "41": [
           {
             "meta": {
@@ -40795,6 +42954,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "413": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Truck"
           }
         ],
         "415": [
@@ -40831,6 +43003,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "421": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "I am a Bike"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "427": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Bike"
           }
         ],
         "429": [
@@ -40881,6 +43094,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "457": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are one yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "463": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are one yr old"
+          }
+        ],
         "465": [
           {
             "meta": {
@@ -40903,6 +43157,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "47": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Car"
           }
         ],
         "473": [
@@ -40929,6 +43196,34 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "476": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are two yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "48": [
           {
             "meta": {
@@ -40939,6 +43234,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "482": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are two yr old"
           }
         ],
         "484": [
@@ -41025,6 +43333,19 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "515": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "number :"
+          }
+        ],
         "519": [
           {
             "meta": {
@@ -41073,6 +43394,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "537": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Finish"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "543": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Finish"
+          }
+        ],
         "545": [
           {
             "meta": {
@@ -41109,6 +43471,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "555": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are three yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "561": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are three yr old"
+          }
+        ],
         "563": [
           {
             "meta": {
@@ -41143,6 +43546,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "571": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are more than three yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "577": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are more than three yr old"
           }
         ],
         "579": [
@@ -41205,6 +43649,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "610": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are one yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "616": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are one yr old"
+          }
+        ],
         "618": [
           {
             "meta": {
@@ -41227,6 +43712,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "624": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are two yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "630": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are two yr old"
           }
         ],
         "632": [
@@ -41253,6 +43779,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "638": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are three yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "644": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are three yr old"
+          }
+        ],
         "646": [
           {
             "meta": {
@@ -41275,6 +43842,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "651": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are more than three yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "657": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are more than three yr old"
           }
         ],
         "659": [
@@ -41337,6 +43945,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "698": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are three or less than three yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "704": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are three or less than three yr old"
+          }
+        ],
         "706": [
           {
             "meta": {
@@ -41397,6 +44046,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "723": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are six or less than six yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "729": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are six or less than six yr old"
+          }
+        ],
         "731": [
           {
             "meta": {
@@ -41431,6 +44121,47 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "739": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "You are more than six yr old"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "745": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "You are more than six yr old"
           }
         ],
         "747": [
@@ -41491,6 +44222,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "779": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Inside the while loop, counting: "
           }
         ],
         "783": [
@@ -41563,6 +44307,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "810": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Inside the while loop, counting: "
           }
         ],
         "814": [
@@ -41659,6 +44416,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "850": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "number :"
           }
         ],
         "854": [
@@ -41769,6 +44539,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "908": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Breaking the for loop."
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "914": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Breaking the for loop."
+          }
+        ],
         "916": [
           {
             "meta": {
@@ -41803,6 +44614,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "929": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Inside the while loop, counting: "
           }
         ],
         "933": [
@@ -41887,6 +44711,19 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "963": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "number :"
           }
         ],
         "967": [

@@ -240,6 +240,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.SyntaxStepDeclaration,
                 graph_model.SyntaxStepMethodInvocation,
                 graph_model.SyntaxStepNoOp,
+                graph_model.SyntaxStepStringLiteral,
                 core_model.SkimsVulnerabilityMetadata,
                 core_model.Vulnerability,
                 Node,
