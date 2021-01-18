@@ -17,4 +17,6 @@ skims-process-group-on-aws
 skims-process-groups-on-aws
 skims-repl
 skims-test
+sorts-infra-deploy
+sorts-infra-test
 sorts-test

@@ -81,13 +81,13 @@ sorts-test:
   <<: *sorts_in_dev_branch
   stage: test-code
 
-sorts_test_infra:
-  <<: *with_nix
+sorts-infra-test:
+  <<: *makes
   <<: *sorts_in_dev_branch
   stage: test-infra
 
-sorts_deploy_infra:
-  <<: *with_nix
+sorts-infra-deploy:
+  <<: *makes
   <<: *sorts_in_master_branch
   stage: deploy-infra
 

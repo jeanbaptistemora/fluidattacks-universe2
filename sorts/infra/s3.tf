@@ -11,12 +11,12 @@ resource "aws_s3_bucket" "sorts_bucket" {
   }
 
   lifecycle_rule {
-    id = "training-job-configs"
-    prefix = "sorts-training-test"
+    id      = "training-job-configs"
+    prefix  = "sorts-training-test"
     enabled = true
 
     expiration {
-      days = 8
+      days                         = 8
       expired_object_delete_marker = true
     }
   }
