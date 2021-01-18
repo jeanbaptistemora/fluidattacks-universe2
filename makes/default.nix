@@ -22,6 +22,7 @@ flake.lib.eachDefaultSystem (
           makes-deploy-oci-ci = import ../makes/makes/deploy/oci-ci attrs;
           makes-lint = import ../makes/makes/lint attrs;
           melts = import ../makes/melts/bin attrs;
+          melts-test = import ../makes/melts/test attrs;
           observes-infra-test = import ../makes/observes/infra-test attrs;
           observes-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-tap-json = import ../makes/observes/tap-json/bin attrs;

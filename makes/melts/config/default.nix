@@ -6,7 +6,9 @@ let
   makeSearchPaths = import ../../../makes/utils/make-search-paths meltsPkgs;
   makeTemplate = import ../../../makes/utils/make-template meltsPkgs;
   nixRequirements = {
-    development = makeSearchPaths [ ];
+    development = makeSearchPaths [
+      meltsPkgs.docker
+    ];
     runtime = makeSearchPaths [ ];
   };
 
@@ -18,10 +20,8 @@ let
           "aiogqlc==1.0.3"
           "alive-progress==1.6.1"
           "aws-okta-processor==1.5.0"
-          "awscli==1.18.40"
+          "awscli==1.18.140"
           "binaryornot==0.4.4"
-          "boto3==1.12.40"
-          "botocore==1.15.40"
           "bugsnag==3.7.1"
           "click==7.1.2"
           "frozendict==1.2"
@@ -45,6 +45,8 @@ let
           "async-timeout==3.0.1"
           "attrs==20.3.0"
           "beautifulsoup4==4.9.3"
+          "boto3==1.16.56"
+          "botocore==1.19.56"
           "bs4==0.0.1"
           "certifi==2020.12.5"
           "chardet==4.0.0"
@@ -77,7 +79,7 @@ let
       dependencies = [ ];
       requirements = {
         direct = [
-          "localstack==0.11.0.5"
+          "localstack==0.12.5"
           "pytest-cov==2.7.1"
           "pytest-random-order==1.0.4"
           "pytest-rerunfailures==9.0"
@@ -88,8 +90,8 @@ let
           "apipkg==1.5"
           "atomicwrites==1.4.0"
           "attrs==20.3.0"
-          "boto3==1.16.55"
-          "botocore==1.19.55"
+          "boto3==1.16.56"
+          "botocore==1.19.56"
           "certifi==2020.12.5"
           "chardet==4.0.0"
           "coverage==5.3.1"
