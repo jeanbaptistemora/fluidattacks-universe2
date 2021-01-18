@@ -30,6 +30,7 @@ from backend.api.mutations import (
     delete_vulnerability_tags,
     download_event_file,
     download_file,
+    download_vulnerability_file,
     edit_group,
     edit_stakeholder,
     edit_stakeholder_organization,
@@ -71,9 +72,6 @@ from backend.api.mutations import (
     update_vulns_treatment,
     upload_file,
     verify_request_vulnerability
-)
-from backend.api.resolvers import (
-    vulnerability
 )
 
 
@@ -171,7 +169,6 @@ MUTATION.set_field(
     request_verification_vulnerability.mutate
 )
 MUTATION.set_field('verifyRequestVuln', verify_request_vulnerability.mutate)
-MUTATION.set_field('downloadVulnFile',
-                   vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('downloadVulnFile', download_vulnerability_file.mutate)
 MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
 MUTATION.set_field('updateVulnsTreatment', update_vulns_treatment.mutate)
