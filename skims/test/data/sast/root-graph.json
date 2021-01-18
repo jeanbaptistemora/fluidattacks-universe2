@@ -7191,6 +7191,48 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "330": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "theCookie.getValue",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ],
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "336": [
           {
             "dependencies": [],
@@ -22864,6 +22906,48 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "72": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "theCookie.getValue",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ],
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "UTF-8"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "78": [

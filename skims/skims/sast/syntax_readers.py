@@ -119,6 +119,7 @@ def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             dependencies=[
                 generic(args.fork_n_id(args_c_id))
                 for args_c_id in g.adj_ast(args.graph, args_id)[1:-1]
+                if args.graph.nodes[args_c_id]['label_type'] != ','
             ],
             meta=graph_model.SyntaxStepMeta.default(),
             method=g.concatenate_label_text(args.graph, identifier_ids),
