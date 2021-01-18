@@ -34,13 +34,6 @@ from __init__ import (
 # https://redis-py-cluster.readthedocs.io/en/stable
 
 # Constants
-REDIS = RedisCluster(
-    decode_responses=True,
-    host=FI_REDIS_SERVER,
-    max_connections=2048,
-    port=6379,
-    skip_full_coverage_check=True,
-)
 REDIS_EXCEPTIONS = (
     ClusterDownException,
     OSError,
@@ -51,7 +44,33 @@ REDIS_EXCEPTIONS = (
 )
 
 
-async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
+async def _redis_cmd_base(cmd: str, *args: Any, **kwargs: Any) -> Any:
     cmd_func = getattr(REDIS, cmd)
     data = await in_thread(cmd_func, *args, **kwargs)
     return data
+
+
+async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
+    try:
+        return await _redis_cmd_base(cmd, *args, **kwargs)
+    except ClusterDownException:
+        # Regenerate redis cluster object so it points to the new internal IP
+        global REDIS  # pylint: disable=global-statement
+        REDIS = instantiate_redis_cluster()
+
+        # Retry the command
+        return await _redis_cmd_base(cmd, *args, **kwargs)
+
+
+def instantiate_redis_cluster() -> RedisCluster:
+    return RedisCluster(
+        decode_responses=True,
+        host=FI_REDIS_SERVER,
+        max_connections=2048,
+        port=6379,
+        skip_full_coverage_check=True,
+    )
+
+
+# Import hooks
+REDIS = instantiate_redis_cluster()
