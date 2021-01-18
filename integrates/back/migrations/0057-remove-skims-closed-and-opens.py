@@ -34,8 +34,8 @@ This migration makes sure that the new_historic couldn't be
 empty, that makes that new vulns added on that dates don't
 have any problem.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-01-17 at 16:30:22 UTC-05
+Finalization Time: 2021-01-17 at 16:50:35 UTC-05
 """
 # Standard library
 from itertools import chain
@@ -151,6 +151,10 @@ async def fix_vuln_historics(
             uuid = vulnerability['UUID']
             finding_id = vulnerability['finding_id']
             if STAGE == 'apply':
+                print(
+                    '[INFO] historic_state of vuln with UUID: ' +
+                    f'{uuid} on finding: {finding_id} will be changed'
+                )
                 await vuln_dal.update(
                     finding_id,
                     uuid,
@@ -158,7 +162,8 @@ async def fix_vuln_historics(
                 )
             else:
                 print(
-                    f'[INFO] historic_state of vuln with UUID: {uuid} on finding: {finding_id} will be changed'
+                    '[INFO] historic_state of vuln with UUID: ' +
+                    f'{uuid} on finding: {finding_id} will be changed'
                 )
                 print('-'*20)
                 print('new_historic:')
