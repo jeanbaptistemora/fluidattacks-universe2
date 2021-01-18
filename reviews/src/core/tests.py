@@ -67,7 +67,7 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
             for p_job in p_jobs:
                 if p_job.status in ('success', 'manual'):
                     pass
-                elif p_job.status in ('pending', 'running'):
+                elif p_job.status in ('pending', 'running', 'created'):
                     sleep(5)
                     index = -1
                 else:
