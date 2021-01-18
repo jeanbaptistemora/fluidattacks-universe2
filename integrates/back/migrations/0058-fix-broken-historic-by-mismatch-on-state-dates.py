@@ -34,8 +34,8 @@ This migration makes sure that the new_historic couldn't be
 empty, that makes that new vulns added on that dates don't
 have any problem.
 
-Execution Time:    2021-01-17 at 16:30:22 UTC-05
-Finalization Time: 2021-01-17 at 16:50:35 UTC-05
+Execution Time:    2021-01-18 at 15:12:40 UTC-05
+Finalization Time: 2021-01-18 at 15:13:24 UTC-05
 """
 # Standard library
 import os
