@@ -15,6 +15,7 @@ from typing import (
     Callable,
     Dict,
     Iterable,
+    Iterator,
     List,
     NamedTuple,
     Optional,
@@ -37,6 +38,7 @@ NIdPredicateFunction = Callable[[str], bool]
 
 SyntaxStep = Any
 SyntaxSteps = List[SyntaxStep]
+SyntaxStepsLazy = Iterator[SyntaxStep]
 
 
 @dataclass
@@ -64,6 +66,13 @@ class SyntaxStepDeclaration(NamedTuple):
     var_type: str
     meta: SyntaxStepMeta
     type: str = 'SyntaxStepDeclaration'
+
+
+class SyntaxStepMethodInvocation(NamedTuple):
+    dependencies: List[SyntaxSteps]
+    meta: SyntaxStepMeta
+    method: str
+    type: str = 'SyntaxStepMethodInvocation'
 
 
 class SyntaxStepNoOp(NamedTuple):

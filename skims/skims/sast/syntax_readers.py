@@ -1,4 +1,8 @@
 # Standard library
+from __future__ import (
+    annotations,
+)
+import contextlib
 from typing import (
     Callable,
     Dict,
@@ -22,10 +26,20 @@ from utils.logs import (
 )
 
 
-SyntaxReader = Callable[
-    [graph_model.Graph, graph_model.NId, graph_model.SyntaxSteps],
-    None,
-]
+class SyntaxReaderArgs(NamedTuple):
+    graph: graph_model.Graph
+    language: graph_model.GraphShardMetadataLanguage
+    n_id: graph_model.NId
+
+    def fork_n_id(self, n_id: graph_model.NId) -> SyntaxReaderArgs:
+        return SyntaxReaderArgs(
+            graph=self.graph,
+            language=self.language,
+            n_id=n_id,
+        )
+
+
+SyntaxReader = Callable[[SyntaxReaderArgs], graph_model.SyntaxStepsLazy]
 SyntaxReaders = Tuple[SyntaxReader, ...]
 
 
@@ -38,77 +52,96 @@ class Dispatcher(NamedTuple):
 Dispatchers = Tuple[Dispatcher, ...]
 
 
-class UnableToRead(Exception):
+class MissingSyntaxReader(Exception):
+    pass
 
-    def __init__(self, reader: SyntaxReader, n_id: graph_model.NId) -> None:
-        log_blocking('debug', 'Unable to read: %s, %s', get_id(reader), n_id)
+
+class MissingCaseHandling(Exception):
+
+    def __init__(
+        self,
+        reader: SyntaxReader,
+        reader_args: SyntaxReaderArgs,
+    ) -> None:
+        log_blocking(
+            'debug', 'Missing case handling: %s, %s',
+            get_id(reader), reader_args.n_id,
+        )
         super().__init__()
 
 
-def noop(
-    _graph: graph_model.Graph,
-    _n_id: graph_model.NId,
-    syntax_steps: graph_model.SyntaxSteps,
-) -> None:
-    syntax_steps.append(graph_model.SyntaxStepNoOp(
+def noop(_args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    yield graph_model.SyntaxStepNoOp(
         meta=graph_model.SyntaxStepMeta.default(),
-    ))
+    )
 
 
-def method_declaration(
-    graph: graph_model.Graph,
-    n_id: graph_model.NId,
-    syntax_steps: graph_model.SyntaxSteps,
-) -> None:
-    for params_id in g.get_ast_childs(graph, n_id, 'formal_parameters'):
-        for param_id in g.get_ast_childs(graph, params_id, 'formal_parameter'):
-            method_declaration_formal_parameter(graph, param_id, syntax_steps)
+def method_declaration(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    for ps_id in g.get_ast_childs(args.graph, args.n_id, 'formal_parameters'):
+        for p_id in g.get_ast_childs(args.graph, ps_id, 'formal_parameter'):
+            yield from method_declaration_formal_parameter(
+                args.fork_n_id(p_id)
+            )
 
 
 def method_declaration_formal_parameter(
-    graph: graph_model.Graph,
-    n_id: graph_model.NId,
-    syntax_steps: graph_model.SyntaxSteps,
-) -> None:
-    match = g.match_ast(graph, n_id, 'type_identifier', 'identifier')
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(args.graph, args.n_id, 'type_identifier', 'identifier')
 
     if (
         len(match) == 2
         and (var_type_id := match['type_identifier'])
         and (var_id := match['identifier'])
     ):
-        syntax_steps.append(graph_model.SyntaxStepDeclaration(
+        yield graph_model.SyntaxStepDeclaration(
             dependencies=[],
             meta=graph_model.SyntaxStepMeta.default(),
-            var=graph.nodes[var_id]['label_text'],
-            var_type=graph.nodes[var_type_id]['label_text'],
-        ))
-    else:
-        raise UnableToRead(
-            reader=method_declaration_formal_parameter,
-            n_id=n_id,
+            var=args.graph.nodes[var_id]['label_text'],
+            var_type=args.graph.nodes[var_type_id]['label_text'],
         )
+    else:
+        raise MissingCaseHandling(method_declaration_formal_parameter, args)
 
 
-def attemp_with_readers(
-    graph: graph_model.Graph,
-    n_id: graph_model.NId,
-    syntax_readers: SyntaxReaders,
+def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    c_ids = g.adj_ast(args.graph, args.n_id)
+
+    identifier_ids = c_ids[0:-1]
+    args_id = c_ids[-1]
+
+    if g.contains_label_type_in(args.graph, identifier_ids, {
+        'field_access',
+        'identifier',
+        '.',
+    }):
+        yield graph_model.SyntaxStepMethodInvocation(
+            dependencies=generic(args.fork_n_id(args_id)),
+            meta=graph_model.SyntaxStepMeta.default(),
+            method=g.concatenate_label_text(args.graph, identifier_ids),
+        )
+    else:
+        raise MissingCaseHandling(method_invocation, args)
+
+
+def generic(
+    args: SyntaxReaderArgs,
+    *,
+    warn_if_missing_syntax_reader: bool = True,
 ) -> graph_model.SyntaxSteps:
-    syntax_steps: graph_model.SyntaxSteps = []
+    n_attrs_label_type = args.graph.nodes[args.n_id]['label_type']
+    for dispatcher in DISPATCHERS_BY_LANG[args.language]:
+        if n_attrs_label_type in dispatcher.applicable_node_label_types:
+            for syntax_reader in dispatcher.syntax_readers:
+                try:
+                    return list(syntax_reader(args))
+                except MissingCaseHandling:
+                    continue
 
-    for syntax_reader in syntax_readers:
-        try:
-            syntax_reader(graph, n_id, syntax_steps)
-        except UnableToRead:
-            # This syntax reader is not able to understand the node
-            continue
-        else:
-            # This syntax reader was able to understand the node
-            # Let's read the next node
-            break
+    if warn_if_missing_syntax_reader:
+        log_blocking('debug', 'Missing syntax reader for n_id: %s', args.n_id)
 
-    return syntax_steps
+    raise MissingSyntaxReader(args)
 
 
 DISPATCHERS: Tuple[Dispatcher, ...] = (
@@ -121,6 +154,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             method_declaration,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'method_invocation',
+        },
+        syntax_readers=(
+            method_invocation,
         ),
     ),
     *[
@@ -162,16 +206,13 @@ def read_from_graph(
 ) -> graph_model.GraphSyntax:
     graph_syntax: graph_model.GraphSyntax = {}
 
-    for n_id, n_attrs in graph.nodes.items():
-        n_attrs_label_type = n_attrs['label_type']
-        for dispatcher in DISPATCHERS_BY_LANG[language]:
-            if n_attrs_label_type in dispatcher.applicable_node_label_types:
-                if syntax_steps := attemp_with_readers(
-                    graph=graph,
-                    n_id=n_id,
-                    syntax_readers=dispatcher.syntax_readers,
-                ):
-                    graph_syntax[n_id] = syntax_steps
-                    break
+    # Read the syntax of every node in the graph, if possible
+    for n_id in graph.nodes:
+        with contextlib.suppress(MissingSyntaxReader):
+            graph_syntax[n_id] = generic(SyntaxReaderArgs(
+                graph=graph,
+                language=language,
+                n_id=n_id,
+            ), warn_if_missing_syntax_reader=False)
 
     return graph_syntax

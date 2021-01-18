@@ -437,6 +437,24 @@ def copy_cfg(graph: Graph) -> Graph:
     )
 
 
+def contains_label_type_in(
+    graph: Graph,
+    c_ids: Tuple[str, ...],
+    label_types: Set[str],
+) -> bool:
+    return all(
+        graph.nodes[c_id].get('label_type') in label_types
+        for c_id in c_ids
+    )
+
+
+def concatenate_label_text(
+    graph: Graph,
+    c_ids: Tuple[str, ...],
+) -> str:
+    return ''.join(graph.nodes[c_id]['label_text'] for c_id in c_ids)
+
+
 # Functions below should disappear
 
 

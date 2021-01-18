@@ -238,6 +238,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.GraphShardMetadataJavaClass,
                 graph_model.GraphShardMetadataJavaClassMethod,
                 graph_model.SyntaxStepDeclaration,
+                graph_model.SyntaxStepMethodInvocation,
                 graph_model.SyntaxStepNoOp,
                 core_model.SkimsVulnerabilityMetadata,
                 core_model.Vulnerability,
