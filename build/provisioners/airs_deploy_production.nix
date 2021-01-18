@@ -17,6 +17,14 @@ in
         pkgs.python38
         pkgs.awscli
         pkgs.rsync
+        pkgs.autoconf
+        pkgs.libtool
+        pkgs.automake
+        pkgs.nasm
+        pkgs.dpkg
+        pkgs.pkgconfig
+        pkgs.libpng
+        pkgs.gcc
       ];
 
       pyPkgPelican = builders.pythonPackage {
