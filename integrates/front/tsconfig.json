@@ -9,8 +9,12 @@
       "dom",
       "es2018"
     ],
-    "module": "CommonJS",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "paths": {
       "components/*": [ "components/*" ],
       "graphics/*": [ "graphics/*" ],
@@ -25,8 +29,5 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2019"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

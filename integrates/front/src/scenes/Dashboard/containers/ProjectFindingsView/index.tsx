@@ -36,7 +36,6 @@ import {
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
 import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { formatTreatment } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -100,14 +99,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     { value: "Open", label: "Open" },
     { value: "Closed", label: "Closed" },
   ];
-  const selectOptionsTreatment: optionSelectFilterProps[] = [
-    { value: "Temporarily accepted", label: "Temporarily accepted" },
-    { value: "In progress", label: "In progress" },
-    { value: "Eternally accepted", label: "Eternally accepted" },
-    { value: "Eternally accepted (Pending approval)", label: "Eternally accepted (Pending approval)" },
-    { value: "New", label: "New" },
-    { value: "-", label: "-" },
-  ];
   const selectOptionsVerification: optionSelectFilterProps[] = [
     { value: "Pending", label: "Pending" },
     { value: "-", label: "-" },
@@ -126,8 +117,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     { restriction: [7, 8.9], value: "High" },
     { restriction: [9, 10], value: "Critical" },
   ];
-  const [optionTreatment, setOptionTreatment] =
-    React.useState<optionSelectFilterProps[]>(selectOptionsTreatment);
 
   const handleChange: (columnName: string) => void = (columnName: string): void => {
     if (
@@ -159,12 +148,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
     if (!_.isUndefined(qrResult)) {
-      let findingOptions: string[] = Array.from(new Set(qrResult.project.findings.map(
-        (finding: { treatment: string }) => finding.treatment)));
-      findingOptions = findingOptions.map((option: string) => translate.t(formatTreatment(option, "open")));
-      const filterOptions: optionSelectFilterProps[] = selectOptionsTreatment.filter(
-        (option: optionSelectFilterProps) => (_.includes(findingOptions, option.value)));
-      setOptionTreatment(filterOptions);
       mixpanel.track("ProjectFindings", { User: userName });
     }
   };
@@ -196,10 +179,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const onFilterVerification: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("verificationFilter", filterVal);
   };
-  const onFilterTreatment: ((filterVal: string) => void) =
-    (filterVal: string): void => {
-      sessionStorage.setItem("treatmentFilter", filterVal);
-    };
   const onFilterSeverity: ((filterVal: string, data: IFindingAttr[]) => IFindingAttr[]) =
     (filterVal: string, data: IFindingAttr[]): IFindingAttr[] => {
       sessionStorage.setItem("severityFilter", filterVal);

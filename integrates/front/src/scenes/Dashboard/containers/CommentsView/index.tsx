@@ -10,7 +10,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import {
@@ -30,7 +29,6 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const commentsView: React.FC = (): JSX.Element => {
-  const { t } = useTranslation();
   const params: { findingId: string; type: string } = useParams();
   const findingId: string = params.findingId;
   let type: string = params.type;

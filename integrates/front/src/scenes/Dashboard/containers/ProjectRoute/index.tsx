@@ -9,7 +9,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { Glyphicon } from "react-bootstrap";
-import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
@@ -26,13 +26,8 @@ import { translate } from "utils/translations/translate";
 
 const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Element => {
   const { setUserRole } = props;
-  const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
   const { path } = useRouteMatch();
-
-  const closeRejectProjectModal: (() => void) = (): void => {
-    push("/home");
-  };
 
   const attributes: PureAbility<string> = React.useContext(authzGroupContext);
   const permissions: PureAbility<string> = React.useContext(authzPermissionsContext);

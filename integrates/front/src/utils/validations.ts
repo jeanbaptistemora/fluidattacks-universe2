@@ -37,6 +37,8 @@ const getGroupValues: (
         `Field ${fieldId.toString()} must be grouped by a <FormSection> component`
       )
     );
+
+    return undefined;
   }
 };
 
@@ -97,7 +99,11 @@ const validTextField: Validator = (value: string): string | undefined => {
       return translate.t("validations.invalidTextField", {
         chars: `'${textMatch[0]}'`,
       });
+    } else {
+      return undefined;
     }
+  } else {
+    return undefined;
   }
 };
 
@@ -130,7 +136,11 @@ const validUrlField: (value: string) => string | undefined = (
       return translate.t("validations.invalidUrlField", {
         chars: `'${urlMatch[0]}'`,
       });
+    } else {
+      return undefined;
     }
+  } else {
+    return undefined;
   }
 };
 
@@ -325,6 +335,8 @@ const isValidDateAccessToken: Validator = (
 
   if (date > sixMonthsLater) {
     return translate.t("validations.valid_date_token");
+  } else {
+    return undefined;
   }
 };
 
@@ -334,6 +346,8 @@ const isLowerDate: Validator = (value: string): string | undefined => {
 
   if (date <= today) {
     return translate.t("validations.lower_date");
+  } else {
+    return undefined;
   }
 };
 
@@ -355,6 +369,8 @@ const excludeFormat: Validator = (
     return value.toLowerCase().split("/").indexOf(repoName.toLowerCase()) == 0
       ? translate.t("validations.excludeFormat")
       : undefined;
+  } else {
+    return undefined;
   }
 };
 

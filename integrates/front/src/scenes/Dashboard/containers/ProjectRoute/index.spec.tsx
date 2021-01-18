@@ -1,10 +1,8 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { PureAbility } from "@casl/ability";
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { MemoryRouter, Route } from "react-router-dom";
 
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";

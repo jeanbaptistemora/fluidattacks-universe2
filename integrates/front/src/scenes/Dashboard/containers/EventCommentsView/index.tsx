@@ -9,7 +9,6 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import {
   Comments,
@@ -27,7 +26,6 @@ import { translate } from "utils/translations/translate";
 
 const eventCommentsView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{eventId: string}>();
-  const { t } = useTranslation();
 
   const handleErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,

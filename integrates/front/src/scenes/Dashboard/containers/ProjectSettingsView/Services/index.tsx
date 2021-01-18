@@ -62,7 +62,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
 
   // Business Logic handlers
   const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> = (
-    event: React.ChangeEvent<string> | undefined, subsType: string,
+    _0: React.ChangeEvent<string> | undefined, subsType: string,
   ): void => {
     dispatch(change("editGroup", "drills", true));
     dispatch(change("editGroup", "forces", isContinuousType(subsType)));

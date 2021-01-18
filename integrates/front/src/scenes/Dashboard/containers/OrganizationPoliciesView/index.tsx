@@ -211,7 +211,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
                                   .toString(),
         }}
       >
-        {({ handleSubmit, pristine, valid }: InjectedFormProps): JSX.Element => (
+        {({ handleSubmit, pristine }: InjectedFormProps): JSX.Element => (
           <React.Fragment>
             <DataTableNext
               bordered={true}

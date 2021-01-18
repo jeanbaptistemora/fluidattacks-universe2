@@ -231,6 +231,8 @@ const onError: (
                 networkError: exception as Error,
                 operation,
               });
+
+              return undefined;
             }
           })();
 

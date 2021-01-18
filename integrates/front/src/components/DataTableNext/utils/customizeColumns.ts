@@ -14,9 +14,9 @@ const handleFormatter: (
   rowIndex: number,
   key: Readonly<IHeaderConfig>
 ): string | ReactElement | undefined => {
-  if (!_.isUndefined(key.formatter)) {
-    return key.formatter(value, row, rowIndex, key);
-  }
+  return _.isUndefined(key.formatter)
+    ? undefined
+    : key.formatter(value, row, rowIndex, key);
 };
 
 const addGivenHeaders: (
