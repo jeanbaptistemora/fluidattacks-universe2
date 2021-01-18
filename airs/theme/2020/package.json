@@ -37,8 +37,8 @@
     "webpack-cli": "3.3.10"
   },
   "devDependencies": {
-    "stylelint": "^13.8.0",
-    "stylelint-config-sass-guidelines": "^7.1.0"
+    "stylelint": "13.8.0",
+    "stylelint-config-sass-guidelines": "7.1.0"
   },
   "scripts": {
     "build": "webpack --config webpack.prod.config.ts -t codeFrame",

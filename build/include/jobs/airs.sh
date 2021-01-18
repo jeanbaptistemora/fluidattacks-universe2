@@ -207,19 +207,32 @@ function job_airs_test_defends {
 
 function job_airs_test_lint_styles {
   local err_count
-        pushd airs/theme/2020 \
-      &&  npm install \
-      &&  echo "[INFO] Running Stylelint to lint SCSS files" \
-      &&  if npm run lint:stylelint
-          then
-            echo '[INFO] All styles are ok!'
-          else
-                err_count="$(npx stylelint '**/*.scss' | wc -l || true)" \
-            &&  echo "[ERROR] ${err_count} errors found in styles!" \
-            &&  return 1
-          fi \
-    && popd \
-    || return 1
+
+      pushd airs/theme/2020 \
+  &&  npm install \
+  &&  echo "[INFO] Running Stylelint to lint SCSS files" \
+  &&  if npm run lint:stylelint
+      then
+        echo '[INFO] All styles are ok!'
+      else
+            err_count="$(npx stylelint '**/*.scss' | wc -l || true)" \
+        &&  echo "[ERROR] ${err_count} errors found in styles!" \
+        &&  return 1
+      fi \
+  &&  popd \
+  &&  pushd airs/new-front \
+  &&  npm install \
+  &&  echo "[INFO] Running Stylelint to lint SCSS files" \
+  &&  if npm run lint:stylelint
+      then
+        echo '[INFO] All styles on the new front are ok!'
+      else
+            err_count="$(npx stylelint '**/*.scss' | wc -l || true)" \
+        &&  echo "[ERROR] ${err_count} errors found in styles!" \
+        &&  return 1
+      fi \
+  &&  popd \
+  || return 1
 }
 
 function job_airs_deploy_local {

@@ -101,7 +101,6 @@ airs_test_lint_styles:
   <<: *with_nix
   <<: *in_dev_branch_airs
   stage: test-code
-  allow_failure: true
 
 airs_deploy_ephemeral:
   <<: *with_nix

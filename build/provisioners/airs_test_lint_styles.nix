@@ -10,6 +10,14 @@ in
       buildInputs = [
         pkgs.git
         pkgs.nodejs
+        pkgs.autoconf
+        pkgs.libtool
+        pkgs.automake
+        pkgs.nasm
+        pkgs.dpkg
+        pkgs.pkgconfig
+        pkgs.libpng
+        pkgs.gcc
       ];
     })
   )
