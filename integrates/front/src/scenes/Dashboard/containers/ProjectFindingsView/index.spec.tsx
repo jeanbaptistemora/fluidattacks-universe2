@@ -145,7 +145,7 @@ describe("ProjectFindingsView", () => {
                   description: "Test description",
                   id: "438679960",
                   isExploitable: true,
-                  lastVulnReport: 33,
+                  lastVulnerability: 33,
                   openAge: 99,
                   openVulnerabilities: 6,
                   remediated: false,

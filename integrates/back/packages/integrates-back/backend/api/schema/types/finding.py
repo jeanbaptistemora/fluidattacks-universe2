@@ -14,7 +14,6 @@ from backend.api.resolvers.new.finding import (
     historic_state,
     inputs_vulns,
     last_vulnerability,
-    last_vuln_report,
     lines_vulns,
     new_remediated,
     observations,
@@ -42,7 +41,6 @@ FINDING.set_field('exploit', exploit.resolve)
 FINDING.set_field('historicState', historic_state.resolve)
 FINDING.set_field('inputsVulns', inputs_vulns.resolve)
 FINDING.set_field('lastVulnerability', last_vulnerability.resolve)
-FINDING.set_field('lastVulnReport', last_vuln_report.resolve)
 FINDING.set_field('linesVulns', lines_vulns.resolve)
 FINDING.set_field('newRemediated', new_remediated.resolve)
 FINDING.set_field('observations', observations.resolve)

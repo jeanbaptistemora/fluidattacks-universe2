@@ -38,7 +38,7 @@ async def test_finding_age():
     query = '''{
       finding(identifier: "422286126"){
           age
-          lastVulnReport
+          lastVulnerability
           openAge
       }
     }'''
@@ -46,7 +46,7 @@ async def test_finding_age():
     result = await _get_result(data)
     assert 'errors' not in result
     assert result['data']['finding']['age'] == 332
-    assert result['data']['finding']['lastVulnReport'] == 332
+    assert result['data']['finding']['lastVulnerability'] == 332
     assert result['data']['finding']['openAge'] == 332
 
 
