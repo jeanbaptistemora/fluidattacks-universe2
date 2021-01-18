@@ -15,7 +15,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            environments
             files
             __typename
         }}
@@ -27,15 +26,6 @@ async def test_resource():
     assert 'shell.exe' in result['data']['resources']['files']
     assert 'shell2.exe' in result['data']['resources']['files']
     assert 'asdasd.py' in result['data']['resources']['files']
-    assert 'https%3A%2F%2Fsomeoneatfluid.integrates.env.' in \
-        result['data']['resources']['environments']
-    assert 'https%3A%2F%2Fsomeoneatfluid2.integrates.env.' in \
-        result['data']['resources']['environments']
-    assert 'https%3A%2F%2Ffluidattacks.com%2F' in \
-        result['data']['resources']['environments']
-    assert 'https%3A%2F%2Funittesting.fluidattacks.com%2F' in \
-        result['data']['resources']['environments']
-    environments = json.loads(result['data']['resources']['environments'])
     files = json.loads(result['data']['resources']['files'])
 
     query = f'''
@@ -111,12 +101,10 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            environments
             files
             __typename
         }}
     }}'''
     data = {'query': query}
     result = await get_result(data)
-    assert json.loads(result['data']['resources']['environments']) == environments
     assert json.loads(result['data']['resources']['files']) == files

@@ -33,7 +33,6 @@ async def resolve(
     group: Group = await group_loader.load(group_name)
 
     return {
-        'environments': cast(List[Resource], group.get('environments', [])),
         'files': cast(List[Resource], group.get('files', [])),
         'project_name': group_name,
     }

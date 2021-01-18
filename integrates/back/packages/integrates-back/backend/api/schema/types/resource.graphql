@@ -1,6 +1,5 @@
 "Resource type definition"
 type Resource {
-  environments: JSONString
   files: JSONString
   projectName: String
 }

@@ -16,10 +16,6 @@ async def test_resource():
         datetime_utils.get_now(),
         date_format='%Y-%m-%d'
     )
-    state_today = datetime_utils.get_as_str(
-        datetime_utils.get_now(),
-        date_format='%Y/%m/%d'
-    )
     group_name = 'unittesting'
 
     filename = os.path.dirname(os.path.abspath(__file__))
@@ -57,7 +53,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            environments
             files
             __typename
         }}
@@ -111,7 +106,6 @@ async def test_resource():
     query = f'''{{
         resources(projectName: "{group_name}"){{
             projectName
-            environments
             files
             __typename
         }}

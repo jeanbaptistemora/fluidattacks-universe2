@@ -18,12 +18,12 @@ async def _get_result(data):
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 
+
 async def test_get_resources():
     """Check for project resources"""
     query = '''{
       resources(projectName: "unittesting"){
         projectName
-        environments
         files
         __typename
       }
@@ -41,8 +41,7 @@ async def test_get_resources():
     assert 'shell.exe' in result['data']['resources']['files']
     assert 'shell2.exe' in result['data']['resources']['files']
     assert 'asdasd.py' in result['data']['resources']['files']
-    assert 'https%3A%2F%2Ffluidattacks.com%2F' in \
-        result['data']['resources']['environments']
+
 
 @pytest.mark.changes_db
 async def test_add_files():
@@ -53,8 +52,8 @@ async def test_add_files():
         uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
         file_data = [
             {'description': 'test',
-              'fileName': test_file.name.split('/')[2],
-              'uploadDate': ''}
+             'fileName': test_file.name.split('/')[2],
+             'uploadDate': ''}
         ]
         query = '''
             mutation UploadFileMutation(
@@ -82,6 +81,7 @@ async def test_add_files():
     else:
         pytest.skip("Expected error")
 
+
 @pytest.mark.changes_db
 async def test_download_file():
     """Check for downloadFile mutation."""
@@ -101,6 +101,7 @@ async def test_download_file():
     assert 'success' in result['data']['downloadFile']
     assert result['data']['downloadFile']['success']
     assert 'url' in result['data']['downloadFile']
+
 
 @pytest.mark.changes_db
 async def test_remove_files():

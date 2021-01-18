@@ -28,7 +28,6 @@ def format_group(group: Group) -> Group:
             if 'historic_deletion' in group else ''
         ),
         'description': group.get('description', ''),
-        'environments': group.get('environments', []),
         'files': group.get('files', []),
         'has_drills': historic_configuration[-1]['has_drills'],
         'has_forces': historic_configuration[-1]['has_forces'],

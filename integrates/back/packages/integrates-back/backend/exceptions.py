@@ -598,15 +598,6 @@ class InvalidOrganization(Exception):
         super(InvalidOrganization, self).__init__(msg)
 
 
-class InvalidResource(Exception):
-    """Exception to inform that the resource does not exist"""
-
-    def __init__(self) -> None:
-        """ Constructor """
-        msg = 'Exception - Resource does not exist'
-        super(InvalidResource, self).__init__(msg)
-
-
 class DocumentNotFound(Exception):
     """Exception to control analytics data availability"""
 

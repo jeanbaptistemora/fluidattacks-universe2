@@ -3,7 +3,6 @@
 import logging
 from collections import namedtuple
 from typing import Dict, List, NamedTuple, cast
-from urllib.parse import quote, unquote
 
 from aioextensions import (
     collect,
@@ -24,11 +23,7 @@ from backend.typing import (
 from backend.domain import (
     organization as org_domain
 )
-from backend.exceptions import (
-    InvalidFileSize,
-    RepeatedValues,
-    InvalidResource
-)
+from backend.exceptions import InvalidFileSize
 from backend.utils import (
     datetime as datetime_utils,
     validations,
@@ -51,9 +46,7 @@ def format_resource(resource_list: List[ResourceType], resource_type: str) -> \
         List[Dict[str, str]]:
     resource_description = []
     for resource_item in resource_list:
-        if resource_type == 'environment':
-            resource_text = str(resource_item.get('urlEnv', ''))
-        elif resource_type == 'file':
+        if resource_type == 'file':
             resource_text = str(resource_item.get('fileName', ''))
         resource_description.append({'resource_description': resource_text})
     return resource_description
@@ -183,141 +176,6 @@ async def remove_file(file_name: str, project_name: str) -> bool:
 
 async def download_file(file_info: str, project_name: str) -> str:
     return await resources_dal.download_file(file_info, project_name)
-
-
-def has_repeated_envs(
-        project_name: str,
-        existing_envs: List[ResourceType],
-        envs: List[ResourceType]) -> bool:
-    unique_inputs = list(
-        {env['urlEnv']: env for env in envs}.values()
-    )
-    has_repeated_inputs = len(envs) != len(unique_inputs)
-
-    all_envs = [{'urlEnv': env['urlEnv']} for env in existing_envs] + envs
-
-    unique_envs = list(
-        {env['urlEnv']: env for env in all_envs}.values()
-    )
-    has_repeated_existing = len(all_envs) != len(unique_envs)
-
-    if has_repeated_existing:
-        for environment in unique_envs:
-            if all_envs.count(environment) > 1 and environment not in envs:
-                LOGGER.warning(
-                    "Duplicated environment",
-                    extra=dict(repo=environment, project=project_name)
-                )
-
-    return has_repeated_inputs or has_repeated_existing
-
-
-def encode_resources(res_data: List[Dict[str, str]]) -> List[ResourceType]:
-    return [
-        {
-            key: quote(value, safe='')
-            for key, value in res.items()
-        } for res in res_data
-    ]
-
-
-def create_initial_state(user_email: str) -> Dict[str, str]:
-    return {
-        'user': user_email,
-        'date': datetime_utils.get_as_str(
-            datetime_utils.get_now(),
-            date_format='%Y-%m-%d %H:%M'
-        ),
-        'state': 'ACTIVE'
-    }
-
-
-async def create_environments(
-        res_data: List[Dict[str, str]],
-        project_name: str,
-        user_email: str) -> bool:
-
-    project_name = project_name.lower()
-
-    res_data_enc = encode_resources(res_data)
-    environments = await project_dal.get_attributes(
-        project_name.lower(), ['environments']
-    )
-    existing_envs = cast(
-        List[ResourceType], environments.get('environments', [])
-    )
-    if has_repeated_envs(project_name, existing_envs, res_data_enc):
-        raise RepeatedValues()
-
-    json_data: List[ResourceType] = []
-    for res in res_data_enc:
-        url_env = str(res.get('urlEnv', ''))
-        validations.validate_field_length(unquote(url_env), 500)
-        res_object = {
-            'urlEnv': url_env,
-            'historic_state': [create_initial_state(user_email)],
-        }
-        json_data.append(res_object)
-    existing_envs.extend(json_data)
-
-    return await project_dal.update(
-        project_name, {'environments': existing_envs}
-    )
-
-
-async def update_resource(
-        res_data: ResourceType,
-        project_name: str,
-        res_type: str,
-        user_email: str) -> bool:
-    res_list: List[ResourceType] = []
-    project_info = await project_dal.get_attributes(
-        project_name.lower(), ['environments']
-    )
-
-    if res_type == 'environment':
-        res_list = cast(
-            List[ResourceType],
-            project_info.get('environments', [])
-        )
-        res_id = 'urlEnv'
-        res_name = 'environments'
-
-    resource_exists = False
-    for resource in res_list:
-        if res_type == 'environment':
-            src_url_env = unquote(cast(str, resource['urlEnv']))
-            matches = src_url_env == res_data['urlEnv']
-
-        if res_id in resource and matches:
-            resource_exists = True
-            today = datetime_utils.get_now()
-            new_state = {
-                'user': user_email,
-                'date': util.format_comment_date(
-                    datetime_utils.get_as_str(today)
-                ),
-                'state': 'INACTIVE'
-            }
-            if 'historic_state' in resource:
-                historic_state = cast(
-                    List[Dict[str, str]],
-                    resource['historic_state']
-                )
-                if not historic_state[-1]['state'] == 'ACTIVE':
-                    new_state['state'] = 'ACTIVE'
-                historic_state.append(new_state)
-            else:
-                historic_state = [new_state]
-            resource['historic_state'] = historic_state
-            break
-
-    if not resource_exists:
-        raise InvalidResource()
-
-    return await project_dal.update(
-        project_name.lower(), {res_name: res_list}
-    )
 
 
 async def mask(project_name: str) -> NamedTuple:
