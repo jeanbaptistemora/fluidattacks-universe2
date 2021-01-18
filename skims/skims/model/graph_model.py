@@ -63,8 +63,12 @@ class SyntaxStepDeclaration(NamedTuple):
     var: str
     var_type: str
     meta: SyntaxStepMeta
-
     type: str = 'SyntaxStepDeclaration'
+
+
+class SyntaxStepNoOp(NamedTuple):
+    meta: SyntaxStepMeta
+    type: str = 'SyntaxStepNoOp'
 
 
 class Graph(nx.DiGraph):

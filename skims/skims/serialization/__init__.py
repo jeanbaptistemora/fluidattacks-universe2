@@ -238,6 +238,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.GraphShardMetadataJavaClass,
                 graph_model.GraphShardMetadataJavaClassMethod,
                 graph_model.SyntaxStepDeclaration,
+                graph_model.SyntaxStepNoOp,
                 core_model.SkimsVulnerabilityMetadata,
                 core_model.Vulnerability,
                 Node,
@@ -307,7 +308,6 @@ def load(stream: bytes) -> Any:
         AttributeError,
         json.decoder.JSONDecodeError,
         KeyError,
-        LoadError,
         TypeError,
         ValueError,
     ) as exc:

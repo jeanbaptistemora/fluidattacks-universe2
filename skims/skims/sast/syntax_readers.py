@@ -45,6 +45,16 @@ class UnableToRead(Exception):
         super().__init__()
 
 
+def noop(
+    _graph: graph_model.Graph,
+    _n_id: graph_model.NId,
+    syntax_steps: graph_model.SyntaxSteps,
+) -> None:
+    syntax_steps.append(graph_model.SyntaxStepNoOp(
+        meta=graph_model.SyntaxStepMeta.default(),
+    ))
+
+
 def method_declaration(
     graph: graph_model.Graph,
     n_id: graph_model.NId,
@@ -113,6 +123,25 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             method_declaration,
         ),
     ),
+    *[
+        Dispatcher(
+            applicable_languages={
+                graph_model.GraphShardMetadataLanguage.JAVA,
+            },
+            applicable_node_label_types={
+                applicable_node_label_type
+            },
+            syntax_readers=(
+                noop,
+            ),
+        )
+        for applicable_node_label_type in (
+            'block',
+            'comment',
+            'expression_statement',
+            ';',
+        )
+    ],
 )
 DISPATCHERS_BY_LANG: Dict[
     graph_model.GraphShardMetadataLanguage,
