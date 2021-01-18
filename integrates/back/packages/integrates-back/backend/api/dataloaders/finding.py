@@ -37,7 +37,6 @@ async def _batch_load_fn(
             historic_verification=finding.get('historicVerification', []),
             id=finding.get('findingId', ''),
             is_exploitable=finding.get('exploitable', ''),
-            last_vulnerability=finding.get('lastVulnerability', 0),
             project_name=finding.get('projectName', ''),
             recommendation=finding.get('effectSolution', ''),
             records=finding.get('records', ''),

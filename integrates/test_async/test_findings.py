@@ -97,7 +97,7 @@ async def test_format_data():
         'cvssVersion', 'analyst', 'subscription',
         'effectSolution', 'reportLevel', 'scenario',
         'severityCvss', 'modifiedAvailabilityImpact', 'vulnerability',
-        'findingId', 'threat', 'lastVulnerability', 'integrityImpact',
+        'findingId', 'threat', 'integrityImpact',
         'modifiedIntegrityImpact','relatedFindings',
         'exploitability']
 

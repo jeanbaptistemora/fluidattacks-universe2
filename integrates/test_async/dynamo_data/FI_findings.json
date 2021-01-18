@@ -210,9 +210,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2019-09-20 00:00:00"
-          },
           "confidentiality_requirement": {
             "N": "0.5"
           },
@@ -586,9 +583,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2018-11-20"
-          },
           "confidentiality_requirement": {
             "N": "1"
           },
@@ -732,9 +726,6 @@
           },
           "cvss_env": {
             "N": "0.0"
-          },
-          "lastVulnerability": {
-            "S": "2019-11-22 15:10:00"
           },
           "confidentiality_requirement": {
             "N": "1"
@@ -1103,9 +1094,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2019-09-20 13:14:58"
-          },
           "confidentiality_requirement": {
             "N": "1.5"
           },
@@ -1369,9 +1357,6 @@
           },
           "cvss_version": {
             "S": "3.1"
-          },
-          "lastVulnerability": {
-            "S": "2019-09-23 09:38:44"
           },
           "confidentiality_requirement": {
             "N": "1.5"
@@ -1843,9 +1828,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2018-12-17 00:00:00"
-          },
           "confidentiality_requirement": {
             "N": "1"
           },
@@ -1932,9 +1914,6 @@
                 }
               }
             ]
-          },
-          "lastVulnerability": {
-            "S": "2019-11-22 15:10:36"
           },
           "analyst": {
             "S": "integratesmanager@gmail.com"
@@ -2160,9 +2139,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2018-11-27 00:00:00"
-          },
           "confidentiality_requirement": {
             "N": "1"
           },
@@ -2384,9 +2360,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2019-09-20 00:00:00"
-          },
           "confidentiality_requirement": {
             "N": "0.5"
           },
@@ -2607,9 +2580,6 @@
           },
           "cvss_version": {
             "S": "3.1"
-          },
-          "lastVulnerability": {
-            "S": "2019-09-20 00:00:00"
           },
           "confidentiality_requirement": {
             "N": "0.5"
@@ -2860,9 +2830,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "lastVulnerability": {
-            "S": "2018-11-29 00:00:00"
-          },
           "confidentiality_requirement": {
             "N": "1"
           },
@@ -3019,9 +2986,6 @@
           },
           "cvss_env": {
             "N": "0.0"
-          },
-          "lastVulnerability": {
-            "S": "2019-04-07 19:45:15"
           },
           "confidentiality_requirement": {
             "N": "1.5"

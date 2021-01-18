@@ -45,7 +45,6 @@ async def mutate(
             finding_data,
             info
         )
-        await vuln_domain.update_last_vuln_date(finding_id)
     else:
         raise InvalidFileType()
     if success:

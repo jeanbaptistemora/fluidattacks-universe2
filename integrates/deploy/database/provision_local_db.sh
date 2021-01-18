@@ -568,9 +568,6 @@ then
               "cvss_env": {
                 "N": "0.0"
               },
-              "lastVulnerability": {
-                "S": "2019-04-07 19:45:15"
-              },
               "confidentiality_requirement": {
                 "N": "1.5"
               },

@@ -98,7 +98,6 @@ async def approve_draft(
                     'state': 'APPROVED'
                 })
                 finding_update_success = await finding_dal.update(draft_id, {
-                    'lastVulnerability': release_date,
                     'historic_state': history
                 })
                 all_vulns = await vuln_domain.list_vulnerabilities_async(
