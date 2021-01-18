@@ -2,6 +2,10 @@ data "aws_caller_identity" "current" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
+data "aws_iam_role" "dax_role" {
+  name = "DaxtoDynamoDB"
+}
+
 variable "subnets" {
   type = list(string)
   default = [

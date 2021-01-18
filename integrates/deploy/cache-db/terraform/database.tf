@@ -26,3 +26,44 @@ resource "aws_elasticache_replication_group" "cache_db" {
     "management:product" = "integrates"
   }
 }
+
+resource "aws_dax_subnet_group" "main" {
+  name       = "integrates-cache"
+  subnet_ids = var.subnets
+}
+
+resource "aws_dax_parameter_group" "main" {
+  name = "integrates-cache"
+
+  parameters {
+    name  = "query-ttl-millis"
+    value = "300000"
+  }
+
+  parameters {
+    name  = "record-ttl-millis"
+    value = "1800000"
+  }
+}
+
+resource "aws_dax_cluster" "main" {
+  cluster_name           = "integrates-cache"
+  description            = "Integrates DAX Cluster"
+  iam_role_arn           = data.aws_iam_role.dax_role.arn
+  security_group_ids     = var.security_groups
+  subnet_group_name      = aws_dax_subnet_group.main.name
+  parameter_group_name   = aws_dax_parameter_group.main.name
+  node_type              = "dax.r5.large"
+  replication_factor     = 1
+  maintenance_window     = "sun:10:00-sun:11:00"
+
+  server_side_encryption {
+    enabled = true
+  }
+
+  tags = {
+    "Name"               = "integrates-cache"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+}
