@@ -6,6 +6,8 @@ import {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
+  NavbarSubcategory,
+  SubcategoryLink,
 } from "../styles/styledComponents";
 
 export const NavbarItems: React.FC = (): JSX.Element => (
@@ -70,6 +72,32 @@ export const NavbarItems: React.FC = (): JSX.Element => (
           Solutions
         </NavbarRegularButton>
       </a>
+      <NavbarSubcategory className={"solutions-content"}>
+        <SubcategoryLink href={"../solutions/devsecops/"}>
+          DevSecOps
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/security-testing/"}>
+          Security Testing
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/penetration-testing/"}>
+          Penetration Testing
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/ethical-hacking/"}>
+          Ethical Hacking
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/red-teaming/"}>
+          Red Teaming
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/attack-simulation/"}>
+          Attack Simulation
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/secure-code-review/"}>
+          Secure Code Review
+        </SubcategoryLink>
+        <SubcategoryLink href={"../solutions/vulnerability-management/"}>
+          Vulnerability Management
+        </SubcategoryLink>
+      </NavbarSubcategory>
     </li>
     <li className={"db-l dn fr mr3 pr2 pv4 usecases-index"}>
       <a className={"no-underline"}
@@ -78,6 +106,17 @@ export const NavbarItems: React.FC = (): JSX.Element => (
           Services
         </NavbarRegularButton>
       </a>
+      <NavbarSubcategory className={"usecases-content"}>
+        <SubcategoryLink href={"../services/continuous-hacking/"}>
+          Continuous Hacking
+        </SubcategoryLink>
+        <SubcategoryLink href={"../services/one-shot-hacking/"}>
+          One Shot Hacking
+        </SubcategoryLink>
+        <SubcategoryLink href={"../services/comparative/"}>
+          Comparative
+        </SubcategoryLink>
+      </NavbarSubcategory>
     </li>
   </NavbarList>
 );

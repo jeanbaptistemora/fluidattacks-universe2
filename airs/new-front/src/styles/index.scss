@@ -1,6 +1,15 @@
 // Color Variables
 $button-red: rgba(191, 38, 38, 1);
 $button-hover: rgba(255, 52, 53, 1);
+$darkshadow: rgba(176, 176, 176, 0.3);
+$fluid-black: rgba(39, 39, 39, 1);
+$fluid-red: rgba(255, 52, 53, 1);
+
+// Rules
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 // Color classes
 .bc-fluid-red { border-color: $button-red; }
@@ -33,4 +42,38 @@ $button-hover: rgba(255, 52, 53, 1);
 // Media queries
 @media screen and (min-width: 60em) {
   .ph-body { padding: 0 3.75rem; }
+}
+
+// Animations
+.fadein { animation: fadein 0.5s; }
+.solutions-index:hover .solutions-content {
+  display: block;
+}
+
+.usecases-index:hover .usecases-content {
+  display: block;
+}
+
+// Custom elements
+
+.usecases-content,
+.solutions-content {
+  background-color: #fff;
+  box-shadow: 0 20px 20px $darkshadow;
+  display: none;
+  min-width: 160px;
+  position: absolute;
+
+  a {
+    color: $fluid-black;
+    display: block;
+    float: none;
+    padding: 12px 16px;
+    text-align: left;
+    text-decoration: none;
+
+    &:hover {
+      color: $fluid-red;
+    }
+  }
 }

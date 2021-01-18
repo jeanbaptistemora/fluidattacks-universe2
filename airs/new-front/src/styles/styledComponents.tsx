@@ -124,3 +124,26 @@ export const NavbarRegularButton: StyledComponent<
   pointer
   `,
 })``;
+
+export const NavbarSubcategory: StyledComponent<
+"div", Record<string, unknown>
+> = styled.div.attrs(
+  {
+    className: `
+    roboto
+    br3
+    br--bottom
+    pt4
+    fadein
+    `,
+})``;
+
+export const SubcategoryLink: StyledComponent<
+"a", Record<string, unknown>
+> = styled.a.attrs(
+  {
+    className: `
+    f-18
+    fw4
+    `,
+})``;
