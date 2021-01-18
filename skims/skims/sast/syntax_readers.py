@@ -138,12 +138,11 @@ def read_from_graph(
 
         for dispatcher in DISPATCHERS_BY_LANG[language]:
             if n_attrs['label_type'] in dispatcher.applicable_node_label_types:
-                syntax_steps = attemp_with_readers(
+                if syntax_steps := attemp_with_readers(
                     graph=graph,
                     n_id=n_id,
                     syntax_readers=dispatcher.syntax_readers,
-                )
-
-        graph_syntax[n_id] = syntax_steps
+                ):
+                    graph_syntax[n_id] = syntax_steps
 
     return graph_syntax

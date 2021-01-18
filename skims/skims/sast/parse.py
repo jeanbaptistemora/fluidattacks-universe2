@@ -206,8 +206,6 @@ def parse_one(
         to_svg(graph.graph, output)
         to_svg(copy_ast(graph.graph), f'{output}.ast')
         to_svg(copy_cfg(graph.graph), f'{output}.cfg')
-        with open(f'{output}.json', 'w') as handlew:
-            json_dump(graph, handlew, indent=2)
 
     return GraphShard(
         graph=graph.graph,
@@ -260,5 +258,10 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
 
             graph_db.shards.append(shard)
             graph_db.shards_by_path[shard.path] = index
+
+    if CTX.debug:
+        output = get_debug_path('tree-sitter')
+        with open(f'{output}.json', 'w') as handle:
+            json_dump(graph_db, handle, indent=2)
 
     return graph_db
