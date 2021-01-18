@@ -69,7 +69,8 @@ from backend.api.mutations import (
     update_severity,
     update_treatment_vulnerability,
     update_vulns_treatment,
-    upload_file
+    upload_file,
+    verify_request_vulnerability
 )
 from backend.api.resolvers import (
     vulnerability
@@ -169,8 +170,7 @@ MUTATION.set_field(
     'requestVerificationVuln',
     request_verification_vulnerability.mutate
 )
-MUTATION.set_field('verifyRequestVuln',
-                   vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('verifyRequestVuln', verify_request_vulnerability.mutate)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
