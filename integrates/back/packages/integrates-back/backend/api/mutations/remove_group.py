@@ -11,7 +11,10 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
-from backend.domain import project as project_domain
+from backend.domain import (
+    finding as finding_domain,
+    project as project_domain
+)
 from backend.exceptions import PermissionDenied
 from backend.typing import SimplePayload as SimplePayloadType
 
@@ -50,7 +53,20 @@ async def mutate(
         )
 
     if success:
-        await util.invalidate_cache(group_name, requester_email)
+        group_findings = await finding_domain.list_findings(
+            [group_name], include_deleted=True
+        )
+        group_drafts = await finding_domain.list_drafts(
+            [group_name], include_deleted=True
+        )
+        findings_and_drafts = (
+            group_findings[0] + group_drafts[0]
+        )
+        await util.invalidate_cache(
+            group_name,
+            requester_email,
+            *findings_and_drafts
+        )
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(
             info.context,

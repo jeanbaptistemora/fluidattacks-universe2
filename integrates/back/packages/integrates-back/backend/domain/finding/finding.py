@@ -547,7 +547,6 @@ async def mask_finding(finding_id: str) -> bool:
     mask_finding_coroutines.extend(mask_vulns_coroutines)
 
     success = all(await collect(mask_finding_coroutines))
-    util.queue_cache_invalidation(finding_id)
 
     return success
 
