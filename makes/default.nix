@@ -49,6 +49,7 @@ flake.lib.eachDefaultSystem (
         };
         packages = {
           forces-bin = import ../makes/forces/bin attrs;
+          forces-lint = import ../makes/forces/lint attrs;
           integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
           melts-lint = import ../makes/melts/lint attrs;

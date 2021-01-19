@@ -1,4 +1,5 @@
 forces-bin
+forces-lint
 integrates-lint-front
 melts-bin
 melts-lint

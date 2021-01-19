@@ -7,6 +7,7 @@ let
   makeTemplate = import ../../../makes/utils/make-template forcesPkgs;
   nixRequirements = {
     runtime = makeSearchPaths [ ];
+    development = makeSearchPaths [ ];
   };
   pythonRequirements = {
     runtime = buildPythonRequirements {
@@ -41,6 +42,27 @@ let
       };
       python = forcesPkgs.python38;
     };
+    development = buildPythonRequirements {
+      dependencies = [ ];
+      requirements = {
+        direct = [
+          "pytest-asyncio==0.14.0"
+          "pytest-cov==2.10.0"
+          "pytest==5.4.3"
+        ];
+        inherited = [
+          "attrs==20.3.0"
+          "coverage==5.3.1"
+          "more-itertools==8.6.0"
+          "packaging==20.8"
+          "pluggy==0.13.1"
+          "py==1.10.0"
+          "pyparsing==2.4.7"
+          "wcwidth==0.2.5"
+        ];
+      };
+      python = forcesPkgs.python38;
+    };
   };
 in
 {
@@ -56,5 +78,16 @@ in
     };
     name = "forces-config-setup-forces-runtime";
     template = ../../../makes/forces/config/setup-forces-runtime.sh;
+  };
+  setupForcesDevelopment = makeTemplate {
+    arguments = {
+      envBinPath = nixRequirements.development.binPath;
+      envLibPath = nixRequirements.development.libPath;
+      envPyPath = nixRequirements.development.pyPath;
+      envPythonRequirements = pythonRequirements.development;
+      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+    };
+    name = "forces-config-setup-forces-development";
+    template = ../../../makes/forces/config/setup-forces-development.sh;
   };
 }
