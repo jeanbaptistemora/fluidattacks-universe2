@@ -10,10 +10,7 @@ import os
 import time
 
 # Third party libraries
-from aioextensions import (
-    collect,
-    run
-)
+from aioextensions import collect, run
 
 # Local libraries
 from backend.dal import project as group_dal
@@ -33,13 +30,13 @@ async def remove_old_data(group_name: str) -> None:
 
 
 async def main() -> None:
-    print('[INFO] Starting migration 0059')
+    print('[INFO] Starting migration 0060')
     groups = await group_dal.get_all(data_attr='project_name')
     await collect(
         remove_old_data(group['project_name'])
         for group in groups
     )
-    print('[INFO] Migration 0059 finished')
+    print('[INFO] Migration 0060 finished')
 
 
 if __name__ == '__main__':

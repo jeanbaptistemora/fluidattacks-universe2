@@ -1,21 +1,16 @@
 # Standard library
 from typing import (
+    Any,
+    Dict,
     List,
-    NamedTuple,
-    Tuple,
+    NamedTuple
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-from async_lru import (
-    alru_cache,
-)
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
+from aioextensions import run
+from backend.api.dataloaders.group_roots import GroupRootsLoader
+from backend.typing import GitRoot
+
 
 # Local libraries
 from analytics import (
@@ -25,50 +20,14 @@ from analytics.colors import (
     OTHER,
 )
 
+
 Resources = NamedTuple('Resources', [
     ('environments', List[str]),
-    ('repositories', List[str]),
+    ('repositories', List[GitRoot]),
 ])
 
 
-@alru_cache(maxsize=None, typed=True)
-async def generate_one(group: str):
-    group_data = await GroupLoader().load(group)
-
-    repositories = [
-        f'{env.get("urlRepo", "").lower()}+{env.get("branch", "").lower()}'
-        for env in group_data['attrs'].get('repositories', [])
-        if 'historic_state' not in env
-        or env['historic_state'][-1]['state'].lower() == 'active'
-    ]
-
-    environments = [
-        str(env.get('urlEnv', '').lower())
-        for env in group_data['attrs'].get('environments', [])
-        if 'historic_state' not in env
-        or env['historic_state'][-1]['state'].lower() == 'active'
-    ]
-
-    return Resources(
-        environments=environments,
-        repositories=repositories,
-    )
-
-
-async def get_data_many_groups(groups: Tuple[str, ...]) -> Resources:
-    groups_data = await collect(map(generate_one, groups))
-
-    return Resources(
-        environments=list(
-            set(env for group in groups_data for env in group.environments)
-        ),
-        repositories=list(
-            set(repo for group in groups_data for repo in group.repositories)
-        ),
-    )
-
-
-def format_data(data: Resources) -> dict:
+def format_data(data: Resources) -> Dict[str, Any]:
     return {
         'data': {
             'columns': [
@@ -92,26 +51,53 @@ def format_data(data: Resources) -> dict:
     }
 
 
-async def generate_all():
-    async for group in utils.iterate_groups():
-        utils.json_dump(
-            document=format_data(
-                data=await generate_one(group),
-            ),
-            entity='group',
-            subject=group,
-        )
+def format_resources(roots: List[GitRoot]) -> Resources:
+    return Resources(
+        environments=[
+            env_url
+            for root in roots
+            for env_url in root.environment_urls
+        ],
+        repositories=roots,
+    )
 
+
+async def generate_all() -> None:
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        loader = GroupRootsLoader()
+        grouped_roots = [
+            [
+                root
+                for root in group_roots
+                if isinstance(root, GitRoot)
+                and root.state == 'ACTIVE'
+            ]
+            for group_roots in await loader.load_many(org_groups)
+        ]
+        org_roots = [
+            root
+            for group_roots in grouped_roots
+            for root in group_roots
+        ]
+
         utils.json_dump(
             document=format_data(
-                data=await get_data_many_groups(org_groups),
+                data=format_resources(org_roots)
             ),
             entity='organization',
             subject=org_id,
         )
+
+        for group_name, group_roots in zip(org_groups, grouped_roots):
+            utils.json_dump(
+                document=format_data(
+                    data=format_resources(group_roots),
+                ),
+                entity='group',
+                subject=group_name,
+            )
 
 
 if __name__ == '__main__':

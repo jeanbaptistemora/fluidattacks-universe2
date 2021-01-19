@@ -30,7 +30,7 @@ def test_others_dashboard(
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter dashboard
-    driver.get(f'{integrates_endpoint}/orgs/')
+    driver.get(f'{integrates_endpoint}/orgs/okada/analytics')
     assert utils.wait_for_text(
         driver,
         'Vulnerabilities over time',
