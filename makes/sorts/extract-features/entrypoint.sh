@@ -22,7 +22,7 @@ function extract_features {
   local group="${1}"
   local success
 
-      clone_services_repository "${group}" \
+      { clone_services_repository "${group}" || true; } \
   &&  if ! test -e "groups/${group}/fusion"
       then
             echo '[WARNING] No repositories to test' \

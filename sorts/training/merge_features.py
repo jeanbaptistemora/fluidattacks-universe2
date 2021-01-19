@@ -11,6 +11,7 @@ import pandas as pd
 from pandas import DataFrame
 
 
+# Constants
 S3_BUCKET = boto3.resource('s3').Bucket('sorts')
 
 
