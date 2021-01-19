@@ -1,3 +1,0 @@
-include requirements.txt
-include toolbox/rules.def
-include README.md
