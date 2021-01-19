@@ -11,11 +11,8 @@ function copy {
 function execute_chunk_parallel {
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
-  local function_to_call
-  local todo_list
-
-  function_to_call="${1:-}"
-  todo_list="${2:-}"
+  local function_to_call="${1}"
+  local todo_list="${2}"
 
       echo "Found $(wc -l "${todo_list}") items to process" \
   &&  echo "Processing batch: ${CI_NODE_INDEX} of ${CI_NODE_TOTAL}" \
