@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.new.me import (
+from backend.api.resolvers.me import (
     access_token,
     groups,
     organizations,

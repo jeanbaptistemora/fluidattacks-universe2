@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.new.stakeholder import groups
+from backend.api.resolvers.stakeholder import groups
 
 
 STAKEHOLDER: ObjectType = ObjectType('Stakeholder')

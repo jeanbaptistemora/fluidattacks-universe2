@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.new.organization import (
+from backend.api.resolvers.organization import (
     analytics,
     groups,
     stakeholders

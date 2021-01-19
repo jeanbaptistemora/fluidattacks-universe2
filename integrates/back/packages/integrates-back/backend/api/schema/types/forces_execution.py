@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.new.forces_execution import log, vulnerabilities
+from backend.api.resolvers.forces_execution import log, vulnerabilities
 
 
 FORCES_EXECUTION = ObjectType('ForcesExecution')

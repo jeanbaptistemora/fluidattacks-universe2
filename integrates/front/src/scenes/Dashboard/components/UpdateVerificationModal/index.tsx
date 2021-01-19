@@ -50,7 +50,7 @@ export interface IUpdateVerificationModal {
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
-  const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_new_finding_analyst_resolve");
+  const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_finding_analyst_resolve");
   const canDisplayExploit: boolean = groupPermissions.can("has_forces");
 
   // State management
@@ -93,7 +93,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
-          canRetrieveAnalyst: permissions.can("backend_api_resolvers_new_vulnerability_analyst_resolve"),
+          canRetrieveAnalyst: permissions.can("backend_api_resolvers_vulnerability_analyst_resolve"),
           findingId: props.findingId,
           groupName: props.groupName,
         },
@@ -138,7 +138,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
-          canRetrieveAnalyst: permissions.can("backend_api_resolvers_new_vulnerability_analyst_resolve"),
+          canRetrieveAnalyst: permissions.can("backend_api_resolvers_vulnerability_analyst_resolve"),
           findingId: props.findingId,
           groupName: props.groupName,
         },

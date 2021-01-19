@@ -128,7 +128,7 @@ describe("VulnerabilitiesView", (): void => {
                 new PureAbility([
                   {
                     action:
-                      "backend_api_resolvers_new_vulnerability_analyst_resolve",
+                      "backend_api_resolvers_vulnerability_analyst_resolve",
                   },
                 ])
               }
@@ -166,7 +166,7 @@ describe("VulnerabilitiesView", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
-      { action: "backend_api_resolvers_new_vulnerability_analyst_resolve" },
+      { action: "backend_api_resolvers_vulnerability_analyst_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter

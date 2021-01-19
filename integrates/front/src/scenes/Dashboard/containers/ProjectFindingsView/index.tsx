@@ -309,7 +309,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
         return (
           <React.StrictMode>
-            <Can I="backend_api_resolvers_new_query_report__get_url_group_report">
+            <Can I="backend_api_resolvers_query_report__get_url_group_report">
               <Row>
                 <Col100>
                   <ButtonToolbarCenter>

@@ -69,10 +69,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
   const { userEmail } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_new_vulnerability_analyst_resolve"
+    "backend_api_resolvers_vulnerability_analyst_resolve"
   );
   const canGetHistoricState: boolean = permissions.can(
-    "backend_api_resolvers_new_finding_historic_state_resolve"
+    "backend_api_resolvers_finding_historic_state_resolve"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_request_zero_risk_vuln_mutate"

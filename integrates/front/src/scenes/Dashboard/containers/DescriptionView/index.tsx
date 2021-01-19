@@ -92,8 +92,8 @@ const descriptionView: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      canRetrieveAnalyst: permissions.can("backend_api_resolvers_new_finding_analyst_resolve"),
-      canRetrieveSorts: permissions.can("backend_api_resolvers_new_finding_sorts_resolve"),
+      canRetrieveAnalyst: permissions.can("backend_api_resolvers_finding_analyst_resolve"),
+      canRetrieveSorts: permissions.can("backend_api_resolvers_finding_sorts_resolve"),
       findingId,
       projectName,
     },
@@ -183,7 +183,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                   )}
                 </Can>
               </Col45>
-              <Can do="backend_api_resolvers_new_finding_analyst_resolve">
+              <Can do="backend_api_resolvers_finding_analyst_resolve">
                 <Col45>
                   <FormGroup>
                     <ControlLabel>

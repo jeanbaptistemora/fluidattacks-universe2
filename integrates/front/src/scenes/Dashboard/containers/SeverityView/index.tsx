@@ -121,7 +121,7 @@ const severityView: React.FC = (): JSX.Element => {
                         query: GET_FINDING_HEADER,
                         variables: {
                           canGetExploit: groupPermissions.can("has_forces"),
-                          canGetHistoricState: permissions.can("backend_api_resolvers_new_finding_historic_state_resolve"),
+                          canGetHistoricState: permissions.can("backend_api_resolvers_finding_historic_state_resolve"),
                           findingId,
                         },
                       },

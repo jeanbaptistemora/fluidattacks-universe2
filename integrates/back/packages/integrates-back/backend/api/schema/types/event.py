@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.new.event import consulting
+from backend.api.resolvers.event import consulting
 
 
 EVENT = ObjectType('Event')

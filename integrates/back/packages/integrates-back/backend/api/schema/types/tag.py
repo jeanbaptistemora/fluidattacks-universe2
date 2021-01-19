@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.new.tag import groups
+from backend.api.resolvers.tag import groups
 
 TAG = ObjectType('Tag')
 

@@ -35,7 +35,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     "backend_api_mutations_reject_zero_risk_vuln_mutate"
   );
   const canRetrieveAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_new_vulnerability_analyst_resolve"
+    "backend_api_resolvers_vulnerability_analyst_resolve"
   );
   const shouldFilterZeroRisk: boolean = !(
     canConfirmZeroRiskVuln || canRejectZeroRiskVuln
