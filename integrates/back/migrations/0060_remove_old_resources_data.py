@@ -2,8 +2,8 @@
 This migration aims to remove old repos and envs data
 now that they've been replaced by git roots (new scope module)
 
-Execution Time:
-Finalization Time:
+Execution Time: 2021-01-19 at 15:32:05 UTC-05
+Finalization Time: 2021-01-19 at 15:32:29 UTC-05
 """
 # Standard library
 import os
