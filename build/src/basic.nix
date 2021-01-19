@@ -27,10 +27,6 @@ rec {
   srcIncludeHelpersForces = ../include/helpers/forces.sh;
   srcIncludeForcesJobs = ../include/jobs/forces.sh;
 
-  # Melts
-  srcIncludeHelpersMelts = ../include/helpers/melts.sh;
-  srcIncludeJobsMelts = ../include/jobs/melts.sh;
-
   # Integrates
   srcIncludeHelpersIntegrates = ../include/helpers/integrates.sh;
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;
