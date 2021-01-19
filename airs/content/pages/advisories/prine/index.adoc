@@ -1,7 +1,14 @@
-:slug: advisories/prine/
+:slug: prine/
+:authors: Andres Roldan
+:writer: aroldan
+:code-name: prine
+:product: DupScout Enterprise
+:date: 2020-12-15 14:00 COT
+:cve-id: CVE-2020-29659
 :description: DupScout Enterprise 10.0.18 'sid' Buffer Overflow
 :keywords: Fluid Attacks, Security, Vulnerabilities, DupScout
 :banner: asserts-bg
+:advise: yes
 
 = DupScout Enterprise 10.0.18 BoF
 

@@ -1,0 +1,6 @@
+:slug: advisories/
+:description: Advisories
+:keywords: Fluid Attacks, Security, Vulnerabilities, Advisories
+:banner: asserts-bg
+
+= Advisories
