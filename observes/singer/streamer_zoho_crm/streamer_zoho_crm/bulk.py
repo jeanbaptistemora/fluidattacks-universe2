@@ -8,8 +8,10 @@ from typing import (
 # Third party libraries
 # Local libraries
 from streamer_zoho_crm import utils
-from streamer_zoho_crm.temp_api import (
+from streamer_zoho_crm.api import (
     ApiClient,
+)
+from streamer_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     ModuleName,
@@ -34,7 +36,7 @@ def create_bulk_job(
     page: int
 ) -> None:
     """Creates bulk job on crm and stores it on DB"""
-    job: BulkJob = api_client.create_bulk_read_job(module, page)
+    job: BulkJob = api_client.bulk.create_bulk_read_job(module, page)
     db_client.save_bulk_job(job)
 
 
@@ -47,7 +49,7 @@ def update_all(
     """
     jobs: FrozenSet[BulkJob] = db_client.get_bulk_jobs()
     updated_jobs: FrozenSet[BulkJob] = frozenset(
-        map(lambda job: api_client.get_bulk_job(job.id), jobs)
+        map(lambda job: api_client.bulk.get_bulk_job(job.id), jobs)
     )
     current_status = frozenset(map(lambda j: (j.id, j.state), jobs))
     updated_status = frozenset(map(lambda j: (j.id, j.state), updated_jobs))
@@ -67,7 +69,7 @@ def get_bulk_data(
     api_client: ApiClient,
     jobs_id: FrozenSet[str]
 ) -> FrozenSet[BulkData]:
-    return frozenset(map(api_client.download_result, jobs_id))
+    return frozenset(map(api_client.bulk.download_result, jobs_id))
 
 
 def new_bulk_utils(

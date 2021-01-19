@@ -52,6 +52,7 @@ def stream(crm_auth_file: IO[AnyStr], db_auth_file: IO[AnyStr]) -> None:
 
 @click.group()
 def main() -> None:
+    # cli group entrypoint
     pass
 
 

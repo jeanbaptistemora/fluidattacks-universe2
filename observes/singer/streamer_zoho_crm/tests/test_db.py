@@ -2,7 +2,6 @@
 import getpass
 # Third party libraries
 import pytest
-from pytest_postgresql import factories
 # Local libraries
 from postgres_client import client
 from postgres_client.client import Client
@@ -10,11 +9,10 @@ from postgres_client.cursor import (
     DynamicSQLargs,
 )
 from streamer_zoho_crm import db
-from streamer_zoho_crm.temp_api import BulkJob, ModuleName
-
-postgresql_my_proc = factories.postgresql_proc(
-    port=None, unixsocketdir='/var/run/postgresql')
-postgresql_my = factories.postgresql('postgresql_my_proc')
+from streamer_zoho_crm.api.bulk import (
+    BulkJob,
+    ModuleName,
+)
 
 
 def setup_db(db_client: Client) -> None:
@@ -45,14 +43,8 @@ def setup_db(db_client: Client) -> None:
     db_client.connection.commit()
 
 
-@pytest.mark.xfail(
-    getpass.getuser() == 'root',
-    reason="can not run with root")  # type: ignore
-def test_save_load_bulk_job_integrated(postgresql):
-    # Arrange
-    db_client = client.new_test_client(postgresql)
-    setup_db(db_client)
-    test_job = BulkJob(
+def test_bulk_job() -> BulkJob:
+    return BulkJob(
         operation='operation1',
         created_by='{"author": master"}',
         created_time='{"time": "2020-01-01 00:00"}',
@@ -62,6 +54,16 @@ def test_save_load_bulk_job_integrated(postgresql):
         page=1,
         result=None
     )
+
+
+@pytest.mark.xfail(
+    getpass.getuser() == 'root',
+    reason="can not run with root")  # type: ignore
+def test_save_load_bulk_job_integrated(postgresql):
+    # Arrange
+    db_client = client.new_test_client(postgresql)
+    setup_db(db_client)
+    test_job = test_bulk_job()
     schema = 'super-schema'
     # Act
     db.save_bulk_job(db_client, test_job, schema)
@@ -78,25 +80,16 @@ def test_update_bulk_job_integrated(postgresql):
     # Arrange
     db_client = client.new_test_client(postgresql)
     setup_db(db_client)
-    test_job = BulkJob(
-        operation='operation1',
-        created_by='{"author": master"}',
-        created_time='{"time": "2020-01-01 00:00"}',
-        state='procesing',
-        id='a1234bc',
-        module=ModuleName.PRICE_BOOKS,
-        page=1,
-        result=None
-    )
+    test_job = test_bulk_job()
     updated_job = BulkJob(
-        operation='operation1',
-        created_by='{"author": master"}',
-        created_time='{"time": "2020-01-01 00:00"}',
+        operation=test_job.operation,
+        created_by=test_job.created_by,
+        created_time=test_job.created_time,
         state='done',
-        id='a1234bc',
-        module=ModuleName.PRICE_BOOKS,
-        page=1,
-        result=None
+        id=test_job.id,
+        module=test_job.module,
+        page=test_job.page,
+        result=test_job.result
     )
     schema = 'super-schema'
     # Act

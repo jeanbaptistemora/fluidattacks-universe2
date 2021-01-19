@@ -17,11 +17,13 @@ from singer_io.singer import SingerRecord
 from streamer_zoho_crm import (
     bulk,
     db,
-    temp_api as api,
+    api,
     utils,
 )
-from streamer_zoho_crm.temp_api import (
+from streamer_zoho_crm.api import (
     ApiClient,
+)
+from streamer_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     ModuleName,
