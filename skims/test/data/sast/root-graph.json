@@ -6477,6 +6477,47 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "103": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "BenchmarkTest00001"
+                }
+              ],
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "FileName"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "javax.servlet.http.Cookie",
+            "type": "SyntaxStepObjectInstantiation"
+          }
+        ],
         "108": [
           {
             "meta": {
@@ -7895,6 +7936,63 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "98": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "BenchmarkTest00001"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "FileName"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "object_type": "javax.servlet.http.Cookie",
+                  "type": "SyntaxStepObjectInstantiation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "userCookie",
+            "var_type": "javax.servlet.http.Cookie"
           }
         ]
       }
@@ -19742,6 +19840,20 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "247": [
+          {
+            "dependencies": [],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "java.util.Random",
+            "type": "SyntaxStepObjectInstantiation"
           }
         ],
         "258": [

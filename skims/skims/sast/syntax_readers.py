@@ -6,6 +6,7 @@ import contextlib
 from typing import (
     Callable,
     Dict,
+    List,
     NamedTuple,
     Set,
     Tuple,
@@ -164,13 +165,33 @@ def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         '.',
     }):
         yield graph_model.SyntaxStepMethodInvocation(
-            dependencies=[
-                generic(args.fork_n_id(args_c_id))
-                for args_c_id in g.adj_ast(args.graph, args_id)[1:-1]
-                if args.graph.nodes[args_c_id]['label_type'] != ','
-            ],
+            dependencies=dependencies_from_arguments(args.fork_n_id(args_id)),
             meta=graph_model.SyntaxStepMeta.default(),
             method=g.concatenate_label_text(args.graph, identifier_ids),
+        )
+    else:
+        raise MissingCaseHandling(method_invocation, args)
+
+
+def object_creation_expression(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(args.graph, args.n_id, 'new', '__0__', 'argument_list')
+
+    # pylint: disable=used-before-assignment
+    if (
+        len(match) == 3
+        and match['new']
+        and (object_type_id := match['__0__'])
+        and (args_id := match['argument_list'])
+        and (args.graph.nodes[object_type_id]['label_type'] in {
+            'scoped_type_identifier',
+        })
+    ):
+        yield graph_model.SyntaxStepObjectInstantiation(
+            dependencies=dependencies_from_arguments(args.fork_n_id(args_id)),
+            meta=graph_model.SyntaxStepMeta.default(),
+            object_type=args.graph.nodes[object_type_id]['label_text'],
         )
     else:
         raise MissingCaseHandling(method_invocation, args)
@@ -201,6 +222,16 @@ def generic(
         log_blocking('debug', 'Missing syntax reader for n_id: %s', args.n_id)
 
     raise MissingSyntaxReader(args)
+
+
+def dependencies_from_arguments(
+    args: SyntaxReaderArgs,
+) -> List[graph_model.SyntaxSteps]:
+    return [
+        generic(args.fork_n_id(args_c_id))
+        for args_c_id in g.adj_ast(args.graph, args.n_id)[1:-1]
+        if args.graph.nodes[args_c_id]['label_type'] != ','
+    ]
 
 
 DISPATCHERS: Tuple[Dispatcher, ...] = (
@@ -235,6 +266,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             method_invocation,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'object_creation_expression',
+        },
+        syntax_readers=(
+            object_creation_expression,
         ),
     ),
     Dispatcher(

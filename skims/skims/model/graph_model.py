@@ -90,6 +90,14 @@ class SyntaxStepNoOp(NamedTuple):
     type: str = 'SyntaxStepNoOp'
 
 
+class SyntaxStepObjectInstantiation(NamedTuple):
+    dependencies: List[SyntaxSteps]
+    meta: SyntaxStepMeta
+    object_type: str
+
+    type: str = 'SyntaxStepObjectInstantiation'
+
+
 class Graph(nx.DiGraph):
     pass
 
