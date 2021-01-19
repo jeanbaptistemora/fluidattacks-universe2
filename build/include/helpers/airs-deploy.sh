@@ -130,6 +130,6 @@ function helper_airs_compile {
   &&  mkdir ../output/new-front \
   &&  rsync public/* ../output/new-front/ \
   &&  popd \
-  &&  rsync content/files/ output/ \
+  &&  rsync content/files/* output/ \
   &&  cp -r content/files/.well-known output/
 }
