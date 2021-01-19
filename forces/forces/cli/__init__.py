@@ -151,3 +151,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
         token=token,
         config=config,
     )
+
+
+if __name__ == '__main__':
+    main()  # pylint: disable=no-value-for-parameter

@@ -1,4 +1,5 @@
 { flake
+, srcForcesPkgs
 , srcIntegratesPkgs
 , srcMakesPkgs
 , srcMeltsPkgs
@@ -16,8 +17,11 @@ flake.lib.eachDefaultSystem (
   system:
   let
     attrs = makeLazyCopy {
+      forcesPkgs = import srcForcesPkgs { inherit system; };
+      integratesPkgs = import srcIntegratesPkgs { inherit system; };
       outputs = {
         apps = builtins.mapAttrs makeApp {
+          forces = import ../makes/forces/bin attrs;
           makes-deploy-oci-batch = import ../makes/makes/deploy/oci-batch attrs;
           makes-deploy-oci-ci = import ../makes/makes/deploy/oci-ci attrs;
           makes-lint = import ../makes/makes/lint attrs;
@@ -44,6 +48,7 @@ flake.lib.eachDefaultSystem (
           sorts-test = import ../makes/sorts/test attrs;
         };
         packages = {
+          forces-bin = import ../makes/forces/bin attrs;
           integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
           melts-lint = import ../makes/melts/lint attrs;
@@ -69,7 +74,6 @@ flake.lib.eachDefaultSystem (
           sorts-lint = import ../makes/sorts/lint attrs;
         };
       };
-      integratesPkgs = import srcIntegratesPkgs { inherit system; };
       makesPkgs = import srcMakesPkgs { inherit system; };
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
