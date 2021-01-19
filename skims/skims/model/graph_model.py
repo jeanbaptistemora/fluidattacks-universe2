@@ -60,6 +60,14 @@ class SyntaxStepMeta:
         )
 
 
+class SyntaxStepBinaryExpression(NamedTuple):
+    dependencies: List[SyntaxSteps]
+    operator: str
+    meta: SyntaxStepMeta
+
+    type: str = 'SyntaxStepBinaryExpression'
+
+
 class SyntaxStepDeclaration(NamedTuple):
     dependencies: List[SyntaxSteps]
     var: str

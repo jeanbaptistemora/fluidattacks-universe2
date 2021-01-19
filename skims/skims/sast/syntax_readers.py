@@ -71,6 +71,19 @@ class MissingCaseHandling(Exception):
         super().__init__()
 
 
+def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    l_id, op_id, r_id = g.adj_ast(args.graph, args.n_id)
+
+    yield graph_model.SyntaxStepBinaryExpression(
+        dependencies=[
+            generic(args.fork_n_id(l_id)),
+            generic(args.fork_n_id(r_id)),
+        ],
+        meta=graph_model.SyntaxStepMeta.default(),
+        operator=args.graph.nodes[op_id]['label_text'],
+    )
+
+
 def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepSymbolLookup(
         meta=graph_model.SyntaxStepMeta.default(),
@@ -242,6 +255,17 @@ def dependencies_from_arguments(
 
 
 DISPATCHERS: Tuple[Dispatcher, ...] = (
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'binary_expression',
+        },
+        syntax_readers=(
+            binary_expression,
+        ),
+    ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,

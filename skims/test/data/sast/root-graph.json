@@ -7094,6 +7094,90 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "496": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "type": "SyntaxStepStringLiteral",
+                              "value": "Couldn't open FileInputStream on file: '"
+                            }
+                          ],
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "symbol": "fileName",
+                              "type": "SyntaxStepSymbolLookup"
+                            }
+                          ]
+                        ],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "operator": "+",
+                        "type": "SyntaxStepBinaryExpression"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "'"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "510": [
           {
             "meta": {
@@ -10832,6 +10916,91 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "190": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "type": "SyntaxStepStringLiteral",
+                              "value": "{call "
+                            }
+                          ],
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "symbol": "param",
+                              "type": "SyntaxStepSymbolLookup"
+                            }
+                          ]
+                        ],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "operator": "+",
+                        "type": "SyntaxStepBinaryExpression"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "}"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ],
         "205": [
@@ -18648,6 +18817,63 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "338": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "rememberMe"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "testCaseNumber",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "cookieName",
+            "var_type": "String"
           }
         ],
         "355": [
@@ -39038,6 +39264,62 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1032": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Hi, I am "
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "person",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "1043": [
           {
             "meta": {
@@ -39202,6 +39484,62 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1169": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Printing using for loop. Count is: "
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "i",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "117": [
           {
             "dependencies": [],
@@ -39314,6 +39652,62 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1227": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Inside the while loop, counting: "
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "counter",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "1238": [
@@ -39522,6 +39916,174 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1448": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [
+                          [
+                            {
+                              "dependencies": [
+                                [
+                                  {
+                                    "dependencies": [
+                                      [
+                                        {
+                                          "dependencies": [
+                                            [
+                                              {
+                                                "meta": {
+                                                  "danger": false,
+                                                  "dependencies": 0,
+                                                  "linear": false,
+                                                  "sink": null,
+                                                  "value": null
+                                                },
+                                                "type": "SyntaxStepStringLiteral",
+                                                "value": "Found "
+                                              }
+                                            ],
+                                            [
+                                              {
+                                                "meta": {
+                                                  "danger": false,
+                                                  "dependencies": 0,
+                                                  "linear": false,
+                                                  "sink": null,
+                                                  "value": null
+                                                },
+                                                "symbol": "search",
+                                                "type": "SyntaxStepSymbolLookup"
+                                              }
+                                            ]
+                                          ],
+                                          "meta": {
+                                            "danger": false,
+                                            "dependencies": 0,
+                                            "linear": false,
+                                            "sink": null,
+                                            "value": null
+                                          },
+                                          "operator": "+",
+                                          "type": "SyntaxStepBinaryExpression"
+                                        }
+                                      ],
+                                      [
+                                        {
+                                          "meta": {
+                                            "danger": false,
+                                            "dependencies": 0,
+                                            "linear": false,
+                                            "sink": null,
+                                            "value": null
+                                          },
+                                          "type": "SyntaxStepStringLiteral",
+                                          "value": " at position "
+                                        }
+                                      ]
+                                    ],
+                                    "meta": {
+                                      "danger": false,
+                                      "dependencies": 0,
+                                      "linear": false,
+                                      "sink": null,
+                                      "value": null
+                                    },
+                                    "operator": "+",
+                                    "type": "SyntaxStepBinaryExpression"
+                                  }
+                                ],
+                                [
+                                  {
+                                    "meta": {
+                                      "danger": false,
+                                      "dependencies": 0,
+                                      "linear": false,
+                                      "sink": null,
+                                      "value": null
+                                    },
+                                    "symbol": "i",
+                                    "type": "SyntaxStepSymbolLookup"
+                                  }
+                                ]
+                              ],
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "operator": "+",
+                              "type": "SyntaxStepBinaryExpression"
+                            }
+                          ],
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "type": "SyntaxStepStringLiteral",
+                              "value": ","
+                            }
+                          ]
+                        ],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "operator": "+",
+                        "type": "SyntaxStepBinaryExpression"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "j",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "1471": [
@@ -39848,6 +40410,62 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "167": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Car number :"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "i",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "178": [
           {
             "meta": {
@@ -40012,6 +40630,62 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "233": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Truck number: "
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "counter",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "244": [
           {
             "meta": {
@@ -40072,6 +40746,118 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "273": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [
+                          [
+                            {
+                              "dependencies": [
+                                [
+                                  {
+                                    "meta": {
+                                      "danger": false,
+                                      "dependencies": 0,
+                                      "linear": false,
+                                      "sink": null,
+                                      "value": null
+                                    },
+                                    "type": "SyntaxStepStringLiteral",
+                                    "value": "Truck Number: "
+                                  }
+                                ],
+                                [
+                                  {
+                                    "meta": {
+                                      "danger": false,
+                                      "dependencies": 0,
+                                      "linear": false,
+                                      "sink": null,
+                                      "value": null
+                                    },
+                                    "symbol": "i",
+                                    "type": "SyntaxStepSymbolLookup"
+                                  }
+                                ]
+                              ],
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "operator": "+",
+                              "type": "SyntaxStepBinaryExpression"
+                            }
+                          ],
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "type": "SyntaxStepStringLiteral",
+                              "value": ", "
+                            }
+                          ]
+                        ],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "operator": "+",
+                        "type": "SyntaxStepBinaryExpression"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "counter",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "29": [
           {
             "meta": {
@@ -40130,6 +40916,118 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "317": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [
+                          [
+                            {
+                              "dependencies": [
+                                [
+                                  {
+                                    "meta": {
+                                      "danger": false,
+                                      "dependencies": 0,
+                                      "linear": false,
+                                      "sink": null,
+                                      "value": null
+                                    },
+                                    "type": "SyntaxStepStringLiteral",
+                                    "value": "Truck Number: "
+                                  }
+                                ],
+                                [
+                                  {
+                                    "meta": {
+                                      "danger": false,
+                                      "dependencies": 0,
+                                      "linear": false,
+                                      "sink": null,
+                                      "value": null
+                                    },
+                                    "symbol": "i",
+                                    "type": "SyntaxStepSymbolLookup"
+                                  }
+                                ]
+                              ],
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "operator": "+",
+                              "type": "SyntaxStepBinaryExpression"
+                            }
+                          ],
+                          [
+                            {
+                              "meta": {
+                                "danger": false,
+                                "dependencies": 0,
+                                "linear": false,
+                                "sink": null,
+                                "value": null
+                              },
+                              "type": "SyntaxStepStringLiteral",
+                              "value": ", "
+                            }
+                          ]
+                        ],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "operator": "+",
+                        "type": "SyntaxStepBinaryExpression"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "counter",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "334": [
@@ -40489,6 +41387,62 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "763": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Inside the while loop, counting: "
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "counter",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "774": [
           {
             "meta": {
@@ -40559,6 +41513,62 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "994": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "Printing using for loop. Count is: "
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "i",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
           }
         ]
       }
