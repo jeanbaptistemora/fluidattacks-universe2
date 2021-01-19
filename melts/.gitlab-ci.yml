@@ -45,16 +45,6 @@
     - if: *melts_commit_pattern
 
 .test_melts_template: &test_melts_template
-  <<: *with_nix
-  stage: test-code
-  variables:
-    SERVICES: s3
-    HOSTNAME_EXTERNAL: localstack
-  services:
-    - name: localstack/localstack
-      alias: localstack
-
-.test_melts_template_makes: &test_melts_template_make
   <<: *makes
   stage: test-code
   variables:
@@ -70,12 +60,6 @@ melts-lint:
   stage: lint-code
 
 melts-test:
-  <<: *makes
-  <<: *in_dev_branch_melts
-  <<: *test_melts_template_make
-  stage: test-code
-
-melts_test:
   <<: *makes
   <<: *in_dev_branch_melts
   <<: *test_melts_template
