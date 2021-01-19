@@ -23,3 +23,4 @@ sorts-extract-features
 sorts-infra-deploy
 sorts-infra-test
 sorts-test
+sorts-train-model-on-aws

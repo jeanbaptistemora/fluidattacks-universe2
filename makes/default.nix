@@ -46,6 +46,7 @@ flake.lib.eachDefaultSystem (
           sorts-infra-deploy = import ../makes/sorts/infra/deploy attrs;
           sorts-infra-test = import ../makes/sorts/infra/test attrs;
           sorts-test = import ../makes/sorts/test attrs;
+          sorts-train-model-on-aws = import ../makes/sorts/train attrs;
         };
         packages = {
           forces-bin = import ../makes/forces/bin attrs;

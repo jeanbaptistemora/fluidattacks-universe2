@@ -98,8 +98,8 @@ sorts-extract-features:
   interruptible: false
   parallel: 15
 
-sorts_train_model_on_aws:
-  <<: *with_nix
+sorts-train-model-on-aws:
+  <<: *makes
   <<: *sorts_in_master_branch_code_changes
   stage: deploy-app
   interruptible: false
@@ -110,4 +110,4 @@ sorts_deploy_to_pypi:
   <<: *sorts_in_master_branch_code_changes
   stage: post-deploy
   interruptible: false
-  needs: [sorts_train_model_on_aws]
+  needs: [sorts-train-model-on-aws]

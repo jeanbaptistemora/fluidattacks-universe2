@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
+# Standard Libraries
 import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
+# Third-party Libraries
 from sagemaker.sklearn import SKLearn
 from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
 

@@ -5,17 +5,14 @@
 let
   makeSearchPaths = import ../../../makes/utils/make-search-paths sortsPkgs;
   makeTemplate = import ../../../makes/utils/make-template sortsPkgs;
-  nixRequirements = {
-    development = makeSearchPaths [ ];
-    runtime = makeSearchPaths [ sortsPkgs.gcc.cc ];
-  };
+  nixRequirements = makeSearchPaths [ sortsPkgs.gcc.cc ];
 in
 {
   setupSortsDevelopment = makeTemplate {
     arguments = {
-      envBinPath = nixRequirements.development.binPath;
-      envLibPath = nixRequirements.development.libPath;
-      envPyPath = nixRequirements.development.pyPath;
+      envBinPath = nixRequirements.binPath;
+      envLibPath = nixRequirements.libPath;
+      envPyPath = nixRequirements.pyPath;
       envPythonRequirements = outputs.packages.sorts-config-python-requirements-development;
       envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
     };
@@ -36,9 +33,9 @@ in
       };
       envPython = "${sortsPkgs.python38}/bin/python";
       envPythonRequirements = outputs.packages.sorts-config-python-requirements-runtime;
-      envBinPath = nixRequirements.runtime.binPath;
-      envLibPath = nixRequirements.runtime.libPath;
-      envPyPath = nixRequirements.runtime.pyPath;
+      envBinPath = nixRequirements.binPath;
+      envLibPath = nixRequirements.libPath;
+      envPyPath = nixRequirements.pyPath;
       envSrcSortsSorts = ../../../sorts/sorts;
       envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
     };
