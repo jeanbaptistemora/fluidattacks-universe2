@@ -5,6 +5,7 @@ from typing import (
     Any,
     AnyStr,
     Dict,
+    FrozenSet,
     IO,
     NamedTuple,
     Tuple,
@@ -27,12 +28,14 @@ class Credentials(NamedTuple):
     client_id: str
     client_secret: str
     refresh_token: str
+    scopes: FrozenSet[str]
 
 
 def to_credentials(
     auth_file: IO[AnyStr]
 ) -> Credentials:
     auth = json.load(auth_file)
+    auth['scopes'] = frozenset(auth['scopes'])
     return Credentials(**auth)
 
 
@@ -40,7 +43,12 @@ def generate_refresh_token(
     credentials: Credentials
 ) -> Dict[str, str]:
     endpoint = f'{ACCOUNTS_URL}/oauth/v2/token'
-    grant_token_code = getpass('Grant token:')
+    LOG.info(
+        'Generating refresh token with scopes: %s',
+        ','.join(credentials.scopes)
+    )
+    LOG.info('Paste grant token:')
+    grant_token_code = getpass()
     data = {
         'grant_type': 'authorization_code',
         'client_id': credentials.client_id,

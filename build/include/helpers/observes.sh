@@ -255,18 +255,10 @@ function helper_observes_zoho {
 function helper_observes_zoho_crm_prepare {
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        ZOHO_CRM_FLUID_CLIENT_ID \
-        ZOHO_CRM_FLUID_CLIENT_SECRET \
-        ZOHO_CRM_FLUID_REFRESH_TOKEN \
         analytics_auth_redshift \
+        zoho_crm_bulk_creator_creds \
   &&  echo '[INFO] Generating secret files' \
-  &&  {
-        echo '{'
-        echo "\"client_id\":\"${ZOHO_CRM_FLUID_CLIENT_ID}\","
-        echo "\"client_secret\":\"${ZOHO_CRM_FLUID_CLIENT_SECRET}\","
-        echo "\"refresh_token\":\"${ZOHO_CRM_FLUID_REFRESH_TOKEN}\""
-        echo '}'
-      } > "${TEMP_FILE1}" \
+  &&  echo "${zoho_crm_bulk_creator_creds}" > "${TEMP_FILE1}" \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  streamer-zoho-crm init-db "${TEMP_FILE2}" \
   &&  streamer-zoho-crm create-jobs "${TEMP_FILE1}" "${TEMP_FILE2}"
@@ -275,18 +267,10 @@ function helper_observes_zoho_crm_prepare {
 function helper_observes_zoho_crm {
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        ZOHO_CRM_FLUID_CLIENT_ID \
-        ZOHO_CRM_FLUID_CLIENT_SECRET \
-        ZOHO_CRM_FLUID_REFRESH_TOKEN \
         analytics_auth_redshift \
+        zoho_crm_etl_creds \
   &&  echo '[INFO] Generating secret files' \
-  &&  {
-        echo '{'
-        echo "\"client_id\":\"${ZOHO_CRM_FLUID_CLIENT_ID}\","
-        echo "\"client_secret\":\"${ZOHO_CRM_FLUID_CLIENT_SECRET}\","
-        echo "\"refresh_token\":\"${ZOHO_CRM_FLUID_REFRESH_TOKEN}\""
-        echo '}'
-      } > "${TEMP_FILE1}" \
+  &&  echo "${zoho_crm_etl_creds}" > "${TEMP_FILE1}" \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  streamer-zoho-crm stream "${TEMP_FILE1}" "${TEMP_FILE2}" \
         | tap-csv | tap-json > .singer \

@@ -14,11 +14,17 @@ def test_to_credentials() -> None:
         'client_id': 'client_1',
         'client_secret': 'the_secret',
         'refresh_token': 'super_rtoken',
+        'scopes': ['s1', 's2']
     }
     file.write(json.dumps(test_file_data))
     file.seek(0)
     result = auth.to_credentials(file)
-    expected = Credentials('client_1', 'the_secret', 'super_rtoken')
+    expected = Credentials(
+        'client_1',
+        'the_secret',
+        'super_rtoken',
+        frozenset(['s1', 's2'])
+    )
     assert result == expected
 
 
