@@ -71,6 +71,13 @@ class MissingCaseHandling(Exception):
         super().__init__()
 
 
+def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    yield graph_model.SyntaxStepSymbolLookup(
+        meta=graph_model.SyntaxStepMeta.default(),
+        symbol=args.graph.nodes[args.n_id]['label_text'],
+    )
+
+
 def local_variable_declaration(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
@@ -240,6 +247,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'identifier',
+        },
+        syntax_readers=(
+            identifier,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
             'local_variable_declaration',
         },
         syntax_readers=(
@@ -331,7 +349,7 @@ def read_from_graph(
 
     # Read the syntax of every node in the graph, if possible
     for n_id in graph.nodes:
-        if n_id not in graph_syntax:
+        if n_id not in graph_syntax and g.is_connected_to_cfg(graph, n_id):
             with contextlib.suppress(MissingSyntaxReader):
                 graph_syntax[n_id] = generic(SyntaxReaderArgs(
                     graph=graph,

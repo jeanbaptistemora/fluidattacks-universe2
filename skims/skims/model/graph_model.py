@@ -69,13 +69,6 @@ class SyntaxStepDeclaration(NamedTuple):
     type: str = 'SyntaxStepDeclaration'
 
 
-class SyntaxStepStringLiteral(NamedTuple):
-    meta: SyntaxStepMeta
-    value: str
-
-    type: str = 'SyntaxStepStringLiteral'
-
-
 class SyntaxStepMethodInvocation(NamedTuple):
     dependencies: List[SyntaxSteps]
     meta: SyntaxStepMeta
@@ -96,6 +89,20 @@ class SyntaxStepObjectInstantiation(NamedTuple):
     object_type: str
 
     type: str = 'SyntaxStepObjectInstantiation'
+
+
+class SyntaxStepStringLiteral(NamedTuple):
+    meta: SyntaxStepMeta
+    value: str
+
+    type: str = 'SyntaxStepStringLiteral'
+
+
+class SyntaxStepSymbolLookup(NamedTuple):
+    meta: SyntaxStepMeta
+    symbol: str
+
+    type: str = 'SyntaxStepSymbolLookup'
 
 
 class Graph(nx.DiGraph):

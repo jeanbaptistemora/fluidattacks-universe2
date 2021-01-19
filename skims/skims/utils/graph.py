@@ -297,13 +297,17 @@ def get_ast_childs(
     )
 
 
+def is_connected_to_cfg(graph: Graph, n_id: NId) -> bool:
+    return bool(adj_cfg(graph, n_id) or pred_cfg(graph, n_id))
+
+
 def lookup_first_cfg_parent(
     graph: Graph,
     n_id: NId,
 ) -> str:
     # Lookup first parent who is connected to the CFG
     for p_id in chain([n_id], pred_ast_lazy(graph, n_id, depth=-1)):
-        if adj_cfg(graph, p_id) or pred_cfg(graph, p_id):
+        if is_connected_to_cfg(graph, p_id):
             return p_id
 
     # Base case, pass through
