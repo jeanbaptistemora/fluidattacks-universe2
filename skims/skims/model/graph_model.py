@@ -133,6 +133,10 @@ class GraphShardMetadataJava(NamedTuple):
     package: str
 
 
+class GraphShardMetadataNodes(NamedTuple):
+    in_cfg: Tuple[NId, ...]
+
+
 class GraphShardMetadataLanguage(Enum):
     JAVA: str = 'java'
     NOT_SUPPORTED: str = 'not_supported'
@@ -141,6 +145,7 @@ class GraphShardMetadataLanguage(Enum):
 class GraphShardMetadata(NamedTuple):
     java: Optional[GraphShardMetadataJava]
     language: GraphShardMetadataLanguage
+    nodes: Optional[GraphShardMetadataNodes]
 
 
 class GraphShardCacheable(NamedTuple):

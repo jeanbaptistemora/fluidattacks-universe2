@@ -16,6 +16,7 @@ from model.graph_model import (
     GraphShardMetadataJavaClass,
     GraphShardMetadataJavaClassMethod,
     GraphShardMetadataLanguage,
+    GraphShardMetadataNodes,
 )
 
 
@@ -33,7 +34,17 @@ def get_metadata(
     else:
         raise NotImplementedError()
 
-    return GraphShardMetadata(language=language, **metadata)
+    return GraphShardMetadata(
+        language=language,
+        nodes=GraphShardMetadataNodes(
+            in_cfg=tuple(
+                n_id
+                for n_id in graph.nodes
+                if g.is_connected_to_cfg(graph, n_id)
+            ),
+        ),
+        **metadata,
+    )
 
 
 def get_metadata_java(graph: Graph) -> GraphShardMetadataJava:

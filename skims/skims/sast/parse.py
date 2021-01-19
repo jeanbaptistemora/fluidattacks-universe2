@@ -34,9 +34,7 @@ from model.graph_model import (
 )
 from sast import (
     inspectors,
-)
-from sast.syntax_readers import (
-    read_from_graph,
+    syntax_readers,
 )
 from sast.transformations import (
     control_flow,
@@ -177,10 +175,16 @@ def _parse_one_cached(
     untrusted_nodes.mark(graph, language)
     styles.add(graph)
 
+    graph_shard_metadata = inspectors.get_metadata(graph, language)
+
     return GraphShardCacheable(
         graph=graph,
-        metadata=inspectors.get_metadata(graph, language),
-        syntax=read_from_graph(graph, language)
+        metadata=graph_shard_metadata,
+        syntax=syntax_readers.read_from_graph(
+            graph,
+            graph_shard_metadata,
+            language,
+        )
     )
 
 

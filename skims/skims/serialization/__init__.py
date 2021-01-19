@@ -237,6 +237,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.GraphShardMetadataJava,
                 graph_model.GraphShardMetadataJavaClass,
                 graph_model.GraphShardMetadataJavaClassMethod,
+                graph_model.GraphShardMetadataNodes,
                 graph_model.SyntaxStepBinaryExpression,
                 graph_model.SyntaxStepDeclaration,
                 graph_model.SyntaxStepMethodInvocation,

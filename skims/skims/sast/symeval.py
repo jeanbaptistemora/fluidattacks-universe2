@@ -3,6 +3,9 @@ from copy import (
     deepcopy,
 )
 from typing import (
+    Callable,
+    Dict,
+    NamedTuple,
     Tuple,
 )
 from model import (
@@ -20,15 +23,36 @@ class StopEvaluation(Exception):
     pass
 
 
+class EvaluatorArgs(NamedTuple):
+    syntax_steps: graph_model.SyntaxSteps
+
+
+Evaluator = Callable[[EvaluatorArgs], None]
+
+
+EVALUATORS: Dict[object, Evaluator] = {
+}
+
+
 def eval_syntax_steps(
     _: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     n_id: graph_model.NId,
 ) -> graph_model.SyntaxSteps:
     if n_id not in shard.syntax:
+        # We were not able to fully understand this node syntax
         raise StopEvaluation()
 
     syntax_steps = deepcopy(shard.syntax[n_id])
+
+    for syntax_step in syntax_steps:
+        if evaluator := EVALUATORS.get(type(syntax_step)):
+            evaluator(EvaluatorArgs(
+                syntax_steps=syntax_steps,
+            ))
+        else:
+            # We are not able to evaluate this step
+            raise StopEvaluation()
 
     # Mark steps as dangerous or not
     #
@@ -55,7 +79,7 @@ def get_syntax_steps_from_path(
                 n_id=n_id,
             ))
         except StopEvaluation:
-            log_blocking('debug', 'Missing readers, %s @ %s', shard.path, n_id)
+            log_blocking('debug', 'SymEval stopped, %s @ %s', shard.path, n_id)
             break
 
     return syntax_steps
