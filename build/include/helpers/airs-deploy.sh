@@ -129,5 +129,7 @@ function helper_airs_compile {
   &&  npm run build \
   &&  mkdir ../output/new-front \
   &&  rsync public/* ../output/new-front/ \
-  &&  popd
+  &&  popd \
+  &&  rsync content/files/ output/ \
+  &&  cp -r content/files/.well-known output/
 }

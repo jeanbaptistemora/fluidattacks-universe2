@@ -1,0 +1,7 @@
+Contact: security@fluidattacks.com
+Encryption: https://fluidattacks.com.com/pgp-key.txt
+Acknowledgements: https://fluidattacks.com/security/acknowledgements/
+Policy: https://fluidattacks.com/privacy/
+Signature: https://fluidattacks.com/.well-known/security.txt.sig
+Hiring: https://fluidattacks.com/careers/
+OpenBugBounty: https://openbugbounty.org/bugbounty/fluidattacks/
