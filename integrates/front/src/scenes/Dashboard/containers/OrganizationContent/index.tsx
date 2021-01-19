@@ -161,7 +161,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                 <Route path={`${path}/policies`} exact={true}>
                   <OrganizationPolicies organizationId={basicData.organizationId.id} />
                 </Route>
-                <Redirect to={`${path}/analytics`} />
+                <Redirect to={`${path}/groups`} />
               </Switch>
             </div>
           </Col100>

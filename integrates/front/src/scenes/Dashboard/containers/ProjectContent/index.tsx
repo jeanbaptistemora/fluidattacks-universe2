@@ -117,7 +117,7 @@ const projectContent: React.FC = (): JSX.Element => {
                     <Route path={`${path}/consulting`} component={ProjectConsultingView} exact={true} />
                     {/* Necessary to support old resources URLs */}
                     <Redirect path={`${path}/resources`} to={`${path}/scope`} />
-                    <Redirect to={`${path}/analytics`} />
+                    <Redirect to={`${path}/vulns`} />
                   </Switch>
                 </div>
               </React.Fragment>
