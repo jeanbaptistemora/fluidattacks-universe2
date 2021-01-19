@@ -44,24 +44,26 @@ SyntaxStepsLazy = Iterator[SyntaxStep]
 @dataclass
 class SyntaxStepMeta:
     danger: bool
-    dependencies: int
-    linear: bool
+    dependencies: Any
     sink: Optional[str]
     value: Optional[Any]
 
     @staticmethod
-    def default() -> SyntaxStepMeta:
+    def default(
+        dependencies: Optional[List[SyntaxSteps]] = None,
+    ) -> SyntaxStepMeta:
         return SyntaxStepMeta(
             danger=False,
-            dependencies=0,
-            linear=False,
+            dependencies=dependencies or [],
             sink=None,
             value=None,
         )
 
+    def linear(self) -> bool:
+        return isinstance(self.dependencies, int)
+
 
 class SyntaxStepBinaryExpression(NamedTuple):
-    dependencies: List[SyntaxSteps]
     operator: str
     meta: SyntaxStepMeta
 
@@ -69,16 +71,14 @@ class SyntaxStepBinaryExpression(NamedTuple):
 
 
 class SyntaxStepDeclaration(NamedTuple):
-    dependencies: List[SyntaxSteps]
+    meta: SyntaxStepMeta
     var: str
     var_type: str
-    meta: SyntaxStepMeta
 
     type: str = 'SyntaxStepDeclaration'
 
 
 class SyntaxStepMethodInvocation(NamedTuple):
-    dependencies: List[SyntaxSteps]
     meta: SyntaxStepMeta
     method: str
 
@@ -92,7 +92,6 @@ class SyntaxStepNoOp(NamedTuple):
 
 
 class SyntaxStepObjectInstantiation(NamedTuple):
-    dependencies: List[SyntaxSteps]
     meta: SyntaxStepMeta
     object_type: str
 

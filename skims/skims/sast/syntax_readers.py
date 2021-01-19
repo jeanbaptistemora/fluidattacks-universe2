@@ -75,11 +75,10 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     l_id, op_id, r_id = g.adj_ast(args.graph, args.n_id)
 
     yield graph_model.SyntaxStepBinaryExpression(
-        dependencies=[
+        meta=graph_model.SyntaxStepMeta.default([
             generic(args.fork_n_id(l_id)),
             generic(args.fork_n_id(r_id)),
-        ],
-        meta=graph_model.SyntaxStepMeta.default(),
+        ]),
         operator=args.graph.nodes[op_id]['label_text'],
     )
 
@@ -126,10 +125,9 @@ def local_variable_declaration(
             and (dependencies_id := match['__0__'])
         ):
             yield graph_model.SyntaxStepDeclaration(
-                dependencies=[
+                meta=graph_model.SyntaxStepMeta.default([
                     generic(args.fork_n_id(dependencies_id)),
-                ],
-                meta=graph_model.SyntaxStepMeta.default(),
+                ]),
                 var=args.graph.nodes[var_id]['label_text'],
                 var_type=args.graph.nodes[var_type_id]['label_text'],
             )
@@ -164,7 +162,6 @@ def method_declaration_formal_parameter(
         and (var_id := match['identifier'])
     ):
         yield graph_model.SyntaxStepDeclaration(
-            dependencies=[],
             meta=graph_model.SyntaxStepMeta.default(),
             var=args.graph.nodes[var_id]['label_text'],
             var_type=args.graph.nodes[var_type_id]['label_text'],
@@ -185,8 +182,9 @@ def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         '.',
     }):
         yield graph_model.SyntaxStepMethodInvocation(
-            dependencies=dependencies_from_arguments(args.fork_n_id(args_id)),
-            meta=graph_model.SyntaxStepMeta.default(),
+            meta=graph_model.SyntaxStepMeta.default(
+                dependencies_from_arguments(args.fork_n_id(args_id)),
+            ),
             method=g.concatenate_label_text(args.graph, identifier_ids),
         )
     else:
@@ -209,8 +207,9 @@ def object_creation_expression(
         })
     ):
         yield graph_model.SyntaxStepObjectInstantiation(
-            dependencies=dependencies_from_arguments(args.fork_n_id(args_id)),
-            meta=graph_model.SyntaxStepMeta.default(),
+            meta=graph_model.SyntaxStepMeta.default(
+                dependencies_from_arguments(args.fork_n_id(args_id)),
+            ),
             object_type=args.graph.nodes[object_type_id]['label_text'],
         )
     else:
@@ -366,6 +365,37 @@ DISPATCHERS_BY_LANG: Dict[
 }
 
 
+def linearize_syntax_steps(
+    syntax_steps: graph_model.SyntaxSteps,
+) -> bool:
+    continue_linearizing: bool = False
+    syntax_step_index = -1
+
+    for syntax_step in syntax_steps.copy():
+        syntax_step_index += 1
+
+        if not syntax_step.meta.linear():
+            stack = 0
+            for dependency_syntax_steps in syntax_step.meta.dependencies:
+                for dependency_syntax_step in reversed(
+                    dependency_syntax_steps,
+                ):
+                    continue_linearizing = (
+                        continue_linearizing
+                        or not dependency_syntax_step.meta.linear()
+                    )
+                    syntax_steps.insert(
+                        syntax_step_index,
+                        dependency_syntax_step,
+                    )
+                    syntax_step_index += 1
+                    stack += 1
+
+            syntax_step.meta.dependencies = -1 * stack
+
+    return continue_linearizing
+
+
 def read_from_graph(
     graph: graph_model.Graph,
     language: graph_model.GraphShardMetadataLanguage,
@@ -381,5 +411,10 @@ def read_from_graph(
                     language=language,
                     n_id=n_id,
                 ), warn_if_missing_syntax_reader=False)
+
+    # Linearize items so we can evaluate steps in a linear for, no recursion
+    for syntax_steps in graph_syntax.values():
+        while linearize_syntax_steps(syntax_steps):
+            pass
 
     return graph_syntax

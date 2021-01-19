@@ -6470,7 +6470,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6482,7 +6481,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6494,7 +6492,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6506,7 +6503,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6518,7 +6514,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6530,7 +6525,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6539,26 +6533,19 @@
         ],
         "138": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "request.getRequestURI",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestURI",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -6571,7 +6558,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6583,7 +6569,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6595,7 +6580,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6607,7 +6591,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6616,25 +6599,19 @@
         ],
         "188": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "userCookie",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "userCookie",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -6647,7 +6624,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6656,40 +6632,29 @@
         ],
         "197": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "/pathtraver-00/BenchmarkTest00001.html"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "request.getRequestDispatcher",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "/pathtraver-00/BenchmarkTest00001.html"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestDispatcher",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -6703,7 +6668,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6712,38 +6676,29 @@
         ],
         "212": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "request",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ],
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "response",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "sink": null,
               "value": null
             },
@@ -6756,7 +6711,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6765,11 +6719,9 @@
         ],
         "224": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6778,11 +6730,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6796,7 +6746,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6808,7 +6757,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6820,7 +6768,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6829,25 +6776,19 @@
         ],
         "251": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "text/html;charset=UTF-8"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -6860,7 +6801,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6869,26 +6809,19 @@
         ],
         "260": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "request.getCookies",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -6899,25 +6832,19 @@
         ],
         "273": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "noCookieValueSupplied"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "noCookieValueSupplied"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -6931,7 +6858,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6943,7 +6869,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6955,7 +6880,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6967,7 +6891,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6979,7 +6902,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -6991,7 +6913,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7003,7 +6924,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7015,7 +6935,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7027,7 +6946,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7039,7 +6957,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7051,7 +6968,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7063,7 +6979,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7075,7 +6990,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7087,7 +7001,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7096,81 +7009,59 @@
         ],
         "496": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "type": "SyntaxStepStringLiteral",
-                              "value": "Couldn't open FileInputStream on file: '"
-                            }
-                          ],
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "symbol": "fileName",
-                              "type": "SyntaxStepSymbolLookup"
-                            }
-                          ]
-                        ],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "operator": "+",
-                        "type": "SyntaxStepBinaryExpression"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "'"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Couldn't open FileInputStream on file: '"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "'"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -7183,7 +7074,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7195,7 +7085,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7207,7 +7096,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7216,11 +7104,9 @@
         ],
         "63": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7229,11 +7115,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7247,7 +7131,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7259,7 +7142,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7268,25 +7150,19 @@
         ],
         "89": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "text/html;charset=UTF-8"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -7299,7 +7175,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -7308,53 +7183,39 @@
         ],
         "98": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "BenchmarkTest00001"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "FileName"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "object_type": "javax.servlet.http.Cookie",
-                  "type": "SyntaxStepObjectInstantiation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "BenchmarkTest00001"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "FileName"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "javax.servlet.http.Cookie",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -10746,7 +10607,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10758,7 +10618,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10770,7 +10629,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10779,25 +10637,19 @@
         ],
         "126": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "text/html;charset=UTF-8"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -10810,7 +10662,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10819,25 +10670,19 @@
         ],
         "135": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": ""
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ""
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -10851,7 +10696,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10863,7 +10707,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10875,7 +10718,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10887,7 +10729,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10899,7 +10740,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10911,7 +10751,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -10920,81 +10759,59 @@
         ],
         "190": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "type": "SyntaxStepStringLiteral",
-                              "value": "{call "
-                            }
-                          ],
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "symbol": "param",
-                              "type": "SyntaxStepSymbolLookup"
-                            }
-                          ]
-                        ],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "operator": "+",
-                        "type": "SyntaxStepBinaryExpression"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "}"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "{call "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "}"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -11008,7 +10825,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11017,26 +10833,19 @@
         ],
         "207": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -11047,40 +10856,29 @@
         ],
         "220": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "sql",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "connection.prepareCall",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "sql",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "connection.prepareCall",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -11091,26 +10889,19 @@
         ],
         "234": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "statement.executeQuery",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "statement.executeQuery",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -11124,7 +10915,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11133,51 +10923,39 @@
         ],
         "248": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "rs",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ],
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "sql",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ],
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "response",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "rs",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "sql",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
               "sink": null,
               "value": null
             },
@@ -11190,7 +10968,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11202,7 +10979,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11214,7 +10990,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11226,7 +11001,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11238,7 +11012,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11247,11 +11020,9 @@
         ],
         "63": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11260,11 +11031,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11278,7 +11047,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11290,7 +11058,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11299,38 +11066,29 @@
         ],
         "89": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "request",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ],
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "response",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "sink": null,
               "value": null
             },
@@ -11343,7 +11101,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11352,11 +11109,9 @@
         ],
         "99": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -11365,11 +11120,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18497,7 +18250,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18509,7 +18261,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18518,25 +18269,19 @@
         ],
         "125": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "text/html;charset=UTF-8"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18549,7 +18294,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18558,25 +18302,19 @@
         ],
         "134": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": ""
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ""
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18590,7 +18328,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18602,7 +18339,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18614,7 +18350,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18626,7 +18361,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18638,7 +18372,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18650,7 +18383,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18659,25 +18391,19 @@
         ],
         "189": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": ""
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ""
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18691,7 +18417,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18703,7 +18428,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18715,7 +18439,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18724,40 +18447,29 @@
         ],
         "259": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "l",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "Long.toString",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "l",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "Long.toString",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18768,25 +18480,19 @@
         ],
         "273": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "Logan"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Logan"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18800,7 +18506,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18812,7 +18517,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18821,53 +18525,39 @@
         ],
         "338": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "rememberMe"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "testCaseNumber",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "rememberMe"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "testCaseNumber",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18878,26 +18568,19 @@
         ],
         "355": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "request.getCookies",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -18911,7 +18594,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18923,7 +18605,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18935,7 +18616,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18947,7 +18627,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18959,7 +18638,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18971,7 +18649,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18983,7 +18660,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -18995,7 +18671,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19007,7 +18682,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19019,7 +18693,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19028,53 +18701,39 @@
         ],
         "516": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "cookieName",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "rememberMeKey",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "object_type": "javax.servlet.http.Cookie",
-                  "type": "SyntaxStepObjectInstantiation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "rememberMeKey",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "javax.servlet.http.Cookie",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -19088,7 +18747,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19100,7 +18758,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19112,7 +18769,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19124,7 +18780,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19136,7 +18791,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19145,26 +18799,19 @@
         ],
         "552": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "request.getRequestURI",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getRequestURI",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -19177,7 +18824,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19189,7 +18835,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19201,7 +18846,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19213,7 +18857,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19225,7 +18868,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19237,7 +18879,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19246,25 +18887,19 @@
         ],
         "588": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "rememberMe",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "rememberMe",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -19277,7 +18912,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19289,7 +18923,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19298,11 +18931,9 @@
         ],
         "63": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19311,11 +18942,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19329,7 +18958,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19341,7 +18969,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19353,7 +18980,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19365,7 +18991,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19377,7 +19002,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19386,38 +19010,29 @@
         ],
         "89": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "request",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ],
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "response",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "sink": null,
               "value": null
             },
@@ -19430,7 +19045,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19439,11 +19053,9 @@
         ],
         "99": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -19452,11 +19064,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -20174,7 +19784,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -20186,7 +19795,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -20198,7 +19806,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -20210,7 +19817,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -20222,7 +19828,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21482,11 +21087,9 @@
       "syntax": {
         "13": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21495,11 +21098,9 @@
             "var_type": "HttpServletRequest"
           },
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21513,7 +21114,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21525,7 +21125,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21537,7 +21136,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21546,25 +21144,19 @@
         ],
         "40": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "text/html;charset=UTF-8"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "text/html;charset=UTF-8"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -21577,7 +21169,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21589,7 +21180,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -21598,26 +21188,19 @@
         ],
         "50": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "request.getCookies",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -21628,54 +21211,39 @@
         ],
         "63": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "method": "theCookie.getValue",
-                        "type": "SyntaxStepMethodInvocation"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "UTF-8"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "method": "java.net.URLDecoder.decode",
-                  "type": "SyntaxStepMethodInvocation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "method": "theCookie.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "UTF-8"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -21686,53 +21254,39 @@
         ],
         "85": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "param",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -21743,55 +21297,39 @@
         ],
         "95": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "symbol": "fileName",
-                              "type": "SyntaxStepSymbolLookup"
-                            }
-                          ]
-                        ],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "object_type": "java.io.File",
-                        "type": "SyntaxStepObjectInstantiation"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "object_type": "java.io.FileInputStream",
-                  "type": "SyntaxStepObjectInstantiation"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "java.io.File",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "java.io.FileInputStream",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39278,7 +38816,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39290,7 +38827,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39302,7 +38838,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39314,7 +38849,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39323,53 +38857,39 @@
         ],
         "1032": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Hi, I am "
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "person",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Hi, I am "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "person",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39382,7 +38902,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39394,7 +38913,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39403,25 +38921,19 @@
         ],
         "106": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "Error"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Error"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39434,7 +38946,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39446,7 +38957,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39458,7 +38968,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39470,7 +38979,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39479,25 +38987,19 @@
         ],
         "1155": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "Breaking the for loop."
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Breaking the for loop."
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39510,7 +39012,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39522,7 +39023,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39534,7 +39034,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39543,53 +39042,39 @@
         ],
         "1169": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Printing using for loop. Count is: "
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "i",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Printing using for loop. Count is: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39599,11 +39084,9 @@
         ],
         "117": [
           {
-            "dependencies": [],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39616,7 +39099,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39628,7 +39110,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39640,7 +39121,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39652,7 +39132,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39661,25 +39140,19 @@
         ],
         "1213": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "Breaking the for loop."
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Breaking the for loop."
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39692,7 +39165,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39704,7 +39176,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39713,53 +39184,39 @@
         ],
         "1227": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Inside the while loop, counting: "
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "counter",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Inside the while loop, counting: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39772,7 +39229,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39784,7 +39240,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39796,7 +39251,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39808,7 +39262,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39820,7 +39273,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39832,7 +39284,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39844,7 +39295,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39856,7 +39306,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39868,7 +39317,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39880,7 +39328,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39889,25 +39336,19 @@
         ],
         "135": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "I am a Car"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Car"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -39920,7 +39361,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39932,7 +39372,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39944,7 +39383,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39956,7 +39394,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39968,7 +39405,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -39977,165 +39413,119 @@
         ],
         "1448": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [
-                          [
-                            {
-                              "dependencies": [
-                                [
-                                  {
-                                    "dependencies": [
-                                      [
-                                        {
-                                          "dependencies": [
-                                            [
-                                              {
-                                                "meta": {
-                                                  "danger": false,
-                                                  "dependencies": 0,
-                                                  "linear": false,
-                                                  "sink": null,
-                                                  "value": null
-                                                },
-                                                "type": "SyntaxStepStringLiteral",
-                                                "value": "Found "
-                                              }
-                                            ],
-                                            [
-                                              {
-                                                "meta": {
-                                                  "danger": false,
-                                                  "dependencies": 0,
-                                                  "linear": false,
-                                                  "sink": null,
-                                                  "value": null
-                                                },
-                                                "symbol": "search",
-                                                "type": "SyntaxStepSymbolLookup"
-                                              }
-                                            ]
-                                          ],
-                                          "meta": {
-                                            "danger": false,
-                                            "dependencies": 0,
-                                            "linear": false,
-                                            "sink": null,
-                                            "value": null
-                                          },
-                                          "operator": "+",
-                                          "type": "SyntaxStepBinaryExpression"
-                                        }
-                                      ],
-                                      [
-                                        {
-                                          "meta": {
-                                            "danger": false,
-                                            "dependencies": 0,
-                                            "linear": false,
-                                            "sink": null,
-                                            "value": null
-                                          },
-                                          "type": "SyntaxStepStringLiteral",
-                                          "value": " at position "
-                                        }
-                                      ]
-                                    ],
-                                    "meta": {
-                                      "danger": false,
-                                      "dependencies": 0,
-                                      "linear": false,
-                                      "sink": null,
-                                      "value": null
-                                    },
-                                    "operator": "+",
-                                    "type": "SyntaxStepBinaryExpression"
-                                  }
-                                ],
-                                [
-                                  {
-                                    "meta": {
-                                      "danger": false,
-                                      "dependencies": 0,
-                                      "linear": false,
-                                      "sink": null,
-                                      "value": null
-                                    },
-                                    "symbol": "i",
-                                    "type": "SyntaxStepSymbolLookup"
-                                  }
-                                ]
-                              ],
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "operator": "+",
-                              "type": "SyntaxStepBinaryExpression"
-                            }
-                          ],
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "type": "SyntaxStepStringLiteral",
-                              "value": ","
-                            }
-                          ]
-                        ],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "operator": "+",
-                        "type": "SyntaxStepBinaryExpression"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "j",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Found "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "search",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": " at position "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ","
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "j",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40148,7 +39538,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40160,7 +39549,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40172,7 +39560,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40184,7 +39571,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40193,25 +39579,19 @@
         ],
         "1502": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "e",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "e",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40224,7 +39604,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40236,7 +39615,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40248,7 +39626,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40257,25 +39634,19 @@
         ],
         "1521": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "e",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "e",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40288,7 +39659,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40300,7 +39670,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40312,7 +39681,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40324,7 +39692,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40336,7 +39703,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40345,25 +39711,19 @@
         ],
         "1554": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "symbol": "e",
-                  "type": "SyntaxStepSymbolLookup"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "e",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40376,7 +39736,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40388,7 +39747,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40400,7 +39758,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40412,7 +39769,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40424,7 +39780,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40436,7 +39791,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40448,7 +39802,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40460,7 +39813,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40469,53 +39821,39 @@
         ],
         "167": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Car number :"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "i",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Car number :"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40528,7 +39866,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40540,7 +39877,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40552,7 +39888,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40561,25 +39896,19 @@
         ],
         "190": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "I am a Car"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Car"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40592,7 +39921,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40604,7 +39932,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40616,7 +39943,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40625,25 +39951,19 @@
         ],
         "204": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "I am a Truck"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Truck"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40656,7 +39976,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40668,7 +39987,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40680,7 +39998,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40689,53 +40006,39 @@
         ],
         "233": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Truck number: "
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "counter",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck number: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40748,7 +40051,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40760,7 +40062,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40772,7 +40073,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40784,7 +40084,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40796,7 +40095,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40805,109 +40103,79 @@
         ],
         "273": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [
-                          [
-                            {
-                              "dependencies": [
-                                [
-                                  {
-                                    "meta": {
-                                      "danger": false,
-                                      "dependencies": 0,
-                                      "linear": false,
-                                      "sink": null,
-                                      "value": null
-                                    },
-                                    "type": "SyntaxStepStringLiteral",
-                                    "value": "Truck Number: "
-                                  }
-                                ],
-                                [
-                                  {
-                                    "meta": {
-                                      "danger": false,
-                                      "dependencies": 0,
-                                      "linear": false,
-                                      "sink": null,
-                                      "value": null
-                                    },
-                                    "symbol": "i",
-                                    "type": "SyntaxStepSymbolLookup"
-                                  }
-                                ]
-                              ],
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "operator": "+",
-                              "type": "SyntaxStepBinaryExpression"
-                            }
-                          ],
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "type": "SyntaxStepStringLiteral",
-                              "value": ", "
-                            }
-                          ]
-                        ],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "operator": "+",
-                        "type": "SyntaxStepBinaryExpression"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "counter",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck Number: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ", "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -40920,7 +40188,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40932,7 +40199,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40944,7 +40210,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40956,7 +40221,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40968,7 +40232,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -40977,109 +40240,79 @@
         ],
         "317": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "dependencies": [
-                          [
-                            {
-                              "dependencies": [
-                                [
-                                  {
-                                    "meta": {
-                                      "danger": false,
-                                      "dependencies": 0,
-                                      "linear": false,
-                                      "sink": null,
-                                      "value": null
-                                    },
-                                    "type": "SyntaxStepStringLiteral",
-                                    "value": "Truck Number: "
-                                  }
-                                ],
-                                [
-                                  {
-                                    "meta": {
-                                      "danger": false,
-                                      "dependencies": 0,
-                                      "linear": false,
-                                      "sink": null,
-                                      "value": null
-                                    },
-                                    "symbol": "i",
-                                    "type": "SyntaxStepSymbolLookup"
-                                  }
-                                ]
-                              ],
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "operator": "+",
-                              "type": "SyntaxStepBinaryExpression"
-                            }
-                          ],
-                          [
-                            {
-                              "meta": {
-                                "danger": false,
-                                "dependencies": 0,
-                                "linear": false,
-                                "sink": null,
-                                "value": null
-                              },
-                              "type": "SyntaxStepStringLiteral",
-                              "value": ", "
-                            }
-                          ]
-                        ],
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "operator": "+",
-                        "type": "SyntaxStepBinaryExpression"
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "counter",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Truck Number: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": ", "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41092,7 +40325,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41104,7 +40336,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41116,7 +40347,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41125,25 +40355,19 @@
         ],
         "352": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "Finish"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Finish"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41156,7 +40380,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41168,7 +40391,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41180,7 +40402,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41189,25 +40410,19 @@
         ],
         "375": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "I am a Car"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Car"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41217,25 +40432,19 @@
         ],
         "38": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "Car"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Car"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41249,7 +40458,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41261,7 +40469,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41273,7 +40480,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41282,25 +40488,19 @@
         ],
         "398": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "I am a Truck"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Truck"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41313,7 +40513,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41325,7 +40524,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41337,7 +40535,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41346,25 +40543,19 @@
         ],
         "412": [
           {
-            "dependencies": [
-              [
-                {
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "type": "SyntaxStepStringLiteral",
-                  "value": "I am a Bike"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "I am a Bike"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41377,7 +40568,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41389,7 +40579,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41401,7 +40590,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41413,7 +40601,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41425,7 +40612,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41437,7 +40623,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41446,53 +40631,39 @@
         ],
         "763": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Inside the while loop, counting: "
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "counter",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Inside the while loop, counting: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "counter",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
@@ -41505,7 +40676,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41517,7 +40687,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41529,7 +40698,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41541,7 +40709,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41553,7 +40720,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41565,7 +40731,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
               "sink": null,
               "value": null
             },
@@ -41574,53 +40739,39 @@
         ],
         "994": [
           {
-            "dependencies": [
-              [
-                {
-                  "dependencies": [
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "type": "SyntaxStepStringLiteral",
-                        "value": "Printing using for loop. Count is: "
-                      }
-                    ],
-                    [
-                      {
-                        "meta": {
-                          "danger": false,
-                          "dependencies": 0,
-                          "linear": false,
-                          "sink": null,
-                          "value": null
-                        },
-                        "symbol": "i",
-                        "type": "SyntaxStepSymbolLookup"
-                      }
-                    ]
-                  ],
-                  "meta": {
-                    "danger": false,
-                    "dependencies": 0,
-                    "linear": false,
-                    "sink": null,
-                    "value": null
-                  },
-                  "operator": "+",
-                  "type": "SyntaxStepBinaryExpression"
-                }
-              ]
-            ],
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepStringLiteral",
+            "value": "Printing using for loop. Count is: "
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "sink": null,
               "value": null
             },
