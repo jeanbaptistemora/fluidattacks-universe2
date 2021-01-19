@@ -7,10 +7,15 @@ from typing import (
 # Local libraries
 from streamer_zoho_crm import auth
 from streamer_zoho_crm.api import bulk
+from streamer_zoho_crm.api import users
 from streamer_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     ModuleName,
+)
+from streamer_zoho_crm.api.users import (
+    UsersDataPage,
+    UserType,
 )
 from streamer_zoho_crm.auth import Credentials
 
@@ -21,8 +26,13 @@ class BulkApi(NamedTuple):
     download_result: Callable[[str], BulkData]
 
 
+class UsersApi(NamedTuple):
+    get_users: Callable[[UserType, int, int], UsersDataPage]
+
+
 class ApiClient(NamedTuple):
     bulk: BulkApi
+    users: UsersApi
 
 
 def new_client(credentials: Credentials) -> ApiClient:
@@ -38,10 +48,18 @@ def new_client(credentials: Credentials) -> ApiClient:
     def download_job(job_id: str) -> BulkData:
         return bulk.download_result(token, job_id)
 
+    def get_users(
+        u_type: UserType, page: int, per_page: int
+    ) -> UsersDataPage:
+        return users.get_users(token, u_type, page, per_page)
+
     return ApiClient(
         bulk=BulkApi(
             create_bulk_read_job=create_job,
             get_bulk_job=get_job,
             download_result=download_job,
+        ),
+        users=UsersApi(
+            get_users=get_users
         )
     )

@@ -1,9 +1,7 @@
 # Standard libraries
 import json
 from typing import (
-    List,
     Optional,
-    Tuple,
 )
 # Third party libraries
 import requests
@@ -13,10 +11,12 @@ from streamer_zoho_crm import utils
 from streamer_zoho_crm.api.common import (
     API_URL,
     DataPageInfo,
-    JSON,
     UnexpectedResponse,
 )
-from streamer_zoho_crm.api.users._objs import UserType
+from streamer_zoho_crm.api.users._objs import (
+    UsersDataPage,
+    UserType
+)
 
 
 API_ENDPOINT = API_URL + '/crm/v2/users'
@@ -29,7 +29,7 @@ def get_users(
     user_type: UserType,
     page: Optional[int] = None,
     per_page: Optional[int] = None
-) -> Tuple[List[JSON], DataPageInfo]:
+) -> UsersDataPage:
     LOG.info('API: Get users (%s)', user_type)
     endpoint = API_ENDPOINT
     headers = {'Authorization': f'Zoho-oauthtoken {token}'}
@@ -50,4 +50,4 @@ def get_users(
         page=response_json['info']['page'],
         more_records=response_json['info']['more_records'],
     )
-    return (users, info)
+    return UsersDataPage(data=users, info=info)

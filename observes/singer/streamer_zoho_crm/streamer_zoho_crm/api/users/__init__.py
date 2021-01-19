@@ -7,5 +7,7 @@ from streamer_zoho_crm.api.users import (
 )
 
 
+UsersDataPage = _objs.UsersDataPage
 UserType = _objs.UserType
+
 get_users = _users.get_users
