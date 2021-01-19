@@ -21684,6 +21684,63 @@
             "var_type": "String"
           }
         ],
+        "85": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "symbol": "param",
+                        "type": "SyntaxStepSymbolLookup"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "operator": "+",
+                  "type": "SyntaxStepBinaryExpression"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fileName",
+            "var_type": "String"
+          }
+        ],
         "95": [
           {
             "dependencies": [

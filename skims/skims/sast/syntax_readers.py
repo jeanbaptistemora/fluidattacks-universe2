@@ -271,6 +271,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'field_access',
             'identifier',
         },
         syntax_readers=(
