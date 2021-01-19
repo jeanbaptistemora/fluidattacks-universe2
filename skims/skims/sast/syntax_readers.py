@@ -70,6 +70,54 @@ class MissingCaseHandling(Exception):
         super().__init__()
 
 
+def local_variable_declaration(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(
+        args.graph,
+        args.n_id,
+        'array_type',
+        'scoped_type_identifier',
+        'type_identifier',
+
+        'variable_declarator',
+    )
+
+    if (
+        (var_type_id := (
+            match['array_type']
+            or match['scoped_type_identifier']
+            or match['type_identifier']
+        ))
+        and (var_decl_id := match['variable_declarator'])
+    ):
+        match = g.match_ast(
+            args.graph,
+            var_decl_id,
+            'identifier',
+            '=',
+            '__0__',
+        )
+
+        if (
+            (var_id := match['identifier'])
+            and match['=']
+            and (dependencies_id := match['__0__'])
+        ):
+            yield graph_model.SyntaxStepDeclaration(
+                dependencies=[
+                    generic(args.fork_n_id(dependencies_id)),
+                ],
+                meta=graph_model.SyntaxStepMeta.default(),
+                var=args.graph.nodes[var_id]['label_text'],
+                var_type=args.graph.nodes[var_type_id]['label_text'],
+            )
+        else:
+            raise MissingCaseHandling(local_variable_declaration, args)
+    else:
+        raise MissingCaseHandling(local_variable_declaration, args)
+
+
 def noop(_args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepNoOp(
         meta=graph_model.SyntaxStepMeta.default(),
@@ -156,6 +204,17 @@ def generic(
 
 
 DISPATCHERS: Tuple[Dispatcher, ...] = (
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'local_variable_declaration',
+        },
+        syntax_readers=(
+            local_variable_declaration,
+        ),
+    ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,

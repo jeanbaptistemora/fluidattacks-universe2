@@ -6728,6 +6728,50 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "197": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "/pathtraver-00/BenchmarkTest00001.html"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "request.getRequestDispatcher",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "rd",
+            "var_type": "javax.servlet.RequestDispatcher"
+          }
+        ],
         "2": [
           {
             "meta": {
@@ -6958,6 +7002,36 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "260": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "request.getCookies",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          }
+        ],
         "265": [
           {
             "dependencies": [],
@@ -6982,6 +7056,35 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "273": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "noCookieValueSupplied"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "278": [
@@ -11273,6 +11376,35 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "135": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": ""
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
+          }
+        ],
         "14": [
           {
             "meta": {
@@ -11551,6 +11683,36 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "207": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "connection",
+            "var_type": "java.sql.Connection"
+          }
+        ],
         "212": [
           {
             "dependencies": [],
@@ -11599,6 +11761,36 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "234": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "statement.executeQuery",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "rs",
+            "var_type": "java.sql.ResultSet"
           }
         ],
         "239": [
@@ -19106,6 +19298,35 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "134": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": ""
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
+          }
+        ],
         "139": [
           {
             "meta": {
@@ -19322,6 +19543,35 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "189": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": ""
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "bar",
+            "var_type": "String"
+          }
+        ],
         "194": [
           {
             "meta": {
@@ -19530,6 +19780,35 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "273": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Logan"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "user",
+            "var_type": "String"
+          }
+        ],
         "278": [
           {
             "meta": {
@@ -19663,6 +19942,36 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "355": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "request.getCookies",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "cookies",
+            "var_type": "javax.servlet.http.Cookie[]"
           }
         ],
         "360": [
@@ -22661,6 +22970,36 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "50": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "request.getCookies",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookie",
+            "var_type": "javax.servlet.http.Cookie[]"
+          }
+        ],
         "55": [
           {
             "dependencies": [],
@@ -22685,6 +23024,64 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "63": [
+          {
+            "dependencies": [
+              [
+                {
+                  "dependencies": [
+                    [
+                      {
+                        "dependencies": [],
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "method": "theCookie.getValue",
+                        "type": "SyntaxStepMethodInvocation"
+                      }
+                    ],
+                    [
+                      {
+                        "meta": {
+                          "danger": false,
+                          "dependencies": 0,
+                          "linear": false,
+                          "sink": null,
+                          "value": null
+                        },
+                        "type": "SyntaxStepStringLiteral",
+                        "value": "UTF-8"
+                      }
+                    ]
+                  ],
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "method": "java.net.URLDecoder.decode",
+                  "type": "SyntaxStepMethodInvocation"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "68": [
@@ -42426,6 +42823,35 @@
             },
             "method": "System.out.println",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "38": [
+          {
+            "dependencies": [
+              [
+                {
+                  "meta": {
+                    "danger": false,
+                    "dependencies": 0,
+                    "linear": false,
+                    "sink": null,
+                    "value": null
+                  },
+                  "type": "SyntaxStepStringLiteral",
+                  "value": "Car"
+                }
+              ]
+            ],
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "linear": false,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "vehicle",
+            "var_type": "String"
           }
         ],
         "381": [

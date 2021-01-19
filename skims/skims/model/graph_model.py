@@ -65,12 +65,14 @@ class SyntaxStepDeclaration(NamedTuple):
     var: str
     var_type: str
     meta: SyntaxStepMeta
+
     type: str = 'SyntaxStepDeclaration'
 
 
 class SyntaxStepStringLiteral(NamedTuple):
     meta: SyntaxStepMeta
     value: str
+
     type: str = 'SyntaxStepStringLiteral'
 
 
@@ -78,11 +80,13 @@ class SyntaxStepMethodInvocation(NamedTuple):
     dependencies: List[SyntaxSteps]
     meta: SyntaxStepMeta
     method: str
+
     type: str = 'SyntaxStepMethodInvocation'
 
 
 class SyntaxStepNoOp(NamedTuple):
     meta: SyntaxStepMeta
+
     type: str = 'SyntaxStepNoOp'
 
 
