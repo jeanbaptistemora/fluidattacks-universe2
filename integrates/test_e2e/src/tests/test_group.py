@@ -1,5 +1,4 @@
 # Third party libraries
-import pytest
 from selenium.webdriver.remote.webdriver import WebDriver
 
 # Local libraries
@@ -184,7 +183,6 @@ def test_group_scope_repositories(
     )
 
 
-@pytest.mark.skip(reason="Will be rewritten next MR")
 def test_group_scope_environments(
         driver: WebDriver,
         credentials: Credentials,
@@ -193,25 +191,39 @@ def test_group_scope_environments(
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
+    # Show all columns
+    driver.execute_script('localStorage.setItem("rootTableSet", "{}")')
+    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
+
     # Add environment
-    environment_name: str = utils.rand_name('test-environment')
-    driver.get(
-        f'{integrates_endpoint}/orgs/okada/groups/unittesting/scope')
-    add_environment = utils.wait_for_id(
+    table_row = utils.wait_for_text(
         driver,
-        'environment-add',
+        'https://integrates.fluidattacks.com',
         timeout,
     )
-    add_environment.click()
+    table_row.click()
+    manage_environments = utils.wait_for_id(
+        driver,
+        'envs-manage',
+        timeout,
+    )
+    manage_environments.click()
+    add_button = utils.wait_for_id(
+        driver,
+        'environmentUrls-add',
+        timeout,
+    )
+    add_button.click()
     environment = utils.wait_for_name(
         driver,
-        'resources[0].urlEnv',
+        'environmentUrls[1]',
         timeout
     )
+    environment_name: str = utils.rand_name('https://test.fluidattacks.com')
     environment.send_keys(environment_name)
     proceed = utils.wait_for_id(
         driver,
-        'environment-add-proceed',
+        'envs-manage-proceed',
         timeout,
     )
     proceed.click()

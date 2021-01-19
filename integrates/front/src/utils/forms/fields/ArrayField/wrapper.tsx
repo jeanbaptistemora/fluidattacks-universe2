@@ -47,7 +47,7 @@ const ArrayWrapper: React.FC<WrappedFieldArrayProps> = (
         }
       )}
       <div className={"mt4"}>
-        <Button onClick={addItem}>
+        <Button id={`${fields.name}-add`} onClick={addItem}>
           <Glyphicon glyph={"plus"} />
         </Button>
       </div>

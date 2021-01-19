@@ -334,7 +334,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         </Can>
         <Can do={"backend_api_mutations_update_git_environments_mutate"}>
           <div className={"mb3"}>
-            <Button disabled={editDisabled} onClick={openEnvsModal}>
+            <Button
+              disabled={editDisabled}
+              id={"envs-manage"}
+              onClick={openEnvsModal}
+            >
               <Glyphicon glyph={"cloud"} />
               &nbsp;{t("group.scope.git.manageEnvs")}
             </Button>

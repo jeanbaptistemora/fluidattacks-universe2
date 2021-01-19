@@ -60,7 +60,11 @@ const EnvsModal: React.FC<IEnvsModalProps> = ({
               <Col100>
                 <ButtonToolbar>
                   <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
-                  <Button disabled={pristine || submitting} type={"submit"}>
+                  <Button
+                    disabled={pristine || submitting}
+                    id={"envs-manage-proceed"}
+                    type={"submit"}
+                  >
                     {t("confirmmodal.proceed")}
                   </Button>
                 </ButtonToolbar>
