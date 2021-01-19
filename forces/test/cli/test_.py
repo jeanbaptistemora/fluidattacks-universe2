@@ -2,7 +2,6 @@
 import os
 
 # Third party libraries
-import pytest
 from click.testing import CliRunner
 
 # Local libraries
@@ -36,4 +35,4 @@ def test_cli_out_to_file(test_token: str) -> None:
         '--token', test_token, '--strict', '--output', 'test.yml',
         '--repo-path', '../'
     ])
-    assert os.path.exists(f'{os.getcwd()}/test.yml') == True
+    assert os.path.exists(f'{os.getcwd()}/test.yml')

@@ -7,7 +7,7 @@ from forces.apis.integrates.client import (
 )
 
 
-@pytest.mark.asyncio  # type: ignore
+@pytest.mark.asyncio
 async def test_session(test_token: str, test_group: str) -> None:
     async with session(api_token=test_token) as client:
         query = """

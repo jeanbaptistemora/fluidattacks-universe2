@@ -9,7 +9,7 @@ from forces.apis.integrates import (
 )
 
 
-@pytest.mark.first  # type: ignore
+@pytest.mark.first
 def test_get_api_token() -> None:
     try:
         get_api_token()
@@ -18,7 +18,7 @@ def test_get_api_token() -> None:
         assert True
 
 
-@pytest.mark.last  # type: ignore
+@pytest.mark.last
 def test_set_api_token(test_token: str) -> None:
     set_api_token(test_token)
     assert INTEGRATES_API_TOKEN.get() == test_token
