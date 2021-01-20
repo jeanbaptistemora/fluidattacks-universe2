@@ -134,6 +134,7 @@ class GraphShardMetadataJava(NamedTuple):
 
 
 class GraphShardMetadataNodes(NamedTuple):
+    dangerous_action: Dict[NId, GraphDangerousActionNode]
     in_cfg: Tuple[NId, ...]
     untrusted: Dict[NId, GraphUntrustedNode]
 

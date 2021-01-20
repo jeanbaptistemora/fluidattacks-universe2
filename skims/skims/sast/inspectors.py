@@ -11,6 +11,7 @@ from utils import (
 )
 from model.graph_model import (
     Graph,
+    GraphDangerousActionNode,
     GraphShardMetadata,
     GraphShardMetadataJava,
     GraphShardMetadataJavaClass,
@@ -38,6 +39,14 @@ def get_metadata(
     return GraphShardMetadata(
         language=language,
         nodes=GraphShardMetadataNodes(
+            dangerous_action={
+                n_id: GraphDangerousActionNode(n_attrs_label_sink_type)
+                for n_id, n_attrs in graph.nodes.items()
+                for n_attrs_label_sink_type in [
+                    n_attrs.get('label_sink_type'),
+                ]
+                if n_attrs_label_sink_type
+            },
             in_cfg=tuple(
                 n_id
                 for n_id in graph.nodes

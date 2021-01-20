@@ -6463,6 +6463,10 @@
         },
         "language": "java",
         "nodes": {
+          "dangerous_action": {
+            "382": "F063_PATH_TRAVERSAL",
+            "387": "F063_PATH_TRAVERSAL"
+          },
           "in_cfg": [
             "63",
             "86",
@@ -10676,6 +10680,7 @@
         },
         "language": "java",
         "nodes": {
+          "dangerous_action": {},
           "in_cfg": [
             "63",
             "86",
@@ -18366,6 +18371,7 @@
         },
         "language": "java",
         "nodes": {
+          "dangerous_action": {},
           "in_cfg": [
             "63",
             "86",
@@ -19987,6 +19993,7 @@
         },
         "language": "java",
         "nodes": {
+          "dangerous_action": {},
           "in_cfg": [
             "13",
             "25",
@@ -21307,6 +21314,10 @@
         },
         "language": "java",
         "nodes": {
+          "dangerous_action": {
+            "102": "F063_PATH_TRAVERSAL",
+            "107": "F063_PATH_TRAVERSAL"
+          },
           "in_cfg": [
             "13",
             "36",
@@ -39051,6 +39062,7 @@
         },
         "language": "java",
         "nodes": {
+          "dangerous_action": {},
           "in_cfg": [
             "17",
             "29",
