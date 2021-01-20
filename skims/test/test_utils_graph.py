@@ -73,6 +73,6 @@ def test_branches_cfg() -> None:
     graph.add_edge('3', '2', label_cfg='CFG')
 
     assert g.branches_cfg(graph, '1') == (
-        (0, ('1', '2', '4')),
-        (1, ('1', '2', '5')),
+        ('1', '2', '4'),
+        ('1', '2', '5'),
     )

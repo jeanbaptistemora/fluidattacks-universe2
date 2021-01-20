@@ -133,7 +133,7 @@ def from_untrusted_n_id_to_dangerous_action_node(
     untrusted_n_id: graph_model.NId,
 ) -> graph_model.GraphShardNodes:
     # Find paths from this node to all CFG connected leaf-nodes
-    for _, path in g.branches_cfg(shard.graph, untrusted_n_id):
+    for path in g.branches_cfg(shard.graph, untrusted_n_id):
         syntax_steps = get_syntax_steps_from_path(graph_db, shard, path)
 
         # Check here if the syntax steps returned contain danger in the

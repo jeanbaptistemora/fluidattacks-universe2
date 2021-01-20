@@ -348,18 +348,18 @@ def flows(
 def branches_cfg(
     graph: Graph,
     n_id: NId,
-) -> Tuple[Tuple[int, Tuple[str, ...]], ...]:
+) -> Tuple[Tuple[str, ...], ...]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
     # Filter the ones that are leafs
     leaf_ids = filterfalse(lambda x_id: adj_cfg(graph, x_id), c_ids)
 
-    return tuple(enumerate(sorted(
+    return tuple(sorted(
         path
         for leaf_id in leaf_ids
         for path in paths(graph, n_id, leaf_id, label_cfg='CFG')
-    )))
+    ))
 
 
 def import_graph_from_json(model: Any) -> Graph:
