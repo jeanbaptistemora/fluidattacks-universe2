@@ -6,6 +6,7 @@ from aiodataloader import DataLoader
 
 # Local
 from backend.domain import project as group_domain
+from backend.exceptions import GroupNotFound
 from backend.typing import Project as Group
 
 
@@ -71,16 +72,23 @@ def format_group(group: Group) -> Group:
     }
 
 
+def handle_group(group: Group) -> Group:
+    allowed_status: Set[str] = {'ACTIVE'}
+
+    if group.get('project_status') in allowed_status:
+        return format_group(group)
+
+    raise GroupNotFound()
+
+
 # pylint: disable=too-few-public-methods
 class GroupLoader(DataLoader):  # type: ignore
     """Batches load calls within the same execution fragment."""
     # pylint: disable=method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[Group]:
         groups: List[Group] = await group_domain.get_many_groups(group_names)
-        allowed_status: Set[str] = {'ACTIVE'}
 
         return [
-            format_group(group)
+            handle_group(group)
             for group in groups
-            if group['project_status'] in allowed_status
         ]

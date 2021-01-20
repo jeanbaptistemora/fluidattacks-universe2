@@ -282,6 +282,11 @@ def test_finding_vulnerabilities(
         timeout,
     )
     close.click()
+    assert utils.wait_for_hide_text(
+        driver,
+        'Vulnerability Info',
+        timeout,
+    )
 
     # Edit vulnerabilities
     edit_vulns = utils.wait_for_id(

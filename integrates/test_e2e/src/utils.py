@@ -36,6 +36,19 @@ def wait_for_text(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     )
 
 
+def wait_for_hide_text(
+    driver: WebDriver,
+    text: str,
+    timeout: int
+) -> WebDriverWait:
+    return WebDriverWait(driver, timeout).until_not(
+        ec.presence_of_element_located((
+            By.XPATH,
+            f"//*[text()[contains(., '{text}')]]",
+        ))
+    )
+
+
 def wait_for_url(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
         ec.url_contains(text)
