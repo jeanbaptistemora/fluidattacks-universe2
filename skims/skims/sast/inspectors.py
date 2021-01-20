@@ -9,6 +9,9 @@ from typing import (
 from utils import (
     graph as g,
 )
+from model import (
+    core_model,
+)
 from model.graph_model import (
     Graph,
     GraphShardMetadata,
@@ -38,12 +41,14 @@ def get_metadata(
         language=language,
         nodes=GraphShardMetadataNodes(
             dangerous_action={
-                n_id: n_attrs_label_sink_type
-                for n_id, n_attrs in graph.nodes.items()
-                for n_attrs_label_sink_type in [
-                    n_attrs.get('label_sink_type'),
-                ]
-                if n_attrs_label_sink_type
+                finding.name: tuple(
+                    n_id
+                    for n_id in graph.nodes
+                    for label in [graph.nodes[n_id].get('label_sink_type')]
+                    if label
+                    and core_model.FINDING_ENUM_FROM_STR[label] == finding
+                )
+                for finding in core_model.FindingEnum
             },
             in_cfg=tuple(
                 n_id
@@ -51,12 +56,14 @@ def get_metadata(
                 if g.is_connected_to_cfg(graph, n_id)
             ),
             untrusted={
-                n_id: n_attrs_label_input_type
-                for n_id, n_attrs in graph.nodes.items()
-                for n_attrs_label_input_type in [
-                    n_attrs.get('label_input_type'),
-                ]
-                if n_attrs_label_input_type
+                finding.name: tuple(
+                    n_id
+                    for n_id in graph.nodes
+                    for label in [graph.nodes[n_id].get('label_input_type')]
+                    if label
+                    and core_model.FINDING_ENUM_FROM_STR[label] == finding
+                )
+                for finding in core_model.FindingEnum
             },
         ),
         **metadata,

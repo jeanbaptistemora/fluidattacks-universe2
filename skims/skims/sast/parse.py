@@ -267,6 +267,6 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     if CTX.debug:
         output = get_debug_path('tree-sitter')
         with open(f'{output}.json', 'w') as handle:
-            json_dump(graph_db, handle, indent=2)
+            json_dump(graph_db, handle, indent=2, sort_keys=True)
 
     return graph_db

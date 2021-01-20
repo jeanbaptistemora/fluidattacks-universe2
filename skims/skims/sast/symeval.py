@@ -15,8 +15,17 @@ from model import (
 from utils import (
     graph as g,
 )
+from utils.ctx import (
+    CTX,
+)
+from utils.encodings import (
+    json_dump,
+)
 from utils.logs import (
     log_blocking,
+)
+from utils.string import (
+    get_debug_path,
 )
 
 
@@ -105,7 +114,7 @@ def eval_syntax_steps(
     return syntax_steps
 
 
-def get_syntax_steps_from_path(
+def get_possible_syntax_steps_from_path(
     graph_db: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     path: Tuple[str, ...],
@@ -126,40 +135,62 @@ def get_syntax_steps_from_path(
     return syntax_steps
 
 
-def from_untrusted_n_id_to_dangerous_action_node(
+PossibleSyntaxStepsForUntrustedNId = Dict[str, graph_model.SyntaxSteps]
+PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
+PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
+
+
+def get_possible_syntax_steps_for_untrusted_n_id(
     graph_db: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     *,
     untrusted_n_id: graph_model.NId,
-) -> graph_model.GraphShardNodes:
-    # Find paths from this node to all CFG connected leaf-nodes
-    for path in g.branches_cfg(shard.graph, untrusted_n_id):
-        syntax_steps = get_syntax_steps_from_path(graph_db, shard, path)
+) -> PossibleSyntaxStepsForUntrustedNId:
+    syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
+        # Path identifier -> syntax_steps
+        '-'.join(path): get_possible_syntax_steps_from_path(
+            graph_db, shard, path,
+        )
+        for path in g.branches_cfg(
+            graph=shard.graph,
+            n_id=g.lookup_first_cfg_parent(shard.graph, untrusted_n_id),
+        )
+    }
 
-        # Check here if the syntax steps returned contain danger in the
-        # dangerous_action_node. Temporarily never happens
-        if '__never__' in syntax_steps:
-            yield shard, g.ROOT_NODE
+    return syntax_steps_map
 
 
-def from_untrusted_node_to_dangerous_action_node(
+def get_possible_syntax_steps_for_finding(
     graph_db: graph_model.GraphDB,
-    *,
-    untrusted_node: core_model.FindingEnum,
-) -> graph_model.GraphShardNodes:
-    # Start the evaluation from the untrusted nodes, in any shard
-    for shard in graph_db.shards:
-        for untrusted_n_id in g.filter_nodes(
-            shard.graph,
-            shard.graph.nodes,
-            predicate=g.pred_has_labels(label_input_type=untrusted_node.value),
-        ):
-            yield from from_untrusted_n_id_to_dangerous_action_node(
-                graph_db,
-                shard=shard,
-                # We start evaluation at the CFG-connected nodes
-                untrusted_n_id=g.lookup_first_cfg_parent(
-                    shard.graph,
-                    untrusted_n_id,
-                ),
-            )
+    finding: core_model.FindingEnum,
+) -> PossibleSyntaxStepsForFinding:
+    syntax_steps_map: PossibleSyntaxStepsForFinding = {
+        untrusted_n_id: get_possible_syntax_steps_for_untrusted_n_id(
+            graph_db,
+            shard=shard,
+            untrusted_n_id=untrusted_n_id,
+        )
+        for shard in graph_db.shards
+        for untrusted_n_id in shard.metadata.nodes.untrusted[finding.name]
+    }
+
+    return syntax_steps_map
+
+
+def get_possible_syntax_steps(
+    graph_db: graph_model.GraphDB,
+) -> PossibleSyntaxSteps:
+    syntax_steps_map: PossibleSyntaxSteps = {
+        finding.name: get_possible_syntax_steps_for_finding(
+            graph_db=graph_db,
+            finding=finding,
+        )
+        for finding in core_model.FindingEnum
+    }
+
+    if CTX.debug:
+        output = get_debug_path('tree-sitter-syntax-steps')
+        with open(f'{output}.json', 'w') as handle:
+            json_dump(syntax_steps_map, handle, indent=2, sort_keys=True)
+
+    return syntax_steps_map

@@ -507,6 +507,11 @@ class FindingEnum(Enum):
     )
 
 
+FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
+    __finding.name: __finding for __finding in FindingEnum
+}
+
+
 class FindingEvidenceIDEnum(Enum):
     ANIMATION: str = 'ANIMATION'
     EVIDENCE1: str = 'EVIDENCE1'
