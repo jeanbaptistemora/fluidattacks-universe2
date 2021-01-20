@@ -28,23 +28,11 @@ const GET_USER: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       permissions(entity: USER)
       role(entity: USER)
+      sessionExpiration
       userEmail
       userName
     }
   }
 `;
 
-const SESSION_EXPIRATION: DocumentNode = gql`
-  query sessionExpiration {
-    me(callerOrigin: "FRONT") {
-      sessionExpiration
-    }
-  }
-`;
-
-export {
-  ADD_STAKEHOLDER_MUTATION,
-  GET_USER,
-  GET_USER_PERMISSIONS,
-  SESSION_EXPIRATION,
-};
+export { ADD_STAKEHOLDER_MUTATION, GET_USER, GET_USER_PERMISSIONS };

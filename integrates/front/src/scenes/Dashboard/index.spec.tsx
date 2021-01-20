@@ -28,6 +28,7 @@ describe("Dashboard", (): void => {
     const permissionsResult: IUser = {
       me: {
         permissions: ["dummyPermission", "dummyPermissionBrother"],
+        sessionExpiration: "2021-01-20 21:37:37.944176",
         userEmail: "",
         userName: "",
       },

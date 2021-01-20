@@ -4,11 +4,13 @@ import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import type { ApolloError } from "apollo-client";
 import Bugsnag from "@bugsnag/js";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { GET_USER } from "scenes/Dashboard/queries";
 import type { GraphQLError } from "graphql";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import type { IAuthContext } from "utils/auth";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IStakeholderDataAttr } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import type { IUser } from "scenes/Dashboard/types";
 import { Logger } from "utils/logger";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
@@ -19,17 +21,14 @@ import React from "react";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import _ from "lodash";
-import { authContext } from "utils/auth";
 import { initializeZendesk } from "utils/widgets";
 import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_USER, SESSION_EXPIRATION } from "scenes/Dashboard/queries";
-import type { ISessionExpirationAttr, IUser } from "scenes/Dashboard/types";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { authContext, setupSessionCheck } from "utils/auth";
 import {
   authzGroupContext,
   authzPermissionsContext,
@@ -37,20 +36,6 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "utils/authz/config";
-
-// Type definition
-type EventListeners =
-  | "mousemove"
-  | "mousedown"
-  | "keypress"
-  | "DOMMouseScroll"
-  | "wheel"
-  | "touchmove"
-  | "MSPointerMove";
-
-// Constants
-const milliseconds: number = 1000;
-const seconds: number = 60;
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
@@ -95,111 +80,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
     authzPermissionsContext
   );
 
-  const { data: expDate, loading: isExpDateLoaded } = useQuery(
-    SESSION_EXPIRATION,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          Logger.error("Couldn't load session expiration", error);
-        });
-      },
-    }
-  );
-
-  React.useEffect((): (() => void) => {
-    const timersID: Record<string, number | undefined> = {
-      interval: 0,
-      timeout: 0,
-    };
-
-    const sessionIsAlive: (active: boolean) => void = (
-      active: boolean
-    ): void => {
-      if (!_.isUndefined(expDate)) {
-        const dat: ISessionExpirationAttr = expDate;
-        if (Number(`${dat.me.sessionExpiration}000`) <= Date.now()) {
-          if (!active) {
-            window.clearInterval(timersID.interval);
-            alert(translate.t("validations.valid_session_date"));
-          }
-          window.location.replace(`https://${window.location.host}`);
-        }
-      }
-    };
-
-    window.setInterval((): void => {
-      sessionIsAlive(true);
-    }, milliseconds * seconds * 2);
-
-    const goInactive: () => void = (): void => {
-      const Iseconds: number = 10;
-      const total: number = milliseconds * Iseconds;
-      sessionIsAlive(false);
-      // eslint-disable-next-line fp/no-mutation
-      timersID.interval = window.setInterval((): void => {
-        sessionIsAlive(false);
-      }, total);
-    };
-
-    const startTimer: () => void = (): void => {
-      const Iseconds: number = 10;
-      const total: number = milliseconds * Iseconds;
-      // eslint-disable-next-line fp/no-mutation
-      timersID.timeout = window.setTimeout(goInactive, total);
-    };
-
-    const goActive: () => void = (): void => {
-      window.clearInterval(timersID.interval);
-      startTimer();
-    };
-
-    const resetTimer: () => void = (): void => {
-      window.clearTimeout(timersID.timeout);
-      goActive();
-    };
-
-    const cleanUpListeners: (exp: boolean) => void = (exp: boolean): void => {
-      const events: EventListeners[] = [
-        "mousemove",
-        "mousedown",
-        "keypress",
-        "DOMMouseScroll",
-        "wheel",
-        "touchmove",
-        "MSPointerMove",
-      ];
-      if (!exp) {
-        events.forEach((item: EventListeners): void => {
-          window.removeEventListener(item, resetTimer, false);
-        });
-      }
-    };
-
-    const setupSessionCheck: (exp: boolean) => void = (exp: boolean): void => {
-      const events: EventListeners[] = [
-        "mousemove",
-        "mousedown",
-        "keypress",
-        "DOMMouseScroll",
-        "wheel",
-        "touchmove",
-        "MSPointerMove",
-      ];
-      if (!exp) {
-        events.forEach((item: EventListeners): void => {
-          window.addEventListener(item, resetTimer, false);
-        });
-        startTimer();
-      }
-    };
-
-    setupSessionCheck(isExpDateLoaded);
-
-    return (): void => {
-      cleanUpListeners(isExpDateLoaded);
-    };
-  }, [expDate, isExpDateLoaded]);
-
   const user: Required<IAuthContext> = React.useContext(
     authContext as React.Context<Required<IAuthContext>>
   );
@@ -209,6 +89,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
       initializeZendesk(me.userEmail, me.userName);
+      setupSessionCheck(me.sessionExpiration);
 
       permissions.update(
         me.permissions.map((action: string): { action: string } => ({

@@ -1,4 +1,6 @@
 import React from "react";
+import moment from "moment";
+import { translate } from "utils/translations/translate";
 
 interface IUser {
   userEmail: string;
@@ -14,4 +16,53 @@ const authContext: React.Context<IAuthContext> = React.createContext({
   userName: "",
 });
 
-export { authContext, IAuthContext };
+const setupSessionCheck: (expDate: string) => void = (expDate): void => {
+  const state: { active: boolean; timerId: number } = {
+    active: true,
+    timerId: 0,
+  };
+
+  const startInactivityTimer: () => number = (): number => {
+    const msInSec: number = 1000;
+    const timeout: number = 10;
+
+    return setTimeout((): void => {
+      // eslint-disable-next-line fp/no-mutation
+      state.active = false;
+    }, timeout * msInSec);
+  };
+
+  // eslint-disable-next-line fp/no-mutation
+  state.timerId = startInactivityTimer();
+  const events: string[] = [
+    "mousemove",
+    "mousedown",
+    "keypress",
+    "DOMMouseScroll",
+    "wheel",
+    "touchmove",
+    "MSPointerMove",
+  ];
+  events.forEach((item: string): void => {
+    window.addEventListener(
+      item,
+      (): void => {
+        // eslint-disable-next-line fp/no-mutation
+        state.active = true;
+        clearTimeout(state.timerId);
+        // eslint-disable-next-line fp/no-mutation
+        state.timerId = startInactivityTimer();
+      },
+      false
+    );
+  });
+
+  setTimeout((): void => {
+    if (!state.active) {
+      alert(translate.t("validations.valid_session_date"));
+    }
+    location.replace(`https://${window.location.host}`);
+  }, moment.utc(expDate).diff(moment.utc()));
+};
+
+export { authContext, IAuthContext, setupSessionCheck };

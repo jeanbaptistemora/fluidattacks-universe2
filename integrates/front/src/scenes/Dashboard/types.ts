@@ -8,6 +8,7 @@ interface IAddStakeholderAttr {
 interface IUser {
   me: {
     permissions: string[];
+    sessionExpiration: string;
     userEmail: string;
     userName: string;
   };
