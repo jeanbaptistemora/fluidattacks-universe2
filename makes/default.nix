@@ -1,4 +1,5 @@
 { flake
+, self
 , srcForcesPkgs
 , srcIntegratesPkgs
 , srcMakesPkgs
@@ -56,7 +57,7 @@ flake.lib.eachDefaultSystem (
           melts-lint = import ../makes/melts/lint attrs;
           observes-bin-target-redshift = import ../makes/observes/bin-target-redshift attrs;
           observes-config-python-requirements-target-redshift-runtime = import ../makes/observes/config/python-requirements/target-redshift-runtime attrs;
-          observes-config-setup-target-redshift-runtime = (import ../makes/observes/config attrs).setupTargetRedshiftRuntime;
+          observes-config-setup-target-redshift-runtime = (import ../makes/observes/config attrs).setupObservesTargetRedshiftRuntime;
           observes-lint-target-redshift = import ../makes/observes/lint-target-redshift attrs;
           skims-bin = import ../makes/skims/bin attrs;
           skims-bin-repl = import ../makes/skims/bin-repl attrs;
@@ -80,6 +81,7 @@ flake.lib.eachDefaultSystem (
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
       observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
+      path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
       skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
       skimsPkgs = import srcSkimsPkgs { inherit system; };
       skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };

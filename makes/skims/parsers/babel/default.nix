@@ -1,14 +1,15 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ _:
 let
-  makeDerivation = import ../../../../makes/utils/make-derivation skimsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") skimsPkgs;
 in
 makeDerivation {
   builder = ./builder.sh;
   buildInputs = [
     skimsPkgs.nodejs
   ];
-  envSrc = ../../../../skims/static/parsers/babel;
+  envSrc = (path "/skims/static/parsers/babel");
   name = "skims-parsers-babel";
 }

@@ -1,11 +1,12 @@
 { outputs
+, path
 , skimsPkgs
 , skimsTreeSitterRepo
 , ...
 } @ _:
 let
-  makeSearchPaths = import ../../../makes/utils/make-search-paths skimsPkgs;
-  makeTemplate = import ../../../makes/utils/make-template skimsPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") skimsPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") skimsPkgs;
   nixRequirements = {
     development = makeSearchPaths [ ];
     runtime = makeSearchPaths [
@@ -22,10 +23,10 @@ in
       envLibPath = nixRequirements.development.libPath;
       envPyPath = nixRequirements.development.pyPath;
       envPythonRequirements = outputs.packages.skims-config-python-requirements-development;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envUtilsBashLibPython = (path "/makes/utils/bash-lib/python.sh");
     };
     name = "skims-config-setup-skims-development";
-    template = ../../../makes/skims/config/setup-skims-development.sh;
+    template = (path "/makes/skims/config/setup-skims-development.sh");
   };
 
   setupSkimsRuntime = makeTemplate {
@@ -34,8 +35,8 @@ in
         arguments = {
           envParserAntlr = outputs.packages.skims-parsers-antlr;
           envParserBabel = outputs.packages.skims-parsers-babel;
-          envSrcSkimsStatic = ../../../skims/static;
-          envSrcSkimsVendor = ../../../skims/vendor;
+          envSrcSkimsStatic = (path "/skims/static");
+          envSrcSkimsVendor = (path "/skims/vendor");
           envSrcTreeSitter = skimsTreeSitterRepo;
         };
         name = "skims-config-context-file";
@@ -55,10 +56,10 @@ in
       envBinPath = nixRequirements.runtime.binPath;
       envLibPath = nixRequirements.runtime.libPath;
       envPyPath = nixRequirements.runtime.pyPath;
-      envSrcSkimsSkims = ../../../skims/skims;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envSrcSkimsSkims = (path "/skims/skims");
+      envUtilsBashLibPython = (path "/makes/utils/bash-lib/python.sh");
     };
     name = "skims-config-setup-skims-runtime";
-    template = ../../../makes/skims/config/setup-skims-runtime.sh;
+    template = (path "/makes/skims/config/setup-skims-runtime.sh");
   };
 }

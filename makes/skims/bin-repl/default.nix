@@ -1,9 +1,10 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/skims/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint skimsPkgs;
+  config = import (path "/makes/skims/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") skimsPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -12,5 +13,5 @@ makeEntrypoint {
   };
   location = "/bin/skims-repl";
   name = "skims-repl";
-  template = ../../../makes/skims/bin-repl/entrypoint.sh;
+  template = (path "/makes/skims/bin-repl/entrypoint.sh");
 }

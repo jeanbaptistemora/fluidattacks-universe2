@@ -1,8 +1,9 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ _:
 let
-  buildPythonRequirements = import ../../../../../makes/utils/build-python-requirements skimsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") skimsPkgs;
 in
 buildPythonRequirements {
   dependencies = [ ];

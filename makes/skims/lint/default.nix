@@ -1,17 +1,18 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/skims/config attrs.copy;
-  makeDerivation = import ../../../makes/utils/make-derivation skimsPkgs;
+  config = import (path "/makes/skims/config") attrs.copy;
+  makeDerivation = import (path "/makes/utils/make-derivation") skimsPkgs;
 in
 makeDerivation {
   builder = ./builder.sh;
-  envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python skimsPkgs;
-  envImportLinterConfig = ../../../skims/setup.imports.cfg;
+  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") skimsPkgs;
+  envImportLinterConfig = (path "/skims/setup.imports.cfg");
   envSetupSkimsDevelopment = config.setupSkimsDevelopment;
   envSetupSkimsRuntime = config.setupSkimsRuntime;
-  envSrcSkimsSkims = ../../../skims/skims;
-  envSrcSkimsTest = ../../../skims/test;
+  envSrcSkimsSkims = (path "/skims/skims");
+  envSrcSkimsTest = (path "/skims/test");
   name = "skims-lint";
 }

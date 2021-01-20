@@ -1,8 +1,9 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ _:
 let
-  makeDerivation = import ../../../../makes/utils/make-derivation skimsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") skimsPkgs;
 in
 makeDerivation {
   builder = ./builder.sh;
@@ -16,6 +17,6 @@ makeDerivation {
   };
   envJava = "${skimsPkgs.jdk11}/bin/java";
   envShell = "${skimsPkgs.bash}/bin/bash";
-  envSrc = ../../../../skims/static/parsers/antlr;
+  envSrc = (path "/skims/static/parsers/antlr");
   name = "skims-parsers-antlr";
 }

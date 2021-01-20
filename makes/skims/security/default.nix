@@ -1,13 +1,14 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/skims/config attrs.copy;
-  makeDerivation = import ../../../makes/utils/make-derivation skimsPkgs;
+  config = import (path "/makes/skims/config") attrs.copy;
+  makeDerivation = import (path "/makes/utils/make-derivation") skimsPkgs;
 in
 makeDerivation {
   builder = ./builder.sh;
   envSetupSkimsDevelopment = config.setupSkimsDevelopment;
-  envSrcSkimsSkims = ../../../skims/skims;
+  envSrcSkimsSkims = (path "/skims/skims");
   name = "skims-security";
 }

@@ -10,5 +10,5 @@ makeDerivation {
   envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python observesPkgs;
   envSetupObservesTargetRedshift = config.setupObservesTargetRedshiftRuntime;
   envSrcObservesTargetRedshift = ../../../observes/singer/target_redshift;
-  name = "observes-tager-redshift-lint";
+  name = "observes-target-redshift-lint";
 }

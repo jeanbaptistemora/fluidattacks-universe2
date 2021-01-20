@@ -1,11 +1,12 @@
 { outputs
+, path
 , skimsBenchmarkOwaspRepo
 , skimsPkgs
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/skims/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint skimsPkgs;
+  config = import (path "/makes/skims/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") skimsPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -13,14 +14,14 @@ makeEntrypoint {
     envPython = "${skimsPkgs.python38}/bin/python";
     envSetupSkimsRuntime = config.setupSkimsRuntime;
     envSkims = outputs.apps.skims.program;
-    envSrcSkimsSkims = ../../../skims/skims;
-    envSrcSkimsTest = ../../../skims/test;
+    envSrcSkimsSkims = (path "/skims/skims");
+    envSrcSkimsTest = (path "/skims/test");
     envTapJson = outputs.apps.observes-tap-json.program;
     envTargetRedshift = outputs.apps.observes-target-redshift.program;
-    envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws skimsPkgs;
-    envUtilsBashLibSops = import ../../../makes/utils/bash-lib/sops skimsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") skimsPkgs;
+    envUtilsBashLibSops = import (path "/makes/utils/bash-lib/sops") skimsPkgs;
   };
   location = "/bin/skims-benchmark";
   name = "skims-benchmark";
-  template = ../../../makes/skims/benchmark/entrypoint.sh;
+  template = (path "/makes/skims/benchmark/entrypoint.sh");
 }

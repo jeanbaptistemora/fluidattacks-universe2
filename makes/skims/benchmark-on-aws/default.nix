@@ -1,8 +1,9 @@
-{ skimsPkgs
+{ path
+, skimsPkgs
 , ...
 } @ _:
 let
-  computeOnAws = import ../../../makes/utils/bash-lib/compute-on-aws skimsPkgs;
+  computeOnAws = import (path "/makes/utils/bash-lib/compute-on-aws") skimsPkgs;
 in
 computeOnAws {
   attempts = 1;
