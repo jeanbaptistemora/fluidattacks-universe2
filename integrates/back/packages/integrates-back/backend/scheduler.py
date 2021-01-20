@@ -912,6 +912,7 @@ async def integrates_delete_obsolete_orgs() -> None:
     msg = '[scheduler]: integrates_delete_obsolete_orgs is running'
     LOGGER.info(msg, **NOEXTRA)
     today = datetime_utils.get_now().date()
+    email = 'integrates@fluidattacks.com'
     async for org_id, org_name in org_domain.iterate_organizations():
         org_pending_deletion_date_str = (
             await org_domain.get_pending_deletion_date_str(org_id)
@@ -926,7 +927,7 @@ async def integrates_delete_obsolete_orgs() -> None:
                 if org_pending_deletion_date.date() <= today:
                     msg = f'- organization: {org_name} will be deleted'
                     LOGGER.info(msg, **NOEXTRA)
-                    await org_domain.delete_organization(org_id)
+                    await org_domain.delete_organization(org_id, email)
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)

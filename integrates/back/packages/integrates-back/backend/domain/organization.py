@@ -104,13 +104,22 @@ async def create_organization(name: str, email: str) -> OrganizationType:
     return new_organization
 
 
-async def delete_organization(organization_id: str) -> bool:
+async def delete_organization(organization_id: str, email: str) -> bool:
     users = await get_users(organization_id)
     users_removed = await collect(
         remove_user(organization_id, user)
         for user in users
     )
     success = all(users_removed) if users else True
+
+    org_groups = await get_groups(organization_id)
+    groups_removed = all(
+        await collect(
+            remove_group(organization_id, group, email)
+            for group in org_groups
+        )
+    )
+    success = success and groups_removed
 
     organization_name = await get_name_by_id(organization_id)
     success = (
@@ -239,6 +248,21 @@ async def has_user_access(organization_id: str, email: str) -> bool:
     return await org_dal.has_user_access(organization_id, email) \
         or await authz.get_organization_level_role(
             email, organization_id) == 'admin'
+
+
+async def remove_group(
+    organization_id: str,
+    group_name: str,
+    email: str
+) -> bool:
+    success = all(
+        await collect([
+            org_dal.remove_group(organization_id, group_name),
+            project_domain.delete_project(group_name, email)
+        ])
+    )
+
+    return success
 
 
 async def remove_user(organization_id: str, email: str) -> bool:
