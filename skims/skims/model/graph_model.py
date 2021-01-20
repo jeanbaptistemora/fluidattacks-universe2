@@ -135,6 +135,7 @@ class GraphShardMetadataJava(NamedTuple):
 
 class GraphShardMetadataNodes(NamedTuple):
     in_cfg: Tuple[NId, ...]
+    untrusted: Dict[NId, GraphUntrustedNode]
 
 
 class GraphShardMetadataLanguage(Enum):

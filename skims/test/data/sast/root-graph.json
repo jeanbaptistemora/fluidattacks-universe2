@@ -6532,7 +6532,11 @@
             "512",
             "548",
             "550"
-          ]
+          ],
+          "untrusted": {
+            "235": "F063_PATH_TRAVERSAL",
+            "74": "F063_PATH_TRAVERSAL"
+          }
         }
       },
       "path": "test/data/benchmark/owasp/BenchmarkTest00001.java",
@@ -10712,7 +10716,11 @@
             "295",
             "296",
             "301"
-          ]
+          ],
+          "untrusted": {
+            "110": "F063_PATH_TRAVERSAL",
+            "74": "F063_PATH_TRAVERSAL"
+          }
         }
       },
       "path": "test/data/benchmark/owasp/BenchmarkTest00008.java",
@@ -18438,7 +18446,11 @@
             "641",
             "642",
             "656"
-          ]
+          ],
+          "untrusted": {
+            "110": "F063_PATH_TRAVERSAL",
+            "74": "F063_PATH_TRAVERSAL"
+          }
         }
       },
       "path": "test/data/benchmark/owasp/BenchmarkTest00167.java",
@@ -19985,7 +19997,8 @@
             "49",
             "51",
             "59"
-          ]
+          ],
+          "untrusted": {}
         }
       },
       "path": "test/data/lib_path/f031_cwe378/Test.java",
@@ -21306,7 +21319,10 @@
             "63",
             "85",
             "95"
-          ]
+          ],
+          "untrusted": {
+            "24": "F063_PATH_TRAVERSAL"
+          }
         }
       },
       "path": "test/data/lib_path/f063_path_traversal/Test.java",
@@ -39231,7 +39247,8 @@
             "1600",
             "1602",
             "1611"
-          ]
+          ],
+          "untrusted": {}
         }
       },
       "path": "test/data/parse_java/TestCFG.java",

@@ -17,6 +17,7 @@ from model.graph_model import (
     GraphShardMetadataJavaClassMethod,
     GraphShardMetadataLanguage,
     GraphShardMetadataNodes,
+    GraphUntrustedNode,
 )
 
 
@@ -42,6 +43,14 @@ def get_metadata(
                 for n_id in graph.nodes
                 if g.is_connected_to_cfg(graph, n_id)
             ),
+            untrusted={
+                n_id: GraphUntrustedNode(n_attrs_label_input_type)
+                for n_id, n_attrs in graph.nodes.items()
+                for n_attrs_label_input_type in [
+                    n_attrs.get('label_input_type'),
+                ]
+                if n_attrs_label_input_type
+            },
         ),
         **metadata,
     )
