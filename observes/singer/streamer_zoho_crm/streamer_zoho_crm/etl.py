@@ -15,11 +15,11 @@ from postgres_client.connection import (
 from singer_io import factory
 from singer_io.singer import SingerRecord
 from streamer_zoho_crm import (
-    bulk,
     db,
     api,
     utils,
 )
+from streamer_zoho_crm import core
 from streamer_zoho_crm.api import (
     ApiClient,
 )
@@ -28,10 +28,14 @@ from streamer_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )
+from streamer_zoho_crm.api.common import JSON, PageIndex
+from streamer_zoho_crm.api.users import UserType, UsersDataPage
 from streamer_zoho_crm.auth import Credentials
-from streamer_zoho_crm.bulk import BulkUtils
+from streamer_zoho_crm.core import (
+    CoreClient,
+    IBulk as BulkUtils
+)
 from streamer_zoho_crm.db import Client as DbClient
-
 
 ALL_MODULES = frozenset(ModuleName)
 LOG = utils.get_log(__name__)
@@ -58,8 +62,9 @@ def creation_phase(
     """Creates bulk jobs for the `target_modules`"""
     api_client: ApiClient = api.new_client(crm_creds)
     db_client: DbClient = db.new_client(db_id, db_creds)
+    core_client: CoreClient = core.new_client(api_client, db_client)
     try:
-        bulk_utils: BulkUtils = bulk.new_bulk_utils(api_client, db_client)
+        bulk_utils: BulkUtils = core_client.bulk
         jobs: FrozenSet[BulkJob] = bulk_utils.get_all()
         banned: FrozenSet[BulkJob] = frozenset(
             filter(lambda x: x.state.upper() != 'COMPLETED', jobs)
@@ -79,12 +84,12 @@ def jobs_map(bulk_utils: BulkUtils) -> Mapping[str, BulkJob]:
     return dict(id_job_map)
 
 
-def emit_data(
+def emit_bulk_data(
     data: FrozenSet[BulkData],
     id_job_map: Mapping[str, BulkJob],
 ) -> None:
 
-    def emit_bulk_data(bdata: BulkData) -> None:
+    def emit(bdata: BulkData) -> None:
         persistent_file = tempfile.NamedTemporaryFile('w+', delete=False)
         bdata.file.seek(0)
         persistent_file.write(bdata.file.read())
@@ -102,17 +107,29 @@ def emit_data(
             }
         )
         factory.emit(record)
-    list(map(emit_bulk_data, data))
+    list(map(emit, data))
+
+
+def emit_user_data(data: UsersDataPage) -> None:
+    def emit(user_data: JSON) -> None:
+        record = SingerRecord(
+            stream='users',
+            record=user_data
+        )
+        factory.emit(record)
+    list(map(emit, data.data))
 
 
 def extraction_phase(
-    bulk_utils: BulkUtils,
+    core_api: CoreClient
 ) -> None:
-    id_job_map: Mapping[str, BulkJob] = jobs_map(bulk_utils)
-    data: FrozenSet[BulkData] = bulk_utils.extract_data(
+    id_job_map: Mapping[str, BulkJob] = jobs_map(core_api.bulk)
+    data: FrozenSet[BulkData] = core_api.bulk.extract_data(
         frozenset(id_job_map.keys())
     )
-    emit_data(data, id_job_map)
+    emit_bulk_data(data, id_job_map)
+    users_data = core_api.users.get_users(UserType.ANY, PageIndex(1, 200))
+    emit_user_data(users_data)
 
 
 def start_streamer(
@@ -122,8 +139,8 @@ def start_streamer(
 ) -> None:
     api_client: ApiClient = api.new_client(crm_creds)
     db_client: DbClient = db.new_client(db_id, db_creds)
-    bulk_utils: BulkUtils = bulk.new_bulk_utils(api_client, db_client)
+    core_client: CoreClient = core.new_client(api_client, db_client)
     try:
-        extraction_phase(bulk_utils)
+        extraction_phase(core_client)
     finally:
         db_client.close()
