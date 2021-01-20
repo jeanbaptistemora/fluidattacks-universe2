@@ -78,12 +78,19 @@ async def test_create_organization():
 @pytest.mark.changes_db
 async def test_delete_organization():
     org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
+
+    org_groups = await org_domain.get_groups(org_id)
+    assert len(org_groups) == 1
+
     users = await org_domain.get_users(org_id)
     assert len(users) > 0
 
-    await org_domain.delete_organization(org_id)
+    await org_domain.delete_organization(org_id, 'test@gmail.com')
     updated_users = await org_domain.get_users(org_id)
     assert len(updated_users) == 0
+
+    org_groups = await org_domain.get_groups(org_id)
+    assert len(org_groups) == 0
 
     with pytest.raises(InvalidOrganization):
         await org_domain.get_name_by_id(org_id)

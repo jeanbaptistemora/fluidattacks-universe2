@@ -150,6 +150,7 @@ async def test_alive_projects():
     expected_projects = [
         'suspendedtest',
         'oneshottest',
+        'lubbock',
         'unittesting',
         'continuoustesting'
     ]
