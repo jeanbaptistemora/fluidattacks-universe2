@@ -35,6 +35,7 @@ from __init__ import (
 
 # Constants
 REDIS_EXCEPTIONS = (
+    AttributeError,
     ClusterDownException,
     OSError,
     RedisClusterConfigError,
