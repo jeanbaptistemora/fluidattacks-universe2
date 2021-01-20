@@ -13,6 +13,7 @@ from streamer_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )
+from streamer_zoho_crm.api.common import PageIndex
 from streamer_zoho_crm.api.users import (
     UsersDataPage,
     UserType,
@@ -27,7 +28,7 @@ class BulkApi(NamedTuple):
 
 
 class UsersApi(NamedTuple):
-    get_users: Callable[[UserType, int, int], UsersDataPage]
+    get_users: Callable[[UserType, PageIndex], UsersDataPage]
 
 
 class ApiClient(NamedTuple):
@@ -49,9 +50,9 @@ def new_client(credentials: Credentials) -> ApiClient:
         return bulk.download_result(token, job_id)
 
     def get_users(
-        u_type: UserType, page: int, per_page: int
+        u_type: UserType, page_i: PageIndex
     ) -> UsersDataPage:
-        return users.get_users(token, u_type, page, per_page)
+        return users.get_users(token, u_type, page_i)
 
     return ApiClient(
         bulk=BulkApi(

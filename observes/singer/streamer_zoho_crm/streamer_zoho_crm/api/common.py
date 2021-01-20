@@ -16,8 +16,12 @@ class UnexpectedResponse(Exception):
     pass
 
 
-class DataPageInfo(NamedTuple):
+class PageIndex(NamedTuple):
     page: int
-    n_items: int
     per_page: int
+
+
+class DataPageInfo(NamedTuple):
+    page: PageIndex
+    n_items: int
     more_records: bool
