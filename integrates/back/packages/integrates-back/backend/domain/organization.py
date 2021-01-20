@@ -253,10 +253,10 @@ async def remove_group(
     email: str
 ) -> bool:
     success = all(
-        await collect([
-            org_dal.remove_group(organization_id, group_name),
-            project_domain.delete_project(group_name, email)
-        ])
+        [
+            await project_domain.delete_project(group_name, email),
+            await org_dal.remove_group(organization_id, group_name)
+        ]
     )
 
     return success

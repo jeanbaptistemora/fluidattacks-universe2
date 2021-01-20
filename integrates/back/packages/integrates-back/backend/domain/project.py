@@ -283,9 +283,11 @@ async def edit(
         )
 
     if not has_integrates:
-        success = success and await delete_project(
-            project_name=group_name,
-            user_email=requester_email,
+        org_id = await org_domain.get_id_for_group(group_name)
+        success = success and await org_domain.remove_group(
+            organization_id=org_id,
+            group_name=group_name,
+            email=requester_email,
         )
 
     if success and has_integrates:
