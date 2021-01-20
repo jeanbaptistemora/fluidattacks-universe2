@@ -7,7 +7,7 @@ import type { Column } from "react-bootstrap-table-next";
 import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
 import { Glyphicon } from "react-bootstrap";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";

@@ -3,7 +3,7 @@ import type { ConfigurableValidator } from "revalidate";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types.ts";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
 import { translate } from "utils/translations/translate";
