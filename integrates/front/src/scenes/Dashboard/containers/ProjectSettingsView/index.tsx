@@ -13,11 +13,12 @@ import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
 import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 
 const projectSettingsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   // Side effects
   const onMount: () => void = (): void => {
@@ -37,7 +38,7 @@ const projectSettingsView: React.FC = (): JSX.Element => {
             <Services groupName={projectName} />
           </React.Fragment>
         </Can>
-        <GroupInformation/>
+        <GroupInformation />
         <Can do="backend_api_mutations_remove_group_mutate">
           <React.Fragment>
             <hr />

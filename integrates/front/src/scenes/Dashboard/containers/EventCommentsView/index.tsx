@@ -20,12 +20,14 @@ import {
   ADD_EVENT_CONSULT,
   GET_EVENT_CONSULTING,
 } from "scenes/Dashboard/containers/EventCommentsView/queries";
+import { authContext, IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const eventCommentsView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{eventId: string}>();
+  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const handleErrors: ((error: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,
@@ -46,7 +48,7 @@ const eventCommentsView: React.FC = (): JSX.Element => {
           ): void => {
             callbackFn(data.event.consulting.map((comment: ICommentStructure) => ({
               ...comment,
-              created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
+              created_by_current_user: comment.email === userEmail,
               id: Number(comment.id),
               parent: Number(comment.parent),
             })));

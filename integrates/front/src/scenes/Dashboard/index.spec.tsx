@@ -13,10 +13,6 @@ import store from "store";
 import { MockedProvider, wait } from "@apollo/react-testing";
 
 describe("Dashboard", (): void => {
-  // Necessary to setup the window object within the test.
-  // eslint-disable-next-line fp/no-mutation
-  (window as typeof window & { userEmail: string }).userEmail = "test@test.com";
-
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof Dashboard).toStrictEqual("function");

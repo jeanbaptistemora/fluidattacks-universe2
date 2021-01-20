@@ -35,6 +35,7 @@ import {
   IStakeholderDataAttr,
 } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -82,7 +83,7 @@ const tableHeaders: IHeaderConfig[] = [
 const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   (props: IProjectStakeholdersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects

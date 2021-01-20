@@ -33,11 +33,6 @@
     {% else %}
       <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
     {% endif %}
-    <script>
-      var userName = "{{ request.session['first_name'] }}";
-      var fullName = "{{ request.session['first_name'] }} " + "{{ request.session['last_name'] }}";
-      var userEmail = "{{ request.session['username'] }}";
-    </script>
     <!-- Start of Delighted survey script -->
     <script defer src="{{ url_for('static', path='/delighted.js') | replace('http', 'https') }}"" type="text/javascript"></script>
     <!-- End of Delighted survey script -->

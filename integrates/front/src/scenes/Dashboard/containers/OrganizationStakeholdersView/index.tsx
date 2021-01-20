@@ -28,6 +28,7 @@ import {
   IStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -94,7 +95,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   (props: IOrganizationStakeholders): JSX.Element => {
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});

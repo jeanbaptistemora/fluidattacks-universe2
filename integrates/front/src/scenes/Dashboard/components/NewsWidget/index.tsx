@@ -1,10 +1,12 @@
 import AnnounceKit from "announcekit-react";
 import { Glyphicon } from "react-bootstrap";
+import type { IAuthContext } from "utils/auth";
 import { NavItem } from "styles/styledComponents";
 import React from "react";
+import { authContext } from "utils/auth";
 
 const NewsWidget: React.FC = (): JSX.Element => {
-  const { userEmail } = window as typeof window & { userEmail: string };
+  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   return (
     <NavItem>

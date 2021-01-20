@@ -35,6 +35,7 @@ import {
 } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
 import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -50,7 +51,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const currentDate: string = formattingDate.slice(0, 19);
 
   const { projectName } = props.match.params;
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
   const { push } = useHistory();
 
   // State management

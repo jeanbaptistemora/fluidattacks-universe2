@@ -25,6 +25,7 @@ import {
 } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -33,7 +34,7 @@ import { isValidFileSize, validEvidenceImage } from "utils/validations";
 
 const evidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {

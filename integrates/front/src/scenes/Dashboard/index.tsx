@@ -21,7 +21,6 @@ import React from "react";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import { initializeZendesk } from "utils/widgets";
 import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
@@ -36,6 +35,7 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "utils/authz/config";
+import { initializeDelighted, initializeZendesk } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
@@ -88,6 +88,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
     onCompleted: ({ me }): void => {
       user.setUser({ userEmail: me.userEmail, userName: me.userName });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
+      initializeDelighted(me.userEmail, me.userName);
       initializeZendesk(me.userEmail, me.userName);
       setupSessionCheck(me.sessionExpiration);
 

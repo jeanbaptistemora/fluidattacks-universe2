@@ -13,10 +13,6 @@ import { translate } from "utils/translations/translate";
 import { MockedProvider, wait } from "@apollo/react-testing";
 
 describe("Welcome view", (): void => {
-  // Necessary to setup the window object within the test.
-  // eslint-disable-next-line fp/no-mutation
-  (window as typeof window & { userName: string }).userName = "Test";
-
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof WelcomeView).toStrictEqual("function");

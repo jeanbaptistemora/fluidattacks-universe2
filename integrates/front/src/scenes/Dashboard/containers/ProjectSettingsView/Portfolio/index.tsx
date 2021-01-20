@@ -20,6 +20,7 @@ import { ADD_TAGS_MUTATION, GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -30,7 +31,7 @@ export interface IPortfolioProps {
 }
 
 const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Element => {
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);

@@ -26,6 +26,7 @@ import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/P
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
 import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
 import { ButtonToolbar, ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { AutoCompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -35,20 +36,17 @@ import { required, validDraftTitle } from "utils/validations";
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
   const { push } = useHistory();
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
   ): void => {
-    mixpanel.track("ReadDraft", {
-      User: (window as typeof window & { userName: string }).userName,
-    });
+    mixpanel.track("ReadDraft", { User: userName });
     push(`/groups/${projectName}/drafts/${rowInfo.id}/locations`);
   };
 
   const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {
-    mixpanel.track("ProjectDrafts", {
-      User: (window as typeof window & { userName: string }).userName,
-    });
+    mixpanel.track("ProjectDrafts", { User: userName });
   };
 
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);

@@ -23,6 +23,7 @@ import {
   GET_FINDING_CONSULTING,
   GET_FINDING_OBSERVATIONS,
 } from "scenes/Dashboard/containers/CommentsView/queries";
+import { authContext, IAuthContext } from "utils/auth";
 
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -31,12 +32,15 @@ import { translate } from "utils/translations/translate";
 const commentsView: React.FC = (): JSX.Element => {
   const params: { findingId: string; type: string } = useParams();
   const findingId: string = params.findingId;
-  let type: string = params.type;
-  type = type === "observations" ? type.slice(0, -1) : type.slice(0, -3);
+  const type: string = params.type === "observations"
+    ? params.type.slice(0, -1)
+    : params.type.slice(0, -3);
+
+  const { userEmail, userName }: IAuthContext = React.useContext(authContext);
 
   const onMount: (() => void) = (): void => {
     mixpanel.track(type === "consult" ? "FindingComments" : "FindingObservations", {
-      User: (window as typeof window & { userName: string }).userName,
+      User: userName,
     });
   };
   React.useEffect(onMount, []);
@@ -67,7 +71,7 @@ const commentsView: React.FC = (): JSX.Element => {
               : data.finding.observations;
             callbackFn(comments.map((comment: ICommentStructure) => ({
               ...comment,
-              created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
+              created_by_current_user: comment.email === userEmail,
               id: Number(comment.id),
               parent: Number(comment.parent),
             })));

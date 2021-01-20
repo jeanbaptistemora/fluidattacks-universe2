@@ -22,6 +22,7 @@ import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "scenes/Dashb
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
 import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbarRow, Col100, Row, RowCenter } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { FileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -31,7 +32,7 @@ import { required, validRecordsFile } from "utils/validations";
 
 const recordsView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingRecords", { User: userName });

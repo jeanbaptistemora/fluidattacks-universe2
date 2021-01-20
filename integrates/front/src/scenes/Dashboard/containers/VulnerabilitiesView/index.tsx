@@ -3,6 +3,7 @@ import type { ApolloError } from "apollo-client";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
+import type { IAuthContext } from "utils/auth";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
@@ -11,6 +12,7 @@ import React from "react";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import _ from "lodash";
+import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import { filterZeroRisk } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import mixpanel from "mixpanel-browser";
@@ -26,7 +28,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     findingId: string;
     projectName: string;
   }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canConfirmZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_confirm_zero_risk_vuln_mutate"

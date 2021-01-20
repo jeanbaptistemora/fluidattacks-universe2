@@ -14,10 +14,4 @@ interface IUser {
   };
 }
 
-interface ISessionExpirationAttr {
-  me: {
-    sessionExpiration: string;
-  };
-}
-
-export { IAddStakeholderAttr, IUser, ISessionExpirationAttr };
+export { IAddStakeholderAttr, IUser };

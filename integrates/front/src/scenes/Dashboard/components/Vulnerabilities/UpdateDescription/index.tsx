@@ -9,6 +9,7 @@ import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_PROJECT_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { IAuthContext } from "utils/auth";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { JustificationField } from "./JustificationField";
@@ -21,6 +22,7 @@ import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
 import _ from "lodash";
+import { authContext } from "utils/auth";
 import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
@@ -66,7 +68,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
     vulnerabilitiesChunk,
   } = props;
   const { handleClearSelected, handleCloseModal } = props;
-  const { userEmail } = window as typeof window & Dictionary<string>;
+  const { userEmail, userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
     "backend_api_resolvers_vulnerability_analyst_resolve"
@@ -229,9 +231,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         );
 
         if (areAllMutationValid.every(Boolean)) {
-          mixpanel.track("UpdatedTreatmentVulnerabilities", {
-            User: (window as typeof window & { userName: string }).userName,
-          });
+          mixpanel.track("UpdatedTreatmentVulnerabilities", { User: userName });
           msgSuccess(
             translate.t(
               "search_findings.tab_description.update_vulnerabilities"

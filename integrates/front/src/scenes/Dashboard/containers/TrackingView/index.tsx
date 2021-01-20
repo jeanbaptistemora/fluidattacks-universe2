@@ -15,6 +15,7 @@ import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
 import { Col80, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -34,7 +35,7 @@ export interface IClosing {
 
 const trackingView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingTracking", { User: userName });

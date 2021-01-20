@@ -3,12 +3,14 @@ import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
+import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { Modal } from "components/NewModal";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import _ from "lodash";
+import { authContext } from "utils/auth";
 import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
@@ -36,7 +38,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
 ): JSX.Element => {
   const { open, onClose } = props;
 
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
   const { push } = useHistory();
 
   // GraphQL Operations

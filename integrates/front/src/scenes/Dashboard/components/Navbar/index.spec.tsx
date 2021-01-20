@@ -11,11 +11,10 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { navbarComponent as NavbarComponent } from "scenes/Dashboard/components/Navbar";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import store from "store";
+import { authContext } from "utils/auth";
 import { SplitButton } from "./components/splitbutton";
 
 describe("Navbar", () => {
-  (window as typeof window & { userEmail: string }).userEmail = "test@fluidattacks.com";
-
   it("should return a function", () => {
     expect(typeof (NavbarComponent))
       .toEqual("function");
@@ -45,7 +44,9 @@ describe("Navbar", () => {
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <Provider store={store}>
           <MockedProvider mocks={[organizationsQuery]} addTypename={true} >
-            <NavbarComponent />
+            <authContext.Provider value={{ userEmail: "test@fluidattacks.com", userName: "" }}>
+              <NavbarComponent />
+            </authContext.Provider>
          </MockedProvider>
         </Provider>
       </MemoryRouter>,

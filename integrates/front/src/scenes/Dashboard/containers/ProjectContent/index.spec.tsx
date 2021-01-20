@@ -15,7 +15,6 @@ describe("ProjectContent", () => {
   });
 
   it("should render an error in component", async () => {
-    (window as typeof window & { userEmail: string }).userEmail = "test@test.com";
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <Provider store={store}>
@@ -31,7 +30,6 @@ describe("ProjectContent", () => {
   });
 
   it("should render a component", async () => {
-    (window as typeof window & { userEmail: string }).userEmail = "test@test.com";
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <Provider store={store}>

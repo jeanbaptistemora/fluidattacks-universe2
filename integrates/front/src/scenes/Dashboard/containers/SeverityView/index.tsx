@@ -32,6 +32,7 @@ import {
 } from "scenes/Dashboard/containers/SeverityView/types";
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
 import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { calcCVSSv3 } from "utils/cvss";
@@ -43,7 +44,7 @@ import { required } from "utils/validations";
 
 const severityView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
-  const { userName } = window as typeof window & Dictionary<string>;
+  const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 

@@ -25,6 +25,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
+import { authContext, IAuthContext } from "utils/auth";
 import { Text } from "utils/forms/fields";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -41,7 +42,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
     { name: "" },
     localStorage,
   );
-  const { userEmail } = window as typeof window & { userEmail: string };
+  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const path: string = pathname;
   const pathData: string[] = path.split("/")

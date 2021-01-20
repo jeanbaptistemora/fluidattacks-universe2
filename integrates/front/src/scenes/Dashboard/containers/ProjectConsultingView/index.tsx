@@ -21,16 +21,17 @@ import {
   ADD_PROJECT_CONSULT,
   GET_PROJECT_CONSULTING,
 } from "scenes/Dashboard/containers/ProjectConsultingView/queries";
+import { authContext, IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const projectConsultingView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string}>();
+  const { userEmail, userName }: IAuthContext = React.useContext(authContext);
+
   const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectComments", {
-      User: (window as typeof window & { userName: string }).userName,
-    });
+    mixpanel.track("ProjectComments", { User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -72,7 +73,7 @@ const projectConsultingView: React.FC = (): JSX.Element => {
           ): void => {
             callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
               ...consult,
-              created_by_current_user: consult.email === (window as typeof window & { userEmail: string }).userEmail,
+              created_by_current_user: consult.email === userEmail,
               id: Number(consult.id),
               parent: Number(consult.parent),
             })));

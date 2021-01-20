@@ -28,6 +28,7 @@ import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/util
 import { default as globalStyle } from "styles/global.css";
 import { ButtonToolbar, ButtonToolbarCenter, Col100, Col50, ControlLabel, FormGroup, Row } from "styles/styledComponents";
 
+import { authContext, IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { castEventType } from "utils/formatHelpers";
 import {
@@ -45,6 +46,7 @@ const maxEventDetailsLength: ConfigurableValidator = maxLength(300);
 const projectEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
+  const { userName }: IAuthContext = React.useContext(authContext);
 
   const selectOptionsStatus: optionSelectFilterProps[] = [
     { value: "Solved", label: "Solved" },
@@ -141,9 +143,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
       const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
         (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
       setOptionType(filterOptions);
-      mixpanel.track("ProjectEvents", {
-        User: (window as typeof window & { userName: string }).userName,
-      });
+      mixpanel.track("ProjectEvents", { User: userName });
     }
   };
   const handleQryErrors: ((error: ApolloError) => void) = (
@@ -158,9 +158,7 @@ const projectEventsView: React.FC = (): JSX.Element => {
   const goToEvent: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
   ): void => {
-    mixpanel.track("ReadEvent", {
-      User: (window as typeof window & { userName: string }).userName,
-    });
+    mixpanel.track("ReadEvent", { User: userName });
     push(`/groups/${projectName}/events/${rowInfo.id}/description`);
   };
 
