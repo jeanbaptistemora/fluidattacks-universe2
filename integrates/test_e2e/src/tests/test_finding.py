@@ -263,6 +263,26 @@ def test_finding_vulnerabilities(
     )
     finding.click()
 
+    # Display Modal
+    table_row = utils.wait_for_text(
+        driver,
+        'test/data/lib_path/f060/csharp.cs',
+        timeout,
+    )
+    table_row.click()
+    assert utils.wait_for_text(
+        driver,
+        'Vulnerability Info',
+        timeout,
+    )
+    assert 'Expiration' in driver.page_source
+    close = utils.wait_for_id(
+        driver,
+        'close-vuln-modal',
+        timeout,
+    )
+    close.click()
+
     # Edit vulnerabilities
     edit_vulns = utils.wait_for_id(
         driver,

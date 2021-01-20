@@ -1883,6 +1883,7 @@ export const enTranslations: ResourceKey = {
         edit: "Modify the fields of the vulnerabilities",
         handle_acceptation: "Approve/Reject treatment",
       },
+      close: "Close",
       closed: "Closed",
       exceptions: {
         severity_out_of_range:
@@ -1901,7 +1902,7 @@ export const enTranslations: ResourceKey = {
         info: "Info",
         lastReattackDate: "Last reattack date",
         lastReattackRequester: "Last reattack requester",
-        lastRequestedReattackDate: "Last reattack request date",
+        lastRequestedReattackDate: "Last request date",
         location: "Location",
         reattacks: "Reattacks",
         reportDate: "Report date",
@@ -1920,6 +1921,7 @@ export const enTranslations: ResourceKey = {
         },
         where: "Where",
       },
+      vulnerabilityInfo: "Vulnerability Info",
     },
     users_table: {
       firstlogin: "First login",

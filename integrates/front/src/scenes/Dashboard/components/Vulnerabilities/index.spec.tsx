@@ -151,7 +151,7 @@ describe("VulnComponent", (): void => {
       .at(0);
     const tableSpecifics: ReactWrapper = tableVulns.find({ columnIndex: 2 });
     const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
-    const tableVerification: ReactWrapper = tableVulns.find({ columnIndex: 6 });
+    const tableVerification: ReactWrapper = tableVulns.find({ columnIndex: 4 });
 
     expect(tableSpecifics.at(0).text()).toStrictEqual("specific-1");
     expect(selectionCell.at(0).find("input").prop("disabled")).toBe(false);

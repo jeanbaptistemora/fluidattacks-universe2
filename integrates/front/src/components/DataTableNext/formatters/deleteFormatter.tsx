@@ -24,8 +24,11 @@ export const deleteFormatter: (
   _rowIndex: number,
   key: Readonly<IHeaderConfig>
 ): JSX.Element => {
-  function handleDeleteFormatter(): void {
+  function handleDeleteFormatter(
+    event: React.FormEvent<HTMLButtonElement>
+  ): void {
     if (key.deleteFunction !== undefined) {
+      event.stopPropagation();
       key.deleteFunction(row);
     }
   }
