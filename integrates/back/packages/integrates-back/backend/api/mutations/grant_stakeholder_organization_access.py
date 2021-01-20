@@ -50,8 +50,7 @@ async def mutate(
     if success:
         util.queue_cache_invalidation(
             user_email,
-            f'stakeholders*{organization_id.lower()}',
-            f'projects*{organization_id.lower()}'
+            organization_id.lower()
         )
         util.cloudwatch_log(
             info.context,

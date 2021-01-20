@@ -19,6 +19,7 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
+from backend.domain import user as user_domain
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
@@ -82,9 +83,11 @@ async def mutate(
         )
 
     if success:
+        organization_ids = await user_domain.get_organizations(new_user_email)
         util.queue_cache_invalidation(
             f'stakeholders*{project_name}',
-            new_user_email
+            new_user_email,
+            organization_ids[0]
         )
         util.cloudwatch_log(
             info.context,

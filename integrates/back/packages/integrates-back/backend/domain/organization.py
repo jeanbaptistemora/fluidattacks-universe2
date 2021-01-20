@@ -14,10 +14,7 @@ from typing import (
 from aioextensions import collect
 from graphql import GraphQLError
 
-from backend import (
-    authz,
-    util
-)
+from backend import authz
 from backend.dal import organization as org_dal
 from backend.domain import (
     available_name as available_name_domain,
@@ -89,7 +86,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
                 )
             )
         )
-    util.queue_cache_invalidation(organization_id.lower())
+
     return success
 
 

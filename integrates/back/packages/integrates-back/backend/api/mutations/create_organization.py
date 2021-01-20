@@ -40,5 +40,6 @@ async def mutate(
         organization['id'],
         user_email
     )
+    util.queue_cache_invalidation(str(organization['id']).lower())
 
     return CreateOrganizationPayload(success=True, organization=organization)
