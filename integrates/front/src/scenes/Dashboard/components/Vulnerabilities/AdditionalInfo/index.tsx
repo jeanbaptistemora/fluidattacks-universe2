@@ -1,15 +1,31 @@
 import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import React from "react";
+import type { StyledComponent } from "styled-components";
 import _ from "lodash";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { Col100, Col40, Col60, Row } from "styles/styledComponents";
+import {
+  Col100,
+  Col40,
+  Col60,
+  EditableFieldNotUrl,
+  Row,
+} from "styles/styledComponents";
 
 interface IAdditionalInfoProps {
   canDisplayAnalyst: boolean;
   vulnerability: IVulnRowAttr;
 }
+
+const Label: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: "f4",
+})``;
 
 export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   canDisplayAnalyst,
@@ -39,7 +55,11 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   <Col40>
                     <b>{t("search_findings.tab_vuln.vulnTable.where")}</b>
                   </Col40>
-                  <Col100>{vulnerability.where}</Col100>
+                  <Col100>
+                    <EditableFieldNotUrl>
+                      {vulnerability.where}
+                    </EditableFieldNotUrl>
+                  </Col100>
                 </Row>
               </li>
               <li>
@@ -65,6 +85,14 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     </b>
                   </Col40>
                   <Col60>{vulnerability.lastRequestedReattackDate}</Col60>
+                </Row>
+              </li>
+              <li>
+                <Row>
+                  <Col40>
+                    <b>{t("search_findings.tab_vuln.vulnTable.requester")}</b>
+                  </Col40>
+                  <Col60>{vulnerability.lastReattackRequester}</Col60>
                 </Row>
               </li>
               <li>
@@ -171,6 +199,16 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     </b>
                   </Col40>
                   <Col60>{vulnerability.vulnType}</Col60>
+                </Row>
+              </li>
+              <li>
+                <Row>
+                  <Col40>
+                    <b>{t("search_findings.tab_description.zero_risk")}</b>
+                  </Col40>
+                  <Col60>
+                    <Label>{statusFormatter(vulnerability.zeroRisk)}</Label>
+                  </Col60>
                 </Row>
               </li>
               {canDisplayAnalyst ? (

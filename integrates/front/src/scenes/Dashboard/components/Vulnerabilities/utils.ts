@@ -129,6 +129,9 @@ const formatVulnerabilities: (
         ) as IVulnRowAttr["currentStateCapitalized"],
         cycles: hasVulnCycles ? vulnerability.cycles : "",
         efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
+        lastRequestedReattackDate: vulnerability.lastRequestedReattackDate.split(
+          " "
+        )[0],
         reportDate: vulnerability.reportDate.split(" ")[0],
         treatment: isVulnOpen ? treatmentLabel : "-",
         treatmentChanges: treatmentChanges,

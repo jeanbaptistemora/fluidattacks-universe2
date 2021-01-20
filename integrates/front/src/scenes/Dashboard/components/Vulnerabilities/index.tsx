@@ -231,13 +231,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       onSort: onSortVulns,
     },
     {
-      align: "left",
-      dataField: "zeroRisk",
-      formatter: statusFormatter,
-      header: t("search_findings.tab_description.zero_risk"),
-      onSort: onSortVulns,
-    },
-    {
       dataField: "treatment",
       header: t("search_findings.tab_description.treatment.title"),
       onSort: onSortVulns,

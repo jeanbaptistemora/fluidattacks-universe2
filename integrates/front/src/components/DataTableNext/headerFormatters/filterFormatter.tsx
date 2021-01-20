@@ -1,7 +1,7 @@
 import type { Column } from "react-bootstrap-table-next";
+import { Flex } from "styles/styledComponents";
 import React from "react";
 import type { ReactElement } from "react";
-import { Row } from "styles/styledComponents";
 
 export const filterFormatter: (
   column: Column,
@@ -13,11 +13,12 @@ export const filterFormatter: (
   { filterElement, sortElement }: Record<string, ReactElement>
 ): JSX.Element => {
   return (
-    <Row>
-      <p>
-        {column.text} {sortElement}
-      </p>
-      {filterElement}
-    </Row>
+    <React.StrictMode>
+      <Flex>
+        <Flex>{column.text}</Flex>
+        {sortElement}
+      </Flex>
+      <Flex>{filterElement}</Flex>
+    </React.StrictMode>
   );
 };
