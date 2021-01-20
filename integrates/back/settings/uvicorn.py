@@ -13,6 +13,10 @@ class IntegratesWorker(UvicornWorker):  # type: ignore
                 'SAMEORIGIN',
             ],
             [
+                'server',
+                'None'
+            ],
+            [
                 'Accept-Encoding',
                 'identity',
             ],
