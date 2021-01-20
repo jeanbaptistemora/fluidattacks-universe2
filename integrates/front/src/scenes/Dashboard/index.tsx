@@ -2,9 +2,11 @@ import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import type { ApolloError } from "apollo-client";
+import Bugsnag from "@bugsnag/js";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { GraphQLError } from "graphql";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
+import type { IAuthContext } from "utils/auth";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IStakeholderDataAttr } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { Logger } from "utils/logger";
@@ -18,19 +20,15 @@ import { ScrollUpButton } from "components/ScrollUpButton";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import _ from "lodash";
+import { authContext } from "utils/auth";
+import { initializeZendesk } from "utils/widgets";
 import { msgError } from "utils/notifications";
 import style from "scenes/Dashboard/index.css";
 import { translate } from "utils/translations/translate";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { useQuery } from "@apollo/react-hooks";
-import {
-  GET_USER_PERMISSIONS,
-  SESSION_EXPIRATION,
-} from "scenes/Dashboard/queries";
-import type {
-  IGetUserPermissionsAttr,
-  ISessionExpirationAttr,
-} from "scenes/Dashboard/types";
+import { GET_USER, SESSION_EXPIRATION } from "scenes/Dashboard/queries";
+import type { ISessionExpirationAttr, IUser } from "scenes/Dashboard/types";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import {
   authzGroupContext,
@@ -56,7 +54,7 @@ const seconds: number = 60;
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
-  const { userEmail } = window as typeof window & Record<string, string>;
+  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
 
@@ -202,15 +200,23 @@ export const Dashboard: React.FC = (): JSX.Element => {
     };
   }, [expDate, isExpDateLoaded]);
 
-  useQuery(GET_USER_PERMISSIONS, {
-    onCompleted: (data: IGetUserPermissionsAttr): void => {
+  const user: Required<IAuthContext> = React.useContext(
+    authContext as React.Context<Required<IAuthContext>>
+  );
+
+  useQuery<IUser>(GET_USER, {
+    onCompleted: ({ me }): void => {
+      user.setUser({ userEmail: me.userEmail, userName: me.userName });
+      Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
+      initializeZendesk(me.userEmail, me.userName);
+
       permissions.update(
-        data.me.permissions.map((action: string): { action: string } => ({
+        me.permissions.map((action: string): { action: string } => ({
           action,
         }))
       );
-      if (data.me.permissions.length === 0) {
-        Logger.error("Empty permissions", JSON.stringify(data.me.permissions));
+      if (me.permissions.length === 0) {
+        Logger.error("Empty permissions", JSON.stringify(me.permissions));
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -218,9 +224,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         msgError(translate.t("group_alerts.error_textsad"));
         Logger.error("Couldn't load user-level permissions", error);
       });
-    },
-    variables: {
-      entity: "USER",
     },
   });
 

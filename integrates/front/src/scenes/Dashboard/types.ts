@@ -5,9 +5,11 @@ interface IAddStakeholderAttr {
   };
 }
 
-interface IGetUserPermissionsAttr {
+interface IUser {
   me: {
     permissions: string[];
+    userEmail: string;
+    userName: string;
   };
 }
 
@@ -17,4 +19,4 @@ interface ISessionExpirationAttr {
   };
 }
 
-export { IAddStakeholderAttr, IGetUserPermissionsAttr, ISessionExpirationAttr };
+export { IAddStakeholderAttr, IUser, ISessionExpirationAttr };

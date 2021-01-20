@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { Registration } from "scenes/Registration";
 import { ToastContainer } from "react-toastify";
+import { authContext } from "utils/auth";
 import mixpanel from "mixpanel-browser";
 import store from "store";
 import { ApolloProvider, networkStatusNotifier } from "utils/apollo";
@@ -25,6 +26,8 @@ const App: React.FC = (): JSX.Element => {
   const isLoading: boolean =
     status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
+  const [user, setUser] = React.useState({ userEmail: "", userName: "" });
+
   return (
     <React.StrictMode>
       <BugsnagErrorBoundary>
@@ -33,11 +36,13 @@ const App: React.FC = (): JSX.Element => {
             <ReduxProvider store={store}>
               <authzPermissionsContext.Provider value={userLevelPermissions}>
                 <secureStoreContext.Provider value={secureStore}>
-                  <Switch>
-                    <Route component={Login} exact={true} path={"/"} />
-                    <Route component={Registration} path={"/registration"} />
-                    <Route component={Dashboard} path={"/"} />
-                  </Switch>
+                  <authContext.Provider value={{ ...user, setUser }}>
+                    <Switch>
+                      <Route component={Login} exact={true} path={"/"} />
+                      <Route component={Registration} path={"/registration"} />
+                      <Route component={Dashboard} path={"/"} />
+                    </Switch>
+                  </authContext.Provider>
                 </secureStoreContext.Provider>
                 {isLoading ? <Preloader /> : undefined}
               </authzPermissionsContext.Provider>
