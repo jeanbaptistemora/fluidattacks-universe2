@@ -1,0 +1,6 @@
+# Commits that do not affect the meaning of the code
+#
+# You can ignore them during git-blame with `--ignore-revs-file`.
+#
+
+706490920e2b6d153017acaaec1beab9178c8b9f  # skims\refac(back): #4025.1 move queries
