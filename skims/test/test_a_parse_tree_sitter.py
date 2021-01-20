@@ -8,6 +8,9 @@ import pytest
 from sast.parse import (
     get_graph_db,
 )
+from sast.symeval import (
+    get_possible_syntax_steps,
+)
 from utils.ctx import (
     SHOULD_UPDATE_TESTS,
 )
@@ -19,6 +22,7 @@ from utils.encodings import (
 @pytest.mark.skims_test_group('unittesting')
 @run_decorator
 async def test_graph_generation() -> None:
+    # Test the GraphDB
     graph_db = await get_graph_db((
         'test/data/lib_path/f031_cwe378/Test.java',
         'test/data/lib_path/f063_path_traversal/Test.java',
@@ -36,4 +40,17 @@ async def test_graph_generation() -> None:
     with open('test/data/sast/root-graph.json') as handle:
         expected = handle.read()
 
-    assert graph_db_as_json_str == expected
+    # Test SymEval
+    syntax_steps = get_possible_syntax_steps(graph_db)
+    syntax_steps_as_json_str = json_dumps(
+        syntax_steps, indent=2, sort_keys=True,
+    )
+
+    if SHOULD_UPDATE_TESTS:
+        with open('test/data/sast/root-graph-syntax.json', 'w') as handle:
+            handle.write(syntax_steps_as_json_str)
+
+    with open('test/data/sast/root-graph-syntax.json') as handle:
+        expected = handle.read()
+
+    assert syntax_steps_as_json_str == expected

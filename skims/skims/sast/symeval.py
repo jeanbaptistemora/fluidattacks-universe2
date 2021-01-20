@@ -137,7 +137,7 @@ def get_possible_syntax_steps_from_path(
 
 PossibleSyntaxStepsForUntrustedNId = Dict[str, graph_model.SyntaxSteps]
 PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
-PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
+PossibleSyntaxSteps = Dict[str, Dict[str, PossibleSyntaxStepsForFinding]]
 
 
 def get_possible_syntax_steps_for_untrusted_n_id(
@@ -163,6 +163,7 @@ def get_possible_syntax_steps_for_untrusted_n_id(
 def get_possible_syntax_steps_for_finding(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
 ) -> PossibleSyntaxStepsForFinding:
     syntax_steps_map: PossibleSyntaxStepsForFinding = {
         untrusted_n_id: get_possible_syntax_steps_for_untrusted_n_id(
@@ -170,7 +171,6 @@ def get_possible_syntax_steps_for_finding(
             shard=shard,
             untrusted_n_id=untrusted_n_id,
         )
-        for shard in graph_db.shards
         for untrusted_n_id in shard.metadata.nodes.untrusted[finding.name]
     }
 
@@ -181,11 +181,15 @@ def get_possible_syntax_steps(
     graph_db: graph_model.GraphDB,
 ) -> PossibleSyntaxSteps:
     syntax_steps_map: PossibleSyntaxSteps = {
-        finding.name: get_possible_syntax_steps_for_finding(
-            graph_db=graph_db,
-            finding=finding,
-        )
-        for finding in core_model.FindingEnum
+        shard.path: {
+            finding.name: get_possible_syntax_steps_for_finding(
+                graph_db=graph_db,
+                finding=finding,
+                shard=shard,
+            )
+            for finding in core_model.FindingEnum
+        }
+        for shard in graph_db.shards
     }
 
     if CTX.debug:
