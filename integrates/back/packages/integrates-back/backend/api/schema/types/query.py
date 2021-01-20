@@ -12,7 +12,6 @@ from backend.api.resolvers.query import (
     forces_execution,
     forces_executions,
     group,
-    groups,
     internal_names,
     me,
     organization,
@@ -39,7 +38,6 @@ QUERY.set_field('me', me.resolve)
 QUERY.set_field('organization', organization.resolve)
 QUERY.set_field('organizationId', organization_id.resolve)
 QUERY.set_field('project', group.resolve)
-QUERY.set_field('projects', groups.resolve)
 QUERY.set_field('report', report.resolve)
 QUERY.set_field('resources', resources.resolve)
 QUERY.set_field('stakeholder', stakeholder.resolve)

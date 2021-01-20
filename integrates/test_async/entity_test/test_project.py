@@ -139,27 +139,6 @@ async def test_project_filter_not_match():
     assert len(result['data']['project']['findings']) == 0
 
 
-async def test_alive_projects():
-    """Check for projects mutation."""
-    query = '''
-      query {
-        projects
-      }
-    '''
-    data = {'query': query}
-    expected_projects = [
-        'suspendedtest',
-        'oneshottest',
-        'lubbock',
-        'unittesting',
-        'continuoustesting'
-    ]
-
-    result = await _get_result_async(data)
-    assert 'errors' not in result
-    assert result['data']['projects'] == expected_projects
-
-
 @pytest.mark.changes_db
 async def test_create_project():
     """Check for createProject mutation."""

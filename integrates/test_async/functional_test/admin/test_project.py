@@ -200,16 +200,6 @@ async def test_project():
     assert result['data']['project']['findings'] == []
 
     query = f'''
-        query {{
-            projects
-        }}
-    '''
-    data = {'query': query}
-    result = await get_result(data)
-    assert 'errors' not in result
-    assert group_name in result['data']['projects']
-
-    query = f'''
         mutation {{
             removeTag (
             tag: "testing",

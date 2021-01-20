@@ -33,9 +33,6 @@ type Query {
   "Project entity"
   project(projectName: String!): Project
 
-  "List of alive projects"
-  projects: [String]
-
   "Report entity"
   report(reportType: ReportType!, projectName: String, lang: ReportLang): Report
 
