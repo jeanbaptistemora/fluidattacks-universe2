@@ -6,10 +6,10 @@ let
   makeSearchPaths = import ../../../makes/utils/make-search-paths forcesPkgs;
   makeTemplate = import ../../../makes/utils/make-template forcesPkgs;
   nixRequirements = {
-    runtime = makeSearchPaths [ ];
-    development = makeSearchPaths [
+    runtime = makeSearchPaths [
       forcesPkgs.git
     ];
+    development = makeSearchPaths [ ];
   };
   pythonRequirements = {
     runtime = buildPythonRequirements {

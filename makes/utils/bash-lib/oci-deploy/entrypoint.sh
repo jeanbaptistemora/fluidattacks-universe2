@@ -10,7 +10,7 @@ function login_to_registry {
         registry="${CI_REGISTRY}" \
     &&  username="${CI_REGISTRY_USER}" \
     &&  password="${CI_REGISTRY_PASSWORD}"
-  elif test '__envRegistry__' = 'dockerhub'
+  elif  test '__envRegistry__' = 'dockerhub'
   then
         registry="${DOCKER_HUB_URL}" \
     &&  username="${DOCKER_HUB_USER}" \

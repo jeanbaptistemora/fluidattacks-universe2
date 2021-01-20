@@ -1,5 +1,6 @@
 forces-bin
 forces-lint
+forces-oci-build
 integrates-lint-front
 melts-bin
 melts-lint

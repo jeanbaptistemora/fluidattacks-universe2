@@ -22,6 +22,7 @@ flake.lib.eachDefaultSystem (
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
       outputs = {
         apps = builtins.mapAttrs makeApp {
+          forces-oci-deploy = import ../makes/forces/oci-deploy attrs;
           forces-test = import ../makes/forces/test attrs;
           forces = import ../makes/forces/bin attrs;
           makes-deploy-oci-batch = import ../makes/makes/deploy/oci-batch attrs;
@@ -53,6 +54,7 @@ flake.lib.eachDefaultSystem (
         packages = {
           forces-bin = import ../makes/forces/bin attrs;
           forces-lint = import ../makes/forces/lint attrs;
+          forces-oci-build = import ../makes/forces/oci-build attrs;
           integrates-lint-front = import ../makes/integrates/lint/front attrs;
           melts-bin = import ../makes/melts/bin attrs;
           melts-lint = import ../makes/melts/lint attrs;

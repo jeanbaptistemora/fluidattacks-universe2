@@ -152,4 +152,6 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
 
 if __name__ == '__main__':
-    main()  # pylint: disable=no-value-for-parameter
+    main(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
+        prog_name='forces'
+    )
