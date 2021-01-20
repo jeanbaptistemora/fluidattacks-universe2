@@ -859,6 +859,7 @@ label {
 
 :global .ww-break-word {
   word-wrap: break-word;
+  word-break: break-all;
 }
 
 /* Custom media */
