@@ -5,7 +5,7 @@ import sys
 # Local libraries
 
 
-def get_log(name: str) -> logging.Logger:
+def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:
     logger_format: str = '[%(levelname)s] %(message)s'
     logger_formatter: logging.Formatter = logging.Formatter(logger_format)
 
@@ -13,6 +13,6 @@ def get_log(name: str) -> logging.Logger:
     logger_handler.setFormatter(logger_formatter)
 
     logger: logging.Logger = logging.getLogger(name)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(min_lvl)
     logger.addHandler(logger_handler)
     return logger
