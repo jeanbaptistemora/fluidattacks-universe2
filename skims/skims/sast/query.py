@@ -1,7 +1,11 @@
 # Standard library
+from itertools import (
+    chain,
+)
 import os
 from typing import (
     Dict,
+    Iterator,
     Tuple,
 )
 
@@ -9,6 +13,9 @@ from typing import (
 from model import (
     core_model,
     graph_model,
+)
+from sast.symeval import (
+    get_possible_syntax_steps,
 )
 from utils.ctx import (
     CTX,
@@ -91,3 +98,34 @@ def get_vulnerabilities_from_n_ids(
         )
         for graph_shard, n_id in graph_shard_nodes
     )
+
+
+def query_lazy(
+    graph_db: graph_model.GraphDB,
+) -> Iterator[core_model.Vulnerabilities]:
+    for possible_syntax_steps_for_shard_path in (
+        get_possible_syntax_steps(graph_db).values()
+    ):
+        for finding_str, possible_syntax_steps_for_finding in (
+            possible_syntax_steps_for_shard_path.items()
+        ):
+            for possible_syntax_steps_for_untrusted_n_id in (
+                possible_syntax_steps_for_finding.values()
+            ):
+                for _ in (
+                    possible_syntax_steps_for_untrusted_n_id.values()
+                ):
+                    fin = core_model.FINDING_ENUM_FROM_STR[finding_str]
+                    params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[fin]
+
+                    yield get_vulnerabilities_from_n_ids(
+                        cwe=params.cwe,
+                        desc_key=params.desc_key,
+                        desc_params=params.desc_params,
+                        finding=fin,
+                        graph_shard_nodes=iter([]),  # Pending to implement
+                    )
+
+
+def query(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return tuple(chain.from_iterable(query_lazy(graph_db)))

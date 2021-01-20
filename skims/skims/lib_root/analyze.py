@@ -25,6 +25,7 @@ from lib_root import (
 )
 from sast import (
     parse,
+    query,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -57,6 +58,7 @@ async def analyze(
     graph_db = await parse.get_graph_db(tuple(unique_paths))
     queries: graph_model.Queries = (
         *f060.QUERIES,
+        query.query,
     )
 
     # Query the root with different methods in a CPU cluster

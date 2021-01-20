@@ -8,6 +8,8 @@ from typing import (
     NamedTuple,
     Tuple,
 )
+
+# Local libraries
 from model import (
     core_model,
     graph_model,

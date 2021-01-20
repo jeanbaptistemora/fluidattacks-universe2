@@ -1,9 +1,7 @@
-# Third party libraries
-from lib_root.common import (
+# Local libraries
+from sast.query import (
     get_vulnerabilities_from_n_ids
 )
-
-# Local libraries
 from utils import (
     graph as g,
 )
