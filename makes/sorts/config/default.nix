@@ -24,11 +24,16 @@ in
     arguments = {
       envContextFile = makeTemplate {
         arguments = {
+          envSortsModel = sortsPkgs.fetchurl {
+            url = "https://sorts.s3.amazonaws.com/training-output/model.joblib";
+            sha256 = "kBfRo6Bofx73P3wBrtagSGYlIww9XxHR2iR7V09/K64=";
+          };
           envSrcSortsStatic = ../../../sorts/static;
         };
         name = "sorts-config-context-file";
         template = ''
           export SORTS_STATIC='__envSrcSortsStatic__'
+          export SORTS_MODEL_PATH='__envSortsModel__'
         '';
       };
       envPython = "${sortsPkgs.python38}/bin/python";

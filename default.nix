@@ -13,6 +13,7 @@ in
     forces = flake.defaultNix.outputs.packages.x86_64-linux.forces-bin;
     melts = flake.defaultNix.outputs.packages.x86_64-linux.melts-bin;
     skims = flake.defaultNix.outputs.packages.x86_64-linux.skims-bin;
+    sorts = flake.defaultNix.outputs.packages.x86_64-linux.sorts-bin;
 
     # Legacy binaries live here
     product = import ./default-legacy.nix;

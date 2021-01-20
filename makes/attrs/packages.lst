@@ -21,6 +21,7 @@ skims-parsers-antlr
 skims-parsers-babel
 skims-security
 skims-structure
+sorts-bin
 sorts-config-python-requirements-development
 sorts-config-python-requirements-runtime
 sorts-lint

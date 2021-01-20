@@ -56,7 +56,11 @@ def read_allowed_names() -> Tuple[List[str], ...]:
 
 
 def load_model() -> MLPClassifier:
-    return load(get_static_path('model.joblib'))
+    try:
+        model_path: str = environ['SORTS_MODEL_PATH']
+    except KeyError:
+        model_path = get_static_path('model.joblib')
+    return load(model_path)
 
 
 def load_support_vector_machine() -> LinearSVC:

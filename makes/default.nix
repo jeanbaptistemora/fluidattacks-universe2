@@ -45,6 +45,7 @@ flake.lib.eachDefaultSystem (
           skims-process-groups-on-aws = import ../makes/skims/process-groups-on-aws attrs;
           skims-repl = import ../makes/skims/bin-repl attrs;
           skims-test = import ../makes/skims/test attrs;
+          sorts = import ../makes/sorts/bin attrs;
           sorts-extract-features = import ../makes/sorts/extract-features attrs;
           sorts-infra-deploy = import ../makes/sorts/infra/deploy attrs;
           sorts-infra-test = import ../makes/sorts/infra/test attrs;
@@ -75,6 +76,7 @@ flake.lib.eachDefaultSystem (
           skims-parsers-babel = import ../makes/skims/parsers/babel attrs;
           skims-security = import ../makes/skims/security attrs;
           skims-structure = import ../makes/skims/structure attrs;
+          sorts-bin = import ../makes/sorts/bin attrs;
           sorts-config-python-requirements-development = import ../makes/sorts/config/python-requirements/development attrs;
           sorts-config-python-requirements-runtime = import ../makes/sorts/config/python-requirements/runtime attrs;
           sorts-lint = import ../makes/sorts/lint attrs;
