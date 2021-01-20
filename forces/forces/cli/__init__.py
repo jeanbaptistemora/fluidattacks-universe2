@@ -5,7 +5,6 @@ import sys
 import re
 import textwrap
 from io import TextIOWrapper
-from importlib.metadata import version
 
 # Third parties libraries
 import click
@@ -37,14 +36,13 @@ def get_group_from_email(email: str) -> str:
 
 def show_banner() -> None:
     """Show forces banner."""
-    header = textwrap.dedent(rf"""
+    header = textwrap.dedent(r"""
         #     ______
         #    / ____/___  _____________  _____
         #   / /_  / __ \/ ___/ ___/ _ \/ ___/
         #  / __/ / /_/ / /  / /__/  __(__  )
         # /_/    \____/_/   \___/\___/____/
         #
-        #  v. {version('forces')}
         #  ___
         # | >>|> fluid
         # |___|  attacks, we hack your software

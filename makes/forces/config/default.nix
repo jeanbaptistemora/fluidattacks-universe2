@@ -7,7 +7,9 @@ let
   makeTemplate = import ../../../makes/utils/make-template forcesPkgs;
   nixRequirements = {
     runtime = makeSearchPaths [ ];
-    development = makeSearchPaths [ ];
+    development = makeSearchPaths [
+      forcesPkgs.git
+    ];
   };
   pythonRequirements = {
     runtime = buildPythonRequirements {

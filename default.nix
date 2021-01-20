@@ -10,6 +10,7 @@ let
   };
 in
   {
+    forces = flake.defaultNix.outputs.packages.x86_64-linux.forces-bin;
     melts = flake.defaultNix.outputs.packages.x86_64-linux.melts-bin;
     skims = flake.defaultNix.outputs.packages.x86_64-linux.skims-bin;
 
