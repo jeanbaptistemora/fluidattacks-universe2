@@ -1,11 +1,33 @@
 # shellcheck shell=bash
 
-function main {
-      echo "[INFO] Logging into: ${CI_REGISTRY}" \
+function login_to_registry {
+  local registry
+  local username
+  local password
+
+  if test '__envRegistry__' = 'gitlab'
+  then
+        registry="${CI_REGISTRY}" \
+    &&  username="${CI_REGISTRY_USER}" \
+    &&  password="${CI_REGISTRY_PASSWORD}"
+  elif test '__envRegistry__' = 'dockerhub'
+  then
+        registry="${DOCKER_HUB_URL}" \
+    &&  username="${DOCKER_HUB_USER}" \
+    &&  password="${DOCKER_HUB_PASS}"
+  else
+        echo "Ivalid registry" \
+    &&  return 1
+  fi \
+  &&  echo "[INFO] Logging into: ${registry}" \
   &&  __envDocker__ login \
-        --username "${CI_REGISTRY_USER}" \
-        --password "${CI_REGISTRY_PASSWORD}" \
-      "${CI_REGISTRY}" \
+        --username "${username}" \
+        --password "${password}" \
+      "${registry}"
+}
+
+function main {
+      login_to_registry \
   &&  echo '[INFO] Loading OCI' \
   &&  __envDocker__ load < '__envOci__' \
   &&  echo '[INFO] Tagging: __envTag__' \

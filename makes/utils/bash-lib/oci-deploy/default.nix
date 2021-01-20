@@ -2,6 +2,7 @@ pkgs:
 
 { name
 , oci
+, registry
 , tag
 }:
 let
@@ -11,6 +12,7 @@ makeEntrypoint {
   arguments = {
     envDocker = "${pkgs.docker}/bin/docker";
     envOci = oci;
+    envRegistry = registry;
     envTag = tag;
   };
   location = "/bin/${name}";
