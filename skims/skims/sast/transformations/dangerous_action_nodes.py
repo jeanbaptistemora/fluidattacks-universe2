@@ -3,6 +3,7 @@ from typing import (
     Set,
 )
 from model import (
+    core_model,
     graph_model,
 )
 from sast.common import (
@@ -42,10 +43,10 @@ def _mark_java_object_creation_expression(graph: graph_model.Graph) -> None:
             class_n_attrs = graph.nodes[class_id]
             if class_n_attrs['label_text'] in identifiers:
                 class_n_attrs['label_sink_type'] = (
-                    graph_model
-                    .GraphDangerousActionNode
+                    core_model
+                    .FindingEnum
                     .F063_PATH_TRAVERSAL
-                    .value
+                    .name
                 )
 
 

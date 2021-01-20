@@ -1,5 +1,6 @@
 # Local libraries
 from model import (
+    core_model,
     graph_model,
 )
 from utils import (
@@ -29,10 +30,10 @@ def _mark_java_method_declaration(
                     'HttpServletRequest',
                 }:
                     var_type_n_attrs['label_input_type'] = (
-                        graph_model
-                        .GraphUntrustedNode
+                        core_model
+                        .FindingEnum
                         .F063_PATH_TRAVERSAL
-                        .value
+                        .name
                     )
 
 

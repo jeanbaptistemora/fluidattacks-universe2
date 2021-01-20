@@ -218,8 +218,6 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 core_model.VulnerabilitySourceEnum,
                 core_model.VulnerabilityStateEnum,
                 graph_model.GraphShardMetadataLanguage,
-                graph_model.GraphUntrustedNode,
-                graph_model.GraphDangerousActionNode,
                 Type,
             )
         ],
@@ -240,6 +238,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 graph_model.GraphShardMetadataJavaClass,
                 graph_model.GraphShardMetadataJavaClassMethod,
                 graph_model.GraphShardMetadataNodes,
+                graph_model.GraphVulnerabilityParameters,
                 graph_model.SyntaxStepBinaryExpression,
                 graph_model.SyntaxStepDeclaration,
                 graph_model.SyntaxStepMethodInvocation,

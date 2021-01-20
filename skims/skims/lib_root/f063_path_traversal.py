@@ -21,7 +21,7 @@ def query_from_untrusted_node_to_dangerous_action_node(
         finding=FINDING,
         graph_shard_nodes=from_untrusted_node_to_dangerous_action_node(
             graph_db,
-            untrusted_node=graph_model.GraphUntrustedNode.F063_PATH_TRAVERSAL,
+            untrusted_node=core_model.FindingEnum.F063_PATH_TRAVERSAL,
         ),
     )
 

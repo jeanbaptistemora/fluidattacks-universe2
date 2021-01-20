@@ -134,9 +134,9 @@ class GraphShardMetadataJava(NamedTuple):
 
 
 class GraphShardMetadataNodes(NamedTuple):
-    dangerous_action: Dict[NId, GraphDangerousActionNode]
+    dangerous_action: Dict[NId, str]
     in_cfg: Tuple[NId, ...]
-    untrusted: Dict[NId, GraphUntrustedNode]
+    untrusted: Dict[NId, str]
 
 
 class GraphShardMetadataLanguage(Enum):
@@ -163,14 +163,23 @@ class GraphShard(NamedTuple):
     syntax: GraphSyntax
 
 
-class GraphUntrustedNode(Enum):
-    F034_INSECURE_RANDOM: str = 'F034_INSECURE_RANDOM'
-    F063_PATH_TRAVERSAL: str = 'F063_PATH_TRAVERSAL'
+class GraphVulnerabilityParameters(NamedTuple):
+    cwe: Tuple[str, ...]
+    desc_key: str
+    desc_params: Dict[str, str]
+    finding: core_model.FindingEnum
 
 
-class GraphDangerousActionNode(Enum):
-    F034_INSECURE_RANDOM: str = 'F034_INSECURE_RANDOM'
-    F063_PATH_TRAVERSAL: str = 'F063_PATH_TRAVERSAL'
+GRAPH_VULNERABILITY_PARAMETERS: Dict[str, GraphVulnerabilityParameters] = {
+    core_model.FindingEnum.F063_PATH_TRAVERSAL.name: (
+        GraphVulnerabilityParameters(
+            cwe=('22',),
+            desc_key='src.lib_path.f063_path_traversal.description',
+            desc_params={},
+            finding=core_model.FindingEnum.F063_PATH_TRAVERSAL,
+        )
+    ),
+}
 
 
 class GraphDB(NamedTuple):

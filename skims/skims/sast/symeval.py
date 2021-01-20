@@ -9,6 +9,7 @@ from typing import (
     Tuple,
 )
 from model import (
+    core_model,
     graph_model,
 )
 from utils import (
@@ -144,7 +145,7 @@ def from_untrusted_n_id_to_dangerous_action_node(
 def from_untrusted_node_to_dangerous_action_node(
     graph_db: graph_model.GraphDB,
     *,
-    untrusted_node: graph_model.GraphUntrustedNode,
+    untrusted_node: core_model.FindingEnum,
 ) -> graph_model.GraphShardNodes:
     # Start the evaluation from the untrusted nodes, in any shard
     for shard in graph_db.shards:

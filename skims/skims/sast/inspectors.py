@@ -11,14 +11,12 @@ from utils import (
 )
 from model.graph_model import (
     Graph,
-    GraphDangerousActionNode,
     GraphShardMetadata,
     GraphShardMetadataJava,
     GraphShardMetadataJavaClass,
     GraphShardMetadataJavaClassMethod,
     GraphShardMetadataLanguage,
     GraphShardMetadataNodes,
-    GraphUntrustedNode,
 )
 
 
@@ -40,7 +38,7 @@ def get_metadata(
         language=language,
         nodes=GraphShardMetadataNodes(
             dangerous_action={
-                n_id: GraphDangerousActionNode(n_attrs_label_sink_type)
+                n_id: n_attrs_label_sink_type
                 for n_id, n_attrs in graph.nodes.items()
                 for n_attrs_label_sink_type in [
                     n_attrs.get('label_sink_type'),
@@ -53,7 +51,7 @@ def get_metadata(
                 if g.is_connected_to_cfg(graph, n_id)
             ),
             untrusted={
-                n_id: GraphUntrustedNode(n_attrs_label_input_type)
+                n_id: n_attrs_label_input_type
                 for n_id, n_attrs in graph.nodes.items()
                 for n_attrs_label_input_type in [
                     n_attrs.get('label_input_type'),
