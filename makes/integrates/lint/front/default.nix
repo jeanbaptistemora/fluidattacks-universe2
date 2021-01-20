@@ -1,11 +1,12 @@
 { integratesPkgs
+, path
 , ...
 } @ _:
 let
-  makeDerivation = import ../../../../makes/utils/make-derivation integratesPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
-  envSrcIntegratesFront = ../../../../integrates/front;
+  builder = path "/makes/integrates/lint/front/builder.sh";
+  envSrcIntegratesFront = path "/integrates/front";
   name = "integrates-lint-front";
 }

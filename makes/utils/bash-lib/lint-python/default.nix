@@ -1,7 +1,7 @@
-pkgs:
+path: pkgs:
 let
-  buildPythonRequirements = import ../../../../makes/utils/build-python-requirements pkgs;
-  makeTemplate = import ../../../../makes/utils/make-template pkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path pkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeTemplate {
   arguments = {
@@ -48,10 +48,10 @@ makeTemplate {
       };
       python = pkgs.python38;
     };
-    envSettingsMypy = ../../../../makes/utils/bash-lib/lint-python/settings-mypy.cfg;
-    envSettingsProspector = ../../../../makes/utils/bash-lib/lint-python/settings-prospector.yaml;
-    envUtilsBashLibPython = ../../../../makes/utils/bash-lib/python.sh;
+    envSettingsMypy = path "/makes/utils/bash-lib/lint-python/settings-mypy.cfg";
+    envSettingsProspector = path "/makes/utils/bash-lib/lint-python/settings-prospector.yaml";
+    envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
   };
   name = "utils-bash-lib-lint-python";
-  template = ../../../../makes/utils/bash-lib/lint-python/template.sh;
+  template = path "/makes/utils/bash-lib/lint-python/template.sh";
 }

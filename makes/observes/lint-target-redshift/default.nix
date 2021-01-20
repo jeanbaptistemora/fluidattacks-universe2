@@ -1,14 +1,15 @@
 { observesPkgs
+, path
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/observes/config attrs.copy;
-  makeDerivation = import ../../../makes/utils/make-derivation observesPkgs;
+  config = import (path "/makes/observes/config") attrs.copy;
+  makeDerivation = import (path "/makes/utils/make-derivation") path observesPkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
-  envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python observesPkgs;
+  builder = path "/makes/observes/lint-target-redshift/builder.sh";
+  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path observesPkgs;
   envSetupObservesTargetRedshift = config.setupObservesTargetRedshiftRuntime;
-  envSrcObservesTargetRedshift = ../../../observes/singer/target_redshift;
+  envSrcObservesTargetRedshift = path "/observes/singer/target_redshift";
   name = "observes-target-redshift-lint";
 }

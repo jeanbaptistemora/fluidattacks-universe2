@@ -3,10 +3,10 @@
 , ...
 } @ _:
 let
-  makeDerivation = import (path "/makes/utils/make-derivation") skimsPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path skimsPkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
+  builder = path "/makes/skims/parsers/antlr/builder.sh";
   buildInputs = [
     skimsPkgs.gradle
     skimsPkgs.jdk11
@@ -17,6 +17,6 @@ makeDerivation {
   };
   envJava = "${skimsPkgs.jdk11}/bin/java";
   envShell = "${skimsPkgs.bash}/bin/bash";
-  envSrc = (path "/skims/static/parsers/antlr");
+  envSrc = path "/skims/static/parsers/antlr";
   name = "skims-parsers-antlr";
 }

@@ -1,19 +1,18 @@
 # Create an application by replacing arguments in the template
 
-pkgs:
+path: pkgs:
 
 { arguments
 , location
 , name
 , template
-,
 }:
 let
-  makeDerivation = import ../../../makes/utils/make-derivation pkgs;
-  makeTemplate = import ../../../makes/utils/make-template pkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
+  builder = path "/makes/utils/make-entrypoint/builder.sh";
   envEntrypoint = makeTemplate {
     inherit arguments;
     inherit name;
@@ -21,8 +20,8 @@ makeDerivation {
   };
   envEntrypointSetup = makeTemplate {
     arguments = {
-      envBashLibCommon = ../../../makes/utils/bash-lib/common.sh;
-      envBashLibShopts = ../../../makes/utils/bash-lib/shopts.sh;
+      envBashLibCommon = path "/makes/utils/bash-lib/common.sh";
+      envBashLibShopts = path "/makes/utils/bash-lib/shopts.sh";
       envShell = "${pkgs.bash}/bin/bash";
     };
     name = "utils-make-entrypoint-script";

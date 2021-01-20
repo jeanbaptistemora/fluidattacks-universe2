@@ -4,7 +4,7 @@
 , ...
 } @ _:
 let
-  ociDeploy = import (path "/makes/utils/bash-lib/oci-deploy") skimsPkgs;
+  ociDeploy = import (path "/makes/utils/bash-lib/oci-deploy") path skimsPkgs;
 in
 ociDeploy {
   oci = outputs.packages.skims-oci-build;

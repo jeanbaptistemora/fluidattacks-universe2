@@ -1,10 +1,11 @@
 { outputs
 , observesPkgs
+, path
 , ...
 } @ _:
 let
-  makeSearchPaths = import ../../../makes/utils/make-search-paths observesPkgs;
-  makeTemplate = import ../../../makes/utils/make-template observesPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path observesPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path observesPkgs;
   nixRequirements = {
     target-redshift-runtime = makeSearchPaths [
       observesPkgs.postgresql
@@ -21,11 +22,11 @@ in
       envBinPath = nixRequirements.target-redshift-runtime.binPath;
       envLibPath = nixRequirements.target-redshift-runtime.libPath;
       envPyPath = nixRequirements.target-redshift-runtime.pyPath;
-      envSrcObservesTargetRedshiftEntrypoint = ../../../observes/singer/target_redshift/target_redshift/__init__.py;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envSrcObservesTargetRedshiftEntrypoint = path "/observes/singer/target_redshift/target_redshift/__init__.py";
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "observes-config-setup-target-redshift-runtime";
-    template = ../../../makes/observes/config/setup-target-redshift-runtime.sh;
+    template = path "/makes/observes/config/setup-target-redshift-runtime.sh";
   };
   setupObservesStreamerZohoCrmRuntime = makeTemplate {
     arguments = {
@@ -34,10 +35,10 @@ in
       envBinPath = nixRequirements.streamer-zoho-crm-runtime.binPath;
       envLibPath = nixRequirements.streamer-zoho-crm-runtime.libPath;
       envPyPath = nixRequirements.streamer-zoho-crm-runtime.pyPath;
-      envSrcObservesStreamerZohoCrmEntrypoint = ../../../observes/singer/streamer_zoho_crm/streamer_zoho_crm/__init__.py;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envSrcObservesStreamerZohoCrmEntrypoint = path "/observes/singer/streamer_zoho_crm/streamer_zoho_crm/__init__.py";
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "observes-config-setup-streamer-zoho-crm-runtime";
-    template = ../../../makes/observes/config/setup-streamer-zoho-crm-runtime.sh;
+    template = path "/makes/observes/config/setup-streamer-zoho-crm-runtime.sh";
   };
 }

@@ -4,7 +4,7 @@ source '__envUtilsBashLibAws__'
 
 function main {
       aws_login_prod '__envProduct__' \
-  &&  pushd '__envPath__' \
+  &&  pushd '__envTarget__' \
     &&  echo '[INFO] Initializing' \
     &&  '__envTerraform__' init \
     &&  echo '[INFO] Applying changes' \

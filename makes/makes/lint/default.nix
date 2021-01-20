@@ -1,8 +1,9 @@
 { makesPkgs
+, path
 , ...
 } @ _:
 let
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint makesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path makesPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -14,5 +15,5 @@ makeEntrypoint {
   };
   location = "/bin/makes-lint";
   name = "makes-lint";
-  template = ../../../makes/makes/lint/template.sh;
+  template = path "/makes/makes/lint/template.sh";
 }

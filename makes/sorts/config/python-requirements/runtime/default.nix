@@ -1,8 +1,9 @@
-{ sortsPkgs
+{ path
+, sortsPkgs
 , ...
 } @ _:
 let
-  buildPythonRequirements = import ../../../../../makes/utils/build-python-requirements sortsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path sortsPkgs;
 in
 buildPythonRequirements {
   dependencies = [ ];

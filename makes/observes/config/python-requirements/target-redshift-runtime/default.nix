@@ -1,8 +1,9 @@
 { observesPkgs
+, path
 , ...
 } @ _:
 let
-  buildPythonRequirements = import ../../../../../makes/utils/build-python-requirements observesPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path observesPkgs;
 in
 buildPythonRequirements {
   dependencies = [

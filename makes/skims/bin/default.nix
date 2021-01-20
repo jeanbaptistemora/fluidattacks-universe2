@@ -4,7 +4,7 @@
 } @ attrs:
 let
   config = import (path "/makes/skims/config") attrs.copy;
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") skimsPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path skimsPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -12,5 +12,5 @@ makeEntrypoint {
   };
   location = "/bin/skims";
   name = "skims-bin";
-  template = (path "/makes/skims/bin/entrypoint.sh");
+  template = path "/makes/skims/bin/entrypoint.sh";
 }

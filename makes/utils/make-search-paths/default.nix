@@ -1,4 +1,4 @@
-pkgs:
+_: pkgs:
 
 derivations: {
   binPath = pkgs.lib.strings.makeBinPath derivations;

@@ -1,23 +1,22 @@
-pkgs:
+path: pkgs:
 
 { name
-, path
 , product
-,
+, target
 }:
 let
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
 in
 makeEntrypoint {
   arguments = {
-    envPath = path;
     envProduct = product;
+    envTarget = target;
     envTerraform = "${pkgs.terraform_0_13}/bin/terraform";
     envTflint = "${pkgs.tflint}/bin/tflint";
-    envTflintConfig = ../../../../.tflint.hcl;
-    envUtilsBashLibAws = import ../../../../makes/utils/bash-lib/aws pkgs;
+    envTflintConfig = path "/.tflint.hcl";
+    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path pkgs;
   };
   location = "/bin/${name}";
   inherit name;
-  template = ../../../../makes/utils/bash-lib/terraform-test/entrypoint.sh;
+  template = path "/makes/utils/bash-lib/terraform-test/entrypoint.sh";
 }

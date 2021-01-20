@@ -1,9 +1,10 @@
-{ sortsPkgs
+{ path
+, sortsPkgs
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/sorts/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint sortsPkgs;
+  config = import (path "/makes/sorts/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -11,5 +12,5 @@ makeEntrypoint {
   };
   location = "/bin/sorts";
   name = "sorts-bin";
-  template = ../../../makes/sorts/bin/entrypoint.sh;
+  template = path "/makes/sorts/bin/entrypoint.sh";
 }

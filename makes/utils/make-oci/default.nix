@@ -2,7 +2,7 @@
 # https://grahamc.com/blog/nix-and-layered-docker-images
 # https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions
 
-pkgs:
+_: pkgs:
 
 { config ? null
 , contents ? [ ]

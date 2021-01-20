@@ -1,9 +1,10 @@
 { observesPkgs
+, path
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/observes/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint observesPkgs;
+  config = import (path "/makes/observes/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path observesPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -11,5 +12,5 @@ makeEntrypoint {
   };
   location = "/bin/observes-target-redshift";
   name = "observes-target-redshift-bin";
-  template = ../../../makes/observes/bin-target-redshift/entrypoint.sh;
+  template = path "/makes/observes/bin-target-redshift/entrypoint.sh";
 }

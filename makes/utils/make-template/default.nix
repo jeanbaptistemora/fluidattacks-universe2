@@ -1,14 +1,13 @@
 # Replace arguments in the template
 
-pkgs:
+path: pkgs:
 
 { arguments
 , name
 , template
-,
 }:
 let
-  makeDerivation = import ../../../makes/utils/make-derivation pkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
 
   argumentNames = builtins.attrNames arguments;
   argumentNamesContent = builtins.concatStringsSep "\n" argumentNames;
@@ -20,7 +19,7 @@ let
     else template;
 in
 makeDerivation (arguments // {
-  builder = ./builder.sh;
+  builder = path "/makes/utils/make-template/builder.sh";
   inherit name;
   __envArgumentNamesFile = argumentNamesFile;
   __envTemplate = templateFile;

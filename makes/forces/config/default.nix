@@ -1,10 +1,11 @@
 { forcesPkgs
+, path
 , ...
 } @ _:
 let
-  buildPythonRequirements = import ../../../makes/utils/build-python-requirements forcesPkgs;
-  makeSearchPaths = import ../../../makes/utils/make-search-paths forcesPkgs;
-  makeTemplate = import ../../../makes/utils/make-template forcesPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path forcesPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path forcesPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path forcesPkgs;
   nixRequirements = {
     runtime = makeSearchPaths [
       forcesPkgs.git
@@ -75,11 +76,11 @@ in
       envPyPath = nixRequirements.runtime.pyPath;
       envPython = "${forcesPkgs.python38}/bin/python";
       envPythonRequirements = pythonRequirements.runtime;
-      envSrcForces = ../../../forces;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envSrcForces = path "/forces";
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "forces-config-setup-forces-runtime";
-    template = ../../../makes/forces/config/setup-forces-runtime.sh;
+    template = path "/makes/forces/config/setup-forces-runtime.sh";
   };
   setupForcesDevelopment = makeTemplate {
     arguments = {
@@ -87,9 +88,9 @@ in
       envLibPath = nixRequirements.development.libPath;
       envPyPath = nixRequirements.development.pyPath;
       envPythonRequirements = pythonRequirements.development;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "forces-config-setup-forces-development";
-    template = ../../../makes/forces/config/setup-forces-development.sh;
+    template = path "/makes/forces/config/setup-forces-development.sh";
   };
 }

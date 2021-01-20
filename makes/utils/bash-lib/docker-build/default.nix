@@ -1,12 +1,11 @@
-pkgs:
+path: pkgs:
 
 { context
 , name
 , tag
-,
 }:
 let
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -16,5 +15,5 @@ makeEntrypoint {
   };
   location = "/bin/${name}";
   inherit name;
-  template = ../../../../makes/utils/bash-lib/docker-build/entrypoint.sh;
+  template = path "/makes/utils/bash-lib/docker-build/entrypoint.sh";
 }

@@ -1,10 +1,11 @@
 { meltsPkgs
+, path
 , ...
 } @ _:
 let
-  buildPythonRequirements = import ../../../makes/utils/build-python-requirements meltsPkgs;
-  makeSearchPaths = import ../../../makes/utils/make-search-paths meltsPkgs;
-  makeTemplate = import ../../../makes/utils/make-template meltsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path meltsPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path meltsPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path meltsPkgs;
   nixRequirements = {
     development = makeSearchPaths [
       meltsPkgs.docker
@@ -131,11 +132,11 @@ in
       envPyPath = nixRequirements.runtime.pyPath;
       envPython = "${meltsPkgs.python38}/bin/python";
       envPythonRequirements = pythonRequirements.runtime;
-      envSrcMelts = ../../../melts;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envSrcMelts = path "/melts";
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "melts-config-setup-melts-runtime";
-    template = ../../../makes/melts/config/setup-melts-runtime.sh;
+    template = path "/makes/melts/config/setup-melts-runtime.sh";
   };
   setupMeltsDevelopment = makeTemplate {
     arguments = {
@@ -143,9 +144,9 @@ in
       envLibPath = nixRequirements.development.libPath;
       envPyPath = nixRequirements.development.pyPath;
       envPythonRequirements = pythonRequirements.development;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "melts-config-setup-melts-development";
-    template = ../../../makes/melts/config/setup-melts-development.sh;
+    template = path "/makes/melts/config/setup-melts-development.sh";
   };
 }

@@ -1,11 +1,12 @@
 { makesPkgs
+, path
 , ...
 } @ _:
 let
-  dockerBuild = import ../../../../makes/utils/bash-lib/docker-build makesPkgs;
+  dockerBuild = import (path "/makes/utils/bash-lib/docker-build") path makesPkgs;
 in
 dockerBuild {
-  context = ../../../../makes/makes/deploy/oci-ci/context;
+  context = path "/makes/makes/deploy/oci-ci/context";
   name = "makes-deploy-oci-ci";
   tag = "registry.gitlab.com/fluidattacks/product/makes:ci";
 }

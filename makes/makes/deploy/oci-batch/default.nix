@@ -1,8 +1,9 @@
 { makesPkgs
+, path
 , ...
 } @ _:
 let
-  dockerBuild = import ../../../../makes/utils/bash-lib/docker-build makesPkgs;
+  dockerBuild = import (path "/makes/utils/bash-lib/docker-build") path makesPkgs;
 in
 dockerBuild {
   context = ".";

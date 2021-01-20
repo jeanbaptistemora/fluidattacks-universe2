@@ -1,9 +1,10 @@
 { meltsPkgs
+, path
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/melts/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint meltsPkgs;
+  config = import (path "/makes/melts/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path meltsPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -11,5 +12,5 @@ makeEntrypoint {
   };
   location = "/bin/melts";
   name = "melts-bin";
-  template = ../../../makes/melts/bin/entrypoint.sh;
+  template = path "/makes/melts/bin/entrypoint.sh";
 }

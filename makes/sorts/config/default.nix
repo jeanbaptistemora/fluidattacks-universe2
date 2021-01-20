@@ -1,10 +1,11 @@
 { outputs
+, path
 , sortsPkgs
 , ...
 } @ _:
 let
-  makeSearchPaths = import ../../../makes/utils/make-search-paths sortsPkgs;
-  makeTemplate = import ../../../makes/utils/make-template sortsPkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path sortsPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path sortsPkgs;
   nixRequirements = makeSearchPaths [ sortsPkgs.gcc.cc ];
 in
 {
@@ -14,10 +15,10 @@ in
       envLibPath = nixRequirements.libPath;
       envPyPath = nixRequirements.pyPath;
       envPythonRequirements = outputs.packages.sorts-config-python-requirements-development;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "sorts-config-setup-sorts-development";
-    template = ../../../makes/sorts/config/setup-sorts-development.sh;
+    template = path "/makes/sorts/config/setup-sorts-development.sh";
   };
 
   setupSortsRuntime = makeTemplate {
@@ -28,7 +29,7 @@ in
             url = "https://sorts.s3.amazonaws.com/training-output/model.joblib";
             sha256 = "kBfRo6Bofx73P3wBrtagSGYlIww9XxHR2iR7V09/K64=";
           };
-          envSrcSortsStatic = ../../../sorts/static;
+          envSrcSortsStatic = path "/sorts/static";
         };
         name = "sorts-config-context-file";
         template = ''
@@ -41,10 +42,10 @@ in
       envBinPath = nixRequirements.binPath;
       envLibPath = nixRequirements.libPath;
       envPyPath = nixRequirements.pyPath;
-      envSrcSortsSorts = ../../../sorts/sorts;
-      envUtilsBashLibPython = ../../../makes/utils/bash-lib/python.sh;
+      envSrcSortsSorts = path "/sorts/sorts";
+      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
     name = "sorts-config-setup-sorts-runtime";
-    template = ../../../makes/sorts/config/setup-sorts-runtime.sh;
+    template = path "/makes/sorts/config/setup-sorts-runtime.sh";
   };
 }

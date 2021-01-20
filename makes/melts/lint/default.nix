@@ -1,16 +1,17 @@
 { meltsPkgs
+, path
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/melts/config attrs.copy;
-  makeDerivation = import ../../../makes/utils/make-derivation meltsPkgs;
+  config = import (path "/makes/melts/config") attrs.copy;
+  makeDerivation = import (path "/makes/utils/make-derivation") path meltsPkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
-  envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python meltsPkgs;
+  builder = path "/makes/melts/lint/builder.sh";
+  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path meltsPkgs;
   envSetupMeltsRuntime = config.setupMeltsRuntime;
   envSetupMeltsDevelopment = config.setupMeltsDevelopment;
-  envSrcMeltsToolbox = ../../../melts/toolbox;
-  envSrcMeltsTest = ../../../melts/tests;
+  envSrcMeltsToolbox = path "/melts/toolbox";
+  envSrcMeltsTest = path "/melts/tests";
   name = "melts-lint";
 }

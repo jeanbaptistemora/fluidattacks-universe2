@@ -1,11 +1,12 @@
-{ sortsPkgs
+{ path
+, sortsPkgs
 , ...
 } @ _:
 let
-  terraformApply = import ../../../../makes/utils/bash-lib/terraform-apply sortsPkgs;
+  terraformApply = import (path "/makes/utils/bash-lib/terraform-apply") path sortsPkgs;
 in
 terraformApply {
   name = "sorts-infra-deploy";
-  path = "sorts/infra";
   product = "sorts";
+  target = "sorts/infra";
 }

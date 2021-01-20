@@ -1,4 +1,4 @@
-pkgs:
+path: pkgs:
 
 { attempts
 , command
@@ -9,7 +9,6 @@ pkgs:
 , secrets
 , timeout
 , vcpus
-,
 }:
 let
   getSecretFromRuntimeEnv = name: {
@@ -17,7 +16,7 @@ let
     value = "\${${name}}";
   };
 
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint pkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
 
   # Granting less than 3600 MB of memory per vCPU is paying for unused resources
   # so let's be greedy and grant it all
@@ -51,7 +50,7 @@ makeEntrypoint {
     envMemory = memory;
     envProduct = product;
     envTimeout = timeout;
-    envUtilsBashLibAws = import ../../../../makes/utils/bash-lib/aws pkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path pkgs;
     envVcpus =
       if (vcpus <= 4)
       then vcpus
@@ -59,5 +58,5 @@ makeEntrypoint {
   };
   location = "/bin/${name}";
   inherit name;
-  template = ../../../../makes/utils/bash-lib/compute-on-aws/entrypoint.sh;
+  template = path "/makes/utils/bash-lib/compute-on-aws/entrypoint.sh";
 }

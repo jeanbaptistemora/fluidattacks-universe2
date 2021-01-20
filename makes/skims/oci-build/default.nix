@@ -4,7 +4,7 @@
 , ...
 } @ _:
 let
-  makeOci = import (path "/makes/utils/make-oci") skimsPkgs;
+  makeOci = import (path "/makes/utils/make-oci") path skimsPkgs;
 in
 makeOci {
   config.Entrypoint = [ outputs.apps.skims.program ];

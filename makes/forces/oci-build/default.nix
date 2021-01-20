@@ -1,10 +1,10 @@
-{ outputs
+{ forcesPkgs
+, outputs
 , path
-, forcesPkgs
 , ...
 } @ _:
 let
-  makeOci = import (path "/makes/utils/make-oci") forcesPkgs;
+  makeOci = import (path "/makes/utils/make-oci") path forcesPkgs;
 in
 makeOci {
   config.Entrypoint = [ outputs.apps.forces.program ];

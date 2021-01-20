@@ -3,7 +3,7 @@
 , ...
 } @ _:
 let
-  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") skimsPkgs;
+  buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path skimsPkgs;
 in
 buildPythonRequirements {
   dependencies = [ ];

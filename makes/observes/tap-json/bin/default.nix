@@ -1,20 +1,21 @@
 { observesPkgs
+, path
 , ...
 } @ _:
 let
-  buildPythonPackage = import ../../../../makes/utils/build-python-package observesPkgs;
-  makeEntrypoint = import ../../../../makes/utils/make-entrypoint observesPkgs;
+  buildPythonPackage = import (path "/makes/utils/build-python-package") path observesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path observesPkgs;
 in
 makeEntrypoint {
   arguments = {
-    envBashLibPython = ../../../../makes/utils/bash-lib/python.sh;
+    envBashLibPython = path "/makes/utils/bash-lib/python.sh";
     envTapJson = buildPythonPackage {
       dependencies = [ ];
-      packagePath = ../../../../observes/singer/tap_json;
+      packagePath = path "/observes/singer/tap_json";
       python = observesPkgs.python37;
     };
   };
   location = "/bin/observes-tap-json";
   name = "observes-tap-json-bin";
-  template = ../../../../makes/observes/tap-json/bin/entrypoint.sh;
+  template = path "/makes/observes/tap-json/bin/entrypoint.sh";
 }

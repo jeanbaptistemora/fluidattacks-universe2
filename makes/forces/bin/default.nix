@@ -1,9 +1,10 @@
 { forcesPkgs
+, path
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/forces/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint forcesPkgs;
+  config = import (path "/makes/forces/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path forcesPkgs;
 in
 makeEntrypoint {
   arguments = {
@@ -11,5 +12,5 @@ makeEntrypoint {
   };
   location = "/bin/forces";
   name = "forces-bin";
-  template = ../../../makes/forces/bin/entrypoint.sh;
+  template = path "/makes/forces/bin/entrypoint.sh";
 }

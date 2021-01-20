@@ -1,17 +1,16 @@
 # Do a pip install of the provided package
 
-pkgs:
+path: pkgs:
 
 { dependencies
 , packagePath
 , python
-,
 }:
 let
-  makeDerivation = import ../../../makes/utils/make-derivation pkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
+  builder = path "/makes/utils/build-python-package/builder.sh";
   buildInputs = dependencies ++ [ python ];
   envPackagePath = packagePath;
   name = "build-python-package";

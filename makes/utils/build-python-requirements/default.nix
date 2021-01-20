@@ -1,15 +1,14 @@
 # Do a pip install of the provided requirements
 # Ensure they are fully pinned, even sub-dependencies
 
-pkgs:
+path: pkgs:
 
 { dependencies
 , python
 , requirements
-,
 }:
 let
-  makeDerivation = import ../../../makes/utils/make-derivation pkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
 
   sort = with pkgs.lib.strings; builtins.sort (a: b: toLower a < toLower b);
 
@@ -36,7 +35,7 @@ let
   requirementsFile = builtins.toFile "requirements" requirementsStr;
 in
 makeDerivation {
-  builder = ./builder.sh;
+  builder = path "/makes/utils/build-python-requirements/builder.sh";
   buildInputs = dependencies ++ [ python ];
   envRequirementsFile = requirementsFile;
   name = "build-python-requirements";

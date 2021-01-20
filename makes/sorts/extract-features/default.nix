@@ -1,18 +1,19 @@
-{ sortsPkgs
+{ path
+, sortsPkgs
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/sorts/config attrs.copy;
-  makeEntrypoint = import ../../../makes/utils/make-entrypoint sortsPkgs;
+  config = import (path "/makes/sorts/config") attrs.copy;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path sortsPkgs;
 in
 makeEntrypoint {
   arguments = {
     envSetupSortsRuntime = config.setupSortsRuntime;
-    envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws sortsPkgs;
-    envUtilsBashLibGit = import ../../../makes/utils/bash-lib/use-git-repo sortsPkgs;
-    envUtilsMeltsLibCommon = import ../../../makes/utils/melts-lib attrs.copy;
+    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path sortsPkgs;
+    envUtilsBashLibGit = import (path "/makes/utils/bash-lib/use-git-repo") path sortsPkgs;
+    envUtilsMeltsLibCommon = import (path "/makes/utils/melts-lib") attrs.copy;
   };
   location = "/bin/sorts-extract-features";
   name = "sorts-extract-features";
-  template = ../../../makes/sorts/extract-features/entrypoint.sh;
+  template = path "/makes/sorts/extract-features/entrypoint.sh";
 }

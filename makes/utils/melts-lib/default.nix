@@ -3,13 +3,13 @@
 , ...
 } @ _:
 let
-  makeTemplate = import ../../../makes/utils/make-template meltsPkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path meltsPkgs;
 in
 makeTemplate {
   arguments = {
     envMelts = outputs.apps.melts.program;
-    envUtilsBashLibAws = import ../../../makes/utils/bash-lib/aws meltsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path meltsPkgs;
   };
   name = "utils-melts-lib-common";
-  template = ../../../makes/utils/melts-lib/template.sh;
+  template = path "/makes/utils/melts-lib/template.sh";
 }

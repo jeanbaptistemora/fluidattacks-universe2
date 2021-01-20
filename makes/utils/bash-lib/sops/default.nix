@@ -1,6 +1,6 @@
-pkgs:
+path: pkgs:
 let
-  makeTemplate = import ../../../../makes/utils/make-template pkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeTemplate {
   arguments = {
@@ -8,5 +8,5 @@ makeTemplate {
     envSops = "${pkgs.sops}/bin/sops";
   };
   name = "utils-bash-lib-sops";
-  template = ../../../../makes/utils/bash-lib/sops/template.sh;
+  template = path "/makes/utils/bash-lib/sops/template.sh";
 }

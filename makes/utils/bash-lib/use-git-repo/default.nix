@@ -1,11 +1,11 @@
-pkgs:
+path: pkgs:
 let
-  makeTemplate = import ../../../../makes/utils/make-template pkgs;
+  makeTemplate = import (path "/makes/utils/make-template") path pkgs;
 in
 makeTemplate {
   arguments = {
     envGit = "${pkgs.git}/bin/git";
   };
   name = "utils-bash-lib-use-git-repo";
-  template = ../../../../makes/utils/bash-lib/use-git-repo/template.sh;
+  template = path "/makes/utils/bash-lib/use-git-repo/template.sh";
 }

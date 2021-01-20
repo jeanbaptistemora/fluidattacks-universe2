@@ -1,16 +1,17 @@
 { forcesPkgs
+, path
 , ...
 } @ attrs:
 let
-  config = import ../../../makes/forces/config attrs.copy;
-  makeDerivation = import ../../../makes/utils/make-derivation forcesPkgs;
+  config = import (path "/makes/forces/config") attrs.copy;
+  makeDerivation = import (path "/makes/utils/make-derivation") path forcesPkgs;
 in
 makeDerivation {
-  builder = ./builder.sh;
-  envBashLibLintPython = import ../../../makes/utils/bash-lib/lint-python forcesPkgs;
+  builder = path "/makes/forces/lint/builder.sh";
+  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path forcesPkgs;
   envSetupForcesRuntime = config.setupForcesRuntime;
   envSetupForcesDevelopment = config.setupForcesDevelopment;
-  envSrcForcesForces = ../../../forces/forces;
-  envSrcForcesTest = ../../../forces/test;
+  envSrcForcesForces = path "/forces/forces";
+  envSrcForcesTest = path "/forces/test";
   name = "forces-lint";
 }
