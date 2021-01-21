@@ -27,6 +27,8 @@ type GitRoot implements IRoot {
   environmentUrls: [String!]!
   "Preferences for filtering directories"
   filter: GitRootFilter
+  "Repository paths to be ignored"
+  gitignore: [String!]!
   "ID of the root"
   id: ID!
   "Analyze already existing code"

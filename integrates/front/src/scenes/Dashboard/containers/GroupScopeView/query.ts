@@ -13,10 +13,7 @@ const GET_ROOTS: DocumentNode = gql`
           }
           environment
           environmentUrls
-          filter {
-            exclude
-            include
-          }
+          gitignore
           id
           includesHealthCheck
           state
@@ -43,7 +40,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
   mutation AddGitRoot(
     $branch: String!
     $environment: String!
-    $filter: GitRootFilterInput!
+    $gitignore: [String!]!
     $groupName: String!
     $includesHealthCheck: Boolean!
     $url: String!
@@ -51,7 +48,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
     addGitRoot(
       branch: $branch
       environment: $environment
-      filter: $filter
+      filter: { exclude: $gitignore, include: ["*"] }
       groupName: $groupName
       includesHealthCheck: $includesHealthCheck
       url: $url
@@ -72,13 +69,13 @@ const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $environment: String!
-    $filter: GitRootFilterInput!
+    $gitignore: [String!]!
     $id: ID!
     $includesHealthCheck: Boolean!
   ) {
     updateGitRoot(
       environment: $environment
-      filter: $filter
+      filter: { exclude: $gitignore, include: ["*"] }
       id: $id
       includesHealthCheck: $includesHealthCheck
     ) {

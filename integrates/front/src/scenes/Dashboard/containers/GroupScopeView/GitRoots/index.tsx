@@ -59,16 +59,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   roots,
 }: IGitRootsProps): JSX.Element => {
   // Constants
-  const dataset: IGitRootAttr[] = roots.map(
-    (root: IGitRootAttr): IGitRootAttr => ({
-      ...root,
-      filter: {
-        exclude: root.filter.exclude,
-        include: root.filter.include,
-      },
-    })
-  );
-
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
@@ -242,7 +232,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       const {
         branch,
         environment,
-        filter,
+        gitignore,
         id,
         includesHealthCheck,
         url,
@@ -254,12 +244,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             variables: {
               branch,
               environment,
-              filter: {
-                exclude: filter.exclude.filter(
-                  (glob: string): boolean => glob.trim() !== ""
-                ),
-                include: filter.include,
-              },
+              gitignore,
               groupName,
               includesHealthCheck,
               url,
@@ -269,7 +254,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           await updateGitRoot({
             variables: {
               environment,
-              filter,
+              gitignore,
               id,
               includesHealthCheck,
             },
@@ -365,7 +350,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               <DataTableNext
                 bordered={true}
                 columnToggle={true}
-                dataset={dataset}
+                dataset={roots}
                 exportCsv={false}
                 headers={[
                   {
@@ -395,7 +380,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     wrapped: true,
                   },
                   {
-                    dataField: "filter.exclude",
+                    dataField: "gitignore",
                     formatter: formatList,
                     header: t("group.scope.git.filter.exclude"),
                     visible: checkedItems["filter.exclude"],

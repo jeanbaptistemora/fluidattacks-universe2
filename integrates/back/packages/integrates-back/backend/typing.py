@@ -200,6 +200,7 @@ GitRoot = NamedTuple(
         ('environment', str),
         ('environment_urls', List[str]),
         ('filter', Optional[GitRootFilter]),
+        ('gitignore', List[str]),
         ('id', str),
         ('includes_health_check', bool),
         ('state', str),

@@ -21,7 +21,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { ArrayField, Checkbox, Text } from "utils/forms/fields";
-import { Field, FormSection, formValueSelector } from "redux-form";
+import { Field, formValueSelector } from "redux-form";
 import { checked, excludeFormat, required } from "utils/validations";
 
 interface IGitModalProps {
@@ -40,7 +40,7 @@ const GitModal: React.FC<IGitModalProps> = ({
     },
     environment: "",
     environmentUrls: [],
-    filter: { exclude: [], include: ["*"] },
+    gitignore: [],
     id: "",
     includesHealthCheck: false,
     state: "ACTIVE",
@@ -162,44 +162,40 @@ const GitModal: React.FC<IGitModalProps> = ({
                 </div>
               </fieldset>
               <Can do={"update_git_root_filter"}>
-                <FormSection name={"filter"}>
-                  <fieldset>
-                    <TooltipWrapper
-                      message={t("group.scope.git.filter.tooltip")}
-                    >
-                      <ControlLabel>
-                        {t("group.scope.git.filter.exclude")}
-                      </ControlLabel>
-                    </TooltipWrapper>
-                    <Button
-                      // eslint-disable-next-line react/forbid-component-props
-                      className={style.button}
-                      onClick={goToDocumentation}
-                    >
-                      <Glyphicon glyph={"glyphicon glyphicon-question-sign"} />
-                    </Button>
-                    {_.isUndefined(gitIgnoreValues) ? undefined : _.isEmpty(
-                        gitIgnoreValues
-                      ) ? undefined : (
-                      <Alert>{t("group.scope.git.filter.warning")}</Alert>
+                <fieldset>
+                  <TooltipWrapper message={t("group.scope.git.filter.tooltip")}>
+                    <ControlLabel>
+                      {t("group.scope.git.filter.exclude")}
+                    </ControlLabel>
+                  </TooltipWrapper>
+                  <Button
+                    // eslint-disable-next-line react/forbid-component-props
+                    className={style.button}
+                    onClick={goToDocumentation}
+                  >
+                    <Glyphicon glyph={"glyphicon glyphicon-question-sign"} />
+                  </Button>
+                  {_.isUndefined(gitIgnoreValues) ? undefined : _.isEmpty(
+                      gitIgnoreValues
+                    ) ? undefined : (
+                    <Alert>{t("group.scope.git.filter.warning")}</Alert>
+                  )}
+                  <ArrayField
+                    allowEmpty={true}
+                    initialValue={""}
+                    name={"gitignore"}
+                  >
+                    {(fieldName: string): JSX.Element => (
+                      <Field
+                        component={Text}
+                        name={fieldName}
+                        placeholder={t("group.scope.git.filter.placeholder")}
+                        type={"text"}
+                        validate={excludeFormat}
+                      />
                     )}
-                    <ArrayField
-                      allowEmpty={true}
-                      initialValue={""}
-                      name={"exclude"}
-                    >
-                      {(fieldName: string): JSX.Element => (
-                        <Field
-                          component={Text}
-                          name={fieldName}
-                          placeholder={t("group.scope.git.filter.placeholder")}
-                          type={"text"}
-                          validate={excludeFormat}
-                        />
-                      )}
-                    </ArrayField>
-                  </fieldset>
-                </FormSection>
+                  </ArrayField>
+                </fieldset>
               </Can>
             </React.Fragment>
             <Row>

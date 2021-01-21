@@ -62,6 +62,7 @@ def format_root(root: Dict[str, Any]) -> Root:
                 exclude=filter_config['exclude'],
                 include=filter_config['include']
             ),
+            gitignore=filter_config['exclude'],
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             state=root_state['state'],

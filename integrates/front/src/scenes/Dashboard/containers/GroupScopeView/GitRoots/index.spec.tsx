@@ -115,11 +115,7 @@ describe("GitRoots", (): void => {
     ).toHaveLength(1);
 
     // Filters
-    const excludeFields: ReactWrapper = wrapper
-      .find({ name: "filter.exclude" })
-      .find("input");
-
-    expect(excludeFields).toHaveLength(0);
+    expect(wrapper.find({ name: "gitignore" }).find("input")).toHaveLength(0);
   });
 
   it("should render envs modal", (): void => {

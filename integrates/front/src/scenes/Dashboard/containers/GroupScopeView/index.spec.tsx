@@ -52,11 +52,7 @@ describe("GroupScopeView", (): void => {
                 },
                 environment: "production",
                 environmentUrls: [],
-                filter: {
-                  __typename: "GitRootFilter",
-                  exclude: ["bower_components/*", "node_modules/*"],
-                  include: ["*"],
-                },
+                gitignore: ["bower_components/*", "node_modules/*"],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
                 state: "ACTIVE",
@@ -127,7 +123,7 @@ describe("GroupScopeView", (): void => {
         variables: {
           branch: "master",
           environment: "production",
-          filter: { exclude: [], include: ["*"] },
+          gitignore: [],
           groupName: "unittesting",
           includesHealthCheck: false,
           url: "https://gitlab.com/fluidattacks/product",
@@ -157,11 +153,7 @@ describe("GroupScopeView", (): void => {
                 },
                 environment: "production",
                 environmentUrls: [],
-                filter: {
-                  __typename: "GitRootFilter",
-                  exclude: [],
-                  include: ["*"],
-                },
+                gitignore: [],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "ACTIVE",
@@ -274,11 +266,7 @@ describe("GroupScopeView", (): void => {
                 },
                 environment: "production",
                 environmentUrls: [],
-                filter: {
-                  __typename: "GitRootFilter",
-                  exclude: ["bower_components/*"],
-                  include: ["*"],
-                },
+                gitignore: ["bower_components/*"],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "ACTIVE",
@@ -294,7 +282,7 @@ describe("GroupScopeView", (): void => {
         query: UPDATE_GIT_ROOT,
         variables: {
           environment: "staging",
-          filter: { exclude: ["node_modules/*"], include: ["*"] },
+          gitignore: ["node_modules/*"],
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
           includesHealthCheck: true,
         },
@@ -323,11 +311,7 @@ describe("GroupScopeView", (): void => {
                 },
                 environment: "staging",
                 environmentUrls: [],
-                filter: {
-                  __typename: "GitRootFilter",
-                  exclude: ["node_modules/*"],
-                  include: ["*"],
-                },
+                gitignore: ["node_modules/*"],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: true,
                 state: "ACTIVE",
@@ -398,7 +382,7 @@ describe("GroupScopeView", (): void => {
     includesHealthCheck.simulate("change", { target: { value: true } });
 
     const path1: ReactWrapper = wrapper
-      .find({ name: "filter.exclude[0]" })
+      .find({ name: "gitignore[0]" })
       .find("input");
     path1.simulate("change", { target: { value: "node_modules/*" } });
 
@@ -450,11 +434,7 @@ describe("GroupScopeView", (): void => {
                 },
                 environment: "production",
                 environmentUrls: [],
-                filter: {
-                  __typename: "GitRootFilter",
-                  exclude: [],
-                  include: ["*"],
-                },
+                gitignore: [],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "ACTIVE",
@@ -499,11 +479,7 @@ describe("GroupScopeView", (): void => {
                 },
                 environment: "production",
                 environmentUrls: [],
-                filter: {
-                  __typename: "GitRootFilter",
-                  exclude: [],
-                  include: ["*"],
-                },
+                gitignore: [],
                 id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 includesHealthCheck: false,
                 state: "INACTIVE",

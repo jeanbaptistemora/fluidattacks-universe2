@@ -7,10 +7,7 @@ interface IGitRootAttr {
   };
   environment: string;
   environmentUrls: string[];
-  filter: {
-    exclude: string[];
-    include: string[];
-  };
+  gitignore: string[];
   includesHealthCheck: boolean;
   id: string;
   state: "ACTIVE" | "INACTIVE";
