@@ -22,6 +22,8 @@ import { Col100, Row } from "styles/styledComponents";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 export const WelcomeView: React.FC = (): JSX.Element => {
+  const { userName } = window as typeof window & Record<string, string>;
+
   // Load on last visited url
   const savedUrl: string = _.get(localStorage, "start_url", "/home");
   const initialUrl: string =
@@ -35,25 +37,25 @@ export const WelcomeView: React.FC = (): JSX.Element => {
   }
 
   // Display legal notice
-  interface IUser {
-    me: { remember: boolean; userName: string };
-  }
-  const { data, loading } = useQuery<IUser>(GET_USER_AUTHORIZATION, {
-    fetchPolicy: "network-only",
-    onCompleted: (userData): void => {
-      if (userData.me.remember) {
-        loadDashboard();
-      }
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error(
-          "An error occurred while fetching user authorization",
-          error
-        );
-      });
-    },
-  });
+  const { data, loading } = useQuery<{ me: { remember: boolean } }>(
+    GET_USER_AUTHORIZATION,
+    {
+      fetchPolicy: "network-only",
+      onCompleted: (userData: { me: { remember: boolean } }): void => {
+        if (userData.me.remember) {
+          loadDashboard();
+        }
+      },
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error(
+            "An error occurred while fetching user authorization",
+            error
+          );
+        });
+      },
+    }
+  );
   const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
     onCompleted: loadDashboard,
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -78,8 +80,7 @@ export const WelcomeView: React.FC = (): JSX.Element => {
           <img alt={"logo"} className={style.img} src={logo} />
           <br />
           <h1>
-            {translate.t("registration.greeting")}{" "}
-            {data?.me.userName.split(" ")[0]}
+            {translate.t("registration.greeting")} {userName}
             {"!"}
           </h1>
         </div>

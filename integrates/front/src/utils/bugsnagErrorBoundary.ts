@@ -11,6 +11,8 @@ import type {
   BugsnagPluginReactResult,
 } from "@bugsnag/plugin-react";
 
+const { userEmail, userName } = window as typeof window & Dictionary<string>;
+
 const noSpaceLeftOnDevice: (error: Error) => boolean = (
   error: Error
 ): boolean => {
@@ -47,6 +49,10 @@ Bugsnag.start({
   },
   plugins: [new BugsnagPluginReact(React)],
   releaseStage: getEnvironment(),
+  user: {
+    email: userEmail,
+    name: userName,
+  },
 });
 
 const reactPlugin: BugsnagPluginReactResult | undefined = Bugsnag.getPlugin(

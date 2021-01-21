@@ -23,17 +23,6 @@ const GET_USER_PERMISSIONS: DocumentNode = gql`
   }
 `;
 
-const GET_USER: DocumentNode = gql`
-  query GetUser {
-    me(callerOrigin: "FRONT") {
-      permissions(entity: USER)
-      role(entity: USER)
-      userEmail
-      userName
-    }
-  }
-`;
-
 const SESSION_EXPIRATION: DocumentNode = gql`
   query sessionExpiration {
     me(callerOrigin: "FRONT") {
@@ -42,9 +31,4 @@ const SESSION_EXPIRATION: DocumentNode = gql`
   }
 `;
 
-export {
-  ADD_STAKEHOLDER_MUTATION,
-  GET_USER,
-  GET_USER_PERMISSIONS,
-  SESSION_EXPIRATION,
-};
+export { ADD_STAKEHOLDER_MUTATION, GET_USER_PERMISSIONS, SESSION_EXPIRATION };

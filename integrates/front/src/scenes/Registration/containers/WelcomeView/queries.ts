@@ -5,7 +5,6 @@ const GET_USER_AUTHORIZATION: DocumentNode = gql`
   query GetUserAuthorization {
     me(callerOrigin: "FRONT") {
       remember
-      userName
     }
   }
 `;
