@@ -353,6 +353,7 @@ class ITReport():
                 treatment = 'Temporarily accepted'
             return treatment
 
+        is_vuln_open: bool = vuln['current_state'] == 'open'
         historic_treatment = cast(
             HistoricType,
             vuln.get('historic_treatment', [{}])
@@ -402,7 +403,9 @@ class ITReport():
         }
 
         for key, value in current_treatment_data.items():
-            self.row_values[self.vulnerability[key]] = value
+            self.row_values[self.vulnerability[key]] = (
+                value if is_vuln_open else EMPTY
+            )
             first_treatment_key = key.replace('Current', 'First')
             kword = self.vulnerability[first_treatment_key]
             self.row_values[kword] = first_treatment_data[first_treatment_key]
