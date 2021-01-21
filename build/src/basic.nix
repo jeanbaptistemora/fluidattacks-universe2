@@ -45,8 +45,4 @@ rec {
 
   # Services
   srcIncludeHelpersServices = ../include/helpers/services.sh;
-
-  # Sorts
-  srcIncludeHelpersSorts = ../include/helpers/sorts.sh;
-  srcIncludeSortsJobs = ../include/jobs/sorts.sh;
 }
