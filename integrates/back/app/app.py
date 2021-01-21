@@ -111,7 +111,9 @@ async def confirm_access(request: Request) -> HTMLResponse:
         if not token_unused:
             redir = '/invalid_invitation'
     else:
-        await in_thread(bugsnag.notify, Exception('Invalid token'), 'warning')
+        await in_thread(
+            bugsnag.notify, Exception('Invalid token'), severity='warning'
+        )
         redir = '/invalid_invitation'
 
     return RedirectResponse(url=redir)
