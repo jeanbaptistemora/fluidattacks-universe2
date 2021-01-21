@@ -12,8 +12,10 @@ from typing import (
 
 # Third party libraries
 from more_itertools import mark_ends
+import aioextensions
 
 # Local libraries
+from forces.utils.env import guess_environment
 from forces.utils.logs import (
     log,
     log_to_remote,
@@ -22,6 +24,7 @@ from forces.utils.logs import (
 # Constants
 RAISE = object()
 TFun = TypeVar('TFun', bound=Callable[..., Any])
+RATE_LIMIT_ENABLED: bool = guess_environment() == 'production'
 
 
 class RetryAndFinallyReturn(Exception):
@@ -78,3 +81,13 @@ def shield(*,
         return cast(TFun, wrapper)
 
     return decorator
+
+
+def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
+    if RATE_LIMIT_ENABLED:
+        return aioextensions.rate_limited(
+            max_calls=1,
+            max_calls_period=60.0 / rpm,
+            min_seconds_between_calls=60.0 / rpm,
+        )
+    return lambda x: x
