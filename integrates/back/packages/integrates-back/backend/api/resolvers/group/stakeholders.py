@@ -1,4 +1,5 @@
 # Standard
+from itertools import chain
 from typing import cast, Dict, List
 
 # Third party
@@ -23,10 +24,14 @@ async def _get_stakeholder(email: str, group_name: str) -> Stakeholder:
         email,
         group_name
     )
+    invitation_state = (
+        'CONFIRMED' if access.get('has_access', False) else 'PENDING'
+    )
 
     return {
         **stakeholder,
         'responsibility': access.get('responsibility', ''),
+        'invitation_state': invitation_state,
         'role': group_role
     }
 
@@ -45,8 +50,14 @@ async def resolve(
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 
-    group_stakeholders: List[str] = await group_domain.filter_stakeholders(
-        await group_domain.get_users(group_name),
+    group_stakeholders = cast(List[str], chain.from_iterable(
+        await collect([
+            group_domain.get_users(group_name),
+            group_domain.get_users(group_name, False)
+        ])
+    ))
+    group_stakeholders = await group_domain.filter_stakeholders(
+        group_stakeholders,
         group_name,
         user_email
     )

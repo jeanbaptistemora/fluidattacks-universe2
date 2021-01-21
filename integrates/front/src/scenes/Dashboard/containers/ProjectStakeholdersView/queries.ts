@@ -6,6 +6,7 @@ export const GET_STAKEHOLDERS: DocumentNode = gql`
     project(projectName: $projectName){
       stakeholders {
         email
+        invitationState
         role
         responsibility
         phoneNumber

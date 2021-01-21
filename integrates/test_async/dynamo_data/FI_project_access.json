@@ -3,21 +3,6 @@
       {
          "PutRequest" : {
             "Item" : {
-               "project_name" : {
-                  "S" : "unittesting"
-               },
-               "responsibility" : {
-                  "S" : "edited"
-               },
-               "user_email" : {
-                  "S" : "test@test.testedited"
-               }
-            }
-         }
-      },
-      {
-         "PutRequest" : {
-            "Item" : {
                "has_access" : {
                   "BOOL" : true
                },

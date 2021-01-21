@@ -15,7 +15,7 @@ import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { timeFromNow } from "components/DataTableNext/formatters";
+import { statusFormatter, timeFromNow } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -55,28 +55,34 @@ const tableHeaders: IHeaderConfig[] = [
       { defaultValue: "-" },
     ),
     header: translate.t("search_findings.users_table.userRole"),
-    width: "13%",
+    width: "12%",
   },
   {
     dataField: "responsibility",
     header: translate.t("search_findings.users_table.userResponsibility"),
-    width: "13%",
+    width: "12%",
   },
   {
     dataField: "phoneNumber",
     header: translate.t("search_findings.users_table.phoneNumber"),
-    width: "13%",
+    width: "12%",
   },
   {
     dataField: "firstLogin",
     header: translate.t("search_findings.users_table.firstlogin"),
-    width: "13%",
+    width: "12%",
   },
   {
     dataField: "lastLogin",
     formatter: timeFromNow,
     header: translate.t("search_findings.users_table.lastlogin"),
-    width: "13%",
+    width: "12%",
+  },
+  {
+    dataField: "invitationState",
+    formatter: statusFormatter,
+    header: translate.t("search_findings.users_table.invitation"),
+    width: "7%",
   },
 ];
 

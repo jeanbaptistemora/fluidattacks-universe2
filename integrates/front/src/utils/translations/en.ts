@@ -1925,6 +1925,7 @@ export const enTranslations: ResourceKey = {
     },
     users_table: {
       firstlogin: "First login",
+      invitation: "Invitation",
       lastlogin: "Last login",
       phoneNumber: "Phone Number",
       userOrganization: "Organization",

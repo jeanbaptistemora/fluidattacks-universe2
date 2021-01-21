@@ -70,6 +70,7 @@ describe("Project users view", () => {
             stakeholders: [{
               email: "user@gmail.com",
               firstLogin: "2017-09-05 15:00:00",
+              invitationState: "CONFIRMED",
               lastLogin: "[3, 81411]",
               phoneNumber: "-",
               responsibility: "-",
@@ -93,6 +94,7 @@ describe("Project users view", () => {
               {
                 email: "user@gmail.com",
                 firstLogin: "2017-09-05 15:00:00",
+                invitationState: "CONFIRMED",
                 lastLogin: "[3, 81411]",
                 phoneNumber: "-",
                 responsibility: "-",
@@ -101,6 +103,7 @@ describe("Project users view", () => {
               {
                 email: "unittest@test.com",
                 firstLogin: "2017-09-05 15:00:00",
+                invitationState: "CONFIRMED",
                 lastLogin: "[3, 81411]",
                 phoneNumber: "+573123210123",
                 responsibility: "Project Manager",

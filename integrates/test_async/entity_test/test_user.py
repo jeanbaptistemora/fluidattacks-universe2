@@ -217,7 +217,7 @@ async def test_edit_stakeholder():
     query = '''
         mutation {
             editStakeholder (
-            email: "test@test.testedited",
+            email: "integratescustomer@gmail.com",
             phoneNumber: "17364735",
             projectName: "unittesting",
             responsibility: "edited",

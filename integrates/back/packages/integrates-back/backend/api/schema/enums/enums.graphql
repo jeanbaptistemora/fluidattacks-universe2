@@ -125,6 +125,11 @@ enum EvidenceType {
   RECORDS
 }
 
+enum InvitationState {
+  CONFIRMED
+  PENDING
+}
+
 enum FindingConsultType {
   CONSULT
   OBSERVATION

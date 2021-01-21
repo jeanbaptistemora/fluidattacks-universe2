@@ -33,6 +33,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
     // Orange
     case "Accepted":
     case "Created":
+    case "Pending":
     case "Partially closed":
       return "bg-lbl-yellow";
     // Red
