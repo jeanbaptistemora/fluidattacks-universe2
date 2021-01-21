@@ -262,7 +262,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
             )
 
             graph_db.shards.append(shard)
-            graph_db.shards_by_path[shard.path] = index
+            graph_db.shards_by_path[shard.path] = index - 1
 
     if CTX.debug:
         output = get_debug_path('tree-sitter')

@@ -2,6 +2,7 @@
 from itertools import (
     chain,
 )
+import operator
 import os
 from typing import (
     Dict,
@@ -103,16 +104,16 @@ def get_vulnerabilities_from_n_ids(
 def query_lazy(
     graph_db: graph_model.GraphDB,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for possible_syntax_steps_for_shard_path in (
-        get_possible_syntax_steps(graph_db).values()
+    for shard_path, possible_syntax_steps_for_shard_path in (
+        get_possible_syntax_steps(graph_db).items()
     ):
         for finding_str, possible_syntax_steps_for_finding in (
             possible_syntax_steps_for_shard_path.items()
         ):
-            for possible_syntax_steps_for_untrusted_n_id in (
-                possible_syntax_steps_for_finding.values()
+            for untrusted_n_id, possible_syntax_steps_for_untrusted_n_id in (
+                possible_syntax_steps_for_finding.items()
             ):
-                for _ in (
+                for syntax_steps in (
                     possible_syntax_steps_for_untrusted_n_id.values()
                 ):
                     fin = core_model.FINDING_ENUM_FROM_STR[finding_str]
@@ -123,7 +124,23 @@ def query_lazy(
                         desc_key=params.desc_key,
                         desc_params=params.desc_params,
                         finding=fin,
-                        graph_shard_nodes=iter([]),  # Pending to implement
+                        graph_shard_nodes=[
+                            (graph_shard, syntax_step.meta.n_id)
+                            for syntax_step in syntax_steps
+                            for graph_shard in [
+                                graph_db.shards[
+                                    graph_db.shards_by_path[shard_path]
+                                ],
+                            ]
+                            for untrusted_n_attrs, syntax_step_n_attrs in [(
+                                graph_shard.graph.nodes[untrusted_n_id],
+                                graph_shard.graph.nodes[syntax_step.meta.n_id],
+                            )]
+                            if operator.eq(
+                                untrusted_n_attrs['label_input_type'],
+                                syntax_step_n_attrs.get('label_sink_type'),
+                            )
+                        ],
                     )
 
 
