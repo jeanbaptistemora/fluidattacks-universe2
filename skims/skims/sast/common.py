@@ -17,15 +17,31 @@ def split_on_first_dot(string: str) -> Tuple[str, str]:
     return portions[0], ''
 
 
+def _complete_attrs_on_dict(data: Dict[str, Set[str]]) -> Dict[str, Set[str]]:
+    return {
+        attr: value
+        for path, value in data.items()
+        for attr in build_attr_paths(*path.split('.'))
+    }
+
+
+def _complete_attrs_on_set(data: Set[str]) -> Set[str]:
+    return {
+        attr
+        for path in data
+        for attr in build_attr_paths(*path.split('.'))
+    }
+
+
 # Constants
-DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = {
+DANGER_METHODS_BY_ARGS_PROPAGATION: Set[str] = _complete_attrs_on_set({
     'java.net.URLDecoder.decode',
     'java.nio.file.Files.newInputStream',
     'java.nio.file.Paths.get',
     'org.apache.commons.codec.binary.Base64.decodeBase64',
     'org.apache.commons.codec.binary.Base64.encodeBase64',
-}
-DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = {
+})
+DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'java.lang.String': {
         'getBytes',
         'substring',
@@ -36,8 +52,8 @@ DANGER_METHODS_BY_OBJ: Dict[str, Set[str]] = {
     'java.util.Map': {
         'get',
     },
-}
-DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = {
+})
+DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict({
     'javax.servlet.http.Cookie': {
         'getName',
         'getValue',
@@ -56,4 +72,4 @@ DANGER_METHODS_BY_TYPE: Dict[str, Set[str]] = {
     'javax.servlet.http.HttpServletResponse': {
         'getWriter',
     },
-}
+})
