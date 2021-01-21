@@ -78,6 +78,14 @@ class SyntaxStepDeclaration(NamedTuple):
     type: str = 'SyntaxStepDeclaration'
 
 
+class SyntaxStepLiteral(NamedTuple):
+    meta: SyntaxStepMeta
+    value: str
+    value_type: str
+
+    type: str = 'SyntaxStepLiteral'
+
+
 class SyntaxStepMethodInvocation(NamedTuple):
     meta: SyntaxStepMeta
     method: str
@@ -96,13 +104,6 @@ class SyntaxStepObjectInstantiation(NamedTuple):
     object_type: str
 
     type: str = 'SyntaxStepObjectInstantiation'
-
-
-class SyntaxStepStringLiteral(NamedTuple):
-    meta: SyntaxStepMeta
-    value: str
-
-    type: str = 'SyntaxStepStringLiteral'
 
 
 class SyntaxStepSymbolLookup(NamedTuple):

@@ -66,6 +66,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-289-291-299-301-320-322-323-342-343-349-356-363-365-485-550": [
@@ -117,6 +190,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-289-291-299-301-349-356-363-365-367-368-375-376-377-393-394-408-423-424-483": [
@@ -168,6 +314,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-289-291-299-301-349-356-363-365-485-550": [
@@ -219,6 +438,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-289-291-349-356-363-365-367-368-375-376-377-393-394-408-423-424-483": [
@@ -270,6 +562,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-289-291-349-356-363-365-485-550": [
@@ -321,6 +686,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-349-356-363-365-367-368-375-376-377-393-394-408-423-424-483": [
@@ -372,6 +810,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "224-247-249-250-251-259-260-273-280-349-356-363-365-485-550": [
@@ -423,6 +934,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookies",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "noCookieValueSupplied"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ]
       },
@@ -458,6 +1042,88 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "BenchmarkTest00001"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "BenchmarkTest00001",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "FileName"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "FileName",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "javax.servlet.http.Cookie",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "userCookie",
+            "var_type": "javax.servlet.http.Cookie"
           },
           {
             "meta": {
@@ -542,6 +1208,58 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": ""
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "99-122-124-125-126-134-135-142-158-160-161-172-174-175-176-189-190-203-205-262-270-272-278-280-281-295-296": [
@@ -593,6 +1311,58 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": ""
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "99-122-124-125-126-134-135-142-158-160-161-172-174-175-176-189-190-203-205-262-270-272-301": [
@@ -644,6 +1414,58 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": ""
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "99-122-124-125-126-134-135-142-174-175-176-189-190-203-205-207-220-234-247-248-260": [
@@ -695,6 +1517,58 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": ""
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "99-122-124-125-126-134-135-142-174-175-176-189-190-203-205-262-270-272-278-280-281-295-296": [
@@ -746,6 +1620,58 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": ""
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ],
         "99-122-124-125-126-134-135-142-174-175-176-189-190-203-205-262-270-272-301": [
@@ -797,6 +1723,58 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": ""
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
           }
         ]
       },
@@ -832,6 +1810,45 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "method": "doPost",
+            "type": "SyntaxStepMethodInvocation"
           },
           {
             "meta": {
@@ -899,6 +1916,45 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "method": "doPost",
+            "type": "SyntaxStepMethodInvocation"
           },
           {
             "meta": {
@@ -1004,6 +2060,190 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "text/html;charset=UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "method": "response.setContentType",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "request.getCookies",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookie",
+            "var_type": "javax.servlet.http.Cookie[]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "method": "theCookie.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": "UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "param",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "sink": null,
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fileName",
+            "var_type": "String"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "sink": null,
+              "value": null
+            },
+            "symbol": "fileName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "java.io.File",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "object_type": "java.io.FileInputStream",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "sink": null,
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fis",
+            "var_type": "java.io.FileInputStream"
           }
         ]
       }

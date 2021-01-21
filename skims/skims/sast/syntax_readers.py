@@ -217,9 +217,10 @@ def object_creation_expression(
 
 
 def string_literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    yield graph_model.SyntaxStepStringLiteral(
+    yield graph_model.SyntaxStepLiteral(
         meta=graph_model.SyntaxStepMeta.default(),
         value=args.graph.nodes[args.n_id]['label_text'][1:-1],
+        value_type='string',
     )
 
 

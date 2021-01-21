@@ -6758,8 +6758,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "/pathtraver-00/BenchmarkTest00001.html"
+            "type": "SyntaxStepLiteral",
+            "value": "/pathtraver-00/BenchmarkTest00001.html",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -6902,8 +6903,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "text/html;charset=UTF-8"
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -6958,8 +6960,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "noCookieValueSupplied"
+            "type": "SyntaxStepLiteral",
+            "value": "noCookieValueSupplied",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -7135,8 +7138,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Couldn't open FileInputStream on file: '"
+            "type": "SyntaxStepLiteral",
+            "value": "Couldn't open FileInputStream on file: '",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -7165,8 +7169,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "'"
+            "type": "SyntaxStepLiteral",
+            "value": "'",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -7276,8 +7281,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "text/html;charset=UTF-8"
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -7309,8 +7315,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "BenchmarkTest00001"
+            "type": "SyntaxStepLiteral",
+            "value": "BenchmarkTest00001",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -7319,8 +7326,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "FileName"
+            "type": "SyntaxStepLiteral",
+            "value": "FileName",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -10851,8 +10859,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "text/html;charset=UTF-8"
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -10884,8 +10893,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": ""
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -10973,8 +10983,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "{call "
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -11003,8 +11014,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "}"
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -18611,8 +18623,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "text/html;charset=UTF-8"
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -18644,8 +18657,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": ""
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -18733,8 +18747,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": ""
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -18822,8 +18837,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Logan"
+            "type": "SyntaxStepLiteral",
+            "value": "Logan",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -18867,8 +18883,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "rememberMe"
+            "type": "SyntaxStepLiteral",
+            "value": "rememberMe",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -21603,8 +21620,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "text/html;charset=UTF-8"
+            "type": "SyntaxStepLiteral",
+            "value": "text/html;charset=UTF-8",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -21680,8 +21698,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "UTF-8"
+            "type": "SyntaxStepLiteral",
+            "value": "UTF-8",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -39557,8 +39576,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Hi, I am "
+            "type": "SyntaxStepLiteral",
+            "value": "Hi, I am ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -39621,8 +39641,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Error"
+            "type": "SyntaxStepLiteral",
+            "value": "Error",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -39687,8 +39708,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Breaking the for loop."
+            "type": "SyntaxStepLiteral",
+            "value": "Breaking the for loop.",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -39742,8 +39764,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Printing using for loop. Count is: "
+            "type": "SyntaxStepLiteral",
+            "value": "Printing using for loop. Count is: ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -39840,8 +39863,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Breaking the for loop."
+            "type": "SyntaxStepLiteral",
+            "value": "Breaking the for loop.",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -39884,8 +39908,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Inside the while loop, counting: "
+            "type": "SyntaxStepLiteral",
+            "value": "Inside the while loop, counting: ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40036,8 +40061,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "I am a Car"
+            "type": "SyntaxStepLiteral",
+            "value": "I am a Car",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40113,8 +40139,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Found "
+            "type": "SyntaxStepLiteral",
+            "value": "Found ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40143,8 +40170,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": " at position "
+            "type": "SyntaxStepLiteral",
+            "value": " at position ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40183,8 +40211,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": ","
+            "type": "SyntaxStepLiteral",
+            "value": ",",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40521,8 +40550,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Car number :"
+            "type": "SyntaxStepLiteral",
+            "value": "Car number :",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40596,8 +40626,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "I am a Car"
+            "type": "SyntaxStepLiteral",
+            "value": "I am a Car",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40651,8 +40682,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "I am a Truck"
+            "type": "SyntaxStepLiteral",
+            "value": "I am a Truck",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40706,8 +40738,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Truck number: "
+            "type": "SyntaxStepLiteral",
+            "value": "Truck number: ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40803,8 +40836,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Truck Number: "
+            "type": "SyntaxStepLiteral",
+            "value": "Truck Number: ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40833,8 +40867,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": ", "
+            "type": "SyntaxStepLiteral",
+            "value": ", ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40940,8 +40975,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Truck Number: "
+            "type": "SyntaxStepLiteral",
+            "value": "Truck Number: ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -40970,8 +41006,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": ", "
+            "type": "SyntaxStepLiteral",
+            "value": ", ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41055,8 +41092,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Finish"
+            "type": "SyntaxStepLiteral",
+            "value": "Finish",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41110,8 +41148,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "I am a Car"
+            "type": "SyntaxStepLiteral",
+            "value": "I am a Car",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41132,8 +41171,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Car"
+            "type": "SyntaxStepLiteral",
+            "value": "Car",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41188,8 +41228,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "I am a Truck"
+            "type": "SyntaxStepLiteral",
+            "value": "I am a Truck",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41243,8 +41284,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "I am a Bike"
+            "type": "SyntaxStepLiteral",
+            "value": "I am a Bike",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41331,8 +41373,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Inside the while loop, counting: "
+            "type": "SyntaxStepLiteral",
+            "value": "Inside the while loop, counting: ",
+            "value_type": "string"
           },
           {
             "meta": {
@@ -41439,8 +41482,9 @@
               "sink": null,
               "value": null
             },
-            "type": "SyntaxStepStringLiteral",
-            "value": "Printing using for loop. Count is: "
+            "type": "SyntaxStepLiteral",
+            "value": "Printing using for loop. Count is: ",
+            "value_type": "string"
           },
           {
             "meta": {
