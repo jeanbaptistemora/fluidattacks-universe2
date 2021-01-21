@@ -4803,6 +4803,7 @@
           "380": {
             "label_c": 17,
             "label_l": 71,
+            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
           },
           "381": {
@@ -4814,7 +4815,6 @@
           "382": {
             "label_c": 21,
             "label_l": 71,
-            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_text": "java.io.FileInputStream",
             "label_type": "scoped_type_identifier"
           },
@@ -4832,6 +4832,7 @@
           "385": {
             "label_c": 45,
             "label_l": 71,
+            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
           },
           "386": {
@@ -4843,7 +4844,6 @@
           "387": {
             "label_c": 49,
             "label_l": 71,
-            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_text": "java.io.File",
             "label_type": "scoped_type_identifier"
           },
@@ -6480,8 +6480,8 @@
             "F060": [],
             "F061": [],
             "F063_PATH_TRAVERSAL": [
-              "382",
-              "387"
+              "380",
+              "385"
             ],
             "F073": [],
             "F085": [],
@@ -20829,6 +20829,7 @@
           "100": {
             "label_c": 35,
             "label_l": 13,
+            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
           },
           "101": {
@@ -20840,7 +20841,6 @@
           "102": {
             "label_c": 39,
             "label_l": 13,
-            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_text": "java.io.FileInputStream",
             "label_type": "scoped_type_identifier"
           },
@@ -20858,6 +20858,7 @@
           "105": {
             "label_c": 63,
             "label_l": 13,
+            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_type": "object_creation_expression"
           },
           "106": {
@@ -20869,7 +20870,6 @@
           "107": {
             "label_c": 67,
             "label_l": 13,
-            "label_sink_type": "F063_PATH_TRAVERSAL",
             "label_text": "java.io.File",
             "label_type": "scoped_type_identifier"
           },
@@ -21508,8 +21508,8 @@
             "F060": [],
             "F061": [],
             "F063_PATH_TRAVERSAL": [
-              "102",
-              "107"
+              "100",
+              "105"
             ],
             "F073": [],
             "F085": [],

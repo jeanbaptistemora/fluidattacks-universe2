@@ -40,9 +40,8 @@ def _mark_java_object_creation_expression(graph: graph_model.Graph) -> None:
             len(match) == 3
             and (class_id := match['scoped_type_identifier'])
         ):
-            class_n_attrs = graph.nodes[class_id]
-            if class_n_attrs['label_text'] in identifiers:
-                class_n_attrs['label_sink_type'] = (
+            if graph.nodes[class_id]['label_text'] in identifiers:
+                graph.nodes[n_id]['label_sink_type'] = (
                     core_model
                     .FindingEnum
                     .F063_PATH_TRAVERSAL
