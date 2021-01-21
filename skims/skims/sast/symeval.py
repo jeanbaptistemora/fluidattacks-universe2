@@ -5,7 +5,9 @@ from copy import (
 from typing import (
     Callable,
     Dict,
+    Iterator,
     NamedTuple,
+    Optional,
     Tuple,
 )
 
@@ -45,15 +47,31 @@ class EvaluatorArgs(NamedTuple):
 Evaluator = Callable[[EvaluatorArgs], None]
 
 
+def lookup_vars(
+    args: EvaluatorArgs,
+) -> Iterator[graph_model.SyntaxStepDeclaration]:
+    for syntax_step in args.syntax_steps[0:args.syntax_step_index]:
+        if isinstance(syntax_step, graph_model.SyntaxStepDeclaration):
+            yield syntax_step
+
+
+def lookup_var_by_name(
+    args: EvaluatorArgs,
+    var_name: str,
+) -> Optional[graph_model.SyntaxStepDeclaration]:
+    for syntax_step in lookup_vars(args):
+        if syntax_step.var == var_name:
+            return syntax_step
+    return None
+
+
 def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = False
 
 
 def syntax_step_declaration(args: EvaluatorArgs) -> None:
     # Analyze the arguments involved in the assignment
-    args_danger = any(
-        dependency.meta.danger for dependency in args.dependencies
-    )
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
 
     # Analyze if the binding itself is sensitive
     bind_danger = any((
