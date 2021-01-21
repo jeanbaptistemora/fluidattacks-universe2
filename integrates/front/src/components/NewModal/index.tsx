@@ -44,12 +44,16 @@ const Modal: React.FC<IModalProps> = (
 ): JSX.Element => {
   const { children, headerTitle, open } = props;
 
-  React.useEffect((): void => {
+  React.useEffect((): (() => void) => {
     if (open) {
       document.body.style.setProperty("overflow", "hidden");
     } else {
       document.body.style.removeProperty("overflow");
     }
+
+    return function cleanup(): void {
+      document.body.style.removeProperty("overflow");
+    };
   }, [open]);
 
   return (

@@ -39,7 +39,6 @@ export interface IUpdateVerificationModal {
   groupName: string;
   isReattacking: boolean;
   isVerifying: boolean;
-  open: boolean;
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
@@ -214,7 +213,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
             : undefined
         }
         isLoading={submittingRequest || submittingVerify}
-        isOpen={props.open}
+        isOpen={true}
         message={
           props.isReattacking
             ? translate.t("search_findings.tab_description.remediation_modal.justification")
