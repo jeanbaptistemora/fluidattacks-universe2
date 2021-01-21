@@ -13,6 +13,8 @@ function main {
     &&  '__envPython__' training/merge_features.py \
     &&  echo "[INFO] Initializing training..." \
     &&  '__envPython__' training/sagemaker_provisioner.py \
+    &&  echo "[INFO] Evaluating resulting artifacts..." \
+    &&  '__envPython__' training/evaluate_results.py \
   &&  popd \
   || return 1
 }

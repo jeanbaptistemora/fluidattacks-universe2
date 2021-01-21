@@ -104,10 +104,3 @@ sorts-train-model-on-aws:
   stage: deploy-app
   interruptible: false
   needs: [sorts-extract-features]
-
-sorts_deploy_to_pypi:
-  <<: *with_nix
-  <<: *sorts_in_master_branch_code_changes
-  stage: post-deploy
-  interruptible: false
-  needs: [sorts-train-model-on-aws]
