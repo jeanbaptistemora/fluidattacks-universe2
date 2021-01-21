@@ -2,7 +2,7 @@ import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import type { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
@@ -156,6 +156,11 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     </Button>
                   )}
                 </ButtonToolbarLeft>
+              </Col100>
+            </Row>
+            <hr />
+            <Row>
+              <Col100>
                 <ButtonToolbar>
                   <Button onClick={onClose}>
                     {translate.t("update_access_token.close")}

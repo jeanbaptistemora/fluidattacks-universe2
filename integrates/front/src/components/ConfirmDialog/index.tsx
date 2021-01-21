@@ -63,6 +63,7 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
             <p key={line}>{line}</p>
           )
         )}
+        <hr />
         <Row>
           <Col100>
             <ButtonToolbar>

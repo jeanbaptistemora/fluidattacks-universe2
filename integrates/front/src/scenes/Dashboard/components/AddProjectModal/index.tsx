@@ -6,7 +6,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
-import { Modal } from "components/Modal/index";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -69,7 +69,7 @@ const maxOrganizationLength: ConfigurableValidator = maxLength(
 const AddProjectModal: React.FC<IAddProjectModalProps> = (
   props: IAddProjectModalProps
 ): JSX.Element => {
-  const { onClose, isOpen, organization } = props;
+  const { isOpen, onClose, organization } = props;
   // State management
   const [hasDrills, setHasDrills] = React.useState(true);
   const [hasForces, setHasForces] = React.useState(true);
@@ -78,11 +78,8 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
 
   const [subscriptionType, setSubscriptionType] = React.useState("CONTINUOUS");
 
-  function closeNewProjectModal(): void {
-    onClose();
-  }
   function handleProjectNameError({ graphQLErrors }: ApolloError): void {
-    closeNewProjectModal();
+    onClose();
     graphQLErrors.forEach((error: GraphQLError): void => {
       switch (error.message) {
         case "Exception - There are no group names available at the moment":
@@ -105,7 +102,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("organization.tabs.groups.newGroup.new.group")}
-        onClose={closeNewProjectModal}
         open={isOpen}
       >
         <Query
@@ -123,7 +119,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
               createProject: { success: boolean };
             }): void {
               if (result.createProject.success) {
-                closeNewProjectModal();
+                onClose();
                 msgSuccess(
                   translate.t("organization.tabs.groups.newGroup.success"),
                   translate.t("organization.tabs.groups.newGroup.titleSuccess")
@@ -455,13 +451,13 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                           {translate.t(
                             "organization.tabs.groups.newGroup.extra_charges_may_apply"
                           )}
-                          <br />
+                          <hr />
                           <Row>
                             <Col100>
                               <ButtonToolbar>
                                 <Button
                                   id={"add-group-cancel"}
-                                  onClick={closeNewProjectModal}
+                                  onClick={onClose}
                                 >
                                   {translate.t("confirmmodal.cancel")}
                                 </Button>

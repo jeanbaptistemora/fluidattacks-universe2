@@ -4,7 +4,7 @@ import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
@@ -145,6 +145,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
                 />
               </TooltipWrapper>
             </FormGroup>
+          </Row>
+          <hr />
+          <Row>
             <Col100>
               <ButtonToolbar>
                 <Button onClick={onClose}>

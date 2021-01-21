@@ -3,16 +3,10 @@ import type { StyledComponent } from "styled-components";
 import style from "./index.css";
 import styled from "styled-components";
 
-import {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from "styles/styledComponents";
+import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 
 interface IModalProps {
   children: React.ReactNode;
-  footer?: React.ReactNode;
   headerTitle: string;
   open: boolean;
 }
@@ -48,7 +42,7 @@ const StyledModal: StyledComponent<
 const Modal: React.FC<IModalProps> = (
   props: Readonly<IModalProps>
 ): JSX.Element => {
-  const { children, footer = <div />, headerTitle, open } = props;
+  const { children, headerTitle, open } = props;
 
   React.useEffect((): void => {
     if (open) {
@@ -70,7 +64,6 @@ const Modal: React.FC<IModalProps> = (
                   <ModalTitle>{headerTitle}</ModalTitle>
                 </ModalHeader>
                 <ModalBody>{children}</ModalBody>
-                <ModalFooter>{footer}</ModalFooter>
               </StyledModal>
             </StyledModalDialog>
           </StyledModalContainer>

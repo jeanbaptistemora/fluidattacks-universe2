@@ -297,15 +297,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
         </div>
       </div>
       <ScrollUpButton visibleAt={400} />
-      {isTokenModalOpen ? (
-        <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
-      ) : undefined}
-      {isOrganizationModalOpen ? (
-        <AddOrganizationModal
-          onClose={closeOrganizationModal}
-          open={isOrganizationModalOpen}
-        />
-      ) : undefined}
+      <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
+      <AddOrganizationModal
+        onClose={closeOrganizationModal}
+        open={isOrganizationModalOpen}
+      />
       <AddUserModal
         action={"add"}
         editTitle={""}

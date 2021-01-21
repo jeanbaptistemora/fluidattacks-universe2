@@ -90,6 +90,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
               )}
           </div>
         </RowCenter>
+        <hr />
         <Row>
           <Col100>
             <ButtonToolbar>

@@ -1,12 +1,13 @@
 import { Button } from "components/Button";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Glyphicon } from "react-bootstrap";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
+  Col100,
   Col80,
   ControlLabel,
   RemoveTag,
@@ -101,18 +102,23 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
               <FieldArray component={renderTagsFields} name={"tags"} />
-              <ButtonToolbar>
-                <Button id={"portfolio-add-cancel"} onClick={onClose}>
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={pristine}
-                  id={"portfolio-add-proceed"}
-                  type={"submit"}
-                >
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
+              <hr />
+              <Row>
+                <Col100>
+                  <ButtonToolbar>
+                    <Button id={"portfolio-add-cancel"} onClick={onClose}>
+                      {translate.t("confirmmodal.cancel")}
+                    </Button>
+                    <Button
+                      disabled={pristine}
+                      id={"portfolio-add-proceed"}
+                      type={"submit"}
+                    >
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
+                </Col100>
+              </Row>
             </React.Fragment>
           )}
         </GenericForm>

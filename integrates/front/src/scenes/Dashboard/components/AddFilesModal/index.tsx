@@ -78,7 +78,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 </div>
               </div>
               {isUploading ? renderUploadBar(props) : undefined}
-              <br />
+              <hr />
               <Row>
                 <Col100>
                   <ButtonToolbar>
