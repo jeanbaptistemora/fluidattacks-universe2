@@ -3,7 +3,6 @@ import re
 from datetime import datetime
 from typing import (
     Any,
-    Awaitable,
     cast,
     Dict,
     List,
@@ -174,6 +173,13 @@ async def update_project_access(
     )
 
 
+async def update_project_responsibility(
+        email: str, project_name: str, responsibility: str) -> bool:
+    return await project_dal.update_access(
+        email, project_name, 'responsibility', responsibility
+    )
+
+
 async def update_multiple_user_attributes(
         email: str, data_dict: UserType) -> bool:
     return await user_dal.update(email, data_dict)
@@ -295,26 +301,13 @@ async def complete_user_register(urltoken: str) -> bool:
     if info.get('is_used'):
         bugsnag.notify(Exception('Token already used'), severity='warning')
     else:
-        coroutines: List[Awaitable[bool]] = []
         user_email = info['user_email']
         group = info['group']
-        coroutines.append(
-            project_dal.update_access(
-                user_email,
-                group,
-                'responsibility',
-                info['responsibility']
-            )
+        success = await update_project_access(
+            user_email,
+            group,
+            True
         )
-
-        coroutines.append(
-            update_project_access(
-                user_email,
-                group,
-                True
-            )
-        )
-
         token_ttl = await util.get_ttl_token(f'fi_urltoken:{urltoken}')
 
         info['is_used'] = True
@@ -324,6 +317,5 @@ async def complete_user_register(urltoken: str) -> bool:
             info,
             int(token_ttl)
         )
-        success = all(await collect(coroutines))
 
     return success

@@ -3,6 +3,9 @@ import logging
 from typing import Any
 
 # Third party libraries
+from aioextensions import (
+    collect,
+)
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -49,6 +52,7 @@ async def mutate(
     user_email = user_data['user_email']
     new_user_role = role
     new_user_email = query_args.get('email', '')
+    new_user_responsibility = query_args.get('responsibility', '-')
 
     allowed_roles_to_grant = \
         await authz.get_group_level_roles_a_user_can_grant(
@@ -57,19 +61,26 @@ async def mutate(
         )
 
     if new_user_role in allowed_roles_to_grant:
-        if await create_new_user(
+        success = all(await collect([
+            create_new_user(
                 context=info.context,
                 email=new_user_email,
-                responsibility=query_args.get('responsibility', '-'),
+                responsibility=new_user_responsibility,
                 role=new_user_role,
                 phone_number=query_args.get('phone_number', ''),
-                group=project_name):
-            success = True
-        else:
-            LOGGER.error(
-                'Couldn\'t grant access to project',
-                extra={'extra': info.context}
+                group=project_name
+            ),
+            user_domain.update_project_access(
+                new_user_email,
+                project_name,
+                False
+            ),
+            user_domain.update_project_responsibility(
+                new_user_email,
+                project_name,
+                new_user_responsibility
             )
+        ]))
     else:
         LOGGER.error(
             'Invalid role provided',
@@ -95,6 +106,10 @@ async def mutate(
             f'in {project_name} project'
         )
     else:
+        LOGGER.error(
+            'Couldn\'t grant access to project',
+            extra={'extra': info.context}
+        )
         util.cloudwatch_log(
             info.context,
             f'Security: Attempted to grant access to {new_user_email} '
