@@ -17,6 +17,7 @@ from model import (
     graph_model,
 )
 from sast.common import (
+    build_attr_paths,
     DANGER_METHODS_BY_ARGS_PROPAGATION,
     DANGER_METHODS_BY_OBJ,
     DANGER_METHODS_BY_TYPE,
@@ -45,6 +46,7 @@ class StopEvaluation(Exception):
 
 class EvaluatorArgs(NamedTuple):
     dependencies: graph_model.SyntaxSteps
+    finding: core_model.FindingEnum
     syntax_step: graph_model.SyntaxStep
     syntax_step_index: int
     syntax_steps: graph_model.SyntaxSteps
@@ -81,8 +83,11 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
 
     # Analyze if the binding itself is sensitive
     bind_danger = any((
-        # This type is an HTTP request from JavaX framework
-        args.syntax_step.var_type == 'HttpServletRequest',
+        args.finding == core_model.FindingEnum.F063_PATH_TRAVERSAL and any((
+            args.syntax_step.var_type in build_attr_paths(
+                'javax', 'servlet', 'http', 'HttpServletRequest'
+            ),
+        )),
     ))
 
     # Local context
@@ -172,6 +177,8 @@ def get_dependencies(
 
 def eval_syntax_steps(
     _: graph_model.GraphDB,
+    *,
+    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     syntax_steps: graph_model.SyntaxSteps,
     n_id: graph_model.NId,
@@ -191,6 +198,7 @@ def eval_syntax_steps(
         if evaluator := EVALUATORS.get(syntax_step_type):
             evaluator(EvaluatorArgs(
                 dependencies=get_dependencies(syntax_step_index, syntax_steps),
+                finding=finding,
                 syntax_step=syntax_step,
                 syntax_step_index=syntax_step_index,
                 syntax_steps=syntax_steps,
@@ -204,6 +212,8 @@ def eval_syntax_steps(
 
 def get_possible_syntax_steps_from_path(
     graph_db: graph_model.GraphDB,
+    *,
+    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     path: Tuple[str, ...],
 ) -> graph_model.SyntaxSteps:
@@ -213,6 +223,7 @@ def get_possible_syntax_steps_from_path(
         try:
             eval_syntax_steps(
                 _=graph_db,
+                finding=finding,
                 shard=shard,
                 syntax_steps=syntax_steps,
                 n_id=n_id,
@@ -231,14 +242,18 @@ PossibleSyntaxSteps = Dict[str, Dict[str, PossibleSyntaxStepsForFinding]]
 
 def get_possible_syntax_steps_for_untrusted_n_id(
     graph_db: graph_model.GraphDB,
-    shard: graph_model.GraphShard,
     *,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
     untrusted_n_id: graph_model.NId,
 ) -> PossibleSyntaxStepsForUntrustedNId:
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
         '-'.join(path): get_possible_syntax_steps_from_path(
-            graph_db, shard, path,
+            graph_db,
+            finding=finding,
+            shard=shard,
+            path=path,
         )
         for path in g.branches_cfg(
             graph=shard.graph,
@@ -257,6 +272,7 @@ def get_possible_syntax_steps_for_finding(
     syntax_steps_map: PossibleSyntaxStepsForFinding = {
         untrusted_n_id: get_possible_syntax_steps_for_untrusted_n_id(
             graph_db,
+            finding=finding,
             shard=shard,
             untrusted_n_id=untrusted_n_id,
         )
