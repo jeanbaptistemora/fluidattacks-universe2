@@ -104,7 +104,9 @@ def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
     method = args.syntax_step.method
     method_var, method_path = split_on_first_dot(method)
     method_var_decl = lookup_var_by_name(args, method_var)
-    method_var_decl_type = method_var_decl.var_type if method_var_decl else ''
+    method_var_decl_type = (
+        method_var_decl.var_type_base if method_var_decl else ''
+    )
 
     args.syntax_step.meta.danger = (
         # Known function to return user controlled data

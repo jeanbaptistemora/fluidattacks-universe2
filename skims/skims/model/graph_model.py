@@ -77,6 +77,11 @@ class SyntaxStepDeclaration(NamedTuple):
 
     type: str = 'SyntaxStepDeclaration'
 
+    @property
+    def var_type_base(self) -> str:
+        portions = self.var_type.rsplit('[', maxsplit=1)
+        return portions[0]
+
 
 class SyntaxStepLiteral(NamedTuple):
     meta: SyntaxStepMeta
