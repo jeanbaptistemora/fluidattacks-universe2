@@ -135,7 +135,28 @@ def syntax_step_no_op(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = False
+    # Analyze the arguments involved in the instantiation
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
+
+    # Analyze if the object being instantiated is dangerous
+    instantiation_danger = any((
+        args.finding == core_model.FindingEnum.F063_PATH_TRAVERSAL and any((
+            args.syntax_step.object_type in build_attr_paths(
+                'java', 'io', 'File'
+            ),
+            args.syntax_step.object_type in build_attr_paths(
+                'java', 'io', 'FileInputStream'
+            ),
+            args.syntax_step.object_type in build_attr_paths(
+                'java', 'io', 'FileOutputStream'
+            ),
+        )),
+    ))
+
+    if instantiation_danger:
+        args.syntax_step.meta.danger = args_danger if args else True
+    else:
+        args.syntax_step.meta.danger = args_danger
 
 
 def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:

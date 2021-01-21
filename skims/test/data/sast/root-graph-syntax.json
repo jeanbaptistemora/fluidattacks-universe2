@@ -2216,7 +2216,7 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "sink": null,
               "value": null
@@ -2226,7 +2226,7 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "sink": null,
               "value": null
@@ -2236,7 +2236,7 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "sink": null,
               "value": null
