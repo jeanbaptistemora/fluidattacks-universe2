@@ -13,25 +13,11 @@
               {
                 "M": {
                   "date": { "S": "2020-11-19 08:37:10" },
-                  "filter": {
-                    "M": {
-                      "exclude": {
-                        "L": [
-                          { "S": "bower_components/*" },
-                          { "S": "node_modules/*" }
-                        ]
-                      },
-                      "include": {
-                        "L": [{ "S": "*" }]
-                      },
-                      "paths": {
-                        "L": [
-                          { "S": "bower_components/*" },
-                          { "S": "node_modules/*" }
-                        ]
-                      },
-                      "policy": { "S": "EXCLUDE" }
-                    }
+                  "gitignore": {
+                    "L": [
+                      { "S": "bower_components/*" },
+                      { "S": "node_modules/*" }
+                    ]
                   },
                   "environment": { "S": "production" },
                   "environment_urls": {
@@ -71,20 +57,7 @@
               {
                 "M": {
                   "date": { "S": "2020-11-19 08:39:56" },
-                  "filter": {
-                    "M": {
-                      "exclude": {
-                        "L": []
-                      },
-                      "include": {
-                        "L": [{ "S": "*" }]
-                      },
-                      "paths": {
-                        "L": []
-                      },
-                      "policy": { "S": "EXCLUDE" }
-                    }
-                  },
+                  "gitignore": { "L": [] },
                   "environment": { "S": "QA" },
                   "includes_health_check": { "BOOL": false },
                   "state": { "S": "ACTIVE" },

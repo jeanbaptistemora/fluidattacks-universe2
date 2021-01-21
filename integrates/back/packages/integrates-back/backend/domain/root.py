@@ -3,7 +3,6 @@ import re
 from typing import (
     Any,
     Dict,
-    List,
     Optional,
     Tuple,
 )
@@ -48,7 +47,11 @@ def format_root(root: Dict[str, Any]) -> Root:
 
     if root['kind'] == 'Git':
         cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
-        filter_config: Dict[str, List[str]] = root_state['filter']
+        gitignore = (
+            root_state['filter']['exclude']
+            if 'filter' in root_state
+            else root_state['gitignore']
+        )
 
         return GitRoot(
             branch=root['branch'],
@@ -59,10 +62,10 @@ def format_root(root: Dict[str, Any]) -> Root:
             environment=root_state['environment'],
             environment_urls=root_state.get('environment_urls', []),
             filter=GitRootFilter(
-                exclude=filter_config['exclude'],
-                include=filter_config['include']
+                exclude=gitignore,
+                include=[]
             ),
-            gitignore=filter_config['exclude'],
+            gitignore=gitignore,
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             state=root_state['state'],
@@ -150,17 +153,18 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         and validations.is_valid_git_branch(branch)
     )
 
-    filter_changed: bool = (
-        kwargs['filter']['exclude'] != []
-        and kwargs['filter']['include'] != ['*']
+    gitignore = (
+        kwargs['filter']['exclude']
+        if 'filter' in kwargs
+        else kwargs.get('gitignore', [])
     )
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
-        filter_changed
+        gitignore
         and not enforcer(group_name, 'update_git_root_filter')
     ):
         raise PermissionDenied()
-    if not validations.is_exclude_valid(kwargs['filter']['exclude'], url):
+    if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
 
     now_date = datetime.get_as_str(datetime.get_now())
@@ -175,10 +179,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         initial_state: Dict[str, Any] = {
             'date': now_date,
             'environment': kwargs['environment'],
-            'filter': {
-                'exclude': kwargs['filter']['exclude'],
-                'include': kwargs['filter']['include'],
-            },
+            'gitignore': gitignore,
             'includes_health_check': kwargs['includes_health_check'],
             'state': 'ACTIVE',
             'user': user_email
@@ -329,20 +330,24 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     last_state: Dict[str, Any] = root['historic_state'][-1]
     is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
-    filter_config = {
-        'exclude': kwargs['filter']['exclude'],
-        'include': kwargs['filter']['include'],
-    }
-    filter_changed: bool = filter_config != last_state['filter']
+    gitignore = (
+        kwargs['filter']['exclude']
+        if 'filter' in kwargs
+        else kwargs.get('gitignore', [])
+    )
+    last = (
+        last_state['filter']['exclude']
+        if 'filter' in last_state
+        else last_state['gitignore']
+    )
+    filter_changed: bool = gitignore != last
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
         filter_changed
         and not enforcer(root['group_name'], 'update_git_root_filter')
     ):
         raise PermissionDenied()
-    if not validations.is_exclude_valid(
-        kwargs['filter']['exclude'], root['url']
-    ):
+    if not validations.is_exclude_valid(gitignore, root['url']):
         raise InvalidRootExclusion()
 
     if is_valid:
@@ -351,7 +356,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
             **last_state,
             'date': datetime.get_as_str(datetime.get_now()),
             'environment': kwargs['environment'],
-            'filter': filter_config,
+            'gitignore': gitignore,
             'includes_health_check': kwargs['includes_health_check'],
             'user': user_email
         }

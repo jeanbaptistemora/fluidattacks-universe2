@@ -222,6 +222,7 @@ async def test_project():
                   exclude
                   include
                 }}
+                gitignore
                 includesHealthCheck
                 url
               }}
@@ -236,7 +237,8 @@ async def test_project():
         'branch': 'master',
         'environment': 'production',
         'environmentUrls': [],
-        'filter': {'exclude': [], 'include': ['*']},
+        'filter': {'exclude': [], 'include': []},
+        'gitignore': [],
         'includesHealthCheck': True,
         'url': 'https://gitlab.com/fluidattacks/test2'
     } in result['data']['group']['roots']

@@ -394,6 +394,7 @@ async def test_get_roots() -> None:
                   exclude
                   include
                 }
+                gitignore
                 id
                 includesHealthCheck
                 url
@@ -436,8 +437,12 @@ async def test_get_roots() -> None:
                     'bower_components/*',
                     'node_modules/*'
                 ],
-                'include': ['*']
+                'include': []
             },
+            'gitignore': [
+                'bower_components/*',
+                'node_modules/*'
+            ],
             'id': 'ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19',
             'includesHealthCheck': True,
             'url': 'https://gitlab.com/fluidattacks/product'
@@ -449,8 +454,9 @@ async def test_get_roots() -> None:
             'environmentUrls': [],
             'filter': {
                 'exclude': [],
-                'include': ['*']
+                'include': []
             },
+            'gitignore': [],
             'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             'includesHealthCheck': False,
             'url': 'https://gitlab.com/fluidattacks/integrates'

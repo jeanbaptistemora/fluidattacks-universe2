@@ -48,7 +48,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
     addGitRoot(
       branch: $branch
       environment: $environment
-      filter: { exclude: $gitignore, include: ["*"] }
+      gitignore: $gitignore
       groupName: $groupName
       includesHealthCheck: $includesHealthCheck
       url: $url
@@ -75,7 +75,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   ) {
     updateGitRoot(
       environment: $environment
-      filter: { exclude: $gitignore, include: ["*"] }
+      gitignore: $gitignore
       id: $id
       includesHealthCheck: $includesHealthCheck
     ) {
