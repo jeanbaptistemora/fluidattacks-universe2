@@ -61,8 +61,13 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = bind_danger or args_danger
 
 
+def syntax_step_no_op(args: EvaluatorArgs) -> None:
+    args.syntax_step.meta.danger = False
+
+
 EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
+    graph_model.SyntaxStepNoOp: syntax_step_no_op,
 }
 
 
