@@ -9,13 +9,15 @@ import { Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
+  Col100,
   ControlLabel,
   FormGroup,
   RequiredField,
+  Row,
 } from "styles/styledComponents";
 import { TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -68,21 +70,26 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
               </FormGroup>
               {props.additionalInfo}
               <br />
-              <ButtonToolbar>
-                <Button
-                  id={"cancel-remediation"}
-                  onClick={onClose}
-                >
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  id={"proceed-remediation"}
-                  type="submit"
-                  disabled={pristine || props.isLoading}
-                >
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
+              <hr />
+              <Row>
+                <Col100>
+                  <ButtonToolbar>
+                    <Button
+                      id={"cancel-remediation"}
+                      onClick={onClose}
+                    >
+                      {translate.t("confirmmodal.cancel")}
+                    </Button>
+                    <Button
+                      id={"proceed-remediation"}
+                      type="submit"
+                      disabled={pristine || props.isLoading}
+                    >
+                      {translate.t("confirmmodal.proceed")}
+                    </Button>
+                  </ButtonToolbar>
+                </Col100>
+              </Row>
             </React.Fragment>
           )}
         </GenericForm>

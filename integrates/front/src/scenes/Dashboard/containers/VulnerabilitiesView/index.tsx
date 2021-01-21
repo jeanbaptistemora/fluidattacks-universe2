@@ -153,20 +153,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
             </Row>
           </Col100>
         </Row>
-        {isOpen ? (
-          <UpdateVerificationModal
-            clearSelected={_.get(remediationModalConfig, "clearSelected")}
-            findingId={findingId}
-            groupName={projectName}
-            handleCloseModal={closeRemediationModal}
-            isReattacking={isRequestingVerify}
-            isVerifying={isVerifying}
-            refetchData={refetch}
-            setRequestState={toggleRequestVerify}
-            setVerifyState={toggleVerify}
-            vulns={remediationModalConfig.vulnerabilities}
-          />
-        ) : undefined}
+        <UpdateVerificationModal
+          clearSelected={_.get(remediationModalConfig, "clearSelected")}
+          findingId={findingId}
+          groupName={projectName}
+          handleCloseModal={closeRemediationModal}
+          isReattacking={isRequestingVerify}
+          isVerifying={isVerifying}
+          open={isOpen}
+          refetchData={refetch}
+          setRequestState={toggleRequestVerify}
+          setVerifyState={toggleVerify}
+          vulns={remediationModalConfig.vulnerabilities}
+        />
         {isHandleAcceptationModalOpen ? (
           <HandleAcceptationModal
             findingId={findingId}

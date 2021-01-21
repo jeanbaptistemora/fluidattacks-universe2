@@ -6,7 +6,7 @@ import React from "react";
 import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -59,6 +59,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (props: IFileOptionsM
             </Col33>
           </ButtonToolbarCenter>
         </Row>
+        <hr />
         <Row>
           <Col100>
             <ButtonToolbar>
