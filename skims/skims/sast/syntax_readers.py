@@ -75,7 +75,7 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     l_id, op_id, r_id = g.adj_ast(args.graph, args.n_id)
 
     yield graph_model.SyntaxStepBinaryExpression(
-        meta=graph_model.SyntaxStepMeta.default([
+        meta=graph_model.SyntaxStepMeta.default(args.n_id, [
             generic(args.fork_n_id(l_id)),
             generic(args.fork_n_id(r_id)),
         ]),
@@ -85,7 +85,7 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 
 def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepSymbolLookup(
-        meta=graph_model.SyntaxStepMeta.default(),
+        meta=graph_model.SyntaxStepMeta.default(args.n_id),
         symbol=args.graph.nodes[args.n_id]['label_text'],
     )
 
@@ -125,7 +125,7 @@ def local_variable_declaration(
             and (dependencies_id := match['__0__'])
         ):
             yield graph_model.SyntaxStepDeclaration(
-                meta=graph_model.SyntaxStepMeta.default([
+                meta=graph_model.SyntaxStepMeta.default(args.n_id, [
                     generic(args.fork_n_id(dependencies_id)),
                 ]),
                 var=args.graph.nodes[var_id]['label_text'],
@@ -137,9 +137,9 @@ def local_variable_declaration(
         raise MissingCaseHandling(local_variable_declaration, args)
 
 
-def noop(_args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+def noop(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepNoOp(
-        meta=graph_model.SyntaxStepMeta.default(),
+        meta=graph_model.SyntaxStepMeta.default(args.n_id),
     )
 
 
@@ -162,7 +162,7 @@ def method_declaration_formal_parameter(
         and (var_id := match['identifier'])
     ):
         yield graph_model.SyntaxStepDeclaration(
-            meta=graph_model.SyntaxStepMeta.default(),
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
             var=args.graph.nodes[var_id]['label_text'],
             var_type=args.graph.nodes[var_type_id]['label_text'],
         )
@@ -183,7 +183,9 @@ def method_invocation(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     }):
         yield graph_model.SyntaxStepMethodInvocation(
             meta=graph_model.SyntaxStepMeta.default(
-                dependencies_from_arguments(args.fork_n_id(args_id)),
+                args.n_id, dependencies_from_arguments(
+                    args.fork_n_id(args_id),
+                ),
             ),
             method=g.concatenate_label_text(args.graph, identifier_ids),
         )
@@ -208,7 +210,9 @@ def object_creation_expression(
     ):
         yield graph_model.SyntaxStepObjectInstantiation(
             meta=graph_model.SyntaxStepMeta.default(
-                dependencies_from_arguments(args.fork_n_id(args_id)),
+                args.n_id, dependencies_from_arguments(
+                    args.fork_n_id(args_id),
+                ),
             ),
             object_type=args.graph.nodes[object_type_id]['label_text'],
         )
@@ -218,7 +222,7 @@ def object_creation_expression(
 
 def string_literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepLiteral(
-        meta=graph_model.SyntaxStepMeta.default(),
+        meta=graph_model.SyntaxStepMeta.default(args.n_id),
         value=args.graph.nodes[args.n_id]['label_text'][1:-1],
         value_type='string',
     )

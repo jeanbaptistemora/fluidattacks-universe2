@@ -45,17 +45,18 @@ SyntaxStepsLazy = Iterator[SyntaxStep]
 class SyntaxStepMeta:
     danger: bool
     dependencies: Any
-    sink: Optional[str]
+    n_id: NId
     value: Optional[Any]
 
     @staticmethod
     def default(
+        n_id: NId,
         dependencies: Optional[List[SyntaxSteps]] = None,
     ) -> SyntaxStepMeta:
         return SyntaxStepMeta(
             danger=False,
             dependencies=dependencies or [],
-            sink=None,
+            n_id=n_id,
             value=None,
         )
 
