@@ -15,6 +15,7 @@ import { UploadVulnerabilities } from "./uploadFile";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
+import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
 import { ButtonToolbar, Row, RowCenter } from "styles/styledComponents";
@@ -208,11 +209,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       wrapped: true,
     },
     {
-      dataField: "specific",
-      header: t("search_findings.tab_vuln.vulnTable.specific"),
-      onSort: onSortVulns,
-    },
-    {
       dataField: "currentStateCapitalized",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusFilter"),
@@ -222,6 +218,12 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       formatter: statusFormatter,
       header: t("search_findings.tab_vuln.vulnTable.status"),
       headerFormatter: filterFormatter,
+      onSort: onSortVulns,
+    },
+    {
+      dataField: "tag",
+      header: t("search_findings.tab_description.tag"),
+      headerFormatter: proFormatter,
       onSort: onSortVulns,
     },
     {
