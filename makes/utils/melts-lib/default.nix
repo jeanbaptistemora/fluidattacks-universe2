@@ -1,5 +1,6 @@
-{ outputs
-, meltsPkgs
+{ meltsPkgs
+, outputs
+, path
 , ...
 } @ _:
 let
