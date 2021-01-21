@@ -7,6 +7,7 @@ from contextvars import (
 )
 from typing import (
     Any,
+    Callable,
     Dict,
     AsyncIterator,
     TypeVar,
@@ -16,6 +17,7 @@ from typing import (
 # Third party libraries
 import aiohttp
 from aiogqlc import GraphQLClient
+import aioextensions
 
 # Local libraries
 from forces.apis.integrates import (
@@ -25,6 +27,15 @@ from forces.apis.integrates import (
 # Context
 SESSION: ContextVar[GraphQLClient] = ContextVar('SESSION')
 TVar = TypeVar('TVar')
+TFun = TypeVar('TFun', bound=Callable[..., Any])
+
+
+def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
+    return aioextensions.rate_limited(
+        max_calls=1,
+        max_calls_period=60.0 / rpm,
+        min_seconds_between_calls=60.0 / rpm,
+    )
 
 
 @contextlib.asynccontextmanager
@@ -51,6 +62,7 @@ async def session(
                 SESSION.reset(token)
 
 
+@rate_limited(rpm=10)
 async def execute(query: str,
                   operation_name: str,
                   variables: Optional[Dict[str, Any]] = None,
