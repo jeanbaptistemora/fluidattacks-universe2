@@ -22,13 +22,25 @@ describe("Welcome view", (): void => {
     expect(typeof WelcomeView).toStrictEqual("function");
   });
 
-  it("should render greetings message", (): void => {
+  it("should render greetings message", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mock: MockedResponse = {
+      request: { query: GET_USER_AUTHORIZATION },
+      result: { data: { me: { remember: false, userName: "Test" } } },
+    };
     const wrapper: ReactWrapper = mount(
-      <MockedProvider>
-        <WelcomeView />
-      </MockedProvider>
+      <Provider store={store}>
+        <MockedProvider addTypename={false} mocks={[mock]}>
+          <WelcomeView />
+        </MockedProvider>
+      </Provider>
+    );
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
     );
 
     expect(wrapper.text()).toContain("Hello Test!");
@@ -41,7 +53,7 @@ describe("Welcome view", (): void => {
       {
         request: { query: GET_USER_AUTHORIZATION },
         result: {
-          data: { me: { remember: false } },
+          data: { me: { remember: false, userName: "Test" } },
         },
       },
     ];

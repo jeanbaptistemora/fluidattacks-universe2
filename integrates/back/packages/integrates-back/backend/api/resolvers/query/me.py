@@ -24,5 +24,9 @@ async def resolve(
     return {
         'caller_origin': caller_origin,
         'session_expiration': user_data['exp'],
-        'user_email': user_data['user_email']
+        'user_email': user_data['user_email'],
+        'user_name': ' '.join([
+            user_data.get('first_name', ''),
+            user_data.get('last_name', '')
+        ])
     }

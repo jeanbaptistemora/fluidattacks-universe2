@@ -86,22 +86,12 @@
       {
         "selector": "variable",
         "format": ["camelCase", "UPPER_CASE", "PascalCase"],
-        "leadingUnderscore": "allow",
-        "trailingUnderscore": "allow"
+        "leadingUnderscore": "allow"
       },
       {
         "selector": "interface",
         "format": ["PascalCase"],
-        "prefix": ["I"],
-        /*
-         * [suffix]: "Shape for..."
-         *
-         * Attr: GraphQL query or mutation attributes.
-         * Config: Object use for configuration purposes.
-         * Fn: Function type.
-         * Props: React functional component props.
-         */
-        "suffix": ["Attr", "Config", "Fn", "Props"]
+        "prefix": ["I"]
       }
     ],
     "@typescript-eslint/no-duplicate-imports": ["error"],
@@ -122,6 +112,7 @@
      * new unknown type.
      */
     "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" } ],
     /*
      * We prefer interfaces over type aliases, the reason is no more than
      * consistency.

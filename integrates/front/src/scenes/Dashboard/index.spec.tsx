@@ -1,7 +1,7 @@
 import { Dashboard } from "scenes/Dashboard";
+import { GET_USER } from "scenes/Dashboard/queries";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
-import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
-import type { IGetUserPermissionsAttr } from "scenes/Dashboard/types";
+import type { IUser } from "scenes/Dashboard/types";
 import { MemoryRouter } from "react-router";
 import type { MockedResponse } from "@apollo/react-testing";
 import { Provider } from "react-redux";
@@ -25,15 +25,17 @@ describe("Dashboard", (): void => {
   it("should render dashboard component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const permissionsResult: IGetUserPermissionsAttr = {
+    const permissionsResult: IUser = {
       me: {
         permissions: ["dummyPermission", "dummyPermissionBrother"],
+        userEmail: "",
+        userName: "",
       },
     };
     const mocks: readonly MockedResponse[] = [
       {
         request: {
-          query: GET_USER_PERMISSIONS,
+          query: GET_USER,
           variables: {
             projectName: "TEST",
           },

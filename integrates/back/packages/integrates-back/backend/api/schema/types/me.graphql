@@ -10,4 +10,6 @@ type Me {
   sessionExpiration: String
   subscriptionsToEntityReport: [EntityReportSubscription]
   tags(organizationId: String!): [Tag!]
+  userEmail: String
+  userName: String
 }
