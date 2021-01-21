@@ -18,6 +18,7 @@ let
       dependencies = [ ];
       requirements = {
         direct = [
+          "aioextensions==20.11.1621472"
           "aiogqlc==1.0.3"
           "alive-progress==1.6.1"
           "aws-okta-processor==1.5.0"

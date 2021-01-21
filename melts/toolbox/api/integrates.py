@@ -23,6 +23,8 @@ from frozendict import frozendict
 
 # Local imports
 from toolbox import logger
+from toolbox.api.limits import DEFAULT as DEFAULT_RATE_LIMIT
+from toolbox.utils.function import rate_limited
 
 # Containers
 Response = NamedTuple('Response', [('ok', bool),
@@ -48,6 +50,7 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
         ValueError,
     )
 
+    @rate_limited(rpm=DEFAULT_RATE_LIMIT)
     async def execute(
         self,
         query: str,
