@@ -345,10 +345,7 @@ class Queries:
                   ...on GitRoot{
                     id
                     url
-                    filter{
-                      include
-                      exclude
-                    }
+                    gitignore
                   }
                 }
               }

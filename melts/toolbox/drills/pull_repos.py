@@ -27,19 +27,11 @@ from toolbox.utils.integrates import (
 
 def notify_out_of_scope(
     repo_name: str,
-    include_regexps: str,
-    exclude_regexps: str,
+    gitignore: str,
 ) -> bool:
     logger.info(f'Please remember the scope for : {repo_name}')
-    logger.info('  In scope:')
-    for regex in include_regexps:
-        logger.info(f'    - {regex}')
-
-    if exclude_regexps:
-        logger.info()
-        logger.info('  Out of scope:')
-        for regex in exclude_regexps:
-            logger.info(f'    - {regex}')
+    for line in gitignore:
+        logger.info(f'    - {line}')
 
     logger.info()
 
@@ -90,13 +82,12 @@ def delete_out_of_scope_files(group: str) -> bool:
         expected_repositories.add(repo_name)
 
         spec_ignore = pathspec.PathSpec.from_lines('gitwildmatch',
-                                                   root['filter']['exclude'])
+                                                   root['gitignore'])
 
         # Display to the user the Scope
         notify_out_of_scope(
             repo_name,
-            root['filter']['include'],
-            root['filter']['exclude'],
+            root['gitignore'],
         )
 
         # Compute what files should be deleted according to the scope rules
