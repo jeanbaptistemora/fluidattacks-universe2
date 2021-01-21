@@ -2,7 +2,7 @@ import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { required } from "utils/validations";
@@ -83,6 +83,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   validate={required}
                 />
               </FormGroup>
+              <hr />
               <Row>
                 <Col100>
                   <ButtonToolbar>
