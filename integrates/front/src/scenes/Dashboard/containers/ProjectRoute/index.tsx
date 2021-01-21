@@ -26,7 +26,7 @@ import { translate } from "utils/translations/translate";
 
 const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Element => {
   const { setUserRole } = props;
-  const { projectName } = useParams<{ projectName: string }>();
+  const { organizationName, projectName } = useParams<{ organizationName: string; projectName: string }>();
   const { path } = useRouteMatch();
 
   const attributes: PureAbility<string> = React.useContext(authzGroupContext);
@@ -86,6 +86,12 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
     );
   }
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+
+  if (organizationName !== data?.project.organization) {
+    return (
+        <Redirect path={path} to={"/home"} />
+    );
+  }
 
   return (
     <React.StrictMode>

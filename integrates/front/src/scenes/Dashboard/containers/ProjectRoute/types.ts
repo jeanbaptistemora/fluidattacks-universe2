@@ -5,6 +5,7 @@ export interface IProjectData {
   };
   project: {
     deletionDate: string;
+    organization: string;
     serviceAttributes: string[];
     userDeletion: string;
   };

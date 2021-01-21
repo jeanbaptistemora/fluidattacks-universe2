@@ -44,7 +44,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
   );
   const { userEmail }: IAuthContext = React.useContext(authContext);
 
-  const path: string = pathname;
+  const path: string = escape(pathname);
   const pathData: string[] = path.split("/")
     .slice(2);
   const pathOrganization: string = path.includes("/orgs")

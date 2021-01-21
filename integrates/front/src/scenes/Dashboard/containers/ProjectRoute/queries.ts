@@ -7,6 +7,7 @@ export const GET_GROUP_DATA: DocumentNode = gql`
       deletionDate
       serviceAttributes
       userDeletion
+      organization
     }
   }
 `;
