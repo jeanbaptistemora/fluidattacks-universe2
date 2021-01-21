@@ -137,7 +137,10 @@ def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = False
+    if dcl := lookup_var_by_name(args, args.syntax_step.symbol):
+        # Found it!
+        args.syntax_step.meta.danger = dcl.meta.danger
+        args.syntax_step.meta.value = dcl.meta.value
 
 
 EVALUATORS: Dict[object, Evaluator] = {
