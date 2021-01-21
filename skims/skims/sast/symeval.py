@@ -16,6 +16,12 @@ from model import (
     core_model,
     graph_model,
 )
+from sast.common import (
+    DANGER_METHODS_BY_ARGS_PROPAGATION,
+    DANGER_METHODS_BY_OBJ,
+    DANGER_METHODS_BY_TYPE,
+    split_on_first_dot,
+)
 from utils import (
     graph as g,
 )
@@ -91,7 +97,28 @@ def syntax_step_literal(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = False
+    # Analyze the arguments involved in the method invocation
+    args_danger = any(dep.meta.danger for dep in args.dependencies)
+
+    # Analyze if the method itself is untrusted
+    method = args.syntax_step.method
+    method_var, method_path = split_on_first_dot(method)
+    method_var_decl = lookup_var_by_name(args, method_var)
+    method_var_decl_type = method_var_decl.var_type if method_var_decl else ''
+
+    args.syntax_step.meta.danger = (
+        # Known function to return user controlled data
+        method_path in DANGER_METHODS_BY_TYPE.get(method_var_decl_type, {})
+    ) or (
+        # Know functions that propagate danger if object is dangerous
+        method_path in DANGER_METHODS_BY_OBJ.get(method_var_decl_type, {})
+        and method_var_decl
+        and method_var_decl.meta.danger
+    ) or (
+        # Known functions that propagate args danger
+        method in DANGER_METHODS_BY_ARGS_PROPAGATION
+        and args_danger
+    )
 
 
 def syntax_step_no_op(args: EvaluatorArgs) -> None:
@@ -144,15 +171,20 @@ def get_dependencies(
 def eval_syntax_steps(
     _: graph_model.GraphDB,
     shard: graph_model.GraphShard,
+    syntax_steps: graph_model.SyntaxSteps,
     n_id: graph_model.NId,
 ) -> graph_model.SyntaxSteps:
     if n_id not in shard.syntax:
         # We were not able to fully understand this node syntax
         raise StopEvaluation(f'Missing Syntax Reader, {shard.path} @ {n_id}')
 
-    syntax_steps = deepcopy(shard.syntax[n_id])
+    syntax_step_index = len(syntax_steps)
+    syntax_steps.extend(deepcopy(shard.syntax[n_id]))
 
-    for syntax_step_index, syntax_step in enumerate(syntax_steps):
+    for syntax_step_index, syntax_step in enumerate(
+        syntax_steps[syntax_step_index:],
+        start=syntax_step_index,
+    ):
         syntax_step_type = type(syntax_step)
         if evaluator := EVALUATORS.get(syntax_step_type):
             evaluator(EvaluatorArgs(
@@ -177,11 +209,12 @@ def get_possible_syntax_steps_from_path(
 
     for n_id in path:
         try:
-            syntax_steps.extend(eval_syntax_steps(
+            eval_syntax_steps(
                 _=graph_db,
                 shard=shard,
+                syntax_steps=syntax_steps,
                 n_id=n_id,
-            ))
+            )
         except StopEvaluation as exc:
             log_blocking('debug', str(exc))
             break
