@@ -1,5 +1,8 @@
 """
 This migration removes groups without an associated organization
+
+Execution Time:    2021-01-21 at 09:25:39 UTC-05
+Finalization Time: 2021-01-21 at 09:26:08 UTC-05
 """
 # Standard library
 from typing import (
