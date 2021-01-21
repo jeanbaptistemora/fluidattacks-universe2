@@ -36,6 +36,9 @@ from state.ephemeral import (
     get_ephemeral_store,
     reset as reset_ephemeral_state,
 )
+from utils.bugs import (
+    add_bugsnag_data,
+)
 from utils.ctx import (
     CTX,
 )
@@ -146,6 +149,7 @@ async def main(
 
     try:
         CTX.config = load(group, config)
+        add_bugsnag_data(namespace=CTX.config.namespace)
         await reset_ephemeral_state()
         await log('info', 'Namespace: %s', CTX.config.namespace)
         await log('info', 'Startup working dir is: %s', CTX.config.start_dir)

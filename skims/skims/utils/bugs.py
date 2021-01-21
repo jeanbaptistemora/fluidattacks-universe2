@@ -1,10 +1,6 @@
 # Standard library
-from contextvars import (
-    ContextVar,
-)
 from typing import (
     Dict,
-    Optional,
 )
 
 # Third party libraries
@@ -16,14 +12,14 @@ from utils.env import (
 )
 
 # Constants
-META: ContextVar[Optional[Dict[str, str]]] = (
-    ContextVar('META', default=None)
-)
+META: Dict[str, str] = {}
 
 
-def configure_bugsnag(**data: str) -> None:
-    # Metadata configuration
-    META.set(data)
+def add_bugsnag_data(**data: str) -> None:
+    META.update(data)
+
+
+def initialize_bugsnag() -> None:
     # Initialization
     bugsnag.configure(
         # There is no problem in making this key public

@@ -30,7 +30,6 @@ from utils.env import (
 )
 from utils.logs import (
     log,
-    log_to_remote,
 )
 
 # Constants
@@ -109,12 +108,6 @@ def shield(
                         exc_type,
                         exc_msg,
                         traceback.format_exc(),
-                    )
-                    await log_to_remote(
-                        exception=exc,
-                        function_id=function_id,
-                        exception_message=exc_msg,
-                        exception_type=exc_type,
                     )
 
                     if is_last or isinstance(exc, StopRetrying):

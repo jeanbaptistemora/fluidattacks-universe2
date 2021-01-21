@@ -63,8 +63,6 @@ def log_exception_blocking(
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
     log_blocking(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
-    if level in ('warning', 'error', 'critical'):
-        log_to_remote_blocking(exception, **meta_data)
 
 
 async def log_exception(
@@ -75,13 +73,28 @@ async def log_exception(
     await in_thread(log_exception_blocking, level, exception, **meta_data)
 
 
-def log_to_remote_blocking(exception: BaseException, **meta_data: str) -> None:
-    meta_data.update(BUGS_META.get() or {})
-    bugsnag.notify(exception, meta_data=meta_data)
+def log_to_remote_blocking(
+    *,
+    msg: str,
+    severity: str,  # info, error, warning
+    **meta_data: str,
+) -> None:
+    meta_data.update(BUGS_META)
+    bugsnag.notify(Exception(msg), meta_data=meta_data, severity=severity)
 
 
-async def log_to_remote(exception: BaseException, **meta_data: str) -> None:
-    await in_thread(log_to_remote_blocking, exception, **meta_data)
+async def log_to_remote(
+    *,
+    msg: str,
+    severity: str,  # info, error, warning
+    **meta_data: str,
+) -> None:
+    await in_thread(
+        log_to_remote_blocking,
+        msg,
+        severity=severity,
+        **meta_data,
+    )
 
 
 # Side effects

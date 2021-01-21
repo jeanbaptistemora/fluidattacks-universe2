@@ -25,12 +25,9 @@ from utils.logs import (
     log_to_remote_blocking,
 )
 from utils.bugs import (
-    configure_bugsnag,
+    add_bugsnag_data,
+    initialize_bugsnag,
 )
-
-
-class Execution(Exception):
-    pass
 
 
 @click.command(
@@ -86,8 +83,9 @@ def dispatch(
 
     log_blocking('info', 'Success: %s', success)
     log_to_remote_blocking(
-        Execution('Success' if success else 'Failure'),
         execution_seconds=f'{time() - start_time}',
+        msg='Success' if success else 'Failure',
+        severity='info' if success else 'error',
     )
 
     sys.exit(0 if success else 1)
@@ -113,7 +111,8 @@ async def main_wrapped(
     # pylint: disable=import-outside-toplevel
     import core.entrypoint
 
-    configure_bugsnag(
+    initialize_bugsnag()
+    add_bugsnag_data(
         config=config,
         group=group or '',
         token='set' if token else '',
