@@ -7,7 +7,7 @@ import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVuln
 import { FluidIcon } from "components/FluidIcon";
 import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { UpdateTreatmentModal } from "./UpdateDescription";
@@ -17,7 +17,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
-import { ButtonToolbar, RowCenter } from "styles/styledComponents";
+import { ButtonToolbar, Row, RowCenter } from "styles/styledComponents";
 import type {
   IVulnComponentProps,
   IVulnDataTypeAttr,
@@ -307,7 +307,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       ) : undefined}
       <Modal
         headerTitle={t("search_findings.tab_vuln.vulnerabilityInfo")}
-        onClose={closeAdditionalInfoModal}
         open={isAdditionalInfoOpen}
       >
         {_.isUndefined(currentRow) ? undefined : (
@@ -316,11 +315,19 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             vulnerability={currentRow}
           />
         )}
-        <ButtonToolbar>
-          <Button id={"close-vuln-modal"} onClick={closeAdditionalInfoModal}>
-            {t("search_findings.tab_vuln.close")}
-          </Button>
-        </ButtonToolbar>
+        <hr />
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button
+                id={"close-vuln-modal"}
+                onClick={closeAdditionalInfoModal}
+              >
+                {t("search_findings.tab_vuln.close")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
       </Modal>
     </React.StrictMode>
   );
