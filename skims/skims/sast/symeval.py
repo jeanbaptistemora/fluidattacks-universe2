@@ -74,7 +74,9 @@ def lookup_var_by_name(
 
 
 def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
-    args.syntax_step.meta.danger = False
+    left, right = args.dependencies
+
+    args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
 
 
 def syntax_step_declaration(args: EvaluatorArgs) -> None:
