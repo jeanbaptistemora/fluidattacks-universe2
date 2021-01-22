@@ -1202,6 +1202,133 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "134",
+              "value": true
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "128",
+              "value": null
+            },
+            "method": "userCookie.setSecure",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "136",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "137",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "144",
+              "value": null
+            },
+            "method": "request.getRequestURI",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "138",
+              "value": null
+            },
+            "method": "userCookie.setPath",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "152",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "153",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "167",
+              "value": null
+            },
+            "method": "request.getRequestURL",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "166",
+              "value": null
+            },
+            "method": ".toString",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "161",
+              "value": null
+            },
+            "object_type": "java.net.URL",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "160",
+              "value": null
+            },
+            "method": ".getHost",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "154",
+              "value": null
+            },
+            "method": "userCookie.setDomain",
+            "type": "SyntaxStepMethodInvocation"
           }
         ]
       }

@@ -6673,6 +6673,29 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "128": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "134",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "128",
+              "value": null
+            },
+            "method": "userCookie.setSecure",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "136": [
           {
             "meta": {
@@ -19382,6 +19405,29 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "532": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "538",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "532",
+              "value": null
+            },
+            "method": "rememberMe.setSecure",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "540": [
           {
             "meta": {
@@ -19402,6 +19448,29 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "542": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "548",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "542",
+              "value": null
+            },
+            "method": "rememberMe.setHttpOnly",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "550": [

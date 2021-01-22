@@ -243,8 +243,14 @@ def literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     if n_attrs_label_type == 'decimal_integer_literal':
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
-            value=args.graph.nodes[args.n_id]['label_text'],
+            value=n_attrs['label_text'],
             value_type='number',
+        )
+    elif n_attrs_label_type in {'false', 'true'}:
+        yield graph_model.SyntaxStepLiteral(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
+            value=n_attrs['label_text'],
+            value_type='boolean',
         )
     elif n_attrs_label_type == 'string_literal':
         yield graph_model.SyntaxStepLiteral(
@@ -358,7 +364,9 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         applicable_node_label_types={
             'decimal_integer_literal',
+            'false',
             'string_literal',
+            'true',
         },
         syntax_readers=(
             literal,
