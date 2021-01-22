@@ -22,7 +22,12 @@ function main {
             replace_var_in_file "${out}" "${var_name}" \
         ||  return 1
       done < "${__envArgumentNamesFile}" \
-
+  &&  echo '[INFO] Validating unused vars' \
+  &&  if grep --perl-regexp '__env[a-zA-Z]*__' "${out}"
+      then
+            echo '[ERROR] Some vars are being unused' \
+        &&  return 1
+      fi
 }
 
 main "${@}"

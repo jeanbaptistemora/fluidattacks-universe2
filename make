@@ -29,7 +29,10 @@ function ensure_cachix {
       then
         nix-env -iA cachix -f https://cachix.org/api/v1/install
       fi \
-  &&  cachix use fluidattacks \
+  &&  if ! cachix use fluidattacks
+      then
+        echo '[WARNING] Could not configure binary cache'
+      fi \
   &&  echo '---'
 }
 
