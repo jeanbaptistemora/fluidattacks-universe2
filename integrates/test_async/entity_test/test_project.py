@@ -72,6 +72,15 @@ async def test_project():
             analyst
             detail
           }
+          stakeholders{
+            email
+            invitationState
+            role
+            responsibility
+            phoneNumber
+            firstLogin
+            lastLogin
+          }
           __typename
         }
       }
@@ -102,6 +111,80 @@ async def test_project():
     assert result['data']['project']['drafts'][0]['openVulnerabilities'] == 0
     assert len(result['data']['project']['events']) == 5
     assert result['data']['project']['consulting'][0]['content'] == 'Now we can post comments on projects'
+    assert result['data']['project']['stakeholders'] == [
+      {
+          "email": "integratesserviceforces@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2019-10-29 13:40:37",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "service_forces",
+      },
+      {
+          "email": "integratesmanager@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2019-12-29 11:50:17",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "admin",
+      },
+      {
+          "email": "unittest2@fluidattacks.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2019-10-29 13:40:37",
+          "phoneNumber": "-",
+          "responsibility": "Tester",
+          "role": "group_manager",
+      },
+      {
+          "email": "integratesexecutive@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2019-10-29 13:40:37",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "executive",
+      },
+      {
+          "email": "integratescustomer@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2019-10-29 13:40:37",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "customer",
+      },
+      {
+          "email": "integratesuser@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2019-10-29 13:40:37",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "customeradmin",
+      },
+      {
+          "email": "continuoushacking@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2020-03-23 10:45:37",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "customeradmin",
+      },
+      {
+          "email": "continuoushack2@gmail.com",
+          "firstLogin": "2018-02-28 11:54:12",
+          "invitationState": "CONFIRMED",
+          "lastLogin": "2020-03-23 10:45:37",
+          "phoneNumber": "-",
+          "responsibility": "Test",
+          "role": "customeradmin",
+      },
+    ]
 
 
 async def test_project_filtered():

@@ -35,6 +35,34 @@ async def test_user():
     assert  result['data']['grantStakeholderAccess']['grantedStakeholder'] == {'email': stakeholder}
 
     query = f'''
+        {{
+            project(projectName: "{group_name}") {{
+                stakeholders {{
+                    email
+                    role
+                    responsibility
+                    phoneNumber
+                    firstLogin
+                    lastLogin
+                }}
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    group_stakeholders = result['data']['project']['stakeholders']
+    new_granted_access_stakeholder = list(filter(
+        lambda group_stakeholder: group_stakeholder['email'] == stakeholder,
+        group_stakeholders
+    ))[0]
+    assert new_granted_access_stakeholder['firstLogin'] == ''
+    assert new_granted_access_stakeholder['lastLogin'] == ''
+    assert new_granted_access_stakeholder['phoneNumber'] == phone_number
+    assert new_granted_access_stakeholder['responsibility'] == responsibility
+    assert new_granted_access_stakeholder['role'] == role.lower()
+
+    query = f'''
         query {{
             stakeholder(entity: PROJECT,
                     projectName: "{group_name}",
