@@ -71,6 +71,7 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
 
 def instantiate_redis_cluster() -> RedisCluster:
     return RedisCluster(
+        cluster_down_retry_attempts=1,
         decode_responses=True,
         host=FI_REDIS_SERVER,
         max_connections=1024,

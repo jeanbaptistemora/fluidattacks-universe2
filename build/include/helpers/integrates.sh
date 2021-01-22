@@ -163,10 +163,16 @@ function helper_integrates_serve_back {
   local port="${7}"
   local forwarded_ips="${8}"
   local common_args=(
-    --timeout "3600"
-    --workers "${workers}"
-    --worker-class "${worker_class}"
-    --forwarded-allow-ips="${forwarded_ips}"
+    --backlog '512'  #  The maximum number of pending connections. [2048]
+    --forwarded-allow-ips="${forwarded_ips}"  # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
+    --graceful-timeout '30'  # Timeout for graceful workers restart. [30]
+    --log-level 'info'  # The granularity of Error log outputs. [info]
+    --max-requests '64'  # The maximum number of requests a worker will process before restarting. [0]
+    --max-requests-jitter '32'  # The maximum jitter to add to the max_requests setting. [0]
+    --timeout '60'  # Workers silent for more than this many seconds are killed and restarted. [30]
+    --workers "${workers}"  # The number of worker processes for handling requests. [1]
+    --worker-class "${worker_class}"  # The type of workers to use. [sync]
+    --worker-connections '512'  # The maximum number of simultaneous clients. [1000]
   )
 
       env_prepare_python_packages \
