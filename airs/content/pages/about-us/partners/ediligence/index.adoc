@@ -7,7 +7,7 @@
 
 = Ediligence
 
-Ediligence is a firm that provides data security, forensic and technology
+link:https://ediligence.co/[Ediligence] is a firm that provides data security, forensic and technology
 consulting services. By aligning legal and technical ideas, they assist in
 litigation, administrative investigations and consulting in compliance areas.
 The latter covers competence,

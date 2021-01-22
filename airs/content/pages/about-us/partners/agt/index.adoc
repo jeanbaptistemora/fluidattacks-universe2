@@ -8,7 +8,7 @@
 
 = AGT Advanced German Technologies
 
-{germany} Founded in Berlin two decades ago, AGT is a leading Cybersecurity
+{germany} Founded in Berlin two decades ago, link:http://agt-technology.com/[AGT] is a leading Cybersecurity
 solutions provider with a strong consultancy focus and extensive system
 integration expertise. AGT delivers the latest developments in over a dozen
 countries in Europe, the Middle East, South East Asia, and Africa.

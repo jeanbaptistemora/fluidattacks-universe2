@@ -8,7 +8,7 @@
 
 = Proximiteam
 
-{canada} Proximiteam is a global provider
+{canada} link:https://www.proximiteam.com[Proximiteam] is a global provider
 of high-quality software development services.
 Their teams of highly skilled software engineers and IT
 specialists create innovative systems and apps for every industry.

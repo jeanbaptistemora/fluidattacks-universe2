@@ -7,7 +7,7 @@
 
 = Experis
 
-Experis belongs to ManpowerGroup
+link:https://experis.com/[Experis] belongs to ManpowerGroup
 and focuses on providing high-level solutions
 to make a difference in organizations.
 In one of their service lines,
