@@ -4,7 +4,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Glyphicon } from "react-bootstrap";
 import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -198,6 +198,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                 </fieldset>
               </Can>
             </React.Fragment>
+            <hr />
             <Row>
               <Col100>
                 <ButtonToolbar>
