@@ -7,21 +7,11 @@
 let
   makeSearchPaths = import (path "/makes/utils/make-search-paths") path skimsPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path skimsPkgs;
-  nixRequirements = {
-    development = makeSearchPaths [ ];
-    runtime = makeSearchPaths [
-      skimsPkgs.graphviz
-      skimsPkgs.nodejs
-      skimsPkgs.python38Packages.pygraphviz
-    ];
-  };
 in
 {
   setupSkimsDevelopment = makeTemplate {
     arguments = {
-      envBinPath = nixRequirements.development.binPath;
-      envLibPath = nixRequirements.development.libPath;
-      envPyPath = nixRequirements.development.pyPath;
+      envSearchPaths = makeSearchPaths [ ];
       envPythonRequirements = outputs.packages.skims-config-python-requirements-development;
       envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };
@@ -53,9 +43,11 @@ in
       };
       envPython = "${skimsPkgs.python38}/bin/python";
       envPythonRequirements = outputs.packages.skims-config-python-requirements-runtime;
-      envBinPath = nixRequirements.runtime.binPath;
-      envLibPath = nixRequirements.runtime.libPath;
-      envPyPath = nixRequirements.runtime.pyPath;
+      envSearchPaths = makeSearchPaths [
+        skimsPkgs.graphviz
+        skimsPkgs.nodejs
+        skimsPkgs.python38Packages.pygraphviz
+      ];
       envSrcSkimsSkims = path "/skims/skims";
       envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
     };

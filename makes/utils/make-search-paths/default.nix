@@ -1,10 +1,16 @@
-_: pkgs:
-
-derivations: {
-  binPath = pkgs.lib.strings.makeBinPath derivations;
-  libPath = pkgs.lib.strings.makeLibraryPath derivations;
-  pyPath = builtins.concatStringsSep ":" [
-    (pkgs.lib.strings.makeSearchPath "lib/python3.8/site-packages" derivations)
-    (pkgs.lib.strings.makeSearchPath "lib/python3.7/site-packages" derivations)
-  ];
+path: pkgs:
+let
+  makeTemplate = import (path "/makes/utils/make-template") path pkgs;
+in
+derivations: makeTemplate {
+  arguments = {
+    envBinPath = pkgs.lib.strings.makeBinPath derivations;
+    envLibPath = pkgs.lib.strings.makeLibraryPath derivations;
+    envPyPath = builtins.concatStringsSep ":" [
+      (pkgs.lib.strings.makeSearchPath "lib/python3.8/site-packages" derivations)
+      (pkgs.lib.strings.makeSearchPath "lib/python3.7/site-packages" derivations)
+    ];
+  };
+  name = "makes-utils-make-search-paths";
+  template = path "/makes/utils/make-search-paths/setup-paths-template.sh";
 }
