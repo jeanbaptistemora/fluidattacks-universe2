@@ -59,6 +59,7 @@ flake.lib.eachDefaultSystem (
           forces-lint = import (path "/makes/forces/lint") attrs;
           forces-oci-build = import (path "/makes/forces/oci-build") attrs;
           integrates-lint-front = import (path "/makes/integrates/lint/front") attrs;
+          makes-dev = import (path "/makes/makes/dev") attrs;
           melts-bin = import (path "/makes/melts/bin") attrs;
           melts-lint = import (path "/makes/melts/lint") attrs;
           observes-bin-target-redshift = import (path "/makes/observes/bin-target-redshift") attrs;

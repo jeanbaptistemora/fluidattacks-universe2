@@ -2,6 +2,7 @@ forces-bin
 forces-lint
 forces-oci-build
 integrates-lint-front
+makes-dev
 melts-bin
 melts-lint
 observes-bin-target-redshift
