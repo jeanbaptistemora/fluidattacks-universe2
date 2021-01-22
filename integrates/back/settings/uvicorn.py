@@ -42,7 +42,7 @@ class IntegratesWorker(UvicornWorker):  # type: ignore
             ],
             [
                 'Content-Security-Policy',
-                "script-src 'self' localhost:* "
+                "script-src 'self' 'unsafe-inline' localhost:* "
                 'cdn.announcekit.app *.amazonaws.com *.cloudfront.net '
                 '*.front.development.fluidattacks.com bam-cell.nr-data.net '
                 '*.front.production.fluidattacks.com '
