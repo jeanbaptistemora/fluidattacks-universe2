@@ -1,5 +1,8 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { PureAbility } from "@casl/ability";
+import { DataTableNext } from "components/DataTableNext";
+import { timeFromNow } from "components/DataTableNext/formatters";
+import { ITableProps } from "components/DataTableNext/types";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import * as React from "react";
@@ -71,9 +74,9 @@ describe("Project users view", () => {
               email: "user@gmail.com",
               firstLogin: "2017-09-05 15:00:00",
               invitationState: "CONFIRMED",
-              lastLogin: "[3, 81411]",
-              phoneNumber: "-",
-              responsibility: "-",
+              lastLogin: "2017-10-29 13:40:37",
+              phoneNumber: "+573123210121",
+              responsibility: "Test responsibility",
               role: "customer",
             }],
           },
@@ -95,16 +98,16 @@ describe("Project users view", () => {
                 email: "user@gmail.com",
                 firstLogin: "2017-09-05 15:00:00",
                 invitationState: "CONFIRMED",
-                lastLogin: "[3, 81411]",
-                phoneNumber: "-",
-                responsibility: "-",
+                lastLogin: "2017-10-29 13:40:37",
+                phoneNumber: "+573123210121",
+                responsibility: "Rest responsibility",
                 role: "customer",
               },
               {
                 email: "unittest@test.com",
                 firstLogin: "2017-09-05 15:00:00",
                 invitationState: "CONFIRMED",
-                lastLogin: "[3, 81411]",
+                lastLogin: "2017-10-29 13:40:37",
                 phoneNumber: "+573123210123",
                 responsibility: "Project Manager",
                 role: "analyst",
@@ -146,6 +149,60 @@ describe("Project users view", () => {
     await wait(0);
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should display all group stakeholder columns", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <ProjectStakeholdersView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      },
+    );
+
+    const stakeholderTable: ReactWrapper<ITableProps> = wrapper
+      .find(DataTableNext)
+      .filter({ id: "tblUsers" });
+
+    const tableHeader: ReactWrapper = stakeholderTable.find("Header");
+
+    expect(tableHeader.text())
+      .toContain("Stakeholder email");
+    expect(tableHeader.text())
+      .toContain("Role");
+    expect(tableHeader.text())
+      .toContain("Responsibility");
+    expect(tableHeader.text())
+      .toContain("Phone Number");
+    expect(tableHeader.text())
+      .toContain("First login");
+    expect(tableHeader.text())
+      .toContain("Last login");
+    expect(tableHeader.text())
+      .toContain("Invitation");
+
+    const firstRow: ReactWrapper = stakeholderTable.find("RowAggregator");
+
+    expect(firstRow.text())
+      .toContain("user@gmail.com");
+    expect(firstRow.text())
+      .toContain("User");
+    expect(firstRow.text())
+      .toContain("Test responsibility");
+    expect(firstRow.text())
+      .toContain("+573123210121");
+    expect(firstRow.text())
+      .toContain("2017-09-05 15:00:00");
+    expect(firstRow.text())
+      .toContain(timeFromNow("2017-10-29 13:40:37"));
+    expect(firstRow.text())
+      .toContain("Confirmed");
   });
 
   it("should render an add stakeholder component", async () => {
