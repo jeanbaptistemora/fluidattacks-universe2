@@ -5,14 +5,8 @@ from aioextensions import (
 import pytest
 
 # Local libraries
-from eval_java.evaluate import (
-    evaluate,
-)
 from graph_java.get import (
     get as java_get_graph,
-)
-from graph_java.transformations.sinks import (
-    SINKS,
 )
 from graph_java.transformations.cfg import (
     ALWAYS,
@@ -90,38 +84,6 @@ async def test_graph_generation(path: str, name: str) -> None:
         expected = handle.read()
 
     assert graph_as_json_str == expected
-
-    for sink in SINKS:
-        for index, graph_path in g.flows(
-            graph,
-            input_type='function',
-            sink_type=sink,
-        ):
-            statements = evaluate(
-                graph,
-                graph_path,
-                path,
-                allow_incomplete=True,
-                index=index,
-            )
-            statements_as_json = json_dumps(
-                statements, indent=2, sort_keys=True,
-            )
-
-            if SHOULD_UPDATE_TESTS:
-                with open((
-                    'test/data/parse_java'
-                    f'/{name}.{sink}.{index}.statements.json'
-                ), 'w') as handle:
-                    handle.write(statements_as_json)
-
-            with open((
-                'test/data/parse_java'
-                f'/{name}.{sink}.{index}.statements.json'
-            )) as handle:
-                expected = handle.read()
-
-            assert statements_as_json == expected
 
 
 @run_decorator
