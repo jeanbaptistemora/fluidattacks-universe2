@@ -14,7 +14,7 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { SeverityField } from "./SeverityField";
@@ -517,6 +517,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                     </Col50>
                   </Row>
                 </GenericForm>
+                <hr />
                 <Row>
                   <Col100>
                     <ButtonToolbar>
