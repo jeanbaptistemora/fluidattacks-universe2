@@ -9,13 +9,6 @@ type GitRootCloningStatus {
   status: CloningStatus!
 }
 
-type GitRootFilter {
-  "Repository paths to be excluded"
-  exclude: [String!]!
-  "Repository paths to be included"
-  include: [String!]!
-}
-
 type GitRoot implements IRoot {
   "Repository branch to be tested"
   branch: String!
@@ -25,8 +18,6 @@ type GitRoot implements IRoot {
   environment: String!
   "URLs to access the environment"
   environmentUrls: [String!]!
-  "Preferences for filtering directories"
-  filter: GitRootFilter
   "Repository paths to be ignored"
   gitignore: [String!]!
   "ID of the root"

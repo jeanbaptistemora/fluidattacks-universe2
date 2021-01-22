@@ -59,6 +59,7 @@
                   "date": { "S": "2020-11-19 08:39:56" },
                   "gitignore": { "L": [] },
                   "environment": { "S": "QA" },
+                  "environment_urls": { "L": [] },
                   "includes_health_check": { "BOOL": false },
                   "state": { "S": "ACTIVE" },
                   "user": { "S": "jdoe@fluidattacks.com" }

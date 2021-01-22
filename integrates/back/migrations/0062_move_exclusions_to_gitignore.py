@@ -2,8 +2,8 @@
 This migration aims to migrate the old filter field to the newer
 and simpler gitignore
 
-Execution Time:
-Finalization Time:
+Execution Time: 2021-01-22 at 10:14:13 UTC-05
+Finalization Time: 2021-01-22 at 10:15:37 UTC-05
 """
 # Standard library
 import os
@@ -42,7 +42,7 @@ async def migrate(group_name: str) -> None:
         else:
             await collect(
                 root_dal.update(
-                    root['pk'],
+                    group_name,
                     root['sk'],
                     {
                         'historic_state': [
@@ -52,7 +52,11 @@ async def migrate(group_name: str) -> None:
                                     'environment_urls',
                                     []
                                 ),
-                                'gitignore': state['filter']['exclude'],
+                                'gitignore': (
+                                    state['filter']['exclude']
+                                    if 'filter' in state
+                                    else state['gitignore']
+                                ),
                             }
                             for state in root['historic_state']
                         ]

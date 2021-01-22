@@ -169,13 +169,6 @@ ExecuteSkimsPayload = NamedTuple('ExecuteSkimsPayload', [
     ('success', bool),
     ('pipeline_url', str),
 ])
-GitRootFilter = NamedTuple(
-    'GitRootFilter',
-    [
-        ('exclude', List[str]),
-        ('include', List[str])
-    ]
-)
 IntegrationEnvironment = NamedTuple(
     'IntegrationEnvironment',
     [
@@ -199,7 +192,6 @@ GitRoot = NamedTuple(
         ('cloning_status', GitRootCloningStatus),
         ('environment', str),
         ('environment_urls', List[str]),
-        ('filter', Optional[GitRootFilter]),
         ('gitignore', List[str]),
         ('id', str),
         ('includes_health_check', bool),

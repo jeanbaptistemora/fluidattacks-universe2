@@ -19,10 +19,3 @@ input ExploitResultInput {
   "Execution specific"
   who: String
 }
-
-input GitRootFilterInput {
-  "Repository paths to be excluded"
-  exclude: [String!] = []
-  "Repository paths to be included"
-  include: [String!] = ["*"]
-}

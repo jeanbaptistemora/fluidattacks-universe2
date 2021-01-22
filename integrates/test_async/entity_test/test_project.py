@@ -390,10 +390,6 @@ async def test_get_roots() -> None:
                 branch
                 environment
                 environmentUrls
-                filter {
-                  exclude
-                  include
-                }
                 gitignore
                 id
                 includesHealthCheck
@@ -432,13 +428,6 @@ async def test_get_roots() -> None:
             'branch': 'master',
             'environment': 'production',
             'environmentUrls': ['https://integrates.fluidattacks.com'],
-            'filter': {
-                'exclude': [
-                    'bower_components/*',
-                    'node_modules/*'
-                ],
-                'include': []
-            },
             'gitignore': [
                 'bower_components/*',
                 'node_modules/*'
@@ -452,10 +441,6 @@ async def test_get_roots() -> None:
             'branch': 'develop',
             'environment': 'QA',
             'environmentUrls': [],
-            'filter': {
-                'exclude': [],
-                'include': []
-            },
             'gitignore': [],
             'id': 'ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a',
             'includesHealthCheck': False,
@@ -470,7 +455,7 @@ async def test_add_git_root_black() -> None:
         addGitRoot(
           branch: "master"
           environment: "Test"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           groupName: "oneshottest"
           includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/integrates"
@@ -492,7 +477,7 @@ async def test_add_git_root_white() -> None:
         addGitRoot(
           branch: "master"
           environment: "production"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           groupName: "unittesting"
           includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/integrates"
@@ -513,7 +498,7 @@ async def test_add_git_root_invalid_branch() -> None:
         addGitRoot(
           branch: "( ͡° ͜ʖ ͡°)"
           environment: "Test"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           groupName: "unittesting"
           includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/integrates"
@@ -534,7 +519,7 @@ async def test_add_git_root_invalid_url() -> None:
         addGitRoot(
           branch: "master"
           environment: "Test"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           groupName: "unittesting"
           includesHealthCheck: false
           url: "randomstring"
@@ -556,7 +541,7 @@ async def test_add_git_root_uniqueness() -> None:
         addGitRoot(
           branch: "unique"
           environment: "unique"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           groupName: "unittesting"
           includesHealthCheck: false
           url: "https://gitlab.com/fluidattacks/unique.git"
@@ -742,7 +727,7 @@ async def test_update_git_root() -> None:
       mutation {
         updateGitRoot(
           environment: "staging"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
           includesHealthCheck: false
         ) {
@@ -761,7 +746,7 @@ async def test_update_git_root_nonexistent() -> None:
       mutation {
         updateGitRoot(
           environment: "Test"
-          filter: { exclude: [], include: ["*"] }
+          gitignore: []
           id: "ROOT#some-thing"
           includesHealthCheck: false
         ) {

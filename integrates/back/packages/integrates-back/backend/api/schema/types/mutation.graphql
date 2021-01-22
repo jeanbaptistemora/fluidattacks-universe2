@@ -40,10 +40,8 @@ type Mutation {
     branch: String!
     "Kind of environment to test. E.g. production, QA, etc."
     environment: String!
-    "Preferences for filtering directories"
-    filter: GitRootFilterInput
     "Repository paths to be ignored"
-    gitignore: [String!]
+    gitignore: [String!]!
     "Name of the group the root is associated with"
     groupName: String!
     "Analyze already existing code"
@@ -331,10 +329,8 @@ type Mutation {
   updateGitRoot(
     "Kind of environment to test. E.g. production, QA, etc."
     environment: String!
-    "Preferences for filtering directories"
-    filter: GitRootFilterInput
     "Repository paths to be ignored"
-    gitignore: [String!]
+    gitignore: [String!]!
     "ID of the root"
     id: ID!
     "Analyze already existing code"

@@ -31,7 +31,6 @@ from backend.exceptions import (
 from backend.typing import (
     GitRoot,
     GitRootCloningStatus,
-    GitRootFilter,
     IPRoot,
     URLRoot,
     Root,
@@ -47,11 +46,6 @@ def format_root(root: Dict[str, Any]) -> Root:
 
     if root['kind'] == 'Git':
         cloning_status: Dict[str, Any] = root['historic_cloning_status'][-1]
-        gitignore = (
-            root_state['filter']['exclude']
-            if 'filter' in root_state
-            else root_state['gitignore']
-        )
 
         return GitRoot(
             branch=root['branch'],
@@ -60,12 +54,8 @@ def format_root(root: Dict[str, Any]) -> Root:
                 message=cloning_status['message'],
             ),
             environment=root_state['environment'],
-            environment_urls=root_state.get('environment_urls', []),
-            filter=GitRootFilter(
-                exclude=gitignore,
-                include=[]
-            ),
-            gitignore=gitignore,
+            environment_urls=root_state['environment_urls'],
+            gitignore=root_state['gitignore'],
             id=root['sk'],
             includes_health_check=root_state['includes_health_check'],
             state=root_state['state'],
@@ -153,11 +143,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         and validations.is_valid_git_branch(branch)
     )
 
-    gitignore = (
-        kwargs['filter']['exclude']
-        if 'filter' in kwargs
-        else kwargs.get('gitignore', [])
-    )
+    gitignore = kwargs['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
         gitignore
@@ -179,6 +165,7 @@ async def add_git_root(user_email: str, **kwargs: Any) -> None:
         initial_state: Dict[str, Any] = {
             'date': now_date,
             'environment': kwargs['environment'],
+            'environment_urls': [],
             'gitignore': gitignore,
             'includes_health_check': kwargs['includes_health_check'],
             'state': 'ACTIVE',
@@ -330,17 +317,8 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
     last_state: Dict[str, Any] = root['historic_state'][-1]
     is_valid: bool = _is_active(root) and root['kind'] == 'Git'
 
-    gitignore = (
-        kwargs['filter']['exclude']
-        if 'filter' in kwargs
-        else kwargs.get('gitignore', [])
-    )
-    last = (
-        last_state['filter']['exclude']
-        if 'filter' in last_state
-        else last_state['gitignore']
-    )
-    filter_changed: bool = gitignore != last
+    gitignore = kwargs['gitignore']
+    filter_changed: bool = gitignore != last_state['gitignore']
     enforcer = await authz.get_group_level_enforcer(user_email)
     if (
         filter_changed
