@@ -27,7 +27,9 @@ from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
 from backend.utils.user import create_new_user
-
+from backend.utils import (
+    datetime as datetime_utils,
+)
 logging.config.dictConfig(LOGGING)
 
 # Constants
@@ -53,6 +55,9 @@ async def mutate(
     new_user_role = role
     new_user_email = query_args.get('email', '')
     new_user_responsibility = query_args.get('responsibility', '-')
+    invitation_date = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
 
     allowed_roles_to_grant = \
         await authz.get_group_level_roles_a_user_can_grant(
@@ -79,6 +84,11 @@ async def mutate(
                 new_user_email,
                 project_name,
                 new_user_responsibility
+            ),
+            user_domain.update_project_invitation_date(
+                new_user_email,
+                project_name,
+                invitation_date
             )
         ]))
     else:
