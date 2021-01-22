@@ -56,25 +56,23 @@ const Modal: React.FC<IModalProps> = (
     };
   }, [open]);
 
-  return (
-    <div>
-      {open ? (
-        <React.Fragment>
-          <StyledBgModal />
-          <StyledModalContainer>
-            <StyledModalDialog>
-              <StyledModal>
-                <ModalHeader>
-                  <ModalTitle>{headerTitle}</ModalTitle>
-                </ModalHeader>
-                <ModalBody>{children}</ModalBody>
-              </StyledModal>
-            </StyledModalDialog>
-          </StyledModalContainer>
-        </React.Fragment>
-      ) : undefined}
-    </div>
-  );
+  return (open ? (
+    <React.Fragment>
+      <StyledBgModal />
+      <StyledModalContainer>
+        <StyledModalDialog>
+          <StyledModal>
+            <ModalHeader>
+              <ModalTitle>{headerTitle}</ModalTitle>
+            </ModalHeader>
+            <ModalBody>{children}</ModalBody>
+          </StyledModal>
+        </StyledModalDialog>
+      </StyledModalContainer>
+    </React.Fragment>
+  ) : (
+    open
+  )) as JSX.Element;
 };
 
 export { Modal };
