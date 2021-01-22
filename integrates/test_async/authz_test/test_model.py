@@ -31,7 +31,6 @@ pytestmark = [
             'admin',
             'analyst',
             'customer',
-            'internal_manager'
         ]),
         (authz.SERVICE_ATTRIBUTES, [
             'continuous',

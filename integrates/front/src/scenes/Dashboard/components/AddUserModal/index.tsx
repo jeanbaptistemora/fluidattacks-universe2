@@ -27,7 +27,7 @@ import type {
 } from "scenes/Dashboard/components/AddUserModal/types";
 import { required, validEmail, validTextField } from "utils/validations";
 
-const userLevelRoles: string[] = ["admin", "customer", "internal_manager"];
+const userLevelRoles: string[] = ["admin", "customer", "analyst"];
 const groupLevelRoles: string[] = [
   "analyst",
   "closer",

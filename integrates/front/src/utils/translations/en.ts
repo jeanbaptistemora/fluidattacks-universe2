@@ -2030,7 +2030,6 @@ export const enTranslations: ResourceKey = {
       customeradmin: "User Manager",
       executive: "Executive",
       group_manager: "Group Manager",
-      internal_manager: "Manager",
       resourcer: "Resourcer",
       reviewer: "Reviewer",
     },

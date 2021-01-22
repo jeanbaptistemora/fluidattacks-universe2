@@ -256,7 +256,6 @@ ENUMS: Tuple[EnumType, ...] = (
             'CUSTOMERADMIN': 'customeradmin',
             'EXECUTIVE': 'executive',
             'GROUP_MANAGER': 'group_manager',
-            'INTERNAL_MANAGER': 'internal_manager',
             'RESOURCER': 'resourcer',
             'REVIEWER': 'reviewer',
             'SERVICE_FORCES': 'service_forces'

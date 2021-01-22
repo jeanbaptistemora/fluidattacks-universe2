@@ -216,7 +216,7 @@
           "level": {"S": "user"},
           "subject": {"S": "integratesinternalmanager@fluidattacks.com"},
           "object": {"S": "self"},
-          "role": {"S": "internal_manager"}
+          "role": {"S": "analyst"}
         }
       }
     },
@@ -226,7 +226,7 @@
           "level": {"S": "group"},
           "subject": {"S": "integratesinternalmanager@fluidattacks.com"},
           "object": {"S": "unittesting"},
-          "role": {"S": "internal_manager"}
+          "role": {"S": "analyst"}
         }
       }
     },
@@ -236,7 +236,7 @@
           "level": {"S": "organization"},
           "subject": {"S": "integratesinternalmanager@fluidattacks.com"},
           "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "internal_manager"}
+          "role": {"S": "analyst"}
         }
       }
     }

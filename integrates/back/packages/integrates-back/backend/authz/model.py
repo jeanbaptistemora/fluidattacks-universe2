@@ -625,7 +625,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_query_user_list_groups_resolve',
             'grant_user_level_role:admin',
             'grant_user_level_role:customer',
-            'grant_user_level_role:internal_manager',
         },
         tags=set(),
     ),
@@ -646,16 +645,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    internal_manager=dict(
-        actions={
-            'backend_api_resolvers_query_internal_names_resolve',
-            'backend_api_mutations_create_group_mutate',
-            'backend_api_resolvers_query_user_list_groups_resolve',
-        },
-        tags={
-            'drills',
-        },
-    )
 )
 
 USER_LEVEL_ACTIONS: Set[str] = {

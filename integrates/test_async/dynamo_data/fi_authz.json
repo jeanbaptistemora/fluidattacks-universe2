@@ -76,7 +76,7 @@
           "level": {"S": "user"},
           "subject": {"S": "continuoushacking@gmail.com"},
           "object": {"S": "self"},
-          "role": {"S": "internal_manager"}
+          "role": {"S": "analyst"}
         }
       }
     },

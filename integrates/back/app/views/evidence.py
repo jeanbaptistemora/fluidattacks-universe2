@@ -72,7 +72,6 @@ async def get_evidence(request: Request) -> Response:
         'customeradmin',
         'executive',
         'group_manager',
-        'internal_manager',
         'resourcer',
         'reviewer'
     ]
