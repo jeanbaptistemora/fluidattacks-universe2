@@ -19,7 +19,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
@@ -243,7 +243,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                                   />
                                 </Col100>
                               </Row>
-                              <br />
+                              <hr />
                               <Row>
                                 <Col100>
                                   <ButtonToolbar>
