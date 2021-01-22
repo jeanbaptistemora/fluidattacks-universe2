@@ -99,6 +99,18 @@
             {% endfor %}
           </div>
       </div>
+      <div class="absolute advisor-animation advisor-transition bg-white br3 left-0 pa4 tc top-0">
+        <ul class="list ma0 pa0">
+          <li class="dib f-key-features lh-2 relative tl w-100">Code name: {{ advise.codename }}</li>
+          <li class="dib f-key-features lh-2 relative tl w-100">Product: {{ advise.product }}</li>
+          <li class="dib f-key-features lh-2 relative tl w-100">Release date: {{ advise.date }}</li>
+          <li class="dib f-key-features lh-2 relative tl w-100">CVE ID(s): {{ advise.cveid }}</li>
+        </ul>
+        <a href="{{ SITEURL }}/{{ advise.url }}">
+          <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">Read More</button>
+        </a>
+      </div>
+      </div>
     </div>
     {% endfor %}
   </div>

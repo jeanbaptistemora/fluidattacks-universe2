@@ -116,6 +116,12 @@ $codeyellow: rgba(230, 219, 116, 1);
 .wr-bdr { border-bottom-right-radius: 0.938rem; }
 .wr-bdl { border-top-left-radius: 0.938rem; }
 
+.advisor-animation {
+  opacity: 0;
+  &:hover { opacity: 1; }
+}
+.advisor-transition { transition: transform 0.3s, opacity 0.3s; }
+
 .wr-sz {
   height: 5.625rem;
   width: 5.625rem;
