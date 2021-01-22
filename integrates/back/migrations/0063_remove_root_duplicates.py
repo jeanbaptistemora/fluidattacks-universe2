@@ -2,8 +2,8 @@
 This migration aims to remove duplicates in fi_roots that resulted from
 a mistake in a previous migration script
 
-Execution Time:
-Finalization Time:
+Execution Time: 2021-01-22 at 12:05:42 UTC-05
+Finalization Time: 2021-01-22 at 12:07:05 UTC-05
 """
 # Standard library
 import os
