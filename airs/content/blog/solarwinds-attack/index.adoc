@@ -26,7 +26,7 @@ still causes trouble nowadays. Let's summarize what has happened so far.
 
 SolarWinds is a company focused on developing software for organizations
 to help manage their systems, networks, and infrastructure.
-Among its clients appear the US Treasury and Commerce departments,
+Among its clients are the US Treasury and Commerce departments,
 which, as reported in link:https://www.reuters.com/article/us-usa-cyber-amazon-com-exclsuive-idUSKBN28N0PG[Reuters] on *December 13*,
 had been victims of internal email traffic monitoring
 by, apparently, a group of Russian hackers.
@@ -40,7 +40,7 @@ looked for data about their government clients,
 and even stole some of their pentesting tools.
 It was striking that they talked about observing
 a novel combination of techniques in this attack.
-Some sources associated it with the group *APT29* or link:https://en.wikipedia.org/wiki/Cozy_Bear[*Cozy Bear*]
+Some sources associated it with the group *APT29* or link:https://en.wikipedia.org/wiki/Cozy_Bear[*Cozy Bear*],
 linked to the Russian Foreign Intelligence Service (SVR).
 However, FireEye preferred to be neutral and used the codename *UNC2452*.
 An official investigation by link:https://www.cisa.gov/[CISA] and the FBI began
@@ -65,7 +65,7 @@ Then, as a corrective measure,
 SolarWinds proposed to have ready by *December 15*
 the new update *2020.2.1 HF2* as a replacement with security improvements.
 
-In those days, it was known that _SolarWinds.Orion.Core.BusinessLayer.dll_
+At that time, it was known that _SolarWinds.Orion.Core.BusinessLayer.dll_
 was the Orion plug-in that hackers modified and distributed with the updates.
 link:https://www.csoonline.com/article/3601508/solarwinds-supply-chain-attack-explained-why-organizations-were-not-prepared.html[It was digitally signed] and had a backdoor
 for communication with third-party servers managed by them.
@@ -103,7 +103,7 @@ The spying powers of hackers were thus expanded,
 and they could even impersonate legitimate accounts.
 Regarding their case, link:https://msrc-blog.microsoft.com/2020/12/31/microsoft-internal-solorigate-investigation-update/[Microsoft said] that hackers were even able to see,
 but 'not modify,' part of their source code.
-Well, this occurrence certainly gave us plenty to ponder on.
+Well, this occurrence certainly gave us plenty to ponder over.
 
 link:https://www.businessinsider.com/solarwinds-hack-explained-government-agencies-cyber-security-2020-12[By *December 24*], the media mentioned prominent victims in three groups:
 (1) US agencies, like the Pentagon, the State Department,
@@ -147,7 +147,7 @@ and the subsequent collection of data from internal networks.
 Depending on the importance of the target,
 the attackers decided whether to proceed using the robust Teardrop.
 
-Moreover, link:https://www.zdnet.com/article/fourth-malware-strain-discovered-in-solarwinds-incident/[*the day before yesterday*],
+Moreover, link:https://www.zdnet.com/article/fourth-malware-strain-discovered-in-solarwinds-incident/[on *January 19*],
 Symantec reported a fourth malware called 'Raindrop' (similar to Teardrop),
 which appeared in the last stages of intrusion into exclusive networks.
 Undeniably, this SolarWinds issue doesn't end here.
@@ -165,6 +165,6 @@ In the midst of so much uncertainty about what lies ahead,
 the only thing that is clear for now is that
 much effort will be required to revitalize such confidence.
 
-Do you know about the `Fluid Attacks` service
+Do you know about the link:../../services/continuous-hacking/[`Fluid Attacks` service]
 for comprehensive testing of your systems' cybersecurity?
 link:../../contact-us/[Get in touch with our team!]
