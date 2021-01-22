@@ -252,12 +252,20 @@ def literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value=n_attrs['label_text'],
             value_type='boolean',
         )
+    elif n_attrs_label_type == 'null_literal':
+        yield graph_model.SyntaxStepLiteral(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
+            value=n_attrs['label_text'],
+            value_type='null',
+        )
     elif n_attrs_label_type == 'string_literal':
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
             value=n_attrs['label_text'][1:-1],
             value_type='string',
         )
+    else:
+        raise NotImplementedError(n_attrs_label_type)
 
 
 def generic(
@@ -365,6 +373,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_node_label_types={
             'decimal_integer_literal',
             'false',
+            'null_literal',
             'string_literal',
             'true',
         },

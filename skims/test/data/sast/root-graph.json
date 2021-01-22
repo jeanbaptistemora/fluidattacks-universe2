@@ -7150,6 +7150,54 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "349": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "354",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "349",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fileName",
+            "var_type": "String"
+          }
+        ],
+        "356": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "361",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "356",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "fis",
+            "var_type": "java.io.FileInputStream"
+          }
+        ],
         "365": [
           {
             "meta": {
@@ -20773,6 +20821,50 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "32": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "44",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "46",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "38",
+              "value": null
+            },
+            "method": "File.createTempFile",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "32",
+              "value": null
+            },
+            "method": "System.out.println",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "49": [

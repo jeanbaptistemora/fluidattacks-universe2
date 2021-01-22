@@ -97,9 +97,13 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_literal(args: EvaluatorArgs) -> None:
-    if args.syntax_step.value_type == 'boolean':
+    if args.syntax_step.value_type in {
+        'boolean',
+        'null',
+    }:
         args.syntax_step.meta.value = {
             'false': False,
+            'null': None,
             'true': True,
         }[args.syntax_step.value]
     elif args.syntax_step.value_type == 'number':
