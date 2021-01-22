@@ -22,6 +22,7 @@ from lib_path.common import (
 )
 from lib_root import (
     f060,
+    f073,
 )
 from sast import (
     parse,
@@ -58,6 +59,7 @@ async def analyze(
     graph_db = await parse.get_graph_db(tuple(unique_paths))
     queries: graph_model.Queries = (
         *f060.QUERIES,
+        *f073.QUERIES,
         query.query,
     )
 

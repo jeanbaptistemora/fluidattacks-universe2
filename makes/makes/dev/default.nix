@@ -9,7 +9,7 @@ in
 makeTemplate {
   arguments = {
     envBaseSearchPaths = import (path "/makes/utils/make-search-paths") path makesPkgs [
-      makesPkgs.awscli2
+      makesPkgs.awscli
       makesPkgs.cloc
       makesPkgs.nixpkgs-fmt
       makesPkgs.sops

@@ -15,9 +15,6 @@ from aioextensions import (
 )
 
 # Local libraries
-from graph_java.get import (
-    get as java_get_graph,
-)
 from parse_antlr.parse import (
     parse as parse_antlr,
 )
@@ -26,18 +23,12 @@ from parse_babel import (
 )
 from lib_path.common import (
     EXTENSIONS_CSHARP,
-    EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
     get_vulnerabilities_from_iterator_blocking,
-    get_vulnerabilities_from_n_attrs_iterable_blocking,
 )
 from state.cache import (
-    CACHE_1SEC,
     CACHE_ETERNALLY,
-)
-from utils import (
-    graph as g,
 )
 from utils.function import (
     TIMEOUT_1MIN,
@@ -48,7 +39,6 @@ from utils.graph import (
 )
 from model import (
     core_model,
-    graph_model,
 )
 from zone import (
     t,
@@ -109,56 +99,6 @@ async def csharp_switch_no_default(
             content=content.encode(),
             path=path,
         ),
-        path=path,
-    )
-
-
-def _java_switch_without_default(
-    content: str,
-    graph: graph_model.Graph,
-    path: str,
-) -> core_model.Vulnerabilities:
-
-    def iterator() -> Iterator[Dict[str, str]]:
-        for n_id in g.filter_nodes(graph, graph.nodes, g.pred_has_labels(
-            label_type='SwitchStatement',
-        )):
-            match = g.match_ast(graph, n_id, 'SwitchBlock')
-            if c_id := match['SwitchBlock']:
-                default_ids = g.filter_nodes(
-                    graph,
-                    g.adj_ast(graph, c_id, depth=4),
-                    g.pred_has_labels(label_type='DEFAULT'),
-                )
-
-                if len(default_ids) == 0:
-                    yield graph.nodes[n_id]
-
-    return get_vulnerabilities_from_n_attrs_iterable_blocking(
-        content=content,
-        cwe={'478'},
-        description=t(
-            key='src.lib_path.f073.switch_no_default',
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F073,
-        n_attrs_iterable=tuple(iterator()),
-        path=path,
-    )
-
-
-@CACHE_1SEC
-@SHIELD
-@TIMEOUT_1MIN
-async def java_switch_without_default(
-    content: str,
-    graph: graph_model.Graph,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _java_switch_without_default,
-        content=content,
-        graph=graph,
         path=path,
     )
 
@@ -237,18 +177,6 @@ async def analyze(
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_switch_no_default(
             content=await content_generator(),
-            path=path,
-        ))
-    elif file_extension in EXTENSIONS_JAVA:
-        content = await content_generator()
-        graph = await java_get_graph(
-            core_model.Grammar.JAVA9,
-            content=content.encode(),
-            path=path,
-        )
-        coroutines.append(java_switch_without_default(
-            content=content,
-            graph=graph,
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVASCRIPT:
