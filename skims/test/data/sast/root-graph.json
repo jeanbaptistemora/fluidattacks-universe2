@@ -39522,7 +39522,7 @@
           }
         }
       },
-      "path": "test/data/parse_java/TestCFG.java",
+      "path": "test/data/sast/TestCFG.java",
       "syntax": {
         "1005": [
           {
@@ -41526,6 +41526,6 @@
     "test/data/benchmark/owasp/BenchmarkTest00167.java": 2,
     "test/data/lib_path/f031_cwe378/Test.java": 3,
     "test/data/lib_path/f063_path_traversal/Test.java": 4,
-    "test/data/parse_java/TestCFG.java": 5
+    "test/data/sast/TestCFG.java": 5
   }
 }

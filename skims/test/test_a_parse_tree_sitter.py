@@ -29,7 +29,7 @@ async def test_graph_generation() -> None:
         'test/data/benchmark/owasp/BenchmarkTest00001.java',
         'test/data/benchmark/owasp/BenchmarkTest00008.java',
         'test/data/benchmark/owasp/BenchmarkTest00167.java',
-        'test/data/parse_java/TestCFG.java',
+        'test/data/sast/TestCFG.java',
     ))
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
 

@@ -2252,7 +2252,7 @@
     "F085": {},
     "F117": {}
   },
-  "test/data/parse_java/TestCFG.java": {
+  "test/data/sast/TestCFG.java": {
     "F001_JPA": {},
     "F009": {},
     "F011": {},
