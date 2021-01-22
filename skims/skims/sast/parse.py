@@ -120,6 +120,7 @@ def _build_ast_graph(
             language == GraphShardMetadataLanguage.JAVA and obj.type in {
                 'array_type',
                 'field_access',
+                'integral_type',
                 'scoped_identifier',
                 'scoped_type_identifier',
             },

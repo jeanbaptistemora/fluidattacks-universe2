@@ -212,9 +212,7 @@ def object_creation_expression(
         and match['new']
         and (object_type_id := match['__0__'])
         and (args_id := match['argument_list'])
-        and (args.graph.nodes[object_type_id]['label_type'] in {
-            'scoped_type_identifier',
-        })
+        and ('label_text' in args.graph.nodes[object_type_id])
     ):
         yield graph_model.SyntaxStepObjectInstantiation(
             meta=graph_model.SyntaxStepMeta.default(
