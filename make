@@ -29,34 +29,49 @@ function ensure_cachix {
       then
         nix-env -iA cachix -f https://cachix.org/api/v1/install
       fi \
-  &&  cachix use fluidattacks
+  &&  cachix use fluidattacks \
+  &&  echo '---'
+}
+
+function load_commands {
+  export APPLICATIONS
+  export PACKAGES
+
+      mapfile -t APPLICATIONS < 'makes/attrs/applications.lst' \
+  &&  mapfile -t PACKAGES < 'makes/attrs/packages.lst'
 }
 
 function main {
   local attr="${1:-}"
 
       main_ctx "${@}" \
-  &&  source "${PWD}/.envrc.public" \
   &&  ensure_cachix \
-  &&  while read -r attribute
+  &&  source "${PWD}/.envrc.public" \
+  &&  load_commands \
+  &&  for attribute in "${APPLICATIONS[@]}"
       do
         if test "${attribute}" = "${attr}"
         then
           if run_with_internet "${attribute}" "${@:2}"
           then
-            return 0
+                echo '---' \
+            &&  echo "[INFO] ${attribute} executed successfully" \
+            &&  echo '[INFO]   Congratulations!' \
+            &&  return 0
           else
-            return 1
+                echo \
+            &&  echo "[ERROR] ${attribute}'s execution failed :(" \
+            &&  return 1
           fi
         fi
-      done < "makes/attrs/applications.lst" \
-  &&  while read -r attribute
+      done \
+  &&  for attribute in "${PACKAGES[@]}"
       do
         if test "${attribute}" = "${attr}"
         then
           if build_with_internet "${attribute}"
           then
-                echo \
+                echo '---' \
             &&  nix_store_path=$(readlink -f "makes/outputs/${attribute}") \
             &&  cachix_push "${nix_store_path}" \
             &&  echo "[INFO] ${attribute} built successfully" \
@@ -66,12 +81,12 @@ function main {
             &&  echo "[INFO] Symlink at: ./makes/outputs/${attribute}" \
             &&  return 0
           else
-                echo \
-            &&  echo "[INFO] ${attribute}'s build failed :(" \
+                echo '---' \
+            &&  echo "[ERROR] ${attribute}'s build failed :(" \
             &&  return 1
           fi
         fi
-      done < "makes/attrs/packages.lst" \
+      done \
   &&  main_help
 }
 
@@ -90,11 +105,11 @@ function main_help {
   &&  echo \
   &&  echo 'Applications:' \
   &&  echo \
-  &&  while read -r attr; do echo "  ${attr}"; done < "makes/attrs/applications.lst" \
+  &&  for attr in "${APPLICATIONS[@]}"; do echo "  ${attr}"; done \
   &&  echo \
-  &&  echo 'Packages are:' \
+  &&  echo 'Packages:' \
   &&  echo \
-  &&  while read -r attr; do echo "  ${attr}"; done < "makes/attrs/packages.lst" \
+  &&  for attr in "${PACKAGES[@]}"; do echo "  ${attr}"; done \
   &&  echo \
   &&  return 1 \
   ||  return 1
