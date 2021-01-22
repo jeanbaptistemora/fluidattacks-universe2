@@ -8,7 +8,7 @@ let
   lintPython = import (path "/makes/utils/bash-lib/lint-python") path observesPkgs;
 in
 makeDerivation {
-  builder = path "/makes/observes/lint-observes/builder.sh";
+  builder = path "/makes/utils/observes-lib/lint-observes/builder.sh";
   buildInputs = buildInputs ++ [
     lintPython
   ];
