@@ -24,7 +24,7 @@ import {
 import { Field } from "redux-form";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
@@ -360,6 +360,7 @@ const findingContent: React.FC = (): JSX.Element => {
               <option value="NOT_REQUIRED">{translate.t("search_findings.delete.justif.not_required")}</option>
             </Field>
           </FormGroup>
+          <hr />
           <Row>
             <Col100>
               <ButtonToolbar>

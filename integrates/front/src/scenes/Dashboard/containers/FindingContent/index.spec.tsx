@@ -333,7 +333,7 @@ describe("FindingContent", () => {
     await act(async () => { wrapper.update(); });
     expect(wrapper.find("Modal")
       .at(0)
-      .prop("show"))
+      .prop("open"))
       .toEqual(false);
   });
 
