@@ -20,7 +20,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { limitFormatter, statusFormatter, treatmentFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal/index";
+import { Modal } from "components/NewModal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { default as AppstoreBadge } from "resources/appstore_badge.svg";
 import { default as GoogleplayBadge } from "resources/googleplay_badge.svg";
@@ -389,6 +389,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     </Row>
                   </Col100>
                 </Row>
+                <hr />
                 <Row>
                   <Col100>
                     <ButtonToolbar>
