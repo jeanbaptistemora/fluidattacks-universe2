@@ -1,4 +1,5 @@
 # Standard library
+import asyncio
 from typing import (
     Any,
 )
@@ -43,11 +44,16 @@ REDIS_EXCEPTIONS = (
     RedisClusterError,
     RedisError,
 )
+REDIS_TIMEOUT: int = 30
 
 
 async def _redis_cmd_base(cmd: str, *args: Any, **kwargs: Any) -> Any:
     cmd_func = getattr(REDIS, cmd)
-    data = await in_thread(cmd_func, *args, **kwargs)
+    data = await asyncio.wait_for(
+        in_thread(cmd_func, *args, **kwargs),
+        timeout=REDIS_TIMEOUT,
+    )
+
     return data
 
 
@@ -67,7 +73,7 @@ def instantiate_redis_cluster() -> RedisCluster:
     return RedisCluster(
         decode_responses=True,
         host=FI_REDIS_SERVER,
-        max_connections=2048,
+        max_connections=1024,
         port=6379,
         skip_full_coverage_check=True,
     )
