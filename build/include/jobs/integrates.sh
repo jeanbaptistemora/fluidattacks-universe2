@@ -1106,7 +1106,7 @@ function job_integrates_deploy_back_production {
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
   &&  B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
-  &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
+  &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 'master') \
   &&  DATE="$(date)" \
   &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
   &&  for file in "${files[@]}"
