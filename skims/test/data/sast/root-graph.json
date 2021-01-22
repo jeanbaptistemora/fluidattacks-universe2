@@ -6596,6 +6596,50 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "114": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "121",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "60",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "123",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "120",
+              "value": null
+            },
+            "operator": "*",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "114",
+              "value": null
+            },
+            "method": "userCookie.setMaxAge",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "125": [
           {
             "meta": {

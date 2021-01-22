@@ -236,12 +236,22 @@ def object_creation_expression(
         raise MissingCaseHandling(method_invocation, args)
 
 
-def string_literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    yield graph_model.SyntaxStepLiteral(
-        meta=graph_model.SyntaxStepMeta.default(args.n_id),
-        value=args.graph.nodes[args.n_id]['label_text'][1:-1],
-        value_type='string',
-    )
+def literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    n_attrs = args.graph.nodes[args.n_id]
+    n_attrs_label_type = n_attrs['label_type']
+
+    if n_attrs_label_type == 'decimal_integer_literal':
+        yield graph_model.SyntaxStepLiteral(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
+            value=args.graph.nodes[args.n_id]['label_text'],
+            value_type='number',
+        )
+    elif n_attrs_label_type == 'string_literal':
+        yield graph_model.SyntaxStepLiteral(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
+            value=n_attrs['label_text'][1:-1],
+            value_type='string',
+        )
 
 
 def generic(
@@ -347,10 +357,11 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
+            'decimal_integer_literal',
             'string_literal',
         },
         syntax_readers=(
-            string_literal,
+            literal,
         ),
     ),
     *[
