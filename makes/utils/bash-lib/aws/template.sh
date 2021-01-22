@@ -41,7 +41,7 @@ function aws_s3_sync {
   local from="${1}"
   local to="${2}"
 
-      echo "[INFO] Syncing data to AWS from ${from} to ${to}" \
+      echo "[INFO] Syncing AWS S3 data from ${from} to ${to}" \
   &&  if test -n "${CI}"; then flags+=( --quiet ); fi \
   &&  '__envAwscli__' s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
 }

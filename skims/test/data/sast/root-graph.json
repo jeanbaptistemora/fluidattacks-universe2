@@ -6695,6 +6695,58 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "154": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "167",
+              "value": null
+            },
+            "method": "request.getRequestURL",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "166",
+              "value": null
+            },
+            "method": ".toString",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "161",
+              "value": null
+            },
+            "object_type": "java.net.URL",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "160",
+              "value": null
+            },
+            "method": ".getHost",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "154",
+              "value": null
+            },
+            "method": "userCookie.setDomain",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "186": [
           {
             "meta": {
@@ -7214,6 +7266,79 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "512": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "513",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "525",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Problem getting FileInputStream: ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "528",
+              "value": null
+            },
+            "method": "org.owasp.esapi.ESAPI.encoder",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "539",
+              "value": null
+            },
+            "method": "e.getMessage",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "527",
+              "value": null
+            },
+            "method": ".encodeForHTML",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "524",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "512",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
           }
         ],
         "548": [
@@ -11225,6 +11350,39 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "281": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "282",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "293",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Error processing request.",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "281",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
           }
         ],
         "295": [
@@ -19030,6 +19188,80 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "491": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "492",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "505",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Welcome back: ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "507",
+              "value": null
+            },
+            "symbol": "user",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "504",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "509",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "<br/>",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "503",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "491",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ],
         "511": [
           {
             "meta": {
@@ -19216,6 +19448,48 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "570": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "571",
+              "value": null
+            },
+            "method": "request.getSession",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "582",
+              "value": null
+            },
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "584",
+              "value": null
+            },
+            "symbol": "rememberMeKey",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "570",
+              "value": null
+            },
+            "method": ".setAttribute",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ],
         "586": [
           {
             "meta": {
@@ -19282,6 +19556,141 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "598": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "599",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "615",
+              "value": null
+            },
+            "symbol": "user",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "617",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": " has been remembered with cookie: ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "614",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "619",
+              "value": null
+            },
+            "method": "rememberMe.getName",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "613",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "627",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": " whose value is: ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "612",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "629",
+              "value": null
+            },
+            "method": "rememberMe.getValue",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "611",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "637",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "<br/>",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "610",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "598",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ],
         "63": [
           {
             "meta": {
@@ -19326,6 +19735,39 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "642": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "643",
+              "value": null
+            },
+            "method": "response.getWriter",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "654",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Weak Randomness Test java.util.Random.nextLong() executed",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "642",
+              "value": null
+            },
+            "method": ".println",
+            "type": "SyntaxStepMethodInvocationChain"
           }
         ],
         "656": [

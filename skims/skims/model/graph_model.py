@@ -99,6 +99,13 @@ class SyntaxStepMethodInvocation(NamedTuple):
     type: str = 'SyntaxStepMethodInvocation'
 
 
+class SyntaxStepMethodInvocationChain(NamedTuple):
+    meta: SyntaxStepMeta
+    method: str
+
+    type: str = 'SyntaxStepMethodInvocationChain'
+
+
 class SyntaxStepNoOp(NamedTuple):
     meta: SyntaxStepMeta
 

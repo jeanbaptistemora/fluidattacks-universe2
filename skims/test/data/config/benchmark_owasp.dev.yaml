@@ -1,5 +1,5 @@
 namespace: OWASP
-output: test/outputs/results.csv
+output: results.csv
 path:
   include:
   # cmdi
@@ -2753,5 +2753,4 @@ path:
     # - BenchmarkTest02695.java
     # - BenchmarkTest02696.java
     # - BenchmarkTest02712.java
-timeout: 14400
-working_dir: ../../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode
+working_dir: ../owasp_benchmark/src/main/java/org/owasp/benchmark/testcode

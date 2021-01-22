@@ -24,6 +24,10 @@ from lib_root import (
     f060,
     f073,
 )
+from model import (
+    core_model,
+    graph_model,
+)
 from sast import (
     parse,
     query,
@@ -41,9 +45,8 @@ from utils.function import (
     TIMEOUT_1MIN,
     pipe,
 )
-from model import (
-    core_model,
-    graph_model,
+from utils.logs import (
+    log,
 )
 
 
@@ -62,6 +65,7 @@ async def analyze(
         *f073.QUERIES,
         query.query,
     )
+    queries_len: int = len(queries)
 
     # Query the root with different methods in a CPU cluster
     vulnerabilities_lazy_iterator: Iterable[
@@ -75,7 +79,11 @@ async def analyze(
         for query in queries
     ), workers=CPU_CORES)
 
-    for vulnerabilities_lazy in vulnerabilities_lazy_iterator:
+    for idx, vulnerabilities_lazy in enumerate(
+        vulnerabilities_lazy_iterator, start=1,
+    ):
+        await log('info', 'Executing query %s of %s', idx, queries_len)
+
         vulnerabilities: core_model.Vulnerabilities = (
             await vulnerabilities_lazy
         )
