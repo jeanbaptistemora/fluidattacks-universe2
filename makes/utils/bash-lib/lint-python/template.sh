@@ -16,7 +16,7 @@ function lint_python_module {
   &&  echo "[INFO] Running mypy over: ${module_path}, module ${module_name}" \
   &&  if ! test -e "${module_path}/py.typed"
       then
-            echo '[ERROR] This is not a mypy module, a module has py.typed' \
+            echo '[ERROR] This is not a mypy module (py.typed missing)' \
         &&  return 1
       fi \
   &&  tmpdir="$(mktemp -d)" \
