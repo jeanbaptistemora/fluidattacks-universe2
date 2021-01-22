@@ -18,7 +18,7 @@ function lint_nix {
   #   AlphabeticalArgs
   #   AlphabeticalBindings
 
-      __envFind__ makes -wholename '*.nix' | __envSort__ --ignore-case > "${LIST}" \
+      __envFind__ makes -wholename '*.nix' | sort --ignore-case > "${LIST}" \
   &&  while read -r path
       do
             echo "[INFO] Testing: ${path}" \
@@ -38,7 +38,7 @@ function lint_shell {
   # SC2153: Possible misspelling: x may not be assigned, but y is.
   # SC2154: x is referenced but not assigned.
 
-      __envFind__ makes -wholename '*.sh' | __envSort__ --ignore-case > "${LIST}" \
+      __envFind__ makes -wholename '*.sh' | sort --ignore-case > "${LIST}" \
   &&  while read -r path
       do
             echo "[INFO] Testing: ${path}" \
@@ -50,6 +50,17 @@ function lint_shell {
       done < "${LIST}"
 }
 
+function sort_attrs {
+  for file in __envMakes__/makes/attrs/*
+  do
+    if test "$(cat "${file}")" != "$(sort "${file}")"
+    then
+          echo "[ERROR]: ${file} is not sorted" \
+      &&  return 1
+    fi
+  done
+}
+
 function main {
   export LIST
 
@@ -57,6 +68,7 @@ function main {
   &&  format_nix \
   &&  lint_nix \
   &&  lint_shell \
+  &&  sort_attrs \
   &&  success
 }
 

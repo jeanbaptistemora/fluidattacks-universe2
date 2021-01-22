@@ -1,6 +1,6 @@
+forces
 forces-oci-deploy
 forces-test
-forces
 makes-deploy-oci-batch
 makes-deploy-oci-ci
 makes-lint

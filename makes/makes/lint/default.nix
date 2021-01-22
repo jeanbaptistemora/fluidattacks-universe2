@@ -10,7 +10,7 @@ makeEntrypoint {
     envFind = "${makesPkgs.findutils}/bin/find";
     envNixLinter = "${makesPkgs.nix-linter}/bin/nix-linter";
     envNixpkgsFmt = "${makesPkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
-    envSort = "${makesPkgs.coreutils}/bin/sort";
+    envMakes = path "/";
     envShellcheck = "${makesPkgs.shellcheck}/bin/shellcheck";
   };
   location = "/bin/makes-lint";
