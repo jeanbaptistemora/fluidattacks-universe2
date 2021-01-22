@@ -93,22 +93,14 @@ def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 def local_variable_declaration(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast(
-        args.graph,
-        args.n_id,
-        'array_type',
-        'scoped_type_identifier',
-        'type_identifier',
+    match = g.match_ast(args.graph, args.n_id, '__0__', 'variable_declarator')
 
-        'variable_declarator',
-    )
-
+    # pylint: disable=used-before-assignment
     if (
         (var_type_id := (
-            match['array_type']
-            or match['scoped_type_identifier']
-            or match['type_identifier']
+            match['__0__']
         ))
+        and 'label_text' in args.graph.nodes[var_type_id]
         and (var_decl_id := match['variable_declarator'])
     ):
         match = g.match_ast(

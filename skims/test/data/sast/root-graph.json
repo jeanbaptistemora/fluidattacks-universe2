@@ -19192,6 +19192,30 @@
             "var_type": "String"
           }
         ],
+        "348": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "353",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "false",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "348",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "foundUser",
+            "var_type": "boolean"
+          }
+        ],
         "355": [
           {
             "meta": {
@@ -41590,6 +41614,30 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "31": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "36",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "31",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "isCar",
+            "var_type": "boolean"
           }
         ],
         "310": [
