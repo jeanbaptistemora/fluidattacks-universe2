@@ -3,7 +3,6 @@ import json
 from os import environ
 from os.path import (
     abspath,
-    dirname,
     exists,
     join,
 )
@@ -18,10 +17,9 @@ import numpy as np
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import LinearSVC
 
-try:
-    ROOT: str = environ['SORTS_STATIC']
-except KeyError:
-    ROOT = abspath(dirname(dirname(dirname(__file__))))
+
+# Constants
+STATIC_DIR: str = environ['SORTS_STATIC_PATH']
 
 
 def get_extensions_list() -> List[str]:
@@ -34,15 +32,10 @@ def get_extensions_list() -> List[str]:
 
 def get_static_path(file: str) -> str:
     """Gets the absolute path in both local repository and installed package"""
-    static_file: str = join('static', file)
-    for attempt in [
-        abspath(join(ROOT, static_file)),
-        abspath(join(ROOT, 'site-packages', static_file)),
-        abspath(join(ROOT, file)),
-    ]:
-        if exists(attempt):
-            return attempt
-    raise FileNotFoundError(static_file)
+    static_path: str = abspath(join(STATIC_DIR, file))
+    if exists(static_path):
+        return static_path
+    raise FileNotFoundError(static_path)
 
 
 def read_allowed_names() -> Tuple[List[str], ...]:
@@ -56,10 +49,7 @@ def read_allowed_names() -> Tuple[List[str], ...]:
 
 
 def load_model() -> MLPClassifier:
-    try:
-        model_path: str = environ['SORTS_MODEL_PATH']
-    except KeyError:
-        model_path = get_static_path('model.joblib')
+    model_path: str = environ['SORTS_MODEL_PATH']
     return load(model_path)
 
 

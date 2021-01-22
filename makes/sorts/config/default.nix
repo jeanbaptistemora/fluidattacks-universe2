@@ -33,7 +33,7 @@ in
         };
         name = "sorts-config-context-file";
         template = ''
-          export SORTS_STATIC='__envSrcSortsStatic__'
+          export SORTS_STATIC_PATH='__envSrcSortsStatic__'
           export SORTS_MODEL_PATH='__envSortsModel__'
         '';
       };

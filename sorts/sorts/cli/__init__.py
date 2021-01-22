@@ -15,7 +15,6 @@ from training.file import get_subscription_file_metadata
 from utils.bugs import configure_bugsnag
 from utils.decorators import shield
 from utils.logs import log
-from utils.version import check_version_is_latest
 
 
 @click.command(
@@ -62,12 +61,6 @@ def execute_sorts(
     configure_bugsnag()
     start_time: float = time.time()
     success: bool = False
-    if not check_version_is_latest():
-        log(
-            'warning',
-            'There is a newer version available for download\n\n\t\t'
-            'pip install -U sorts\n'
-        )
     if get_commit_data:
         if token:
             create_session(token)
@@ -100,4 +93,7 @@ def execute_sorts(
 
 
 if __name__ == '__main__':
-    execute_sorts()  # pylint: disable=no-value-for-parameter
+    # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
+    execute_sorts(
+        prog_name='sorts'
+    )
