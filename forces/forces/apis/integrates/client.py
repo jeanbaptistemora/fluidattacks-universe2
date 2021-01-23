@@ -40,11 +40,15 @@ async def session(
         yield SESSION.get()
     except LookupError:
         api_token = api_token or get_api_token()
-        async with aiohttp.ClientSession(headers={
+        async with aiohttp.ClientSession(
+            connector=aiohttp.TCPConnector(
+                verify_ssl=False,
+            ),
+            headers={
                 'authorization': f'Bearer {api_token}',
-                'Connection': "close",
-                **kwargs
-        }, ) as client_session:
+                **kwargs,
+            },
+        ) as client_session:
             client = GraphQLClient(endpoint_url, session=client_session)
             token: Token[Any] = SESSION.set(client)
             try:
