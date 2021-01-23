@@ -14,20 +14,18 @@ import { UpdateTreatmentModal } from "./UpdateDescription";
 import { UploadVulnerabilities } from "./uploadFile";
 import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
+import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
-import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
+import { textFilter } from "react-bootstrap-table2-filter";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
+import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
 import { ButtonToolbar, Row, RowCenter } from "styles/styledComponents";
 import type {
   IVulnComponentProps,
   IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
-import {
-  deleteFormatter,
-  statusFormatter,
-} from "components/DataTableNext/formatters";
 import {
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,
@@ -37,7 +35,6 @@ import {
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { msgError, msgSuccess } from "utils/notifications";
-import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayAnalyst,
@@ -118,15 +115,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 
   React.useEffect(onVulnSelection, [selectedVulnerabilities, onVulnSelect]);
 
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Open", value: "Open" },
-    { label: "Closed", value: "Closed" },
-  ];
-
-  function onFilterStatus(filterValue: string): void {
-    sessionStorage.setItem("statusFilter", filterValue);
-  }
-
   function onSelectVariousVulnerabilities(
     isSelect: boolean,
     vulnerabilitiesSelected: IVulnRowAttr[]
@@ -192,49 +180,14 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 
   const headers: IHeaderConfig[] = [
     {
-      dataField: "vulnType",
-      header: t("search_findings.tab_vuln.vulnTable.vulnType.title"),
-      onSort: onSortVulns,
-    },
-    {
       dataField: "where",
       filter: textFilter({
         defaultValue: _.get(sessionStorage, "vulnWhereFilter"),
         onFilter: onFilterWhere,
       }),
+      formatter: vulnerabilityInfo,
       header: t("search_findings.tab_vuln.vulnTable.where"),
       headerFormatter: filterFormatter,
-      onSort: onSortVulns,
-      width: "40%",
-      wrapped: true,
-    },
-    {
-      dataField: "currentStateCapitalized",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "statusFilter"),
-        onFilter: onFilterStatus,
-        options: selectOptionsStatus,
-      }),
-      formatter: statusFormatter,
-      header: t("search_findings.tab_vuln.vulnTable.status"),
-      headerFormatter: filterFormatter,
-      onSort: onSortVulns,
-    },
-    {
-      dataField: "tag",
-      header: t("search_findings.tab_description.tag"),
-      headerFormatter: proFormatter,
-      onSort: onSortVulns,
-    },
-    {
-      dataField: "verification",
-      formatter: statusFormatter,
-      header: t("search_findings.tab_vuln.vulnTable.verification"),
-      onSort: onSortVulns,
-    },
-    {
-      dataField: "treatment",
-      header: t("search_findings.tab_description.treatment.title"),
       onSort: onSortVulns,
     },
   ];
@@ -260,10 +213,11 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         exportCsv={false}
         headers={[...headers, ...(canDeleteVulns ? deleteHeader : [])]}
         id={"vulnerabilitiesTable"}
-        pageSize={15}
+        pageSize={10}
         rowEvents={{ onClick: openAdditionalInfoModal }}
         search={true}
         selectionMode={selectionMode}
+        striped={true}
       />
       <DeleteVulnerabilityModal
         findingId={findingId}

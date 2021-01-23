@@ -1,10 +1,13 @@
-import type { ITableProps } from "components/DataTableNext/types";
 import React from "react";
 import { TableWrapper } from "components/DataTableNext/table";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 import _ from "lodash";
 import style from "components/DataTableNext/index.css";
+import type {
+  IHeaderConfig,
+  ITableProps,
+} from "components/DataTableNext/types";
 import {
   addUniqueKeys,
   customizeColumns,
@@ -32,6 +35,25 @@ export const DataTableNext: React.FC<ITableProps> = (
     ? addUniqueKeys(dataset)
     : dataset;
 
+  interface ISearchValues {
+    searchText: string;
+    value: string;
+    column: IHeaderConfig;
+    row: Record<string, unknown>;
+  }
+
+  function onColumnMatch({ searchText, row }: ISearchValues): boolean {
+    if (_.isEmpty(searchText)) {
+      return true;
+    }
+
+    return _.some(row, (value: unknown): boolean =>
+      _.isString(value)
+        ? _.includes(value.toLowerCase(), searchText.toLowerCase())
+        : false
+    );
+  }
+
   return (
     <div className={style.wFull} id={id}>
       {(!_.isEmpty(dataset) || !_.isEmpty(headers)) && (
@@ -43,7 +65,13 @@ export const DataTableNext: React.FC<ITableProps> = (
             fileName: csvFilename,
           }}
           keyField={"uniqueId"}
-          search={search}
+          search={
+            search
+              ? {
+                  onColumnMatch,
+                }
+              : undefined
+          }
         >
           {(
             // Readonly utility type doesn't work on deeply nested types

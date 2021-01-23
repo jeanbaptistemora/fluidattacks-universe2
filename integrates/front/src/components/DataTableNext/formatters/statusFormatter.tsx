@@ -51,7 +51,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
   }
 };
 
-export const statusFormatter: (value: string) => JSX.Element = (
+const statusFormatter: (value: string) => JSX.Element = (
   value: string
 ): JSX.Element => {
   const capitalizedValue: string = _.capitalize(value);
@@ -65,3 +65,5 @@ export const statusFormatter: (value: string) => JSX.Element = (
     </StatusFormatter>
   );
 };
+
+export { getBgColor, statusFormatter };

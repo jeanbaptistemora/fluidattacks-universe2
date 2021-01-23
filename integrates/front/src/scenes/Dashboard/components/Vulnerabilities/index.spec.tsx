@@ -150,13 +150,9 @@ describe("VulnComponent", (): void => {
       .find({ id: "vulnerabilitiesTable" })
       .at(0);
     const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
-    const tableVerification: ReactWrapper = tableVulns.find({ columnIndex: 4 });
 
     expect(selectionCell.at(0).find("input").prop("disabled")).toBe(false);
     expect(selectionCell.at(1).find("input").prop("disabled")).toBe(true);
-    expect(tableVerification.at(0).text()).toStrictEqual("Requested");
-    expect(tableVerification.at(1).text()).toStrictEqual("Verified");
-    expect(tableVerification.at(2).text()).toStrictEqual("");
 
     act((): void => {
       wrapper.setProps({ isEditing: false, isRequestingReattack: true });
