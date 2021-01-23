@@ -1,11 +1,12 @@
 #! /usr/bin/env bash
 
-source makes/utils/bash-lib/shopts.sh
+set -e
+source makes/utils/shopts/template.sh
 
 function build_with_internet {
   local attr="${1}"
 
-  ./makes/nix build \
+  ./makes/wrappers/nix3 build \
     --option 'sandbox' 'false' \
     --option 'restrict-eval' 'false' \
     --out-link "makes/outputs/${attr}" \
@@ -121,7 +122,7 @@ function main_help {
 function run_with_internet {
   local attr="${1}"
 
-  ./makes/nix run \
+  ./makes/wrappers/nix3 run \
     --option 'sandbox' 'false' \
     --option 'restrict-eval' 'false' \
     --show-trace \
@@ -131,7 +132,8 @@ function run_with_internet {
 }
 
 function test_build_packages {
-      while read -r attribute
+      ./makes/wrappers/nix3 flake check \
+  &&  while read -r attribute
       do
             ./make "${attribute}" \
         ||  return 1

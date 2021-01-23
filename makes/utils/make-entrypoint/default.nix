@@ -20,8 +20,8 @@ makeDerivation {
   };
   envEntrypointSetup = makeTemplate {
     arguments = {
-      envBashLibCommon = path "/makes/utils/common.sh";
-      envBashLibShopts = path "/makes/utils/shopts.sh";
+      envBashLibCommon = path "/makes/utils/common/template.sh";
+      envBashLibShopts = path "/makes/utils/shopts/template.sh";
       envShell = "${pkgs.bash}/bin/bash";
     };
     name = "utils-make-entrypoint-script";

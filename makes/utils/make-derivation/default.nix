@@ -6,8 +6,8 @@ path: pkgs:
 attrs:
 
 pkgs.stdenv.mkDerivation (attrs // {
-  __envBashLibCommon = path "/makes/utils/common.sh";
-  __envBashLibShopts = path "/makes/utils/shopts.sh";
+  __envBashLibCommon = path "/makes/utils/common/template.sh";
+  __envBashLibShopts = path "/makes/utils/shopts/template.sh";
   __envStdenv = "${pkgs.stdenv}/setup";
   builder = builtins.toFile "setup-make-derivation" ''
     source $__envStdenv

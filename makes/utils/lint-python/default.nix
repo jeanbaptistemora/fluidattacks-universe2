@@ -50,7 +50,7 @@ makeTemplate {
     };
     envSettingsMypy = path "/makes/utils/lint-python/settings-mypy.cfg";
     envSettingsProspector = path "/makes/utils/lint-python/settings-prospector.yaml";
-    envUtilsBashLibPython = path "/makes/utils/python.sh";
+    envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
   name = "utils-bash-lib-lint-python";
   template = path "/makes/utils/lint-python/template.sh";
