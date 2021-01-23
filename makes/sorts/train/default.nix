@@ -10,7 +10,7 @@ makeEntrypoint {
   arguments = {
     envPython = "${sortsPkgs.python38}/bin/python";
     envSetupSortsDevelopment = config.setupSortsDevelopment;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path sortsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path sortsPkgs;
   };
   location = "/bin/sorts-train-model-on-aws";
   name = "sorts-train-model-on-aws";

@@ -71,7 +71,7 @@ in
       envPython = "${forcesPkgs.python38}/bin/python";
       envPythonRequirements = pythonRequirements.runtime;
       envSrcForces = path "/forces";
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "forces-config-setup-forces-runtime";
     template = path "/makes/forces/config/setup-forces-runtime.sh";
@@ -80,7 +80,7 @@ in
     arguments = {
       envSearchPaths = makeSearchPaths [ ];
       envPythonRequirements = pythonRequirements.development;
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "forces-config-setup-forces-development";
     template = path "/makes/forces/config/setup-forces-development.sh";

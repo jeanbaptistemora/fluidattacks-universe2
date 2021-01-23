@@ -12,7 +12,7 @@ makeEntrypoint {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
     envSetupSkimsRuntime = config.setupSkimsRuntime;
     envSetupSkimsDevelopment = config.setupSkimsDevelopment;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path skimsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
   };
   location = "/bin/skims-test";
   name = "skims-test";

@@ -7,5 +7,5 @@ makeTemplate {
     envAwscli = "${pkgs.awscli}/bin/aws";
   };
   name = "utils-bash-lib-aws";
-  template = path "/makes/utils/bash-lib/aws/template.sh";
+  template = path "/makes/utils/aws/template.sh";
 }

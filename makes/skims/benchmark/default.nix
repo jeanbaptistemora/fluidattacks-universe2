@@ -18,8 +18,8 @@ makeEntrypoint {
     envSrcSkimsTest = path "/skims/test";
     envTapJson = outputs.apps.observes-tap-json.program;
     envTargetRedshift = outputs.apps.observes-target-redshift.program;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path skimsPkgs;
-    envUtilsBashLibSops = import (path "/makes/utils/bash-lib/sops") path skimsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
+    envUtilsBashLibSops = import (path "/makes/utils/sops") path skimsPkgs;
   };
   location = "/bin/skims-benchmark";
   name = "skims-benchmark";

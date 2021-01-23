@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/melts/lint/builder.sh";
-  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path meltsPkgs;
+  envBashLibLintPython = import (path "/makes/utils/lint-python") path meltsPkgs;
   envSetupMeltsRuntime = config.setupMeltsRuntime;
   envSetupMeltsDevelopment = config.setupMeltsDevelopment;
   envSrcMeltsToolbox = path "/melts/toolbox";

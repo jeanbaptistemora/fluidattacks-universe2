@@ -13,7 +13,7 @@ in
     arguments = {
       envSearchPaths = makeSearchPaths [ ];
       envPythonRequirements = outputs.packages.skims-config-python-requirements-development;
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "skims-config-setup-skims-development";
     template = path "/makes/skims/config/setup-skims-development.sh";
@@ -49,7 +49,7 @@ in
         skimsPkgs.python38Packages.pygraphviz
       ];
       envSrcSkimsSkims = path "/skims/skims";
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "skims-config-setup-skims-runtime";
     template = path "/makes/skims/config/setup-skims-runtime.sh";

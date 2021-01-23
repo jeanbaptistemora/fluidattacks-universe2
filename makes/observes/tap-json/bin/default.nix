@@ -8,7 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envBashLibPython = path "/makes/utils/bash-lib/python.sh";
+    envBashLibPython = path "/makes/utils/python.sh";
     envTapJson = buildPythonPackage {
       dependencies = [ ];
       packagePath = path "/observes/singer/tap_json";

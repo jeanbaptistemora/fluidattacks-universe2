@@ -8,5 +8,5 @@ makeTemplate {
     envSops = "${pkgs.sops}/bin/sops";
   };
   name = "utils-bash-lib-sops";
-  template = path "/makes/utils/bash-lib/sops/template.sh";
+  template = path "/makes/utils/sops/template.sh";
 }

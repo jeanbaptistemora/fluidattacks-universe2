@@ -9,8 +9,8 @@ in
 makeEntrypoint {
   arguments = {
     envSetupSortsRuntime = config.setupSortsRuntime;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path sortsPkgs;
-    envUtilsBashLibGit = import (path "/makes/utils/bash-lib/use-git-repo") path sortsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path sortsPkgs;
+    envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path sortsPkgs;
     envUtilsMeltsLibCommon = import (path "/makes/utils/melts-lib") attrs.copy;
   };
   location = "/bin/sorts-extract-features";

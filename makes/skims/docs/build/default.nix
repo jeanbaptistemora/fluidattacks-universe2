@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/skims/docs/build/builder.sh";
-  envBashLibPython = path "/makes/utils/bash-lib/python.sh";
+  envBashLibPython = path "/makes/utils/python.sh";
   envSetupSkimsDevelopment = config.setupSkimsDevelopment;
   envSetupSkimsRuntime = config.setupSkimsRuntime;
   envSrcSkimsDocs = path "/skims/docs";

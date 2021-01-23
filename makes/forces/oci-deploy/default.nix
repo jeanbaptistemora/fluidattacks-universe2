@@ -4,7 +4,7 @@
 , ...
 } @ _:
 let
-  ociDeploy = import (path "/makes/utils/bash-lib/oci-deploy") path forcesPkgs;
+  ociDeploy = import (path "/makes/utils/oci-deploy") path forcesPkgs;
 in
 ociDeploy {
   oci = outputs.packages.forces-oci-build;

@@ -6,6 +6,6 @@ makeTemplate {
   arguments = {
     envGit = "${pkgs.git}/bin/git";
   };
-  name = "utils-bash-lib-use-git-repo";
-  template = path "/makes/utils/bash-lib/use-git-repo/template.sh";
+  name = "utils-bash-lib-use-git-workdir";
+  template = path "/makes/utils/use-git-workdir/template.sh";
 }

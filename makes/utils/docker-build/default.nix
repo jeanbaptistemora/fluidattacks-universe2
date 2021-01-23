@@ -15,5 +15,5 @@ makeEntrypoint {
   };
   location = "/bin/${name}";
   inherit name;
-  template = path "/makes/utils/bash-lib/docker-build/entrypoint.sh";
+  template = path "/makes/utils/docker-build/entrypoint.sh";
 }

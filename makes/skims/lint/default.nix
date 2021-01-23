@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/skims/lint/builder.sh";
-  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path skimsPkgs;
+  envBashLibLintPython = import (path "/makes/utils/lint-python") path skimsPkgs;
   envImportLinterConfig = path "/skims/setup.imports.cfg";
   envSetupSkimsDevelopment = config.setupSkimsDevelopment;
   envSetupSkimsRuntime = config.setupSkimsRuntime;

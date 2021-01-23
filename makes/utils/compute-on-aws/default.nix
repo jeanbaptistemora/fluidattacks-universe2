@@ -50,7 +50,7 @@ makeEntrypoint {
     envMemory = memory;
     envProduct = product;
     envTimeout = timeout;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path pkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path pkgs;
     envVcpus =
       if (vcpus <= 4)
       then vcpus
@@ -58,5 +58,5 @@ makeEntrypoint {
   };
   location = "/bin/${name}";
   inherit name;
-  template = path "/makes/utils/bash-lib/compute-on-aws/entrypoint.sh";
+  template = path "/makes/utils/compute-on-aws/entrypoint.sh";
 }

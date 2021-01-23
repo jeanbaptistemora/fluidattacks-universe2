@@ -17,5 +17,5 @@ makeEntrypoint {
   };
   location = "/bin/${name}";
   inherit name;
-  template = path "/makes/utils/bash-lib/oci-deploy/entrypoint.sh";
+  template = path "/makes/utils/oci-deploy/entrypoint.sh";
 }

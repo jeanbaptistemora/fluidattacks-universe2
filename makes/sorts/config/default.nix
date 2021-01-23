@@ -12,7 +12,7 @@ in
     arguments = {
       envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc ];
       envPythonRequirements = outputs.packages.sorts-config-python-requirements-development;
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "sorts-config-setup-sorts-development";
     template = path "/makes/sorts/config/setup-sorts-development.sh";
@@ -38,7 +38,7 @@ in
       envPythonRequirements = outputs.packages.sorts-config-python-requirements-runtime;
       envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc ];
       envSrcSortsSorts = path "/sorts/sorts";
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "sorts-config-setup-sorts-runtime";
     template = path "/makes/sorts/config/setup-sorts-runtime.sh";

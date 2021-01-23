@@ -126,7 +126,7 @@ in
       envPython = "${meltsPkgs.python38}/bin/python";
       envPythonRequirements = pythonRequirements.runtime;
       envSrcMelts = path "/melts";
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "melts-config-setup-melts-runtime";
     template = path "/makes/melts/config/setup-melts-runtime.sh";
@@ -137,7 +137,7 @@ in
         meltsPkgs.docker
       ];
       envPythonRequirements = pythonRequirements.development;
-      envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+      envUtilsBashLibPython = path "/makes/utils/python.sh";
     };
     name = "melts-config-setup-melts-development";
     template = path "/makes/melts/config/setup-melts-development.sh";

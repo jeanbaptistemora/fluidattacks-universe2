@@ -8,8 +8,8 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envUtilsBashLibUseGitRepo = import (path "/makes/utils/bash-lib/use-git-repo") path meltsPkgs;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path meltsPkgs;
+    envUtilsBashLibUseGitRepo = import (path "/makes/utils/use-git-repo") path meltsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path meltsPkgs;
     envSetupMeltsRuntime = config.setupMeltsRuntime;
     envSetupMeltsDevelopment = config.setupMeltsDevelopment;
   };

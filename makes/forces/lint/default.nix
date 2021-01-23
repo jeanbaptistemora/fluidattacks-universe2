@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/forces/lint/builder.sh";
-  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path forcesPkgs;
+  envBashLibLintPython = import (path "/makes/utils/lint-python") path forcesPkgs;
   envSetupForcesRuntime = config.setupForcesRuntime;
   envSetupForcesDevelopment = config.setupForcesDevelopment;
   envSrcForcesForces = path "/forces/forces";

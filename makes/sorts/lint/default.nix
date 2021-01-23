@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/sorts/lint/builder.sh";
-  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path sortsPkgs;
+  envBashLibLintPython = import (path "/makes/utils/lint-python") path sortsPkgs;
   envImportLinterConfig = path "/sorts/setup.imports.cfg";
   envSetupSortsDevelopment = config.setupSortsDevelopment;
   envSetupSortsRuntime = config.setupSortsRuntime;

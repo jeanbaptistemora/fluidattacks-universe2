@@ -3,7 +3,7 @@
 , ...
 } @ _:
 let
-  computeOnAws = import (path "/makes/utils/bash-lib/compute-on-aws") path skimsPkgs;
+  computeOnAws = import (path "/makes/utils/compute-on-aws") path skimsPkgs;
 in
 computeOnAws {
   attempts = 1;

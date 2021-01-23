@@ -3,7 +3,7 @@
 , ...
 } @ _:
 let
-  terraformApply = import (path "/makes/utils/bash-lib/terraform-apply") path sortsPkgs;
+  terraformApply = import (path "/makes/utils/terraform-apply") path sortsPkgs;
 in
 terraformApply {
   name = "sorts-infra-deploy";

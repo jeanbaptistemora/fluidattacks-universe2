@@ -9,7 +9,7 @@ in
 makeEntrypoint {
   arguments = {
     envSkimsDocsBuild = outputs.packages.skims-docs-build;
-    envUtilsBashLibAws = import (path "/makes/utils/bash-lib/aws") path skimsPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path skimsPkgs;
   };
   location = "/bin/skims-docs-deploy";
   name = "skims-docs-deploy";

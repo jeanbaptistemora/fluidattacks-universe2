@@ -3,7 +3,7 @@
 , ...
 } @ _:
 let
-  terraformApply = import (path "/makes/utils/bash-lib/terraform-apply") path skimsPkgsTerraform;
+  terraformApply = import (path "/makes/utils/terraform-apply") path skimsPkgsTerraform;
 in
 terraformApply {
   name = "skims-infra-deploy";

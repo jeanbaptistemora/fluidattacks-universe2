@@ -8,7 +8,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/observes/lint-target-redshift/builder.sh";
-  envBashLibLintPython = import (path "/makes/utils/bash-lib/lint-python") path observesPkgs;
+  envBashLibLintPython = import (path "/makes/utils/lint-python") path observesPkgs;
   envSetupObservesTargetRedshift = config.setupObservesTargetRedshiftRuntime;
   envSrcObservesTargetRedshift = path "/observes/singer/target_redshift";
   name = "observes-target-redshift-lint";

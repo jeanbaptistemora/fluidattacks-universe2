@@ -48,10 +48,10 @@ makeTemplate {
       };
       python = pkgs.python38;
     };
-    envSettingsMypy = path "/makes/utils/bash-lib/lint-python/settings-mypy.cfg";
-    envSettingsProspector = path "/makes/utils/bash-lib/lint-python/settings-prospector.yaml";
-    envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+    envSettingsMypy = path "/makes/utils/lint-python/settings-mypy.cfg";
+    envSettingsProspector = path "/makes/utils/lint-python/settings-prospector.yaml";
+    envUtilsBashLibPython = path "/makes/utils/python.sh";
   };
   name = "utils-bash-lib-lint-python";
-  template = path "/makes/utils/bash-lib/lint-python/template.sh";
+  template = path "/makes/utils/lint-python/template.sh";
 }
