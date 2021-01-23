@@ -12,14 +12,20 @@ function load_base {
   &&  alias a='git add -p' \
   &&  echo '[INFO]   c: create a new commit' \
   &&  alias c='git commit --allow-empty' \
-  &&  echo '[INFO]   m: add your added changes to the last commit' \
-  &&  alias m='git commit --amend --no-edit --allow-empty' \
-  &&  echo '[INFO]   r: rebase' \
-  &&  alias r='git pull --autostash --progress --rebase --stat origin master' \
-  &&  echo '[INFO]   p: push changes to your branch' \
-  &&  alias p='git push -f' \
   &&  echo '[INFO]   f: fetch changes from remote (useful for peer review)' \
   &&  alias f='git fetch --all' \
+  &&  echo '[INFO]   l: git log' \
+  &&  alias l='git log' \
+  &&  echo '[INFO]   m: add your added changes to the last commit' \
+  &&  alias m='git commit --amend --no-edit --allow-empty' \
+  &&  echo '[INFO]   p: push changes to your branch' \
+  &&  alias p='git push -f' \
+  &&  echo '[INFO]   r: rebase' \
+  &&  alias r='git pull --autostash --progress --rebase --stat origin master' \
+  &&  echo '[INFO]   rp: r and then p' \
+  &&  alias rp='r && p' \
+  &&  echo '[INFO]   s: git status' \
+  &&  alias s='git status' \
 
 }
 
