@@ -17,13 +17,26 @@
 flake.lib.eachSystem [ "x86_64-linux" ] (
   system:
   let
-    attrs = makeLazyCopy {
+    attrs = makeLazyCopy rec {
+      debug = value: builtins.trace value value;
       forcesPkgs = import srcForcesPkgs { inherit system; };
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
+      makesPkgs = import srcMakesPkgs { inherit system; };
+      meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };
       observesPkgsTerraform = import srcObservesPkgsTerraform { inherit system; };
       outputs = {
-        apps = builtins.mapAttrs makeApp {
+        apps = builtins.mapAttrs makeApp sources.apps;
+        packages = sources.packages;
+      };
+      path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
+      skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
+      skimsPkgs = import srcSkimsPkgs { inherit system; };
+      skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
+      skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
+      sortsPkgs = import srcSortsPkgs { inherit system; };
+      sources = {
+        apps = {
           forces-oci-deploy = import (path "/makes/products/forces/oci-deploy") attrs;
           forces-test = import (path "/makes/products/forces/test") attrs;
           forces = import (path "/makes/products/forces/bin") attrs;
@@ -31,6 +44,7 @@ flake.lib.eachSystem [ "x86_64-linux" ] (
           makes-deploy-oci-ci = import (path "/makes/products/makes/deploy/oci-ci") attrs;
           makes-gen-attrs = import (path "/makes/products/makes/gen-attrs") attrs;
           makes-lint = import (path "/makes/products/makes/lint") attrs;
+          makes-test = import (path "/makes/products/makes/test") attrs;
           melts = import (path "/makes/products/melts/bin") attrs;
           melts-test = import (path "/makes/products/melts/test") attrs;
           observes-infra-test = import (path "/makes/products/observes/infra-test") attrs;
@@ -66,7 +80,6 @@ flake.lib.eachSystem [ "x86_64-linux" ] (
           observes-bin-target-redshift = import (path "/makes/products/observes/bin-target-redshift") attrs;
           observes-config-python-requirements-target-redshift-runtime = import (path "/makes/products/observes/config/python-requirements/target-redshift-runtime") attrs;
           observes-config-setup-target-redshift-runtime = (import (path "/makes/products/observes/config") attrs).setupObservesTargetRedshiftRuntime;
-          observes-lint-target-redshift = import (path "/makes/products/observes/lint-target-redshift") attrs;
           skims-bin = import (path "/makes/products/skims/bin") attrs;
           skims-bin-repl = import (path "/makes/products/skims/bin-repl") attrs;
           skims-config-setup-skims-development = (import (path "/makes/products/skims/config") attrs).setupSkimsDevelopment;
@@ -86,14 +99,6 @@ flake.lib.eachSystem [ "x86_64-linux" ] (
           sorts-lint = import (path "/makes/products/sorts/lint") attrs;
         };
       };
-      inherit path;
-      makesPkgs = import srcMakesPkgs { inherit system; };
-      meltsPkgs = import srcMeltsPkgs { inherit system; };
-      skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
-      skimsPkgs = import srcSkimsPkgs { inherit system; };
-      skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };
-      skimsTreeSitterRepo = srcSkimsTreeSitterRepo;
-      sortsPkgs = import srcSortsPkgs { inherit system; };
     };
     makeApp = app: derivation: {
       program = "${derivation}/bin/${app}";
@@ -102,7 +107,6 @@ flake.lib.eachSystem [ "x86_64-linux" ] (
     makeLazyCopy = attrs: (attrs // {
       copy = makeLazyCopy attrs;
     });
-    path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
   in
   attrs.outputs
 )

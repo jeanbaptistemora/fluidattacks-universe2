@@ -4,7 +4,7 @@ source "${envBashLibLintPython}"
 source "${envSetupObservesTargetRedshift}"
 
 function main {
-      lint_python "${envSrcObservesTargetRedshift}" \
+      lint_python_module "${envSrcObservesTargetRedshift}" \
   &&  success
 }
 

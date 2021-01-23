@@ -131,14 +131,4 @@ function run_with_internet {
     "${@:2}"
 }
 
-function test_build_packages {
-      ./makes/wrappers/nix3 flake check \
-  &&  while read -r attribute
-      do
-            ./make "${attribute}" \
-        ||  return 1
-      done < 'makes/attrs/packages.lst' \
-  &&  echo '[INFO] Success! All packages build'
-}
-
 main "${@}"

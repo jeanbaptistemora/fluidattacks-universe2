@@ -5,6 +5,7 @@ makes-deploy-oci-batch
 makes-deploy-oci-ci
 makes-gen-attrs
 makes-lint
+makes-test
 melts
 melts-test
 observes-infra-test
