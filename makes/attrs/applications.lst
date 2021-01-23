@@ -3,6 +3,7 @@ forces-oci-deploy
 forces-test
 makes-deploy-oci-batch
 makes-deploy-oci-ci
+makes-gen-attrs
 makes-lint
 melts
 melts-test

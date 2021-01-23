@@ -29,6 +29,7 @@ flake.lib.eachSystem [ "x86_64-linux" ] (
           forces = import (path "/makes/products/forces/bin") attrs;
           makes-deploy-oci-batch = import (path "/makes/products/makes/deploy/oci-batch") attrs;
           makes-deploy-oci-ci = import (path "/makes/products/makes/deploy/oci-ci") attrs;
+          makes-gen-attrs = import (path "/makes/products/makes/gen-attrs") attrs;
           makes-lint = import (path "/makes/products/makes/lint") attrs;
           melts = import (path "/makes/products/melts/bin") attrs;
           melts-test = import (path "/makes/products/melts/test") attrs;
