@@ -2,9 +2,9 @@
 
 function main {
       echo '[INFO] Building parser' \
-  &&  copy "${envSrc}" . \
-  &&  HOME=. npm install \
-  &&  mv "${PWD}" "${out}" \
+  &&  mkdir "${out}" \
+  &&  copy "${envNodeRequirements}/node_modules" "${out}/node_modules" \
+  &&  copy "${envParseJs}" "${out}/parse.js" \
   ||  return 1
 }
 
