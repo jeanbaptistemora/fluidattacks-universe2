@@ -9,12 +9,11 @@ path: pkgs:
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
-
-  sort = with pkgs.lib.strings; builtins.sort (a: b: toLower a < toLower b);
+  nix = import (path "/makes/utils/nix") path pkgs;
 
   # Unpack arguments and sort them
-  requirementsDirectSorted = sort requirements.direct;
-  requirementsInheritedSorted = sort requirements.inherited;
+  requirementsDirectSorted = nix.sortCaseless requirements.direct;
+  requirementsInheritedSorted = nix.sortCaseless requirements.inherited;
 
   # Ensure the developer wrote them sorted
   # This helps with code clarity and maintainability
@@ -26,17 +25,14 @@ let
     if (requirementsInheritedSorted == requirements.inherited)
     then requirementsInheritedSorted
     else abort "Inherited requirements must be sorted in this order: ${builtins.toJSON requirementsInheritedSorted}";
-  requirementsList = sort (
+  requirementsList = nix.sortCaseless (
     requirementsDirect ++
     requirementsInherited
   );
-
-  requirementsStr = builtins.concatStringsSep "\n" requirementsList;
-  requirementsFile = builtins.toFile "requirements" requirementsStr;
 in
 makeDerivation {
   builder = path "/makes/utils/build-python-requirements/builder.sh";
   buildInputs = dependencies ++ [ python ];
-  envRequirementsFile = requirementsFile;
+  envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
   name = "build-python-requirements";
 }
