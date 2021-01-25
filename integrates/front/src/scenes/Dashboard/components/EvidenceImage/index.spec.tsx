@@ -5,6 +5,7 @@ import store from "store";
 
 import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { EvidenceDescription } from "styles/styledComponents";
 
 describe("Evidence image", () => {
 
@@ -49,7 +50,7 @@ describe("Evidence image", () => {
 
     const component: ShallowWrapper = wrapper.find({ name: "evidence1" })
       .dive();
-    expect(component.containsMatchingElement(<p>Test evidence</p>))
+    expect(component.containsMatchingElement(<EvidenceDescription>Test evidence</EvidenceDescription>))
       .toBe(true);
   });
 

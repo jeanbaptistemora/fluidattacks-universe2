@@ -1192,6 +1192,7 @@ export const enTranslations: ResourceKey = {
     },
     tab_evidence: {
       animation_exploit: "Exploitation animation",
+      date: "Date: ",
       detail: "Detail",
       editable: "Edit",
       evidence_exploit: "Exploitation evidence",

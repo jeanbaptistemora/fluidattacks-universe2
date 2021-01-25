@@ -13,20 +13,21 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-def test_get_evidence():
+async def test_get_evidence():
+    finding = await get_finding('422286126')
     name = 'test_name'
     item = [
         {'description': 'desc', 'file_url': 'test.png', 'name': 'test_name'},
         {'description': 'des2', 'file_url': 'test2.png', 'name':  'test_name_2'}]
 
-    test_data = _get_evidence(name, item)
+    test_data = _get_evidence(name, item, finding)
     expected_output = {
-        'description': 'desc', 'url': 'test.png'
+        'description': 'desc', 'date': '2018-07-09 00:00:00', 'url': 'test.png'
     }
     assert test_data == expected_output
 
     name = 'non-existing name'
-    test_data = _get_evidence(name, item)
+    test_data = _get_evidence(name, item, finding)
     expected_output = {'url': '', 'description': ''}
     assert test_data == expected_output
 

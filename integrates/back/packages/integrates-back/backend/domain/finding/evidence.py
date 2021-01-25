@@ -9,6 +9,7 @@ from backend.exceptions import (
     InvalidFileSize
 )
 from backend.utils import (
+    datetime as datetime_utils,
     findings as finding_utils,
     validations
 )
@@ -34,6 +35,7 @@ async def update_evidence(
     finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
     project_name = str(finding.get('projectName', ''))
+    today = datetime_utils.get_as_str(datetime_utils.get_now())
     success = False
 
     if evidence_type == 'fileRecords':
@@ -69,13 +71,18 @@ async def update_evidence(
             index = files.index(cast(Dict[str, str], evidence))
             success = await finding_dal.update(
                 finding_id,
-                {f'files[{index}].file_url': evidence_id}
+                {f'files[{index}].file_url': evidence_id,
+                 f'files[{index}].upload_date': today}
             )
         else:
             success = await finding_dal.list_append(
                 finding_id,
                 'files',
-                [{'name': evidence_type, 'file_url': evidence_id}]
+                [{
+                    'name': evidence_type,
+                    'file_url': evidence_id,
+                    'upload_date': today,
+                }]
             )
 
     return success

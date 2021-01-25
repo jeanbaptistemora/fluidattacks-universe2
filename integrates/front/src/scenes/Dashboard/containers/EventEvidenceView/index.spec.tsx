@@ -15,6 +15,7 @@ import {
   GET_EVENT_EVIDENCES,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
 import store from "store";
+import { EvidenceDescription } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventEvidenceView", () => {
@@ -112,7 +113,7 @@ describe("EventEvidenceView", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.containsMatchingElement(<img />))
       .toBe(true);
-    expect(wrapper.containsMatchingElement(<p>File</p>))
+    expect(wrapper.containsMatchingElement(<EvidenceDescription>File</EvidenceDescription>))
       .toBe(true);
   });
 

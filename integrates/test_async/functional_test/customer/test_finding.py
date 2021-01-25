@@ -65,22 +65,27 @@ async def test_finding():
                 'description': ''
             },
             'evidence1': {
+                'date': '2018-12-17 00:00:00',
                 'url': 'unittesting-463558592-evidence_route_1.png',
                 'description': 'test'
             },
             'evidence2': {
+                'date': '2018-12-17 00:00:00',
                 'url': 'unittesting-463558592-evidence_route_2.jpg',
                 'description': 'Test2'
             },
             'evidence3': {
+                'date': '2018-12-17 00:00:00',
                 'url': 'unittesting-463558592-evidence_route_3.png',
                 'description': 'Test3'
             },
             'evidence4': {
+                'date': '2018-12-17 00:00:00',
                 'url': 'unittesting-463558592-evidence_route_4.png',
                 'description': 'An error'
             },
             'evidence5': {
+                'date': '2018-12-17 00:00:00',
                 'url': 'unittesting-463558592-evidence_route_5.png',
                 'description': '4'
             },

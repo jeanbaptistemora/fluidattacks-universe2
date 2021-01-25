@@ -108,7 +108,7 @@ const evidenceView: React.FC = (): JSX.Element => {
 
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
-  interface IEvidenceItem { description: string; url: string; }
+  interface IEvidenceItem { date?: string; description: string; url: string; }
   const evidenceImages: Dictionary<IEvidenceItem> = {
     ...data.finding.evidence,
     animation: {
@@ -204,6 +204,7 @@ const evidenceView: React.FC = (): JSX.Element => {
                       <EvidenceImage
                         acceptedMimes="image/gif,image/png"
                         content={showEmpty ? <div /> : `${location.href}/${evidence.url}`}
+                        date={evidence.date}
                         description={evidence.description}
                         isDescriptionEditable={index > 1}
                         isEditing={isEditing}

@@ -2,13 +2,14 @@
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that renders the form
  */
+import _ from "lodash";
 import React from "react";
 import { Field, FormSection, Validator } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
 import { default as style } from "scenes/Dashboard/components/EvidenceImage/index.css";
-import { Col33, Row } from "styles/styledComponents";
+import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FileInput, TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { validEvidenceDescription, validTextField } from "utils/validations";
@@ -16,6 +17,7 @@ import { validEvidenceDescription, validTextField } from "utils/validations";
 interface IEvidenceImageProps {
   acceptedMimes?: string;
   content: string | JSX.Element;
+  date?: string;
   description: string;
   isDescriptionEditable: boolean;
   isEditing: boolean;
@@ -73,7 +75,19 @@ export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceIma
               <label><b>{translate.t("search_findings.tab_evidence.detail")}</b></label>
             </Row>
             <Row>
-              {props.isEditing ? renderForm(props) : <p>{props.description}</p>}
+              {props.isEditing ? renderForm(props) : (
+                <React.Fragment>
+                  <EvidenceDescription>
+                    {props.description}
+                  </EvidenceDescription>
+                  {_.isEmpty(props.date) ? undefined : (
+                    <EvidenceDescription>
+                      {translate.t("search_findings.tab_evidence.date")}&nbsp;
+                      {props.date?.split(" ")[0]}
+                    </EvidenceDescription>
+                  )}
+                </React.Fragment>
+              )}
             </Row>
           </div>
         </div>

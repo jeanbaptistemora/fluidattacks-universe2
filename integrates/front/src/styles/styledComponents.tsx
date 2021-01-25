@@ -174,6 +174,15 @@ const EditableFieldTitle50: StyledComponent<
   className: "ph1-5 tr w-50-ns",
 })``;
 
+const EvidenceDescription: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "f3 w-100",
+})``;
+
 const EventHeaderGrid: StyledComponent<
   "div",
   Record<string, unknown>
@@ -606,6 +615,7 @@ export {
   EditableFieldTitle50,
   EventHeaderGrid,
   EventHeaderLabel,
+  EvidenceDescription,
   ExpandableLabel,
   FindingHeaderDetail,
   FindingHeaderGrid,

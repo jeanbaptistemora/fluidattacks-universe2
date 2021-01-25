@@ -77,10 +77,27 @@ CVSS_PARAMETERS = {
 LOGGER = logging.getLogger(__name__)
 
 
-def _get_evidence(name: str, items: List[Dict[str, str]]) -> Dict[str, str]:
+def _get_evidence(
+    name: str,
+    items: List[Dict[str, str]],
+    finding: Dict[str, FindingType],
+) -> Dict[str, str]:
+    date_str: str = (
+        finding_filters.get_approval_date(finding)
+        or datetime_utils.DEFAULT_STR
+    )
+    release_date = datetime_utils.get_from_str(date_str)
     evidence = [
-        {'url': item['file_url'],
-         'description': item.get('description', '')}
+        {
+            'url': item['file_url'],
+            'description': item.get('description', ''),
+            'date': (
+                item.get('upload_date', '')
+                if datetime_utils.get_from_str(
+                    item.get('upload_date', datetime_utils.DEFAULT_STR)
+                ) > release_date else date_str
+            )
+        }
         for item in items
         if item['name'] == name
     ]
@@ -620,17 +637,17 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
     finding_files = cast(List[Dict[str, str]], finding.get('files', []))
     finding['evidence'] = {
-        'animation': _get_evidence('animation', finding_files),
-        'evidence1': _get_evidence('evidence_route_1', finding_files),
-        'evidence2': _get_evidence('evidence_route_2', finding_files),
-        'evidence3': _get_evidence('evidence_route_3', finding_files),
-        'evidence4': _get_evidence('evidence_route_4', finding_files),
-        'evidence5': _get_evidence('evidence_route_5', finding_files),
-        'exploitation': _get_evidence('exploitation', finding_files)
+        'animation': _get_evidence('animation', finding_files, finding),
+        'evidence1': _get_evidence('evidence_route_1', finding_files, finding),
+        'evidence2': _get_evidence('evidence_route_2', finding_files, finding),
+        'evidence3': _get_evidence('evidence_route_3', finding_files, finding),
+        'evidence4': _get_evidence('evidence_route_4', finding_files, finding),
+        'evidence5': _get_evidence('evidence_route_5', finding_files, finding),
+        'exploitation': _get_evidence('exploitation', finding_files, finding)
     }
     finding['compromisedAttrs'] = finding.get('records', '')
-    finding['records'] = _get_evidence('fileRecords', finding_files)
-    finding['exploit'] = _get_evidence('exploit', finding_files)
+    finding['records'] = _get_evidence('fileRecords', finding_files, finding)
+    finding['exploit'] = _get_evidence('exploit', finding_files, finding)
 
     cvss_fields = {
         '2': [
