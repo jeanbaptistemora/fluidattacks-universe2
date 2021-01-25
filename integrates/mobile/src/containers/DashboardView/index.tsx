@@ -1,11 +1,7 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { wait } from "@apollo/react-testing";
 import { ApolloError, NetworkStatus } from "apollo-client";
-import { Notifications } from "expo";
-/* tslint:disable-next-line: no-submodule-imports
- * Necessary to import unindexed types
- */
-import { Notification } from "expo/build/Notifications/Notifications.types";
+import * as Notifications from "expo-notifications";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android
@@ -129,19 +125,21 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const handleIncomingNotifs: ((notification: Notification) => void) = (
-    notification: Notification,
-  ): void => {
-    if (!_.isEmpty(notification.data)) {
-      const { message, title } = notification.data as Record<string, string>;
+  const handleIncomingNotifs: (
+    event: Notifications.NotificationResponse,
+  ) => void = ({ notification }: Notifications.NotificationResponse): void => {
+    const { data: notificationData } = notification.request.content;
+    if (!_.isEmpty(notificationData)) {
+      const { message, title } = notificationData as Record<string, string>;
       Alert.alert(title, message);
     }
   };
 
   const onMount: (() => void) = (): (() => void) => {
     AppState.addEventListener("change", handleAppStateChange);
-    const notificationListener: EventSubscription =
-      Notifications.addListener(handleIncomingNotifs) as EventSubscription;
+    const notificationListener: EventSubscription = Notifications.addNotificationResponseReceivedListener(
+      handleIncomingNotifs,
+    ) as EventSubscription;
     registerPushToken();
 
     return (): void => {

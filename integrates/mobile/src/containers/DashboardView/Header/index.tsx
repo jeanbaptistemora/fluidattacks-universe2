@@ -31,6 +31,8 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
           />
         </View>
         <Appbar.Content
+          accessibilityComponentType={undefined}
+          accessibilityTraits={undefined}
           color={colors.text}
           title={user.fullName}
           titleStyle={styles.name}
@@ -38,7 +40,12 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
           subtitleStyle={styles.email}
         />
         <View style={styles.actions}>
-          <Text style={styles.logout} onPress={onLogout}>
+          <Text
+            accessibilityComponentType={undefined}
+            accessibilityTraits={undefined}
+            style={styles.logout}
+            onPress={onLogout}
+          >
             {t("common.logout")}
           </Text>
         </View>

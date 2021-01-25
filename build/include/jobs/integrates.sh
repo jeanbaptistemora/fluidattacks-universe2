@@ -227,7 +227,6 @@ function job_integrates_deploy_front {
 }
 
 function job_integrates_deploy_mobile_ota {
-  export EXPO_USE_DEV_SERVER="true"
   local mobile_version
 
       pushd integrates \

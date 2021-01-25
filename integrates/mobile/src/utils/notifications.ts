@@ -1,26 +1,23 @@
-import { Notifications } from "expo";
 import { default as Constants } from "expo-constants";
+import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import { Platform } from "react-native";
 
 import { LOGGER } from "./logger";
 
-const getToken: (() => Promise<string>) = async (
-): Promise<string> => {
-  const token: string = await Notifications.getExpoPushTokenAsync();
+const getToken: () => Promise<string> = async (): Promise<string> => {
+  const token: Notifications.ExpoPushToken = await Notifications.getExpoPushTokenAsync();
 
   if (Platform.OS === "android") {
-    await Notifications.createChannelAndroidAsync("default", {
+    await Notifications.setNotificationChannelGroupAsync("default", {
       name: "Integrates notifications",
-      priority: "max",
     });
   }
 
-  return token;
+  return token.data;
 };
 
-export const getPushToken: (() => Promise<string>) = async (
-): Promise<string> => {
+export const getPushToken: () => Promise<string> = async (): Promise<string> => {
   /**
    * Push notifications are not supported on emulators
    *
@@ -28,9 +25,9 @@ export const getPushToken: (() => Promise<string>) = async (
    */
   if (Constants.isDevice) {
     try {
-      const {
-        status: currentStatus,
-      } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      const { status: currentStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS,
+      );
 
       if (currentStatus === Permissions.PermissionStatus.GRANTED) {
         return getToken();

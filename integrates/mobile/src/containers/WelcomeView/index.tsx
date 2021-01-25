@@ -67,12 +67,17 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
         <View style={styles.profilePicture}>
           <Avatar
             photoUrl={user.photoUrl}
-            size={100} userName={user.fullName}
+            size={100}
+            userName={user.fullName}
           />
         </View>
-        <Text style={styles.greeting} >
+        <Text
+          accessibilityComponentType={undefined}
+          accessibilityTraits={undefined}
+          style={styles.greeting}
+        >
           {t("welcome.greetingText")} {user.firstName}!
-           </Text>
+        </Text>
         <Preloader visible={loading} />
       </View>
     </React.StrictMode>

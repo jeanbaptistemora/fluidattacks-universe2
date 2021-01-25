@@ -20,10 +20,21 @@ const getInitials: ((name: string) => string) = (name: string): string => name
 
 const avatar: React.FC<IAvatarProps> = (props: IAvatarProps): JSX.Element => (
   <React.StrictMode>
-    {props.photoUrl === undefined
-      ? <Avatar.Text size={props.size} label={getInitials(props.userName)} />
-      : <Avatar.Image size={props.size} source={{ uri: props.photoUrl }} />
-    }
+    {props.photoUrl === undefined ? (
+      <Avatar.Text
+        accessibilityComponentType={undefined}
+        accessibilityTraits={undefined}
+        size={props.size}
+        label={getInitials(props.userName)}
+      />
+    ) : (
+      <Avatar.Image
+        accessibilityComponentType={undefined}
+        accessibilityTraits={undefined}
+        size={props.size}
+        source={{ uri: props.photoUrl }}
+      />
+    )}
   </React.StrictMode>
 );
 

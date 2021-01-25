@@ -72,7 +72,11 @@ const indicators: React.FC<IIndicatorsProps> = (
       <Title>{_.capitalize(org.name)}</Title>
       <View style={styles.percentageContainer}>
         <SvgCss xml={Border} width={220} height={220} />
-        <Text style={styles.percentageText}>
+        <Text
+          accessibilityComponentType={undefined}
+          accessibilityTraits={undefined}
+          style={styles.percentageText}
+        >
           {parseFloat(current.percentage.toFixed(1))}%
         </Text>
       </View>
@@ -92,7 +96,12 @@ const indicators: React.FC<IIndicatorsProps> = (
             {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
           </Title>
         </View>
-        <Text>{t("dashboard.diff")}</Text>
+        <Text
+          accessibilityComponentType={undefined}
+          accessibilityTraits={undefined}
+        >
+          {t("dashboard.diff")}
+        </Text>
         <Headline style={styles.remediatedText}>
           {t("dashboard.remediated")}
         </Headline>
