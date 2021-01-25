@@ -50,13 +50,7 @@
       when: never
     - if: *observes_commit_pattern
 
-observes-lint-target-redshift:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
-  allow_failure: true
-
-observes-infra-test:
+observes/infra-test:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-infra

@@ -8,6 +8,8 @@ nix \
   --option allow-dirty true \
   --option cores 0 \
   --option max-jobs auto \
+  --option narinfo-cache-negative-ttl 1 \
+  --option narinfo-cache-positive-ttl 1 \
   --print-build-logs \
   --show-trace \
   --verbose \

@@ -15,7 +15,6 @@ makeEntrypoint {
     envRegistry = registry;
     envTag = tag;
   };
-  location = "/bin/${name}";
   inherit name;
   template = path "/makes/utils/oci-deploy/entrypoint.sh";
 }

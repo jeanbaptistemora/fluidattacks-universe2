@@ -3,7 +3,6 @@
 path: pkgs:
 
 { arguments
-, location
 , name
 , template
 }:
@@ -32,6 +31,6 @@ makeDerivation {
       source __envBashLibCommon__
     '';
   };
-  envLocation = location;
+  envLocation = "/bin/${name}";
   inherit name;
 }

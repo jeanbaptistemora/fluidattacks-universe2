@@ -16,7 +16,6 @@ makeEntrypoint {
     envTflintConfig = path "/.tflint.hcl";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path pkgs;
   };
-  location = "/bin/${name}";
   inherit name;
   template = path "/makes/utils/terraform-test/entrypoint.sh";
 }

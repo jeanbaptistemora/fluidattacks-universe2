@@ -13,7 +13,6 @@ makeEntrypoint {
     envDockerContext = context;
     envTag = tag;
   };
-  location = "/bin/${name}";
   inherit name;
   template = path "/makes/utils/docker-build/entrypoint.sh";
 }

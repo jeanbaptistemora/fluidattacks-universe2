@@ -34,7 +34,7 @@
       when: never
     - if: *skims_commit_pattern
 
-skims-benchmark-on-aws:
+skims/benchmark-on-aws:
   <<: *makes
   interruptible: false
   only:
@@ -42,27 +42,27 @@ skims-benchmark-on-aws:
     variables: [$skims_benchmark_on_aws]
   stage: scheduler
 
-skims-infra-deploy:
+skims/infra-deploy:
   <<: *makes
   <<: *skims_in_master_branch
   stage: deploy-app
 
-skims-infra-test:
+skims/infra-test:
   <<: *makes
   <<: *skims_in_dev_branch
   stage: test-code
 
-skims-lint:
+skims/lint:
   <<: *makes
   <<: *skims_in_dev_branch
   stage: lint-code
 
-skims-oci-deploy:
+skims/oci-deploy:
   <<: *makes
   <<: *skims_in_master_branch
   stage: deploy-app
 
-skims-process-groups-on-aws:
+skims/process-groups-on-aws:
   <<: *makes
   interruptible: false
   only:
@@ -70,12 +70,12 @@ skims-process-groups-on-aws:
     variables: [$skims_process_all_groups_on_aws]
   stage: scheduler
 
-skims-security:
+skims/security:
   <<: *makes
   <<: *skims_in_dev_branch
   stage: test-security
 
-skims-structure:
+skims/structure:
   <<: *makes
   <<: *skims_in_dev_branch
   after_script:
@@ -86,7 +86,7 @@ skims-structure:
     when: always
   stage: test-code
 
-.skims-test: &skims-test
+.skims/test: &skims_test
   <<: *makes
   <<: *skims_in_dev_branch
   artifacts:
@@ -94,18 +94,18 @@ skims-structure:
       - skims/test/outputs/
     when: always
   script:
-    - ./make skims-test "${CI_JOB_NAME#skims-test-*}"
+    - ./make skims/test "${CI_JOB_NAME#skims/test/*}"
     - cp -r ~/.skims/debug skims/test/outputs || true
   stage: test-code
 
-skims-test-functional:
-  <<: *skims-test
+skims/test/functional:
+  <<: *skims_test
   <<: *skims_in_master_branch
 
-skims-test-unittesting:
-  <<: *skims-test
+skims/test/unittesting:
+  <<: *skims_test
 
-skims-docs-deploy:
+skims/docs/deploy:
   <<: *makes
   <<: *skims_in_master_branch
   stage: deploy-app

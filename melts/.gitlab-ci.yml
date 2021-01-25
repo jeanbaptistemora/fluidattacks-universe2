@@ -44,12 +44,12 @@
     - name: localstack/localstack
       alias: localstack
 
-melts-lint:
+melts/lint:
   <<: *makes
   <<: *in_dev_branch_melts
   stage: lint-code
 
-melts-test:
+melts/test:
   <<: *makes
   <<: *in_dev_branch_melts
   <<: *test_melts_template

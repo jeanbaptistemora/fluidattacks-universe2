@@ -56,7 +56,6 @@ makeEntrypoint {
       then vcpus
       else abort "Too much vCPUs";
   };
-  location = "/bin/${name}";
   inherit name;
   template = path "/makes/utils/compute-on-aws/entrypoint.sh";
 }

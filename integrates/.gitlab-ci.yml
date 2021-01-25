@@ -438,7 +438,7 @@ integrates_lint_e2e:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates-lint-front:
+integrates/lint/front:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: lint-code
