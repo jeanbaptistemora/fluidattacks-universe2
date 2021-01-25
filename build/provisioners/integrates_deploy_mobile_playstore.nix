@@ -18,6 +18,6 @@ in
       ];
 
       rubyGemBundler =
-        builders.rubyGem "bundler:2.1.4";
+        builders.rubyGem "bundler:2.2.6";
     })
   )

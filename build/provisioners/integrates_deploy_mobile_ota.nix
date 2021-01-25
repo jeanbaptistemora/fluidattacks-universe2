@@ -13,7 +13,7 @@ in
         pkgs.curl
         pkgs.git
         pkgs.jq
-        pkgs.nodejs
+        pkgs.nodejs-12_x
         pkgs.sops
         pkgs.sysctl
       ];

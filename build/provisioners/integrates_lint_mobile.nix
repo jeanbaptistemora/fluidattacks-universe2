@@ -9,7 +9,7 @@ in
 
       buildInputs = [
         pkgs.git
-        pkgs.nodejs
+        pkgs.nodejs-12_x
         pkgs.python37
       ];
     })

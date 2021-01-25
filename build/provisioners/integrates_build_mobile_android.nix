@@ -12,7 +12,7 @@ in
         pkgs.git
         pkgs.glibc
         pkgs.jq
-        pkgs.nodejs
+        pkgs.nodejs-12_x
         pkgs.openjdk
         pkgs.sops
       ];
