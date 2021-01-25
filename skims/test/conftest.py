@@ -88,15 +88,14 @@ def test_group(
     test_branch: str,  # pylint: disable=redefined-outer-name
 ) -> Iterator[str]:
     mapping: Dict[str, str] = {
-        'drestrepoatfluid': 'wausau',
         'kamadoatfluid': 'worcester',
-        'master': 'tovuz',
+        'master': 'wausau',
     } if os.environ.get('CI') else {
-        'drestrepoatfluid': 'djibo',
         'kamadoatfluid': 'magdalena',
+        'master': 'djibo',
     }
 
-    yield mapping.get(test_branch, 'utuado')
+    yield mapping[test_branch]
 
 
 @pytest.fixture(autouse=True, scope='session')

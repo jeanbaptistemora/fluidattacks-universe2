@@ -31,7 +31,5 @@ utils.model.finding.enum.F063_PATH_TRAVERSAL.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
 utils.model.finding.enum.F063_PATH_TRAVERSAL.title:
-  # en: F063. Falta de validación de datos - Path Traversal
-  # en: F063. Lack of data validation - Path Traversal
-  en: F063. Test - please delete
-  es: F063. Test - please delete
+  en: F063. Lack of data validation - Path Traversal
+  es: F063. Falta de validación de datos - Path Traversal

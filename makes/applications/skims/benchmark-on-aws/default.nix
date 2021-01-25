@@ -7,7 +7,7 @@ let
 in
 computeOnAws {
   attempts = 1;
-  command = [ "./make" "skims-benchmark" ];
+  command = [ "./make" "skims/benchmark" ];
   jobname = "skims-benchmark";
   jobqueue = "dedicated_later";
   name = "skims-benchmark-on-aws";
