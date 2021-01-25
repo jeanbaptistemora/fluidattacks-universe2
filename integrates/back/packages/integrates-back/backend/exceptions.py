@@ -706,3 +706,15 @@ class RootNotFound(Exception):
     def __init__(self) -> None:
         msg = 'Exception - Access denied or root not found'
         super(RootNotFound, self).__init__(msg)
+
+
+class InvalidPageIndex(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - Invalid page index. It sould be >= 1'
+        super(InvalidPageIndex, self).__init__(msg)
+
+
+class InvalidPageSize(Exception):
+    def __init__(self) -> None:
+        msg = 'Exception - Invalid page size. It sould be 10, 20, 25, 30 or 50'
+        super(InvalidPageSize, self).__init__(msg)
