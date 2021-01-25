@@ -16,7 +16,7 @@ import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormPro
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import {
@@ -358,6 +358,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 <Alert>
                   * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
                 </Alert>
+                <hr />
                 <Row>
                   <Col100>
                     <ButtonToolbar>
