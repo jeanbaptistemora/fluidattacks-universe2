@@ -29,6 +29,14 @@ function load_base {
 
 }
 
+function load_integrates {
+  # Pending to add config-development and config-runtime
+
+      echo '[INFO] Setting up Integrates development environment' \
+  &&  export PYTHONPATH="${PWD}/integrates:${PYTHONPATH:-}" \
+  &&  export PYTHONPATH="${PWD}/integrates/back/packages/integrates-back:${PYTHONPATH:-}"
+}
+
 function load_skims {
       echo '[INFO] Setting up Skims development environment' \
   &&  source '__envSkimsSetupDevelopment__' \
