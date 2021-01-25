@@ -19,10 +19,10 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
-import { ButtonToolbar } from "styles/styledComponents";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -290,19 +290,23 @@ const projectForcesView: React.FC = (): JSX.Element => {
                   isFilterEnabled={isFilterEnabled}
                   onUpdateEnableFilter={handleUpdateFilter}
                 />
-              <Modal
-                  bsSize="large"
+                <Modal
                   headerTitle={translate.t("group.forces.execution_details_modal.title")}
                   open={isExecutionDetailsModalOpen}
-                  onClose={closeSeeExecutionDetailsModal}
-              >
-                <Execution {...currentRow} />
-                <ButtonToolbar>
-                  <Button onClick={closeSeeExecutionDetailsModal}>
-                    {translate.t("group.forces.execution_details_modal.close")}
-                  </Button>
-                </ButtonToolbar>
-              </Modal>
+                  size={"largeModal"}
+                >
+                  <Execution {...currentRow} />
+                  <hr />
+                  <Row>
+                    <Col100>
+                      <ButtonToolbar>
+                        <Button onClick={closeSeeExecutionDetailsModal}>
+                          {translate.t("group.forces.execution_details_modal.close")}
+                        </Button>
+                      </ButtonToolbar>
+                    </Col100>
+                  </Row>
+                </Modal>
               </React.StrictMode>
             );
         }}
