@@ -494,8 +494,10 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         )
         for applicable_node_label_type in (
             'block',
+            'break_statement',
             'comment',
             'expression_statement',
+            'try_statement',
             ';',
         )
     ],

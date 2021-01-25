@@ -9,6 +9,7 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
+    Union,
 )
 
 # Local libraries
@@ -57,16 +58,38 @@ Evaluator = Callable[[EvaluatorArgs], None]
 
 def lookup_vars(
     args: EvaluatorArgs,
-) -> Iterator[graph_model.SyntaxStepDeclaration]:
-    for syntax_step in args.syntax_steps[0:args.syntax_step_index]:
-        if isinstance(syntax_step, graph_model.SyntaxStepDeclaration):
+) -> Iterator[Union[
+    graph_model.SyntaxStepAssignment,
+    graph_model.SyntaxStepDeclaration,
+]]:
+    for syntax_step in reversed(args.syntax_steps[0:args.syntax_step_index]):
+        if isinstance(syntax_step, (
+            graph_model.SyntaxStepAssignment,
+            graph_model.SyntaxStepDeclaration,
+        )):
             yield syntax_step
 
 
-def lookup_var_by_name(
+def lookup_var_dcl_by_name(
     args: EvaluatorArgs,
     var_name: str,
 ) -> Optional[graph_model.SyntaxStepDeclaration]:
+    for syntax_step in lookup_vars(args):
+        if (
+            isinstance(syntax_step, graph_model.SyntaxStepDeclaration)
+            and syntax_step.var == var_name
+        ):
+            return syntax_step
+    return None
+
+
+def lookup_var_state_by_name(
+    args: EvaluatorArgs,
+    var_name: str,
+) -> Optional[Union[
+    graph_model.SyntaxStepAssignment,
+    graph_model.SyntaxStepDeclaration,
+]]:
     for syntax_step in lookup_vars(args):
         if syntax_step.var == var_name:
             return syntax_step
@@ -131,7 +154,7 @@ def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
     method_var, method_path = split_on_first_dot(method)
-    method_var_decl = lookup_var_by_name(args, method_var)
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
     method_var_decl_type = (
         method_var_decl.var_type_base if method_var_decl else ''
     )
@@ -185,7 +208,7 @@ def syntax_step_object_instantiation(args: EvaluatorArgs) -> None:
 
 
 def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
-    if dcl := lookup_var_by_name(args, args.syntax_step.symbol):
+    if dcl := lookup_var_state_by_name(args, args.syntax_step.symbol):
         # Found it!
         args.syntax_step.meta.danger = dcl.meta.danger
         args.syntax_step.meta.value = dcl.meta.value
