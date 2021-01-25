@@ -22,4 +22,4 @@ let
     product = import ./default-legacy.nix;
   };
 in
-  components // legacyComponents
+components // legacyComponents

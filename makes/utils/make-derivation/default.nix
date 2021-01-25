@@ -4,8 +4,23 @@
 path: pkgs:
 
 attrs:
-
-pkgs.stdenv.mkDerivation (attrs // {
+let
+  # Validate arguments
+  attrs' = builtins.mapAttrs
+    (k: v: (
+      if (
+        (pkgs.lib.strings.hasPrefix "__env" k) ||
+        (pkgs.lib.strings.hasPrefix "env" k) ||
+        (k == "builder") ||
+        (k == "buildInputs") ||
+        (k == "name")
+      )
+      then v
+      else abort "Ivalid argument: ${k}, must be one of: builder, buildInputs, name, or start with: env or __env"
+    ))
+    attrs;
+in
+pkgs.stdenv.mkDerivation (attrs' // {
   __envBashLibCommon = path "/makes/utils/common/template.sh";
   __envBashLibShopts = path "/makes/utils/shopts/template.sh";
   __envStdenv = "${pkgs.stdenv}/setup";

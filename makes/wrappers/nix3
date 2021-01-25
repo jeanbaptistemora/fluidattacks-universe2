@@ -7,6 +7,7 @@ nix \
   --experimental-features 'nix-command ca-references flakes' \
   --option allow-dirty true \
   --option cores 0 \
+  --option eval-cache false \
   --option max-jobs auto \
   --option narinfo-cache-negative-ttl 1 \
   --option narinfo-cache-positive-ttl 1 \

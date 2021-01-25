@@ -17,8 +17,17 @@ let
     if (builtins.isString template)
     then builtins.toFile "template" template
     else template;
+
+  # Validate arguments
+  arguments' = builtins.mapAttrs
+    (k: v: (
+      if pkgs.lib.strings.hasPrefix "env" k
+      then v
+      else abort "Ivalid argument: ${k}, arguments must start with `env`"
+    ))
+    arguments;
 in
-makeDerivation (arguments // {
+makeDerivation (arguments' // {
   builder = path "/makes/utils/make-template/builder.sh";
   inherit name;
   __envArgumentNamesFile = argumentNamesFile;
