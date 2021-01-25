@@ -16,7 +16,6 @@ import _ from "lodash";
 import { authzPermissionsContext } from "utils/authz/config";
 import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
-import { textFilter } from "react-bootstrap-table2-filter";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
 import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
@@ -174,17 +173,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     sessionStorage.setItem("vulnerabilitiesSort", JSON.stringify(newSorted));
   }
 
-  function onFilterWhere(filterVal: string): void {
-    sessionStorage.setItem("vulnWhereFilter", filterVal);
-  }
-
   const headers: IHeaderConfig[] = [
     {
       dataField: "where",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "vulnWhereFilter"),
-        onFilter: onFilterWhere,
-      }),
       formatter: vulnerabilityInfo,
       header: t("search_findings.tab_vuln.vulnTable.where"),
       headerFormatter: filterFormatter,
