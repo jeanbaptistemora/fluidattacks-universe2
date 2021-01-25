@@ -27,7 +27,7 @@ export const NavbarItems: React.FC = (): JSX.Element => (
       <a className={"db tc pa1 no-underline"} href={"/"}>
         <img
           className={"h-5 ml3 pv2"}
-          src={"../theme/images/fluid-attacks-logo.png"}
+          src={"../theme/images/fluid-attacks-logo.webp"}
           alt={"Fluid Attacks logo navbar"} />
       </a>
     </li>
