@@ -85,8 +85,7 @@ resource "cloudflare_rate_limit" "fluidattacks_com" {
   }
 
   action {
-    mode = "simulate"
-    timeout = 3600
+    mode = "js_challenge"
   }
 
   correlate {
