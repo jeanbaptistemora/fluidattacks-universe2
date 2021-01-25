@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
-export const NavbarContainer: StyledComponent<
-"div", Record<string, unknown>
-> = styled.div.attrs(
-{
+const NavbarContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
   className: `
    cssmenu
    bg-white
@@ -18,13 +18,13 @@ export const NavbarContainer: StyledComponent<
    top-0
    z-max
    t-all-5
-  `,
+  `
 })``;
 
-export const NavbarInnerContainer: StyledComponent<
-"div", Record<string, unknown>
-> = styled.div.attrs(
-{
+const NavbarInnerContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
   className: `
     b
     relative
@@ -35,39 +35,39 @@ export const NavbarInnerContainer: StyledComponent<
     ml-auto
     h-navbar
     ph-body
-  `,
+  `
 })``;
 
-export const NavbarList: StyledComponent<
-"ul", Record<string, unknown>
-> = styled.ul.attrs(
-{
+const NavbarList: StyledComponent<
+  "ul",
+  Record<string, unknown>
+> = styled.ul.attrs({
   className: `
    list
    ma0
    pa0
    overflow-hidden
    h-navbar
-  `,
+  `
 })``;
 
-export const MenuButton: StyledComponent<
-"li", Record<string, unknown>
-> = styled.li.attrs(
-  {
-    className: `
+const MenuButton: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
      relative
      fl
      pv4
      mv1
-    `,
-  })``;
+    `
+})``;
 
-export const NavbarContactButton: StyledComponent<
-"button", Record<string, unknown>
-> = styled.button.attrs(
-  {
-    className: `
+const NavbarContactButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
      outline-transparent
      fw7
      f-18
@@ -83,14 +83,14 @@ export const NavbarContactButton: StyledComponent<
      t-all-3-ease
      c-dkred
      pointer
-    `,
+    `
 })``;
 
-export const NavbarLoginButton: StyledComponent<
-"button", Record<string, unknown>
-> = styled.button.attrs(
-  {
-    className: `
+const NavbarLoginButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
      outline-transparent
      c-dkred
      fw7
@@ -103,13 +103,13 @@ export const NavbarLoginButton: StyledComponent<
      hv-fluid-rd
      bg-transparent
      pointer
-  `,
+  `
 })``;
 
-export const NavbarRegularButton: StyledComponent<
-"button", Record<string, unknown>
-> = styled.button.attrs(
-{
+const NavbarRegularButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
   className: `
   outline-transparent
   fw4
@@ -122,28 +122,40 @@ export const NavbarRegularButton: StyledComponent<
   hv-fluid-rd
   bg-transparent
   pointer
-  `,
+  `
 })``;
 
-export const NavbarSubcategory: StyledComponent<
-"div", Record<string, unknown>
-> = styled.div.attrs(
-  {
-    className: `
+const NavbarSubcategory: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
     roboto
     br3
     br--bottom
     pt4
     fadein
-    `,
+    `
 })``;
 
-export const SubcategoryLink: StyledComponent<
-"a", Record<string, unknown>
-> = styled.a.attrs(
-  {
-    className: `
+const SubcategoryLink: StyledComponent<
+  "a",
+  Record<string, unknown>
+> = styled.a.attrs({
+  className: `
     f-18
     fw4
-    `,
+    `
 })``;
+
+export {
+  NavbarSubcategory,
+  NavbarContactButton,
+  NavbarContainer,
+  NavbarInnerContainer,
+  NavbarList,
+  NavbarLoginButton,
+  NavbarRegularButton,
+  MenuButton,
+  SubcategoryLink
+};
