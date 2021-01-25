@@ -4,21 +4,25 @@
     "baseUrl": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "lib": [
       "dom",
-      "es2018",
-      "DOM",
-      "DOM.Iterable"
+      "es2018"
     ],
-    "module": "CommonJS",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "paths": {
+      "components/*": [ "components/*" ],
+      "pages/*": [ "pages/*" ],
+      "styles/*": [ "styles/*" ],
+    },
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2019",
-  },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": ["./src/**/*"]
+    "target": "es2019"
+  }
 }

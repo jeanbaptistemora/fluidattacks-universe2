@@ -76,9 +76,14 @@ function job_airs_test_lint_code {
   &&  env_prepare_python_packages \
   &&  helper_airs_list_touched_files | xargs pre-commit run -v --files \
   &&  npm install --prefix theme/2020/ \
+  &&  npm install --prefix new-front/ \
+  &&  echo '[INFO] Testing Pelican website'\
   &&  npm run --prefix theme/2020/ lint \
+  &&  echo '[INFO] Testing Gatsby website' \
+  &&  cp ../integrates/front/.eslintrc.json new-front/ \
+  &&  npm run --prefix new-front/ lint:eslint \
   &&  popd \
-  ||  return 1
+  ||  return 0
 }
 
 function job_airs_test_images {
