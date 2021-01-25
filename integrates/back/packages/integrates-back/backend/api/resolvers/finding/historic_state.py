@@ -7,13 +7,11 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend.decorators import (
     enforce_group_level_auth_async,
-    get_entity_cache_async
 )
 from backend.typing import Finding
 
 
 @enforce_group_level_auth_async
-@get_entity_cache_async
 async def resolve(
     parent: Finding,
     _info: GraphQLResolveInfo,

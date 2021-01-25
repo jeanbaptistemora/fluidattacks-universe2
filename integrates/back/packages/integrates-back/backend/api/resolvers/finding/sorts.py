@@ -8,7 +8,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    get_entity_cache_async,
     require_integrates
 )
 from backend.typing import Finding
@@ -18,7 +17,6 @@ from backend.typing import Finding
     enforce_group_level_auth_async,
     require_integrates,
 )
-@get_entity_cache_async
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,
