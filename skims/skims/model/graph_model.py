@@ -84,6 +84,14 @@ class SyntaxStepDeclaration(NamedTuple):
         return portions[0]
 
 
+class SyntaxStepIf(NamedTuple):
+    meta: SyntaxStepMeta
+    n_id_false: Optional[NId]
+    n_id_true: Optional[NId]
+
+    type: str = 'SyntaxStepIf'
+
+
 class SyntaxStepLiteral(NamedTuple):
     meta: SyntaxStepMeta
     value: str

@@ -90,6 +90,29 @@ def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     )
 
 
+def if_statement(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
+    # if ( __0__ ) __1__ else __2__
+    match = g.match_ast(
+        args.graph, args.n_id,
+        'if',
+        '__0__',
+        '__1__',
+        'else',
+        '__2__',
+    )
+
+    yield graph_model.SyntaxStepIf(
+        meta=graph_model.SyntaxStepMeta.default(
+            n_id=args.n_id,
+            dependencies=dependencies_from_arguments(
+                args.fork_n_id(match['__0__']),
+            ),
+        ),
+        n_id_false=match.get('__2__'),
+        n_id_true=match.get('__1__'),
+    )
+
+
 def local_variable_declaration(
     args: SyntaxReaderArgs,
 ) -> graph_model.SyntaxStepsLazy:
@@ -310,6 +333,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             identifier,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'if_statement',
+        },
+        syntax_readers=(
+            if_statement,
         ),
     ),
     Dispatcher(

@@ -32,7 +32,8 @@ function load_base {
 function load_skims {
       echo '[INFO] Setting up Skims development environment' \
   &&  source '__envSkimsSetupDevelopment__' \
-  &&  source '__envSkimsSetupRuntime__'
+  &&  source '__envSkimsSetupRuntime__' \
+  &&  export PYTHONPATH="${PWD}/skims/skims:${PYTHONPATH:-}"
 }
 
 load_base
