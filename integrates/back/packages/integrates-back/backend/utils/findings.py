@@ -84,7 +84,7 @@ def _get_evidence(
 ) -> Dict[str, str]:
     date_str: str = (
         finding_filters.get_approval_date(finding)
-        or datetime_utils.DEFAULT_STR
+        or finding_filters.get_creation_date(finding)
     )
     release_date = datetime_utils.get_from_str(date_str)
     evidence = [
@@ -92,7 +92,7 @@ def _get_evidence(
             'url': item['file_url'],
             'description': item.get('description', ''),
             'date': (
-                item.get('upload_date', '')
+                item['upload_date']
                 if datetime_utils.get_from_str(
                     item.get('upload_date', datetime_utils.DEFAULT_STR)
                 ) > release_date else date_str
