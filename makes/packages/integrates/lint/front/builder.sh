@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-      copy "${envSrcIntegratesFront}" "${PWD}" \
+      copy "${envSrcIntegratesFront}" "${out}" \
   &&  success
 }
 

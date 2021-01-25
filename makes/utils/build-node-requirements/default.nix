@@ -29,10 +29,18 @@ let
     requirementsDirect ++
     requirementsInherited
   );
+
+  # When dealing with a large number of packages, installing them all inline
+  # throws a Bad Request error, so fall back to using a package.json file
+  parsedRequirementsList = builtins.map (builtins.match "(.+)@(.+)") requirementsList;
+  parsedRequirementsSet = builtins.listToAttrs (builtins.map (x: { name = builtins.head x; value = builtins.toString (builtins.tail x); }) parsedRequirementsList);
+  packageJson = builtins.toJSON { "dependencies" = parsedRequirementsSet; };
 in
 makeDerivation {
   builder = path "/makes/utils/build-node-requirements/builder.sh";
   buildInputs = dependencies ++ [ pkgs.jq node ];
+  envBashLibCommon = path "/makes/utils/common/template.sh";
+  envPackageJsonFile = builtins.toFile "package.json" packageJson;
   envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
   name = "build-node-requirements";
 }
