@@ -7117,6 +7117,29 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "290": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "296",
+              "value": null
+            },
+            "symbol": "theCookies",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "290",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "theCookie",
+            "var_type": "javax.servlet.http.Cookie"
+          }
+        ],
         "298": [
           {
             "meta": {
@@ -40513,6 +40536,29 @@
       },
       "path": "test/data/sast/TestCFG.java",
       "syntax": {
+        "1008": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1014",
+              "value": null
+            },
+            "symbol": "people",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1008",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "person",
+            "var_type": "String"
+          }
+        ],
         "1016": [
           {
             "meta": {

@@ -83,6 +83,37 @@ def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     )
 
 
+def enhanced_for_statement(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    # for (type foo: bar) { ... }
+    match = g.match_ast(
+        args.graph, args.n_id,
+        'for',
+        '(',
+        '__0__',
+        '__1__',
+        ':',
+        '__2__',
+        ')',
+        'block',
+    )
+
+    if (
+        len(match) == 8
+        and (var_type_id := match['__0__'])
+        and (var_id := match['__1__'])
+        and (src_id := match['__2__'])
+    ):
+        yield graph_model.SyntaxStepDeclaration(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(src_id)),
+            ]),
+            var=args.graph.nodes[var_id]['label_text'],
+            var_type=args.graph.nodes[var_type_id]['label_text'],
+        )
+
+
 def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepSymbolLookup(
         meta=graph_model.SyntaxStepMeta.default(args.n_id),
@@ -321,6 +352,17 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(
             binary_expression,
+        ),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'enhanced_for_statement',
+        },
+        syntax_readers=(
+            enhanced_for_statement,
         ),
     ),
     Dispatcher(

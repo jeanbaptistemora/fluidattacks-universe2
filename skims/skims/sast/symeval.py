@@ -96,6 +96,10 @@ def syntax_step_declaration(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = bind_danger or args_danger
 
 
+def syntax_step_if(_args: EvaluatorArgs) -> None:
+    pass
+
+
 def syntax_step_literal(args: EvaluatorArgs) -> None:
     if args.syntax_step.value_type in {
         'boolean',
@@ -141,6 +145,10 @@ def syntax_step_method_invocation(args: EvaluatorArgs) -> None:
     )
 
 
+def syntax_step_method_invocation_chain(_args: EvaluatorArgs) -> None:
+    pass
+
+
 def syntax_step_no_op(args: EvaluatorArgs) -> None:
     args.syntax_step.meta.danger = False
 
@@ -180,8 +188,11 @@ def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
 EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
+    graph_model.SyntaxStepIf: syntax_step_if,
     graph_model.SyntaxStepLiteral: syntax_step_literal,
     graph_model.SyntaxStepMethodInvocation: syntax_step_method_invocation,
+    graph_model.SyntaxStepMethodInvocationChain:
+    syntax_step_method_invocation_chain,
     graph_model.SyntaxStepNoOp: syntax_step_no_op,
     graph_model.SyntaxStepObjectInstantiation:
     syntax_step_object_instantiation,
