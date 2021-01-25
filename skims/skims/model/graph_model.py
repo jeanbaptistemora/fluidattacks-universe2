@@ -64,6 +64,13 @@ class SyntaxStepMeta:
         return isinstance(self.dependencies, int)
 
 
+class SyntaxStepAssignment(NamedTuple):
+    meta: SyntaxStepMeta
+    var: str
+
+    type: str = 'SyntaxStepAssignment'
+
+
 class SyntaxStepBinaryExpression(NamedTuple):
     operator: str
     meta: SyntaxStepMeta

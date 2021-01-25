@@ -71,6 +71,26 @@ class MissingCaseHandling(Exception):
         super().__init__()
 
 
+def assignment_expression(
+    args: SyntaxReaderArgs,
+) -> graph_model.SyntaxStepsLazy:
+    match = g.match_ast(args.graph, args.n_id, '__0__', '=', '__1__')
+
+    if (
+        len(match) == 3
+        and (var_id := match['__0__'])
+        and (src_id := match['__1__'])
+    ):
+        yield graph_model.SyntaxStepAssignment(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id, [
+                generic(args.fork_n_id(src_id)),
+            ]),
+            var=args.graph.nodes[var_id]['label_text'],
+        )
+    else:
+        raise MissingCaseHandling(assignment_expression, args)
+
+
 def binary_expression(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     l_id, op_id, r_id = g.adj_ast(args.graph, args.n_id)
 
@@ -112,6 +132,8 @@ def enhanced_for_statement(
             var=args.graph.nodes[var_id]['label_text'],
             var_type=args.graph.nodes[var_type_id]['label_text'],
         )
+    else:
+        raise MissingCaseHandling(enhanced_for_statement, args)
 
 
 def identifier(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
@@ -277,7 +299,7 @@ def object_creation_expression(
             object_type=args.graph.nodes[object_type_id]['label_text'],
         )
     else:
-        raise MissingCaseHandling(method_invocation, args)
+        raise MissingCaseHandling(object_creation_expression, args)
 
 
 def literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
@@ -309,7 +331,7 @@ def literal(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value_type='string',
         )
     else:
-        raise NotImplementedError(n_attrs_label_type)
+        raise MissingCaseHandling(literal, args)
 
 
 def generic(
@@ -343,6 +365,17 @@ def dependencies_from_arguments(
 
 
 DISPATCHERS: Tuple[Dispatcher, ...] = (
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            'assignment_expression',
+        },
+        syntax_readers=(
+            assignment_expression,
+        ),
+    ),
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
