@@ -103,20 +103,21 @@ async def logout(request: Request) -> HTMLResponse:
 
 async def confirm_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get('url_token')
-    redir = '/'
     token_exists = await util.token_exists(f'fi_urltoken:{url_token}')
 
     if token_exists:
         token_unused = await user_domain.complete_user_register(url_token)
-        if not token_unused:
-            redir = '/invalid_invitation'
+        if token_unused:
+            response = await templates.valid_invitation(request)
+        else:
+            response = RedirectResponse(url='/invalid_invitation')
     else:
         await in_thread(
             bugsnag.notify, Exception('Invalid token'), severity='warning'
         )
-        redir = '/invalid_invitation'
+        response = RedirectResponse(url='/invalid_invitation')
 
-    return RedirectResponse(url=redir)
+    return response
 
 
 STARLETTE_APP = Starlette(

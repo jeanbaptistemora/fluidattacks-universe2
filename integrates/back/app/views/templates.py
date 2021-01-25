@@ -3,6 +3,11 @@
 # Standard library
 import json
 import traceback
+from typing import (
+    Any,
+    cast,
+    Dict,
+)
 
 # Third party libraries
 from starlette.requests import Request
@@ -11,6 +16,7 @@ from starlette.templating import Jinja2Templates
 
 # Local libraries
 from backend.typing import GraphicParameters
+from backend import util
 
 from back import settings
 
@@ -36,6 +42,22 @@ def invalid_invitation(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='invalid_invitation.html',
         context={'request': request}
+    )
+
+
+async def valid_invitation(request: Request) -> HTMLResponse:
+    url_token = request.path_params['url_token']
+    info = cast(
+        Dict[str, Any],
+        await util.get_token(f'fi_urltoken:{url_token}')
+    )
+    group_name = info['group']
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name='valid_invitation.html',
+        context={
+            'group_name': group_name,
+            'request': request,
+        }
     )
 
 
