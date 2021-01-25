@@ -18,7 +18,7 @@ const NavbarContainer: StyledComponent<
    top-0
    z-max
    t-all-5
-  `
+  `,
 })``;
 
 const NavbarInnerContainer: StyledComponent<
@@ -35,7 +35,7 @@ const NavbarInnerContainer: StyledComponent<
     ml-auto
     h-navbar
     ph-body
-  `
+  `,
 })``;
 
 const NavbarList: StyledComponent<
@@ -48,7 +48,7 @@ const NavbarList: StyledComponent<
    pa0
    overflow-hidden
    h-navbar
-  `
+  `,
 })``;
 
 const MenuButton: StyledComponent<
@@ -60,7 +60,7 @@ const MenuButton: StyledComponent<
      fl
      pv4
      mv1
-    `
+    `,
 })``;
 
 const NavbarContactButton: StyledComponent<
@@ -83,7 +83,7 @@ const NavbarContactButton: StyledComponent<
      t-all-3-ease
      c-dkred
      pointer
-    `
+    `,
 })``;
 
 const NavbarLoginButton: StyledComponent<
@@ -103,7 +103,7 @@ const NavbarLoginButton: StyledComponent<
      hv-fluid-rd
      bg-transparent
      pointer
-  `
+  `,
 })``;
 
 const NavbarRegularButton: StyledComponent<
@@ -122,7 +122,7 @@ const NavbarRegularButton: StyledComponent<
   hv-fluid-rd
   bg-transparent
   pointer
-  `
+  `,
 })``;
 
 const NavbarSubcategory: StyledComponent<
@@ -135,7 +135,7 @@ const NavbarSubcategory: StyledComponent<
     br--bottom
     pt4
     fadein
-    `
+    `,
 })``;
 
 const SubcategoryLink: StyledComponent<
@@ -145,7 +145,7 @@ const SubcategoryLink: StyledComponent<
   className: `
     f-18
     fw4
-    `
+    `,
 })``;
 
 export {
@@ -157,5 +157,5 @@ export {
   NavbarLoginButton,
   NavbarRegularButton,
   MenuButton,
-  SubcategoryLink
+  SubcategoryLink,
 };
