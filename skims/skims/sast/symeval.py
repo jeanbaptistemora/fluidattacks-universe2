@@ -73,6 +73,12 @@ def lookup_var_by_name(
     return None
 
 
+def syntax_step_assignment(args: EvaluatorArgs) -> None:
+    src, = args.dependencies
+
+    args.syntax_step.meta.danger = src.meta.danger
+
+
 def syntax_step_binary_expression(args: EvaluatorArgs) -> None:
     left, right = args.dependencies
 
@@ -186,6 +192,7 @@ def syntax_step_symbol_lookup(args: EvaluatorArgs) -> None:
 
 
 EVALUATORS: Dict[object, Evaluator] = {
+    graph_model.SyntaxStepAssignment: syntax_step_assignment,
     graph_model.SyntaxStepBinaryExpression: syntax_step_binary_expression,
     graph_model.SyntaxStepDeclaration: syntax_step_declaration,
     graph_model.SyntaxStepIf: syntax_step_if,

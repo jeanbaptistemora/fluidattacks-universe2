@@ -314,13 +314,22 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "n_id": "322",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "341",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-319-321-322-341-342-348-355-362-364-482-547": [
@@ -620,13 +629,22 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "n_id": "322",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "341",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "223-246-248-249-250-258-259-272-279-288-290-298-300-348-355-362-364-366-367-374-375-376-392-393-406-420-421-480": [
@@ -2780,13 +2798,153 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "n_id": "160",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "171",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "173",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "174",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "184",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "186",
+              "value": "UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "178",
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "175",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "196",
+              "value": "{call "
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "195",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "200",
+              "value": "}"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "194",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ],
         "98-121-123-124-125-133-134-141-157-159-160-171-173-174-175-188-189-202-204-261-269-271-277-279-280-294-295": [
@@ -2985,13 +3143,153 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "n_id": "160",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "171",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "173",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "174",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "184",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "186",
+              "value": "UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "178",
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "175",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "196",
+              "value": "{call "
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "195",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "200",
+              "value": "}"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "194",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ],
         "98-121-123-124-125-133-134-141-157-159-160-171-173-174-175-188-189-202-204-261-269-271-300": [
@@ -3190,13 +3488,153 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
               "dependencies": -1,
               "n_id": "160",
               "value": null
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "171",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "173",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "174",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "184",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "186",
+              "value": "UTF-8"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "UTF-8",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "178",
+              "value": null
+            },
+            "method": "java.net.URLDecoder.decode",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "175",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "196",
+              "value": "{call "
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "195",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "200",
+              "value": "}"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "194",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-206-219-233-246-247-259": [
@@ -3412,6 +3850,78 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "196",
+              "value": "{call "
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "195",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "200",
+              "value": "}"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "194",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-261-269-271-277-279-280-294-295": [
@@ -3627,6 +4137,78 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "196",
+              "value": "{call "
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "195",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "200",
+              "value": "}"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "194",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ],
         "98-121-123-124-125-133-134-141-173-174-175-188-189-202-204-261-269-271-300": [
@@ -3842,6 +4424,78 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "196",
+              "value": "{call "
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "{call ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "symbol": "param",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "195",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "200",
+              "value": "}"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "}",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "194",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "type": "SyntaxStepDeclaration",
+            "var": "sql",
+            "var_type": "String"
           }
         ]
       },
