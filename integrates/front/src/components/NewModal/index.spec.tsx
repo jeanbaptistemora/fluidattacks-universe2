@@ -3,6 +3,7 @@
   Disable for testing purposes
 */
 import { Modal } from "components/NewModal";
+import { ModalBase } from "components/NewModal/components/modalBase";
 import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
@@ -18,9 +19,9 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} open={true}>
+      <ModalBase headerTitle={"Unit test title"} open={true}>
         <p>{"Unit modal content"}</p>
-      </Modal>
+      </ModalBase>
     );
 
     expect(
@@ -36,9 +37,9 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} open={true}>
+      <ModalBase headerTitle={"Unit test title"} open={true}>
         <p>{"Unit modal content"}</p>
-      </Modal>
+      </ModalBase>
     );
 
     expect(

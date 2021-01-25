@@ -36,7 +36,7 @@ describe("ConfirmDialog", (): void => {
       .at(0);
     testButton.simulate("click");
     const confirmDialogModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({ headerTitle: "Title test", open: true });
     const cancelButton: ReactWrapper = wrapper
       .find("button")
@@ -46,7 +46,7 @@ describe("ConfirmDialog", (): void => {
       .at(0);
     cancelButton.simulate("click");
     const confirmDialogModalAfterClickCancel: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({ headerTitle: "Title test", open: true });
 
     expect(confirmDialogModal).toHaveLength(1);

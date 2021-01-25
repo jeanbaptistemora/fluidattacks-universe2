@@ -246,7 +246,7 @@ describe("Project users view", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     let addUserModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(0);
@@ -256,7 +256,7 @@ describe("Project users view", () => {
     addButton.simulate("click");
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(1);
@@ -277,7 +277,7 @@ describe("Project users view", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     let editUserModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(0);
@@ -291,7 +291,7 @@ describe("Project users view", () => {
     addButton.simulate("click");
     await act(async () => { await wait(0); wrapper.update(); });
     editUserModal = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(1);
@@ -339,7 +339,7 @@ describe("Project users view", () => {
       .at(0);
     addButton.simulate("click");
     let addUserModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(1);
@@ -368,7 +368,7 @@ describe("Project users view", () => {
     form.simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(0);
@@ -450,7 +450,7 @@ describe("Project users view", () => {
       .at(0);
     editButton.simulate("click");
     let editUserModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(1);
@@ -474,7 +474,7 @@ describe("Project users view", () => {
     form.simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     editUserModal = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(0);
@@ -526,7 +526,7 @@ describe("Project users view", () => {
       .at(0);
     addButton.simulate("click");
     let addUserModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(1);
@@ -555,7 +555,7 @@ describe("Project users view", () => {
     form.simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(0);
@@ -646,7 +646,7 @@ describe("Project users view", () => {
       .at(0);
     editButton.simulate("click");
     let editUserModal: ReactWrapper = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(1);
@@ -670,7 +670,7 @@ describe("Project users view", () => {
     form.simulate("submit");
     await act(async () => { await wait(0); wrapper.update(); });
     editUserModal = wrapper
-      .find("Modal")
+      .find("ModalBase")
       .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(0);

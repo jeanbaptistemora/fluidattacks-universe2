@@ -1,3 +1,8 @@
+:local .bgModal {
+  background-color: #000;
+  opacity: 0.5;
+}
+
 :local .modalDialog {
   width: 600px;
 }
@@ -9,20 +14,20 @@
   border-bottom-right-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   height: fit-content;
-  width: 600px;
+}
+
+:global .largeModal {
+  width: 850px;
+}
+
+@media (max-width: 900px) {
+  :global .largeModal {
+    width: 100%;
+  }
 }
 
 @media (max-width: 650px) {
-  :local .modal {
-    width: 100%;
-  }
-
   :local .modalDialog {
     width: 100%;
   }
-}
-
-:local .bgModal {
-  background-color: #000;
-  opacity: 0.5;
 }
