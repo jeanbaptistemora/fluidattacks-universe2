@@ -67,7 +67,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
 
 resource "cloudflare_rate_limit" "fluidattacks_com" {
   zone_id             = cloudflare_zone.fluidattacks_com.id
-  threshold           = 250
+  threshold           = 120
   period              = 60
   disabled            = false
   description         = "Main rate limit"
