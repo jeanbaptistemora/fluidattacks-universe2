@@ -252,7 +252,19 @@ async def test_get_active_projects():
 
 async def test_get_alive_projects():
     test_data = await get_alive_projects()
-    expected_output = ['suspendedtest', 'oneshottest', 'lubbock', 'unittesting', 'continuoustesting']
+    expected_output = [
+        'asgard',
+        'barranquilla',
+        'continuoustesting',
+        'gotham',
+        'lubbock',
+        'metropolis',
+        'monteria',
+        'oneshottest',
+        'suspendedtest',
+        'unittesting',
+    ]
+
     assert sorted(test_data) == sorted(expected_output)
 
 async def test_list_events():
