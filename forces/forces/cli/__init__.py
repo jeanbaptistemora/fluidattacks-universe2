@@ -1,26 +1,29 @@
 """Fluid Forces CLI module."""
+
+# pylint: disable=import-outside-toplevel
+
 # Standard library
-from typing import cast
 import sys
 import re
 import textwrap
 from io import TextIOWrapper
+from typing import Optional
 
 # Third parties libraries
 import click
 from aioextensions import run
 
 # Local imports
-from forces import entrypoint
 from forces.utils.bugs import configure_bugsnag
 from forces.utils.function import shield
-from forces.utils.logs import blocking_log
+from forces.utils.logs import (
+    blocking_log,
+    log,
+)
 from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
-from forces.apis.integrates.api import get_forces_user
-
 # Constants
 USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
 
@@ -51,25 +54,11 @@ def show_banner() -> None:
     blocking_log('info', '%s', header)
 
 
-class IntegratesToken(click.ParamType):
-    """Represents a integrates api token."""
-    name = "integrates_token"
-
-    def convert(self, value: str, param, ctx) -> str:  # type: ignore
-        """Validate token integrity."""
-        if not run(get_forces_user(api_token=value)):
-            self.fail(("Ensure that you use an forces user"), param, ctx)
-
-        # when the new token is implemented, do the validations about it
-        return value
-
-
 @click.command(name='forces')
 @click.option(
     '--token',
     required=True,
-    help='Integrates valid token',
-    type=IntegratesToken())
+    help='Integrates valid token')
 @click.option('-v', '--verbose', count=True, default=3, required=False)
 @click.option(
     '--output',
@@ -92,26 +81,14 @@ def main(token: str,  # pylint: disable=too-many-arguments
          static: bool,
          repo_name: str) -> None:
     """Main function"""
-    group: str = cast(str, run(get_forces_user(api_token=token)))
-    configure_bugsnag(group=group or '')
-    show_banner()
     kind = 'all'
     if dynamic:
         kind = 'dynamic'
     elif static:
         kind = 'static'
 
-    striccness = 'strict' if strict else 'lax'
-    blocking_log('info', 'Running forces in %s mode', striccness)
-    blocking_log('info', 'Running forces in %s kind', kind)
-    if repo_name:
-        blocking_log(
-            'info',
-            f'Ruing forces for vulnerabilities in the repo: {repo_name}')
-
     result = run(
         main_wrapped(
-            group=group,
             token=token,
             verbose=verbose,
             strict=strict,
@@ -126,7 +103,6 @@ def main(token: str,  # pylint: disable=too-many-arguments
 
 @shield(on_error_return=1)
 async def main_wrapped(  # pylint: disable=too-many-arguments
-    group: str,
     token: str,
     verbose: int,
     strict: bool,
@@ -135,6 +111,26 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     kind: str,
     repo_name: str,
 ) -> int:
+    from forces import entrypoint
+    from forces.apis.integrates.api import get_forces_user
+
+    group: Optional[str] = await get_forces_user(api_token=token)
+    if not group:
+        await log('error', 'Ensure that you use an forces user')
+        return 1
+
+    configure_bugsnag(group=group or '')
+    show_banner()
+    kind = 'all'
+
+    striccness = 'strict' if strict else 'lax'
+    await log('info', 'Running forces in %s mode', striccness)
+    await log('info', 'Running forces in %s kind', kind)
+    if repo_name:
+        await log(
+            'info',
+            f'Ruing forces for vulnerabilities in the repo: {repo_name}')
+
     config = ForcesConfig(
         group=group,
         kind=KindEnum.DYNAMIC if kind == 'dynamic' else
