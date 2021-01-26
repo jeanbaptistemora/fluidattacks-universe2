@@ -15,7 +15,6 @@ in
 makeTemplate {
   arguments = {
     envPythonRequirements = reqs;
-    envPackageName = packageName;
     envPackageSrc = projectDir;
     envSearchPaths = makeSearchPaths buildInputs;
     envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
