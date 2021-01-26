@@ -25,7 +25,7 @@ export interface IGetStakeholdersAttrs {
   organization: {
     __typename: "Organization";
     stakeholders: {
-      __typename: "GetOrganizationStakeholdersPayload";
+      __typename: "GetStakeholdersPayload";
       numPages: number;
       stakeholders: IStakeholderAttrs[];
     };

@@ -26,7 +26,7 @@ type DownloadFilePayload implements Payload {
   url: String
 }
 
-type GetOrganizationStakeholdersPayload {
+type GetStakeholdersPayload {
   numPages: Int
   stakeholders: [Stakeholder]
 }

@@ -24,11 +24,11 @@ from backend.exceptions import (
     InvalidPageSize
 )
 from backend.typing import (
+    GetStakeholdersPayload
+    as GetStakeholdersPayloadType,
     Organization as OrganizationType,
     OrganizationStakehodersPageSizeEnum,
-    Stakeholder as StakeholderType,
-    GetOrganizationStakeholdersPayload
-    as GetOrganizationStakeholdersPayloadType
+    Stakeholder as StakeholderType
 )
 
 
@@ -46,7 +46,7 @@ async def resolve(
     _info: GraphQLResolveInfo,
     page_index: int,
     page_size: int = 10
-) -> GetOrganizationStakeholdersPayloadType:
+) -> GetStakeholdersPayloadType:
     org_id: str = cast(str, parent['id'])
     try:
         OrganizationStakehodersPageSizeEnum(page_size)
@@ -59,7 +59,7 @@ async def resolve(
 
     org_stakeholders: List[str] = await org_domain.get_users(org_id)
 
-    return GetOrganizationStakeholdersPayloadType(
+    return GetStakeholdersPayloadType(
         stakeholders=await collect(
             _get_stakeholder(email, org_id)
             for email in org_stakeholders[items_range]

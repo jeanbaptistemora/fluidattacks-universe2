@@ -158,7 +158,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
               __typename: "Organization",
               ...currentStakeholders,
               stakeholders: {
-                __typename: "GetOrganizationStakeholdersPayload",
+                __typename: "GetStakeholdersPayload",
                 numPages: prev.organization.stakeholders.numPages,
                 stakeholders: newStakeholdersList,
               },

@@ -125,8 +125,8 @@ class OrganizationStakehodersPageSizeEnum(Enum):
     TWENTY: int = 20
     TWENTYFIVE: int = 25
 
-GetOrganizationStakeholdersPayload = NamedTuple(
-    'GetOrganizationStakeholdersPayload', [
+GetStakeholdersPayload = NamedTuple(
+    'GetStakeholdersPayload', [
         ('stakeholders', List[Stakeholder]),
         ('num_pages', int),
     ]
