@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.dal.helpers.redis import (
-    redis_del_entity_soon,
+    redis_del_by_deps_soon,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -37,7 +37,7 @@ async def mutate(
     success = await finding_domain.submit_draft(finding_id, analyst_email)
 
     if success:
-        redis_del_entity_soon('finding', id=finding_id)
+        redis_del_by_deps_soon('submit_draft', finding_id=finding_id)
         util.queue_cache_invalidation(finding_id)
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)

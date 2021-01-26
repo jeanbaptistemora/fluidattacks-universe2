@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.dal.helpers.redis import (
-    redis_del_entity_attr,
+    redis_del_by_deps,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -44,7 +44,10 @@ async def mutate(
             'zero_risk': finding_id,
         }
         to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        await redis_del_entity_attr('finding', 'vulns', id=finding_id)
+        await redis_del_by_deps(
+            'request_zero_risk_vuln',
+            finding_id=finding_id,
+        )
         await util.invalidate_cache(*to_clean)
         util.cloudwatch_log(
             info.context,

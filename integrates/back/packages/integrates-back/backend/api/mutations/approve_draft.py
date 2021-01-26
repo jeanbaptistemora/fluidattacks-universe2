@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.dal.helpers.redis import (
-    redis_del_entity_soon,
+    redis_del_by_deps_soon,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -40,7 +40,7 @@ async def mutate(
         draft_id, reviewer_email
     )
     if success:
-        redis_del_entity_soon('finding', id=draft_id)
+        redis_del_by_deps_soon('approve_draft', finding_id=draft_id)
         util.queue_cache_invalidation(
             f'finding*{group_name}',
             f'severity*{group_name}',

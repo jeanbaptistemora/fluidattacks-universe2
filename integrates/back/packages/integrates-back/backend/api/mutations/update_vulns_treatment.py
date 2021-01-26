@@ -6,7 +6,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.dal.helpers.redis import (
-    redis_del_entity_attr,
+    redis_del_by_deps,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -51,7 +51,10 @@ async def mutate(
         group_name=group_name,
     )
     if success:
-        await redis_del_entity_attr('finding', 'vulns', id=finding_id)
+        await redis_del_by_deps(
+            'update_vulns_treatment',
+            finding_id=finding_id,
+        )
         await util.invalidate_cache(
             f'vuln*{finding_id}',
             f'vuln*{group_name}',

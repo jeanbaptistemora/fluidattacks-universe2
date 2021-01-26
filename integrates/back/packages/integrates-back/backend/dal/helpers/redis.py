@@ -202,6 +202,23 @@ def redis_del_entity_soon(
     asyncio.create_task(redis_del_entity(entity, **args))
 
 
+async def redis_del_by_deps(dependency: str, **args: str) -> bool:
+    keys: Set[str] = redis_model.build_keys_by_dependencies(dependency, **args)
+
+    response: bool = (
+        await redis_cmd('delete', *keys) == len(keys)
+        if keys
+        else True
+    )
+
+    return response
+
+
+def redis_del_by_deps_soon(dependency: str, **args: str) -> None:
+    # Candidate to be pushed into the daemon queue
+    asyncio.create_task(redis_del_by_deps(dependency, **args))
+
+
 def instantiate_redis_cluster() -> RedisCluster:
     return RedisCluster(
         cluster_down_retry_attempts=1,
