@@ -29,6 +29,10 @@ def get_now(timezone: str = settings.TIME_ZONE) -> datetime:
     return datetime.now(tz=pytz.timezone(timezone))
 
 
+def get_utc_timestamp() -> float:
+    return datetime.now().timestamp()
+
+
 def get_plus_delta(
         date: datetime, days: float = 0, seconds: float = 0,
         microseconds: float = 0, milliseconds: float = 0, minutes: float = 0,
