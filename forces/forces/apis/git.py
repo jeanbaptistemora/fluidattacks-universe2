@@ -37,6 +37,8 @@ def get_repo_name_from_vars() -> Optional[str]:
         'BUILD_REPOSITORY_NAME',  # Azure devops
         'CI_PROJECT_NAME',  # gitlab-ci
         'CIRCLE_PROJECT_REPONAME',  # circleci
+        'BITBUCKET_REPO_FULL_NAME',  # bitbucket
+        'REPO_NAME',  # google cloud
     }
     for var in common_names:
         if name := os.environ.get(var):
