@@ -27,7 +27,7 @@ describe("Compulsory notice modal", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <CompulsoryNotice content={""} onAccept={jest.fn()} open={true} />
     );
-    const checkbox: ShallowWrapper = wrapper.find("modal").dive().find("Field");
+    const checkbox: ShallowWrapper = wrapper.find("Modal").dive().find("Field");
 
     expect(checkbox).toHaveLength(1);
   });
@@ -41,7 +41,7 @@ describe("Compulsory notice modal", (): void => {
         <CompulsoryNotice content={""} onAccept={handleAccept} open={true} />
       </Provider>
     );
-    const form: ReactWrapper = wrapper.find("modal").find("genericForm");
+    const form: ReactWrapper = wrapper.find("Modal").find("genericForm");
     form.simulate("submit");
 
     expect(handleAccept.mock.calls).toHaveLength(1);

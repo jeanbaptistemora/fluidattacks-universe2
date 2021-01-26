@@ -72,9 +72,9 @@ export const WelcomeView: React.FC = (): JSX.Element => {
   }
 
   return (
-    <div className={`${style.container} ${globalStyle["light-fg"]}`}>
+    <div className={style.container}>
       <div className={style.content}>
-        <div className={style.imgDiv}>
+        <div className={`${style.imgDiv} ${globalStyle["light-fg"]}`}>
           <img alt={"logo"} className={style.img} src={logo} />
           <br />
           <h1>

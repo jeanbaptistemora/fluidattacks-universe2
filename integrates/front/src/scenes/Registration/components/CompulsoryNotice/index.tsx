@@ -2,7 +2,7 @@ import { Button } from "components/Button";
 import { Checkbox } from "utils/forms/fields";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import React from "react";
 import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
@@ -38,6 +38,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
           >
             {translate.t("legalNotice.rememberCbo.text")}
           </Field>
+          <hr />
           <Row>
             <Col100>
               <ButtonToolbar>

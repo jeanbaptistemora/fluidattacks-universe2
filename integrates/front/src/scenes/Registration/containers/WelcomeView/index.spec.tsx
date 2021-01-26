@@ -67,7 +67,7 @@ describe("Welcome view", (): void => {
       }
     );
 
-    expect(wrapper.find("modal").text()).toContain(
+    expect(wrapper.find("Modal").text()).toContain(
       "Integrates, Copyright (c) 2020 Fluid Attacks"
     );
   });
