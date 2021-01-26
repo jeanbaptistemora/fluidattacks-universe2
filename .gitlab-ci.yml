@@ -123,6 +123,11 @@ makes/lint:
   <<: *common_in_dev_branch
   stage: lint-code
 
+makes/test:
+  <<: *makes
+  <<: *common_in_dev_branch
+  stage: test-code
+
 common_lint_commit_msg:
   <<: *with_nix
   <<: *common_in_dev_branch
