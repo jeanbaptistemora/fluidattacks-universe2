@@ -5,6 +5,9 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_entity_attr,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -48,6 +51,7 @@ async def mutate(
         group_name=group_name,
     )
     if success:
+        await redis_del_entity_attr('finding', 'vulns', id=finding_id)
         await util.invalidate_cache(
             f'vuln*{finding_id}',
             f'vuln*{group_name}',

@@ -1,10 +1,15 @@
 # Standard
 from typing import List
+
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
+
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_entity_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -41,6 +46,7 @@ async def mutate(
         user_email=email,
     )
     if success:
+        redis_del_entity_soon('finding', id=finding_id)
         util.queue_cache_invalidation(
             f'vuln*{finding_id}',
             f'vuln*{group_name}',

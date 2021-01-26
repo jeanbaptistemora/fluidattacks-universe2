@@ -20,7 +20,8 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'id',
         },
         attrs={
-            'age'
+            'age',
+            'vulns',
         },
     ),
     forces_execution=dict(
@@ -49,7 +50,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 #   finding state
 #   finding tracking
 #   finding verified
-#   finding vulnerabilities
 #   group consulting
 #   group last_closing_vuln_finding
 #   group max_open_severity_finding

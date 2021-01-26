@@ -194,6 +194,14 @@ async def redis_del_entity(
     return response
 
 
+def redis_del_entity_soon(
+    entity: str,
+    **args: str,
+) -> None:
+    # Candidate to be pushed into the daemon queue
+    asyncio.create_task(redis_del_entity(entity, **args))
+
+
 def instantiate_redis_cluster() -> RedisCluster:
     return RedisCluster(
         cluster_down_retry_attempts=1,

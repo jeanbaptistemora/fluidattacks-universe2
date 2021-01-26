@@ -8,7 +8,7 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend import util
 from backend.dal.helpers.redis import (
-    redis_del_entity_attr,
+    redis_del_entity_soon,
 )
 from backend.decorators import (
     concurrent_decorators,
@@ -51,7 +51,7 @@ async def mutate(
     else:
         raise InvalidFileType()
     if success:
-        redis_del_entity_attr('finding', 'age', id=finding_id)
+        redis_del_entity_soon('finding', id=finding_id)
         util.queue_cache_invalidation(
             f'remediated*{finding_id}',
             f'state*{finding_id}',
