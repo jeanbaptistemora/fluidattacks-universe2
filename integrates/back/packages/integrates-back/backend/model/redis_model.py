@@ -21,6 +21,11 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         attrs={
             'age',
+            'closed_vulns',
+            'inputs_vulns',
+            'lines_vulns',
+            'open_vulns',
+            'ports_vulns',
             'vulns',
         },
     ),
@@ -35,17 +40,12 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 # Pending:
-#   finding closed_vulnerabilities
 #   finding consulting
 #   finding exploit
-#   finding inputs_vulns
 #   finding last_vulnerability
-#   finding lines_vulns
 #   finding new_remediated
 #   finding observations
 #   finding open_age
-#   finding open_vulnerabilities
-#   finding ports_vulns
 #   finding records
 #   finding state
 #   finding tracking
