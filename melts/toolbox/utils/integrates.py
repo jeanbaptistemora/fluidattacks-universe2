@@ -23,6 +23,7 @@ def get_project_repos(project: str) -> List:
     if response.ok:
         repositories = json.loads(response.data['resources']['repositories'])
     else:
+        logger.error(f'An error has occurred querying the {project} group')
         logger.error(response.errors)
 
     return repositories
@@ -31,6 +32,7 @@ def get_project_repos(project: str) -> List:
 def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     filter_request = api.integrates.Queries.git_roots_filter(API_TOKEN, group)
     if not filter_request.ok:
+        logger.error(f'An error has occurred querying the {group} group')
         logger.error(filter_request.errors)
         return list()
     return filter_request.data['project']['roots']
@@ -39,6 +41,7 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
+        logger.error(f'An error has occurred querying the {group} group')
         raise Exception(response.errors)
 
     return response.data['project']['hasForces']
@@ -47,6 +50,7 @@ def has_forces(group: str) -> bool:
 def get_group_language(group: str) -> str:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
+        logger.error(f'An error has occurred querying the {group} group')
         raise Exception(response.errors)
 
     return response.data['project']['language']
@@ -55,6 +59,7 @@ def get_group_language(group: str) -> str:
 def has_drills(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
+        logger.error(f'An error has occurred querying the {group} group')
         raise Exception(response.errors)
 
     return response.data['project']['hasDrills']
