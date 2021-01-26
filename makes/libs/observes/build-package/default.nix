@@ -17,8 +17,8 @@ makeTemplate {
     envPythonRequirements = reqs;
     envPackageSrc = projectDir;
     envSearchPaths = makeSearchPaths buildInputs;
-    envUtilsBashLibPython = path "/makes/utils/bash-lib/python.sh";
+    envUtilsBashLibPython = path "/makes/utils/python/template.sh";
   };
   name = "observes-package-${packageName}";
-  template = path "/makes/utils/observes-lib/build-package/setup-package.sh";
+  template = path "/makes/libs/observes/build-package/setup-package.sh";
 }
