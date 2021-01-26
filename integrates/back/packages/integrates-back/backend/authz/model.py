@@ -4,6 +4,8 @@ from typing import (
     Set,
 )
 
+# Constants
+FLUID_IDENTIFIER = '@fluidattacks.com'
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
@@ -520,11 +522,39 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 
+# Map(role_name -> Map(actions|tags -> definition))
+GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
+    **GROUP_LEVEL_ROLES
+)
+
 GROUP_LEVEL_ACTIONS: Set[str] = {
     action
     for definition in GROUP_LEVEL_ROLES.values()
     for action in definition['actions']
 }
+
+GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
+    action
+    for definition in GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
+    for action in definition['actions']
+}
+
+
+def _get_group_level_actions(
+    subject: str,
+) -> Set[str]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS
+    return GROUP_LEVEL_ACTIONS
+
+
+def get_group_level_roles(
+    subject: str,
+) -> Dict[str, Dict[str, Set[str]]]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS
+    return GROUP_LEVEL_ROLES
+
 
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
@@ -547,7 +577,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             ),
             'backend_api_mutations_create_group_mutate',
             'grant_organization_level_role:customer',
-            'grant_organization_level_role:customeradmin'
+            'grant_organization_level_role:customeradmin',
         },
         tags=set()
     ),
@@ -605,11 +635,78 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     )
 )
 
+ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
+    str, Dict[str, Set[str]]
+] = dict(
+    admin=dict(
+        actions={
+            *ORGANIZATION_LEVEL_ROLES['admin']['actions'],
+            'backend_api_mutations_create_group_mutate',
+            'grant_organization_level_role:group_manager',
+        },
+        tags={
+            *ORGANIZATION_LEVEL_ROLES['admin']['tags'],
+        }
+    ),
+    customer=dict(
+        actions={
+            *ORGANIZATION_LEVEL_ROLES['customer']['actions'],
+            'backend_api_mutations_create_group_mutate',
+        },
+        tags={
+            *ORGANIZATION_LEVEL_ROLES['customer']['tags'],
+        }
+    ),
+    customeradmin=dict(
+        actions={
+            *ORGANIZATION_LEVEL_ROLES['customeradmin']['actions'],
+            'backend_api_mutations_create_group_mutate',
+            'grant_organization_level_role:group_manager',
+        },
+        tags={
+            *ORGANIZATION_LEVEL_ROLES['customeradmin']['tags'],
+        }
+    ),
+    group_manager=dict(
+        actions={
+            *ORGANIZATION_LEVEL_ROLES['group_manager']['actions'],
+            'backend_api_mutations_create_group_mutate',
+            'grant_organization_level_role:group_manager',
+        },
+        tags={
+            *ORGANIZATION_LEVEL_ROLES['group_manager']['tags'],
+        }
+    )
+)
+
 ORGANIZATION_LEVEL_ACTIONS: Set[str] = {
     action
     for definition in ORGANIZATION_LEVEL_ROLES.values()
     for action in definition['actions']
 }
+
+ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
+    action
+    for definition in ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
+    for action in definition['actions']
+}
+
+
+def _get_organization_level_actions(
+    subject: str,
+) -> Set[str]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS
+    return ORGANIZATION_LEVEL_ACTIONS
+
+
+def get_organization_level_roles(
+    subject: str,
+) -> Dict[str, Dict[str, Set[str]]]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS
+    return ORGANIZATION_LEVEL_ROLES
+
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
@@ -624,6 +721,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_add_stakeholder_mutate',
             'backend_api_resolvers_query_user_list_groups_resolve',
             'grant_user_level_role:admin',
+            'grant_user_level_role:analyst',
             'grant_user_level_role:customer',
         },
         tags=set(),
@@ -647,11 +745,67 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 
+# Map(role_name -> Map(actions|tags -> definition))
+USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
+    admin=dict(
+        actions={
+            *USER_LEVEL_ROLES['admin']['actions'],
+            'backend_api_mutations_create_organization_mutate',
+        },
+        tags={
+            *USER_LEVEL_ROLES['admin']['tags'],
+        },
+    ),
+    analyst=dict(
+        actions={
+            *USER_LEVEL_ROLES['analyst']['actions'],
+            'backend_api_mutations_invalidate_cache_mutate',
+            'backend_api_mutations_create_organization_mutate',
+        },
+        tags={
+            *USER_LEVEL_ROLES['admin']['tags'],
+        },
+    ),
+    customer=dict(
+        actions={
+            *USER_LEVEL_ROLES['customer']['actions'],
+            'backend_api_resolvers_query_internal_names_resolve',
+            'backend_api_mutations_create_organization_mutate',
+        },
+        tags={
+            *USER_LEVEL_ROLES['admin']['tags'],
+        },
+    ),
+)
+
 USER_LEVEL_ACTIONS: Set[str] = {
     action
     for definition in USER_LEVEL_ROLES.values()
     for action in definition['actions']
 }
+
+USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
+    action
+    for definition in USER_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
+    for action in definition['actions']
+}
+
+
+def _get_user_level_actions(
+    subject: str,
+) -> Set[str]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS
+    return USER_LEVEL_ACTIONS
+
+
+def get_user_level_roles(
+    subject: str,
+) -> Dict[str, Dict[str, Set[str]]]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return USER_LEVEL_ROLES_FOR_FLUIDATTACKS
+    return USER_LEVEL_ROLES
+
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
