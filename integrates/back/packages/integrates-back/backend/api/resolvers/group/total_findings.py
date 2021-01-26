@@ -1,4 +1,7 @@
 # Standard
+from functools import (
+    partial,
+)
 from typing import cast
 
 # Third party
@@ -6,13 +9,30 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import get_entity_cache_async, require_integrates
+from backend.dal.helpers.redis import (
+    redis_get_or_set_entity_attr,
+)
+from backend.decorators import require_integrates
 from backend.typing import Project as Group
 
 
-@require_integrates
-@get_entity_cache_async
 async def resolve(
+    parent: Group,
+    _info: GraphQLResolveInfo,
+    **_kwargs: None
+) -> int:
+    response: int = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, _info, **_kwargs),
+        entity='group',
+        attr='total_findings',
+        name=cast(str, parent['name']),
+    )
+
+    return response
+
+
+@require_integrates
+async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None

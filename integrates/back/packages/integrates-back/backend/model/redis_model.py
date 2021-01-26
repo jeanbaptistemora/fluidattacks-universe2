@@ -72,6 +72,18 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies=set(),
     ),
+    group=dict(
+        args={
+            'name',
+        },
+        attrs={
+            'total_findings',
+        },
+        dependencies={
+            'approve_draft',
+            'delete_finding'
+        },
+    ),
 )
 # Pending:
 #   finding tracking
@@ -80,7 +92,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 #   group max_open_severity_finding
 #   group max_severity
 #   group max_severity_finding
-#   group total_findings
 
 
 class KeyNotFound(Exception):
