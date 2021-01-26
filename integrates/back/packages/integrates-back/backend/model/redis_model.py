@@ -38,6 +38,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'ports_vulns',
             'records',
             'state',
+            'tracking',
             'verified',
             'vulns',
         },
@@ -86,7 +87,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 # Pending:
-#   finding tracking
 #   group consulting
 #   group last_closing_vuln_finding
 #   group max_open_severity_finding

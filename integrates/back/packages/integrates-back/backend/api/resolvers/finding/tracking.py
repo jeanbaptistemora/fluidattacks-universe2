@@ -1,11 +1,16 @@
 # Standard
+from functools import (
+    partial,
+)
 from typing import cast, Dict, List
 
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import get_entity_cache_async
+from backend.dal.helpers.redis import (
+    redis_get_or_set_entity_attr,
+)
 from backend.domain import finding as finding_domain
 from backend.filters import finding as finding_filters
 from backend.typing import (
@@ -14,8 +19,22 @@ from backend.typing import (
 )
 
 
-@get_entity_cache_async
 async def resolve(
+    parent: Dict[str, Finding],
+    info: GraphQLResolveInfo,
+    **kwargs: None
+) -> List[TrackingItem]:
+    response: List[TrackingItem] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, info, **kwargs),
+        entity='finding',
+        attr='tracking',
+        id=cast(str, parent['id']),
+    )
+
+    return response
+
+
+async def resolve_no_cache(
     parent: Dict[str, Finding],
     info: GraphQLResolveInfo,
     **_kwargs: None
