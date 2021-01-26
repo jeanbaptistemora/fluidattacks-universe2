@@ -8,6 +8,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_entity_attr_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -48,10 +51,8 @@ async def mutate(
         parent
     )
     if success:
-        util.queue_cache_invalidation(
-            f'consulting*{event_id}',
-            f'comment*{event_id}'
-        )
+        redis_del_entity_attr_soon('event', 'consulting', event_id=event_id)
+        util.queue_cache_invalidation(f'comment*{event_id}')
         if content.strip() not in {'#external', '#internal'}:
             event_domain.send_comment_mail(
                 user_email,

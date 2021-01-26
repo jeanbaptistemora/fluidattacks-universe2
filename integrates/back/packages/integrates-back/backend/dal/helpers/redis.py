@@ -154,7 +154,6 @@ async def redis_get_or_set_entity_attr(
 
 
 async def redis_del_entity_attr(
-    *,
     entity: str,
     attr: str,
     **args: str,
@@ -165,6 +164,15 @@ async def redis_del_entity_attr(
     response: bool = await redis_cmd('delete', key) == 1
 
     return response
+
+
+def redis_del_entity_attr_soon(
+    entity: str,
+    attr: str,
+    **args: str,
+) -> None:
+    # Candidate to be pushed into the daemon queue
+    asyncio.create_task(redis_del_entity_attr(entity, attr, **args))
 
 
 async def redis_del_entity(

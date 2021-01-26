@@ -1,21 +1,30 @@
 # Standard
-from typing import cast, Dict, List
+from functools import (
+    partial,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import get_entity_cache_async
+from backend.dal.helpers.redis import (
+    redis_get_or_set_entity_attr,
+)
 from backend.domain import comment as comment_domain
 from backend.typing import Comment, Event
 
 
-@get_entity_cache_async
-async def resolve(
+async def resolve_no_cache(
     parent: Event,
     info: GraphQLResolveInfo,
-    **_kwargs: None
+    **_kwargs: None,
 ) -> List[Comment]:
     event_id: str = cast(str, parent['id'])
     group_name: str = cast(str, parent['project_name'])
@@ -31,3 +40,18 @@ async def resolve(
             user_email
         )
     )
+
+
+async def resolve(
+    parent: Event,
+    info: GraphQLResolveInfo,
+    **kwargs: Any,
+) -> List[Comment]:
+    response: List[Comment] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, info, **kwargs),
+        entity='event',
+        attr='consulting',
+        event_id=cast(str, parent['id']),
+    )
+
+    return response
