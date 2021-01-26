@@ -2,14 +2,17 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
-  query GetOrganizationStakeholders ($organizationId: String!) {
+  query GetOrganizationStakeholders ($organizationId: String!, $pageIndex: Int!) {
     organization(organizationId: $organizationId) {
-      stakeholders {
-        email
-        firstLogin
-        lastLogin
-        phoneNumber
-        role
+      stakeholders(pageIndex: $pageIndex) {
+        numPages
+        stakeholders {
+          email
+          firstLogin
+          lastLogin
+          phoneNumber
+          role
+        }
       }
     }
   }

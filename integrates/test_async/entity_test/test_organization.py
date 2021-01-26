@@ -249,9 +249,7 @@ async def test_organization():
         'integratesmanager@gmail.com',
         'integratesresourcer@fluidattacks.com',
         'integratesreviewer@fluidattacks.com',
-        'integratesserviceforces@gmail.com',
-        'integratesuser@gmail.com',
-        'unittest2@fluidattacks.com'
+        'integratesserviceforces@gmail.com'
     ]
     query = f'''
         query {{
@@ -265,8 +263,10 @@ async def test_organization():
                 projects {{
                     name
                 }}
-                stakeholders {{
-                    email
+                stakeholders(pageIndex: 1) {{
+                    stakeholders {{
+                        email
+                    }}
                 }}
             }}
         }}
@@ -275,7 +275,7 @@ async def test_organization():
     data = {'query': query}
     result = await _get_result_async(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
-    stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']]
+    stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']['stakeholders']]
 
     assert 'errors' not in result
     assert result['data']['organization']['id'] == org_id

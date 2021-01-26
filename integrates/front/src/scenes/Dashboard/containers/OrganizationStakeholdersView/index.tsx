@@ -23,6 +23,7 @@ import {
 import {
   IAddStakeholderAttrs,
   IEditStakeholderAttrs,
+  IGetStakeholdersAttrs,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
@@ -96,6 +97,8 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
   const { userName }: IAuthContext = React.useContext(authContext);
+  const [pageSize, setPageSize] = React.useState<number>(10);
+  const [pageIndex, setPageIndex] = React.useState<number>(1);
 
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
@@ -115,7 +118,63 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   };
 
   // GraphQL Operations
-  const { data, refetch: refetchStakeholders } = useQuery(GET_ORGANIZATION_STAKEHOLDERS, {
+  const doRefetchStakeholders: ((page?: number, editedStakeholderEmail?: string) => void) =
+    (page?: number, editedStakeholderEmail?: string): void => {
+      void refetchStakeholders({
+        updateQuery: (prev: IGetStakeholdersAttrs, options: Record<string, unknown>): IGetStakeholdersAttrs => {
+          const fetchMoreResult: IGetStakeholdersAttrs = options.fetchMoreResult as IGetStakeholdersAttrs;
+          if (_.isEmpty(fetchMoreResult)) {
+            return prev;
+          }
+
+          const newStakeholders: IStakeholderAttrs[] = fetchMoreResult.organization.stakeholders.stakeholders;
+          const currentStakeholders: IStakeholderAttrs[] = !_.isUndefined(editedStakeholderEmail) ?
+            prev.organization.stakeholders.stakeholders.map((stakeholder: IStakeholderAttrs) => {
+              const editedStakeholder: IStakeholderAttrs | undefined =
+                newStakeholders.find((newStakeholder: IStakeholderAttrs): boolean =>
+                  newStakeholder.email === stakeholder.email && newStakeholder.email === editedStakeholderEmail,
+                );
+
+              return !_.isUndefined(editedStakeholder) ? editedStakeholder : stakeholder;
+            }) : prev.organization.stakeholders.stakeholders;
+
+          const newStakeholdersList: IStakeholderAttrs[] =
+            [...currentStakeholders, ...newStakeholders].reduce(
+              (list: IStakeholderAttrs[], stakeholder: IStakeholderAttrs) => {
+                if (!list.some(
+                  (currentStakeholder: IStakeholderAttrs) => currentStakeholder.email === stakeholder.email)
+                ) {
+                  list.push(stakeholder);
+                }
+
+                return list;
+              },
+              [],
+            );
+
+          return {
+            ...prev,
+            organization: {
+              __typename: "Organization",
+              ...currentStakeholders,
+              stakeholders: {
+                __typename: "GetOrganizationStakeholdersPayload",
+                numPages: prev.organization.stakeholders.numPages,
+                stakeholders: newStakeholdersList,
+              },
+            },
+          };
+        },
+        variables: {
+          organizationId,
+          pageIndex: page,
+          pageSize,
+        },
+      });
+  };
+
+  const { data, fetchMore: refetchStakeholders } = useQuery<IGetStakeholdersAttrs>(GET_ORGANIZATION_STAKEHOLDERS, {
+    notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -125,13 +184,17 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
         );
       });
     },
-    variables: { organizationId },
+    variables: {
+      organizationId,
+      pageIndex: 1,
+      pageSize,
+    },
   });
 
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IAddStakeholderAttrs): void => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
-        void refetchStakeholders();
+        doRefetchStakeholders(pageIndex);
         mixpanel.track("AddUserOrganzationAccess", { Organization: organizationName, User: userName });
         const { email } = mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
@@ -146,9 +209,10 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IEditStakeholderAttrs): void => {
       if (mtResult.editStakeholderOrganization.success) {
-        void refetchStakeholders();
-        mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
         const { email } = mtResult.editStakeholderOrganization.modifiedStakeholder;
+        doRefetchStakeholders(pageIndex, email);
+
+        mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
         msgSuccess(
           `${email} ${translate.t("organization.tabs.users.editButton.success")}`,
           translate.t("organization.tabs.users.successTitle"),
@@ -160,8 +224,13 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
 
   const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttrs): void => {
-      if (mtResult.removeStakeholderOrganizationAccess.success) {
-        void refetchStakeholders();
+      if (mtResult.removeStakeholderOrganizationAccess.success && !_.isUndefined(data)) {
+        const stakeholders: IStakeholderAttrs[] = data.organization.stakeholders.stakeholders;
+        const removeIndex: number = stakeholders.map(
+          (stakeholder: IStakeholderAttrs) => stakeholder.email)
+          .indexOf(currentRow.email);
+        stakeholders.splice(removeIndex, 1);
+
         mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName, User: userName });
         msgSuccess(
           `${currentRow.email} ${translate.t("organization.tabs.users.removeButton.success")}`,
@@ -200,10 +269,22 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
     setStakeholderModalAction("add");
   };
 
-  // Render Elements
-  const stakeholdersList: IStakeholderAttrs[] = _.isUndefined(data) || _.isEmpty(data)
-    ? []
-    : data.organization.stakeholders;
+  const onPageChange: ((page: number) => void) = (page: number): void => {
+    doRefetchStakeholders(page);
+    setPageIndex(page);
+  };
+
+  const onSizePerPageChange: ((pageSize: number, page: number) => number) =
+  // tslint:disable-next-line: no-shadowed-variable
+    (pageSize: number, page: number): number => {
+      setPageSize(pageSize);
+
+      return page;
+    };
+
+  const listStakeholders: IStakeholderAttrs[] =
+    !_.isUndefined(data) && !_.isEmpty(data) ? data?.organization.stakeholders.stakeholders : [];
+  const numPages: number = !_.isUndefined(data) && !_.isEmpty(data) ? data?.organization.stakeholders.numPages : 1;
 
   return (
     <React.StrictMode>
@@ -250,10 +331,13 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                 <DataTableNext
                   id="tblUsers"
                   bordered={true}
-                  dataset={stakeholdersList}
+                  dataset={listStakeholders}
                   exportCsv={true}
                   headers={tableHeaders}
-                  pageSize={15}
+                  numPages={numPages}
+                  onPageChange={onPageChange}
+                  pageSize={pageSize}
+                  onSizePerPageChange={onSizePerPageChange}
                   search={true}
                   striped={true}
                   selectionMode={{

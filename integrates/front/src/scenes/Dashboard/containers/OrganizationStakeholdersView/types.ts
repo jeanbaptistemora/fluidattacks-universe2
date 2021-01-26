@@ -21,8 +21,21 @@ export interface IEditStakeholderAttrs {
   };
  }
 
+export interface IGetStakeholdersAttrs {
+  organization: {
+    __typename: "Organization";
+    stakeholders: {
+      __typename: "GetOrganizationStakeholdersPayload";
+      numPages: number;
+      stakeholders: IStakeholderAttrs[];
+    };
+  };
+}
+
 export interface IOrganizationStakeholders {
   organizationId: string;
+  pageIndex?: number;
+  pageSize?: number;
 }
 
 export interface IRemoveStakeholderAttrs {

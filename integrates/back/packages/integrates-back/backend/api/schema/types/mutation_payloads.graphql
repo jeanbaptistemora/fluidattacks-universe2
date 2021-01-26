@@ -26,6 +26,11 @@ type DownloadFilePayload implements Payload {
   url: String
 }
 
+type GetOrganizationStakeholdersPayload {
+  numPages: Int
+  stakeholders: [Stakeholder]
+}
+
 type GrantStakeholderAccessPayload implements Payload {
   grantedStakeholder: Stakeholder
   success: Boolean!

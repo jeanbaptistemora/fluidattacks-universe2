@@ -41,7 +41,7 @@ async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
 
 @convert_kwargs_to_snake_case  # type: ignore
 @enforce_organization_level_auth_async
-async def _resolve(
+async def resolve(
     parent: OrganizationType,
     _info: GraphQLResolveInfo,
     page_index: int,
@@ -65,22 +65,4 @@ async def _resolve(
             for email in org_stakeholders[items_range]
         ),
         num_pages=(len(org_stakeholders) // int(page_size)) + 1
-    )
-
-
-@enforce_organization_level_auth_async
-async def resolve(
-    parent: OrganizationType,
-    _info: GraphQLResolveInfo,
-    **_kwargs: None
-) -> List[StakeholderType]:
-    org_id: str = cast(str, parent['id'])
-    org_stakeholders: List[str] = await org_domain.get_users(org_id)
-
-    return cast(
-        List[StakeholderType],
-        await collect(
-            _get_stakeholder(email, org_id)
-            for email in org_stakeholders
-        )
     )

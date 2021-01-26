@@ -116,8 +116,10 @@ async def test_organization():
                 projects {{
                     name
                 }}
-                stakeholders {{
-                    email
+                stakeholders(pageIndex: 1) {{
+                    stakeholders {{
+                        email
+                    }}
                 }}
             }}
         }}
@@ -125,7 +127,7 @@ async def test_organization():
     data = {'query': query}
     result = await get_result(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
-    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
+    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']['stakeholders']]
     assert 'errors' not in result
     assert result['data']['organization']['id'] == org_id
     assert result['data']['organization']['maxAcceptanceDays'] == Decimal('5')
@@ -134,7 +136,7 @@ async def test_organization():
     assert result['data']['organization']['minAcceptanceSeverity'] == Decimal('1.5')
     assert result['data']['organization']['name'] == org_name.lower()
     assert group_name in groups
-    assert stakeholder in stakeholders
+    assert 'continuoushack2@gmail.com' in stakeholders
     exe = UserNotInOrganization()
     result = await get_result(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
@@ -158,14 +160,16 @@ async def test_organization():
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{
-                stakeholders {{
-                    email
+                stakeholders(pageIndex: 1) {{
+                    stakeholders {{
+                        email
+                    }}
                 }}
             }}
         }}
     '''
     data = {'query': query}
     result = await get_result(data)
-    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
+    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']['stakeholders']]
     assert 'errors' not in result
     assert stakeholder not in stakeholders

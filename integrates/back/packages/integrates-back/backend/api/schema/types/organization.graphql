@@ -8,5 +8,5 @@ type Organization {
   minAcceptanceSeverity: Float!
   name: String!
   projects: [Project]
-  stakeholders: [Stakeholder]
+  stakeholders(pageIndex: Int!): GetOrganizationStakeholdersPayload
 }

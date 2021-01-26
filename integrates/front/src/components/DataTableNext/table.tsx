@@ -35,14 +35,19 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const { SearchBar } = Search;
   const { toolkitProps, tableProps, dataset } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
+  const defaultPages: number = 5;
+  const defaultInitPages: number = 2;
   const {
     bordered,
     defaultSorted,
     onUpdateEnableFilter,
     isFilterEnabled,
+    numPages = defaultPages,
     pageSize,
+    onSizePerPageChange,
     columnToggle = false,
     exportCsv,
+    onPageChange,
     search,
     tableHeader,
     rowEvents,
@@ -62,9 +67,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   }
 
   const isPaginationEnable: boolean =
-    !_.isEmpty(dataset) && dataset.length > pageSize;
+    numPages === defaultInitPages ||
+    (!_.isEmpty(dataset) && dataset.length > pageSize);
 
   const paginationOptions: PaginationProps = {
+    onPageChange: onPageChange,
+    onSizePerPageChange,
+    paginationSize: numPages,
     sizePerPage: pageSize,
     sizePerPageRenderer: SizePerPageRenderer,
   };

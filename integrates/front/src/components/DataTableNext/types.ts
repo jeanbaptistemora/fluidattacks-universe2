@@ -22,6 +22,9 @@ interface ITableProps {
   headers: IHeaderConfig[];
   id: string;
   isFilterEnabled?: boolean;
+  numPages?: number;
+  onSizePerPageChange?: (sizePerPage: number, page: number) => number;
+  onPageChange?: (arg1: number) => void;
   pageSize: number;
   rowEvents?: Record<string, unknown>;
   search: boolean;

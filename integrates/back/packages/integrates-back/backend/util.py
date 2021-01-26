@@ -639,6 +639,6 @@ def get_request_store(context) -> collections.defaultdict:
 
 def get_slice(index: int, size: int) -> slice:
     return slice(
-        (index - 1) * (size + 1),
-        (index - 1) * (size + 1) + size + 1
+        index * (size + 1),
+        index * (size + 1) + size + 1
     )
