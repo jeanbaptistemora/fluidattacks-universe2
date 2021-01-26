@@ -1,8 +1,11 @@
 # Standard library
 import asyncio
 import json
+import logging
 from typing import (
     Any,
+    Awaitable,
+    Callable,
     Optional,
     Set,
 )
@@ -44,6 +47,7 @@ from backend.model import (
 # https://redis-py-cluster.readthedocs.io/en/stable
 
 # Constants
+LOGGER = logging.getLogger(__name__)
 REDIS_EXCEPTIONS = (
     AttributeError,
     ClusterDownException,
@@ -79,6 +83,7 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
 
 
 async def redis_set_entity_attr(
+    *,
     entity: str,
     attr: str,
     value: Any,
@@ -95,6 +100,7 @@ async def redis_set_entity_attr(
 
 
 async def redis_get_entity_attr(
+    *,
     entity: str,
     attr: str,
     **args: str,
@@ -114,7 +120,41 @@ async def redis_get_entity_attr(
     return result
 
 
+async def redis_get_or_set_entity_attr(
+    generator: Callable[[], Awaitable[Any]],
+    *,
+    entity: str,
+    attr: str,
+    ttl: int = settings.CACHE_TTL,
+    **args: str,
+) -> Any:
+    try:
+        try:
+            response: Any = await redis_get_entity_attr(
+                entity=entity,
+                attr=attr,
+                **args,
+            )
+        except redis_model.KeyNotFound:
+            response = await generator()
+
+            await redis_set_entity_attr(
+                entity=entity,
+                attr=attr,
+                value=response,
+                ttl=ttl,
+                **args,
+            )
+
+    except REDIS_EXCEPTIONS as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        response = await generator()
+
+    return response
+
+
 async def redis_del_entity_attr(
+    *,
     entity: str,
     attr: str,
     **args: str,
@@ -128,6 +168,7 @@ async def redis_del_entity_attr(
 
 
 async def redis_del_entity(
+    *,
     entity: str,
     **args: str,
 ) -> bool:

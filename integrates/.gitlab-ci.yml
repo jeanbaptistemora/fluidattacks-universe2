@@ -141,6 +141,7 @@ integrates_subscriptions_trigger_user_to_entity_report_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: subscriptions
+  retry: 2
 
 integrates_subscriptions_trigger_user_to_entity_report_prod_schedule:
   <<: *with_nix
@@ -319,6 +320,7 @@ integrates_deploy_permissions_matrix:
       - integrates/deploy/permissions-matrix/organization_level.html
       - integrates/deploy/permissions-matrix/user_level.html
     when: on_success
+  retry: 2
 
 integrates_build_container_app:
   <<: *with_nix
@@ -345,7 +347,7 @@ integrates_test_e2e:
     - integrates_deploy_back_ephemeral
     - integrates_deploy_front
   stage: post-deploy
-  retry: 1
+  retry: 2
   parallel: 5
 
 integrates_infra_backup_deploy:
