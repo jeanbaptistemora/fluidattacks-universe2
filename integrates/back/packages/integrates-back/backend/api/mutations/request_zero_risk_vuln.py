@@ -39,16 +39,10 @@ async def mutate(
         vulnerabilities
     )
     if success:
-        attrs_to_clean = {
-            'finding': finding_id,
-            'zero_risk': finding_id,
-        }
-        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
         await redis_del_by_deps(
             'request_zero_risk_vuln',
             finding_id=finding_id,
         )
-        await util.invalidate_cache(*to_clean)
         util.cloudwatch_log(
             info.context,
             ('Security: Requested a zero risk vuln '

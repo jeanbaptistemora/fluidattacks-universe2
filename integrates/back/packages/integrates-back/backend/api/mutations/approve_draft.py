@@ -45,7 +45,6 @@ async def mutate(
             f'finding*{group_name}',
             f'severity*{group_name}',
             f'vuln*{group_name}',
-            draft_id
         )
         util.forces_trigger_deployment(group_name)
         util.cloudwatch_log(

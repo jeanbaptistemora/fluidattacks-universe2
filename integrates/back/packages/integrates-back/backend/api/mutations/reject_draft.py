@@ -35,7 +35,6 @@ async def mutate(
     reviewer_email = user_info['user_email']
     success = await finding_domain.reject_draft(finding_id, reviewer_email)
     if success:
-        util.queue_cache_invalidation(finding_id)
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)
         finding_domain.send_finding_mail(

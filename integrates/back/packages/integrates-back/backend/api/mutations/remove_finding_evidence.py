@@ -38,11 +38,7 @@ async def mutate(
             'remove_finding_evidence',
             finding_id=finding_id,
         )
-        util.queue_cache_invalidation(
-            f'evidence*{finding_id}',
-            f'exploit*{finding_id}',
-            f'records*{finding_id}'
-        )
+        util.queue_cache_invalidation(f'evidence*{finding_id}')
         util.cloudwatch_log(
             info.context,
             ('Security: Removed evidence '

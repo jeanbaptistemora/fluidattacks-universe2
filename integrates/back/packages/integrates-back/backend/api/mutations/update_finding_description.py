@@ -35,9 +35,6 @@ async def mutate(
         finding_id, parameters
     )
     if success:
-        attrs_to_clean = {attribute: finding_id for attribute in parameters}
-        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        util.queue_cache_invalidation(*to_clean)
         util.cloudwatch_log(
             info.context,
             f'Security: Updated description in finding '

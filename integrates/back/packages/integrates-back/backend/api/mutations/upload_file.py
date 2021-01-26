@@ -52,15 +52,7 @@ async def mutate(
         raise InvalidFileType()
     if success:
         redis_del_by_deps('upload_file', finding_id=finding_id)
-        util.queue_cache_invalidation(
-            f'remediated*{finding_id}',
-            f'state*{finding_id}',
-            f'tracking*{finding_id}',
-            f'verified*{finding_id}',
-            f'vuln*{finding_id}',
-            f'vuln*{group_name}',
-            finding_id
-        )
+        util.queue_cache_invalidation(f'vuln*{group_name}')
         util.cloudwatch_log(
             info.context,
             f'Security: Uploaded file in {group_name} group successfully'

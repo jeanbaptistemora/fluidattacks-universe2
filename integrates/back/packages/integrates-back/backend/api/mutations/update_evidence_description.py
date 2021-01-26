@@ -48,7 +48,6 @@ async def mutate(
                 'update_evidence_description',
                 finding_id=finding_id,
             )
-            util.queue_cache_invalidation(f'evidence*{finding_id}')
             util.cloudwatch_log(
                 info.context,
                 (

@@ -45,8 +45,6 @@ async def mutate(
         util.queue_cache_invalidation(
             f'finding*{group_name}',
             f'severity*{group_name}',
-            f'vuln*{group_name}',
-            finding_id
         )
         justification_dict = {
             'DUPLICATED': 'It is duplicated',

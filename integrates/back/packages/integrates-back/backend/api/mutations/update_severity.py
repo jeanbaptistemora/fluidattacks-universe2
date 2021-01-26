@@ -42,7 +42,6 @@ async def mutate(
     if success:
         redis_del_by_deps_soon('update_severity', finding_id=finding_id)
         util.queue_cache_invalidation(
-            f'severity*{finding_id}',
             f'severity*{group_name}'
         )
         util.cloudwatch_log(

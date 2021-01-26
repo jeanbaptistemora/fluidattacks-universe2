@@ -50,11 +50,6 @@ async def mutate(
             'handle_vulns_acceptation',
             finding_id=finding_id,
         )
-        util.queue_cache_invalidation(
-            f'vuln*{finding_id}',
-            f'vuln*{group_name}',
-            *[f'vuln*{vuln}' for vuln in accepted_vulns + rejected_vulns]
-        )
         util.forces_trigger_deployment(group_name)
 
     return SimplePayload(success=success)
