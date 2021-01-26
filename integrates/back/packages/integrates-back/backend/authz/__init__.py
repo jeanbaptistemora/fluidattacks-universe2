@@ -17,9 +17,12 @@ from .enforcer import (
 )
 from .model import (
     GROUP_LEVEL_ROLES,
+    GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS,
     ORGANIZATION_LEVEL_ROLES,
+    ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS,
     SERVICE_ATTRIBUTES,
     USER_LEVEL_ROLES,
+    USER_LEVEL_ROLES_FOR_FLUIDATTACKS,
 )
 from .policy import (
     get_cached_group_service_attributes_policies,
@@ -56,9 +59,12 @@ __all__ = [
 
     # model
     'GROUP_LEVEL_ROLES',
+    'GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS',
     'ORGANIZATION_LEVEL_ROLES',
+    'ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS',
     'SERVICE_ATTRIBUTES',
     'USER_LEVEL_ROLES',
+    'USER_LEVEL_ROLES_FOR_FLUIDATTACKS',
 
     # policy
     'get_cached_group_service_attributes_policies',

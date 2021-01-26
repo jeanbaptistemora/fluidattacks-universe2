@@ -319,6 +319,9 @@ integrates_deploy_permissions_matrix:
       - integrates/deploy/permissions-matrix/group_level.html
       - integrates/deploy/permissions-matrix/organization_level.html
       - integrates/deploy/permissions-matrix/user_level.html
+      - integrates/deploy/permissions-matrix/group_level_for_fluidattacks.html
+      - integrates/deploy/permissions-matrix/organization_level_for_fluidattacks.html
+      - integrates/deploy/permissions-matrix/user_level_for_fluidattacks.html
     when: on_success
   retry: 2
 

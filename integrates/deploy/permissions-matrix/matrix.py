@@ -53,6 +53,21 @@ def get_matrix_parameters(
     create_dataframe(dataset, sorted_columns, rows, filename)
 
 
+# Matrix for common permissions
 get_matrix_parameters(authz.GROUP_LEVEL_ROLES, 'group_level')
 get_matrix_parameters(authz.ORGANIZATION_LEVEL_ROLES, 'organization_level')
 get_matrix_parameters(authz.USER_LEVEL_ROLES, 'user_level')
+
+# Matrix for fluid users permissions
+get_matrix_parameters(
+    authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS,
+    'group_level_for_fluidattacks'
+)
+get_matrix_parameters(
+    authz.ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS,
+    'organization_level_for_fluidattacks'
+)
+get_matrix_parameters(
+    authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS,
+    'user_level_for_fluidattacks'
+)
