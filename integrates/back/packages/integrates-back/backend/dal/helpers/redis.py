@@ -1,6 +1,5 @@
 # Standard library
 import asyncio
-import json
 import logging
 from typing import (
     Any,
@@ -36,6 +35,10 @@ from back import (
 )
 from backend.model import (
     redis_model,
+)
+from backend.utils.serialization import (
+    dump,
+    load,
 )
 
 # A cluster is different than a server
@@ -93,7 +96,7 @@ async def redis_set_entity_attr(
     # https://redis.io/commands/setex
 
     key: str = redis_model.build_key(entity, attr, **args)
-    value_encoded: str = json.dumps(value)
+    value_encoded: bytes = dump(value)
     success: bool = await redis_cmd('setex', key, ttl, value_encoded)
 
     return success
@@ -108,14 +111,14 @@ async def redis_get_entity_attr(
     # https://redis.io/commands/get
 
     key: str = redis_model.build_key(entity, attr, **args)
-    response: Optional[str] = await redis_cmd('get', key)
+    response: Optional[bytes] = await redis_cmd('get', key)
 
     if response is None:
         # Not found
         raise redis_model.KeyNotFound()
 
     # Deserialize and return
-    result: Any = json.loads(response)
+    result: Any = load(response)
 
     return result
 

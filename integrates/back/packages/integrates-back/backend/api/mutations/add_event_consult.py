@@ -51,7 +51,7 @@ async def mutate(
         parent
     )
     if success:
-        redis_del_entity_attr_soon('event', 'consulting', event_id=event_id)
+        redis_del_entity_attr_soon('event', 'consulting', id=event_id)
         util.queue_cache_invalidation(f'comment*{event_id}')
         if content.strip() not in {'#external', '#internal'}:
             event_domain.send_comment_mail(

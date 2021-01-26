@@ -8,11 +8,20 @@ from typing import (
 # Constants
 ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     event=dict(
+        args={
+            'id',
+        },
         attrs={
             'consulting',
         },
+    ),
+    forces_execution=dict(
         args={
-            'event_id',
+            'group',
+            'id',
+        },
+        attrs={
+            'forces_execution'
         },
     ),
 )
@@ -40,7 +49,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 #   group max_severity
 #   group max_severity_finding
 #   group total_findings
-#   query forces_execution
 
 
 class KeyNotFound(Exception):
@@ -59,8 +67,8 @@ def build_key(entity: str, attr: str, **args: str) -> str:
         raise ValueError(f'Missing args for {entity}.{attr}: {missing_args}')
 
     # >>> build_key('a', 'b', c=1, d=2)
-    # 'a.b@c=1@d=2
-    key: str = f'{entity}.{attr}@' + '@'.join(sorted(
+    # 'a.b@c=1,d=2
+    key: str = f'{entity}.{attr}@' + ','.join(sorted(
         f'{k}={v}' for k, v in args.items()
     ))
 

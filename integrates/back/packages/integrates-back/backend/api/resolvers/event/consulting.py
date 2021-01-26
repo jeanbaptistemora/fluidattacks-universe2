@@ -51,7 +51,7 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity='event',
         attr='consulting',
-        event_id=cast(str, parent['id']),
+        id=cast(str, parent['id']),
     )
 
     return response
