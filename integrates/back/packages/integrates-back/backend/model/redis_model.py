@@ -61,3 +61,12 @@ def build_key(entity: str, attr: str, **args: str) -> str:
     ))
 
     return key
+
+
+def build_keys_for_entity(entity: str, **args: str) -> Set[str]:
+    keys: Set[str] = {
+        build_key(entity, attr, **args)
+        for attr in ENTITIES[entity]['attrs']
+    }
+
+    return keys
