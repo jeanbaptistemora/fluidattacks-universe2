@@ -26,14 +26,19 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         attrs={
             'age',
             'closed_vulns',
+            'consulting',
+            'exploit',
             'inputs_vulns',
+            'last_vulnerability',
             'lines_vulns',
+            'new_remediated',
+            'observations',
+            'open_age',
             'open_vulns',
             'ports_vulns',
-            'vulns',
-            'exploit',
-            'observations',
+            'records',
             'verified',
+            'vulns',
         },
         dependencies={
             'approve_draft',
@@ -59,11 +64,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 # Pending:
-#   finding consulting
-#   finding last_vulnerability
-#   finding new_remediated
-#   finding open_age
-#   finding records
 #   finding state
 #   finding tracking
 #   group consulting

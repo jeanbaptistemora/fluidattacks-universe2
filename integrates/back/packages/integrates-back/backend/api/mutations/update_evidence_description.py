@@ -7,6 +7,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_entity_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -41,6 +44,7 @@ async def mutate(
             finding_id, evidence_id, description
         )
         if success:
+            redis_del_entity_soon('finding', id=finding_id)
             util.queue_cache_invalidation(f'evidence*{finding_id}')
             util.cloudwatch_log(
                 info.context,

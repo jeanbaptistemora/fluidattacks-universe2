@@ -1,18 +1,37 @@
 # Standard
+from functools import (
+    partial,
+)
 from typing import cast, Dict, List
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.dal.helpers.redis import (
+    redis_get_or_set_entity_attr,
+)
 from backend import util
-from backend.decorators import get_entity_cache_async
 from backend.domain import comment as comment_domain
 from backend.typing import Comment, Finding
 
 
-@get_entity_cache_async
 async def resolve(
+    parent: Dict[str, Finding],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
+) -> List[Comment]:
+    response: List[Comment] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, info, **kwargs),
+        entity='finding',
+        attr='consulting',
+        id=cast(str, parent['id']),
+    )
+
+    return response
+
+
+async def resolve_no_cache(
     parent: Finding,
     info: GraphQLResolveInfo,
     **_kwargs: None

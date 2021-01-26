@@ -8,6 +8,9 @@ from starlette.datastructures import UploadFile
 
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_entity,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -40,6 +43,7 @@ async def mutate(
     )
 
     if success:
+        await redis_del_entity('finding', id=finding_id)
         if evidence_id == 'exploit':
             await util.invalidate_cache(f'exploit*{finding_id}')
         elif evidence_id == 'fileRecords':

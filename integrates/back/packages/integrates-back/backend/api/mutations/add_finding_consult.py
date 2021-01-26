@@ -8,6 +8,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_entity_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -74,6 +77,7 @@ async def mutate(
         )
 
     if success:
+        redis_del_entity_soon('finding', id=finding_id)
         util.queue_cache_invalidation(
             f'{param_type}*{finding_id}',
             f'comment*{finding_id}'
