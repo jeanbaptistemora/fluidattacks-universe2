@@ -16,7 +16,7 @@ import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormPro
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
 import {

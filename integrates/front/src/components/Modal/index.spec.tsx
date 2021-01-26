@@ -2,17 +2,12 @@
   --------
   Disable for testing purposes
 */
-import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { ModalBase } from "components/Modal/components/modalBase";
 import React from "react";
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
-import {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from "styles/styledComponents";
+import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 
 describe("Generic modal", (): void => {
   it("should return a function", (): void => {
@@ -24,7 +19,9 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} onClose={jest.fn()} open={true} />
+      <ModalBase headerTitle={"Unit test title"} open={true}>
+        <p>{"Unit modal content"}</p>
+      </ModalBase>
     );
 
     expect(
@@ -40,9 +37,9 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} onClose={jest.fn()} open={true}>
+      <ModalBase headerTitle={"Unit test title"} open={true}>
         <p>{"Unit modal content"}</p>
-      </Modal>
+      </ModalBase>
     );
 
     expect(
@@ -54,39 +51,11 @@ describe("Generic modal", (): void => {
     ).toBe(true);
   });
 
-  it("should render modal footer", (): void => {
-    expect.hasAssertions();
-
-    const wrapper: ShallowWrapper = shallow(
-      <Modal
-        footer={<Button>{"test btn"}</Button>}
-        headerTitle={"Unit test title"}
-        onClose={jest.fn()}
-        open={true}
-      >
-        <p>{"Unit modal content"}</p>
-      </Modal>
-    );
-
-    expect(
-      wrapper.contains(
-        <ModalFooter>
-          <Button>{"test btn"}</Button>
-        </ModalFooter>
-      )
-    ).toBe(true);
-  });
-
   it("should render a modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal
-        footer={<Button>{"test btn"}</Button>}
-        headerTitle={"Unit test title"}
-        onClose={jest.fn()}
-        open={true}
-      >
+      <Modal headerTitle={"Unit test title"} open={true}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );

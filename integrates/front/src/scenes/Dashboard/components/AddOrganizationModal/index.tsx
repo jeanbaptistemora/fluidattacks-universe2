@@ -5,7 +5,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { TooltipWrapper } from "components/TooltipWrapper/index";

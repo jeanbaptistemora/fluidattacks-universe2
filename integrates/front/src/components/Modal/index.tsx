@@ -1,69 +1,17 @@
-/* eslint-disable react/forbid-component-props
-  --------
-  We need className to override default styles from react-bootstrap
-*/
-import { Modal } from "react-bootstrap";
+import type { IModalProps } from "./components/modalBase";
+import { ModalBase } from "./components/modalBase";
 import React from "react";
-import type { Sizes } from "react-bootstrap";
-import style from "components/Modal/index.css";
-import {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from "styles/styledComponents";
 
-interface IModalProps {
-  bsSize?: Sizes;
-  children?: React.ReactNode;
-  footer?: React.ReactNode;
-  headerTitle: string;
-  open: boolean;
-  onClose?: () => void;
-  onOpen?: () => void;
-}
-
-const modal: React.FC<IModalProps> = (
+const Modal: React.FC<IModalProps> = (
   props: Readonly<IModalProps>
-): JSX.Element => {
-  const {
-    bsSize,
-    open,
-    headerTitle,
-    children,
-    footer = <div />,
-    onClose,
-    onOpen,
-  } = props;
+): JSX.Element | null => {
+  const { children, headerTitle, open, size } = props;
 
-  function handleModalClose(): void {
-    if (onClose !== undefined) {
-      onClose();
-    }
-  }
-
-  function handleModalOpen(): void {
-    if (onOpen !== undefined) {
-      onOpen();
-    }
-  }
-
-  return (
-    <Modal
-      backdrop={true}
-      bsSize={bsSize}
-      dialogClassName={style.dialog}
-      onHide={handleModalClose}
-      onShow={handleModalOpen}
-      show={open}
-    >
-      <ModalHeader>
-        <ModalTitle>{headerTitle}</ModalTitle>
-      </ModalHeader>
-      <ModalBody>{children}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
-  );
+  return open ? (
+    <ModalBase headerTitle={headerTitle} open={open} size={size}>
+      {children}
+    </ModalBase>
+  ) : null;
 };
 
-export { IModalProps, modal as Modal };
+export { Modal };

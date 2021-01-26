@@ -1,5 +1,5 @@
 import { Button } from "components/Button";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import React from "react";
 import _ from "lodash";
 import { translate } from "utils/translations/translate";

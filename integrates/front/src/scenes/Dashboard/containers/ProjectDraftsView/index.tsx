@@ -19,7 +19,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";

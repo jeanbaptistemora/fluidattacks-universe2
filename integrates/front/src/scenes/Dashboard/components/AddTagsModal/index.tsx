@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Glyphicon } from "react-bootstrap";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";

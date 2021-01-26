@@ -9,7 +9,7 @@ import { Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,

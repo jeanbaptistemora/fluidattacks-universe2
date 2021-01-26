@@ -6,7 +6,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import type { InjectedFormProps } from "redux-form";
 import { Logger } from "utils/logger";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";

@@ -7,7 +7,7 @@ import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVuln
 import { FluidIcon } from "components/FluidIcon";
 import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { UpdateTreatmentModal } from "./UpdateDescription";

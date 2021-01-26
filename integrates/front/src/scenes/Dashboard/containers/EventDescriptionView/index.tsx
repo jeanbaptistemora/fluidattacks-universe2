@@ -13,7 +13,7 @@ import { Field, InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";

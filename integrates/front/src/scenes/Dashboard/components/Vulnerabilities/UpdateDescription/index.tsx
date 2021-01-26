@@ -14,7 +14,7 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { SeverityField } from "./SeverityField";

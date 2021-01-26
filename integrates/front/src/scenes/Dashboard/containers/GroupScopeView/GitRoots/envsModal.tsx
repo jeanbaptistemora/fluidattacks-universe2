@@ -3,7 +3,7 @@ import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { IGitRootAttr } from "../types";
 import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import React from "react";
 import { required } from "utils/validations";
 import { useTranslation } from "react-i18next";

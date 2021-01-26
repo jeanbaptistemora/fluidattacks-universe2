@@ -24,7 +24,7 @@ import {
 import { Field } from "redux-form";
 
 import { Button } from "components/Button";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";

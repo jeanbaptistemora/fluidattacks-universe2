@@ -6,7 +6,7 @@ import React from "react";
 import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,

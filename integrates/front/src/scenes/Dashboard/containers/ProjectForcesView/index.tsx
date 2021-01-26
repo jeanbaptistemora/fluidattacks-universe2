@@ -19,7 +19,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";

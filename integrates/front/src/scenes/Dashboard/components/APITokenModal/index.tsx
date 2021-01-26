@@ -2,7 +2,7 @@ import { Button } from "components/Button";
 import { Field } from "redux-form";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { InjectedFormProps } from "redux-form";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import type { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";

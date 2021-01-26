@@ -20,7 +20,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { limitFormatter, statusFormatter, treatmentFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/NewModal";
+import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { default as AppstoreBadge } from "resources/appstore_badge.svg";
 import { default as GoogleplayBadge } from "resources/googleplay_badge.svg";
