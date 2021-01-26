@@ -32,7 +32,7 @@ function job_integrates_build_mobile_android {
     -Dorg.gradle.daemon=false
     -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\"
     -Dorg.gradle.parallel=true
-    -Dorg.gradle.project.android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/28.0.3/aapt2
+    -Dorg.gradle.project.android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/30.0.3/aapt2
   "
   export GRADLE_DAEMON_DISABLED="1"
 
@@ -64,6 +64,7 @@ function job_integrates_build_mobile_android {
           &&  npx --no-install expo login \
                 --username "${EXPO_USER}" \
                 --password "${EXPO_PASS}" \
+                --non-interactive \
           &&  aws s3 cp \
                 --recursive \
                 "s3://fluidintegrates.build/mobile/certs" \
@@ -120,6 +121,7 @@ function job_integrates_build_mobile_ios {
     &&  npx --no-install expo login \
           --username "${EXPO_USER}" \
           --password "${EXPO_PASS}" \
+          --non-interactive \
     &&  aws s3 cp \
           --recursive \
           "s3://fluidintegrates.build/mobile/certs" \
@@ -251,6 +253,7 @@ function job_integrates_deploy_mobile_ota {
       &&  npx --no-install expo login \
             --username "${EXPO_USER}" \
             --password "${EXPO_PASS}" \
+            --non-interactive \
       &&  echo '[INFO] Replacing versions' \
       &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
       &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \

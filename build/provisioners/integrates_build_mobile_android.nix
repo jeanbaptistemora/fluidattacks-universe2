@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/integrates.nix;
+  pkgs = import ../pkgs/integrates_mobile.nix;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -13,12 +13,12 @@ in
         pkgs.glibc
         pkgs.jq
         pkgs.nodejs-12_x
-        pkgs.openjdk
+        pkgs.openjdk8_headless
         pkgs.sops
       ];
 
       androidSdk = (pkgs.androidenv.composeAndroidPackages {
-        abiVersions = [ "x86" "x86_64" ];
+        buildToolsVersions = [ "29.0.2" "30.0.3" ];
         platformVersions = [ "29" ];
       }).androidsdk;
     })
