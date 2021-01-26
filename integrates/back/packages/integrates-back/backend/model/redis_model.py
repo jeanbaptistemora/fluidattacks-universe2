@@ -27,6 +27,9 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'open_vulns',
             'ports_vulns',
             'vulns',
+            'exploit',
+            'observations',
+            'verified',
         },
     ),
     forces_execution=dict(
@@ -41,15 +44,12 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 )
 # Pending:
 #   finding consulting
-#   finding exploit
 #   finding last_vulnerability
 #   finding new_remediated
-#   finding observations
 #   finding open_age
 #   finding records
 #   finding state
 #   finding tracking
-#   finding verified
 #   group consulting
 #   group last_closing_vuln_finding
 #   group max_open_severity_finding
