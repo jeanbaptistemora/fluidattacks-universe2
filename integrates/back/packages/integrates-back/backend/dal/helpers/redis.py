@@ -1,5 +1,6 @@
 # Standard library
 import asyncio
+import json
 from typing import (
     Any,
 )
@@ -24,6 +25,12 @@ from rediscluster.exceptions import (
 # Local libraries
 from __init__ import (
     FI_REDIS_SERVER,
+)
+from back import (
+    settings,
+)
+from backend.model import (
+    redis_model,
 )
 
 # A cluster is different than a server
@@ -67,6 +74,23 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
 
         # Retry the command
         return await _redis_cmd_base(cmd, *args, **kwargs)
+
+
+async def redis_set(
+    entity: str,
+    attr: str,
+    value: Any,
+    ttl: int = settings.CACHE_TTL,
+    **args: str,
+) -> bool:
+    # https://redis.io/commands/setex
+
+    key: str = redis_model.build_key(entity, attr, **args)
+    value_encoded: str = json.dumps(value)
+    response: str = await redis_cmd('setex', key, ttl, value_encoded)
+    success: bool = response == 'OK'
+
+    return success
 
 
 def instantiate_redis_cluster() -> RedisCluster:
