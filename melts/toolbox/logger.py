@@ -19,6 +19,11 @@ def warn(*args: Any, **kwargs: Any) -> None:
     print('[WARN]', *args, **kwargs)
 
 
+def warning(*args: Any, **kwargs: Any) -> None:
+    """Logger for warn category."""
+    print('[WARNING]', *args, **kwargs)
+
+
 def error(*args: Any, **kwargs: Any) -> None:
     """Logger for error category."""
     print('[ERROR]', *args, **kwargs)

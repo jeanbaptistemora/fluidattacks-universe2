@@ -8,10 +8,14 @@ from typing import (
     Tuple,
 )
 
+# Third import
+from retry import retry
+
 # Local imports
 from toolbox import api
 from toolbox.constants import API_TOKEN
 from toolbox import logger
+from toolbox.api.exceptions import IntegratesError
 
 
 def get_project_repos(project: str) -> List:
@@ -38,29 +42,32 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     return filter_request.data['project']['roots']
 
 
+@retry(IntegratesError, tries=10, delay=5, logger=logger)  # type: ignore
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
         logger.error(f'An error has occurred querying the {group} group')
-        raise Exception(response.errors)
+        raise IntegratesError(response.errors)
 
     return response.data['project']['hasForces']
 
 
+@retry(IntegratesError, tries=10, delay=5, logger=logger)  # type: ignore
 def get_group_language(group: str) -> str:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
         logger.error(f'An error has occurred querying the {group} group')
-        raise Exception(response.errors)
+        raise IntegratesError(response.errors)
 
     return response.data['project']['language']
 
 
+@retry(IntegratesError, tries=10, delay=5, logger=logger)  # type: ignore
 def has_drills(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
         logger.error(f'An error has occurred querying the {group} group')
-        raise Exception(response.errors)
+        raise IntegratesError(response.errors)
 
     return response.data['project']['hasDrills']
 
