@@ -50,7 +50,6 @@ class CustomGraphQLClient(aiogqlc.GraphQLClient):
         ValueError,
     )
 
-    @rate_limited(rpm=DEFAULT_RATE_LIMIT)
     async def execute(
         self,
         query: str,
@@ -99,7 +98,8 @@ async def gql_request(
         'Authorization': f'Bearer {api_token}'
     }
     client = CustomGraphQLClient(INTEGRATES_API_URL, headers=headers)
-    response = await client.execute(payload, variables=variables, **kwargs)
+    executor = rate_limited(rpm=DEFAULT_RATE_LIMIT)(client.execute)
+    response = await executor(payload, variables=variables, **kwargs)
     content = await response.json()
     data: Any = content.get('data')
     errors: Any = content.get('errors')
