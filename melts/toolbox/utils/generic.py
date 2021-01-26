@@ -197,17 +197,15 @@ def get_change_request_summary(
 
 def get_change_request_body(ref: str = 'HEAD', path: str = os.getcwd()) -> str:
     """Return the HEAD commit message, or the merge request body."""
-    commit_body: str
     gitlab_summary_var: str = 'CI_MERGE_REQUEST_DESCRIPTION'
 
     if gitlab_summary_var in os.environ:
-        commit_body = os.environ[gitlab_summary_var]
-    else:
-        commit_body = git.Repo(
+        return os.environ[gitlab_summary_var]
+    with contextlib.suppress(IndexError):
+        return git.Repo(
             path, search_parent_directories=True).commit(ref).message.split(
                 '\n\n', 1)[1]
-
-    return commit_body
+    return ''
 
 
 def get_change_request_patch(
