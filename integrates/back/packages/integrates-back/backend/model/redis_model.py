@@ -15,6 +15,14 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'consulting',
         },
     ),
+    finding=dict(
+        args={
+            'id',
+        },
+        attrs={
+            'age'
+        },
+    ),
     forces_execution=dict(
         args={
             'group',
@@ -26,7 +34,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 # Pending:
-#   finding age
 #   finding closed_vulnerabilities
 #   finding consulting
 #   finding exploit

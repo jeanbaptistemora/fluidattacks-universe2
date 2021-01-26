@@ -179,7 +179,6 @@ def redis_del_entity_attr_soon(
 
 
 async def redis_del_entity(
-    *,
     entity: str,
     **args: str,
 ) -> bool:
