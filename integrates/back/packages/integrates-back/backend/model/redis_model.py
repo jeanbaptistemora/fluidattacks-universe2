@@ -37,6 +37,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'open_vulns',
             'ports_vulns',
             'records',
+            'state',
             'verified',
             'vulns',
         },
@@ -47,8 +48,11 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'delete_finding',
             'delete_vulnerability',
             'delete_vulnerability_tags',
-            'remove_finding_evidence',
+            'reject_draft',
+            'reject_zero_risk_vuln',
+            'request_verification_vulnerability',
             'request_zero_risk_vuln',
+            'remove_finding_evidence',
             'submit_draft',
             'update_evidence',
             'update_evidence_description',
@@ -70,7 +74,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 # Pending:
-#   finding state
 #   finding tracking
 #   group consulting
 #   group last_closing_vuln_finding
