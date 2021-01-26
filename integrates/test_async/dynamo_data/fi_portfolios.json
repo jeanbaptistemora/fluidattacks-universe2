@@ -171,6 +171,88 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest" : {
+                "Item" : {
+                    "last_closing_date": {
+                        "N": "50"
+                    },
+                    "mean_remediate": {
+                        "N": "123"
+                    },
+                    "max_open_severity": {
+                        "N": "3.3"
+                    },
+                    "max_severity": {
+                        "N": "4.3"
+                    },
+                    "mean_remediate_critical_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_high_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_low_severity": {
+                        "N": "116"
+                    },
+                    "mean_remediate_medium_severity": {
+                        "N": "135.9"
+                    },
+                    "organization": {
+                        "S": "makimachi"
+                    },
+                    "projects" : {
+                        "SS" : [
+                           "asgard", "barranquilla", "gotham", "metropolis", "monteria"
+                        ]
+                     },
+                    "tag": {
+                        "S": "test-projects"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest" : {
+                "Item" : {
+                    "last_closing_date": {
+                        "N": "40"
+                    },
+                    "mean_remediate": {
+                        "N": "112"
+                    },
+                    "max_open_severity": {
+                        "N": "2.3"
+                    },
+                    "max_severity": {
+                        "N": "6.3"
+                    },
+                    "mean_remediate_critical_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_high_severity": {
+                        "N": "0"
+                    },
+                    "mean_remediate_low_severity": {
+                        "N": "134"
+                    },
+                    "mean_remediate_medium_severity": {
+                        "N": "122.3"
+                    },
+                    "organization": {
+                        "S": "kamiya"
+                    },
+                    "projects" : {
+                        "SS" : [
+                           "barranquilla", "monteria"
+                        ]
+                     },
+                    "tag": {
+                        "S": "test-projects"
+                    }
+                }
+            }
         }
     ]
 }

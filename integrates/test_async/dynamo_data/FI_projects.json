@@ -2842,7 +2842,7 @@
                "L": []
              },
              "tag": {
-               "SS": ["another-tag"]
+               "SS": ["test-projects"]
              },
              "total_treatment": {
                "M": {
@@ -2960,7 +2960,7 @@
                "L": []
              },
              "tag": {
-               "SS": ["another-tag"]
+               "SS": ["test-projects"]
              },
              "total_treatment": {
                "M": {
@@ -3078,7 +3078,7 @@
                "L": []
              },
              "tag": {
-               "SS": ["another-tag"]
+               "SS": ["test-projects"]
              },
              "total_treatment": {
                "M": {
@@ -3196,7 +3196,7 @@
                "L": []
              },
              "tag": {
-               "SS": ["another-tag"]
+               "SS": ["test-projects"]
              },
              "total_treatment": {
                "M": {
@@ -3314,7 +3314,7 @@
                "L": []
              },
              "tag": {
-               "SS": ["another-tag"]
+               "SS": ["test-projects"]
              },
              "total_treatment": {
                "M": {

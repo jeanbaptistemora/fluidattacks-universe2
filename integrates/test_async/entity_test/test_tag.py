@@ -44,12 +44,12 @@ async def test_get_tag_query():
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert 'errors' not in result
     assert 'projects' in result['data']['tag']
-    assert result['data']['tag']['lastClosingVuln'] == 23
+    assert result['data']['tag']['lastClosingVuln'] == 50
     assert result['data']['tag']['meanRemediateLowSeverity'] == 116
-    assert result['data']['tag']['meanRemediateMediumSeverity'] == 143.5
-    assert result['data']['tag']['meanRemediate'] == 174
-    assert result['data']['tag']['maxOpenSeverity'] == 6.3
-    assert result['data']['tag']['maxSeverity'] == 6.3
+    assert result['data']['tag']['meanRemediateMediumSeverity'] == 135.9
+    assert result['data']['tag']['meanRemediate'] == 123
+    assert result['data']['tag']['maxOpenSeverity'] == 3.3
+    assert result['data']['tag']['maxSeverity'] == 4.3
 
 async def test_get_tag_query_access_denied():
     query = '''
