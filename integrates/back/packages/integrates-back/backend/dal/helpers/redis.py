@@ -3,6 +3,7 @@ import asyncio
 import json
 from typing import (
     Any,
+    Optional,
     Set,
 )
 
@@ -91,6 +92,26 @@ async def redis_set_entity_attr(
     success: bool = await redis_cmd('setex', key, ttl, value_encoded)
 
     return success
+
+
+async def redis_get_entity_attr(
+    entity: str,
+    attr: str,
+    **args: str,
+) -> Any:
+    # https://redis.io/commands/get
+
+    key: str = redis_model.build_key(entity, attr, **args)
+    response: Optional[str] = await redis_cmd('get', key)
+
+    if response is None:
+        # Not found
+        raise redis_model.KeyNotFound()
+
+    # Deserialize and return
+    result: Any = json.loads(response)
+
+    return result
 
 
 async def redis_del_entity_attr(

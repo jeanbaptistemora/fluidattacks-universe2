@@ -43,6 +43,10 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 #   query forces_execution
 
 
+class KeyNotFound(Exception):
+    pass
+
+
 def build_key(entity: str, attr: str, **args: str) -> str:
     if entity not in ENTITIES:
         raise ValueError(f'Invalid entity: {entity}')
