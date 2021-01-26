@@ -21,11 +21,25 @@
   difGitlabEtl = {
     srcPath = path "/observes/etl/dif_gitlab_etl";
     python = {
-      direct = [ ];
-      inherited = [ ];
+      direct = [
+        "aiohttp==3.6.2"
+        "click==7.1.2"
+        "nest-asyncio==1.4.1"
+        "psycopg2==2.8.4"
+      ];
+      inherited = [
+        "async-timeout==3.0.1"
+        "attrs==20.3.0"
+        "chardet==3.0.4"
+        "idna==3.1"
+        "multidict==4.7.6"
+        "yarl==1.6.3"
+      ];
     };
     local = [ ];
-    nix = [ ];
+    nix = [
+      nixPkgs.python38Packages.psycopg2
+    ];
   };
   postgresClient = {
     srcPath = path "/observes/common/postgres_client";
@@ -129,10 +143,19 @@
   tapMixpanel = {
     srcPath = path "/observes/singer/tap_mixpanel";
     python = {
-      direct = [ ];
-      inherited = [ ];
+      direct = [
+        "requests==2.25.1"
+      ];
+      inherited = [
+        "certifi==2020.12.5"
+        "chardet==4.0.0"
+        "idna==2.10"
+        "urllib3==1.26.2"
+      ];
     };
-    local = [ ];
+    local = [
+      "singerIO"
+    ];
     nix = [ ];
   };
   tapTimedoctor = {
