@@ -1,5 +1,6 @@
 import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import _ from "lodash";
@@ -13,6 +14,7 @@ import {
   Col60,
   EditableFieldNotUrl,
   Row,
+  RowCenter,
 } from "styles/styledComponents";
 
 interface IAdditionalInfoProps {
@@ -20,11 +22,25 @@ interface IAdditionalInfoProps {
   vulnerability: IVulnRowAttr;
 }
 
+const Justification: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: "w-fit-content ws-pre-wrap ww-break-word",
+})``;
+
 const Label: StyledComponent<
   "span",
   Record<string, unknown>
 > = styled.span.attrs({
   className: "f4",
+})``;
+
+const Status: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: "f2-5",
 })``;
 
 export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
@@ -43,9 +59,23 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       ? lastTreatment.acceptanceDate
       : "-";
 
+  const currentJustification: string =
+    vulnerability.currentState === "closed" ||
+    _.isUndefined(lastTreatment.justification) ||
+    _.isEmpty(lastTreatment.justification)
+      ? "-"
+      : lastTreatment.justification;
+
   return (
     <React.StrictMode>
       <Col100>
+        <RowCenter>
+          <Status>
+            <b>
+              <PointStatus status={vulnerability.currentStateCapitalized} />
+            </b>
+          </Status>
+        </RowCenter>
         <ul>
           <li>
             <b>{t("search_findings.tab_vuln.vulnTable.location")}</b>
@@ -120,7 +150,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Row>
                   <Col40>
                     <b>
-                      {t("search_findings.tab_description.treatment.title")}
+                      {t("search_findings.tab_vuln.vulnTable.currentTreatment")}
                     </b>
                   </Col40>
                   <Col60>{vulnerability.treatment}</Col60>
@@ -129,7 +159,9 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <li>
                 <Row>
                   <Col40>
-                    <b>{t("search_findings.tab_description.treatment_mgr")}</b>
+                    <b>
+                      {t("search_findings.tab_vuln.vulnTable.treatmentManager")}
+                    </b>
                   </Col40>
                   <Col60>{vulnerability.treatmentManager}</Col60>
                 </Row>
@@ -154,6 +186,20 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     </b>
                   </Col40>
                   <Col60>{currentExpiration}</Col60>
+                </Row>
+              </li>
+              <li>
+                <Row>
+                  <Col40>
+                    <b>
+                      {t(
+                        "search_findings.tab_vuln.vulnTable.treatmentJustification"
+                      )}
+                    </b>
+                  </Col40>
+                  <Col60>
+                    <Justification>{currentJustification}</Justification>
+                  </Col60>
                 </Row>
               </li>
               <li>
