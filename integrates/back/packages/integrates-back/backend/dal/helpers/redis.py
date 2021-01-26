@@ -3,6 +3,7 @@ import asyncio
 import json
 from typing import (
     Any,
+    Set,
 )
 
 # Third party libraries
@@ -76,7 +77,7 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
         return await _redis_cmd_base(cmd, *args, **kwargs)
 
 
-async def redis_set(
+async def redis_set_entity_attr(
     entity: str,
     attr: str,
     value: Any,
@@ -87,10 +88,38 @@ async def redis_set(
 
     key: str = redis_model.build_key(entity, attr, **args)
     value_encoded: str = json.dumps(value)
-    response: str = await redis_cmd('setex', key, ttl, value_encoded)
-    success: bool = response == 'OK'
+    success: bool = await redis_cmd('setex', key, ttl, value_encoded)
 
     return success
+
+
+async def redis_del_entity_attr(
+    entity: str,
+    attr: str,
+    **args: str,
+) -> bool:
+    # https://redis.io/commands/del
+
+    key: str = redis_model.build_key(entity, attr, **args)
+    response: bool = await redis_cmd('delete', key) == 1
+
+    return response
+
+
+async def redis_del_entity(
+    entity: str,
+    **args: str,
+) -> bool:
+    # https://redis.io/commands/del
+
+    keys: Set[str] = redis_model.build_keys_for_entity(entity, **args)
+    response: bool = (
+        await redis_cmd('delete', *keys) == len(keys)
+        if keys
+        else True
+    )
+
+    return response
 
 
 def instantiate_redis_cluster() -> RedisCluster:
