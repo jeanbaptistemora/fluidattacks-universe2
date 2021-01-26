@@ -28,6 +28,7 @@ def _filter_by_expired_invitation(
         for stakeholder in stakeholders
         if not (
             stakeholder['invitation_state'] == 'PENDING'
+            and stakeholder['invitation_date']
             and datetime_utils.get_plus_delta(
                 datetime_utils.get_from_str(
                     cast(str, stakeholder['invitation_date'])
