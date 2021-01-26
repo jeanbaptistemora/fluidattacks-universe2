@@ -57,6 +57,15 @@ async def test_me():
     for project in result['data']['me']['projects']:
         assert 'name' in project
         assert 'description' in project
+    expected_groups = [
+        'asgard',
+        'barranquilla',
+        'gotham',
+        'metropolis',
+        'monteria',
+        'oneshottest',
+        'unittesting',
+    ]
     groups = [prj['name'] for prj in result['data']['me']['projects']]
     assert sorted(expected_groups) == sorted(groups)
     all_user_groups = await get_projects(user_email, True)

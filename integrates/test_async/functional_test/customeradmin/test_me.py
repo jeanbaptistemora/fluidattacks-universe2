@@ -129,7 +129,7 @@ async def test_me():
         {'name': 'makimachi'},
     ]
     assert len(result['data']['me']['permissions']) == 0
-    assert len(result['data']['me']['projects']) == 22
+    assert len(result['data']['me']['projects']) == 27
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'customeradmin'
     assert result['data']['me']['sessionExpiration'] == str(

@@ -20,10 +20,16 @@ async def test_get_user():
         'phone_number': '-',
         'first_login': '2018-02-28 11:54:12',
         'last_login': '[186, 33677]',
-        'projects': [
-            {'name': 'oneshottest'},
-            {'name': 'unittesting'}
+        'projects':  [
+             {'name': 'asgard'},
+             {'name': 'barranquilla'},
+             {'name': 'gotham'},
+             {'name': 'metropolis'},
+             {'name': 'monteria'},
+             {'name': 'oneshottest'},
+             {'name': 'unittesting'},
         ]
+
     }
     query = '''
         query {
@@ -70,7 +76,7 @@ async def test_user_list_projects():
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert 'errors' not in result
-    assert result['data']['userListProjects'][0]['name'] == 'oneshottest'
+    assert result['data']['userListProjects'][0]['name'] == 'asgard'
 
 @pytest.mark.changes_db
 async def test_add_stakeholder():
