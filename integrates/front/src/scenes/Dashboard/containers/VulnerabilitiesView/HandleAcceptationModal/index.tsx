@@ -8,7 +8,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import type { GraphQLError } from "graphql";
 import { JustificationField } from "./JustificationField";
 import { Logger } from "utils/logger";
-import { Modal } from "components/Modal";
+import { Modal } from "components/NewModal";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
 import { TreatmentField } from "./TreatmentField";
@@ -379,6 +379,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
               />
             </Col100>
           </Row>
+          <hr />
           <Row>
             <Col100>
               <ButtonToolbar>
