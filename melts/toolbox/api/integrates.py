@@ -362,7 +362,6 @@ class Queries:
         )
 
     @staticmethod
-    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def get_group_info(api_token: str, project_name: str) -> Response:
         query = """
             query MeltsGetGroupLanguage($projectName: String!) {

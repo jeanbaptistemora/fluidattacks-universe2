@@ -42,11 +42,10 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     return filter_request.data['project']['roots']
 
 
-@retry(IntegratesError, tries=10, delay=5, logger=logger)  # type: ignore
+@retry(IntegratesError, tries=10, delay=5)
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
-        logger.error(f'An error has occurred querying the {group} group')
         raise IntegratesError(response.errors)
 
     return response.data['project']['hasForces']
@@ -62,11 +61,10 @@ def get_group_language(group: str) -> str:
     return response.data['project']['language']
 
 
-@retry(IntegratesError, tries=10, delay=5, logger=logger)  # type: ignore
+@retry(IntegratesError, tries=10, delay=5)
 def has_drills(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
-        logger.error(f'An error has occurred querying the {group} group')
         raise IntegratesError(response.errors)
 
     return response.data['project']['hasDrills']
