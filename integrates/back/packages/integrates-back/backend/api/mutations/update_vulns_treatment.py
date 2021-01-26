@@ -51,7 +51,9 @@ async def mutate(
         await util.invalidate_cache(
             f'vuln*{finding_id}',
             f'vuln*{group_name}',
-            *[f'vuln*{vuln}' for vuln in vulnerabilities]
+            *[f'vuln*{vuln}' for vuln in vulnerabilities],
+            finding_id,
+            *vulnerabilities
         )
         util.forces_trigger_deployment(group_name)
 

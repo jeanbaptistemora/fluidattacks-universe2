@@ -58,7 +58,8 @@ async def mutate(
             f'tracking*{finding_id}',
             f'verified*{finding_id}',
             f'vuln*{finding_id}',
-            f'vuln*{group_name}'
+            f'vuln*{group_name}',
+            finding_id
         )
         util.cloudwatch_log(
             info.context,
