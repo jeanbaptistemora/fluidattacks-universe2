@@ -40,7 +40,9 @@ In your local environment you execute:
 `forces --token <your-token>`
 
 You can also use the Docker image:
-`docker run --rm fluidattacks/forces:new forces --token <your-token>`
+`docker run --rm -v "$PWD:/src" fluidattacks/forces:new forces --token <your-token>`
+
+_Note_: If you use a container you must pass the working repository as a volume to the `/src` directory (`--volume "<path to repo>:/src"`)
 
 ## Use in some CI\CD
 
@@ -50,7 +52,6 @@ In `GitLab` add these lines to your `.gitlab-ci.yml`
 forces:
   image:
     name: fluidattacks/forces:new
-    entrypoint: [""]
   script:
     - forces --token <your-token> --strict
 ```
@@ -61,13 +62,14 @@ In `Azure DevOps` add these lines to you configuration file:
 jobs:
   - forces:
     container: fluidattacks/forces:new
+    options: --volume "$PWD:/src"
     steps:
     - bash: forces --token <your-token>
 ```
 
 In `Jenkins`, the configuration file should look like this:
 
-```groovy  
+```groovy
 pipeline {
   agent {
     label 'label'
@@ -81,7 +83,7 @@ pipeline {
         script {
           sh """
             docker pull fluidattacks/forces:new
-            docker run fluidattacks/forces:new --token ${TOKEN}
+            docker run --volume "$PWD:/src" fluidattacks/forces:new forces --token ${TOKEN}
           """
         }
       }

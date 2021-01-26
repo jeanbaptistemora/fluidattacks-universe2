@@ -121,7 +121,6 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     configure_bugsnag(group=group or '')
     show_banner()
-    kind = 'all'
 
     striccness = 'strict' if strict else 'lax'
     await log('info', 'Running forces in %s mode', striccness)

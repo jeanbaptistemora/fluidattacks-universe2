@@ -5,3 +5,5 @@ RUN apt update
 RUN apt -y install git
 
 RUN pip install forces
+
+WORKDIR /src
