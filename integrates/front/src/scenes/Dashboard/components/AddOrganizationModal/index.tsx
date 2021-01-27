@@ -8,7 +8,7 @@ import { Logger } from "utils/logger";
 import { Modal } from "components/Modal";
 import React from "react";
 import { Text } from "utils/forms/fields";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { TooltipWrapper } from "components/NewTooltipWrapper/index";
 import _ from "lodash";
 import { authContext } from "utils/auth";
 import mixpanel from "mixpanel-browser";
