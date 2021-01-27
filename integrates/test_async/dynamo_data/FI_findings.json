@@ -3021,6 +3021,608 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "leader": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "integrity_impact": {
+            "N": "0.33"
+          },
+          "integrity_requirement": {
+            "N": "1.6"
+          },
+          "report_confidence": {
+            "N": "0.88"
+          },
+          "project_name": {
+            "S": "asgard"
+          },
+          "attack_vector_desc": {
+            "S": "This is an attack vector"
+          },
+          "privileges_required": {
+            "N": "0.43"
+          },
+          "affected_systems": {
+            "S": "Front"
+          },
+          "context": {
+            "S": "SEARCHING"
+          },
+          "confidentiality_impact": {
+            "N": "0"
+          },
+          "id": {
+            "S": "683100860"
+          },
+          "remediation_level": {
+            "N": "0.97"
+          },
+          "availability_requirement": {
+            "N": "1"
+          },
+          "attack_complexity": {
+            "N": "0.77"
+          },
+          "effect_solution": {
+            "S": "Actualizar el software afectado a sus versiones recomendadas por el fabricante."
+          },
+          "cvss_temporal": {
+            "N": "2.9"
+          },
+          "modified_user_interaction": {
+            "N": "0.85"
+          },
+          "modified_integrity_impact": {
+            "N": "0.22"
+          },
+          "vulnerability": {
+            "S": "Se encuentra software desactualizado con vulnerabilidades."
+          },
+          "finding": {
+            "S": "F011. Uso de componentes con vulnerabilidades conocidas"
+          },
+          "attack_vector": {
+            "N": "0.62"
+          },
+          "modified_attack_complexity": {
+            "N": "0.77"
+          },
+          "cvss_env": {
+            "N": "3.4"
+          },
+          "files": {
+            "L": []
+          },
+          "exploitability": {
+            "N": "0.91"
+          },
+          "severity_scope": {
+            "N": "0"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-05-01 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              }
+            ]
+          },
+          "report_level": {
+            "S": "GENERAL"
+          },
+          "records": {
+            "S": "Login"
+          },
+          "modified_severity_scope": {
+            "N": "0"
+          },
+          "subscription": {
+            "S": "CONTINUOUS"
+          },
+          "availability_impact": {
+            "N": "0"
+          },
+          "modified_privileges_required": {
+            "N": "0.62"
+          },
+          "modified_attack_vector": {
+            "N": "0.62"
+          },
+          "scenario": {
+            "S": "UNAUTHORIZED_USER_EXTRANET"
+          },
+          "records_number": {
+            "S": "12"
+          },
+          "severity": {
+            "N": "0"
+          },
+          "finding_id": {
+            "S": "683100860"
+          },
+          "requirements": {
+            "S": "R262. Los componentes provistos por terceros deben corresponder a versiones estables, probadas y actualizadas."
+          },
+          "modified_confidentiality_impact": {
+            "N": "0"
+          },
+          "modified_availability_impact": {
+            "N": "0"
+          },
+          "finding_type": {
+            "S": "SECURITY"
+          },
+          "test_type": {
+            "S": "SOURCE_CODE"
+          },
+          "actor": {
+            "S": "ANYONE_INTERNET"
+          },
+          "cwe": {
+            "S": "937"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "confidentiality_requirement": {
+            "N": "1"
+          },
+          "user_interaction": {
+            "N": "0.85"
+          },
+          "client_project": {
+            "S": "Fluid"
+          },
+          "cvss_basescore": {
+            "N": "3.5"
+          },
+          "analyst": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "interested": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "threat": {
+            "S": "This is a treat."
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "leader": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "integrity_impact": {
+            "N": "0.53"
+          },
+          "integrity_requirement": {
+            "N": "2.6"
+          },
+          "report_confidence": {
+            "N": "0.58"
+          },
+          "project_name": {
+            "S": "asgard"
+          },
+          "attack_vector_desc": {
+            "S": "This is an attack vector"
+          },
+          "privileges_required": {
+            "N": "0.83"
+          },
+          "affected_systems": {
+            "S": "Cloud storage"
+          },
+          "context": {
+            "S": "SEARCHING"
+          },
+          "confidentiality_impact": {
+            "N": "0"
+          },
+          "id": {
+            "S": "997868246"
+          },
+          "remediation_level": {
+            "N": "0.34"
+          },
+          "availability_requirement": {
+            "N": "1"
+          },
+          "attack_complexity": {
+            "N": "0.87"
+          },
+          "effect_solution": {
+            "S": "- Validar con expresiones regulares que el archivo corresponda con una sola extensión\n- Validar con un antivirus que el archivo no contenga ningún tipo de código malicioso.\n- Validar que el Content Type corresponda a la extension del archivo antes de subirlo al servidor"
+          },
+          "cvss_temporal": {
+            "N": "2.9"
+          },
+          "modified_user_interaction": {
+            "N": "0.45"
+          },
+          "modified_integrity_impact": {
+            "N": "0.28"
+          },
+          "vulnerability": {
+            "S": "El sistema de carga de archivos permite cargar archivos con doble extensión y extensiones inseguras como (.html, .php, .exe), tampoco se valida si el archivo está libre de código malicioso o no."
+          },
+          "finding": {
+            "S": "F027. Carga insegura de archivos"
+          },
+          "attack_vector": {
+            "N": "0.62"
+          },
+          "modified_attack_complexity": {
+            "N": "0.77"
+          },
+          "cvss_env": {
+            "N": "3.4"
+          },
+          "files": {
+            "L": []
+          },
+          "exploitability": {
+            "N": "0.93"
+          },
+          "severity_scope": {
+            "N": "0"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-04-07 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-05-01 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-05-01 20:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
+          },
+          "report_level": {
+            "S": "GENERAL"
+          },
+          "records": {
+            "S": "Login"
+          },
+          "modified_severity_scope": {
+            "N": "0"
+          },
+          "subscription": {
+            "S": "CONTINUOUS"
+          },
+          "availability_impact": {
+            "N": "0"
+          },
+          "modified_privileges_required": {
+            "N": "0.62"
+          },
+          "modified_attack_vector": {
+            "N": "0.62"
+          },
+          "scenario": {
+            "S": "ANONYMOUS_INTERNET"
+          },
+          "records_number": {
+            "S": "12"
+          },
+          "severity": {
+            "N": "0"
+          },
+          "finding_id": {
+            "S": "997868246"
+          },
+          "requirements": {
+            "S": "R040. El sistema debe validar que el formato (estructura) de los archivos corresponda con su extensión.\nR041. El sistema debe validar que el contenido de los archivos transferidos hacia el mismo sistema esté libre de código malicioso."
+          },
+          "modified_confidentiality_impact": {
+            "N": "0"
+          },
+          "modified_availability_impact": {
+            "N": "0"
+          },
+          "finding_type": {
+            "S": "SECURITY"
+          },
+          "test_type": {
+            "S": "APP"
+          },
+          "actor": {
+            "S": "ANYONE_INTERNET"
+          },
+          "cwe": {
+            "S": "434"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "confidentiality_requirement": {
+            "N": "1"
+          },
+          "user_interaction": {
+            "N": "0.85"
+          },
+          "client_project": {
+            "S": "Fluid"
+          },
+          "cvss_basescore": {
+            "N": "3.5"
+          },
+          "analyst": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "interested": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "threat": {
+            "S": "This is a treat."
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "leader": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "integrity_impact": {
+            "N": "0.57"
+          },
+          "integrity_requirement": {
+            "N": "1.6"
+          },
+          "report_confidence": {
+            "N": "0.48"
+          },
+          "project_name": {
+            "S": "asgard"
+          },
+          "attack_vector_desc": {
+            "S": "This is an attack vector"
+          },
+          "privileges_required": {
+            "N": "0.83"
+          },
+          "affected_systems": {
+            "S": "System"
+          },
+          "context": {
+            "S": "SEARCHING"
+          },
+          "confidentiality_impact": {
+            "N": "0"
+          },
+          "id": {
+            "S": "436712859"
+          },
+          "remediation_level": {
+            "N": "0.34"
+          },
+          "availability_requirement": {
+            "N": "1"
+          },
+          "attack_complexity": {
+            "N": "0.87"
+          },
+          "effect_solution": {
+            "S": "- Establecer controles de acceso físico que impidan la conexión de dispositivos periféricos no autorizados.\n- Instalar una suite de seguridad apropiada en las estaciones de trabajo que mitigue el riesgo de infección con software malicioso."
+          },
+          "cvss_temporal": {
+            "N": "2.9"
+          },
+          "modified_user_interaction": {
+            "N": "0.33"
+          },
+          "modified_integrity_impact": {
+            "N": "0.56"
+          },
+          "vulnerability": {
+            "S": "Es posible conectar dispositivos USB al equipo que permiten infectarlo con software malicioso."
+          },
+          "finding": {
+            "S": "F104. Ataques con memorias USB"
+          },
+          "attack_vector": {
+            "N": "0.32"
+          },
+          "modified_attack_complexity": {
+            "N": "0.27"
+          },
+          "cvss_env": {
+            "N": "3.4"
+          },
+          "files": {
+            "L": []
+          },
+          "exploitability": {
+            "N": "0.93"
+          },
+          "severity_scope": {
+            "N": "0"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-04-03 12:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-08-01 19:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"SUBMITTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-08-01 20:45:11"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"APPROVED"
+                  }
+                }
+              }
+            ]
+          },
+          "report_level": {
+            "S": "GENERAL"
+          },
+          "records": {
+            "S": "Server"
+          },
+          "modified_severity_scope": {
+            "N": "0"
+          },
+          "subscription": {
+            "S": "CONTINUOUS"
+          },
+          "availability_impact": {
+            "N": "0"
+          },
+          "modified_privileges_required": {
+            "N": "0.62"
+          },
+          "modified_attack_vector": {
+            "N": "0.62"
+          },
+          "scenario": {
+            "S": "ANONYMOUS_INTERNET"
+          },
+          "records_number": {
+            "S": "12"
+          },
+          "severity": {
+            "N": "0"
+          },
+          "finding_id": {
+            "S": "436712859"
+          },
+          "requirements": {
+            "S": "REQ.273. Todas las estaciones de trabajo en producción deben contar con una suite de seguridad inalterable (Anti-virus, Antispyware, Host Firewall, Host-IDS, Host-IPS)."
+          },
+          "modified_confidentiality_impact": {
+            "N": "0"
+          },
+          "modified_availability_impact": {
+            "N": "0"
+          },
+          "finding_type": {
+            "S": "SECURITY"
+          },
+          "test_type": {
+            "S": "APP"
+          },
+          "actor": {
+            "S": "ANYONE_INTERNET"
+          },
+          "cwe": {
+            "S": "1203"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "confidentiality_requirement": {
+            "N": "1"
+          },
+          "user_interaction": {
+            "N": "0.95"
+          },
+          "client_project": {
+            "S": "Fluid"
+          },
+          "cvss_basescore": {
+            "N": "3.5"
+          },
+          "analyst": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "interested": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "threat": {
+            "S": "This is a treat."
+          }
+        }
+      }
     }
   ]
 }
