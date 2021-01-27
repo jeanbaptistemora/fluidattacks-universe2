@@ -20,7 +20,7 @@ import {
   AppState,
   AppStateStatus,
   Dimensions,
-  EventSubscription,
+  Platform,
   ScrollViewProps,
   View,
 } from "react-native";
@@ -125,26 +125,38 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const handleIncomingNotifs: (
-    event: Notifications.NotificationResponse,
-  ) => void = ({ notification }: Notifications.NotificationResponse): void => {
-    const { data: notificationData } = notification.request.content;
-    if (!_.isEmpty(notificationData)) {
-      const { message, title } = notificationData as Record<string, string>;
-      Alert.alert(title, message);
+  const handleIncomingNotifs: (event: Notifications.Notification) => void = (
+    notification: Notifications.Notification,
+  ): void => {
+    const { body, title } = notification.request.content;
+
+    if (body !== null && title !== null) {
+      // Alerts won't open immediatly after opening the app (RN 0.63 bug)
+      const delay: number = Platform.select({ android: 100, default: 0 });
+      setTimeout((): void => { Alert.alert(title, body); }, delay);
     }
   };
 
   const onMount: (() => void) = (): (() => void) => {
     AppState.addEventListener("change", handleAppStateChange);
-    const notificationListener: EventSubscription = Notifications.addNotificationResponseReceivedListener(
-      handleIncomingNotifs,
-    ) as EventSubscription;
+    type Subscription = ReturnType<
+      typeof Notifications.addNotificationReceivedListener
+    >;
+    const notificationListeners: Subscription[] = [
+      Notifications.addNotificationResponseReceivedListener(
+        ({ notification }: Notifications.NotificationResponse): void => {
+          handleIncomingNotifs(notification);
+        },
+      ),
+      Notifications.addNotificationReceivedListener(handleIncomingNotifs),
+    ];
     registerPushToken();
 
     return (): void => {
       AppState.removeEventListener("change", handleAppStateChange);
-      notificationListener.remove();
+      notificationListeners.forEach((listener: Subscription): void => {
+        listener.remove();
+      });
     };
   };
   React.useEffect(onMount, []);

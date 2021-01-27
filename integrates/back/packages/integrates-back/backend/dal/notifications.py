@@ -8,6 +8,7 @@ from exponent_server_sdk import (
     DeviceNotRegisteredError,
     PushClient,
     PushMessage,
+    PushResponse,
     PushResponseError,
     PushServerError
 )
@@ -88,7 +89,7 @@ def send_push_notification(
     client = PushClient()
 
     try:
-        response = client.publish(
+        response: PushResponse = client.publish(
             PushMessage(
                 body=message,
                 channel_id='default',
@@ -100,24 +101,25 @@ def send_push_notification(
                 to=token,
             )
         )
-        LOGGER.info(
-            '[notifier]: push notification sent',
-            extra={
-                'extra': {
-                    'email': user_email,
-                    'title': title,
+
+        try:
+            response.validate_response()
+            LOGGER.info(
+                '[notifier]: push notification sent successfully',
+                extra={
+                    'extra': {
+                        'email': user_email,
+                        'title': title,
+                    }
                 }
-            })
+            )
+        except DeviceNotRegisteredError:
+            raise
+        except PushResponseError as ex:
+            LOGGER.exception(ex)
     except (
         requests.exceptions.ConnectionError,
         requests.exceptions.HTTPError,
         PushServerError
     ) as ex:
-        LOGGER.exception(ex)
-
-    try:
-        response.validate_response()
-    except DeviceNotRegisteredError:
-        raise
-    except PushResponseError as ex:
         LOGGER.exception(ex)
