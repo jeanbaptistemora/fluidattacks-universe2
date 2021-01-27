@@ -260,40 +260,32 @@ async def upload_report(
 
 
 @SHIELD
-async def get_projects_access(**kwargs: Any) -> List[str]:
+async def get_projects_access(**kwargs: Any) -> List[Dict[str, str]]:
     query = """
         query ForcesGetMeProjects {
           me {
-            projects{
-              name
+            organizations {
+              projects {
+                name
+                userRole
+              }
             }
           }
         }
     """
-    response: Dict[str, Dict[str, List[Dict[str, str]]]] = await execute(
+    response: Dict[
+        str,
+        Dict[str, List[Dict[str, List[Dict[str, str]]]]]
+    ] = await execute(
         query,
         operation_name='ForcesGetMeProjects',
         **kwargs,
     )
-    return list(group['name'] for group in response['me']['projects'])
-
-
-async def get_project_role(group: str, **kwargs: Any) -> str:
-    query = """
-        query ForcesGetMeGroupRole($group: String!) {
-          me {
-            role(entity: PROJECT, identifier: $group)
-          }
-        }
-    """
-    response: Dict[str, Dict[str, str]] = await execute(
-        query,
-        operation_name='ForcesGetMeGroupRole',
-        variables={'group': group},
-        **kwargs,
+    return list(
+        group
+        for organization in response['me']['organizations']
+        for group in organization['projects']
     )
-
-    return response['me']['role']
 
 
 async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
@@ -322,7 +314,6 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
 async def get_forces_user(**kwargs: Any) -> Optional[str]:
     projects = await get_projects_access(**kwargs)
     for group in projects:
-        role = await get_project_role(group, **kwargs)
-        if role == 'service_forces':
-            return group
+        if group['userRole'] == 'service_forces':
+            return group['name']
     return None
