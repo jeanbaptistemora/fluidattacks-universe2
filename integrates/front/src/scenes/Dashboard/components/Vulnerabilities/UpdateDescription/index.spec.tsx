@@ -185,7 +185,6 @@ describe("Update Description component", (): void => {
               handleCloseModal={handleOnClose}
               projectName={""}
               vulnerabilities={vulns}
-              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
@@ -252,7 +251,6 @@ describe("Update Description component", (): void => {
               handleCloseModal={handleOnClose}
               projectName={""}
               vulnerabilities={vulns}
-              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
@@ -338,7 +336,6 @@ describe("Update Description component", (): void => {
               handleCloseModal={handleOnClose}
               projectName={""}
               vulnerabilities={vulns}
-              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
@@ -462,7 +459,6 @@ describe("Update Description component", (): void => {
               handleCloseModal={handleOnClose}
               projectName={""}
               vulnerabilities={vulnsToUpdate}
-              vulnerabilitiesChunk={1}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
@@ -584,7 +580,6 @@ describe("Update Description component", (): void => {
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
               vulnerabilities={vulnsToUpdate}
-              vulnerabilitiesChunk={100}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>

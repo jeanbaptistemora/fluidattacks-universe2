@@ -4,7 +4,6 @@ interface IUpdateTreatmentModalProps {
   findingId: string;
   projectName?: string;
   vulnerabilities: IVulnDataTypeAttr[];
-  vulnerabilitiesChunk: number;
   handleClearSelected: () => void;
   handleCloseModal: () => void;
 }

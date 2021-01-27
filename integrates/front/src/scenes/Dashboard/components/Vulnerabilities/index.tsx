@@ -225,7 +225,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           handleCloseModal={handleCloseUpdateModal}
           projectName={groupName}
           vulnerabilities={selectedVulnerabilities}
-          vulnerabilitiesChunk={100}
         />
       ) : undefined}
       {isEditing ? (

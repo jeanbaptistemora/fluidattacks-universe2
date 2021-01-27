@@ -58,16 +58,13 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
-  props: IUpdateTreatmentModalProps
-): JSX.Element => {
-  const {
-    findingId,
-    projectName,
-    vulnerabilities,
-    vulnerabilitiesChunk,
-  } = props;
-  const { handleClearSelected, handleCloseModal } = props;
+const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
+  findingId,
+  projectName,
+  vulnerabilities,
+  handleClearSelected,
+  handleCloseModal,
+}: IUpdateTreatmentModalProps): JSX.Element => {
   const { userEmail, userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
@@ -175,9 +172,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
         const results: ExecutionResult<
           IUpdateVulnDescriptionResultAttr
         >[] = await Promise.all(
-          _.chunk(vulnerabilities, vulnerabilitiesChunk).map(
+          vulnerabilities.map(
             async (
-              vulnsChuncked: IVulnDataTypeAttr[]
+              vuln: IVulnDataTypeAttr
             ): Promise<ExecutionResult<IUpdateVulnDescriptionResultAttr>> =>
               updateVuln({
                 variables: {
@@ -199,9 +196,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = (
                     dataTreatment.treatment !== "IN_PROGRESS"
                       ? undefined
                       : dataTreatment.treatmentManager,
-                  vulnerabilities: vulnsChuncked.map(
-                    (vuln: IVulnDataTypeAttr): string => vuln.id
-                  ),
+                  vulnerabilities: [vuln.id],
                 },
               })
           )
