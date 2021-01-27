@@ -34,10 +34,10 @@ from backend.domain import (
 )
 from backend.exceptions import (
     ConcurrentSession,
-    ExpiredToken
+    ExpiredToken,
+    SecureAccessException,
 )
 from backend.api.schema import SCHEMA
-from backend.utils.encodings import safe_encode
 
 from back.app.middleware import CustomRequestMiddleware
 from back.app import utils
@@ -62,13 +62,10 @@ async def app(*request_args: Request) -> HTMLResponse:
     request = utils.get_starlette_request(request_args)
     email = request.session.get('username')
     try:
-        if FI_ENVIRONMENT == 'production':
-            await session_dal.check_concurrent_sessions(
-                safe_encode(email),
-                request.session['session_key']
-            )
-
         if email:
+            if FI_ENVIRONMENT == 'production':
+                await session_dal.check_session_web_validity(request)
+
             if not await org_domain.get_user_organizations(email):
                 response = templates.unauthorized(request)
             else:
@@ -86,7 +83,7 @@ async def app(*request_args: Request) -> HTMLResponse:
             'location.assign("/registration"); '
             '</script>'
         )
-    except ExpiredToken:
+    except (ExpiredToken, SecureAccessException):
         response = RedirectResponse('/')
 
     return response
@@ -94,9 +91,8 @@ async def app(*request_args: Request) -> HTMLResponse:
 
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
-    await session_dal.remove_element(
-        f'fi_session:{safe_encode(request.session.get("username", ""))}'
-    )
+    if 'username' in request.session:
+        await session_dal.remove_session_web(request.session['username'])
 
     request.session.clear()
 

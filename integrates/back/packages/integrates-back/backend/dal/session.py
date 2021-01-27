@@ -1,4 +1,5 @@
 # Standard libraries
+import contextlib
 from typing import (
     Any,
     cast,
@@ -7,73 +8,92 @@ from typing import (
 )
 import simplejson as json
 
+# Third party libraries
+from starlette.requests import (
+    Request,
+)
+
 # Local libraries
+from back import settings
+from backend.model import (
+    redis_model,
+)
 from backend.dal.helpers.redis import (
     redis_cmd,
+    redis_del_entity_attr,
+    redis_get_entity_attr,
+    redis_set_entity_attr,
 )
 from backend.exceptions import (
     ConcurrentSession,
     ExpiredToken,
+    SecureAccessException,
 )
 
 
-async def save_session_token(
-    key: str,
-    token: str,
-    name: str,
-    ttl: int
-) -> None:
-    await hset_element(key, token, name)
-    await set_element_ttl(name, ttl)
+async def create_session_web(request: Request) -> bool:
+    email: str = request.session['username']
+    session_key: str = request.session['session_key']
 
+    # Check if there is a session already
+    request.session['is_concurrent'] = bool(await get_session_web(email))
 
-async def check_concurrent_sessions(email: str, session_key: str) -> None:
-    """
-    This method checks if current user
-    already has an active session and if so, removes it
-    """
-    user_session_key = f'fi_session:{email}'
-    user_session = await hgetall_element(user_session_key)
-    user_session_keys = list(user_session.keys())
-    if len(user_session_keys) > 1:
-        await hdel_element(user_session_key, user_session_keys[0])
-        raise ConcurrentSession()
-    if user_session_keys and user_session_keys[0].split(':')[1] != session_key:
-        raise ExpiredToken
-
-
-async def hset_element(name: str, key: str, value: str) -> None:
-    await redis_cmd('hset', name, key, value)
-
-
-async def set_element_ttl(name: str, ttl: int) -> None:
-    await redis_cmd('expire', name, ttl)
-
-
-async def hgetall_element(name: str) -> Dict[str, str]:
-    return cast(
-        Dict[str, str],
-        await redis_cmd('hgetall', name)
+    # Proccede overwritting the user session
+    return await redis_set_entity_attr(
+        entity='session',
+        attr='web',
+        email=email,
+        value=session_key,
+        ttl=settings.SESSION_COOKIE_AGE,
     )
 
 
-async def get_redis_element(key: str) -> Optional[Any]:
-    element = await redis_cmd('get', key)
-    if element is not None:
-        element = json.loads(element)
-    return element
+async def remove_session_web(email: str) -> bool:
+    return await redis_del_entity_attr(
+        entity='session',
+        attr='web',
+        email=email,
+    )
 
 
-async def hdel_element(name: str, keys: str) -> Any:
-    return await redis_cmd('hdel', name, keys)
+async def get_session_web(email: str) -> Optional[str]:
+    session_key: Optional[str] = None
+
+    with contextlib.suppress(redis_model.KeyNotFound):
+        session_key = await redis_get_entity_attr(
+            entity='session',
+            attr='web',
+            email=email,
+        )
+
+    return session_key
+
+
+async def check_session_web_validity(request: Request) -> None:
+    email: str = request.session['username']
+    session_key: str = request.session['session_key']
+
+    # Check if the user have a concurrent session
+    if request.session.get('is_concurrent'):
+        request.session.clear()
+        raise ConcurrentSession()
+
+    try:
+        # Check if the user has an active session but it's different
+        # than the one in the cookie
+        if await get_session_web(email) == session_key:
+            # Session is ok and up to date
+            pass
+        else:
+            # Session in the cookie is expired
+            raise ExpiredToken()
+    except redis_model.KeyNotFound:
+        # Use do not even have an active session
+        raise SecureAccessException()
 
 
 async def add_element(key: str, value: Dict[str, Any], time: int) -> None:
     await redis_cmd('setex', key, time, json.dumps(value))
-
-
-async def remove_element(key: str) -> None:
-    await redis_cmd('delete', key)
 
 
 async def element_exists(key: str) -> bool:

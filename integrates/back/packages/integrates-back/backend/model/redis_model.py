@@ -148,10 +148,18 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies=set(),
     ),
+    session=dict(
+        args={
+            'email',
+        },
+        attrs={
+            'web',
+        },
+        dependencies={
+            'session_logout',
+        },
+    ),
 )
-
-# Pending:
-#   util.get_redis_element
 
 
 class KeyNotFound(Exception):

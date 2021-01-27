@@ -17,9 +17,7 @@ from authlib.common.security import generate_token
 from backend.dal import (
     session as session_dal,
 )
-from backend.utils.encodings import safe_encode
 
-from back import settings
 import back.app.utils as utils
 from back.settings.auth import (
     azure,
@@ -54,12 +52,7 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session['last_name'] = user.get('family_name', '')
     request.session['session_key'] = session_key
 
-    await session_dal.save_session_token(
-        f'fi_session:{safe_encode(user_email)}',
-        f'web:{session_key}',
-        'exists',
-        ttl=settings.SESSION_COOKIE_AGE
-    )
+    await session_dal.create_session_web(request)
     await utils.create_user(user)
 
     return request

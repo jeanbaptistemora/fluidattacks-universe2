@@ -21,6 +21,9 @@ from backend.exceptions import ExpiredToken
 from backend.dal import (
     session as session_dal,
 )
+from backend.dal.helpers.redis import (
+    redis_cmd,
+)
 from backend.util import (
     ord_asc_by_criticality,
     assert_file_mime,
@@ -193,7 +196,7 @@ async def test_revoked_token():
     request.cookies[settings.JWT_COOKIE_NAME] = token
     redis_token_name = f'fi_jwt:{payload["jti"]}'
     await session_dal.add_element(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
-    await session_dal.remove_element(redis_token_name)
+    await redis_cmd('delete', redis_token_name)
     with pytest.raises(ExpiredToken):
         assert await get_jwt_content(request)
 
