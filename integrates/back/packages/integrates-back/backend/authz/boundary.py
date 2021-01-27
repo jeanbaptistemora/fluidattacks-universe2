@@ -15,12 +15,12 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
-    GROUP_LEVEL_ACTIONS,
-    GROUP_LEVEL_ROLES,
-    ORGANIZATION_LEVEL_ACTIONS,
     SERVICE_ATTRIBUTES_SET,
-    USER_LEVEL_ACTIONS,
-    USER_LEVEL_ROLES,
+    get_group_level_actions_model,
+    get_group_level_roles_model,
+    get_organization_level_actions_model,
+    get_user_level_actions_model,
+    get_user_level_roles_model,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -41,7 +41,7 @@ async def get_user_level_actions(
 
     user_actions = {
         action
-        for action in USER_LEVEL_ACTIONS
+        for action in get_user_level_actions_model(subject)
         if enforcer(object_, action)
     }
 
@@ -63,7 +63,7 @@ async def get_user_level_roles_a_user_can_grant(
 
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
-        for role in USER_LEVEL_ROLES
+        for role in get_user_level_roles_model(requester_email)
         if enforcer('self', f'grant_user_level_role:{role}')
     ])
 
@@ -82,7 +82,7 @@ async def get_group_level_actions(
 
     group_actions = {
         action
-        for action in GROUP_LEVEL_ACTIONS
+        for action in get_group_level_actions_model(subject)
         if enforcer(group.lower(), action)
     }
 
@@ -107,7 +107,7 @@ async def get_organization_level_actions(
 
     organization_actions = {
         action
-        for action in ORGANIZATION_LEVEL_ACTIONS
+        for action in get_organization_level_actions_model(subject)
         if enforcer(organization_id.lower(), action)
     }
 
@@ -137,16 +137,18 @@ async def get_group_level_roles_a_user_can_grant(
 
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
-        for role in GROUP_LEVEL_ROLES
+        for role in get_group_level_roles_model(requester_email)
         if enforcer(group, f'grant_group_level_role:{role}')
     ])
 
     return roles_the_user_can_grant
 
 
-def get_group_level_roles_with_tag(tag: str) -> Set[str]:
+def get_group_level_roles_with_tag(tag: str, email: str) -> Set[str]:
     return {
         role_name
-        for role_name, role_definition in GROUP_LEVEL_ROLES.items()
+        for role_name, role_definition in get_group_level_roles_model(
+            email
+        ).items()
         if tag in role_definition.get('tags', [])
     }

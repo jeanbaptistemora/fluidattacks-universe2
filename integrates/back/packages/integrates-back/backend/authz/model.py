@@ -540,7 +540,7 @@ GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
 }
 
 
-def _get_group_level_actions(
+def get_group_level_actions_model(
     subject: str,
 ) -> Set[str]:
     if subject.endswith(FLUID_IDENTIFIER):
@@ -548,7 +548,7 @@ def _get_group_level_actions(
     return GROUP_LEVEL_ACTIONS
 
 
-def get_group_level_roles(
+def get_group_level_roles_model(
     subject: str,
 ) -> Dict[str, Dict[str, Set[str]]]:
     if subject.endswith(FLUID_IDENTIFIER):
@@ -692,7 +692,7 @@ ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
 }
 
 
-def _get_organization_level_actions(
+def get_organization_level_actions_model(
     subject: str,
 ) -> Set[str]:
     if subject.endswith(FLUID_IDENTIFIER):
@@ -700,7 +700,7 @@ def _get_organization_level_actions(
     return ORGANIZATION_LEVEL_ACTIONS
 
 
-def get_organization_level_roles(
+def get_organization_level_roles_model(
     subject: str,
 ) -> Dict[str, Dict[str, Set[str]]]:
     if subject.endswith(FLUID_IDENTIFIER):
@@ -754,7 +754,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags={
             *USER_LEVEL_ROLES['admin']['tags'],
-        },
+        }
     ),
     analyst=dict(
         actions={
@@ -763,8 +763,8 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_create_organization_mutate',
         },
         tags={
-            *USER_LEVEL_ROLES['admin']['tags'],
-        },
+            *USER_LEVEL_ROLES['analyst']['tags'],
+        }
     ),
     customer=dict(
         actions={
@@ -773,8 +773,8 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_mutations_create_organization_mutate',
         },
         tags={
-            *USER_LEVEL_ROLES['admin']['tags'],
-        },
+            *USER_LEVEL_ROLES['customer']['tags'],
+        }
     ),
 )
 
@@ -791,7 +791,7 @@ USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
 }
 
 
-def _get_user_level_actions(
+def get_user_level_actions_model(
     subject: str,
 ) -> Set[str]:
     if subject.endswith(FLUID_IDENTIFIER):
@@ -799,7 +799,7 @@ def _get_user_level_actions(
     return USER_LEVEL_ACTIONS
 
 
-def get_user_level_roles(
+def get_user_level_roles_model(
     subject: str,
 ) -> Dict[str, Dict[str, Set[str]]]:
     if subject.endswith(FLUID_IDENTIFIER):

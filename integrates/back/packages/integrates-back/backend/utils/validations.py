@@ -31,7 +31,7 @@ async def validate_fluidattacks_staff_on_group(
 
     is_user_at_fluidattacks: bool = email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
     user_has_hacker_role: bool = (
-        role in authz.get_group_level_roles_with_tag('drills')
+        role in authz.get_group_level_roles_with_tag('drills', email)
     )
 
     group_must_only_have_fluidattacks_hackers: bool = enforcer(

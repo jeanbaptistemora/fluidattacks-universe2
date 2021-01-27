@@ -11,10 +11,10 @@ from .policy import (
     get_cached_subject_policies,
 )
 from .model import (
-    GROUP_LEVEL_ROLES,
+    get_group_level_roles_model,
+    get_organization_level_roles_model,
+    get_user_level_roles_model,
     SERVICE_ATTRIBUTES,
-    ORGANIZATION_LEVEL_ROLES,
-    USER_LEVEL_ROLES,
 )
 
 
@@ -27,7 +27,7 @@ async def get_user_level_enforcer(
         subject,
         with_cache=with_cache
     )
-    roles = USER_LEVEL_ROLES
+    roles = get_user_level_roles_model(subject)
 
     # Filter results as early as possible to save cycles in the enforcer
     policies = tuple(
@@ -63,7 +63,7 @@ async def get_group_level_enforcer(
         context_store,
         with_cache=with_cache
     )
-    roles = GROUP_LEVEL_ROLES
+    roles = get_group_level_roles_model(subject)
 
     def enforcer(r_object: str, r_action: str) -> bool:
         return any(
@@ -112,7 +112,7 @@ async def get_organization_level_enforcer(
         subject,
         with_cache=with_cache
     )
-    roles = ORGANIZATION_LEVEL_ROLES
+    roles = get_organization_level_roles_model(subject)
 
     def enforcer(r_object: str, r_action: str) -> bool:
         return any(

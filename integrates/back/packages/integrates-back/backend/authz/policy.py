@@ -34,9 +34,9 @@ from backend.utils import (
 
 from back.settings import LOGGING
 from .model import (
-    USER_LEVEL_ROLES,
-    GROUP_LEVEL_ROLES,
-    ORGANIZATION_LEVEL_ROLES
+    get_user_level_roles_model,
+    get_group_level_roles_model,
+    get_organization_level_roles_model
 )
 
 logging.config.dictConfig(LOGGING)
@@ -173,11 +173,12 @@ async def get_group_level_roles(
 
 async def get_user_level_role(email: str) -> str:
     user_policy = await user_dal.get_subject_policy(email, 'self')
+
     return user_policy.role
 
 
 async def grant_group_level_role(email: str, group: str, role: str) -> bool:
-    if role not in GROUP_LEVEL_ROLES:
+    if role not in get_group_level_roles_model(email):
         raise ValueError(f'Invalid role value: {role}')
 
     policy = user_dal.SubjectPolicy(
@@ -194,7 +195,7 @@ async def grant_group_level_role(email: str, group: str, role: str) -> bool:
     # If there is no user-level role for this user add one
     if not await get_user_level_role(email):
         user_level_role: str = \
-            role if role in USER_LEVEL_ROLES else 'customer'
+            role if role in get_user_level_roles_model(email) else 'customer'
         coroutines.append(grant_user_level_role(email, user_level_role))
 
     success = await collect(coroutines)
@@ -207,7 +208,7 @@ async def grant_organization_level_role(
     organization: str,
     role: str
 ) -> bool:
-    if role not in ORGANIZATION_LEVEL_ROLES:
+    if role not in get_organization_level_roles_model(email):
         raise ValueError(f'Invalid role value: {role}')
 
     policy = user_dal.SubjectPolicy(
@@ -225,7 +226,7 @@ async def grant_organization_level_role(
     if not await get_user_level_role(email):
         user_level_role: str = (
             role
-            if role in USER_LEVEL_ROLES
+            if role in get_user_level_roles_model(email)
             else 'customer'
         )
         coroutines.append(grant_user_level_role(email, user_level_role))
@@ -236,7 +237,7 @@ async def grant_organization_level_role(
 
 
 async def grant_user_level_role(email: str, role: str) -> bool:
-    if role not in USER_LEVEL_ROLES:
+    if role not in get_user_level_roles_model(email):
         raise ValueError(f'Invalid role value: {role}')
 
     policy = user_dal.SubjectPolicy(
