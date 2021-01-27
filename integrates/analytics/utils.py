@@ -13,6 +13,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Set,
     Tuple,
     Type,
     Union,
@@ -117,12 +118,13 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     Tuple[str, str, Tuple[str, ...]],
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
+    groups: Set[str] = set(await group_domain.get_alive_projects())
     async for org_id, org_name, org_groups in (
         org_domain.iterate_organizations_and_groups()
     ):
         log_info(f'Working on org: {org_id} ({org_name}) {org_groups}')
 
-        yield org_id, org_name, org_groups
+        yield org_id, org_name, tuple(groups.intersection(org_groups))
 
 
 def json_dump(

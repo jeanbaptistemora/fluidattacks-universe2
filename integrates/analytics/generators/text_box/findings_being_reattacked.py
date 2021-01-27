@@ -56,6 +56,16 @@ async def generate_all():
             subject=org_id,
         )
 
+    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
+        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            utils.json_dump(
+                document=format_data(
+                    findings_reattack=await get_many_groups(tuple(groups)),
+                ),
+                entity='portfolio',
+                subject=f'{org_id}PORTFOLIO#{portfolio}',
+            )
+
 
 if __name__ == '__main__':
     run(generate_all())
