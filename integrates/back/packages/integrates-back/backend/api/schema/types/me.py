@@ -7,7 +7,6 @@ from ariadne import ObjectType
 # Local
 from backend.api.resolvers.me import (
     access_token,
-    groups,
     organizations,
     permissions,
     remember,
@@ -21,7 +20,6 @@ ME = ObjectType('Me')
 
 ME.set_field('accessToken', access_token.resolve)
 ME.set_field('permissions', permissions.resolve)
-ME.set_field('projects', groups.resolve)
 ME.set_field('organizations', organizations.resolve)
 ME.set_field('remember', remember.resolve)
 ME.set_field('role', role.resolve)

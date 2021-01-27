@@ -4,7 +4,6 @@ type Me {
   callerOrigin: CallerOrigin
   organizations: [Organization!]
   permissions(entity: Entity!, identifier: String): [String]
-  projects: [Project]
   remember: Boolean
   role(entity: Entity!, identifier: String): String
   sessionExpiration: String

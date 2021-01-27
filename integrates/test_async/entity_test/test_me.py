@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from ariadne import graphql
 from backend.api.dataloaders.group import GroupLoader
 from backend.api.schema import SCHEMA
-from backend.dal.user import get_projects
 from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
@@ -16,10 +15,6 @@ async def test_me():
     query = '''{
         me(callerOrigin: "API") {
             accessToken
-            projects {
-                name
-                description
-            }
             tags(organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3") {
                 name
                 projects {
@@ -46,7 +41,6 @@ async def test_me():
     assert result['data']['me']['role'] == 'customeradmin'
     assert result['data']['me']['permissions'] == []
     assert result['data']['me']['callerOrigin'] == 'API'
-    assert 'projects' in result['data']['me']
     assert 'tags' in result['data']['me']
     for tag in result['data']['me']['tags']:
         assert 'name' in tag
@@ -54,23 +48,6 @@ async def test_me():
         if tag['name'] == 'test-projects':
             output = [proj['name'] for proj in tag['projects']]
             assert sorted(output) == sorted(expected_groups)
-    for project in result['data']['me']['projects']:
-        assert 'name' in project
-        assert 'description' in project
-    expected_groups = [
-        'asgard',
-        'barranquilla',
-        'gotham',
-        'metropolis',
-        'monteria',
-        'oneshottest',
-        'unittesting',
-    ]
-    groups = [prj['name'] for prj in result['data']['me']['projects']]
-    assert sorted(expected_groups) == sorted(groups)
-    all_user_groups = await get_projects(user_email, True)
-    assert len(groups) < len(all_user_groups)
-    assert groups != all_user_groups
 
 @pytest.mark.changes_db
 async def test_sign_in():
@@ -91,6 +68,7 @@ async def test_sign_in():
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert 'errors' not in result
     assert not result['data']['signIn']['success']
+
 
 @pytest.mark.changes_db
 async def test_update_access_token():
@@ -118,6 +96,7 @@ async def test_update_access_token():
     assert 'updateAccessToken' in result['data']
     assert 'success' in result['data']['updateAccessToken']
 
+
 @pytest.mark.changes_db
 async def test_invalidate_access_token():
     """Check invalidateAccessToken query"""
@@ -134,6 +113,7 @@ async def test_invalidate_access_token():
     assert 'invalidateAccessToken' in result['data']
     assert 'success' in result['data']['invalidateAccessToken']
 
+
 @pytest.mark.changes_db
 async def test_accept_legal():
     """Check acceptLegal query"""
@@ -149,6 +129,7 @@ async def test_accept_legal():
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert 'acceptLegal' in result['data']
     assert 'success' in result['data']['acceptLegal']
+
 
 @pytest.mark.changes_db
 async def test_add_push_token():

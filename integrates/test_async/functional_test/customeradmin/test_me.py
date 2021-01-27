@@ -95,10 +95,6 @@ async def test_me():
                 name
             }}
             permissions(entity: USER)
-            projects {{
-                name
-                description
-            }}
             remember
             role(entity: USER)
             sessionExpiration
@@ -129,7 +125,6 @@ async def test_me():
         {'name': 'makimachi'},
     ]
     assert len(result['data']['me']['permissions']) == 0
-    assert len(result['data']['me']['projects']) == 27
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'customeradmin'
     assert result['data']['me']['sessionExpiration'] == str(
@@ -223,10 +218,6 @@ async def test_me():
                 name
             }}
             permissions(entity: USER)
-            projects {{
-                name
-                description
-            }}
             remember
             role(entity: USER)
             sessionExpiration

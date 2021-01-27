@@ -95,10 +95,6 @@ async def test_me():
                 name
             }}
             permissions(entity: USER)
-            projects {{
-                name
-                description
-            }}
             remember
             role(entity: USER)
             sessionExpiration
@@ -124,7 +120,6 @@ async def test_me():
     assert result['data']['me']['callerOrigin'] == 'API'
     assert result['data']['me']['organizations'] == [{'name': org_name}]
     assert len(result['data']['me']['permissions']) == 3
-    assert len(result['data']['me']['projects']) == 2
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'analyst'
     assert result['data']['me']['sessionExpiration'] == str(
@@ -218,10 +213,6 @@ async def test_me():
                 name
             }}
             permissions(entity: USER)
-            projects {{
-                name
-                description
-            }}
             remember
             role(entity: USER)
             sessionExpiration

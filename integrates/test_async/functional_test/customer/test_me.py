@@ -96,10 +96,6 @@ async def test_me():
                 name
             }}
             permissions(entity: USER)
-            projects {{
-                name
-                description
-            }}
             remember
             role(entity: USER)
             sessionExpiration
@@ -125,9 +121,6 @@ async def test_me():
     assert result['data']['me']['callerOrigin'] == 'API'
     assert result['data']['me']['organizations'] == [{'name': org_name}]
     assert len(result['data']['me']['permissions']) == 2
-    assert result['data']['me']['projects'] ==  [
-        {'description': 'Integrates unit test project', 'name': 'unittesting'}
-    ]
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'customer'
     assert result['data']['me']['sessionExpiration'] == str(
@@ -202,10 +195,6 @@ async def test_me():
                 name
             }}
             permissions(entity: USER)
-            projects {{
-                name
-                description
-            }}
             remember
             role(entity: USER)
             sessionExpiration
