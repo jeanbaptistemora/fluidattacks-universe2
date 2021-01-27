@@ -1,19 +1,5 @@
 import { RouteComponentProps } from "react-router";
 
-export interface IStakeholderAttr {
-  project: {
-    stakeholders: Array<{
-      email: string;
-      firstLogin: string;
-      lastLogin: string;
-      organization: string;
-      phoneNumber: string;
-      responsibility: string;
-      role: string;
-    }>;
-  };
-}
-
 export interface IRemoveStakeholderAttr {
   removeStakeholderAccess: {
     removedEmail: string;
@@ -36,7 +22,18 @@ export interface IAddStakeholderAttr {
   };
 }
 
-export interface IStakeholderDataAttr {
+export interface IGetStakeholdersAttrs {
+  project: {
+    __typename: "Project";
+    stakeholders: {
+      __typename: "GetStakeholdersPayload";
+      numPages: number;
+      stakeholders: IStakeholderAttrs[];
+    };
+  };
+}
+
+export interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
   lastLogin: string;
@@ -49,6 +46,9 @@ export interface IStakeholderDataAttr {
 
 export interface IEditStakeholderAttr {
   editStakeholder: {
+    modifiedStakeholder: {
+      email: string;
+    };
     success: boolean;
   };
 }

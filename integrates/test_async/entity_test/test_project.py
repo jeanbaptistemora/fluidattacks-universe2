@@ -72,14 +72,16 @@ async def test_project():
             analyst
             detail
           }
-          stakeholders{
-            email
-            invitationState
-            role
-            responsibility
-            phoneNumber
-            firstLogin
-            lastLogin
+          stakeholders(pageIndex: 1) {
+            stakeholders {
+              email
+              invitationState
+              role
+              responsibility
+              phoneNumber
+              firstLogin
+              lastLogin
+            }
           }
           __typename
         }
@@ -111,7 +113,7 @@ async def test_project():
     assert result['data']['project']['drafts'][0]['openVulnerabilities'] == 0
     assert len(result['data']['project']['events']) == 5
     assert result['data']['project']['consulting'][0]['content'] == 'Now we can post comments on projects'
-    assert result['data']['project']['stakeholders'] == [
+    assert result['data']['project']['stakeholders']['stakeholders'] == [
       {
           "email": "integratesserviceforces@gmail.com",
           "firstLogin": "2018-02-28 11:54:12",

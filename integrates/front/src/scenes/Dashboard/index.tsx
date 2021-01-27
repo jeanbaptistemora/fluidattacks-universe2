@@ -9,7 +9,7 @@ import type { GraphQLError } from "graphql";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import type { IAuthContext } from "utils/auth";
 import type { IConfirmFn } from "components/ConfirmDialog";
-import type { IStakeholderDataAttr } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import type { IStakeholderAttrs } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import type { IUser } from "scenes/Dashboard/types";
 import { Logger } from "utils/logger";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
@@ -56,7 +56,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
     isUserModalOpen,
     toggleUserModal,
   ] = useAddStakeholder();
-  function handleAddUserSubmit(values: IStakeholderDataAttr): void {
+  function handleAddUserSubmit(values: IStakeholderAttrs): void {
     void addStakeholder({ variables: values });
   }
   function openUserModal(): void {

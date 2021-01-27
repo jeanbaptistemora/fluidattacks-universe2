@@ -30,7 +30,7 @@ type Project {
   organization: String!
   roots: [Root!]
   serviceAttributes: [String]
-  stakeholders: [Stakeholder!]
+  stakeholders(pageIndex: Int!, pageSize: Int): GetStakeholdersPayload
   subscription: String
   tags: [String!]
   totalFindings: Int

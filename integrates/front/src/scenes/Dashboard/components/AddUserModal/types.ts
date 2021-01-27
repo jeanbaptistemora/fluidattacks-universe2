@@ -1,4 +1,4 @@
-export interface IStakeholderDataAttr {
+export interface IStakeholderAttrs {
   stakeholder: {
     organization: string;
     phoneNumber: string;

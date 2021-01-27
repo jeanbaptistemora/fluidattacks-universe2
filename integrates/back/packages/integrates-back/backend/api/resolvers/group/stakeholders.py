@@ -4,6 +4,7 @@ from typing import cast, Dict, List
 
 # Third party
 from aioextensions import collect
+from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -69,48 +70,12 @@ async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
     }
 
 
+@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_integrates,
 )
 async def resolve(
-    parent: GroupType,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
-) -> List[StakeholderType]:
-    group_name: str = cast(str, parent['name'])
-
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
-    user_email: str = user_data['user_email']
-
-    group_stakeholders_emails = cast(List[str], chain.from_iterable(
-        await collect([
-            group_domain.get_users(group_name),
-            group_domain.get_users(group_name, False)
-        ])
-    ))
-    group_stakeholders_emails = await group_domain.filter_stakeholders(
-        group_stakeholders_emails,
-        group_name,
-        user_email
-    )
-    group_stakeholders = cast(
-        List[StakeholderType],
-        await collect(
-            _get_stakeholder(email, group_name)
-            for email in group_stakeholders_emails
-        )
-    )
-    group_stakeholders = _filter_by_expired_invitation(group_stakeholders)
-
-    return group_stakeholders
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _resolve(
     parent: GroupType,
     info: GraphQLResolveInfo,
     page_index: int,

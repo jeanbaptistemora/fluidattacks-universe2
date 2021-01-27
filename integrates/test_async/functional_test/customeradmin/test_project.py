@@ -182,9 +182,11 @@ async def test_project():
                     analyst
                     detail
                 }}
-                stakeholders {{
-                    email
-                    role
+                stakeholders(pageIndex: 1) {{
+                    stakeholders {{
+                        email
+                        role
+                    }}
                 }}
                 serviceAttributes
                 bill{{
@@ -221,7 +223,7 @@ async def test_project():
     assert result['data']['project']['description'] == 'This is a new project from pytest'
     assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
     assert result['data']['project']['events'] == []
-    assert result['data']['project']['stakeholders'] ==  [
+    assert result['data']['project']['stakeholders']['stakeholders'] ==  [
         {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'},
         {'email': 'integratesuser@gmail.com', 'role': 'customeradmin'},
     ]

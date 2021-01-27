@@ -29,7 +29,7 @@ interface PaginationProps {
     hideSizePerPage?: boolean;
     hidePageListOnlyOnePage?: boolean;
     onPageChange?: (page: number, sizePerPage: number) => any;
-    onSizePerPageChange?: (sizePerPage: number, page: number) => number;
+    onSizePerPageChange?: (sizePerPage: number, page: number) => void;
     paginationTotalRenderer?: (from: number, to: number, size: number) => TODO;
 
     sizePerPageRenderer?: (options: SizePerPageRenderer) => TODO;
@@ -57,7 +57,7 @@ interface PaginationTableProps extends TODO {
 
 type SizePerPageRenderer = { options: OptionPaginationProps[], currSizePerPage: number, onSizePerPageChange: onSizePerPageChange };
 
-type onSizePerPageChange = (sizePerPage: number, page?: number) => number
+type onSizePerPageChange = (sizePerPage: number, page?: number) => void
 
 
 type onTableChange = (type: TableChangeType, event: TableChangeNewState) => TODO;

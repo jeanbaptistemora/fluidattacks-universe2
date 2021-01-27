@@ -274,12 +274,10 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
     setPageIndex(page);
   };
 
-  const onSizePerPageChange: ((pageSize: number, page: number) => number) =
+  const onSizePerPageChange: ((pageSize: number, _: number) => void) =
   // tslint:disable-next-line: no-shadowed-variable
-    (pageSize: number, page: number): number => {
+    (pageSize: number, _: number): void => {
       setPageSize(pageSize);
-
-      return page;
     };
 
   const listStakeholders: IStakeholderAttrs[] =

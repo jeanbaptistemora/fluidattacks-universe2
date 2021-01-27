@@ -23,6 +23,8 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
+jest.setTimeout(10000);
+
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
   mockedNotifications.msgSuccess = jest.fn();
@@ -64,21 +66,28 @@ describe("Project users view", () => {
       request: {
         query: GET_STAKEHOLDERS,
         variables: {
+          pageIndex: 1,
+          pageSize: 10,
           projectName: "TEST",
         },
       },
       result: {
         data: {
           project: {
-            stakeholders: [{
-              email: "user@gmail.com",
-              firstLogin: "2017-09-05 15:00:00",
-              invitationState: "CONFIRMED",
-              lastLogin: "2017-10-29 13:40:37",
-              phoneNumber: "+573123210121",
-              responsibility: "Test responsibility",
-              role: "customer",
-            }],
+            stakeholders: {
+              numPages: 1,
+              stakeholders: [
+                {
+                  email: "user@gmail.com",
+                  firstLogin: "2017-09-05 15:00:00",
+                  invitationState: "CONFIRMED",
+                  lastLogin: "2017-10-29 13:40:37",
+                  phoneNumber: "+573123210121",
+                  responsibility: "Test responsibility",
+                  role: "customer",
+                },
+              ],
+            },
           },
         },
       },
@@ -87,32 +96,37 @@ describe("Project users view", () => {
       request: {
         query: GET_STAKEHOLDERS,
         variables: {
+          pageIndex: 1,
+          pageSize: 10,
           projectName: "TEST",
         },
       },
       result: {
         data: {
           project: {
-            stakeholders: [
-              {
-                email: "user@gmail.com",
-                firstLogin: "2017-09-05 15:00:00",
-                invitationState: "CONFIRMED",
-                lastLogin: "2017-10-29 13:40:37",
-                phoneNumber: "+573123210121",
-                responsibility: "Rest responsibility",
-                role: "customer",
-              },
-              {
-                email: "unittest@test.com",
-                firstLogin: "2017-09-05 15:00:00",
-                invitationState: "CONFIRMED",
-                lastLogin: "2017-10-29 13:40:37",
-                phoneNumber: "+573123210123",
-                responsibility: "Project Manager",
-                role: "analyst",
-              },
-            ],
+            stakeholders: {
+              numPages: 1,
+              stakeholders: [
+                {
+                  email: "user@gmail.com",
+                  firstLogin: "2017-09-05 15:00:00",
+                  invitationState: "CONFIRMED",
+                  lastLogin: "2017-10-29 13:40:37",
+                  phoneNumber: "+573123210121",
+                  responsibility: "Rest responsibility",
+                  role: "customer",
+                },
+                {
+                  email: "unittest@test.com",
+                  firstLogin: "2017-09-05 15:00:00",
+                  invitationState: "CONFIRMED",
+                  lastLogin: "2017-10-29 13:40:37",
+                  phoneNumber: "+573123210123",
+                  responsibility: "Project Manager",
+                  role: "analyst",
+                },
+              ],
+            },
           },
         },
       },
@@ -124,6 +138,8 @@ describe("Project users view", () => {
       request: {
         query: GET_STAKEHOLDERS,
         variables: {
+          pageIndex: 1,
+          pageSize: 10,
           projectName: "TEST",
         },
       },
@@ -425,7 +441,16 @@ describe("Project users view", () => {
           role: "ANALYST",
         },
       },
-      result: { data: { editStakeholder : { success: true } } },
+      result: {
+        data: {
+          editStakeholder : {
+            modifiedStakeholder: {
+              email: "user@gmail.com",
+            },
+            success: true,
+          },
+        },
+      },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_mutations_edit_stakeholder_mutate" },

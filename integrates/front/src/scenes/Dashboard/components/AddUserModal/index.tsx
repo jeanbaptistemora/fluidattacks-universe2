@@ -23,7 +23,7 @@ import {
 import { Dropdown, PhoneNumber, Text } from "utils/forms/fields";
 import type {
   IAddStakeholderModalProps,
-  IStakeholderDataAttr,
+  IStakeholderAttrs,
 } from "scenes/Dashboard/components/AddUserModal/types";
 import { required, validEmail, validTextField } from "utils/validations";
 
@@ -72,7 +72,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
         }
       : {};
 
-  const [getUser, { data }] = useLazyQuery<IStakeholderDataAttr>(GET_USER, {
+  const [getUser, { data }] = useLazyQuery<IStakeholderAttrs>(GET_USER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {

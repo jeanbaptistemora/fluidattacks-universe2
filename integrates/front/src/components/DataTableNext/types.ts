@@ -23,7 +23,7 @@ interface ITableProps {
   id: string;
   isFilterEnabled?: boolean;
   numPages?: number;
-  onSizePerPageChange?: (sizePerPage: number, page: number) => number;
+  onSizePerPageChange?: (sizePerPage: number, page: number) => void;
   onPageChange?: (arg1: number) => void;
   pageSize: number;
   rowEvents?: Record<string, unknown>;

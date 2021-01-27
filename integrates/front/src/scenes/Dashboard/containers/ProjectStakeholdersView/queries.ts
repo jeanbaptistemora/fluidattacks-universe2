@@ -2,16 +2,19 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_STAKEHOLDERS: DocumentNode = gql`
-  query GetStakeholdersQuery($projectName: String!) {
+  query GetStakeholdersQuery($projectName: String!, $pageIndex: Int!, $pageSize: Int) {
     project(projectName: $projectName){
-      stakeholders {
-        email
-        invitationState
-        role
-        responsibility
-        phoneNumber
-        firstLogin
-        lastLogin
+      stakeholders(pageIndex: $pageIndex, pageSize: $pageSize) {
+        numPages
+        stakeholders {
+          email
+          invitationState
+          role
+          responsibility
+          phoneNumber
+          firstLogin
+          lastLogin
+        }
       }
     }
   }
@@ -69,8 +72,12 @@ export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
       phoneNumber: $phoneNumber,
       projectName: $projectName,
       responsibility: $responsibility,
-      role: $role) {
+      role: $role
+    ) {
       success
+      modifiedStakeholder {
+        email
+      }
     }
   }
   `;

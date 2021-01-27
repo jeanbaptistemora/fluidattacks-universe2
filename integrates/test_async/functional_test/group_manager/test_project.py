@@ -185,9 +185,11 @@ async def test_project():
                     analyst
                     detail
                 }}
-                stakeholders {{
-                    email
-                    role
+                stakeholders(pageIndex: 1) {{
+                    stakeholders {{
+                        email
+                        role
+                    }}
                 }}
                 serviceAttributes
                 bill{{
@@ -225,8 +227,8 @@ async def test_project():
     assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
     assert result['data']['project']['drafts'] == []
     assert result['data']['project']['events'] == []
-    assert {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'} in result['data']['project']['stakeholders']
-    assert {'email': f'forces.{group_name}@fluidattacks.com', 'role': 'service_forces'} in result['data']['project']['stakeholders']
+    assert {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'} in result['data']['project']['stakeholders']['stakeholders']
+    assert {'email': f'forces.{group_name}@fluidattacks.com', 'role': 'service_forces'} in result['data']['project']['stakeholders']['stakeholders']
     assert result['data']['project']['serviceAttributes'] == [
         'has_drills_white',
         'is_fluidattacks_customer',
