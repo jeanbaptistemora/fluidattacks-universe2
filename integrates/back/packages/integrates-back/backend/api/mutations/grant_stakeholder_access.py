@@ -16,6 +16,9 @@ from backend import (
     authz,
     util
 )
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -105,6 +108,10 @@ async def mutate(
 
     if success:
         organization_ids = await user_domain.get_organizations(new_user_email)
+        redis_del_by_deps_soon(
+            'grant_stakeholder_access',
+            group_name=project_name,
+        )
         util.queue_cache_invalidation(
             f'stakeholders*{project_name}',
             new_user_email,

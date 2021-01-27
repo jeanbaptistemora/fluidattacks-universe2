@@ -7,6 +7,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -35,6 +38,10 @@ async def mutate(
     )
     removed_email = user_email if success else ''
     if success:
+        redis_del_by_deps_soon(
+            'remove_stakeholder_access',
+            group_name=project_name,
+        )
         util.queue_cache_invalidation(
             f'stakeholders*{project_name}',
             user_email

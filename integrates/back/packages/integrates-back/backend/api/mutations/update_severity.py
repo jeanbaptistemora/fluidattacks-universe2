@@ -40,7 +40,11 @@ async def mutate(
     success = False
     success = await finding_domain.save_severity(data)
     if success:
-        redis_del_by_deps_soon('update_severity', finding_id=finding_id)
+        redis_del_by_deps_soon(
+            'update_severity',
+            finding_id=finding_id,
+            group_name=group_name
+        )
         util.queue_cache_invalidation(
             f'severity*{group_name}'
         )

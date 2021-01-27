@@ -8,6 +8,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -56,6 +59,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         comment_data
     )
     if success:
+        redis_del_by_deps_soon('add_group_consult', group_name=project_name)
         util.queue_cache_invalidation(
             f'consulting*{project_name}',
             f'comment*{project_name}'

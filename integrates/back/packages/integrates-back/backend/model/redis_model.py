@@ -70,7 +70,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'id',
         },
         attrs={
-            'forces_execution'
+            'forces_execution',
         },
         dependencies=set(),
     ),
@@ -79,20 +79,33 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'name',
         },
         attrs={
+            'consulting',
+            'last_closing_vuln_finding',
+            'max_open_severity_finding',
+            'max_severity',
+            'max_severity_finding',
             'total_findings',
         },
         dependencies={
+            'add_group_consult',
+            'add_group_tags',
             'approve_draft',
-            'delete_finding'
+            'create_event',
+            'delete_finding',
+            'edit_group',
+            'edit_stakeholder',
+            'grant_stakeholder_access',
+            'remove_group',
+            'remove_group_tag',
+            'remove_stakeholder_access',
+            'solve_event',
+            'update_severity',
+            'update_vulns_treatment',
+            'upload_file',
+            'verify_request_vulnerability',
         },
     ),
 )
-# Pending:
-#   group consulting
-#   group last_closing_vuln_finding
-#   group max_open_severity_finding
-#   group max_severity
-#   group max_severity_finding
 
 
 class KeyNotFound(Exception):

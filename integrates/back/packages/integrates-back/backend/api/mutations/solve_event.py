@@ -7,6 +7,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -39,6 +42,7 @@ async def mutate(
     if success:
         event = await event_domain.get_event(event_id)
         project_name = str(event.get('project_name', ''))
+        redis_del_by_deps_soon('solve_event', group_name=project_name)
         util.queue_cache_invalidation(event_id, project_name)
         util.cloudwatch_log(
             info.context,

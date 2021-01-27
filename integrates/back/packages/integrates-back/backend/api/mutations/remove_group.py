@@ -5,6 +5,9 @@ from backend import (
     authz,
     util,
 )
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     require_integrates,
     concurrent_decorators,
@@ -52,6 +55,7 @@ async def mutate(
         )
 
     if success:
+        redis_del_by_deps_soon('remove_group', group_name=group_name)
         await util.invalidate_cache(
             group_name,
             requester_email,

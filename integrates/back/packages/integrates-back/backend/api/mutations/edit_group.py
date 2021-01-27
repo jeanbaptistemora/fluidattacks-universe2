@@ -7,6 +7,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import authz, util
+from backend.dal.helpers.redis import (
+    redis_del_by_deps,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -84,6 +87,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         findings_and_drafts = (
             group_findings[0] + group_drafts[0]
         )
+        await redis_del_by_deps('edit_group', group_name=group_name)
         await util.invalidate_cache(
             group_name,
             requester_email,

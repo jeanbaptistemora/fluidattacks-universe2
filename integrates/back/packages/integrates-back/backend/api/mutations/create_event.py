@@ -8,6 +8,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -47,6 +50,7 @@ async def mutate(
             info.context,
             f'Security: Created event in {project_name} project successfully'
         )
+        redis_del_by_deps_soon('create_event', group_name=project_name)
         util.queue_cache_invalidation(project_name)
 
     return SimplePayload(success=success)

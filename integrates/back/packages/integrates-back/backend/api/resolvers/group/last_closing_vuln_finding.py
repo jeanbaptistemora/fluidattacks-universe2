@@ -1,4 +1,7 @@
 # Standard
+from functools import (
+    partial,
+)
 from typing import cast, Optional
 
 # Third party
@@ -6,12 +9,30 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.dal.helpers.redis import (
+    redis_get_or_set_entity_attr,
+)
 from backend.decorators import require_integrates
 from backend.typing import Finding, Project as Group
 
 
 @require_integrates
 async def resolve(
+    parent: Group,
+    info: GraphQLResolveInfo,
+    **kwargs: None
+) -> Optional[Finding]:
+    response: Optional[Finding] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, info, **kwargs),
+        entity='group',
+        attr='last_closing_vuln_finding',
+        name=cast(str, parent['name']),
+    )
+
+    return response
+
+
+async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None

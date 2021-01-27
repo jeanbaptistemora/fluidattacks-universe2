@@ -14,6 +14,9 @@ from graphql.type.definition import GraphQLResolveInfo
 from back.settings import LOGGING
 
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -57,6 +60,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         else:
             LOGGER.error('Couldn\'t remove a tag', extra={'extra': locals()})
     if success:
+        redis_del_by_deps_soon('remove_group_tag', group_name=group_name)
         util.queue_cache_invalidation(f'tags*{group_name}')
         group_loader.clear(group_name)
         util.cloudwatch_log(

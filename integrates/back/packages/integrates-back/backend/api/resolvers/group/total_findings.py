@@ -16,6 +16,7 @@ from backend.decorators import require_integrates
 from backend.typing import Project as Group
 
 
+@require_integrates
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
@@ -31,7 +32,6 @@ async def resolve(
     return response
 
 
-@require_integrates
 async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,

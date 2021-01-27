@@ -54,6 +54,7 @@ async def mutate(
         await redis_del_by_deps(
             'update_vulns_treatment',
             finding_id=finding_id,
+            group_name=group_name,
         )
         await util.invalidate_cache(f'vuln*{group_name}')
         util.forces_trigger_deployment(group_name)

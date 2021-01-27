@@ -40,7 +40,11 @@ async def mutate(
         draft_id, reviewer_email
     )
     if success:
-        redis_del_by_deps_soon('approve_draft', finding_id=draft_id)
+        redis_del_by_deps_soon(
+            'approve_draft',
+            finding_id=draft_id,
+            group_name=group_name,
+        )
         util.queue_cache_invalidation(
             f'finding*{group_name}',
             f'severity*{group_name}',

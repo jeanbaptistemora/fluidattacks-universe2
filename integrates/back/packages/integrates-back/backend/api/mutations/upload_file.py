@@ -51,7 +51,11 @@ async def mutate(
     else:
         raise InvalidFileType()
     if success:
-        redis_del_by_deps('upload_file', finding_id=finding_id)
+        await redis_del_by_deps(
+            'upload_file',
+            finding_id=finding_id,
+            group_name=group_name,
+        )
         util.queue_cache_invalidation(f'vuln*{group_name}')
         util.cloudwatch_log(
             info.context,
