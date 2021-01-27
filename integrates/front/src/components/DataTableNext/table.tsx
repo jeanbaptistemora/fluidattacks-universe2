@@ -36,7 +36,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const { toolkitProps, tableProps, dataset } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const defaultPages: number = 5;
-  const defaultInitPages: number = 2;
+  const defaultInitPages: number = 1;
   const {
     bordered,
     defaultSorted,
