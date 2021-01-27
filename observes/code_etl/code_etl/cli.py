@@ -66,7 +66,7 @@ def specific_action(  # pylint: disable=unused-argument
     pass
 
 
-def entrypoint():
+def entrypoint() -> None:
     m_parser = main_parser()
     m_args, leftover = m_parser.parse_known_args()
     s_parser = specific_parser(m_args)

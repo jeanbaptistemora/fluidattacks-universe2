@@ -37,7 +37,7 @@ in
           };
 
           pyPkgCode = builders.pythonPackageLocal {
-            path = ../../observes/code;
+            path = ../../observes/code_etl;
             python = pkgs.python38;
           };
         })

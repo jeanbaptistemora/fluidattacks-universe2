@@ -1,9 +1,9 @@
 import copy
 import pytest
-from code import ammend_authors
+from code_etl import ammend_authors
 
 
-def test_get_mailmap_dict():
+def test_get_mailmap_dict() -> None:
     mailmap_path = 'tests/mock_data/.mailmap'
     result = ammend_authors.get_mailmap_dict(mailmap_path)
     canon = ('Super Developer', 'sdev@canon.email.com')
@@ -17,7 +17,7 @@ def test_get_mailmap_dict():
 
 
 @pytest.mark.asyncio
-async def test_get_items_to_change():
+async def test_get_items_to_change() -> None:
     canon = ('Super Developer', 'sdev@canon.email.com')
     alias = ('s.Dev-super V95', 'sdev95@alias.email.la')
     mailmap_dict = {

@@ -55,6 +55,11 @@ observes/infra-test:
   <<: *observes_in_dev_branch
   stage: test-infra
 
+observes/lint-code-etl:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes/lint-postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -181,11 +186,6 @@ observes_streamer_zoho_crm_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code
-
-observes_code_lint:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: lint-code
 
 observes_code_test:
   <<: *with_nix
