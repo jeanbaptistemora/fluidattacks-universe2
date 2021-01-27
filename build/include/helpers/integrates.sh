@@ -103,7 +103,7 @@ function helper_integrates_serve_front {
 
 function helper_integrates_serve_redis {
   local port='6379'
-  local pord_end='6384'
+  local pord_end='6381'
   local cluster_addrs=()
   local cluster_path='.Redis'
 
@@ -129,9 +129,10 @@ function helper_integrates_serve_redis {
         &&  cluster_addrs+=( "127.0.0.1:${port}" ) \
         ||  return 1
       done \
+  &&  sleep 1 \
   &&  redis-cli \
         --cluster create "${cluster_addrs[@]}" \
-        --cluster-replicas 1 \
+        --cluster-replicas 0 \
         --cluster-yes \
 
 }

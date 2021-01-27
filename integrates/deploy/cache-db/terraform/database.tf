@@ -6,7 +6,7 @@ resource "aws_elasticache_subnet_group" "cache_db" {
 resource "aws_elasticache_replication_group" "cache_db" {
   replication_group_id          = "integrates-cache"
   replication_group_description = "Integrates Redis cache"
-  node_type                     = "cache.t3.small"
+  node_type                     = "cache.t3.micro"
   parameter_group_name          = "default.redis6.x.cluster.on"
   subnet_group_name             = aws_elasticache_subnet_group.cache_db.name
   automatic_failover_enabled    = true
@@ -16,8 +16,8 @@ resource "aws_elasticache_replication_group" "cache_db" {
   security_group_ids = var.security_groups
 
   cluster_mode {
-    num_node_groups         = 2
-    replicas_per_node_group = 5
+    num_node_groups         = 6
+    replicas_per_node_group = 1
   }
 
   tags = {
