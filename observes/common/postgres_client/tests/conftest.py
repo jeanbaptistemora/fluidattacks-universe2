@@ -24,11 +24,11 @@ postgresql_my = factories.postgresql(
 )
 
 
-@pytest.fixture(scope='function')  # type: ignore
+@pytest.fixture(scope='function')
 def get_test_creds() -> Credentials:
     return test_creds
 
 
-@pytest.fixture(scope='function')  # type: ignore
+@pytest.fixture(scope='function')
 def get_test_db_id() -> DatabaseID:
     return test_db_id

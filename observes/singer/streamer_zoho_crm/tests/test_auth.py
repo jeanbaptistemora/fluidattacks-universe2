@@ -30,13 +30,13 @@ def test_to_credentials() -> None:
 
 @pytest.mark.skip(
     reason="need manual intervention to retrieve the access code"
-)  # type: ignore
+)
 def test_generate_refresh_token() -> None:
     pass
 
 
 @pytest.mark.skip(
     reason="need real credentials and can invalidate other tokens"
-)  # type: ignore
+)
 def test_generate_token() -> None:
     pass

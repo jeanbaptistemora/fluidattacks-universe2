@@ -11,10 +11,10 @@ from postgres_client.connection import (
 )
 
 
-@pytest.mark.timeout(15, method='thread')  # type: ignore
+@pytest.mark.timeout(15, method='thread')
 @pytest.mark.xfail(
     getpass.getuser() == 'root',
-    reason="can not run with root")  # type: ignore
+    reason="can not run with root")
 def test_connection(
     postgresql_my: Any,
     get_test_creds: Credentials,

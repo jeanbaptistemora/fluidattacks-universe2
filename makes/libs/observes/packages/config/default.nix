@@ -46,8 +46,22 @@
     python = {
       direct = [
         "psycopg2==2.8.4"
+        "pytest-postgresql==2.5.2"
+        "pytest==5.2.0"
       ];
-      inherited = [ ];
+      inherited = [
+        "atomicwrites==1.4.0"
+        "attrs==20.3.0"
+        "mirakuru==2.3.0"
+        "more-itertools==8.6.0"
+        "packaging==20.8"
+        "pluggy==0.13.1"
+        "port-for==0.4"
+        "psutil==5.8.0"
+        "py==1.10.0"
+        "pyparsing==2.4.7"
+        "wcwidth==0.2.5"
+      ];
     };
     local = [ ];
     nix = [
@@ -91,11 +105,24 @@
         "requests==2.25.0"
       ];
       inherited = [
+        "atomicwrites==1.4.0"
+        "attrs==20.3.0"
         "certifi==2020.12.5"
         "chardet==3.0.4"
         "idna==2.10"
+        "mirakuru==2.3.0"
+        "more-itertools==8.6.0"
+        "packaging==20.8"
+        "pluggy==0.13.1"
+        "port-for==0.4"
+        "psutil==5.8.0"
         "psycopg2==2.8.4"
+        "py==1.10.0"
+        "pyparsing==2.4.7"
+        "pytest-postgresql==2.5.2"
+        "pytest==5.2.0"
         "urllib3==1.26.2"
+        "wcwidth==0.2.5"
       ];
     };
     local = [
