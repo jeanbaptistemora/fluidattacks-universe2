@@ -57,6 +57,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'submit_draft',
             'update_evidence',
             'update_evidence_description',
+            'update_finding_description',
             'update_severity',
             'update_vulns_treatment',
             'upload_file',

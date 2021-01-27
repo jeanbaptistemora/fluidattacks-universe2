@@ -18,11 +18,11 @@ from backend.typing import Finding, Vulnerability
 
 async def resolve(
     parent: Dict[str, Finding],
-    _info: GraphQLResolveInfo,
-    **_kwargs: None,
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> int:
     response: int = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, _info, **_kwargs),
+        partial(resolve_no_cache, parent, info, **kwargs),
         entity='finding',
         attr='state',
         id=cast(str, parent['id']),
