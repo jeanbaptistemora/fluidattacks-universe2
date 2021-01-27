@@ -430,11 +430,6 @@ integrates_lint_e2e:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates_lint_front:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates_lint_graphics:
   <<: *with_nix
   <<: *in_dev_branch_integrates

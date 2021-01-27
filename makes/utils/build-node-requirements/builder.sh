@@ -19,6 +19,7 @@ function main {
   &&  copy "${envPackageJsonFile}" "${out}/package.json" \
   &&  pushd "${out}" \
     &&  HOME=. npm install --force \
+    &&  HOME=. npm audit \
   &&  popd \
   &&  echo '[INFO] Freezing' \
   &&  get_deps_from_lock "${out}/package-lock.json" > "${out}/requirements" \

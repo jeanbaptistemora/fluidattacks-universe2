@@ -6,6 +6,7 @@ derivations: makeTemplate {
   arguments = {
     envBinPath = pkgs.lib.strings.makeBinPath derivations;
     envLibPath = pkgs.lib.strings.makeLibraryPath derivations;
+    envNodePath = pkgs.lib.strings.makeSearchPath "node_modules" derivations;
     envPyPath = builtins.concatStringsSep ":" [
       (pkgs.lib.strings.makeSearchPath "lib/python3.8/site-packages" derivations)
       (pkgs.lib.strings.makeSearchPath "lib/python3.7/site-packages" derivations)

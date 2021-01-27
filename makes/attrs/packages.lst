@@ -6,6 +6,8 @@ forces/oci-build
 integrates/config-development/front
 integrates/config-runtime/front
 integrates/lint/front
+integrates/lint/front/eslint
+integrates/lint/front/tslint
 makes/dev
 makes/test
 melts/bin
