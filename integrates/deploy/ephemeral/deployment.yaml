@@ -27,10 +27,10 @@ spec:
             - http/development/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/3/0.0.0.0/8001/*
           resources:
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 1000Mi
             limits:
-              cpu: 1000m
+              cpu: 2000m
               memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -78,10 +78,10 @@ spec:
             - dynamo
           resources:
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 500Mi
             limits:
-              cpu: 1000m
+              cpu: 2000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -100,10 +100,10 @@ spec:
             - redis
           resources:
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 500Mi
             limits:
-              cpu: 1000m
+              cpu: 2000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -122,10 +122,10 @@ spec:
             - minio
           resources:
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 500Mi
             limits:
-              cpu: 1000m
+              cpu: 2000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
