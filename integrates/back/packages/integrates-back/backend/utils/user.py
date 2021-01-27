@@ -117,13 +117,13 @@ async def _give_user_access(
         )
 
     if group and all(await collect(coroutines)):
-        urltoken = await util.create_confirm_access_token(
+        invitation_token = await util.create_confirm_access_token(
             email, group, responsibility
         )
         description = await project_domain.get_description(
             group.lower()
         )
-        project_url = f'{BASE_URL}/confirm_access/{urltoken}'
+        project_url = f'{BASE_URL}/confirm_access/{invitation_token}'
         mail_to = [email]
         context: MailContentType = {
             'admin': email,

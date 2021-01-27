@@ -139,6 +139,15 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'verify_request_vulnerability',
         },
     ),
+    invitation_token=dict(
+        args={
+            'token',
+        },
+        attrs={
+            'data',
+        },
+        dependencies=set(),
+    ),
 )
 
 # Pending:

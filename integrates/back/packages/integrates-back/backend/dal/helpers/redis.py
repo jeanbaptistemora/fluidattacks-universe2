@@ -85,6 +85,34 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
         return await _redis_cmd_base(cmd, *args, **kwargs)
 
 
+async def redis_exists_entity_attr(
+    *,
+    entity: str,
+    attr: str,
+    **args: str,
+) -> bool:
+    # https://redis.io/commands/exists
+
+    key: str = redis_model.build_key(entity, attr, **args)
+    response: int = await redis_cmd('exists', key)
+
+    return response == 1
+
+
+async def redis_ttl_entity_attr(
+    *,
+    entity: str,
+    attr: str,
+    **args: str,
+) -> int:
+    # https://redis.io/commands/ttl
+
+    key: str = redis_model.build_key(entity, attr, **args)
+    response: int = await redis_cmd('ttl', key)
+
+    return response
+
+
 async def redis_set_entity_attr(
     *,
     entity: str,

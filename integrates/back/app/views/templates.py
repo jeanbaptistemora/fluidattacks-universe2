@@ -3,11 +3,6 @@
 # Standard library
 import json
 import traceback
-from typing import (
-    Any,
-    cast,
-    Dict,
-)
 
 # Third party libraries
 from starlette.requests import Request
@@ -15,8 +10,8 @@ from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
 # Local libraries
-from backend.dal import (
-    session as session_dal,
+from backend.dal.helpers.redis import (
+    redis_get_entity_attr,
 )
 from backend.typing import GraphicParameters
 
@@ -49,9 +44,10 @@ def invalid_invitation(request: Request) -> HTMLResponse:
 
 async def valid_invitation(request: Request) -> HTMLResponse:
     url_token = request.path_params['url_token']
-    info = cast(
-        Dict[str, Any],
-        await session_dal.get_redis_element(f'fi_urltoken:{url_token}')
+    info = await redis_get_entity_attr(
+        entity='invitation_token',
+        attr='data',
+        token=url_token,
     )
     group_name = info['group']
     return TEMPLATING_ENGINE.TemplateResponse(

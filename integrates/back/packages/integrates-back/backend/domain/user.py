@@ -4,7 +4,6 @@ from datetime import datetime
 from typing import (
     Any,
     cast,
-    Dict,
     List,
     Union
 )
@@ -17,12 +16,13 @@ from aioextensions import collect
 # Local libraries
 from backend.dal.helpers import dynamodb
 from backend.dal.helpers.redis import (
-    redis_cmd,
+    redis_get_entity_attr,
+    redis_set_entity_attr,
+    redis_ttl_entity_attr,
 )
 from backend.dal import (
     organization as org_dal,
     project as project_dal,
-    session as session_dal,
     user as user_dal,
 )
 from backend.domain import organization as org_domain
@@ -301,10 +301,11 @@ async def get_organizations(email: str) -> List[str]:
     return await org_dal.get_ids_for_user(email)
 
 
-async def complete_user_register(urltoken: str) -> bool:
-    info = cast(
-        Dict[str, Any],
-        await session_dal.get_redis_element(f'fi_urltoken:{urltoken}')
+async def complete_user_register(invitation_token: str) -> bool:
+    info = await redis_get_entity_attr(
+        entity='invitation_token',
+        attr='data',
+        token=invitation_token,
     )
 
     success = True
@@ -319,14 +320,20 @@ async def complete_user_register(urltoken: str) -> bool:
             group,
             True
         )
-        token_ttl = await redis_cmd('ttl', f'fi_urltoken:{urltoken}')
+        token_ttl: int = await redis_ttl_entity_attr(
+            entity='invitation_token',
+            attr='data',
+            token=invitation_token,
+        )
 
         info['is_used'] = True
 
-        await session_dal.add_element(
-            f'fi_urltoken:{urltoken}',
-            info,
-            int(token_ttl)
+        await redis_set_entity_attr(
+            entity='invitation_token',
+            attr='data',
+            token=invitation_token,
+            value=info,
+            ttl=token_ttl,
         )
 
     return success

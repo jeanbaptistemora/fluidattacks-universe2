@@ -24,6 +24,9 @@ from backend.api import IntegratesAPI
 from backend.dal import (
     session as session_dal,
 )
+from backend.dal.helpers.redis import (
+    redis_exists_entity_attr,
+)
 from backend.decorators import authenticate_session
 from backend.domain import (
     organization as org_domain,
@@ -104,8 +107,12 @@ async def logout(request: Request) -> HTMLResponse:
 
 
 async def confirm_access(request: Request) -> HTMLResponse:
-    url_token = request.path_params.get('url_token')
-    token_exists = await session_dal.element_exists(f'fi_urltoken:{url_token}')
+    url_token: str = request.path_params.get('url_token')
+    token_exists: bool = await redis_exists_entity_attr(
+        entity='invitation_token',
+        attr='data',
+        token=url_token,
+    )
 
     if token_exists:
         token_unused = await user_domain.complete_user_register(url_token)

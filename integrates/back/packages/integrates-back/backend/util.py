@@ -43,6 +43,9 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
 from backend.dal import session as session_dal
+from backend.dal.helpers.redis import (
+    redis_set_entity_attr,
+)
 from backend.exceptions import (
     ExpiredToken,
     InvalidAuthorization,
@@ -187,7 +190,7 @@ async def create_confirm_access_token(
 ) -> str:
     token_lifetime = timedelta(weeks=1)
 
-    urltoken = secrets.token_urlsafe(64)
+    invitation_token = secrets.token_urlsafe(64)
 
     token = dict(
         user_email=email,
@@ -196,13 +199,15 @@ async def create_confirm_access_token(
         is_used=False,
     )
 
-    await session_dal.add_element(
-        f'fi_urltoken:{urltoken}',
-        token,
-        int(token_lifetime.total_seconds())
+    await redis_set_entity_attr(
+        entity='invitation_token',
+        attr='data',
+        token=invitation_token,
+        value=token,
+        ttl=(int(token_lifetime.total_seconds())),
     )
 
-    return urltoken
+    return invitation_token
 
 
 def iterate_s3_keys(client, bucket: str, prefix: str) -> Iterator[str]:

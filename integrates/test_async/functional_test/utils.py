@@ -17,9 +17,11 @@ from test_async.utils import create_dummy_session
 
 
 async def complete_all_user_access():
-    prefix = 'fi_urltoken:'
-    for urltoken in await redis_cmd('keys', f'{prefix}*'):
-        await user_domain.complete_user_register(urltoken[len(prefix):])
+    prefix = 'invitation_token.data@token='
+    for invitation_token in await redis_cmd('keys', f'{prefix}*'):
+        await user_domain.complete_user_register(
+            invitation_token[len(prefix):]
+        )
 
 
 async def get_graphql_result(data, stakeholder, session_jwt=None):
