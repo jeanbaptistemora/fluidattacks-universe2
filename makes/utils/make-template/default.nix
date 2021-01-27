@@ -10,11 +10,14 @@ let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
 
   argumentNames = builtins.attrNames arguments;
-  argumentNamesContent = builtins.concatStringsSep "\n" argumentNames;
-  argumentNamesFile = builtins.toFile "arguments" "${argumentNamesContent}\n";
+  argumentNamesFile = builtins.toFile "arguments" (
+    if builtins.length argumentNames > 0
+    then builtins.concatStringsSep "\n" (argumentNames ++ [ "" ])
+    else ""
+  );
 
   templateFile =
-    if (builtins.isString template)
+    if builtins.isString template
     then builtins.toFile "template" template
     else template;
 

@@ -118,6 +118,11 @@ common_deploy_container_image:
   <<: *common_in_master_branch
   stage: deploy-app
 
+makes/check:
+  <<: *makes
+  <<: *common_in_dev_branch
+  stage: test-code
+
 makes/lint:
   <<: *makes
   <<: *common_in_dev_branch

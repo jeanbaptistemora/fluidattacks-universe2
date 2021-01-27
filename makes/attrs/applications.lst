@@ -2,10 +2,10 @@ forces
 forces/oci-deploy
 forces/test
 makes/attrs
+makes/check
 makes/deploy/oci-batch
 makes/deploy/oci-ci
 makes/lint
-makes/test
 melts
 melts/test
 observes/infra-test

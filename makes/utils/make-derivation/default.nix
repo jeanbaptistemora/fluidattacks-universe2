@@ -3,10 +3,10 @@
 
 path: pkgs:
 
-attrs:
+__attrs:
 let
   # Validate arguments
-  attrs' = builtins.mapAttrs
+  attrs = builtins.mapAttrs
     (k: v: (
       if (
         (pkgs.lib.strings.hasPrefix "__env" k) ||
@@ -18,9 +18,14 @@ let
       then v
       else abort "Ivalid argument: ${k}, must be one of: builder, buildInputs, name, or start with: env or __env"
     ))
-    attrs;
+    __attrs;
+
+  builder =
+    if builtins.isString attrs.builder
+    then attrs.builder
+    else builtins.readFile attrs.builder;
 in
-pkgs.stdenv.mkDerivation (attrs' // {
+pkgs.stdenv.mkDerivation (attrs // {
   __envBashLibCommon = path "/makes/utils/common/template.sh";
   __envBashLibShopts = path "/makes/utils/shopts/template.sh";
   __envStdenv = "${pkgs.stdenv}/setup";
@@ -31,6 +36,6 @@ pkgs.stdenv.mkDerivation (attrs' // {
 
     use_ephemeral_dir
 
-    ${builtins.readFile attrs.builder}
+    ${builder}
   '';
 })
