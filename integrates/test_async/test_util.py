@@ -2,7 +2,6 @@ from __future__ import absolute_import
 import os
 import time
 import pytest
-import inspect
 from datetime import datetime, timedelta
 
 from boto3 import client
@@ -14,27 +13,26 @@ from graphql.language.ast import (
     ValueNode,
     ArgumentNode
 )
-from jose import jwt
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
-import json
 
 from backend.exceptions import ExpiredToken
+from backend.dal import (
+    session as session_dal,
+)
 from backend.util import (
     ord_asc_by_criticality,
     assert_file_mime,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
-    calculate_hash_token, remove_token, save_token,
-    get_field_parameters, get_requested_fields,
+    calculate_hash_token,
+    get_field_parameters,
 )
 from backend.utils import (
     encodings,
-    datetime as datetime_utils,
     token as token_helper
 )
-from backend.dal.finding import get_finding
 from back import settings
 from test_async.utils import create_dummy_simple_session
 
@@ -112,7 +110,7 @@ async def test_get_jwt_content():
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',
@@ -133,7 +131,7 @@ async def test_valid_token():
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',
@@ -155,7 +153,7 @@ async def test_valid_api_token():
     }
     token = token_helper.new_encoded_jwt(payload, api=True)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',
@@ -177,7 +175,7 @@ async def test_expired_token():
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await save_token(f'fi_jwt:{payload["jti"]}', token, 5)
+    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, 5)
     time.sleep(6)
     with pytest.raises(ExpiredToken):
         assert await get_jwt_content(request)
@@ -194,8 +192,8 @@ async def test_revoked_token():
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
     redis_token_name = f'fi_jwt:{payload["jti"]}'
-    await save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
-    await remove_token(redis_token_name)
+    await session_dal.add_element(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
+    await session_dal.remove_element(redis_token_name)
     with pytest.raises(ExpiredToken):
         assert await get_jwt_content(request)
 

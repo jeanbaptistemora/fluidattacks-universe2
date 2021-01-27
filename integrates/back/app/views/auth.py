@@ -14,7 +14,9 @@ from authlib.integrations.starlette_client import OAuth
 from authlib.common.security import generate_token
 
 # Local libraries
-from backend import util
+from backend.dal import (
+    session as session_dal,
+)
 from backend.utils.encodings import safe_encode
 
 from back import settings
@@ -52,7 +54,7 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session['last_name'] = user.get('family_name', '')
     request.session['session_key'] = session_key
 
-    await util.save_session_token(
+    await session_dal.save_session_token(
         f'fi_session:{safe_encode(user_email)}',
         f'web:{session_key}',
         'exists',

@@ -15,8 +15,10 @@ from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
 # Local libraries
+from backend.dal import (
+    session as session_dal,
+)
 from backend.typing import GraphicParameters
-from backend import util
 
 from back import settings
 
@@ -49,7 +51,7 @@ async def valid_invitation(request: Request) -> HTMLResponse:
     url_token = request.path_params['url_token']
     info = cast(
         Dict[str, Any],
-        await util.get_redis_element(f'fi_urltoken:{url_token}')
+        await session_dal.get_redis_element(f'fi_urltoken:{url_token}')
     )
     group_name = info['group']
     return TEMPLATING_ENGINE.TemplateResponse(

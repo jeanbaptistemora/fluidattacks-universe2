@@ -20,8 +20,10 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
 # Local libraries
-from backend import util
 from backend.api import IntegratesAPI
+from backend.dal import (
+    session as session_dal,
+)
 from backend.decorators import authenticate_session
 from backend.domain import (
     organization as org_domain,
@@ -58,7 +60,7 @@ async def app(*request_args: Request) -> HTMLResponse:
     email = request.session.get('username')
     try:
         if FI_ENVIRONMENT == 'production':
-            await util.check_concurrent_sessions(
+            await session_dal.check_concurrent_sessions(
                 safe_encode(email),
                 request.session['session_key']
             )
@@ -89,7 +91,7 @@ async def app(*request_args: Request) -> HTMLResponse:
 
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
-    await util.remove_token(
+    await session_dal.remove_element(
         f'fi_session:{safe_encode(request.session.get("username", ""))}'
     )
 
@@ -103,7 +105,7 @@ async def logout(request: Request) -> HTMLResponse:
 
 async def confirm_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get('url_token')
-    token_exists = await util.token_exists(f'fi_urltoken:{url_token}')
+    token_exists = await session_dal.element_exists(f'fi_urltoken:{url_token}')
 
     if token_exists:
         token_unused = await user_domain.complete_user_register(url_token)

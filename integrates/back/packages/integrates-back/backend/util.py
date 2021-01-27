@@ -15,10 +15,8 @@ from typing import (
     Dict,
     Iterator,
     List,
-    Optional,
     Union
 )
-import simplejson as json
 import httpx
 import magic
 from aioextensions import (
@@ -45,11 +43,7 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
 from backend.dal import session as session_dal
-from backend.dal.helpers.redis import (
-    redis_cmd,
-)
 from backend.exceptions import (
-    ConcurrentSession,
     ExpiredToken,
     InvalidAuthorization,
 )
@@ -163,7 +157,7 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
             content = token_helper.decode_jwt(token)
             jti = content.get('jti')
             if (content.get('sub') == 'django_session' and
-                    not await token_exists(f'fi_jwt:{jti}')):
+                    not await session_dal.element_exists(f'fi_jwt:{jti}')):
                 # Session expired (user logged out)
                 raise ExpiredToken()
 
@@ -202,7 +196,7 @@ async def create_confirm_access_token(
         is_used=False,
     )
 
-    await save_token(
+    await session_dal.add_element(
         f'fi_urltoken:{urltoken}',
         token,
         int(token_lifetime.total_seconds())
@@ -518,50 +512,6 @@ async def get_filtered_elements(elements, filters) -> List[ProjectType]:
         for element, condition in zip(elements, conditions)
         if condition
     ]
-
-
-async def check_concurrent_sessions(email: str, session_key: str) -> None:
-    """
-    This method checks if current user
-    already has an active session and if so, removes it
-    """
-    user_session_key = f'fi_session:{email}'
-    user_session = await session_dal.hgetall_element(user_session_key)
-    user_session_keys = list(user_session.keys())
-    if len(user_session_keys) > 1:
-        await session_dal.hdel_element(user_session_key, user_session_keys[0])
-        raise ConcurrentSession()
-    if user_session_keys and user_session_keys[0].split(':')[1] != session_key:
-        raise ExpiredToken
-
-
-async def save_token(key: str, token: Dict[str, Any], time: int) -> None:
-    await session_dal.add_element(key, token, time)
-
-
-async def save_session_token(
-    key: str,
-    token: str,
-    name: str,
-    ttl: int
-) -> None:
-    await session_dal.hset_element(key, token, name)
-    await session_dal.set_element_ttl(name, ttl)
-
-
-async def remove_token(key: str) -> None:
-    await session_dal.remove_element(key)
-
-
-async def token_exists(key: str) -> bool:
-    return await session_dal.element_exists(key)
-
-
-async def get_redis_element(key: str) -> Optional[Any]:
-    element = await redis_cmd('get', key)
-    if element is not None:
-        element = json.loads(element)
-    return element
 
 
 async def get_file_size(file_object: UploadFile) -> int:

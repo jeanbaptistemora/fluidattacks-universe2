@@ -1,14 +1,15 @@
 import requests
 import uuid
 
-from collections import defaultdict
 from datetime import datetime, timedelta
 
 from starlette.responses import Response
 
-from jose import jwt
 from backend import util
 from backend.api import apply_context_attrs
+from backend.dal import (
+    session as session_dal,
+)
 from backend.utils import token as token_helper
 from back import settings
 
@@ -47,6 +48,6 @@ async def create_dummy_session(
         request.headers['Authorization'] = f'Bearer {session_jwt}'
     else:
         request.cookies[settings.JWT_COOKIE_NAME] = token
-        await util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
 
     return request

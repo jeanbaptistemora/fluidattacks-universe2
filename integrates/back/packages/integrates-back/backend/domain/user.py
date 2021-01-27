@@ -22,6 +22,7 @@ from backend.dal.helpers.redis import (
 from backend.dal import (
     organization as org_dal,
     project as project_dal,
+    session as session_dal,
     user as user_dal,
 )
 from backend.domain import organization as org_domain
@@ -303,7 +304,7 @@ async def get_organizations(email: str) -> List[str]:
 async def complete_user_register(urltoken: str) -> bool:
     info = cast(
         Dict[str, Any],
-        await util.get_redis_element(f'fi_urltoken:{urltoken}')
+        await session_dal.get_redis_element(f'fi_urltoken:{urltoken}')
     )
 
     success = True
@@ -322,7 +323,7 @@ async def complete_user_register(urltoken: str) -> bool:
 
         info['is_used'] = True
 
-        await util.save_token(
+        await session_dal.add_element(
             f'fi_urltoken:{urltoken}',
             info,
             int(token_ttl)
