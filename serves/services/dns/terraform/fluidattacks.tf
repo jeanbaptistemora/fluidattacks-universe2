@@ -65,34 +65,6 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
   }
 }
 
-resource "cloudflare_rate_limit" "fluidattacks_com" {
-  zone_id             = cloudflare_zone.fluidattacks_com.id
-  threshold           = 120
-  period              = 60
-  disabled            = false
-  description         = "Main rate limit"
-  bypass_url_patterns = []
-
-  match {
-    request {
-      url_pattern = "*"
-      schemes     = ["_ALL_"]
-      methods     = ["_ALL_"]
-    }
-    response {
-      origin_traffic = true
-    }
-  }
-
-  action {
-    mode = "js_challenge"
-  }
-
-  correlate {
-    by = "nat"
-  }
-}
-
 resource "cloudflare_argo" "fluidattacks_com" {
   zone_id        = cloudflare_zone.fluidattacks_com.id
   tiered_caching = "on"
