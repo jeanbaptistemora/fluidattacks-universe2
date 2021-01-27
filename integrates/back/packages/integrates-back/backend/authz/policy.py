@@ -25,17 +25,12 @@ from backend.dal import (
     user as user_dal,
 )
 from backend.dal.helpers.redis import (
-    REDIS_EXCEPTIONS,
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
 from backend.utils import (
     function,
 )
-from backend.utils.encodings import (
-    safe_encode,
-)
-from backend import util
 
 from back.settings import LOGGING
 from .model import (
@@ -48,10 +43,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-def get_subject_cache_key(subject: str) -> str:
-    return f'authorization.subject.{safe_encode(subject.lower())}'
 
 
 async def _get_group_service_attributes_policies(
@@ -81,12 +72,27 @@ async def get_cached_group_service_attributes_policies(
     return response
 
 
+async def _get_subject_policies(subject: str) -> Tuple[
+    Tuple[str, str, str],
+    ...,
+]:
+    policies: Tuple[Tuple[str, str, str], ...] = tuple(
+        (policy.level, policy.object, policy.role)
+        for policy in await user_dal.get_subject_policies(subject)
+        if policy.subject == subject
+    )
+
+    return policies
+
+
 async def get_cached_subject_policies(
     subject: str,
     context_store: Optional[DefaultDict[Any, Any]] = None,
     with_cache: bool = True,
 ) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
+    policies: Tuple[Tuple[str, str, str], ...]
+
     if with_cache:
         # Unique ID for this function and arguments
         context_store_key: str = function.get_id(
@@ -99,44 +105,23 @@ async def get_cached_subject_policies(
         if context_store_key in context_store:
             return cast(
                 Tuple[Tuple[str, str, str], ...],
-                context_store[context_store_key]
+                context_store[context_store_key],
             )
 
-        cache_key: str = get_subject_cache_key(subject)
+        policies = await redis_get_or_set_entity_attr(
+            partial(_get_subject_policies, subject),
+            entity='authz_subject',
+            attr='policies',
+            id=subject.lower(),
+            ttl=86400,
+        )
 
-        try:
-            # Attempt to retrieve data from the cache
-            ret = await util.get_redis_element(cache_key)
-        except REDIS_EXCEPTIONS:
-            ret = None
-
-        if ret is None:
-            # Let's fetch the data from the database
-            policies = tuple(
-                (policy.level, policy.object, policy.role)
-                for policy in await user_dal.get_subject_policies(subject)
-                if policy.subject == subject
-            )
-
-            try:
-                # Put the data in the cache
-                await util.set_redis_element(
-                    cache_key,
-                    policies,
-                    ttl=300
-                )
-            except REDIS_EXCEPTIONS as ex:
-                LOGGER.exception(ex, extra={'extra': locals()})
-        else:
-            policies = cast(Tuple[Tuple[str, str, str], ...], ret)
         context_store[context_store_key] = policies
+
         return policies
+
     # Let's fetch the data from the database
-    policies = tuple(
-        (policy.level, policy.object, policy.role)
-        for policy in await user_dal.get_subject_policies(subject)
-        if policy.subject == subject
-    )
+    policies = await _get_subject_policies(subject)
 
     return policies
 
@@ -268,21 +253,20 @@ async def grant_user_level_role(email: str, role: str) -> bool:
 async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     """Revoke the cached policies for the provided group."""
     # Delete the cache key from the cache
-    return await redis_del_by_deps(
+    await redis_del_by_deps(
         'revoke_authz_group',
         authz_group_name=group.lower(),
     )
 
+    return True
+
 
 async def revoke_cached_subject_policies(subject: str) -> bool:
     """Revoke the cached policies for the provided subject."""
-    cache_key: str = get_subject_cache_key(subject)
-
-    # Delete the cache key from the cache
-    await util.del_redis_element(f'*{cache_key}*')
-
-    # Refresh the cache key as the user is probably going to use it soon :)
-    await get_cached_subject_policies(subject)
+    await redis_del_by_deps(
+        'revoke_authz_subject',
+        authz_subject_id=subject.lower(),
+    )
 
     return True
 

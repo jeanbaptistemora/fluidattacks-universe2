@@ -18,6 +18,17 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'revoke_authz_group',
         },
     ),
+    authz_subject=dict(
+        args={
+            'id',
+        },
+        attrs={
+            'policies',
+        },
+        dependencies={
+            'revoke_authz_subject',
+        },
+    ),
     event=dict(
         args={
             'id',
@@ -119,10 +130,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 )
 
 # Pending:
-#   authz
-#     util.del_redis_element
-#     util.get_redis_element
-#     util.set_redis_element
 #   decorators.cache_idempotent
 #     util.set_redis_element
 #     util.get_redis_element
