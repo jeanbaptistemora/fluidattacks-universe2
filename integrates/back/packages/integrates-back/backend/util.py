@@ -631,3 +631,7 @@ def get_slice(index: int, size: int) -> slice:
         index * (size + 1),
         index * (size + 1) + size + 1
     )
+
+
+def get_num_batches(num_items: int, batch_size: int) -> int:
+    return (num_items // batch_size) + 1

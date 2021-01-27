@@ -153,5 +153,5 @@ async def _resolve(
 
     return GetStakeholdersPayloadType(
         stakeholders=group_stakeholders,
-        num_pages=(len(group_stakeholders) // int(page_size)) + 1
+        num_pages=util.get_num_batches(len(group_stakeholders), int(page_size))
     )

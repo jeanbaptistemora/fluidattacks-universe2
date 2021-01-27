@@ -64,5 +64,5 @@ async def resolve(
             _get_stakeholder(email, org_id)
             for email in org_stakeholders[items_range]
         ),
-        num_pages=(len(org_stakeholders) // int(page_size)) + 1
+        num_pages=util.get_num_batches(len(org_stakeholders), int(page_size))
     )
