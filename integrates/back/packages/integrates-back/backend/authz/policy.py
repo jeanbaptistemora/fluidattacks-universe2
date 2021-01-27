@@ -1,4 +1,7 @@
 # Standard library
+from functools import (
+    partial,
+)
 from typing import (
     Any,
     Awaitable,
@@ -23,6 +26,8 @@ from backend.dal import (
 )
 from backend.dal.helpers.redis import (
     REDIS_EXCEPTIONS,
+    redis_del_by_deps,
+    redis_get_or_set_entity_attr,
 )
 from backend.utils import (
     function,
@@ -45,47 +50,35 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def get_group_cache_key(group: str) -> str:
-    return f'authorization.group.{safe_encode(group.lower())}'
-
-
 def get_subject_cache_key(subject: str) -> str:
     return f'authorization.subject.{safe_encode(subject.lower())}'
+
+
+async def _get_group_service_attributes_policies(
+    group: str,
+) -> Tuple[str, ...]:
+    """Cached function to get 1 group features authorization policies."""
+    policies: Tuple[str, ...] = tuple(
+        policy.service
+        for policy in await project_dal.get_service_policies(group)
+        if policy.group == group
+    )
+
+    return policies
 
 
 async def get_cached_group_service_attributes_policies(
     group: str,
 ) -> Tuple[str, ...]:
-    """Cached function to get 1 group features authorization policies."""
-    cache_key: str = get_group_cache_key(group)
+    response: Tuple[str, ...] = await redis_get_or_set_entity_attr(
+        partial(_get_group_service_attributes_policies, group),
+        entity='authz_group',
+        attr='policies',
+        name=group.lower(),
+        ttl=86400,
+    )
 
-    try:
-        # Attempt to retrieve data from the cache
-        ret = await util.get_redis_element(cache_key)
-    except REDIS_EXCEPTIONS:
-        ret = None
-
-    if ret is None:
-        # Let's fetch the data from the database
-        policies = tuple(
-            policy.service
-            for policy in await project_dal.get_service_policies(group)
-            if policy.group == group
-        )
-
-        try:
-            # Put the data in the cache
-            await util.set_redis_element(
-                cache_key,
-                policies,
-                ttl=86400
-            )
-        except REDIS_EXCEPTIONS as ex:
-            LOGGER.exception(ex, extra={'extra': locals()})
-    else:
-        policies = cast(Tuple[str, ...], ret)
-
-    return policies
+    return response
 
 
 async def get_cached_subject_policies(
@@ -274,15 +267,11 @@ async def grant_user_level_role(email: str, role: str) -> bool:
 
 async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     """Revoke the cached policies for the provided group."""
-    cache_key: str = get_group_cache_key(group)
-
     # Delete the cache key from the cache
-    await util.del_redis_element(f'*{cache_key}*')
-
-    # Refresh the cache key as the user is probably going to use it soon :)
-    await get_cached_group_service_attributes_policies(group)
-
-    return True
+    return await redis_del_by_deps(
+        'revoke_authz_group',
+        authz_group_name=group.lower(),
+    )
 
 
 async def revoke_cached_subject_policies(subject: str) -> bool:

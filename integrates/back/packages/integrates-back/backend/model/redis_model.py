@@ -7,6 +7,17 @@ from typing import (
 
 # Constants
 ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
+    authz_group=dict(
+        args={
+            'name',
+        },
+        attrs={
+            'policies',
+        },
+        dependencies={
+            'revoke_authz_group',
+        },
+    ),
     event=dict(
         args={
             'id',
