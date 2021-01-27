@@ -56,7 +56,6 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name,
         )
-        util.queue_cache_invalidation(f'vuln*{group_name}')
         util.cloudwatch_log(
             info.context,
             f'Security: Uploaded file in {group_name} group successfully'

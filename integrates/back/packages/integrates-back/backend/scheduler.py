@@ -15,7 +15,7 @@ from aioextensions import (
     schedule,
 )
 
-from backend import mailer, util
+from backend import mailer
 from backend.dal import (
     project as project_dal,
     tag as tag_dal
@@ -723,7 +723,6 @@ async def update_group_indicators(group_name: str) -> None:
             indicators
         )
         if response:
-            util.queue_cache_invalidation(group_name)
             msg = 'Info: Updated indicators'
             LOGGER.info(msg, extra={'extra': payload_data})
         else:
@@ -788,8 +787,6 @@ async def update_organization_indicators(
         success.append(
             await tag_dal.update(organization_name, tag, tag_info)
         )
-        if success[-1]:
-            util.queue_cache_invalidation(tag)
     return all(success), updated_tags
 
 

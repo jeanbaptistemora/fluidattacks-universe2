@@ -42,10 +42,6 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon('delete_finding', finding_id=finding_id)
-        util.queue_cache_invalidation(
-            f'finding*{group_name}',
-            f'severity*{group_name}',
-        )
         justification_dict = {
             'DUPLICATED': 'It is duplicated',
             'FALSE_POSITIVE': 'It is a false positive',

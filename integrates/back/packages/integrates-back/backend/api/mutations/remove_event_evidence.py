@@ -32,7 +32,6 @@ async def mutate(
     """Resolve remove_event_evidence mutation."""
     success = await event_domain.remove_evidence(evidence_type, event_id)
     if success:
-        util.queue_cache_invalidation(f'evidence*{event_id}')
         util.cloudwatch_log(
             info.context,
             f'Security: Removed evidence in event {event_id}'

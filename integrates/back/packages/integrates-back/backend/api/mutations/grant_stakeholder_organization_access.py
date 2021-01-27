@@ -48,10 +48,6 @@ async def mutate(
     success = user_added and any([user_created, user_exists])
 
     if success:
-        util.queue_cache_invalidation(
-            user_email,
-            organization_id.lower()
-        )
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {user_email} was granted access '

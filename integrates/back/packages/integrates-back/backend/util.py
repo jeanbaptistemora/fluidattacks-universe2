@@ -273,25 +273,6 @@ def snakecase_to_camelcase(str_value: str) -> str:
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
 
 
-async def invalidate_cache(*keys_pattern: str) -> int:
-    """Remove keys from cache that matches a given pattern.
-
-    Return the total number of entries deleted.
-
-    This is a very expensive operation so do not use directly.
-    """
-    entries_deleted: int = sum(await collect(
-        del_redis_element(f'*{key_pattern.lower()}*')
-        for key_pattern in keys_pattern
-    ))
-
-    return entries_deleted
-
-
-def queue_cache_invalidation(*keys_pattern: str) -> None:
-    schedule(invalidate_cache(*keys_pattern))
-
-
 def format_comment_date(date_string: str) -> str:
     comment_date = datetime_utils.get_from_str(date_string)
     formatted_date = datetime_utils.get_as_str(
@@ -576,29 +557,11 @@ async def token_exists(key: str) -> bool:
     return await session_dal.element_exists(key)
 
 
-async def get_ttl_token(key: str) -> int:
-    return await redis_cmd('ttl', key)
-
-
-async def set_redis_element(
-    key: str,
-    value: Any,
-    ttl: int = settings.CACHE_TTL
-) -> None:
-    await redis_cmd('setex', key, ttl, json.dumps(value))
-
-
 async def get_redis_element(key: str) -> Optional[Any]:
     element = await redis_cmd('get', key)
     if element is not None:
         element = json.loads(element)
     return element
-
-
-async def del_redis_element(pattern: str) -> int:
-    return sum(await collect(tuple(
-        redis_cmd('delete', key) for key in await redis_cmd('keys', pattern)
-    )))
 
 
 async def get_file_size(file_object: UploadFile) -> int:

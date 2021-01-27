@@ -52,7 +52,6 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon('add_event_consult', event_id=event_id)
-        util.queue_cache_invalidation(f'comment*{event_id}')
         if content.strip() not in {'#external', '#internal'}:
             event_domain.send_comment_mail(
                 user_email,

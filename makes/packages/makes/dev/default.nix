@@ -12,6 +12,7 @@ makeTemplate {
       makesPkgs.awscli
       makesPkgs.cloc
       makesPkgs.nixpkgs-fmt
+      makesPkgs.redis
       makesPkgs.sops
       makesPkgs.terraform
       makesPkgs.tokei

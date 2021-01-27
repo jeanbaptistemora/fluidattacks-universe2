@@ -43,7 +43,6 @@ async def mutate(
         event = await event_domain.get_event(event_id)
         project_name = str(event.get('project_name', ''))
         redis_del_by_deps_soon('solve_event', group_name=project_name)
-        util.queue_cache_invalidation(event_id, project_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Solved event {event_id} successfully'

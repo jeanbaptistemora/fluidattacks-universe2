@@ -7,7 +7,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 # Local
-from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -38,6 +37,5 @@ async def mutate(
             evidence_type,
             file
         )
-        await util.invalidate_cache(f'view*events*{event_id}')
 
     return SimplePayload(success=success)

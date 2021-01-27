@@ -48,8 +48,6 @@ async def mutate(
             phone_number=phone_number,
         )
         if new_user:
-            organization_ids = await user_domain.get_organizations(email)
-            util.queue_cache_invalidation(organization_ids[0])
             util.cloudwatch_log(
                 info.context,
                 f'Security: Added stakeholder {email}'

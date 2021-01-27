@@ -29,10 +29,6 @@ async def mutate(
         organization_id, user_email.lower()
     )
     if success:
-        util.queue_cache_invalidation(
-            user_email,
-            f'stakeholders*{organization_id.lower()}',
-        )
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {requester_email} removed stakeholder'

@@ -60,10 +60,6 @@ async def mutate(  # pylint: disable=too-many-arguments
     )
     if success:
         redis_del_by_deps_soon('add_group_consult', group_name=project_name)
-        util.queue_cache_invalidation(
-            f'consulting*{project_name}',
-            f'comment*{project_name}'
-        )
         if content.strip() not in {'#external', '#internal'}:
             group_domain.send_comment_mail(
                 user_email,

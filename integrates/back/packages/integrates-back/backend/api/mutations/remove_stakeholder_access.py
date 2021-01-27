@@ -42,10 +42,6 @@ async def mutate(
             'remove_stakeholder_access',
             group_name=project_name,
         )
-        util.queue_cache_invalidation(
-            f'stakeholders*{project_name}',
-            user_email
-        )
         msg = (
             f'Security: Removed stakeholder: {user_email} from {project_name} '
             f'project successfully'

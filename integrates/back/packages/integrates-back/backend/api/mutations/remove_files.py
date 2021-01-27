@@ -64,15 +64,6 @@ async def mutate(
                 }
             })
     if success:
-        util.queue_cache_invalidation(
-            # resource entity related
-            f'environments*{project_name}',
-            f'files*{project_name}',
-            # project entity related
-            f'has*{project_name}',
-            f'deletion*{project_name}',
-            f'tags*{project_name}',
-        )
         util.cloudwatch_log(
             info.context,
             f'Security: Removed Files from {project_name} project successfully'

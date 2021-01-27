@@ -114,13 +114,10 @@ async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = 'customer'
     new_user_group_level_role: str = 'customer'
 
-    success = await user_domain.create_without_project(
+    await user_domain.create_without_project(
         email=email,
         role=new_user_user_level_role
     )
-    if success:
-        organization_ids = await user_domain.get_organizations(email)
-        util.queue_cache_invalidation(organization_ids[0])
 
     for group in FI_COMMUNITY_PROJECTS.split(','):
         await collect([

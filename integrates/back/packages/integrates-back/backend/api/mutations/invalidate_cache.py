@@ -1,11 +1,15 @@
-# Standard
-import re
-
 # Third party
+from aioextensions import (
+    collect,
+    schedule,
+)
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
+from backend.dal.helpers.redis import (
+    redis_cmd,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
@@ -23,15 +27,14 @@ async def mutate(
     info: GraphQLResolveInfo,
     pattern: str
 ) -> SimplePayload:
-    success = False
-    regex = r'^\w+$|^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
+    schedule(collect([
+        redis_cmd('delete', key)
+        for key in await redis_cmd('keys', pattern)
+    ]))
 
-    if re.match(regex, pattern):
-        util.queue_cache_invalidation(pattern)
-        success = True
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Pattern {pattern} was removed from cache'
-        )
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Pattern {pattern} was removed from cache'
+    )
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)

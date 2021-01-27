@@ -16,6 +16,9 @@ from aioextensions import collect
 
 # Local libraries
 from backend.dal.helpers import dynamodb
+from backend.dal.helpers.redis import (
+    redis_cmd,
+)
 from backend.dal import (
     organization as org_dal,
     project as project_dal,
@@ -315,7 +318,7 @@ async def complete_user_register(urltoken: str) -> bool:
             group,
             True
         )
-        token_ttl = await util.get_ttl_token(f'fi_urltoken:{urltoken}')
+        token_ttl = await redis_cmd('ttl', f'fi_urltoken:{urltoken}')
 
         info['is_used'] = True
 

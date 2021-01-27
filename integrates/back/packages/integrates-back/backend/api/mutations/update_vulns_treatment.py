@@ -56,7 +56,6 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name,
         )
-        await util.invalidate_cache(f'vuln*{group_name}')
         util.forces_trigger_deployment(group_name)
 
     return SimplePayload(success=success)

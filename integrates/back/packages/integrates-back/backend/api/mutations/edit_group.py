@@ -18,7 +18,6 @@ from backend.decorators import (
     turn_args_into_kwargs
 )
 from backend.domain import (
-    finding as finding_domain,
     project as group_domain,
     user as user_domain
 )
@@ -78,21 +77,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         await group_domain.remove_user_access(
             group_name, user_domain.format_forces_user_email(group_name))
     if success:
-        group_findings = await finding_domain.list_findings(
-            [group_name], include_deleted=True
-        )
-        group_drafts = await finding_domain.list_drafts(
-            [group_name], include_deleted=True
-        )
-        findings_and_drafts = (
-            group_findings[0] + group_drafts[0]
-        )
         await redis_del_by_deps('edit_group', group_name=group_name)
-        await util.invalidate_cache(
-            group_name,
-            requester_email,
-            *findings_and_drafts
-        )
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(
             info.context,

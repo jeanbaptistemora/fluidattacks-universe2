@@ -78,10 +78,6 @@ async def mutate(
 
     if success:
         redis_del_by_deps_soon('add_finding_consult', finding_id=finding_id)
-        util.queue_cache_invalidation(
-            f'{param_type}*{finding_id}',
-            f'comment*{finding_id}'
-        )
         if content.strip() not in {'#external', '#internal'}:
             finding_domain.send_comment_mail(
                 user_email,

@@ -66,10 +66,6 @@ async def mutate(
         )
 
     if success:
-        util.queue_cache_invalidation(
-            user_email,
-            organization_id.lower()
-        )
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {requester_email} modified '

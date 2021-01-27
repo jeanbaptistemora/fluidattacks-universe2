@@ -85,10 +85,6 @@ async def mutate(
 
     if success:
         redis_del_by_deps_soon('edit_stakeholder', group_name=project_name)
-        util.queue_cache_invalidation(
-            f'stakeholders*{project_name}',
-            modified_email
-        )
         msg = (
             f'Security: Modified stakeholder data: {modified_email} '
             f'in {project_name} project successfully'

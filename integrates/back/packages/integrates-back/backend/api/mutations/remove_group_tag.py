@@ -61,7 +61,6 @@ async def mutate(  # pylint: disable=too-many-arguments
             LOGGER.error('Couldn\'t remove a tag', extra={'extra': locals()})
     if success:
         redis_del_by_deps_soon('remove_group_tag', group_name=group_name)
-        util.queue_cache_invalidation(f'tags*{group_name}')
         group_loader.clear(group_name)
         util.cloudwatch_log(
             info.context,

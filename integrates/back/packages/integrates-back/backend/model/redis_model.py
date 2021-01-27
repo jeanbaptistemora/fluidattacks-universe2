@@ -142,9 +142,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 )
 
 # Pending:
-#   util.invalidate_cache
-#   util.queue_cache_invalidation
-#   util.get_ttl_token
+#   util.get_redis_element
 
 
 class KeyNotFound(Exception):

@@ -56,10 +56,6 @@ async def mutate(
 
     if success:
         redis_del_by_deps_soon('remove_group', group_name=group_name)
-        await util.invalidate_cache(
-            group_name,
-            requester_email,
-        )
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(
             info.context,

@@ -107,15 +107,9 @@ async def mutate(
         )
 
     if success:
-        organization_ids = await user_domain.get_organizations(new_user_email)
         redis_del_by_deps_soon(
             'grant_stakeholder_access',
             group_name=project_name,
-        )
-        util.queue_cache_invalidation(
-            f'stakeholders*{project_name}',
-            new_user_email,
-            organization_ids[0]
         )
         util.cloudwatch_log(
             info.context,

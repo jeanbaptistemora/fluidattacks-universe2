@@ -45,11 +45,6 @@ async def mutate(
             finding_id=draft_id,
             group_name=group_name,
         )
-        util.queue_cache_invalidation(
-            f'finding*{group_name}',
-            f'severity*{group_name}',
-            f'vuln*{group_name}',
-        )
         util.forces_trigger_deployment(group_name)
         util.cloudwatch_log(
             info.context,

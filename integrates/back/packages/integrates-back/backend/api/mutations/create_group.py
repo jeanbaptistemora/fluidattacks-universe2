@@ -53,7 +53,6 @@ async def mutate(  # pylint: disable=too-many-arguments
     if success and has_forces:
         await create_forces_user(info, group_name)
     if success:
-        util.queue_cache_invalidation(user_email)
         util.cloudwatch_log(
             info.context,
             f'Security: Created group {group_name.lower()} successfully',
