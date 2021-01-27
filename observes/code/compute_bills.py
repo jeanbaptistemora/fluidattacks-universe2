@@ -18,7 +18,8 @@ from typing import (
     Set,
     Tuple,
 )
-
+# Third party libraries
+import requests
 # Local libraries
 from shared import (
     COMMIT_HASH_SENTINEL,
@@ -42,7 +43,6 @@ SELECT_ALL: str = """
 # Types
 MonthData = Dict[str, Dict[str, List[Any]]]
 
-
 def cli() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--folder', required=True)
@@ -55,6 +55,26 @@ def cli() -> None:
     for group in groups:
         log_sync('info', 'Creating bill for: %s', group)
         create_csv_file(args.folder, data, group)
+
+
+def get_org(token: str, group: str) -> str:
+    query = """
+        project($projectName: String!){
+            organization
+        }
+    """
+    variables = {"projectName": group}
+    json_data = {
+        'query': query,
+        'variables': variables,
+    }
+    result = requests.post(
+        'https://integrates.fluidattacks.com/api',
+        json=json_data,
+        headers={'Authorization': f'Bearer {token}'}
+    )
+    data = result.json()
+    return data['data']['project']['organization']
 
 
 def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:

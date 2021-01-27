@@ -26,6 +26,9 @@ in
           pyPkgAioextensions = builders.pythonPackage {
             requirement = "aioextensions==20.8.2087641";
           };
+          pyPkgRequests= builders.pythonPackage {
+            requirement = "requests==2.25.1";
+          };
           melts = (import ../..).melts;
           srcProduct = (import ../..).product;
         })
