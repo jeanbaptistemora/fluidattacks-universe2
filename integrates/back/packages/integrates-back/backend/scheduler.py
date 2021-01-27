@@ -879,7 +879,6 @@ async def reset_group_expired_accepted_findings(
                 user_email=historic_treatment[-1].get('user', ''),
                 date=datetime_utils.get_as_str(datetime_utils.get_now())
             )
-            util.queue_cache_invalidation(finding_id)
 
 
 async def reset_expired_accepted_findings() -> None:

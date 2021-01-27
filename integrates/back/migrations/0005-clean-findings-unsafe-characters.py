@@ -136,7 +136,6 @@ def persist_changes(finding: Dict[str, str], dry_run: bool) -> None:
         print('Changes in finding {}\n\t{}'.format(finding_id, info_to_update))
     else:
         update_finding(finding_id, info_to_update)
-        util.invalidate_cache(finding_id)
         log(
             'Migration 0005: changes were applied to finding {}'.format(finding_id),
             dry_run

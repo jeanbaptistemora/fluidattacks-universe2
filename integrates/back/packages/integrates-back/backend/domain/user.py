@@ -300,7 +300,7 @@ async def get_organizations(email: str) -> List[str]:
 async def complete_user_register(urltoken: str) -> bool:
     info = cast(
         Dict[str, Any],
-        await util.get_token(f'fi_urltoken:{urltoken}')
+        await util.get_redis_element(f'fi_urltoken:{urltoken}')
     )
 
     success = True

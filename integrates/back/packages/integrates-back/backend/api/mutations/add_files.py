@@ -17,7 +17,6 @@ from backend.decorators import (
 from backend.domain import resources as resources_domain
 from backend.typing import SimplePayload as SimplePayloadType
 from backend.utils import (
-    resources as resource_utils,
     virus_scan
 )
 
@@ -63,7 +62,15 @@ async def mutate(
     else:
         LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
-        resource_utils.clean_cache(project_name)
+        util.queue_cache_invalidation(
+            # resource entity related
+            f'environments*{project_name}',
+            f'files*{project_name}',
+            # project entity related
+            f'has*{project_name}',
+            f'deletion*{project_name}',
+            f'tags*{project_name}',
+        )
         util.cloudwatch_log(
             info.context,
             f'Security: Added resource files to {project_name} '

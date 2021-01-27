@@ -440,44 +440,6 @@ def require_finding_access(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
-def get_entity_cache_async(func: TVar) -> TVar:
-    """Get cached response of a GraphQL entity if it exists."""
-
-    _func = cast(Callable[..., Any], func)
-
-    @functools.wraps(_func)
-    async def decorated(*args: Any, **kwargs: Any) -> Any:
-        """Get cached response from function if it exists."""
-        # Parent is none for root (query) resolvers
-        parent: Dict[str, Any] = args[0] if args[0] else {}
-        function_id: str = '_'.join([
-            _func.__module__,
-            _func.__qualname__
-        ])
-        params = '_'.join([
-            str(key)
-            for key in [*parent.values(), *kwargs.values()]
-        ])
-        key_name = '_'.join([
-            function_id,
-            params
-        ]).replace('.', '_').lower()
-
-        try:
-            ret = await util.get_redis_element(key_name)
-            if ret is None:
-                ret = await _func(*args, **kwargs)
-
-                await util.set_redis_element(key_name, ret)
-
-            return ret
-        except REDIS_EXCEPTIONS as ex:
-            LOGGER.exception(ex, extra=dict(extra=locals()))
-            return await _func(*args, **kwargs)
-
-    return cast(TVar, decorated)
-
-
 def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
     """Decorator to rename function's kwargs.
 

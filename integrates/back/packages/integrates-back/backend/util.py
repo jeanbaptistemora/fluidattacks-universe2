@@ -292,13 +292,6 @@ def queue_cache_invalidation(*keys_pattern: str) -> None:
     schedule(invalidate_cache(*keys_pattern))
 
 
-def format_cache_keys_pattern(attrs_to_clean: Dict[str, str]) -> List[str]:
-    return [
-        f'{attribute}*{identifier}'
-        for attribute, identifier in attrs_to_clean.items()
-    ]
-
-
 def format_comment_date(date_string: str) -> str:
     comment_date = datetime_utils.get_from_str(date_string)
     formatted_date = datetime_utils.get_as_str(
@@ -577,10 +570,6 @@ async def save_session_token(
 
 async def remove_token(key: str) -> None:
     await session_dal.remove_element(key)
-
-
-async def get_token(key: str) -> Optional[str]:
-    return await get_redis_element(key)
 
 
 async def token_exists(key: str) -> bool:

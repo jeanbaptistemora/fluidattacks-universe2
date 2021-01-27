@@ -107,6 +107,18 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 
+# Pending:
+#   authz
+#     util.del_redis_element
+#     util.get_redis_element
+#     util.set_redis_element
+#   decorators.cache_idempotent
+#     util.set_redis_element
+#     util.get_redis_element
+#   util.invalidate_cache
+#   util.queue_cache_invalidation
+#   util.get_ttl_token
+
 
 class KeyNotFound(Exception):
     pass

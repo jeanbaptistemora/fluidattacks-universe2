@@ -49,7 +49,7 @@ async def valid_invitation(request: Request) -> HTMLResponse:
     url_token = request.path_params['url_token']
     info = cast(
         Dict[str, Any],
-        await util.get_token(f'fi_urltoken:{url_token}')
+        await util.get_redis_element(f'fi_urltoken:{url_token}')
     )
     group_name = info['group']
     return TEMPLATING_ENGINE.TemplateResponse(
