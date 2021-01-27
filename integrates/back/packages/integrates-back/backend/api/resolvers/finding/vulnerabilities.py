@@ -20,33 +20,33 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: str
 ) -> List[Vulnerability]:
-    response: List[Vulnerability] = await redis_get_or_set_entity_attr(
+    vulnerabilities: List[Vulnerability] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity='finding',
         attr='vulns',
         id=cast(Dict[str, str], parent)['id'],
     )
 
-    return response
+    state: Optional[str] = kwargs.get('state')
+
+    if state:
+        vulnerabilities = [
+            vulnerability
+            for vulnerability in vulnerabilities
+            if vulnerability['current_state'] == state
+        ]
+
+    return vulnerabilities
 
 
 async def resolve_no_cache(
     parent: Finding,
     info: GraphQLResolveInfo,
-    **kwargs: str
+    **_kwargs: str
 ) -> List[Vulnerability]:
     finding_id: str = cast(Dict[str, str], parent)['id']
 
-    state: Optional[str] = kwargs.get('state')
-
     finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-
-    if state:
-        return [
-            vuln
-            for vuln in vulns
-            if vuln['current_state'] == state
-        ]
 
     return vulns
