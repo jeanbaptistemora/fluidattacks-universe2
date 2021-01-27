@@ -7,19 +7,23 @@ from datetime import (
     datetime,
 )
 import json
+from functools import lru_cache
 from operator import (
     itemgetter,
 )
 import os
 from typing import (
     Any,
+    Callable,
     Dict,
+    Iterable,
     List,
     Set,
     Tuple,
 )
 # Third party libraries
 import requests
+from ratelimiter import RateLimiter
 # Local libraries
 from shared import (
     COMMIT_HASH_SENTINEL,
@@ -43,24 +47,13 @@ SELECT_ALL: str = """
 # Types
 MonthData = Dict[str, Dict[str, List[Any]]]
 
-def cli() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--folder', required=True)
-    parser.add_argument('--year', type=int, required=True)
-    parser.add_argument('--month', type=int, required=True)
-    args = parser.parse_args()
-
-    data, groups = get_date_data(args.year, args.month)
-
-    for group in groups:
-        log_sync('info', 'Creating bill for: %s', group)
-        create_csv_file(args.folder, data, group)
-
-
-def get_org(token: str, group: str) -> str:
+@RateLimiter(max_calls=60, period=60)
+def get_group_org(token: str, group: str) -> str:
     query = """
-        project($projectName: String!){
-            organization
+        query($projectName: String!){
+            project(projectName: $projectName){
+                    organization
+            }
         }
     """
     variables = {"projectName": group}
@@ -74,6 +67,11 @@ def get_org(token: str, group: str) -> str:
         headers={'Authorization': f'Bearer {token}'}
     )
     data = result.json()
+    log_sync(
+        'debug', 'Group: %s; \nResponse: %s',
+        group,
+        json.dumps(data, indent=4)
+    )
     return data['data']['project']['organization']
 
 
@@ -110,7 +108,20 @@ def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
     return data, groups
 
 
-def create_csv_file(folder: str, data: MonthData, group: str) -> None:
+def groups_of_org(
+    org: str,
+    groups: Iterable[str],
+    get_org: Callable[[str], str]
+) -> Set[str]:
+    return set(filter(lambda group: get_org(group) == org, groups))
+
+
+def create_csv_file(
+    folder: str,
+    data: MonthData,
+    group: str,
+    get_org: Callable[[str], str]
+) -> None:
     with open(os.path.join(folder, f'{group}.csv'), 'w') as file:
         writer = csv.DictWriter(
             file,
@@ -126,13 +137,36 @@ def create_csv_file(folder: str, data: MonthData, group: str) -> None:
 
         for actor, actor_groups in data.items():
             if group in actor_groups:
-                groups_contributed = actor_groups
+                groups_contributed = groups_of_org(
+                    get_org(group), actor_groups, get_org
+                )
                 writer.writerow({
                     'actor': actor,
                     'groups': ', '.join(groups_contributed),
                     'commit': actor_groups[group][-1]['hash'],
                     'repository': actor_groups[group][-1]['repository'],
                 })
+
+
+def cli() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--folder', required=True)
+    parser.add_argument('--year', type=int, required=True)
+    parser.add_argument('--month', type=int, required=True)
+    parser.add_argument('--integrates-token', type=str, required=True)
+
+    args = parser.parse_args()
+
+    data, groups = get_date_data(args.year, args.month)
+    token = args.integrates_token
+
+    @lru_cache(maxsize=None)
+    def get_org(group: str) -> str:
+        return get_group_org(token, group)
+
+    for group in groups:
+        log_sync('info', 'Creating bill for: %s', group)
+        create_csv_file(args.folder, data, group, get_org)
 
 
 if __name__ == '__main__':

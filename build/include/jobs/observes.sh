@@ -264,6 +264,7 @@ function job_observes_code_compute_bills {
         --folder "${folder}" \
         --year "$(date +%Y)" \
         --month "$(date +%m)" \
+        --integrates-token "${INTEGRATES_API_TOKEN}" \
   &&  helper_services_aws_login prod \
   &&  echo "[INFO] Syncing data from: ${folder} to ${bucket_month}" \
   &&  aws s3 sync "${folder}" "${bucket_month}" \
