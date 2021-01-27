@@ -1,4 +1,7 @@
 # Standard library
+from functools import (
+    partial,
+)
 from io import (
     BytesIO,
 )
@@ -30,8 +33,8 @@ from starlette.responses import Response
 from backend.dal import (
     analytics as analytics_dal,
 )
-from backend.decorators import (
-    cache_idempotent,
+from backend.dal.helpers.redis import (
+    redis_get_or_set_entity_attr,
 )
 from backend.domain import (
     finding as finding_domain,
@@ -41,9 +44,6 @@ from backend.domain import (
 from backend.exceptions import DocumentNotFound
 from backend.services import (
     has_access_to_project as has_access_to_group,
-)
-from backend.utils import (
-    apm,
 )
 from backend.utils.encodings import (
     safe_encode,
@@ -68,9 +68,31 @@ IMAGE_PATH: str = 'reports/resources/themes/logo.png'
 TRANSPARENCY_RATIO: float = 0.40
 
 
-@apm.trace()
-@cache_idempotent(ttl=3600)
 async def get_document(
+    *,
+    document_name: str,
+    document_type: str,
+    entity: str,
+    subject: str,
+) -> object:
+    response: object = await redis_get_or_set_entity_attr(
+        partial(
+            get_document_no_cache,
+            document_name=document_name,
+            document_type=document_type,
+            entity=entity,
+            subject=subject,
+        ),
+        entity='analytics',
+        attr='document',
+        ttl=3600,
+        id=f'{document_name}-{document_type}-{entity}-{subject}',
+    )
+
+    return response
+
+
+async def get_document_no_cache(
     *,
     document_name: str,
     document_type: str,
@@ -88,9 +110,23 @@ async def get_document(
     return json.loads(document)
 
 
-@apm.trace()
-@cache_idempotent(ttl=3600)
 async def get_graphics_report(
+    *,
+    entity: str,
+    subject: str,
+) -> bytes:
+    response: bytes = await redis_get_or_set_entity_attr(
+        partial(get_graphics_report_no_cache, entity=entity, subject=subject),
+        entity='analytics',
+        attr='graphics_report',
+        ttl=3600,
+        id=f'{entity}-{subject}',
+    )
+
+    return response
+
+
+async def get_graphics_report_no_cache(
     *,
     entity: str,
     subject: str,

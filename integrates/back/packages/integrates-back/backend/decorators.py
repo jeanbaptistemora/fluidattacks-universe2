@@ -15,9 +15,6 @@ from aioextensions import (
 from graphql import GraphQLError
 
 # Local libraries
-from backend.dal.helpers.redis import (
-    REDIS_EXCEPTIONS,
-)
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
@@ -462,40 +459,6 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
         return cast(TVar, decorated)
 
     return wrapped
-
-
-def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
-
-    def decorator(func: TVar) -> TVar:
-
-        _func = cast(Callable[..., Any], func)
-
-        @functools.wraps(_func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            signature = inspect.signature(_func).bind(*args, **kwargs)
-
-            cache_key_from_args = ''.join(
-                f'{arg}_{value}' for arg, value in signature.arguments.items()
-            )
-            cache_key_from_func = \
-                f'{_func.__module__}.{_func.__qualname__}'
-            cache_key = f'{cache_key_from_func}:{cache_key_from_args}'
-
-            try:
-                ret = await util.get_redis_element(cache_key)
-
-                if ret is None:
-                    ret = await _func(*args, **kwargs)
-
-                    await util.set_redis_element(cache_key, ret, ttl=ttl)
-                return ret
-            except REDIS_EXCEPTIONS as ex:
-                LOGGER.exception(ex, extra=dict(extra=locals()))
-                return await _func(*args, **kwargs)
-
-        return cast(TVar, wrapper)
-
-    return decorator
 
 
 def turn_args_into_kwargs(func: TVar) -> TVar:

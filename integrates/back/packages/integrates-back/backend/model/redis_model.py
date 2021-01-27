@@ -7,6 +7,18 @@ from typing import (
 
 # Constants
 ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
+    analytics=dict(
+        args={
+            'id',
+        },
+        attrs={
+            'document',
+            'graphics_report',
+        },
+        dependencies={
+            'revoke_analytics',
+        },
+    ),
     authz_group=dict(
         args={
             'name',
@@ -130,9 +142,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
 )
 
 # Pending:
-#   decorators.cache_idempotent
-#     util.set_redis_element
-#     util.get_redis_element
 #   util.invalidate_cache
 #   util.queue_cache_invalidation
 #   util.get_ttl_token
