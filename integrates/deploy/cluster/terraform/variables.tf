@@ -4,6 +4,11 @@ variable "aws_secret_key" {}
 variable "newrelic_license_key" {}
 variable "cloudflare_api_token" {}
 
+data "cloudflare_zones" "fluidattacks_com" {
+  filter {
+    name = "fluidattacks.com"
+  }
+}
 data "aws_security_group" "cloudflare" {
   name = "CloudFlare"
 }

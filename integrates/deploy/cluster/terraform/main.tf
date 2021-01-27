@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.23.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 2.17.0"
+    }
     kubernetes = {
       source = "hashicorp/kubernetes"
       version = "~> 1.11"
@@ -51,6 +55,11 @@ provider "aws" {
   secret_key = var.aws_secret_key
   region     = var.region
 }
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
+
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
