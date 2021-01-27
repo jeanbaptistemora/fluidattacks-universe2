@@ -1,9 +1,16 @@
-import { graphql, StaticQuery } from "gatsby";
-import React from "react";
-// tslint:disable-next-line: match-default-export-name
+// These rules are disabled since the usage are for performance issues,
+// but this will be a static site, so everything in this file is going to
+// be ran at compile time
+/* eslint @typescript-eslint/no-non-null-assertion: 0 */
+/* eslint react/jsx-no-bind: 0 */
+/* eslint react/default-props-match-prop-types:0 */
 import Helmet from "react-helmet";
 
-interface StaticQueryData {
+import React from "react";
+
+import { StaticQuery, graphql } from "gatsby";
+
+interface IStaticQueryData {
   site: {
     siteMetadata: {
       description: string;
@@ -13,16 +20,27 @@ interface StaticQueryData {
   };
 }
 
-interface Props {
-  readonly description?: string;
-  readonly keywords?: string[];
-  readonly lang?: string;
-  readonly title: string;
+interface IProps {
+  description?: string;
+  keywords?: string[];
+  lang?: string;
+  title: string;
 }
 
-export const SEO: React.FC<Props> = ({ title, description, lang, keywords }: Props): JSX.Element => (
-<StaticQuery
-    // tslint:disable-next-line: no-void-expression
+const defaultProps: IProps = {
+  description: "",
+  keywords: [""],
+  lang: "en_US",
+  title: "",
+};
+
+const SEO: React.FC<IProps> = ({
+  title,
+  description,
+  lang,
+  keywords,
+}: IProps): JSX.Element => (
+  <StaticQuery
     query={graphql`
       query {
         site {
@@ -33,18 +51,16 @@ export const SEO: React.FC<Props> = ({ title, description, lang, keywords }: Pro
         }
       }
     `}
-    render={(data: StaticQueryData): React.ReactElement | null => {
-      const metaDescription: string = description as string;
-      const language: string = lang as string;
-      const kwords: string[] = keywords as string[];
+    render={(data: IStaticQueryData): React.ReactElement | null => {
+      const metaDescription: string = description!;
+      const language: string = lang!;
+      const kwords: string[] = keywords!;
 
       return (
         <Helmet
           htmlAttributes={{
             language,
           }}
-          title={title}
-          titleTemplate={`%s | ${data.site.siteMetadata.title}`}
           meta={[
             {
               content: metaDescription,
@@ -68,10 +84,17 @@ export const SEO: React.FC<Props> = ({ title, description, lang, keywords }: Pro
                   content: kwords.join(", "),
                   name: "keywords",
                 }
-              : [],
+              : []
           )}
+          title={title}
+          titleTemplate={`%s | ${data.site.siteMetadata.title}`}
         />
       );
     }}
   />
 );
+
+// eslint-disable fp/no-mutation
+SEO.defaultProps = defaultProps;
+
+export { SEO };

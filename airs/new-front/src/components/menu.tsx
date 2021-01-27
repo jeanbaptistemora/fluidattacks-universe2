@@ -1,3 +1,4 @@
+/* eslint-disable-next-line react/forbid-component-props */
 import React from "react";
 
 import {
@@ -11,6 +12,7 @@ import {
 } from "../styles/styledComponents";
 
 export const NavbarItems: React.FC = (): JSX.Element => (
+  //eslint-disable-next-line react/forbid-component-props
   <NavbarList className={"roboto"} id={"navbar_list"}>
     <MenuButton>
       <div className={"lower"}>
@@ -69,7 +71,9 @@ export const NavbarItems: React.FC = (): JSX.Element => (
         <NavbarRegularButton>{"Solutions"}</NavbarRegularButton>
       </a>
 
-      <NavbarSubcategory className={"solutions-content"}>
+      <NavbarSubcategory
+        //eslint-disable-next-line react/forbid-component-props
+        className={"solutions-content"}>
         <SubcategoryLink href={"../solutions/devsecops/"}>
           {"DevSecOps"}
         </SubcategoryLink>
@@ -109,7 +113,9 @@ export const NavbarItems: React.FC = (): JSX.Element => (
         <NavbarRegularButton>{"Services"}</NavbarRegularButton>
       </a>
 
-      <NavbarSubcategory className={"usecases-content"}>
+      <NavbarSubcategory
+        //eslint-disable-next-line react/forbid-component-props
+        className={"usecases-content"}>
         <SubcategoryLink href={"../services/continuous-hacking/"}>
           {"Continuous Hacking"}
         </SubcategoryLink>
