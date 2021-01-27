@@ -26,7 +26,28 @@ from forces.utils.logs import (
     log,
     LOG_FILE,
 )
-from forces.utils.model import ForcesConfig
+from forces.utils.model import (
+    ForcesConfig,
+    KindEnum,
+)
+
+
+async def check_remotes(config: ForcesConfig) -> bool:
+    api_remotes = await get_git_remotes(config.group)
+    is_in_remotes = False
+    for remote in api_remotes:
+        if extract_repo_name(remote['url']) == config.repository_name:
+            if remote['state'] != 'ACTIVE':
+                await log('error', 'The %s repository is innactive',
+                          config.repository_name)
+                return False
+            is_in_remotes = True
+            break
+    if not is_in_remotes:
+        await log('error',
+                  'The %s repository has not been registered in integrates',
+                  config.repository_name)
+    return is_in_remotes
 
 
 async def entrypoint(
@@ -35,36 +56,33 @@ async def entrypoint(
 ) -> int:
     """Entrypoint function"""
     temp_file = LOG_FILE.get()
+    exit_code = 0
+    set_api_token(token)
 
     metadata = await in_thread(
         get_repository_metadata,
         repo_path=config.repository_path,
     )
-    if not config.repository_name and metadata[
-            'git_repo'] != DEFAULT_COLUMN_VALUE:
-        config = config._replace(repository_name=metadata['git_repo'])
+    if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
+        if not config.repository_name and metadata[
+                'git_repo'] != DEFAULT_COLUMN_VALUE:
+            config = config._replace(repository_name=metadata['git_repo'])
+        elif not config.repository_name and metadata[
+                'git_repo'] == DEFAULT_COLUMN_VALUE:
+            await log(
+                'error',
+                ('Could not detect repository name, use'
+                 ' --repo-name option to specify it'),
+            )
+            return 1
 
-    await log('info',
-              f"Running forces on the repository: {config.repository_name}")
-    exit_code = 0
-    set_api_token(token)
+        await log(
+            'info',
+            f"Running forces on the repository: {config.repository_name}")
 
-    # check if repo is in roots
-    api_remotes = await get_git_remotes(config.group)
-    is_in_remotes = False
-    for remote in api_remotes:
-        if extract_repo_name(remote['url']) == config.repository_name:
-            if remote['state'] != 'ACTIVE':
-                await log('error', 'The %s repository is innactive',
-                          config.repository_name)
-                return 1
-            is_in_remotes = True
-            break
-    if not is_in_remotes:
-        await log('error',
-                  'The %s repository has not been registered in integrates',
-                  config.repository_name)
-        return 1
+        # check if repo is in roots
+        if not check_remotes(config):
+            return 1
 
     report = await generate_report(config)
 

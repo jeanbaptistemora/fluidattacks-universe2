@@ -71,7 +71,12 @@ def show_banner() -> None:
 @click.option('--dynamic', required=False, is_flag=True)
 @click.option('--static', required=False, is_flag=True)
 @click.option('--repo-path', default=('.'))
-@click.option('--repo-name', required=False, default=None)
+@click.option(
+    '--repo-name',
+    required=False,
+    default=None,
+    help="name of the repository in which it is running",
+)  # pylint: disable=too-many-arguments
 def main(token: str,  # pylint: disable=too-many-arguments
          verbose: int,
          strict: bool,

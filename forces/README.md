@@ -30,6 +30,7 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
   - You can use `-v`, `-vv`, `-vvv`, `-vvvv` instead of `--verbose`
 - `--strict / --lax`: Run forces in strict mode (default `--lax`)
 - `--repo-path`: Git repository path (optional)
+- `--repo-name`: Name of the repository in which it is running (optional)
 - `--dynamic`: Only check DAST vulnerabilities
 - `--static`: Only check SAST vulnerabilities
 - If you do not specify `--dynamic/--static` all vulnerabilities are checked
