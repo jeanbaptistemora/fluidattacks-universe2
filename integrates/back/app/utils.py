@@ -14,7 +14,10 @@ from starlette.responses import HTMLResponse
 from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
-from backend.domain import user as user_domain
+from backend.domain import (
+    user as user_domain,
+    project as group_domain,
+)
 from backend import authz, mailer, util
 from backend.utils import (
     token as token_helper,
@@ -121,7 +124,7 @@ async def autoenroll_user(email: str) -> None:
 
     for group in FI_COMMUNITY_PROJECTS.split(','):
         await collect([
-            user_domain.update_project_access(email, group, access=True),
+            group_domain.update_has_access(email, group, True),
             authz.grant_group_level_role(
                 email,
                 group,

@@ -25,7 +25,9 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import user as user_domain
+from backend.domain import (
+    project as group_domain,
+)
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
@@ -78,20 +80,14 @@ async def mutate(
                 phone_number=query_args.get('phone_number', ''),
                 group=project_name
             ),
-            user_domain.update_project_access(
+            group_domain.update_access(
                 new_user_email,
                 project_name,
-                False
-            ),
-            user_domain.update_project_responsibility(
-                new_user_email,
-                project_name,
-                new_user_responsibility
-            ),
-            user_domain.update_project_invitation_date(
-                new_user_email,
-                project_name,
-                invitation_date
+                {
+                    'has_access': False,
+                    'responsibility': new_user_responsibility,
+                    'invitation_date': invitation_date,
+                }
             )
         ]))
     else:

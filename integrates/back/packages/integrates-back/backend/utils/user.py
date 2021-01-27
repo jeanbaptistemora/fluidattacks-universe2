@@ -25,7 +25,7 @@ from backend import (
 )
 from backend.domain import (
     organization as org_domain,
-    project as project_domain,
+    project as group_domain,
     user as user_domain
 )
 from backend.typing import MailContent as MailContentType
@@ -52,11 +52,12 @@ async def _add_acess(
 ) -> bool:
     result = False
     if len(responsibility) <= 50:
-        result = await project_domain.add_access(
+        result = await group_domain.update_access(
             email,
             project_name,
-            'responsibility',
-            responsibility
+            {
+                'responsibility': responsibility
+            }
         )
     else:
         util.cloudwatch_log(
@@ -120,7 +121,7 @@ async def _give_user_access(
         invitation_token = await util.create_confirm_access_token(
             email, group, responsibility
         )
-        description = await project_domain.get_description(
+        description = await group_domain.get_description(
             group.lower()
         )
         project_url = f'{BASE_URL}/confirm_access/{invitation_token}'
@@ -208,7 +209,7 @@ async def create_forces_user(
     )
 
     # Give permissions directly, no confirmation required
-    success = success and await user_domain.update_project_access(
+    success = success and await group_domain.update_has_access(
         user_email, group_name, True)
     success = success and await authz.grant_group_level_role(
         user_email, group_name, 'service_forces')

@@ -38,6 +38,9 @@ Project = Dict[str, Union[
     List[str],
     Set[str]
 ]]
+ProjectAccess = Dict[str, Union[
+    str, bool
+]]
 Organization = Dict[str, Union[
     Decimal,
     List[Dict[str, Union[Optional[Decimal], str]]],

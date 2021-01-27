@@ -25,7 +25,10 @@ from backend.dal import (
     project as project_dal,
     user as user_dal,
 )
-from backend.domain import organization as org_domain
+from backend.domain import (
+    project as group_domain,
+    organization as org_domain
+)
 from backend.exceptions import (
     InvalidPushToken,
     InvalidExpirationTime,
@@ -170,27 +173,6 @@ async def update_last_login(email: str) -> bool:
     )
 
 
-async def update_project_access(
-        email: str, project_name: str, access: bool) -> bool:
-    return await project_dal.update_access(
-        email, project_name, 'has_access', access
-    )
-
-
-async def update_project_responsibility(
-        email: str, project_name: str, responsibility: str) -> bool:
-    return await project_dal.update_access(
-        email, project_name, 'responsibility', responsibility
-    )
-
-
-async def update_project_invitation_date(
-        email: str, project_name: str, invitation_date: str) -> bool:
-    return await project_dal.update_access(
-        email, project_name, 'invitation_date', invitation_date
-    )
-
-
 async def update_multiple_user_attributes(
         email: str, data_dict: UserType) -> bool:
     return await user_dal.update(email, data_dict)
@@ -315,7 +297,7 @@ async def complete_user_register(invitation_token: str) -> bool:
     else:
         user_email = info['user_email']
         group = info['group']
-        success = await update_project_access(
+        success = await group_domain.update_has_access(
             user_email,
             group,
             True

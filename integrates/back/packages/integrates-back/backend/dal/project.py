@@ -22,7 +22,8 @@ from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
-    Project as ProjectType
+    Project as ProjectType,
+    ProjectAccess as ProjectAccessType,
 )
 from backend.dal.user import get_user_name
 from back.settings import LOGGING
@@ -463,27 +464,41 @@ async def remove_access(user_email: str, project_name: str) -> bool:
 
 
 async def update_access(
-        user_email: str,
-        project_name: str,
-        project_attr: str,
-        attr_value: Union[str, bool]) -> bool:
-    """Update project access attribute."""
-    try:
-        set_expression = f'{project_attr} = :{project_attr}'
-        expression_values = {f':{project_attr}': attr_value}
+    user_email: str,
+    project_name: str,
+    data: ProjectAccessType
+) -> bool:
+    """Update project access attributes."""
+    success = False
+    set_expression = ''
+    remove_expression = ''
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f'{attr}, '
+        else:
+            set_expression += f'{attr} = :{attr}, '
+            expression_values.update({f':{attr}': value})
 
-        update_attrs = {
-            'Key': {
-                'user_email': user_email.lower(),
-                'project_name': project_name.lower()
-            },
-            'UpdateExpression': f'SET {set_expression}'.strip(),
-            'ExpressionAttributeValues': expression_values
-        }
-        resp = await dynamodb.async_update_item(
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        'Key': {
+            'user_email': user_email.lower(),
+            'project_name': project_name.lower()
+        },
+        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+    }
+    if expression_values:
+        update_attrs.update({'ExpressionAttributeValues': expression_values})
+    try:
+        success = await dynamodb.async_update_item(
             TABLE_ACCESS_NAME, update_attrs
         )
-        return resp
     except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals))
-        return False
+        LOGGER.exception(ex, extra={'extra': locals()})
+
+    return success
