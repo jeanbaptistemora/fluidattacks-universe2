@@ -1,5 +1,8 @@
 # Starlette app init file
 
+# Standar libraries
+
+import asyncio
 # Third party libraries
 import bugsnag
 from bugsnag.asgi import BugsnagMiddleware
@@ -49,6 +52,10 @@ from back.app.views import (
 )
 
 from back import settings
+from back.settings.queue import (
+    get_task,
+    init_queue,
+)
 
 from __init__ import (
     FI_ENVIRONMENT,
@@ -125,6 +132,20 @@ async def confirm_access(request: Request) -> HTMLResponse:
     return response
 
 
+async def queue_daemon() -> None:
+    init_queue()
+    while True:
+        func = await get_task()
+        if asyncio.iscoroutinefunction(func):
+            await func()  # type: ignore
+        else:
+            await in_thread(func)
+
+
+def start_queue_daemon() -> None:
+    asyncio.create_task(queue_daemon())
+
+
 STARLETTE_APP = Starlette(
     debug=settings.DEBUG,
     routes=[
@@ -162,7 +183,8 @@ STARLETTE_APP = Starlette(
     middleware=[
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
         Middleware(CustomRequestMiddleware)
-    ]
+    ],
+    on_startup=[start_queue_daemon]
 )
 
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
