@@ -9,7 +9,7 @@ import { Glyphicon } from "react-bootstrap";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import {

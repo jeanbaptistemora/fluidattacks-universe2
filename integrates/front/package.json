@@ -97,6 +97,7 @@
     "react-tag-input": "6.4.3",
     "react-textarea-autosize": "8.3.0",
     "react-toastify": "6.1.0",
+    "react-tooltip": "4.2.13",
     "redux": "4.0.5",
     "redux-form": "8.3.2",
     "revalidate": "1.2.0",
