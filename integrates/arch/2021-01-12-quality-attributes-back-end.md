@@ -1,6 +1,4 @@
-# Architectural Decision Record
-
-# 2021-01-12 Quality Attributes, Back-end only
+# Quality Attributes, Back-end
 
 We should worry about bold fields
 
