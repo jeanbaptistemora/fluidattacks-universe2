@@ -2,8 +2,8 @@
 This migration aims to add upload_date when missing,
 taking it from LastModified
 
-Execution Time: 
-Finalization Time: 
+Execution Time: 2021-01-26 21:41:08 UTC-5
+Finalization Time: 2021-01-26 21:51:47 UTC-5
 """
 # Standard library
 from itertools import chain
@@ -33,7 +33,7 @@ from __init__ import FI_AWS_S3_BUCKET
 STAGE: str = os.environ['STAGE']
 
 
-async def _remove_treatment_manager(finding: Dict[str, Finding]) -> None:
+async def add_missing_upload_date(finding: Dict[str, Finding]) -> None:
     finding_id = str(finding['finding_id'])
     group_name = str(finding['project_name'])
     key_list = []
@@ -61,14 +61,14 @@ async def _remove_treatment_manager(finding: Dict[str, Finding]) -> None:
                     )
                 )
 
-    if len(coroutines) > 1:
+    if len(coroutines) > 0:
         if STAGE == 'apply':
             await collect(coroutines)
         else:
             print(f'should update finding {finding_id}')
 
 
-async def remove_treatment_manager(groups: List[str]) -> None:
+async def get_groups_findings(groups: List[str]) -> None:
     groups_data = await GroupLoader().load_many(groups)
     findings_ids = list(
         chain.from_iterable(
@@ -79,7 +79,7 @@ async def remove_treatment_manager(groups: List[str]) -> None:
     findings = await collect(map(finding_dal.get_finding, findings_ids))
 
     await collect(
-        map(_remove_treatment_manager, findings),
+        map(add_missing_upload_date, findings),
         workers=10
     )
 
@@ -87,7 +87,7 @@ async def remove_treatment_manager(groups: List[str]) -> None:
 async def main() -> None:
     groups = await get_active_projects()
     await collect(
-        [remove_treatment_manager(list_group)
+        [get_groups_findings(list_group)
          for list_group in chunked(groups, 5)],
         workers=10
     )
