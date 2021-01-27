@@ -3,6 +3,31 @@ resource "aws_elasticache_subnet_group" "cache_db" {
   subnet_ids = var.subnets
 }
 
+resource "aws_security_group" "main" {
+  name = "integrates_cache"
+  vpc_id = var.fluid_vpc_id
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    "Name"               = "integrates_cache"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+}
+
 resource "aws_elasticache_replication_group" "cache_db" {
   replication_group_id          = "integrates-cache"
   replication_group_description = "Integrates Redis cache"
@@ -13,7 +38,10 @@ resource "aws_elasticache_replication_group" "cache_db" {
   at_rest_encryption_enabled    = true
   transit_encryption_enabled    = false
   port                          = 6379
-  security_group_ids = var.security_groups
+
+  security_group_ids = [
+    aws_security_group.main.id,
+  ]
 
   cluster_mode {
     num_node_groups         = 6
@@ -24,24 +52,5 @@ resource "aws_elasticache_replication_group" "cache_db" {
     "Name"               = "integrates-cache"
     "management:type"    = "production"
     "management:product" = "integrates"
-  }
-}
-
-resource "aws_dax_subnet_group" "main" {
-  name       = "integrates-cache"
-  subnet_ids = var.subnets
-}
-
-resource "aws_dax_parameter_group" "main" {
-  name = "integrates-cache"
-
-  parameters {
-    name  = "query-ttl-millis"
-    value = "300000"
-  }
-
-  parameters {
-    name  = "record-ttl-millis"
-    value = "1800000"
   }
 }
