@@ -114,16 +114,19 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 
   React.useEffect(onVulnSelection, [selectedVulnerabilities, onVulnSelect]);
 
+  const batchLimit: number = 50;
+
   function onSelectVariousVulnerabilities(
     isSelect: boolean,
     vulnerabilitiesSelected: IVulnRowAttr[]
-  ): void {
+  ): string[] {
     if (isSelect) {
-      setSelectedVulnerabilities(
-        Array.from(
-          new Set([...selectedVulnerabilities, ...vulnerabilitiesSelected])
-        )
-      );
+      const vulnsToSet: IVulnRowAttr[] = Array.from(
+        new Set([...selectedVulnerabilities, ...vulnerabilitiesSelected])
+      ).slice(0, batchLimit);
+      setSelectedVulnerabilities(vulnsToSet);
+
+      return vulnsToSet.map((vuln: IVulnRowAttr): string => vuln.id);
     } else {
       const vulnerabilitiesIds: string[] = getVulnerabilitiesIds(
         vulnerabilitiesSelected
@@ -139,13 +142,28 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         )
       );
     }
+
+    return selectedVulnerabilities.map((vuln: IVulnRowAttr): string => vuln.id);
   }
 
   function onSelectOneVulnerability(
     vulnerability: IVulnRowAttr,
     isSelect: boolean
-  ): void {
+  ): boolean {
+    if (isSelect) {
+      if (selectedVulnerabilities.length === batchLimit) {
+        msgError(
+          t("search_findings.tab_description.vulnBatchLimit", {
+            count: batchLimit,
+          })
+        );
+
+        return false;
+      }
+    }
     onSelectVariousVulnerabilities(isSelect, [vulnerability]);
+
+    return true;
   }
 
   const selectionMode: SelectRowOptions = {

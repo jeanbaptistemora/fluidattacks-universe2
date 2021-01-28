@@ -1147,6 +1147,7 @@ export const enTranslations: ResourceKey = {
       },
       update_vulnerabilities: "Update Vulnerabilities",
       verification: "Verification",
+      vulnBatchLimit: "You can update up to {{count}} vulnerabilities at once",
       vulnDeleted: "Vulnerability deleted",
       vuln_approval: "Vulnerability approval status was changed",
       weakness: {
