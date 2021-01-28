@@ -1,6 +1,8 @@
-// These rules are disabled since the usage are for performance issues,
-// but this will be a static site, so everything in this file is going to
-// be ran at compile time
+/*
+ *These rules are disabled since the usage are for performance issues,
+ *but this will be a static site, so everything in this file is going to
+ *be ran at compile time
+ */
 /* eslint @typescript-eslint/no-non-null-assertion: 0 */
 /* eslint react/jsx-no-bind: 0 */
 /* eslint react/default-props-match-prop-types:0 */
@@ -41,6 +43,7 @@ const SEO: React.FC<IProps> = ({
   keywords,
 }: IProps): JSX.Element => (
   <StaticQuery
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     query={graphql`
       query {
         site {
@@ -94,7 +97,7 @@ const SEO: React.FC<IProps> = ({
   />
 );
 
-// eslint-disable fp/no-mutation
+// eslint-disable-next-line fp/no-mutation
 SEO.defaultProps = defaultProps;
 
 export { SEO };

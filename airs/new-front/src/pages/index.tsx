@@ -1,24 +1,21 @@
-import { Link, RouteComponentProps, Router } from "@reach/router";
-import React from "react";
-// tslint:disable-next-line: no-import-side-effect
-import "tachyons/css/tachyons.min.css";
-
 import { NavbarComponent } from "../components/navbar";
-// tslint:disable-next-line: no-import-side-effect
+import React from "react";
+import { Router } from "@reach/router";
+
+import "tachyons/css/tachyons.min.css";
 import "../styles/index.scss";
 
-// tslint:disable-next-line: variable-name
 const Index: React.FC = (): JSX.Element => {
-
-  return(
+  return (
     <React.StrictMode>
-      <div id="main">
+      <div id={"main"}>
         <NavbarComponent />
-        <Router>
-        </Router>
+
+        <Router />
       </div>
     </React.StrictMode>
   );
 };
 
+// eslint-disable-next-line import/no-default-export
 export default Index;
