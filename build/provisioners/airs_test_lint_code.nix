@@ -14,6 +14,14 @@ in
         pkgs.html-tidy
         pkgs.nodejs
         pkgs.python38
+        pkgs.autoconf
+        pkgs.libtool
+        pkgs.automake
+        pkgs.nasm
+        pkgs.dpkg
+        pkgs.pkgconfig
+        pkgs.libpng
+        pkgs.gcc
       ];
 
       pyPkgPrecommit = builders.pythonPackage {

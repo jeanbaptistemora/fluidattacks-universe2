@@ -83,7 +83,7 @@ function job_airs_test_lint_code {
   &&  cp ../integrates/front/.eslintrc.json new-front/ \
   &&  npm run --prefix new-front/ lint:eslint \
   &&  popd \
-  ||  return 0
+  ||  return 1
 }
 
 function job_airs_test_images {

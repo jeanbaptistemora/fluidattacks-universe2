@@ -77,7 +77,6 @@ airs_test_lint_code:
   <<: *with_nix
   <<: *in_dev_branch_airs
   stage: test-code
-  allow_failure: true
 
 airs_test_images:
   <<: *with_nix
