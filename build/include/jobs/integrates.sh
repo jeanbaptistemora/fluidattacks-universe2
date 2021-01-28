@@ -787,17 +787,6 @@ function job_integrates_infra_secret_management_deploy {
   || return 1
 }
 
-function job_integrates_infra_secret_management_test {
-  local target='deploy/secret-management/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_cluster_deploy {
   local target='deploy/cluster/terraform'
   local cluster='integrates-cluster'
