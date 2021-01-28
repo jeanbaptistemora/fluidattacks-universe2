@@ -2,6 +2,7 @@ forces
 forces/oci-deploy
 forces/test
 integrates/infra-backup-test
+integrates/infra-cache-db-test
 integrates/infra-database-test
 makes/attrs
 makes/check

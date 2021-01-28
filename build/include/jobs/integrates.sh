@@ -752,17 +752,6 @@ function job_integrates_infra_cache_db_deploy {
   || return 1
 }
 
-function job_integrates_infra_cache_db_test {
-  local target='deploy/cache-db/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_resources_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
