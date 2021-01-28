@@ -209,10 +209,9 @@ def main(subs: str, repository_name: str = 'all') -> bool:
             drills_generic.calculate_days_ago(
                 drills_generic.get_last_upload(bucket, f'{subs}/'))
 
-        success_pull = pull_repos_s3_to_fusion(subs, local_path,
-                                               repository_name)
-        success_delete = delete_out_of_scope_files(subs)
-        passed = passed and success_pull and success_delete
+        passed = passed and pull_repos_s3_to_fusion(
+            subs, local_path,
+            repository_name) and delete_out_of_scope_files(subs)
 
         logger.info(f'Data for {subs} was uploaded to S3 {days} days ago')
 
