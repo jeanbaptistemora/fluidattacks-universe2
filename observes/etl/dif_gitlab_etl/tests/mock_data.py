@@ -2,6 +2,7 @@
 from tempfile import NamedTemporaryFile
 from typing import (
     Callable,
+    NamedTuple,
     cast,
     Dict,
     IO,
@@ -20,7 +21,7 @@ from streamer_gitlab.api_client import (
 from streamer_gitlab.page_data import PageData
 
 
-class MockDataCase():
+class MockDataCase(NamedTuple):
     resource: GitlabResourcePage
     gr_pages: List[GitlabResourcePage]
     data_pages: List[PageData]
@@ -62,7 +63,14 @@ def mock_extract_data(
 
 
 def mock_case_01() -> MockDataCase:
-    case: MockDataCase = MockDataCase()
+    case: MockDataCase = MockDataCase(
+        resource=None,
+        gr_pages=[],
+        data_pages=[],
+        gr_dpag_mapper=dict(),
+        min_id=dict(),
+        pages_range=range(0),
+    )
     resource = GitlabResource(
         project='test_case_01',
         resource='foo'
@@ -94,14 +102,18 @@ def mock_case_01() -> MockDataCase:
         data_pages.append(dpage)
 
         gr_dpag_mapper[gr_page] = dpage
-
-    case.resource = resource
-    case.gr_pages = gr_pages
-    case.data_pages = data_pages
-    case.gr_dpag_mapper = gr_dpag_mapper
-    case.min_id = min_id
-    case.pages_range = pages
-    return case
+    mock_case = MockDataCase(
+        **dict(
+            case._asdict(),
+            resource=resource,
+            gr_pages=gr_pages,
+            data_pages=data_pages,
+            gr_dpag_mapper=gr_dpag_mapper,
+            min_id=min_id,
+            pages_range=pages,
+        )
+    )
+    return mock_case
 
 
 def mock_extract_data_less_than(

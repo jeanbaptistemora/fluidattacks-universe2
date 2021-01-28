@@ -61,6 +61,11 @@ observes/lint-code-etl:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes/lint-dif-gitlab-etl:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes/lint-postgres-client:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -142,11 +147,6 @@ observes_gitlab_streamer_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code
-
-observes_gitlab_etl_lint:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: lint-code
 
 observes_gitlab_etl_test:
   <<: *with_nix

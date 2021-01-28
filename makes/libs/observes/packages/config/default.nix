@@ -49,17 +49,28 @@
         "click==7.1.2"
         "nest-asyncio==1.4.1"
         "psycopg2==2.8.4"
+        "pytest-asyncio==0.14.0"
+        "pytest-timeout==1.4.2"
+        "pytest==6.1.1"
       ];
       inherited = [
         "async-timeout==3.0.1"
         "attrs==20.3.0"
         "chardet==3.0.4"
         "idna==3.1"
+        "iniconfig==1.1.1"
         "multidict==4.7.6"
+        "packaging==20.8"
+        "pluggy==0.13.1"
+        "py==1.10.0"
+        "pyparsing==2.4.7"
+        "toml==0.10.2"
         "yarl==1.6.3"
       ];
     };
-    local = [ ];
+    local = [
+      "streamerGitlab"
+    ];
     nix = [
       nixPkgs.python38Packages.psycopg2
     ];

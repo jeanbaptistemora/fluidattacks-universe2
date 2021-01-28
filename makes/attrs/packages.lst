@@ -17,6 +17,7 @@ observes/bin-target-redshift
 observes/config-streamer-zoho-crm-runtime
 observes/config-target-redshift-runtime
 observes/lint-code-etl
+observes/lint-dif-gitlab-etl
 observes/lint-postgres-client
 observes/lint-singer-io
 observes/lint-streamer-zoho-crm
