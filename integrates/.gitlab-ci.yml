@@ -358,8 +358,8 @@ integrates_infra_backup_deploy:
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates_infra_backup_test:
-  <<: *with_nix
+integrates/infra-backup-test:
+  <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 

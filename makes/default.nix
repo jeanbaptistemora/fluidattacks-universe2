@@ -2,6 +2,7 @@
 , self
 , srcForcesPkgs
 , srcIntegratesPkgs
+, srcIntegratesPkgsTerraform
 , srcMakesPkgs
 , srcMeltsPkgs
 , srcObservesPkgs
@@ -21,6 +22,7 @@ flake.lib.eachSystem [ "x86_64-linux" ] (
       debug = value: builtins.trace value value;
       forcesPkgs = import srcForcesPkgs { inherit system; };
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
+      integratesPkgsTerraform = import srcIntegratesPkgsTerraform { inherit system; };
       makesPkgs = import srcMakesPkgs { inherit system; };
       meltsPkgs = import srcMeltsPkgs { inherit system; };
       observesPkgs = import srcObservesPkgs { inherit system; };

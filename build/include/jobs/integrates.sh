@@ -720,17 +720,6 @@ function job_integrates_infra_backup_deploy {
   || return 1
 }
 
-function job_integrates_infra_backup_test {
-  local target='deploy/backup/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_database_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
