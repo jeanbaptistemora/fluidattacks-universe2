@@ -112,8 +112,15 @@ async def resolve(
             for email in group_stakeholders_emails
         )
     )
+
+    sorted_group_stakeholders = sorted(
+        group_stakeholders,
+        key=lambda i: i['invitation_state'],
+        reverse=True
+    )
+
     group_stakeholders = _filter_by_expired_invitation(
-        group_stakeholders[items_range]
+        sorted_group_stakeholders[items_range]
     )
 
     return GetStakeholdersPayloadType(
