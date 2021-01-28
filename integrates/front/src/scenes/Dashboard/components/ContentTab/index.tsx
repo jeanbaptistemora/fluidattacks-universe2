@@ -24,7 +24,7 @@ const contentTab: React.FC<IContentTabProps> = (
   const { tooltip, id, icon, title, plus } = props;
 
   return (
-    <TooltipWrapper message={tooltip}>
+    <TooltipWrapper id={`${id}Tooltip`} message={tooltip}>
       <Tab id={id}>
         <NavLink activeClassName={"nav-active-bg"} to={props.link}>
           <i className={icon} />

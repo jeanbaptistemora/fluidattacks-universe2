@@ -40,7 +40,10 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
 
   return (
     <div>
-      <TooltipWrapper message={t("group.findings.tableSet.btn.tooltip")}>
+      <TooltipWrapper
+        id={"toogleToolTip"}
+        message={t("group.findings.tableSet.btn.tooltip")}
+      >
         <Button onClick={handleOpenTableSetClick}>
           <Glyphicon glyph={"glyphicon glyphicon-cog"} />
           &nbsp;

@@ -193,6 +193,7 @@ const severityView: React.FC = (): JSX.Element => {
                                         currentValue={
                                           `${Number(field.currentValue)
                                             .toFixed(2)} | ${translate.t(currentOption)}`}
+                                        id={`Row${index}`}
                                         label={field.title}
                                         name={field.name}
                                         renderAsEditable={isEditing}

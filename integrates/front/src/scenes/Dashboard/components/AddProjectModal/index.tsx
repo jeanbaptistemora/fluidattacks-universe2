@@ -227,6 +227,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   )}
                                 </ControlLabel>
                                 <TooltipWrapper
+                                  id={
+                                    "organization.tabs.groups.newGroup.organization.tooltip"
+                                  }
                                   message={translate.t(
                                     "organization.tabs.groups.newGroup.organization.tooltip"
                                   )}
@@ -273,6 +276,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   )}
                                 </ControlLabel>
                                 <TooltipWrapper
+                                  id={
+                                    "organization.tabs.groups.newGroup.description.tooltip"
+                                  }
                                   message={translate.t(
                                     "organization.tabs.groups.newGroup.description.tooltip"
                                   )}
@@ -300,6 +306,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   )}
                                 </ControlLabel>
                                 <TooltipWrapper
+                                  id={
+                                    "organization.tabs.groups.newGroup.type.tooltip"
+                                  }
                                   message={translate.t(
                                     "organization.tabs.groups.newGroup.type.tooltip"
                                   )}
@@ -332,6 +341,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                                   )}
                                 </ControlLabel>
                                 <TooltipWrapper
+                                  id={
+                                    "organization.tabs.groups.newGroup.language.tooltip"
+                                  }
                                   message={translate.t(
                                     "organization.tabs.groups.newGroup.language.tooltip"
                                   )}
@@ -361,6 +373,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                           <Row>
                             <Col40>
                               <TooltipWrapper
+                                id={
+                                  "organization.tabs.groups.newGroup.integrates.tooltip"
+                                }
                                 message={translate.t(
                                   "organization.tabs.groups.newGroup.integrates.tooltip"
                                 )}
@@ -390,6 +405,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                           <Row>
                             <Col40>
                               <TooltipWrapper
+                                id={
+                                  "organization.tabs.groups.newGroup.drills.tooltip"
+                                }
                                 message={translate.t(
                                   "organization.tabs.groups.newGroup.drills.tooltip"
                                 )}
@@ -420,6 +438,9 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                             <Row>
                               <Col40>
                                 <TooltipWrapper
+                                  id={
+                                    "organization.tabs.groups.newGroup.forces.tooltip"
+                                  }
                                   message={translate.t(
                                     "organization.tabs.groups.newGroup.forces.tooltip"
                                   )}

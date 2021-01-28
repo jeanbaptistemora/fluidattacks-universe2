@@ -5,7 +5,7 @@ import Media from "react-media";
 import { useHistory } from "react-router-dom";
 
 import { Badge } from "components/Badge";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { TooltipWrapper } from "components/NewTooltipWrapper/index";
 import { default as logo } from "resources/integrates.svg";
 import { default as style } from "scenes/Dashboard/components/Sidebar/index.css";
 import { Can } from "utils/authz/Can";
@@ -47,7 +47,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       <ul className={style.menuList}>
         <Can do="backend_api_mutations_add_stakeholder_mutate">
         <li onClick={onOpenAddUserModal}>
-          <TooltipWrapper message={translate.t("sidebar.user.tooltip")} placement="right">
+          <TooltipWrapper id={"addUser"} message={translate.t("sidebar.user.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-plus" />
               <span className={style.label}>{translate.t("sidebar.user.text")}</span>
             </div>
@@ -55,14 +55,14 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
         </li>
         </Can>
         <li onClick={onOpenAddOrganizationModal}>
-          <TooltipWrapper message={translate.t("sidebar.newOrganization.tooltip")} placement="right">
+          <TooltipWrapper id={"addOrg"} message={translate.t("sidebar.newOrganization.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-plus" />
               <span className={style.label}>{translate.t("sidebar.newOrganization.text")}</span>
             </div>
           </TooltipWrapper>
         </li>
         <li onClick={onOpenAccessTokenModal}>
-          <TooltipWrapper message={translate.t("sidebar.token.tooltip")} placement="right">
+          <TooltipWrapper id={"apiToken"} message={translate.t("sidebar.token.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-user" />
               <span className={style.label}>{translate.t("sidebar.token.text")}</span>
               <Badge>pro</Badge>
@@ -100,7 +100,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
             </a>
           </small>
         </div>
-        <TooltipWrapper message="Log out of Integrates" placement="right">
+        <TooltipWrapper displayClass={"flex"} id={"logOut"} message="Log out of Integrates" placement="right">
           <ul>
             <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
           </ul>

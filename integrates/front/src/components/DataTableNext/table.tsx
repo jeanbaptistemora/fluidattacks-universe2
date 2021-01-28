@@ -99,7 +99,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               )}
               {!_.isUndefined(isFilterEnabled) && (
                 <ButtonGroup>
-                  <TooltipWrapper message={t("dataTableNext.tooltip")}>
+                  <TooltipWrapper
+                    id={"filterTooltip"}
+                    message={t("dataTableNext.tooltip")}
+                  >
                     <Button onClick={handleUpdateEnableFilter}>
                       {isFilterEnabled ? (
                         <Glyphicon glyph={"minus"} />

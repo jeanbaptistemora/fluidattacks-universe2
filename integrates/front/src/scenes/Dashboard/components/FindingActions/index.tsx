@@ -36,7 +36,11 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
         <React.Fragment>
           <Can do="backend_api_mutations_submit_draft_mutate">
             {props.hasSubmission ? undefined : (
-              <TooltipWrapper displayClass={"dib"} message={translate.t("group.drafts.submit.tooltip")}>
+              <TooltipWrapper
+                id={"group.drafts.submit.text"}
+                displayClass={"dib"}
+                message={translate.t("group.drafts.submit.tooltip")}
+              >
                 <Button disabled={props.loading} onClick={onSubmit}>
                   {translate.t("group.drafts.submit.text")}
                 </Button>
@@ -49,7 +53,11 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
                 const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
 
                 return (
-                  <TooltipWrapper displayClass={"dib"} message={translate.t("group.drafts.approve.tooltip")}>
+                  <TooltipWrapper
+                    id={"group.drafts.approve.text"}
+                    displayClass={"dib"}
+                    message={translate.t("group.drafts.approve.tooltip")}
+                  >
                     <Button onClick={handleClick} disabled={!canApprove || props.loading}>
                       <FluidIcon icon="verified" />&nbsp;{translate.t("group.drafts.approve.text")}
                     </Button>
@@ -64,7 +72,11 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
                 const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
 
                 return (
-                  <TooltipWrapper displayClass={"dib"} message={translate.t("group.drafts.reject.tooltip")}>
+                  <TooltipWrapper
+                    id={"group.drafts.reject.tooltip"}
+                    displayClass={"dib"}
+                    message={translate.t("group.drafts.reject.tooltip")}
+                  >
                     <Button onClick={handleClick} disabled={!props.hasSubmission || props.loading}>
                       {translate.t("group.drafts.reject.text")}
                     </Button>
@@ -76,7 +88,11 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
         </React.Fragment>
       ) : undefined}
       <Can do="backend_api_mutations_delete_finding_mutate">
-        <TooltipWrapper displayClass={"dib"} message={translate.t("search_findings.delete.btn.tooltip")}>
+        <TooltipWrapper
+          id={"search_findings.delete.btn.tooltip"}
+          displayClass={"dib"}
+          message={translate.t("search_findings.delete.btn.tooltip")}
+        >
           <Button onClick={onDelete}>
             <FluidIcon icon="delete" />&nbsp;{translate.t("search_findings.delete.btn.text")}
           </Button>

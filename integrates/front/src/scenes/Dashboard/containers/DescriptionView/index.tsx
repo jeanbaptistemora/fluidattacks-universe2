@@ -18,7 +18,7 @@ import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
@@ -200,6 +200,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col100>
                     <TooltipWrapper
+                      id={"search_findings.tab_description.title.tooltip"}
                       message={translate.t("search_findings.tab_description.title.tooltip")}
                     >
                       <FormGroup>
@@ -226,6 +227,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.description}
+                      id={"search_findings.tab_description.description.tooltip"}
                       label={translate.t("search_findings.tab_description.description.text")}
                       name="description"
                       renderAsEditable={isEditing}
@@ -245,6 +247,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.requirements}
+                      id={"search_findings.tab_description.requirements.tooltip"}
                       label={translate.t("search_findings.tab_description.requirements.text")}
                       name="requirements"
                       renderAsEditable={isEditing}
@@ -264,6 +267,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.attackVectorDesc}
+                      id={"search_findings.tab_description.attack_vectors.tooltip"}
                       label={translate.t("search_findings.tab_description.attack_vectors.text")}
                       name="attackVectorDesc"
                       renderAsEditable={isEditing}
@@ -281,6 +285,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.affectedSystems}
+                      id={"search_findings.tab_description.affected_systems.tooltip"}
                       label={translate.t("search_findings.tab_description.affected_systems.text")}
                       name="affectedSystems"
                       renderAsEditable={isEditing}
@@ -301,6 +306,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                       component={TextArea}
                       currentValue={dataset.threat}
                       label={translate.t("search_findings.tab_description.threat.text")}
+                      id={"search_findings.tab_description.threat.tooltip"}
                       name="threat"
                       renderAsEditable={isEditing}
                       tooltip={translate.t("search_findings.tab_description.threat.tooltip")}
@@ -317,6 +323,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={formatCweUrl(dataset.cweUrl)}
+                      id={"search_findings.tab_description.weakness.tooltip"}
                       label={translate.t("search_findings.tab_description.weakness.text")}
                       name="cweUrl"
                       renderAsEditable={isEditing}
@@ -336,6 +343,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.recommendation}
+                      id={"search_findings.tab_description.recommendation.tooltip"}
                       label={translate.t("search_findings.tab_description.recommendation.text")}
                       name="recommendation"
                       renderAsEditable={isEditing}
@@ -355,6 +363,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={dataset.compromisedAttributes}
+                      id={"search_findings.tab_description.compromised_attrs.tooltip"}
                       label={translate.t("search_findings.tab_description.compromised_attrs.text")}
                       name="compromisedAttributes"
                       renderAsEditable={isEditing}
@@ -372,6 +381,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       component={TextArea}
                       currentValue={formatCompromisedRecords(dataset.compromisedRecords)}
+                      id={"search_findings.tab_description.compromised_records.tooltip"}
                       label={translate.t("search_findings.tab_description.compromised_records.text")}
                       name="compromisedRecords"
                       renderAsEditable={isEditing}
@@ -389,6 +399,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col45>
                     <TooltipWrapper
+                      id={"search_findings.tab_description.sorts.tooltip"}
                       message={translate.t("search_findings.tab_description.sorts.tooltip")}
                     >
                       <FormGroup>

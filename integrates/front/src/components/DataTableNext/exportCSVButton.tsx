@@ -16,7 +16,10 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
   const { t } = useTranslation();
 
   return (
-    <TooltipWrapper message={t("group.findings.exportCsv.tooltip")}>
+    <TooltipWrapper
+      id={"exportCsvTooltip"}
+      message={t("group.findings.exportCsv.tooltip")}
+    >
       <div className={style.buttonWrapper}>
         <ExportCSVButton
           // This technique is used by react-bootstrap-table2 creators

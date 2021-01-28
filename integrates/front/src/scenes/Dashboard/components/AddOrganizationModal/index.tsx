@@ -134,6 +134,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
                 {translate.t("sidebar.newOrganization.modal.name")}
               </ControlLabel>
               <TooltipWrapper
+                id={"addOrgTooltip"}
                 message={translate.t(
                   "sidebar.newOrganization.modal.nameTooltip"
                 )}

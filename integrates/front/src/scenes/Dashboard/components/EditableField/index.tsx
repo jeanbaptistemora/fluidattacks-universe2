@@ -18,6 +18,7 @@ type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaEl
   alignField?: string;
   className?: string;
   currentValue: string;
+  id?: string;
   label: string;
   renderAsEditable: boolean;
   tooltip?: string;
@@ -35,7 +36,7 @@ const renderCurrentValue: ((value: string) => JSX.Element) = (value: string): JS
 
 const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
+    const { id = "editableField", label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
 
     return (
       <FormGroup>
@@ -48,7 +49,7 @@ const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
               ? <Field {...fieldProps} />
               : _.isUndefined(tooltip) || _.isEmpty(tooltip)
                 ? renderCurrentValue(currentValue)
-                : <TooltipWrapper message={tooltip} placement="right">
+                : <TooltipWrapper id={id} message={tooltip} placement="right">
                     {renderCurrentValue(currentValue)}
                   </TooltipWrapper>
             }
@@ -74,7 +75,7 @@ const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
 
 const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
+    const { id = "editableField", label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
 
     return (
       <FormGroup>
@@ -87,13 +88,13 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
           renderAsEditable ? (
             <React.Fragment>
               <ControlLabel><b>{label}</b></ControlLabel><br />
-              <TooltipWrapper message={tooltip}>
+              <TooltipWrapper id={id} message={tooltip}>
                 <Field {...fieldProps} />
               </TooltipWrapper>
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <TooltipWrapper displayClass={"dib"} message={tooltip} placement="top">
+              <TooltipWrapper id={id} displayClass={"dib"} message={tooltip} placement="top">
                 <ControlLabel><b>{label}</b></ControlLabel>
               </TooltipWrapper>
               <br />
