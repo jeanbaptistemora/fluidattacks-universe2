@@ -740,18 +740,6 @@ function job_integrates_infra_database_deploy {
   || return 1
 }
 
-function job_integrates_infra_cache_db_deploy {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  pushd deploy/cache-db/terraform \
-    &&  terraform init \
-    &&  terraform apply -auto-approve -refresh=true \
-  &&  popd \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_resources_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
