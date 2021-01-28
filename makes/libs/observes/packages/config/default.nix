@@ -5,6 +5,7 @@
     python = {
       direct = [
         "aioextensions==20.9.2315218"
+        "click==7.1.2"
         "psycopg2==2.8.4"
         "pytest==5.2.0"
         "ratelimiter==1.2.0"

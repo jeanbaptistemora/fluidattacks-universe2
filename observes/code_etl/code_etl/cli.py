@@ -1,74 +1,58 @@
-# std libs
-import argparse
-from argparse import (
-    ArgumentParser,
-    Namespace,
+# Standard libraries
+import asyncio
+import sys
+from os.path import abspath
+from typing import Iterator, Tuple
+# Third party libraries
+import click
+# Local libraries
+from code_etl import (
+    ammend_authors as ammend,
+    compute_bills as bills,
+    upload
 )
-# external libs
-
-# local libs
 
 
-def main_parser() -> ArgumentParser:
-    parser = ArgumentParser()
-    parser.add_argument(
-        '--ammend-authors',
-        help='Projects for analisis',
-        action='store_true',
-    )
-    parser.add_argument(
-        '--compute-bills',
-        help='Projects for analisis',
-        action='store_true',
-    )
-    parser.add_argument(
-        '--upload',
-        help='Projects for analisis',
-        action='store_true',
-    )
-    return parser
+@click.command()
+@click.argument('mailmap_path', type=str)
+def ammend_authors(mailmap_path: str) -> None:
+    asyncio.run(ammend.main(mailmap_path))
 
 
-def ammend_parser() -> ArgumentParser:
-    parser = ArgumentParser()
-    parser.add_argument('--mailmap-path', required=True)
-    return parser
-
-
-def bills_parser() -> ArgumentParser:
-    parser = ArgumentParser()
-    parser.add_argument('--folder', required=True)
-    parser.add_argument('--year', type=int, required=True)
-    parser.add_argument('--month', type=int, required=True)
-    return parser
-
-
-def upload_parser() -> ArgumentParser:
-    parser = ArgumentParser()
-    parser.add_argument('--namespace', required=True)
-    parser.add_argument('repositories', nargs='*')
-    return parser
-
-
-def specific_parser(arg: Namespace) -> ArgumentParser:
-    if arg.ammend_authors:
-        return ammend_parser()
-    if arg.compute_bills:
-        return bills_parser()
-    if arg.upload:
-        return upload_parser()
-    raise argparse.ArgumentTypeError('Invalid argument see help')
-
-
-def specific_action(  # pylint: disable=unused-argument
-    m_arg: Namespace, s_args: Namespace
+@click.command()
+@click.argument('folder', type=str)
+@click.argument('year', type=int)
+@click.argument('month', type=int)
+@click.argument('integrates_token', type=str)
+def compute_bills(
+    folder: str,
+    year: int,
+    month: int,
+    integrates_token: str
 ) -> None:
+    bills.main(
+        folder, year, month,
+        integrates_token,
+    )
+
+
+@click.command()
+@click.argument('namespace', type=str)
+@click.argument('repositories', type=str, nargs=-1)
+def upload_code(namespace: str, repositories: Tuple[str, ...]) -> None:
+    repos: Iterator[str] = map(abspath, repositories)
+    success: bool = asyncio.run(
+        upload.main(namespace, *repos)
+    )
+    sys.exit(0 if success else 1)
+
+
+@click.group()
+def main() -> None:
+    # main cli group
     pass
 
 
-def entrypoint() -> None:
-    m_parser = main_parser()
-    m_args, leftover = m_parser.parse_known_args()
-    s_parser = specific_parser(m_args)
-    s_args = s_parser.parse_args(leftover)
-    specific_action(m_args, s_args)
+main.add_command(ammend_authors)
+main.add_command(compute_bills)
+main.add_command(upload_code)

@@ -149,6 +149,23 @@ def create_csv_file(
                 })
 
 
+def main(
+    folder: str,
+    year: int,
+    month: int,
+    integrates_token: str
+) -> None:
+    data, groups = get_date_data(year, month)
+
+    @lru_cache(maxsize=None)
+    def get_org(group: str) -> str:
+        return get_group_org(integrates_token, group)
+
+    for group in groups:
+        log_sync('info', 'Creating bill for: %s', group)
+        create_csv_file(folder, data, group, get_org)
+
+
 def cli() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--folder', required=True)
@@ -157,17 +174,7 @@ def cli() -> None:
     parser.add_argument('--integrates-token', type=str, required=True)
 
     args = parser.parse_args()
-
-    data, groups = get_date_data(args.year, args.month)
-    token = args.integrates_token
-
-    @lru_cache(maxsize=None)
-    def get_org(group: str) -> str:
-        return get_group_org(token, group)
-
-    for group in groups:
-        log_sync('info', 'Creating bill for: %s', group)
-        create_csv_file(args.folder, data, group, get_org)
+    main(args.folder, args.year, args.month, args.integrates_token)
 
 
 if __name__ == '__main__':
