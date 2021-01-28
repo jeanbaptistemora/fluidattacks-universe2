@@ -7,6 +7,7 @@ integrates/infra-cache-db-test
 integrates/infra-database-test
 integrates/infra-resources-apply
 integrates/infra-resources-test
+integrates/infra-secret-management-apply
 integrates/infra-secret-management-test
 makes/attrs
 makes/check
