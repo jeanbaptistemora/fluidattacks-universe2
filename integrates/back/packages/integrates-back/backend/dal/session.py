@@ -39,6 +39,8 @@ async def create_session_web(request: Request) -> bool:
     request.session['is_concurrent'] = bool(await get_session_web(email))
 
     # Proccede overwritting the user session
+    # This means that if a session did exist before, this one will
+    # take place and the other will be removed
     return await redis_set_entity_attr(
         entity='session',
         attr='web',
@@ -73,23 +75,24 @@ async def check_session_web_validity(request: Request) -> None:
     email: str = request.session['username']
     session_key: str = request.session['session_key']
 
-    # Check if the user have a concurrent session
+    # Check if the user has a concurrent session
     if request.session.get('is_concurrent'):
-        request.session.clear()
+        request.session.pop('is_concurrent')
         raise ConcurrentSession()
 
     try:
         # Check if the user has an active session but it's different
         # than the one in the cookie
         if await get_session_web(email) == session_key:
-            # Session is ok and up to date
+            # Session and cookie are ok and up to date
             pass
         else:
-            # Session in the cookie is expired, let's logout the user
+            # Session or the cookie are expired, let's logout the user
             await remove_session_web(email)
+            request.session.clear()
             raise ExpiredToken()
     except redis_model.KeyNotFound:
-        # Use do not even have an active session
+        # Use do not even has an active session
         raise SecureAccessException()
 
 

@@ -59,6 +59,7 @@ REDIS_EXCEPTIONS = (
     RedisClusterException,
     RedisClusterError,
     RedisError,
+    UnboundLocalError,
 )
 REDIS_TIMEOUT: int = 30
 
