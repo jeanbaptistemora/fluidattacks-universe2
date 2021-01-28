@@ -371,7 +371,7 @@ integrates_test_e2e:
     - integrates_deploy_front
   stage: post-deploy
   retry: 2
-  parallel: 4
+  parallel: 3
 
 integrates_infra_backup_deploy:
   <<: *with_nix

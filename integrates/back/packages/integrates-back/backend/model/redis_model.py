@@ -50,7 +50,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies={
             'add_event_consult',
-            'handle_vulns_acceptation',
         },
     ),
     finding=dict(
@@ -83,6 +82,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'delete_finding',
             'delete_vulnerability',
             'delete_vulnerability_tags',
+            'handle_vulns_acceptation',
             'reject_draft',
             'reject_zero_risk_vuln',
             'request_verification_vulnerability',
