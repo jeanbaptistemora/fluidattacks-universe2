@@ -117,6 +117,11 @@ integrates/infra-database-test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
+integrates/infra-resources-test:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: test-infra
+
 integrates/infra-secret-management-test:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -389,13 +394,6 @@ integrates_infra_resources_deploy:
   needs:
     - integrates_build_lambdas
   stage: deploy-infra
-
-integrates_infra_resources_test:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  needs:
-    - integrates_build_lambdas
-  stage: test-infra
 
 integrates_infra_secret_management_deploy:
   <<: *with_nix
