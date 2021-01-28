@@ -1,5 +1,5 @@
 # Standard
-from typing import Dict
+from typing import cast
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -49,14 +49,14 @@ async def _resolve_for_group(
     group_role: str = await authz.get_group_level_role(email, group_name)
 
     if group_role:
-        access: Dict[str, str] = await group_domain.get_user_access(
+        access = await group_domain.get_user_access(
             email,
             group_name
         )
 
         return {
             **stakeholder,
-            'responsibility': access.get('responsibility', ''),
+            'responsibility': cast(str, access.get('responsibility', '')),
             'role': group_role
         }
 

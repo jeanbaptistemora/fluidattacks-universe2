@@ -445,6 +445,24 @@ async def get_user_access(
     return items
 
 
+async def get_access_by_url_token(
+    url_token: str
+) -> List[Dict[str, ProjectType]]:
+    """Get user access of a project by the url token"""
+
+    filter_exp = (
+        Attr('invitation').exists() &
+        Attr('invitation.url_token').eq(url_token)
+    )
+    scan_attrs = {
+        'FilterExpression': filter_exp
+    }
+
+    items = await dynamodb.async_scan(TABLE_ACCESS_NAME, scan_attrs)
+
+    return items
+
+
 async def remove_access(user_email: str, project_name: str) -> bool:
     """Remove project access in dynamo."""
     try:

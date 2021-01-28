@@ -1094,11 +1094,18 @@ async def get_by_name(name: str) -> ProjectType:
     raise GroupNotFound()
 
 
-async def get_user_access(email: str, group_name: str) -> Dict[str, str]:
+async def get_user_access(email: str, group_name: str) -> ProjectAccessType:
     access: List[Dict[str, ProjectType]] = \
         await project_dal.get_user_access(email, group_name)
 
-    return cast(Dict[str, str], access[0]) if access else {}
+    return cast(ProjectAccessType, access[0]) if access else {}
+
+
+async def get_access_by_url_token(url_token: str) -> ProjectAccessType:
+    access: List[Dict[str, ProjectType]] = \
+        await project_dal.get_access_by_url_token(url_token)
+
+    return cast(ProjectAccessType, access[0]) if access else {}
 
 
 def is_fluid_user(email: str) -> bool:

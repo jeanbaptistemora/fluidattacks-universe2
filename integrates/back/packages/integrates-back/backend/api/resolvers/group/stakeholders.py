@@ -22,6 +22,7 @@ from backend.exceptions import (
 from backend.typing import (
     GetStakeholdersPayload
     as GetStakeholdersPayloadType,
+    Invitation as InvitationType,
     Project as GroupType,
     OrganizationStakehodersPageSizeEnum,
     Stakeholder as StakeholderType,
@@ -52,19 +53,27 @@ def _filter_by_expired_invitation(
 
 async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
     stakeholder: StakeholderType = await stakeholder_domain.get_by_email(email)
-    group_role: str = await authz.get_group_level_role(email, group_name)
-    access: Dict[str, str] = await group_domain.get_user_access(
+    project_access = await group_domain.get_user_access(
         email,
         group_name
     )
     invitation_state = (
-        'CONFIRMED' if access.get('has_access', False) else 'PENDING'
+        'CONFIRMED' if project_access.get('has_access', False) else 'PENDING'
     )
+    invitation = cast(InvitationType, project_access.get('invitation'))
+    if invitation:
+        invitation_date = invitation['date']
+        responsibility = invitation['responsibility']
+        group_role = invitation['role']
+    else:
+        invitation_date = cast(str, project_access.get('invitation_date', ''))
+        responsibility = cast(str, project_access.get('responsibility', ''))
+        group_role = await authz.get_group_level_role(email, group_name)
 
     return {
         **stakeholder,
-        'responsibility': access.get('responsibility', ''),
-        'invitation_date': access.get('invitation_date', ''),
+        'responsibility': responsibility,
+        'invitation_date': invitation_date,
         'invitation_state': invitation_state,
         'role': group_role
     }

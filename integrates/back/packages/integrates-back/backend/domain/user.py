@@ -35,6 +35,8 @@ from backend.exceptions import (
     StakeholderNotFound
 )
 from backend.typing import (
+    Invitation as InvitationType,
+    ProjectAccess as ProjectAccessType,
     User as UserType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
@@ -105,7 +107,7 @@ async def get_projects(
     return user_projects
 
 
-async def get_group_access(email: str, group: str) -> bool:
+async def get_project_access(email: str, group: str) -> bool:
     group_level_role = await authz.get_group_level_role(email, group)
     return bool(group_level_role)
 
@@ -283,7 +285,7 @@ async def get_organizations(email: str) -> List[str]:
     return await org_dal.get_ids_for_user(email)
 
 
-async def complete_user_register(invitation_token: str) -> bool:
+async def complete_user_register_with_redis(invitation_token: str) -> bool:
     info = await redis_get_entity_attr(
         entity='invitation_token',
         attr='data',
@@ -316,6 +318,31 @@ async def complete_user_register(invitation_token: str) -> bool:
             token=invitation_token,
             value=info,
             ttl=token_ttl,
+        )
+
+    return success
+
+
+async def complete_user_register(project_access: ProjectAccessType) -> bool:
+    success = False
+    invitation = cast(InvitationType, project_access['invitation'])
+
+    if invitation['is_used']:
+        bugsnag.notify(Exception('Token already used'), severity='warning')
+    else:
+        user_email = cast(str, project_access['user_email'])
+        group_name = cast(str, project_access['project_name'])
+        updated_invitation = invitation.copy()
+        updated_invitation['is_used'] = True
+        responsibility = invitation['responsibility']
+        success = await group_domain.update_access(
+            user_email,
+            group_name,
+            {
+                'has_access': True,
+                'invitation': updated_invitation,
+                'responsibility': responsibility,
+            }
         )
 
     return success

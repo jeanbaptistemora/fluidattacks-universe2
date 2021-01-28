@@ -32,6 +32,7 @@ from backend.dal.helpers.redis import (
 )
 from backend.decorators import authenticate_session
 from backend.domain import (
+    project as group_domain,
     organization as org_domain,
     user as user_domain
 )
@@ -110,23 +111,38 @@ async def logout(request: Request) -> HTMLResponse:
 
 
 async def confirm_access(request: Request) -> HTMLResponse:
-    url_token: str = request.path_params.get('url_token')
-    token_exists: bool = await redis_exists_entity_attr(
-        entity='invitation_token',
-        attr='data',
-        token=url_token,
-    )
+    url_token = request.path_params.get('url_token')
+    if url_token:
+        project_access = await group_domain.get_access_by_url_token(url_token)
+        token_exists_in_redis: bool = await redis_exists_entity_attr(
+            entity='invitation_token',
+            attr='data',
+            token=url_token,
+        )
 
-    if token_exists:
-        token_unused = await user_domain.complete_user_register(url_token)
-        if token_unused:
-            response = await templates.valid_invitation(request)
+        if project_access:
+            success = await user_domain.complete_user_register(project_access)
+            if success:
+                response = await templates.valid_invitation(
+                    request,
+                    project_access
+                )
+            else:
+                response = RedirectResponse(url='/invalid_invitation')
+        elif token_exists_in_redis:
+            token_unused = await user_domain.complete_user_register_with_redis(
+                url_token
+            )
+            if token_unused:
+                response = await templates.valid_invitation_with_redis(request)
+            else:
+                response = RedirectResponse(url='/invalid_invitation')
         else:
+            await in_thread(
+                bugsnag.notify, Exception('Invalid token'), severity='warning'
+            )
             response = RedirectResponse(url='/invalid_invitation')
     else:
-        await in_thread(
-            bugsnag.notify, Exception('Invalid token'), severity='warning'
-        )
         response = RedirectResponse(url='/invalid_invitation')
 
     return response
