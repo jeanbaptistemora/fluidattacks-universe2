@@ -10,7 +10,7 @@ import Helmet from "react-helmet";
 
 import React from "react";
 
-import { StaticQuery, graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 interface IStaticQueryData {
   site: {
@@ -35,16 +35,15 @@ const defaultProps: IProps = {
   lang: "en_US",
   title: "",
 };
-
 const SEO: React.FC<IProps> = ({
-  title,
   description,
   lang,
   keywords,
-}: IProps): JSX.Element => (
-  <StaticQuery
+  title,
+}: IProps): JSX.Element => {
+  const { site }: IStaticQueryData = useStaticQuery(
     // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-    query={graphql`
+    graphql`
       query {
         site {
           siteMetadata {
@@ -53,49 +52,48 @@ const SEO: React.FC<IProps> = ({
           }
         }
       }
-    `}
-    render={(data: IStaticQueryData): React.ReactElement | null => {
-      const metaDescription: string = description!;
-      const language: string = lang!;
-      const kwords: string[] = keywords!;
+    `
+  );
 
-      return (
-        <Helmet
-          htmlAttributes={{
-            language,
-          }}
-          meta={[
-            {
-              content: metaDescription,
-              name: "description",
-            },
-            {
-              content: title,
-              property: "og:title",
-            },
-            {
-              content: metaDescription,
-              property: "og:description",
-            },
-            {
-              content: "website",
-              property: "og:type",
-            },
-          ].concat(
-            kwords.length > 0
-              ? {
-                  content: kwords.join(", "),
-                  name: "keywords",
-                }
-              : []
-          )}
-          title={title}
-          titleTemplate={`%s | ${data.site.siteMetadata.title}`}
-        />
-      );
-    }}
-  />
-);
+  const metaDescription: string = description!;
+  const language: string = lang!;
+  const kwords: string[] = keywords!;
+
+  return (
+    <Helmet
+      htmlAttributes={{
+        language,
+      }}
+      meta={[
+        {
+          content: metaDescription,
+          name: "description",
+        },
+        {
+          content: title,
+          property: "og:title",
+        },
+        {
+          content: metaDescription,
+          property: "og:description",
+        },
+        {
+          content: "website",
+          property: "og:type",
+        },
+      ].concat(
+        kwords.length > 0
+          ? {
+              content: kwords.join(", "),
+              name: "keywords",
+            }
+          : []
+      )}
+      title={title}
+      titleTemplate={`%s | ${site.siteMetadata.title}`}
+    />
+  );
+};
 
 // eslint-disable-next-line fp/no-mutation
 SEO.defaultProps = defaultProps;
