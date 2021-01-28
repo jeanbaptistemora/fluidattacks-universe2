@@ -43,6 +43,7 @@
     - if: *sorts_commit_pattern
 
 .sorts_in_master_branch: &sorts_in_master_branch
+  resource_group: sorts_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never

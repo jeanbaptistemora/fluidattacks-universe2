@@ -23,6 +23,7 @@
     - if: *airs_commit_pattern
 
 .in_master_branch_airs: &in_master_branch_airs
+  resource_group: airs_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never

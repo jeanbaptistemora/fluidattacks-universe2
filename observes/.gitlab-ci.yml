@@ -41,6 +41,7 @@
     - if: *observes_commit_pattern
 
 .observes_in_master_branch: &observes_in_master_branch
+  resource_group: observes_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never

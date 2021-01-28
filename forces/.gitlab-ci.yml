@@ -31,6 +31,7 @@
     - if: *forces_commit_pattern
 
 .forces_in_master_branch: &forces_in_master_branch
+  resource_group: forces_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never

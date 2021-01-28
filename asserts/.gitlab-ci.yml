@@ -23,6 +23,7 @@
     - if: *asserts_commit_pattern
 
 .in_master_branch_asserts: &in_master_branch_asserts
+  resource_group: asserts_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
