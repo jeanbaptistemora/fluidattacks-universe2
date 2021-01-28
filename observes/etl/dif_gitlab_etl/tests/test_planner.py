@@ -1,5 +1,11 @@
 # Standard libraries
 # Third party libraries
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional
+)
 import pytest
 # Local libraries
 from dif_gitlab_etl import planner
@@ -10,8 +16,11 @@ from streamer_gitlab.api_client import (
 )
 
 
-############### `search_page_with` Tests ###############
-def mock_get_resource(resource: GitlabResourcePage):
+Resource = List[Dict[str, Any]]
+
+
+# `search_page_with` Tests
+def mock_get_resource(resource: GitlabResourcePage) -> Optional[Resource]:
     if resource.page == 123:
         return [
             {'id': '245'}, {'id': '244'}, {'id': '243'}
@@ -27,7 +36,7 @@ def mock_get_resource(resource: GitlabResourcePage):
     return None
 
 
-def test_search_page_with():
+def test_search_page_with() -> None:
     """
     Should return the page where `target_id` is present
     """
@@ -46,7 +55,7 @@ def test_search_page_with():
     assert page_id == 123
 
 
-def test_search_page_last_page():
+def test_search_page_last_page() -> None:
     """
     Should return the last page when `target_id` is not found
     """
@@ -65,16 +74,15 @@ def test_search_page_last_page():
     assert page_id == 130
 
 
-def mock_fail_get_resource(resource: GitlabResourcePage):
-    if resource.page >= 111:
-        return [
-            {'id': '300'}
-        ]
+def mock_fail_get_resource(resource: GitlabResourcePage) -> Optional[Resource]:
     if resource.page < 111:
         raise Exception('Should not get pages below last_seen')
+    return [
+        {'id': '300'}
+    ]
 
 
-def test_not_start_from_scratch():
+def test_not_start_from_scratch() -> None:
     """
     Should start iterating from `last_seen.page`
     """
@@ -92,8 +100,8 @@ def test_not_start_from_scratch():
     )
 
 
-############### `calculate_interval` Tests ###############
-def test_calculate_interval_len():
+# `calculate_interval` Tests
+def test_calculate_interval_len() -> None:
     """
     Should return a range with `max_pags` elements
     """
@@ -103,7 +111,7 @@ def test_calculate_interval_len():
     assert len(interval) == max_pags
 
 
-def test_calculate_interval_stop():
+def test_calculate_interval_stop() -> None:
     """
     Should return a range ending at `final_id`
     """
@@ -113,7 +121,7 @@ def test_calculate_interval_stop():
     assert interval.stop == final_id + 1
 
 
-def test_calculate_interval_start_min():
+def test_calculate_interval_start_min() -> None:
     """
     Should return a minimun start page of 1
     """
@@ -123,14 +131,15 @@ def test_calculate_interval_start_min():
     assert interval.start == 1
 
 
-############### `get_lgu_id` Tests ###############
-def mock_resource():
+# `get_lgu_id` Tests
+def mock_resource() -> GitlabResource:
     return GitlabResource(
         project='projet64',
         resource='athernos',
     )
 
-def test_get_lgu_id_fail():
+
+def test_get_lgu_id_fail() -> None:
     """
     Should raise a NotFoundException
     """
@@ -138,7 +147,7 @@ def test_get_lgu_id_fail():
         planner.get_lgu_id(mock_resource(), lambda x: None)
 
 
-def test_get_lgu_id_expected():
+def test_get_lgu_id_expected() -> None:
     """
     Should process returned value
     """
@@ -146,8 +155,8 @@ def test_get_lgu_id_expected():
     assert result == 34
 
 
-############### `get_lgu_last_seen_page_id` Tests ###############
-def test_get_lgu_last_seen_page_id_fail():
+# `get_lgu_last_seen_page_id` Tests
+def test_get_lgu_last_seen_page_id_fail() -> None:
     """
     Should raise a NotFoundException
     """
@@ -155,12 +164,11 @@ def test_get_lgu_last_seen_page_id_fail():
         planner.get_lgu_last_seen_page_id(mock_resource(), lambda x: None)
 
 
-
-def test_get_lgu_last_seen_page_id_expected():
+def test_get_lgu_last_seen_page_id_expected() -> None:
     """
     Should return expected data
     """
     result = planner.get_lgu_last_seen_page_id(
-        mock_resource(), lambda x: ((12,45),)
+        mock_resource(), lambda x: ((12, 45),)
     )
     assert result == {'page': 12, 'per_page': 45}

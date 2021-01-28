@@ -106,7 +106,7 @@ def get_lgu_last_seen_page_id(
 def set_lgu_id(
     dpage: PageData,
     exe_query: Callable[[str], Any]
-):
+) -> None:
     result = exe_query(
         "UPDATE \"gitlab-ci\".upload_state set "
         f"lgu_id={dpage.minor_item_id}, "
@@ -149,7 +149,7 @@ async def search_lgu_page(
         def build_get_resource(
             session: ClientSession
         ) -> Callable[[GitlabResourcePage], List[Dict[str, Any]]]:
-            def getter(resource):
+            def getter(resource: GitlabResourcePage) -> List[Dict[str, Any]]:
                 api_token = environ['GITLAB_API_TOKEN']
                 headers = {'Private-Token': api_token}
                 loop = asyncio.get_event_loop()

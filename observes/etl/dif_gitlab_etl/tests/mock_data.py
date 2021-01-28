@@ -26,8 +26,8 @@ class MockDataCase():
     data_pages: List[PageData]
     gr_dpag_mapper: Dict[GitlabResourcePage, PageData]
     min_id: Dict[str, int]
-    mock_temp_files: Dict[str, IO[str]] = {}
     pages_range: range
+    mock_temp_files: Dict[str, IO[str]] = {}
 
 
 def mock_create_temp(mock_data: MockDataCase) -> Callable[[str], IO[str]]:
@@ -47,7 +47,7 @@ def mock_get_temp(mock_data: MockDataCase) -> Callable[[str], IO[str]]:
 def mock_extract_data(
     mock_data: MockDataCase
 ) -> Callable[[GitlabResourcePage], Union[PageData, None]]:
-    def _mock_extract_data(resource: GitlabResourcePage):
+    def _mock_extract_data(resource: GitlabResourcePage) -> PageData:
         try:
             return PageData(
                 id=resource,
@@ -69,13 +69,13 @@ def mock_case_01() -> MockDataCase:
     )
     gr_pages: List[GitlabResourcePage] = []
     data_pages: List[PageData] = []
-    gr_dpag_mapper: Dict[GitlabResourcePage, PageData]= {}
+    gr_dpag_mapper: Dict[GitlabResourcePage, PageData] = {}
     min_id: Dict[str, int] = {
         '1': 41, '2': 36, '3': 31,
         '4': 26, '5': 21, '6': 16,
         '7': 11, '8': 6, '9': 1,
     }
-    pages: range = range(1,10)
+    pages: range = range(1, 10)
 
     for page in pages:
         gr_page = GitlabResourcePage(
@@ -126,10 +126,10 @@ def mock_extract_data_less_than(
 
 def mock_extract_between(
     mock_data: MockDataCase
-)-> Callable[[GResourcePageRange, Optional[int]], ExtractState]:
+) -> Callable[[GResourcePageRange, Optional[int]], ExtractState]:
     def _mock_extract_between(
         resource_range: GResourcePageRange, init_last_minor_id: Optional[int]
-    )-> ExtractState:
+    ) -> ExtractState:
         last_page_reached = False
         pages: List[PageData] = []
         last_minor_id: Optional[int] = init_last_minor_id

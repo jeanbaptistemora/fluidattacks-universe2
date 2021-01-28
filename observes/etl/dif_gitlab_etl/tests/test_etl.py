@@ -8,26 +8,27 @@ import pytest
 from dif_gitlab_etl import etl
 from dif_gitlab_etl.etl import ExtractState
 from streamer_gitlab.api_client import (
-    GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
 from streamer_gitlab.page_data import PageData
 from tests import mock_data
 
-def test_extract_between():
+
+def test_extract_between() -> None:
     # Arrange
     case = mock_data.mock_case_01()
     # Act
     extract_status: ExtractState = etl.extract_between(
         resource_range=GResourcePageRange(
             g_resource=case.resource,
-            page_range=range(5,8),
+            page_range=range(5, 8),
             per_page=100,
         ),
         extract_data=mock_data.mock_extract_data(case),
         extract_data_less_than=mock_data.mock_extract_data_less_than(case),
     )
+
     # Assert
     def page(num: int) -> GitlabResourcePage:
         return GitlabResourcePage(
@@ -60,7 +61,7 @@ def test_extract_between():
 
 
 @pytest.mark.timeout(10)
-def test_extract_until_found():
+def test_extract_until_found() -> None:
     # Arrange
     case = mock_data.mock_case_01()
     # Act
@@ -72,6 +73,7 @@ def test_extract_until_found():
         ),
         extract_range=mock_data.mock_extract_between(case)
     )
+
     # Assert
     def page(num: int) -> GitlabResourcePage:
         return GitlabResourcePage(
@@ -82,7 +84,7 @@ def test_extract_until_found():
         PageData(
             id=page(1), minor_item_id=case.min_id['1'],
             file=mock_data.mock_get_temp(case)(
-                f"case_01/page_1"
+                "case_01/page_1"
             ),
         ),
         PageData(
@@ -97,7 +99,7 @@ def test_extract_until_found():
 
 
 @pytest.mark.timeout(10)
-def test_extract_until_found_last_page():
+def test_extract_until_found_last_page() -> None:
     # Arrange
     case = mock_data.mock_case_01()
     # Act
@@ -109,6 +111,7 @@ def test_extract_until_found_last_page():
         ),
         extract_range=mock_data.mock_extract_between(case)
     )
+
     # Assert
     def page(num: int) -> GitlabResourcePage:
         return GitlabResourcePage(
@@ -119,7 +122,7 @@ def test_extract_until_found_last_page():
         PageData(
             id=page(8), minor_item_id=case.min_id['8'],
             file=mock_data.mock_get_temp(case)(
-                f"case_01/page_8"
+                "case_01/page_8"
             ),
         ),
         PageData(
@@ -130,5 +133,5 @@ def test_extract_until_found_last_page():
         ),
     ]
     assert extract_status.data_pages == expected
-    assert extract_status.empty_responce == True
+    assert extract_status.empty_responce is True
     assert extract_status.last_minor_id == case.min_id['9']

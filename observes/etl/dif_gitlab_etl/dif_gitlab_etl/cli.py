@@ -6,7 +6,7 @@ from os import (
 )
 import sys
 from typing import (
-    List,
+    IO, List,
 )
 
 # Third party libraries
@@ -20,7 +20,7 @@ from streamer_gitlab.log import log
 @click.command()
 @click.argument('projects', nargs=-1)
 @click.argument('auth_file', type=click.File('r'))
-def start_etl(projects: List[str], auth_file):
+def start_etl(projects: List[str], auth_file: IO[str]) -> None:
     try:
         environ['GITLAB_API_TOKEN']
     except KeyError:
@@ -35,7 +35,8 @@ def start_etl(projects: List[str], auth_file):
 
 
 @click.group()
-def main():
+def main() -> None:
+    # main cli group
     pass
 
 

@@ -19,6 +19,6 @@ def error(msg: str) -> None:
 
 
 class NotFoundException(Exception):
-    def __init__(self, msg):
+    def __init__(self, msg: str) -> None:
         log('exception', 'NotFound: ' + msg)
         super().__init__(msg)

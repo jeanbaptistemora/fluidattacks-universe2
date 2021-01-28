@@ -75,7 +75,7 @@ def exe_and_fetch_function(
     return exe_and_fetch
 
 
-def start_etl(project: str, auth: Dict[str, str]):
+def start_etl(project: str, auth: Dict[str, str]) -> None:
     log('info', f'Starting Gitlab ETL for {project}')
     db_state = db_client.make_access_point(auth)
     stm_executer = exe_and_fetch_function(db_state)
@@ -103,6 +103,6 @@ def start_etl(project: str, auth: Dict[str, str]):
             continue
 
 
-async def start_etls(projects: List[str], auth: Dict[str, str]):
+async def start_etls(projects: List[str], auth: Dict[str, str]) -> None:
     for project in projects:
         start_etl(project, auth)

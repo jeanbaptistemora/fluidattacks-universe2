@@ -183,7 +183,7 @@ def extract_pages_data(
     return pages
 
 
-def verify_ascending_order(data_pages: List[PageData]):
+def verify_ascending_order(data_pages: List[PageData]) -> None:
     last_mid: int = 0
     for dpage in data_pages:
         assert dpage.minor_item_id > last_mid
