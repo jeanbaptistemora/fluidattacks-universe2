@@ -1,0 +1,28 @@
+:slug: plans/
+:description: Fluid Attacks offers 'Machine' and 'Squad' plans within the Continuous Hacking service to provide you with flexibility in managing your vulnerabilities.
+:keywords: Fluid Attacks, Continuous Hacking, Plan, Machine, Squad, Vulnerability, Ethical Hacking, Pentesting
+:phrase: Fluid Attacks' plans offer flexibility for your vulnerability management program
+:template: plans
+:banner: clients-bg
+:yes: image:../images/icons/red-check.png[Yes]
+:logo: image:../theme/images/mini-logo.png[Logo, width=25px, height=25px]
+
+
+= Plans
+
+[.table-center]
+[cols="55,^.^22,^.^22"]
+|====
+| .>a|==== {logo}Machine .>a|==== {logo}Squad
+| Control of the whole remediation process | {yes} | {yes}
+| Continuous vulnerability report | {yes} | {yes}
+| Attack Surface Manager (GraphQL API) | {yes} | {yes}
+| Automatic SAST and SCA | {yes} | {yes}
+| CI/CD DevSecOps | {yes} | {yes}
+| Low rates of false positives and false negatives | | {yes}
+| Higher severity and more types of vulnerabilities  | | {yes}
+| Comprehensive testing with various attack techniques | | {yes}
+| Manual SAST and DAST (Pentest) | | {yes}
+| Optimization of vulnerability search with AI | | {yes}
+| Explanation of vulnerabilities to the development team | | {yes}
+|====

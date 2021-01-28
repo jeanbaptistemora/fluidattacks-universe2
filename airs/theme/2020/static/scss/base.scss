@@ -254,6 +254,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .slide-bt-trans { transition: background-color 0.6s ease; }
 .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
 .grid { display: grid; }
+.table-center { margin: 0 auto !important;}
+.halign-center { text-align: center; }
 
 .ph-bt {
   padding-left: 4.25rem;
