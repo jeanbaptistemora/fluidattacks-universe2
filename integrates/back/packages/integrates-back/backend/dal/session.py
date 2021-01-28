@@ -85,7 +85,8 @@ async def check_session_web_validity(request: Request) -> None:
             # Session is ok and up to date
             pass
         else:
-            # Session in the cookie is expired
+            # Session in the cookie is expired, let's logout the user
+            await remove_session_web(email)
             raise ExpiredToken()
     except redis_model.KeyNotFound:
         # Use do not even have an active session
