@@ -27,7 +27,7 @@ spec:
             - http/development/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/3/0.0.0.0/8001/*
           resources:
             requests:
-              cpu: 100m
+              cpu: 300m
               memory: 1000Mi
             limits:
               cpu: 2000m
@@ -78,7 +78,7 @@ spec:
             - dynamo
           resources:
             requests:
-              cpu: 100m
+              cpu: 300m
               memory: 500Mi
             limits:
               cpu: 2000m
@@ -100,7 +100,7 @@ spec:
             - redis
           resources:
             requests:
-              cpu: 100m
+              cpu: 300m
               memory: 500Mi
             limits:
               cpu: 2000m
@@ -122,7 +122,7 @@ spec:
             - minio
           resources:
             requests:
-              cpu: 100m
+              cpu: 300m
               memory: 500Mi
             limits:
               cpu: 2000m
