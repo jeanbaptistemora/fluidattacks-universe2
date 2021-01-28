@@ -1,5 +1,5 @@
 resource "aws_iam_role" "integrates-backup-role" {
-  name = "integrates-backup"
+  name               = "integrates-backup"
   assume_role_policy = data.aws_iam_policy_document.backup-assume-role-policy-data.json
 
   tags = {

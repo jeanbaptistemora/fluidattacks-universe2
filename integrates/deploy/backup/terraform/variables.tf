@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "backup-assume-role-policy-data" {
       "sts:AssumeRole"
     ]
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["backup.amazonaws.com"]
     }
   }
