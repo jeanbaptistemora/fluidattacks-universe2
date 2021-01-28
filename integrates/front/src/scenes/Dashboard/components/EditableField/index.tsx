@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { TextareaHTMLAttributes } from "react";
 import { BaseFieldProps, Field } from "redux-form";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import {
   Col50,
   ControlLabel,
@@ -93,7 +93,7 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <TooltipWrapper message={tooltip} placement="top">
+              <TooltipWrapper displayClass={"dib"} message={tooltip} placement="top">
                 <ControlLabel><b>{label}</b></ControlLabel>
               </TooltipWrapper>
               <br />
