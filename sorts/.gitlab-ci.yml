@@ -43,7 +43,7 @@
     - if: *sorts_commit_pattern
 
 .sorts_in_master_branch: &sorts_in_master_branch
-  resource_group: sorts_in_master_branch
+  resource_group: "${CI_JOB_NAME}"
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
@@ -56,6 +56,7 @@
     - if: *sorts_commit_pattern
 
 .sorts_in_master_branch_code_changes: &sorts_in_master_branch_code_changes
+  resource_group: "${CI_JOB_NAME}"
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
