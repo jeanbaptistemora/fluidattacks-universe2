@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "integrates-prod-key" {
     sid    = "Key Administrators"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "integrates-prod-key" {
     sid    = "Key Users"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
@@ -75,7 +75,7 @@ data "aws_iam_policy_document" "integrates-prod-key" {
     sid    = "Attachment Of Persistent Resources"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
