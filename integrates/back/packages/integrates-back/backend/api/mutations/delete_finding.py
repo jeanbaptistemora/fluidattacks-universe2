@@ -55,7 +55,6 @@ async def mutate(
             str(finding_data.get('analyst', '')),
             justification_dict[justification]
         )
-        util.forces_trigger_deployment(group_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Deleted finding: {finding_id} successfully'

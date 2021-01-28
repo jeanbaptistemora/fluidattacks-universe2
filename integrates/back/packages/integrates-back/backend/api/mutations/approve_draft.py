@@ -45,7 +45,6 @@ async def mutate(
             finding_id=draft_id,
             group_name=group_name,
         )
-        util.forces_trigger_deployment(group_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Approved draft in {group_name} group successfully'

@@ -5,7 +5,6 @@ import collections
 import os
 from datetime import datetime, timedelta
 import binascii
-import functools
 import logging
 import re
 import secrets
@@ -17,7 +16,6 @@ from typing import (
     List,
     Union
 )
-import httpx
 import magic
 from aioextensions import (
     collect,
@@ -66,10 +64,6 @@ from back import settings
 
 from __init__ import (
     FI_ENVIRONMENT,
-    FI_TEST_PROJECTS,
-    FORCES_TRIGGER_URL,
-    FORCES_TRIGGER_REF,
-    FORCES_TRIGGER_TOKEN,
 )
 
 logging.config.dictConfig(settings.LOGGING)
@@ -354,41 +348,6 @@ def is_valid_format(date_str: str) -> bool:
         resp = False
 
     return resp
-
-
-def forces_trigger_deployment(project_name: str) -> bool:
-    def callback(client: httpx.AsyncClient, _):
-        schedule(client.aclose())
-
-    success = False
-
-    # cast it to string, just in case
-    project_name = str(project_name).lower()
-
-    parameters = {
-        'ref': FORCES_TRIGGER_REF,
-        'token': FORCES_TRIGGER_TOKEN,
-        'variables[subs]': project_name,
-    }
-
-    try:
-        if project_name not in FI_TEST_PROJECTS.split(','):
-            client = httpx.AsyncClient()
-            req_coro = client.post(
-                url=FORCES_TRIGGER_URL,
-                files={
-                    param: (None, value)
-                    for param, value in parameters.items()
-                }
-            )
-            task = schedule(req_coro)
-            task.add_done_callback(functools.partial(callback, client))
-
-    except httpx.HTTPError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
-    else:
-        success = True
-    return success
 
 
 def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:

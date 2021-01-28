@@ -36,8 +36,6 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await util.get_jwt_content(info.context)
     email: str = user_info['user_email']
-    finding = await info.context.loaders['finding'].load(finding_id)
-    group_name: str = finding['project_name']
     success: bool = await handle_vulns_acceptation(
         accepted_vulns=accepted_vulns,
         finding_id=finding_id,
@@ -50,6 +48,5 @@ async def mutate(
             'handle_vulns_acceptation',
             finding_id=finding_id,
         )
-        util.forces_trigger_deployment(group_name)
 
     return SimplePayload(success=success)
