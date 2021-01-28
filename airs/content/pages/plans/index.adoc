@@ -21,8 +21,6 @@
 | CI/CD DevSecOps | {yes} | {yes}
 | Low rates of false positives and false negatives | | {yes}
 | Higher severity and more types of vulnerabilities  | | {yes}
-| Comprehensive testing with various attack techniques | | {yes}
 | Manual SAST and DAST (Pentest) | | {yes}
 | Optimization of vulnerability search with AI | | {yes}
-| Explanation of vulnerabilities to the development team | | {yes}
 |====
