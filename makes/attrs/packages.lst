@@ -8,6 +8,7 @@ integrates/config-runtime/front
 integrates/lint/front
 integrates/lint/front/eslint
 integrates/lint/front/tslint
+integrates/test/front
 makes/dev
 makes/test
 melts/bin

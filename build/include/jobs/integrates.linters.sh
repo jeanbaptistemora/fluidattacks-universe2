@@ -40,16 +40,6 @@ function job_integrates_lint_e2e {
   ||  return 1
 }
 
-function job_integrates_lint_front {
-        pushd "${STARTDIR}/integrates/front" \
-    &&  npm install \
-    &&  npm audit \
-    &&  npm run lint:tslint \
-    &&  npm run lint:eslint \
-    &&  popd \
-    ||  return 1
-}
-
 function job_integrates_lint_styles {
   local err_count
         pushd "${STARTDIR}/integrates/front" \

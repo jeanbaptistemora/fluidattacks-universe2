@@ -842,15 +842,6 @@ function job_integrates_test_back {
   ||  return 1
 }
 
-function job_integrates_test_front {
-      pushd "${STARTDIR}/integrates/front" \
-    &&  npm install --unsafe-perm \
-    &&  npm test \
-    &&  mv coverage/lcov.info coverage.lcov \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_test_mobile {
       pushd "${STARTDIR}/integrates/mobile" \
     &&  npm install --unsafe-perm \
