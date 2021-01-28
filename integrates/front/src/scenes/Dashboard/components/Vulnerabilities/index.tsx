@@ -190,6 +190,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       formatter: deleteFormatter,
       header: t("search_findings.tab_description.action"),
       visible: canDeleteVulns,
+      width: "5%",
     },
   ];
 
@@ -206,7 +207,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         id={"vulnerabilitiesTable"}
         pageSize={10}
         rowEvents={{ onClick: openAdditionalInfoModal }}
-        search={true}
+        search={false}
         selectionMode={selectionMode}
         striped={true}
       />

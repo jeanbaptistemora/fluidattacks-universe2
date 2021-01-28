@@ -154,7 +154,53 @@ function filterZeroRisk(vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] {
   );
 }
 
+function filterTreatment(
+  vulnerabilities: IVulnRowAttr[],
+  treatment: string
+): IVulnRowAttr[] {
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
+    _.isEmpty(treatment)
+      ? true
+      : getLastTreatment(vuln.historicTreatment).treatment === treatment &&
+        vuln.currentState === "open"
+  );
+}
+function filterVerification(
+  vulnerabilities: IVulnRowAttr[],
+  verification: string
+): IVulnRowAttr[] {
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
+    _.isEmpty(verification) ? true : vuln.verification === verification
+  );
+}
+function filterCurrentStatus(
+  vulnerabilities: IVulnRowAttr[],
+  currentState: string
+): IVulnRowAttr[] {
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
+    _.isEmpty(currentState) ? true : vuln.currentState === currentState
+  );
+}
+function filterText(
+  vulnerabilities: IVulnRowAttr[],
+  searchText: string
+): IVulnRowAttr[] {
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
+    _.isEmpty(searchText)
+      ? true
+      : _.some(vuln, (value: unknown): boolean =>
+          _.isString(value)
+            ? _.includes(value.toLowerCase(), searchText.toLowerCase())
+            : false
+        )
+  );
+}
+
 export {
+  filterVerification,
+  filterText,
+  filterTreatment,
+  filterCurrentStatus,
   filterZeroRisk,
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,

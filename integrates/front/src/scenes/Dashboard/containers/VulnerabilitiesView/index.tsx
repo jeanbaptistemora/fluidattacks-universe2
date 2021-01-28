@@ -5,29 +5,77 @@ import type { GraphQLError } from "graphql";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import type { IAuthContext } from "utils/auth";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
+import type { StyledComponent } from "styled-components";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import _ from "lodash";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
-import { filterZeroRisk } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
+import style from "utils/forms/index.css";
+import styled from "styled-components";
 import { useAbility } from "@casl/react";
 import { useParams } from "react-router";
 import { useQuery } from "@apollo/react-hooks";
+import { useTranslation } from "react-i18next";
 import { Col100, Row } from "styles/styledComponents";
+import type {
+  IVulnDataTypeAttr,
+  IVulnRowAttr,
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import {
+  filterCurrentStatus,
+  filterText,
+  filterTreatment,
+  filterVerification,
+  filterZeroRisk,
+} from "scenes/Dashboard/components/Vulnerabilities/utils";
+
+const RowFilters: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "pt2-ns w-100-ns",
+})``;
+
+const Select: StyledComponent<
+  "select",
+  Record<string, unknown>
+> = styled.select.attrs({
+  className: `${style["form-control"]}`,
+})``;
+
+const SelectContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "fr ph2 w-25-ns",
+})``;
+
+const SearchText: StyledComponent<
+  "input",
+  Record<string, unknown>
+> = styled.input.attrs({
+  className: `${style["form-control"]}`,
+})``;
+
+const Small: StyledComponent<
+  "small",
+  Record<string, unknown>
+> = styled.small.attrs({
+  className: "f3 black-40 db",
+})``;
 
 export const VulnsView: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{
     findingId: string;
     projectName: string;
   }>();
+  const { t } = useTranslation();
   const { userName }: IAuthContext = React.useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canConfirmZeroRiskVuln: boolean = permissions.can(
@@ -48,6 +96,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
   };
   React.useEffect(onMount, [userName]);
 
+  const [treatmentFilter, setTreatmentFilter] = React.useState("");
+  const [currentStatusFilter, setCurrentStatusFilter] = React.useState("");
+  const [verificationFilter, setVerificationFilter] = React.useState("");
+  const [textFilter, setTextFilter] = React.useState("");
   const [isOpen, setOpen] = React.useState(false);
   function toggleModal(): void {
     setOpen(true);
@@ -99,7 +151,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.error_textsad"));
+          msgError(t("group_alerts.error_textsad"));
           Logger.warning("An error occurred loading finding", error);
         });
       },
@@ -110,6 +162,46 @@ export const VulnsView: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.StrictMode />;
   }
+
+  function onTreatmentChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setTreatmentFilter(event.target.value);
+  }
+  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setCurrentStatusFilter(event.target.value);
+  }
+  function onVerificationChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setVerificationFilter(event.target.value);
+  }
+  function onSearchChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setTextFilter(event.target.value);
+  }
+  const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
+    data.finding.vulnerabilities,
+    treatmentFilter
+  );
+  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterCurrentStatus(
+    data.finding.vulnerabilities,
+    currentStatusFilter
+  );
+  const filterVerificationVulnerabilities: IVulnRowAttr[] = filterVerification(
+    data.finding.vulnerabilities,
+    verificationFilter
+  );
+  const filterTextVulnerabilities: IVulnRowAttr[] = filterText(
+    data.finding.vulnerabilities,
+    textFilter
+  );
+
+  const vulnerabilities: IVulnRowAttr[] = _.intersection(
+    filterTreatmentVulnerabilities,
+    filterCurrentStatusVulnerabilities,
+    filterVerificationVulnerabilities,
+    filterTextVulnerabilities
+  );
 
   return (
     <React.StrictMode>
@@ -138,6 +230,73 @@ export const VulnsView: React.FC = (): JSX.Element => {
         <Row>
           <Col100>
             <Row>
+              <RowFilters>
+                <SelectContainer>
+                  <Small>{t("search_findings.tab_vuln.searchText")}</Small>
+                  <SearchText
+                    defaultValue={textFilter}
+                    onChange={onSearchChange}
+                  />
+                </SelectContainer>
+                <SelectContainer>
+                  <Small>
+                    {t("search_findings.tab_vuln.vulnTable.treatments")}
+                  </Small>
+                  <Select
+                    defaultValue={treatmentFilter}
+                    onChange={onTreatmentChange}
+                  >
+                    <option value={""} />
+                    <option value={"IN_PROGRESS"}>
+                      {t(
+                        "search_findings.tab_description.treatment.in_progress"
+                      )}
+                    </option>
+                    <option value={"ACCEPTED"}>
+                      {t("search_findings.tab_description.treatment.accepted")}
+                    </option>
+                    <option value={"ACCEPTED_UNDEFINED"}>
+                      {t(
+                        "search_findings.tab_description.treatment.accepted_undefined"
+                      )}
+                    </option>
+                  </Select>
+                </SelectContainer>
+                <SelectContainer>
+                  <Small>
+                    {t("search_findings.tab_vuln.vulnTable.reattacks")}
+                  </Small>
+                  <Select
+                    defaultValue={verificationFilter}
+                    onChange={onVerificationChange}
+                  >
+                    <option value={""} />
+                    <option value={"Requested"}>
+                      {t("search_findings.tab_vuln.requested")}
+                    </option>
+                    <option value={"Verified"}>
+                      {t("search_findings.tab_vuln.verified")}
+                    </option>
+                  </Select>
+                </SelectContainer>
+                <SelectContainer>
+                  <Small>{t("search_findings.tab_vuln.status")}</Small>
+                  <Select
+                    defaultValue={currentStatusFilter}
+                    onChange={onStatusChange}
+                  >
+                    <option value={""} />
+                    <option value={"open"}>
+                      {t("search_findings.tab_vuln.open")}
+                    </option>
+                    <option value={"closed"}>
+                      {t("search_findings.tab_vuln.closed")}
+                    </option>
+                  </Select>
+                </SelectContainer>
+              </RowFilters>
+            </Row>
+            <Row>
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}
                 findingId={findingId}
@@ -148,8 +307,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 onVulnSelect={openRemediationModal}
                 vulnerabilities={
                   shouldFilterZeroRisk
-                    ? filterZeroRisk(data.finding.vulnerabilities)
-                    : data.finding.vulnerabilities
+                    ? filterZeroRisk(vulnerabilities)
+                    : vulnerabilities
                 }
               />
             </Row>

@@ -1895,8 +1895,12 @@ export const enTranslations: ResourceKey = {
         title: "Info",
       },
       open: "Open",
+      requested: "Requested",
+      searchText: "Search Text",
+      status: "Status",
       tab_title: "Locations",
       tooltip: "Open / Closed vulnerabilities",
+      verified: "Verified",
       vulnTable: {
         currentTreatment: "Current",
         cycles: "Cycles",
