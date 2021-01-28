@@ -45,7 +45,7 @@ from git import (
 )
 
 # Local libraries
-from shared import (
+from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     DATE_NOW,
     DATE_SENTINEL,

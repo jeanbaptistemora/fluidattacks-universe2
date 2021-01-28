@@ -2,6 +2,9 @@
 from contextlib import (
     contextmanager,
 )
+from datetime import (
+    datetime,
+)
 import logging
 from os import (
     environ,
@@ -10,7 +13,6 @@ from typing import (
     Any,
     Iterator,
 )
-
 # Third party libraries
 from aioextensions import (
     in_thread,
@@ -22,6 +24,12 @@ from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
 )
+
+
+COMMIT_HASH_SENTINEL: str = '-' * 40
+DATE_SENTINEL: datetime = datetime.utcfromtimestamp(0)
+DATE_NOW: datetime = datetime.utcnow()
+
 # Logging
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.INFO)

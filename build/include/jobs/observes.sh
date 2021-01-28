@@ -160,7 +160,7 @@ function job_observes_code_upload_group {
                 ||  return 1
               done \
           &&  echo "[INFO] Executing ${group}" \
-          &&  python3 "${STARTDIR}/observes/code_etl/upload.py" \
+          &&  python3 "${STARTDIR}/observes/code_etl/code_etl/upload.py" \
                 --namespace "${group}" \
                 "groups/${group}/fusion/"* \
           &&  shopt -u nullglob \
@@ -216,7 +216,7 @@ function job_observes_code_amend_authors {
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
   &&  helper_common_use_services \
-    &&  python3 "${STARTDIR}/observes/code_etl/ammend_authors.py" \
+    &&  python3 "${STARTDIR}/observes/code_etl/code_etl/ammend_authors.py" \
           --mailmap '.groups-mailmap' \
   &&  popd \
   ||  return 1
@@ -260,7 +260,7 @@ function job_observes_code_compute_bills {
   &&  bucket_month="s3://continuous-data/bills/$(date +%Y)/$(date +%m)" \
   &&  bucket_day="s3://continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
   &&  echo "[INFO] Temporary results folder: ${folder}" \
-  &&  python3 "${STARTDIR}/observes/code_etl/compute_bills.py" \
+  &&  python3 "${STARTDIR}/observes/code_etl/code_etl/compute_bills.py" \
         --folder "${folder}" \
         --year "$(date +%Y)" \
         --month "$(date +%m)" \

@@ -25,7 +25,7 @@ from typing import (
 import requests
 from ratelimiter import RateLimiter
 # Local libraries
-from shared import (
+from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     db_cursor,
     log_sync,
@@ -47,10 +47,11 @@ SELECT_ALL: str = """
 # Types
 MonthData = Dict[str, Dict[str, List[Any]]]
 
+
 @RateLimiter(max_calls=60, period=60)
 def get_group_org(token: str, group: str) -> str:
     query = """
-        query($projectName: String!){
+        query ObservesGetGroupOrganization($projectName: String!){
             project(projectName: $projectName){
                     organization
             }

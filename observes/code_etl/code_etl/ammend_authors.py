@@ -1,7 +1,10 @@
 """Walks all data in Redshift and edit those authors accordingly to mailmap."""
 
 # Standard library
+import argparse
 from asyncio import (
+    run,
+    create_task,
     Queue,
 )
 import re
@@ -26,7 +29,9 @@ from code_etl.utils import (
 )
 
 # Constants
+WORKERS_COUNT: int = 8
 MailmapMapping = Dict[Tuple[str, str], Tuple[str, str]]
+"""Mapping from (author, email) to (canonical_author, canonical_email)."""
 UPDATE_QUERY: str = """
     UPDATE code.commits
     SET
@@ -111,6 +116,26 @@ async def get_items_to_change(
     return items_to_change
 
 
+async def worker(
+    identifier: int,
+    queue: Queue,
+    mailmap_dict: MailmapMapping,
+) -> None:
+    with db_cursor() as cursor:
+        while True:
+            item: Item = await queue.get()
+            items_to_change = await get_items_to_change([item], mailmap_dict)
+
+            for item in items_to_change:
+                await log(
+                    'info', 'Worker[%s]: Sending to %s',
+                    identifier, item.namespace,
+                )
+                await in_thread(cursor.execute, UPDATE_QUERY, item._asdict())
+
+            queue.task_done()
+
+
 async def item_emitter(queue: Queue) -> None:
     # Iterate all rows in the DB and put them on a queue
     with db_cursor() as cursor:
@@ -143,3 +168,31 @@ async def item_emitter(queue: Queue) -> None:
                 committer_email=committer_email,
                 committer_name=committer_name,
             ))
+
+
+async def main(mailmap_path: str) -> None:
+    mailmap_dict: MailmapMapping = get_mailmap_dict(mailmap_path)
+    queue: Queue = Queue(maxsize=2 * WORKERS_COUNT)
+    worker_tasks = [
+        create_task(worker(identifier, queue, mailmap_dict))
+        for identifier in range(WORKERS_COUNT)
+    ]
+
+    await item_emitter(queue)
+    await queue.join()
+
+    for worker_task in worker_tasks:
+        worker_task.cancel()
+
+
+def cli() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mailmap-path', required=True)
+
+    args = parser.parse_args()
+
+    run(main(args.mailmap_path))
+
+
+if __name__ == '__main__':
+    cli()
