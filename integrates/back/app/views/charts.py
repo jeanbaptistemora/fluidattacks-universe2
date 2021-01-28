@@ -39,7 +39,7 @@ async def graphics_for_entity(entity: str, request: Request) -> Response:
         request=request,
     )
 
-    jwt_token = utils.create_session_token(
+    jwt_token = await utils.create_session_token(
         dict(
             username=request_data['user_email'],
             first_name=request_data['first_name'],

@@ -28,7 +28,8 @@ from backend.dal import (
     session as session_dal,
 )
 from backend.dal.helpers.redis import (
-    redis_exists_entity_attr,
+    redis_del_entity_attr,
+    redis_exists_entity_attr
 )
 from backend.decorators import authenticate_session
 from backend.domain import (
@@ -79,7 +80,7 @@ async def app(*request_args: Request) -> HTMLResponse:
             else:
                 response = templates.main_app(request)
 
-                jwt_token = utils.create_session_token(request.session)
+                jwt_token = await utils.create_session_token(request.session)
                 utils.set_token_in_response(response, jwt_token)
         else:
             response = templates.unauthorized(request)
@@ -100,7 +101,13 @@ async def app(*request_args: Request) -> HTMLResponse:
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
     if 'username' in request.session:
-        await session_dal.remove_session_web(request.session['username'])
+        user_email = request.session['username']
+        await session_dal.remove_session_web(user_email)
+        await redis_del_entity_attr(
+            entity='session',
+            attr='jti',
+            email=user_email
+        )
 
     request.session.clear()
 

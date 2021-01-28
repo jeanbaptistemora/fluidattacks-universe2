@@ -40,14 +40,15 @@ from jose import jwt, JWTError
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
-from backend.dal import session as session_dal
 from backend.dal.helpers.redis import (
-    redis_set_entity_attr,
+    redis_get_entity_attr,
+    redis_set_entity_attr
 )
 from backend.exceptions import (
     ExpiredToken,
     InvalidAuthorization,
 )
+from backend.model import redis_model
 from backend.typing import (
     Finding as FindingType,
     User as UserType,
@@ -152,11 +153,16 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
             content = token_helper.decode_jwt(token, api=True)
         else:
             content = token_helper.decode_jwt(token)
-            jti = content.get('jti')
-            if (content.get('sub') == 'django_session' and
-                    not await session_dal.element_exists(f'fi_jwt:{jti}')):
-                # Session expired (user logged out)
-                raise ExpiredToken()
+            if content.get('sub') == 'starlette_session':
+                try:
+                    await redis_get_entity_attr(
+                        entity='session',
+                        attr='jti',
+                        email=content['user_email']
+                    )
+                except redis_model.KeyNotFound:
+                    # Session expired (user logged out)
+                    raise ExpiredToken()
 
     except jwt.ExpiredSignatureError:
         # Session expired

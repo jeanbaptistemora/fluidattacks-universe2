@@ -23,6 +23,8 @@ from backend.dal import (
 )
 from backend.dal.helpers.redis import (
     redis_cmd,
+    redis_del_entity_attr,
+    redis_set_entity_attr,
 )
 from backend.util import (
     ord_asc_by_criticality,
@@ -70,7 +72,7 @@ async def test_payload_encode_decode():
         'user_email': 'unittest',
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': calculate_hash_token()['jti'],
     }
     result = encodings.jwt_payload_decode(
@@ -82,7 +84,7 @@ async def test_payload_encrypt_decrypt():
         'user_email': 'unittest',
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': calculate_hash_token()['jti'],
     }
     result = token_helper._decrypt_jwt_payload(
@@ -96,7 +98,7 @@ async def test_decrypt_temp_support_for_nonencrypted():
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
         'iat': datetime.utcnow().timestamp(),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': calculate_hash_token()['jti'],
     }
     result = token_helper._decrypt_jwt_payload(payload)
@@ -108,17 +110,23 @@ async def test_get_jwt_content():
         'user_email': 'unittest',
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': calculate_hash_token()['jti'],
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jti',
+        email=payload['user_email'],
+        value=payload['jti'],
+        ttl=settings.SESSION_COOKIE_AGE
+    )
     test_data = await get_jwt_content(request)
     expected_output = {
         u'user_email': u'unittest',
         u'exp': payload['exp'],
-        u'sub': u'django_session',
+        u'sub': u'starlette_session',
         u'jti': payload['jti'],
     }
     assert test_data == expected_output
@@ -173,12 +181,18 @@ async def test_expired_token():
         'user_email': 'unittest',
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': calculate_hash_token()['jti'],
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, 5)
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jti',
+        email=payload['user_email'],
+        value=payload['jti'],
+        ttl=5
+    )
     time.sleep(6)
     with pytest.raises(ExpiredToken):
         assert await get_jwt_content(request)
@@ -189,14 +203,23 @@ async def test_revoked_token():
         'user_email': 'unittest',
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': calculate_hash_token()['jti'],
     }
     token = token_helper.new_encoded_jwt(payload)
     request.cookies[settings.JWT_COOKIE_NAME] = token
-    redis_token_name = f'fi_jwt:{payload["jti"]}'
-    await session_dal.add_element(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
-    await redis_cmd('delete', redis_token_name)
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jti',
+        email=payload['user_email'],
+        value=payload['jti'],
+        ttl=settings.SESSION_COOKIE_AGE
+    )
+    await redis_del_entity_attr(
+        entity='session',
+        attr='jti',
+        email=payload['user_email']
+    )
     with pytest.raises(ExpiredToken):
         assert await get_jwt_content(request)
 

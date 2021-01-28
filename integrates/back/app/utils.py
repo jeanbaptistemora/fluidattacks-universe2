@@ -14,11 +14,16 @@ from starlette.responses import HTMLResponse
 from authlib.integrations.starlette_client import OAuth
 
 # Local libraries
+from backend.dal.helpers.redis import redis_set_entity_attr
 from backend.domain import (
     user as user_domain,
     project as group_domain,
 )
-from backend import authz, mailer, util
+from backend import (
+    authz,
+    mailer,
+    util
+)
 from backend.utils import (
     token as token_helper,
 )
@@ -31,11 +36,12 @@ from __init__ import (
 )
 
 
-def create_session_token(user: Dict[str, str]) -> str:
+async def create_session_token(user: Dict[str, str]) -> str:
     jti = util.calculate_hash_token()['jti']
+    user_email = user['username']
     jwt_token: str = token_helper.new_encoded_jwt(
         dict(
-            user_email=user['username'],
+            user_email=user_email,
             first_name=user['first_name'],
             last_name=user['last_name'],
             exp=(
@@ -45,6 +51,14 @@ def create_session_token(user: Dict[str, str]) -> str:
             sub='starlette_session',
             jti=jti,
         )
+    )
+
+    await redis_set_entity_attr(
+        entity='session',
+        attr='jti',
+        email=user_email,
+        value=jti,
+        ttl=settings.SESSION_COOKIE_AGE
     )
 
     return jwt_token

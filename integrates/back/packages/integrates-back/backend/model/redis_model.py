@@ -153,6 +153,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'email',
         },
         attrs={
+            'jti',
             'web',
         },
         dependencies={
