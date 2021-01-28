@@ -18,8 +18,8 @@ resource "aws_lambda_function" "integrates-send-mail-notification" {
 }
 
 resource "aws_lambda_event_source_mapping" "integrates-event-source-mapping" {
-  batch_size        = 10
-  event_source_arn  = var.sqs_id
-  enabled           = true
-  function_name     = aws_lambda_function.integrates-send-mail-notification.arn
+  batch_size       = 10
+  event_source_arn = var.sqs_id
+  enabled          = true
+  function_name    = aws_lambda_function.integrates-send-mail-notification.arn
 }

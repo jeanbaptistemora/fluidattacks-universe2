@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
   }
 
   origin {
-    origin_id = "S3-fluidintegrates.resources"
+    origin_id   = "S3-fluidintegrates.resources"
     domain_name = aws_s3_bucket.fi_resources_bucket.bucket_domain_name
 
     s3_origin_config {
@@ -44,7 +44,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
       "GET",
       "HEAD"
     ]
-    cached_methods  = [
+    cached_methods = [
       "GET",
       "HEAD"
     ]
@@ -56,7 +56,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
       query_string = false
 
       cookies {
-        forward    = "none"
+        forward = "none"
       }
     }
   }
@@ -72,7 +72,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
       "GET",
       "HEAD"
     ]
-    cached_methods  = [
+    cached_methods = [
       "GET",
       "HEAD"
     ]
@@ -84,13 +84,13 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
       query_string = false
 
       cookies {
-        forward    = "none"
+        forward = "none"
       }
     }
   }
 
   custom_error_response {
-    error_code = 404
+    error_code            = 404
     error_caching_min_ttl = 0
   }
 
@@ -120,7 +120,7 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   }
 
   origin {
-    origin_id = "S3-fluidintegrates.reports"
+    origin_id   = "S3-fluidintegrates.reports"
     domain_name = aws_s3_bucket.fi_reports_bucket.bucket_domain_name
 
     s3_origin_config {
@@ -138,7 +138,7 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
       "GET",
       "HEAD"
     ]
-    cached_methods  = [
+    cached_methods = [
       "GET",
       "HEAD"
     ]
@@ -150,7 +150,7 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
       query_string = false
 
       cookies {
-        forward    = "none"
+        forward = "none"
       }
     }
   }

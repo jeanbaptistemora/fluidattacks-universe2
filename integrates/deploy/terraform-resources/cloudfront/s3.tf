@@ -126,9 +126,9 @@ resource "aws_s3_bucket" "fi_forces_bucket" {
 
 data "aws_iam_policy_document" "cloudfront_s3_access" {
   statement {
-    sid       = "CloudFrontAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "CloudFrontAccess"
+    effect = "Allow"
+    actions = [
       "s3:GetObject"
     ]
     resources = [
@@ -136,7 +136,7 @@ data "aws_iam_policy_document" "cloudfront_s3_access" {
     ]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
       ]
@@ -146,9 +146,9 @@ data "aws_iam_policy_document" "cloudfront_s3_access" {
 
 data "aws_iam_policy_document" "cloudfront_s3_evidences_access" {
   statement {
-    sid       = "CloudFrontAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "CloudFrontAccess"
+    effect = "Allow"
+    actions = [
       "s3:GetObject"
     ]
     resources = [
@@ -156,7 +156,7 @@ data "aws_iam_policy_document" "cloudfront_s3_evidences_access" {
     ]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
       ]
@@ -166,9 +166,9 @@ data "aws_iam_policy_document" "cloudfront_s3_evidences_access" {
 
 data "aws_iam_policy_document" "cloudfront_s3_reports_access" {
   statement {
-    sid       = "CloudFrontAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "CloudFrontAccess"
+    effect = "Allow"
+    actions = [
       "s3:GetObject"
     ]
     resources = [
@@ -176,7 +176,7 @@ data "aws_iam_policy_document" "cloudfront_s3_reports_access" {
     ]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
       ]
@@ -186,9 +186,9 @@ data "aws_iam_policy_document" "cloudfront_s3_reports_access" {
 
 data "aws_iam_policy_document" "cloudfront_s3_forces_access" {
   statement {
-    sid       = "CloudFrontAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "CloudFrontAccess"
+    effect = "Allow"
+    actions = [
       "s3:GetObject"
     ]
     resources = [
@@ -196,7 +196,7 @@ data "aws_iam_policy_document" "cloudfront_s3_forces_access" {
     ]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
       ]
