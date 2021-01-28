@@ -4,20 +4,20 @@ resource "aws_elasticache_subnet_group" "cache_db" {
 }
 
 resource "aws_security_group" "main" {
-  name = "integrates_cache"
+  name   = "integrates_cache"
   vpc_id = var.fluid_vpc_id
 
   ingress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
