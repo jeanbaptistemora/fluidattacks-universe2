@@ -21,6 +21,7 @@
 .integrates_commit_pattern: &integrates_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|integrates)/'
 
 .in_everywhere_except_periodic_jobs_and_mrs_integrates: &in_everywhere_except_periodic_jobs_and_mrs_integrates
+  resource_group: integrates_in_master_branch
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
