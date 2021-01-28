@@ -1,6 +1,7 @@
 import pytest
 
 from backend.exceptions import StakeholderNotFound
+from test_async.functional_test.utils import complete_register
 from test_async.functional_test.customeradmin.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -33,6 +34,7 @@ async def test_user():
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
     assert  result['data']['grantStakeholderAccess']['grantedStakeholder'] == {'email': stakeholder}
+    assert await complete_register(stakeholder, group_name)
 
     query = f'''
         {{

@@ -6,6 +6,7 @@ from backend.exceptions import (
     NotPendingDeletion,
     UserNotInOrganization
 )
+from test_async.functional_test.utils import complete_register
 from test_async.functional_test.customeradmin.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -56,10 +57,11 @@ async def test_project():
     assert result['data']['createProject']['success']
 
     role = 'CUSTOMERADMIN'
+    customeradmin_email = 'integratesuser@gmail.com'
     query = f'''
         mutation {{
             grantStakeholderAccess (
-                email: "integratesuser@gmail.com",
+                email: "{customeradmin_email}",
                 phoneNumber: "-",
                 projectName: "{group_name}",
                 responsibility: "Customer Admin",
@@ -76,11 +78,12 @@ async def test_project():
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
+    assert await complete_register(customeradmin_email, group_name)
 
     query = f'''
         mutation {{
             grantStakeholderAccess (
-                email: "integratesuser@gmail.com",
+                email: "{customeradmin_email}",
                 phoneNumber: "-",
                 projectName: "{group_name2}",
                 responsibility: "Customer Admin",
@@ -97,6 +100,7 @@ async def test_project():
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
+    assert await complete_register(customeradmin_email, group_name2)
 
     query = f'''
         mutation {{

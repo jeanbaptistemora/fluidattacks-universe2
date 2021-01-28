@@ -1,6 +1,7 @@
 import json
 import pytest
 
+from test_async.functional_test.utils import complete_register
 from test_async.functional_test.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
@@ -41,6 +42,7 @@ async def test_project():
     assert result['data']['createProject']['success']
 
     role = 'CUSTOMER'
+    customer_email = 'integratescustomer@gmail.com'
     query = f'''
         mutation {{
             grantStakeholderAccess (
@@ -61,6 +63,8 @@ async def test_project():
     result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
     assert  result['data']['grantStakeholderAccess']['success']
+    assert await complete_register(customer_email, group_name)
+
 
     query = f'''
         mutation {{
