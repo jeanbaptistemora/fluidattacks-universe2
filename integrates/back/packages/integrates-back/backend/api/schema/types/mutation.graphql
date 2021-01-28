@@ -379,11 +379,10 @@ type Mutation {
   updateVulnsTreatment(
     acceptanceDate: String
     findingId: String!
+    justification: String!
     treatment: UpdateClientDescriptionTreatment!
     treatmentManager: String
-    justification: String!
-    vulnerabilities: [String]
-    vulnerabilityId: ID
+    vulnerabilityId: ID!
   ): SimplePayload!
 
   uploadFile(file: Upload!, findingId: String!): SimplePayload!

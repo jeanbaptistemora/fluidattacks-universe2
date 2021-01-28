@@ -693,15 +693,6 @@ class AcceptionNotRequested(Exception):
         super(AcceptionNotRequested, self).__init__(msg)
 
 
-class MaxNumberOfVulns(Exception):
-    """Exception to control max number of vulns"""
-
-    def __init__(self, max_value: int) -> None:
-        """ Constructor """
-        msg = f'Exception - You can update up to {max_value} vulnerabilities'
-        super(MaxNumberOfVulns, self).__init__(msg)
-
-
 class RootNotFound(Exception):
     def __init__(self) -> None:
         msg = 'Exception - Access denied or root not found'
