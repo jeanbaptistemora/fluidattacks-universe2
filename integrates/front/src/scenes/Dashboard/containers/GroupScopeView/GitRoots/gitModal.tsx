@@ -7,7 +7,7 @@ import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import _ from "lodash";
 import style from "./index.css";
 import { useSelector } from "react-redux";
@@ -163,7 +163,11 @@ const GitModal: React.FC<IGitModalProps> = ({
               </fieldset>
               <Can do={"update_git_root_filter"}>
                 <fieldset>
-                  <TooltipWrapper message={t("group.scope.git.filter.tooltip")}>
+                  <TooltipWrapper
+                    displayClass={"dib"}
+                    id={"group.scope.git.filter.tooltip.info"}
+                    message={t("group.scope.git.filter.tooltip")}
+                  >
                     <ControlLabel>
                       {t("group.scope.git.filter.exclude")}
                     </ControlLabel>

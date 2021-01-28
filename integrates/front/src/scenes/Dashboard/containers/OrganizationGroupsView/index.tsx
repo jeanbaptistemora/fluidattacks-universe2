@@ -10,7 +10,7 @@ import { Button } from "components/Button";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { DataTableNext } from "components/DataTableNext/index";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { TooltipWrapper } from "components/NewTooltipWrapper/index";
 import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
 import { default as style } from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
@@ -113,7 +113,10 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
         <Row>
           <Can do="backend_api_mutations_create_group_mutate">
             <ButtonToolbarCenter>
-              <TooltipWrapper message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}>
+              <TooltipWrapper
+                id={"organization.tabs.groups.newGroup.new.tooltip.btn"}
+                message={translate.t("organization.tabs.groups.newGroup.new.tooltip")}
+              >
                 <Button id={"add-group"} onClick={openNewProjectModal}>
                   <Glyphicon glyph="plus" />&nbsp;{translate.t("organization.tabs.groups.newGroup.new.text")}
                 </Button>

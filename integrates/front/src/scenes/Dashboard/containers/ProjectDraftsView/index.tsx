@@ -20,7 +20,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
@@ -202,7 +202,10 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 <Row>
                   <Col100>
                     <ButtonToolbarCenter>
-                      <TooltipWrapper message={translate.t("group.drafts.btn.tooltip")}>
+                      <TooltipWrapper
+                        id={"group.drafts.btn.tooltip"}
+                        message={translate.t("group.drafts.btn.tooltip")}
+                      >
                         <Button onClick={openNewDraftModal}>
                           <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.btn.text")}
                         </Button>

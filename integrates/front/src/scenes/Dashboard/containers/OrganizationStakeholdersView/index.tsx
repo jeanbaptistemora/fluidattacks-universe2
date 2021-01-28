@@ -12,7 +12,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -293,6 +293,8 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
               <Col100>
                 <ButtonToolbar>
                     <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"organization.tabs.users.addButton.tooltip.btn"}
                       message={translate.t("organization.tabs.users.addButton.tooltip")}
                     >
                       <Button id="addUser" onClick={openAddStakeholderModal}>
@@ -301,6 +303,8 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                       </Button>
                     </TooltipWrapper>
                     <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"organization.tabs.users.editButton.tooltip.btn"}
                       message={translate.t("organization.tabs.users.editButton.tooltip")}
                     >
                       <Button id="editUser" onClick={openEditStakeholderModal} disabled={_.isEmpty(currentRow)}>
@@ -309,6 +313,8 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                       </Button>
                     </TooltipWrapper>
                     <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"organization.tabs.users.removeButton.tooltip.btn"}
                       message={translate.t("organization.tabs.users.removeButton.tooltip")}
                     >
                       <Button

@@ -8,7 +8,7 @@ import { Glyphicon } from "react-bootstrap";
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
@@ -161,23 +161,26 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                         }
                         items={
                           frequencies.map((freq: string): JSX.Element => (
-                            <MenuItem
-                              eventKey={freq}
+                            <TooltipWrapper
+                              id={freq}
                               key={freq}
-                              onClick={subscribeDropdownOnSelect}
-                              itemContent={
-                                <React.Fragment>
-                                  <TooltipWrapper
-                                    message={translateFrequencyArrivalTime(freq)}
-                                    placement="right"
-                                  >
-                                    <span>
-                                      {translateFrequency(freq, "action")}
-                                    </span>
-                                  </TooltipWrapper>
-                                </React.Fragment>
-                              }
-                            />
+                              message={translateFrequencyArrivalTime(freq)}
+                              placement="right"
+                            >
+                              <MenuItem
+                                eventKey={freq}
+                                key={freq}
+                                onClick={subscribeDropdownOnSelect}
+                                itemContent={
+                                  <React.Fragment>
+                                      <span>
+                                        {translateFrequency(freq, "action")}
+                                      </span>
+                                  </React.Fragment>
+                                }
+                              />
+                            </TooltipWrapper>
+
                         ))}
                       />
                     </ButtonToolbarCenter>

@@ -21,7 +21,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "scenes/Dashboard/containers/ProjectEventsView/queries";
 import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";
@@ -229,7 +229,10 @@ const projectEventsView: React.FC = (): JSX.Element => {
                   <Col100>
                     <ButtonToolbarCenter>
                       <Can do="backend_api_mutations_create_event_mutate">
-                        <TooltipWrapper message={translate.t("group.events.btn.tooltip")}>
+                        <TooltipWrapper
+                          id={"group.events.btn.tooltip.id"}
+                          message={translate.t("group.events.btn.tooltip")}
+                        >
                           <Button onClick={openNewEventModal}>
                             <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.btn.text")}
                           </Button>
