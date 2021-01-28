@@ -81,7 +81,7 @@ async def entrypoint(
             f"Running forces on the repository: {config.repository_name}")
 
         # check if repo is in roots
-        if not check_remotes(config):
+        if not await check_remotes(config):
             return 1
 
     report = await generate_report(config)
@@ -91,7 +91,8 @@ async def entrypoint(
             copy.deepcopy(report), verbose_level=config.verbose_level)
         await log('info', '\n%s', yaml_report)
     else:
-        log('info', 'The current repository has no reported vulnerabilities')
+        await log('info',
+                  'The current repository has no reported vulnerabilities')
 
     if output := config.output:
         temp_file.seek(os.SEEK_SET)
