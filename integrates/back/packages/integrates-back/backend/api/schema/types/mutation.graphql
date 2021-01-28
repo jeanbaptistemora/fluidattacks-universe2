@@ -369,7 +369,8 @@ type Mutation {
 
   updateTreatmentVuln(
     findingId: String!
-    vulnerabilities: [String]!
+    vulnerabilityId: ID
+    vulnerabilities: [String]
     severity: Int
     tag: String
     externalBts: String
@@ -381,7 +382,8 @@ type Mutation {
     treatment: UpdateClientDescriptionTreatment!
     treatmentManager: String
     justification: String!
-    vulnerabilities: [String]!
+    vulnerabilities: [String]
+    vulnerabilityId: ID
   ): SimplePayload!
 
   uploadFile(file: Upload!, findingId: String!): SimplePayload!

@@ -196,7 +196,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                     dataTreatment.treatment !== "IN_PROGRESS"
                       ? undefined
                       : dataTreatment.treatmentManager,
-                  vulnerabilities: [vuln.id],
+                  vulnerabilityId: vuln.id,
                 },
               })
           )

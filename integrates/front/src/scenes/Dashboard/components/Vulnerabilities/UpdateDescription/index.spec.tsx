@@ -410,14 +410,14 @@ describe("Update Description component", (): void => {
       {
         request: {
           query: UPDATE_DESCRIPTION_MUTATION,
-          variables: { ...mutationVariables, vulnerabilities: ["test1"] },
+          variables: { ...mutationVariables, vulnerabilityId: "test1" },
         },
         result: { data: updateTreatment },
       },
       {
         request: {
           query: UPDATE_DESCRIPTION_MUTATION,
-          variables: { ...mutationVariables, vulnerabilities: ["test2"] },
+          variables: { ...mutationVariables, vulnerabilityId: "test2" },
         },
         result: { data: updateTreatment },
       },
@@ -547,7 +547,7 @@ describe("Update Description component", (): void => {
           severity: -1,
           tag: "one",
           treatment: "ACCEPTED_UNDEFINED",
-          vulnerabilities: ["test"],
+          vulnerabilityId: "test",
         },
       },
       result: {

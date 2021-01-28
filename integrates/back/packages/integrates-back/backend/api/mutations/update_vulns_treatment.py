@@ -1,5 +1,5 @@
 # Standard
-from typing import List
+from typing import List, Optional
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
@@ -32,10 +32,16 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    vulnerabilities: List[str],
+    vulnerabilities: Optional[List[str]] = None,
+    vulnerability_id: str = '',
     **parameters: str,
 ) -> SimplePayload:
-    if len(vulnerabilities) > MAX_VULNS:
+    vulns = (
+        vulnerabilities
+        if vulnerabilities
+        else [vulnerability_id]
+    )
+    if len(vulns) > MAX_VULNS:
         raise MaxNumberOfVulns(MAX_VULNS)
     user_info = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
@@ -47,7 +53,7 @@ async def mutate(
         organization_name=await get_id_for_group(group_name),
         finding_severity=float(finding_data['severity_score']),
         user_email=user_email,
-        vuln_ids=vulnerabilities,
+        vuln_ids=vulns,
         group_name=group_name,
     )
     if success:
