@@ -368,12 +368,11 @@ type Mutation {
   ): SimpleFindingPayload!
 
   updateTreatmentVuln(
+    externalBts: String
     findingId: String!
-    vulnerabilityId: ID
-    vulnerabilities: [String]
     severity: Int
     tag: String
-    externalBts: String
+    vulnerabilityId: ID!
   ): SimplePayload!
 
   updateVulnsTreatment(
