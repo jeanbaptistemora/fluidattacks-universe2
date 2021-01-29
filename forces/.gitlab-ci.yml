@@ -8,16 +8,6 @@
   variables:
     GIT_DEPTH: 5
 
-.with_nix: &with_nix
-  tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
-  needs: []
-  script:
-    - ./build.sh "${CI_JOB_NAME% *}"
-  interruptible: true
-  variables:
-    GIT_DEPTH: 5
-
 .forces_commit_pattern: &forces_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces)/'
 
 .forces_in_dev_and_master_branch: &forces_in_dev_and_master_branch
@@ -53,13 +43,7 @@ forces/test:
   <<: *forces_in_dev_and_master_branch
   stage: test-code
 
-forces_deploy:
-  <<: *with_nix
+forces/oci-deploy:
+  <<: *makes
   <<: *forces_in_master_branch
   stage: deploy-app
-
-forces_deploy_to_docker_hub:
-  <<: *with_nix
-  <<: *forces_in_master_branch
-  stage: post-deploy
-  needs: [forces_deploy]
