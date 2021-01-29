@@ -33,11 +33,11 @@ resource "aws_s3_bucket" "development" {
 
 data "aws_iam_policy_document" "development" {
   statement {
-    sid     = "CloudFlare"
-    effect  = "Allow"
+    sid    = "CloudFlare"
+    effect = "Allow"
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["*"]
     }
     actions = [
@@ -69,9 +69,9 @@ resource "cloudflare_page_rule" "development" {
   priority = 1
 
   actions {
-    cache_level            = "aggressive"
-    edge_cache_ttl         = 1800
-    browser_cache_ttl      = 1800
+    cache_level       = "aggressive"
+    edge_cache_ttl    = 1800
+    browser_cache_ttl = 1800
   }
 }
 
