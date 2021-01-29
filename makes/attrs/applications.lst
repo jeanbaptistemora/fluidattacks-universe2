@@ -4,6 +4,7 @@ forces/test
 integrates/infra-backup-test
 integrates/infra-cache-db-apply
 integrates/infra-cache-db-test
+integrates/infra-cluster-test
 integrates/infra-database-test
 integrates/infra-resources-apply
 integrates/infra-resources-test

@@ -757,24 +757,6 @@ function job_integrates_infra_cluster_deploy {
   || return 1
 }
 
-function job_integrates_infra_cluster_test {
-  local target='deploy/cluster/terraform'
-  local cluster='integrates-cluster'
-  local region='us-east-1'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_cloudflare_login development \
-    &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-          NEW_RELIC_LICENSE_KEY \
-    &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_front_deploy {
   local target='deploy/front/terraform'
 
@@ -872,10 +854,10 @@ function job_integrates_test_e2e {
     --maxfail 20
     --show-capture no
     --verbose
-    --reruns 5
+    --reruns 10
     --test-group-count "${CI_NODE_TOTAL}"
     --test-group "${CI_NODE_INDEX}"
-    -n 4
+    -n 2
   )
 
       pushd integrates \

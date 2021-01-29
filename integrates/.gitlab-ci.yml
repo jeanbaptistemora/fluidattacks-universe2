@@ -112,6 +112,11 @@ integrates/infra-cache-db-test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
+integrates/infra-cluster-test:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: test-infra
+
 integrates/infra-database-test:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -424,11 +429,6 @@ integrates_infra_cluster_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
-
-integrates_infra_cluster_test:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: test-infra
 
 integrates_infra_front_deploy:
   <<: *with_nix
