@@ -22,7 +22,7 @@ import aiogqlc.utils
 from frozendict import frozendict
 
 # Local imports
-from toolbox import logger
+from toolbox.logger import LOGGER
 from toolbox.api.limits import DEFAULT as DEFAULT_RATE_LIMIT
 from toolbox.utils.function import rate_limited
 
@@ -106,21 +106,21 @@ async def gql_request(
 
     # Guarantee data immutability
     if isinstance(data, dict):
-        logger.debug('response data is a dict')
+        LOGGER.debug('response data is a dict')
         data = frozendict(data)
     elif isinstance(data, list):
-        logger.debug('response data is a non-empty tuple')
+        LOGGER.debug('response data is a non-empty tuple')
         data = tuple(data)
     else:
-        logger.debug('response data is an empty tuple')
+        LOGGER.debug('response data is an empty tuple')
         data = tuple()
 
     # Guarantee errors immutability
     if errors:
-        logger.debug('response errors is a non-empty tuple')
+        LOGGER.debug('response errors is a non-empty tuple')
         errors = tuple(errors)
     else:
-        logger.debug('response errors is an empty tuple')
+        LOGGER.debug('response errors is an empty tuple')
         errors = tuple()
 
     return Response(ok=200 <= response.status < 400 and not errors,
@@ -156,7 +156,7 @@ def request(api_token: str,
 
             if response.errors or isinstance(response.data, expected_types):
                 # It's ok, return
-                logger.debug('response', response)
+                LOGGER.debug('response: %s', response)
                 return response
 
         time.sleep(RETRY_RELAX_SECONDS)
@@ -176,7 +176,7 @@ class Queries:
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def me(api_token: str) -> Response:  # pylint: disable=invalid-name
         """Get an API token from your session token."""
-        logger.debug('Query.me()')
+        LOGGER.debug('Query.me()')
         body: str = """
             query MeltsGetMe {
                 me {
@@ -197,10 +197,9 @@ class Queries:
                 with_drafts: bool = False,
                 with_findings: bool = False) -> Response:
         """Get a project."""
-        logger.debug(f'Query.project('
-                     f'project_name={project_name}, '
-                     f'with_drafts={with_drafts}, '
-                     f'with_findings={with_findings})')
+        LOGGER.debug(
+            'Query.project(project_name=%s, with_drafts=%s,'
+            ' with_findings=%s)', project_name, with_drafts, with_findings)
         body: str = """
             query MeltsGetProject($projectName: String!, $withDrafts: Boolean!,
                              $withFindings: Boolean!) {
@@ -228,8 +227,7 @@ class Queries:
     def wheres(api_token: str,
                project_name: str) -> Response:
         """Get all the open, code wheres from a project."""
-        logger.debug(f'Query.project('
-                     f'project_name={project_name})')
+        LOGGER.debug('Query.project(project_name=%s)', project_name)
         body: str = """
             query MeltsGetWheres($projectName: String!) {
                 project(projectName: $projectName) {
@@ -254,9 +252,8 @@ class Queries:
                 identifier: str,
                 with_vulns: bool = False) -> Response:
         """Helper to get a finding."""
-        logger.debug(f'Query.finding('
-                     f'identifier={identifier}, '
-                     f'with_vulns={with_vulns})')
+        LOGGER.debug('Query.finding(identifier=%s, with_vulns=%s)', identifier,
+                     with_vulns)
         assert isinstance(identifier, str)
         body: str = """
             query MeltsGetFinding($identifier: String!, $withVulns: Boolean!) {
@@ -297,8 +294,7 @@ class Queries:
     def resources(api_token: str,
                   project_name: str) -> Response:
         """Get the project repositories"""
-        logger.debug(f'Query.finding('
-                     f'project_name={project_name} ')
+        LOGGER.debug('Query.finding(project_name=%s', project_name)
         body: str = """
         query MeltsGetResources($projectName: String!) {
             resources (projectName: $projectName) {
@@ -394,11 +390,10 @@ class Mutations:
         file_path: str,
     ) -> Response:
         """UpdateEvidence."""
-        logger.debug(f'Mutations.update_evidence('
-                     f'finding_id={finding_id}, '
-                     f'evidence_id={evidence_id}, '
-                     f'file_path={file_path}, '
-                     f')')
+        LOGGER.debug(
+            'Mutations.update_evidence(finding_id=%s, '
+            'evidence_id=%s, file_path=%s, )', finding_id, evidence_id,
+            file_path)
         assert isinstance(finding_id, str)
         assert isinstance(evidence_id, str) and evidence_id in (
             'EXPLOIT',
@@ -437,9 +432,8 @@ class Mutations:
                     identifier: str,
                     file_path: str) -> Response:
         """UploadFile."""
-        logger.debug(f'Mutations.upload_file('
-                     f'identifier={identifier}, '
-                     f'file_path={file_path})')
+        LOGGER.debug('Mutations.upload_file(identifier=%s, file_path=%s)',
+                     identifier, file_path)
         assert isinstance(identifier, str)
         assert isinstance(file_path, str) and os.path.exists(file_path)
         body: str = """

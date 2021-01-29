@@ -4,7 +4,7 @@ from datetime import datetime, date
 from textwrap import dedent
 
 # Local libraries
-from toolbox import logger
+from toolbox.logger import LOGGER
 from toolbox.utils.function import shield
 
 
@@ -32,7 +32,7 @@ def process_lines_csv(subs: str) -> Objective:
                         if tested_date == date.today():
                             lines.today += int(file['tested-lines'])
     except FileNotFoundError as exc:
-        logger.warn(f"'{exc.filename}' file not found.")
+        LOGGER.warning("'%s' file not found.", exc.filename)
     return lines
 
 
@@ -53,7 +53,7 @@ def process_inputs_csv(subs: str) -> Objective:
                             if tested_date == date.today():
                                 inputs.today += 1
     except FileNotFoundError as exc:
-        logger.warn(f"'{exc.filename}' file not found.")
+        LOGGER.warning("'%s' file not found.", exc.filename)
     return inputs
 
 
@@ -83,7 +83,7 @@ def get_scope(lines: Objective, inputs: Objective) -> str:
         scope = "inputs"
     else:
         scope = "cross"
-        logger.info("You may want to test the ToE before making the commit.")
+        LOGGER.info("You may want to test the ToE before making the commit.")
     return scope
 
 
@@ -124,9 +124,10 @@ def main(subs: str) -> bool:
     else:
         pass
 
-    logger.info(commit_msg)
+    LOGGER.info(commit_msg)
 
-    logger.info(f"Pending to test {lines.count - lines.sofar} lines.")
-    logger.info(f"Pending to test {inputs.count - inputs.sofar} inputs.")
+    LOGGER.info("Pending to test {%i - %i} lines.", lines.count, lines.sofar)
+    LOGGER.info("Pending to test {%i - %i} inputs.", inputs.count,
+                inputs.sofar)
 
     return True

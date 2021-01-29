@@ -4,9 +4,7 @@ from glob import glob
 # Third party libraries
 
 # Local libraries
-from toolbox import (
-    logger
-)
+from toolbox.logger import LOGGER
 from toolbox.utils.function import shield
 
 
@@ -18,10 +16,10 @@ def check_folder_content() -> bool:
     success = True
 
     if exploits:
-        logger.error(('The drills folder must not contain code'
+        LOGGER.error(('The drills folder must not contain code'
                       ' from forces, please relocate the following folders'))
         for exp in exploits:
-            logger.info(f'    {exp}')
+            LOGGER.info('    %s', exp)
         success = False
 
     return success

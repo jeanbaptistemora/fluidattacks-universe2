@@ -28,7 +28,7 @@ from botocore.exceptions import ClientError
 import git
 
 # Local libraries
-from toolbox import logger
+from toolbox.logger import LOGGER
 
 DEFAULT_PROFILE: str = 'continuous-unspecified-subs'
 
@@ -117,12 +117,12 @@ def is_inside_services() -> bool:
 
 def go_back_to_services() -> None:
     if not is_inside_services():
-        logger.error('Please run the toolbox inside the services repo')
+        LOGGER.error('Please run the toolbox inside the services repo')
         sys.exit(78)
 
     while not os.getcwd().endswith('services'):
         os.chdir('..')
-        logger.debug('Adjusted working dir to:', os.getcwd())
+        LOGGER.debug('Adjusted working dir to: %s', os.getcwd())
 
 
 def get_current_group() -> str:
@@ -335,7 +335,7 @@ def _get_okta_user() -> Optional[str]:
     """Returns the okta user."""
     user: Optional[str] = os.environ.get('AWS_OKTA_USER')
     if not user:
-        logger.info("Set the variable AWS_OKTA_USER in your shell profile")
+        LOGGER.info("Set the variable AWS_OKTA_USER in your shell profile")
         try:
             path: str = os.path.expanduser('~/.aws-okta-processor/cache/')
             users: List[str] = os.listdir(path)
@@ -343,11 +343,11 @@ def _get_okta_user() -> Optional[str]:
                 with open(path + users[0], 'r') as reader:
                     session: Dict = json.load(reader)
                     user = session['login']
-                    logger.info(f'Using {user}')
+                    LOGGER.info('Using %s', user)
             else:
                 user = input("Username: ")
         except FileNotFoundError as exc:
-            logger.error(exc)
+            LOGGER.exception(exc)
             user = input("Username: ")
 
     return user
@@ -388,9 +388,9 @@ def _get_okta_aws_credentials(profile: str) -> Dict:
     error: str
     success, out, error = run_command(command, cwd='.', env=envs)
     if success > 0:
-        logger.error(error)
+        LOGGER.error(error)
         if config.has_section('continuous-admin'):
-            logger.info('Using the continuous-admin credentials')
+            LOGGER.info('Using the continuous-admin credentials')
             envs['AWS_OKTA_ROLE'] = \
                 'arn:aws:iam::205810638802:role/continuous-admin'
             key_info = _get_aws_credentials('continuous-admin')
@@ -410,7 +410,7 @@ def okta_aws_login(profile: str = 'default') -> bool:
     """
     Login to AWS through OKTA using a specific profile.
     """
-    logger.info('Logging in to Okta.')
+    LOGGER.info('Logging in to Okta.')
 
     success: int = 0
     expired: bool = False
@@ -489,11 +489,11 @@ def get_sops_secret(var: str, path: str, profile: str = 'default') -> str:
     ]
     code, stdout, stderr = run_command(cmd=cmd, cwd='.', env={})
     if code:
-        logger.error('while calling sops:')
-        logger.error('  stdout:')
-        logger.error(textwrap.indent(stdout, '    '))
-        logger.error('  stderr:')
-        logger.error(textwrap.indent(stderr, '    '))
+        LOGGER.error('while calling sops:')
+        LOGGER.error('  stdout:')
+        LOGGER.error(textwrap.indent(stdout, '    '))
+        LOGGER.error('  stderr:')
+        LOGGER.error(textwrap.indent(stderr, '    '))
         sys.exit(78)
     return stdout
 

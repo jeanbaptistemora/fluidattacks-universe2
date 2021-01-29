@@ -17,9 +17,9 @@ from git.exc import GitError
 from toolbox.drills import generic as drills_generic
 from toolbox.utils.function import shield
 from toolbox import (
-    logger,
     utils,
 )
+from toolbox.logger import LOGGER
 from toolbox.utils.integrates import (
     get_filter_rules,
 )
@@ -29,11 +29,11 @@ def notify_out_of_scope(
     repo_name: str,
     gitignore: str,
 ) -> bool:
-    logger.info(f'Please remember the scope for : {repo_name}')
+    LOGGER.info('Please remember the scope for : %s', repo_name)
     for line in gitignore:
-        logger.info(f'    - {line}')
+        LOGGER.info('    - %s', line)
 
-    logger.info()
+    LOGGER.info('\n')
 
     return True
 
@@ -107,10 +107,10 @@ def delete_out_of_scope_files(group: str) -> bool:
     bad_repositories: Set[str] = cloned_repositories - expected_repositories
 
     if bad_repositories:
-        logger.error('We cloned repositories that are not on Integrates')
-        logger.error('This is very likely a bug, please notify the manager')
+        LOGGER.error('We cloned repositories that are not on Integrates')
+        LOGGER.error('This is very likely a bug, please notify the manager')
         for repository in bad_repositories:
-            logger.warn(f'  Deleting, out of scope: {repository}')
+            LOGGER.warning('  Deleting, out of scope: %s', repository)
             shutil.rmtree(os.path.join(path_to_fusion, repository))
 
     return True
@@ -144,7 +144,7 @@ def pull_repos_s3_to_fusion(subs: str,
         bucket_path, local_path,
     ]
 
-    logger.info(f'Downloading {subs} repositories')
+    LOGGER.info('Downloading %s repositories', subs)
 
     # Passing None to stdout and stderr shows the s3 progress
     # We want the CI to be as quiet as possible to have clean logs
@@ -161,10 +161,10 @@ def pull_repos_s3_to_fusion(subs: str,
     )
 
     if status:
-        logger.error('Sync from bucket has failed:')
-        logger.info(stdout)
-        logger.info(stderr)
-        logger.info()
+        LOGGER.error('Sync from bucket has failed:')
+        LOGGER.info(stdout)
+        LOGGER.info(stderr)
+        LOGGER.info('\n')
         return False
 
     failed = False
@@ -174,10 +174,10 @@ def pull_repos_s3_to_fusion(subs: str,
             repo = Repo(repo_path)
             repo.head.reset(working_tree=True, index=True)
         except GitError as exc:
-            logger.error('Expand repositories has failed:')
-            logger.info(f'Repository: {os.path.basename(repo_path)}')
-            logger.info(exc)
-            logger.info()
+            LOGGER.error('Expand repositories has failed:')
+            LOGGER.info('Repository: %s', os.path.basename(repo_path))
+            LOGGER.info(exc)
+            LOGGER.info('\n')
             failed = True
     return not failed
 
@@ -192,19 +192,19 @@ def main(subs: str, repository_name: str = 'all') -> bool:
     bucket: str = 'continuous-repositories'
     passed: bool = True
     if not utils.generic.does_subs_exist(subs):
-        logger.error(f'group {subs} does not exist.')
+        LOGGER.error('group %s does not exist.', subs)
         passed = False
         return passed
 
     utils.generic.aws_login(f'continuous-{subs}')
 
     if not drills_generic.s3_path_exists(bucket, f'{subs}/'):
-        logger.error(f'group {subs} does not have repos uploaded to s3')
+        LOGGER.error('group %s does not have repos uploaded to s3', subs)
         passed = False
     else:
         local_path: str = f'groups/{subs}/fusion/'
 
-        logger.info('Computing last upload date')
+        LOGGER.info('Computing last upload date')
         days: int = \
             drills_generic.calculate_days_ago(
                 drills_generic.get_last_upload(bucket, f'{subs}/'))
@@ -213,6 +213,6 @@ def main(subs: str, repository_name: str = 'all') -> bool:
             subs, local_path,
             repository_name) and delete_out_of_scope_files(subs)
 
-        logger.info(f'Data for {subs} was uploaded to S3 {days} days ago')
+        LOGGER.info('Data for %s was uploaded to S3 %i days ago', subs, days)
 
     return passed

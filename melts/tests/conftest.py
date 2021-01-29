@@ -19,7 +19,7 @@ from click.testing import (
 import pytest
 
 # Local libraries
-from toolbox import logger
+from toolbox.logger import LOGGER
 from toolbox.utils import generic
 from toolbox.cli import melts as cli
 
@@ -34,11 +34,11 @@ def _relocate(path: str = '../') -> Iterator[str]:
     current_dir: str = os.getcwd()
     try:
         os.chdir(path)
-        logger.info('yield', os.getcwd())
+        LOGGER.info('yield, %s', os.getcwd())
         yield os.getcwd()
     finally:
         # Return to where we were
-        logger.info('finally', current_dir)
+        LOGGER.info('finally, %s', current_dir)
         os.chdir(current_dir)
 
 

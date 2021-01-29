@@ -13,7 +13,7 @@ import git
 from git.exc import GitCommandError
 
 # Local libraries
-from toolbox import logger
+from toolbox.logger import LOGGER
 from toolbox.utils import generic
 from toolbox.utils.function import shield
 
@@ -36,11 +36,11 @@ def s3_ls(
     try:
         return list(map(lambda x: x['Prefix'], response['CommonPrefixes']))
     except KeyError as key_error:
-        logger.error('Looks like response does not have Common Prefixes:')
-        logger.error(key_error)
+        LOGGER.error('Looks like response does not have Common Prefixes:')
+        LOGGER.error(key_error)
     except json.decoder.JSONDecodeError as json_decode_error:
-        logger.error('Looks like response was not parseable')
-        logger.error(json_decode_error)
+        LOGGER.error('Looks like response was not parseable')
+        LOGGER.error(json_decode_error)
     return []
 
 
@@ -50,23 +50,23 @@ def fill_empty_folders(path: str) -> None:
         if not dirs and not files:
             empty_folders.append(root)
     for folder in empty_folders:
-        logger.info(f'Adding .keep at {folder}')
+        LOGGER.info('Adding .keep at %s', folder)
         Path(folder, '.keep').touch()
 
 
 def git_optimize_all(path: str) -> bool:
     git_files = Path(path).glob('**/.git')
-    logger.info(f'Git files: {git_files}')
+    LOGGER.info('Git files: %s', git_files)
     git_folders = set(map(lambda x: x.parent, git_files))
     for folder in git_folders:
-        logger.info(f'Git optimize at {folder}')
+        LOGGER.info('Git optimize at %s', folder)
         try:
             git.Repo(str(folder), search_parent_directories=True).git.gc(
                 '--aggressive', '--prune=all')
         except GitCommandError as exc:
-            logger.error(f'Git optimization has failed at {folder}: ')
-            logger.info(exc.stdout)
-            logger.info(exc.stderr)
+            LOGGER.error('Git optimization has failed at %s: ', folder)
+            LOGGER.info(exc.stdout)
+            LOGGER.info(exc.stderr)
             return False
     return True
 
@@ -111,9 +111,9 @@ def s3_sync_fusion_to_s3(
         **kwargs,  # type:ignore
     )
     if status:
-        logger.error('Sync from bucket has failed:')
-        logger.info(stdout)
-        logger.info(stderr)
+        LOGGER.error('Sync from bucket has failed:')
+        LOGGER.info(stdout)
+        LOGGER.info(stderr)
         return False
     return True
 
@@ -142,11 +142,11 @@ def main(
         if aws_login:
             generic.aws_login(aws_profile)
 
-        logger.info('Syncing repositories')
+        LOGGER.info('Syncing repositories')
         passed = passed \
             and s3_sync_fusion_to_s3(subs, bucket, endpoint_url)
     else:
-        logger.error('Either the subs or the fusion folder does not exist')
+        LOGGER.error('Either the subs or the fusion folder does not exist')
         passed = False
 
     return passed

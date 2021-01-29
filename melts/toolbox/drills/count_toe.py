@@ -12,9 +12,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 # Local libraries
-from toolbox import (
-    logger,
-)
+from toolbox.logger import LOGGER
 from toolbox.utils.function import shield
 
 
@@ -88,13 +86,13 @@ def insert_data(
         })
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as exc:
-        logger.error(f'Could not insert data for {group}: {exc}')
+        LOGGER.error('Could not insert data for %s', group)
+        LOGGER.exception(exc)
         success = False
     else:
-        logger.info(
-            f'{group}, {lines} lines, {tested_lines} tested lines, '
-            f'{fields} inputs, {tested_fields} tested inputs'
-        )
+        LOGGER.info(
+            '%s, %i lines, %i tested lines, %i inputs, %i tested inputs',
+            group, lines, tested_lines, fields, tested_fields)
 
     return success
 

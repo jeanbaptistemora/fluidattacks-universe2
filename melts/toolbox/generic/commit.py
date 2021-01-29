@@ -11,9 +11,9 @@ from typing import (
 
 # Local libraries
 from toolbox import (
-    logger,
     utils,
 )
+from toolbox.logger import LOGGER
 from toolbox.utils.function import shield
 
 
@@ -49,11 +49,11 @@ def has_short_line_length(summary: str, body: str) -> bool:
     success: bool = True
 
     if any(len(summary_line) > 50 for summary_line in summary.splitlines()):
-        logger.error('Summary too long, 50 chars max')
+        LOGGER.error('Summary too long, 50 chars max')
         success = False
 
     if any(len(body_line) > 72 for body_line in body.splitlines()):
-        logger.error('Body lines too long, 72 chars max')
+        LOGGER.error('Body lines too long, 72 chars max')
         success = False
 
     return success
@@ -66,12 +66,13 @@ def is_under_100_deltas(ref: str = 'HEAD') -> bool:
         '- no-deltas-check' in utils.generic.get_change_request_body(ref)
 
     if skip_check:
-        logger.info('Deltas check skipped')
+        LOGGER.info('Deltas check skipped')
         return True
 
     request_deltas: int = utils.generic.get_change_request_deltas(ref)
     if request_deltas > 100:
-        logger.error(f'Your commit has more than 100 deltas: {request_deltas}')
+        LOGGER.error('Your commit has more than 100 deltas: %i',
+                     request_deltas)
         return False
 
     return True
@@ -109,23 +110,23 @@ def is_valid_summary(summary: str) -> bool:
             scope: str = match.groupdict()['scope']
 
             if type_ in VALID_TYPES and scope in VALID_SCOPES:
-                logger.info('Commit type and scope: OK')
+                LOGGER.info('Commit type and scope: OK')
                 is_valid = True
             else:
-                logger.error('Provide a valid commit type(scope)')
-                logger.info(f'Yours is: {type_}({scope})')
-                logger.info('Valid types are:')
+                LOGGER.error('Provide a valid commit type(scope)')
+                LOGGER.info('Yours is: %s(%s)', type_, scope)
+                LOGGER.info('Valid types are:')
                 for type_, desc in VALID__TYPES_DESC:
-                    logger.info(f'  - {type_}: {desc}')
-                logger.info('Valid scopes are:')
+                    LOGGER.info('  - %s: %s', type_, desc)
+                LOGGER.info('Valid scopes are:')
                 for scope, desc in VALID__SCOPES_DESC:
-                    logger.info(f'  - {scope}: {desc}')
+                    LOGGER.info('  - %s: %s', scope, desc)
                 is_valid = False
         else:
-            logger.error(f'Generic commits must match: {generic_pattern}')
+            LOGGER.error('Generic commits must match: %s', generic_pattern)
             is_valid = False
     else:
-        logger.error(f'Commits begin must match: {base_pattern}')
+        LOGGER.error('Commits begin must match: %s', base_pattern)
         is_valid = False
 
     return is_valid

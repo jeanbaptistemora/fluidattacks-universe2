@@ -1,29 +1,21 @@
+# Standar imports
+import logging
+import sys
+
 # Local imports
-from typing import Any
 from toolbox import constants
 
+# Constants
+_FORMAT: str = '[%(levelname)s] %(message)s'
+_LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
+_LOGGER_HANDLER: logging.Handler = logging.StreamHandler(sys.stderr)
 
-def debug(*args: Any, **kwargs: Any) -> None:
-    """Logger for debug category."""
-    if constants.LOGGER_DEBUG:
-        print('[DEBUG]', *args, **kwargs)
+if constants.LOGGER_DEBUG:
+    _LOGGER_HANDLER.setLevel(logging.DEBUG)
+else:
+    _LOGGER_HANDLER.setLevel(logging.INFO)
 
-
-def info(*args: Any, **kwargs: Any) -> None:
-    """Logger for info category."""
-    print('[INFO]', *args, **kwargs)
-
-
-def warn(*args: Any, **kwargs: Any) -> None:
-    """Logger for warn category."""
-    print('[WARN]', *args, **kwargs)
-
-
-def warning(*args: Any, **kwargs: Any) -> None:
-    """Logger for warn category."""
-    print('[WARNING]', *args, **kwargs)
-
-
-def error(*args: Any, **kwargs: Any) -> None:
-    """Logger for error category."""
-    print('[ERROR]', *args, **kwargs)
+_LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
+LOGGER: logging.Logger = logging.getLogger('forces')
+LOGGER.setLevel(logging.INFO)
+LOGGER.addHandler(_LOGGER_HANDLER)

@@ -31,7 +31,7 @@ from git.exc import GitCommandError, GitError
 from git import Repo
 
 # Local libraries
-from toolbox import logger
+from toolbox.logger import LOGGER
 from toolbox import utils
 from toolbox.constants import API_TOKEN
 from toolbox.api import integrates
@@ -76,19 +76,19 @@ def print_problems(
     branches: List[str],
 ) -> None:
     """ print problems in the repos"""
-    logger.info('Problems with the following repositories:' +
-                f'[{len(problems)}/{len(branches)}]\n\n')
+    LOGGER.info('Problems with the following repositories: [%i/%i]\n\n',
+                len(problems), len(branches))
     for problem in problems:
-        logger.info(problem['repo'] + '\n')
-        logger.info(problem['problem'])
+        LOGGER.info('%s\n', problem['repo'])
+        LOGGER.info(problem['problem'])
 
 
 def has_vpn(code: Dict[str, str], subs: str) -> None:
     """ check if the group has a vpn """
     does_have_vpn = code.get('vpn')
     if does_have_vpn:
-        logger.info(f"{subs} needs VPN. ")
-        logger.info("Make sure to run your VPN software before cloning.\n")
+        LOGGER.info('%s needs VPN. ', subs)
+        LOGGER.info('Make sure to run your VPN software before cloning.\n')
 
 
 @contextmanager
@@ -175,8 +175,8 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
 
             cmd = cmd_execute(command, folder)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                logger.error(f'{repo_name}/{branch} failed')
-                logger.error(cmd[1])
+                LOGGER.error('%s/%s failed', repo_name, branch)
+                LOGGER.error(cmd[1])
                 problem = {'repo': repo_name, 'problem': cmd[1]}
         else:
             # Clone repo:
@@ -191,8 +191,8 @@ def _ssh_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
 
             cmd = cmd_execute(command)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                logger.error(f'{repo_name}/{branch} failed')
-                logger.error(cmd[1])
+                LOGGER.error('%s/%s failed', repo_name, branch)
+                LOGGER.error(cmd[1])
                 problem = {'repo': repo_name, 'problem': cmd[1]}
 
     if problem:
@@ -222,8 +222,8 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
     # check if user has access to current repository
     baseurl = repo_url(git_root['url'])
     if 'fatal:' in baseurl:
-        logger.error(f'{repo_name}/{branch} failed')
-        logger.error(baseurl)
+        LOGGER.error('%s/%s failed', repo_name, branch)
+        LOGGER.error(baseurl)
         problem = {'repo': repo_name, 'problem': baseurl}
 
     branch = git_root['branch']
@@ -234,8 +234,8 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
             git_repo = git.Repo(folder, search_parent_directories=True)
             git_repo.remotes.origin.pull()
         except GitError as exc:
-            logger.error(f'{repo_name}/{branch} failed')
-            logger.error(exc)
+            LOGGER.error('%s/%s failed', repo_name, branch)
+            LOGGER.error(exc)
             problem = {'repo': repo_name, 'problem': exc}
     # validate if there is no problem with the baseurl
     elif not problem:
@@ -244,7 +244,7 @@ def _http_repo_cloning(git_root: Dict[str, str]) -> Optional[Dict[str, str]]:
                             repo_name,
                             multi_options=[f'-b {branch}', '--single-branch'])
         except GitError as exc:
-            logger.error(f'{repo_name}/{branch} failed')
+            LOGGER.error('%s/%s failed', repo_name, branch)
             problem = {'repo': repo_name, 'problem': exc}
 
     if problem:
@@ -278,7 +278,7 @@ def repo_cloning(subs: str) -> bool:
         subs,
     )
     if not repo_request.ok:
-        logger.error(repo_request.errors)
+        LOGGER.error(repo_request.errors)
         return False
 
     repositories: List[Dict[str, str]] = list(
@@ -293,7 +293,7 @@ def repo_cloning(subs: str) -> bool:
 
     # delete repositories of fusion that are not in the config
     for repo_dif in repo_difference:
-        logger.info(f'Deleting {repo_dif}')
+        LOGGER.info('Deleting %s', repo_dif)
         shutil.rmtree(repo_dif)
 
     utils.generic.aws_login('continuous-admin')
@@ -313,7 +313,7 @@ def repo_cloning(subs: str) -> bool:
             elif repo_type == 'https':
                 problem = _http_repo_cloning(git_root)
             else:
-                logger.info("Invalid git-type on group %s", subs)
+                LOGGER.info("Invalid git-type on group %s", subs)
                 problem = {
                     'repo': git_root['url'],
                     'problem': f'Invalid git-type on group {subs}'
@@ -327,7 +327,7 @@ def repo_cloning(subs: str) -> bool:
             worker.map(action, repositories)
 
     if problems:
-        logger.error("Some problems occured: \n")
+        LOGGER.error("Some problems occured: \n")
 
         for problem in problems:
             print(f'Repository: {problem["repo"]}')
@@ -342,7 +342,7 @@ def edit_secrets(group: str, suffix: str, profile: str) -> bool:
     status: bool = True
     secrets_file: str = f'groups/{group}/config/secrets-{suffix}.yaml'
     if not os.path.exists(secrets_file):
-        logger.error(f'secrets-{suffix}.yaml does not exist in {group}')
+        LOGGER.error('secrets-%s.yaml does not exist in %s', suffix, group)
         status = False
     else:
         utils.generic.aws_login(profile)
@@ -357,7 +357,7 @@ def read_secrets(group: str, suffix: str, profile: str) -> bool:
     status: bool = True
     secrets_file: str = f'groups/{group}/config/secrets-{suffix}.yaml'
     if not os.path.exists(secrets_file):
-        logger.error(f'secrets-{suffix}.yaml does not exist in {group}')
+        LOGGER.error('secrets-%s.yaml does not exist in %s', suffix, group)
         status = False
     else:
         utils.generic.aws_login(profile)
@@ -376,12 +376,12 @@ def get_fingerprint(subs: str) -> bool:
     max_date = datetime.fromtimestamp(0)
     path = f"groups/{subs}"
     if not os.path.exists(path):
-        logger.error(f"There is no project with the name: {subs}")
-        logger.info("Please run fingerprint inside a project or use subs")
+        LOGGER.error("There is no project with the name: %s", subs)
+        LOGGER.info("Please run fingerprint inside a project or use subs")
         return False
     path += "/fusion"
     if not os.path.exists(path):
-        logger.error("There is no a fusion folder in the group")
+        LOGGER.error("There is no a fusion folder in the group")
         return False
     listpath = os.listdir(f"groups/{subs}/fusion")
 
@@ -396,17 +396,17 @@ def get_fingerprint(subs: str) -> bool:
             max_hash = hashr
         results.append((repo, hashr, date.isoformat()))
     if results == []:
-        logger.error(f"There is not any folder in fusion - Subs: {subs}")
+        LOGGER.error("There is not any folder in fusion - Subs: %s", subs)
         return False
     output_bar = '-' * 84
     output_fmt = '{:^59} {:^7} {:^16}'
-    logger.info(output_bar)
-    logger.info(output_fmt.format('Repository', 'Hash', 'Date'))
-    logger.info(output_bar)
+    LOGGER.info(output_bar)
+    LOGGER.info(output_fmt.format('Repository', 'Hash', 'Date'))
+    LOGGER.info(output_bar)
     for params in sorted(results):
-        logger.info(output_fmt.format(*params))
-    logger.info(output_bar)
-    logger.info(output_fmt.format(len(results), max_hash,
+        LOGGER.info(output_fmt.format(*params))
+    LOGGER.info(output_bar)
+    LOGGER.info(output_fmt.format(len(results), max_hash,
                                   max_date.isoformat()))
     return True
 

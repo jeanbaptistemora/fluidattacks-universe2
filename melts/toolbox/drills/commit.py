@@ -10,9 +10,7 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-from toolbox import (
-    logger,
-)
+from toolbox.logger import LOGGER
 from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 VALID__SCOPES_DESC: Tuple[Tuple[str, str], ...] = (
@@ -103,45 +101,45 @@ def is_valid_summary(  # noqa: MC0001
             if match:
                 if scope == 'cross' \
                         or any(reason in body for reason in VALID_REASONS):
-                    logger.info('Drills daily commit: OK')
+                    LOGGER.info('Drills daily commit: OK')
                     is_valid = True
                 else:
-                    logger.error('Provide a valid reason for non-cross hack')
-                    logger.info('Valid reasons are:')
+                    LOGGER.error('Provide a valid reason for non-cross hack')
+                    LOGGER.info('Valid reasons are:')
                     for reason in VALID_REASONS:
-                        logger.info(f'  - {reason}')
+                        LOGGER.info('  - %s', reason)
                     is_valid = False
             else:
-                logger.error(f'Daily commit must match: {daily_pattern}')
+                LOGGER.error('Daily commit must match: %s', daily_pattern)
                 is_valid = False
         elif type_ == 'drills' and scope == 'enum':
             match = re.match(enum_pattern, summary)
             if match:
-                logger.info('Drills enumeration commit: OK')
+                LOGGER.info('Drills enumeration commit: OK')
                 is_valid = True
             else:
-                logger.error(f'Enumeration commit must match: {enum_pattern}')
+                LOGGER.error('Enumeration commit must match: %s', enum_pattern)
                 is_valid = False
         elif type_ == 'drills' and scope == 'conf':
             match = re.match(config_pattern, summary)
             if match:
-                logger.info('Drills config commit: OK')
+                LOGGER.info('Drills config commit: OK')
                 is_valid = True
             else:
-                logger.error(f'Config commit must match: {config_pattern}')
+                LOGGER.error('Config commit must match: %s', config_pattern)
                 is_valid = False
         else:
-            logger.error(f'Unrecognized scope: {type_}({scope})')
+            LOGGER.error('Unrecognized scope: %s(%s)', type_, scope)
             is_valid = False
     else:
-        logger.error('Provide a valid commit type(scope)')
-        logger.info(f'Yours is: {type_}({scope})')
-        logger.info('Valid types are:')
+        LOGGER.error('Provide a valid commit type(scope)')
+        LOGGER.info('Yours is: %s(%s)', type_, scope)
+        LOGGER.info('Valid types are:')
         for type_, desc in VALID__TYPES_DESC:
-            logger.info(f'  - {type_}: {desc}')
-        logger.info('Valid scopes are:')
+            LOGGER.info('  - %s: %s', type_, desc)
+        LOGGER.info('Valid scopes are:')
         for scope, desc in VALID__SCOPES_DESC:
-            logger.info(f'  - {scope}: {desc}')
+            LOGGER.info('  - %s: %s', scope, desc)
         is_valid = False
 
     if not is_valid:

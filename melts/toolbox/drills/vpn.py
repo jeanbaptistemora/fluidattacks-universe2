@@ -4,7 +4,7 @@ import subprocess
 from toolbox.utils import generic
 
 # Local libraries
-from toolbox import logger
+from toolbox.logger import LOGGER
 from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 
@@ -34,8 +34,8 @@ def main(subs: str) -> bool:
             )
     else:
         if not os.path.isfile(f'{config_file}.sh'):
-            logger.error("No VPN file found")
-            logger.info(f'Available VPNs:\n{vpn_list}')
+            LOGGER.error("No VPN file found")
+            LOGGER.info('Available VPNs:\n%s', vpn_list)
             success = False
         else:
             generic.aws_login(f'continuous-{subs}')
