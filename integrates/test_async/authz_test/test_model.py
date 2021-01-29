@@ -74,3 +74,24 @@ def test_model_integrity_keys_1(parameter, expected):
 def test_model_integrity_keys_2(parameter):
     for value in parameter.values():
         assert sorted(value.keys()) == ['actions', 'tags']
+
+
+@pytest.mark.parametrize(
+    ['roles_common', 'roles_fluid'],
+    [
+        (
+            authz.GROUP_LEVEL_ROLES,
+            authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS
+        ),
+        (
+            authz.ORGANIZATION_LEVEL_ROLES,
+            authz.ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS
+        ),
+        (
+            authz.USER_LEVEL_ROLES,
+            authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS
+        ),
+    ],
+)
+def test_model_integrity_roles(roles_common, roles_fluid):
+    assert sorted(roles_common.keys()) == sorted(roles_fluid.keys())
