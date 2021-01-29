@@ -63,7 +63,7 @@ def format_resources(roots: List[GitRoot]) -> Resources:
 
 
 async def generate_all() -> None:
-    async for org_id, _, org_groups in (
+    async for org_id, org_name, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
         loader = GroupRootsLoader()
@@ -97,6 +97,21 @@ async def generate_all() -> None:
                 ),
                 entity='group',
                 subject=group_name,
+            )
+
+        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            set_groups = set(groups)
+            portfolio_roots = [
+                root for group_roots in grouped_roots
+                for group_name, root in zip(org_groups, group_roots)
+                if group_name in set_groups
+            ]
+            utils.json_dump(
+                document=format_data(
+                    data=format_resources(portfolio_roots)
+                ),
+                entity='portfolio',
+                subject=f'{org_id}PORTFOLIO#{portfolio}',
             )
 
 
