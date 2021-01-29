@@ -12,7 +12,7 @@ import { Glyphicon } from "react-bootstrap";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 import {

@@ -3,7 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { Badge, IBadgeProps } from "components/Badge";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { Tab } from "styles/styledComponents";
 
 interface IContentTabProps {

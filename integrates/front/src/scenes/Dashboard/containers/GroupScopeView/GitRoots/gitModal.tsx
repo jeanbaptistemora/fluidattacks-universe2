@@ -7,7 +7,7 @@ import type { InjectedFormProps } from "redux-form";
 import { Modal } from "components/Modal";
 import React from "react";
 import { SwitchButton } from "components/SwitchButton";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import style from "./index.css";
 import { useSelector } from "react-redux";

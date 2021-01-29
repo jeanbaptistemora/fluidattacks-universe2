@@ -18,7 +18,7 @@ import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";

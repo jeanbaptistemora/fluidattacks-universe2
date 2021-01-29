@@ -13,7 +13,7 @@ import type { ITableWrapperProps } from "components/DataTableNext/types";
 import React from "react";
 import { Search } from "react-bootstrap-table2-toolkit";
 import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";

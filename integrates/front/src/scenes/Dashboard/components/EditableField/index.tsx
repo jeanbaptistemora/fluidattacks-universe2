@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { TextareaHTMLAttributes } from "react";
 import { BaseFieldProps, Field } from "redux-form";
 
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   Col50,
   ControlLabel,

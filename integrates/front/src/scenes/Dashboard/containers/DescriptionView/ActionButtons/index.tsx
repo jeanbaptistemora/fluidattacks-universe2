@@ -9,7 +9,7 @@ import { Glyphicon } from "react-bootstrap";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";

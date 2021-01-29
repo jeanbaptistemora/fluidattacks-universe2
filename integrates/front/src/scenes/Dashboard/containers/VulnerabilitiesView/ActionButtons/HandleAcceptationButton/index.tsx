@@ -3,7 +3,7 @@ import { FluidIcon } from "components/FluidIcon";
 import type { IHandleAcceptationButtonProps } from "./types";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";

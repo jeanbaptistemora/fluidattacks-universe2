@@ -18,7 +18,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter, timeFromNow } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,

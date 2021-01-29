@@ -14,7 +14,7 @@ import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import { ADD_TAGS_MUTATION, GET_TAGS,
   REMOVE_TAG_MUTATION,

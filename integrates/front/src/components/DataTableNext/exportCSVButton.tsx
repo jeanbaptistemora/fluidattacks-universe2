@@ -2,7 +2,7 @@ import { CSVExport } from "react-bootstrap-table2-toolkit";
 import { FluidIcon } from "components/FluidIcon";
 import React from "react";
 import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import style from "components/DataTableNext/index.css";
 import { useTranslation } from "react-i18next";
 

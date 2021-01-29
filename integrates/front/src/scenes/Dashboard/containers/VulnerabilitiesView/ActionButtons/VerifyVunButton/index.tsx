@@ -3,7 +3,7 @@ import { Can } from "utils/authz/Can";
 import { FluidIcon } from "components/FluidIcon";
 import { Glyphicon } from "react-bootstrap";
 import React from "react";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { useTranslation } from "react-i18next";
 
 interface IVerifyVunButtonProps {

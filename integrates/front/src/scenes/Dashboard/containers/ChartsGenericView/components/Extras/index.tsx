@@ -8,7 +8,7 @@ import { Glyphicon } from "react-bootstrap";
 import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,

@@ -21,7 +21,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "scenes/Dashboard/containers/ProjectEventsView/queries";
 import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";

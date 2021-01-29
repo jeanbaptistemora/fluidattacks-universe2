@@ -9,7 +9,7 @@ import React from "react";
 import { Button } from "components/Button";
 import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/NewTooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { translate } from "utils/translations/translate";

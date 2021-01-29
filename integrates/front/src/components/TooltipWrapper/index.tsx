@@ -1,34 +1,32 @@
 import React from "react";
-import { Trans } from "react-i18next";
-import style from "components/TooltipWrapper/index.css";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import ReactTooltip from "react-tooltip";
+import style from "./index.css";
 
 interface ITooltipWrapperProps {
   children: React.ReactNode;
+  displayClass?: string;
+  id: string;
   message: string;
-  placement?: "left" | "right" | "top";
+  placement?: string;
 }
 
 export const TooltipWrapper: React.FC<ITooltipWrapperProps> = (
   props: Readonly<ITooltipWrapperProps>
 ): JSX.Element => {
-  const { children, message, placement = "bottom" } = props;
+  const { children, displayClass, id, message, placement = "bottom" } = props;
 
   return (
-    <OverlayTrigger
-      delayHide={150}
-      delayShow={300}
-      key={placement}
-      overlay={
-        // We need className to override default styles from react-bootstrap
-        // eslint-disable-next-line react/forbid-component-props
-        <Tooltip className={style.tooltip} id={`tooltip-${placement}`}>
-          <Trans>{message}</Trans>
-        </Tooltip>
-      }
-      placement={placement}
+    <div
+      className={displayClass}
+      data-class={`${style.tooltip} tc o-70`}
+      data-effect={"solid"}
+      data-for={id}
+      data-html={true}
+      data-place={placement}
+      data-tip={message}
     >
       {children}
-    </OverlayTrigger>
+      <ReactTooltip delayShow={500} id={id} />
+    </div>
   );
 };
