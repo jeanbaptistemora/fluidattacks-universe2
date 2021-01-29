@@ -311,7 +311,7 @@ integrates_deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates_build_container_app]
+  needs: [integrates_back_build_development]
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
@@ -348,7 +348,7 @@ integrates_deploy_back_production:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
-  needs: [integrates_build_container_app]
+  needs: [integrates_back_build_production]
   retry: 1
   environment:
     name: "production"
@@ -383,9 +383,14 @@ integrates_deploy_permissions_matrix:
     when: on_success
   retry: 2
 
-integrates_build_container_app:
+integrates_back_build_production:
   <<: *with_nix
-  <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
+  <<: *in_master_branch_integrates
+  stage: build
+
+integrates_back_build_development:
+  <<: *with_nix
+  <<: *in_dev_branch_integrates
   stage: build
 
 integrates_functional_tests_back:

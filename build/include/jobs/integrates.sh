@@ -1,5 +1,8 @@
 # shellcheck shell=bash
 
+
+# Front
+
 function job_integrates_front_build_development {
       pushd integrates \
     &&  helper_integrates_front_build \
@@ -31,6 +34,18 @@ function job_integrates_front_deploy_production {
   &&  popd \
   ||  return 1
 }
+
+
+# Back
+
+function job_integrates_back_build_production {
+  helper_integrates_back_build 'master'
+}
+
+function job_integrates_back_build_development {
+  helper_integrates_back_build "${CI_COMMIT_REF_NAME}"
+}
+
 
 function job_integrates_build_mobile_android {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
@@ -210,23 +225,6 @@ function job_integrates_coverage_report {
   &&  codecov -b "${CI_COMMIT_REF_NAME}" \
   &&  popd \
   || return 1
-}
-
-function job_integrates_build_container_app {
-  local context='.'
-  local dockerfile='integrates/deploy/containers/app/Dockerfile'
-  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
-  local use_cache='false'
-  local base_image='registry.gitlab.com/fluidattacks/product/nix:integrates_serve_components'
-  local base_provisioner='build/provisioners/integrates_serve_components.nix'
-
-  helper_common_docker_build_and_push \
-    "${tag}" \
-    "${context}" \
-    "${dockerfile}" \
-    "${use_cache}" \
-    'PROVISIONER' "${base_provisioner}" \
-    'BASE' "${base_image}"
 }
 
 function job_integrates_deploy_mobile_ota {

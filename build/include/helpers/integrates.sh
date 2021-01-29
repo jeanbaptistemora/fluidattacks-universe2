@@ -1,5 +1,56 @@
 # shellcheck shell=bash
 
+
+# Front
+
+function helper_integrates_front_build {
+      pushd front \
+    &&  npm install \
+    &&  < ../../build/patches/jquery-comments.diff \
+          patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
+    &&  helper_integrates_deployment_date \
+    &&  npm run build -- \
+          --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
+          --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
+          --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
+  &&  popd \
+  || return 1
+}
+
+function helper_integrates_front_deploy {
+  local branch="${1}"
+  local env="${2}"
+  local source='app'
+  local templates='back/app/templates/static'
+
+      helper_integrates_aws_login "${env}" \
+  &&  helper_install_c3 "${source}/static/external" \
+  &&  cp -r "${templates}/"* "${source}/static/" \
+  &&  aws s3 sync --delete \
+        "${source}" \
+        "s3://integrates.front.${env}.fluidattacks.com/${branch}/"
+}
+
+
+# Back
+
+function helper_integrates_back_build {
+  local branch="${1}"
+  local context='.'
+  local dockerfile='integrates/deploy/containers/app/Dockerfile'
+  local use_cache='false'
+  local base_image='registry.gitlab.com/fluidattacks/product/nix:integrates_serve_components'
+  local base_provisioner='build/provisioners/integrates_serve_components.nix'
+
+  helper_common_docker_build_and_push \
+    "${CI_REGISTRY_IMAGE}/app:${branch}" \
+    "${context}" \
+    "${dockerfile}" \
+    "${use_cache}" \
+    'PROVISIONER' "${base_provisioner}" \
+    'BASE' "${base_image}"
+}
+
 function helper_integrates_aws_login {
 
   # Log in to aws for resources
@@ -90,34 +141,6 @@ function helper_invoke_py {
   &&  python3 \
         'back/packages/integrates-back/cli/invoker.py' \
         "${module}"
-}
-
-function helper_integrates_front_build {
-      pushd front \
-    &&  npm install \
-    &&  < ../../build/patches/jquery-comments.diff \
-          patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-    &&  helper_integrates_deployment_date \
-    &&  npm run build -- \
-          --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
-          --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
-          --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
-  &&  popd \
-  || return 1
-}
-
-function helper_integrates_front_deploy {
-  local branch="${1}"
-  local env="${2}"
-  local source='app'
-  local templates='back/app/templates/static'
-
-      helper_integrates_aws_login "${env}" \
-  &&  helper_install_c3 "${source}/static/external" \
-  &&  cp -r "${templates}/"* "${source}/static/" \
-  &&  aws s3 sync --delete \
-        "${source}" \
-        "s3://integrates.front.${env}.fluidattacks.com/${branch}/"
 }
 
 function helper_integrates_serve_front {
