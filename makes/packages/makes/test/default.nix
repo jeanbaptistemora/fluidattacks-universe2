@@ -7,7 +7,7 @@ let
   makeDerivation = import (path "/makes/utils/make-derivation") path makesPkgs;
 in
 makeDerivation {
-  builder = "success";
+  builder = path "/makes/packages/makes/test/builder.sh";
   envBuilt = builtins.concatLists [
     (builtins.attrValues (builtins.removeAttrs sources.apps [
       "skims/oci-deploy" # Consumes a lot of disk

@@ -46,7 +46,6 @@ function aws_s3_sync {
   &&  '__envAwscli__' s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
 }
 
-
 function aws_eks_update_kubeconfig {
   local name="${1}"
   local region="${2}"
