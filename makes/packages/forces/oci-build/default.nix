@@ -7,5 +7,6 @@ let
   makeOci = import (path "/makes/utils/make-oci") path forcesPkgs;
 in
 makeOci {
-  config.Entrypoint = [ outputs.apps.forces.program ];
+  config.WorkingDir = "/src";
+  contents = [ outputs.packages."forces/bin" ];
 }

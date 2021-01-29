@@ -11,6 +11,8 @@ function forces_setup_runtime {
 }
 
 function forces {
+  export SSL_CERT_FILE='__envCacert__/etc/ssl/certs/ca-bundle.crt'
+
   '__envPython__' '__envSrcForces__/forces/cli/__init__.py' "$@"
 }
 
