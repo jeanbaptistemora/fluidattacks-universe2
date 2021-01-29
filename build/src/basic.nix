@@ -23,10 +23,6 @@ rec {
   srcIncludeHelpersAsserts = ../include/helpers/asserts.sh;
   srcIncludeAssertsJobs = ../include/jobs/asserts.sh;
 
-  # Forces
-  srcIncludeHelpersForces = ../include/helpers/forces.sh;
-  srcIncludeForcesJobs = ../include/jobs/forces.sh;
-
   # Integrates
   srcIncludeHelpersIntegrates = ../include/helpers/integrates.sh;
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;

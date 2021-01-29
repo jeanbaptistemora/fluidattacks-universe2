@@ -139,7 +139,6 @@ function job_common_test_jobs_provisioner {
   local jobs_output
   local exclude=(
     'common_process_on_aws'
-    'forces'
     'sorts'
     'observes_code'
     'integrates_analytics_make_snapshots_prod'
