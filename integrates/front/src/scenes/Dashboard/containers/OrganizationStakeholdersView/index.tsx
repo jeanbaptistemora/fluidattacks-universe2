@@ -99,6 +99,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const { userName }: IAuthContext = React.useContext(authContext);
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [pageIndex, setPageIndex] = React.useState<number>(1);
+  const [listStakeholders, setListStakeholders] = React.useState<IStakeholderAttrs[]>([]);
 
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
@@ -225,11 +226,9 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttrs): void => {
       if (mtResult.removeStakeholderOrganizationAccess.success && !_.isUndefined(data)) {
-        const stakeholders: IStakeholderAttrs[] = data.organization.stakeholders.stakeholders;
-        const removeIndex: number = stakeholders.map(
-          (stakeholder: IStakeholderAttrs) => stakeholder.email)
-          .indexOf(currentRow.email);
-        stakeholders.splice(removeIndex, 1);
+        const newStakeholdersList: IStakeholderAttrs[] = data.organization.stakeholders.stakeholders.filter(
+          (stakeholder: IStakeholderAttrs) => stakeholder.email !== currentRow.email);
+        setListStakeholders(newStakeholdersList);
 
         mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName, User: userName });
         msgSuccess(
@@ -280,7 +279,8 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
       setPageSize(pageSize);
     };
 
-  const listStakeholders: IStakeholderAttrs[] =
+  const tableDataset: IStakeholderAttrs[] =
+    !_.isEmpty(listStakeholders) ? listStakeholders :
     !_.isUndefined(data) && !_.isEmpty(data) ? data?.organization.stakeholders.stakeholders : [];
   const numPages: number = !_.isUndefined(data) && !_.isEmpty(data) ? data?.organization.stakeholders.numPages : 1;
 
@@ -335,7 +335,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
                 <DataTableNext
                   id="tblUsers"
                   bordered={true}
-                  dataset={listStakeholders}
+                  dataset={tableDataset}
                   exportCsv={true}
                   headers={tableHeaders}
                   numPages={numPages}

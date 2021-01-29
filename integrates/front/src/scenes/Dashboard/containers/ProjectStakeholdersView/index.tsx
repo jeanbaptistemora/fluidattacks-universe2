@@ -93,6 +93,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [pageIndex, setPageIndex] = React.useState<number>(1);
+  const [listStakeholders, setListStakeholders] = React.useState<IStakeholderAttrs[]>([]);
 
   // Side effects
   const onMount: (() => void) = (): void => {
@@ -174,6 +175,11 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
 
   const { data, fetchMore: refetchStakeholders } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
     notifyOnNetworkStatusChange: true,
+    onCompleted: (mtResult: IGetStakeholdersAttrs): void => {
+      if (!_.isUndefined(mtResult)) {
+        setListStakeholders(mtResult.project.stakeholders.stakeholders);
+      }
+    },
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
       Logger.warning("An error occurred loading project stakeholders", error);
@@ -273,8 +279,9 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
       if (mtResult.removeStakeholderAccess.success && !_.isUndefined(data)) {
-        data.project.stakeholders.stakeholders.filter(
+        const newStakeholdersList: IStakeholderAttrs[] = data.project.stakeholders.stakeholders.filter(
           (stakeholder: IStakeholderAttrs) => stakeholder.email !== currentRow.email);
+        setListStakeholders(newStakeholdersList);
 
         mixpanel.track("RemoveUserAccess", { User: userName });
         const { removedEmail } = mtResult.removeStakeholderAccess;
@@ -326,7 +333,8 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
     return <React.Fragment />;
   }
 
-  const listStakeholders: IStakeholderAttrs[] =
+  const tableDataset: IStakeholderAttrs[] =
+    !_.isEmpty(listStakeholders) ? listStakeholders :
     !_.isUndefined(data) && !_.isEmpty(data) ? data?.project.stakeholders.stakeholders : [];
   const numPages: number = !_.isUndefined(data) && !_.isEmpty(data) ? data?.project.stakeholders.numPages : 1;
 
@@ -387,7 +395,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                 <DataTableNext
                   id="tblUsers"
                   bordered={true}
-                  dataset={listStakeholders}
+                  dataset={tableDataset}
                   exportCsv={true}
                   headers={tableHeaders}
                   numPages={numPages}
