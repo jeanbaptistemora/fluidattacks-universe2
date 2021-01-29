@@ -16,85 +16,54 @@ pytestmark = [
 
 
 async def test_group_level_enforcer():
-    # Test common user
-    subject = 'test@tests.com'
-    model = authz.get_group_level_roles_model(subject)
-    group = 'test'
+    test_cases = {
+        # Common user, group
+        ('test@tests.com', 'test'),
+        # Fluid user, group
+        ('test@fluidattacks.com', 'unittesting')
+    }
+    for subject, group in test_cases:
+        model = authz.get_group_level_roles_model(subject)
 
-    for role in model:
-        await authz.revoke_user_level_role(subject)
-        await authz.revoke_group_level_role(subject, group)
-        await authz.grant_group_level_role(subject, group, role)
-        enforcer = await authz.get_group_level_enforcer(subject)
+        for role in model:
+            await authz.revoke_user_level_role(subject)
+            await authz.revoke_group_level_role(subject, group)
+            await authz.grant_group_level_role(subject, group, role)
+            enforcer = await authz.get_group_level_enforcer(subject)
 
-        for action in model[role]['actions']:
-            assert enforcer(group, action), \
-                f'{role} should be able to do {action}'
+            for action in model[role]['actions']:
+                assert enforcer(group, action), \
+                    f'{role} should be able to do {action}'
 
-        for other_role in model:
-            for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not enforcer(group, action), \
-                    f'{role} should not be able to do {action}'
-
-    # Test fluid user
-    subject = 'test@fluidattacks.com'
-    model = authz.get_group_level_roles_model(subject)
-    group = 'unittesting'
-
-    for role in model:
-        await authz.revoke_user_level_role(subject)
-        await authz.revoke_group_level_role(subject, group)
-        await authz.grant_group_level_role(subject, group, role)
-        enforcer = await authz.get_group_level_enforcer(subject)
-
-        for action in model[role]['actions']:
-            assert enforcer(group, action), \
-                f'{role} should be able to do {action}'
-
-        for other_role in model:
-            for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not enforcer(group, action), \
-                    f'{role} should not be able to do {action}'
+            for other_role in model:
+                for action in model[other_role]['actions'] - model[role]['actions']:
+                    assert not enforcer(group, action), \
+                        f'{role} should not be able to do {action}'
 
 
 async def test_user_level_enforcer():
-    # Test common user
-    subject = 'test@tests.com'
-    model = authz.get_user_level_roles_model(subject)
-    object_ = 'self'
+    test_cases = {
+        # Common user, object_
+        ('test@tests.com', 'self'),
+        # Fluid user, object_
+        ('test@fluidattacks.com', 'self')
+    }
+    for subject, object_ in test_cases:
+        model = authz.get_user_level_roles_model(subject)
 
-    for role in model:
-        await authz.revoke_user_level_role(subject)
-        await authz.grant_user_level_role(subject, role)
-        enforcer = await authz.get_user_level_enforcer(subject)
+        for role in model:
+            await authz.revoke_user_level_role(subject)
+            await authz.grant_user_level_role(subject, role)
+            enforcer = await authz.get_user_level_enforcer(subject)
 
-        for action in model[role]['actions']:
-            assert enforcer(object_, action), \
-                f'{role} should be able to do {action}'
+            for action in model[role]['actions']:
+                assert enforcer(object_, action), \
+                    f'{role} should be able to do {action}'
 
-        for other_role in model:
-            for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not enforcer(object_, action), \
-                    f'{role} should not be able to do {action}'
-
-    # Test fluid user
-    subject = 'test@fluidattacks.com'
-    model = authz.get_user_level_roles_model(subject)
-    object_ = 'self'
-
-    for role in model:
-        await authz.revoke_user_level_role(subject)
-        await authz.grant_user_level_role(subject, role)
-        enforcer = await authz.get_user_level_enforcer(subject)
-
-        for action in model[role]['actions']:
-            assert enforcer(object_, action), \
-                f'{role} should be able to do {action}'
-
-        for other_role in model:
-            for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not enforcer(object_, action), \
-                    f'{role} should not be able to do {action}'
+            for other_role in model:
+                for action in model[other_role]['actions'] - model[role]['actions']:
+                    assert not enforcer(object_, action), \
+                        f'{role} should not be able to do {action}'
 
 
 async def test_group_service_attributes_enforcer():
