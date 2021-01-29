@@ -100,7 +100,7 @@ def delete_out_of_scope_files(group: str) -> bool:
                 if os.path.isfile(path_to_delete):
                     os.unlink(path_to_delete)
                 elif os.path.isdir(path_to_delete):
-                    os.removedirs(path_to_delete)
+                    shutil.rmtree(path_to_delete)
 
     # Delete cloned repositories that are not expected to be cloned
     cloned_repositories: Set[str] = set(os.listdir(path_to_fusion))
