@@ -10,6 +10,7 @@ from backend.api import apply_context_attrs
 from backend.dal import (
     session as session_dal,
 )
+from backend.dal.helpers.redis import redis_set_entity_attr
 from backend.utils import token as token_helper
 from back import settings
 
@@ -40,7 +41,7 @@ async def create_dummy_session(
         'last_name': 'test',
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
-        'sub': 'django_session',
+        'sub': 'starlette_session',
         'jti': util.calculate_hash_token()['jti'],
     }
     token = token_helper.new_encoded_jwt(payload)
@@ -48,6 +49,12 @@ async def create_dummy_session(
         request.headers['Authorization'] = f'Bearer {session_jwt}'
     else:
         request.cookies[settings.JWT_COOKIE_NAME] = token
-        await session_dal.add_element(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        await redis_set_entity_attr(
+            entity='session',
+            attr='jti',
+            email=payload['user_email'],
+            value=payload['jti'],
+            ttl=settings.SESSION_COOKIE_AGE
+        )
 
     return request
