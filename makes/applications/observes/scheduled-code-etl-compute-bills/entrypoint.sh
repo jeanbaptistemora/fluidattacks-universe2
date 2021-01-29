@@ -2,7 +2,8 @@
 
 source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
-export PATH='__envCodeEtlBin__':${PATH}
+
+export PATH="__envCodeEtlBin__:${PATH:-}"
 
 function job_compute_bills {
   local bucket_month

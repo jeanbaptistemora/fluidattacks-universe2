@@ -95,6 +95,15 @@ observes/scheduled-code-etl-compute-bills:
   tags: [autoscaling]
   interruptible: false
 
+observes/scheduled-code-etl-mirror:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
 observes_apply_infra:
   <<: *with_nix
   <<: *observes_in_master_branch
@@ -261,17 +270,6 @@ observes_code_amend_authors_on_aws:
   only:
     refs: [schedules]
     variables: [$observes_code_amend_authors_on_aws]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-
-
-observes_code_mirror_all_groups_to_s3_on_aws:
-  <<: *with_nix_serial
-  only:
-    refs: [schedules]
-    variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
   stage: analytics
   tags: [autoscaling]
   interruptible: false

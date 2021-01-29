@@ -242,4 +242,18 @@
     local = [ ];
     nix = [ ];
   };
+  updateSyncDate = {
+    srcPath = path "/observes/services/update_s3_last_sync_date";
+    python = {
+      direct = [
+        "click==7.1.2"
+        "psycopg2==2.8.4"
+      ];
+      inherited = [ ];
+    };
+    local = [ ];
+    nix = [
+      nixPkgs.python38Packages.psycopg2
+    ];
+  };
 }
