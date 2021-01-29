@@ -46,18 +46,6 @@ then
   exit
 fi
 
-for binary in cloc sops
-do
-  echo
-  echo "[INFO] Installing ${binary}"
-  if ! nix-env -i "${binary}"
-  then
-    echo
-    echo "[ERROR] Please unisntall ${binary} first with: nix-env -e ${binary}"
-    exit
-  fi
-done
-
 echo
 echo '[INFO] Installing products'
 

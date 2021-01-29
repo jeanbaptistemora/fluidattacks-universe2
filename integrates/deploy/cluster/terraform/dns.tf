@@ -119,7 +119,7 @@ resource "kubernetes_deployment" "external_dns_cloudflare" {
 
       spec {
         automount_service_account_token = true
-        service_account_name = kubernetes_service_account.external_dns_cloudflare.metadata[0].name
+        service_account_name            = kubernetes_service_account.external_dns_cloudflare.metadata[0].name
 
         container {
           name              = "external-dns-cloudflare"

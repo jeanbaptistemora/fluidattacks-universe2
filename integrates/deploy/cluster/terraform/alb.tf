@@ -9,7 +9,7 @@ module "alb_ingress_controller" {
   k8s_cluster_name = var.cluster_name
 
   aws_alb_ingress_controller_version = "1.1.7"
-  aws_resource_name_prefix = ""
+  aws_resource_name_prefix           = ""
 
   aws_tags = {
     "Name"               = "integrates-cluster-alb"

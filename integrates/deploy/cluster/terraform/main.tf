@@ -11,7 +11,7 @@ terraform {
       version = "~> 2.17.0"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "~> 1.11"
     }
     random = {
@@ -41,10 +41,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "fluidattacks-terraform-states-prod"
-    key     = "integrates-cluster.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+    bucket         = "fluidattacks-terraform-states-prod"
+    key            = "integrates-cluster.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
     dynamodb_table = "terraform_state_lock"
   }
 
