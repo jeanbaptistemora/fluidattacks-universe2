@@ -1,19 +1,35 @@
 # shellcheck shell=bash
 
-function job_integrates_build_front {
+function job_integrates_front_build_development {
       pushd integrates \
-    &&  pushd front \
-      &&  npm install \
-      &&  < ../../build/patches/jquery-comments.diff \
-            patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-      &&  helper_integrates_deployment_date \
-      &&  npm run build -- \
-            --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
-            --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
-            --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
-    &&  popd \
+    &&  helper_integrates_front_build \
   &&  popd \
-  || return 1
+  ||  return 1
+}
+
+function job_integrates_front_build_production {
+      pushd integrates \
+    &&  helper_integrates_front_build \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_front_deploy_development {
+      pushd integrates \
+    &&  helper_integrates_front_deploy \
+          "${CI_COMMIT_REF_NAME}" \
+          'development' \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_front_deploy_production {
+      pushd integrates \
+    &&  helper_integrates_front_deploy \
+          'master' \
+          'production' \
+  &&  popd \
+  ||  return 1
 }
 
 function job_integrates_build_mobile_android {
@@ -211,21 +227,6 @@ function job_integrates_build_container_app {
     "${use_cache}" \
     'PROVISIONER' "${base_provisioner}" \
     'BASE' "${base_image}"
-}
-
-function job_integrates_deploy_front {
-  local source='app'
-  local templates='back/app/templates/static'
-
-      pushd integrates \
-    &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-    &&  helper_install_c3 "${source}/static/external" \
-    &&  cp -r "${templates}/"* "${source}/static/" \
-    &&  aws s3 sync --delete \
-          "${source}" \
-          "s3://integrates.front.${ENVIRONMENT_NAME}.fluidattacks.com/${CI_COMMIT_REF_NAME}/" \
-  &&  popd \
-  ||  return 1
 }
 
 function job_integrates_deploy_mobile_ota {

@@ -92,6 +92,34 @@ function helper_invoke_py {
         "${module}"
 }
 
+function helper_integrates_front_build {
+      pushd front \
+    &&  npm install \
+    &&  < ../../build/patches/jquery-comments.diff \
+          patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
+    &&  helper_integrates_deployment_date \
+    &&  npm run build -- \
+          --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
+          --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
+          --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
+  &&  popd \
+  || return 1
+}
+
+function helper_integrates_front_deploy {
+  local branch="${1}"
+  local env="${2}"
+  local source='app'
+  local templates='back/app/templates/static'
+
+      helper_integrates_aws_login "${env}" \
+  &&  helper_install_c3 "${source}/static/external" \
+  &&  cp -r "${templates}/"* "${source}/static/" \
+  &&  aws s3 sync --delete \
+        "${source}" \
+        "s3://integrates.front.${env}.fluidattacks.com/${branch}/"
+}
+
 function helper_integrates_serve_front {
       helper_integrates_deployment_date \
   &&  pushd front \

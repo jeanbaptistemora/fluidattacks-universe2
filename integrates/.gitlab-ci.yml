@@ -228,9 +228,9 @@ scheduler_send_unsolved_to_all:
     refs: [schedules]
     variables: [$send_unsolved_to_all]
 
-integrates_build_front:
+integrates_front_build_development:
   <<: *with_nix
-  <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
+  <<: *in_dev_branch_integrates
   stage: build
   retry: 1
   artifacts:
@@ -238,6 +238,29 @@ integrates_build_front:
     paths:
       - integrates/app/static/
     when: on_success
+
+integrates_front_build_production:
+  <<: *with_nix
+  <<: *in_master_branch_integrates
+  stage: build
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/app/static/
+    when: on_success
+
+integrates_front_deploy_development:
+  <<: *with_nix
+  <<: *in_dev_branch_integrates
+  stage: deploy-app
+  needs: [integrates_front_build_development]
+
+integrates_front_deploy_production:
+  <<: *with_nix
+  <<: *in_master_branch_integrates
+  stage: deploy-app
+  needs: [integrates_front_build_production]
 
 integrates_build_mobile_android:
   <<: *with_nix
@@ -365,12 +388,6 @@ integrates_build_container_app:
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: build
 
-integrates_deploy_front:
-  <<: *with_nix
-  <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
-  stage: deploy-app
-  needs: [integrates_build_front]
-
 integrates_functional_tests_back:
   <<: *with_nix
   <<: *in_dev_branch_integrates
@@ -383,7 +400,7 @@ integrates_test_e2e:
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_test_e2e"
   needs:
     - integrates_deploy_back_ephemeral
-    - integrates_deploy_front
+    - integrates_front_deploy_development
   stage: post-deploy
   retry: 2
   parallel: 3
