@@ -16,12 +16,16 @@
         "attrs==20.3.0"
         "certifi==2020.12.5"
         "chardet==4.0.0"
+        "ddt==1.2.2"
+        "gitdb==4.0.2"
+        "GitPython==3.1.0"
         "idna==2.10"
         "more-itertools==8.6.0"
         "packaging==20.8"
         "pluggy==0.13.1"
         "py==1.10.0"
         "pyparsing==2.4.7"
+        "smmap==3.0.1"
         "urllib3==1.26.3"
         "uvloop==0.14.0"
         "wcwidth==0.2.5"
@@ -29,6 +33,7 @@
     };
     local = [ ];
     nix = [
+      nixPkgs.git
       nixPkgs.python38Packages.psycopg2
     ];
   };

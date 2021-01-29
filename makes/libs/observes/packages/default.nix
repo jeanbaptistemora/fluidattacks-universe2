@@ -5,6 +5,7 @@ let
   };
   packageBuilder = import (path "/makes/libs/observes/build-package");
   mkDerivation = { packageName, projectDir, pythonReqs, buildInputsList ? [ ] }: rec {
+    name = packageName;
     packagePath = projectDir;
     env = packageBuilder {
       inherit nixPkgs packageName path projectDir pythonReqs;
