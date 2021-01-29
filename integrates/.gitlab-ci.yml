@@ -97,6 +97,11 @@
   script:
     - ./build.sh integrates_scheduler_prod "${CI_JOB_NAME/scheduler_/}"
 
+integrates/infra-backup-apply:
+  <<: *makes
+  <<: *in_master_branch_integrates
+  stage: deploy-infra
+
 integrates/infra-backup-test:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -419,11 +424,6 @@ integrates_test_e2e:
   stage: post-deploy
   retry: 2
   parallel: 3
-
-integrates_infra_backup_deploy:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
 
 integrates_infra_database_deploy:
   <<: *with_nix

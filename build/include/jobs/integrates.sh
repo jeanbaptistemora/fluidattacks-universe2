@@ -699,26 +699,6 @@ function job_integrates_scheduler_prod {
   ||  return 1
 }
 
-function job_integrates_infra_backup_deploy {
-  export TF_VAR_db_user
-  export TF_VAR_db_password
-
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-        DB_USER \
-        DB_PASSWD \
-  &&  TF_VAR_db_user="${DB_USER}" \
-  &&  TF_VAR_db_password="${DB_PASSWD}" \
-  &&  pushd deploy/backup/terraform \
-    &&  terraform init \
-    &&  terraform apply -auto-approve -refresh=true \
-  &&  popd \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_infra_database_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
