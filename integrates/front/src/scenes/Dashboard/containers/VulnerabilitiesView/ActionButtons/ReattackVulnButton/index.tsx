@@ -3,7 +3,7 @@ import { Can } from "utils/authz/Can";
 import { FluidIcon } from "components/FluidIcon";
 import { Glyphicon } from "react-bootstrap";
 import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import _ from "lodash";
 import { useTranslation } from "react-i18next";
 
@@ -55,6 +55,8 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
       ) : undefined}
       {shouldRenderRequestVerifyBtn ? (
         <TooltipWrapper
+          displayClass={"dib"}
+          id={"search_findings.tab_vuln.buttons_tooltip.cancel_reattack.id"}
           message={
             isRequestingReattack
               ? t("search_findings.tab_vuln.buttons_tooltip.cancel")

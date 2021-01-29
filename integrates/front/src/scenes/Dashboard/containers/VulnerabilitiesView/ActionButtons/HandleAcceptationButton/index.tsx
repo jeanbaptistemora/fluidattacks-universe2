@@ -3,7 +3,7 @@ import { FluidIcon } from "components/FluidIcon";
 import type { IHandleAcceptationButtonProps } from "./types";
 import type { PureAbility } from "@casl/ability";
 import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useAbility } from "@casl/react";
 import { useTranslation } from "react-i18next";
@@ -37,6 +37,8 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
     <React.StrictMode>
       {shouldRenderHandleAcceptationBtn ? (
         <TooltipWrapper
+          displayClass={"dib"}
+          id={"search_findings.tab_vuln.buttons_tooltip.handle_acceptation.id"}
           message={t(
             "search_findings.tab_vuln.buttons_tooltip.handle_acceptation"
           )}

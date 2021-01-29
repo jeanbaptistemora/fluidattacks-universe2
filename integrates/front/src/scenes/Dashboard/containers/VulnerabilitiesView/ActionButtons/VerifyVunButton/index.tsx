@@ -3,7 +3,7 @@ import { Can } from "utils/authz/Can";
 import { FluidIcon } from "components/FluidIcon";
 import { Glyphicon } from "react-bootstrap";
 import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { useTranslation } from "react-i18next";
 
 interface IVerifyVunButtonProps {
@@ -40,6 +40,8 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
       ) : undefined}
       {shouldRenderVerifyBtn ? (
         <TooltipWrapper
+          displayClass={"dib"}
+          id={"search_findings.tab_vuln.buttons_tooltip.cancel_verify.id"}
           message={
             isVerifying
               ? t("search_findings.tab_vuln.buttons_tooltip.cancel")

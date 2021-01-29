@@ -14,7 +14,7 @@ import { Badge } from "components/Badge";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import { ADD_TAGS_MUTATION, GET_TAGS,
   REMOVE_TAG_MUTATION,
@@ -152,6 +152,8 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
           <ButtonToolbar>
             <Can do="backend_api_mutations_add_group_tags_mutate">
               <TooltipWrapper
+                displayClass={"dib"}
+                id={"search_findings.tab_resources.tags.add_tooltip.id"}
                 message={translate.t("search_findings.tab_resources.tags.add_tooltip")}
                 placement="top"
               >
@@ -163,6 +165,8 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
             </Can>
             <Can do="backend_api_mutations_remove_group_tag_mutate">
               <TooltipWrapper
+                displayClass={"dib"}
+                id={"search_findings.tab_resources.tags.remove_tooltip.id"}
                 message={translate.t("search_findings.tab_resources.tags.remove_tooltip")}
                 placement="top"
               >

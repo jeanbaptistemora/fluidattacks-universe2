@@ -1,7 +1,7 @@
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import React from "react";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { useTranslation } from "react-i18next";
 
 interface IEditButtonProps {
@@ -25,6 +25,8 @@ const EditButton: React.FC<IEditButtonProps> = ({
     <React.StrictMode>
       {shouldRenderEditBtn ? (
         <TooltipWrapper
+          displayClass={"dib"}
+          id={"search_findings.tab_description.save_edit.tooltip.id"}
           message={
             isEditing
               ? t("search_findings.tab_description.save.tooltip")

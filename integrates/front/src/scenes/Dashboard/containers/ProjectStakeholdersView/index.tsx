@@ -18,7 +18,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter, timeFromNow } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { TooltipWrapper } from "components/NewTooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -340,6 +340,8 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                 <ButtonToolbar>
                   <Can do="backend_api_mutations_grant_stakeholder_access_mutate">
                     <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"search_findings.tab_users.add_button.tooltip.id"}
                       message={translate.t("search_findings.tab_users.add_button.tooltip")}
                     >
                       <Button id="addUser" onClick={openAddUserModal}>
@@ -350,6 +352,8 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                   </Can>
                   <Can do="backend_api_mutations_edit_stakeholder_mutate">
                     <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"search_findings.tab_users.edit_button.tooltip.id"}
                       message={translate.t("search_findings.tab_users.edit_button.tooltip")}
                     >
                       <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
@@ -360,6 +364,8 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                   </Can>
                   <Can do="backend_api_mutations_remove_stakeholder_access_mutate">
                     <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"search_findings.tab_users.remove_user_button.tooltip.id"}
                       message={translate.t("search_findings.tab_users.remove_user_button.tooltip")}
                     >
                       <Button
