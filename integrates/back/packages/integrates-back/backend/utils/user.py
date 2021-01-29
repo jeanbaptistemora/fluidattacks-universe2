@@ -1,5 +1,6 @@
 # Standard libraries
 import logging
+import secrets
 from typing import (
     Any,
     Awaitable,
@@ -29,6 +30,9 @@ from backend.domain import (
     user as user_domain
 )
 from backend.typing import MailContent as MailContentType
+from backend.utils import (
+    datetime as datetime_utils,
+)
 from backend.utils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
@@ -107,6 +111,7 @@ async def _give_user_access(
     email: str,
     group: str,
     responsibility: str,
+    role: str,
     phone_number: str
 ) -> bool:
     success = False
@@ -118,13 +123,28 @@ async def _give_user_access(
         )
 
     if group and all(await collect(coroutines)):
-        invitation_token = await util.create_confirm_access_token(
-            email, group, responsibility
+        now_str = datetime_utils.get_as_str(
+            datetime_utils.get_now()
+        )
+        url_token = secrets.token_urlsafe(64)
+        await group_domain.update_access(
+            email,
+            group,
+            {
+                'invitation': {
+                    'date': now_str,
+                    'is_used': False,
+                    'responsibility': responsibility,
+                    'role': role,
+                    'url_token': url_token,
+                },
+
+            }
         )
         description = await group_domain.get_description(
             group.lower()
         )
-        project_url = f'{BASE_URL}/confirm_access/{invitation_token}'
+        project_url = f'{BASE_URL}/confirm_access/{url_token}'
         mail_to = [email]
         context: MailContentType = {
             'admin': email,
@@ -182,6 +202,7 @@ async def create_new_user(  # pylint: disable=too-many-arguments
                 email,
                 group,
                 responsibility,
+                role,
                 phone_number
             )
         else:

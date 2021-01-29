@@ -42,7 +42,6 @@ from starlette.datastructures import UploadFile
 
 from backend.dal.helpers.redis import (
     redis_get_entity_attr,
-    redis_set_entity_attr
 )
 from backend.exceptions import (
     ExpiredToken,
@@ -181,33 +180,6 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
     else:
         store[context_store_key] = content
         return content
-
-
-async def create_confirm_access_token(
-    email: str,
-    group: str,
-    responsibility: str
-) -> str:
-    token_lifetime = timedelta(weeks=1)
-
-    invitation_token = secrets.token_urlsafe(64)
-
-    token = dict(
-        user_email=email,
-        responsibility=responsibility,
-        group=group,
-        is_used=False,
-    )
-
-    await redis_set_entity_attr(
-        entity='invitation_token',
-        attr='data',
-        token=invitation_token,
-        value=token,
-        ttl=(int(token_lifetime.total_seconds())),
-    )
-
-    return invitation_token
 
 
 def iterate_s3_keys(client, bucket: str, prefix: str) -> Iterator[str]:
