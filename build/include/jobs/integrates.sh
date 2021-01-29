@@ -783,18 +783,6 @@ function job_integrates_infra_front_deploy {
   || return 1
 }
 
-function job_integrates_infra_front_test {
-  local target='deploy/front/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login development \
-    &&  helper_integrates_cloudflare_login development \
-    &&  helper_integrates_terraform_plan "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_test_back {
   local common_args=(
     -n auto

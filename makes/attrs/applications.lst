@@ -9,6 +9,7 @@ integrates/infra-cluster-apply
 integrates/infra-cluster-test
 integrates/infra-database-apply
 integrates/infra-database-test
+integrates/infra-front-test
 integrates/infra-resources-apply
 integrates/infra-resources-test
 integrates/infra-secret-management-apply
