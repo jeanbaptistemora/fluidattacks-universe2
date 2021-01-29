@@ -75,7 +75,7 @@ async def entrypoint(
                  ' --repo-name option to specify it'),
             )
             return 1
-
+        metadata['git_repo'] = config.repository_name or metadata['git_repo']
         await log(
             'info',
             f"Running forces on the repository: {config.repository_name}")
