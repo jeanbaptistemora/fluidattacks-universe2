@@ -51,3 +51,6 @@ test_e2e/geckodriver.log
 /.Redis/
 /appendonly.aof
 /nodes.conf
+
+# Terraform
+/deploy/cluster/terraform/kubeconfig_integrates-cluster
