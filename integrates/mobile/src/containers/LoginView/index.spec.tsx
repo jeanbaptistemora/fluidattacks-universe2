@@ -13,7 +13,7 @@ import { BitbucketButton, IBitbucketButtonProps } from "./BitbucketButton";
 import { GoogleButton, IGoogleButtonProps } from "./GoogleButton";
 import { LoginView } from "./index";
 import { IMicrosoftButtonProps, MicrosoftButton } from "./MicrosoftButton";
-import { checkPlayStoreVersion } from "./version";
+import { getOutdatedStatus } from "./version";
 
 jest.mock(
   "../../utils/socialAuth",
@@ -47,7 +47,7 @@ jest.mock("react-router-native", (): Dictionary => {
 
 jest.mock("./version", (): Dictionary => {
   const mockedVersion: Dictionary = jest.requireActual("./version");
-  mockedVersion.checkPlayStoreVersion = jest.fn();
+  mockedVersion.getOutdatedStatus = jest.fn();
 
   return mockedVersion;
 });
@@ -87,7 +87,7 @@ describe("LoginView", (): void => {
   });
 
   it("should auth with bitbucket", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (getOutdatedStatus as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (authWithBitbucket as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
       authProvider: "BITBUCKET",
       authToken: "abc123",
@@ -137,7 +137,7 @@ describe("LoginView", (): void => {
   });
 
   it("should auth with google", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (getOutdatedStatus as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (authWithGoogle as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
       authProvider: "GOOGLE",
       authToken: "abc123",
@@ -187,7 +187,7 @@ describe("LoginView", (): void => {
   });
 
   it("should auth with microsoft", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (getOutdatedStatus as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (authWithMicrosoft as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
       authProvider: "MICROSOFT",
       authToken: "def456",
@@ -237,7 +237,7 @@ describe("LoginView", (): void => {
   });
 
   it("should handle auth cancel", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (getOutdatedStatus as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (authWithGoogle as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
       type: "cancel",
     }));

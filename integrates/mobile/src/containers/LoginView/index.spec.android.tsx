@@ -12,10 +12,7 @@ import { NativeRouter } from "react-router-native";
 import { i18next } from "../../utils/translations/translate";
 
 import { LoginView } from "./index";
-import { checkPlayStoreVersion } from "./version";
-
-jest.mock("./version", (): Dictionary => ({ checkPlayStoreVersion: jest.fn() }));
-const originalVersion: { checkPlayStoreVersion(): Promise<boolean> } = jest.requireActual("./version");
+import { getOutdatedStatus } from "./version";
 
 jest.mock("expo-constants", (): Dictionary => ({
   ...jest.requireActual("expo-constants"),
@@ -25,10 +22,39 @@ jest.mock("expo-constants", (): Dictionary => ({
       package: "com.fluidattacks.integrates",
     },
   },
-  nativeAppVersion: "20.06.1337",
+  nativeAppVersion: "9da84a5",
 }));
 
 const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
+
+const mockVersion: (options: {
+  httpStatus: number;
+  version: string;
+}) => void = ({
+  version,
+  httpStatus,
+}: {
+  httpStatus: number;
+  version: string;
+}): void => {
+  mockedFetch.reset();
+  mockedFetch.mock(
+    "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
+    {
+      body: [
+        '<div class="hAyfc">',
+        '<div class="BgcNfc">Current Version</div>',
+        '<span class="htlgb">',
+        '<div class="IQ1z0d">',
+        `<span class="htlgb">${version}</span>`,
+        "</div>",
+        "</span>",
+        "</div>",
+      ].join(""),
+      status: httpStatus,
+    },
+  );
+};
 
 describe("LoginView", (): void => {
   afterEach((): void => {
@@ -36,38 +62,8 @@ describe("LoginView", (): void => {
     mockedFetch.reset();
   });
 
-  it("should display update dialog", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockResolvedValue(true);
-
-    const wrapper: ReactWrapper = mount(
-      <PaperProvider>
-        <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/"]}>
-            <LoginView />
-          </NativeRouter>
-        </I18nextProvider>
-      </PaperProvider>,
-    );
-    expect(wrapper)
-      .toHaveLength(1);
-
-    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
-
-    expect(wrapper
-      .find("googleButton")
-      .at(0)
-      .prop("disabled"))
-      .toEqual(true);
-    expect(wrapper
-      .find("Dialog")
-      .at(0)
-      .prop("visible"))
-      .toEqual(true);
-  });
-
   it("should not display update dialog", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockResolvedValue(false);
-
+    mockVersion({ version: "9da84a5", httpStatus: 200 });
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
@@ -95,7 +91,7 @@ describe("LoginView", (): void => {
   });
 
   it("should open google play store", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockResolvedValue(true);
+    mockVersion({ version: "0000000", httpStatus: 200 });
     (Linking.openURL as jest.Mock).mockImplementation((): Promise<void> => Promise.resolve());
 
     const wrapper: ReactWrapper = mount(
@@ -112,8 +108,13 @@ describe("LoginView", (): void => {
 
     await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
 
-    const updateBtn: ReactWrapper<React.ComponentProps<typeof Button>> = wrapper
-      .find("Dialog")
+    const dialog: ReactWrapper = wrapper
+      .find("Dialog");
+    expect(dialog
+      .prop("visible"))
+      .toEqual(true);
+
+    const updateBtn: ReactWrapper<React.ComponentProps<typeof Button>> = dialog
       .find<React.ComponentProps<typeof Button>>(Button)
       .at(0);
 
@@ -125,33 +126,24 @@ describe("LoginView", (): void => {
   });
 
   it("should report up to date", async (): Promise<void> => {
-    mockedFetch.mock("https://play.google.com/store/apps/details?id=com.fluidattacks.integrates", {
-      body: "<html><body><span>20.06.1337</span></body></html>",
-      status: 200,
-    });
-    const isOutdated: boolean = await originalVersion.checkPlayStoreVersion();
+    mockVersion({ version: "9da84a5", httpStatus: 200 });
+    const isOutdated: boolean = await getOutdatedStatus();
 
     expect(isOutdated)
       .toBe(false);
   });
 
   it("should report outdated", async (): Promise<void> => {
-    mockedFetch.mock("https://play.google.com/store/apps/details?id=com.fluidattacks.integrates", {
-      body: "<html><body><span>20.07.1337</span></body></html>",
-      status: 200,
-    });
-    const isOutdated: boolean = await originalVersion.checkPlayStoreVersion();
+    mockVersion({ version: "0000000", httpStatus: 200 });
+    const isOutdated: boolean = await getOutdatedStatus();
 
     expect(isOutdated)
       .toBe(true);
   });
 
   it("should gracefully fallback when it fails to retrieve version", async (): Promise<void> => {
-    mockedFetch.mock("https://play.google.com/store/apps/details?id=com.fluidattacks.integrates", {
-      body: "<html><body><span>thereisanerror</span></body></html>",
-      status: 200,
-    });
-    const isOutdated: boolean = await originalVersion.checkPlayStoreVersion();
+    mockVersion({ version: "", httpStatus: 400 });
+    const isOutdated: boolean = await getOutdatedStatus();
 
     expect(isOutdated)
       .toBe(false);

@@ -13,7 +13,7 @@ import {
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Linking, Platform, View } from "react-native";
+import { Linking, View } from "react-native";
 import {
   Button,
   Dialog,
@@ -38,7 +38,7 @@ import { BitbucketButton } from "./BitbucketButton";
 import { GoogleButton } from "./GoogleButton";
 import { MicrosoftButton } from "./MicrosoftButton";
 import { styles } from "./styles";
-import { checkPlayStoreVersion } from "./version";
+import { getOutdatedStatus } from "./version";
 
 type manifestStructure = NativeConstants["manifest"] & {
   android: { package: string };
@@ -59,11 +59,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   // Side effects
   React.useEffect((): void => {
     const checkVersion: () => void = async (): Promise<void> => {
-      const shouldSkipCheck: boolean =
-        Platform.OS === "ios" || Constants.appOwnership === AppOwnership.Expo;
+      const shouldSkip: boolean = Constants.appOwnership === AppOwnership.Expo;
 
-      if (!shouldSkipCheck) {
-        setOutdated(await checkPlayStoreVersion());
+      if (!shouldSkip) {
+        setOutdated(await getOutdatedStatus());
       }
       setLoading(false);
     };
