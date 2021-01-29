@@ -46,6 +46,78 @@ function job_integrates_back_build_development {
   helper_integrates_back_build "${CI_COMMIT_REF_NAME}"
 }
 
+function job_integrates_back_deploy_development {
+  local env='development'
+  export BRANCH
+  export DATE
+  export DEPLOYMENT_NAME
+  export B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID
+  export B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
+  export B64_CI_COMMIT_REF_NAME
+
+  local region='us-east-1'
+  local cluster='integrates-cluster'
+  local namespace='ephemeral'
+  local deployment="${CI_COMMIT_REF_SLUG}"
+  local timeout='10m'
+  local files_path='deploy/ephemeral/'
+  local files="${files_path}/deployment.yaml|${files_path}/service.yaml|${files_path}/ingress.yaml|${files_path}/variables.yaml"
+
+      helper_common_use_pristine_workdir \
+  &&  helper_integrates_aws_login "${env}" \
+  &&  pushd integrates \
+    &&  BRANCH="${CI_COMMIT_REF_NAME}" \
+    &&  DATE="$(date)" \
+    &&  DEPLOYMENT_NAME="${deployment}" \
+    &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
+    &&  B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}") \
+    &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
+    &&  helper_integrates_back_deploy \
+          "${region}" \
+          "${cluster}" \
+          "${namespace}" \
+          "${deployment}" \
+          "${timeout}" \
+          "${files}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_back_deploy_production {
+  local env='production'
+  export DATE
+  export B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID
+  export B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY
+  export B64_CI_COMMIT_REF_NAME
+
+  local region='us-east-1'
+  local cluster='integrates-cluster'
+  local namespace='production'
+  local deployment='master'
+  local timeout='10m'
+  local files_path='deploy/production/'
+  local files="${files_path}/deployment.yaml|${files_path}/service.yaml|${files_path}/ingress.yaml|${files_path}/variables.yaml"
+
+      helper_common_use_pristine_workdir \
+  &&  helper_integrates_aws_login "${env}" \
+  &&  pushd integrates \
+    &&  DATE="$(date)" \
+    &&  B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
+    &&  B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
+    &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 'master') \
+    &&  helper_integrates_back_deploy \
+          "${region}" \
+          "${cluster}" \
+          "${namespace}" \
+          "${deployment}" \
+          "${timeout}" \
+          "${files}" \
+    &&  helper_integrates_back_deploy_newrelic \
+    &&  helper_integrates_back_deploy_checkly \
+  &&  popd \
+  ||  return 1
+}
+
 
 function job_integrates_build_mobile_android {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
@@ -472,7 +544,7 @@ function job_integrates_serve_components {
         do
               if echo "${arg}" | grep -qP '^http'
               then
-                    for internal_args in $(echo "${arg}" | tr '/' '\n')
+                    for internal_args in $(helper_common_string_to_lines "${arg}" '/')
                     do
                           back_args+=( "${internal_args}" ) \
                       ||  return 1

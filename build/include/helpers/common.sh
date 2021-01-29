@@ -1,5 +1,22 @@
 # shellcheck shell=bash
 
+function helper_common_string_to_lines {
+  local string="${1}"
+  local delimiter="${2}"
+
+  echo "${string}" | tr "${delimiter}" '\n'
+}
+
+function helper_common_replace_var {
+  local var_name="${1}"
+  local var_value="${2}"
+  local file="${3}"
+
+      rpl "${var_name}" "${var_value}" "${file}" \
+  |&  grep 'Replacing' \
+  |&  sed -E 's/with.*$//g'
+}
+
 function helper_common_json_to_yaml {
   yq -y .
 }
