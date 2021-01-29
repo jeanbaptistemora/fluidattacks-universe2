@@ -119,7 +119,7 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
       };
     }
   } catch (error) {
-    LOGGER.error("Couldn't authenticate with Google", { ...error });
+    LOGGER.error("Couldn't authenticate with Google", error);
   }
 
   return { type: "cancel" };
@@ -136,7 +136,7 @@ const logoutFromGoogle: (authToken: string) => void = async (
       { revocationEndpoint: discovery.revocationEndpoint },
     );
   } catch (error) {
-    LOGGER.warning("Couldn't revoke google session", { ...error });
+    LOGGER.warning("Couldn't revoke google session", error);
   }
 };
 

@@ -8,7 +8,7 @@ export const styles: Dictionary = StyleSheet.create({
     marginBottom: 10,
   },
   disabled: {
-    backgroundColor: "#F4F5F7",
+    backgroundColor: "#BDBDBD",
   },
   icon: {
     height: 26,
