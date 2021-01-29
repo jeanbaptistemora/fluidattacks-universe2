@@ -1,7 +1,7 @@
 { observesPkgs }:
 {
   codeEtl = {
-    binName = "observes-code-etl";
+    binName = "code-etl";
     entrypoint = "from code_etl.cli import main";
     package = observesPkgs.codeEtl;
   };

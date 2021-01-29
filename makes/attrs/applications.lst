@@ -15,8 +15,8 @@ makes/deploy/oci-ci
 makes/lint
 melts
 melts/test
-observes/code-etl
 observes/infra-test
+observes/scheduled-code-etl-compute-bills
 observes/tap-json
 observes/target-redshift
 skims

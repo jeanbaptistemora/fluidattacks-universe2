@@ -86,6 +86,15 @@ observes/lint-tap-mixpanel:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes/scheduled-code-etl-compute-bills:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_compute_bills]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
 observes_apply_infra:
   <<: *with_nix
   <<: *observes_in_master_branch
@@ -256,14 +265,7 @@ observes_code_amend_authors_on_aws:
   tags: [autoscaling]
   interruptible: false
 
-observes_code_compute_bills:
-  <<: *with_nix_serial
-  only:
-    refs: [schedules]
-    variables: [$observes_code_compute_bills]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
+
 
 observes_code_mirror_all_groups_to_s3_on_aws:
   <<: *with_nix_serial
