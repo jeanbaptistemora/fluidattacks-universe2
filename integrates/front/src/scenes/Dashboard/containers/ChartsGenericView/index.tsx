@@ -6,7 +6,7 @@ import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import { EntityType, IChartsGenericViewProps } from "scenes/Dashboard/containers/ChartsGenericView/types";
-import {  PanelCollapse, PanelCollapseBody, PanelCollapseHeader, RowCenter } from "styles/styledComponents";
+import { PanelCollapse, PanelCollapseBody, PanelCollapseHeader, Row, RowCenter } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
@@ -29,6 +29,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
     <React.StrictMode>
       <div className={"center"}>
         {doesEntityMatch("group", "organization", "portfolio") ? (
+          <React.Fragment>
             <RowCenter>
               <Col100>
                 <Graphic
@@ -55,9 +56,6 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col100>
             </RowCenter>
-          ) : undefined}
-        {doesEntityMatch("group", "organization") ? (
-          <React.Fragment>
             <RowCenter>
               <Col50>
                 <Graphic
@@ -102,6 +100,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col50>
             </RowCenter>
+          </React.Fragment>
+        ) : undefined}
+        {doesEntityMatch("group", "organization") ? (
+          <React.Fragment>
             <RowCenter>
               <Col33>
                 <Graphic
@@ -155,6 +157,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col33>
             </RowCenter>
+          </React.Fragment>
+        ) : undefined}
+        {doesEntityMatch("group", "organization", "portfolio") ? (
+          <React.Fragment>
             <RowCenter>
               <Col50>
                 <Graphic
@@ -368,6 +374,90 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               </Col100>
             </RowCenter>
             <RowCenter>
+              <Col50>
+                <Graphic
+                  bsHeight={160}
+                  documentName="totalVulnerabilitiesStatus"
+                  documentType="pieChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  className={"g2"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.vulns_groups")}
+                />
+              </Col50>
+              <Col50>
+                <Graphic
+                  bsHeight={160}
+                  documentName="openVulnerabilitiesStatus"
+                  documentType="pieChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  className={"g2"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.open_vulns_groups")}
+                />
+              </Col50>
+            </RowCenter>
+            <RowCenter>
+              <Col100>
+                <Graphic
+                  bsHeight={320}
+                  documentName="topOldestFindings"
+                  documentType="barChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  className={"g1"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.topOldestFindings")}
+                />
+              </Col100>
+            </RowCenter>
+            <Row>
+              <Col50>
+                <Graphic
+                  bsHeight={160}
+                  documentName="vulnsWithUndefinedTreatment"
+                  documentType="pieChart"
+                  entity={entity}
+                  generatorName="generic"
+                  generatorType="c3"
+                  className={"g2"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tag_indicator.undefined_title")}
+                />
+              </Col50>
+              <Col50>
+                <Graphic
+                  bsHeight={80}
+                  documentName="totalVulnerabilities"
+                  documentType="textBox"
+                  entity={entity}
+                  footer={
+                    <p>{translate.t("analytics.textBox.totalVulnerabilities.footer")}</p>
+                  }
+                  generatorName="raw"
+                  generatorType="textBox"
+                  className={"g3"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.totalVulnerabilities.title")}
+                />
+              </Col50>
+            </Row>
+            </div>
+            </React.Fragment>
+            ) : undefined}
+          {doesEntityMatch("group", "organization", "portfolio") ? (
+            <React.Fragment>
+            <RowCenter>
               <Col100>
                 <Graphic
                   bsHeight={320}
@@ -419,80 +509,6 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
               <Col50>
                 <Graphic
                   bsHeight={160}
-                  documentName="status"
-                  documentType="pieChart"
-                  entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.pieChart.status.footer.intro")}</p>
-                  }
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g2"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.pieChart.status.title")}
-                />
-              </Col50>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
-                  documentName="treatment"
-                  documentType="pieChart"
-                  entity={entity}
-                  footer={
-                    <React.Fragment>
-                      <p>{translate.t("analytics.pieChart.treatment.footer.intro")}</p>
-                      <ul>
-                        <li>{translate.t("analytics.pieChart.treatment.footer.notDefined")}</li>
-                        <li>{translate.t("analytics.pieChart.treatment.footer.inProgress")}</li>
-                        <li>{translate.t("analytics.pieChart.treatment.footer.accepted")}</li>
-                        <li>{translate.t("analytics.pieChart.treatment.footer.eternally")}</li>
-                      </ul>
-                    </React.Fragment>
-                  }
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g2"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.pieChart.treatment.title")}
-                />
-              </Col50>
-            </RowCenter>
-            <RowCenter>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
-                  documentName="totalVulnerabilitiesStatus"
-                  documentType="pieChart"
-                  entity={entity}
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g2"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("tag_indicator.vulns_groups")}
-                />
-              </Col50>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
-                  documentName="openVulnerabilitiesStatus"
-                  documentType="pieChart"
-                  entity={entity}
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g2"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("tag_indicator.open_vulns_groups")}
-                />
-              </Col50>
-            </RowCenter>
-            <RowCenter>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
                   documentName="vulnerabilitiesByTreatments"
                   documentType="pieChart"
                   entity={entity}
@@ -518,22 +534,6 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   title={translate.t("tag_indicator.vulnerabilitiesByType")}
                 />
               </Col50>
-            </RowCenter>
-            <RowCenter>
-              <Col100>
-                <Graphic
-                  bsHeight={320}
-                  documentName="topOldestFindings"
-                  documentType="barChart"
-                  entity={entity}
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g1"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("tag_indicator.topOldestFindings")}
-                />
-              </Col100>
             </RowCenter>
             <RowCenter>
               <Col100>
@@ -583,112 +583,6 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col100>
             </RowCenter>
-            <RowCenter>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
-                  documentName="vulnsWithUndefinedTreatment"
-                  documentType="pieChart"
-                  entity={entity}
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g2"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("tag_indicator.undefined_title")}
-                />
-              </Col50>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
-                  documentName="severity"
-                  documentType="gauge"
-                  entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.gauge.severity.footer")}</p>
-                  }
-                  generatorName="generic"
-                  generatorType="c3"
-                  className={"g2"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.gauge.severity.title")}
-                />
-              </Col50>
-            </RowCenter>
-            <RowCenter>
-              <Col50>
-                <Graphic
-                  bsHeight={80}
-                  documentName="daysSinceLastRemediation"
-                  documentType="textBox"
-                  entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.textBox.daysSinceLastRemediation.footer")}</p>
-                  }
-                  generatorName="raw"
-                  generatorType="textBox"
-                  className={"g3"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
-                />
-              </Col50>
-              <Col50>
-                <Graphic
-                  bsHeight={80}
-                  documentName="totalVulnerabilities"
-                  documentType="textBox"
-                  entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.textBox.totalVulnerabilities.footer")}</p>
-                  }
-                  generatorName="raw"
-                  generatorType="textBox"
-                  className={"g3"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.textBox.totalVulnerabilities.title")}
-                />
-              </Col50>
-            </RowCenter>
-            <RowCenter>
-              <Col50>
-                <Graphic
-                  bsHeight={80}
-                  documentName="meanTimeToRemediate"
-                  documentType="textBox"
-                  entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.textBox.meanTimeToRemediate.footer")}</p>
-                  }
-                  generatorName="raw"
-                  generatorType="textBox"
-                  className={"g3"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
-                />
-              </Col50>
-              <Col50>
-                <Graphic
-                  bsHeight={80}
-                  documentName="meanTimeToRemediateNonTreated"
-                  documentType="textBox"
-                  entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.textBox.meanTimeToRemediateNonTreated.footer")}</p>
-                  }
-                  generatorName="raw"
-                  generatorType="textBox"
-                  className={"g3"}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.textBox.meanTimeToRemediateNonTreated.title")}
-                />
-              </Col50>
-            </RowCenter>
-          </div>
         </React.Fragment>
       ) : undefined}
       {doesEntityMatch("group") ? (
