@@ -402,7 +402,7 @@ integrates_deploy_permissions_matrix:
 
 integrates_back_build_production:
   <<: *with_nix
-  <<: *in_master_branch_integrates
+  <<: *in_master_except_periodic_jobs_integrates
   stage: build
 
 integrates_back_build_development:

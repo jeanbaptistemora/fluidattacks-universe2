@@ -57,10 +57,10 @@ function helper_integrates_back_deploy {
   local namespace="${3}"
   local deployment="${4}"
   local timeout="${5}"
-  local files="${6}"
+  local files_path="${6}"
 
       helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  for file in $(helper_common_string_to_lines "${files}" '|')
+  &&  for file in $(find "${files_path}/"*)
       do
             vars="$(grep -oP '__.*__' "${file}" || true)" \
         &&  for var in ${vars}

@@ -1,6 +1,310 @@
 # shellcheck shell=bash
 
 
+# Mobile
+
+function job_integrates_build_mobile_android {
+  export EXPO_ANDROID_KEYSTORE_PASSWORD
+  export EXPO_ANDROID_KEY_PASSWORD
+  export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
+  export JAVA_OPTS="
+    -Xmx7G
+    -XX:+HeapDumpOnOutOfMemoryError
+    -XX:+UnlockExperimentalVMOptions
+    -XX:+UseCGroupMemoryLimitForHeap
+    -XX:+UseG1GC
+  "
+  export GRADLE_OPTS="
+    -Dorg.gradle.configureondemand=true
+    -Dorg.gradle.daemon=false
+    -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\"
+    -Dorg.gradle.parallel=true
+    -Dorg.gradle.project.android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/30.0.3/aapt2
+  "
+  export GRADLE_DAEMON_DISABLED="1"
+
+      if  helper_common_has_any_file_changed \
+        'integrates/mobile/app.json' \
+        'integrates/mobile/assets/icon.png' \
+        'integrates/mobile/assets/splash.png'
+      then
+            pushd "${STARTDIR}/integrates" \
+        &&  echo '[INFO] Logging in to AWS' \
+        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
+        &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+              EXPO_USER \
+              EXPO_PASS \
+        &&  sops \
+              --aws-profile default \
+              --decrypt \
+              --extract '["GOOGLE_SERVICES_APP"]' \
+              --output 'mobile/google-services.json' \
+              --output-type 'json' \
+              "secrets-development.yaml" \
+        &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
+        &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
+        &&  pushd mobile \
+          &&  echo '[INFO] Installing deps' \
+          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+          &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
+          &&  npm install \
+          &&  npx --no-install expo login \
+                --username "${EXPO_USER}" \
+                --password "${EXPO_PASS}" \
+                --non-interactive \
+          &&  aws s3 cp \
+                --recursive \
+                "s3://fluidintegrates.build/mobile/certs" \
+                ./certs \
+          &&  echo '[INFO] Patching android sdk' \
+          &&  rm -rf "${HOME}/.turtle/" \
+          &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
+          &&  cp -r --no-preserve=mode,ownership \
+                "${androidSdk}"/libexec/android-sdk/* \
+                "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
+          &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
+          &&  echo '[INFO] Building android app' \
+          &&  npx --no-install turtle build:android \
+                --username "${EXPO_USER}" \
+                --password "${EXPO_PASS}" \
+                --keystore-alias fluidintegrates-keystore \
+                --keystore-path ./certs/keystore-dev.jks \
+                --output output/integrates.aab \
+                --release-channel "${CI_COMMIT_REF_NAME}" \
+                --type app-bundle \
+          &&  rm google-services.json \
+          &&  rm -rf ./certs \
+        &&  popd \
+        ||  return 1
+      else
+            echo '[INFO] No relevant files were modified, skipping build' \
+        &&  return 0
+      fi \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_build_mobile_ios {
+  export EXPO_APPLE_PASSWORD
+  export EXPO_IOS_DIST_P12_PASSWORD
+
+      pushd "${STARTDIR}/integrates" \
+  &&  echo '[INFO] Logging in to AWS' \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+        APPLE_DIST_CERT_PASSWORD \
+        APPLE_ID \
+        APPLE_PASSWORD \
+        APPLE_PUSH_ID \
+        APPLE_TEAM_ID \
+        EXPO_USER \
+        EXPO_PASS \
+  &&  EXPO_APPLE_PASSWORD="${APPLE_PASSWORD}" \
+  &&  EXPO_IOS_DIST_P12_PASSWORD="${APPLE_DIST_CERT_PASSWORD}" \
+  &&  pushd mobile \
+    &&  echo '[INFO] Installing deps' \
+    &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+    &&  npm install \
+    &&  npx --no-install expo login \
+          --username "${EXPO_USER}" \
+          --password "${EXPO_PASS}" \
+          --non-interactive \
+    &&  aws s3 cp \
+          --recursive \
+          "s3://fluidintegrates.build/mobile/certs" \
+          ./certs \
+    &&  echo '[INFO] Building iOS app' \
+    &&  npx --no-install expo-cli build:ios \
+          --apple-id "${APPLE_ID}" \
+          --dist-p12-path ./certs/apple_ios_distribution.p12 \
+          --no-publish \
+          --provisioning-profile-path ./certs/apple_prov_profile.mobileprovision \
+          --push-id "${APPLE_PUSH_ID}" \
+          --push-p8-path ./certs/apple_apns.p8 \
+          --release-channel "${CI_COMMIT_REF_NAME}" \
+          --team-id "${APPLE_TEAM_ID}" \
+          --type archive \
+          --non-interactive \
+    &&  mkdir -p output \
+    &&  curl -sSo output/integrates.ipa "$(npx expo-cli url:ipa)" \
+    &&  rm -rf ./certs \
+    &&  popd \
+  ||  return 1
+}
+
+function job_integrates_deploy_mobile_ota {
+  local mobile_version
+
+      pushd integrates \
+    &&  echo '[INFO] Logging in to AWS' \
+    &&  mobile_version="$(helper_integrates_mobile_version_playstore)" \
+    &&  helper_integrates_deployment_date \
+    &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
+    &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+          EXPO_USER \
+          EXPO_PASS \
+    &&  sops \
+          --aws-profile default \
+          --decrypt \
+          --extract '["GOOGLE_SERVICES_APP"]' \
+          --output 'mobile/google-services.json' \
+          --output-type 'json' \
+          "secrets-${ENVIRONMENT_NAME}.yaml" \
+    &&  echo '[INFO] Installing deps' \
+    &&  pushd mobile \
+      &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+      &&  npm install \
+      &&  npx --no-install expo login \
+            --username "${EXPO_USER}" \
+            --password "${EXPO_PASS}" \
+            --non-interactive \
+      &&  echo '[INFO] Replacing versions' \
+      &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
+      &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
+      &&  sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
+      &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
+      &&  echo '[INFO] Publishing update' \
+      &&  npx --no-install expo publish \
+            --non-interactive \
+            --release-channel "${CI_COMMIT_REF_NAME}" \
+      &&  echo '[INFO] Sending build info to bugsnag' \
+      &&  npx bugsnag-build-reporter \
+            --api-key c7b947a293ced0235cdd8edc8c09dad4 \
+            --app-version "${CI_COMMIT_SHORT_SHA}" \
+            --release-stage "mobile-${ENVIRONMENT_NAME}" \
+            --builder-name "${CI_COMMIT_AUTHOR}" \
+            --source-control-provider gitlab \
+            --source-control-repository https://gitlab.com/fluidattacks/product.git \
+            --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
+    &&  popd \
+    ||  return 1 \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_deploy_mobile_playstore {
+  export LANG=en_US.UTF-8
+
+      if  helper_common_has_any_file_changed \
+        'integrates/mobile/app.json'
+      then
+            pushd "${STARTDIR}/integrates" \
+        &&  echo '[INFO] Logging in to AWS' \
+        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
+        &&  sops \
+              --aws-profile default \
+              --decrypt \
+              --extract '["PLAYSTORE_CREDENTIALS"]' \
+              --output 'mobile/playstore-credentials.json' \
+              --output-type 'json' \
+              "secrets-${ENVIRONMENT_NAME}.yaml" \
+        &&  pushd mobile \
+          &&  echo '[INFO] Installing deps' \
+          &&  bundle install \
+          &&  echo '[INFO] Deploying to Google Play Store' \
+          &&  bundle exec fastlane supply \
+                --aab ./output/integrates.aab \
+                --json_key ./playstore-credentials.json \
+                --package_name "com.fluidattacks.integrates" \
+                --track production \
+          &&  rm playstore-credentials.json \
+        &&  popd \
+        ||  return 1
+      else
+            echo '[INFO] No relevant files were modified, skipping deploy' \
+        &&  return 0
+      fi \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_functional_tests_mobile_local {
+  export CI_COMMIT_REF_NAME
+  local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
+
+  function teardown {
+    kill %1
+  }
+
+      pushd "${STARTDIR}/integrates/mobile/e2e" \
+  &&  env_prepare_python_packages \
+  &&  env_prepare_node_modules \
+  &&  curl -sSo expoClient.apk "${expo_apk_url}" \
+  &&  echo '[INFO] Looking for available android devices...' \
+  &&  echo '[INFO] Make sure to enable USB debugging and set' \
+            'your mobile device to file transfer mode' \
+  &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
+  &&  { appium --default-capabilities capabilities/android.json & } \
+  &&  echo '[INFO] Waiting 5 seconds to leave appium start' \
+  &&  sleep 5 \
+  &&  trap 'teardown' EXIT \
+  &&  pytest ./ \
+        --exitfirst \
+        --verbose \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_reset {
+  local files_to_delete=(
+    'app/static/dashboard/'
+    'app/backend/reports/images/*'
+    'back/packages/integrates-back/backend/reports/tpls/*'
+    'back/packages/integrates-back/backend/reports/results/results_pdf/*'
+    'back/packages/integrates-back/backend/reports/results/results_excel/*'
+    'build/coverage'
+    'back/packages/*/*.egg-info'
+    'front/coverage'
+    'geckodriver.log'
+    'mobile/coverage'
+    'front/coverage.lcov'
+    'front/node_modules'
+    'lambda/.venv.*'
+    'mobile/.expo/'
+    'mobile/google-services.json'
+    'TEMP_FD'
+    'version.txt'
+    '*.xlsx'
+    '.tmp'
+    '.DynamoDB'
+  )
+  local globs_to_delete=(
+    '*.coverage*'
+    '*package-lock.json'
+    '*__pycache__*'
+    '*.mypy_cache'
+    '*.pytest_cache'
+    '*.terraform'
+  )
+
+      pushd "${STARTDIR}/integrates" \
+  &&  for file in "${files_to_delete[@]}"
+      do
+        # I want word splitting to exploit globbing
+        # shellcheck disable=SC2086
+            echo "[INFO] Deleting: ${file}" \
+        &&  rm -rf ${file}
+      done
+
+      for glob in "${globs_to_delete[@]}"
+      do
+            echo "[INFO] Deleting: ${glob}" \
+        &&  find . -wholename "${glob}" -exec rm -rf {} +
+      done \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_test_mobile {
+      pushd "${STARTDIR}/integrates/mobile" \
+    &&  npm install --unsafe-perm \
+    &&  npm test \
+    &&  mv coverage/lcov.info coverage.lcov \
+  &&  popd \
+  ||  return 1
+}
+
+
 # Front
 
 function job_integrates_front_build_development {
@@ -61,7 +365,6 @@ function job_integrates_back_deploy_development {
   local deployment="${CI_COMMIT_REF_NAME}"
   local timeout='10m'
   local files_path='deploy/ephemeral'
-  local files="${files_path}/deployment.yaml|${files_path}/service.yaml|${files_path}/ingress.yaml|${files_path}/variables.yaml"
 
       helper_common_use_pristine_workdir \
   &&  helper_integrates_aws_login "${env}" \
@@ -78,7 +381,7 @@ function job_integrates_back_deploy_development {
           "${namespace}" \
           "${deployment}" \
           "${timeout}" \
-          "${files}" \
+          "${files_path}" \
   &&  popd \
   ||  return 1
 }
@@ -96,7 +399,6 @@ function job_integrates_back_deploy_production {
   local deployment='master'
   local timeout='10m'
   local files_path='deploy/production'
-  local files="${files_path}/deployment.yaml|${files_path}/service.yaml|${files_path}/ingress.yaml|${files_path}/variables.yaml"
 
       helper_common_use_pristine_workdir \
   &&  helper_integrates_aws_login "${env}" \
@@ -111,7 +413,7 @@ function job_integrates_back_deploy_production {
           "${namespace}" \
           "${deployment}" \
           "${timeout}" \
-          "${files}" \
+          "${files_path}" \
     &&  helper_integrates_back_deploy_newrelic \
     &&  helper_integrates_back_deploy_checkly \
   &&  popd \
@@ -248,134 +550,95 @@ function job_integrates_back_test_functional {
 }
 
 
-function job_integrates_build_mobile_android {
-  export EXPO_ANDROID_KEYSTORE_PASSWORD
-  export EXPO_ANDROID_KEY_PASSWORD
-  export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
-  export JAVA_OPTS="
-    -Xmx7G
-    -XX:+HeapDumpOnOutOfMemoryError
-    -XX:+UnlockExperimentalVMOptions
-    -XX:+UseCGroupMemoryLimitForHeap
-    -XX:+UseG1GC
-  "
-  export GRADLE_OPTS="
-    -Dorg.gradle.configureondemand=true
-    -Dorg.gradle.daemon=false
-    -Dorg.gradle.jvmargs=\"${JAVA_OPTS}\"
-    -Dorg.gradle.parallel=true
-    -Dorg.gradle.project.android.aapt2FromMavenOverride=${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/build-tools/30.0.3/aapt2
-  "
-  export GRADLE_DAEMON_DISABLED="1"
+# Analytics
 
-      if  helper_common_has_any_file_changed \
-        'integrates/mobile/app.json' \
-        'integrates/mobile/assets/icon.png' \
-        'integrates/mobile/assets/splash.png'
+function _execute_analytics_generator {
+  local generator="${1}"
+  local results_dir="${generator//.py/}"
+
+      mkdir -p "${results_dir}" \
+  &&  echo "[INFO] Running: ${generator}" \
+  &&  {
+            RESULTS_DIR="${results_dir}" python3 "${generator}" \
+        ||  RESULTS_DIR="${results_dir}" python3 "${generator}" \
+        ||  RESULTS_DIR="${results_dir}" python3 "${generator}"
+      } \
+
+}
+
+function _job_integrates_analytics_make_documents {
+  export CI_COMMIT_REF_NAME
+  export CI_NODE_INDEX
+  export CI_NODE_TOTAL
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
+  export TEMP_FILE1
+  local remote_bucket='fluidintegrates.analytics'
+
+      find 'analytics/generators' -wholename '*.py' | LC_ALL=C sort > "${TEMP_FILE1}" \
+  &&  helper_common_execute_chunk_parallel \
+        "_execute_analytics_generator" \
+        "${TEMP_FILE1}" \
+  &&  echo '[INFO] Uploading documents' \
+  &&  aws s3 sync \
+        'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
+
+}
+
+function _job_integrates_analytics_make_snapshots {
+  export CI_COMMIT_REF_NAME
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
+  local remote_bucket='fluidintegrates.analytics'
+
+      echo '[INFO] Collecting static results' \
+  &&  RESULTS_DIR='analytics/collector/reports' \
+      python3 analytics/collector/generate_reports.py \
+  &&  echo '[INFO] Uploading static results' \
+  &&  aws s3 sync \
+        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots"
+}
+
+function job_integrates_analytics_make_documents_dev {
+      pushd "${STARTDIR}/integrates" \
+  &&  env_prepare_python_packages \
+  &&  helper_integrates_set_dev_secrets \
+  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
-            pushd "${STARTDIR}/integrates" \
-        &&  echo '[INFO] Logging in to AWS' \
-        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-        &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-              EXPO_USER \
-              EXPO_PASS \
-        &&  sops \
-              --aws-profile default \
-              --decrypt \
-              --extract '["GOOGLE_SERVICES_APP"]' \
-              --output 'mobile/google-services.json' \
-              --output-type 'json' \
-              "secrets-development.yaml" \
-        &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
-        &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
-        &&  pushd mobile \
-          &&  echo '[INFO] Installing deps' \
-          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-          &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
-          &&  npm install \
-          &&  npx --no-install expo login \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-                --non-interactive \
-          &&  aws s3 cp \
-                --recursive \
-                "s3://fluidintegrates.build/mobile/certs" \
-                ./certs \
-          &&  echo '[INFO] Patching android sdk' \
-          &&  rm -rf "${HOME}/.turtle/" \
-          &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-          &&  cp -r --no-preserve=mode,ownership \
-                "${androidSdk}"/libexec/android-sdk/* \
-                "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-          &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
-          &&  echo '[INFO] Building android app' \
-          &&  npx --no-install turtle build:android \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-                --keystore-alias fluidintegrates-keystore \
-                --keystore-path ./certs/keystore-dev.jks \
-                --output output/integrates.aab \
-                --release-channel "${CI_COMMIT_REF_NAME}" \
-                --type app-bundle \
-          &&  rm google-services.json \
-          &&  rm -rf ./certs \
-        &&  popd \
-        ||  return 1
-      else
-            echo '[INFO] No relevant files were modified, skipping build' \
-        &&  return 0
+            helper_integrates_serve_dynamo \
+        &&  helper_integrates_serve_redis \
+        &&  helper_integrates_serve_minio
       fi \
+  &&  _job_integrates_analytics_make_documents \
   &&  popd \
   ||  return 1
 }
 
-function job_integrates_build_mobile_ios {
-  export EXPO_APPLE_PASSWORD
-  export EXPO_IOS_DIST_P12_PASSWORD
-
+function job_integrates_analytics_make_documents_prod {
       pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS' \
-  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-        APPLE_DIST_CERT_PASSWORD \
-        APPLE_ID \
-        APPLE_PASSWORD \
-        APPLE_PUSH_ID \
-        APPLE_TEAM_ID \
-        EXPO_USER \
-        EXPO_PASS \
-  &&  EXPO_APPLE_PASSWORD="${APPLE_PASSWORD}" \
-  &&  EXPO_IOS_DIST_P12_PASSWORD="${APPLE_DIST_CERT_PASSWORD}" \
-  &&  pushd mobile \
-    &&  echo '[INFO] Installing deps' \
-    &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-    &&  npm install \
-    &&  npx --no-install expo login \
-          --username "${EXPO_USER}" \
-          --password "${EXPO_PASS}" \
-          --non-interactive \
-    &&  aws s3 cp \
-          --recursive \
-          "s3://fluidintegrates.build/mobile/certs" \
-          ./certs \
-    &&  echo '[INFO] Building iOS app' \
-    &&  npx --no-install expo-cli build:ios \
-          --apple-id "${APPLE_ID}" \
-          --dist-p12-path ./certs/apple_ios_distribution.p12 \
-          --no-publish \
-          --provisioning-profile-path ./certs/apple_prov_profile.mobileprovision \
-          --push-id "${APPLE_PUSH_ID}" \
-          --push-p8-path ./certs/apple_apns.p8 \
-          --release-channel "${CI_COMMIT_REF_NAME}" \
-          --team-id "${APPLE_TEAM_ID}" \
-          --type archive \
-          --non-interactive \
-    &&  mkdir -p output \
-    &&  curl -sSo output/integrates.ipa "$(npx expo-cli url:ipa)" \
-    &&  rm -rf ./certs \
-    &&  popd \
+  &&  env_prepare_python_packages \
+  &&  helper_bootstrap_prod_ci \
+  &&  _job_integrates_analytics_make_documents \
+  &&  popd \
   ||  return 1
 }
+
+function job_integrates_analytics_make_documents_prod_schedule {
+      pushd "${STARTDIR}/integrates" \
+  &&  job_integrates_analytics_make_documents_prod \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_analytics_make_snapshots_prod_schedule {
+      pushd "${STARTDIR}/integrates" \
+  &&  env_prepare_python_packages \
+  &&  helper_bootstrap_prod_ci \
+  &&  _job_integrates_analytics_make_snapshots \
+  &&  popd \
+  ||  return 1
+}
+
+
+# Others
 
 function job_integrates_build_lambdas {
 
@@ -430,92 +693,6 @@ function job_integrates_coverage_report {
   || return 1
 }
 
-function job_integrates_deploy_mobile_ota {
-  local mobile_version
-
-      pushd integrates \
-    &&  echo '[INFO] Logging in to AWS' \
-    &&  mobile_version="$(helper_integrates_mobile_version_playstore)" \
-    &&  helper_integrates_deployment_date \
-    &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-    &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-          EXPO_USER \
-          EXPO_PASS \
-    &&  sops \
-          --aws-profile default \
-          --decrypt \
-          --extract '["GOOGLE_SERVICES_APP"]' \
-          --output 'mobile/google-services.json' \
-          --output-type 'json' \
-          "secrets-${ENVIRONMENT_NAME}.yaml" \
-    &&  echo '[INFO] Installing deps' \
-    &&  pushd mobile \
-      &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-      &&  npm install \
-      &&  npx --no-install expo login \
-            --username "${EXPO_USER}" \
-            --password "${EXPO_PASS}" \
-            --non-interactive \
-      &&  echo '[INFO] Replacing versions' \
-      &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
-      &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
-      &&  sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
-      &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
-      &&  echo '[INFO] Publishing update' \
-      &&  npx --no-install expo publish \
-            --non-interactive \
-            --release-channel "${CI_COMMIT_REF_NAME}" \
-      &&  echo '[INFO] Sending build info to bugsnag' \
-      &&  npx bugsnag-build-reporter \
-            --api-key c7b947a293ced0235cdd8edc8c09dad4 \
-            --app-version "${CI_COMMIT_SHORT_SHA}" \
-            --release-stage "mobile-${ENVIRONMENT_NAME}" \
-            --builder-name "${CI_COMMIT_AUTHOR}" \
-            --source-control-provider gitlab \
-            --source-control-repository https://gitlab.com/fluidattacks/product.git \
-            --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
-    &&  popd \
-    ||  return 1 \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_mobile_playstore {
-  export LANG=en_US.UTF-8
-
-      if  helper_common_has_any_file_changed \
-        'integrates/mobile/app.json'
-      then
-            pushd "${STARTDIR}/integrates" \
-        &&  echo '[INFO] Logging in to AWS' \
-        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-        &&  sops \
-              --aws-profile default \
-              --decrypt \
-              --extract '["PLAYSTORE_CREDENTIALS"]' \
-              --output 'mobile/playstore-credentials.json' \
-              --output-type 'json' \
-              "secrets-${ENVIRONMENT_NAME}.yaml" \
-        &&  pushd mobile \
-          &&  echo '[INFO] Installing deps' \
-          &&  bundle install \
-          &&  echo '[INFO] Deploying to Google Play Store' \
-          &&  bundle exec fastlane supply \
-                --aab ./output/integrates.aab \
-                --json_key ./playstore-credentials.json \
-                --package_name "com.fluidattacks.integrates" \
-                --track production \
-          &&  rm playstore-credentials.json \
-        &&  popd \
-        ||  return 1
-      else
-            echo '[INFO] No relevant files were modified, skipping deploy' \
-        &&  return 0
-      fi \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_deploy_permissions_matrix {
   export PYTHONPATH="${pyPkgPandas}/lib/python3.7/site-packages"
   export PYTHONPATH="${pyPkgNumpy}/lib/python3.7/site-packages:${PYTHONPATH}"
@@ -529,83 +706,6 @@ function job_integrates_deploy_permissions_matrix {
   &&  helper_integrates_serve_redis \
   &&  echo '[INFO] Deploying permissions matrix' \
   &&  python3 deploy/permissions-matrix/matrix.py \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_functional_tests_mobile_local {
-  export CI_COMMIT_REF_NAME
-  local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
-
-  function teardown {
-    kill %1
-  }
-
-      pushd "${STARTDIR}/integrates/mobile/e2e" \
-  &&  env_prepare_python_packages \
-  &&  env_prepare_node_modules \
-  &&  curl -sSo expoClient.apk "${expo_apk_url}" \
-  &&  echo '[INFO] Looking for available android devices...' \
-  &&  echo '[INFO] Make sure to enable USB debugging and set' \
-            'your mobile device to file transfer mode' \
-  &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
-  &&  { appium --default-capabilities capabilities/android.json & } \
-  &&  echo '[INFO] Waiting 5 seconds to leave appium start' \
-  &&  sleep 5 \
-  &&  trap 'teardown' EXIT \
-  &&  pytest ./ \
-        --exitfirst \
-        --verbose \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_reset {
-  local files_to_delete=(
-    'app/static/dashboard/'
-    'app/backend/reports/images/*'
-    'back/packages/integrates-back/backend/reports/tpls/*'
-    'back/packages/integrates-back/backend/reports/results/results_pdf/*'
-    'back/packages/integrates-back/backend/reports/results/results_excel/*'
-    'build/coverage'
-    'back/packages/*/*.egg-info'
-    'front/coverage'
-    'geckodriver.log'
-    'mobile/coverage'
-    'front/coverage.lcov'
-    'front/node_modules'
-    'lambda/.venv.*'
-    'mobile/.expo/'
-    'mobile/google-services.json'
-    'TEMP_FD'
-    'version.txt'
-    '*.xlsx'
-    '.tmp'
-    '.DynamoDB'
-  )
-  local globs_to_delete=(
-    '*.coverage*'
-    '*package-lock.json'
-    '*__pycache__*'
-    '*.mypy_cache'
-    '*.pytest_cache'
-    '*.terraform'
-  )
-
-      pushd "${STARTDIR}/integrates" \
-  &&  for file in "${files_to_delete[@]}"
-      do
-        # I want word splitting to exploit globbing
-        # shellcheck disable=SC2086
-            echo "[INFO] Deleting: ${file}" \
-        &&  rm -rf ${file}
-      done
-
-      for glob in "${globs_to_delete[@]}"
-      do
-            echo "[INFO] Deleting: ${glob}" \
-        &&  find . -wholename "${glob}" -exec rm -rf {} +
-      done \
   &&  popd \
   ||  return 1
 }
@@ -721,91 +821,6 @@ function job_integrates_make_migration_prod_test {
   ||  return 1
 }
 
-function _execute_analytics_generator {
-  local generator="${1}"
-  local results_dir="${generator//.py/}"
-
-      mkdir -p "${results_dir}" \
-  &&  echo "[INFO] Running: ${generator}" \
-  &&  {
-            RESULTS_DIR="${results_dir}" python3 "${generator}" \
-        ||  RESULTS_DIR="${results_dir}" python3 "${generator}" \
-        ||  RESULTS_DIR="${results_dir}" python3 "${generator}"
-      } \
-
-}
-
-function _job_integrates_analytics_make_documents {
-  export CI_COMMIT_REF_NAME
-  export CI_NODE_INDEX
-  export CI_NODE_TOTAL
-  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
-  export TEMP_FILE1
-  local remote_bucket='fluidintegrates.analytics'
-
-      find 'analytics/generators' -wholename '*.py' | LC_ALL=C sort > "${TEMP_FILE1}" \
-  &&  helper_common_execute_chunk_parallel \
-        "_execute_analytics_generator" \
-        "${TEMP_FILE1}" \
-  &&  echo '[INFO] Uploading documents' \
-  &&  aws s3 sync \
-        'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
-
-}
-
-function _job_integrates_analytics_make_snapshots {
-  export CI_COMMIT_REF_NAME
-  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
-  local remote_bucket='fluidintegrates.analytics'
-
-      echo '[INFO] Collecting static results' \
-  &&  RESULTS_DIR='analytics/collector/reports' \
-      python3 analytics/collector/generate_reports.py \
-  &&  echo '[INFO] Uploading static results' \
-  &&  aws s3 sync \
-        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots"
-}
-
-function job_integrates_analytics_make_documents_dev {
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
-      then
-            helper_integrates_serve_dynamo \
-        &&  helper_integrates_serve_redis \
-        &&  helper_integrates_serve_minio
-      fi \
-  &&  _job_integrates_analytics_make_documents \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_analytics_make_documents_prod {
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_bootstrap_prod_ci \
-  &&  _job_integrates_analytics_make_documents \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_analytics_make_documents_prod_schedule {
-      pushd "${STARTDIR}/integrates" \
-  &&  job_integrates_analytics_make_documents_prod \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_analytics_make_snapshots_prod_schedule {
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_bootstrap_prod_ci \
-  &&  _job_integrates_analytics_make_snapshots \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_make_migration_dev_apply {
   local migration_file="${1}"
 
@@ -876,13 +891,4 @@ function job_integrates_infra_front_deploy {
     &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   || return 1
-}
-
-function job_integrates_test_mobile {
-      pushd "${STARTDIR}/integrates/mobile" \
-    &&  npm install --unsafe-perm \
-    &&  npm test \
-    &&  mv coverage/lcov.info coverage.lcov \
-  &&  popd \
-  ||  return 1
 }
