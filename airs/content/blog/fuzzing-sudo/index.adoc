@@ -90,7 +90,7 @@ link:https://groups.google.com/u/1/g/afl-users/c/ZBWq0LdHBzw/m/zBlo7q9LBAAJ[only
 However, there is a
 link:https://github.com/AFLplusplus/AFLplusplus/tree/stable/utils/argv_fuzzing[way]
 provided by `AFL` to fuzz those kind of binaries:
-A `C` header that converts `argv[]` parameters to standard input parameters.
+A `C` header that converts a standard input payload to `argv[]` parameters.
 
 To do that, we just need to:
 * Copy over the file
