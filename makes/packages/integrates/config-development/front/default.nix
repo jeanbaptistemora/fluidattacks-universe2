@@ -4,8 +4,7 @@
 } @ _:
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path integratesPkgs;
-  makeTemplate = import (path "/makes/utils/make-template") path integratesPkgs;
+  makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
     node = integratesPkgs.nodejs;
@@ -1149,12 +1148,9 @@ let
     };
   };
 in
-makeTemplate {
-  arguments = {
-    envBashLibCommon = path "/makes/utils/common/template.sh";
-    envNodeRequirements = nodeRequirements;
-    envSearchPaths = makeSearchPaths [ integratesPkgs.nodejs nodeRequirements ];
-  };
+makeDerivation {
+  builder = path "/makes/packages/integrates/config-development/front/builder.sh";
+  envBashLibCommon = path "/makes/utils/common/template.sh";
+  envNodeRequirements = nodeRequirements;
   name = "integrates-config-development-front";
-  template = path "/makes/packages/integrates/config-development/front/template.sh";
 }

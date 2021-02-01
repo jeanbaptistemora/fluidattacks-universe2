@@ -79,6 +79,17 @@
   script:
     - ./build.sh integrates_scheduler_prod "${CI_JOB_NAME/scheduler_/}"
 
+integrates/build-front:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/app/static/
+    when: on_success
+  retry: 1
+  stage: build
+
 integrates/infra-backup-apply:
   <<: *makes
   <<: *in_master_branch_integrates
@@ -268,10 +279,6 @@ scheduler_send_unsolved_to_all:
       - integrates/app/static/
     when: on_success
 
-integrates_front_build_development:
-  <<: *in_dev_branch_integrates
-  <<: *integrates_front_build
-
 integrates_front_build_production:
   <<: *in_master_branch_integrates
   <<: *integrates_front_build
@@ -280,7 +287,7 @@ integrates_front_deploy_development:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates_front_build_development]
+  needs: [integrates/build-front]
 
 integrates_front_deploy_production:
   <<: *with_nix
