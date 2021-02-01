@@ -10,6 +10,13 @@ from typing_extensions import TypedDict
 
 from boto3.dynamodb.conditions import Key
 
+Action = NamedTuple('Action', [
+    ('action', str),
+    ('date', str),
+    ('justification', str),
+    ('manager', str),
+    ('times', int),
+])
 Datetime = datetime
 Tracking = TypedDict('Tracking', {
     'cycle': int,
@@ -22,6 +29,7 @@ Tracking = TypedDict('Tracking', {
     'accepted': int,
     'accepted_undefined': int,
     'manager': str,
+    'justification': str,
 }, total=False)
 Historic = List[Dict[str, str]]
 Evidence = Dict[str, Dict[str, str]]

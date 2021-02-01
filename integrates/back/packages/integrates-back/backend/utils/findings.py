@@ -5,7 +5,7 @@ import io
 import itertools
 import logging
 from decimal import Decimal
-from typing import Any, Dict, List, Union, cast, Tuple, Optional, Set
+from typing import Any, Counter, Dict, List, Union, cast, Tuple, Optional, Set
 
 from aioextensions import (
     collect,
@@ -38,11 +38,12 @@ from backend.filters import (
     finding as finding_filters,
 )
 from backend.typing import (
+    Action,
     Finding as FindingType,
     MailContent as MailContentType,
     Historic as HistoricType,
     Tracking as TrackingItem,
-    Datetime
+    Datetime,
 )
 from backend.utils import (
     cvss,
@@ -275,6 +276,74 @@ def filter_by_date(
             historic.get('date') and get_item_date(historic) <= cycle_date,
         historic_items
     ))
+
+
+def get_vuln_state_action(historic_state: HistoricType) -> List[Action]:
+    actions: List[Action] = [
+        Action(
+            action=state['state'],
+            date=state['date'].split(' ')[0],
+            justification='',
+            manager='',
+            times=1,
+        )
+        for state in historic_state
+    ]
+
+    return list({action.date: action for action in actions}.values())
+
+
+def get_vuln_treatment_actions(
+    historic_treatment: HistoricType
+) -> List[Action]:
+    actions: List[Action] = [
+        Action(
+            action=treatment['treatment'],
+            date=treatment['date'].split(' ')[0],
+            justification=treatment['justification'],
+            manager=treatment['treatment_manager'],
+            times=1,
+        )
+        for treatment in historic_treatment
+        if treatment['treatment'] in {'ACCEPTED', 'ACCEPTED_UNDEFINED'} and
+        treatment.get('acceptance_status') not in {'REJECTED', 'SUBMITTED'}
+    ]
+
+    return list({action.date: action for action in actions}.values())
+
+
+def get_state_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
+    states_actions = list(
+        itertools.chain.from_iterable(
+            get_vuln_state_action(
+                sort_historic_by_date(vuln['historic_state'])
+            )
+            for vuln in vulns
+        )
+    )
+    actions = [
+        action._replace(times=times)
+        for action, times in Counter(states_actions).most_common()
+    ]
+
+    return actions
+
+
+def get_treatment_actions(vulns: List[Dict[str, FindingType]]) -> List[Action]:
+    treatments_actions = list(
+        itertools.chain.from_iterable(
+            get_vuln_treatment_actions(
+                sort_historic_by_date(vuln['historic_treatment'])
+            )
+            for vuln in vulns
+        )
+    )
+    actions = [
+        action._replace(times=times)
+        for action, times in Counter(treatments_actions).most_common()
+    ]
+
+    return actions
 
 
 def get_treatments_before_cycle_date(

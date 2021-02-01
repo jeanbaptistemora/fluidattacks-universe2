@@ -6,7 +6,7 @@ import logging.config
 from collections import OrderedDict, defaultdict
 from datetime import datetime
 from decimal import Decimal
-from typing import Callable, Dict, List, Tuple, Union, cast
+from typing import Callable, Counter, Dict, List, Tuple, Union, cast
 import bugsnag
 
 from botocore.exceptions import ClientError
@@ -42,6 +42,7 @@ from backend.utils import (
     datetime as datetime_utils,
 )
 from backend.utils.findings import (
+    get_state_actions,
     sort_historic_by_date,
     filter_by_date,
 )
@@ -374,7 +375,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
                 act_finding
             )
             delta = await calculate_vulnerabilities(
-                act_finding
+                str(act_finding['finding_id'])
             )
             finding_text = format_vulnerabilities(delta, act_finding)
             if msj_finding_pending:
@@ -453,42 +454,23 @@ def calculate_tag_indicators(
     return tag_info
 
 
-async def calculate_vulnerabilities(
-        act_finding: Dict[str, FindingType]) -> int:
-    vulns = await vuln_domain.list_vulnerabilities_async(
-        [str(act_finding['finding_id'])]
+async def calculate_vulnerabilities(finding_id: str) -> int:
+    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    states_actions = get_state_actions(vulns)
+    today = datetime_utils.get_now()
+    last_week = datetime_utils.get_now_minus_delta(days=8)
+    actions = list(filter(
+        lambda action: (
+            datetime_utils.get_from_str(action.date, '%Y-%m-%d') >= last_week
+            and datetime_utils.get_from_str(action.date, '%Y-%m-%d') <= today
+        ),
+        states_actions
+    ))
+    state_counter: Counter[str] = sum(
+        [Counter({action.action: action.times}) for action in actions],
+        Counter()
     )
-    all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
-    delta_total = 0
-    # Remove last duplicate cycles who are added by approving an open vuln
-    if len(all_tracking) > 1:
-        last_cycle_open = all_tracking[-1]['open']
-        last_cycle_close = all_tracking[-1]['closed']
-        for cycle in all_tracking[::-1][1:]:
-            if (last_cycle_open == cycle['open']
-                    and last_cycle_close == cycle['closed']):
-                all_tracking.pop()
-                continue
-            break
-    if len(all_tracking) > 1:
-        if (datetime_utils.get_from_str(
-                str(all_tracking[-1]['date']), date_format="%Y-%m-%d") >
-                datetime_utils.get_now_minus_delta(days=8)):
-            open_2 = cast(int, all_tracking[-1]['open'])
-            open_1 = cast(int, all_tracking[-2]['open'])
-            closed_2 = cast(int, all_tracking[-1]['closed'])
-            closed_1 = cast(int, all_tracking[-2]['closed'])
-            delta_open = abs(open_2 - open_1)
-            delta_closed = abs(closed_2 - closed_1)
-            delta_total = delta_open - delta_closed
-    elif (len(all_tracking) == 1 and
-            datetime_utils.get_from_str(
-                str(all_tracking[-1]['date']), date_format="%Y-%m-%d") >
-            datetime_utils.get_now_minus_delta(days=8)):
-        delta_open = cast(int, all_tracking[-1]['open'])
-        delta_closed = cast(int, all_tracking[-1]['closed'])
-        delta_total = delta_open - delta_closed
-    return delta_total
+    return state_counter['open'] - state_counter['closed']
 
 
 def format_vulnerabilities(

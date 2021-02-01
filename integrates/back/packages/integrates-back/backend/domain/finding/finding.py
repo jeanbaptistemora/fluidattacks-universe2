@@ -181,23 +181,35 @@ def get_tracking_vulnerabilities(
         for vuln, filter_deleted in zip(vulnerabilities, filter_deleted_status)
         if filter_deleted
     ]
-    vulns_filtered = vuln_domain.filter_non_confirmed_zero_risk(vulns_filtered)
-    vulns_filtered = vuln_domain.filter_non_requested_zero_risk(vulns_filtered)
-    vuln_casted = finding_utils.remove_repeated(vulns_filtered)
-    open_verification_dates = finding_utils.get_open_verification_dates(
-        vulns_filtered
+    vulns_filtered_zero = filter_zero_risk_vulns(vulns_filtered)
+    states_actions = finding_utils.get_state_actions(vulns_filtered_zero)
+    treatments_actions = finding_utils.get_treatment_actions(
+        vulns_filtered_zero
     )
-    unique_dict = finding_utils.get_unique_dict(vuln_casted)
-    tracking = finding_utils.get_tracking_dict(unique_dict)
-    tracking_grouped = finding_utils.group_by_state(tracking)
-    open_verification_tracking = finding_utils.add_open_verification_dates(
-        tracking_grouped, open_verification_dates
+
+    tracking_actions = list(
+        sorted(
+            states_actions + treatments_actions,
+            key=lambda action: datetime_utils.get_from_str(
+                action.date, '%Y-%m-%d'
+            )
+        )
     )
-    tracking_casted = finding_utils.cast_tracking(open_verification_tracking)
-    new_tracked = finding_utils.add_treatment_to_tracking(
-        tracking_casted, vulnerabilities
-    )
-    return new_tracked
+    return [
+        TrackingItem(
+            cycle=index,
+            open=action.times if action.action == 'open' else 0,
+            closed=action.times if action.action == 'closed' else 0,
+            date=action.date,
+            accepted=action.times if action.action == 'ACCEPTED' else 0,
+            accepted_undefined=(
+                action.times if action.action == 'ACCEPTED_UNDEFINED' else 0
+            ),
+            manager=action.manager,
+            justification=action.justification
+        )
+        for index, action in enumerate(tracking_actions)
+    ]
 
 
 def filter_zero_risk_vulns(
