@@ -498,7 +498,11 @@ async def remove_user_access(
     )
     if success and check_org_access:
         org_id = await org_domain.get_id_for_group(group)
-        if not await user_domain.get_projects(email, organization_id=org_id):
+        has_org_access = await org_domain.has_user_access(org_id, email)
+        has_groups_in_org = bool(
+            await user_domain.get_projects(email, organization_id=org_id)
+        )
+        if has_org_access and not has_groups_in_org:
             await org_domain.remove_user(org_id, email)
     return success
 
