@@ -1,5 +1,4 @@
 { observesPkgs
-, outputs
 , path
 , ...
 } @ _:
@@ -12,13 +11,11 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envMelts = outputs.apps.melts.program;
-    envSopsBin = "${observesPkgs.sops}/bin";
-    envUpdateSyncDateBin = "${bins.updateSyncDate}/bin";
+    envCodeEtlBin = "${bins.codeEtl}/bin";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
     envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path observesPkgs;
     envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;
   };
-  name = "observes-code-etl-mirror";
-  template = path "/makes/applications/observes/code-etl-mirror/entrypoint.sh";
+  name = "observes-code-etl-amend";
+  template = path "/makes/applications/observes/code-etl-amend/entrypoint.sh";
 }

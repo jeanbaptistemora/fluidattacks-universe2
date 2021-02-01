@@ -3,10 +3,12 @@
 source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 source '__envUtilsBashLibGit__'
+
 export PATH="__envMirrorGroupBin__:${PATH:-}"
 
 function list_services_groups {
   local store="${1}"
+
       use_git_repo_services \
     &&  ls -1 groups/ > "${store}" \
   &&  popd \
