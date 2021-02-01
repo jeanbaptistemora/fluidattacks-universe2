@@ -2,16 +2,20 @@
   -------
   We need it to override default styles from react-bootstrap.
 */
-import type { FormControlProps } from "react-bootstrap";
 import React from "react";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { FormControl, HelpBlock } from "react-bootstrap";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-interface IAutoCompleteTextProps extends WrappedFieldProps, FormControlProps {
+interface IAutoCompleteTextProps extends WrappedFieldProps {
+  autoComplete?: string;
+  className?: string;
+  disabled?: boolean;
+  id?: string;
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;
+  placeholder?: string;
   suggestions: string[];
+  type: string;
 }
 
 export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
@@ -33,7 +37,7 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
 
   return (
     <React.Fragment>
-      <FormControl
+      <input
         autoComplete={"off"}
         className={style["form-control"]}
         disabled={disabled}
@@ -66,9 +70,9 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
         </ul>
       )}
       {meta.touched && !_.isUndefined(meta.error) && (
-        <HelpBlock className={style.validationError} id={"validationError"}>
+        <div className={style.validationError} id={"validationError"}>
           {meta.error as string}
-        </HelpBlock>
+        </div>
       )}
     </React.Fragment>
   );

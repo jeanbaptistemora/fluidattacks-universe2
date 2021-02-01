@@ -1,14 +1,16 @@
-import type { FormControlProps } from "react-bootstrap";
 import React from "react";
 import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { Checkbox as BootstrapCheckbox, HelpBlock } from "react-bootstrap";
 
-export const Checkbox: React.FC<WrappedFieldProps & FormControlProps> = (
+interface ICheckboxProps extends WrappedFieldProps {
+  children: React.ReactNode;
+}
+
+export const Checkbox: React.FC<ICheckboxProps> = (
   // Readonly utility type does not work on deeply nested types
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  props: WrappedFieldProps & FormControlProps
+  props: ICheckboxProps
 ): JSX.Element => {
   const { input, meta, children } = props;
   const { value } = input;
@@ -16,23 +18,23 @@ export const Checkbox: React.FC<WrappedFieldProps & FormControlProps> = (
 
   return (
     <React.Fragment>
-      <BootstrapCheckbox
+      <input
         checked={value}
+        type={"checkbox"}
         // Best way to pass down props.
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...input}
-      >
-        {children}
-      </BootstrapCheckbox>
+      />
+      {children}
       {touched && !_.isUndefined(error) && (
-        <HelpBlock
+        <div
           // We need it to override default styles from react-bootstrap.
           // eslint-disable-next-line react/forbid-component-props
           className={style.validationError}
           id={"validationError"}
         >
           {error as string}
-        </HelpBlock>
+        </div>
       )}
     </React.Fragment>
   );

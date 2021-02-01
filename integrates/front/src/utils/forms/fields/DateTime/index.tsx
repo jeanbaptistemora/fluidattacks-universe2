@@ -1,16 +1,14 @@
 import Datetime from "react-datetime";
-import type { FormControlProps } from "react-bootstrap";
-import { HelpBlock } from "react-bootstrap";
 import React from "react";
 import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
 import style from "utils/forms/index.css";
 import "react-datetime/css/react-datetime.css";
 
-export const DateTime: React.FC<WrappedFieldProps & FormControlProps> = (
+export const DateTime: React.FC<WrappedFieldProps> = (
   // Readonly utility type does not work on deeply nested types
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  props: WrappedFieldProps & FormControlProps
+  props: WrappedFieldProps
 ): JSX.Element => {
   const { input, meta } = props;
   const { touched, error } = meta;
@@ -25,14 +23,14 @@ export const DateTime: React.FC<WrappedFieldProps & FormControlProps> = (
         {...input}
       />
       {touched && !_.isUndefined(error) && (
-        <HelpBlock
+        <div
           // We need it to override default styles from react-bootstrap.
           // eslint-disable-next-line react/forbid-component-props
           className={style.validationError}
           id={"validationError"}
         >
           {error as string}
-        </HelpBlock>
+        </div>
       )}
     </React.Fragment>
   );

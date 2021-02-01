@@ -1,6 +1,5 @@
 import { Date } from "utils/forms/fields/Date";
 import { Field } from "redux-form";
-import { FormControl } from "react-bootstrap";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
@@ -31,6 +30,6 @@ describe("Date Field", (): void => {
       </Provider>
     );
 
-    expect(wrapper.find(FormControl).props().id).toBe("test");
+    expect(wrapper.find("input").props().id).toBe("test");
   });
 });

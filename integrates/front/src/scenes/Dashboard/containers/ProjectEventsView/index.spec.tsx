@@ -151,7 +151,7 @@ describe("EventsView", () => {
     const checkBoxes: ReactWrapper = wrapper
       .find({ name: "accessibility" })
       .find("Field")
-      .find(".checkbox");
+      .find({ type: "checkbox" });
 
     const textAreaField: ReactWrapper = wrapper
       .find({ name: "detail" })

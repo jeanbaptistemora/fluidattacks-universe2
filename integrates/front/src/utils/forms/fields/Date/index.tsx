@@ -2,14 +2,15 @@
   -------
   We need it to override default styles from react-bootstrap.
 */
-import type { FormControlProps } from "react-bootstrap";
 import React from "react";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { FormControl, HelpBlock } from "react-bootstrap";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-interface IDateProps extends WrappedFieldProps, FormControlProps {
+interface IDateProps extends WrappedFieldProps {
+  className?: string;
+  disabled?: boolean;
+  id?: string;
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;
 }
 
@@ -24,7 +25,7 @@ export const Date: React.FC<IDateProps> = (
 
   return (
     <React.Fragment>
-      <FormControl
+      <input
         className={style["form-control"]}
         disabled={disabled}
         id={id}
@@ -34,9 +35,9 @@ export const Date: React.FC<IDateProps> = (
         value={value.split(" ")[0]}
       />
       {touched && !_.isUndefined(error) && (
-        <HelpBlock className={style.validationError} id={"validationError"}>
+        <div className={style.validationError} id={"validationError"}>
           {error as string}
-        </HelpBlock>
+        </div>
       )}
     </React.Fragment>
   );
