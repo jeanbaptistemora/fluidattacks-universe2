@@ -67,7 +67,7 @@ async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
         responsibility = invitation['responsibility']
         group_role = invitation['role']
     else:
-        invitation_date = cast(str, project_access.get('invitation_date', ''))
+        invitation_date = ''
         responsibility = cast(str, project_access.get('responsibility', ''))
         group_role = await authz.get_group_level_role(email, group_name)
 

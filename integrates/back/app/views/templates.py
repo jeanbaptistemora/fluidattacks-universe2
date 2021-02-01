@@ -10,9 +10,6 @@ from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
 # Local libraries
-from backend.dal.helpers.redis import (
-    redis_get_entity_attr,
-)
 from backend.typing import (
     GraphicParameters,
     ProjectAccess as ProjectAccessType,
@@ -42,23 +39,6 @@ def invalid_invitation(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='invalid_invitation.html',
         context={'request': request}
-    )
-
-
-async def valid_invitation_with_redis(request: Request) -> HTMLResponse:
-    url_token = request.path_params['url_token']
-    info = await redis_get_entity_attr(
-        entity='invitation_token',
-        attr='data',
-        token=url_token,
-    )
-    group_name = info['group']
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name='valid_invitation.html',
-        context={
-            'group_name': group_name,
-            'request': request,
-        }
     )
 
 

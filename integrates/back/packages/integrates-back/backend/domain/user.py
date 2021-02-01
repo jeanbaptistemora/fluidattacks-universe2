@@ -15,11 +15,6 @@ from aioextensions import collect
 
 # Local libraries
 from backend.dal.helpers import dynamodb
-from backend.dal.helpers.redis import (
-    redis_get_entity_attr,
-    redis_set_entity_attr,
-    redis_ttl_entity_attr,
-)
 from backend.dal import (
     organization as org_dal,
     project as project_dal,
@@ -283,44 +278,6 @@ async def get_by_email(email: str) -> UserType:
 
 async def get_organizations(email: str) -> List[str]:
     return await org_dal.get_ids_for_user(email)
-
-
-async def complete_user_register_with_redis(invitation_token: str) -> bool:
-    info = await redis_get_entity_attr(
-        entity='invitation_token',
-        attr='data',
-        token=invitation_token,
-    )
-
-    success = True
-
-    if info.get('is_used'):
-        bugsnag.notify(Exception('Token already used'), severity='warning')
-    else:
-        user_email = info['user_email']
-        group = info['group']
-        success = await group_domain.update_has_access(
-            user_email,
-            group,
-            True
-        )
-        token_ttl: int = await redis_ttl_entity_attr(
-            entity='invitation_token',
-            attr='data',
-            token=invitation_token,
-        )
-
-        info['is_used'] = True
-
-        await redis_set_entity_attr(
-            entity='invitation_token',
-            attr='data',
-            token=invitation_token,
-            value=info,
-            ttl=token_ttl,
-        )
-
-    return success
 
 
 async def complete_user_register(project_access: ProjectAccessType) -> bool:
