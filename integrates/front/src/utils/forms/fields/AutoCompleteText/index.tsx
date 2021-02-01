@@ -3,6 +3,7 @@
   We need it to override default styles from react-bootstrap.
 */
 import React from "react";
+import { ValidationError } from "styles/styledComponents";
 import _ from "lodash";
 import style from "utils/forms/index.css";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
@@ -70,9 +71,9 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
         </ul>
       )}
       {meta.touched && !_.isUndefined(meta.error) && (
-        <div className={style.validationError} id={"validationError"}>
+        <ValidationError id={"validationError"}>
           {meta.error as string}
-        </div>
+        </ValidationError>
       )}
     </React.Fragment>
   );

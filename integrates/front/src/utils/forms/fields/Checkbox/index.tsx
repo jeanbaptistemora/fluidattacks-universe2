@@ -1,7 +1,7 @@
 import React from "react";
+import { ValidationError } from "styles/styledComponents";
 import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
-import style from "utils/forms/index.css";
 
 interface ICheckboxProps extends WrappedFieldProps {
   children: React.ReactNode;
@@ -27,14 +27,13 @@ export const Checkbox: React.FC<ICheckboxProps> = (
       />
       {children}
       {touched && !_.isUndefined(error) && (
-        <div
+        <ValidationError
           // We need it to override default styles from react-bootstrap.
           // eslint-disable-next-line react/forbid-component-props
-          className={style.validationError}
           id={"validationError"}
         >
           {error as string}
-        </div>
+        </ValidationError>
       )}
     </React.Fragment>
   );

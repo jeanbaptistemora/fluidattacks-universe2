@@ -3,6 +3,7 @@
   We need it to override default styles from react-bootstrap.
 */
 import React from "react";
+import { ValidationError } from "styles/styledComponents";
 import _ from "lodash";
 import style from "utils/forms/index.css";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
@@ -35,9 +36,9 @@ export const Date: React.FC<IDateProps> = (
         value={value.split(" ")[0]}
       />
       {touched && !_.isUndefined(error) && (
-        <div className={style.validationError} id={"validationError"}>
+        <ValidationError id={"validationError"}>
           {error as string}
-        </div>
+        </ValidationError>
       )}
     </React.Fragment>
   );

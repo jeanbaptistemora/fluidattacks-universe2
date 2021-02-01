@@ -584,6 +584,15 @@ const TabsContainer: StyledComponent<
   className: "grid mb0 menu-grid pl0 tc-shadow w-100",
 })``;
 
+const ValidationError: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "dark-red",
+})``;
+
 const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
@@ -665,5 +674,6 @@ export {
   Tab,
   TabContent,
   TabsContainer,
+  ValidationError,
   Well,
 };
