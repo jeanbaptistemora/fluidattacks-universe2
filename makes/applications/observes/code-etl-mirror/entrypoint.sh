@@ -4,7 +4,7 @@ source '__envUtilsBashLibAws__'
 source '__envUtilsBashLibSops__'
 source '__envUtilsBashLibGit__'
 
-export PATH="__envUpdateSyncDateBin__:__envSopsBin__:${PATH:-}"
+export PATH="__envUpdateSyncDateBin__:__envSopsBin__:__envOpenSSH__:${PATH:-}"
 
 melts='__envMelts__'
 

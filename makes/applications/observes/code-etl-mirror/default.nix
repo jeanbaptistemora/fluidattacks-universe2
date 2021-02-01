@@ -13,6 +13,7 @@ in
 makeEntrypoint {
   arguments = {
     envMelts = outputs.apps.melts.program;
+    envOpenSSH = "${observesPkgs.openssh}/bin";
     envSopsBin = "${observesPkgs.sops}/bin";
     envUpdateSyncDateBin = "${bins.updateSyncDate}/bin";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
