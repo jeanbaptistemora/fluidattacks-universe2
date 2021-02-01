@@ -102,7 +102,7 @@ async def test_finding():
       "in_progress": 1,
       "accepted": 0,
       "accepted_undefined": 0,
-      'manager': '',
+      'manager': 'integratescustomer@gmail.com',
     }]
     query = '''{
       finding(identifier: "422286126"){

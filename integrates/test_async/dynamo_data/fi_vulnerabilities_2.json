@@ -821,6 +821,9 @@
                     "date": {
                       "S": "2019-09-13 08:45:48"
                     },
+                    "treatment_manager": {
+                      "S": "integratesuser@gmail.com"
+                    },
                     "treatment": {
                       "S": "ACCEPTED"
                     },
@@ -975,9 +978,6 @@
             "UUID": {
               "S": "0a848781-b6a4-422e-95fa-692151e6a98e"
             },
-            "acceptance_date": {
-              "S": "2020-04-26 13:40:04"
-            },
             "specific": {
               "S": "12"
             }
@@ -1042,9 +1042,6 @@
             },
             "UUID": {
               "S": "242f848c-148a-4028-8e36-c7d995502590"
-            },
-            "acceptance_date": {
-              "S": "2020-04-26 13:40:04"
             },
             "specific": {
               "S": "12456"
@@ -1111,9 +1108,6 @@
             },
             "UUID": {
               "S": "3bcdb384-5547-4170-a0b6-3b397a245465"
-            },
-            "acceptance_date": {
-              "S": "2020-04-26 13:40:04"
             },
             "specific": {
               "S": "345"
@@ -1202,9 +1196,6 @@
             },
             "UUID": {
               "S": "54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
-            },
-            "acceptance_date": {
-              "S": "2020-04-26 13:40:04"
             },
             "specific": {
               "S": "564"
@@ -1297,9 +1288,6 @@
             "UUID": {
               "S": "6f023c26-5b10-4ded-aa27-bb563c2206ab"
             },
-            "acceptance_date": {
-              "S": "2020-04-26 13:40:04"
-            },
             "specific": {
               "S": "123345"
             },
@@ -1391,9 +1379,6 @@
             },
             "UUID": {
               "S": "74632c0c-db08-47c2-b013-c70e5b67c49f"
-            },
-            "acceptance_date": {
-              "S": "2020-04-26 13:40:04"
             },
             "specific": {
               "S": "123"

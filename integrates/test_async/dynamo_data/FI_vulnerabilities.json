@@ -130,6 +130,9 @@
                                    "date": {
                                        "S": "2019-04-07 19:59:06"
                                    },
+                                   "treatment_manager": {
+                                       "S": "integratesuser@gmail.com"
+                                   },
                                    "treatment": {
                                        "S": "ACCEPTED_UNDEFINED"
                                    },
@@ -148,6 +151,9 @@
                                "M": {
                                    "date": {
                                        "S": "2020-10-07 19:59:06"
+                                   },
+                                   "treatment_manager": {
+                                       "S": "integratesuser@gmail.com"
                                    },
                                    "treatment": {
                                        "S": "ACCEPTED_UNDEFINED"
@@ -399,7 +405,7 @@
                                    "justification": {
                                        "S": "test justification"
                                    },
-                                   "treatmentManager": {
+                                   "treatment_manager": {
                                        "S": "integratescustomer@gmail.com"
                                    },
                                    "user": {

@@ -24,7 +24,8 @@ from backend.scheduler import (
     get_first_week_dates, get_date_last_vulns,
     create_msj_finding_pending, format_vulnerabilities,
     get_project_indicators,
-    integrates_delete_obsolete_orgs
+    integrates_delete_obsolete_orgs,
+    calculate_vulnerabilities
 )
 from backend.utils import datetime as datetime_utils
 
@@ -89,6 +90,11 @@ def test_get_finding_url():
     test_data = get_finding_url(dumb_finding_dict)
     expected_output = 'https://integrates.fluidattacks.com/groups/test/test/description'
     assert test_data == expected_output
+
+@freeze_time('2019-09-15')
+async def test_calculate_vulnerabilities():
+    finding_id = '436992569'
+    assert await calculate_vulnerabilities(finding_id) == 17
 
 async def test_get_status_vulns_by_time_range():
     released_findings = await get_findings_by_group('UNITTESTING')

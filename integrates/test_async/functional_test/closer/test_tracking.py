@@ -86,7 +86,7 @@ async def test_tracking():
                 "in_progress": 1,
                 "accepted": 0,
                 "accepted_undefined": 0,
-                "manager": ""
+                "manager": "integratescustomer@gmail.com"
             }
         ],
     }
@@ -154,7 +154,7 @@ async def test_tracking():
                 "closed": 0,
                 "accepted": 1,
                 "accepted_undefined": 0,
-                "manager": "",
+                "manager": "integratesuser@gmail.com",
                 "effectiveness": 0,
                 "date": "2019-09-13",
                 "new": 1,
