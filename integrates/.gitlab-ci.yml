@@ -119,6 +119,11 @@ integrates/infra-database-test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
+integrates/infra-front-apply:
+  <<: *makes
+  <<: *in_master_branch_integrates
+  stage: test-infra
+
 integrates/infra-front-test:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -415,11 +420,6 @@ integrates_back_test_e2e:
   stage: post-deploy
   retry: 2
   parallel: 3
-
-integrates_infra_front_deploy:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
 
 integrates_back_lint:
   <<: *with_nix

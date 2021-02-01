@@ -854,18 +854,6 @@ function job_integrates_scheduler_prod {
   ||  return 1
 }
 
-function job_integrates_infra_front_deploy {
-  local target='deploy/front/terraform'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-    &&  helper_integrates_aws_login production \
-    &&  helper_integrates_cloudflare_login production \
-    &&  helper_common_terraform_apply "${target}" \
-  &&  popd \
-  || return 1
-}
-
 function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'
