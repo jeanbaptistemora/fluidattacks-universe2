@@ -61,7 +61,7 @@ spec:
                 - integrates_probes_liveness
                 - integrates-dev
                 - http://localhost:8001/
-                - https://__CI_COMMIT_REF_NAME__.integrates.fluidattacks.com/
+                - https://__BRANCH__.integrates.fluidattacks.com/
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1

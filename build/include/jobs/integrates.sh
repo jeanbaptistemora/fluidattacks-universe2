@@ -58,9 +58,9 @@ function job_integrates_back_deploy_development {
   local region='us-east-1'
   local cluster='integrates-cluster'
   local namespace='ephemeral'
-  local deployment="${CI_COMMIT_REF_SLUG}"
+  local deployment="${CI_COMMIT_REF_NAME}"
   local timeout='10m'
-  local files_path='deploy/ephemeral/'
+  local files_path='deploy/ephemeral'
   local files="${files_path}/deployment.yaml|${files_path}/service.yaml|${files_path}/ingress.yaml|${files_path}/variables.yaml"
 
       helper_common_use_pristine_workdir \
@@ -114,6 +114,25 @@ function job_integrates_back_deploy_production {
           "${files}" \
     &&  helper_integrates_back_deploy_newrelic \
     &&  helper_integrates_back_deploy_checkly \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_back_clean_development_environments {
+  local cluster='integrates-cluster'
+  local namespace='ephemeral'
+  local region='us-east-1'
+
+      helper_common_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo "[INFO] Setting namespace preferences..." \
+  &&  helper_integrates_aws_login 'development' \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  echo '[INFO] Deleting ephemeral environments' \
+  &&  kubectl delete --all deployment -n "${namespace}" \
+  &&  kubectl delete --all secret -n "${namespace}" \
+  &&  kubectl delete --all service -n "${namespace}" \
+  &&  kubectl delete --all ingress -n "${namespace}" \
   &&  popd \
   ||  return 1
 }
@@ -862,99 +881,6 @@ function job_integrates_test_e2e {
     &&  pushd test_e2e \
       &&  pytest "${args_pytest[@]}" < /dev/null \
     &&  popd \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_back_ephemeral {
-  local DATE
-  local DEPLOYMENT_NAME
-  local cluster='integrates-cluster'
-  local region='us-east-1'
-  local namespace='ephemeral'
-  local timeout='10m'
-  local files=(
-    deploy/ephemeral/deployment.yaml
-    deploy/ephemeral/service.yaml
-    deploy/ephemeral/ingress.yaml
-    deploy/ephemeral/variables.yaml
-  )
-  local vars_to_replace_in_manifest=(
-    DEPLOYMENT_NAME
-    DATE
-    B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID
-    B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
-    B64_CI_COMMIT_REF_NAME
-    CI_COMMIT_REF_NAME
-  )
-
-  # shellcheck disable=SC2034
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-  &&  helper_integrates_aws_login 'development' \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  echo '[INFO] Computing environment variables' \
-  &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}") \
-  &&  B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}") \
-  &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 "${CI_COMMIT_REF_NAME}") \
-  &&  DATE="$(date)" \
-  &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
-  &&  for file in "${files[@]}"
-      do
-        for var in "${vars_to_replace_in_manifest[@]}"
-        do
-              rpl "__${var}__" "${!var}" "${file}" \
-          |&  grep 'Replacing' \
-          |&  sed -E 's/with.*$//g' \
-          ||  return 1
-        done
-      done \
-  &&  for file in "${files[@]}"
-      do
-              echo "[INFO] Applying: ${file}" \
-          &&  kubectl apply -f "${file}" \
-          ||  return 1
-      done \
-  &&  kubectl rollout status \
-        "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
-        -n "${namespace}" \
-        --timeout="${timeout}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_back_ephemeral_stop {
-  local cluster='integrates-cluster'
-  local namespace='ephemeral'
-  local region='us-east-1'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-  &&  echo "[INFO] Setting namespace preferences..." \
-  &&  helper_integrates_aws_login 'development' \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  echo '[INFO] Deleting deployment' \
-  &&  kubectl delete deployment -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete secret -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_back_ephemeral_clean {
-  local cluster='integrates-cluster'
-  local namespace='ephemeral'
-  local region='us-east-1'
-
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-  &&  echo "[INFO] Setting namespace preferences..." \
-  &&  helper_integrates_aws_login 'development' \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  echo '[INFO] Deleting ephemeral environments' \
-  &&  kubectl delete --all deployment -n "${namespace}" \
-  &&  kubectl delete --all secret -n "${namespace}" \
-  &&  kubectl delete --all service -n "${namespace}" \
-  &&  kubectl delete --all ingress -n "${namespace}" \
   &&  popd \
   ||  return 1
 }
