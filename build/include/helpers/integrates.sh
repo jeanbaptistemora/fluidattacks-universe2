@@ -165,10 +165,43 @@ function helper_integrates_back_deploy_checkly {
         "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}"
 }
 
+function helper_integrates_back_build_lambda {
+  local lambda_name="${1}"
+  local lambda_zip_file
+  local current_path="${PWD}/lambda"
+  local path_to_lambda="${current_path}/${lambda_name}"
+  local path_to_lambda_venv="${current_path}/.venv.${lambda_name}"
+
+  # shellcheck disable=SC1091
+      lambda_zip_file="$(mktemp -d)/${lambda_name}.zip" \
+  &&  echo '[INFO] Creating virtual environment' \
+  &&  python3 -m venv --clear "${path_to_lambda_venv}" \
+  &&  pushd "${path_to_lambda_venv}" \
+    &&  echo '[INFO] Entering virtual environment' \
+    &&  source './bin/activate' \
+      &&  echo '[INFO] Installing dependencies' \
+      &&  pip3 install -U setuptools==41.4.0 wheel==0.33.6 \
+      &&  if test -f "${path_to_lambda}/requirements.txt"
+          then
+            pip3 install -r "${path_to_lambda}/requirements.txt"
+          fi \
+    &&  deactivate \
+    &&  echo '[INFO] Exiting virtual environment' \
+    &&  pushd "${path_to_lambda_venv}/lib/python3.7/site-packages" \
+      &&  zip -r9 "${lambda_zip_file}" . \
+    &&  popd \
+    &&  pushd "${path_to_lambda}" \
+      &&  zip -r -g "${lambda_zip_file}" ./* \
+      &&  mv "${lambda_zip_file}" "${current_path}/packages" \
+    && popd \
+  &&  popd \
+  ||  return 1
+}
+
+
+# Others
+
 function helper_integrates_aws_login {
-
-  # Log in to aws for resources
-
   local user="$1"
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key

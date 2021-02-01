@@ -413,7 +413,7 @@ function job_integrates_back_test_unit {
   )
 
   # shellcheck disable=SC2015
-      pushd "${STARTDIR}/integrates" \
+      pushd integrates \
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
   &&  helper_integrates_serve_dynamo \
@@ -455,7 +455,7 @@ function job_integrates_back_test_functional {
   )
 
   # shellcheck disable=SC2015
-      pushd "${STARTDIR}/integrates" \
+      pushd integrates \
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
   &&  helper_integrates_serve_dynamo \
@@ -473,6 +473,22 @@ function job_integrates_back_test_functional {
       done \
   &&  popd \
   ||  return 1
+}
+
+function job_integrates_back_build_lambdas_production {
+      pushd integrates \
+    &&  helper_integrates_back_build_lambda 'send_mail_notification' \
+    &&  helper_integrates_back_build_lambda 'project_to_pdf' \
+  &&  popd \
+  || return 1
+}
+
+function job_integrates_back_build_lambdas_development {
+      pushd integrates \
+    &&  helper_integrates_back_build_lambda 'send_mail_notification' \
+    &&  helper_integrates_back_build_lambda 'project_to_pdf' \
+  &&  popd \
+  || return 1
 }
 
 
@@ -565,47 +581,6 @@ function job_integrates_analytics_make_snapshots_prod_schedule {
 
 
 # Others
-
-function job_integrates_build_lambdas {
-
-  function _job_integrates_build_lambdas {
-    local lambda_name="${1}"
-    local lambda_zip_file
-    local current_path="${PWD}/lambda"
-    local path_to_lambda="${current_path}/${lambda_name}"
-    local path_to_lambda_venv="${current_path}/.venv.${lambda_name}"
-
-    # shellcheck disable=SC1091
-        lambda_zip_file="$(mktemp -d)/${lambda_name}.zip" \
-    &&  echo '[INFO] Creating virtual environment' \
-    &&  python3 -m venv --clear "${path_to_lambda_venv}" \
-    &&  pushd "${path_to_lambda_venv}" \
-      &&  echo '[INFO] Entering virtual environment' \
-      &&  source './bin/activate' \
-        &&  echo '[INFO] Installing dependencies' \
-        &&  pip3 install -U setuptools==41.4.0 wheel==0.33.6 \
-        &&  if test -f "${path_to_lambda}/requirements.txt"
-            then
-              pip3 install -r "${path_to_lambda}/requirements.txt"
-            fi \
-      &&  deactivate \
-      &&  echo '[INFO] Exiting virtual environment' \
-      &&  pushd "${path_to_lambda_venv}/lib/python3.7/site-packages" \
-        &&  zip -r9 "${lambda_zip_file}" . \
-      &&  popd \
-      &&  pushd "${path_to_lambda}" \
-        &&  zip -r -g "${lambda_zip_file}" ./* \
-        &&  mv "${lambda_zip_file}" "${current_path}/packages" \
-      && popd \
-    &&  popd \
-    ||  return 1
-  }
-      pushd "${STARTDIR}/integrates" \
-  &&  _job_integrates_build_lambdas 'send_mail_notification' \
-  &&  _job_integrates_build_lambdas 'project_to_pdf' \
-  &&  popd \
-  || return 1
-}
 
 function job_integrates_coverage_report {
       pushd "${STARTDIR}/integrates" \

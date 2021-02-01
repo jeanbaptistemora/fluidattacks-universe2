@@ -304,9 +304,19 @@ integrates_mobile_build_android:
       - integrates/mobile/output/
     when: on_success
 
-integrates_build_lambdas:
+integrates_back_build_lambdas_development:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
+  stage: build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/lambda/packages/
+    when: on_success
+
+integrates_back_build_lambdas_production:
+  <<: *with_nix
+  <<: *in_master_branch_integrates
   stage: build
   artifacts:
     expire_in: 1 day
@@ -316,15 +326,7 @@ integrates_build_lambdas:
 
 integrates_coverage_report:
   <<: *with_nix
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *integrates_commit_pattern
-      when: always
+  <<: *in_dev_branch_integrates
   needs:
     - integrates_back_test_unit
     - integrates/test/front
