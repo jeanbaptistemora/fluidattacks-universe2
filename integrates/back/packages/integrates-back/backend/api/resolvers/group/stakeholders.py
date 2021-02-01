@@ -30,6 +30,7 @@ from backend.typing import (
 from backend.utils import (
     datetime as datetime_utils,
 )
+from backend.utils.stakeholders import check_enums
 
 
 def _filter_by_expired_invitation(
@@ -91,12 +92,10 @@ async def resolve(
     page_size: int = 10
 ) -> GetStakeholdersPayloadType:
     group_name: str = cast(str, parent['name'])
-    try:
-        OrganizationStakehodersPageSizeEnum(page_size)
-    except ValueError:
-        raise InvalidPageSize()
-    if not page_index >= 1:
-        raise InvalidPageIndex()
+    check_enums({
+        page_size: [OrganizationStakehodersPageSizeEnum, InvalidPageSize],
+        page_index: [lambda i: i >= 1, InvalidPageIndex]
+    })
 
     items_range = util.get_slice(page_index - 1, int(page_size))
 
@@ -124,7 +123,7 @@ async def resolve(
 
     sorted_group_stakeholders = sorted(
         group_stakeholders,
-        key=lambda i: i['invitation_state'],
+        key=lambda stakeholder: stakeholder['invitation_state'],
         reverse=True
     )
 

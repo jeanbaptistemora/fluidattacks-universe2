@@ -30,6 +30,7 @@ from backend.typing import (
     OrganizationStakehodersPageSizeEnum,
     Stakeholder as StakeholderType
 )
+from backend.utils.stakeholders import check_enums
 
 
 async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
@@ -48,12 +49,10 @@ async def resolve(
     page_size: int = 10
 ) -> GetStakeholdersPayloadType:
     org_id: str = cast(str, parent['id'])
-    try:
-        OrganizationStakehodersPageSizeEnum(page_size)
-    except ValueError:
-        raise InvalidPageSize()
-    if not page_index >= 1:
-        raise InvalidPageIndex()
+    check_enums({
+        page_size: [OrganizationStakehodersPageSizeEnum, InvalidPageSize],
+        page_index: [lambda i: i >= 1, InvalidPageIndex]
+    })
 
     items_range = util.get_slice(page_index - 1, int(page_size))
 
