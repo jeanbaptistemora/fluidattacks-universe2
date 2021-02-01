@@ -1,6 +1,9 @@
 """
 This migration move the attribute invitation_date of project_access table
 to the field invitation of the same table
+
+Execution Time:    2021-01-29 at 16:45:07 UTC-05
+Finalization Time: 2021-01-29 at 16:45:24 UTC-05
 """
 # Standard library
 from pprint import pprint
