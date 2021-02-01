@@ -122,7 +122,7 @@ integrates/infra-database-test:
 integrates/infra-front-apply:
   <<: *makes
   <<: *in_master_branch_integrates
-  stage: test-infra
+  stage: deploy-infra
 
 integrates/infra-front-test:
   <<: *makes
