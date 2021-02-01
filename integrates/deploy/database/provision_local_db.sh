@@ -277,7 +277,7 @@ aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/FI_forces.json.now'
 
-if test "${CI_JOB_NAME:-}" != 'integrates_test_back'
+if test "${CI_JOB_NAME:-}" != 'integrates_back_test_unit'
 then
   number_findings=()
   number_vulns=()

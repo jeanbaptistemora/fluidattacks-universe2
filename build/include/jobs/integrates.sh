@@ -95,7 +95,7 @@ function job_integrates_back_deploy_production {
   local namespace='production'
   local deployment='master'
   local timeout='10m'
-  local files_path='deploy/production/'
+  local files_path='deploy/production'
   local files="${files_path}/deployment.yaml|${files_path}/service.yaml|${files_path}/ingress.yaml|${files_path}/variables.yaml"
 
       helper_common_use_pristine_workdir \
@@ -133,6 +133,116 @@ function job_integrates_back_clean_development_environments {
   &&  kubectl delete --all secret -n "${namespace}" \
   &&  kubectl delete --all service -n "${namespace}" \
   &&  kubectl delete --all ingress -n "${namespace}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_back_test_e2e {
+  local args_pytest=(
+    --capture tee-sys
+    --disable-pytest-warnings
+    --exitfirst
+    --maxfail 20
+    --show-capture no
+    --verbose
+    --reruns 10
+    --test-group-count "${CI_NODE_TOTAL}"
+    --test-group "${CI_NODE_INDEX}"
+    -n 2
+  )
+
+      pushd integrates \
+    &&  env_prepare_python_packages \
+    &&  helper_integrates_aws_login 'development' \
+    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+          TEST_E2E_USER \
+          STARLETTE_SESSION_KEY \
+    &&  pushd test_e2e \
+      &&  pytest "${args_pytest[@]}" < /dev/null \
+    &&  popd \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_back_test_unit {
+  local common_args=(
+    -n auto
+    --dist 'loadscope'
+    --verbose
+    --maxfail '20'
+    --cov "${pyPkgIntegratesBack}/site-packages/backend"
+    --cov-report 'term'
+    --cov-report 'html:build/coverage/html'
+    --cov-report 'xml:build/coverage/results.xml'
+    --cov-report 'annotate:build/coverage/annotate'
+    --disable-warnings
+    --ignore 'test_async/functional_test'
+  )
+  local extra_args=()
+  local markers=(
+    'not changes_db'
+    'changes_db'
+  )
+
+  # shellcheck disable=SC2015
+      pushd "${STARTDIR}/integrates" \
+  &&  env_prepare_python_packages \
+  &&  helper_integrates_set_dev_secrets \
+  &&  helper_integrates_serve_dynamo \
+  &&  helper_integrates_serve_minio \
+  &&  sleep 10 \
+  &&  helper_integrates_serve_redis \
+  &&  for i in "${!markers[@]}"
+      do
+            echo "[INFO] Running marker: ${markers[i]}" \
+        &&  if [[ "${i}" != 0 ]]
+            then
+              extra_args=( --cov-append )
+            fi \
+        &&  pytest \
+              -m "${markers[i]}" \
+              "${common_args[@]}" \
+              "${extra_args[@]}" \
+              'test_async' \
+        ||  return 1
+      done \
+  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_back_test_functional {
+  local common_args=(
+    --verbose
+    --cov "${pyPkgIntegratesBack}/site-packages/backend"
+    --cov-report 'term'
+    --cov-report 'html:build/coverage/functional/html'
+    --cov-report 'xml:build/coverage/functional/results.xml'
+    --cov-report 'annotate:build/coverage/functional/annotate'
+    --disable-warnings
+  )
+  local markers=(
+    'priority'
+    'not priority'
+  )
+
+  # shellcheck disable=SC2015
+      pushd "${STARTDIR}/integrates" \
+  &&  env_prepare_python_packages \
+  &&  helper_integrates_set_dev_secrets \
+  &&  helper_integrates_serve_dynamo \
+  &&  helper_integrates_serve_minio \
+  &&  sleep 10 \
+  &&  helper_integrates_serve_redis \
+  &&  for marker in "${markers[@]}"
+      do
+            echo "[INFO] Running marker: ${marker}" \
+        &&  pytest \
+              -m "${marker}" \
+              "${common_args[@]}" \
+              'test_async/functional_test' \
+        ||  return 1
+      done \
   &&  popd \
   ||  return 1
 }
@@ -419,42 +529,6 @@ function job_integrates_deploy_permissions_matrix {
   &&  helper_integrates_serve_redis \
   &&  echo '[INFO] Deploying permissions matrix' \
   &&  python3 deploy/permissions-matrix/matrix.py \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_functional_tests_back {
-  local common_args=(
-    --verbose
-    --cov "${pyPkgIntegratesBack}/site-packages/backend"
-    --cov-report 'term'
-    --cov-report 'html:build/coverage/functional/html'
-    --cov-report 'xml:build/coverage/functional/results.xml'
-    --cov-report 'annotate:build/coverage/functional/annotate'
-    --disable-warnings
-  )
-  local markers=(
-    'priority'
-    'not priority'
-  )
-
-  # shellcheck disable=SC2015
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  helper_integrates_serve_dynamo \
-  &&  helper_integrates_serve_minio \
-  &&  sleep 10 \
-  &&  helper_integrates_serve_redis \
-  &&  for marker in "${markers[@]}"
-      do
-            echo "[INFO] Running marker: ${marker}" \
-        &&  pytest \
-              -m "${marker}" \
-              "${common_args[@]}" \
-              'test_async/functional_test' \
-        ||  return 1
-      done \
   &&  popd \
   ||  return 1
 }
@@ -804,163 +878,11 @@ function job_integrates_infra_front_deploy {
   || return 1
 }
 
-function job_integrates_test_back {
-  local common_args=(
-    -n auto
-    --dist 'loadscope'
-    --verbose
-    --maxfail '20'
-    --cov "${pyPkgIntegratesBack}/site-packages/backend"
-    --cov-report 'term'
-    --cov-report 'html:build/coverage/html'
-    --cov-report 'xml:build/coverage/results.xml'
-    --cov-report 'annotate:build/coverage/annotate'
-    --disable-warnings
-    --ignore 'test_async/functional_test'
-  )
-  local extra_args=()
-  local markers=(
-    'not changes_db'
-    'changes_db'
-  )
-
-  # shellcheck disable=SC2015
-      pushd "${STARTDIR}/integrates" \
-  &&  env_prepare_python_packages \
-  &&  helper_integrates_set_dev_secrets \
-  &&  helper_integrates_serve_dynamo \
-  &&  helper_integrates_serve_minio \
-  &&  sleep 10 \
-  &&  helper_integrates_serve_redis \
-  &&  for i in "${!markers[@]}"
-      do
-            echo "[INFO] Running marker: ${markers[i]}" \
-        &&  if [[ "${i}" != 0 ]]
-            then
-              extra_args=( --cov-append )
-            fi \
-        &&  pytest \
-              -m "${markers[i]}" \
-              "${common_args[@]}" \
-              "${extra_args[@]}" \
-              'test_async' \
-        ||  return 1
-      done \
-  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_test_mobile {
       pushd "${STARTDIR}/integrates/mobile" \
     &&  npm install --unsafe-perm \
     &&  npm test \
     &&  mv coverage/lcov.info coverage.lcov \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_test_e2e {
-  local args_pytest=(
-    --capture tee-sys
-    --disable-pytest-warnings
-    --exitfirst
-    --maxfail 20
-    --show-capture no
-    --verbose
-    --reruns 10
-    --test-group-count "${CI_NODE_TOTAL}"
-    --test-group "${CI_NODE_INDEX}"
-    -n 2
-  )
-
-      pushd integrates \
-    &&  env_prepare_python_packages \
-    &&  helper_integrates_aws_login 'development' \
-    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-          TEST_E2E_USER \
-          STARLETTE_SESSION_KEY \
-    &&  pushd test_e2e \
-      &&  pytest "${args_pytest[@]}" < /dev/null \
-    &&  popd \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_back_production {
-  local DATE
-  local cluster='integrates-cluster'
-  local region='us-east-1'
-  local namespace='production'
-  local timeout='10m'
-  local files=(
-    deploy/production/deployment.yaml
-    deploy/production/service.yaml
-    deploy/production/ingress.yaml
-    deploy/production/variables.yaml
-  )
-  local vars_to_replace_in_manifest=(
-    DATE
-    B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID
-    B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY
-    B64_CI_COMMIT_REF_NAME
-  )
-
-  # shellcheck disable=SC2034
-      helper_common_use_pristine_workdir \
-  &&  pushd integrates \
-  &&  helper_integrates_aws_login 'production' \
-  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-        CHECKLY_CHECK_ID \
-        CHECKLY_TRIGGER_ID \
-        NEW_RELIC_API_KEY \
-        NEW_RELIC_APP_ID \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  echo '[INFO] Computing environment variables' \
-  &&  B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}") \
-  &&  B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}") \
-  &&  B64_CI_COMMIT_REF_NAME=$(helper_integrates_to_b64 'master') \
-  &&  DATE="$(date)" \
-  &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
-  &&  for file in "${files[@]}"
-      do
-        for var in "${vars_to_replace_in_manifest[@]}"
-        do
-              rpl "__${var}__" "${!var}" "${file}" \
-          |&  grep 'Replacing' \
-          |&  sed -E 's/with.*$//g' \
-          ||  return 1
-        done
-      done \
-  &&  for file in "${files[@]}"
-      do
-              echo "[INFO] Applying: ${file}" \
-          &&  kubectl apply -f "${file}" \
-          ||  return 1
-      done \
-  &&  if ! kubectl rollout status -n "${namespace}" --timeout="${timeout}" 'deploy/integrates-master'
-      then
-            echo '[INFO] Undoing integrates deployment' \
-        &&  kubectl rollout undo 'deploy/integrates-master' \
-        &&  return 1
-      fi \
-  &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
-        --request 'POST' \
-        --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
-        --header 'Content-Type: application/json' \
-        --include \
-        --data "{
-            \"deployment\": {
-              \"revision\": \"${CI_COMMIT_SHA}\",
-              \"changelog\": \"${CHANGELOG}\",
-              \"description\": \"production\",
-              \"user\": \"${CI_COMMIT_AUTHOR}\"
-            }
-          }" \
-  &&  checkly_params="${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
-  &&  curl \
-        --request 'GET' \
-        "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}" \
   &&  popd \
   ||  return 1
 }

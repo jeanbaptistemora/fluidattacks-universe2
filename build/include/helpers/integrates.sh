@@ -62,7 +62,8 @@ function helper_integrates_back_deploy {
       helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  for file in $(helper_common_string_to_lines "${files}" '|')
       do
-            grep -oP '__.*__' "${file}" | while IFS= read -r var
+            vars="$(grep -oP '__.*__' "${file}" || true)" \
+        &&  for var in ${vars}
             do
                   var="${var:2:-2}" \
               &&  helper_common_replace_var \

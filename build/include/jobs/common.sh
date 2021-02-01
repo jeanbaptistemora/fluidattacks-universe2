@@ -28,22 +28,6 @@ function job_common_build_nix_caches {
         "${TEMP_FILE1}"
 }
 
-function job_common_send_new_release_email {
-      env_prepare_python_packages \
-  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login 'production' \
-  &&  helper_common_sops_env "integrates/secrets-production.yaml" default \
-        MANDRILL_APIKEY \
-        MANDRILL_EMAIL_TO \
-  &&  curl -Lo \
-        "${TEMP_FILE1}" \
-        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
-  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])" >> "${TEMP_FILE1}" \
-  &&  python3 "${TEMP_FILE1}"
-}
-
 function job_common_compute_stream_log {
   local log_stream="${1}"
   local awslogs_options=(

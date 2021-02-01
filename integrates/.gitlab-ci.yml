@@ -334,7 +334,7 @@ integrates_coverage_report:
     - if: *integrates_commit_pattern
       when: always
   needs:
-    - integrates_test_back
+    - integrates_back_test_unit
     - integrates/test/front
     - integrates_test_mobile
   stage: external
@@ -356,12 +356,12 @@ integrates_back_deploy_development:
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at serves.
-# The rotation script looks the last integrates_deploy_back_production execution
+# The rotation script looks the last integrates_back_deploy_production execution
 #   and decides if keys should be rotated or not.
 # This is done to avoid keys expiration on the current integrates deployment
 #   in case the continuous delivery system at Integrates is failing
-# Please adjust the serves_rotate_keys_user_provision_integrates_prod job
-integrates_deploy_back_production:
+# Please adjust the serves_rotate_keys_user_provision_integrates job
+integrates_back_deploy_production:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
@@ -410,16 +410,16 @@ integrates_back_build_development:
   <<: *in_dev_branch_integrates
   stage: build
 
-integrates_functional_tests_back:
+integrates_back_test_functional:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: test-code
   retry: 1
 
-integrates_test_e2e:
+integrates_back_test_e2e:
   <<: *with_nix
   <<: *in_dev_branch_integrates
-  image: "${CI_REGISTRY_IMAGE}/nix:integrates_test_e2e"
+  image: "${CI_REGISTRY_IMAGE}/nix:integrates_back_test_e2e"
   needs:
     - integrates_back_deploy_development
     - integrates_front_deploy_development
@@ -462,7 +462,7 @@ integrates_lint_styles:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates_test_back:
+integrates_back_test_unit:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-code
@@ -482,9 +482,3 @@ integrates_test_mobile:
     paths:
       - integrates/mobile/coverage.lcov
     expire_in: 1 week
-
-common_send_new_release_email:
-  <<: *with_nix
-  <<: *in_master_branch_integrates
-  stage: post-deploy
-  needs: [integrates_deploy_back_production]
