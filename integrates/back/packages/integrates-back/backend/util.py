@@ -36,7 +36,7 @@ from graphql.language.ast import (
     VariableNode
 )
 from jose import jwt, JWTError
-
+from jwcrypto.jwe import InvalidJWEData
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
 
@@ -176,6 +176,8 @@ async def get_jwt_content(context) -> Dict[str, str]:  # noqa: MC0001
     except JWTError as ex:
         LOGGER.info('Security: Invalid token', **settings.NOEXTRA)
         LOGGER.warning(ex, extra={'extra': context})
+        raise InvalidAuthorization()
+    except InvalidJWEData:
         raise InvalidAuthorization()
     else:
         store[context_store_key] = content
