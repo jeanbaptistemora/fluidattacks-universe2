@@ -1,6 +1,58 @@
 # shellcheck shell=bash
 
 
+# Mobile
+
+function helper_integrates_mobile_deploy_ota {
+  local env="${1}"
+  local release_channel="${2}"
+
+  local mobile_version
+
+      echo '[INFO] Logging in to AWS' \
+  &&  mobile_version="$(helper_integrates_mobile_version_playstore)" \
+  &&  helper_integrates_deployment_date \
+  &&  helper_common_sops_env "secrets-${env}.yaml" 'default' \
+        EXPO_USER \
+        EXPO_PASS \
+  &&  sops \
+        --aws-profile default \
+        --decrypt \
+        --extract '["GOOGLE_SERVICES_APP"]' \
+        --output 'mobile/google-services.json' \
+        --output-type 'json' \
+        "secrets-${env}.yaml" \
+  &&  echo '[INFO] Installing deps' \
+  &&  pushd mobile \
+    &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+    &&  npm install \
+    &&  npx --no-install expo login \
+          --username "${EXPO_USER}" \
+          --password "${EXPO_PASS}" \
+          --non-interactive \
+    &&  echo '[INFO] Replacing versions' \
+    &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
+    &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
+    &&  sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
+    &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
+    &&  echo '[INFO] Publishing update' \
+    &&  npx --no-install expo publish \
+          --non-interactive \
+          --release-channel "${release_channel}" \
+    &&  echo '[INFO] Sending build info to bugsnag' \
+    &&  npx bugsnag-build-reporter \
+          --api-key c7b947a293ced0235cdd8edc8c09dad4 \
+          --app-version "${CI_COMMIT_SHORT_SHA}" \
+          --release-stage "mobile-${env}" \
+          --builder-name "${CI_COMMIT_AUTHOR}" \
+          --source-control-provider gitlab \
+          --source-control-repository https://gitlab.com/fluidattacks/product.git \
+          --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
+  &&  popd \
+  ||  return 1
+}
+
+
 # Front
 
 function helper_integrates_front_build {

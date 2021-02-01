@@ -3,7 +3,7 @@
 
 # Mobile
 
-function job_integrates_build_mobile_android {
+function job_integrates_mobile_build_android {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
   export EXPO_ANDROID_KEY_PASSWORD
   export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
@@ -84,7 +84,7 @@ function job_integrates_build_mobile_android {
   ||  return 1
 }
 
-function job_integrates_build_mobile_ios {
+function job_integrates_mobile_build_ios {
   export EXPO_APPLE_PASSWORD
   export EXPO_IOS_DIST_P12_PASSWORD
 
@@ -132,57 +132,33 @@ function job_integrates_build_mobile_ios {
   ||  return 1
 }
 
-function job_integrates_deploy_mobile_ota {
-  local mobile_version
+function job_integrates_mobile_deploy_ota_development {
+  local env='development'
+  local release_channel="${CI_COMMIT_REF_NAME}"
 
       pushd integrates \
-    &&  echo '[INFO] Logging in to AWS' \
-    &&  mobile_version="$(helper_integrates_mobile_version_playstore)" \
-    &&  helper_integrates_deployment_date \
-    &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-    &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-          EXPO_USER \
-          EXPO_PASS \
-    &&  sops \
-          --aws-profile default \
-          --decrypt \
-          --extract '["GOOGLE_SERVICES_APP"]' \
-          --output 'mobile/google-services.json' \
-          --output-type 'json' \
-          "secrets-${ENVIRONMENT_NAME}.yaml" \
-    &&  echo '[INFO] Installing deps' \
-    &&  pushd mobile \
-      &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-      &&  npm install \
-      &&  npx --no-install expo login \
-            --username "${EXPO_USER}" \
-            --password "${EXPO_PASS}" \
-            --non-interactive \
-      &&  echo '[INFO] Replacing versions' \
-      &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
-      &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
-      &&  sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
-      &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
-      &&  echo '[INFO] Publishing update' \
-      &&  npx --no-install expo publish \
-            --non-interactive \
-            --release-channel "${CI_COMMIT_REF_NAME}" \
-      &&  echo '[INFO] Sending build info to bugsnag' \
-      &&  npx bugsnag-build-reporter \
-            --api-key c7b947a293ced0235cdd8edc8c09dad4 \
-            --app-version "${CI_COMMIT_SHORT_SHA}" \
-            --release-stage "mobile-${ENVIRONMENT_NAME}" \
-            --builder-name "${CI_COMMIT_AUTHOR}" \
-            --source-control-provider gitlab \
-            --source-control-repository https://gitlab.com/fluidattacks/product.git \
-            --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
-    &&  popd \
-    ||  return 1 \
+    &&  helper_integrates_aws_login "${env}" \
+    &&  helper_integrates_mobile_deploy_ota \
+          "${env}" \
+          "${release_channel}" \
   &&  popd \
   ||  return 1
 }
 
-function job_integrates_deploy_mobile_playstore {
+function job_integrates_mobile_deploy_ota_production {
+  local env='production'
+  local release_channel='master'
+
+      pushd integrates \
+    &&  helper_integrates_aws_login "${env}" \
+    &&  helper_integrates_mobile_deploy_ota \
+          "${env}" \
+          "${release_channel}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_mobile_deploy_playstore {
   export LANG=en_US.UTF-8
 
       if  helper_common_has_any_file_changed \
@@ -218,7 +194,7 @@ function job_integrates_deploy_mobile_playstore {
   ||  return 1
 }
 
-function job_integrates_functional_tests_mobile_local {
+function job_integrates_mobile_test_functional_local {
   export CI_COMMIT_REF_NAME
   local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
 
@@ -245,57 +221,7 @@ function job_integrates_functional_tests_mobile_local {
   ||  return 1
 }
 
-function job_integrates_reset {
-  local files_to_delete=(
-    'app/static/dashboard/'
-    'app/backend/reports/images/*'
-    'back/packages/integrates-back/backend/reports/tpls/*'
-    'back/packages/integrates-back/backend/reports/results/results_pdf/*'
-    'back/packages/integrates-back/backend/reports/results/results_excel/*'
-    'build/coverage'
-    'back/packages/*/*.egg-info'
-    'front/coverage'
-    'geckodriver.log'
-    'mobile/coverage'
-    'front/coverage.lcov'
-    'front/node_modules'
-    'lambda/.venv.*'
-    'mobile/.expo/'
-    'mobile/google-services.json'
-    'TEMP_FD'
-    'version.txt'
-    '*.xlsx'
-    '.tmp'
-    '.DynamoDB'
-  )
-  local globs_to_delete=(
-    '*.coverage*'
-    '*package-lock.json'
-    '*__pycache__*'
-    '*.mypy_cache'
-    '*.pytest_cache'
-    '*.terraform'
-  )
-
-      pushd "${STARTDIR}/integrates" \
-  &&  for file in "${files_to_delete[@]}"
-      do
-        # I want word splitting to exploit globbing
-        # shellcheck disable=SC2086
-            echo "[INFO] Deleting: ${file}" \
-        &&  rm -rf ${file}
-      done
-
-      for glob in "${globs_to_delete[@]}"
-      do
-            echo "[INFO] Deleting: ${glob}" \
-        &&  find . -wholename "${glob}" -exec rm -rf {} +
-      done \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_test_mobile {
+function job_integrates_mobile_test_unit {
       pushd "${STARTDIR}/integrates/mobile" \
     &&  npm install --unsafe-perm \
     &&  npm test \
@@ -891,4 +817,54 @@ function job_integrates_infra_front_deploy {
     &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   || return 1
+}
+
+function job_integrates_reset {
+  local files_to_delete=(
+    'app/static/dashboard/'
+    'app/backend/reports/images/*'
+    'back/packages/integrates-back/backend/reports/tpls/*'
+    'back/packages/integrates-back/backend/reports/results/results_pdf/*'
+    'back/packages/integrates-back/backend/reports/results/results_excel/*'
+    'build/coverage'
+    'back/packages/*/*.egg-info'
+    'front/coverage'
+    'geckodriver.log'
+    'mobile/coverage'
+    'front/coverage.lcov'
+    'front/node_modules'
+    'lambda/.venv.*'
+    'mobile/.expo/'
+    'mobile/google-services.json'
+    'TEMP_FD'
+    'version.txt'
+    '*.xlsx'
+    '.tmp'
+    '.DynamoDB'
+  )
+  local globs_to_delete=(
+    '*.coverage*'
+    '*package-lock.json'
+    '*__pycache__*'
+    '*.mypy_cache'
+    '*.pytest_cache'
+    '*.terraform'
+  )
+
+      pushd "${STARTDIR}/integrates" \
+  &&  for file in "${files_to_delete[@]}"
+      do
+        # I want word splitting to exploit globbing
+        # shellcheck disable=SC2086
+            echo "[INFO] Deleting: ${file}" \
+        &&  rm -rf ${file}
+      done
+
+      for glob in "${globs_to_delete[@]}"
+      do
+            echo "[INFO] Deleting: ${glob}" \
+        &&  find . -wholename "${glob}" -exec rm -rf {} +
+      done \
+  &&  popd \
+  ||  return 1
 }
