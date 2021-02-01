@@ -26,7 +26,6 @@ rec {
   # Integrates
   srcIncludeHelpersIntegrates = ../include/helpers/integrates.sh;
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;
-  srcIncludeIntegratesLintersJobs = ../include/jobs/integrates.linters.sh;
 
   # Observes
   srcIncludeHelpersObserves = ../include/helpers/observes.sh;

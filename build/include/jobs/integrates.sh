@@ -230,6 +230,14 @@ function job_integrates_mobile_test_unit {
   ||  return 1
 }
 
+function job_integrates_mobile_lint {
+      pushd integrates/mobile \
+    &&  npm install \
+    &&  npm run lint \
+  &&  popd \
+  ||  return 1
+}
+
 
 # Front
 
@@ -263,6 +271,23 @@ function job_integrates_front_deploy_production {
           'production' \
   &&  popd \
   ||  return 1
+}
+
+function job_integrates_front_lint_styles {
+  local err_count
+        pushd integrates/front \
+      &&  npm install \
+      &&  echo "[INFO] Running Stylelint to lint CSS files" \
+      &&  if npm run lint:stylelint
+          then
+            echo '[INFO] All styles are ok!'
+          else
+                err_count="$(npx stylelint '**/*.css' | wc -l || true)" \
+            &&  echo "[ERROR] ${err_count} errors found in styles!" \
+            &&  return 1
+          fi \
+    && popd \
+    || return 1
 }
 
 
@@ -491,6 +516,53 @@ function job_integrates_back_build_lambdas_development {
   || return 1
 }
 
+function job_integrates_back_lint {
+      pushd integrates \
+  &&  env_prepare_python_packages \
+  &&  mypy --strict --ignore-missing-imports analytics/ \
+        back/migrations/ \
+        back \
+  &&  mypy --strict --ignore-missing-imports --follow-imports=skip \
+        back/packages/integrates-back/backend/decorators.py \
+        back/packages/integrates-back/backend/api/ \
+        back/packages/integrates-back/backend/authz/ \
+        back/packages/integrates-back/backend/dal/ \
+        back/packages/integrates-back/backend/utils/ \
+  &&  mypy --ignore-missing-imports --follow-imports=skip \
+        back/packages/integrates-back \
+  &&  prospector -F -s veryhigh analytics/ \
+  &&  prospector -F -s veryhigh back \
+  &&  prospector -F -s veryhigh lambda \
+  &&  prospector -F -s veryhigh deploy/permissions-matrix \
+  &&  npx graphql-schema-linter \
+        --except 'enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,arguments-have-descriptions' \
+        back/packages/integrates-back/backend/api/schema/**/*.graphql \
+        back/packages/integrates-back/backend/api/schema/types/**/*.graphql \
+  &&  popd \
+  || return 1
+}
+
+function job_integrates_back_lint_e2e {
+  local modules=(
+    src/
+    src/tests/
+  )
+
+      pushd integrates/test_e2e \
+    &&  env_prepare_python_packages \
+    &&  mypy --config-file settings.cfg "${modules[@]}" \
+    &&  prospector --profile profile.yaml . \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_back_lint_graphics {
+      env_prepare_node_modules \
+  &&  pushd integrates/back/app/templates/static/graphics \
+        &&  eslint --config .eslintrc --fix . \
+  &&  popd \
+  ||  return 1
+}
 
 # Analytics
 
@@ -842,4 +914,23 @@ function job_integrates_reset {
       done \
   &&  popd \
   ||  return 1
+}
+
+function job_integrates_lint_secrets {
+  local files_to_verify=(
+    secrets-development.yaml
+    secrets-production.yaml
+  )
+      pushd integrates \
+  &&  env_prepare_python_packages \
+  &&  echo "[INFO] Veryfing that secrets is sorted" \
+  &&  for sf in "${files_to_verify[@]}"
+      do
+            echo "  [INFO] Veryfing that ${sf} is sorted" \
+        &&  head -n -13 "${sf}" > "temp-${sf}" \
+        &&  yamllint --no-warnings -d "{extends: relaxed, rules: {key-ordering: {level: error}}}" "temp-${sf}" \
+        &&  rm "temp-${sf}"
+      done \
+  &&  popd \
+  || return 1
 }
