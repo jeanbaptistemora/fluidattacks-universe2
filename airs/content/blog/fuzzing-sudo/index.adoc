@@ -93,9 +93,10 @@ provided by `AFL` to fuzz those kind of binaries:
 A `C` header that converts a standard input payload to `argv[]` parameters.
 
 To do that, we just need to:
+
 * Copy over the file
 `AFLplusplus/utils/argv_fuzzing/argv-fuzz-inl.h` to the main source of `sudo`.
-* Modify the `main()` function of sudo to call the `AFL_INIT_ARGV()` macro.
+* Modify the `main()` function of `sudo` to call the `AFL_INIT_ARGV()` macro.
 
 [source,bash]
 ----
@@ -156,6 +157,8 @@ that by issuing:
 [source,bash]
 ----
 $ CFLAGS="-g" LDFLAGS="-g" CC=afl-clang-fast ./configure --prefix=/fuzz/sudo
+$ make
+$ sudo make install
 ----
 
 This will install our modified `sudo` on `/fuzz/sudo`. To check that our
