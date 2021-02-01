@@ -47,3 +47,8 @@ forces/oci-deploy:
   <<: *makes
   <<: *forces_in_master_branch
   stage: deploy-app
+
+forces/oci-deploy-wrapper:
+  <<: *makes
+  <<: *forces_in_master_branch
+  stage: deploy-app

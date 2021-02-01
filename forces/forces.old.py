@@ -255,8 +255,6 @@ def main():  # noqa: MC0001
                && docker pull fluidattacks/forces:new \
                && current_repo=$(basename "$PWD") \
                && docker run -v "$(pwd):/$current_repo" \
-                  --env CI_PROJECT_NAME="${{CI_PROJECT_NAME}}" \
-                  --env Build.Repository.Name="${{Build.Repository.Name}}" \
                   -w "/$current_repo" \
                   fluidattacks/forces:new forces --token {token} \
                   --repo-path "/$current_repo" \
