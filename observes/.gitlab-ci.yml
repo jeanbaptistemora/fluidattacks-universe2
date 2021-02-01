@@ -104,6 +104,15 @@ observes/scheduled-code-etl-mirror:
   tags: [autoscaling]
   interruptible: false
 
+observes/scheduled-code-etl-upload:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_upload_all_groups_on_aws]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
 observes_apply_infra:
   <<: *with_nix
   <<: *observes_in_master_branch
@@ -254,15 +263,6 @@ observes_mixpanel_integrates:
   only:
     refs: [schedules]
     variables: [$observes_mixpanel_integrates]
-  interruptible: false
-
-observes_code_upload_all_groups_on_aws:
-  <<: *with_nix_serial
-  only:
-    refs: [schedules]
-    variables: [$observes_code_upload_all_groups_on_aws]
-  stage: analytics
-  tags: [autoscaling]
   interruptible: false
 
 observes_code_amend_authors_on_aws:
