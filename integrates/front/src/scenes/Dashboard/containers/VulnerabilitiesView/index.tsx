@@ -247,6 +247,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     onChange={onTreatmentChange}
                   >
                     <option value={""} />
+                    <option value={"NEW"}>
+                      {t("search_findings.tab_description.treatment.new")}
+                    </option>
                     <option value={"IN_PROGRESS"}>
                       {t(
                         "search_findings.tab_description.treatment.in_progress"
