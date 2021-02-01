@@ -24,9 +24,11 @@ makes/deploy/oci-ci
 makes/lint
 melts
 melts/test
+observes/code-etl-amend
 observes/code-etl-mirror
 observes/code-etl-upload
 observes/infra-test
+observes/scheduled-code-etl-amend
 observes/scheduled-code-etl-compute-bills
 observes/scheduled-code-etl-mirror
 observes/scheduled-code-etl-upload

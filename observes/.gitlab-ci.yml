@@ -86,20 +86,20 @@ observes/lint-tap-mixpanel:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes/scheduled-code-etl-compute-bills:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_compute_bills]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
 observes/scheduled-code-etl-amend:
   <<: *makes
   only:
     refs: [schedules]
     variables: [$observes_code_amend_authors_on_aws]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
+observes/scheduled-code-etl-compute-bills:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_compute_bills]
   stage: analytics
   tags: [autoscaling]
   interruptible: false
