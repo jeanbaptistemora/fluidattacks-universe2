@@ -1,6 +1,9 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { wait } from "@apollo/react-testing";
-import { ApolloError, NetworkStatus } from "apollo-client";
+import {
+  ApolloError,
+  NetworkStatus,
+  useMutation,
+  useQuery,
+} from "@apollo/client";
 import * as Notifications from "expo-notifications";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
@@ -26,6 +29,7 @@ import {
 } from "react-native";
 import { Headline, useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
+import wait from "waait";
 
 import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";

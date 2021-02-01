@@ -259,6 +259,8 @@ function job_integrates_build_mobile_ios {
           --release-channel "${CI_COMMIT_REF_NAME}" \
           --team-id "${APPLE_TEAM_ID}" \
           --type archive \
+          --non-interactive \
+    &&  mkdir -p output \
     &&  curl -sSo output/integrates.ipa "$(npx expo-cli url:ipa)" \
     &&  rm -rf ./certs \
     &&  popd \

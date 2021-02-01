@@ -1,4 +1,5 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -8,6 +9,7 @@ import { I18nextProvider } from "react-i18next";
 import { Alert, AppState, AppStateEvent, AppStateStatus } from "react-native";
 import { Provider as PaperProvider, Text } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
+import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
 
@@ -16,12 +18,15 @@ import { ORGS_QUERY } from "./queries";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock("react-router-native", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<
+  string,
+  () => Record<string, unknown>
+> = jest.requireActual("react-router-native");
 
   return {
     ...mockedRouter,
-    useHistory: (): Dictionary => ({
+    useHistory: (): Record<string, unknown> => ({
       ...mockedRouter.useHistory(),
       replace: mockHistoryReplace,
     }),
@@ -226,14 +231,16 @@ describe("DashboardView", (): void => {
   });
 
   it("should refresh on resume", async (): Promise<void> => {
-    let stateListener: (state: AppStateStatus) => Promise<void> =
-      async (): Promise<void> => undefined;
+    let stateListener: (
+      state: AppStateStatus,
+    ) => Promise<void> = async (): Promise<void> => undefined;
 
     jest.mock(
       "react-native",
       (): Record<string, {}> => {
-        const mockedRN: Dictionary<() => Dictionary> =
-          jest.requireActual("react-native");
+        const mockedRN: Record<string, unknown> = jest.requireActual(
+          "react-native",
+        );
 
         return {
           ...mockedRN,

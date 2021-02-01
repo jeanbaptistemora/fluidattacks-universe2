@@ -1,5 +1,4 @@
-import { DocumentNode } from "graphql";
-import gql from "graphql-tag";
+import { DocumentNode, gql } from "@apollo/client";
 
 export const SIGN_IN_MUTATION: DocumentNode = gql`
 mutation signIn($authToken: String!, $provider: AuthProvider!) {

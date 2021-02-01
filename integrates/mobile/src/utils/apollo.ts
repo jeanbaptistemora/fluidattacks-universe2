@@ -1,20 +1,23 @@
-import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
 import {
+  ApolloClient,
   ApolloLink,
-  ExecutionResult,
+  ApolloProvider as BaseApolloProvider,
+  createHttpLink,
   FetchResult,
+  InMemoryCache,
   NextLink,
+  NormalizedCacheObject,
   Observable,
   Operation,
-} from "apollo-link";
-import { setContext } from "apollo-link-context";
-import { ErrorResponse } from "apollo-link-error";
-import { createHttpLink } from "apollo-link-http";
-import { ServerError, ServerParseError } from "apollo-link-http-common";
+  ServerError,
+  ServerParseError,
+} from "@apollo/client";
+// tslint:disable-next-line: no-submodule-imports
+import { setContext } from "@apollo/client/link/context";
+// tslint:disable-next-line: no-submodule-imports
+import { ErrorResponse } from "@apollo/client/link/error";
 import * as SecureStore from "expo-secure-store";
-import { GraphQLError } from "graphql";
+import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { Alert } from "react-native";
@@ -154,7 +157,7 @@ const errorLink: ((history: History) => ApolloLink) = (
     }
   });
 
-const authLink: ApolloLink = setContext(async (): Promise<Dictionary> => {
+const authLink: ApolloLink = setContext(async (): Promise<Record<string, unknown>> => {
   let token: string;
   try {
     token = await SecureStore.getItemAsync("integrates_session") as string;

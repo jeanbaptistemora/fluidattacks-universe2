@@ -1,4 +1,3 @@
-import { wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { FetchMockStatic } from "fetch-mock";
 import React from "react";
@@ -8,16 +7,19 @@ import { I18nextProvider } from "react-i18next";
 import { Linking } from "react-native";
 import { Button, Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
+import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
 
 import { LoginView } from "./index";
 import { getOutdatedStatus } from "./version";
 
-jest.mock("expo-constants", (): Dictionary => ({
+jest.mock("expo-constants", (): Record<string, unknown> => ({
   ...jest.requireActual("expo-constants"),
   manifest: {
-    ...jest.requireActual<Dictionary>("expo-constants").manifest,
+    ...jest.requireActual<Record<string, Record<string, unknown>>>(
+      "expo-constants",
+    ).manifest,
     android: {
       package: "com.fluidattacks.integrates",
     },

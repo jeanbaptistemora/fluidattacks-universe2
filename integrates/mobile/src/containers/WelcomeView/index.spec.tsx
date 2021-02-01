@@ -1,4 +1,5 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -7,6 +8,7 @@ import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
 import { Provider as PaperProvider } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
+import wait from "waait";
 
 import { i18next } from "../../utils/translations/translate";
 
@@ -15,12 +17,15 @@ import { SIGN_IN_MUTATION } from "./queries";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock("react-router-native", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<
+  string,
+  () => Record<string, unknown>
+> = jest.requireActual("react-router-native");
 
   return {
     ...mockedRouter,
-    useHistory: (): Dictionary => ({
+    useHistory: (): Record<string, unknown> => ({
       ...mockedRouter.useHistory(),
       replace: mockHistoryReplace,
     }),

@@ -1,5 +1,4 @@
-import { DocumentNode } from "graphql";
-import gql from "graphql-tag";
+import { DocumentNode, gql } from "@apollo/client";
 
 export const ORGS_QUERY: DocumentNode = gql`{
   me {

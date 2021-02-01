@@ -1,5 +1,3 @@
-type Dictionary<T = {}> = { [key: string]: T };
-
 //Type definitions for img files
 declare module "*.png" {
   const value: number;

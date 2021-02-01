@@ -24,8 +24,8 @@ jest.mock(
   }),
 );
 
-jest.mock("react-native", (): Dictionary => {
-  const mockedRN: Dictionary = jest.requireActual("react-native");
+jest.mock("react-native", (): Record<string, unknown> => {
+  const mockedRN: Record<string, unknown> = jest.requireActual("react-native");
   Object.assign(mockedRN.Alert, { alert: jest.fn() });
 
   return mockedRN;
@@ -33,20 +33,25 @@ jest.mock("react-native", (): Dictionary => {
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock("react-router-native", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<
+  string,
+  () => Record<string, unknown>
+> = jest.requireActual("react-router-native");
 
   return {
     ...mockedRouter,
-    useHistory: (): Dictionary => ({
+    useHistory: (): Record<string, unknown> => ({
       ...mockedRouter.useHistory(),
       replace: mockHistoryReplace,
     }),
   };
 });
 
-jest.mock("./version", (): Dictionary => {
-  const mockedVersion: Dictionary = jest.requireActual("./version");
+jest.mock("./version", (): Record<string, unknown> => {
+  const mockedVersion: Record<string, unknown> = jest.requireActual(
+    "./version",
+  );
   mockedVersion.getOutdatedStatus = jest.fn();
 
   return mockedVersion;

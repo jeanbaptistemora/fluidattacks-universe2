@@ -1,7 +1,9 @@
 import { default as Constants } from "expo-constants";
 import { StyleSheet } from "react-native";
 
-export const styles: Dictionary = StyleSheet.create({
+export const styles: Record<
+  string, Record<string, unknown>
+> = StyleSheet.create({
   actions: {
     marginLeft: "auto",
   },
