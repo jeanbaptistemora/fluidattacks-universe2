@@ -11,6 +11,8 @@ from backend.api.dataloaders.group import GroupLoader
 from backend.api.schema import SCHEMA
 from backend.exceptions import (
     InvalidOrganization,
+    InvalidPageIndex,
+    InvalidPageSize,
     UserNotInOrganization
 )
 from test_async.utils import create_dummy_session
@@ -251,29 +253,46 @@ async def test_organization():
         'integratesreviewer@fluidattacks.com',
         'integratesserviceforces@gmail.com'
     ]
-    query = f'''
-        query {{
-            organization(organizationId: "{org_id}") {{
+    
+    variables = {
+        'pageIndex': -1,
+        'pageSize': 10,
+        'organizationId': org_id
+    }
+    query = '''
+        query GetOrganizationInfo($organizationId: String!, $pageIndex: Int!, $pageSize: Int) {
+            organization(organizationId: $organizationId) {
                 id
                 maxAcceptanceDays
                 maxAcceptanceSeverity
                 maxNumberAcceptations
                 minAcceptanceSeverity
                 name
-                projects {{
+                projects {
                     name
-                }}
-                stakeholders(pageIndex: 1) {{
-                    stakeholders {{
+                }
+                stakeholders(pageIndex: $pageIndex, pageSize: $pageSize) {
+                    stakeholders {
                         email
-                    }}
-                }}
-            }}
-        }}
+                    }
+                }
+            }
+        }
     '''
 
-    data = {'query': query}
+    data = {'query': query, 'variables': variables}
     result = await _get_result_async(data)
+    assert result['errors'][0]['message'] == str(InvalidPageIndex())
+    variables['pageSize'] = 5
+    variables['pageIndex'] = 1
+    data['variables'] = variables
+
+    result = await _get_result_async(data)
+    assert result['errors'][0]['message'] == str(InvalidPageSize())
+    variables['pageSize'] = 10
+    data['variables'] = variables
+
+    result = result = await _get_result_async(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
     stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']['stakeholders']]
 

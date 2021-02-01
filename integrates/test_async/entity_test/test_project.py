@@ -11,7 +11,12 @@ from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
-from backend.exceptions import NotPendingDeletion, PermissionDenied
+from backend.exceptions import (
+    InvalidPageIndex,
+    InvalidPageSize,
+    NotPendingDeletion,
+    PermissionDenied
+)
 
 from test_async.utils import create_dummy_session
 
@@ -36,9 +41,14 @@ async def _get_result_async(data, user='integratesmanager@gmail.com'):
 
 async def test_project():
     """Check for project mutation."""
+    variables = {
+        'pageIndex': -1,
+        'pageSize': 10,
+        'projectName': 'unittesting'
+    }
     query = '''
-      query {
-        project(projectName: "unittesting"){
+      query GetProjectInfo($projectName: String!, $pageIndex: Int!, $pageSize: Int) {
+        project(projectName: $projectName){
           name
           hasDrills
           hasForces
@@ -72,7 +82,7 @@ async def test_project():
             analyst
             detail
           }
-          stakeholders(pageIndex: 1) {
+          stakeholders(pageIndex: $pageIndex, pageSize: $pageSize) {
             stakeholders {
               email
               invitationState
@@ -87,7 +97,18 @@ async def test_project():
         }
       }
     '''
-    data = {'query': query}
+    data = {'query': query, 'variables': variables}
+    result = await _get_result_async(data)
+    assert result['errors'][0]['message'] == str(InvalidPageIndex())
+    variables['pageSize'] = 5
+    variables['pageIndex'] = 1
+    data['variables'] = variables
+
+    result = await _get_result_async(data)
+    assert result['errors'][0]['message'] == str(InvalidPageSize())
+    variables['pageSize'] = 10
+    data['variables'] = variables
+
     result = await _get_result_async(data)
     assert 'errors' not in result
     assert result['data']['project']['name'] == 'unittesting'
