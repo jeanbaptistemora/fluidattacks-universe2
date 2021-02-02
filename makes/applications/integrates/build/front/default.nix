@@ -8,7 +8,10 @@ let
 in
 makeEntrypoint {
   arguments = {
-    envSearchPaths = makeSearchPaths [ integratesPkgs.nodejs ];
+    envSearchPaths = makeSearchPaths [
+      integratesPkgs.nodejs
+      integratesPkgs.patch
+    ];
     envSetupIntegratesDevelopmentFront = import (path "/makes/packages/integrates/config-development/front") attrs.copy;
     envSetupIntegratesRuntimeFront = import (path "/makes/packages/integrates/config-runtime/front") attrs.copy;
   };

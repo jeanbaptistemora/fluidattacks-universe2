@@ -22,7 +22,6 @@ integrates/infra/secret-management/test
 integrates/server/kill
 integrates/server/redis
 makes/attrs
-makes/check
 makes/deploy/oci-batch
 makes/deploy/oci-ci
 makes/lint

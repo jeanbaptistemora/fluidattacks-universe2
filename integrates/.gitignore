@@ -1,0 +1,3 @@
+/**/*.css.d.ts
+/.Redis
+/app/static/dashboard

@@ -5,14 +5,10 @@
 } @ _:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path integratesPkgs;
   terraformTest = import (path "/makes/utils/terraform-test") path integratesPkgsTerraform;
 in
 makeEntrypoint rec {
   arguments = {
-    envSearchPaths = makeSearchPaths [
-      integratesPkgs.awscli
-    ];
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
     envTerraformTest = "${terraformTest {

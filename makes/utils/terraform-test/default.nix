@@ -6,13 +6,18 @@ path: pkgs:
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
+  makeSearchPaths = import (path "/makes/utils/make-search-paths") path pkgs;
 in
 makeEntrypoint {
   arguments = {
+    envSearchPaths = makeSearchPaths [
+      pkgs.awscli
+      pkgs.git
+      pkgs.terraform_0_13
+      pkgs.tflint
+    ];
     envProduct = product;
     envTarget = target;
-    envTerraform = "${pkgs.terraform_0_13}/bin/terraform";
-    envTflint = "${pkgs.tflint}/bin/tflint";
     envTflintConfig = path "/.tflint.hcl";
     envUtilsBashLibAws = import (path "/makes/utils/aws") path pkgs;
   };

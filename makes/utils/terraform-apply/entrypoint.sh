@@ -1,14 +1,15 @@
 # shellcheck shell=bash
 
+source '__envSearchPaths__'
 source '__envUtilsBashLibAws__'
 
 function main {
       aws_login_prod '__envProduct__' \
   &&  pushd '__envTarget__' \
     &&  echo '[INFO] Initializing' \
-    &&  '__envTerraform__' init \
+    &&  terraform init \
     &&  echo '[INFO] Applying changes' \
-    &&  '__envTerraform__' apply -auto-approve -refresh=true \
+    &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
   ||  return 1
 }

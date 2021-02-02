@@ -22,14 +22,25 @@ makeDerivation {
     arguments = {
       envBashLibCommon = path "/makes/utils/common/template.sh";
       envBashLibShopts = path "/makes/utils/shopts/template.sh";
+      envPath = pkgs.lib.strings.makeBinPath [
+        # Minimalistic shell environment
+        # Let's try to keep it as lightweight as possible because this
+        # propagates to all built apps and packages
+        pkgs.bash
+        pkgs.coreutils
+      ];
       envShell = "${pkgs.bash}/bin/bash";
     };
     name = "utils-make-entrypoint-script";
     template = ''
       #! __envShell__
 
+      export PATH='__envPath__'
+
       source __envBashLibShopts__
       source __envBashLibCommon__
+
+      unset LD_LIBRARY_PATH
     '';
   };
   envLocation = location;
