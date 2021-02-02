@@ -1826,7 +1826,8 @@ export const enTranslations: ResourceKey = {
       effectiveness: "Effectiveness",
       found: "Found",
       inProgress: "In progress",
-      manager: "Treatment Manager",
+      justification: "Justification:",
+      manager: "Manager:",
       new: "New",
       open: "Open",
       pending: "Pending",
@@ -1836,6 +1837,12 @@ export const enTranslations: ResourceKey = {
         "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
         "and effectiveness of the solution in reattacks",
       treatment: "Treatment",
+      vulnerabilitiesAcceptedTreatment:
+        "{{count}} vulnerabilities were accepted temporally",
+      vulnerabilitiesAcceptedUndefinedTreatment:
+        "{{count}} vulnerabilities were accepted eternally",
+      vulnerabilitiesClosed: "Vulnerabilities closed:",
+      vulnerabilitiesFound: "Vulnerabilities found:",
     },
     tab_users: {
       add_button: {

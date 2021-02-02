@@ -21,15 +21,13 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 export interface IClosing {
-  accepted?: number;
+  accepted: number;
   accepted_undefined?: number;
   closed: number;
   cycle: number;
   date: string;
-  effectiveness: number;
-  in_progress?: number;
+  justification?: string;
   manager?: string;
-  new?: number;
   open: number;
 }
 
@@ -66,11 +64,9 @@ const trackingView: React.FC = (): JSX.Element => {
                   closed={closing.closed}
                   cycle={closing.cycle}
                   date={closing.date}
-                  effectiveness={closing.effectiveness}
-                  inProgress={closing.in_progress}
+                  justification={closing.justification}
                   key={index}
                   manager={closing.manager}
-                  new={closing.new}
                   open={closing.open}
                 />
               ))}

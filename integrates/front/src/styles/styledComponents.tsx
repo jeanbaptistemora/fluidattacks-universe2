@@ -584,6 +584,13 @@ const TabsContainer: StyledComponent<
   className: "grid mb0 menu-grid pl0 tc-shadow w-100",
 })``;
 
+const TrackingLabel: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: "f3 mv0 w-fit-content ws-pre-wrap ww-break-word",
+})``;
+
 const ValidationError: StyledComponent<
   "div",
   Record<string, unknown>
@@ -674,6 +681,7 @@ export {
   Tab,
   TabContent,
   TabsContainer,
+  TrackingLabel,
   ValidationError,
   Well,
 };

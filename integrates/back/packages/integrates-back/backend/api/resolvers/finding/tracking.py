@@ -49,7 +49,7 @@ async def resolve_no_cache(
 
         return cast(
             List[TrackingItem],
-            finding_domain.get_tracking_vulnerabilities_new(vulns)
+            finding_domain.get_tracking_vulnerabilities(vulns)
         )
 
     return []
