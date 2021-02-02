@@ -1,11 +1,5 @@
-from typing import (
-    cast,
-)
 from ariadne import graphql
 
-from backend import (
-    authz,
-)
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
@@ -18,8 +12,8 @@ from backend.api.schema import SCHEMA
 from backend.domain import(
     project as group_domain,
 )
-from backend.typing import (
-    Invitation as InvitationType,
+from backend.utils import (
+    user as user_utils,
 )
 from test_async.utils import create_dummy_session
 
@@ -29,20 +23,8 @@ async def complete_register(
     group_name: str,
 ):
     project_access = await group_domain.get_user_access(email, group_name)
-    invitation = cast(InvitationType, project_access['invitation'])
-
-    group_name = cast(str, project_access['project_name'])
-    updated_invitation = invitation.copy()
-    updated_invitation['is_used'] = True
-    responsibility = invitation['responsibility']
-    success = await group_domain.update_access(
-        email,
-        group_name,
-        {
-            'has_access': True,
-            'invitation': updated_invitation,
-            'responsibility': responsibility,
-        }
+    success = await user_utils.complete_register_for_group_invitation(
+        project_access
     )
 
     return success

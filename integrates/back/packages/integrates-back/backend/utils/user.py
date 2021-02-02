@@ -5,10 +5,12 @@ from typing import (
     Any,
     Awaitable,
     Dict,
-    List
+    List,
+    cast
 )
 
 # Third party libraries
+import bugsnag
 from aioextensions import (
     collect,
     schedule
@@ -29,7 +31,11 @@ from backend.domain import (
     project as group_domain,
     user as user_domain
 )
-from backend.typing import MailContent as MailContentType
+from backend.typing import (
+    Invitation as InvitationType,
+    MailContent as MailContentType,
+    ProjectAccess as ProjectAccessType,
+)
 from backend.utils import (
     datetime as datetime_utils,
 )
@@ -103,6 +109,52 @@ async def modify_user_information(
             f'Security: {email} Attempted to edit '
             f'user phone bypassing validation'
         )
+
+    return success
+
+
+async def complete_register_for_group_invitation(
+    project_access: ProjectAccessType
+) -> bool:
+    success = False
+    invitation = cast(InvitationType, project_access['invitation'])
+
+    if invitation['is_used']:
+        bugsnag.notify(Exception('Token already used'), severity='warning')
+    else:
+        user_email = cast(str, project_access['user_email'])
+        group_name = cast(str, project_access['project_name'])
+        updated_invitation = invitation.copy()
+        updated_invitation['is_used'] = True
+        responsibility = cast(str, invitation['responsibility'])
+        role = cast(str, invitation['role'])
+        success = await group_domain.update_access(
+            user_email,
+            group_name,
+            {
+                'has_access': True,
+                'invitation': updated_invitation,
+                'responsibility': responsibility,
+            }
+        )
+
+        success = success and await authz.grant_group_level_role(
+            user_email, group_name, role
+        )
+
+        organization_id = await org_domain.get_id_for_group(group_name)
+        if not await org_domain.has_user_access(organization_id, user_email):
+            success = success and await org_domain.add_user(
+                organization_id,
+                user_email,
+                'customer'
+            )
+
+        if not await user_domain.is_registered(user_email):
+            success = success and all(await collect((
+                user_domain.register(user_email),
+                authz.grant_user_level_role(user_email, 'customer')
+            )))
 
     return success
 
