@@ -242,10 +242,7 @@ function job_integrates_mobile_lint {
 # Front
 
 function job_integrates_front_build_development {
-      pushd integrates \
-    &&  helper_integrates_front_build \
-  &&  popd \
-  ||  return 1
+  job_integrates_front_build_production
 }
 
 function job_integrates_front_build_production {
@@ -256,19 +253,25 @@ function job_integrates_front_build_production {
 }
 
 function job_integrates_front_deploy_development {
+  local branch="${CI_COMMIT_REF_NAME}"
+  local env='development'
+
       pushd integrates \
     &&  helper_integrates_front_deploy \
-          "${CI_COMMIT_REF_NAME}" \
-          'development' \
+          "${branch}" \
+          "${env}" \
   &&  popd \
   ||  return 1
 }
 
 function job_integrates_front_deploy_production {
+  local branch='master'
+  local env='production'
+
       pushd integrates \
     &&  helper_integrates_front_deploy \
-          'master' \
-          'production' \
+          "${branch}" \
+          "${env}" \
   &&  popd \
   ||  return 1
 }
@@ -509,11 +512,7 @@ function job_integrates_back_build_lambdas_production {
 }
 
 function job_integrates_back_build_lambdas_development {
-      pushd integrates \
-    &&  helper_integrates_back_build_lambda 'send_mail_notification' \
-    &&  helper_integrates_back_build_lambda 'project_to_pdf' \
-  &&  popd \
-  || return 1
+  job_integrates_back_build_lambdas_production
 }
 
 function job_integrates_back_lint {

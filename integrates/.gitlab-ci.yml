@@ -258,9 +258,8 @@ scheduler_send_unsolved_to_all:
     refs: [schedules]
     variables: [$send_unsolved_to_all]
 
-integrates_front_build_development:
+.integrates_front_build: &integrates_front_build
   <<: *with_nix
-  <<: *in_dev_branch_integrates
   stage: build
   retry: 1
   artifacts:
@@ -269,16 +268,13 @@ integrates_front_build_development:
       - integrates/app/static/
     when: on_success
 
+integrates_front_build_development:
+  <<: *in_dev_branch_integrates
+  <<: *integrates_front_build
+
 integrates_front_build_production:
-  <<: *with_nix
   <<: *in_master_branch_integrates
-  stage: build
-  retry: 1
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/app/static/
-    when: on_success
+  <<: *integrates_front_build
 
 integrates_front_deploy_development:
   <<: *with_nix
@@ -304,9 +300,8 @@ integrates_mobile_build_android:
       - integrates/mobile/output/
     when: on_success
 
-integrates_back_build_lambdas_development:
+.integrates_back_build_lambdas: &integrates_back_build_lambdas
   <<: *with_nix
-  <<: *in_dev_branch_integrates
   stage: build
   artifacts:
     expire_in: 1 day
@@ -314,15 +309,13 @@ integrates_back_build_lambdas_development:
       - integrates/lambda/packages/
     when: on_success
 
+integrates_back_build_lambdas_development:
+  <<: *in_dev_branch_integrates
+  <<: *integrates_back_build_lambdas
+
 integrates_back_build_lambdas_production:
-  <<: *with_nix
   <<: *in_master_branch_integrates
-  stage: build
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/lambda/packages/
-    when: on_success
+  <<: *integrates_back_build_lambdas
 
 integrates_coverage_report:
   <<: *with_nix
