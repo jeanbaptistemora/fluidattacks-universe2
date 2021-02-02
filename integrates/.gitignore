@@ -1,3 +1,11 @@
-/**/*.css.d.ts
+# Local deploy
 /.Redis
+/.MinIO
+/.DynamoDB
+
+# Front files
+/**/*.css.d.ts
+
+# Others
 /app/static/dashboard
+.tmp
