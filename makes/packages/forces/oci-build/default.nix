@@ -8,5 +8,9 @@ let
 in
 makeOci {
   config.WorkingDir = "/src";
-  contents = [ outputs.packages."forces/bin" ];
+  contents = [
+    forcesPkgs.bash
+    forcesPkgs.coreutils
+    outputs.packages."forces/bin"
+  ];
 }
