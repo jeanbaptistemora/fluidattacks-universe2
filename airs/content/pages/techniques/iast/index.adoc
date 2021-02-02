@@ -21,10 +21,10 @@ vulnerabilities in the code as your developers modify the application. Early
 detection of weaknesses facilitates their remediation and saves both time and
 money.
 
-=== No false positives
+=== Minimal rates of false positives
 
 Through an exhaustive manual check, our certified team of ethical hackers can
-reduce the low rates of false positives appearing on automatic IAST to zero.
+reduce the rates of false positives appearing on automatic IAST to a minimum.
 
 === Low rates of false negatives
 

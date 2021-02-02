@@ -12,8 +12,8 @@
 
 This technique is highly useful for teams committed to their company’s security.
 They have recognized that relying on automated tools for IT systems’ assessments
-is not the best option, considering the high rates of false positives that may
-be involved.
+is not the best option, considering the high rates of false positives
+that may be involved.
 
 === What happens inside
 
@@ -31,8 +31,8 @@ ethical hackers.
 
 The RE technique can be complemented by other techniques used in Fluid Attacks,
 such as DAST, SAST, IAST and SCA, to constitute a comprehensive application
-security testing. This way, we guarantee zero false positives and low rates of
-false negatives in your software’s assessments.
+security testing. This way, we guarantee minimal rates of false positives
+and false negatives in your software’s assessments.
 
 [role="sect2 db-l dn"]
 == {nbsp}

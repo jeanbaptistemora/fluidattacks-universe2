@@ -24,7 +24,8 @@ company’s DevOps speed.
 
 === An element of a comprehensive test
 
-The SCA technique can be complemented by other techniques used in Fluid Attacks,
-such as DAST, SAST, IAST, RE, and Manual Pentesting, to constitute a
-comprehensive application security testing. This way, we guarantee zero false
-positives and low rates of false negatives in your software’s assessments.
+The SCA technique can be complemented by other techniques
+used in Fluid Attacks, such as DAST, SAST, IAST, RE, and Manual Pentesting,
+to constitute a comprehensive application security testing.
+This way, we guarantee minimal rates of false positives
+and false negatives in your software’s assessments.

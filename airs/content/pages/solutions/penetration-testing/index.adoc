@@ -16,12 +16,13 @@ promptly remediated.
 
 === Manual and precise work
 
-Our ethical hackers go beyond using automated tools, using their expertise to
-discover everything that can pose a cybersecurity risk within your IT systems.
-This is how we can guarantee zero false positives and zero false negatives in
-our projects.
+Our ethical hackers go beyond using automated tools,
+employing their expertise to discover everything
+that can pose a cybersecurity risk within your IT systems.
+This is how we can guarantee minimal rates of false positives
+and false negatives in our projects.
 
-=== Multiple Re-Attacks
+=== Multiple re-attacks
 
 Every time you remediate a vulnerability we find in your system through
 Continuous Hacking, you can ask our team to verify that remediation. This

@@ -21,11 +21,11 @@ While the DAST technique is applied in many cases on a running application after
 production, in DevSecOps, it can be moved to the left to detect vulnerabilities
 earlier in internal pre-production environments, thus saving time and money.
 
-=== No false positives
+=== Minimal rates of false positives
 
 Fluid Attacks’ ethical hackers continuously verify what is automatically
-obtained in this technique, and complement the evaluations with a manual DAST to
-eliminate false positives.
+obtained in this technique, and complement the evaluations with a manual DAST
+to achieve very low rates of false positives.
 
 === Scanning based on standards
 

@@ -13,11 +13,11 @@
 The fast and early detection of security flaws can accelerate the remediation
 processes and achieve significant money and time savings for your company.
 
-=== No false positives
+=== Minimal rates of false positives
 
-The low rates of false positives appearing on Asserts’ automatic scans can be
-brought to zero after thorough manual checks by our certified team of ethical
-hackers.
+The rates of false positives appearing on Asserts’ automatic scans can be
+reduced to a minimum after thorough manual checks
+by our certified team of ethical hackers.
 
 === Scanning based on standards
 

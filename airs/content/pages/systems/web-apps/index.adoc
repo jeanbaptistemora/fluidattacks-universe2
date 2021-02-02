@@ -24,6 +24,6 @@ red team, following techniques such as SAST, DAST and SCA. In addition, we
 manually test and attack your web applications performing the Penetration
 Testing technique, going deeper, finding the more complex vulnerabilities
 (including those in the business logic of the app) and helping to avoid false
-positives and false negatives. Fluid Attacks’web application security testing
+positives and false negatives. Fluid Attacks’ web application security testing
 can also be included in your software development lifecycle (SDLC) if your
 company is responsible for developing these applications.

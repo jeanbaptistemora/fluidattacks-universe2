@@ -393,7 +393,7 @@ Compared to our 56, that gives us a 'yield' of 98%.
 Not too shabby for our simple parser.
 Hence the 'escapes' is 2% in this case.
 
-Ggiven the parser design,
+Given the parser design,
 and checking the script output,
 we see that only really dangerous concatenations are reported.
 Thus we might say,

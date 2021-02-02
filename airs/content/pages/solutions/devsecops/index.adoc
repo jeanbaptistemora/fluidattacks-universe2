@@ -18,8 +18,8 @@ communication between our red team and your developers.
 
 At Fluid Attacks, our hackers go beyond using automated tools, using their
 expertise to discover everything that can pose a cybersecurity risk within your
-IT systems. This allows us to guarantee zero false positives and zero false
-negatives in our projects.
+IT systems. This allows us to guarantee minimal rates of false positives
+and false negatives in our projects.
 
 === Legacy languages and methods
 
@@ -44,4 +44,4 @@ impacts on your business.
 
 At Fluid Attacks, within our DevSecOps solution,
 we can break the build in any continuous integration pipeline
-without making the mistake of doing so with false positives or lies.
+to prevent going to production with unrepaired vulnerabilities.

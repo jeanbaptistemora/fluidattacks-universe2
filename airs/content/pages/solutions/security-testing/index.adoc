@@ -1,9 +1,9 @@
 :slug: solutions/security-testing/
-:description: Thanks to our comprehensive Security Testing, you can be sure that all your IT systems’ vulnerabilities will be found without false positives or negatives.
+:description: Thanks to our comprehensive Security Testing, your IT systems’ vulnerabilities will be found with very low rates of false positives and false negatives.
 :keywords: Fluid Attacks, Solutions, Security, Testing, Ethical Hacking, Vulnerability, SDLC
 :image: security-testing.png
 :solutiontitle: security-testing
-:solution: Fluid Attacks’ Security Testing solution allows the comprehensive and accurate detection of security vulnerabilities in your IT infrastructure, applications, or source code. Our security testing team consists of certified ethical hackers who work on diverse environments, both with automated tools and manual exploitation. We prioritize all findings according to their severity and provide you with recommendations and guidance on their remediation in order to mitigate the risks of cyberattacks from internal and external sources. Our security testing, which is available for your entire software development lifecycle, succeeds in identifying both known and unknown vulnerabilities while guaranteeing that reports do not contain lies (false positives) nor omissions (false negatives).
+:solution: Fluid Attacks’ Security Testing solution allows the comprehensive and accurate detection of security vulnerabilities in your IT infrastructure, applications, or source code. Our security testing team consists of certified ethical hackers who work on diverse environments, both with automated tools and manual exploitation. We prioritize all findings according to their severity and provide you with recommendations and guidance on their remediation in order to mitigate the risks of cyberattacks from internal and external sources. Our security testing, which is available for your entire software development lifecycle, succeeds in identifying both known and unknown vulnerabilities while guaranteeing reports with minimal rates of false positives (lies) and false negatives (omissions).
 :template: solution
 
 = Security Testing
@@ -16,12 +16,12 @@ assets and those of your users. You will receive detailed reports based on
 which you can decide what you want to fix according to the severity and impact
 on your business.
 
-=== No false positives
+=== Minimal rates of false positives
 
 We place much more emphasis on tool-supported manual work than relying on the
 intensive use of automatic tools, and are more concerned with accuracy than
-speed. This is why you will find neither false positives nor false negatives
-in our projects.
+speed. This is why you will find very low rates of false positives
+and false negatives in our projects.
 
 === Centralized management
 
