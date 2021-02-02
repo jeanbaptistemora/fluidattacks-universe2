@@ -241,10 +241,6 @@ function job_integrates_mobile_lint {
 
 # Front
 
-function job_integrates_front_build_development {
-  job_integrates_front_build_production
-}
-
 function job_integrates_front_build_production {
       pushd integrates \
     &&  helper_integrates_front_build \
