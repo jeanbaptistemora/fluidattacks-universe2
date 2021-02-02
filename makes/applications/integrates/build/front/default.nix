@@ -13,5 +13,5 @@ makeEntrypoint {
     envSetupIntegratesRuntimeFront = import (path "/makes/packages/integrates/config-runtime/front") attrs.copy;
   };
   name = "integrates-build-front";
-  template = path "/makes/applications/integrates/build-front/entrypoint.sh";
+  template = path "/makes/applications/integrates/build/front/entrypoint.sh";
 }

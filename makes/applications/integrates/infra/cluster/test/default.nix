@@ -22,5 +22,5 @@ makeEntrypoint rec {
     }}/bin/${name}";
   };
   name = "integrates-infra-cluster-test";
-  template = path "/makes/applications/integrates/infra-cluster-test/entrypoint.sh";
+  template = path "/makes/applications/integrates/infra/cluster/test/entrypoint.sh";
 }

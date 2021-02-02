@@ -18,5 +18,5 @@ makeEntrypoint rec {
     }}/bin/${name}";
   };
   name = "integrates-infra-front-test";
-  template = path "/makes/applications/integrates/infra-front-test/entrypoint.sh";
+  template = path "/makes/applications/integrates/infra/front/test/entrypoint.sh";
 }

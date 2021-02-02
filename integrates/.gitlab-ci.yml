@@ -79,7 +79,7 @@
   script:
     - ./build.sh integrates_scheduler_prod "${CI_JOB_NAME/scheduler_/}"
 
-integrates/build-front:
+integrates/build/front:
   <<: *makes
   <<: *in_dev_branch_integrates
   artifacts:
@@ -90,72 +90,72 @@ integrates/build-front:
   retry: 1
   stage: build
 
-integrates/infra-backup-apply:
+integrates/infra/backup/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-backup-test:
+integrates/infra/backup/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra-cache-db-apply:
+integrates/infra/cache-db/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-cache-db-test:
+integrates/infra/cache-db/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra-cluster-apply:
+integrates/infra/cluster/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-cluster-test:
+integrates/infra/cluster/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra-database-apply:
+integrates/infra/database/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-database-test:
+integrates/infra/database/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra-front-apply:
+integrates/infra/front/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-front-test:
+integrates/infra/front/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra-resources-apply:
+integrates/infra/resources/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-resources-test:
+integrates/infra/resources/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates/infra-secret-management-apply:
+integrates/infra/secret-management/apply:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-integrates/infra-secret-management-test:
+integrates/infra/secret-management/test:
   <<: *makes
   <<: *in_dev_branch_integrates
   stage: test-infra
@@ -287,7 +287,7 @@ integrates_front_deploy_development:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates/build-front]
+  needs: [integrates/build/front]
 
 integrates_front_deploy_production:
   <<: *with_nix

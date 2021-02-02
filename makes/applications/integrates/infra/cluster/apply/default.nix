@@ -22,5 +22,5 @@ makeEntrypoint rec {
     envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
   };
   name = "integrates-infra-cluster-apply";
-  template = path "/makes/applications/integrates/infra-cluster-apply/entrypoint.sh";
+  template = path "/makes/applications/integrates/infra/cluster/apply/entrypoint.sh";
 }
