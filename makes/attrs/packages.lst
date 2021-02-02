@@ -5,6 +5,7 @@ forces/config-wrapper
 forces/lint
 forces/oci-build
 forces/oci-build-wrapper
+integrates/build/oci/redis
 integrates/config-development/back
 integrates/config-development/front
 integrates/config-runtime/back
