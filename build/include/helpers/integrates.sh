@@ -7,10 +7,12 @@ function helper_integrates_mobile_deploy_ota {
   local env="${1}"
   local release_channel="${2}"
 
-  local mobile_version
+  local app_version
+  local version_code
 
       echo '[INFO] Logging in to AWS' \
-  &&  mobile_version="$(helper_integrates_mobile_version_playstore)" \
+  &&  app_version="$(helper_integrates_mobile_version basic)" \
+  &&  version_code="$(helper_integrates_mobile_version code)" \
   &&  helper_integrates_deployment_date \
   &&  helper_common_sops_env "secrets-${env}.yaml" 'default' \
         EXPO_USER \
@@ -34,7 +36,8 @@ function helper_integrates_mobile_deploy_ota {
     &&  sed -i "s/__CI_COMMIT_SHA__/${CI_COMMIT_SHA}/g" ./app.json \
     &&  sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/g" ./app.json \
     &&  sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
-    &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${mobile_version}/g" ./app.json \
+    &&  sed -i "s/__APP_VERSION__/${app_version}/g" ./app.json \
+    &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${version_code}/g" ./app.json \
     &&  echo '[INFO] Publishing update' \
     &&  npx --no-install expo publish \
           --non-interactive \
@@ -493,9 +496,8 @@ function helper_integrates_probe_curl {
   fi
 }
 
-function helper_integrates_mobile_version_playstore {
+function helper_integrates_mobile_version {
   local minutes
-  local version
 
       minutes=$(
         printf "%05d" $((
@@ -504,8 +506,14 @@ function helper_integrates_mobile_version_playstore {
         $(date +%M | sed 's/^0//')
         ))
       ) \
-  &&  version="$(date +%y%m)${minutes}" \
-  &&  echo "${version}"
+  &&  if [ "$1" = "basic" ]; then
+            echo "$(date +%y.%m.)${minutes}"
+      elif [ "$1" = "code" ]; then
+            echo "$(date +%y%m)${minutes}"
+      else
+            echo "Error. Only basic or code allowed as params" \
+        &&  exit 1
+      fi
 }
 
 function helper_integrates_sops_vars {

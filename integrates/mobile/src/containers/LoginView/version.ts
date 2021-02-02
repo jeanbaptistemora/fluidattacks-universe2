@@ -4,7 +4,7 @@ import { Platform } from "react-native";
 
 import { LOGGER } from "../../utils/logger";
 
-const getCommitFromPlaystore: () => Promise<string> = async (): Promise<string> => {
+const getVersionFromPlaystore: () => Promise<string> = async (): Promise<string> => {
   const androidManifest: AndroidManifest = Constants.manifest
     .android as AndroidManifest;
 
@@ -15,11 +15,9 @@ const getCommitFromPlaystore: () => Promise<string> = async (): Promise<string> 
 
   if (response.ok) {
     const html: string = await response.text();
-
-    // Find commit ref in playstore HTML
     const index: number = html.search("Current Version");
     const startOffset: number = 81;
-    const endOffset: number = 88;
+    const endOffset: number = 92;
 
     return html.substring(index + startOffset, index + endOffset);
   }
@@ -31,7 +29,7 @@ export const getOutdatedStatus: () => Promise<boolean> = async (): Promise<boole
   const localVersion: string = String(Constants.nativeAppVersion);
   try {
     const remoteVersion: string = Platform.select({
-      android: await getCommitFromPlaystore(),
+      android: await getVersionFromPlaystore(),
       default: localVersion,
     });
 

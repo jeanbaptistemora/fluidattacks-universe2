@@ -24,7 +24,7 @@ jest.mock("expo-constants", (): Record<string, unknown> => ({
       package: "com.fluidattacks.integrates",
     },
   },
-  nativeAppVersion: "9da84a5",
+  nativeAppVersion: "21.02.01912",
 }));
 
 const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
@@ -65,7 +65,7 @@ describe("LoginView", (): void => {
   });
 
   it("should not display update dialog", async (): Promise<void> => {
-    mockVersion({ version: "9da84a5", httpStatus: 200 });
+    mockVersion({ version: "21.02.01912", httpStatus: 200 });
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
         <I18nextProvider i18n={i18next}>
@@ -93,7 +93,7 @@ describe("LoginView", (): void => {
   });
 
   it("should open google play store", async (): Promise<void> => {
-    mockVersion({ version: "0000000", httpStatus: 200 });
+    mockVersion({ version: "21.01.00000", httpStatus: 200 });
     (Linking.openURL as jest.Mock).mockImplementation((): Promise<void> => Promise.resolve());
 
     const wrapper: ReactWrapper = mount(
@@ -128,7 +128,7 @@ describe("LoginView", (): void => {
   });
 
   it("should report up to date", async (): Promise<void> => {
-    mockVersion({ version: "9da84a5", httpStatus: 200 });
+    mockVersion({ version: "21.02.01912", httpStatus: 200 });
     const isOutdated: boolean = await getOutdatedStatus();
 
     expect(isOutdated)
@@ -136,7 +136,7 @@ describe("LoginView", (): void => {
   });
 
   it("should report outdated", async (): Promise<void> => {
-    mockVersion({ version: "0000000", httpStatus: 200 });
+    mockVersion({ version: "21.01.00000", httpStatus: 200 });
     const isOutdated: boolean = await getOutdatedStatus();
 
     expect(isOutdated)

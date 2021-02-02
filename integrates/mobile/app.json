@@ -64,6 +64,6 @@
       "enabled": true
     },
     "userInterfaceStyle": "automatic",
-    "version": "__CI_COMMIT_SHORT_SHA__"
+    "version": "__APP_VERSION__"
   }
 }
