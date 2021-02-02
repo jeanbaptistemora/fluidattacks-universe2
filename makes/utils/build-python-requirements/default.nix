@@ -32,7 +32,7 @@ let
 in
 makeDerivation {
   builder = path "/makes/utils/build-python-requirements/builder.sh";
-  buildInputs = dependencies ++ [ python ];
+  buildInputs = dependencies ++ [ pkgs.git python ];
   envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
   name = "build-python-requirements";
 }

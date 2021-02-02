@@ -6,6 +6,7 @@ forces/lint
 forces/oci-build
 forces/oci-build-wrapper
 integrates/config-development/front
+integrates/config-runtime/back
 integrates/config-runtime/front
 integrates/lint/front
 integrates/lint/front/eslint

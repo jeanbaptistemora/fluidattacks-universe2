@@ -10,20 +10,19 @@ function main {
         --requirement "${envRequirementsFile}" \
         --no-cache-dir \
   &&  echo '[INFO] Freezing' \
-  &&  python -m pip freeze | sort --ignore-case > "${out}/requirements" \
-  &&  if test "$(cat "${out}/requirements")" = "$(cat "${envRequirementsFile}")"
+  &&  python -m pip freeze | sort --ignore-case > "${out}/installed" \
+  &&  sed -E 's|^(.*)\[.*?\](.*)$|\1\2|g' "${envRequirementsFile}" > "${out}/desired" \
+  &&  if test "$(cat "${out}/desired")" = "$(cat "${out}/installed")"
       then
         echo '[INFO] Integrity check passed'
       else
             echo '[ERROR] Integrity check failed' \
         &&  echo '[INFO] You need to specify all dependencies:' \
-        &&  while read -r requirement
-            do
-              echo "\"${requirement}\""
-            done < "${out}/requirements" \
+        &&  git diff --no-index "${out}/desired" "${out}/installed" \
         &&  return 1
       fi \
-  &&  rm -f "${out}/requirements" \
+  &&  rm -f "${out}/desired" \
+  &&  rm -f "${out}/installed" \
 
 }
 
