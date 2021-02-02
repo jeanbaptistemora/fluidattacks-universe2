@@ -18,6 +18,7 @@ integrates/infra-resources-apply
 integrates/infra-resources-test
 integrates/infra-secret-management-apply
 integrates/infra-secret-management-test
+integrates/kill-components
 makes/attrs
 makes/check
 makes/deploy/oci-batch

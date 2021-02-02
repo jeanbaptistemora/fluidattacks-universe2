@@ -740,26 +740,6 @@ function job_integrates_serve_components {
   ||  return 1
 }
 
-function job_integrates_kill_components {
-  local port="${1}"
-  local ports=(
-    3000  # front
-    6379 6380 6381 6382 6383 6384  # redis
-    8022  # dynamodb
-    8080  # back1
-    8081  # back2
-  )
-
-  if test -n "${port}"
-  then
-    helper_common_kill_pid_listening_on_port "${port}"
-  else
-    for port in "${ports[@]}"
-    do
-      helper_common_kill_pid_listening_on_port "${port}"
-    done
-  fi
-}
 
 function _job_integrates_make_migration {
   local env="${1}"
