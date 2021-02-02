@@ -6,31 +6,19 @@ from typing import (
 
 # Third party
 from aioextensions import collect
-from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import (
-    authz,
-    util
-)
+from backend import authz
 from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import (
     organization as org_domain,
     user as stakeholder_domain
 )
-from backend.exceptions import (
-    InvalidPageIndex,
-    InvalidPageSize
-)
 from backend.typing import (
-    GetStakeholdersPayload
-    as GetStakeholdersPayloadType,
     Organization as OrganizationType,
-    OrganizationStakehodersPageSizeEnum,
     Stakeholder as StakeholderType
 )
-from backend.utils.stakeholders import check_enums
 
 
 async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
@@ -40,28 +28,19 @@ async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
     return {**stakeholder, 'responsibility': '', 'role': org_role}
 
 
-@convert_kwargs_to_snake_case  # type: ignore
 @enforce_organization_level_auth_async
 async def resolve(
     parent: OrganizationType,
     _info: GraphQLResolveInfo,
-    page_index: int,
-    page_size: int = 10
-) -> GetStakeholdersPayloadType:
+    **_kwargs: None
+) -> List[StakeholderType]:
     org_id: str = cast(str, parent['id'])
-    check_enums({
-        page_size: [OrganizationStakehodersPageSizeEnum, InvalidPageSize],
-        page_index: [lambda i: i >= 1, InvalidPageIndex]
-    })
-
-    items_range = util.get_slice(page_index - 1, int(page_size))
-
     org_stakeholders: List[str] = await org_domain.get_users(org_id)
 
-    return GetStakeholdersPayloadType(
-        stakeholders=await collect(
+    return cast(
+        List[StakeholderType],
+        await collect(
             _get_stakeholder(email, org_id)
-            for email in org_stakeholders[items_range]
-        ),
-        num_pages=util.get_num_batches(len(org_stakeholders), int(page_size))
+            for email in org_stakeholders
+        )
     )

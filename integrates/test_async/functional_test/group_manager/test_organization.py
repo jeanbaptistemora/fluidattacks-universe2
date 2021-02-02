@@ -116,10 +116,8 @@ async def test_organization():
                 projects {{
                     name
                 }}
-                stakeholders(pageIndex: 1) {{
-                    stakeholders {{
-                        email
-                    }}
+                stakeholders {{
+                    email
                 }}
             }}
         }}
@@ -127,7 +125,7 @@ async def test_organization():
     data = {'query': query}
     result = await get_result(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
-    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']['stakeholders']]
+    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
     assert 'errors' not in result
     assert result['data']['organization']['id'] == org_id
     assert result['data']['organization']['maxAcceptanceDays'] == Decimal('5')
@@ -160,16 +158,14 @@ async def test_organization():
     query = f'''
         query {{
             organization(organizationId: "{org_id}") {{
-                stakeholders(pageIndex: 1) {{
-                    stakeholders {{
-                        email
-                    }}
+                stakeholders {{
+                    email
                 }}
             }}
         }}
     '''
     data = {'query': query}
     result = await get_result(data)
-    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']['stakeholders']]
+    stakeholders = [stakeholder['email'] for stakeholder in result['data']['organization']['stakeholders']]
     assert 'errors' not in result
     assert stakeholder not in stakeholders

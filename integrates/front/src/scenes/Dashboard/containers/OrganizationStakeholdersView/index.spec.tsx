@@ -26,8 +26,7 @@ import store from "store";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-waitForExpect.defaults.interval = 6000;
-jest.setTimeout(10000);
+waitForExpect.defaults.interval = 1000;
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
@@ -38,11 +37,7 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Organization users view", () => {
-  const mockProps: IOrganizationStakeholders = {
-    organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
-    pageIndex: 1,
-    pageSize: 10,
-  };
+  const mockProps: IOrganizationStakeholders = { organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3" };
 
   it("should return a function", () => {
     expect(typeof OrganizationStakeholders)
@@ -56,32 +51,27 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "2020-09-01",
-                    phoneNumber: "3100000000",
-                    role: "group_manager",
-                  },
-                  {
-                    email: "testuser2@gmail.com",
-                    firstLogin: "2020-08-01",
-                    lastLogin: "-",
-                    phoneNumber: "3140000000",
-                    role: "customeradmin",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "2020-09-01",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+                {
+                  email: "testuser2@gmail.com",
+                  firstLogin: "2020-08-01",
+                  lastLogin: "-",
+                  phoneNumber: "3140000000",
+                  role: "customeradmin",
+                },
+              ],
             },
           },
         },
@@ -218,25 +208,20 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              numPages: 1,
-              stakeholders: {
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "+573100000000",
-                    role: "group_manager",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "+573100000000",
+                  role: "group_manager",
+                },
+              ],
             },
           },
         },
@@ -288,32 +273,27 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "+573100000000",
-                    role: "group_manager",
-                  },
-                  {
-                    email: "testuser2@gmail.com",
-                    firstLogin: "2020-08-01",
-                    lastLogin: "[-1, -1]",
-                    phoneNumber: "+573104448888",
-                    role: "customer",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "+573100000000",
+                  role: "group_manager",
+                },
+                {
+                  email: "testuser2@gmail.com",
+                  firstLogin: "2020-08-01",
+                  lastLogin: "[-1, -1]",
+                  phoneNumber: "+573104448888",
+                  role: "customer",
+                },
+              ],
             },
           },
         },
@@ -416,25 +396,20 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "+573100000000",
-                    role: "customer",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "+573100000000",
+                  role: "customer",
+                },
+              ],
             },
           },
         },
@@ -466,25 +441,20 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "+573201113333",
-                    role: "customeradmin",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "+573201113333",
+                  role: "customeradmin",
+                },
+              ],
             },
           },
         },
@@ -599,32 +569,27 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "3100000000",
-                    role: "group_manager",
-                  },
-                  {
-                    email: "testuser2@gmail.com",
-                    firstLogin: "2020-08-01",
-                    lastLogin: "[-1, -1]",
-                    phoneNumber: "3140000000",
-                    role: "customeradmin",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+                {
+                  email: "testuser2@gmail.com",
+                  firstLogin: "2020-08-01",
+                  lastLogin: "[-1, -1]",
+                  phoneNumber: "3140000000",
+                  role: "customeradmin",
+                },
+              ],
             },
           },
         },
@@ -650,25 +615,20 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "3100000000",
-                    role: "group_manager",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+              ],
             },
           },
         },
@@ -739,8 +699,6 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
@@ -785,25 +743,20 @@ describe("Organization users view", () => {
           query: GET_ORGANIZATION_STAKEHOLDERS,
           variables: {
             organizationId: mockProps.organizationId,
-            pageIndex: mockProps.pageIndex,
-            pageSize: mockProps.pageSize,
           },
         },
         result: {
           data: {
             organization: {
-              stakeholders: {
-                numPages: 1,
-                stakeholders: [
-                  {
-                    email: "testuser1@gmail.com",
-                    firstLogin: "2020-06-01",
-                    lastLogin: "[10, 35207]",
-                    phoneNumber: "3100000000",
-                    role: "group_manager",
-                  },
-                ],
-              },
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+              ],
             },
           },
         },

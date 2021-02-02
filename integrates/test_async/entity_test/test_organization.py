@@ -251,7 +251,9 @@ async def test_organization():
         'integratesmanager@gmail.com',
         'integratesresourcer@fluidattacks.com',
         'integratesreviewer@fluidattacks.com',
-        'integratesserviceforces@gmail.com'
+        'integratesserviceforces@gmail.com',
+        'integratesuser@gmail.com',
+        'unittest2@fluidattacks.com'
     ]
     
     variables = {
@@ -260,7 +262,7 @@ async def test_organization():
         'organizationId': org_id
     }
     query = '''
-        query GetOrganizationInfo($organizationId: String!, $pageIndex: Int!, $pageSize: Int) {
+        query GetOrganizationInfo($organizationId: String!) {
             organization(organizationId: $organizationId) {
                 id
                 maxAcceptanceDays
@@ -271,10 +273,8 @@ async def test_organization():
                 projects {
                     name
                 }
-                stakeholders(pageIndex: $pageIndex, pageSize: $pageSize) {
-                    stakeholders {
-                        email
-                    }
+                stakeholders {
+                    email
                 }
             }
         }
@@ -282,19 +282,9 @@ async def test_organization():
 
     data = {'query': query, 'variables': variables}
     result = await _get_result_async(data)
-    assert result['errors'][0]['message'] == str(InvalidPageIndex())
-    variables['pageSize'] = 5
-    variables['pageIndex'] = 1
-    data['variables'] = variables
 
-    result = await _get_result_async(data)
-    assert result['errors'][0]['message'] == str(InvalidPageSize())
-    variables['pageSize'] = 10
-    data['variables'] = variables
-
-    result = result = await _get_result_async(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
-    stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']['stakeholders']]
+    stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']]
 
     assert 'errors' not in result
     assert result['data']['organization']['id'] == org_id
