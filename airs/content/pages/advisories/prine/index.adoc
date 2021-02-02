@@ -9,26 +9,33 @@
 :keywords: Fluid Attacks, Security, Vulnerabilities, DupScout
 :banner: asserts-bg
 :advise: yes
+:template: advisory
 
 = DupScout Enterprise 10.0.18 BoF
 
 == Summary
 
-- *Name:* DupScout Enterprise 10.0.18 'sid' Buffer Overflow
-- *Code name:* link:https://en.wikipedia.org/wiki/John_Prine[Prine]
-- *Product:* DupScout Enterprise
-- *Versions:* 10.0.18
-- *Fixed versions:* 13.2.24
-- *Release date:* 2020-12-15 14:00 COT
+[cols="1, 4"]
+|====
+| *Name* | DupScout Enterprise 10.0.18 'sid' Buffer Overflow
+| *Code name* | link:https://en.wikipedia.org/wiki/John_Prine[Prine]
+| *Product* | DupScout Enterprise
+| *Versions* | 10.0.18
+| *Fixed versions* | 13.2.24
+| *Release date* | 2020-12-15 14:00 COT
+|====
 
 == Vulnerability
 
-- *Kind:* Stack Buffer Overflow
-- *Rule:* link:https://fluidattacks.com/products/rules/list/345/[R345. Establish protections against overflows]
-- *Remote:* Yes
-- *Exploit available:* Yes
-- *Exploit URL:* https://www.exploit-db.com/exploits/49217
-- *CVE ID(s):* link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659[CVE-2020-29659]
+[cols="1, 4"]
+|====
+|*Kind*|Stack Buffer Overflow
+|*Rule* |link:https://fluidattacks.com/products/rules/list/345/[R345. Establish protections against overflows]
+|*Remote*|Yes
+|*Exploit available*|Yes
+|*Exploit URL*|https://www.exploit-db.com/exploits/49217
+|*CVE ID(s)* |link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659[CVE-2020-29659]
+|====
 
 == Description
 
@@ -56,7 +63,10 @@ from the Offensive Team of `Fluid Attacks`.
 
 == References
 
-. CVE: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659
-. Exploit: https://www.exploit-db.com/exploits/49217
-. Updated exploit: link:prine-exploit.py[prine-exploit.py]
-. Vendor page: https://www.dupscout.com/
+[cols="1, 4"]
+|====
+| *CVE* a| https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659
+| *Exploit* | https://www.exploit-db.com/exploits/49217
+| *Updated exploit* | link:prine-exploit.py[prine-exploit.py]
+| *Vendor page* | https://www.dupscout.com/
+|====

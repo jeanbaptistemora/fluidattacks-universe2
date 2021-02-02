@@ -1,0 +1,100 @@
+{% extends "index.html" %}
+{% block meta %}
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ page.url }}">
+  <meta name="title"
+        property="og:title"
+        content="{{ page.title }} | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="{{ page.description }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ page.url }}cover.png">
+  <meta name="type"
+        property="og:type"
+        content="article">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/advisories/">
+            Advisories
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            {{ page.title }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block header %}
+<div class="bg-graylight">
+  <div
+    class="{{page.banner}} cover banner-height justify-center items-center flex bg-center mw-1366 ml-auto mr-auto">
+    <div class="w-100 center">
+      <h1 class="white fw7 f1 neue tc ma0">
+        {{ page.title }}
+      </h1>
+    </div>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="roboto internal internal-advisory mw-banner ml-auto mr-auto bg-white ph4-l ph3 pt5-l pt4 pb5">
+  {{ page.content }}
+</div>
+{% endblock content %}
+
+<!-- Cookiebot consent message -->
+<script id="CookieDeclaration" src="https://consent.cookiebot.com/9c4480b4-b8ae-44d8-9c6f-6300b86e9094/cd.js" type="text/javascript" async></script>

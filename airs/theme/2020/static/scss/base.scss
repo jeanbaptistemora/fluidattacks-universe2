@@ -116,6 +116,24 @@ $codeyellow: rgba(230, 219, 116, 1);
 .wr-bdr { border-bottom-right-radius: 0.938rem; }
 .wr-bdl { border-top-left-radius: 0.938rem; }
 
+.internal-advisory {
+  h2 {
+    font-size: 1.75rem !important;
+  }
+
+  p {
+    font-weight: 300 !important;
+  }
+
+  table {
+    width: 100% !important;
+  }
+
+  td {
+    padding: 0 2rem !important; 
+  }
+}
+
 .advisor-animation {
   opacity: 0;
   &:hover { opacity: 1; }
