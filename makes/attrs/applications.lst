@@ -3,9 +3,8 @@ forces/oci-deploy
 forces/oci-deploy-wrapper
 forces/test
 forces/wrapper
-integrates/build/front
-integrates/deploy/front
-integrates/deploy/oci/redis
+integrates/front/build
+integrates/front/deploy
 integrates/infra/backup/apply
 integrates/infra/backup/test
 integrates/infra/cache-db/apply
@@ -20,8 +19,9 @@ integrates/infra/resources/apply
 integrates/infra/resources/test
 integrates/infra/secret-management/apply
 integrates/infra/secret-management/test
+integrates/redis/oci/deploy
+integrates/redis/server
 integrates/server/kill
-integrates/server/redis
 makes/attrs
 makes/deploy/oci-batch
 makes/deploy/oci-ci
