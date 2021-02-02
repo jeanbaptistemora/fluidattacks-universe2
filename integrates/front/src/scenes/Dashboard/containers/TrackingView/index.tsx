@@ -1,26 +1,21 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for accessing render props from
- * apollo components
- */
-import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
-import _ from "lodash";
-import mixpanel from "mixpanel-browser";
-import React from "react";
-import { useParams } from "react-router";
-
-import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
-import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
+import type { ApolloError } from "apollo-client";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-import { Col80, Row } from "styles/styledComponents";
-import { authContext, IAuthContext } from "utils/auth";
+import type { GraphQLError } from "graphql";
+import type { IAuthContext } from "utils/auth";
 import { Logger } from "utils/logger";
+import React from "react";
+import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
+import _ from "lodash";
+import { authContext } from "utils/auth";
+import mixpanel from "mixpanel-browser";
 import { msgError } from "utils/notifications";
+import style from "scenes/Dashboard/containers/TrackingView/index.css";
 import { translate } from "utils/translations/translate";
+import { useParams } from "react-router";
+import { useQuery } from "@apollo/react-hooks";
+import { Col80, Row } from "styles/styledComponents";
 
-export interface IClosing {
+interface IClosing {
   accepted: number;
   accepted_undefined?: number;
   closed: number;
@@ -31,16 +26,23 @@ export interface IClosing {
   open: number;
 }
 
-const trackingView: React.FC = (): JSX.Element => {
+interface IGetFindingTrackingAttr {
+  finding: {
+    id: string;
+    tracking: IClosing[];
+  };
+}
+
+const TrackingView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
   const { userName }: IAuthContext = React.useContext(authContext);
 
-  const onMount: (() => void) = (): void => {
+  function onMount(): void {
     mixpanel.track("FindingTracking", { User: userName });
-  };
-  React.useEffect(onMount, []);
+  }
+  React.useEffect(onMount, [userName]);
 
-  const { data } = useQuery(GET_FINDING_TRACKING, {
+  const { data } = useQuery<IGetFindingTrackingAttr>(GET_FINDING_TRACKING, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -50,14 +52,20 @@ const trackingView: React.FC = (): JSX.Element => {
     variables: { findingId },
   });
 
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <React.StrictMode />;
+  }
+
   return (
     <React.StrictMode>
-      <React.Fragment>
-        {!_.isUndefined(data) && !_.isEmpty(data) ? (
-        <Row>
-          <Col80 className={style.trackGraph}>
-            <ul className={style.timelineContainer}>
-              {data.finding.tracking.map((closing: IClosing, index: number): JSX.Element => (
+      <Row>
+        {/* eslint-disable-next-line react/forbid-component-props */}
+        <Col80 className={style.trackGraph}>
+          {/* Disable to apply custom styles. */}
+          {/* eslint-disable-next-line react/forbid-component-props */}
+          <ul className={style.timelineContainer}>
+            {data.finding.tracking.map(
+              (closing: IClosing): JSX.Element => (
                 <TrackingItem
                   accepted={closing.accepted}
                   acceptedUndefined={closing.accepted_undefined}
@@ -65,18 +73,17 @@ const trackingView: React.FC = (): JSX.Element => {
                   cycle={closing.cycle}
                   date={closing.date}
                   justification={closing.justification}
-                  key={index}
+                  key={closing.cycle}
                   manager={closing.manager}
                   open={closing.open}
                 />
-              ))}
-            </ul>
-          </Col80>
-        </Row>
-        ) : undefined }
-      </React.Fragment>
+              )
+            )}
+          </ul>
+        </Col80>
+      </Row>
     </React.StrictMode>
   );
 };
 
-export { trackingView as TrackingView };
+export { IClosing, IGetFindingTrackingAttr, TrackingView };

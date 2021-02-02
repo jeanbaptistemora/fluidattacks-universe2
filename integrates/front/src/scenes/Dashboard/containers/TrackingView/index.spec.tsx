@@ -1,20 +1,18 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
-import wait from "waait";
-
-import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
-
+import { MockedProvider } from "@apollo/react-testing";
+import type { MockedResponse } from "@apollo/react-testing";
+import { Provider } from "react-redux";
+import React from "react";
+import type { ReactWrapper } from "enzyme";
+import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
+import { act } from "react-dom/test-utils";
+import { mount } from "enzyme";
 import store from "store/index";
+import wait from "waait";
+import { MemoryRouter, Route } from "react-router";
 
 describe("TrackingView", (): void => {
-
-  const mocks: ReadonlyArray<MockedResponse> = [{
+  const mocks: MockedResponse = {
     request: {
       query: GET_FINDING_TRACKING,
       variables: { findingId: "422286126" },
@@ -24,58 +22,88 @@ describe("TrackingView", (): void => {
         finding: {
           id: "422286126",
           tracking: [
-            { closed: 0, cycle: 0, date: "2018-09-28", effectiveness: 0, open: 1 },
             {
-              accepted: 0, accepted_undefined: 0, closed: 1,
-              cycle: 1, date: "2019-01-08", effectiveness: 100,
-              in_progress: 0, new: 1,  open: 2,
+              accepted: 0,
+              accepted_undefined: 0,
+              closed: 0,
+              cycle: 0,
+              date: "2018-09-28",
+              open: 1,
             },
-            { closed: 2, cycle: 2, date: "2019-01-08", effectiveness: 100, open: 0 },
+            {
+              accepted: 1,
+              accepted_undefined: 0,
+              closed: 0,
+              cycle: 1,
+              date: "2019-01-08",
+              justification: "test justification accepted treatment",
+              manager: "test@test.test",
+              open: 0,
+            },
           ],
         },
       },
     },
-  }];
+  };
 
   it("should return a function", (): void => {
-    expect(typeof (TrackingView))
-      .toEqual("function");
+    expect.hasAssertions();
+    expect(typeof TrackingView).toStrictEqual("function");
   });
 
   it("should render", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/testorg/groups/testgroup/vulns/422286126/tracking"]}>
+      <MemoryRouter
+        initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
+      >
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
+          <MockedProvider addTypename={false} mocks={[mocks]}>
             <Route
-              path="/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
               component={TrackingView}
+              path={
+                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
+              }
             />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render timeline", async () => {
+  it("should render timeline", async (): Promise<void> => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada/groups/testgroup/vulns/422286126/tracking"]}>
+      <MemoryRouter
+        initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
+      >
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
+          <MockedProvider addTypename={false} mocks={[mocks]}>
             <Route
-              path="/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
               component={TrackingView}
+              path={
+                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
+              }
             />
           </MockedProvider>
         </Provider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.find("ul"))
-      .toHaveLength(1);
-    expect(wrapper.find("li"))
-      .toHaveLength(3);
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    const numberOfCycles: number = 2;
+
+    expect(wrapper.find("li").at(0).text()).not.toContain("Justification");
+    expect(wrapper.find("li").at(1).text()).toContain("Justification");
+    expect(wrapper.find("li")).toHaveLength(numberOfCycles);
   });
 });

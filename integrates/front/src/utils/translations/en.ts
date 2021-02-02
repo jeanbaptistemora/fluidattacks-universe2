@@ -1835,7 +1835,7 @@ export const enTranslations: ResourceKey = {
       tab_title: "Tracking",
       tooltip:
         "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
-        "and effectiveness of the solution in reattacks",
+        "and temporally/eternally accepted treatments",
       treatment: "Treatment",
       vulnerabilitiesAcceptedTreatment:
         "{{count}} vulnerabilities were accepted temporally",
