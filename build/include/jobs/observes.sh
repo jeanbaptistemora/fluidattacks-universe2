@@ -391,24 +391,6 @@ function job_observes_apply_infra {
   ||  return 1
 }
 
-function job_observes_lint_code {
-
-      pushd observes \
-  &&  env_prepare_python_packages \
-  &&  helper_observes_lint_code_python \
-  &&  popd \
-  ||  return 1
-}
-
-function job_observes_code_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./code/code" \
-  &&  popd \
-  ||  return 1
-}
-
 function job_observes_code_test {
 
       pushd observes \
@@ -418,29 +400,12 @@ function job_observes_code_test {
   ||  return 1
 }
 
-function job_observes_gitlab_streamer_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/streamer_gitlab/streamer_gitlab" \
-  &&  popd \
-  ||  return 1
-}
 
 function job_observes_gitlab_streamer_test {
 
       pushd observes \
     &&  env_prepare_python_packages \
     &&  helper_observes_test_generic_package "./singer/streamer_gitlab" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_observes_gitlab_etl_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./etl/dif_gitlab_etl/dif_gitlab_etl" \
   &&  popd \
   ||  return 1
 }
@@ -454,40 +419,11 @@ function job_observes_gitlab_etl_test {
   ||  return 1
 }
 
-function job_observes_mixpanel_etl_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/tap_mixpanel/tap_mixpanel" 1 \
-  &&  popd \
-  ||  return 1
-}
-
-function job_observes_postgres_client_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./common/postgres_client/postgres_client" 1 \
-    &&  helper_observes_lint_generic_package "./common/postgres_client/tests" 1 \
-  &&  popd \
-  ||  return 1
-}
-
 function job_observes_postgres_client_test {
   local python="${PostgresClient}"/bin/python
       pushd observes \
     &&  env_prepare_python_packages \
     &&  helper_observes_test_generic_package "./common/postgres_client" "${python} -m" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_observes_singer_io_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./common/singer_io/singer_io" 1 \
-    &&  helper_observes_lint_generic_package "./common/singer_io/tests" 1 \
   &&  popd \
   ||  return 1
 }
@@ -501,16 +437,6 @@ function job_observes_singer_io_test {
   ||  return 1
 }
 
-function job_observes_tap_csv_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/tap_csv/tap_csv" 1 \
-    &&  helper_observes_lint_generic_package "./singer/tap_csv/tests" 1 \
-  &&  popd \
-  ||  return 1
-}
-
 function job_observes_tap_csv_test {
   local python="${TapCsv}"/bin/python
       pushd observes \
@@ -520,31 +446,11 @@ function job_observes_tap_csv_test {
   ||  return 1
 }
 
-function job_observes_tredshift_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/target_redshift_2/target_redshift_2" 1 \
-    &&  helper_observes_lint_generic_package "./singer/target_redshift_2/tests" 1 \
-  &&  popd \
-  ||  return 1
-}
-
 function job_observes_tredshift_test {
   local python="${TargetRedshift}"/bin/python
       pushd observes \
     &&  env_prepare_python_packages \
     &&  helper_observes_test_generic_package "./singer/target_redshift_2" "${python} -m" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_observes_streamer_zoho_crm_lint {
-
-      pushd observes \
-    &&  env_prepare_python_packages \
-    &&  helper_observes_lint_generic_package "./singer/streamer_zoho_crm/streamer_zoho_crm" 1 \
-    &&  helper_observes_lint_generic_package "./singer/streamer_zoho_crm/tests" 1 \
   &&  popd \
   ||  return 1
 }
