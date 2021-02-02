@@ -10,5 +10,4 @@ ociDeploy {
   oci = outputs.packages."forces/oci-build";
   name = "forces-oci-deploy";
   tag = "fluidattacks/forces:new";
-  registry = "dockerhub";
 }

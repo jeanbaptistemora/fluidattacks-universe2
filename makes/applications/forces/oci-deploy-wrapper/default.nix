@@ -10,5 +10,4 @@ ociDeploy {
   oci = outputs.packages."forces/oci-build-wrapper";
   name = "forces-oci-deploy-wrapper";
   tag = "fluidattacks/break-build";
-  registry = "dockerhub";
 }

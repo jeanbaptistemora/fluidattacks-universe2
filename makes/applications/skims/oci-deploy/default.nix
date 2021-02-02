@@ -9,6 +9,6 @@ in
 ociDeploy {
   oci = outputs.packages."skims/oci-build";
   name = "skims-oci-deploy";
-  registry = "gitlab";
-  tag = "registry.gitlab.com/fluidattacks/product/skims";
+  registry = "registry.gitlab.com";
+  tag = "fluidattacks/product/skims";
 }

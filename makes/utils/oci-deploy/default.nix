@@ -2,7 +2,7 @@ path: pkgs:
 
 { name
 , oci
-, registry
+, registry ? "docker.io"
 , tag
 }:
 let
@@ -13,7 +13,7 @@ makeEntrypoint {
     envDocker = "${pkgs.docker}/bin/docker";
     envOci = oci;
     envRegistry = registry;
-    envTag = tag;
+    envTag = "${registry}/${tag}";
   };
   inherit name;
   template = path "/makes/utils/oci-deploy/entrypoint.sh";

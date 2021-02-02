@@ -5,12 +5,12 @@ function login_to_registry {
   local username
   local password
 
-  if test '__envRegistry__' = 'gitlab'
+  if test '__envRegistry__' = 'registry.gitlab.com'
   then
         registry="${CI_REGISTRY}" \
     &&  username="${CI_REGISTRY_USER}" \
     &&  password="${CI_REGISTRY_PASSWORD}"
-  elif  test '__envRegistry__' = 'dockerhub'
+  elif  test '__envRegistry__' = 'docker.io'
   then
         registry="${DOCKER_HUB_URL}" \
     &&  username="${DOCKER_HUB_USER}" \
