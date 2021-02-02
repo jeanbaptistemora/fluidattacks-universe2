@@ -159,112 +159,70 @@ async def complete_register_for_group_invitation(
     return success
 
 
-async def _give_user_access(
-    email: str,
-    group: str,
-    responsibility: str,
-    role: str,
-    phone_number: str
-) -> bool:
-    success = False
-    coroutines: List[Awaitable[bool]] = []
-
-    if phone_number and phone_number[1:].isdigit():
-        coroutines.append(
-            user_domain.add_phone_to_user(email, phone_number)
-        )
-
-    if group and all(await collect(coroutines)):
-        now_str = datetime_utils.get_as_str(
-            datetime_utils.get_now()
-        )
-        url_token = secrets.token_urlsafe(64)
-        await group_domain.update_access(
-            email,
-            group,
-            {
-                'invitation': {
-                    'date': now_str,
-                    'is_used': False,
-                    'responsibility': responsibility,
-                    'role': role,
-                    'url_token': url_token,
-                },
-
-            }
-        )
-        description = await group_domain.get_description(
-            group.lower()
-        )
-        project_url = f'{BASE_URL}/confirm_access/{url_token}'
-        mail_to = [email]
-        context: MailContentType = {
-            'admin': email,
-            'project': group,
-            'project_description': description,
-            'project_url': project_url,
-        }
-        schedule(mailer.send_mail_access_granted(mail_to, context))
-        success = True
-
-    return success
-
-
-async def create_new_user(  # pylint: disable=too-many-arguments
+async def invite_to_group(  # pylint: disable=too-many-arguments
     context: Any,
     email: str,
     responsibility: str,
     role: str,
     phone_number: str,
-    group: str,
+    group_name: str,
 ) -> bool:
+    success = False
     valid = (
         validate_alphanumeric_field(responsibility) and
         validate_phone_field(phone_number) and
         validate_email_address(email) and
-        await validate_fluidattacks_staff_on_group(group, email, role)
+        await validate_fluidattacks_staff_on_group(group_name, email, role)
     )
-    success_granted = False
-    success_access_given = False
     if valid:
-        success_granted = await authz.grant_group_level_role(
-            email, group, role
-        )
+        if group_name and responsibility and len(responsibility) <= 50:
+            if not await user_domain.get_data(email, 'email'):
+                await user_domain.create(
+                    email.lower(),
+                    {
+                        'phone': phone_number
+                    }
+                )
 
-        if not await user_domain.get_data(email, 'email'):
-            await user_domain.create(
-                email.lower(),
+            now_str = datetime_utils.get_as_str(
+                datetime_utils.get_now()
+            )
+            url_token = secrets.token_urlsafe(64)
+            success = await group_domain.update_access(
+                email,
+                group_name,
                 {
-                    'phone': phone_number
+                    'has_access': False,
+                    'invitation': {
+                        'date': now_str,
+                        'is_used': False,
+                        'responsibility': responsibility,
+                        'role': role,
+                        'url_token': url_token,
+                    },
+
                 }
             )
-
-        organization_id = await org_domain.get_id_for_group(group)
-        if not await org_domain.has_user_access(organization_id, email):
-            await org_domain.add_user(organization_id, email, 'customer')
-
-        if not await user_domain.is_registered(email):
-            await collect((
-                user_domain.register(email),
-                authz.grant_user_level_role(email, 'customer')
-            ))
-
-        if group and responsibility and len(responsibility) <= 50:
-            success_access_given = await _give_user_access(
-                email,
-                group,
-                responsibility,
-                role,
-                phone_number
+            description = await group_domain.get_description(
+                group_name.lower()
             )
+            project_url = f'{BASE_URL}/confirm_access/{url_token}'
+            mail_to = [email]
+            email_context: MailContentType = {
+                'admin': email,
+                'project': group_name,
+                'project_description': description,
+                'project_url': project_url,
+            }
+            schedule(mailer.send_mail_access_granted(mail_to, email_context))
         else:
             util.cloudwatch_log(
                 context,
                 (f'Security: {email} Attempted to add responsibility '
-                 f'to project {group} without validation')  # pragma: no cover
+                 f'to project {group_name} without validation')
             )
 
-    return success_granted and success_access_given
+    return success
 
 
 async def create_forces_user(
@@ -272,20 +230,22 @@ async def create_forces_user(
     group_name: str
 ) -> bool:
     user_email = user_domain.format_forces_user_email(group_name)
-    success = await create_new_user(
+    success = await invite_to_group(
         context=info.context,
         email=user_email,
         responsibility='Forces service user',
         role='service_forces',
         phone_number='',
-        group=group_name
+        group_name=group_name
     )
 
     # Give permissions directly, no confirmation required
-    success = success and await group_domain.update_has_access(
-        user_email, group_name, True)
-    success = success and await authz.grant_group_level_role(
-        user_email, group_name, 'service_forces')
+    project_access = await group_domain.get_user_access(
+        user_email, group_name
+    )
+    success = success and await complete_register_for_group_invitation(
+        project_access
+    )
 
     if not success:
         LOGGER.error(

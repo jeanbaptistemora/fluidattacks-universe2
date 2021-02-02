@@ -34,7 +34,6 @@ from backend.decorators import authenticate_session
 from backend.domain import (
     project as group_domain,
     organization as org_domain,
-    user as user_domain
 )
 from backend.exceptions import (
     ConcurrentSession,
@@ -42,6 +41,9 @@ from backend.exceptions import (
     SecureAccessException,
 )
 from backend.api.schema import SCHEMA
+from backend.utils import (
+    user as user_utils
+)
 
 from back.app.middleware import CustomRequestMiddleware
 from back.app import utils
@@ -122,7 +124,9 @@ async def confirm_access(request: Request) -> HTMLResponse:
         project_access = await group_domain.get_access_by_url_token(url_token)
 
         if project_access:
-            success = await user_domain.complete_user_register(project_access)
+            success = await user_utils.complete_register_for_group_invitation(
+                project_access
+            )
             if success:
                 response = await templates.valid_invitation(
                     request,

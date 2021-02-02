@@ -3,9 +3,6 @@ import logging
 from typing import Any
 
 # Third party libraries
-from aioextensions import (
-    collect,
-)
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -25,13 +22,12 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
-from backend.domain import (
-    project as group_domain,
-)
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
-from backend.utils.user import create_new_user
+from backend.utils import (
+    user as user_utils
+)
 logging.config.dictConfig(LOGGING)
 
 # Constants
@@ -65,21 +61,14 @@ async def mutate(
         )
 
     if new_user_role in allowed_roles_to_grant:
-        success = all(await collect([
-            create_new_user(
-                context=info.context,
-                email=new_user_email,
-                responsibility=new_user_responsibility,
-                role=new_user_role,
-                phone_number=query_args.get('phone_number', ''),
-                group=project_name
-            ),
-            group_domain.update_has_access(
-                new_user_email,
-                project_name,
-                False
-            )
-        ]))
+        success = await user_utils.invite_to_group(
+            context=info.context,
+            email=new_user_email,
+            responsibility=new_user_responsibility,
+            role=new_user_role,
+            phone_number=query_args.get('phone_number', ''),
+            group_name=project_name
+        )
     else:
         LOGGER.error(
             'Invalid role provided',
