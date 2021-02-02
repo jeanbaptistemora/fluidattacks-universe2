@@ -67,9 +67,8 @@ from __init__ import (
 
 
 @authenticate_session  # type: ignore
-async def app(*request_args: Request) -> HTMLResponse:
+async def app(request: Request) -> HTMLResponse:
     """ View for authenticated users"""
-    request = utils.get_starlette_request(request_args)
     email = request.session.get('username')
     try:
         if email:

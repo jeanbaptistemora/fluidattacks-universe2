@@ -13,7 +13,6 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
-import back.app.utils as utils
 
 from __init__ import BASE_URL
 
@@ -25,7 +24,6 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
         request: Request,
         call_next: Callable[..., Any]
     ) -> Response:
-        request = utils.get_starlette_request(request)
         url = str(request.url)
         traceback = url.split(BASE_URL)[-1]
         if url != traceback:
