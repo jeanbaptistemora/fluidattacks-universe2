@@ -148,6 +148,20 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies=set(),
     ),
+    organization=dict(
+        args={
+            'id',
+        },
+        attrs={
+            'stakeholders',
+        },
+        dependencies={
+            'edit_stakeholder_organization',
+            'grant_stakeholder_organization_access',
+            'remove_stakeholder_organization_access'
+
+        },
+    ),
     session=dict(
         args={
             'email',

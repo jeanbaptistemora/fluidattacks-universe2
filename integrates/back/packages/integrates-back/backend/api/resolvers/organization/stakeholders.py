@@ -1,15 +1,17 @@
-# Standard
+# Standard libraries
+from functools import partial
 from typing import (
     cast,
     List
 )
 
-# Third party
+# Third party libraries
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
+# Local libraries
 from backend import authz
+from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import (
     organization as org_domain,
@@ -30,6 +32,21 @@ async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
 
 @enforce_organization_level_auth_async
 async def resolve(
+    parent: OrganizationType,
+    info: GraphQLResolveInfo,
+    **kwargs: None
+) -> List[StakeholderType]:
+    response: List[StakeholderType] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, info, **kwargs),
+        entity='organization',
+        attr='stakeholders',
+        id=cast(str, parent['id'])
+    )
+
+    return response
+
+
+async def resolve_no_cache(
     parent: OrganizationType,
     _info: GraphQLResolveInfo,
     **_kwargs: None

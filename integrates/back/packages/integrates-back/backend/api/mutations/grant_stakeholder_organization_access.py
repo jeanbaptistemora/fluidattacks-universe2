@@ -1,12 +1,13 @@
-# Standard
+# Standard libraries
 from typing import Any
 
-# Third party
+# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
+# Local libraries
 from backend import util
+from backend.dal.helpers.redis import redis_del_by_deps_soon
 from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import organization as org_domain, user as user_domain
 from backend.typing import GrantStakeholderAccessPayload
@@ -48,6 +49,10 @@ async def mutate(
     success = user_added and any([user_created, user_exists])
 
     if success:
+        redis_del_by_deps_soon(
+            'grant_stakeholder_organization_access',
+            organization_id=organization_id
+        )
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {user_email} was granted access '
