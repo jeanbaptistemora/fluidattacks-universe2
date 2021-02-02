@@ -1,8 +1,10 @@
 import pytest
 
 from decimal import Decimal
+from graphql.type.definition import GraphQLResolveInfo
 
 import backend.domain.comment as comment_domain
+from test_async.utils import create_dummy_session
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -11,14 +13,21 @@ pytestmark = [
 
 async def test_list_comments():
     finding_id = '422286126'
+    user_email = 'unittest@fluidattacks.com'
+    request = await create_dummy_session(user_email)
+    info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
     test_data = await comment_domain.get_comments(
-        'unittesting', finding_id, 'integratesuser@gmail.com')
+        'unittesting',
+        finding_id,
+        user_email,
+        info
+    )
     expected_output = [{
         'parent': 0, 'created': '2019/08/20 16:35:16',
         'modified': '2019/08/20 16:35:16',
         'content': 'This is a comenting test',
         'email': 'unittest@fluidattacks.com',
-        'fullname': 'Hacker at Fluid Attacks',
+        'fullname': 'unit test',
         'id': 1566336916294}]
     assert isinstance(test_data, list)
     assert isinstance(test_data[0], dict)

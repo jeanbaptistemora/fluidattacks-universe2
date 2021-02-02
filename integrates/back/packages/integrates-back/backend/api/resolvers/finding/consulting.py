@@ -47,6 +47,7 @@ async def resolve_no_cache(
         await comment_domain.get_comments(
             group_name,
             finding_id,
-            user_email
+            user_email,
+            info
         )
     )

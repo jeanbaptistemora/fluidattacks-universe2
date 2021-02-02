@@ -1,13 +1,16 @@
-
+# Standard libraries
 from typing import Dict, List, Tuple, Union, cast
 
+# Third party libraries
+from graphql.type.definition import GraphQLResolveInfo
 from aioextensions import collect
+
+# Local libraries
 from backend import authz, util
 from backend.dal import (
     comment as comment_dal,
     finding as finding_dal
 )
-from backend.domain import vulnerability as vuln_domain
 from backend.typing import (
     Comment as CommentType,
     User as UserType
@@ -37,9 +40,12 @@ async def _get_comments(
 
 
 async def get_comments(
-        project_name: str,
-        finding_id: str,
-        user_email: str) -> List[CommentType]:
+    project_name: str,
+    finding_id: str,
+    user_email: str,
+    info: GraphQLResolveInfo
+) -> List[CommentType]:
+    finding_vulns_loader = info.context.loaders['finding_vulns']
     comments = await _get_comments(
         'comment',
         project_name,
@@ -61,7 +67,7 @@ async def get_comments(
         if cast(List[str], verification.get('vulns', []))
     ]
     if verified:
-        vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+        vulns = await finding_vulns_loader.load(finding_id)
         comments = [
             fill_vuln_info(
                 cast(Dict[str, str], comment),
