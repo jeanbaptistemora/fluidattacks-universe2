@@ -195,10 +195,14 @@
   tapCsv = {
     srcPath = path "/observes/singer/tap_csv";
     python = {
-      direct = [ ];
+      direct = [
+        "click==7.1.2"
+      ];
       inherited = [ ];
     };
-    local = [ ];
+    local = [
+      "singerIO"
+    ];
     nix = [ ];
   };
   tapFormstack = {
