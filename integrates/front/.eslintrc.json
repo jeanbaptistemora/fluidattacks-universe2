@@ -202,6 +202,12 @@
      */
     "jsx-a11y/label-has-for": "off",
     /*
+     * This rule has been deprecated
+     * because browsers fixed it.
+     * https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-onchange.md
+     */
+    "jsx-a11y/no-onchange": "off",
+    /*
      * This rule requires the type attribute to be a string literal, because of
      * that it has a conflic with react/jsx-curly-brace-presence.
      */

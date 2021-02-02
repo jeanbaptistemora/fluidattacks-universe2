@@ -3,40 +3,50 @@
   Readonly utility type does not work on deeply nested types and we need
   className to override default styles from react-bootstrap.
 */
-import type { FormControlProps } from "react-bootstrap";
 import React from "react";
+import { ValidationError } from "styles/styledComponents";
 import type { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { FormControl, HelpBlock } from "react-bootstrap";
 
-export const Dropdown: React.FC<WrappedFieldProps & FormControlProps> = (
-  props: WrappedFieldProps & FormControlProps
+interface IDropdownProps extends WrappedFieldProps {
+  children?: React.ReactNode;
+}
+
+const Dropdown: React.FC<IDropdownProps> = (
+  props: IDropdownProps
 ): JSX.Element => {
   const { input, meta, children } = props;
   const { initial, touched, error } = meta;
   const { name, onChange } = input;
 
-  function handleDropdownChange(event: React.FormEvent<FormControl>): void {
-    onChange((event.target as HTMLInputElement).value);
+  function handleDropdownChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    onChange((event.target as HTMLSelectElement).value);
   }
 
   return (
     <React.Fragment>
-      <FormControl
+      <select
         className={style["form-control"]}
-        componentClass={"select"}
         defaultValue={initial}
         name={name}
         onChange={handleDropdownChange}
       >
         {children}
-      </FormControl>
+      </select>
       {touched && !_.isUndefined(error) && (
-        <HelpBlock className={style.validationError} id={"validationError"}>
+        <ValidationError id={"validationError"}>
           {error as string}
-        </HelpBlock>
+        </ValidationError>
       )}
     </React.Fragment>
   );
 };
+// eslint-disable-next-line fp/no-mutation
+Dropdown.defaultProps = {
+  children: "",
+};
+
+export { Dropdown };
