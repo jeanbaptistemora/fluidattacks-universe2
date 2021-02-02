@@ -1,36 +1,33 @@
-# Standard
+# Standard libraries
 from itertools import chain
 from typing import cast, Dict, List
 
-# Third party
+# Third party libraries
 from aioextensions import collect
-from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend import authz, util
+# Local libraries
+from backend import (
+    authz,
+    util
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates
 )
-from backend.domain import project as group_domain, user as stakeholder_domain
-from backend.exceptions import (
-    InvalidPageIndex,
-    InvalidPageSize
+from backend.domain import (
+    project as group_domain,
+    user as stakeholder_domain
 )
 from backend.typing import (
-    GetStakeholdersPayload
-    as GetStakeholdersPayloadType,
     Invitation as InvitationType,
     Project as GroupType,
-    OrganizationStakehodersPageSizeEnum,
     Stakeholder as StakeholderType,
 )
 from backend.utils import (
     datetime as datetime_utils,
 )
-from backend.utils.stakeholders import check_enums
 
 
 def _filter_by_expired_invitation(
@@ -80,7 +77,6 @@ async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
     }
 
 
-@convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_integrates,
@@ -88,16 +84,9 @@ async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
 async def resolve(
     parent: GroupType,
     info: GraphQLResolveInfo,
-    page_index: int,
-    page_size: int = 10
-) -> GetStakeholdersPayloadType:
+    **_kwargs: None
+) -> List[StakeholderType]:
     group_name: str = cast(str, parent['name'])
-    check_enums({
-        page_size: [OrganizationStakehodersPageSizeEnum, InvalidPageSize],
-        page_index: [lambda i: i >= 1, InvalidPageIndex]
-    })
-
-    items_range = util.get_slice(page_index - 1, int(page_size))
 
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
@@ -120,18 +109,6 @@ async def resolve(
             for email in group_stakeholders_emails
         )
     )
+    group_stakeholders = _filter_by_expired_invitation(group_stakeholders)
 
-    sorted_group_stakeholders = sorted(
-        group_stakeholders,
-        key=lambda stakeholder: stakeholder['invitation_state'],
-        reverse=True
-    )
-
-    group_stakeholders = _filter_by_expired_invitation(
-        sorted_group_stakeholders[items_range]
-    )
-
-    return GetStakeholdersPayloadType(
-        stakeholders=group_stakeholders,
-        num_pages=util.get_num_batches(len(group_stakeholders), int(page_size))
-    )
+    return group_stakeholders

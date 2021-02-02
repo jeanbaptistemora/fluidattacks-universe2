@@ -135,11 +135,9 @@ async def test_project():
                     analyst
                     detail
                 }}
-                stakeholders(pageIndex: 1) {{
-                    stakeholders {{
-                        email
-                        role
-                    }}
+                stakeholders {{
+                    email
+                    role
                 }}
                 __typename
             }}
@@ -171,7 +169,7 @@ async def test_project():
     assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
     assert result['data']['project']['drafts'] == []
     assert result['data']['project']['events'] == []
-    assert result['data']['project']['stakeholders']['stakeholders'] == [{'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'}]
+    assert result['data']['project']['stakeholders'] == [{'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'}]
 
     query = f'''
         query {{

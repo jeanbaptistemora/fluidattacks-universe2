@@ -39,15 +39,13 @@ async def test_user():
     query = f'''
         {{
             project(projectName: "{group_name}") {{
-                stakeholders(pageIndex: 1, pageSize: 25) {{
-                    stakeholders {{
-                        email
-                        role
-                        responsibility
-                        phoneNumber
-                        firstLogin
-                        lastLogin
-                    }}
+                stakeholders {{
+                    email
+                    role
+                    responsibility
+                    phoneNumber
+                    firstLogin
+                    lastLogin
                 }}
             }}
         }}
@@ -55,7 +53,7 @@ async def test_user():
     data = {'query': query}
     result = await get_result(data)
     assert 'errors' not in result
-    group_stakeholders = result['data']['project']['stakeholders']['stakeholders']
+    group_stakeholders = result['data']['project']['stakeholders']
     new_granted_access_stakeholder = list(filter(
         lambda group_stakeholder: group_stakeholder['email'] == stakeholder,
         group_stakeholders

@@ -42,12 +42,10 @@ async def _get_result_async(data, user='integratesmanager@gmail.com'):
 async def test_project():
     """Check for project mutation."""
     variables = {
-        'pageIndex': -1,
-        'pageSize': 10,
         'projectName': 'unittesting'
     }
     query = '''
-      query GetProjectInfo($projectName: String!, $pageIndex: Int!, $pageSize: Int) {
+      query GetProjectInfo($projectName: String!) {
         project(projectName: $projectName){
           name
           hasDrills
@@ -82,34 +80,23 @@ async def test_project():
             analyst
             detail
           }
-          stakeholders(pageIndex: $pageIndex, pageSize: $pageSize) {
-            stakeholders {
-              email
-              invitationState
-              role
-              responsibility
-              phoneNumber
-              firstLogin
-              lastLogin
-            }
+          stakeholders {
+            email
+            invitationState
+            role
+            responsibility
+            phoneNumber
+            firstLogin
+            lastLogin
           }
           __typename
         }
       }
     '''
+
     data = {'query': query, 'variables': variables}
     result = await _get_result_async(data)
-    assert result['errors'][0]['message'] == str(InvalidPageIndex())
-    variables['pageSize'] = 5
-    variables['pageIndex'] = 1
-    data['variables'] = variables
 
-    result = await _get_result_async(data)
-    assert result['errors'][0]['message'] == str(InvalidPageSize())
-    variables['pageSize'] = 10
-    data['variables'] = variables
-
-    result = await _get_result_async(data)
     assert 'errors' not in result
     assert result['data']['project']['name'] == 'unittesting'
     assert result['data']['project']['hasDrills']
@@ -134,7 +121,7 @@ async def test_project():
     assert result['data']['project']['drafts'][0]['openVulnerabilities'] == 0
     assert len(result['data']['project']['events']) == 5
     assert result['data']['project']['consulting'][0]['content'] == 'Now we can post comments on projects'
-    assert result['data']['project']['stakeholders']['stakeholders'] == [
+    assert result['data']['project']['stakeholders'] == [
       {
           "email": "integratesserviceforces@gmail.com",
           "firstLogin": "2018-02-28 11:54:12",

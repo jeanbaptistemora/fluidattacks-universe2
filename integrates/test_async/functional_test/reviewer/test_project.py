@@ -182,15 +182,13 @@ async def test_project():
                 openVulnerabilities
                 organization
                 serviceAttributes
-                stakeholders(pageIndex: 1) {{
-                    stakeholders {{
-                        email
-                        firstLogin
-                        lastLogin
-                        phoneNumber
-                        responsibility
-                        role
-                    }}
+                stakeholders {{
+                    email
+                    firstLogin
+                    lastLogin
+                    phoneNumber
+                    responsibility
+                    role
                 }}
                 subscription
                 tags
@@ -239,7 +237,7 @@ async def test_project():
         'has_forces',
         'must_only_have_fluidattacks_hackers',
     ]
-    assert len(result['data']['project']['stakeholders']['stakeholders']) == 3
+    assert len(result['data']['project']['stakeholders']) == 3
     assert result['data']['project']['subscription'] == 'continuous'
     assert result['data']['project']['tags'] == []
     assert result['data']['project']['totalFindings'] == 0

@@ -24,12 +24,7 @@ export interface IAddStakeholderAttr {
 
 export interface IGetStakeholdersAttrs {
   project: {
-    __typename: "Project";
-    stakeholders: {
-      __typename: "GetStakeholdersPayload";
-      numPages: number;
-      stakeholders: IStakeholderAttrs[];
-    };
+    stakeholders: IStakeholderAttrs[];
   };
 }
 

@@ -257,8 +257,6 @@ async def test_organization():
     ]
     
     variables = {
-        'pageIndex': -1,
-        'pageSize': 10,
         'organizationId': org_id
     }
     query = '''

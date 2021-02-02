@@ -131,20 +131,6 @@ CreateOrganizationPayload = NamedTuple('CreateOrganizationPayload', [
     ('success', bool),
     ('organization', Organization)
 ])
-
-class OrganizationStakehodersPageSizeEnum(Enum):
-    FIFTY: int = 50
-    TEN: int = 10
-    THIRTY: int = 30
-    TWENTY: int = 20
-    TWENTYFIVE: int = 25
-
-GetStakeholdersPayload = NamedTuple(
-    'GetStakeholdersPayload', [
-        ('stakeholders', List[Stakeholder]),
-        ('num_pages', int),
-    ]
-)
 GrantStakeholderAccessPayload = NamedTuple('GrantStakeholderAccessPayload', [
     ('success', bool),
     ('granted_stakeholder', Stakeholder),
