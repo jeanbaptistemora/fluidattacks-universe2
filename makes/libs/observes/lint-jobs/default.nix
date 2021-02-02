@@ -4,10 +4,8 @@ let
     inherit nixPkgs path;
   };
   linter = import (path "/makes/libs/observes/linter");
-  lint = packageLib: linter {
-    inherit nixPkgs path;
-    packageSrcPath = packageLib.packagePath;
-    buildInputs = packageLib.buildInputs;
+  lint = observesPackage: linter {
+    inherit nixPkgs observesPackage path;
   };
 in
 builtins.mapAttrs (k: _: lint localLib.${k}) localLib

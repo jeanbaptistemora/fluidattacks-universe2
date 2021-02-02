@@ -1,6 +1,5 @@
-{ buildInputs
-, nixPkgs
-, packageSrcPath
+{ nixPkgs
+, observesPackage
 , path
 }:
 let
@@ -9,9 +8,9 @@ let
 in
 makeDerivation {
   builder = path "/makes/libs/observes/linter/builder.sh";
-  buildInputs = buildInputs ++ [
+  buildInputs = observesPackage.buildInputs ++ [
     lintPython
   ];
-  envSrc = packageSrcPath;
+  envSrc = observesPackage.packagePath;
   name = "observes-linter";
 }

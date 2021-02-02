@@ -1,5 +1,5 @@
 { nixPkgs, path }:
-{
+rec {
   codeEtl = {
     srcPath = path "/observes/code_etl";
     python = {
@@ -119,6 +119,25 @@
     };
     local = [ ];
     nix = [ ];
+  };
+  singerIOdev = {
+    srcPath = singerIO.srcPath;
+    python = {
+      direct = [
+        "pytest==6.1.2"
+      ];
+      inherited = singerIO.python.inherited ++ [
+        "attrs==20.3.0"
+        "iniconfig==1.1.1"
+        "packaging==20.9"
+        "pluggy==0.13.1"
+        "py==1.10.0"
+        "pyparsing==2.4.7"
+        "toml==0.10.2"
+      ];
+    };
+    local = singerIO.local;
+    nix = singerIO.nix;
   };
   streamerDynamoDb = {
     srcPath = path "/observes/singer/streamer_dynamodb";
