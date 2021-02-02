@@ -20,7 +20,7 @@ function main {
     &&  echo '[INFO] Running tflint' \
     &&  tflint -c '__envTflintConfig__' \
     &&  echo '[INFO] Planning' \
-    &&  terraform plan -lock=false -refresh=true \
+    &&  terraform plan -lock=false -refresh=true "${@}" \
   &&  popd \
   ||  return 1
 }

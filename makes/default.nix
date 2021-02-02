@@ -1,6 +1,7 @@
 { flakeUtils
 , self
 , srcForcesPkgs
+, srcForcesPkgsTerraform
 , srcIntegratesPkgs
 , srcIntegratesPkgsTerraform
 , srcMakesPkgs
@@ -21,6 +22,7 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
     attrs = makeLazyCopy rec {
       debug = value: builtins.trace value value;
       forcesPkgs = import srcForcesPkgs { inherit system; };
+      forcesPkgsTerraform = import srcForcesPkgsTerraform { inherit system; };
       integratesPkgs = import srcIntegratesPkgs { inherit system; };
       integratesPkgsTerraform = import srcIntegratesPkgsTerraform { inherit system; };
       makesPkgs = import srcMakesPkgs { inherit system; };

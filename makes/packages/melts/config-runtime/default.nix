@@ -9,7 +9,9 @@ let
 in
 makeTemplate {
   arguments = {
-    envSearchPaths = makeSearchPaths [ ];
+    envSearchPaths = makeSearchPaths [
+      meltsPkgs.git
+    ];
     envPython = "${meltsPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];

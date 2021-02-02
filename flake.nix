@@ -4,6 +4,7 @@
     flakeCompat = { url = "github:edolstra/flake-compat"; flake = false; };
     flakeUtils = { url = "github:numtide/flake-utils"; };
     srcForcesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };
+    srcForcesPkgsTerraform = { url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0"; };
     srcIntegratesPkgs = { url = "github:NixOS/nixpkgs/a437fe25652dea5b86de63891ce9c779c6e8bb9d"; flake = false; };
     srcIntegratesPkgsTerraform = { url = "github:NixOS/nixpkgs/f99908924015bb83df8186b2c473919be35b43f0"; };
     srcMakesPkgs = { url = "github:NixOS/nixpkgs/7138a338b58713e0dea22ddab6a6785abec7376a"; flake = false; };

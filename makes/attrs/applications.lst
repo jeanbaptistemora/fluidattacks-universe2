@@ -1,4 +1,5 @@
 forces
+forces/infra-test
 forces/oci-deploy
 forces/oci-deploy-wrapper
 forces/test

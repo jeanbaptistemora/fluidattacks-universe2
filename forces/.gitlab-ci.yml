@@ -43,6 +43,11 @@ forces/test:
   <<: *forces_in_dev_and_master_branch
   stage: test-code
 
+forces/infra-test:
+  <<: *makes
+  <<: *forces_in_dev_and_master_branch
+  stage: test-code
+
 forces/oci-deploy:
   <<: *makes
   <<: *forces_in_master_branch
