@@ -9,7 +9,6 @@ from typing import (
 )
 
 # Third libraries
-import bugsnag
 import aioboto3
 from aioextensions import collect
 
@@ -21,7 +20,6 @@ from backend.dal import (
     user as user_dal,
 )
 from backend.domain import (
-    project as group_domain,
     organization as org_domain
 )
 from backend.exceptions import (
@@ -30,8 +28,6 @@ from backend.exceptions import (
     StakeholderNotFound
 )
 from backend.typing import (
-    Invitation as InvitationType,
-    ProjectAccess as ProjectAccessType,
     User as UserType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
@@ -278,28 +274,3 @@ async def get_by_email(email: str) -> UserType:
 
 async def get_organizations(email: str) -> List[str]:
     return await org_dal.get_ids_for_user(email)
-
-
-async def complete_user_register(project_access: ProjectAccessType) -> bool:
-    success = False
-    invitation = cast(InvitationType, project_access['invitation'])
-
-    if invitation['is_used']:
-        bugsnag.notify(Exception('Token already used'), severity='warning')
-    else:
-        user_email = cast(str, project_access['user_email'])
-        group_name = cast(str, project_access['project_name'])
-        updated_invitation = invitation.copy()
-        updated_invitation['is_used'] = True
-        responsibility = invitation['responsibility']
-        success = await group_domain.update_access(
-            user_email,
-            group_name,
-            {
-                'has_access': True,
-                'invitation': updated_invitation,
-                'responsibility': responsibility,
-            }
-        )
-
-    return success
