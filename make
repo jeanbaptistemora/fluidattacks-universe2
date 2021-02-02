@@ -3,12 +3,10 @@
 set -e
 source makes/utils/shopts/template.sh
 
-function build_with_internet {
+function build_package {
   local attr="${1}"
 
   ./makes/wrappers/nix3 build \
-    --option 'sandbox' 'false' \
-    --option 'restrict-eval' 'false' \
     --out-link "makes/outputs/${attr}" \
     --show-trace \
     ".#${attr}"
@@ -56,7 +54,7 @@ function main {
       do
         if test "${attribute}" = "${attr}"
         then
-          if run_with_internet "${attribute}" "${@:2}"
+          if run_application "${attribute}" "${@:2}"
           then
                 echo '---' \
             &&  echo "[INFO] ${attribute} executed successfully" \
@@ -73,7 +71,7 @@ function main {
       do
         if test "${attribute}" = "${attr}"
         then
-          if build_with_internet "${attribute}"
+          if build_package "${attribute}"
           then
                 echo '---' \
             &&  nix_store_path=$(readlink -f "makes/outputs/${attribute}") \
@@ -119,12 +117,10 @@ function main_help {
   ||  return 1
 }
 
-function run_with_internet {
+function run_application {
   local attr="${1}"
 
   ./makes/wrappers/nix3 run \
-    --option 'sandbox' 'false' \
-    --option 'restrict-eval' 'false' \
     --show-trace \
     ".#${attr}" \
     -- \

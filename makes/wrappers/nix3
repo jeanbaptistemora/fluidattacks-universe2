@@ -8,9 +8,13 @@ nix \
   --option allow-dirty true \
   --option cores 0 \
   --option eval-cache false \
+  --option http-connections 256 \
+  --option keep-going true \
   --option max-jobs auto \
   --option narinfo-cache-negative-ttl 1 \
   --option narinfo-cache-positive-ttl 1 \
+  --option restrict-eval false \
+  --option sandbox false \
   --print-build-logs \
   --show-trace \
   --verbose \
