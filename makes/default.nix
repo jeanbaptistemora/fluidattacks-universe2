@@ -1,4 +1,4 @@
-{ flake
+{ flakeUtils
 , self
 , srcForcesPkgs
 , srcIntegratesPkgs
@@ -15,7 +15,7 @@
 , ...
 } @ _:
 
-flake.lib.eachSystem [ "x86_64-linux" ] (
+flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
   system:
   let
     attrs = makeLazyCopy rec {

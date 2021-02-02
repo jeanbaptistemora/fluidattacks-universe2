@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
-#!   nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/030e2ce817c8e83824fb897843ff70a15c131b96.tar.gz
+#!   nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/cb52887c38ef47f6649a21336cfaa347cc7dfa75.tar.gz
 #!   nix-shell -p nixFlakes
 
 nix \
@@ -8,7 +8,6 @@ nix \
   --option allow-dirty true \
   --option cores 0 \
   --option eval-cache false \
-  --option keep-going true \
   --option max-jobs auto \
   --option narinfo-cache-negative-ttl 1 \
   --option narinfo-cache-positive-ttl 1 \
