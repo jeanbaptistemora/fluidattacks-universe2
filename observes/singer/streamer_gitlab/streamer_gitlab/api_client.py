@@ -51,7 +51,7 @@ class GResourcePageRange(NamedTuple):
     min_seconds_between_calls=0.2,
 )
 async def get_json(
-    session: ClientSession, endpoint: str, **kargs
+    session: ClientSession, endpoint: str, **kargs: Any
 ) -> List[Dict[str, Any]]:
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
@@ -67,7 +67,7 @@ async def get_json(
 async def get_json_less_than(
     target_id: int,
     session: ClientSession,
-    endpoint: str, **kargs
+    endpoint: str, **kargs: Any
 ) -> List[Dict[str, Any]]:
     """Filter `get_json` result using `elements_less_than` filter"""
     raw_data = await get_json(session, endpoint, **kargs)
@@ -109,7 +109,7 @@ def build_getter(
     if less_than is not None:
 
         async def filtered_getter(
-            session: ClientSession, endpoint: str, **kargs
+            session: ClientSession, endpoint: str, **kargs: Any
         ) -> List[Dict[str, Any]]:
             getter = insistent_endpoint_call(get_json_less_than)
             return await getter(
@@ -119,7 +119,7 @@ def build_getter(
         return filtered_getter
 
     async def normal_getter(
-        session: ClientSession, endpoint: str, **kargs
+        session: ClientSession, endpoint: str, **kargs: Any
     ) -> List[Dict[str, Any]]:
         getter = insistent_endpoint_call(get_json, 100)
         return await getter(session, endpoint, **kargs)
@@ -131,7 +131,7 @@ def insistent_endpoint_call(
     get_request: Callable[..., Awaitable],
     max_errors: int = 10,
 ) -> Callable[..., Awaitable]:
-    async def i_getter(*args, **kargs):
+    async def i_getter(*args: Any, **kargs: Any) -> Any:
         errors: int = 0
         while errors <= max_errors:
             try:
@@ -151,7 +151,7 @@ async def get_resource(
     session: ClientSession,
     resource: GitlabResourcePage,
     less_than: Optional[int] = None,
-    **kargs
+    **kargs: Any
 ) -> List[Dict[str, Any]]:
     endpoint = (
         'https://gitlab.com/api/v4/projects/' +

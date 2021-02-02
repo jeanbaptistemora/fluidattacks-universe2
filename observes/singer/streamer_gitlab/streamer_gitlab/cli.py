@@ -11,7 +11,7 @@ from typing import List
 from streamer_gitlab.log import log
 
 
-def parser_builder():
+def parser_builder() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--projects',
@@ -28,7 +28,7 @@ def parser_builder():
     return parser
 
 
-def parse_args(args: List[str] = None):
+def parse_args(args: List[str]) -> None:
     try:
         environ['GITLAB_API_TOKEN']
     except KeyError:

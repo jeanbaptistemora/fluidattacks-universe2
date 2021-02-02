@@ -1,24 +1,27 @@
 # Standard libraries
 import json
-
 from typing import (
     Any,
+    IO,
     List,
+    Optional,
 )
 from asyncio import (
     Queue
 )
-
 # Third party libraries
 from aioextensions import (
     in_thread,
 )
-
 # Local libraries
 from streamer_gitlab.log import log
 
 
-def emit(stream: str, records: List[Any], file=None) -> None:
+def emit(
+    stream: str,
+    records: List[Any],
+    file: Optional[IO[str]] = None
+) -> None:
     """Emit as special format so tap-json can consume it from stdin."""
     for record in records:
         msg = json.dumps({'stream': stream, 'record': record})

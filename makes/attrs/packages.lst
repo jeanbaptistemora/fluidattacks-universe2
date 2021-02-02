@@ -25,6 +25,7 @@ observes/lint-code-etl
 observes/lint-dif-gitlab-etl
 observes/lint-postgres-client
 observes/lint-singer-io
+observes/lint-streamer-gitlab
 observes/lint-streamer-zoho-crm
 observes/lint-tap-mixpanel
 skims/bin

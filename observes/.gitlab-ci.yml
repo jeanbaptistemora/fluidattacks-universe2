@@ -76,6 +76,11 @@ observes/lint-singer-io:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes/lint-streamer-gitlab:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes/lint-streamer-zoho-crm:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -173,11 +178,6 @@ observes_gitlab_on_aws:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
   interruptible: false
-
-observes_gitlab_streamer_lint:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: lint-code
 
 observes_gitlab_streamer_test:
   <<: *with_nix

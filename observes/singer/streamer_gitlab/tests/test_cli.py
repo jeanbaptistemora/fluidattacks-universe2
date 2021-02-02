@@ -1,32 +1,37 @@
 # Standard library
 import io
 import json
-import pytest
+from typing import Dict
 from contextlib import (
     redirect_stderr,
     redirect_stdout,
 )
-
+# Third party libraries
+import pytest
 # Local libraries
 from streamer_gitlab import cli
 
-def mock_data():
+
+JSON = Dict[str, str]
+
+
+def mock_data() -> JSON:
     return {
         'credentials_path': 'tests/mock_data/gitlab_credentials.json',
         'projects_path': 'tests/mock_data/projects.json',
     }
 
 
-def test_cli_required_arguments():
-    args = f""
+def test_cli_required_arguments() -> None:
+    args = ""
     parser = cli.parser_builder()
     with pytest.raises(SystemExit):
         parser.parse_args(args.split())
 
 
 @pytest.mark.skip(reason="refac in process")
-def test_cli_integration():
-    args = f"--project fluidattacks/product --max-pages 2"
+def test_cli_integration() -> None:
+    args = "--project fluidattacks/product --max-pages 2"
 
     out_buffer, err_buffer = io.StringIO(), io.StringIO()
 

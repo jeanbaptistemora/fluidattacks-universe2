@@ -7,13 +7,14 @@ import aiohttp
 import pytest
 # Local libraries
 from streamer_gitlab import api_client
-from streamer_gitlab.log import log
 
 
 @pytest.mark.asyncio
-async def test_real_get_json_descending_order():
+async def test_real_get_json_descending_order() -> None:
     api_token = environ['GITLAB_API_TOKEN']
-    endpoint = 'https://gitlab.com/api/v4/projects/fluidattacks%2Fservices/jobs'
+    endpoint = (
+        'https://gitlab.com/api/v4/projects/fluidattacks%2Fservices/jobs'
+    )
     result = []
     async with aiohttp.ClientSession() as session:
         result = await api_client.get_json(
@@ -33,10 +34,12 @@ async def test_real_get_json_descending_order():
 
 
 @pytest.mark.asyncio
-async def test_real_get_json_less_than():
+async def test_real_get_json_less_than() -> None:
     api_token = environ['GITLAB_API_TOKEN']
-    endpoint = 'https://gitlab.com/api/v4/projects/fluidattacks%2Fservices/jobs'
-    params = {'page': 1, 'per_page': 100,}
+    endpoint = (
+        'https://gitlab.com/api/v4/projects/fluidattacks%2Fservices/jobs'
+    )
+    params = {'page': 1, 'per_page': 100}
     headers = {'Private-Token': api_token}
     result = []
     async with aiohttp.ClientSession() as session:
