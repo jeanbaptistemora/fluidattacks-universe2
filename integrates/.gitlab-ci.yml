@@ -154,6 +154,11 @@ integrates/lint/front:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
+integrates/lint/secrets:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: lint-code
+
 integrates/test/front:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -437,11 +442,6 @@ integrates_back_lint_graphics:
   stage: lint-code
 
 integrates_mobile_lint:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
-integrates_lint_secrets:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: lint-code

@@ -10,6 +10,7 @@ integrates/config-runtime/front
 integrates/lint/front
 integrates/lint/front/eslint
 integrates/lint/front/tslint
+integrates/lint/secrets
 integrates/test/front
 makes/dev
 makes/test
