@@ -54,10 +54,12 @@ def test_validate_project_services_config():
     with pytest.raises(InvalidProjectServicesConfig):
         validate_project_services_config(False, False, True, True)
 
+
 @pytest.mark.changes_db
 async def test_remove_access():
     assert await remove_access('unittest', 'unittesting')
     assert not await remove_access('', '')
+
 
 async def test_validate_tags():
     assert await validate_tags(
@@ -71,14 +73,17 @@ async def test_validate_tags():
     with pytest.raises(RepeatedValues):
         assert await validate_tags('unittesting', ['test-projects'])
 
+
 async def test_is_alive():
     assert await is_alive('unittesting')
     assert not await is_alive('unexisting_project')
+
 
 async def test_get_pending_closing_checks():
     test_data = await get_pending_closing_check('unittesting')
     expected_output = 1
     assert test_data == expected_output
+
 
 async def test_get_last_closing_vuln():
     findings_to_get = ['463558592', '422286126']
@@ -93,6 +98,7 @@ async def test_get_last_closing_vuln():
     assert test_data[0] == (actual_date - initial_date).days
     assert test_data[1]['UUID'] == '242f848c-148a-4028-8e36-c7d995502590'
     assert test_data[1]['finding_id'] == "463558592"
+
 
 async def test_get_last_closing_date():
     closed_vulnerability = {
@@ -118,6 +124,7 @@ async def test_get_last_closing_date():
     test_data = get_last_closing_date(open_vulnerability[0])
     assert test_data is None
 
+
 async def test_is_vulnerability_closed():
     closed_vulnerability = {
         'specific': 'phone',
@@ -138,6 +145,7 @@ async def test_is_vulnerability_closed():
     assert is_vulnerability_closed(closed_vulnerability)
     assert not is_vulnerability_closed(open_vulnerability[0])
 
+
 async def test_get_max_open_severity():
     findings_to_get = ['463558592', '422286126']
     findings = await collect(
@@ -148,20 +156,24 @@ async def test_get_max_open_severity():
     assert test_data[0] == Decimal(4.3).quantize(Decimal('0.1'))
     assert test_data[1]['finding_id'] == "463558592"
 
+
 async def test_get_open_vulnerabilities():
     project_name = 'unittesting'
     expected_output = 29
     assert await get_open_vulnerabilities(project_name) == expected_output
+
 
 async def test_get_closed_vulnerabilities():
     project_name = 'unittesting'
     expected_output = 7
     assert await get_closed_vulnerabilities(project_name) == expected_output
 
+
 async def test_get_open_finding():
     project_name = 'unittesting'
     expected_output = 5
     assert await get_open_finding(project_name) == expected_output
+
 
 async def test_get_open_vulnerability_date():
     closed_vulnerability = {
@@ -187,6 +199,7 @@ async def test_get_open_vulnerability_date():
     test_data = get_open_vulnerability_date(closed_vulnerability)
     assert test_data is None
 
+
 @freeze_time("2019-12-01")
 async def test_get_mean_remediate():
     group_name = 'unittesting'
@@ -198,6 +211,7 @@ async def test_get_mean_remediate():
     assert test_data == expected_output
     assert test_data_non_treated == expected_output_non_treated
 
+
 async def test_get_total_treatment():
     findings_to_get = ['463558592', '422286126']
     findings = await collect(
@@ -208,6 +222,7 @@ async def test_get_total_treatment():
     expected_output = \
         {'inProgress': 1, 'accepted': 1, 'acceptedUndefined': 0, 'undefined': 0}
     assert test_data == expected_output
+
 
 async def test_list_comments():
     project_name = 'unittesting'
@@ -223,13 +238,15 @@ async def test_list_comments():
     }
     assert test_data[0] == expected_output
 
+
 @pytest.mark.changes_db
 async def test_add_comment():
     project_name = 'unittesting'
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))
     request = await create_dummy_session('unittest@fluidattacks.com')
-    info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
+    info = GraphQLResolveInfo(None, None, None, None,
+                              None, None, None, None, None, None, request)
     comment_data = {
         'user_id': comment_id,
         'content': 'Test comment',
@@ -246,9 +263,11 @@ async def test_add_comment():
     comment_data['parent'] = str(comment_id)
     assert await add_comment(info, project_name, 'unittest@fluidattacks.com', comment_data)
 
+
 async def test_get_active_projects():
     test_data = await get_active_projects()
     assert test_data is not None
+
 
 async def test_get_alive_projects():
     test_data = await get_alive_projects()
@@ -267,10 +286,13 @@ async def test_get_alive_projects():
 
     assert sorted(test_data) == sorted(expected_output)
 
+
 async def test_list_events():
     project_name = 'unittesting'
-    expected_output = ['540462628', '538745942', '463578352', '484763304', '418900971']
+    expected_output = ['540462628', '538745942',
+                       '463578352', '484763304', '418900971']
     assert expected_output == await list_events(project_name)
+
 
 async def test_get_managers():
     project_name = 'unittesting'
@@ -279,10 +301,12 @@ async def test_get_managers():
     ]
     assert expected_output == await get_managers(project_name)
 
+
 async def test_get_description():
     project_name = 'unittesting'
     expected_output = 'Integrates unit test project'
     assert expected_output == await get_description(project_name)
+
 
 async def test_get_users():
     project_name = 'unittesting'
@@ -293,20 +317,23 @@ async def test_get_users():
         'unittest@fluidattacks.com',
         'unittest2@fluidattacks.com',
         'integratesexecutive@gmail.com',
-        'integratesinternalmanager@fluidattacks.com',
+        'integratescustomer@fluidattacks.com',
         'integratesresourcer@fluidattacks.com',
         'integratescustomer@gmail.com',
         'integratesuser@gmail.com',
         'integratesanalyst@fluidattacks.com',
         'continuoushacking@gmail.com',
+        'integratesmanager@fluidattacks.com',
         'continuoushack2@gmail.com',
         'integratesreviewer@fluidattacks.com'
     ]
     assert expected_output == await get_users(project_name)
 
+
 async def test_get_closers():
     closers = await get_closers('oneshottest')
     assert closers == ['integratesanalyst@fluidattacks.com']
+
 
 @freeze_time("2020-04-12")
 async def test_get_mean_remediate_severity():
@@ -323,6 +350,7 @@ async def test_get_mean_remediate_severity():
         project_name, min_severity, max_severity)
     expected_output = 236
     assert mean_remediate_medium_severity == expected_output
+
 
 @pytest.mark.changes_db
 async def test_create_project_not_user_admin():
@@ -342,9 +370,11 @@ async def test_create_project_not_user_admin():
     expected_output = True
     assert test_data == expected_output
 
+
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
+    ['group_name', 'subscription', 'has_drills',
+        'has_forces', 'has_integrates', 'expected'],
     [
         ['unittesting', 'continuous', True, True, True, True],
         ['oneshottest', 'oneshot', False, False, True, True],
@@ -370,6 +400,7 @@ async def test_edit(
         reason='',
         requester_email='test@test.test'
     )
+
 
 async def test_get_pending_verification_findings():
     project_name = 'unittesting'

@@ -56,7 +56,8 @@ async def test_create_organization():
     assert 'errors' not in result
     assert result['data']['createOrganization']['success']
     assert result['data']['createOrganization']['organization']['name'] == name.lower()
-    assert result['data']['createOrganization']['organization']['id'].startswith('ORG')
+    assert result['data']['createOrganization']['organization']['id'].startswith(
+        'ORG')
 
     name = 'MADEUP-NAME'
     data = {'query': mutation_tpl.substitute(name=name)}
@@ -243,9 +244,10 @@ async def test_organization():
         'continuoushacking@gmail.com',
         'integratesanalyst@fluidattacks.com',
         'integratescloser@fluidattacks.com',
+        'integratescustomer@fluidattacks.com',
         'integratescustomer@gmail.com',
         'integratesexecutive@gmail.com',
-        'integratesinternalmanager@fluidattacks.com',
+        'integratesmanager@fluidattacks.com',
         'integratesmanager@gmail.com',
         'integratesresourcer@fluidattacks.com',
         'integratesreviewer@fluidattacks.com',
@@ -253,7 +255,7 @@ async def test_organization():
         'integratesuser@gmail.com',
         'unittest2@fluidattacks.com'
     ]
-    
+
     variables = {
         'organizationId': org_id
     }
@@ -279,7 +281,9 @@ async def test_organization():
     data = {'query': query, 'variables': variables}
     result = await _get_result_async(data)
 
+    result = result = await _get_result_async(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
+    print(result['data']['organization']['stakeholders'])
     stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']]
 
     assert 'errors' not in result

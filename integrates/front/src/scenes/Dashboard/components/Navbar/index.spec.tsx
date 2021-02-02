@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -12,6 +13,7 @@ import { navbarComponent as NavbarComponent } from "scenes/Dashboard/components/
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import store from "store";
 import { authContext } from "utils/auth";
+import { authzPermissionsContext } from "utils/authz/config";
 import { SplitButton } from "./components/splitbutton";
 
 describe("Navbar", () => {
@@ -21,6 +23,9 @@ describe("Navbar", () => {
   });
 
   it("should render", async () => {
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "front_can_use_groups_searchbar" },
+    ]);
     const organizationsQuery: Readonly<MockedResponse> = {
       request: {
         query: GET_USER_ORGANIZATIONS,
@@ -50,6 +55,10 @@ describe("Navbar", () => {
          </MockedProvider>
         </Provider>
       </MemoryRouter>,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      },
     );
 
     await act(async () => {

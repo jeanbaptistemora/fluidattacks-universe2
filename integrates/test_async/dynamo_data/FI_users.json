@@ -114,6 +114,39 @@
               "S": "fluid"
             },
             "organization": {
+              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+            },
+            "last_name": {
+              "S": "Manager"
+            },
+            "first_name": {
+              "S": "Integrates"
+            },
+            "date_joined": {
+              "S": "2018-02-28 11:54:12"
+            },
+            "legal_remember": {
+              "BOOL": true
+            },
+            "last_login": {
+              "S": "2019-12-29 11:50:17"
+            },
+            "email": {
+              "S": "integratesmanager@fluidattacks.com"
+            },
+            "registered": {
+              "BOOL": true
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "company": {
+              "S": "fluid"
+            },
+            "organization": {
               "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
             },
             "last_name": {
@@ -576,7 +609,7 @@
               "S": "2019-10-29 13:40:37"
             },
             "email": {
-              "S": "integratesinternalmanager@fluidattacks.com"
+              "S": "integratescustomer@fluidattacks.com"
             },
             "registered": {
               "BOOL": true

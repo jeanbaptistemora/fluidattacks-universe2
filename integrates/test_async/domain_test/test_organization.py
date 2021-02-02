@@ -235,18 +235,19 @@ async def test_get_user_organizations():
     )
 
 
-async def test_get_uers():
+async def test_get_users():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_domain.get_users(org_id)
-    assert len(users) == 13
+    assert len(users) == 14
     assert sorted(users) == [
         'continuoushack2@gmail.com',
         'continuoushacking@gmail.com',
         'integratesanalyst@fluidattacks.com',
         'integratescloser@fluidattacks.com',
+        'integratescustomer@fluidattacks.com',
         'integratescustomer@gmail.com',
         'integratesexecutive@gmail.com',
-        'integratesinternalmanager@fluidattacks.com',
+        'integratesmanager@fluidattacks.com',
         'integratesmanager@gmail.com',
         'integratesresourcer@fluidattacks.com',
         'integratesreviewer@fluidattacks.com',
@@ -445,5 +446,6 @@ async def test_iterate_organizations_and_groups():
         },
     }
     async for org_id, org_name, groups in org_domain.iterate_organizations_and_groups():
-        assert sorted(groups) == sorted(expected_organizations_and_groups.pop(org_id)[org_name])
+        assert sorted(groups) == sorted(
+            expected_organizations_and_groups.pop(org_id)[org_name])
     assert expected_organizations_and_groups == {}

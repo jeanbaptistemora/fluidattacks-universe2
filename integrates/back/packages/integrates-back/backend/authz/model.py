@@ -584,7 +584,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             'backend_api_resolvers_organization_analytics_resolve',
-            'backend_api_mutations_create_group_mutate',
         },
         tags=set()
     ),
@@ -606,7 +605,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_query_stakeholder_'
                 '_resolve_for_organization'
             ),
-            'backend_api_mutations_create_group_mutate',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
         },
@@ -629,7 +627,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'backend_api_resolvers_query_stakeholder_'
                 '_resolve_for_organization'
             ),
-            'backend_api_mutations_create_group_mutate',
         },
         tags=set()
     )
@@ -641,7 +638,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     admin=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES['admin']['actions'],
-            'backend_api_mutations_create_group_mutate',
             'grant_organization_level_role:group_manager',
         },
         tags={
@@ -712,14 +708,16 @@ def get_organization_level_roles_model(
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
-            'backend_api_mutations_invalidate_cache_mutate',
-            'backend_api_resolvers_query_internal_names_resolve',
+            'backend_api_mutations_add_stakeholder_mutate',
             'backend_api_mutations_create_group_mutate',
+            'backend_api_mutations_create_organization_mutate',
+            'backend_api_mutations_invalidate_cache_mutate',
             'backend_api_resolvers_query_groups_resolve',
+            'backend_api_resolvers_query_internal_names_resolve',
             'backend_api_resolvers_query_report__get_url_all_users',
             'backend_api_resolvers_query_report__get_url_all_vulns',
-            'backend_api_mutations_add_stakeholder_mutate',
             'backend_api_resolvers_query_user_list_groups_resolve',
+            'front_can_use_groups_searchbar',
             'grant_user_level_role:admin',
             'grant_user_level_role:analyst',
             'grant_user_level_role:customer',
@@ -728,8 +726,8 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     analyst=dict(
         actions={
+            'backend_api_mutations_invalidate_cache_mutate',
             'backend_api_resolvers_query_internal_names_resolve',
-            'backend_api_mutations_create_group_mutate',
         },
         tags={
             'drills',
@@ -738,7 +736,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             'backend_api_resolvers_query_internal_names_resolve',
-            'backend_api_mutations_create_group_mutate',
         },
         tags=set(),
     ),
@@ -749,7 +746,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             *USER_LEVEL_ROLES['admin']['actions'],
-            'backend_api_mutations_create_organization_mutate',
         },
         tags={
             *USER_LEVEL_ROLES['admin']['tags'],
@@ -758,7 +754,10 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     analyst=dict(
         actions={
             *USER_LEVEL_ROLES['analyst']['actions'],
+            'backend_api_mutations_create_group_mutate',
             'backend_api_mutations_create_organization_mutate',
+            'backend_api_resolvers_query_user_list_groups_resolve',
+            'front_can_use_groups_searchbar',
         },
         tags={
             *USER_LEVEL_ROLES['analyst']['tags'],
@@ -767,8 +766,9 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             *USER_LEVEL_ROLES['customer']['actions'],
-            'backend_api_resolvers_query_internal_names_resolve',
+            'backend_api_mutations_create_group_mutate',
             'backend_api_mutations_create_organization_mutate',
+            'front_can_use_groups_searchbar',
         },
         tags={
             *USER_LEVEL_ROLES['customer']['tags'],

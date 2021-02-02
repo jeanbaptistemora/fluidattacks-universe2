@@ -25,7 +25,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
-import { authContext, IAuthContext } from "utils/auth";
+import { Can } from "utils/authz/Can";
 import { Text } from "utils/forms/fields";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -42,7 +42,6 @@ export const navbarComponent: React.FC = (): JSX.Element => {
     { name: "" },
     localStorage,
   );
-  const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const path: string = escape(pathname);
   const pathData: string[] = path.split("/")
@@ -174,7 +173,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
             <NewsWidget />
           </Col25>
           <Col100>
-            {userEmail.endsWith("fluidattacks.com") ? (
+            <Can do="front_can_use_groups_searchbar">
               <li role="presentation">
                 <NavBarForm>
                   <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
@@ -192,7 +191,7 @@ export const navbarComponent: React.FC = (): JSX.Element => {
                   </GenericForm>
                 </NavBarForm>
               </li>
-            ) : undefined}
+            </Can>
           </Col100>
         </NavBarCollapse>
       </NavBar>

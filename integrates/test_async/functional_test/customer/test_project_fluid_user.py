@@ -2,15 +2,12 @@ import json
 import pytest
 
 from test_async.functional_test.utils import complete_register
-from test_async.functional_test.customer.utils import (
-    get_result,
-    create_group,
-)
+from test_async.functional_test.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
-async def test_project():
+async def test_project_fluid_user():
     query = '''{
         internalNames(entity: GROUP){
             name
@@ -18,7 +15,7 @@ async def test_project():
         }
     }'''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert 'internalNames' in result['data']
     group_name = result['data']['internalNames']['name']
@@ -39,12 +36,33 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
-    assert result['errors'][0]['message'] == 'Access denied'
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
+    assert 'success' in result['data']['createProject']
+    assert result['data']['createProject']['success']
 
-    # Create project with admin account since this role didn't have
-    # the permission and add the stakeholder to the project
-    group_name = await create_group()
+    role = 'CUSTOMER'
+    customer_email = 'integratescustomer@fluidattacks.com'
+    query = f'''
+        mutation {{
+            grantStakeholderAccess (
+                email: "{customer_email}",
+                phoneNumber: "-",
+                projectName: "{group_name}",
+                responsibility: "Customer",
+                role: {role}
+            ) {{
+            success
+                grantedStakeholder {{
+                    email
+                }}
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    assert 'errors' not in result
+    assert result['data']['grantStakeholderAccess']['success']
+    assert await complete_register(customer_email, group_name)
 
     query = f'''
         mutation {{
@@ -59,7 +77,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert 'success' in result['data']['addProjectConsult']
     assert result['data']['addProjectConsult']['success']
@@ -78,7 +96,7 @@ async def test_project():
         'tagsData': json.dumps(['testing'])
     }
     data = {'query': query, 'variables': variables}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert 'success' in result['data']['addTags']
     assert result['data']['addTags']['success']
@@ -121,7 +139,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert result['data']['project']['name'] == group_name
     assert result['data']['project']['hasDrills']
@@ -160,7 +178,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert 'success' in result['data']['removeTag']
     assert result['data']['removeTag']['success']
@@ -173,7 +191,7 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert result['data']['project']['tags'] == []
 
@@ -185,13 +203,13 @@ async def test_project():
           gitignore: []
           groupName: "{group_name}"
           includesHealthCheck: true
-          url: "https://gitlab.com/fluidattacks/test6"
+          url: "https://gitlab.com/fluidattacks/test2"
         ) {{
           success
         }}
       }}
     '''
-    result = await get_result({'query': query})
+    result = await get_result({'query': query}, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert result['data']['addGitRoot']['success']
 
@@ -212,7 +230,7 @@ async def test_project():
           }}
         }}
     '''
-    result = await get_result({'query': query})
+    result = await get_result({'query': query}, stakeholder='integratescustomer@fluidattacks.com')
     assert 'errors' not in result
     assert {
         '__typename': 'GitRoot',
@@ -221,5 +239,5 @@ async def test_project():
         'environmentUrls': [],
         'gitignore': [],
         'includesHealthCheck': True,
-        'url': 'https://gitlab.com/fluidattacks/test6'
+        'url': 'https://gitlab.com/fluidattacks/test2'
     } in result['data']['group']['roots']

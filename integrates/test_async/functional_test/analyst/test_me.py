@@ -119,7 +119,7 @@ async def test_me():
     assert '{"hasAccessToken": true' in result['data']['me']['accessToken']
     assert result['data']['me']['callerOrigin'] == 'API'
     assert result['data']['me']['organizations'] == [{'name': org_name}]
-    assert len(result['data']['me']['permissions']) == 3
+    assert len(result['data']['me']['permissions']) == 6
     assert result['data']['me']['remember'] == False
     assert result['data']['me']['role'] == 'analyst'
     assert result['data']['me']['sessionExpiration'] == str(

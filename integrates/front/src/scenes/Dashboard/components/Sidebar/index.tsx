@@ -54,6 +54,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
           </TooltipWrapper>
         </li>
         </Can>
+        <Can do="backend_api_mutations_create_organization_mutate">
         <li onClick={onOpenAddOrganizationModal}>
           <TooltipWrapper id={"addOrg"} message={translate.t("sidebar.newOrganization.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-plus" />
@@ -61,6 +62,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
             </div>
           </TooltipWrapper>
         </li>
+        </Can>
         <li onClick={onOpenAccessTokenModal}>
           <TooltipWrapper id={"apiToken"} message={translate.t("sidebar.token.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-user" />
