@@ -15,6 +15,7 @@ makeTemplate {
       requirements = {
         direct = [
           "boto3==1.16.63"
+          "click==7.1.2"
         ];
         inherited = [
           "botocore==1.19.63"
