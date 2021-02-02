@@ -12,8 +12,6 @@ from backend.api.dataloaders.group_roots import GroupRootsLoader
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
 from backend.exceptions import (
-    InvalidPageIndex,
-    InvalidPageSize,
     NotPendingDeletion,
     PermissionDenied
 )

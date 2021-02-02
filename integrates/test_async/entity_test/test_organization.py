@@ -11,8 +11,6 @@ from backend.api.dataloaders.group import GroupLoader
 from backend.api.schema import SCHEMA
 from backend.exceptions import (
     InvalidOrganization,
-    InvalidPageIndex,
-    InvalidPageSize,
     UserNotInOrganization
 )
 from test_async.utils import create_dummy_session
