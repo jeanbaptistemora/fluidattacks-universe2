@@ -15,12 +15,11 @@ describe("TrackingItem", () => {
         closed={0}
         cycle={1}
         date="2019-01-17"
-        effectiveness={0}
         open={1}
-        new={0}
-        inProgress={1}
-        accepted={0}
+        accepted={1}
         acceptedUndefined={0}
+        manager={"testmanager@test.test"}
+        justification={"test justification temporally accepted"}
       />,
     );
     expect(wrapper)
@@ -30,13 +29,9 @@ describe("TrackingItem", () => {
     expect(wrapper.text())
       .toContain("Cycle: 1,");
     expect(wrapper.text())
-      .toContain("Status:");
+      .toContain("Vulnerabilities found:\u00a01");
     expect(wrapper.text())
-      .toContain("Open: 1,\u00a0Closed: 0, Effectiveness: 0%");
-    expect(wrapper.text())
-      .toContain("Treatment:");
-    expect(wrapper.text())
-      .toContain("New: 0,\u00a0In progress: 1,\u00a0Temporally accepted: 0,\u00a0Eternally accepted: 0");
+      .toContain("Justification:\u00a0test justification temporally accepted");
   });
 
   it("should render root item", async () => {
@@ -45,10 +40,7 @@ describe("TrackingItem", () => {
         closed={0}
         cycle={0}
         date="2019-01-17"
-        effectiveness={0}
         open={1}
-        new={1}
-        inProgress={0}
         accepted={0}
         acceptedUndefined={0}
       />,
@@ -58,9 +50,7 @@ describe("TrackingItem", () => {
     expect(wrapper.text())
       .toContain("Found");
     expect(wrapper.text())
-      .toContain("Status:");
-    expect(wrapper.text())
-      .toContain("Open: 1,\u00a0Closed: 0");
+      .toContain("Vulnerabilities found:\u00a01");
   });
 
   it("should render closed item", async () => {
@@ -69,10 +59,7 @@ describe("TrackingItem", () => {
         closed={1}
         cycle={2}
         date="2019-01-17"
-        effectiveness={100}
         open={0}
-        new={0}
-        inProgress={0}
         accepted={0}
         acceptedUndefined={0}
       />,

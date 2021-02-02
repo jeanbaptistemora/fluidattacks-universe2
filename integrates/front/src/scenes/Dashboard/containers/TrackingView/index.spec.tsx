@@ -12,7 +12,7 @@ import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/q
 
 import store from "store/index";
 
-describe("FindingExploitView", (): void => {
+describe("TrackingView", (): void => {
 
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {

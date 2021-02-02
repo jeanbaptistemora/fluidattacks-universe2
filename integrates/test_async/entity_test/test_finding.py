@@ -93,16 +93,14 @@ async def test_finding():
       'zeroRisk': 'Confirmed'
     }
     expected_tracking = [{
-      "cycle": 0,
-      "open": 1,
-      "closed": 0,
-      "effectiveness": 0,
-      "date": "2020-01-03",
-      "new": 0,
-      "in_progress": 1,
-      "accepted": 0,
-      "accepted_undefined": 0,
-      'manager': 'integratescustomer@gmail.com',
+      'cycle': 0,
+      'open': 1,
+      'closed': 0,
+      'justification': '',
+      'date': '2020-01-03',
+      'accepted': 0,
+      'accepted_undefined': 0,
+      'manager': '',
     }]
     query = '''{
       finding(identifier: "422286126"){
