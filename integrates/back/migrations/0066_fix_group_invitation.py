@@ -2,6 +2,9 @@
 This migration aims to fix those invitations that were not updated because
 it stores info in Redis instead of the project access table and remove
 the invitations that can not be used
+
+Execution Time:    2021-02-02 at 17:26:42 UTC-05
+Finalization Time: 2021-02-02 at 17:26:53 UTC-05
 """
 # Standard library
 from pprint import pprint
