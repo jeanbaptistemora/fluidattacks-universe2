@@ -30,6 +30,7 @@ observes/lint-streamer-gitlab
 observes/lint-streamer-zoho-crm
 observes/lint-tap-csv
 observes/lint-tap-mixpanel
+observes/lint-target-redshift
 skims/bin
 skims/config-development
 skims/config-runtime

@@ -96,6 +96,11 @@ observes/lint-tap-mixpanel:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes/lint-target-redshift:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes/scheduled-code-etl-amend:
   <<: *makes
   only:
@@ -208,11 +213,6 @@ observes_tap_csv_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code
-
-observes_tredshift_lint:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: lint-code
 
 observes_tredshift_test:
   <<: *with_nix
