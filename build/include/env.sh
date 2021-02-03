@@ -117,7 +117,6 @@ function env_prepare_ruby_modules {
 
 function env_prepare_minio_local {
   export PYTHONPATH
-  export FI_MINIO_LOCAL_ENABLED
   # MinIO credentials are only for local test development enviroment
   export MINIO_ACCESS_KEY='test_access_key'
   export MINIO_SECRET_KEY='test_secret_key'
@@ -132,7 +131,6 @@ function env_prepare_minio_local {
   &&  mkdir -p './.MinIO/data' \
   &&  env_prepare_python_packages \
   &&  PYTHONPATH="${PYTHONPATH}:${PWD}" \
-  &&  FI_MINIO_LOCAL_ENABLED='true' \
   &&  helper_integrates_set_dev_secrets \
   &&  MINIO_REGION_NAME="${AWS_DEFAULT_REGION}" \
   &&  USER_MINIO_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \

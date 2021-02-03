@@ -23,7 +23,7 @@ from back.settings import LOGGING
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY,
-    FI_ENVIRONMENT, FI_MINIO_LOCAL_ENABLED
+    FI_ENVIRONMENT,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -38,7 +38,7 @@ OPTIONS = dict(
     service_name='s3',
 )
 
-if FI_ENVIRONMENT == 'development' and FI_MINIO_LOCAL_ENABLED == 'true':
+if FI_ENVIRONMENT == 'development':
     OPTIONS.pop('aws_session_token', None)
     OPTIONS['endpoint_url'] = 'http://localhost:9000'
 
