@@ -2,7 +2,7 @@
 
 function main {
   local cluster_addrs=()
-  local cluster_path='integrates/.Redis'
+  local cluster_path='.Redis'
 
     echo '[INFO] Launching Redis' \
   &&  rm -rf "${cluster_path}" \

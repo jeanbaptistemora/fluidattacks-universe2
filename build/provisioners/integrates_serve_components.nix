@@ -5,7 +5,6 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
-    // (import ../src/dynamodb-local.nix pkgs)
     // (import ../src/minio-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
@@ -27,6 +26,7 @@ in
         pkgs.iproute
         pkgs.python37
         pkgs.libmysqlclient
+        (import ../..).integrates-dynamo
         (import ../..).integrates-redis
       ];
 

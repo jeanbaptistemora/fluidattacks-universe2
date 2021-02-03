@@ -1,11 +1,9 @@
-# Local deploy
+/**/*.css.d.ts
+/*.xlsx
+/.coverage*
 /.Redis
 /.MinIO
 /.DynamoDB
-
-# Front files
-/**/*.css.d.ts
-
-# Others
 /app/static/dashboard
-.tmp
+/back/packages/integrates-back/backend/reports/tpls/*.tpl
+/build/coverage

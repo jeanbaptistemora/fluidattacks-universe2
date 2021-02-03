@@ -115,15 +115,6 @@ function env_prepare_ruby_modules {
   done < "${TEMP_FILE1}"
 }
 
-function env_prepare_dynamodb_local {
-      echo '[INFO] Unzipping DynamoDB local' \
-  &&  mkdir -p './.DynamoDB' \
-  &&  pushd './.DynamoDB' \
-    &&  unzip -u "${srcExternalDynamoDbLocal}" \
-  && popd \
-  ||  return 1
-}
-
 function env_prepare_minio_local {
   export PYTHONPATH
   export FI_MINIO_LOCAL_ENABLED

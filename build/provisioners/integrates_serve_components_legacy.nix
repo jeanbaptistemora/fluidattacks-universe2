@@ -6,7 +6,6 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
-    // (import ../src/dynamodb-local.nix pkgs)
     // (import ../src/minio-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
@@ -37,6 +36,7 @@ in
         pkgs.libmysqlclient
         pkgs.postgresql
         pkgs.unixODBC
+        (import ../..).integrates-dynamo
         (import ../..).integrates-redis
       ];
 

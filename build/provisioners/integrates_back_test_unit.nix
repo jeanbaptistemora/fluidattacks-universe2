@@ -6,7 +6,6 @@ in
        (import ../src/basic.nix)
     // (import ../src/minio-local.nix pkgs)
     // (import ../src/external.nix pkgs)
-    // (import ../src/dynamodb-local.nix pkgs)
     // (rec {
       name = "builder";
 
@@ -20,6 +19,7 @@ in
         pkgs.unzip
         pkgs.cacert
         pkgs.python37
+        (import ../..).integrates-dynamo
         (import ../..).integrates-redis
       ];
 

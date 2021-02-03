@@ -298,20 +298,7 @@ function helper_integrates_serve_redis {
 }
 
 function helper_integrates_serve_dynamo {
-  local port='8022'
-
-      echo '[INFO] Launching DynamoDB local' \
-  &&  env_prepare_dynamodb_local \
-  &&  { java \
-        -Djava.library.path='.DynamoDB/DynamoDBLocal_lib' \
-        -jar '.DynamoDB/DynamoDBLocal.jar' \
-        -inMemory \
-        -port "${port}" \
-        -sharedDb \
-        & } \
-  &&  sleep 10 \
-  &&  echo '[INFO] Populating DynamoDB local' \
-  &&  { bash ./deploy/database/provision_local_db.sh & }
+  integrates-dynamo &
 }
 
 function helper_integrates_serve_back {

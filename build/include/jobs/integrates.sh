@@ -713,9 +713,6 @@ function job_integrates_serve_components {
                       ||  return 1
                     done \
                 &&  helper_integrates_serve_back "${back_args[@]}"
-              elif [[ "${arg}" == 'dynamo' ]]
-              then
-                helper_integrates_serve_dynamo
               elif [[ "${arg}" == 'minio' ]]
               then
                 helper_integrates_serve_minio

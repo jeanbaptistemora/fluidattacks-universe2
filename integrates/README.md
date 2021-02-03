@@ -84,8 +84,8 @@ Please check out the [Get development keys](https://gitlab.com/fluidattacks/prod
 Run each command in a different terminal:
 
 ```bash
+./make integrates/dynamo
 ./make integrates/redis
-./build.sh integrates_serve_components development dynamo
 ./build.sh integrates_serve_components development minio
 ./build.sh integrates_serve_components development https/development/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/5/0.0.0.0/8081/127.0.0.1
 ```

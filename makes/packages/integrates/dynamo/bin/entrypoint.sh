@@ -6,7 +6,7 @@ function main {
   export AWS_DEFAULT_REGION='us-east-1'
   local host='127.0.0.1'
   local port='8022'
-  local state_path='integrates/.DynamoDB'
+  local state_path='.DynamoDB'
 
       echo '[INFO] Unpacking DynamoDB' \
   &&  rm -rf "${state_path}" \
