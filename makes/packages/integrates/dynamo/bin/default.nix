@@ -1,4 +1,5 @@
 { integratesPkgs
+, integratesPkgsTerraform
 , outputs
 , path
 , ...
@@ -14,6 +15,8 @@ makeEntrypoint {
     };
     envJava = "${integratesPkgs.jdk11}/bin/java";
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
+    envTerraform = "${integratesPkgsTerraform.terraform_0_13}/bin/terraform";
+    envTerraformModule = path "/makes/packages/integrates/dynamo/bin";
     envUnzip = "${integratesPkgs.unzip}/bin/unzip";
     envWait = outputs.apps."makes/wait".program;
   };

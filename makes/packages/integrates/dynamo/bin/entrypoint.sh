@@ -21,6 +21,11 @@ function main {
           -sharedDb \
       & } \
   &&  __envWait__ 10 "127.0.0.1:${port}" \
+  &&  copy __envTerraformModule__ "${state_path}/terraform" \
+  &&  pushd "${state_path}/terraform" \
+    &&  __envTerraform__ init \
+    &&  __envTerraform__ apply -auto-approve \
+  &&  popd \
   &&  wait
 }
 
