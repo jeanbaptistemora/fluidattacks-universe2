@@ -37,6 +37,7 @@ observes/lint-streamer-zoho-crm
 observes/lint-tap-csv
 observes/lint-tap-mixpanel
 observes/lint-target-redshift
+observes/test-postgres-client
 observes/test-singer-io
 skims/bin
 skims/config-development

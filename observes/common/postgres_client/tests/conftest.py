@@ -18,7 +18,7 @@ test_db_id = DatabaseID(
 postgresql_my_proc = factories.postgresql_proc(
     host=test_db_id.host, port=test_db_id.port,
     user=test_creds.user, password=test_creds.password,
-    unixsocketdir='/var/run/postgresql')
+    unixsocketdir='.')
 postgresql_my = factories.postgresql(
     'postgresql_my_proc', db_name=test_db_id.db_name
 )

@@ -1,4 +1,15 @@
 { nixPkgs, path }:
+let
+  nixUtils = import (path "/makes/utils/nix") path nixPkgs;
+  sort = nixUtils.sortCaseless;
+  verifySort = list:
+    if (sort list == list)
+    then list
+    else abort "Python requirements must be sorted in this order: ${builtins.toJSON (sort list)}";
+  mergeDeps = lists: sort (
+    builtins.foldl' (a: b: a ++ b) [ ] (builtins.map verifySort lists)
+  );
+in
 rec {
   codeEtl = {
     srcPath = path "/observes/code_etl";
@@ -88,28 +99,44 @@ rec {
     python = {
       direct = [
         "psycopg2==2.8.4"
-        "pytest-postgresql==2.5.2"
-        "pytest==5.2.0"
       ];
-      inherited = [
-        "atomicwrites==1.4.0"
-        "attrs==20.3.0"
-        "mirakuru==2.3.0"
-        "more-itertools==8.6.0"
-        "packaging==20.8"
-        "pluggy==0.13.1"
-        "port-for==0.4"
-        "psutil==5.8.0"
-        "py==1.10.0"
-        "pyparsing==2.4.7"
-        "wcwidth==0.2.5"
-      ];
+      inherited = [ ];
     };
     local = [ ];
     nix = [
       nixPkgs.postgresql
-      nixPkgs.python38Packages.psycopg2
     ];
+  };
+  postgresClientDev = {
+    srcPath = postgresClient.srcPath;
+    python = {
+      direct = mergeDeps [
+        postgresClient.python.direct
+        [
+          "pytest-postgresql==2.5.2"
+          "pytest-timeout==1.4.2"
+          "pytest==5.2.0"
+        ]
+      ];
+      inherited = mergeDeps [
+        postgresClient.python.inherited
+        [
+          "atomicwrites==1.4.0"
+          "attrs==20.3.0"
+          "mirakuru==2.3.0"
+          "more-itertools==8.6.0"
+          "packaging==20.9"
+          "pluggy==0.13.1"
+          "port-for==0.4"
+          "psutil==5.8.0"
+          "py==1.10.0"
+          "pyparsing==2.4.7"
+          "wcwidth==0.2.5"
+        ]
+      ];
+    };
+    local = postgresClient.local;
+    nix = postgresClient.nix;
   };
   singerIO = {
     srcPath = path "/observes/common/singer_io";
@@ -123,17 +150,23 @@ rec {
   singerIOdev = {
     srcPath = singerIO.srcPath;
     python = {
-      direct = [
-        "pytest==6.1.2"
+      direct = mergeDeps [
+        singerIO.python.direct
+        [
+          "pytest==6.1.2"
+        ]
       ];
-      inherited = singerIO.python.inherited ++ [
-        "attrs==20.3.0"
-        "iniconfig==1.1.1"
-        "packaging==20.9"
-        "pluggy==0.13.1"
-        "py==1.10.0"
-        "pyparsing==2.4.7"
-        "toml==0.10.2"
+      inherited = mergeDeps [
+        singerIO.python.inherited
+        [
+          "attrs==20.3.0"
+          "iniconfig==1.1.1"
+          "packaging==20.9"
+          "pluggy==0.13.1"
+          "py==1.10.0"
+          "pyparsing==2.4.7"
+          "toml==0.10.2"
+        ]
       ];
     };
     local = singerIO.local;

@@ -137,12 +137,17 @@ observes/scheduled-code-etl-upload:
   tags: [autoscaling]
   interruptible: false
 
+observes/test-postgres-client:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 observes/test-singer-io:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-# unorganized jobs
+# disorganized jobs
 
 observes_apply_infra:
   <<: *with_nix
@@ -200,11 +205,6 @@ observes_gitlab_streamer_test:
   stage: test-code
 
 observes_gitlab_etl_test:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: test-code
-
-observes_postgres_client_test:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: test-code
