@@ -42,6 +42,7 @@ from backend.utils import (
 from backend.utils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
+    validate_field_length,
     validate_fluidattacks_staff_on_group,
     validate_phone_field
 )
@@ -155,6 +156,43 @@ async def complete_register_for_group_invitation(
                 user_domain.register(user_email),
                 authz.grant_user_level_role(user_email, 'customer')
             )))
+
+    return success
+
+
+async def update_invited_stakeholder(
+    updated_data: Dict[str, str],
+    invitation: InvitationType,
+    group_name: str
+) -> bool:
+    success = False
+    email = updated_data['email']
+    responsibility = updated_data['responsibility']
+    phone_number = updated_data['phone_number']
+    role = updated_data['role']
+    new_invitation = invitation.copy()
+    if (
+        validate_field_length(responsibility, 50)
+        and validate_alphanumeric_field(responsibility)
+        and validate_phone_field(phone_number)
+        and validate_email_address(email)
+        and await validate_fluidattacks_staff_on_group(group_name, email, role)
+
+    ):
+        new_invitation['responsibility'] = responsibility
+        new_invitation['role'] = role
+
+        success = all(await collect([
+            group_domain.update_access(
+                email,
+                group_name,
+                {
+                    'invitation': new_invitation,
+
+                }
+            ),
+            user_domain.add_phone_to_user(email, phone_number)
+        ]))
 
     return success
 

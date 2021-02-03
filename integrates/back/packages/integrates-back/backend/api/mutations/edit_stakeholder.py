@@ -1,6 +1,6 @@
 # Standard library
 import logging
-from typing import Any
+from typing import Any, Dict, cast
 
 # Third party libraries
 from ariadne import convert_kwargs_to_snake_case
@@ -17,10 +17,16 @@ from backend.decorators import (
     require_integrates,
     require_login
 )
+from backend.domain import (
+    project as group_domain,
+)
 from backend.typing import (
+    Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
 )
-from backend.utils.user import modify_user_information
+from backend.utils import (
+    user as user_utils,
+)
 from backend.utils.validations import validate_fluidattacks_staff_on_group
 
 from back.settings import LOGGING
@@ -32,6 +38,41 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def _update_stakeholder(
+    info: GraphQLResolveInfo,
+    updated_data: Dict[str, str]
+) -> bool:
+    success = False
+    group_name = updated_data['project_name'].lower()
+    modified_role = updated_data['role']
+    modified_email = updated_data['email']
+    project_access = await group_domain.get_user_access(
+        modified_email,
+        group_name
+    )
+    invitation = cast(InvitationType, project_access.get('invitation'))
+    if invitation and not invitation['is_used']:
+        success = await user_utils.update_invited_stakeholder(
+            updated_data,
+            invitation,
+            group_name
+        )
+    else:
+        if await authz.grant_group_level_role(
+            modified_email, group_name, modified_role
+        ):
+            success = await user_utils.modify_user_information(
+                info.context, updated_data, group_name
+            )
+        else:
+            LOGGER.error(
+                'Couldn\'t update stakeholder role',
+                extra={'extra': info.context}
+            )
+
+    return success
+
+
 @convert_kwargs_to_snake_case  # type: ignore
 @concurrent_decorators(
     require_login,
@@ -41,11 +82,11 @@ LOGGER = logging.getLogger(__name__)
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-    **modified_user_data: str
+    **updated_data: str
 ) -> EditStakeholderPayloadType:
-    project_name = modified_user_data['project_name'].lower()
-    modified_role = modified_user_data['role']
-    modified_email = modified_user_data['email']
+    project_name = updated_data['project_name'].lower()
+    modified_role = updated_data['role']
+    modified_email = updated_data['email']
 
     success = False
     user_data = await util.get_jwt_content(info.context)
@@ -62,16 +103,7 @@ async def mutate(
     )
 
     if modified_role in allowed_roles_to_grant:
-        if await authz.grant_group_level_role(
-                modified_email, project_name, modified_role):
-            success = await modify_user_information(
-                info.context, modified_user_data, project_name
-            )
-        else:
-            LOGGER.error(
-                'Couldn\'t update stakeholder role',
-                extra={'extra': info.context}
-            )
+        success = await _update_stakeholder(info, updated_data)
     else:
         LOGGER.error(
             'Invalid role provided',
@@ -102,6 +134,6 @@ async def mutate(
         success=success,
         modified_stakeholder=dict(
             project_name=project_name,
-            email=modified_user_data['email']
+            email=updated_data['email']
         )
     )
