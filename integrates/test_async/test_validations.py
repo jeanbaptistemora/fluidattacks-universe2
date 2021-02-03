@@ -26,13 +26,13 @@ def test_validate_fields():
         assert validate_fields(['testfield', '<testfield2'])
 
 def test_validate_field_length():
-    assert not bool(validate_field_length('testlength', limit=12))
-    assert not bool(validate_field_length(
-        'testlength', limit=2, is_greater_than_limit=False))
+    assert validate_field_length('testlength', limit=12)
+    assert validate_field_length(
+        'testlength', limit=2, is_greater_than_limit=True)
     with pytest.raises(InvalidFieldLength):
-        assert validate_field_length('testlength', limit=9)
-        assert validate_field_length(
-            'testlength', limit=11, is_greater_than_limit=False)
+        validate_field_length('testlength', limit=9)
+        validate_field_length(
+            'testlength', limit=11, is_greater_than_limit=True)
 
 def test_validate_email_address():
     assert validate_email_address('test@unittesting.com')

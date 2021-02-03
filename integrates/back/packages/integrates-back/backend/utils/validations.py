@@ -115,13 +115,14 @@ def check_field(field: str, regexp: str) -> None:
 def validate_field_length(
         field: str,
         limit: int,
-        is_greater_than_limit: bool = True) -> None:
+        is_greater_than_limit: bool = False) -> bool:
     """
-    if is_greater_than_limit equals False,
-    it means we are checking if field < limit
+    if is_greater_than_limit equals True,
+    it means we are checking if field > limit
     """
-    if (len(field) > limit) == is_greater_than_limit:
+    if (len(field) > limit) != is_greater_than_limit:
         raise InvalidFieldLength()
+    return True
 
 
 def validate_project_name(project_name: str) -> None:
