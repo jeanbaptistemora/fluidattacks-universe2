@@ -31,5 +31,5 @@ function forces_projects {
       mapfile -t groups < "$(list_subscriptions)" \
   &&  use_git_repo_services >&2 \
   &&  '__envMelts__' misc --filter-groups-with-forces "${groups[*]}" \
-  &&  popd >&2 || exit
+  &&  popd >&2 || return
 }

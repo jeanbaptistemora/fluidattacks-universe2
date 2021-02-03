@@ -9,7 +9,7 @@ function main {
     &&  echo '[INFO] Initializing' \
     &&  terraform init \
     &&  echo '[INFO] Applying changes' \
-    &&  terraform apply -auto-approve -refresh=true \
+    &&  terraform apply -auto-approve -refresh=true "${@}" \
   &&  popd \
   ||  return 1
 }
