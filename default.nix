@@ -19,6 +19,7 @@ let
 
   # Temporary components while migrating from Nix2 to Nix3
   temporaryComponents = {
+    integrates-dynamo = flake.defaultNix.outputs.packages.x86_64-linux."integrates/dynamo/bin";
     integrates-redis = flake.defaultNix.outputs.packages.x86_64-linux."integrates/redis/bin";
   };
 

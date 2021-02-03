@@ -81,7 +81,6 @@ resource "aws_dynamodb_table" "FI_findings" {
   }
   hash_key  = "finding_id"
   name      = "FI_findings"
-  range_key = "project_name"
 }
 
 resource "aws_dynamodb_table" "FI_forces" {
