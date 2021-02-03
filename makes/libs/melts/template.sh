@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 source '__envUtilsBashLibAws__'
+source '__envUtilsBashLibGit__'
 
 function clone_services_repository {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
@@ -17,9 +18,10 @@ function clone_services_repository {
 
 function list_subscriptions {
   local file
-
-      file="$(mktemp)" \
+      use_git_repo_services >&2 \
+  &&  file="$(mktemp)" \
   &&  ls -1 groups > "${file}" \
+  &&  popd >&2 \
   &&  echo "${file}"
 }
 
@@ -27,5 +29,7 @@ function forces_projects {
   local groups
 
       mapfile -t groups < "$(list_subscriptions)" \
-  &&  '__envMelts__' misc --filter-groups-with-forces "${groups[*]}"
+  &&  use_git_repo_services >&2 \
+  &&  '__envMelts__' misc --filter-groups-with-forces "${groups[*]}" \
+  &&  popd >&2 || exit
 }

@@ -14,7 +14,6 @@ makeEntrypoint rec {
       product = "forces";
       target = "forces/infra";
     }}/bin/${name}";
-    envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path forcesPkgsTerraform;
     envUtilsMeltsLibCommon = import (path "/makes/libs/melts") attrs.copy;
   };
   name = "forces-infra-test";
