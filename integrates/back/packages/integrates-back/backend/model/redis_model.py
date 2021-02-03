@@ -118,6 +118,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'max_open_severity_finding',
             'max_severity',
             'max_severity_finding',
+            'stakeholders',
             'total_findings',
         },
         dependencies={

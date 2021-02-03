@@ -1,4 +1,5 @@
 # Standard libraries
+from functools import partial
 from itertools import chain
 from typing import cast, Dict, List
 
@@ -11,6 +12,7 @@ from backend import (
     authz,
     util
 )
+from backend.dal.helpers.redis import redis_get_or_set_entity_attr
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -82,6 +84,21 @@ async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
     require_integrates,
 )
 async def resolve(
+    parent: GroupType,
+    info: GraphQLResolveInfo,
+    **kwargs: None
+) -> List[StakeholderType]:
+    response: List[StakeholderType] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, parent, info, **kwargs),
+        entity='group',
+        attr='stakeholders',
+        name=cast(str, parent['name'])
+    )
+
+    return response
+
+
+async def resolve_no_cache(
     parent: GroupType,
     info: GraphQLResolveInfo,
     **_kwargs: None
