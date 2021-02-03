@@ -79,6 +79,11 @@
   script:
     - ./build.sh integrates_scheduler_prod "${CI_JOB_NAME/scheduler_/}"
 
+integrates/dynamo/oci/deploy:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: build
+
 integrates/front/build:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -350,6 +355,7 @@ integrates_back_deploy_development:
   stage: deploy-app
   needs:
     - integrates_back_build_development
+    - integrates/dynamo/oci/deploy
     - integrates/redis/oci/deploy
   environment:
     name: "development/$CI_COMMIT_REF_SLUG"

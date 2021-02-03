@@ -10,11 +10,16 @@ makeDerivation {
   builder = path "/makes/packages/makes/test/builder.sh";
   envBuilt = builtins.concatLists [
     (builtins.attrValues (builtins.removeAttrs sources.apps [
-      "skims/oci-deploy" # Consumes a lot of disk
+      # Consume a lot of disk
+      "integrates/dynamo/oci/deploy"
+      "skims/oci-deploy"
     ]))
     (builtins.attrValues (builtins.removeAttrs sources.packages [
-      "makes/test" # Needed to avoid infinite recursion
-      "skims/oci-build" # Consumes a lot of disk
+      # Needed to avoid infinite recursion
+      "makes/test"
+      # Consume a lot of disk
+      "integrates/dynamo/oci"
+      "skims/oci-build"
     ]))
   ];
   name = "makes-test";

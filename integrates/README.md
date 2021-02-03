@@ -23,7 +23,7 @@ Checkout the [ADR](./arch/README.md)
 
 The instructions presented below will work correctly in any
 debian/alpine based x86_64-linux operating system with fabric configurations
-in user-space.
+in user-space and DNS set to 1.1.1.1, 8.8.8.8, and 8.8.4.4.
 
 Additionally you'll require sudo access to root.
 

@@ -6,6 +6,7 @@ forces/oci-deploy-wrapper
 forces/test
 forces/wrapper
 integrates/dynamo
+integrates/dynamo/oci/deploy
 integrates/front/build
 integrates/front/deploy
 integrates/infra/backup/apply

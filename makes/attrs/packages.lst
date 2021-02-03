@@ -8,6 +8,7 @@ forces/oci-build-wrapper
 integrates/back/config/development
 integrates/back/config/runtime
 integrates/dynamo/bin
+integrates/dynamo/oci
 integrates/front/config/development
 integrates/front/config/runtime
 integrates/front/lint
