@@ -33,7 +33,6 @@ from backend.api.mutations import (
     edit_group,
     edit_stakeholder,
     edit_stakeholder_organization,
-    execute_skims,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_vulns_acceptation,
@@ -93,7 +92,6 @@ MUTATION.set_field(
     'editStakeholderOrganization',
     edit_stakeholder_organization.mutate
 )
-MUTATION.set_field('executeSkims', execute_skims.mutate)
 MUTATION.set_field(
     'grantStakeholderOrganizationAccess',
     grant_stakeholder_organization_access.mutate

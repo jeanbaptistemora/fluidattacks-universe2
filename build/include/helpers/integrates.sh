@@ -469,10 +469,6 @@ function helper_integrates_sops_vars {
 
   helper_common_sops_env "secrets-${env_name}.yaml" default \
     AWS_DEFAULT_REGION \
-    AWS_REDSHIFT_DBNAME \
-    AWS_REDSHIFT_HOST \
-    AWS_REDSHIFT_PASSWORD \
-    AWS_REDSHIFT_USER \
     AZUREAD_OAUTH2_KEY \
     AZUREAD_OAUTH2_SECRET \
     BITBUCKET_OAUTH2_KEY \
@@ -485,9 +481,6 @@ function helper_integrates_sops_vars {
     CLOUDFRONT_RESOURCES_DOMAIN \
     CLOUDFRONT_REPORTS_DOMAIN \
     CLOUDMERSIVE_API_KEY \
-    DB_HOST \
-    DB_PASSWD \
-    DB_USER \
     DEBUG \
     DEFAULT_ORG \
     DYNAMODB_HOST \
@@ -512,7 +505,6 @@ function helper_integrates_sops_vars {
     NEW_RELIC_APP_ID \
     NEW_RELIC_LICENSE_KEY \
     NEW_RELIC_ENVIRONMENT \
-    PRODUCT_PIPELINE_TOKEN \
     REDIS_SERVER \
     SQREEN_TOKEN \
     SQS_QUEUE_URL \
