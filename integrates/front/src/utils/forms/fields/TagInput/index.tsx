@@ -1,15 +1,14 @@
-import type { FormControlProps } from "react-bootstrap";
-import { HelpBlock } from "react-bootstrap";
 import React from "react";
 import { WithContext as ReactTags } from "react-tag-input";
 import type { Tag } from "react-tag-input";
+import { ValidationError } from "styles/styledComponents";
 import _ from "lodash";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 import { validTextField } from "utils/validations";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-interface ITagInputProps extends WrappedFieldProps, FormControlProps {
+interface ITagInputProps extends WrappedFieldProps {
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;
   onDeletion: (tag: string) => void;
 }
@@ -104,14 +103,13 @@ export const TagInput: React.FC<ITagInputProps> = (
         tags={tagsInput}
       />
       {tagsError && (
-        <HelpBlock
+        <ValidationError
           // We need it to override default styles from react-bootstrap.
           // eslint-disable-next-line react/forbid-component-props
-          className={style.validationError}
           id={"validationError"}
         >
           {translate.t("validations.alphanumeric")}
-        </HelpBlock>
+        </ValidationError>
       )}
     </React.Fragment>
   );

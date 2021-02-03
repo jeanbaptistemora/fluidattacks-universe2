@@ -1,5 +1,4 @@
 import { Field } from "redux-form";
-import { FormControl } from "react-bootstrap";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
@@ -32,6 +31,6 @@ describe("TextArea Field", (): void => {
       </Provider>
     );
 
-    expect(wrapper.find(FormControl).props().id).toBe("test");
+    expect(wrapper.find("textarea").props().id).toBe("test");
   });
 });

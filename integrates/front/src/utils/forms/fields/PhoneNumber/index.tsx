@@ -1,14 +1,13 @@
-import type { FormControlProps } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
 import React from "react";
 import type { WrappedFieldProps } from "redux-form";
 import style from "utils/forms/index.css";
 import "react-phone-input-2/lib/bootstrap.css";
 
-export const PhoneNumber: React.FC<WrappedFieldProps & FormControlProps> = (
+export const PhoneNumber: React.FC<WrappedFieldProps> = (
   // Readonly utility type does not work on deeply nested types
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  props: Readonly<WrappedFieldProps & FormControlProps>
+  props: Readonly<WrappedFieldProps>
 ): JSX.Element => {
   const { input } = props;
   const { onChange, value: reduxFormValue } = input;

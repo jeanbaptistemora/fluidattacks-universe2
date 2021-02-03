@@ -91,6 +91,10 @@
   text-align: center;
 }
 
+.text-area {
+  height: 100px !important;
+}
+
 .form-control {
   display: block;
   width: 100% !important;
@@ -127,7 +131,7 @@
 }
 
 .badge {
-  display: inline-block;
+  float: right;
   min-width: 10px;
   padding: 3px 7px;
   font-size: 16px;

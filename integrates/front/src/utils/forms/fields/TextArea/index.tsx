@@ -3,14 +3,14 @@
   We need className to override default styles from react-bootstrap and props
   spreading is the best way to pass down props.
 */
-import type { FormControlProps } from "react-bootstrap";
 import React from "react";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { Badge, FormControl, HelpBlock } from "react-bootstrap";
+import { Alert, ValidationError } from "styles/styledComponents";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-interface ITextAreaProps extends WrappedFieldProps, FormControlProps {
+interface ITextAreaProps extends WrappedFieldProps {
+  className?: string;
   input: { value: string } & Omit<WrappedFieldInputProps, "value">;
   withCount?: boolean;
 }
@@ -26,25 +26,22 @@ export const TextArea: React.FC<ITextAreaProps> = (
 
   return (
     <React.Fragment>
-      <FormControl
-        componentClass={"textarea"}
+      <textarea
         {...props}
         {...input}
-        className={`${style["form-control"]} ${
+        className={`${style["form-control"]} ${style["text-area"]} ${
           _.isUndefined(className) ? "" : className
         }`}
       />
-      {withCount && (
-        <Badge className={style.badge} pullRight={true}>
-          {value.length}
-        </Badge>
-      )}
-      {withCount && !_.isUndefined(error) && <br />}
-      {touched && !_.isUndefined(error) && (
-        <HelpBlock className={style.validationError} id={"validationError"}>
+      {withCount ? (
+        <Alert className={style.badge}>{value.length}</Alert>
+      ) : undefined}
+      {withCount && !_.isUndefined(error) ? <br /> : undefined}
+      {touched && !_.isUndefined(error) ? (
+        <ValidationError id={"validationError"}>
           {error as string}
-        </HelpBlock>
-      )}
+        </ValidationError>
+      ) : undefined}
     </React.Fragment>
   );
 };
