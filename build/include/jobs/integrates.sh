@@ -238,58 +238,6 @@ function job_integrates_mobile_lint {
   ||  return 1
 }
 
-
-# Front
-
-function job_integrates_front_build_production {
-      pushd integrates \
-    &&  helper_integrates_front_build \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_front_deploy_development {
-  local branch="${CI_COMMIT_REF_NAME}"
-  local env='development'
-
-      pushd integrates \
-    &&  helper_integrates_front_deploy \
-          "${branch}" \
-          "${env}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_front_deploy_production {
-  local branch='master'
-  local env='production'
-
-      pushd integrates \
-    &&  helper_integrates_front_deploy \
-          "${branch}" \
-          "${env}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_front_lint_styles {
-  local err_count
-        pushd integrates/front \
-      &&  npm install \
-      &&  echo "[INFO] Running Stylelint to lint CSS files" \
-      &&  if npm run lint:stylelint
-          then
-            echo '[INFO] All styles are ok!'
-          else
-                err_count="$(npx stylelint '**/*.css' | wc -l || true)" \
-            &&  echo "[ERROR] ${err_count} errors found in styles!" \
-            &&  return 1
-          fi \
-    && popd \
-    || return 1
-}
-
-
 # Back
 
 function job_integrates_back_build_production {
