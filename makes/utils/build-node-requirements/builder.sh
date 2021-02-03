@@ -28,11 +28,8 @@ function main {
         echo '[INFO] Integrity check passed'
       else
             echo '[ERROR] Integrity check failed' \
-        &&  echo '[INFO] You need to specify all dependencies:' \
-        &&  while read -r requirement
-            do
-              echo "\"${requirement}\""
-            done < "${out}/requirements" \
+        &&  echo '[INFO] The following dependencies are missing from your configuration file:' \
+        &&  comm -1 -3 "${envRequirementsFile}" "${out}/requirements" \
         &&  return 1
       fi \
   ||  return 1
