@@ -1882,6 +1882,7 @@ export const enTranslations: ResourceKey = {
         acceptation_success: "Indefinite acceptation has been handled",
         maximum_number_of_acceptations:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",
+        treatmentChange: "Vulnerability treatment will be changed",
       },
       buttons: {
         handle_acceptation: "Treatment Acceptation",

@@ -26,7 +26,13 @@ import { authContext } from "utils/auth";
 import mixpanel from "mixpanel-browser";
 import { translate } from "utils/translations/translate";
 import { useAbility } from "@casl/react";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+import {
+  Alert,
+  ButtonToolbar,
+  Col100,
+  Col50,
+  Row,
+} from "styles/styledComponents";
 import {
   DELETE_TAGS_MUTATION,
   REQUEST_ZERO_RISK_VULN,
@@ -512,6 +518,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                     </Col50>
                   </Row>
                 </GenericForm>
+                {isTreatmentPristine ? undefined : (
+                  <Alert>
+                    {"*"}&nbsp;
+                    {translate.t(
+                      "search_findings.tab_vuln.alerts.treatmentChange"
+                    )}
+                  </Alert>
+                )}
                 <hr />
                 <Row>
                   <Col100>
