@@ -1,6 +1,10 @@
 # shellcheck shell=bash
 
 function sops_export_vars {
+  sops_export_vars_by_profile "${1}" 'default' "${@:2}"
+}
+
+function sops_export_vars_by_profile {
   local manifest="${1}"
   local profile="${2}"
 

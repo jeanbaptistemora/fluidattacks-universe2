@@ -5,7 +5,7 @@ source '__envUtilsSops__'
 
 function main {
       aws_login_dev integrates \
-  &&  sops_export_vars 'integrates/secrets-development.yaml' 'default' \
+  &&  sops_export_vars 'integrates/secrets-development.yaml' \
         CLOUDFLARE_API_TOKEN \
   &&  TF_VAR_cloudflare_api_token="${CLOUDFLARE_API_TOKEN}" \
       '__envTerraformTest__'

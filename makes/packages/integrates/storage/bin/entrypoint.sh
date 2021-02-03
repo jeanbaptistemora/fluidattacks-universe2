@@ -18,7 +18,7 @@ function main {
   local state_path='.Storage'
 
       aws_login_dev integrates \
-  &&  sops_export_vars 'integrates/secrets-development.yaml' 'default' \
+  &&  sops_export_vars 'integrates/secrets-development.yaml' \
         TEST_PROJECTS \
   &&  mkdir -p "${state_path}" \
   &&  echo "${TEST_PROJECTS}" > "${state_path}/projects" \

@@ -22,7 +22,7 @@ function job_code_mirror {
         &&  return 1
       fi \
   &&  aws_login_prod 'observes' \
-  &&  sops_export_vars 'observes/secrets-prod.yaml' 'default' \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE}" \

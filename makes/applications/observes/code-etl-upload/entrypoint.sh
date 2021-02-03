@@ -16,7 +16,7 @@ function job_code_upload {
         &&  return 1
       fi \
   &&  aws_login_prod 'observes' \
-  &&  sops_export_vars 'observes/secrets-prod.yaml' 'default' \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' \
         'REDSHIFT_DATABASE' \
         'REDSHIFT_HOST' \
         'REDSHIFT_PASSWORD' \

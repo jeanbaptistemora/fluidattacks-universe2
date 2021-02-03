@@ -28,7 +28,7 @@ function owasp {
 function upload {
       aws_login_prod 'observes' \
   &&  analytics_auth_redshift_file="$(mktemp)" \
-  &&  sops_export_vars 'observes/secrets-prod.yaml' 'default' \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' \
         analytics_auth_redshift \
   &&  echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
   &&  echo '[INFO] Running tap' \

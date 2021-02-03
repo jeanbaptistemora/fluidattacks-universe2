@@ -11,7 +11,7 @@ function job_code_amend_authors {
   export GITLAB_API_TOKEN
 
       aws_login_prod 'observes' \
-  &&  sops_export_vars 'observes/secrets-prod.yaml' 'default' \
+  &&  sops_export_vars 'observes/secrets-prod.yaml' \
         'REDSHIFT_DATABASE' \
         'REDSHIFT_HOST' \
         'REDSHIFT_PASSWORD' \
