@@ -94,7 +94,7 @@ describe("Evidence image", () => {
     const component: ReactWrapper = wrapper.find({ name: "evidence1" });
     component.find("textarea")
       .simulate("change", { target: { value: "New description" } });
-    wrapper.find("form")
+    wrapper.find({id: "evidence1", className: "sc-giIncl mb4 w-100"})
       .simulate("submit");
     expect(handleUpdate)
       .toHaveBeenCalled();

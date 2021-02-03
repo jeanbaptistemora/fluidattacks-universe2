@@ -280,6 +280,13 @@ const GraphicPanelCollapseFooter: StyledComponent<
   className: "pb3 pl4 pt3 pr4 items-center panel-cf",
 })``;
 
+const InputGroup: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: "relative dt",
+})``;
+
 const Label: StyledComponent<
   "span",
   Record<string, unknown>
@@ -644,6 +651,7 @@ export {
   GraphicPanelCollapseBody,
   GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
+  InputGroup,
   Label,
   LastProjectSetting,
   Meter,

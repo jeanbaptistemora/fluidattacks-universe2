@@ -118,6 +118,7 @@ const recordsView: React.FC = (): JSX.Element => {
                               <Field
                                 accept=".csv"
                                 component={FileInput}
+                                className={"fr"}
                                 id="recordsFile"
                                 name="filename"
                                 validate={[required, validRecordsFile]}

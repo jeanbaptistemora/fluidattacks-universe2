@@ -1,6 +1,6 @@
 import { Field } from "redux-form";
 import { FileInput } from "utils/forms/fields/FileInput";
-import { FormGroup } from "react-bootstrap";
+import { FormGroup } from "styles/styledComponents";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
@@ -31,6 +31,6 @@ describe("FileInput Field", (): void => {
       </Provider>
     );
 
-    expect(wrapper.find(FormGroup).props().controlId).toBe("test");
+    expect(wrapper.find(FormGroup).props().id).toBe("test");
   });
 });
