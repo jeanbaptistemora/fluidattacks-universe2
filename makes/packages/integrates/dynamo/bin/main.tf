@@ -23,6 +23,67 @@ resource "aws_dynamodb_table" "fi_authz" {
   range_key    = "object"
 }
 
+resource "aws_dynamodb_table" "FI_comments" {
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+  attribute {
+    name = "user_id"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "finding_id"
+  name         = "FI_comments"
+  range_key    = "user_id"
+}
+
+resource "aws_dynamodb_table" "fi_events" {
+  attribute {
+    name = "event_id"
+    type = "S"
+  }
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key        = "project_name"
+    name            = "project_events"
+    projection_type = "KEYS_ONLY"
+  }
+  hash_key  = "event_id"
+  name      = "fi_events"
+}
+
+resource "aws_dynamodb_table" "FI_findings" {
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key        = "project_name"
+    name            = "project_findings"
+    non_key_attributes = [
+      "cvss_temporal",
+      "finding",
+      "historic_state",
+      "historic_verification",
+      "historic_treatment",
+    ]
+    projection_type = "INCLUDE"
+  }
+  hash_key  = "finding_id"
+  name      = "FI_findings"
+  range_key = "project_name"
+}
+
 resource "aws_dynamodb_table" "fi_subscriptions" {
   attribute {
     name = "pk"
