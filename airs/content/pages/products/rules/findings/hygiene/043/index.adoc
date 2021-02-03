@@ -36,8 +36,6 @@ For application servers, the required HTTP headers are the following:
 
 * [inner]#link:/resources/doc/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_x_frame_options_missing[X-Frame-Options]#
 
-* [inner]#link:/resources/doc/asserts/fluidasserts.proto.http/#fluidasserts.proto.http.is_header_x_xxs_protection_missing[X-XSS-Protection]#
-
 For API servers, the required HTTP headers are the following:
 
 * [inner]#link:/resources/doc/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_content_type_missing[Content-Type]#
@@ -47,8 +45,6 @@ For API servers, the required HTTP headers are the following:
 * [inner]#link:/resources/doc/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_hsts_missing[Strict-Transport-Security (*HSTS*)]#
 
 * [inner]#link:/resources/doc/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_x_content_type_options_missing[X-Content-Type-Options]#
-
-* [inner]#link:/resources/doc/asserts/fluidasserts.proto.rest/#fluidasserts.proto.rest.is_header_x_frame_options_missing[X-Frame-Options]#
 
 == Rules
 
