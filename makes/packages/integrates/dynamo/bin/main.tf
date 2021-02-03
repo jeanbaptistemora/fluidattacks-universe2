@@ -53,8 +53,8 @@ resource "aws_dynamodb_table" "fi_events" {
     name            = "project_events"
     projection_type = "KEYS_ONLY"
   }
-  hash_key  = "event_id"
-  name      = "fi_events"
+  hash_key = "event_id"
+  name     = "fi_events"
 }
 
 resource "aws_dynamodb_table" "FI_findings" {
@@ -68,8 +68,8 @@ resource "aws_dynamodb_table" "FI_findings" {
   }
   billing_mode = "PAY_PER_REQUEST"
   global_secondary_index {
-    hash_key        = "project_name"
-    name            = "project_findings"
+    hash_key = "project_name"
+    name     = "project_findings"
     non_key_attributes = [
       "cvss_temporal",
       "finding",
@@ -82,6 +82,127 @@ resource "aws_dynamodb_table" "FI_findings" {
   hash_key  = "finding_id"
   name      = "FI_findings"
   range_key = "project_name"
+}
+
+resource "aws_dynamodb_table" "FI_forces" {
+  attribute {
+    name = "subscription"
+    type = "S"
+  }
+  attribute {
+    name = "execution_id"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "subscription"
+  name         = "FI_forces"
+  range_key    = "execution_id"
+}
+
+resource "aws_dynamodb_table" "fi_organizations" {
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+  attribute {
+    name = "sk"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key        = "sk"
+    name            = "gsi-1"
+    projection_type = "ALL"
+    range_key       = "pk"
+  }
+  hash_key  = "pk"
+  name      = "fi_organizations"
+  range_key = "sk"
+}
+
+resource "aws_dynamodb_table" "fi_portfolios" {
+  attribute {
+    name = "organization"
+    type = "S"
+  }
+  attribute {
+    name = "tag"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "organization"
+  name         = "fi_portfolios"
+  range_key    = "tag"
+}
+
+resource "aws_dynamodb_table" "FI_project_access" {
+  attribute {
+    name = "user_email"
+    type = "S"
+  }
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key = "project_name"
+    name     = "project_access_users"
+    non_key_attributes = [
+      "has_access",
+      "responsibility",
+    ]
+    projection_type = "INCLUDE"
+  }
+  hash_key  = "user_email"
+  name      = "FI_project_access"
+  range_key = "project_name"
+}
+
+resource "aws_dynamodb_table" "fi_project_comments" {
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+  attribute {
+    name = "user_id"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "project_name"
+  name         = "fi_project_comments"
+  range_key    = "user_id"
+}
+
+resource "aws_dynamodb_table" "FI_projects" {
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "project_name"
+  name         = "FI_projects"
+}
+
+resource "aws_dynamodb_table" "fi_roots" {
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+  attribute {
+    name = "sk"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key        = "sk"
+    name            = "roots_index"
+    projection_type = "ALL"
+    range_key       = "pk"
+  }
+  hash_key  = "pk"
+  name      = "fi_roots"
+  range_key = "sk"
 }
 
 resource "aws_dynamodb_table" "fi_subscriptions" {
@@ -116,5 +237,80 @@ resource "aws_dynamodb_table" "fi_subscriptions" {
   }
   hash_key  = "pk"
   name      = "fi_subscriptions"
+  range_key = "sk"
+}
+
+resource "aws_dynamodb_table" "FI_toe" {
+  attribute {
+    name = "project"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "project"
+  name         = "FI_toe"
+}
+
+resource "aws_dynamodb_table" "FI_users" {
+  attribute {
+    name = "email"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "email"
+  name         = "FI_users"
+}
+
+resource "aws_dynamodb_table" "FI_vulnerabilities" {
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+  attribute {
+    name = "UUID"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key        = "UUID"
+    name            = "gsi_uuid"
+    projection_type = "ALL"
+  }
+  hash_key  = "finding_id"
+  name      = "FI_vulnerabilities"
+  range_key = "UUID"
+}
+
+resource "aws_dynamodb_table" "integrates" {
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+  attribute {
+    name = "sk"
+    type = "S"
+  }
+  attribute {
+    name = "gsi-2-pk"
+    type = "S"
+  }
+  attribute {
+    name = "gsi-2-sk"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  global_secondary_index {
+    hash_key        = "sk"
+    name            = "gsi-1"
+    projection_type = "ALL"
+    range_key       = "pk"
+  }
+  global_secondary_index {
+    hash_key        = "gsi-2-pk"
+    name            = "gsi-2"
+    projection_type = "ALL"
+    range_key       = "gsi-2-sk"
+  }
+  hash_key  = "pk"
+  name      = "integrates"
   range_key = "sk"
 }
