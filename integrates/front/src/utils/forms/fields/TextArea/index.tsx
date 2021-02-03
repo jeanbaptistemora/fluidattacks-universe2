@@ -4,9 +4,9 @@
   spreading is the best way to pass down props.
 */
 import React from "react";
+import { ValidationError } from "styles/styledComponents";
 import _ from "lodash";
 import style from "utils/forms/index.css";
-import { Alert, ValidationError } from "styles/styledComponents";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
 interface ITextAreaProps extends WrappedFieldProps {
@@ -34,7 +34,7 @@ export const TextArea: React.FC<ITextAreaProps> = (
         }`}
       />
       {withCount ? (
-        <Alert className={style.badge}>{value.length}</Alert>
+        <div className={style.badge}>{value.length}</div>
       ) : undefined}
       {withCount && !_.isUndefined(error) ? <br /> : undefined}
       {touched && !_.isUndefined(error) ? (
