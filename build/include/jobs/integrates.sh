@@ -713,9 +713,6 @@ function job_integrates_serve_components {
                       ||  return 1
                     done \
                 &&  helper_integrates_serve_back "${back_args[@]}"
-              elif [[ "${arg}" == 'redis'  ]]
-              then
-                helper_integrates_serve_redis
               elif [[ "${arg}" == 'dynamo' ]]
               then
                 helper_integrates_serve_dynamo
