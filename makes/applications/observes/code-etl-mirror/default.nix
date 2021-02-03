@@ -4,21 +4,22 @@
 , ...
 } @ _:
 let
+  nixPkgs = observesPkgs;
   bins = import (path "/makes/libs/observes/bins") {
-    inherit path;
-    nixPkgs = observesPkgs;
+    inherit path nixPkgs;
   };
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path observesPkgs;
+  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixPkgs;
 in
 makeEntrypoint {
   arguments = {
     envMelts = outputs.apps.melts.program;
-    envOpenSSH = "${observesPkgs.openssh}/bin";
-    envSopsBin = "${observesPkgs.sops}/bin";
+    envFindUtils = "${nixPkgs.findutils}/bin";
+    envOpenSSH = "${nixPkgs.openssh}/bin";
+    envSopsBin = "${nixPkgs.sops}/bin";
     envUpdateSyncDateBin = "${bins.updateSyncDate}/bin";
-    envUtilsBashLibAws = import (path "/makes/utils/aws") path observesPkgs;
-    envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path observesPkgs;
-    envUtilsBashLibSops = import (path "/makes/utils/sops") path observesPkgs;
+    envUtilsBashLibAws = import (path "/makes/utils/aws") path nixPkgs;
+    envUtilsBashLibGit = import (path "/makes/utils/use-git-repo") path nixPkgs;
+    envUtilsBashLibSops = import (path "/makes/utils/sops") path nixPkgs;
   };
   name = "observes-code-etl-mirror";
   template = path "/makes/applications/observes/code-etl-mirror/entrypoint.sh";
