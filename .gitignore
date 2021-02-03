@@ -1,4 +1,5 @@
 /**/.terraform
 /**/__pycache__
 /.DynamoDB
+/.Storage
 /TEMP_FD
