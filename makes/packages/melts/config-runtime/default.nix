@@ -11,6 +11,8 @@ makeTemplate {
   arguments = {
     envSearchPaths = makeSearchPaths [
       meltsPkgs.git
+      meltsPkgs.sops
+      meltsPkgs.cloc
     ];
     envPython = "${meltsPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
