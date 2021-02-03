@@ -48,6 +48,7 @@ rec {
       nixPkgs.python38Packages.psycopg2
     ];
   };
+
   difDynamoEtl = {
     srcPath = path "/observes/etl/dif_dynamo_etl";
     python = {
@@ -57,6 +58,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   difGitlabEtl = {
     srcPath = path "/observes/etl/dif_gitlab_etl";
     python = {
@@ -94,6 +96,7 @@ rec {
       nixPkgs.python38Packages.psycopg2
     ];
   };
+
   postgresClient = {
     srcPath = path "/observes/common/postgres_client";
     python = {
@@ -107,6 +110,7 @@ rec {
       nixPkgs.postgresql
     ];
   };
+
   postgresClientDev = {
     srcPath = postgresClient.srcPath;
     python = {
@@ -138,6 +142,7 @@ rec {
     local = postgresClient.local;
     nix = postgresClient.nix;
   };
+
   singerIO = {
     srcPath = path "/observes/common/singer_io";
     python = {
@@ -147,6 +152,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   singerIOdev = {
     srcPath = singerIO.srcPath;
     python = {
@@ -172,6 +178,7 @@ rec {
     local = singerIO.local;
     nix = singerIO.nix;
   };
+
   streamerDynamoDb = {
     srcPath = path "/observes/singer/streamer_dynamodb";
     python = {
@@ -181,6 +188,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   streamerGitlab = {
     srcPath = path "/observes/singer/streamer_gitlab";
     python = {
@@ -188,20 +196,13 @@ rec {
         "aioextensions==20.8.2087641"
         "aiohttp==3.6.2"
         "asgiref==3.2.10"
-        "pytest==6.1.1"
       ];
       inherited = [
         "async-timeout==3.0.1"
         "attrs==20.3.0"
         "chardet==3.0.4"
         "idna==3.1"
-        "iniconfig==1.1.1"
         "multidict==4.7.6"
-        "packaging==20.9"
-        "pluggy==0.13.1"
-        "py==1.10.0"
-        "pyparsing==2.4.7"
-        "toml==0.10.2"
         "uvloop==0.14.0"
         "yarl==1.6.3"
       ];
@@ -209,6 +210,33 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
+  streamerGitlabDev = {
+    srcPath = streamerGitlab.srcPath;
+    python = {
+      direct = mergeDeps [
+        streamerGitlab.python.direct
+        [
+          "pytest-asyncio==0.14.0"
+          "pytest==6.1.1"
+        ]
+      ];
+      inherited = mergeDeps [
+        streamerGitlab.python.inherited
+        [
+          "iniconfig==1.1.1"
+          "packaging==20.9"
+          "pluggy==0.13.1"
+          "py==1.10.0"
+          "pyparsing==2.4.7"
+          "toml==0.10.2"
+        ]
+      ];
+    };
+    local = streamerGitlab.local;
+    nix = streamerGitlab.nix;
+  };
+
   streamerZohoCrm = {
     srcPath = path "/observes/singer/streamer_zoho_crm";
     python = {
@@ -244,6 +272,7 @@ rec {
     ];
     nix = [ ];
   };
+
   tapCsv = {
     srcPath = path "/observes/singer/tap_csv";
     python = {
@@ -257,6 +286,7 @@ rec {
     ];
     nix = [ ];
   };
+
   tapFormstack = {
     srcPath = path "/observes/singer/tap_formstack";
     python = {
@@ -266,6 +296,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   tapGit = {
     srcPath = path "/observes/singer/tap_git";
     python = {
@@ -275,6 +306,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   tapJson = {
     srcPath = path "/observes/singer/tap_json";
     python = {
@@ -284,6 +316,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   tapMixpanel = {
     srcPath = path "/observes/singer/tap_mixpanel";
     python = {
@@ -302,6 +335,7 @@ rec {
     ];
     nix = [ ];
   };
+
   tapTimedoctor = {
     srcPath = path "/observes/singer/tap_timedoctor";
     python = {
@@ -311,6 +345,7 @@ rec {
     local = [ ];
     nix = [ ];
   };
+
   targetRedshift = {
     srcPath = path "/observes/singer/target_redshift_2";
     python = {
@@ -338,6 +373,7 @@ rec {
     ];
     nix = [ ];
   };
+
   updateSyncDate = {
     srcPath = path "/observes/services/update_s3_last_sync_date";
     python = {

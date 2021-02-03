@@ -147,6 +147,11 @@ observes/test-singer-io:
   <<: *observes_in_dev_branch
   stage: test-code
 
+observes/test-streamer-gitlab:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 # disorganized jobs
 
 observes_apply_infra:
@@ -198,11 +203,6 @@ observes_gitlab_on_aws:
     refs: [schedules]
     variables: [$observes_gitlab_on_aws]
   interruptible: false
-
-observes_gitlab_streamer_test:
-  <<: *with_nix
-  <<: *observes_in_dev_branch
-  stage: test-code
 
 observes_gitlab_etl_test:
   <<: *with_nix
