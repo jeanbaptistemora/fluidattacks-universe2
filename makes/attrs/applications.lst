@@ -26,6 +26,7 @@ makes/attrs
 makes/deploy/oci-batch
 makes/deploy/oci-ci
 makes/lint
+makes/wait
 melts
 melts/test
 observes/code-etl-amend
