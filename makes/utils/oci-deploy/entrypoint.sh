@@ -27,16 +27,19 @@ function login_to_registry {
 }
 
 function main {
+  local oci='__envOci__'
+  local tag="__envTag__"
+  local oci='__envOci__'
+
       login_to_registry \
   &&  echo '[INFO] Loading OCI' \
-  &&  __envDocker__ load < '__envOci__' \
-  &&  echo '[INFO] Tagging: __envTag__' \
-  &&  __envDocker__ tag 'oci' '__envTag__' \
-  &&  echo '[INFO] Pushing: __envTag__' \
-  &&  __envDocker__ push '__envTag__' \
-  &&  echo '[INFO] Deleting local copy of: __envTag__' \
-  &&  __envDocker__ image remove '__envTag__' \
-
+  &&  __envDocker__ load < "${oci}" \
+  &&  echo "[INFO] Tagging: ${tag}" \
+  &&  __envDocker__ tag 'oci' "${tag}" \
+  &&  echo "[INFO] Pushing: ${tag}" \
+  &&  __envDocker__ push "${tag}" \
+  &&  echo "[INFO] Deleting local copy of: ${tag}" \
+  &&  __envDocker__ image remove "${tag}"
 }
 
 main "${@}"

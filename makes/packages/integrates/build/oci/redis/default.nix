@@ -8,4 +8,7 @@ let
 in
 makeOci {
   config.Entrypoint = [ outputs.apps."integrates/server/redis".program ];
+  extraCommands = ''
+    mkdir tmp
+  '';
 }

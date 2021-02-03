@@ -96,6 +96,11 @@ integrates/deploy/front:
   stage: deploy-app
   needs: [integrates/build/front]
 
+integrates/deploy/oci/redis:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: deploy-app
+
 integrates/infra/backup/apply:
   <<: *makes
   <<: *in_master_branch_integrates

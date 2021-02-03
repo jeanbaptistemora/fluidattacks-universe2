@@ -5,6 +5,7 @@ forces/test
 forces/wrapper
 integrates/build/front
 integrates/deploy/front
+integrates/deploy/oci/redis
 integrates/infra/backup/apply
 integrates/infra/backup/test
 integrates/infra/cache-db/apply
