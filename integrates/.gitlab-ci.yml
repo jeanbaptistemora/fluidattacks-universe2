@@ -453,11 +453,6 @@ integrates_mobile_lint:
   <<: *in_dev_branch_integrates
   stage: lint-code
 
-integrates_front_lint_styles:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates_back_test_unit:
   <<: *with_nix
   <<: *in_dev_branch_integrates

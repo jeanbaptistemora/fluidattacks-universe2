@@ -11,6 +11,7 @@ integrates/front/config/development
 integrates/front/config/runtime
 integrates/front/lint
 integrates/front/lint/eslint
+integrates/front/lint/stylelint
 integrates/front/lint/tslint
 integrates/front/test
 integrates/redis/oci/build
