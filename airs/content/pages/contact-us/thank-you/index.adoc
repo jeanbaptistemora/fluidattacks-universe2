@@ -3,6 +3,7 @@
 :keywords: Fluid Attacks, Contact, Acknowledgment, Company, About us, Security.
 :template: thank-you
 
-= Thank you for contacting Fluid Attacks!
+= Your form was submitted succesfully!
 
-We will get back to you very soon. In the meantime, you might be interested in:
+Thank you for contacting Fluid Attacks. We will get back to you very soon.
+In the meantime, you might be interested in:
