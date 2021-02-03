@@ -99,7 +99,7 @@ integrates/deploy/front:
 integrates/deploy/oci/redis:
   <<: *makes
   <<: *in_dev_branch_integrates
-  stage: deploy-app
+  stage: build
 
 integrates/infra/backup/apply:
   <<: *makes
@@ -348,7 +348,9 @@ integrates_back_deploy_development:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates_back_build_development]
+  needs:
+    - integrates_back_build_development
+    - integrates/deploy/oci/redis
   environment:
     name: "development/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com"

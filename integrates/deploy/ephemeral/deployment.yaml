@@ -90,14 +90,8 @@ spec:
             - secretRef:
                 name: integrates-__DEPLOYMENT_NAME__
         - name: redis
-          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
+          image: registry.gitlab.com/fluidattacks/product/integrates/redis:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
-          command: [bash]
-          args:
-            - build.sh
-            - integrates_serve_components
-            - development
-            - redis
           resources:
             requests:
               cpu: 300m
