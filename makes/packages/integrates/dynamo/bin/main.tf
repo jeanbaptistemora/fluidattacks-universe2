@@ -26,11 +26,11 @@ resource "aws_dynamodb_table" "fi_authz" {
 resource "aws_dynamodb_table" "FI_comments" {
   attribute {
     name = "finding_id"
-    type = "S"
+    type = "N"
   }
   attribute {
     name = "user_id"
-    type = "S"
+    type = "N"
   }
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "finding_id"
@@ -166,7 +166,7 @@ resource "aws_dynamodb_table" "fi_project_comments" {
   }
   attribute {
     name = "user_id"
-    type = "S"
+    type = "N"
   }
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "project_name"

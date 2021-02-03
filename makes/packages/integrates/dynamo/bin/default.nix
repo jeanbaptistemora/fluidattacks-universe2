@@ -9,6 +9,8 @@ let
 in
 makeEntrypoint {
   arguments = {
+    envAws = "${integratesPkgs.awscli}/bin/aws";
+    envDynamoData = path "/integrates/test_async/dynamo_data";
     envDynamoZip = integratesPkgs.fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2020-05-19.zip";
       sha256 = "0lqxrbiqnvac8rq8x41pm76mb5bh4rxhfzj5yxji6n9q0m1wxbqq";
