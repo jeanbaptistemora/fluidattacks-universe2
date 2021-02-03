@@ -13,6 +13,7 @@ makeTemplate {
       meltsPkgs.git
       meltsPkgs.sops
       meltsPkgs.cloc
+      meltsPkgs.openssh
     ];
     envPython = "${meltsPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
