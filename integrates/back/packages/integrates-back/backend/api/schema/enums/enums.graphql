@@ -128,6 +128,7 @@ enum EvidenceType {
 enum InvitationState {
   CONFIRMED
   PENDING
+  UNREGISTERED
 }
 
 enum FindingConsultType {

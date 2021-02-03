@@ -35,10 +35,22 @@ def error401(request: Request) -> HTMLResponse:
     )
 
 
-def invalid_invitation(request: Request) -> HTMLResponse:
+def invalid_invitation(
+    request: Request,
+    error: str,
+    project_access: ProjectAccessType = None,
+) -> HTMLResponse:
+    group_name = (
+        project_access.get('project_name', '')
+        if project_access else ''
+    )
     return TEMPLATING_ENGINE.TemplateResponse(
         name='invalid_invitation.html',
-        context={'request': request}
+        context={
+            'error': error,
+            'group_name': group_name,
+            'request': request,
+        }
     )
 
 

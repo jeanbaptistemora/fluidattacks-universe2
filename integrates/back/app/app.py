@@ -132,14 +132,24 @@ async def confirm_access(request: Request) -> HTMLResponse:
                     project_access
                 )
             else:
-                response = RedirectResponse(url='/invalid_invitation')
+                response = templates.invalid_invitation(
+                    request,
+                    'used',
+                    project_access=project_access
+                )
         else:
             await in_thread(
                 bugsnag.notify, Exception('Invalid token'), severity='warning'
             )
-            response = RedirectResponse(url='/invalid_invitation')
+            response = templates.invalid_invitation(
+                request,
+                'Invalid or Expired'
+            )
     else:
-        response = RedirectResponse(url='/invalid_invitation')
+        response = templates.invalid_invitation(
+            request,
+            'Invalid'
+        )
 
     return response
 

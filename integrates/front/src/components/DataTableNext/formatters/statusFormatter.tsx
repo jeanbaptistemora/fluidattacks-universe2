@@ -43,6 +43,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
     case "Open":
     case "Rejected":
     case "Unsolved":
+    case "Unregistered":
     case "Verified (open)":
     case "Vulnerable":
       return "bg-lbl-red";

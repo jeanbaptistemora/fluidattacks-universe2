@@ -58,6 +58,7 @@ async def _get_stakeholder(email: str, group_name: str) -> StakeholderType:
         group_name
     )
     invitation_state = (
+        'UNREGISTERED' if not stakeholder.get('is_registered', False) else
         'CONFIRMED' if project_access.get('has_access', False) else 'PENDING'
     )
     invitation = cast(InvitationType, project_access.get('invitation'))
