@@ -20,9 +20,9 @@ integrates/infra/resources/apply
 integrates/infra/resources/test
 integrates/infra/secret-management/apply
 integrates/infra/secret-management/test
+integrates/kill
+integrates/redis
 integrates/redis/oci/deploy
-integrates/redis/server
-integrates/server/kill
 makes/attrs
 makes/deploy/oci-batch
 makes/deploy/oci-ci

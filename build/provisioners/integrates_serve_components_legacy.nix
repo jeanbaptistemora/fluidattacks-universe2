@@ -21,7 +21,6 @@ in
         pkgs.nodejs
         pkgs.openjdk
         pkgs.p7zip
-        pkgs.redis
         pkgs.sops
         pkgs.jq
         pkgs.lsof
@@ -38,6 +37,7 @@ in
         pkgs.libmysqlclient
         pkgs.postgresql
         pkgs.unixODBC
+        (import ../..).integrates-redis
       ];
 
       nodeJsModuleSecureSpreadsheet =

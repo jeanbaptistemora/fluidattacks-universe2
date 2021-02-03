@@ -21,13 +21,13 @@ in
         pkgs.nodejs
         pkgs.openjdk
         pkgs.p7zip
-        pkgs.redis
         pkgs.sops
         pkgs.jq
         pkgs.ruby
         pkgs.iproute
         pkgs.python37
         pkgs.libmysqlclient
+        (import ../..).integrates-redis
       ];
 
       nodeJsModuleSecureSpreadsheet =

@@ -10,11 +10,11 @@ in
 
       buildInputs = [
         pkgs.git
-        pkgs.redis
         pkgs.lsof
         pkgs.sops
         pkgs.jq
         (builders.pythonPackage {}).propagatedBuildInputs
+        (import ../..).integrates-redis
       ];
 
       pyPkgCryptography = builders.pythonPackage {

@@ -14,7 +14,8 @@ integrates/front/lint/eslint
 integrates/front/lint/stylelint
 integrates/front/lint/tslint
 integrates/front/test
-integrates/redis/oci/build
+integrates/redis/bin
+integrates/redis/oci
 integrates/secrets/lint
 makes/dev
 makes/test

@@ -442,8 +442,8 @@ function job_integrates_back_test_unit {
   &&  helper_integrates_set_dev_secrets \
   &&  helper_integrates_serve_dynamo \
   &&  helper_integrates_serve_minio \
-  &&  sleep 10 \
   &&  helper_integrates_serve_redis \
+  &&  sleep 10 \
   &&  for i in "${!markers[@]}"
       do
             echo "[INFO] Running marker: ${markers[i]}" \
@@ -484,8 +484,8 @@ function job_integrates_back_test_functional {
   &&  helper_integrates_set_dev_secrets \
   &&  helper_integrates_serve_dynamo \
   &&  helper_integrates_serve_minio \
-  &&  sleep 10 \
   &&  helper_integrates_serve_redis \
+  &&  sleep 10 \
   &&  for marker in "${markers[@]}"
       do
             echo "[INFO] Running marker: ${marker}" \
@@ -670,8 +670,8 @@ function job_integrates_deploy_permissions_matrix {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_integrates_set_dev_secrets \
-  &&  sleep 3 \
   &&  helper_integrates_serve_redis \
+  &&  sleep 3 \
   &&  echo '[INFO] Deploying permissions matrix' \
   &&  python3 deploy/permissions-matrix/matrix.py \
   &&  popd \

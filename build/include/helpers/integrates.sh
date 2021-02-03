@@ -294,39 +294,7 @@ function helper_integrates_serve_front {
 }
 
 function helper_integrates_serve_redis {
-  local port='6379'
-  local pord_end='6381'
-  local cluster_addrs=()
-  local cluster_path='.Redis'
-
-      echo '[INFO] Launching Redis' \
-  &&  rm -rf "${cluster_path}" \
-  &&  for port in $(seq "${port}" "${pord_end}")
-      do
-            echo "[INFO] Configuring replica ${port}" \
-        &&  helper_common_kill_pid_listening_on_port "${port}" \
-        &&  mkdir -p "${cluster_path}/${port}" \
-        &&  pushd "${cluster_path}/${port}" \
-          &&  {
-                    echo 'appendonly yes' \
-                &&  echo 'cluster-config-file nodes.conf' \
-                &&  echo 'cluster-enabled yes' \
-                &&  echo 'cluster-node-timeout 5000' \
-                &&  echo 'cluster-slave-validity-factor 1' \
-                &&  echo "port ${port}" \
-
-              } > redis.conf \
-          &&  { redis-server redis.conf & } \
-        &&  popd \
-        &&  cluster_addrs+=( "127.0.0.1:${port}" ) \
-        ||  return 1
-      done \
-  &&  sleep 1 \
-  &&  redis-cli \
-        --cluster create "${cluster_addrs[@]}" \
-        --cluster-replicas 0 \
-        --cluster-yes \
-
+  integrates-redis &
 }
 
 function helper_integrates_serve_dynamo {

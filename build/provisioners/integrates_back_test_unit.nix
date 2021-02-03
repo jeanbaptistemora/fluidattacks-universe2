@@ -16,11 +16,11 @@ in
         pkgs.curl
         pkgs.sops
         pkgs.jq
-        pkgs.redis
         pkgs.openjdk
         pkgs.unzip
         pkgs.cacert
         pkgs.python37
+        (import ../..).integrates-redis
       ];
 
       pyPkgIntegratesBack =

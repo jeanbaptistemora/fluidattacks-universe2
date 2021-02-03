@@ -17,9 +17,14 @@ let
     sorts = flake.defaultNix.outputs.packages.x86_64-linux."sorts/bin";
   };
 
+  # Temporary components while migrating from Nix2 to Nix3
+  temporaryComponents = {
+    integrates-redis = flake.defaultNix.outputs.packages.x86_64-linux."integrates/redis/bin";
+  };
+
   # Nix2 components (deprecated)
   legacyComponents = {
     product = import ./default-legacy.nix;
   };
 in
-components // legacyComponents
+components // legacyComponents // temporaryComponents
