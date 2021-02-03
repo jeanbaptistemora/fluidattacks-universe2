@@ -31,10 +31,10 @@ function main {
     &&  __envTerraform__ apply -auto-approve \
   &&  popd \
   &&  __envSed__ "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
-        < '__envDynamoData__/FI_forces.json' \
+        < '__envDynamoData__/forces.json' \
         | __envSed__ "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
         | __envSed__ "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
-        > "${state_path}/FI_forces.now.json" \
+        > "${state_path}/forces.now.json" \
   &&  for data in '__envDynamoData__/'*'.json' "${state_path}/"*'.json'
       do
             echo "[INFO] Writing data from: ${data}" \
