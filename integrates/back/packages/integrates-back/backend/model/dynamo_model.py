@@ -4,7 +4,6 @@ from typing import (
     Dict,
     NamedTuple,
     Set,
-    Any,
 )
 
 
@@ -15,8 +14,8 @@ class PrimaryKey(NamedTuple):
 
 class Entity(NamedTuple):
     primary_key: PrimaryKey
-    attrs: Set[Any]
-    dependencies: Set[Any]
+    attrs: Set[str]
+    dependencies: Set[str]
 
 
 # Constants
