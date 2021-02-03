@@ -26,7 +26,7 @@ function main {
         &&  cluster_addrs+=( "127.0.0.1:${port}" ) \
         ||  return 1
       done \
-  &&  sleep 3 \
+  &&  __envWait__ 10 "${cluster_addrs[@]}" \
   &&  __envRedisCli__ \
         --cluster create "${cluster_addrs[@]}" \
         --cluster-replicas 0 \
