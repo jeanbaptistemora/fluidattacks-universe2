@@ -7,7 +7,7 @@ function main {
   export CI_COMMIT_REF_NAME
   local env='development'
 
-      if [ "${CI_COMMIT_REF_NAME}" == "master" ]
+      if [ -n "${CI}" ] && [ "${CI_COMMIT_REF_NAME}" == "master" ]
       then
             env='production' \
         &&  aws_login_prod integrates
