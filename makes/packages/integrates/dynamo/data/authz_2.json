@@ -3,240 +3,432 @@
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratescustomer@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratescustomer@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratescustomer@gmail.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratescustomer@gmail.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratescustomer@gmail.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratescustomer@gmail.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "unittest2@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "group_manager"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "unittest2@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "group_manager"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "unittest2@fluidattacks.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "group_manager"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "unittest2@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "group_manager"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesanalyst@fluidattacks.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "analyst"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesanalyst@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "analyst"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratescloser@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "closer"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratescloser@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "closer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratescloser@fluidattacks.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "closer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratescloser@fluidattacks.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "closer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratescloser@fluidattacks.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "closer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratescloser@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "closer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesexecutive@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "executive"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesexecutive@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "executive"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesexecutive@gmail.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "executive"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesexecutive@gmail.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "executive"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesexecutive@gmail.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "executive"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesexecutive@gmail.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "executive"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesresourcer@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "resourcer"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesresourcer@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "resourcer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesresourcer@fluidattacks.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "resourcer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesresourcer@fluidattacks.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "resourcer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesresourcer@fluidattacks.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "resourcer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesresourcer@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "resourcer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesreviewer@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "reviewer"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesreviewer@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "reviewer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesreviewer@fluidattacks.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "reviewer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesreviewer@fluidattacks.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "reviewer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesreviewer@fluidattacks.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "reviewer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesreviewer@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "reviewer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesserviceforces@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "service_forces"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesserviceforces@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "service_forces"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesserviceforces@gmail.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "service_forces"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesserviceforces@gmail.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "service_forces"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesserviceforces@gmail.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "service_forces"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesserviceforces@gmail.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "service_forces"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratescustomer@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratescustomer@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratescustomer@fluidattacks.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratescustomer@fluidattacks.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratescustomer@fluidattacks.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratescustomer@fluidattacks.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     }

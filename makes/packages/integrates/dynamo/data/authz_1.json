@@ -3,250 +3,450 @@
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "unittest@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "admin"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "admin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "unittest2@fluidattacks.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "group_manager"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "unittest2@fluidattacks.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "group_manager"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "unittest"},
-          "object": {"S": "self"},
-          "role": {"S": "admin"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "unittest"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "admin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesmanager@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "admin"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "admin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesuser@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesuser@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesanalyst@fluidattacks.com"},
-          "object": {"S": "self"},
-          "role": {"S": "analyst"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesanalyst@fluidattacks.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "analyst"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "integratesanalyst2@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "analyst"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "integratesanalyst2@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "analyst"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "continuoushacking@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "analyst"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "continuoushacking@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "analyst"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "continuoushacking@gmail.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "continuoushacking@gmail.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "continuoushack2@gmail.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "continuoushack2@gmail.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "user"},
-          "subject": {"S": "continuoushack2@gmail.com"},
-          "object": {"S": "self"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "continuoushack2@gmail.com"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "continuoushacking@gmail.com"},
-          "object": {"S": "pendingproject"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "continuoushacking@gmail.com"
+          },
+          "object": {
+            "S": "pendingproject"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesuser@gmail.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesuser@gmail.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesuser@gmail.com"},
-          "object": {"S": "oneshottest"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesuser@gmail.com"
+          },
+          "object": {
+            "S": "oneshottest"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesanalyst@fluidattacks.com"},
-          "object": {"S": "unittesting"},
-          "role": {"S": "analyst"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesanalyst@fluidattacks.com"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "analyst"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesanalyst@fluidattacks.com"},
-          "object": {"S": "oneshottest"},
-          "role": {"S": "closer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesanalyst@fluidattacks.com"
+          },
+          "object": {
+            "S": "oneshottest"
+          },
+          "role": {
+            "S": "closer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "continuoushacking@gmail.com"},
-          "object": {"S": "oneshottest"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "continuoushacking@gmail.com"
+          },
+          "object": {
+            "S": "oneshottest"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "integratesuser@gmail.com"},
-          "object": {"S": "suspendedtest"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "integratesuser@gmail.com"
+          },
+          "object": {
+            "S": "suspendedtest"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesmanager@gmail.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesuser@gmail.com"},
-          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "customeradmin"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesuser@gmail.com"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "integratesmanager@gmail.com"},
-          "object": {"S": "org#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "object": {
+            "S": "org#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "org_testgroupmanager1@gmail.com"},
-          "object": {"S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"},
-          "role": {"S": "group_manager"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "org_testgroupmanager1@gmail.com"
+          },
+          "object": {
+            "S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "role": {
+            "S": "group_manager"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "org_testuser3@gmail.com"},
-          "object": {"S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "org_testuser3@gmail.com"
+          },
+          "object": {
+            "S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "organization"},
-          "subject": {"S": "org_testuser5@gmail.com"},
-          "object": {"S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "org_testuser5@gmail.com"
+          },
+          "object": {
+            "S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "level": {"S": "group"},
-          "subject": {"S": "org_testuser3@gmail.com"},
-          "object": {"S": "sheele"},
-          "role": {"S": "customer"}
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "org_testuser3@gmail.com"
+          },
+          "object": {
+            "S": "sheele"
+          },
+          "role": {
+            "S": "customer"
+          }
         }
       }
     }

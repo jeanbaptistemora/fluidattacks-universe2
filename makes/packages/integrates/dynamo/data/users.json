@@ -1,621 +1,621 @@
 {
-   "FI_users" : [
-      {
-         "PutRequest" : {
-            "Item" : {
-               "company" : {
-                  "S" : "unittest"
-               },
-               "organization": {
-                  "S" : "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"
-               },
-               "date_joined": {
-                "S": "2018-02-28 11:54:12"
-               },
-               "email" : {
-                  "S" : "unittest"
-               },
-               "legal_remember" : {
-                  "BOOL" : true
-               },
-               "registered" : {
-                  "BOOL" : true
-               }
-            }
-         }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "access_token": {
-              "M": {
-                "jti": {
-                  "S": "c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd070808418d640e77d"
-                },
-                "salt": {
-                  "S": "27c7f388ccdd7cc432871c84b63e78cd716739c40055253ce7ad1666a8532db6"
-                }
-              }
-            },
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
-            },
-            "last_name": {
-              "S": "de Orellana"
-            },
-            "first_name": {
-              "S": "Miguel"
-            },
-            "date_joined": {
-              "S": "2019-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "unittest@fluidattacks.com"
-            },
-            "push_tokens": {
-              "L": [
-                {
-                  "S": "ExponentPushToken[dummy]"
-                }
-              ]
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Manager"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-12-29 11:50:17"
-            },
-            "email": {
-              "S": "integratesmanager@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Manager"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-12-29 11:50:17"
-            },
-            "email": {
-              "S": "integratesmanager@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
-            },
-            "last_name": {
-              "S": "User"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratesuser@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Analyst"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": false
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratesanalyst@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
-            },
-            "last_name": {
-              "S": "Analyst2"
-            },
-            "first_name": {
-              "S": "Integrates2"
-            },
-            "date_joined": {
-              "S": "2012-12-21 23:59:59"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2017-11-20 15:22:37"
-            },
-            "email": {
-              "S": "integratesanalyst2@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
-            },
-            "last_name": {
-              "S": "Hacking"
-            },
-            "first_name": {
-              "S": "Continuous"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2020-03-23 10:45:37"
-            },
-            "email": {
-              "S": "continuoushacking@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
-            },
-            "last_name": {
-              "S": "Hacking"
-            },
-            "first_name": {
-              "S": "Continuous2"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2020-03-23 10:45:37"
-            },
-            "email": {
-              "S": "continuoushack2@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest" : {
-           "Item" : {
-              "company" : {
-                 "S" : "unittest"
-              },
-              "date_joined": {
-               "S": "2018-11-28 18:24:10"
-              },
-              "email" : {
-                 "S" : "unittest2"
-              },
-              "legal_remember" : {
-                 "BOOL" : true
-              },
-              "registered" : {
-                 "BOOL" : false
-              }
-           }
-        }
-      },
-      {
-       "PutRequest" : {
-          "Item" : {
-             "company" : {
-                "S" : "unittest"
-             },
-             "organization": {
-              "S" : "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"
-            },
-             "date_joined": {
-              "S": "2017-12-28 23:54:55"
-             },
-             "last_login": {
-               "S": "2019-10-29 13:40:37"
-             },
-             "email" : {
-                "S" : "unittest3"
-             },
-             "legal_remember" : {
-                "BOOL" : true
-             },
-             "registered" : {
-                "BOOL" : false
-             }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Customer"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratescustomer@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Manager"
-            },
-            "first_name": {
-              "S": "Group"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "unittest2@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Closer"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratescloser@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Executive"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratesexecutive@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Resourcer"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratesresourcer@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Reviewer"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratesreviewer@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Service Forces"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratesserviceforces@gmail.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "company": {
-              "S": "fluid"
-            },
-            "organization": {
-              "S" : "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-            },
-            "last_name": {
-              "S": "Internal Manager"
-            },
-            "first_name": {
-              "S": "Integrates"
-            },
-            "date_joined": {
-              "S": "2018-02-28 11:54:12"
-            },
-            "legal_remember": {
-              "BOOL": true
-            },
-            "last_login": {
-              "S": "2019-10-29 13:40:37"
-            },
-            "email": {
-              "S": "integratescustomer@fluidattacks.com"
-            },
-            "registered": {
-              "BOOL": true
-            }
+  "FI_users": [
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "unittest"
+          },
+          "organization": {
+            "S": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "email": {
+            "S": "unittest"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "registered": {
+            "BOOL": true
           }
         }
       }
-   ]
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "access_token": {
+            "M": {
+              "jti": {
+                "S": "c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd070808418d640e77d"
+              },
+              "salt": {
+                "S": "27c7f388ccdd7cc432871c84b63e78cd716739c40055253ce7ad1666a8532db6"
+              }
+            }
+          },
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+          },
+          "last_name": {
+            "S": "de Orellana"
+          },
+          "first_name": {
+            "S": "Miguel"
+          },
+          "date_joined": {
+            "S": "2019-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "push_tokens": {
+            "L": [
+              {
+                "S": "ExponentPushToken[dummy]"
+              }
+            ]
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Manager"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-12-29 11:50:17"
+          },
+          "email": {
+            "S": "integratesmanager@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Manager"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-12-29 11:50:17"
+          },
+          "email": {
+            "S": "integratesmanager@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+          },
+          "last_name": {
+            "S": "User"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratesuser@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Analyst"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": false
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratesanalyst@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+          },
+          "last_name": {
+            "S": "Analyst2"
+          },
+          "first_name": {
+            "S": "Integrates2"
+          },
+          "date_joined": {
+            "S": "2012-12-21 23:59:59"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2017-11-20 15:22:37"
+          },
+          "email": {
+            "S": "integratesanalyst2@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+          },
+          "last_name": {
+            "S": "Hacking"
+          },
+          "first_name": {
+            "S": "Continuous"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2020-03-23 10:45:37"
+          },
+          "email": {
+            "S": "continuoushacking@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+          },
+          "last_name": {
+            "S": "Hacking"
+          },
+          "first_name": {
+            "S": "Continuous2"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2020-03-23 10:45:37"
+          },
+          "email": {
+            "S": "continuoushack2@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "unittest"
+          },
+          "date_joined": {
+            "S": "2018-11-28 18:24:10"
+          },
+          "email": {
+            "S": "unittest2"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "registered": {
+            "BOOL": false
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "unittest"
+          },
+          "organization": {
+            "S": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64"
+          },
+          "date_joined": {
+            "S": "2017-12-28 23:54:55"
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "unittest3"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "registered": {
+            "BOOL": false
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Customer"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratescustomer@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Manager"
+          },
+          "first_name": {
+            "S": "Group"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "unittest2@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Closer"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratescloser@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Executive"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratesexecutive@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Resourcer"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratesresourcer@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Reviewer"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratesreviewer@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Service Forces"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratesserviceforces@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Internal Manager"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "integratescustomer@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    }
+  ]
 }

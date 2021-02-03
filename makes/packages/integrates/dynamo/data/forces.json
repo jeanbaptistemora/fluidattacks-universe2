@@ -1,249 +1,249 @@
 {
-    "FI_forces": [
-        {
-            "PutRequest": {
-                "Item": {
-                    "date": {
-                        "S": "2020-09-04T13:54:36.000000-0500"
-                    },
-                    "execution_id": {
-                        "S": "08c1e735a73243f2ab1ee0757041f80e"
-                    },
-                    "git_commit": {
-                        "S": "unable to retrieve"
-                    },
-                    "git_repo": {
-                        "S": "unable to retrieve"
-                    },
-                    "kind": {
-                        "S": "other"
-                    },
-                    "exit_code": {
-                        "S": "0"
-                    },
-                    "vulnerabilities": {
-                        "M": {
-                            "num_of_accepted_vulnerabilities": {
-                                "N": "0"
-                            },
-                            "num_of_open_vulnerabilities": {
-                                "N": "32"
-                            },
-                            "num_of_closed_vulnerabilities": {
-                                "N": "8"
-                            }
-                        }
-                    },
-                    "git_branch": {
-                        "S": "unable to retrieve"
-                    },
-                    "strictness": {
-                        "S": "lax"
-                    },
-                    "git_origin": {
-                        "S": "unable to retrieve"
-                    },
-                    "subscription": {
-                        "S": "unittesting"
-                    }
-                }
+  "FI_forces": [
+    {
+      "PutRequest": {
+        "Item": {
+          "date": {
+            "S": "2020-09-04T13:54:36.000000-0500"
+          },
+          "execution_id": {
+            "S": "08c1e735a73243f2ab1ee0757041f80e"
+          },
+          "git_commit": {
+            "S": "unable to retrieve"
+          },
+          "git_repo": {
+            "S": "unable to retrieve"
+          },
+          "kind": {
+            "S": "other"
+          },
+          "exit_code": {
+            "S": "0"
+          },
+          "vulnerabilities": {
+            "M": {
+              "num_of_accepted_vulnerabilities": {
+                "N": "0"
+              },
+              "num_of_open_vulnerabilities": {
+                "N": "32"
+              },
+              "num_of_closed_vulnerabilities": {
+                "N": "8"
+              }
             }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "date": {
-                        "S": "2020-09-04T13:54:36.000000-0500"
-                    },
-                    "execution_id": {
-                        "S": "23a7ac72b6b24c9fa4cfcd41c7fdd505"
-                    },
-                    "git_commit": {
-                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
-                    },
-                    "git_repo": {
-                        "S": "integrates"
-                    },
-                    "kind": {
-                        "S": "other"
-                    },
-                    "exit_code": {
-                        "S": "0"
-                    },
-                    "vulnerabilities": {
-                        "M": {
-                            "num_of_accepted_vulnerabilities": {
-                                "N": "0"
-                            },
-                            "num_of_open_vulnerabilities": {
-                                "N": "24"
-                            },
-                            "num_of_closed_vulnerabilities": {
-                                "N": "5"
-                            }
-                        }
-                    },
-                    "git_branch": {
-                        "S": "drestrepoatfluid"
-                    },
-                    "strictness": {
-                        "S": "lax"
-                    },
-                    "git_origin": {
-                        "S": "git@gitlab.com:fluidattacks/integrates.git"
-                    },
-                    "subscription": {
-                        "S": "unittesting"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "date": {
-                        "S": "2020-09-04T13:54:36.000000-0500"
-                    },
-                    "execution_id": {
-                        "S": "92968b3ba84645bf976c12b15f9464bb"
-                    },
-                    "git_commit": {
-                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
-                    },
-                    "git_repo": {
-                        "S": "integrates"
-                    },
-                    "kind": {
-                        "S": "other"
-                    },
-                    "exit_code": {
-                        "S": "0"
-                    },
-                    "vulnerabilities": {
-                        "M": {
-                            "num_of_accepted_vulnerabilities": {
-                                "N": "0"
-                            },
-                            "num_of_open_vulnerabilities": {
-                                "N": "29"
-                            },
-                            "num_of_closed_vulnerabilities": {
-                                "N": "0"
-                            }
-                        }
-                    },
-                    "git_branch": {
-                        "S": "drestrepoatfluid"
-                    },
-                    "strictness": {
-                        "S": "lax"
-                    },
-                    "git_origin": {
-                        "S": "git@gitlab.com:fluidattacks/integrates.git"
-                    },
-                    "subscription": {
-                        "S": "unittesting"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "date": {
-                        "S": "2020-09-04T13:54:36.000000-0500"
-                    },
-                    "execution_id": {
-                        "S": "b97ab29d82c84b14a189bc045bdfa76f"
-                    },
-                    "git_commit": {
-                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
-                    },
-                    "git_repo": {
-                        "S": "integrates"
-                    },
-                    "kind": {
-                        "S": "other"
-                    },
-                    "exit_code": {
-                        "S": "0"
-                    },
-                    "vulnerabilities": {
-                        "M": {
-                            "num_of_accepted_vulnerabilities": {
-                                "N": "0"
-                            },
-                            "num_of_open_vulnerabilities": {
-                                "N": "0"
-                            },
-                            "num_of_closed_vulnerabilities": {
-                                "N": "8"
-                            }
-                        }
-                    },
-                    "git_branch": {
-                        "S": "drestrepoatfluid"
-                    },
-                    "strictness": {
-                        "S": "lax"
-                    },
-                    "git_origin": {
-                        "S": "git@gitlab.com:fluidattacks/integrates.git"
-                    },
-                    "subscription": {
-                        "S": "unittesting"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "date": {
-                        "S": "2020-09-04T13:54:36.000000-0500"
-                    },
-                    "execution_id": {
-                        "S": "ecf62c1fd6064c1eb773da49750c4011"
-                    },
-                    "git_commit": {
-                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
-                    },
-                    "git_repo": {
-                        "S": "integrates"
-                    },
-                    "kind": {
-                        "S": "other"
-                    },
-                    "exit_code": {
-                        "S": "0"
-                    },
-                    "vulnerabilities": {
-                        "M": {
-                            "num_of_accepted_vulnerabilities": {
-                                "N": "0"
-                            },
-                            "num_of_open_vulnerabilities": {
-                                "N": "32"
-                            },
-                            "num_of_closed_vulnerabilities": {
-                                "N": "8"
-                            }
-                        }
-                    },
-                    "git_branch": {
-                        "S": "drestrepoatfluid"
-                    },
-                    "strictness": {
-                        "S": "lax"
-                    },
-                    "git_origin": {
-                        "S": "git@gitlab.com:fluidattacks/integrates.git"
-                    },
-                    "subscription": {
-                        "S": "unittesting"
-                    }
-                }
-            }
+          },
+          "git_branch": {
+            "S": "unable to retrieve"
+          },
+          "strictness": {
+            "S": "lax"
+          },
+          "git_origin": {
+            "S": "unable to retrieve"
+          },
+          "subscription": {
+            "S": "unittesting"
+          }
         }
-    ]
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "date": {
+            "S": "2020-09-04T13:54:36.000000-0500"
+          },
+          "execution_id": {
+            "S": "23a7ac72b6b24c9fa4cfcd41c7fdd505"
+          },
+          "git_commit": {
+            "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+          },
+          "git_repo": {
+            "S": "integrates"
+          },
+          "kind": {
+            "S": "other"
+          },
+          "exit_code": {
+            "S": "0"
+          },
+          "vulnerabilities": {
+            "M": {
+              "num_of_accepted_vulnerabilities": {
+                "N": "0"
+              },
+              "num_of_open_vulnerabilities": {
+                "N": "24"
+              },
+              "num_of_closed_vulnerabilities": {
+                "N": "5"
+              }
+            }
+          },
+          "git_branch": {
+            "S": "drestrepoatfluid"
+          },
+          "strictness": {
+            "S": "lax"
+          },
+          "git_origin": {
+            "S": "git@gitlab.com:fluidattacks/integrates.git"
+          },
+          "subscription": {
+            "S": "unittesting"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "date": {
+            "S": "2020-09-04T13:54:36.000000-0500"
+          },
+          "execution_id": {
+            "S": "92968b3ba84645bf976c12b15f9464bb"
+          },
+          "git_commit": {
+            "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+          },
+          "git_repo": {
+            "S": "integrates"
+          },
+          "kind": {
+            "S": "other"
+          },
+          "exit_code": {
+            "S": "0"
+          },
+          "vulnerabilities": {
+            "M": {
+              "num_of_accepted_vulnerabilities": {
+                "N": "0"
+              },
+              "num_of_open_vulnerabilities": {
+                "N": "29"
+              },
+              "num_of_closed_vulnerabilities": {
+                "N": "0"
+              }
+            }
+          },
+          "git_branch": {
+            "S": "drestrepoatfluid"
+          },
+          "strictness": {
+            "S": "lax"
+          },
+          "git_origin": {
+            "S": "git@gitlab.com:fluidattacks/integrates.git"
+          },
+          "subscription": {
+            "S": "unittesting"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "date": {
+            "S": "2020-09-04T13:54:36.000000-0500"
+          },
+          "execution_id": {
+            "S": "b97ab29d82c84b14a189bc045bdfa76f"
+          },
+          "git_commit": {
+            "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+          },
+          "git_repo": {
+            "S": "integrates"
+          },
+          "kind": {
+            "S": "other"
+          },
+          "exit_code": {
+            "S": "0"
+          },
+          "vulnerabilities": {
+            "M": {
+              "num_of_accepted_vulnerabilities": {
+                "N": "0"
+              },
+              "num_of_open_vulnerabilities": {
+                "N": "0"
+              },
+              "num_of_closed_vulnerabilities": {
+                "N": "8"
+              }
+            }
+          },
+          "git_branch": {
+            "S": "drestrepoatfluid"
+          },
+          "strictness": {
+            "S": "lax"
+          },
+          "git_origin": {
+            "S": "git@gitlab.com:fluidattacks/integrates.git"
+          },
+          "subscription": {
+            "S": "unittesting"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "date": {
+            "S": "2020-09-04T13:54:36.000000-0500"
+          },
+          "execution_id": {
+            "S": "ecf62c1fd6064c1eb773da49750c4011"
+          },
+          "git_commit": {
+            "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+          },
+          "git_repo": {
+            "S": "integrates"
+          },
+          "kind": {
+            "S": "other"
+          },
+          "exit_code": {
+            "S": "0"
+          },
+          "vulnerabilities": {
+            "M": {
+              "num_of_accepted_vulnerabilities": {
+                "N": "0"
+              },
+              "num_of_open_vulnerabilities": {
+                "N": "32"
+              },
+              "num_of_closed_vulnerabilities": {
+                "N": "8"
+              }
+            }
+          },
+          "git_branch": {
+            "S": "drestrepoatfluid"
+          },
+          "strictness": {
+            "S": "lax"
+          },
+          "git_origin": {
+            "S": "git@gitlab.com:fluidattacks/integrates.git"
+          },
+          "subscription": {
+            "S": "unittesting"
+          }
+        }
+      }
+    }
+  ]
 }

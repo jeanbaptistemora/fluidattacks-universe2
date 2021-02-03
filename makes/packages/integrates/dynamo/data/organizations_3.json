@@ -1,184 +1,184 @@
 {
-    "fi_organizations": [
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratescustomer@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#unittest2@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesanalyst@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratescloser@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesexecutive@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesresourcer@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesreviewer@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesserviceforces@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratescustomer@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
-                    },
-                    "sk": {
-                        "S": "INFO#kiba"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
-                    },
-                    "sk": {
-                        "S": "USER#org_testuser6@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@fluidattacks.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@fluidattacks.com"
-                    }
-                }
-            }
+  "fi_organizations": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratescustomer@gmail.com"
+          }
         }
-    ]
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#unittest2@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesanalyst@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratescloser@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesexecutive@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesresourcer@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesreviewer@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesserviceforces@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratescustomer@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+          },
+          "sk": {
+            "S": "INFO#kiba"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+          },
+          "sk": {
+            "S": "USER#org_testuser6@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@fluidattacks.com"
+          }
+        }
+      }
+    }
+  ]
 }

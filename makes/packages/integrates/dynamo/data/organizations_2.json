@@ -1,368 +1,368 @@
 {
-    "fi_organizations": [
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "INFO#okada"
-                    },
-                    "historic_max_number_acceptations": {
-                        "L": [
-                            {
-                                "M": {
-                                    "date": {
-                                        "S": "2019-11-22 15:07:57"
-                                    },
-                                    "user": {
-                                        "S": "integratesmanager@gmail.com"
-                                    },
-                                    "max_number_acceptations": {
-                                        "N": "2"
-                                    }
-                                }
-                            }
-                        ]
-                    },
-                    "max_acceptance_days": {
-                        "N": "60"
-                    },
-                    "max_number_acceptations": {
-                        "N": "2"
-                    },
-                    "pending_deletion_date": {
-                        "S": "2019-11-22 15:07:57"
-                    }
+  "fi_organizations": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "INFO#okada"
+          },
+          "historic_max_number_acceptations": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-11-22 15:07:57"
+                  },
+                  "user": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "max_number_acceptations": {
+                    "N": "2"
+                  }
                 }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#integratesuser@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#continuoushacking@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "GROUP#oneshottest"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "GROUP#continuoustesting"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "GROUP#unittesting"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "INFO#bulat"
-                    },
-                    "max_acceptance_severity": {
-                        "N": "6.9"
-                    },
-                    "min_acceptance_severity": {
-                        "N": "3.4"
-                    },
-                    "pending_deletion_date": {
-                        "S": "2019-11-22 15:07:57"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "GROUP#pendingproject"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "USER#continuoushacking@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "USER#integratesuser@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
-                    },
-                    "sk": {
-                        "S": "USER#unittest"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "INFO#hajime"
-                    },
-                    "historic_max_number_acceptations": {
-                        "L": [
-                            {
-                                "M": {
-                                    "date": {
-                                        "S": "2019-11-22 15:07:57"
-                                    },
-                                    "user": {
-                                        "S": "integratesmanager@gmail.com"
-                                    },
-                                    "max_number_acceptations": {
-                                        "N": "1"
-                                    }
-                                }
-                            }
-                        ]
-                    },
-                    "max_acceptance_days": {
-                        "N": "60"
-                    },
-                    "max_acceptance_severity": {
-                        "N": "7.0"
-                    },
-                    "max_number_acceptations": {
-                        "N": "1"
-                    },
-                    "pending_deletion_date": {
-                        "S": "2019-11-22 15:07:57"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "GROUP#kurome"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "GROUP#sheele"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "USER#org_testuser2@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "USER#org_testuser3@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "USER#org_testuser4@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "USER#org_testuser5@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-                    },
-                    "sk": {
-                        "S": "USER#org_testgroupmanager1@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
-                    },
-                    "sk": {
-                        "S": "INFO#tatsumi"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
-                    },
-                    "sk": {
-                        "S": "USER#org_testuser1@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
-                    },
-                    "sk": {
-                        "S": "GROUP#lubbock"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
-                    },
-                    "sk": {
-                        "S": "INFO#himura"
-                    }
-                }
-            }
+              }
+            ]
+          },
+          "max_acceptance_days": {
+            "N": "60"
+          },
+          "max_number_acceptations": {
+            "N": "2"
+          },
+          "pending_deletion_date": {
+            "S": "2019-11-22 15:07:57"
+          }
         }
-    ]
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "GROUP#oneshottest"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "GROUP#continuoustesting"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "INFO#bulat"
+          },
+          "max_acceptance_severity": {
+            "N": "6.9"
+          },
+          "min_acceptance_severity": {
+            "N": "3.4"
+          },
+          "pending_deletion_date": {
+            "S": "2019-11-22 15:07:57"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "GROUP#pendingproject"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "USER#continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "USER#integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "USER#unittest"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "INFO#hajime"
+          },
+          "historic_max_number_acceptations": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-11-22 15:07:57"
+                  },
+                  "user": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "max_number_acceptations": {
+                    "N": "1"
+                  }
+                }
+              }
+            ]
+          },
+          "max_acceptance_days": {
+            "N": "60"
+          },
+          "max_acceptance_severity": {
+            "N": "7.0"
+          },
+          "max_number_acceptations": {
+            "N": "1"
+          },
+          "pending_deletion_date": {
+            "S": "2019-11-22 15:07:57"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "GROUP#kurome"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "GROUP#sheele"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "USER#org_testuser2@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "USER#org_testuser3@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "USER#org_testuser4@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "USER#org_testuser5@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+          },
+          "sk": {
+            "S": "USER#org_testgroupmanager1@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+          },
+          "sk": {
+            "S": "INFO#tatsumi"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+          },
+          "sk": {
+            "S": "USER#org_testuser1@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+          },
+          "sk": {
+            "S": "GROUP#lubbock"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
+          },
+          "sk": {
+            "S": "INFO#himura"
+          }
+        }
+      }
+    }
+  ]
 }

@@ -1,230 +1,230 @@
 {
-    "fi_organizations": [
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "INFO#makimachi"
-                    },
-                    "historic_max_number_acceptations": {
-                        "L": [
-                            {
-                                "M": {
-                                    "date": {
-                                        "S": "2019-11-22 15:07:57"
-                                    },
-                                    "user": {
-                                        "S": "integratesmanager@gmail.com"
-                                    },
-                                    "max_number_acceptations": {
-                                        "N": "4"
-                                    }
-                                }
-                            }
-                        ]
-                    },
-                    "max_acceptance_days": {
-                        "N": "90"
-                    },
-                    "max_number_acceptations": {
-                        "N": "4"
-                    },
-                    "max_acceptance_severity":{
-                        "N": "7"
-                    },
-                    "min_acceptance_severity":{
-                        "N": "3"
-                    }
+  "fi_organizations": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "INFO#makimachi"
+          },
+          "historic_max_number_acceptations": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-11-22 15:07:57"
+                  },
+                  "user": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "max_number_acceptations": {
+                    "N": "4"
+                  }
                 }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "USER#integratesuser@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "USER#continuoushacking@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "GROUP#metropolis"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "GROUP#gotham"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
-                    },
-                    "sk": {
-                        "S": "GROUP#asgard"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "INFO#kamiya"
-                    },
-                    "historic_max_number_acceptations": {
-                        "L": [
-                            {
-                                "M": {
-                                    "date": {
-                                        "S": "2019-11-22 15:07:57"
-                                    },
-                                    "user": {
-                                        "S": "integratesmanager@gmail.com"
-                                    },
-                                    "max_number_acceptations": {
-                                        "N": "3"
-                                    }
-                                }
-                            }
-                        ]
-                    },
-                    "max_acceptance_days": {
-                        "N": "30"
-                    },
-                    "max_number_acceptations": {
-                        "N": "3"
-                    },
-                    "max_acceptance_severity":{
-                        "N": "8.5"
-                    },
-                    "min_acceptance_severity":{
-                        "N": "1"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "USER#integratesmanager@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "USER#integratesuser@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "USER#continuoushacking@gmail.com"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "GROUP#barranquilla"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
-                    },
-                    "sk": {
-                        "S": "GROUP#monteria"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "pk": {
-                        "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-                    },
-                    "sk": {
-                        "S": "USER#continuoushack2@gmail.com"
-                    }
-                }
-            }
+              }
+            ]
+          },
+          "max_acceptance_days": {
+            "N": "90"
+          },
+          "max_number_acceptations": {
+            "N": "4"
+          },
+          "max_acceptance_severity": {
+            "N": "7"
+          },
+          "min_acceptance_severity": {
+            "N": "3"
+          }
         }
-    ]
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "USER#integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "USER#continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "GROUP#metropolis"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "GROUP#gotham"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "GROUP#asgard"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "INFO#kamiya"
+          },
+          "historic_max_number_acceptations": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-11-22 15:07:57"
+                  },
+                  "user": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "max_number_acceptations": {
+                    "N": "3"
+                  }
+                }
+              }
+            ]
+          },
+          "max_acceptance_days": {
+            "N": "30"
+          },
+          "max_number_acceptations": {
+            "N": "3"
+          },
+          "max_acceptance_severity": {
+            "N": "8.5"
+          },
+          "min_acceptance_severity": {
+            "N": "1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "GROUP#barranquilla"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "GROUP#monteria"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#continuoushack2@gmail.com"
+          }
+        }
+      }
+    }
+  ]
 }

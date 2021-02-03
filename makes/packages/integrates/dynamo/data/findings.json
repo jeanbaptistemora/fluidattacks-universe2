@@ -38,10 +38,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -51,10 +51,10 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               }
@@ -491,10 +491,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -504,10 +504,10 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -517,10 +517,10 @@
                     "S": "2018-07-09 00:00:00"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -940,10 +940,10 @@
                     "S": "2019-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -953,10 +953,10 @@
                     "S": "2019-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -966,17 +966,17 @@
                     "S": "2019-04-08 00:00:00"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
             ]
           },
           "historic_verification": {
-            "L" : [
+            "L": [
               {
                 "M": {
                   "date": {
@@ -1266,10 +1266,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -1279,10 +1279,10 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -1292,10 +1292,10 @@
                     "S": "2019-01-10 00:00:00"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -1709,7 +1709,7 @@
             "N": "0"
           },
           "historic_verification": {
-            "L" : [
+            "L": [
               {
                 "M": {
                   "date": {
@@ -1772,10 +1772,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -1785,10 +1785,10 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -1798,10 +1798,10 @@
                     "S": "2018-12-17 00:00:00"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -2053,10 +2053,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -2066,10 +2066,10 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -2079,10 +2079,10 @@
                     "S": "2018-11-27 00:00:00"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -2744,10 +2744,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -2757,10 +2757,10 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -2770,10 +2770,10 @@
                     "S": "2018-11-29 00:00:00"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -2886,10 +2886,10 @@
                     "S": "2019-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -2899,10 +2899,10 @@
                     "S": "2019-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -2912,10 +2912,10 @@
                     "S": "2019-04-07 19:45:15"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -3001,13 +3001,13 @@
           },
           "files": {
             "L": [
-             {
-               "M": {
+              {
+                "M": {
                   "name": {
-                    "S":"exploitation"
+                    "S": "exploitation"
                   },
                   "file_url": {
-                    "S":"unittesting-988493279-exploitation.png"
+                    "S": "unittesting-988493279-exploitation.png"
                   }
                 }
               }
@@ -3111,10 +3111,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -3124,10 +3124,10 @@
                     "S": "2018-05-01 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               }
@@ -3303,10 +3303,10 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -3316,10 +3316,10 @@
                     "S": "2018-05-01 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -3329,10 +3329,10 @@
                     "S": "2018-05-01 20:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }
@@ -3508,10 +3508,10 @@
                     "S": "2020-04-03 12:43:18"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"CREATED"
+                    "S": "CREATED"
                   }
                 }
               },
@@ -3521,10 +3521,10 @@
                     "S": "2020-08-01 19:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"SUBMITTED"
+                    "S": "SUBMITTED"
                   }
                 }
               },
@@ -3534,10 +3534,10 @@
                     "S": "2020-08-01 20:45:11"
                   },
                   "analyst": {
-                    "S":"integratesmanager@gmail.com"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "state": {
-                    "S":"APPROVED"
+                    "S": "APPROVED"
                   }
                 }
               }

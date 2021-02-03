@@ -1,436 +1,436 @@
 {
-   "FI_project_access" : [
-      {
-         "PutRequest" : {
-            "Item" : {
-               "has_access" : {
-                  "BOOL" : true
-               },
-               "project_name" : {
-                  "S" : "unittesting"
-               },
-               "responsibility" : {
-                  "S" : "Tester"
-               },
-               "user_email" : {
-                  "S" : "unittest@fluidattacks.com"
-               }
-            }
-         }
-      },
-      {
-         "PutRequest" : {
-            "Item" : {
-               "has_access" : {
-                  "BOOL" : true
-               },
-               "project_name" : {
-                  "S" : "unittesting"
-               },
-               "responsibility" : {
-                  "S" : "Tester"
-               },
-               "user_email" : {
-                  "S" : "unittest2@fluidattacks.com"
-               }
-            }
-         }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "continuoushacking@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "continuoushack2@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "oneshottest"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "continuoushacking@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "pendingproject"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "continuoushacking@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesuser@gmail.com"
-            }
-          }
-        }
-      },
-      {
-         "PutRequest": {
-           "Item": {
-             "responsibility": {
-               "S": "Test"
-             },
-             "project_name": {
-               "S": "oneshottest"
-             },
-             "has_access": {
-               "BOOL": true
-             },
-             "user_email": {
-               "S": "integratesuser@gmail.com"
-             }
-           }
-         }
-      },
-      {
-         "PutRequest": {
-           "Item": {
-             "responsibility": {
-               "S": "Test"
-             },
-             "project_name": {
-               "S": "oneshottest"
-             },
-             "has_access": {
-               "BOOL": true
-             },
-             "user_email": {
-               "S": "integratesmanager@gmail.com"
-             }
-           }
-         }
-      },
-      {
-         "PutRequest": {
-           "Item": {
-             "responsibility": {
-               "S": "Test"
-             },
-             "project_name": {
-               "S": "oneshottest"
-             },
-             "has_access": {
-               "BOOL": true
-             },
-             "user_email": {
-               "S": "integratesanalyst@fluidattacks.com"
-             }
-           }
-         }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesmanager@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesanalyst@fluidattacks.com"
-            }
-          }
-        }
-      },
-      {
-         "PutRequest" : {
-            "Item" : {
-               "project_name" : {
-                  "S" : "continuoustesting"
-               },
-               "has_access": {
-                  "BOOL": true
-               },
-               "responsibility" : {
-                  "S" : "Continuous Testing user"
-               },
-               "user_email" : {
-                  "S" : "integratesanalyst@fluidattacks.com"
-               }
-            }
-         }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "pendingproject"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesmanager@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "pendingproject"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesuser@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "pendingproject"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "unittest"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "suspendedtest"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesuser@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": ""
-            },
-            "project_name": {
-              "S": "sheele"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "org_testuser3@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratescustomer@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratescloser@fluidattacks.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesexecutive@gmail.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesresourcer@fluidattacks.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesreviewer@fluidattacks.com"
-            }
-          }
-        }
-      },
-      {
-        "PutRequest": {
-          "Item": {
-            "responsibility": {
-              "S": "Test"
-            },
-            "project_name": {
-              "S": "unittesting"
-            },
-            "has_access": {
-              "BOOL": true
-            },
-            "user_email": {
-              "S": "integratesserviceforces@gmail.com"
-            }
+  "FI_project_access": [
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "responsibility": {
+            "S": "Tester"
+          },
+          "user_email": {
+            "S": "unittest@fluidattacks.com"
           }
         }
       }
-   ]
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "responsibility": {
+            "S": "Tester"
+          },
+          "user_email": {
+            "S": "unittest2@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "continuoushack2@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "oneshottest"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "pendingproject"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "continuoushacking@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "oneshottest"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "oneshottest"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "oneshottest"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesanalyst@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesanalyst@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "project_name": {
+            "S": "continuoustesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "responsibility": {
+            "S": "Continuous Testing user"
+          },
+          "user_email": {
+            "S": "integratesanalyst@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "pendingproject"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesmanager@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "pendingproject"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "pendingproject"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "unittest"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "suspendedtest"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesuser@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": ""
+          },
+          "project_name": {
+            "S": "sheele"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "org_testuser3@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratescustomer@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratescloser@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesexecutive@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesresourcer@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesreviewer@fluidattacks.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "integratesserviceforces@gmail.com"
+          }
+        }
+      }
+    }
+  ]
 }
