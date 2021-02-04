@@ -3,8 +3,10 @@
 source '__envTools__'
 source '__envPypiRuntime__'
 source '__envUtilsAws__'
+source '__envUtilsSops__'
 
 function main {
+  local env="${1:-}"
   local host='0.0.0.0'
   local port='8001'
   local config=(
@@ -29,11 +31,49 @@ function main {
     # The maximum number of simultaneous clients. [1000]
     --worker-connections '512'
   )
-  local env="${1:-}"
+  local secrets=(
+    AZUREAD_OAUTH2_KEY
+    AZUREAD_OAUTH2_SECRET
+    BITBUCKET_OAUTH2_KEY
+    BITBUCKET_OAUTH2_SECRET
+    BUGSNAG_ACCESS_TOKEN
+    BUGSNAG_API_KEY_SCHEDULER
+    CLOUDFRONT_ACCESS_KEY
+    CLOUDFRONT_PRIVATE_KEY
+    CLOUDFRONT_REPORTS_DOMAIN
+    CLOUDFRONT_RESOURCES_DOMAIN
+    CLOUDMERSIVE_API_KEY
+    COMMUNITY_PROJECTS
+    DEBUG
+    DEFAULT_ORG
+    DYNAMODB_HOST
+    DYNAMODB_PORT
+    ENVIRONMENT
+    GOOGLE_OAUTH2_KEY
+    GOOGLE_OAUTH2_SECRET
+    JWT_ENCRYPTION_KEY
+    JWT_SECRET
+    JWT_SECRET_API
+    MAIL_CONTINUOUS
+    MAIL_PRODUCTION
+    MAIL_PROJECTS
+    MAIL_RESOURCERS
+    MAIL_REVIEWERS
+    MANDRILL_APIKEY
+    MIXPANEL_API_TOKEN
+    REDIS_SERVER
+    SQS_QUEUE_URL
+    STARLETTE_SESSION_KEY
+    TEST_PROJECTS
+    ZENDESK_EMAIL
+    ZENDESK_SUBDOMAIN
+    ZENDESK_TOKEN
+  )
 
       if test "${env}" == 'dev'
       then
             aws_login_dev 'integrates' \
+        &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
         &&  config+=(
               # SSL certificate file
               --certfile="__envCertsDevelopment__/cert.crt"
@@ -42,9 +82,18 @@ function main {
               # The number of worker processes for handling requests
               --workers 5
             )
+      elif test "${env}" == 'dev-mobile'
+      then
+            aws_login_dev 'integrates' \
+        &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
+        &&  config+=(
+              # The number of worker processes for handling requests
+              --workers 5
+            )
       elif test "${env}" == 'eph'
       then
             aws_login_dev 'integrates' \
+        &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
         &&  config+=(
               # The number of worker processes for handling requests
               --workers 3
@@ -52,6 +101,7 @@ function main {
       elif test "${env}" == 'prod'
       then
             aws_login_prod 'integrates' \
+        &&  sops_export_vars __envSecretsProd__ "${secrets[@]}" \
         &&  config+=(
               # The number of worker processes for handling requests
               --workers 5
@@ -62,7 +112,7 @@ function main {
       fi \
   &&  __envKillPidListeningOnPort__ "${port}" \
   &&  { __envAsgi__ "${config[@]}" 'back.app.app:APP' & } \
-  &&  __envWait__ 10 "${host}:${port}"
+  &&  __envWait__ 5 "${host}:${port}"
 }
 
 main "${@}"

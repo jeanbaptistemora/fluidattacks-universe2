@@ -13,7 +13,10 @@ makeEntrypoint {
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envTools = outputs.packages."integrates/back/tools";
     envPypiRuntime = outputs.packages."integrates/back/pypi/runtime";
+    envSecretsDev = path "/integrates/secrets-development.yaml";
+    envSecretsProd = path "/integrates/secrets-production.yaml";
     envUtilsAws = import (path "/makes/utils/aws") path integratesPkgs;
+    envUtilsSops = import (path "/makes/utils/sops") path integratesPkgs;
     envWait = outputs.apps."makes/wait".program;
   };
   name = "integrates-back";
