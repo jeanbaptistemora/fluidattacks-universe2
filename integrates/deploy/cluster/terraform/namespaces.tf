@@ -1,9 +1,3 @@
-resource "kubernetes_namespace" "ephemeral" {
-  metadata {
-    name = "ephemeral"
-  }
-}
-
 resource "kubernetes_namespace" "development" {
   metadata {
     name = "development"
