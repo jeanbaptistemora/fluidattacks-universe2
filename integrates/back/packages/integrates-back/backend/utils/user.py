@@ -26,6 +26,9 @@ from backend import (
     mailer,
     util
 )
+from backend.dal.helpers.redis import (
+    redis_del_by_deps_soon,
+)
 from backend.domain import (
     organization as org_domain,
     project as group_domain,
@@ -156,6 +159,13 @@ async def complete_register_for_group_invitation(
                 user_domain.register(user_email),
                 authz.grant_user_level_role(user_email, 'customer')
             )))
+
+        if success:
+            redis_del_by_deps_soon(
+                'confirm_access',
+                group_name=group_name,
+                organization_id=organization_id,
+            )
 
     return success
 

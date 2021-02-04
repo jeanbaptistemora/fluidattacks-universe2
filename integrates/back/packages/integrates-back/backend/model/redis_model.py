@@ -126,6 +126,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'add_group_consult',
             'add_group_tags',
             'approve_draft',
+            'confirm_access',
             'create_event',
             'delete_finding',
             'edit_group',
@@ -141,15 +142,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'verify_request_vulnerability',
         },
     ),
-    invitation_token=dict(
-        args={
-            'token',
-        },
-        attrs={
-            'data',
-        },
-        dependencies=set(),
-    ),
     organization=dict(
         args={
             'id',
@@ -158,6 +150,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'stakeholders',
         },
         dependencies={
+            'confirm_access',
             'edit_stakeholder_organization',
             'grant_stakeholder_organization_access',
             'remove_stakeholder_organization_access'
