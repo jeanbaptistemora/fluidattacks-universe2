@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { authContext } from "utils/auth";
 import mixpanel from "mixpanel-browser";
 import store from "store";
-import { ApolloProvider, networkStatusNotifier } from "utils/apollo";
+import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   authzPermissionsContext,
@@ -22,7 +22,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import "tachyons/css/tachyons.min.css";
 
 const App: React.FC = (): JSX.Element => {
-  const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();
+  const status: NetworkStatus = useApolloNetworkStatus();
   const isLoading: boolean =
     status.numPendingQueries > 0 || status.numPendingMutations > 0;
 

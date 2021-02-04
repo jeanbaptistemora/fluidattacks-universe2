@@ -9,6 +9,7 @@ import type { ErrorResponse } from "apollo-link-error";
 import { Logger } from "utils/logger";
 import type { NormalizedCacheObject } from "apollo-cache-inmemory";
 import React from "react";
+import { RetryLink } from "apollo-link-retry";
 import { WebSocketLink } from "apollo-link-ws";
 import _ from "lodash";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
@@ -142,7 +143,6 @@ const wsLink: ApolloLink = new WebSocketLink({
   uri: `wss://${window.location.host}/api`,
 });
 
-const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
     const definition:
@@ -155,8 +155,25 @@ const apiLink: ApolloLink = ApolloLink.split(
     );
   },
   wsLink,
-  networkStatusNotifier.link.concat(httpLink)
+  httpLink
 );
+
+const {
+  link: networkStatusLink,
+  useApolloNetworkStatus,
+} = createNetworkStatusNotifier();
+
+const retryLink: ApolloLink = new RetryLink({
+  attempts: {
+    max: 5,
+    retryIf: (error): boolean => error !== undefined,
+  },
+  delay: {
+    initial: 300,
+    jitter: true,
+    max: Infinity,
+  },
+});
 
 /**
  * Custom error link implementation to prevent propagation
@@ -342,7 +359,6 @@ const ApolloProvider: React.FC<ProviderProps> = (
   props: ProviderProps
 ): JSX.Element => {
   const history: History = useHistory();
-
   const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
     (): ApolloClient<NormalizedCacheObject> =>
       new ApolloClient({
@@ -353,7 +369,12 @@ const ApolloProvider: React.FC<ProviderProps> = (
             fetchPolicy: "cache-and-network",
           },
         },
-        link: errorLink(history).concat(apiLink),
+        link: ApolloLink.from([
+          errorLink(history),
+          networkStatusLink,
+          retryLink,
+          apiLink,
+        ]),
       }),
     // This computed value will never change
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -363,4 +384,4 @@ const ApolloProvider: React.FC<ProviderProps> = (
   return React.createElement(BaseApolloProvider, { client, ...props });
 };
 
-export { getCache, networkStatusNotifier, ApolloProvider };
+export { getCache, useApolloNetworkStatus, ApolloProvider };
