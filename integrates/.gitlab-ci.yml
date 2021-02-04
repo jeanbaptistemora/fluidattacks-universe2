@@ -303,6 +303,12 @@ scheduler_get_new_vulnerabilities:
     refs: [schedules]
     variables: [$get_new_vulnerabilities]
 
+scheduler_send_send_treatment_change:
+  <<: *integrates_scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$send_treatment_change]
+
 scheduler_send_unsolved_to_all:
   <<: *integrates_scheduler_prod_template
   only:

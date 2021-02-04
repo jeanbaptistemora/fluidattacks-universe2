@@ -497,11 +497,15 @@ async def send_mail_verified_finding(
         'verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
-async def send_mail_updated_manager(
+async def send_mail_updated_treatment(
         email_to: List[str],
         context: MailContentType) -> None:
     await _send_mail_async(
-        'manager-updated', email_to, context=context, tags=GENERAL_TAG)
+        'treatment-vulnerabilities',
+        email_to,
+        context=context,
+        tags=GENERAL_TAG
+    )
 
 
 async def send_mail_new_remediated(

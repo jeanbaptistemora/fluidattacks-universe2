@@ -356,6 +356,20 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
     return first_day
 
 
+async def send_group_treatment_change(
+    group_name: str,
+    min_date: datetime
+) -> None:
+    payload_data = {'group_name': group_name}
+    msg = 'Info: Getting treatment change'
+    LOGGER.info(msg, extra={'extra': payload_data})
+    findings = await finding_domain.list_findings([group_name])
+    await collect(
+        vuln_domain.send_treatment_chage_mail(finding_id, min_date)
+        for finding_id in findings[0]
+    )
+
+
 async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
     LOGGER.info(msg, extra={'extra': locals()})
@@ -419,6 +433,16 @@ async def get_new_vulnerabilities() -> None:
     LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
     await collect(map(get_group_new_vulnerabilities, groups))
+
+
+async def send_treatment_change() -> None:
+    groups = await project_domain.get_active_projects()
+    min_date = datetime_utils.get_now_minus_delta(days=1)
+    await collect(
+        [send_group_treatment_change(group_name, min_date)
+         for group_name in groups],
+        workers=20
+    )
 
 
 def calculate_tag_indicators(
