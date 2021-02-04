@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
-source '__envTools__'
 source '__envPypiRuntime__'
+source '__envSearchPaths__'
+source '__envTools__'
 source '__envUtilsAws__'
 source '__envUtilsSops__'
 
@@ -76,11 +77,11 @@ function main {
         &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
         &&  config+=(
               # SSL certificate file
-              --certfile="__envCertsDevelopment__/cert.crt"
+              --certfile='__envCertsDevelopment__/cert.crt'
               # SSL key file
-              --keyfile="__envCertsDevelopment__/cert.key"
+              --keyfile='__envCertsDevelopment__/cert.key'
               # The number of worker processes for handling requests
-              --workers 5
+              --workers 3
             )
       elif test "${env}" == 'dev-mobile'
       then
@@ -88,7 +89,7 @@ function main {
         &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
         &&  config+=(
               # The number of worker processes for handling requests
-              --workers 5
+              --workers 3
             )
       elif test "${env}" == 'eph'
       then
@@ -107,12 +108,19 @@ function main {
               --workers 5
             )
       else
-            echo '[ERROR] First argument must be one of: dev, eph, prod' \
+            echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
         &&  return 1
       fi \
-  &&  __envKillPidListeningOnPort__ "${port}" \
-  &&  { __envAsgi__ "${config[@]}" 'back.app.app:APP' & } \
-  &&  __envWait__ 5 "${host}:${port}"
+  &&  pushd integrates \
+    &&  __envKillPidListeningOnPort__ "${port}" \
+    &&  { STARTDIR="${PWD}" \
+          __envAsgi__ "${config[@]}" 'back.app.app:APP' \
+        & } \
+    &&  __envWait__ 5 "${host}:${port}" \
+    &&  echo '[INFO] Back is ready' \
+    &&  wait \
+  &&  popd \
+  ||  return 1
 }
 
 main "${@}"
