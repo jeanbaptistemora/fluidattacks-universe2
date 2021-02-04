@@ -14,7 +14,7 @@ spec:
         app: integrates-__DEPLOYMENT_NAME__
     spec:
       nodeSelector:
-        worker_group: ephemeral
+        worker_group: development
       containers:
         - name: integrates
           image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__

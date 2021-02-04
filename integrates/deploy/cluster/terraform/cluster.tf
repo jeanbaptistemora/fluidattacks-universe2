@@ -70,6 +70,21 @@ module "eks" {
       spot_instance_pools      = 5
       spot_max_price           = "" # Defaults to on-demand price
     },
+    {
+      name                    = "production"
+      override_instance_types = ["m5a.large"]
+      kubelet_extra_args      = "--node-labels=worker_group=production"
+      public_ip               = true
+
+      asg_min_size         = 5
+      asg_desired_capacity = 11
+      asg_max_size         = 11
+
+      root_volume_type = "gp3"
+      root_volume_size = 50
+      root_encrypted   = true
+      ebs_optimized    = true
+    },
   ]
 
   map_roles    = var.map_roles
