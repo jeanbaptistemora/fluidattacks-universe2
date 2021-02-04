@@ -3,11 +3,11 @@
 export CLASSPATH="${envANTLR}:${CLASSPATH:-}"
 
 function compile_antlr {
-  java -jar "${envANTLR}" -no-listener -no-visitor "${@}"
+  ${envJava} -jar "${envANTLR}" -no-listener -no-visitor "${@}"
 }
 
 function compile_java {
-  javac -Werror "${@}"
+  ${envJavac} -Werror "${@}"
 }
 
 function main {
