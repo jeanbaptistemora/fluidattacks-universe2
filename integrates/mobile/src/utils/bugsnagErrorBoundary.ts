@@ -24,17 +24,15 @@ Bugsnag.start({
   releaseStage: `mobile-${getEnvironment().name}`,
 });
 
+const isAirplaneModeEnabled: () => Promise<boolean> = async (): Promise<boolean> =>
+  Platform.OS === "android" ? Network.isAirplaneModeEnabledAsync() : false;
+
 Promise.all([Network.getIpAddressAsync(), Network.getNetworkStateAsync()])
   .then(
     async (networkInfo: [string, Network.NetworkState]): Promise<void> => {
-      const isAirplaneModeEnabled: boolean = Platform.select({
-        android: await Network.isAirplaneModeEnabledAsync(),
-        default: false,
-      });
-
       Bugsnag.addMetadata("network", {
         IpAddress: networkInfo[0],
-        IsAirplaneModeEnabled: isAirplaneModeEnabled,
+        IsAirplaneModeEnabled: await isAirplaneModeEnabled(),
         NetworkState: networkInfo[1],
       });
     },
