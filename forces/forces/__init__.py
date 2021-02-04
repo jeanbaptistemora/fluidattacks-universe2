@@ -74,7 +74,10 @@ async def entrypoint(
                 ('Could not detect repository name, use'
                  ' --repo-name option to specify it'),
             )
-            return 1
+            if config.kind == KindEnum.ALL:
+                exit_code = 1
+            else:
+                return 1
         metadata['git_repo'] = config.repository_name or metadata['git_repo']
         await log(
             'info',
@@ -82,7 +85,10 @@ async def entrypoint(
 
         # check if repo is in roots
         if not await check_remotes(config):
-            return 1
+            if config.kind == KindEnum.ALL:
+                exit_code = 1
+            else:
+                return 1
 
     report = await generate_report(config)
 
@@ -98,9 +104,8 @@ async def entrypoint(
         temp_file.seek(os.SEEK_SET)
         await in_thread(output.write,
                         temp_file.read().decode('utf-8'))
-    if config.strict:
-        if report['summary']['open']['total'] > 0:
-            exit_code = 1
+    if config.strict and report['summary']['open']['total'] > 0:
+        exit_code = 1
     execution_id = str(uuid.uuid4()).replace('-', '')
     await log('info', 'Success execution: %s', exit_code == 0)
     success_upload = await upload_report(

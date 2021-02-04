@@ -52,6 +52,9 @@ def extract_repo_name(pattern: str) -> Optional[str]:
         if match and match.group(1):
             return match.group(1)
 
+    with suppress(IndexError):
+        return pattern.split('/')[-1].split('.')[0]
+
     return None
 
 
