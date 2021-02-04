@@ -8,6 +8,7 @@
 , srcMeltsPkgs
 , srcObservesPkgs
 , srcObservesPkgsTerraform
+, srcServesPkgsTerraform
 , srcSkimsBenchmarkOwaspRepo
 , srcSkimsPkgs
 , srcSkimsPkgsTerraform
@@ -34,6 +35,7 @@ flakeUtils.lib.eachSystem [ "x86_64-linux" ] (
         packages = sources.packages;
       };
       path = path: /. + (builtins.unsafeDiscardStringContext self.sourceInfo) + path;
+      servesPkgsTerraform = import srcServesPkgsTerraform { inherit system; };
       skimsBenchmarkOwaspRepo = srcSkimsBenchmarkOwaspRepo;
       skimsPkgs = import srcSkimsPkgs { inherit system; };
       skimsPkgsTerraform = import srcSkimsPkgsTerraform { inherit system; };

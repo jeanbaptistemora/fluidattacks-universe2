@@ -46,6 +46,7 @@ observes/scheduled-code-etl-mirror
 observes/scheduled-code-etl-upload
 observes/tap-json
 observes/target-redshift
+serves/test-user-provision-forces
 skims
 skims/benchmark
 skims/benchmark-on-aws

@@ -8,6 +8,16 @@
   variables:
     GIT_DEPTH: 5
 
+.makes: &makes
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/makes:ci"
+  needs: []
+  interruptible: true
+  script:
+    - ./make "${CI_JOB_NAME% *}"
+  variables:
+    GIT_DEPTH: 5
+
 .serves_commit_pattern: &serves_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|serves)/'
 
 .serves_in_dev_branch: &serves_in_dev_branch
@@ -93,6 +103,11 @@ serves_test_user_provision_integrates:
 
 serves_test_user_provision_skims:
   <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
+serves/test-user-provision-forces:
+  <<: *makes
   <<: *serves_in_dev_branch
   stage: test-infra
 
