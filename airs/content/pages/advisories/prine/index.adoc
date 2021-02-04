@@ -32,6 +32,10 @@
 |*Kind*|Stack Buffer Overflow
 |*Rule* |link:https://fluidattacks.com/products/rules/list/345/[R345. Establish protections against overflows]
 |*Remote*|Yes
+|*CVSSv3 Vector*|CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+|*CVSSv3 Base Score*| 9.8 CRITICAL
+|*CVSSv2 Vector*|AV:N/AC:L/Au:N/C:C/I:C/A:C
+|*CVSSv2 Base Score*| 10 HIGH
 |*Exploit available*|Yes
 |*Exploit URL*|https://www.exploit-db.com/exploits/49217
 |*CVE ID(s)* |link:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659[CVE-2020-29659]
@@ -58,7 +62,7 @@ is available at the vendor page.
 
 == Credits
 
-The vulnerability was discovered by link:https://www.linkedin.com/in/andres-roldan/[Andrés Roldán] 
+The vulnerability was discovered by link:https://www.linkedin.com/in/andres-roldan/[Andrés Roldán]
 from the Offensive Team of `Fluid Attacks`.
 
 == References
