@@ -25,6 +25,7 @@ integrates/storage/bin
 integrates/storage/oci
 integrates/tools/asciidoctor
 integrates/tools/asciidoctor-pdf
+integrates/tools/concurrent-ruby
 makes/dev
 makes/test
 makes/wait/bin
