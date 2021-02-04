@@ -8,6 +8,9 @@ forces/oci-build-wrapper
 integrates/back/bin
 integrates/back/certs/development
 integrates/back/oci
+integrates/back/probes/lib
+integrates/back/probes/liveness
+integrates/back/probes/readiness
 integrates/back/pypi/development
 integrates/back/pypi/runtime
 integrates/back/tools
