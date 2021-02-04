@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: integrates-__DEPLOYMENT_NAME__
-  namespace: ephemeral
+  namespace: development
 spec:
   replicas: 1
   selector:
@@ -27,10 +27,10 @@ spec:
             - http/development/back.app.app:APP/back.settings.uvicorn.IntegratesWorker/3/0.0.0.0/8001/*
           resources:
             requests:
-              cpu: 300m
+              cpu: 600m
               memory: 1000Mi
             limits:
-              cpu: 2000m
+              cpu: 4000m
               memory: 2000Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -72,10 +72,10 @@ spec:
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: 300m
+              cpu: 600m
               memory: 500Mi
             limits:
-              cpu: 2000m
+              cpu: 4000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -88,10 +88,10 @@ spec:
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: 300m
+              cpu: 600m
               memory: 500Mi
             limits:
-              cpu: 2000m
+              cpu: 4000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE
@@ -104,10 +104,10 @@ spec:
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: 300m
+              cpu: 600m
               memory: 500Mi
             limits:
-              cpu: 2000m
+              cpu: 4000m
               memory: 1000Mi
           env:
             - name: DEPLOYMENT_DATE

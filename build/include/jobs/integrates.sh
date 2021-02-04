@@ -259,10 +259,10 @@ function job_integrates_back_deploy_development {
 
   local region='us-east-1'
   local cluster='integrates-cluster'
-  local namespace='ephemeral'
+  local namespace='development'
   local deployment="${CI_COMMIT_REF_NAME}"
   local timeout='10m'
-  local files_path='deploy/ephemeral'
+  local files_path='deploy/development'
 
       helper_common_use_pristine_workdir \
   &&  helper_integrates_aws_login "${env}" \
@@ -320,7 +320,7 @@ function job_integrates_back_deploy_production {
 
 function job_integrates_back_clean_development_environments {
   local cluster='integrates-cluster'
-  local namespace='ephemeral'
+  local namespace='development'
   local region='us-east-1'
 
       helper_common_use_pristine_workdir \
@@ -328,7 +328,7 @@ function job_integrates_back_clean_development_environments {
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  helper_integrates_aws_login 'development' \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  echo '[INFO] Deleting ephemeral environments' \
+  &&  echo '[INFO] Deleting development environments' \
   &&  kubectl delete --all deployment -n "${namespace}" \
   &&  kubectl delete --all secret -n "${namespace}" \
   &&  kubectl delete --all service -n "${namespace}" \

@@ -11,6 +11,3 @@
 /app/static/dashboard
 /back/packages/integrates-back/backend/reports/tpls/*.tpl
 /build/coverage
-/.DynamoDB
-/.MinIO
-/.Redis

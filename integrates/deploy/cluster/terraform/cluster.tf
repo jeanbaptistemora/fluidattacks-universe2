@@ -28,16 +28,6 @@ module "eks" {
 
   worker_groups = [
     {
-      name                 = "ephemeral"
-      instance_type        = "m5a.large"
-      asg_min_size         = 5
-      asg_desired_capacity = 11
-      asg_max_size         = 11
-      root_volume_type     = "gp2"
-      root_volume_size     = "50"
-      kubelet_extra_args   = "--node-labels=worker_group=ephemeral"
-    },
-    {
       name                 = "production"
       instance_type        = "m5a.large"
       asg_min_size         = 5
@@ -72,7 +62,8 @@ module "eks" {
     },
     {
       name                    = "production"
-      override_instance_types = ["m5a.large"]
+      override_instance_types = ["m5.large", "m5a.large", "m5d.large", "m5ad.large"]
+      kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=production"
       public_ip               = true
 
@@ -84,6 +75,10 @@ module "eks" {
       root_volume_size = 50
       root_encrypted   = true
       ebs_optimized    = true
+
+      spot_allocation_strategy = "lowest-price"
+      spot_instance_pools      = 5
+      spot_max_price           = "" # Defaults to on-demand price
     },
   ]
 
