@@ -8,7 +8,7 @@ import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 
 interface IModalProps {
   children: React.ReactNode;
-  headerTitle: string;
+  headerTitle: string | React.ReactNode;
   open: boolean;
   size?: string;
 }
@@ -44,7 +44,7 @@ const StyledModal: StyledComponent<
 const ModalBase: React.FC<IModalProps> = (
   props: Readonly<IModalProps>
 ): JSX.Element => {
-  const { children, headerTitle, size } = props;
+  const { children, headerTitle, size = "" } = props;
 
   React.useEffect((): (() => void) => {
     document.body.style.setProperty("overflow", "hidden");
@@ -60,7 +60,7 @@ const ModalBase: React.FC<IModalProps> = (
       <StyledModalContainer>
         <StyledModalDialog className={size}>
           <StyledModal>
-            <ModalHeader>
+            <ModalHeader className={`${size}-title`}>
               <ModalTitle>{headerTitle}</ModalTitle>
             </ModalHeader>
             <ModalBody>{children}</ModalBody>

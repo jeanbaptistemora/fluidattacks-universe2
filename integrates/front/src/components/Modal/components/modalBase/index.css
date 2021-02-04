@@ -20,8 +20,22 @@
   width: 850px;
 }
 
+:global .graphicModal {
+  width: 1200px;
+}
+
+:global .graphicModal-title {
+  background-color: #fbfbfb !important;
+}
+
 @media (max-width: 900px) {
   :global .largeModal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1250px) {
+  :global .graphicModal {
     width: 100%;
   }
 }

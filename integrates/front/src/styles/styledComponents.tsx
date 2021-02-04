@@ -327,7 +327,7 @@ const ModalHeader: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "bg-ne modalh-bb pv4 ph3 white",
+  className: "bg-orgred modalh-bb pv4 ph3 white",
 })``;
 
 const ModalTitle: StyledComponent<

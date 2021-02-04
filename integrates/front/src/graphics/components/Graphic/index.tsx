@@ -3,8 +3,10 @@
   We need className to override default styles from react-bootstrap.
   */
 import type { ComponentSize } from "@rehooks/component-size";
+import { Glyphicon } from "react-bootstrap";
 import type { IGraphicProps } from "graphics/types";
 import type { ISecureStoreConfig } from "utils/secureStore";
+import { Modal } from "components/Modal";
 import React from "react";
 import _ from "lodash";
 import { secureStoreContext } from "utils/secureStore";
@@ -19,7 +21,6 @@ import {
   GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
 } from "styles/styledComponents";
-import { Glyphicon, Modal } from "react-bootstrap";
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -160,57 +161,51 @@ export const Graphic: React.FC<IGraphicProps> = (
   return (
     <React.Fragment>
       <Modal
-        backdrop={true}
-        bsSize={"large"}
-        dialogClassName={styles.modalDialog}
-        onHide={frameOnFullScreenExit}
-        show={fullScreen}
-      >
-        <Modal.Header>
-          <Modal.Title>
-            <div className={"w-100"}>
-              <div className={styles.titleBar}>
-                {title}
-                <ButtonGroup className={"fr"}>
-                  <GraphicButton>
-                    <a
-                      className={"g-a"}
-                      download={buildFileName(modalSize)}
-                      href={buildUrl(props, modalSize)}
-                      rel={"noopener noreferrer"}
-                      target={"_blank"}
-                    >
-                      <Glyphicon glyph={"save"} />
-                    </a>
-                  </GraphicButton>
-                  <GraphicButton onClick={modalFrameOnRefresh}>
-                    <Glyphicon glyph={"refresh"} />
-                  </GraphicButton>
-                  <GraphicButton onClick={frameOnFullScreenExit}>
-                    <Glyphicon glyph={"remove"} />
-                  </GraphicButton>
-                </ButtonGroup>
-              </div>
+        headerTitle={
+          <div className={"w-100"}>
+            <div className={styles.titleBar}>
+              {title}
+              <ButtonGroup className={"fr"}>
+                <GraphicButton>
+                  <a
+                    className={"g-a"}
+                    download={buildFileName(modalSize)}
+                    href={buildUrl(props, modalSize)}
+                    rel={"noopener noreferrer"}
+                    target={"_blank"}
+                  >
+                    <Glyphicon glyph={"save"} />
+                  </a>
+                </GraphicButton>
+                <GraphicButton onClick={modalFrameOnRefresh}>
+                  <Glyphicon glyph={"refresh"} />
+                </GraphicButton>
+                <GraphicButton onClick={frameOnFullScreenExit}>
+                  <Glyphicon glyph={"remove"} />
+                </GraphicButton>
+              </ButtonGroup>
             </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div ref={modalRef} style={{ height: bigGraphicSize.height }}>
-            <iframe
-              className={styles.frame}
-              frameBorder={"no"}
-              onLoad={modalFrameOnLoad}
-              ref={modalBodyRef}
-              scrolling={"no"}
-              src={modalIframeSrc}
-              title={title}
-            />
           </div>
-        </Modal.Body>
-        {!_.isUndefined(footer) && (
-          <Modal.Footer>
-            <div className={styles.panelFooter}>{footer}</div>
-          </Modal.Footer>
+        }
+        open={fullScreen}
+        size={"graphicModal"}
+      >
+        <div ref={modalRef} style={{ height: bigGraphicSize.height }}>
+          <iframe
+            className={styles.frame}
+            frameBorder={"no"}
+            onLoad={modalFrameOnLoad}
+            ref={modalBodyRef}
+            scrolling={"no"}
+            src={modalIframeSrc}
+            title={title}
+          />
+        </div>
+        {_.isUndefined(footer) ? undefined : (
+          <React.Fragment>
+            <hr />
+            <div>{footer}</div>
+          </React.Fragment>
         )}
       </Modal>
       <div ref={fullRef}>

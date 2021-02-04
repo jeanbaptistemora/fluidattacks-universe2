@@ -52,6 +52,7 @@
 }
 
 :local .titleBar {
+  color: #333;
   font-weight: normal;
   height: 30px;
   line-height: 30px;
