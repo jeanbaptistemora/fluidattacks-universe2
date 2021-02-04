@@ -13,6 +13,7 @@ makeTemplate {
     envPythonRequirements = buildPythonRequirements {
       dependencies = [
       ];
+      name = "observes-streamer-zoho-crm-runtime";
       requirements = {
         direct = [
           "click==7.1.2"

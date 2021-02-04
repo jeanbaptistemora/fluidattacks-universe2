@@ -12,6 +12,8 @@ makeDerivation {
     (builtins.attrValues (builtins.removeAttrs sources.apps [
     ]))
     (builtins.attrValues (builtins.removeAttrs sources.packages [
+      # Too much disk
+      "integrates/mobile/config/development"
       # Needed to avoid infinite recursion
       "makes/test"
     ]))

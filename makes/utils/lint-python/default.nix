@@ -7,6 +7,7 @@ makeTemplate {
   arguments = {
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "lint-python";
       requirements = {
         direct = [
           "import-linter==1.2"

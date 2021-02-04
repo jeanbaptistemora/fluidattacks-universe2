@@ -14,6 +14,7 @@ makeTemplate {
     ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "melts-development";
       requirements = {
         direct = [
           "localstack==0.12.5"

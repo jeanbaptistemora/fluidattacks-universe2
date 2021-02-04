@@ -26,6 +26,7 @@ makeTemplate {
     envPython = "${sortsPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "sorts-runtime";
       requirements = {
         direct = [
           "bugsnag==3.9.0"

@@ -12,6 +12,7 @@ makeTemplate {
     envSearchPaths = makeSearchPaths [ ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "forces-development";
       requirements = {
         direct = [
           "pytest-asyncio==0.14.0"

@@ -10,6 +10,7 @@ makeTemplate {
   arguments = {
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "integrates-back-development";
       requirements = {
         direct = [
           "aniso8601==8.0.0"

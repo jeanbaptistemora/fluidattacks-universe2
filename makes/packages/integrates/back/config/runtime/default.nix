@@ -11,6 +11,7 @@ makeTemplate {
   arguments = {
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "integrates-back-runtime";
       requirements = {
         direct = [
           "aioboto3==8.0.3"

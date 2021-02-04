@@ -1,9 +1,18 @@
-{ buildInputs ? [ ], nixPkgs, path, packageName, projectDir, python, pythonReqs }:
+{ buildInputs ? [ ]
+, name
+, nixPkgs
+, path
+, packageName
+, projectDir
+, python
+, pythonReqs
+}:
 let
   buildPythonReqs = import (path "/makes/utils/build-python-requirements") path nixPkgs;
   makeSearchPaths = import (path "/makes/utils/make-search-paths") path nixPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path nixPkgs;
   reqs = buildPythonReqs {
+    inherit name;
     inherit python;
     dependencies = buildInputs;
     requirements = {

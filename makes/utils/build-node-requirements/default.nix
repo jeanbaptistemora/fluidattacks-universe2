@@ -4,6 +4,7 @@
 path: pkgs:
 
 { dependencies
+, name
 , node
 , requirements
 }:
@@ -42,5 +43,5 @@ makeDerivation {
   envBashLibCommon = path "/makes/utils/common/template.sh";
   envPackageJsonFile = builtins.toFile "package.json" packageJson;
   envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
-  name = "build-node-requirements";
+  name = "build-node-requirements-${name}";
 }

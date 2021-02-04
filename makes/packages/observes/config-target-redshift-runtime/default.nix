@@ -14,6 +14,7 @@ makeTemplate {
       dependencies = [
         observesPkgs.postgresql
       ];
+      name = "observes-target-redshift-runtime";
       requirements = {
         direct = [
           "jsonschema==3.2.0"

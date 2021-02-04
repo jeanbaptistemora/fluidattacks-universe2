@@ -10,6 +10,7 @@ makeDerivation {
   builder = path "/makes/packages/skims/parsers/babel/builder.sh";
   envNodeRequirements = buildNodeRequirements {
     dependencies = [ ];
+    name = "skims-parsers-babel";
     node = skimsPkgs.nodejs;
     requirements = {
       direct = [ "@babel/parser@7.11.0" ];

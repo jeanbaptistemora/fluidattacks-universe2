@@ -12,6 +12,7 @@ makeTemplate {
     envSearchPaths = makeSearchPaths [ ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "skims-development";
       requirements = {
         direct = [
           "bandit==1.6.2"

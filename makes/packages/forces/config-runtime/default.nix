@@ -16,6 +16,7 @@ makeTemplate {
     envPython = "${forcesPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "forces-runtime";
       requirements = {
         direct = [
           "aioextensions==20.8.2087641"

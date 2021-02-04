@@ -18,6 +18,7 @@ makeTemplate {
     envPython = "${meltsPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "melts-runtime";
       requirements = {
         direct = [
           "aioextensions==20.11.1621472"

@@ -12,6 +12,7 @@ makeTemplate {
     envPython = "${forcesPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "forces-wrapper";
       requirements = {
         direct = [
           "boto3==1.16.63"

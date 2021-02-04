@@ -34,6 +34,7 @@ makeTemplate {
     envPython = "${skimsPkgs.python38}/bin/python";
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "skims-runtime";
       requirements = {
         direct = [
           "aioextensions==20.9.2315218"

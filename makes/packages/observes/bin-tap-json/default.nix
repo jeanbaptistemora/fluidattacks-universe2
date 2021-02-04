@@ -11,6 +11,7 @@ makeEntrypoint {
     envBashLibPython = path "/makes/utils/python/template.sh";
     envTapJson = buildPythonPackage {
       dependencies = [ ];
+      name = "observes-bin-tap-json";
       packagePath = path "/observes/singer/tap_json";
       python = observesPkgs.python37;
     };

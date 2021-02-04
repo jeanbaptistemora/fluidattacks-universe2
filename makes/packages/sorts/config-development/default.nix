@@ -12,6 +12,7 @@ makeTemplate {
     envSearchPaths = makeSearchPaths [ sortsPkgs.gcc.cc ];
     envPythonRequirements = buildPythonRequirements {
       dependencies = [ ];
+      name = "sorts-development";
       requirements = {
         direct = [
           "boto3==1.16.29"

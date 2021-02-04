@@ -8,9 +8,14 @@ let
     name = packageName;
     packagePath = projectDir;
     env = packageBuilder {
-      inherit nixPkgs packageName path projectDir pythonReqs;
-      python = nixPkgs.python38;
+      name = packageName;
       buildInputs = buildInputsList;
+      inherit nixPkgs;
+      inherit packageName;
+      inherit path;
+      inherit projectDir;
+      python = nixPkgs.python38;
+      inherit pythonReqs;
     };
     buildInputs = [ env ] ++ buildInputsList;
   };

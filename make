@@ -19,7 +19,7 @@ function cachix_push {
   then
         echo "[INFO] Pushing to cache: ${nix_store_path}" \
     &&  cachix authtoken "${CACHIX_FLUIDATTACKS_TOKEN}" \
-    &&  echo "${nix_store_path}" | cachix push -c 9 fluidattacks
+    &&  echo "${nix_store_path}" | cachix push -c 0 fluidattacks
   fi
 }
 

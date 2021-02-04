@@ -8,6 +8,7 @@ let
   getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path integratesPkgs;
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
+    name = "integrates-front-development";
     node = integratesPkgs.nodejs;
     requirements = {
       direct = (getPackageJsonDeps {

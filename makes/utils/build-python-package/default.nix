@@ -3,6 +3,7 @@
 path: pkgs:
 
 { dependencies
+, name
 , packagePath
 , python
 }:
@@ -13,5 +14,5 @@ makeDerivation {
   builder = path "/makes/utils/build-python-package/builder.sh";
   buildInputs = dependencies ++ [ python ];
   envPackagePath = packagePath;
-  name = "build-python-package";
+  name = "build-python-package-${name}";
 }

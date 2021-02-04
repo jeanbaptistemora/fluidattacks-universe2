@@ -7,6 +7,7 @@ let
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
+    name = "integrates-mobile-runtime";
     node = integratesPkgs.nodejs-12_x;
     requirements = {
       direct = [
