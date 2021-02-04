@@ -11,6 +11,7 @@ makeEntrypoint {
   arguments = {
     envAsgi = "${integratesPkgs.python37Packages.gunicorn}/bin/gunicorn";
     envCertsDevelopment = outputs.packages."integrates/back/certs/development";
+    envDone = outputs.apps."makes/done".program;
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envSearchPaths = makeSearchPaths [
       # Libmagic
@@ -19,6 +20,8 @@ makeEntrypoint {
       integratesPkgs.gcc.cc
       # The binary for pypi://GitPython
       integratesPkgs.git
+      # The binary to zip the data report
+      integratesPkgs.p7zip
     ];
     envTools = outputs.packages."integrates/back/tools";
     envPypiRuntime = outputs.packages."integrates/back/pypi/runtime";

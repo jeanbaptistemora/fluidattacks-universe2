@@ -1,6 +1,7 @@
 { integratesPkgs
 , outputs
 , path
+, revision
 , ...
 } @ _:
 let
@@ -10,6 +11,7 @@ in
 makeOci {
   config.Entrypoint = [ outputs.apps."integrates/back".program ];
   config.Env = [
+    "CI_COMMIT_SHA=${revision}"
     "SSL_CERT_FILE=${integratesPkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
   ];
   contents = [

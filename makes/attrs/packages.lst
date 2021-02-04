@@ -14,6 +14,7 @@ integrates/back/tools
 integrates/back/tools/asciidoctor
 integrates/back/tools/asciidoctor-pdf
 integrates/back/tools/concurrent-ruby
+integrates/back/tools/secure-spreadsheet
 integrates/cache/bin
 integrates/cache/oci
 integrates/db/bin

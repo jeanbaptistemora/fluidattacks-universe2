@@ -113,11 +113,11 @@ function main {
       fi \
   &&  pushd integrates \
     &&  __envKillPidListeningOnPort__ "${port}" \
-    &&  { CI_COMMIT_AUTHOR='' \
-          STARTDIR="${PWD}" \
+    &&  { STARTDIR="${PWD}" \
           __envAsgi__ "${config[@]}" 'back.app.app:APP' \
         & } \
     &&  __envWait__ 5 "${host}:${port}" \
+    &&  __envDone__ 28001 \
     &&  echo '[INFO] Back is ready' \
     &&  wait \
   &&  popd \
