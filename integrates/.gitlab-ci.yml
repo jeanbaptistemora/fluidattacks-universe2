@@ -97,6 +97,11 @@
     - ./make "${CI_JOB_NAME%-*}"
   stage: deploy-app
 
+integrates/back/oci/deploy:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: build
+
 integrates/cache/oci/deploy:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -370,6 +375,7 @@ integrates_back_deploy_development:
   stage: deploy-app
   needs:
     - integrates_back_build_development
+    - integrates/back/oci/deploy
     - integrates/cache/oci/deploy
     - integrates/db/oci/deploy
     - integrates/storage/oci/deploy

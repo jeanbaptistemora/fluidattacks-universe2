@@ -17,7 +17,6 @@ from backend.exceptions import (
 from back import settings
 
 from __init__ import (
-    CI_COMMIT_AUTHOR,
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
@@ -130,7 +129,6 @@ if FI_ENVIRONMENT == 'production':
     PAYLOAD = {
         'apiKey': FI_BUGSNAG_ACCESS_TOKEN,
         'appVersion': CI_COMMIT_SHORT_SHA,
-        'builderName': CI_COMMIT_AUTHOR,
         'releaseStage': FI_ENVIRONMENT,
         'sourceControl': {
             'provider': 'gitlab',

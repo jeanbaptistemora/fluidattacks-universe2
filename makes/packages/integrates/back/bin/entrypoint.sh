@@ -113,7 +113,8 @@ function main {
       fi \
   &&  pushd integrates \
     &&  __envKillPidListeningOnPort__ "${port}" \
-    &&  { STARTDIR="${PWD}" \
+    &&  { CI_COMMIT_AUTHOR='' \
+          STARTDIR="${PWD}" \
           __envAsgi__ "${config[@]}" 'back.app.app:APP' \
         & } \
     &&  __envWait__ 5 "${host}:${port}" \

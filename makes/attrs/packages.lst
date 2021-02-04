@@ -7,6 +7,7 @@ forces/oci-build
 forces/oci-build-wrapper
 integrates/back/bin
 integrates/back/certs/development
+integrates/back/oci
 integrates/back/pypi/development
 integrates/back/pypi/runtime
 integrates/back/tools
