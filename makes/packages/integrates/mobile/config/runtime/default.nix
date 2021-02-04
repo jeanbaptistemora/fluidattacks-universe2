@@ -5,43 +5,15 @@
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path integratesPkgs;
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
+  getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path integratesPkgs;
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
     name = "integrates-mobile-runtime";
     node = integratesPkgs.nodejs-12_x;
     requirements = {
-      direct = [
-        "@apollo/client@3.3.7"
-        "@bugsnag/core@7.6.0"
-        "@bugsnag/expo@7.6.0"
-        "@bugsnag/plugin-react@7.6.0"
-        "@expo/vector-icons@12.0.3"
-        "babel-plugin-inline-import@3.0.0"
-        "expo-auth-session@3.0.0"
-        "expo-constants@9.3.5"
-        "expo-device@2.4.0"
-        "expo-local-authentication@9.5.0"
-        "expo-localization@9.1.0"
-        "expo-network@2.4.0"
-        "expo-notifications@0.8.2"
-        "expo-permissions@10.0.0"
-        "expo-random@10.0.0"
-        "expo-secure-store@9.3.0"
-        "expo-updates@0.4.1"
-        "expo-web-browser@8.6.0"
-        "expo@40.0.1"
-        "graphql@14.7.0"
-        "i18next@19.8.7"
-        "intl@1.2.5"
-        "lodash@4.17.20"
-        "react-i18next@11.8.5"
-        "react-native-paper@4.7.1"
-        "react-native-svg@12.1.0"
-        "react-native@https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz"
-        "react-router-native@5.2.0"
-        "react@16.13.1"
-        "waait@1.0.5"
-      ];
+      direct = (getPackageJsonDeps {
+        packageJsonPath = "/integrates/mobile/package.json";
+      }).production;
       inherited = [
         "@babel/code-frame@7.12.13"
         "@babel/compat-data@7.12.13"

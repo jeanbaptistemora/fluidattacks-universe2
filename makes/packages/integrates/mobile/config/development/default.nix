@@ -5,33 +5,15 @@
 let
   buildNodeRequirements = import (path "/makes/utils/build-node-requirements") path integratesPkgs;
   makeDerivation = import (path "/makes/utils/make-derivation") path integratesPkgs;
+  getPackageJsonDeps = import (path "/makes/utils/get-package-json-deps") path integratesPkgs;
   nodeRequirements = buildNodeRequirements {
     dependencies = [ ];
     name = "integrates-mobile-development";
     node = integratesPkgs.nodejs-12_x;
     requirements = {
-      direct = [
-        "@types/enzyme-adapter-react-16@1.0.6"
-        "@types/enzyme@3.10.8"
-        "@types/jest@26.0.20"
-        "@types/react-dom@16.9.8"
-        "@types/react-native@0.63.46"
-        "@types/react-router-native@5.1.0"
-        "babel-preset-expo@8.3.0"
-        "bunyan@1.8.15"
-        "enzyme-adapter-react-16@1.15.6"
-        "enzyme@3.11.0"
-        "expo-cli@4.1.6"
-        "fetch-mock@9.11.0"
-        "jest-expo@40.0.2"
-        "jest@26.6.3"
-        "react-dom@16.13.1"
-        "ts-jest@26.5.0"
-        "tslint-react@5.0.0"
-        "tslint@6.1.3"
-        "turtle-cli@0.20.7"
-        "typescript@4.1.3"
-      ];
+      direct = (getPackageJsonDeps {
+        packageJsonPath = "/integrates/mobile/package.json";
+      }).development;
       inherited = [
         "@babel/code-frame@7.12.13"
         "@babel/compat-data@7.12.13"
