@@ -153,9 +153,9 @@ def graphic_view(
                 f'{params.generator_type}/'
                 f'{params.generator_name}.js'
             ),
-            c3js=f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.js',
+            c3js=f'{settings.STATIC_URL}/external/C3/c3.js',
             c3css=(
-                f'{settings.STATIC_URL}/external/C3/c3-0.7.18/c3.css'
+                f'{settings.STATIC_URL}/external/C3/c3.css'
             )
         )
     )
