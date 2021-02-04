@@ -52,9 +52,9 @@
     // Disabling this rule is necessary to avoid a conflict with another one that checks for all variables to be typed.
     // View: https://github.com/palantir/tslint/issues/711
     "no-inferrable-types": false,
-    "no-implicit-dependencies": [ true, "dev", ["components", "graphics",
-      "resources", "scenes", "store", "styles", "typings", "utils"]
-    ],
+    // Dependencies are not specified in the package.json
+    // They are located in /makes/packages/integrates/front/config
+    "no-implicit-dependencies": [ false ],
     "no-magic-numbers": false,
     "no-null-undefined-union": false,
     "no-submodule-imports": [true, "components", "graphics", "resources",
