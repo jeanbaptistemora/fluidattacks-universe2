@@ -3,7 +3,7 @@ import type { ITagFieldProps } from "./types";
 import React from "react";
 import { TagInput } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { ControlLabel, FormGroup } from "react-bootstrap/lib";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 
 const TagField: React.FC<ITagFieldProps> = (
   props: ITagFieldProps

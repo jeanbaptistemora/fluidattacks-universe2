@@ -3,7 +3,7 @@ import type { ISeverityFieldProps } from "./types";
 import React from "react";
 import { Text } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { ControlLabel, FormGroup } from "react-bootstrap/lib";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { isValidVulnSeverity, numeric } from "utils/validations";
 
 const SeverityField: React.FC<ISeverityFieldProps> = (
