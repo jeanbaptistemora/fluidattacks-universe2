@@ -49,6 +49,28 @@ module "eks" {
     },
   ]
 
+  worker_groups_launch_template = [
+    {
+      name                    = "development"
+      override_instance_types = ["m5.xlarge", "m5a.xlarge", "m5d.xlarge", "m5ad.xlarge"]
+      kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
+      kubelet_extra_args      = "--node-labels=worker_group=development"
+      public_ip               = false
+
+      asg_min_size         = 5
+      asg_desired_capacity = 11
+      asg_max_size         = 11
+
+      root_volume_type = "gp3"
+      root_encrypted   = true
+      root_volume_size = 50
+
+      spot_allocation_strategy = "lowest-price"
+      spot_instance_pools      = 5
+      spot_max_price           = "" # Defaults to on-demand price
+    },
+  ]
+
   map_roles    = var.map_roles
   map_users    = var.map_users
   map_accounts = var.map_accounts
