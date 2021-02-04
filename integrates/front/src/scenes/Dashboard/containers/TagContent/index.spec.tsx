@@ -4,40 +4,23 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Route } from "react-router";
 import { MemoryRouter } from "react-router-dom";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/queries";
 import store from "store";
 
 describe("TagContent", () => {
 
   const mocks: MockedResponse = {
     request: {
-      query: TAG_QUERY,
+      query: GET_ORGANIZATION_ID,
       variables: {
-        tagName: "TEST-PROJECTS",
+        organizationName: "testorg",
       },
     },
     result: {
       data: {
-        tag: {
-          lastClosingVuln: 10,
-          maxOpenSeverity: 5,
-          maxSeverity: 6,
-          meanRemediate: 20,
-          meanRemediateCriticalSeverity: 10,
-          meanRemediateHighSeverity: 15,
-          meanRemediateLowSeverity: 25,
-          meanRemediateMediumSeverity: 30,
-          name: "TEST-PROJECTS",
-          projects: [
-            {
-              closedVulnerabilities: 1,
-              name: "test",
-              openVulnerabilities: 3,
-              totalFindings: 2,
-              totalTreatment: JSON.stringify({ accepted: 1, inProgress: 0, acceptedUndefined: 1, undefined: 1 }),
-            },
-          ],
+        organizationId: {
+          id: "ORG#eb50af04-4d50-4e40-bab1-a3fe9f672f9d",
         },
       },
     },
