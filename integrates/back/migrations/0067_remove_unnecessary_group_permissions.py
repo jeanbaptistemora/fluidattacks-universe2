@@ -1,6 +1,9 @@
 """
 This migration remove the group level permission for stakeholders
 that do not have group access
+
+Execution Time:    2021-02-04 at 10:00:26 UTC-05
+Finalization Time: 2021-02-04 at 10:01:03 UTC-05
 """
 # Third party libraries
 from aioextensions import (
