@@ -16,6 +16,8 @@ import {
 import { setContext } from "@apollo/client/link/context";
 // tslint:disable-next-line: no-submodule-imports
 import { ErrorResponse } from "@apollo/client/link/error";
+// tslint:disable-next-line: no-submodule-imports
+import { RetryLink } from "@apollo/client/link/retry";
 import * as SecureStore from "expo-secure-store";
 import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
@@ -173,8 +175,20 @@ const authLink: ApolloLink = setContext(async (): Promise<Record<string, unknown
   };
 });
 
-const httpLink: ApolloLink = createHttpLink({
+const apiLink: ApolloLink = createHttpLink({
   uri: `${apiHost}/api`,
+});
+
+const retryLink: ApolloLink = new RetryLink({
+  attempts: {
+    max: 5,
+    retryIf: (error: unknown): boolean => error !== undefined,
+  },
+  delay: {
+    initial: 300,
+    jitter: true,
+    max: Infinity,
+  },
 });
 
 type ProviderProps = Omit<
@@ -186,12 +200,18 @@ const apolloProvider: React.FC<ProviderProps> = (
 ): JSX.Element => {
   const history: History = useHistory();
   const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
-    (): ApolloClient<NormalizedCacheObject> => new ApolloClient({
-      cache: new InMemoryCache(),
-      link: errorLink(history)
-        .concat(authLink.concat(httpLink)),
-    }),
-    []);
+    (): ApolloClient<NormalizedCacheObject> =>
+      new ApolloClient({
+        cache: new InMemoryCache(),
+        link: ApolloLink.from([
+          errorLink(history),
+          retryLink,
+          authLink,
+          apiLink,
+        ]),
+      }),
+    [],
+  );
 
   return React.createElement(BaseApolloProvider, { client, ...props });
 };

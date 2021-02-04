@@ -166,7 +166,7 @@ const {
 const retryLink: ApolloLink = new RetryLink({
   attempts: {
     max: 5,
-    retryIf: (error): boolean => error !== undefined,
+    retryIf: (error: unknown): boolean => error !== undefined,
   },
   delay: {
     initial: 300,
