@@ -1,15 +1,23 @@
 """Singer tap for the Formstack API."""
 
-import re
-import json
+# Standard libraries
 import argparse
-import urllib.error
-import urllib.request
-
-from typing import Callable, Iterable, Dict, Any
-
+import json
+import re
+from typing import (
+    Callable,
+    Iterable,
+    Dict,
+    Any,
+)
+# Third party libraries
 import dateutil.parser
-
+import requests
+from requests.exceptions import (
+    ChunkedEncodingError,
+    HTTPError
+)
+# Local libraries
 from . import logs
 
 
@@ -30,6 +38,10 @@ class UnrecognizedNumber(Exception):
 
 class UnrecognizedDate(Exception):
     """Raised when tap didn't find a conversion."""
+
+
+class StatusError(Exception):
+    """Raised when server json response has an error status"""
 
 
 def map_ttype(type_str: str) -> Dict[str, str]:
@@ -75,9 +87,21 @@ def get_request_response(user_token: str, resource: str) -> JSON:
         "Content-Type": "application/json",
         "Authorization": f"Bearer {user_token}"
     }
-    request = urllib.request.Request(resource, headers=headers)
-    response = urllib.request.urlopen(request).read().decode('utf-8')
-    json_obj = json.loads(response)
+    max_retries = 2
+    retry = 0
+
+    def request() -> Any:
+        return requests.get(resource, headers=headers)
+
+    while retry < max_retries:
+        json_obj = request().json()
+        status = json_obj.get('status', '')
+        if status.lower() == 'error':
+            retry = retry + 1
+            if retry >= max_retries:
+                raise StatusError
+        else:
+            break
     return json_obj
 
 
@@ -111,7 +135,12 @@ def get_available_forms(user_token: str) -> Dict[str, str]:
 
         try:
             json_obj = get_page_of_forms(user_token, page=page)
-        except urllib.error.HTTPError:
+        except ChunkedEncodingError as error:
+            if error.response:
+                json_obj = error.response.json()
+            else:
+                break
+        except (HTTPError, StatusError):
             break
 
         for form in json_obj["forms"]:
@@ -131,7 +160,12 @@ def write_queries(user_token: str, form_name: str, form_id: str) -> None:
 
         try:
             json_obj = get_form_submissions(user_token, form_id, page=page)
-        except urllib.error.HTTPError:
+        except ChunkedEncodingError as error:
+            if error.response:
+                json_obj = error.response.json()
+            else:
+                break
+        except (HTTPError, StatusError):
             break
 
         if current_form >= json_obj["total"]:
@@ -421,7 +455,7 @@ def std_number(number: Any, **kwargs: Any) -> float:
     return number
 
 
-def main():
+def main() -> None:
     """Usual entry point."""
     # user interface
     parser = argparse.ArgumentParser()

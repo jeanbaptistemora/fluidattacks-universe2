@@ -25,7 +25,8 @@ setuptools.setup(
     ],
 
     install_requires=[
-        "python-dateutil"
+        "python-dateutil",
+        "requests"
     ],
 
     entry_points="""
