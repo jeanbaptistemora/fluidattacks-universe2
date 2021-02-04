@@ -31,6 +31,7 @@ integrates/storage/oci/deploy
 makes/attrs
 makes/deploy/oci-batch
 makes/deploy/oci-ci
+makes/done
 makes/lint
 makes/wait
 melts

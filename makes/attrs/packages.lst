@@ -23,6 +23,7 @@ integrates/storage/bin
 integrates/storage/oci
 makes/dev
 makes/test
+makes/wait/bin
 melts/bin
 melts/config-development
 melts/config-runtime

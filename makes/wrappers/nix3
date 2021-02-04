@@ -6,6 +6,7 @@
 nix \
   --experimental-features 'nix-command ca-references flakes' \
   --option allow-dirty true \
+  --option builders-use-substitutes true \
   --option cores 0 \
   --option eval-cache false \
   --option http-connections 256 \
