@@ -11,7 +11,7 @@ nix \
   --option eval-cache false \
   --option http-connections 256 \
   --option keep-going true \
-  --option max-jobs 16 \
+  --option max-jobs auto \
   --option narinfo-cache-negative-ttl 1 \
   --option narinfo-cache-positive-ttl 1 \
   --option restrict-eval false \
