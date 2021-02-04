@@ -1,0 +1,40 @@
+:slug: techniques/ptaas/
+:description: We offer you PTaaS as a continuous evaluation of your IT systems through automatic and manual techniques with real-time vulnerability reports on our platform.
+:keywords: PTaaS; Penetration, Testing, Pentesting, Service, Cybersecurity, Vulnerability, Ethical Hacking
+:category: techniques
+:banner: ptaas-bg
+:template: techniques
+:definition: Fluid Attacks is ready to offer you the widespread Penetration Testing as a Service (PTaaS) model to address your cybersecurity needs in an ever-changing attack vectors environment. For your convenience. it is supported by our vulnerability management platform. Besides, it is connected to our leading service of Continuous Hacking to go beyond the traditional Penetration Testing, a point-in-time evaluation. In PTaaS, we perform analyses that keep pace with the constant development and changes in your infrastructure and applications. This model provides our customers comprehensive and up-to-date information about the findings achieved in a pentesting that combines world-class hackers' cleverness and machines' speed. By quickly acquiring extensive details from a non-static report about the vulnerabilities found, and after the proper prioritization, you can immediately proceed with their remediation.
+
+= Penetration Testing as a Service
+
+=== Deep and accurate pentesting
+
+PTaaS does not rely only on the automation of tools and their limited results.
+It also involves Fluid Attacks' certified expert analysts for the IT systems'
+manual assessments so that reports display minimal rates of false positives and
+false negatives.
+
+=== Timely vulnerability reports
+
+As part of the PTaaS, you can receive through our vulnerability management platform
+frequent, real-time updates on the results of our red team's constant  analyses
+to keep you on your toes and make the right cybersecurity decisions for your company
+promptly.
+
+=== Uninterrupted customer service
+
+Fluid Attacks's expert penetration testing team is at your service to evaluate different
+types of systems (e.g., web apps, networks, IoT) and help you with your concerns regarding
+the findings and their possible solutions.
+
+
+[role="sect2 db-l dn"]
+== {nbsp}
+
+{nbsp} +
+
+[role="sect2 db-l dn"]
+== {nbsp}
+
+{nbsp} +
