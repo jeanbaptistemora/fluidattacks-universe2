@@ -7,8 +7,8 @@ let
   ociDeploy = import (path "/makes/utils/oci-deploy") path integratesPkgs;
 in
 ociDeploy {
-  oci = outputs.packages."integrates/dynamo/oci";
-  name = "integrates-dynamo-oci-deploy";
+  oci = outputs.packages."integrates/db/oci";
+  name = "integrates-db-oci-deploy";
   registry = "registry.gitlab.com";
-  tag = "fluidattacks/product/integrates/dynamo:$CI_COMMIT_REF_NAME";
+  tag = "fluidattacks/product/integrates/db:$CI_COMMIT_REF_NAME";
 }

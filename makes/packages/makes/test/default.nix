@@ -11,14 +11,14 @@ makeDerivation {
   envBuilt = builtins.concatLists [
     (builtins.attrValues (builtins.removeAttrs sources.apps [
       # Consume a lot of disk
-      "integrates/dynamo/oci/deploy"
+      "integrates/db/oci/deploy"
       "skims/oci-deploy"
     ]))
     (builtins.attrValues (builtins.removeAttrs sources.packages [
       # Needed to avoid infinite recursion
       "makes/test"
       # Consume a lot of disk
-      "integrates/dynamo/oci"
+      "integrates/db/oci"
       "skims/oci-build"
     ]))
   ];

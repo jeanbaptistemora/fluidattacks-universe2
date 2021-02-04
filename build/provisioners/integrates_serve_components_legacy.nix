@@ -36,8 +36,8 @@ in
         pkgs.libmysqlclient
         pkgs.postgresql
         pkgs.unixODBC
-        (import ../..).integrates-dynamo
-        (import ../..).integrates-redis
+        (import ../..).integrates-cache
+        (import ../..).integrates-db
       ];
 
       nodeJsModuleSecureSpreadsheet =

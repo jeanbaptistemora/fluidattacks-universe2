@@ -5,8 +5,10 @@ forces/oci-deploy
 forces/oci-deploy-wrapper
 forces/test
 forces/wrapper
-integrates/dynamo
-integrates/dynamo/oci/deploy
+integrates/cache
+integrates/cache/oci/deploy
+integrates/db
+integrates/db/oci/deploy
 integrates/front/build
 integrates/front/deploy
 integrates/infra/backup/apply
@@ -24,9 +26,8 @@ integrates/infra/resources/test
 integrates/infra/secret-management/apply
 integrates/infra/secret-management/test
 integrates/kill
-integrates/redis
-integrates/redis/oci/deploy
 integrates/storage
+integrates/storage/oci/deploy
 makes/attrs
 makes/deploy/oci-batch
 makes/deploy/oci-ci

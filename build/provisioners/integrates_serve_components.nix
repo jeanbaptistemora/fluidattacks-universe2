@@ -26,8 +26,8 @@ in
         pkgs.iproute
         pkgs.python37
         pkgs.libmysqlclient
-        (import ../..).integrates-dynamo
-        (import ../..).integrates-redis
+        (import ../..).integrates-cache
+        (import ../..).integrates-db
       ];
 
       nodeJsModuleSecureSpreadsheet =

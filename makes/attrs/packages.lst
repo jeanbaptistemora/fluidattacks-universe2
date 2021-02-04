@@ -7,8 +7,10 @@ forces/oci-build
 forces/oci-build-wrapper
 integrates/back/config/development
 integrates/back/config/runtime
-integrates/dynamo/bin
-integrates/dynamo/oci
+integrates/cache/bin
+integrates/cache/oci
+integrates/db/bin
+integrates/db/oci
 integrates/front/config/development
 integrates/front/config/runtime
 integrates/front/lint
@@ -16,10 +18,9 @@ integrates/front/lint/eslint
 integrates/front/lint/stylelint
 integrates/front/lint/tslint
 integrates/front/test
-integrates/redis/bin
-integrates/redis/oci
 integrates/secrets/lint
 integrates/storage/bin
+integrates/storage/oci
 makes/dev
 makes/test
 melts/bin

@@ -14,7 +14,7 @@ in
         pkgs.sops
         pkgs.jq
         (builders.pythonPackage {}).propagatedBuildInputs
-        (import ../..).integrates-redis
+        (import ../..).integrates-cache
       ];
 
       pyPkgCryptography = builders.pythonPackage {

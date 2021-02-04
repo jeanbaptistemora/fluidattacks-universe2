@@ -7,8 +7,8 @@ let
   ociDeploy = import (path "/makes/utils/oci-deploy") path integratesPkgs;
 in
 ociDeploy {
-  oci = outputs.packages."integrates/redis/oci";
-  name = "integrates-redis-oci-deploy";
+  oci = outputs.packages."integrates/cache/oci";
+  name = "integrates-cache-oci-deploy";
   registry = "registry.gitlab.com";
-  tag = "fluidattacks/product/integrates/redis:$CI_COMMIT_REF_NAME";
+  tag = "fluidattacks/product/integrates/cache:$CI_COMMIT_REF_NAME";
 }

@@ -19,8 +19,8 @@ in
         pkgs.unzip
         pkgs.cacert
         pkgs.python37
-        (import ../..).integrates-dynamo
-        (import ../..).integrates-redis
+        (import ../..).integrates-cache
+        (import ../..).integrates-db
       ];
 
       pyPkgIntegratesBack =

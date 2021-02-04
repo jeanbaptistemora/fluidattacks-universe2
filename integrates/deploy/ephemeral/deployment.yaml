@@ -67,8 +67,8 @@ spec:
             successThreshold: 1
             failureThreshold: 40
             timeoutSeconds: 30
-        - name: dynamo
-          image: registry.gitlab.com/fluidattacks/product/integrates/dynamo:__DEPLOYMENT_NAME__
+        - name: db
+          image: registry.gitlab.com/fluidattacks/product/integrates/db:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
           resources:
             requests:
@@ -83,8 +83,8 @@ spec:
           envFrom:
             - secretRef:
                 name: integrates-__DEPLOYMENT_NAME__
-        - name: redis
-          image: registry.gitlab.com/fluidattacks/product/integrates/redis:__DEPLOYMENT_NAME__
+        - name: cache
+          image: registry.gitlab.com/fluidattacks/product/integrates/cache:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
           resources:
             requests:
@@ -99,7 +99,7 @@ spec:
           envFrom:
             - secretRef:
                 name: integrates-__DEPLOYMENT_NAME__
-        - name: minio
+        - name: storage
           image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
           command: [bash]

@@ -13,6 +13,6 @@ makeEntrypoint {
     envWait = outputs.apps."makes/wait".program;
     envRedisServer = "${integratesPkgs.redis}/bin/redis-server";
   };
-  name = "integrates-redis";
-  template = path "/makes/packages/integrates/redis/bin/entrypoint.sh";
+  name = "integrates-cache";
+  template = path "/makes/packages/integrates/cache/bin/entrypoint.sh";
 }

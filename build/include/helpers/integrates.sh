@@ -262,11 +262,11 @@ function helper_integrates_serve_front {
 }
 
 function helper_integrates_serve_redis {
-  integrates-redis &
+  integrates-cache &
 }
 
 function helper_integrates_serve_dynamo {
-  integrates-dynamo &
+  integrates-db &
 }
 
 function helper_integrates_serve_back {

@@ -198,7 +198,7 @@ def test_group_scope_environments(
     # Add environment
     table_row = utils.wait_for_text(
         driver,
-        'https://integrates.fluidattacks.com',
+        'https://gitlab.com/fluidattacks/product',
         timeout,
     )
     table_row.click()
