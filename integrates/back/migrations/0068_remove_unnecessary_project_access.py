@@ -1,6 +1,9 @@
 """
 This migration remove that project access for that user that
 has not access to the group or is no pending to accept an invitation
+
+Execution Time:    2021-02-04 at 14:12:40 UTC-05
+Finalization Time: 2021-02-04 at 14:12:55 UTC-05
 """
 # Third party libraries
 from aioextensions import (
