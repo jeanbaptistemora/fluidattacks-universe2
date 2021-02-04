@@ -468,15 +468,11 @@ async def mask_finding(finding_id: str) -> bool:
         List[Dict[str, str]],
         finding.get('historicVerification', [])
     )
-    historic_state = cast(
-        List[Dict[str, str]],
-        finding.get('historicState', [])
-    )
 
     attrs_to_mask = [
         'affected_systems', 'attack_vector_desc', 'effect_solution',
         'related_findings', 'risk', 'threat', 'treatment',
-        'treatment_manager', 'vulnerability', 'analyst', 'records'
+        'treatment_manager', 'vulnerability', 'records'
     ]
     mask_finding_coroutines = []
     mask_finding_coroutines.append(
@@ -484,10 +480,6 @@ async def mask_finding(finding_id: str) -> bool:
             attr: 'Masked'
             for attr in attrs_to_mask
         })
-    )
-
-    mask_finding_coroutines.append(
-        finding_utils.mask_state(finding_id, historic_state)
     )
 
     mask_finding_coroutines.append(
