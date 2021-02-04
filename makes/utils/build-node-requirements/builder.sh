@@ -4,7 +4,7 @@ source "${envBashLibCommon}"
 
 function get_deps_from_lock {
   jq -r '.dependencies | to_entries[] | .key + "@" + .value.version' < "${1}" \
-    | sort --ignore-case
+    | sort
 }
 
 # Use npm install with --force flag for packages that would fail to install

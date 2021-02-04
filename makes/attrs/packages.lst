@@ -18,6 +18,8 @@ integrates/front/lint/eslint
 integrates/front/lint/stylelint
 integrates/front/lint/tslint
 integrates/front/test
+integrates/mobile/config/development
+integrates/mobile/config/runtime
 integrates/secrets/lint
 integrates/storage/bin
 integrates/storage/oci
