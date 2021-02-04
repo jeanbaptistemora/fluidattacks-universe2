@@ -5,8 +5,13 @@ forces/config-wrapper
 forces/lint
 forces/oci-build
 forces/oci-build-wrapper
+integrates/back/certs/development
 integrates/back/config/development
 integrates/back/config/runtime
+integrates/back/tools
+integrates/back/tools/asciidoctor
+integrates/back/tools/asciidoctor-pdf
+integrates/back/tools/concurrent-ruby
 integrates/cache/bin
 integrates/cache/oci
 integrates/db/bin
@@ -23,10 +28,6 @@ integrates/mobile/config/runtime
 integrates/secrets/lint
 integrates/storage/bin
 integrates/storage/oci
-integrates/tools
-integrates/tools/asciidoctor
-integrates/tools/asciidoctor-pdf
-integrates/tools/concurrent-ruby
 makes/dev
 makes/test
 makes/wait/bin
