@@ -4,7 +4,6 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
-    // (import ../src/minio-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
       name = "builder";
@@ -15,12 +14,13 @@ in
         pkgs.curl
         pkgs.sops
         pkgs.jq
-        pkgs.openjdk
         pkgs.unzip
         pkgs.cacert
         pkgs.python37
         (import ../..).integrates-cache
         (import ../..).integrates-db
+        (import ../..).integrates-storage
+        (import ../..).makes-wait
       ];
 
       pyPkgIntegratesBack =

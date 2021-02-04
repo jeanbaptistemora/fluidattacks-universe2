@@ -21,6 +21,7 @@ let
   temporaryComponents = {
     integrates-cache = flake.defaultNix.outputs.packages.x86_64-linux."integrates/cache/bin";
     integrates-db = flake.defaultNix.outputs.packages.x86_64-linux."integrates/db/bin";
+    integrates-storage = flake.defaultNix.outputs.packages.x86_64-linux."integrates/storage/bin";
     makes-wait = flake.defaultNix.outputs.packages.x86_64-linux."makes/wait/bin";
   };
 

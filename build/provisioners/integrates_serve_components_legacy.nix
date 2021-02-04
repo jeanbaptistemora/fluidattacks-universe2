@@ -6,7 +6,6 @@ let
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
-    // (import ../src/minio-local.nix pkgs)
     // (import ../src/external.nix pkgs)
     // (rec {
       name = "builder";
@@ -18,7 +17,6 @@ in
         pkgs.curl
         pkgs.cacert
         pkgs.nodejs
-        pkgs.openjdk
         pkgs.p7zip
         pkgs.sops
         pkgs.jq
@@ -38,6 +36,8 @@ in
         pkgs.unixODBC
         (import ../..).integrates-cache
         (import ../..).integrates-db
+        (import ../..).integrates-storage
+        (import ../..).makes-wait
       ];
 
       nodeJsModuleSecureSpreadsheet =

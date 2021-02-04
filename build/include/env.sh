@@ -79,6 +79,8 @@ function env_prepare_python_packages {
     PATH="${PATH}:${!pkg}/site-packages/bin"
     PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
   done < "${TEMP_FILE1}"
+
+  PYTHONPATH="${PYTHONPATH}:${PWD}"
 }
 
 function env_prepare_nix_overriden_python_packages {
@@ -113,31 +115,4 @@ function env_prepare_ruby_modules {
     PATH="${PATH}:${!gem}/bin"
     GEM_PATH="${GEM_PATH}:${!gem}/"
   done < "${TEMP_FILE1}"
-}
-
-function env_prepare_minio_local {
-  export PYTHONPATH
-  # MinIO credentials are only for local test development enviroment
-  export MINIO_ACCESS_KEY='test_access_key'
-  export MINIO_SECRET_KEY='test_secret_key'
-  export MINIO_REGION_NAME
-  export USER_MINIO_ACCESS_KEY
-  export USER_MINIO_SECRET_KEY
-  export minio
-  export mc
-
-      echo '[INFO] Preparing MinIO local' \
-  &&  mkdir -p './.MinIO/temp' \
-  &&  mkdir -p './.MinIO/data' \
-  &&  env_prepare_python_packages \
-  &&  PYTHONPATH="${PYTHONPATH}:${PWD}" \
-  &&  helper_integrates_set_dev_secrets \
-  &&  MINIO_REGION_NAME="${AWS_DEFAULT_REGION}" \
-  &&  USER_MINIO_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
-  &&  USER_MINIO_SECRET_KEY="${AWS_SECRET_ACCESS_KEY}" \
-  &&  minio="${srcExternalMinIOLocal}" \
-  &&  mc="${srcExternalMinIOCli}" \
-  &&  chmod +x "${minio}" \
-  &&  chmod +x "${mc}" \
-  ||  return 1
 }

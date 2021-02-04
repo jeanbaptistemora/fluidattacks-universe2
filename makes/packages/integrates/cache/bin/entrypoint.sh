@@ -2,7 +2,7 @@
 
 function main {
   local cluster_addrs=()
-  local cluster_path='.Redis'
+  local cluster_path='.Cache'
 
     echo '[INFO] Launching Redis' \
   &&  rm -rf "${cluster_path}" \
@@ -31,6 +31,7 @@ function main {
         --cluster create "${cluster_addrs[@]}" \
         --cluster-replicas 0 \
         --cluster-yes \
+  &&  __envDone__ 26379 \
   &&  wait
 }
 

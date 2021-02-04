@@ -8,6 +8,8 @@ let
 in
 makeEntrypoint {
   arguments = {
+    envDevSecrets = path "/integrates/secrets-development.yaml";
+    envDone = outputs.apps."makes/done".program;
     envMinioLocal = integratesPkgs.fetchurl {
       url = "https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2020-09-10T22-02-45Z";
       sha256 = "OkGh6Rimy0NWWqTru3HP4KDaHhmaP3J/ShGkxzpgJrE=";

@@ -9,6 +9,7 @@ in
 makeEntrypoint {
   arguments = {
     envAws = "${integratesPkgs.awscli}/bin/aws";
+    envDone = outputs.apps."makes/done".program;
     envDynamoData = path "/makes/packages/integrates/db/data";
     envDynamoZip = integratesPkgs.fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2020-05-19.zip";

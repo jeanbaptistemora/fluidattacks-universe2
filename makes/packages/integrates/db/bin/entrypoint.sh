@@ -6,7 +6,7 @@ function main {
   export AWS_DEFAULT_REGION='us-east-1'
   local host='127.0.0.1'
   local port='8022'
-  local state_path='.DynamoDB'
+  local state_path='.DB'
 
       echo '[INFO] Unpacking DynamoDB' \
   &&  rm -rf "${state_path}" \
@@ -43,6 +43,7 @@ function main {
               --request-items "file://${data}" \
         ||  return 1
       done \
+  &&  __envDone__ 28022 \
   &&  echo '[INFO] Dynamo DB is ready' \
   &&  wait
 }

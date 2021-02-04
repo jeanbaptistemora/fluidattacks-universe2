@@ -8,6 +8,7 @@ let
 in
 makeEntrypoint {
   arguments = {
+    envDone = outputs.apps."makes/done".program;
     envKillPidListeningOnPort = import (path "/makes/utils/kill-pid-listening-on-port") path integratesPkgs;
     envRedisCli = "${integratesPkgs.redis}/bin/redis-cli";
     envWait = outputs.apps."makes/wait".program;

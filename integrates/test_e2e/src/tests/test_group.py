@@ -208,18 +208,13 @@ def test_group_scope_environments(
         timeout,
     )
     manage_environments.click()
-    add_button = utils.wait_for_id(
-        driver,
-        'environmentUrls-add',
-        timeout,
-    )
-    add_button.click()
     environment = utils.wait_for_name(
         driver,
-        'environmentUrls[1]',
+        'environmentUrls[0]',
         timeout
     )
     environment_name: str = utils.rand_name('https://test.fluidattacks.com')
+    environment.clear()
     environment.send_keys(environment_name)
     proceed = utils.wait_for_id(
         driver,

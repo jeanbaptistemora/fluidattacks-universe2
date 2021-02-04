@@ -15,6 +15,7 @@ in
         pkgs.jq
         (builders.pythonPackage {}).propagatedBuildInputs
         (import ../..).integrates-cache
+        (import ../..).makes-wait
       ];
 
       pyPkgCryptography = builders.pythonPackage {

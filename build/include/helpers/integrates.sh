@@ -262,11 +262,13 @@ function helper_integrates_serve_front {
 }
 
 function helper_integrates_serve_redis {
-  integrates-cache &
+      { integrates-cache & } \
+  &&  makes-wait 60 localhost:26379
 }
 
 function helper_integrates_serve_dynamo {
-  integrates-db &
+      { integrates-db & } \
+  &&  makes-wait 60 localhost:28022
 }
 
 function helper_integrates_serve_back {
@@ -317,47 +319,8 @@ function helper_integrates_serve_back {
 }
 
 function helper_integrates_serve_minio {
-  local port='9000'
-  local data_path='.MinIO/data'
-
-      env_prepare_minio_local \
-  &&  echo '[INFO] Launching MinIO local' \
-  &&  { "${minio}" server "${data_path}" --address ":${port}" & } \
-  &&  sleep 5 \
-  &&  echo '[INFO] Configuring local user' \
-  &&  "${mc}" alias set local_minio \
-        "http://localhost:${port}" \
-        "${MINIO_ACCESS_KEY}" \
-        "${MINIO_SECRET_KEY}" \
-  &&  "${mc}" admin user add local_minio \
-        "${USER_MINIO_ACCESS_KEY}" \
-        "${USER_MINIO_SECRET_KEY}" \
-  &&  "${mc}" admin policy set local_minio readwrite \
-        user="${USER_MINIO_ACCESS_KEY}" \
-  &&  echo '[INFO] Setting buckets' \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.evidences \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.analytics \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.resources \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.reports \
-  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.forces \
-  &&  echo '[INFO] Populating MinIO local' \
-  &&  readarray -d , -t projects <<< "${TEST_PROJECTS}" \
-  &&  {
-        for project in "${projects[@]}"
-        do
-              aws s3 sync --quiet "s3://fluidintegrates.evidences/${project}" \
-                "${data_path}/fluidintegrates.evidences/${project}" \
-          &&  aws s3 sync --quiet "s3://fluidintegrates.resources/${project}" \
-                "${data_path}/fluidintegrates.resources/${project}" \
-          &&  aws s3 sync --quiet "s3://fluidintegrates.forces/${project}" \
-                "${data_path}/fluidintegrates.forces/${project}" \
-          ||  return 1
-        done
-      } \
-  &&  aws s3 sync --quiet "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
-        "${data_path}/fluidintegrates.analytics/${CI_COMMIT_REF_NAME}" \
-  &&  mkdir -p "${data_path}/fluidintegrates.reports/tmp" \
-  &&  echo "[INFO] MinIO is ready and listening on port ${port}!"
+      { integrates-storage & } \
+  &&  makes-wait 120 localhost:29000
 }
 
 function helper_integrates_serve_mobile {
