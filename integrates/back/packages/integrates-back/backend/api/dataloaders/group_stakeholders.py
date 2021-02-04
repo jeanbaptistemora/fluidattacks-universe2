@@ -31,16 +31,17 @@ async def _get_stakeholder(
         email,
         group_name
     )
-    invitation_state = (
-        'CONFIRMED' if project_access.get('has_access', False) else 'PENDING'
-    )
     invitation = cast(InvitationType, project_access.get('invitation'))
-    if invitation:
+    invitation_state = (
+        'UNREGISTERED' if not stakeholder.get('is_registered', False) else
+        'PENDING' if invitation and not invitation['is_used'] else 'CONFIRMED'
+    )
+    if invitation_state == 'PENDING':
         invitation_date = invitation['date']
         responsibility = invitation['responsibility']
         group_role = invitation['role']
     else:
-        invitation_date = cast(str, project_access.get('invitation_date', ''))
+        invitation_date = ''
         responsibility = cast(str, project_access.get('responsibility', ''))
         group_role = await authz.get_group_level_role(email, group_name)
 
