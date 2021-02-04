@@ -10,7 +10,6 @@ from typing import (
 
 # Third party
 import newrelic.agent
-from aiodataloader import DataLoader
 from ariadne.asgi import GraphQL
 from starlette.requests import Request
 from starlette.responses import Response
@@ -33,15 +32,15 @@ newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 
 
 class Dataloaders(NamedTuple):
-    event: DataLoader
-    finding: DataLoader
-    finding_vulns: DataLoader
-    group: DataLoader
-    group_drafts: DataLoader
-    group_findings: DataLoader
-    group_roots: DataLoader
-    project: DataLoader  # used only by analytics. Needs refactor or rename
-    vulnerability: DataLoader
+    event: EventLoader
+    finding: FindingLoader
+    finding_vulns: FindingVulnsLoader
+    group: GroupLoader
+    group_drafts: GroupDraftsLoader
+    group_findings: GroupFindingsLoader
+    group_roots: GroupRootsLoader
+    project: ProjectLoader  # used only by analytics. Needs refactor or rename
+    vulnerability: VulnerabilityLoader
 
 
 def get_new_context() -> Dataloaders:
