@@ -2,18 +2,19 @@
 
 # Third party libraries
 from aioextensions import run
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
 
 # Local libraries
+from backend.api import get_new_context
+
 from analytics import (
     utils,
 )
 
 
 async def generate_one(group: str):
-    group_data = await GroupLoader().load(group)
+    context = get_new_context()
+    group_loader = context.project
+    group_data = await group_loader.load(group)
 
     has_forces = \
         group_data['attrs']['historic_configuration'][-1]['has_forces']

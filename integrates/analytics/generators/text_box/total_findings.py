@@ -9,12 +9,7 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
-from backend.api.dataloaders.finding import (
-    FindingLoader,
-)
+from backend.api import get_new_context
 
 # Local libraries
 from analytics import (
@@ -24,8 +19,11 @@ from analytics import (
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
-    findings = (await FindingLoader().load_many(
-        (await GroupLoader().load(group))['findings']
+    context = get_new_context()
+    group_loader = context.project
+    finding_loader = context.finding
+    findings = (await finding_loader.load_many(
+        (await group_loader.load(group))['findings']
     ))
 
     non_deleted_findings_count = sum(

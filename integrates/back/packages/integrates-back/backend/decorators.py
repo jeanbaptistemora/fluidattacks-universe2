@@ -108,19 +108,22 @@ def require_login(func: TVar) -> TVar:
 
 
 async def _resolve_from_event_id(context: Any, identifier: str) -> str:
-    data = await context.loaders['event'].load(identifier)
+    event_loader = context.loaders.event
+    data = await event_loader.load(identifier)
     project_name: str = data['project_name']
     return project_name
 
 
 async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
-    data = await context.loaders['finding'].load(identifier)
+    finding_loader = context.loaders.finding
+    data = await finding_loader.load(identifier)
     project_name: str = data['project_name']
     return project_name
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
-    data = await context.loaders['vulnerability'].load(identifier)
+    vuln_loader = context.loaders.vulnerability
+    data = await vuln_loader.load(identifier)
     return await _resolve_from_finding_id(context, data['finding_id'])
 
 
@@ -429,7 +432,8 @@ def require_finding_access(func: TVar) -> TVar:
             vuln = await vuln_domain.get(kwargs['vuln_uuid'])
             finding_id = vuln['finding_id']
 
-        finding = await context.loaders['finding'].load(finding_id)
+        finding_loader = context.loaders.finding
+        finding = await finding_loader.load(finding_id)
         if finding_domain.is_deleted(finding):
             raise FindingNotFound()
 

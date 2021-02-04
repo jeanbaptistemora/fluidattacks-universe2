@@ -311,7 +311,7 @@ async def add_comment(
 ) -> Tuple[Union[int, None], bool]:
     parent = str(parent)
     content = str(comment_data['content'])
-    event_loader = info.context.loaders['event']
+    event_loader = info.context.loaders.event
     event = await event_loader.load(event_id)
     project_name = event['project_name']
 

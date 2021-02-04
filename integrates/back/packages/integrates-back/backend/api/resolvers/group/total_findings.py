@@ -38,6 +38,6 @@ async def resolve_no_cache(
     **_kwargs: None
 ) -> int:
     group_name: str = cast(str, parent['name'])
-    group_findings_loader: DataLoader = info.context.loaders['group_findings']
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
 
     return len(await group_findings_loader.load(group_name))

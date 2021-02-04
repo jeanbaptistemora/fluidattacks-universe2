@@ -5,7 +5,7 @@ import pytest
 from ariadne import graphql
 from starlette.datastructures import UploadFile
 
-from backend.api.dataloaders.group import GroupLoader
+from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
@@ -30,9 +30,7 @@ async def test_get_resources():
     }'''
     data = {'query': query}
     request = await create_dummy_session('integratesmanager@gmail.com')
-    request.loaders = {
-        'group': GroupLoader(),
-    }
+    request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert 'errors' not in result
     assert 'resources' in result['data']

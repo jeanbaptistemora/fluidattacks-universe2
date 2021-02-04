@@ -16,7 +16,7 @@ async def resolve(
 ) -> Tuple[Root, ...]:
     group_name: str = cast(str, parent['name'])
 
-    group_roots_loader: DataLoader = info.context.loaders['group_roots']
+    group_roots_loader: DataLoader = info.context.loaders.group_roots
     roots: Tuple[Root, ...] = await group_roots_loader.load(group_name)
 
     return roots

@@ -8,11 +8,12 @@ from typing import (
 
 # Third party libraries
 from aioextensions import run
-from backend.api.dataloaders.group_roots import GroupRootsLoader
-from backend.typing import GitRoot
 
 
 # Local libraries
+from backend.api import get_new_context
+from backend.typing import GitRoot
+
 from analytics import (
     utils,
 )
@@ -66,7 +67,8 @@ async def generate_all() -> None:
     async for org_id, org_name, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
-        loader = GroupRootsLoader()
+        context = get_new_context()
+        loader = context.group_roots
         grouped_roots = [
             [
                 root

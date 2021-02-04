@@ -53,5 +53,6 @@ async def mutate(
             f'Security: Tried to update description in finding {finding_id}'
         )
 
-    finding = await info.context.loaders['finding'].load(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding = await finding_loader.load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)

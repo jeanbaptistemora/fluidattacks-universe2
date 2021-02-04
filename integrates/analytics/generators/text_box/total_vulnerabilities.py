@@ -9,9 +9,7 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
+from backend.api import get_new_context
 
 # Local libraries
 from analytics import (
@@ -21,7 +19,9 @@ from analytics import (
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
-    group_data = (await GroupLoader().load(group))
+    context = get_new_context()
+    group_loader = context.project
+    group_data = (await group_loader.load(group))
 
     return (group_data['attrs'].get('closed_vulnerabilities', 0) +
             group_data['attrs'].get('open_vulnerabilities', 0))

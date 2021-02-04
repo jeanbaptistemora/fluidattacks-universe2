@@ -25,13 +25,13 @@ async def resolve(
 ) -> List[Finding]:
     group_name: str = cast(str, parent['name'])
 
-    group_drafts_loader: DataLoader = info.context.loaders['group_drafts']
+    group_drafts_loader: DataLoader = info.context.loaders.group_drafts
     draft_ids: List[str] = [
         finding['id']
         for finding in await group_drafts_loader.load(group_name)
     ]
 
-    finding_loader: DataLoader = info.context.loaders['finding']
+    finding_loader: DataLoader = info.context.loaders.finding
     drafts: List[Finding] = await finding_loader.load_many(draft_ids)
 
     return drafts

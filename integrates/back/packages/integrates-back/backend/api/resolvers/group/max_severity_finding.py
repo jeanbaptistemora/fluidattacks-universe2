@@ -41,13 +41,13 @@ async def resolve_no_cache(
 ) -> Optional[Finding]:
     group_name: str = cast(str, parent['name'])
 
-    group_findings_loader: DataLoader = info.context.loaders['group_findings']
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
     finding_ids: List[str] = [
         finding['id']
         for finding in await group_findings_loader.load(group_name)
     ]
 
-    finding_loader: DataLoader = info.context.loaders['finding']
+    finding_loader: DataLoader = info.context.loaders.finding
     findings = await finding_loader.load_many(finding_ids)
 
     _, finding = max([

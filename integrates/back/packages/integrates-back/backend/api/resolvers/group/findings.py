@@ -20,13 +20,13 @@ async def resolve(
     group_name: str = cast(str, parent['name'])
     filters: Optional[Dict[str, Any]] = kwargs.get('filters')
 
-    group_findings_loader: DataLoader = info.context.loaders['group_findings']
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
     finding_ids: List[str] = [
         finding['id']
         for finding in await group_findings_loader.load(group_name)
     ]
 
-    finding_loader: DataLoader = info.context.loaders['finding']
+    finding_loader: DataLoader = info.context.loaders.finding
     findings: List[Finding] = await finding_loader.load_many(finding_ids)
 
     if filters:

@@ -14,11 +14,10 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
 
 # Local libraries
+from backend.api import get_new_context
+
 from analytics import (
     utils,
 )
@@ -26,7 +25,9 @@ from analytics import (
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> Decimal:
-    group_data = await GroupLoader().load(group)
+    context = get_new_context()
+    group_loader = context.project
+    group_data = await group_loader.load(group)
 
     return group_data['attrs'].get('last_closing_date', 0)
 

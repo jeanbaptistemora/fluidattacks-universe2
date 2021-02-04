@@ -47,7 +47,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 ) -> SimpleProjectPayloadType:
     success = False
     group_name = project_name.lower()
-    group_loader = info.context.loaders['group']
+    group_loader = info.context.loaders.group
     if await group_domain.is_alive(group_name):
         project_attrs = await group_loader.load(group_name)
         project_tags = {'tag': project_attrs['tags']}

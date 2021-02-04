@@ -168,7 +168,7 @@ async def request_zero_risk_vuln(
     justification: str,
     requester_email: str
 ) -> bool:
-    finding_loader: DataLoader = info.context.loaders['finding']
+    finding_loader: DataLoader = info.context.loaders.finding
     finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
     group_name = cast(str, finding.get('project_name', ''))
     org_id = await org_domain.get_id_for_group(group_name)

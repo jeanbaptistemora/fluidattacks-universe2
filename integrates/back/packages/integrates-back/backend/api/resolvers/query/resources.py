@@ -29,7 +29,7 @@ async def resolve(
 ) -> Resources:
     group_name: str = kwargs['project_name'].lower()
 
-    group_loader: DataLoader = info.context.loaders['group']
+    group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name)
 
     return {

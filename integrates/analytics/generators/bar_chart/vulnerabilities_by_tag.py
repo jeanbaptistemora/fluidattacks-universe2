@@ -9,20 +9,24 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
-from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
 
 # Local libraries
+from backend.api import get_new_context
+
 from analytics import utils
 from analytics.colors import RISK
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter:
-    group_data = await GroupLoader().load(group.lower())
+    context = get_new_context()
+    group_loader = context.project
+    finding_vulns_loader = context.finding_vulns
+
+    group_data = await group_loader.load(group.lower())
     vulnerabilities = list(
         chain.from_iterable(
-            await FindingVulnsLoader().load_many(group_data['findings'])
+            await finding_vulns_loader.load_many(group_data['findings'])
         )
     )
 

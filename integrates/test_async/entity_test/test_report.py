@@ -3,10 +3,10 @@ from datetime import datetime, timedelta
 import pytest
 from PyPDF4 import PdfFileWriter
 
+from backend.api import apply_context_attrs
 from ariadne import graphql_sync, graphql
 from jose import jwt
 from backend import util
-from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
@@ -46,9 +46,7 @@ async def test_finding_report():
     data_xls = {'query': query_xls}
     data_data = {'query': query_data}
     request = await create_dummy_session('integratesmanager@gmail.com')
-    request.loaders = {
-        'group_findings': GroupFindingsLoader(),
-    }
+    request = apply_context_attrs(request)
     _, result_pdf = await graphql(SCHEMA, data_pdf, context_value=request)
     _, result_xls = await graphql(SCHEMA, data_xls, context_value=request)
     _, result_data = await graphql(SCHEMA, data_data, context_value=request)

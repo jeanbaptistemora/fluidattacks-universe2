@@ -74,7 +74,7 @@ async def _get_url_group_report(
     user_email: str,
     group_name: str
 ) -> str:
-    group_findings_loader: DataLoader = info.context.loaders['group_findings']
+    group_findings_loader: DataLoader = info.context.loaders.group_findings
     finding_ids: List[str] = [
         finding['id']
         for finding in await group_findings_loader.load(group_name)

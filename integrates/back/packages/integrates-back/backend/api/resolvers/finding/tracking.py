@@ -42,7 +42,7 @@ async def resolve_no_cache(
     finding_id: str = cast(str, parent['id'])
     is_finding_released = finding_filters.is_released(parent)
 
-    finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
+    finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
 
     if is_finding_released:
         vulns = await finding_vulns_loader.load(finding_id)

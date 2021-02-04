@@ -41,7 +41,7 @@ async def mutate(
     user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     finding_id = str(parameters.get('finding_id'))
-    finding_loader = info.context.loaders['finding']
+    finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)
     group = finding.get('project_name')
     content = parameters['content']

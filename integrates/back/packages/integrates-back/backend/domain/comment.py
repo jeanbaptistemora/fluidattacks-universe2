@@ -45,7 +45,7 @@ async def get_comments(
     user_email: str,
     info: GraphQLResolveInfo
 ) -> List[CommentType]:
-    finding_vulns_loader = info.context.loaders['finding_vulns']
+    finding_vulns_loader = info.context.loaders.finding_vulns
     comments = await _get_comments(
         'comment',
         project_name,

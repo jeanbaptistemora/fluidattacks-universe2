@@ -10,12 +10,8 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
-from backend.api.dataloaders.finding import (
-    FindingLoader,
-)
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
+
+from backend.api import get_new_context
 
 # Local libraries
 from analytics import (
@@ -33,9 +29,12 @@ Severity = NamedTuple('Severity', [
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> Severity:
-    group_data = await GroupLoader().load(group)
+    context = get_new_context()
+    group_loader = context.project
+    finding_loader = context.finding
 
-    findings = await FindingLoader().load_many(
+    group_data = await group_loader.load(group)
+    findings = await finding_loader.load_many(
         group_data['findings']
     )
 

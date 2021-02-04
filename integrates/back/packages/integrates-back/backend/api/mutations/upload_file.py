@@ -35,7 +35,7 @@ async def mutate(
     success = False
     finding_id = kwargs['finding_id']
     file_input = kwargs['file']
-    finding_loader = info.context.loaders['finding']
+    finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
     group_name = finding_data['project_name']
     allowed_mime_type = await util.assert_uploaded_file_mime(

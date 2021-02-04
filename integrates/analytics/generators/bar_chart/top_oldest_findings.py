@@ -8,8 +8,7 @@ from aioextensions import (
     run,
 )
 from async_lru import alru_cache
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
+from backend.api import get_new_context
 from backend.domain.finding import get_finding_open_age
 
 # Local libraries
@@ -19,8 +18,12 @@ from analytics.colors import RISK
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter:
-    group_data = await GroupLoader().load(group.lower())
-    findings = await FindingLoader().load_many(group_data['findings'])
+    context = get_new_context()
+    group_loader = context.project
+    finding_loader = context.finding
+
+    group_data = await group_loader.load(group)
+    findings = await finding_loader.load_many(group_data['findings'])
 
     return Counter({
         f'{finding_id}/{finding["title"]}': await get_finding_open_age(

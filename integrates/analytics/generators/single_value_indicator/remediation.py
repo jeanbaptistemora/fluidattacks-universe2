@@ -8,18 +8,12 @@ from typing import (
 
 # Third party libraries
 from aioextensions import run
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
-from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
-from backend.domain import (
-    vulnerability as vuln_domain,
-)
-from backend.typing import (
-    Vulnerability as VulnerabilityType
-)
 
 # Local libraries
+from backend.api import get_new_context
+from backend.domain import vulnerability as vuln_domain
+from backend.typing import Vulnerability as VulnerabilityType
+
 from analytics import (
     utils,
 )
@@ -74,10 +68,14 @@ def get_totals_by_week(
     return open_vulns, closed_vulns
 
 
-async def generate_one(groups: List[str]):
+async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
+    context = get_new_context()
+    group_loader = context.project
+    finding_vulns_loader = context.finding_vulns
+
     groups_data = list(filter(
         lambda group: group['attrs'].get('project_status') == 'ACTIVE',
-        await GroupLoader().load_many(groups)
+        await group_loader.load_many(groups)
     ))
 
     current_rolling_week = datetime.now()
@@ -91,7 +89,7 @@ async def generate_one(groups: List[str]):
     for group in groups_data:
         vulns = list(
             chain.from_iterable(
-                await FindingVulnsLoader().load_many(group['findings'])
+                await finding_vulns_loader.load_many(group['findings'])
             )
         )
         vulns = vuln_domain.filter_zero_risk(vulns)

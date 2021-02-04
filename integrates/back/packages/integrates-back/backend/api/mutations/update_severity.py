@@ -34,7 +34,7 @@ async def mutate(
     data = parameters.get('data', dict())
     data = {util.snakecase_to_camelcase(k): data[k] for k in data}
     finding_id = parameters.get('finding_id', '')
-    finding_loader = info.context.loaders['finding']
+    finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
     group_name = finding_data['project_name']
     success = False
@@ -54,5 +54,6 @@ async def mutate(
             info.context,
             f'Security: Attempted to update severity in finding {finding_id}'
         )
-    finding = await info.context.loaders['finding'].load(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding = await finding_loader.load(finding_id)
     return SimpleFindingPayload(finding=finding, success=success)

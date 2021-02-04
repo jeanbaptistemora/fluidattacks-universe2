@@ -30,7 +30,7 @@ async def resolve(
 ) -> Event:
     event_id: str = kwargs['identifier']
 
-    event_loader: DataLoader = info.context.loaders['event']
+    event_loader: DataLoader = info.context.loaders.event
     event: Event = await event_loader.load(event_id)
 
     return event

@@ -2,13 +2,7 @@ import json
 import pytest
 
 from ariadne import graphql
-from backend.api.dataloaders.event import EventLoader
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
-from backend.api.dataloaders.group import GroupLoader
-from backend.api.dataloaders.group_drafts import GroupDraftsLoader
-from backend.api.dataloaders.group_findings import GroupFindingsLoader
-from backend.api.dataloaders.group_roots import GroupRootsLoader
+from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from backend.domain.available_name import get_name
 from backend.exceptions import (
@@ -24,15 +18,7 @@ pytestmark = pytest.mark.asyncio
 async def _get_result_async(data, user='integratesmanager@gmail.com'):
     """Get result."""
     request = await create_dummy_session(username=user)
-    request.loaders = {
-        'event': EventLoader(),
-        'finding': FindingLoader(),
-        'finding_vulns': FindingVulnsLoader(),
-        'group': GroupLoader(),
-        'group_drafts': GroupDraftsLoader(),
-        'group_findings': GroupFindingsLoader(),
-        'group_roots': GroupRootsLoader(),
-    }
+    request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 

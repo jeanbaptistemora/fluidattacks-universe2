@@ -16,7 +16,7 @@ async def resolve(
 ) -> List[Group]:
     group_names: str = cast(str, parent['projects'])
 
-    group_loader: DataLoader = info.context.loaders['group']
+    group_loader: DataLoader = info.context.loaders.group
     groups: List[Group] = await group_loader.load_many(group_names)
 
     return groups

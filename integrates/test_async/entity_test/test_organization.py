@@ -4,10 +4,7 @@ from string import Template
 
 from ariadne import graphql
 
-from backend.api.dataloaders.event import EventLoader
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
-from backend.api.dataloaders.group import GroupLoader
+from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from backend.exceptions import (
     InvalidOrganization,
@@ -25,12 +22,7 @@ pytestmark = [
 async def _get_result_async(data, stakeholder='integratesmanager@gmail.com'):
     """Get result."""
     request = await create_dummy_session(username=stakeholder)
-    request.loaders = {
-        'event': EventLoader(),
-        'finding': FindingLoader(),
-        'group': GroupLoader(),
-        'finding_vulns': FindingVulnsLoader()
-    }
+    request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 

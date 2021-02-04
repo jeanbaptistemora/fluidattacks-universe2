@@ -46,7 +46,7 @@ async def resolve_no_cache(
 ) -> List[Vulnerability]:
     finding_id: str = cast(Dict[str, str], parent)['id']
 
-    finding_vulns_loader: DataLoader = info.context.loaders['finding_vulns']
+    finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
 
     return vulns

@@ -35,7 +35,7 @@ async def resolve(
     ])
     user_groups = active + inactive
 
-    group_loader: DataLoader = info.context.loaders['group']
+    group_loader: DataLoader = info.context.loaders.group
     groups: List[Group] = await group_loader.load_many(user_groups)
 
     return groups

@@ -43,5 +43,6 @@ async def mutate(
             ('Security: Removed evidence '
              f'in finding {finding_id}')  # pragma: no cover
         )
-    finding = await info.context.loaders['finding'].load(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding = await finding_loader.load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)

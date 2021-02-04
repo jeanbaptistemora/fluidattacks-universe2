@@ -32,7 +32,8 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
-    finding_data = await info.context.loaders['finding'].load(finding_id)
+    finding_loader = info.context.loaders.finding
+    finding_data = await finding_loader.load(finding_id)
     group_name: str = finding_data['project_name']
     success: bool = await update_vulns_treatment(
         finding_id=finding_id,

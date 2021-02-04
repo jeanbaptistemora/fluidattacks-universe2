@@ -11,8 +11,7 @@ from jose import jwt
 from starlette.datastructures import UploadFile
 
 from backend import util
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
+from backend.api import apply_context_attrs
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities
@@ -24,10 +23,7 @@ pytestmark = pytest.mark.asyncio
 async def _get_result(data, user='integratesmanager@gmail.com'):
     """Get result."""
     request = await create_dummy_session(username=user)
-    request.loaders = {
-        'finding': FindingLoader(),
-        'finding_vulns': FindingVulnsLoader()
-    }
+    request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 

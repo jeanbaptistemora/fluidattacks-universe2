@@ -20,10 +20,11 @@ from backend.domain import (
     project as group_domain,
 )
 
-# Local libraries
 from analytics import (
     utils,
 )
+
+# Local libraries
 from analytics.colors import (
     RISK,
 )

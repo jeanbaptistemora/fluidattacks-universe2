@@ -1,9 +1,16 @@
 # Standard
-from collections import defaultdict
-from typing import Any, Dict
+from collections import (
+    defaultdict,
+)
+from typing import (
+    Any,
+    Dict,
+    NamedTuple
+)
 
 # Third party
 import newrelic.agent
+from aiodataloader import DataLoader
 from ariadne.asgi import GraphQL
 from starlette.requests import Request
 from starlette.responses import Response
@@ -17,6 +24,7 @@ from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.group_drafts import GroupDraftsLoader
 from backend.api.dataloaders.group_findings import GroupFindingsLoader
 from backend.api.dataloaders.group_roots import GroupRootsLoader
+from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 from back import settings
@@ -24,17 +32,34 @@ from back import settings
 newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 
 
+class Dataloaders(NamedTuple):
+    event: DataLoader
+    finding: DataLoader
+    finding_vulns: DataLoader
+    group: DataLoader
+    group_drafts: DataLoader
+    group_findings: DataLoader
+    group_roots: DataLoader
+    project: DataLoader  # used only by analytics. Needs refactor or rename
+    vulnerability: DataLoader
+
+
+def get_new_context() -> Dataloaders:
+    return Dataloaders(
+        event=EventLoader(),
+        finding=FindingLoader(),
+        finding_vulns=FindingVulnsLoader(),
+        group=GroupLoader(),
+        group_drafts=GroupDraftsLoader(),
+        group_findings=GroupFindingsLoader(),
+        group_roots=GroupRootsLoader(),
+        project=ProjectLoader(),
+        vulnerability=VulnerabilityLoader()
+    )
+
+
 def apply_context_attrs(context: Request) -> Request:
-    setattr(context, 'loaders', {
-        'event': EventLoader(),
-        'finding': FindingLoader(),
-        'finding_vulns': FindingVulnsLoader(),
-        'group': GroupLoader(),
-        'group_drafts': GroupDraftsLoader(),
-        'group_findings': GroupFindingsLoader(),
-        'group_roots': GroupRootsLoader(),
-        'vulnerability': VulnerabilityLoader()
-    })
+    setattr(context, 'loaders', get_new_context())
     setattr(context, 'store', defaultdict(lambda: None))
 
     return context

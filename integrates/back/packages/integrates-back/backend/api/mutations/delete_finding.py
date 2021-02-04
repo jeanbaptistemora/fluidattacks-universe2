@@ -33,7 +33,7 @@ async def mutate(
     finding_id: str,
     justification: str
 ) -> SimplePayload:
-    finding_loader = info.context.loaders['finding']
+    finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
     group_name = finding_data['project_name']
 

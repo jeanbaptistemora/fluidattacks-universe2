@@ -31,7 +31,7 @@ async def resolve(
     group_name: str = kwargs['project_name']
 
     event_ids = await group_domain.list_events(group_name.lower())
-    event_loader: DataLoader = info.context.loaders['event']
+    event_loader: DataLoader = info.context.loaders.event
     events: List[Event] = await event_loader.load_many(event_ids)
 
     return events

@@ -52,11 +52,12 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon('add_event_consult', event_id=event_id)
+        event_loader = info.context.loaders.event
         if content.strip() not in {'#external', '#internal'}:
             event_domain.send_comment_mail(
                 user_email,
                 comment_data,
-                await info.context.loaders['event'].load(event_id)
+                await event_loader.load(event_id)
             )
 
         util.cloudwatch_log(

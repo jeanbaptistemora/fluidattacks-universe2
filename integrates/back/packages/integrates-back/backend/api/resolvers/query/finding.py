@@ -36,7 +36,7 @@ async def resolve(
 ) -> Finding:
     finding_id: str = kwargs['identifier']
 
-    finding_loader: DataLoader = info.context.loaders['finding']
+    finding_loader: DataLoader = info.context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
 
     is_draft = not finding_filters.is_released(

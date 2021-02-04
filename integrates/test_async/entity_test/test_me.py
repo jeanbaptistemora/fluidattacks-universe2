@@ -2,8 +2,8 @@ import pytest
 
 from datetime import datetime, timedelta
 
+from backend.api import apply_context_attrs
 from ariadne import graphql
-from backend.api.dataloaders.group import GroupLoader
 from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
@@ -31,9 +31,7 @@ async def test_me():
     data = {'query': query}
     user_email = 'integratesuser@gmail.com'
     request = await create_dummy_session(user_email)
-    request.loaders = {
-        'group': GroupLoader(),
-    }
+    request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
     expected_groups = ['unittesting', 'oneshottest']
     assert 'me' in result['data']
