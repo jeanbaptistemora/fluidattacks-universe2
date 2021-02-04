@@ -69,6 +69,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:CreateSecurityGroup",
       "ec2:DeleteSecurityGroup",
+      "ec2:RunInstances",
       "ec2:RevokeSecurityGroupEgress",
       "ec2:RevokeSecurityGroupIngress",
       "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
