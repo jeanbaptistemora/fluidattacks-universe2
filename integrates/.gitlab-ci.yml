@@ -218,6 +218,11 @@ integrates/infra/secret-management/test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
+integrates/mobile/lint:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: lint-code
+
 integrates/secrets/lint:
   <<: *makes
   <<: *in_dev_branch_integrates
@@ -459,11 +464,6 @@ integrates_back_lint_e2e:
   stage: lint-code
 
 integrates_back_lint_graphics:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
-integrates_mobile_lint:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: lint-code

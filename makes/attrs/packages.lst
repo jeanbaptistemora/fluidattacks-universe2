@@ -26,6 +26,7 @@ integrates/front/lint/tslint
 integrates/front/test
 integrates/mobile/config/development
 integrates/mobile/config/runtime
+integrates/mobile/lint
 integrates/secrets/lint
 integrates/storage/bin
 integrates/storage/oci
