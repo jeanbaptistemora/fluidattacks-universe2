@@ -5,9 +5,10 @@ forces/config-wrapper
 forces/lint
 forces/oci-build
 forces/oci-build-wrapper
+integrates/back/bin
 integrates/back/certs/development
-integrates/back/config/development
-integrates/back/config/runtime
+integrates/back/pypi/development
+integrates/back/pypi/runtime
 integrates/back/tools
 integrates/back/tools/asciidoctor
 integrates/back/tools/asciidoctor-pdf

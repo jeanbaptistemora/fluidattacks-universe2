@@ -5,6 +5,7 @@ forces/oci-deploy
 forces/oci-deploy-wrapper
 forces/test
 forces/wrapper
+integrates/back
 integrates/cache
 integrates/cache/oci/deploy
 integrates/db

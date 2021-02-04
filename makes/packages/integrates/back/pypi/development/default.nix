@@ -1,5 +1,5 @@
-{ path
-, integratesPkgs
+{ integratesPkgs
+, path
 , ...
 } @ _:
 let
@@ -139,6 +139,6 @@ makeTemplate {
     };
     envPythonUtils = path "/makes/utils/python/template.sh";
   };
-  name = "integrates-back-config-development";
-  template = path "/makes/packages/integrates/back/config/development/template.sh";
+  name = "integrates-back-pypi-development";
+  template = path "/makes/packages/integrates/back/pypi/development/template.sh";
 }

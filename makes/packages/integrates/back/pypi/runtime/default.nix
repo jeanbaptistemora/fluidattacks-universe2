@@ -4,7 +4,6 @@
 } @ _:
 let
   buildPythonRequirements = import (path "/makes/utils/build-python-requirements") path integratesPkgs;
-  makeSearchPaths = import (path "/makes/utils/make-search-paths") path integratesPkgs;
   makeTemplate = import (path "/makes/utils/make-template") path integratesPkgs;
 in
 makeTemplate {
@@ -145,12 +144,10 @@ makeTemplate {
       };
       python = integratesPkgs.python37;
     };
-    envSearchPaths = makeSearchPaths [
-    ];
+    envPythonUtils = path "/makes/utils/python/template.sh";
     envSrcIntegrates = path "/integrates";
     envSrcIntegratesPackagesBack = path "/integrates/back/packages/integrates-back";
-    envPythonUtils = path "/makes/utils/python/template.sh";
   };
-  name = "integrates-back-config-runtime";
-  template = path "/makes/packages/integrates/back/config/runtime/template.sh";
+  name = "integrates-back-pypi-runtime";
+  template = path "/makes/packages/integrates/back/pypi/runtime/template.sh";
 }
