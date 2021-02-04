@@ -10,3 +10,4 @@
 /back/packages/integrates-back/backend/reports/tpls/*.tpl
 /build/coverage
 /**/node_modules
+/**/results_pdf/*.pdf

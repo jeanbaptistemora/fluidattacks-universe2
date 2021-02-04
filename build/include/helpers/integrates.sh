@@ -285,7 +285,7 @@ function helper_integrates_serve_back {
     --log-level 'info'  # The granularity of Error log outputs. [info]
     --max-requests '64'  # The maximum number of requests a worker will process before restarting. [0]
     --max-requests-jitter '32'  # The maximum jitter to add to the max_requests setting. [0]
-    --timeout '60'  # Workers silent for more than this many seconds are killed and restarted. [30]
+    --timeout '300'  # Workers silent for more than this many seconds are killed and restarted. [30]
     --workers "${workers}"  # The number of worker processes for handling requests. [1]
     --worker-class "${worker_class}"  # The type of workers to use. [sync]
     --worker-connections '512'  # The maximum number of simultaneous clients. [1000]
