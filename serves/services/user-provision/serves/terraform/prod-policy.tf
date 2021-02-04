@@ -11,6 +11,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "elasticloadbalancing:*",
       "autoscaling:*",
       "sqs:*",
+      "sts:*",
       "iam:*",
       "secretsmanager:*",
       "cloudwatch:*",
