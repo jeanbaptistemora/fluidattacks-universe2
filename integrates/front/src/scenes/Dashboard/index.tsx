@@ -39,6 +39,11 @@ import { initializeDelighted, initializeZendesk } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
+
+  const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
+  const groupRegex: string = ":projectName([a-zA-Z0-9]+)";
+  const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
+
   const { userEmail }: IAuthContext = React.useContext(authContext);
 
   const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
@@ -138,7 +143,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
             <Route exact={true} path={"/home"}>
               <HomeView />
             </Route>
-            <Route path={"/orgs/:organizationName/groups/:projectName"}>
+            <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
               <authzGroupContext.Provider value={groupAttributes}>
                 <authzPermissionsContext.Provider value={groupLevelPermissions}>
                   <ProjectRoute setUserRole={setUserRole} />
@@ -147,32 +152,32 @@ export const Dashboard: React.FC = (): JSX.Element => {
             </Route>
             <Route
               component={TagContent}
-              path={"/orgs/:organizationName/portfolios/:tagName"}
+              path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
             />
-            <Route path={"/orgs/:organizationName"}>
+            <Route path={`/orgs/${orgRegex}`}>
               <authzPermissionsContext.Provider
                 value={organizationLevelPermissions}
               >
                 <OrganizationContent setUserRole={setUserRole} />
               </authzPermissionsContext.Provider>
             </Route>
-            <Route path={"/portfolios/:tagName"}>
+            <Route path={`/portfolios/${tagRegex}`}>
               <OrganizationRedirect type={"portfolios"} />
             </Route>
             {/* Necessary to support old group URLs */}
-            <Route path={"/groups/:projectName"}>
+            <Route path={`/groups/${groupRegex}`}>
               <OrganizationRedirect type={"groups"} />
             </Route>
             {/* Necessary to support hashrouter URLs */}
             <Redirect path={"/dashboard"} to={hash.replace("#!", "")} />
             {/* Necessary to support old URLs with entities in singular */}
             <Redirect
-              path={"/portfolio/:tagName/*"}
-              to={"/portfolios/:tagName/*"}
+              path={`/portfolio/${tagRegex}/*`}
+              to={`/portfolios/${tagRegex}/*`}
             />
             <Redirect
-              path={"/project/:projectName/*"}
-              to={"/groups/:projectName/*"}
+              path={`/project/${groupRegex}/*`}
+              to={`/groups/${groupRegex}/*`}
             />
             <Redirect to={"/home"} />
           </Switch>
