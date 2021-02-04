@@ -24,6 +24,7 @@ integrates/secrets/lint
 integrates/storage/bin
 integrates/storage/oci
 integrates/tools/asciidoctor
+integrates/tools/asciidoctor-pdf
 makes/dev
 makes/test
 makes/wait/bin
