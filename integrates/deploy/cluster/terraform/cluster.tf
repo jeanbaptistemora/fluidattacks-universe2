@@ -55,15 +55,16 @@ module "eks" {
       override_instance_types = ["m5.xlarge", "m5a.xlarge", "m5d.xlarge", "m5ad.xlarge"]
       kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=development"
-      public_ip               = false
+      public_ip               = true
 
       asg_min_size         = 5
       asg_desired_capacity = 11
       asg_max_size         = 11
 
       root_volume_type = "gp3"
-      root_encrypted   = true
       root_volume_size = 50
+      root_encrypted   = true
+      ebs_optimized    = true
 
       spot_allocation_strategy = "lowest-price"
       spot_instance_pools      = 5
