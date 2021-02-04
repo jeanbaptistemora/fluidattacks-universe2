@@ -102,12 +102,68 @@ def marketing_and_exit() -> None:
     default=False,
     required=False,
 )
+@click.option(
+    '--cpus',
+    help=('Allow the container to use this number of host CPUs, '
+          'default 1, use 0 to use all available CPUs'),
+    type=int,
+    default=1,
+    required=False,
+)
+@click.option(
+    '--no-image-rm',
+    help=('Use this flag to indicate that you do not want to '
+          'delete images after execution'),
+    is_flag=True,
+    default=False,
+    required=False,
+)
+@click.option(
+    '--no-container-rm',
+    help=('Use this flag to indicate that you do not want to '
+          'delete containers after execution, (for security reasons, '
+          'containers should always be removed)'),
+    is_flag=True,
+    default=False,
+    required=False,
+)
+@click.option(
+    '--color',
+    help='Colorize the execution output',
+    is_flag=True,
+    default=False,
+    required=False,
+)
+@click.option(
+    '--gitlab-docker-socket-binding',
+    help=('Use this flag to indicate that you are running on a '
+          'GitLab Docker Executor with /var/run/docker.sock binding'),
+    is_flag=True,
+    default=False,
+    required=False,
+)
+@click.option(
+    '--sub-folder',
+    help='Only execute testing over the given sub-folder',
+    required=False,
+)
+@click.option(
+    '--aws-role-arns',
+    help=('Use this flag to specify the roles ARN that the AWS exploits'
+          ' should assume, you can specify one or more comma separated.\n'
+          'Expected format: '
+          'arn:aws:iam::account-id:role/role-name-with-path'),
+    required=False,
+    default='',
+)
 def main(
     secret_id: str,
     secret: str,
     static: bool,
     dynamic: bool,
     no_strict: bool,
+    *_,
+    **__,
 ) -> None:
     if not static and not dynamic:
         LOGGER.error('Please set --static or --dynamic flags (or both :)')
