@@ -6,8 +6,7 @@ function replace_var_in_file {
   local var_value="${!var_name}"
   local var_name_tpl="__${var_name}__"
 
-      echo "[INFO] Replacing: ${var_name_tpl}, with: ${var_value}" \
-  &&  if ! grep --fixed-strings --quiet "${var_name_tpl}" "${file}"
+      if ! grep --fixed-strings --quiet "${var_name_tpl}" "${file}"
       then
             echo "[ERROR] Argument is not being used: ${var_name_tpl}" \
         &&  return 1
@@ -17,15 +16,16 @@ function replace_var_in_file {
 
 function main {
       copy "${__envTemplate}" "${out}" \
+  &&  echo '[INFO] Replacing arguments' \
   &&  while read -r 'var_name'
       do
             replace_var_in_file "${out}" "${var_name}" \
         ||  return 1
       done < "${__envArgumentNamesFile}" \
-  &&  echo '[INFO] Validating unused vars' \
+  &&  echo '[INFO] Validating unused arguments' \
   &&  if grep --perl-regexp '__env[a-zA-Z]*__' "${out}"
       then
-            echo '[ERROR] Some vars are being unused' \
+            echo '[ERROR] Some arguments are not being used' \
         &&  return 1
       fi
 }
