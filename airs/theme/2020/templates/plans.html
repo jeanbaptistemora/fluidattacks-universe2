@@ -78,9 +78,11 @@
 {% endblock header %}
 
 {% block content %}
-<div class="roboto internal mw-1366 ph-body ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
+<div class="plans-feat roboto internal mw-1366 ph-body ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
   <h2 class="c-fluid-bk roboto tc f2">{{ page.phrase }}</h2>
-  {{ page.content }}
+  <div class="flex flex-wrap justify-center">
+    {{ page.content }}
+  </div>
   <div class="tc pv3">
     <a href="{{ SITEURL }}/contact-us/">
       <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv3 ph4 roboto fw6 f4 dib bt-trans br2 bc-fluid-red ba">

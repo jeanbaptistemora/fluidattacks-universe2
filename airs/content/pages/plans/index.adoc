@@ -7,20 +7,25 @@
 :yes: image:../images/icons/red-check.png[Yes]
 :logo: image:../theme/images/mini-logo.png[Logo, width=25px, height=25px]
 
-
 = Plans
 
-[.table-center]
-[cols="55,^.^22,^.^22"]
-|====
-| .>a|==== {logo}Machine .>a|==== {logo}Squad
-| Control of the whole remediation process | {yes} | {yes}
-| Continuous vulnerability report | {yes} | {yes}
-| Attack Surface Manager (GraphQL API) | {yes} | {yes}
-| Automatic SAST and SCA | {yes} | {yes}
-| CI/CD DevSecOps | {yes} | {yes}
-| Low rates of false positives and false negatives | | {yes}
-| Higher severity and more types of vulnerabilities  | | {yes}
-| Manual SAST and DAST (Pentest) | | {yes}
-| Optimization of vulnerability search with AI | | {yes}
-|====
+=== {logo} Machine
+
+[.tc]
+_Machine Plan:_ +
+
+{yes} Control of the whole remediation process +
+{yes} Continuous vulnerability report +
+{yes} Attack Surface Manager (GraphQL API) +
+{yes} Automatic SAST and SCA +
+{yes} CI/CD DevSecOps
+
+=== {logo} Squad
+
+[.tc]
+_Machine Plan Plus:_ +
+
+{yes} Low rates of false positives and false negatives +
+{yes} Higher severity and more types of vulnerabilities +
+{yes} Manual SAST and DAST (Pentest) +
+{yes} Optimization of vulnerability search with AI
