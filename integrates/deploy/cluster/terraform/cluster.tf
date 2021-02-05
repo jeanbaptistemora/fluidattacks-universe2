@@ -26,19 +26,6 @@ module "eks" {
 
   vpc_id = var.fluid_vpc_id
 
-  worker_groups = [
-    {
-      name                 = "production"
-      instance_type        = "m5a.large"
-      asg_min_size         = 5
-      asg_desired_capacity = 11
-      asg_max_size         = 11
-      root_volume_type     = "gp2"
-      root_volume_size     = "50"
-      kubelet_extra_args   = "--node-labels=worker_group=production"
-    },
-  ]
-
   worker_groups_launch_template = [
     {
       name                    = "development"
