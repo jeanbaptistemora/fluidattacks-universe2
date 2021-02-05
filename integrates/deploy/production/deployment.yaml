@@ -23,10 +23,17 @@ spec:
         worker_group: production
       containers:
         - name: integrates
-          image: registry.gitlab.com/fluidattacks/product/integrates/back:master
+          image: nixos/nix:2.3.6
           imagePullPolicy: Always
-          command: [integrates-back]
-          args: [prod]
+          command: [sh]
+          args:
+            - -c
+            - nix-env -i cachix &&
+              cachix use fluidattacks &&
+              nix-env
+                -i integrates-back
+                -f __CI_PROJECT_URL__/-/archive/master.tar.gz &&
+              integrates-back prod
           resources:
             requests:
               cpu: 1000m
@@ -49,25 +56,35 @@ spec:
           readinessProbe:
             exec:
               command:
-                - integrates-back-probes-readiness
-                - integrates-prod
-                - FluidIntegrates
-                - http://localhost:8001
+              - sh
+              - -c
+              - nix-env
+                  -i integrates-back-probes-readiness
+                  -f __CI_PROJECT_URL__/-/archive/master.tar.gz &&
+                integrates-back-probes-readiness
+                  integrates-prod
+                  FluidIntegrates
+                  http://localhost:8001
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
-            timeoutSeconds: 30
+            timeoutSeconds: 60
           livenessProbe:
             exec:
               command:
-                - integrates-back-probes-liveness
-                - integrates-prod
-                - FluidIntegrates
-                - http://localhost:8001
-                - https://integrates.fluidattacks.com
+              - sh
+              - -c
+              - nix-env
+                  -i integrates-back-probes-liveness
+                  -f __CI_PROJECT_URL__/-/archive/master.tar.gz &&
+                integrates-back-probes-liveness
+                  integrates-prod
+                  FluidIntegrates
+                  http://localhost:8001
+                  https://integrates.fluidattacks.com
             initialDelaySeconds: 0
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
-            timeoutSeconds: 30
+            timeoutSeconds: 60
