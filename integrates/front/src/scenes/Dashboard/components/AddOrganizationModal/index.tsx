@@ -92,7 +92,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
         onClose();
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
-            case "Exception - Organization name is invalid":
+            case "Access denied":
               msgError(
                 translate.t("sidebar.newOrganization.modal.invalidName")
               );

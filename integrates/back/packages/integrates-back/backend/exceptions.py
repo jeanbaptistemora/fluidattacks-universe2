@@ -592,9 +592,9 @@ class InvalidCommentParent(Exception):
 class InvalidOrganization(Exception):
     """Exception to prevent repeated organizations"""
 
-    def __init__(self, org: str = '') -> None:
+    def __init__(self) -> None:
         """ Constructor """
-        msg = f'Exception - Organization name is invalid {org}'
+        msg = f'Access denied'
         super(InvalidOrganization, self).__init__(msg)
 
 

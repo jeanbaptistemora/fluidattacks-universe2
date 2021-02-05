@@ -306,7 +306,6 @@ const errorLink: (history: History) => ApolloLink = (
               case "Access denied":
               case "Access denied or tag not found":
               case "Exception - Event not found":
-              case "Exception - Organization name is invalid":
               case "Exception - Project does not exist":
                 if (response !== undefined) {
                   if (_.isFunction(skipForwarding)) {
