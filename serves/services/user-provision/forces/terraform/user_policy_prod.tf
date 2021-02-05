@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "forces_prod_policy_data" {
       "s3:PutObject",
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/forces.tfstate",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
     ]
   }
 
@@ -45,22 +45,6 @@ data "aws_iam_policy_document" "forces_prod_policy_data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
     ]
-  }
-
-  # KMS Create Keys
-  statement {
-    effect = "Allow"
-    actions = [
-      "kms:UntagResource",
-      "kms:TagResource",
-      "kms:List*",
-      "kms:Get*",
-      "kms:Describe*",
-      "kms:CreateKey",
-      "kms:CreateAlias",
-      "kms:UpdateAlias"
-    ]
-    resources = ["*"]
   }
 
   # KMS FUll permissions over owned KMS keys

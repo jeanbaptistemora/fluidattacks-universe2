@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "forces_dev_policy_data" {
       "s3:GetObject",
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/forces.tfstate",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
     ]
   }
 
