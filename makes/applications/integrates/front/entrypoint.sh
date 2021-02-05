@@ -3,7 +3,7 @@
 source "__envSearchPaths__"
 
 function main {
-    export INTEGRATES_DEPLOYMENT_DATE
+  export INTEGRATES_DEPLOYMENT_DATE
 
       INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
   &&  pushd integrates/front \

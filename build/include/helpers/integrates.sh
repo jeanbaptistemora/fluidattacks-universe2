@@ -252,15 +252,6 @@ function helper_invoke_py {
         "${module}"
 }
 
-function helper_integrates_serve_front {
-      helper_integrates_deployment_date \
-  &&  pushd front \
-        &&  npm install \
-        &&  { npm start & } \
-  &&  popd \
-  ||  return 1
-}
-
 function helper_integrates_serve_redis {
       { integrates-cache & } \
   &&  makes-wait 60 localhost:26379
